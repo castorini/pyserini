@@ -107,6 +107,8 @@ models = {
      'cosdpr-distil-pytorch',
      '',
      'bge-base-en-v1.5-pytorch',
+     '',
+     'cohere-embed-english-v3.0',
      ],
 
     # MS MARCO v1 doc

@@ -3756,7 +3756,7 @@ FAISS_INDEX_INFO_MSMARCO = {
         "texts": "msmarco-v1-passage"
     },
     "msmarco-v1-passage.openai-ada2": {
-        "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP",
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by OpenAI ada2",
         "filename": "faiss.msmarco-v1-passage.openai-ada2.20230530.e3a58f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.openai-ada2.20230530.e3a58f.tar.gz"
@@ -3767,7 +3767,18 @@ FAISS_INDEX_INFO_MSMARCO = {
         "downloaded": False,
         "texts": "msmarco-v1-passage"
     },
-
+    "msmarco-v1-passage.cohere-embed-english-v3.0": {
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by Cohere Embed English v3.0",
+        "filename": "faiss.msmarco-v1-passage.cohere-embed-english-v3.0.20240216.2154e79.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.msmarco-v1-passage.cohere-embed-english-v3.0.20240216.2154e79.tar.gz"
+        ],
+        "md5": "df0d8e2aac71fb3ee8b554bdcf158f95",
+        "size compressed (bytes)": 21341576907,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
+    },
     "msmarco-v1-doc.ance-maxp": {
         "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by the ANCE MaxP encoder",
         "filename": "faiss.msmarco-v1-doc.ance_maxp.20210304.b2a1b0.tar.gz",

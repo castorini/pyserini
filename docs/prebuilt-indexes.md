@@ -1069,7 +1069,10 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hnp passage encoder
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.openai-ada2</code></b>
-<dd>Faiss FlatIP index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP
+<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by OpenAI ada2
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.cohere-embed-english-v3.0</code></b>
+<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by Cohere Embed English v3.0
 </dd>
 <dt></dt><b><code>msmarco-v1-doc.ance-maxp</code></b>
 <dd>Faiss FlatIP index of the MS MARCO document corpus encoded by the ANCE MaxP encoder

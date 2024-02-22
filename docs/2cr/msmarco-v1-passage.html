@@ -6062,16 +6062,16 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset \
 <td class="expand-button"></td>
 <td style="min-width: 85px">[14]</td>
 <td style="min-width: 400px">BGE-base-en-v1.5: PyTorch</td>
-<td>0.4435</td>
-<td>0.7065</td>
+<td>0.4436</td>
+<td>0.7055</td>
 <td>0.8472</td>
 <td></td>
-<td>0.4650</td>
+<td>0.4651</td>
 <td>0.6780</td>
 <td>0.8503</td>
 <td></td>
-<td>0.3896</td>
-<td>0.9796</td>
+<td>0.3557</td>
+<td>0.9814</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -6175,6 +6175,116 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset \
 
 </div></td>
 </tr>
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: Cohere Embed English v3.0: pre-encoded queries -->
+<tr class="accordion-toggle collapsed" id="row54" data-toggle="collapse" data-parent="#row54" href="#collapse54">
+<td class="expand-button"></td>
+<td style="min-width: 85px"></td>
+<td style="min-width: 400px">Cohere Embed English v3.0: pre-encoded queries</td>
+<td>0.4884</td>
+<td>0.6956</td>
+<td>0.8630</td>
+<td></td>
+<td>0.5067</td>
+<td>0.7245</td>
+<td>0.8682</td>
+<td></td>
+<td>0.3660</td>
+<td>0.9785</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="11">
+<div id="collapse54" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row54-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row54-tab1-header" data-mdb-toggle="tab" href="#row54-tab1" role="tab" aria-controls="row54-tab1" aria-selected="true" style="text-transform:none">TREC 2019</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row54-tab2-header" data-mdb-toggle="tab" href="#row54-tab2" role="tab" aria-controls="row54-tab2" aria-selected="false" style="text-transform:none">TREC 2020</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row54-tab3-header" data-mdb-toggle="tab" href="#row54-tab3" role="tab" aria-controls="row54-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row54-content">
+  <div class="tab-pane fade show active" id="row54-tab1" role="tabpanel" aria-labelledby="row54-tab1">
+Command to generate run on TREC 2019 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v1-passage.cohere-embed-english-v3.0 \
+  --topics dl19-passage --encoded-queries cohere-embed-english-v3.0-dl19-passage \
+  --output run.msmarco-v1-passage.cohere-embed-english-v3.0.dl19.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage \
+  run.msmarco-v1-passage.cohere-embed-english-v3.0.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage \
+  run.msmarco-v1-passage.cohere-embed-english-v3.0.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage \
+  run.msmarco-v1-passage.cohere-embed-english-v3.0.dl19.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row54-tab2" role="tabpanel" aria-labelledby="row54-tab2">
+    Command to generate run on TREC 2020 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v1-passage.cohere-embed-english-v3.0 \
+  --topics dl20 --encoded-queries cohere-embed-english-v3.0-dl20 \
+  --output run.msmarco-v1-passage.cohere-embed-english-v3.0.dl20.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -m map dl20-passage \
+  run.msmarco-v1-passage.cohere-embed-english-v3.0.dl20.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl20-passage \
+  run.msmarco-v1-passage.cohere-embed-english-v3.0.dl20.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
+  run.msmarco-v1-passage.cohere-embed-english-v3.0.dl20.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row54-tab3" role="tabpanel" aria-labelledby="row54-tab3">
+    Command to generate run on dev queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v1-passage.cohere-embed-english-v3.0 \
+  --topics msmarco-passage-dev-subset --encoded-queries cohere-embed-english-v3.0-msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.cohere-embed-english-v3.0.dev.txt
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-passage-dev-subset \
+  run.msmarco-v1-passage.cohere-embed-english-v3.0.dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-passage-dev-subset \
+  run.msmarco-v1-passage.cohere-embed-english-v3.0.dev.txt
+</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
 
     </tbody>
   </table>
@@ -6235,6 +6345,10 @@ Proceedings of the 61st Annual Meeting of the Association for Computational Ling
 <li><p>[13] Xueguang Ma, Tommaso Teofili, and Jimmy Lin.
 <a href="https://dl.acm.org/doi/10.1145/3583780.3615112">Anserini Gets Dense Retrieval: Integration of Lucene's HNSW Indexes.</a>
 <i>Proceedings of the 32nd International Conference on Information and Knowledge Management (CIKM 2023)</i>, October 2023, pages 5366–5370, Birmingham, the United Kingdom.</p></li>
+
+<li><p>[14] Shitao Xiao, Zheng Liu, Peitian Zhang, and Niklas Muennighoff.
+<a href="https://arxiv.org/abs/2309.07597">C-Pack: Packaged Resources To Advance General Chinese Embedding.</a>
+<i>arXiv:2309.07597</i>, December 2023.</p></li>
 
 </ul>
 

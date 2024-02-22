@@ -1201,3 +1201,26 @@ conditions:
           - MAP: 0.4938
             nDCG@10: 0.6666
             R@1K: 0.8919
+  - name: cohere-embed-english-v3.0
+    display: "Cohere Embed English v3.0: pre-encoded queries"
+    display-html: "Cohere Embed English v3.0: pre-encoded queries"
+    display-row: ""
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.cohere-embed-english-v3.0 --topics $topics --encoded-queries cohere-embed-english-v3.0-$topics --output $output
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3660
+            R@1K: 0.9785
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4884
+            nDCG@10: 0.6956
+            R@1K: 0.8630
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.5067
+            nDCG@10: 0.7245
+            R@1K: 0.8682

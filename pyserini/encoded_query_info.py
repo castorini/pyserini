@@ -485,6 +485,36 @@ QUERY_INFO = {
         "total_queries": 6980,
         "downloaded": False
      },
+     "cohere-embed-english-v3.0-dl19-passage": {
+        "description": "TREC DL19 passage queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-dl19-passage-20240216-2154e79.tar.gz",
+        ],
+        "md5": "04300156fe6be309b8d83270dbb328c6",
+        "size (bytes)": 141545,
+        "total_queries": 43,
+        "downloaded": False
+     },
+     "cohere-embed-english-v3.0-dl20": {
+        "description": "TREC DL20 passage queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-dl20-passage-20240216-2154e79.tar.gz",
+        ],
+        "md5": "0b12d7049ba46f1ebe1ae07f0e7c1723",
+        "size (bytes)": 646705,
+        "total_queries": 200,
+        "downloaded": False
+     },
+     "cohere-embed-english-v3.0-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-msmarco-passage-dev-subset-20240216-2154e79.tar.gz",
+        ],
+        "md5": "7dd0026490117e9e6f6acfc110d6ce83",
+        "size (bytes)": 22377230,
+        "total_queries": 6980,
+        "downloaded": False
+     },
      "atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation": {
         "description": "AToMiC text v0.2.1 validation set encoded by ViT-L-14.laion2b_s32b_b82k.",
         "urls": [
