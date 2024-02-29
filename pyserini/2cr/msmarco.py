@@ -461,6 +461,10 @@ def generate_report(args):
                              eval_cmd2=eval_commands[name]['dev'],
                              eval_cmd3=eval_commands[name]['dev2']
                              )
+
+            # If we don't have scores, we want to remove the commands also. Use simple regexp substitution.
+            s = _remove_commands(table, name)
+
             html_rows.append(s)
             row_cnt += 1
 
