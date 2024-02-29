@@ -556,7 +556,7 @@ def run_conditions(args):
                                 result_str = ok_str
                             # Flaky test on Jimmy's Mac Studio
                             elif abs(score-float(expected[metric])) <= \
-                                    flaky_dict.get(FlakyKey(collection=args.collection,name=name, topick=topic_key, metric=metric), 0):
+                                    flaky_dict.get(FlakyKey(collection=args.collection, name=name, topick=topic_key, metric=metric), 0):
                                 result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
