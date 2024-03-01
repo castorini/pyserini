@@ -20,9 +20,13 @@ conditions:
         scores:
           - MAP@100: 0.2126
             nDCG@10: 0.5116
-            MRR@100: 0.8367
-            R@100: 0.3195
             R@1K: 0.6739
+      - topic_key: dl22
+        eval_key: dl22-doc
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0
   - name: bm25-doc-segmented-default
     display: BM25 doc segmented (k1=0.9, b=0.4)
     display-html: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -44,9 +48,13 @@ conditions:
         scores:
           - MAP@100: 0.2436
             nDCG@10: 0.5776
-            MRR@100: 0.8937
-            R@100: 0.3478
             R@1K: 0.6930
+      - topic_key: dl22
+        eval_key: dl22-doc
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0
   - name: bm25-rm3-doc-default
     display: BM25+RM3 doc (k1=0.9, b=0.4)
     display-html: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -68,9 +76,13 @@ conditions:
         scores:
           - MAP@100: 0.2452
             nDCG@10: 0.5304
-            MRR@100: 0.7914
-            R@100: 0.3376
             R@1K: 0.7341
+      - topic_key: dl22
+        eval_key: dl22-doc
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0
   - name: bm25-rm3-doc-segmented-default
     display: BM25+RM3 doc segmented (k1=0.9, b=0.4)
     display-html: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -92,9 +104,13 @@ conditions:
         scores:
           - MAP@100: 0.2936
             nDCG@10: 0.6189
-            MRR@100: 0.9076
-            R@100: 0.3890
             R@1K: 0.7678
+      - topic_key: dl22
+        eval_key: dl22-doc
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0
   - name: bm25-d2q-t5-doc-default
     display: BM25 w/ doc2query-T5 doc (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -116,9 +132,13 @@ conditions:
         scores:
           - MAP@100: 0.2387
             nDCG@10: 0.5792
-            MRR@100: 0.8866
-            R@100: 0.3443
             R@1K: 0.7066
+      - topic_key: dl22
+        eval_key: dl22-doc
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0
   - name: bm25-d2q-t5-doc-segmented-default
     display: BM25 w/ doc2query-T5 doc segmented (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -140,9 +160,13 @@ conditions:
         scores:
           - MAP@100: 0.2683
             nDCG@10: 0.6289
-            MRR@100: 0.9454
-            R@100: 0.3656
             R@1K: 0.7202
+      - topic_key: dl22
+        eval_key: dl22-doc
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0
   - name: bm25-rm3-d2q-t5-doc-default
     display: BM25+RM3 w/ doc2query-T5 doc (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -164,9 +188,13 @@ conditions:
         scores:
           - MAP@100: 0.2611
             nDCG@10: 0.5375
-            MRR@100: 0.8255
-            R@100: 0.3580
             R@1K: 0.7574
+      - topic_key: dl22
+        eval_key: dl22-doc
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0
   - name: bm25-rm3-d2q-t5-doc-segmented-default
     display: BM25+RM3 w/ doc2query-T5 doc segmented (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -188,9 +216,13 @@ conditions:
         scores:
           - MAP@100: 0.3191
             nDCG@10: 0.6559
-            MRR@100: 0.8989
-            R@100: 0.4131
             R@1K: 0.7948
+      - topic_key: dl22
+        eval_key: dl22-doc
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0
   - name: unicoil-noexp
     display: "uniCOIL (noexp): pre-encoded"
     display-html: "uniCOIL (noexp): pre-encoded queries"
@@ -212,9 +244,13 @@ conditions:
         scores:
           - MAP@100: 0.2587
             nDCG@10: 0.6495
-            MRR@100: 0.9282
-            R@100: 0.3563
             R@1K: 0.6787
+      - topic_key: dl22-unicoil-noexp
+        eval_key: dl22-doc
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0
   - name: unicoil-noexp-otf
     display: "uniCOIL (noexp): query inference with PyTorch"
     display-html: "uniCOIL (noexp): query inference with PyTorch"
@@ -235,9 +271,13 @@ conditions:
         scores:
           - MAP@100: 0.2587
             nDCG@10: 0.6495
-            MRR@100: 0.9282
-            R@100: 0.3563
             R@1K: 0.6787
+      - topic_key: dl22
+        eval_key: dl22-doc
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
@@ -259,9 +299,13 @@ conditions:
         scores:
           - MAP@100: 0.2718
             nDCG@10: 0.6783
-            MRR@100: 0.9684
-            R@100: 0.3700
             R@1K: 0.7069
+      - topic_key: dl22-unicoil
+        eval_key: dl22-doc
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0
   - name: unicoil-otf
     display: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
     display-html: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
@@ -282,6 +326,10 @@ conditions:
         scores:
           - MAP@100: 0.2718
             nDCG@10: 0.6783
-            MRR@100: 0.9684
-            R@100: 0.3700
             R@1K: 0.7069
+      - topic_key: dl22
+        eval_key: dl22-doc
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0

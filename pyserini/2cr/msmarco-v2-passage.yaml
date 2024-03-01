@@ -20,9 +20,13 @@ conditions:
         scores:
           - MAP@100: 0.1357
             nDCG@10: 0.4458
-            MRR@100: 0.5060
-            R@100: 0.3261
             R@1K: 0.6149
+      - topic_key: dl22
+        eval_key: dl22-passage
+        scores:
+          - MAP@100: 0.0325
+            nDCG@10: 0.2692
+            R@1K: 0.3321
   - name: bm25-augmented-default
     display: BM25 augmented passage (k1=0.9, b=0.4)
     display-html: BM25 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -44,9 +48,13 @@ conditions:
         scores:
           - MAP@100: 0.0977
             nDCG@10: 0.3977
-            MRR@100: 0.5303
-            R@100: 0.2709
             R@1K: 0.5835
+      - topic_key: dl22
+        eval_key: dl22-passage
+        scores:
+          - MAP@100: 0.0346
+            nDCG@10: 0.2742
+            R@1K: 0.3666
   - name: bm25-rm3-default
     display: BM25+RM3 original passage (k1=0.9, b=0.4)
     display-html: BM25+RM3 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -68,9 +76,13 @@ conditions:
         scores:
           - MAP@100: 0.1666
             nDCG@10: 0.4455
-            MRR@100: 0.5202
-            R@100: 0.3499
             R@1K: 0.6616
+      - topic_key: dl22
+        eval_key: dl22-passage
+        scores:
+          - MAP@100: 0.0310
+            nDCG@10: 0.2686
+            R@1K: 0.3559
   - name: bm25-rm3-augmented-default
     display: BM25+RM3 augmented passage (k1=0.9, b=0.4)
     display-html: BM25+RM3 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -92,9 +104,13 @@ conditions:
         scores:
           - MAP@100: 0.1050
             nDCG@10: 0.3869
-            MRR@100: 0.4915
-            R@100: 0.2807
             R@1K: 0.6298
+      - topic_key: dl22
+        eval_key: dl22-passage
+        scores:
+          - MAP@100: 0.0318
+            nDCG@10: 0.2571
+            R@1K: 0.3441
   - name: bm25-d2q-t5-default
     display: BM25 w/ doc2query-T5 original passage (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -116,9 +132,13 @@ conditions:
         scores:
           - MAP@100: 0.1874
             nDCG@10: 0.4816
-            MRR@100: 0.6848
-            R@100: 0.4076
             R@1K: 0.7078
+      - topic_key: dl22
+        eval_key: dl22-passage
+        scores:
+          - MAP@100: 0.0748
+            nDCG@10: 0.3599
+            R@1K: 0.4632
   - name: bm25-d2q-t5-augmented-default
     display: BM25 w/ doc2query-T5 augmented passage (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -140,9 +160,13 @@ conditions:
         scores:
           - MAP@100: 0.1649
             nDCG@10: 0.4702
-            MRR@100: 0.6391
-            R@100: 0.3883
             R@1K: 0.6962
+      - topic_key: dl22
+        eval_key: dl22-passage
+        scores:
+          - MAP@100: 0.0735
+            nDCG@10: 0.3609
+            R@1K: 0.4739
   - name: bm25-rm3-d2q-t5-default
     display: BM25+RM3 w/ doc2query-T5 original passage (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -164,9 +188,13 @@ conditions:
         scores:
           - MAP@100: 0.2285
             nDCG@10: 0.5098
-            MRR@100: 0.6548
-            R@100: 0.4499
             R@1K: 0.7537
+      - topic_key: dl22
+        eval_key: dl22-passage
+        scores:
+          - MAP@100: 0.0872
+            nDCG@10: 0.3721
+            R@1K: 0.4964
   - name: bm25-rm3-d2q-t5-augmented-default
     display: BM25+RM3 w/ doc2query-T5 augmented passage (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -188,9 +216,13 @@ conditions:
         scores:
           - MAP@100: 0.1930
             nDCG@10: 0.4812
-            MRR@100: 0.5958
-            R@100: 0.4321
             R@1K: 0.7672
+      - topic_key: dl22
+        eval_key: dl22-passage
+        scores:
+          - MAP@100: 0.0821
+            nDCG@10: 0.3749
+            R@1K: 0.4914
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
@@ -212,9 +244,13 @@ conditions:
         scores:
           - MAP@100: 0.2538
             nDCG@10: 0.6159
-            MRR@100: 0.7311
-            R@100: 0.4731
             R@1K: 0.7551
+      - topic_key: dl22-unicoil
+        eval_key: dl22-passage
+        scores:
+          - MAP@100: 0.1050
+            nDCG@10: 0.4614
+            R@1K: 0.5253
   - name: unicoil-otf
     display: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
     display-html: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
@@ -235,9 +271,13 @@ conditions:
         scores:
           - MAP@100: 0.2538
             nDCG@10: 0.6159
-            MRR@100: 0.7311
-            R@100: 0.4731
             R@1K: 0.7551
+      - topic_key: dl22
+        eval_key: dl22-passage
+        scores:
+          - MAP@100: 0.1050
+            nDCG@10: 0.4614
+            R@1K: 0.5253
   - name: unicoil-noexp
     display: "uniCOIL (noexp): pre-encoded"
     display-html: "uniCOIL (noexp): pre-encoded queries"
@@ -259,9 +299,13 @@ conditions:
         scores:
           - MAP@100: 0.2193
             nDCG@10: 0.5756
-            MRR@100: 0.6991
-            R@100: 0.4246
             R@1K: 0.6897
+      - topic_key: dl22-unicoil-noexp
+        eval_key: dl22-passage
+        scores:
+          - MAP@100: 0.0754
+            nDCG@10: 0.4077
+            R@1K: 0.4423
   - name: unicoil-noexp-otf
     display: "uniCOIL (noexp): query inference with PyTorch"
     display-html: "uniCOIL (noexp): query inference with PyTorch"
@@ -282,9 +326,13 @@ conditions:
         scores:
           - MAP@100: 0.2193
             nDCG@10: 0.5756
-            MRR@100: 0.6991
-            R@100: 0.4246
             R@1K: 0.6897
+      - topic_key: dl22
+        eval_key: dl22-passage
+        scores:
+          - MAP@100: 0.0754
+            nDCG@10: 0.4077
+            R@1K: 0.4423
   - name: slimr-pp
     display: "SLIM++ (norefine, tau=0.5, min_idf=1)"
     display-html: "SLIM++ (norefine, tau=0.5, min_idf=1)"
@@ -305,7 +353,11 @@ conditions:
         scores:
           - MAP@100: 0.2820
             nDCG@10: 0.6337
-            MRR@100: 0.7554
-            R@100: 0.5093
             R@1K: 0.8389
+      - topic_key: dl22
+        eval_key: dl22-passage
+        scores:
+          - MAP@100: 0.1616
+            nDCG@10: 0.5017
+            R@1K: 0.6159
 
