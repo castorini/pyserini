@@ -328,13 +328,19 @@ def list_conditions(args):
 def _get_display_num(num: int) -> str:
     return f'{num:.4f}' if num != 0 else '-'
 
-def _remove_commands(table, name, s):
-    unavilable_dict = {
+def _remove_commands(table, name, s, v1):
+    v1_unavilable_dict = {
         ('dl19', 'MAP'): 'Command to generate run on TREC 2019 queries:.*?</div>',
         ('dl20', 'MAP'): 'Command to generate run on TREC 2020 queries:.*?</div>',
         ('dev', 'MRR@10'): 'Command to generate run on dev queries:.*?</div>',
-        # TODO: add commands for dl22 (doc not available)
     }
+    v2_unavilable_dict = {
+        ('dl21', 'MAP@100'): 'Command to generate run on TREC 2021 queries:.*?</div>',
+        ('dl22', 'MAP@100'): 'Command to generate run on TREC 2022 queries:.*?</div>',
+        ('dev', 'MRR@100'): 'Command to generate run on dev queries:.*?</div>',
+        ('dev2', 'MRR@100'): 'Command to generate run on dev2 queries:.*?</div>',
+    }
+    unavilable_dict = v1_unavilable_dict if v1 else v2_unavilable_dict
     for k, v in unavilable_dict.items():
         if table[name][k[0]][k[1]] == 0:
             s = re.sub(re.compile(v, re.MULTILINE | re.DOTALL), 'Not available.</div>', s)
@@ -427,7 +433,7 @@ def generate_report(args):
                              eval_cmd3=format_eval_command(eval_commands[name]['dev']))
 
             # If we don't have scores, we want to remove the commands also. Use simple regexp substitution.
-            s = _remove_commands(table, name, s)
+            s = _remove_commands(table, name, s, v1=True)
 
             html_rows.append(s)
             row_cnt += 1
@@ -474,7 +480,7 @@ def generate_report(args):
                              )
 
             # If we don't have scores, we want to remove the commands also. Use simple regexp substitution.
-            s = _remove_commands(table, name, s)
+            s = _remove_commands(table, name, s, v1=False)
 
             html_rows.append(s)
             row_cnt += 1
