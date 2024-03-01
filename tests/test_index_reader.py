@@ -112,10 +112,10 @@ class TestIndexUtils(unittest.TestCase):
         clf = LogisticRegression()
         clf.fit(train_vectors, train_labels)
         pred = clf.predict_proba(test_vectors)
-        self.assertAlmostEqual(0.46301192, pred[0][0], places=4)
-        self.assertAlmostEqual(0.53698808, pred[0][1], places=4)
-        self.assertAlmostEqual(0.48292775, pred[1][0], places=4)
-        self.assertAlmostEqual(0.51707225, pred[1][1], places=4)
+        self.assertAlmostEqual(0.4630, pred[0][0], places=4)
+        self.assertAlmostEqual(0.5370, pred[0][1], places=4)
+        self.assertAlmostEqual(0.4829, pred[1][0], places=4)
+        self.assertAlmostEqual(0.5171, pred[1][1], places=4)
 
     def test_tfidf_vectorizer(self):
         vectorizer = TfidfVectorizer(self.index_path, min_df=5)
