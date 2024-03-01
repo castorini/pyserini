@@ -155,7 +155,8 @@ Numbered rows correspond to tables in the paper; additional conditions are provi
         <th class="headertop"></th>
         <th class="headertop"></th>
         <th class="headertop"></th>
-        <th class="headertop" colspan="6"><b>TREC 2021</b></th>
+        <th class="headertop" colspan="4"><b>TREC 2021</b></th>
+        <th class="headertop" colspan="4"><b>TREC 2022</b></th>
         <th class="headertop" colspan="3"><b>dev</b></th>
         <th class="headertop" colspan="3"><b>dev2</b></th>
       </tr>
@@ -165,8 +166,10 @@ Numbered rows correspond to tables in the paper; additional conditions are provi
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col"><br/>AP</th>
         <th class="headerbottom" scope="col">nDCG@10</th>
-        <th class="headerbottom" scope="col">RR@100</th>
-        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col">R@1K</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"><br/>AP</th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@1K</th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col">RR@100</th>
@@ -185,9 +188,11 @@ Numbered rows correspond to tables in the paper; additional conditions are provi
 <td style="min-width: 400px">BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2126</td>
 <td>0.5116</td>
-<td>0.8367</td>
-<td>0.3195</td>
 <td>0.6739</td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 <td></td>
 <td>0.1572</td>
 <td>0.8054</td>
@@ -197,7 +202,7 @@ Numbered rows correspond to tables in the paper; additional conditions are provi
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="12">
+<td colspan="14">
 <div id="collapse1" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -206,10 +211,13 @@ Numbered rows correspond to tables in the paper; additional conditions are provi
     <a class="nav-link active" id="row1-tab1-header" data-mdb-toggle="tab" href="#row1-tab1" role="tab" aria-controls="row1-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">dev</a>
+    <a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+    <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">dev2</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -232,34 +240,33 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-doc-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-doc-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-doc-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-doc-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-doc-default.dl21.txt
 </code></pre>
   </blockquote>
 
   </div>
   <div class="tab-pane fade" id="row1-tab2" role="tabpanel" aria-labelledby="row1-tab2">
-    Command to generate run on dev queries:
+    Command to generate run on TREC 2022 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc \
-  --topics msmarco-v2-doc-dev \
-  --output run.msmarco-v2-doc.bm25-doc-default.dev.txt \
+  --topics dl22 \
+  --output run.msmarco-v2-doc.bm25-doc-default.dl22.txt \
   --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-doc-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-doc-default.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc run.msmarco-v2-doc.bm25-doc-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc run.msmarco-v2-doc.bm25-doc-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc run.msmarco-v2-doc.bm25-doc-default.dl22.txt
 </code></pre>
   </blockquote>
-
-  </div>
   <div class="tab-pane fade" id="row1-tab3" role="tabpanel" aria-labelledby="row1-tab3">
+    Not available.</div>
+  <div class="tab-pane fade" id="row1-tab4" role="tabpanel" aria-labelledby="row1-tab4">
     Command to generate run on dev2 queries:
 
   <blockquote class="mycode">
@@ -291,9 +298,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <td style="min-width: 400px">BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2436</td>
 <td>0.5776</td>
-<td>0.8937</td>
-<td>0.3478</td>
 <td>0.6930</td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 <td></td>
 <td>0.1896</td>
 <td>0.8542</td>
@@ -303,7 +312,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="12">
+<td colspan="14">
 <div id="collapse2" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -312,10 +321,13 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
     <a class="nav-link active" id="row2-tab1-header" data-mdb-toggle="tab" href="#row2-tab1" role="tab" aria-controls="row2-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row2-tab2-header" data-mdb-toggle="tab" href="#row2-tab2" role="tab" aria-controls="row2-tab2" aria-selected="false" style="text-transform:none">dev</a>
+    <a class="nav-link" id="row2-tab2-header" data-mdb-toggle="tab" href="#row2-tab2" role="tab" aria-controls="row2-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+    <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">dev2</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -338,34 +350,33 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-doc-segmented-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-doc-segmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-doc-segmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-doc-segmented-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-doc-segmented-default.dl21.txt
 </code></pre>
   </blockquote>
 
   </div>
   <div class="tab-pane fade" id="row2-tab2" role="tabpanel" aria-labelledby="row2-tab2">
-    Command to generate run on dev queries:
+    Command to generate run on TREC 2022 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-segmented \
-  --topics msmarco-v2-doc-dev \
-  --output run.msmarco-v2-doc.bm25-doc-segmented-default.dev.txt \
+  --topics dl22 \
+  --output run.msmarco-v2-doc.bm25-doc-segmented-default.dl22.txt \
   --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-doc-segmented-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-doc-segmented-default.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc run.msmarco-v2-doc.bm25-doc-segmented-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc run.msmarco-v2-doc.bm25-doc-segmented-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc run.msmarco-v2-doc.bm25-doc-segmented-default.dl22.txt
 </code></pre>
   </blockquote>
-
-  </div>
   <div class="tab-pane fade" id="row2-tab3" role="tabpanel" aria-labelledby="row2-tab3">
+    Not available.</div>
+  <div class="tab-pane fade" id="row2-tab4" role="tabpanel" aria-labelledby="row2-tab4">
     Command to generate run on dev2 queries:
 
   <blockquote class="mycode">
@@ -397,9 +408,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <td style="min-width: 400px">BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2452</td>
 <td>0.5304</td>
-<td>0.7914</td>
-<td>0.3376</td>
 <td>0.7341</td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 <td></td>
 <td>0.0974</td>
 <td>0.7699</td>
@@ -409,7 +422,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="12">
+<td colspan="14">
 <div id="collapse3" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -418,10 +431,13 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
     <a class="nav-link active" id="row3-tab1-header" data-mdb-toggle="tab" href="#row3-tab1" role="tab" aria-controls="row3-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">dev</a>
+    <a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+    <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">dev2</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -444,34 +460,33 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-default.dl21.txt
 </code></pre>
   </blockquote>
 
   </div>
   <div class="tab-pane fade" id="row3-tab2" role="tabpanel" aria-labelledby="row3-tab2">
-    Command to generate run on dev queries:
+    Command to generate run on TREC 2022 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc \
-  --topics msmarco-v2-doc-dev \
-  --output run.msmarco-v2-doc.bm25-rm3-doc-default.dev.txt \
+  --topics dl22 \
+  --output run.msmarco-v2-doc.bm25-rm3-doc-default.dl22.txt \
   --bm25 --rm3
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-doc-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-doc-default.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc run.msmarco-v2-doc.bm25-rm3-doc-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc run.msmarco-v2-doc.bm25-rm3-doc-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc run.msmarco-v2-doc.bm25-rm3-doc-default.dl22.txt
 </code></pre>
   </blockquote>
-
-  </div>
   <div class="tab-pane fade" id="row3-tab3" role="tabpanel" aria-labelledby="row3-tab3">
+    Not available.</div>
+  <div class="tab-pane fade" id="row3-tab4" role="tabpanel" aria-labelledby="row3-tab4">
     Command to generate run on dev2 queries:
 
   <blockquote class="mycode">
@@ -503,9 +518,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <td style="min-width: 400px">BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2936</td>
 <td>0.6189</td>
-<td>0.9076</td>
-<td>0.3890</td>
 <td>0.7678</td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 <td></td>
 <td>0.1660</td>
 <td>0.8608</td>
@@ -515,7 +532,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="12">
+<td colspan="14">
 <div id="collapse4" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -524,10 +541,13 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
     <a class="nav-link active" id="row4-tab1-header" data-mdb-toggle="tab" href="#row4-tab1" role="tab" aria-controls="row4-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">dev</a>
+    <a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+    <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">dev2</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -550,34 +570,33 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl21.txt
 </code></pre>
   </blockquote>
 
   </div>
   <div class="tab-pane fade" id="row4-tab2" role="tabpanel" aria-labelledby="row4-tab2">
-    Command to generate run on dev queries:
+    Command to generate run on TREC 2022 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-segmented \
-  --topics msmarco-v2-doc-dev \
-  --output run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dev.txt \
+  --topics dl22 \
+  --output run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl22.txt \
   --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc run.msmarco-v2-doc.bm25-rm3-doc-segmented-default.dl22.txt
 </code></pre>
   </blockquote>
-
-  </div>
   <div class="tab-pane fade" id="row4-tab3" role="tabpanel" aria-labelledby="row4-tab3">
+    Not available.</div>
+  <div class="tab-pane fade" id="row4-tab4" role="tabpanel" aria-labelledby="row4-tab4">
     Command to generate run on dev2 queries:
 
   <blockquote class="mycode">
@@ -610,9 +629,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <td style="min-width: 400px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2387</td>
 <td>0.5792</td>
-<td>0.8866</td>
-<td>0.3443</td>
 <td>0.7066</td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 <td></td>
 <td>0.2011</td>
 <td>0.8614</td>
@@ -622,7 +643,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="12">
+<td colspan="14">
 <div id="collapse5" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -631,10 +652,13 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
     <a class="nav-link active" id="row5-tab1-header" data-mdb-toggle="tab" href="#row5-tab1" role="tab" aria-controls="row5-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">dev</a>
+    <a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+    <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">dev2</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -657,34 +681,33 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl21.txt
 </code></pre>
   </blockquote>
 
   </div>
   <div class="tab-pane fade" id="row5-tab2" role="tabpanel" aria-labelledby="row5-tab2">
-    Command to generate run on dev queries:
+    Command to generate run on TREC 2022 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-d2q-t5 \
-  --topics msmarco-v2-doc-dev \
-  --output run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dev.txt \
+  --topics dl22 \
+  --output run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl22.txt \
   --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-default.dl22.txt
 </code></pre>
   </blockquote>
-
-  </div>
   <div class="tab-pane fade" id="row5-tab3" role="tabpanel" aria-labelledby="row5-tab3">
+    Not available.</div>
+  <div class="tab-pane fade" id="row5-tab4" role="tabpanel" aria-labelledby="row5-tab4">
     Command to generate run on dev2 queries:
 
   <blockquote class="mycode">
@@ -716,9 +739,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <td style="min-width: 400px">BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2683</td>
 <td>0.6289</td>
-<td>0.9454</td>
-<td>0.3656</td>
 <td>0.7202</td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 <td></td>
 <td>0.2226</td>
 <td>0.8982</td>
@@ -728,7 +753,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="12">
+<td colspan="14">
 <div id="collapse6" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -737,10 +762,13 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
     <a class="nav-link active" id="row6-tab1-header" data-mdb-toggle="tab" href="#row6-tab1" role="tab" aria-controls="row6-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">dev</a>
+    <a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+    <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">dev2</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -763,34 +791,33 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl21.txt
 </code></pre>
   </blockquote>
 
   </div>
   <div class="tab-pane fade" id="row6-tab2" role="tabpanel" aria-labelledby="row6-tab2">
-    Command to generate run on dev queries:
+    Command to generate run on TREC 2022 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-segmented-d2q-t5 \
-  --topics msmarco-v2-doc-dev \
-  --output run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dev.txt \
+  --topics dl22 \
+  --output run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl22.txt \
   --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc run.msmarco-v2-doc.bm25-d2q-t5-doc-segmented-default.dl22.txt
 </code></pre>
   </blockquote>
-
-  </div>
   <div class="tab-pane fade" id="row6-tab3" role="tabpanel" aria-labelledby="row6-tab3">
+    Not available.</div>
+  <div class="tab-pane fade" id="row6-tab4" role="tabpanel" aria-labelledby="row6-tab4">
     Command to generate run on dev2 queries:
 
   <blockquote class="mycode">
@@ -822,9 +849,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2611</td>
 <td>0.5375</td>
-<td>0.8255</td>
-<td>0.3580</td>
 <td>0.7574</td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 <td></td>
 <td>0.1141</td>
 <td>0.8191</td>
@@ -834,7 +863,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="12">
+<td colspan="14">
 <div id="collapse7" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -843,10 +872,13 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
     <a class="nav-link active" id="row7-tab1-header" data-mdb-toggle="tab" href="#row7-tab1" role="tab" aria-controls="row7-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">dev</a>
+    <a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+    <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">dev2</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -869,34 +901,33 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dl21.txt
 </code></pre>
   </blockquote>
 
   </div>
   <div class="tab-pane fade" id="row7-tab2" role="tabpanel" aria-labelledby="row7-tab2">
-    Command to generate run on dev queries:
+    Command to generate run on TREC 2022 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-d2q-t5-docvectors \
-  --topics msmarco-v2-doc-dev \
-  --output run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dev.txt \
+  --topics dl22 \
+  --output run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dl22.txt \
   --bm25 --rm3
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-default.dl22.txt
 </code></pre>
   </blockquote>
-
-  </div>
   <div class="tab-pane fade" id="row7-tab3" role="tabpanel" aria-labelledby="row7-tab3">
+    Not available.</div>
+  <div class="tab-pane fade" id="row7-tab4" role="tabpanel" aria-labelledby="row7-tab4">
     Command to generate run on dev2 queries:
 
   <blockquote class="mycode">
@@ -928,9 +959,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.3191</td>
 <td>0.6559</td>
-<td>0.8989</td>
-<td>0.4131</td>
 <td>0.7948</td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 <td></td>
 <td>0.1975</td>
 <td>0.9002</td>
@@ -940,7 +973,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="12">
+<td colspan="14">
 <div id="collapse8" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -949,10 +982,13 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
     <a class="nav-link active" id="row8-tab1-header" data-mdb-toggle="tab" href="#row8-tab1" role="tab" aria-controls="row8-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">dev</a>
+    <a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+    <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">dev2</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -975,34 +1011,33 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl21.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl21.txt
 </code></pre>
   </blockquote>
 
   </div>
   <div class="tab-pane fade" id="row8-tab2" role="tabpanel" aria-labelledby="row8-tab2">
-    Command to generate run on dev queries:
+    Command to generate run on TREC 2022 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-segmented-d2q-t5-docvectors \
-  --topics msmarco-v2-doc-dev \
-  --output run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dev.txt \
+  --topics dl22 \
+  --output run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl22.txt \
   --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl22.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc run.msmarco-v2-doc.bm25-rm3-d2q-t5-doc-segmented-default.dl22.txt
 </code></pre>
   </blockquote>
-
-  </div>
   <div class="tab-pane fade" id="row8-tab3" role="tabpanel" aria-labelledby="row8-tab3">
+    Not available.</div>
+  <div class="tab-pane fade" id="row8-tab4" role="tabpanel" aria-labelledby="row8-tab4">
     Command to generate run on dev2 queries:
 
   <blockquote class="mycode">
@@ -1035,9 +1070,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <td style="min-width: 400px">uniCOIL (noexp): pre-encoded queries</td>
 <td>0.2587</td>
 <td>0.6495</td>
-<td>0.9282</td>
-<td>0.3563</td>
 <td>0.6787</td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 <td></td>
 <td>0.2231</td>
 <td>0.8987</td>
@@ -1047,7 +1084,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="12">
+<td colspan="14">
 <div id="collapse9" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1056,10 +1093,13 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
     <a class="nav-link active" id="row9-tab1-header" data-mdb-toggle="tab" href="#row9-tab1" role="tab" aria-controls="row9-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">dev</a>
+    <a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+    <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">dev2</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1082,34 +1122,33 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.unicoil-noexp.dl21.txt
 python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.unicoil-noexp.dl21.txt
-python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.unicoil-noexp.dl21.txt
-python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.unicoil-noexp.dl21.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.unicoil-noexp.dl21.txt
 </code></pre>
   </blockquote>
 
   </div>
   <div class="tab-pane fade" id="row9-tab2" role="tabpanel" aria-labelledby="row9-tab2">
-    Command to generate run on dev queries:
+    Command to generate run on TREC 2022 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-segmented-unicoil-noexp-0shot \
-  --topics msmarco-v2-doc-dev-unicoil-noexp \
-  --output run.msmarco-v2-doc.unicoil-noexp.dev.txt \
+  --topics dl22-unicoil-noexp \
+  --output run.msmarco-v2-doc.unicoil-noexp.dl22.txt \
   --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil-noexp.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil-noexp.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc run.msmarco-v2-doc.unicoil-noexp.dl22.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc run.msmarco-v2-doc.unicoil-noexp.dl22.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc run.msmarco-v2-doc.unicoil-noexp.dl22.txt
 </code></pre>
   </blockquote>
-
-  </div>
   <div class="tab-pane fade" id="row9-tab3" role="tabpanel" aria-labelledby="row9-tab3">
+    Not available.</div>
+  <div class="tab-pane fade" id="row9-tab4" role="tabpanel" aria-labelledby="row9-tab4">
     Command to generate run on dev2 queries:
 
   <blockquote class="mycode">
@@ -1141,9 +1180,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <td style="min-width: 400px">uniCOIL (w/ doc2query-T5): pre-encoded queries</td>
 <td>0.2718</td>
 <td>0.6783</td>
-<td>0.9684</td>
-<td>0.3700</td>
 <td>0.7069</td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 <td></td>
 <td>0.2419</td>
 <td>0.9122</td>
@@ -1153,7 +1194,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="12">
+<td colspan="14">
 <div id="collapse10" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1162,10 +1203,13 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
     <a class="nav-link active" id="row10-tab1-header" data-mdb-toggle="tab" href="#row10-tab1" role="tab" aria-controls="row10-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">dev</a>
+    <a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+    <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">dev2</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1188,34 +1232,33 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.unicoil.dl21.txt
 python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.unicoil.dl21.txt
-python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.unicoil.dl21.txt
-python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.unicoil.dl21.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.unicoil.dl21.txt
 </code></pre>
   </blockquote>
 
   </div>
   <div class="tab-pane fade" id="row10-tab2" role="tabpanel" aria-labelledby="row10-tab2">
-    Command to generate run on dev queries:
+    Command to generate run on TREC 2022 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-segmented-unicoil-0shot \
-  --topics msmarco-v2-doc-dev-unicoil \
-  --output run.msmarco-v2-doc.unicoil.dev.txt \
+  --topics dl22-unicoil \
+  --output run.msmarco-v2-doc.unicoil.dl22.txt \
   --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc run.msmarco-v2-doc.unicoil.dl22.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc run.msmarco-v2-doc.unicoil.dl22.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc run.msmarco-v2-doc.unicoil.dl22.txt
 </code></pre>
   </blockquote>
-
-  </div>
   <div class="tab-pane fade" id="row10-tab3" role="tabpanel" aria-labelledby="row10-tab3">
+    Not available.</div>
+  <div class="tab-pane fade" id="row10-tab4" role="tabpanel" aria-labelledby="row10-tab4">
     Command to generate run on dev2 queries:
 
   <blockquote class="mycode">
@@ -1248,9 +1291,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <td style="min-width: 400px">uniCOIL (noexp): query inference with PyTorch</td>
 <td>0.2587</td>
 <td>0.6495</td>
-<td>0.9282</td>
-<td>0.3563</td>
 <td>0.6787</td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 <td></td>
 <td>0.2231</td>
 <td>0.8987</td>
@@ -1260,7 +1305,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="12">
+<td colspan="14">
 <div id="collapse11" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1269,10 +1314,13 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
     <a class="nav-link active" id="row11-tab1-header" data-mdb-toggle="tab" href="#row11-tab1" role="tab" aria-controls="row11-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row11-tab2-header" data-mdb-toggle="tab" href="#row11-tab2" role="tab" aria-controls="row11-tab2" aria-selected="false" style="text-transform:none">dev</a>
+    <a class="nav-link" id="row11-tab2-header" data-mdb-toggle="tab" href="#row11-tab2" role="tab" aria-controls="row11-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+    <a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab4-header" data-mdb-toggle="tab" href="#row11-tab4" role="tab" aria-controls="row11-tab4" aria-selected="false" style="text-transform:none">dev2</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1296,35 +1344,34 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.unicoil-noexp-otf.dl21.txt
 python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.unicoil-noexp-otf.dl21.txt
-python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.unicoil-noexp-otf.dl21.txt
-python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.unicoil-noexp-otf.dl21.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.unicoil-noexp-otf.dl21.txt
 </code></pre>
   </blockquote>
 
   </div>
   <div class="tab-pane fade" id="row11-tab2" role="tabpanel" aria-labelledby="row11-tab2">
-    Command to generate run on dev queries:
+    Command to generate run on TREC 2022 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-segmented-unicoil-noexp-0shot \
-  --topics msmarco-v2-doc-dev \
+  --topics dl22 \
   --encoder castorini/unicoil-noexp-msmarco-passage \
-  --output run.msmarco-v2-doc.unicoil-noexp-otf.dev.txt \
+  --output run.msmarco-v2-doc.unicoil-noexp-otf.dl22.txt \
   --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil-noexp-otf.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil-noexp-otf.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc run.msmarco-v2-doc.unicoil-noexp-otf.dl22.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc run.msmarco-v2-doc.unicoil-noexp-otf.dl22.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc run.msmarco-v2-doc.unicoil-noexp-otf.dl22.txt
 </code></pre>
   </blockquote>
-
-  </div>
   <div class="tab-pane fade" id="row11-tab3" role="tabpanel" aria-labelledby="row11-tab3">
+    Not available.</div>
+  <div class="tab-pane fade" id="row11-tab4" role="tabpanel" aria-labelledby="row11-tab4">
     Command to generate run on dev2 queries:
 
   <blockquote class="mycode">
@@ -1357,9 +1404,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <td style="min-width: 400px">uniCOIL (w/ doc2query-T5): query inference with PyTorch</td>
 <td>0.2718</td>
 <td>0.6783</td>
-<td>0.9684</td>
-<td>0.3700</td>
 <td>0.7069</td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 <td></td>
 <td>0.2419</td>
 <td>0.9122</td>
@@ -1369,7 +1418,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="12">
+<td colspan="14">
 <div id="collapse12" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1378,10 +1427,13 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
     <a class="nav-link active" id="row12-tab1-header" data-mdb-toggle="tab" href="#row12-tab1" role="tab" aria-controls="row12-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row12-tab2-header" data-mdb-toggle="tab" href="#row12-tab2" role="tab" aria-controls="row12-tab2" aria-selected="false" style="text-transform:none">dev</a>
+    <a class="nav-link" id="row12-tab2-header" data-mdb-toggle="tab" href="#row12-tab2" role="tab" aria-controls="row12-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">dev2</a>
+    <a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">dev</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab4-header" data-mdb-toggle="tab" href="#row12-tab4" role="tab" aria-controls="row12-tab4" aria-selected="false" style="text-transform:none">dev2</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1405,35 +1457,34 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc run.msmarco-v2-doc.unicoil-otf.dl21.txt
 python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc run.msmarco-v2-doc.unicoil-otf.dl21.txt
-python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc run.msmarco-v2-doc.unicoil-otf.dl21.txt
-python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc run.msmarco-v2-doc.unicoil-otf.dl21.txt
 python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc run.msmarco-v2-doc.unicoil-otf.dl21.txt
 </code></pre>
   </blockquote>
 
   </div>
   <div class="tab-pane fade" id="row12-tab2" role="tabpanel" aria-labelledby="row12-tab2">
-    Command to generate run on dev queries:
+    Command to generate run on TREC 2022 queries:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-doc-segmented-unicoil-0shot \
-  --topics msmarco-v2-doc-dev \
+  --topics dl22 \
   --encoder castorini/unicoil-msmarco-passage \
-  --output run.msmarco-v2-doc.unicoil-otf.dev.txt \
+  --output run.msmarco-v2-doc.unicoil-otf.dl22.txt \
   --impact --hits 10000 --max-passage-hits 1000 --max-passage
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil-otf.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev run.msmarco-v2-doc.unicoil-otf.dev.txt
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc run.msmarco-v2-doc.unicoil-otf.dl22.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc run.msmarco-v2-doc.unicoil-otf.dl22.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc run.msmarco-v2-doc.unicoil-otf.dl22.txt
 </code></pre>
   </blockquote>
-
-  </div>
   <div class="tab-pane fade" id="row12-tab3" role="tabpanel" aria-labelledby="row12-tab3">
+    Not available.</div>
+  <div class="tab-pane fade" id="row12-tab4" role="tabpanel" aria-labelledby="row12-tab4">
     Command to generate run on dev2 queries:
 
   <blockquote class="mycode">
