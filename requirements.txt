@@ -14,3 +14,4 @@ spacy>=3.2.1
 pyyaml
 openai>=1.0.0
 tiktoken>=0.4.0
+pyarrow>=15.0.0
