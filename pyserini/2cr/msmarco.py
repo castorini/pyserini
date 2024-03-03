@@ -20,7 +20,7 @@ import os
 import re
 import sys
 import time
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 from datetime import datetime
 from string import Template
 
@@ -225,8 +225,11 @@ trec_eval_metric_definitions = {
         'dl21-passage': {
             'MAP@100': '-c -l 2 -M 100 -m map',
             'nDCG@10': '-c -m ndcg_cut.10',
-            'MRR@100': '-c -l 2 -M 100 -m recip_rank',
-            'R@100': '-c -l 2 -m recall.100',
+            'R@1K': '-c -l 2 -m recall.1000'
+        },
+        'dl22-passage': {
+            'MAP@100': '-c -l 2 -M 100 -m map',
+            'nDCG@10': '-c -m ndcg_cut.10',
             'R@1K': '-c -l 2 -m recall.1000'
         }
     },
@@ -242,8 +245,11 @@ trec_eval_metric_definitions = {
         'dl21-doc': {
             'MAP@100': '-c -M 100 -m map',
             'nDCG@10': '-c -m ndcg_cut.10',
-            'MRR@100': '-c -M 100 -m recip_rank',
-            'R@100': '-c -m recall.100',
+            'R@1K': '-c -m recall.1000'
+        },
+        'dl22-doc': {
+            'MAP@100': '-c -M 100 -m map',
+            'nDCG@10': '-c -m ndcg_cut.10',
             'R@1K': '-c -m recall.1000'
         }
     }
@@ -271,6 +277,8 @@ def find_msmarco_table_topic_set_key_v2(topic_key):
         key = 'dev2'
     elif topic_key.startswith('dl21'):
         key = 'dl21'
+    elif topic_key.startswith('dl22'):
+        key = 'dl22'
 
     return key
 
@@ -317,6 +325,26 @@ def list_conditions(args):
             continue
         print(condition)
 
+def _get_display_num(num: int) -> str:
+    return f'{num:.4f}' if num != 0 else '-'
+
+def _remove_commands(table, name, s, v1):
+    v1_unavilable_dict = {
+        ('dl19', 'MAP'): 'Command to generate run on TREC 2019 queries:.*?</div>',
+        ('dl20', 'MAP'): 'Command to generate run on TREC 2020 queries:.*?</div>',
+        ('dev', 'MRR@10'): 'Command to generate run on dev queries:.*?</div>',
+    }
+    v2_unavilable_dict = {
+        ('dl21', 'MAP@100'): 'Command to generate run on TREC 2021 queries:.*?</div>',
+        ('dl22', 'MAP@100'): 'Command to generate run on TREC 2022 queries:.*?</div>',
+        ('dev', 'MRR@100'): 'Command to generate run on dev queries:.*?</div>',
+        ('dev2', 'MRR@100'): 'Command to generate run on dev2 queries:.*?</div>',
+    }
+    unavilable_dict = v1_unavilable_dict if v1 else v2_unavilable_dict
+    for k, v in unavilable_dict.items():
+        if table[name][k[0]][k[1]] == 0:
+            s = re.sub(re.compile(v, re.MULTILINE | re.DOTALL), 'Not available.</div>', s)
+    return s
 
 def generate_report(args):
     yaml_file = pkg_resources.resource_filename(__name__, f'{args.collection}.yaml')
@@ -389,14 +417,14 @@ def generate_report(args):
             s = s.substitute(row_cnt=row_cnt,
                              condition_name=table_keys[name],
                              row=row_ids[name],
-                             s1=f'{table[name]["dl19"]["MAP"]:.4f}' if table[name]['dl19']['MAP'] != 0 else '-',
-                             s2=f'{table[name]["dl19"]["nDCG@10"]:.4f}' if table[name]['dl19']['nDCG@10'] != 0 else '-',
-                             s3=f'{table[name]["dl19"]["R@1K"]:.4f}' if table[name]['dl19']['R@1K'] != 0 else '-',
-                             s4=f'{table[name]["dl20"]["MAP"]:.4f}' if table[name]['dl20']['MAP'] != 0 else '-',
-                             s5=f'{table[name]["dl20"]["nDCG@10"]:.4f}' if table[name]['dl20']['nDCG@10'] != 0 else '-',
-                             s6=f'{table[name]["dl20"]["R@1K"]:.4f}' if table[name]['dl20']['R@1K'] != 0 else '-',
-                             s7=f'{table[name]["dev"]["MRR@10"]:.4f}' if table[name]['dev']['MRR@10'] != 0 else '-',
-                             s8=f'{table[name]["dev"]["R@1K"]:.4f}' if table[name]['dev']['R@1K'] != 0 else '-',
+                             s1=_get_display_num(table[name]["dl19"]["MAP"]),
+                             s2=_get_display_num(table[name]["dl19"]["nDCG@10"]),
+                             s3=_get_display_num(table[name]["dl19"]["R@1K"]),
+                             s4=_get_display_num(table[name]["dl20"]["MAP"]),
+                             s5=_get_display_num(table[name]["dl20"]["nDCG@10"]),
+                             s6=_get_display_num(table[name]["dl20"]["R@1K"]),
+                             s7=_get_display_num(table[name]["dev"]["MRR@10"]),
+                             s8=_get_display_num(table[name]["dev"]["R@1K"]),
                              cmd1=format_command(commands[name]['dl19']),
                              cmd2=format_command(commands[name]['dl20']),
                              cmd3=format_command(commands[name]['dev']),
@@ -405,18 +433,7 @@ def generate_report(args):
                              eval_cmd3=format_eval_command(eval_commands[name]['dev']))
 
             # If we don't have scores, we want to remove the commands also. Use simple regexp substitution.
-            if table[name]['dl19']['MAP'] == 0:
-                s = re.sub(re.compile('Command to generate run on TREC 2019 queries:.*?</div>',
-                                      re.MULTILINE | re.DOTALL),
-                           'Not available.</div>', s)
-            if table[name]['dl20']['MAP'] == 0:
-                s = re.sub(re.compile('Command to generate run on TREC 2020 queries:.*?</div>',
-                                      re.MULTILINE | re.DOTALL),
-                           'Not available.</div>', s)
-            if table[name]['dev']['MRR@10'] == 0:
-                s = re.sub(re.compile('Command to generate run on dev queries:.*?</div>',
-                                      re.MULTILINE | re.DOTALL),
-                           'Not available.</div>', s)
+            s = _remove_commands(table, name, s, v1=True)
 
             html_rows.append(s)
             row_cnt += 1
@@ -442,22 +459,29 @@ def generate_report(args):
             s = s.substitute(row_cnt=row_cnt,
                              condition_name=table_keys[name],
                              row=row_ids[name],
-                             s1=f'{table[name]["dl21"]["MAP@100"]:.4f}',
-                             s2=f'{table[name]["dl21"]["nDCG@10"]:.4f}',
-                             s3=f'{table[name]["dl21"]["MRR@100"]:.4f}',
-                             s4=f'{table[name]["dl21"]["R@100"]:.4f}',
-                             s5=f'{table[name]["dl21"]["R@1K"]:.4f}',
-                             s6=f'{table[name]["dev"]["MRR@100"]:.4f}',
-                             s7=f'{table[name]["dev"]["R@1K"]:.4f}',
-                             s8=f'{table[name]["dev2"]["MRR@100"]:.4f}',
-                             s9=f'{table[name]["dev2"]["R@1K"]:.4f}',
+                             s1=_get_display_num(table[name]["dl21"]["MAP@100"]),
+                             s2=_get_display_num(table[name]["dl21"]["nDCG@10"]),
+                             s3=_get_display_num(table[name]["dl21"]["R@1K"]),
+                             s4=_get_display_num(table[name]["dl22"]["MAP@100"]),
+                             s5=_get_display_num(table[name]["dl22"]["nDCG@10"]),
+                             s6=_get_display_num(table[name]["dl22"]["R@1K"]),
+                             s7=_get_display_num(table[name]["dev"]["MRR@100"]),
+                             s8=_get_display_num(table[name]["dev"]["R@1K"]),
+                             s9=_get_display_num(table[name]["dev2"]["MRR@100"]),
+                             s10=_get_display_num(table[name]["dev2"]["R@1K"]),
                              cmd1=format_command(commands[name]['dl21']),
-                             cmd2=format_command(commands[name]['dev']),
-                             cmd3=format_command(commands[name]['dev2']),
+                             cmd2=format_command(commands[name]['dl22']),
+                             cmd3=format_command(commands[name]['dev']),
+                             cmd4=format_command(commands[name]['dev2']),
                              eval_cmd1=eval_commands[name]['dl21'],
-                             eval_cmd2=eval_commands[name]['dev'],
-                             eval_cmd3=eval_commands[name]['dev2']
+                             eval_cmd2=eval_commands[name]['dl22'],
+                             eval_cmd3=eval_commands[name]['dev'],
+                             eval_cmd4=eval_commands[name]['dev2']
                              )
+
+            # If we don't have scores, we want to remove the commands also. Use simple regexp substitution.
+            s = _remove_commands(table, name, s, v1=False)
+
             html_rows.append(s)
             row_cnt += 1
 
@@ -470,6 +494,21 @@ def generate_report(args):
         with open(args.output, 'w') as out:
             out.write(Template(html_template).substitute(title=full_name, rows=all_rows))
 
+# Flaky test on Jimmy's Mac Studio
+FlakyKey = namedtuple('FlakyKey', ['collection', 'name', 'topic_key', 'metric'])
+flaky_dict = {
+   FlakyKey('msmarco-v1-passage', 'distilbert-kd-tasb-rocchio-prf-pytorch', 'msmarco-passage-dev-subset', 'MRR@10'): 0.0001,
+   FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-avg-prf-pytorch', 'dl19-passage', 'nDCG@10'): 0.0001,
+   FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-avg-prf-pytorch', 'dl20', 'MAP'): 0.0002,
+   FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-avg-prf-pytorch', 'dl20', 'nDCG@10'): 0.0009,
+   FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-bm25-pytorch', 'msmarco-passage-dev-subset', 'MRR@10'): 0.0001,
+   FlakyKey('msmarco-v1-passage', 'ance', 'msmarco-passage-dev-subset', 'MRR@10'): 0.0001,
+   FlakyKey('msmarco-v1-passage', 'ance-pytorch', 'msmarco-passage-dev-subset', 'MRR@10'): 0.0001,
+   FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'msmarco-passage-dev-subset', 'R@1K'): 0.0002,
+   FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'dl19-passage', 'MAP'): 0.0001,
+   FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'dl19-passage', 'nDCG@10'): 0.0008,
+   FlakyKey('msmarco-v1-passage', 'ance-avg-prf-pytorch', 'msmarco-passage-dev-subset', 'MRR@10'): 0.0002 
+}
 
 def run_conditions(args):
     start = time.time()
@@ -533,64 +572,8 @@ def run_conditions(args):
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
                             # Flaky test on Jimmy's Mac Studio
-                            elif args.collection == 'msmarco-v1-passage' and name == 'distilbert-kd-tasb-rocchio-prf-pytorch' \
-                                    and topic_key == 'msmarco-passage-dev-subset' \
-                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
-                                result_str = okish_str
-                            # Flaky test on Jimmy's Mac Studio
-                            elif args.collection == 'msmarco-v1-passage' and name == 'tct_colbert-v2-hnp-avg-prf-pytorch' \
-                                    and topic_key == 'dl19-passage' \
-                                    and metric == 'nDCG@10' and abs(score-float(expected[metric])) <= 0.0001:
-                                result_str = okish_str
-                            # Flaky test on Jimmy's Mac Studio
-                            elif args.collection == 'msmarco-v1-passage' and name == 'tct_colbert-v2-hnp-avg-prf-pytorch' \
-                                    and topic_key == 'dl20' \
-                                    and metric == 'MAP' and abs(score-float(expected[metric])) <= 0.0002:
-                                result_str = okish_str
-                            # Flaky test on Jimmy's Mac Studio
-                            elif args.collection == 'msmarco-v1-passage' and name == 'tct_colbert-v2-hnp-avg-prf-pytorch' \
-                                    and topic_key == 'dl20' \
-                                    and metric == 'nDCG@10' and abs(score-float(expected[metric])) <= 0.0009:
-                                result_str = okish_str
-                            # Flaky test on Jimmy's Mac Studio
-                            elif args.collection == 'msmarco-v1-passage' and name == 'tct_colbert-v2-hnp-bm25-pytorch' \
-                                    and topic_key == 'msmarco-passage-dev-subset' \
-                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
-                                result_str = okish_str
-                            # Flaky test on Jimmy's Mac Studio
-                            elif args.collection == 'msmarco-v1-passage' and name == 'ance' \
-                                    and topic_key == 'msmarco-passage-dev-subset' \
-                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
-                                result_str = okish_str
-                            # Flaky test on Jimmy's Mac Studio
-                            elif args.collection == 'msmarco-v1-passage' and name == 'ance-pytorch' \
-                                    and topic_key == 'msmarco-passage-dev-subset' \
-                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0001:
-                                result_str = okish_str
-                            # Flaky test on Jimmy's Mac Studio
-                            elif args.collection == 'msmarco-v1-passage' and name == 'ance-rocchio-prf-pytorch' \
-                                    and topic_key == 'msmarco-passage-dev-subset' \
-                                    and metric == 'R@1K' and abs(score-float(expected[metric])) <= 0.0002:
-                                result_str = okish_str
-                            # Flaky test on Jimmy's Mac Studio
-                            elif args.collection == 'msmarco-v1-passage' and name == 'ance-rocchio-prf-pytorch' \
-                                    and topic_key == 'dl19-passage' \
-                                    and metric == 'MAP' and abs(score-float(expected[metric])) <= 0.0001:
-                                result_str = okish_str
-                            # Flaky test on Jimmy's Mac Studio
-                            elif args.collection == 'msmarco-v1-passage' and name == 'ance-rocchio-prf-pytorch' \
-                                    and topic_key == 'dl19-passage' \
-                                    and metric == 'nDCG@10' and abs(score-float(expected[metric])) <= 0.0008:
-                                result_str = okish_str
-                            # Flaky test on Jimmy's Mac Studio
-                            elif args.collection == 'msmarco-v1-passage' and name == 'ance-rocchio-prf-pytorch' \
-                                    and topic_key == 'dl19-passage' \
-                                    and metric == 'nDCG@10' and abs(score-float(expected[metric])) <= 0.0007:
-                                result_str = okish_str
-                            # Flaky test on Jimmy's Mac Studio
-                            elif args.collection == 'msmarco-v1-passage' and name == 'ance-avg-prf-pytorch' \
-                                    and topic_key == 'msmarco-passage-dev-subset' \
-                                    and metric == 'MRR@10' and abs(score-float(expected[metric])) <= 0.0002:
+                            elif abs(score-float(expected[metric])) <= \
+                                    flaky_dict.get(FlakyKey(collection=args.collection, name=name, topic_key=topic_key, metric=metric), 0):
                                 result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
@@ -604,50 +587,45 @@ def run_conditions(args):
 
     if args.collection == 'msmarco-v1-passage' or args.collection == 'msmarco-v1-doc':
         print(' ' * 74 + 'TREC 2019' + ' ' * 16 + 'TREC 2020' + ' ' * 12 + 'MS MARCO dev')
-        print(' ' * 67 + 'MAP    nDCG@10    R@1K       MAP nDCG@10    R@1K    MRR@10    R@1K')
+        print(' ' * 67 + 'MAP    nDCG@10    R@1K    MAP    nDCG@10    R@1K    MRR@10    R@1K')
         print(' ' * 67 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14)
 
         if args.condition:
             # If we've used --condition to specify a specific condition, print out only that row.
-            name = args.condition
-            print(f'{table_keys[name]:65}' +
-                  f'{table[name]["dl19"]["MAP"]:8.4f}{table[name]["dl19"]["nDCG@10"]:8.4f}{table[name]["dl19"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dev"]["MRR@10"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}')
+            names = [ args.condition ]
         else:
             # Otherwise, print out all rows
-            for name in models[args.collection]:
-                if not name:
-                    print('')
-                    continue
-                print(f'{table_keys[name]:65}' +
-                      f'{table[name]["dl19"]["MAP"]:8.4f}{table[name]["dl19"]["nDCG@10"]:8.4f}{table[name]["dl19"]["R@1K"]:8.4f}  ' +
-                      f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
-                      f'{table[name]["dev"]["MRR@10"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}')
+            names =  models[args.collection]
+
+        for name in names:
+            if not name:
+                print('')
+                continue
+            print(f'{table_keys[name]:65}' +
+                    f'{table[name]["dl19"]["MAP"]:8.4f}{table[name]["dl19"]["nDCG@10"]:8.4f}{table[name]["dl19"]["R@1K"]:8.4f}  ' +
+                    f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
+                    f'{table[name]["dev"]["MRR@10"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}')
     else:
-        print(' ' * 77 + 'TREC 2021' + ' ' * 18 + 'MS MARCO dev' + ' ' * 6 + 'MS MARCO dev2')
-        print(' ' * 62 + 'MAP@100 nDCG@10 MRR@100 R@100   R@1K     MRR@100   R@1K    MRR@100   R@1K')
-        print(' ' * 62 + '-' * 38 + '    ' + '-' * 14 + '    ' + '-' * 14)
+        print(' ' * 69 + 'TREC 2021' + ' ' * 16 + 'TREC 2022' + ' ' * 12 + 'MS MARCO dev' + ' ' * 5 + 'MS MARCO dev2')
+        print(' ' * 62 + 'MAP    nDCG@10    R@1K    MAP    nDCG@10    R@1K    MRR@100   R@1K    MRR@100   R@1K')
+        print(' ' * 62 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14 + '    ' + '-' * 14)
 
         if args.condition:
             # If we've used --condition to specify a specific condition, print out only that row.
-            name = args.condition
-            print(f'{table_keys[name]:60}' +
-                  f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}' +
-                  f'{table[name]["dl21"]["MRR@100"]:8.4f}{table[name]["dl21"]["R@100"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
+            names = [ args.condition ]
         else:
             # Otherwise, print out all rows
-            for name in models[args.collection]:
-                if not name:
-                    print('')
-                    continue
-                print(f'{table_keys[name]:60}' +
-                      f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}' +
-                      f'{table[name]["dl21"]["MRR@100"]:8.4f}{table[name]["dl21"]["R@100"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
-                      f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
-                      f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
+            names =  models[args.collection]
+
+        for name in names:
+            if not name:
+                print('')
+                continue
+            print(f'{table_keys[name]:60}' +
+                    f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
+                    f'{table[name]["dl22"]["MAP@100"]:8.4f}{table[name]["dl22"]["nDCG@10"]:8.4f}{table[name]["dl22"]["R@1K"]:8.4f}  ' +
+                    f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
+                    f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
 
     end = time.time()
     start_str = datetime.utcfromtimestamp(start).strftime('%Y-%m-%d %H:%M:%S')
