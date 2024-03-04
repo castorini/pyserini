@@ -15,13 +15,13 @@ conditions:
         scores:
           - MAP: 0.4485
             nDCG@10: 0.7016
-            R@1K: 0.8547
+            R@1K: 0.8427
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.4651
-            nDCG@10: 0.6780
-            R@1K: 0.8503
+          - MAP: 0.4628
+            nDCG@10: 0.6768
+            R@1K: 0.8547
   - name: cosdpr-distil-pytorch
     display: "cosDPR-distil: PyTorch"
     display-html: "cosDPR-distil: PyTorch"
