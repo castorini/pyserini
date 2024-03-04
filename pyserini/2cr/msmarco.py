@@ -503,17 +503,8 @@ def generate_report(args):
 FlakyKey = namedtuple('FlakyKey', ['collection', 'name', 'topic_key', 'metric'])
 flaky_dict = {
     # Flaky test on Jimmy's Mac Studio
-    #FlakyKey('msmarco-v1-passage', 'distilbert-kd-tasb-rocchio-prf-pytorch', 'msmarco-passage-dev-subset', 'MRR@10'): 0.0001,
-    #FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-avg-prf-pytorch', 'dl19-passage', 'nDCG@10'): 0.0001,
-    #FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-avg-prf-pytorch', 'dl20', 'MAP'): 0.0002,
     FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-avg-prf-pytorch', 'dl20', 'nDCG@10'): 0.0009,
-    #FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-bm25-pytorch', 'msmarco-passage-dev-subset', 'MRR@10'): 0.0001,
-    #FlakyKey('msmarco-v1-passage', 'ance', 'msmarco-passage-dev-subset', 'MRR@10'): 0.0001,
-    #FlakyKey('msmarco-v1-passage', 'ance-pytorch', 'msmarco-passage-dev-subset', 'MRR@10'): 0.0001,
-    #FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'msmarco-passage-dev-subset', 'R@1K'): 0.0002,
-    #FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'dl19-passage', 'MAP'): 0.0001,
     FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'dl19-passage', 'nDCG@10'): 0.0008,
-    #FlakyKey('msmarco-v1-passage', 'ance-avg-prf-pytorch', 'msmarco-passage-dev-subset', 'MRR@10'): 0.0002
 }
 
 
@@ -580,11 +571,11 @@ def run_conditions(args):
                                 result_str = ok_str
                             # If results are within 0.0005, just call it "OKish".
                             elif abs(score-float(expected[metric])) <= 0.0005:
-                                result_str = okish_str
+                                result_str = okish_str + f' expected {expected[metric]:.4f}'
                             # If there are bigger differences, deal with on a case-by-case basis.
                             elif abs(score-float(expected[metric])) <= \
                                     flaky_dict.get(FlakyKey(collection=args.collection, name=name, topic_key=topic_key, metric=metric), 0):
-                                result_str = okish_str
+                                result_str = okish_str + f' expected {expected[metric]:.4f}'
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
                             print(f'    {metric:7}: {score:.4f} {result_str}')
