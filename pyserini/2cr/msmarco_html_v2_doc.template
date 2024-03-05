@@ -155,7 +155,8 @@ Numbered rows correspond to tables in the paper; additional conditions are provi
         <th class="headertop"></th>
         <th class="headertop"></th>
         <th class="headertop"></th>
-        <th class="headertop" colspan="6"><b>TREC 2021</b></th>
+        <th class="headertop" colspan="4"><b>TREC 2021</b></th>
+        <th class="headertop" colspan="4"><b>TREC 2022</b></th>
         <th class="headertop" colspan="3"><b>dev</b></th>
         <th class="headertop" colspan="3"><b>dev2</b></th>
       </tr>
@@ -165,8 +166,10 @@ Numbered rows correspond to tables in the paper; additional conditions are provi
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col"><br/>AP</th>
         <th class="headerbottom" scope="col">nDCG@10</th>
-        <th class="headerbottom" scope="col">RR@100</th>
-        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col">R@1K</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"><br/>AP</th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@1K</th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col">RR@100</th>

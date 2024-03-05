@@ -619,11 +619,11 @@ class TestTokenization(unittest.TestCase):
         self.assertEqual(['▁', 'ọ', 'm', 'ọ', 'bin', 'rin'], tokens)
 
     def test_doc2query(self):
-        tokenizer = T5Tokenizer.from_pretrained('castorini/doc2query-t5-base-msmarco')
+        tokenizer = T5Tokenizer.from_pretrained('castorini/doc2query-t5-base-msmarco', legacy=True)
         tokens = tokenizer.tokenize('I have a new GPU!')
         self.assertEqual(['▁I', '▁have', '▁', 'a', '▁new', '▁GPU', '!'], tokens)
 
-        tokenizer = T5Tokenizer.from_pretrained('castorini/doc2query-t5-base-msmarco')
+        tokenizer = T5Tokenizer.from_pretrained('castorini/doc2query-t5-base-msmarco', legacy=True)
         tokens = tokenizer.tokenize('walking talking biking scrolling')
         self.assertEqual(['▁walking', '▁talking', '▁biking', '▁scroll', 'ing'], tokens)
 
