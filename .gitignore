@@ -19,8 +19,3 @@ runs/
 
 # logs should also be ignored
 logs/
-
-
-
-# add ingore files
-/anserini/*
