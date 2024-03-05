@@ -271,6 +271,40 @@ conditions:
           - MAP@100: 0.1059
             nDCG@10: 0.2719
             R@1K: 0.5623
+  - name: unicoil-noexp
+    display: "uniCOIL (noexp): pre-encoded"
+    display-html: "uniCOIL (noexp): pre-encoded queries"
+    display-row: (3a)
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-unicoil-noexp-0shot --topics $topics --output $output --hits 1000 --impact
+    topics:
+      - topic_key: msmarco-v2-passage-dev-unicoil-noexp
+        eval_key: msmarco-v2-passage-dev
+        scores:
+          - MRR@100: 0.1342
+            R@1K: 0.7010
+      - topic_key: msmarco-v2-passage-dev2-unicoil-noexp
+        eval_key: msmarco-v2-passage-dev2
+        scores:
+          - MRR@100: 0.1385
+            R@1K: 0.7114
+      - topic_key: dl21-unicoil-noexp
+        eval_key: dl21-passage
+        scores:
+          - MAP@100: 0.2193
+            nDCG@10: 0.5756
+            R@1K: 0.6897
+      - topic_key: dl22-unicoil-noexp
+        eval_key: dl22-passage
+        scores:
+          - MAP@100: 0.0754
+            nDCG@10: 0.4077
+            R@1K: 0.4423
+      - topic_key: dl23-unicoil-noexp
+        eval_key: dl23-passage
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
@@ -305,73 +339,6 @@ conditions:
           - MAP@100: 0
             nDCG@10: 0
             R@1K: 0
-  - name: unicoil-otf
-    display: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
-    display-html: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-unicoil-0shot --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --hits 1000 --impact
-    topics:
-      - topic_key: msmarco-v2-passage-dev
-        eval_key: msmarco-v2-passage-dev
-        scores:
-          - MRR@100: 0.1499
-            R@1K: 0.7616
-      - topic_key: msmarco-v2-passage-dev2
-        eval_key: msmarco-v2-passage-dev2
-        scores:
-          - MRR@100: 0.1577
-            R@1K: 0.7671
-      - topic_key: dl21
-        eval_key: dl21-passage
-        scores:
-          - MAP@100: 0.2538
-            nDCG@10: 0.6159
-            R@1K: 0.7551
-      - topic_key: dl22
-        eval_key: dl22-passage
-        scores:
-          - MAP@100: 0.1050
-            nDCG@10: 0.4614
-            R@1K: 0.5253
-      - topic_key: dl23
-        eval_key: dl23-passage
-        scores:
-          - MAP@100: 0
-            nDCG@10: 0
-            R@1K: 0
-  - name: unicoil-noexp
-    display: "uniCOIL (noexp): pre-encoded"
-    display-html: "uniCOIL (noexp): pre-encoded queries"
-    display-row: (3a)
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-unicoil-noexp-0shot --topics $topics --output $output --hits 1000 --impact
-    topics:
-      - topic_key: msmarco-v2-passage-dev-unicoil-noexp
-        eval_key: msmarco-v2-passage-dev
-        scores:
-          - MRR@100: 0.1342
-            R@1K: 0.7010
-      - topic_key: msmarco-v2-passage-dev2-unicoil-noexp
-        eval_key: msmarco-v2-passage-dev2
-        scores:
-          - MRR@100: 0.1385
-            R@1K: 0.7114
-      - topic_key: dl21-unicoil-noexp
-        eval_key: dl21-passage
-        scores:
-          - MAP@100: 0.2193
-            nDCG@10: 0.5756
-            R@1K: 0.6897
-      - topic_key: dl22-unicoil-noexp
-        eval_key: dl22-passage
-        scores:
-          - MAP@100: 0.0754
-            nDCG@10: 0.4077
-            R@1K: 0.4423
-      - topic_key: dl23-unicoil-noexp
-        eval_key: dl23-passage
-        scores:
-          - MAP@100: 0.1112
-            nDCG@10: 0.3262
-            R@1K: 0.5070
   - name: unicoil-noexp-otf
     display: "uniCOIL (noexp): query inference with PyTorch"
     display-html: "uniCOIL (noexp): query inference with PyTorch"
@@ -399,6 +366,39 @@ conditions:
           - MAP@100: 0.0754
             nDCG@10: 0.4077
             R@1K: 0.4423
+      - topic_key: dl23
+        eval_key: dl23-passage
+        scores:
+          - MAP@100: 0.1112
+            nDCG@10: 0.3262
+            R@1K: 0.5070
+  - name: unicoil-otf
+    display: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
+    display-html: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-unicoil-0shot --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --hits 1000 --impact
+    topics:
+      - topic_key: msmarco-v2-passage-dev
+        eval_key: msmarco-v2-passage-dev
+        scores:
+          - MRR@100: 0.1499
+            R@1K: 0.7616
+      - topic_key: msmarco-v2-passage-dev2
+        eval_key: msmarco-v2-passage-dev2
+        scores:
+          - MRR@100: 0.1577
+            R@1K: 0.7671
+      - topic_key: dl21
+        eval_key: dl21-passage
+        scores:
+          - MAP@100: 0.2538
+            nDCG@10: 0.6159
+            R@1K: 0.7551
+      - topic_key: dl22
+        eval_key: dl22-passage
+        scores:
+          - MAP@100: 0.1050
+            nDCG@10: 0.4614
+            R@1K: 0.5253
       - topic_key: dl23
         eval_key: dl23-passage
         scores:

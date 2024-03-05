@@ -337,7 +337,7 @@ def list_conditions(args):
             continue
         print(condition)
 
-def _get_display_num(num: int) -> str:
+def _get_display_num(num: int) -> str: 
     return f'{num:.4f}' if num != 0 else '-'
 
 def _remove_commands(table, name, s, v1):

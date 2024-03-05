@@ -126,15 +126,15 @@ conditions:
       - topic_key: dl22
         eval_key: dl22-doc
         scores:
-          - MAP@100: 0.1260    
+          - MAP@100: 0.1260
             nDCG@10: 0.3834
             R@1K: 0.5114
       - topic_key: dl23
         eval_key: dl23-doc
         scores:
-          - MAP@100: 0.1652  0.3452  0.5755
-            nDCG@10: 0
-            R@1K: 0
+          - MAP@100: 0.1652
+            nDCG@10: 0.3452
+            R@1K: 0.5755
   - name: bm25-d2q-t5-doc-default
     display: BM25 w/ doc2query-T5 doc (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -305,39 +305,6 @@ conditions:
           - MAP@100: 0
             nDCG@10: 0
             R@1K: 0
-  - name: unicoil-noexp-otf
-    display: "uniCOIL (noexp): query inference with PyTorch"
-    display-html: "uniCOIL (noexp): query inference with PyTorch"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented-unicoil-noexp-0shot --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
-    topics:
-      - topic_key: msmarco-v2-doc-dev
-        eval_key: msmarco-v2-doc-dev
-        scores:
-          - MRR@100: 0.2231
-            R@1K: 0.8987
-      - topic_key: msmarco-v2-doc-dev2
-        eval_key: msmarco-v2-doc-dev2
-        scores:
-          - MRR@100: 0.2314
-            R@1K: 0.8995
-      - topic_key: dl21
-        eval_key: dl21-doc
-        scores:
-          - MAP@100: 0.2587
-            nDCG@10: 0.6495
-            R@1K: 0.6787
-      - topic_key: dl22
-        eval_key: dl22-doc
-        scores:
-          - MAP@100: 0.1400
-            nDCG@10: 0.4451
-            R@1K: 0.5235
-      - topic_key: dl23
-        eval_key: dl23-doc
-        scores:
-          - MAP@100: 0
-            nDCG@10: 0
-            R@1K: 0
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
@@ -363,10 +330,43 @@ conditions:
       - topic_key: dl22-unicoil
         eval_key: dl22-doc
         scores:
+          - MAP@100: 0.1400
+            nDCG@10: 0.4451
+            R@1K: 0.5235
+      - topic_key: dl23-unicoil
+        eval_key: dl23-doc
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0
+  - name: unicoil-noexp-otf
+    display: "uniCOIL (noexp): query inference with PyTorch"
+    display-html: "uniCOIL (noexp): query inference with PyTorch"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented-unicoil-noexp-0shot --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-v2-doc-dev
+        eval_key: msmarco-v2-doc-dev
+        scores:
+          - MRR@100: 0.2231
+            R@1K: 0.8987
+      - topic_key: msmarco-v2-doc-dev2
+        eval_key: msmarco-v2-doc-dev2
+        scores:
+          - MRR@100: 0.2314
+            R@1K: 0.8995
+      - topic_key: dl21
+        eval_key: dl21-doc
+        scores:
+          - MAP@100: 0.2587
+            nDCG@10: 0.6495
+            R@1K: 0.6787
+      - topic_key: dl22
+        eval_key: dl22-doc
+        scores:
           - MAP@100: 0.1180
             nDCG@10: 0.4165
             R@1K: 0.4779
-      - topic_key: dl23-unicoil
+      - topic_key: dl23
         eval_key: dl23-doc
         scores:
           - MAP@100: 0.1413
