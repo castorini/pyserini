@@ -152,8 +152,6 @@ def generate_report(args):
                              s4=f'{table[dataset]["bm25-multifield"]["R@100"]:8.4f}',
                              s5=f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.4f}',
                              s6=f'{table[dataset]["splade-pp-ed"]["R@100"]:8.4f}',
-                            #  s7=f'{table[dataset]["contriever"]["nDCG@10"]:8.4f}',
-                            #  s8=f'{table[dataset]["contriever"]["R@100"]:8.4f}',
                              s7=f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.4f}',
                              s8=f'{table[dataset]["contriever-msmarco"]["R@100"]:8.4f}',
                              s9=f'{table[dataset]["bge-base-en-v1.5"]["nDCG@10"]:8.4f}',
@@ -161,13 +159,11 @@ def generate_report(args):
                              cmd1=commands[dataset]["bm25-flat"],
                              cmd2=commands[dataset]["bm25-multifield"],
                              cmd3=commands[dataset]["splade-pp-ed"],
-                            #  cmd4=commands[dataset]["contriever"],
                              cmd4=commands[dataset]["contriever-msmarco"],
                              cmd5=commands[dataset]["bge-base-en-v1.5"],
                              eval_cmd1=eval_commands[dataset]["bm25-flat"].rstrip(),
                              eval_cmd2=eval_commands[dataset]["bm25-multifield"].rstrip(),
                              eval_cmd3=eval_commands[dataset]["splade-pp-ed"].rstrip(),
-                            #  eval_cmd4=eval_commands[dataset]["contriever"].rstrip(),
                              eval_cmd4=eval_commands[dataset]["contriever-msmarco"].rstrip(),
                              eval_cmd5=eval_commands[dataset]["bge-base-en-v1.5"].rstrip())
 
@@ -266,8 +262,8 @@ def run_conditions(args):
             final_score = (top_level_sums[model][metric] + cqa_score) / 18
             final_scores[model][metric] = final_score
 
-    print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 13 + 'SPLADE' + ' ' * 11 + 'Contriever' + ' ' * 5 + 'Contriever-msmarco' + ' ' * 5 + 'BGE-base-en-v1.5')
-    print(' ' * 26 + 'nDCG@10   R@100    ' * 5)
+    print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 13 + 'SPLADE' + ' ' * 11 + 'Contriever' + ' ' * 5 + 'Contriever-msmarco' + ' ' * 2 + 'BGE-base-en-v1.5')
+    print(' ' * 26 + 'nDCG@10   R@100    ' * 6)
     print(' ' * 27 + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14)
     for dataset in beir_keys:
         print(f'{dataset:25}' +
@@ -275,15 +271,15 @@ def run_conditions(args):
               f'{table[dataset]["bm25-multifield"]["nDCG@10"]:8.4f}{table[dataset]["bm25-multifield"]["R@100"]:8.4f}   ' +
               f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.4f}{table[dataset]["splade-pp-ed"]["R@100"]:8.4f}   ' + 
               f'{table[dataset]["contriever"]["nDCG@10"]:8.4f}{table[dataset]["contriever"]["R@100"]:8.4f}   ' + 
-              f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.4f}{table[dataset]["contriever-msmarco"]["R@100"]:8.4f}' +
+              f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.4f}{table[dataset]["contriever-msmarco"]["R@100"]:8.4f}   ' +
               f'{table[dataset]["bge-base-en-v1.5"]["nDCG@10"]:8.4f}{table[dataset]["bge-base-en-v1.5"]["R@100"]:8.4f}')
     print(' ' * 27 + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14)
     print('avg' + ' ' * 22 + f'{final_scores["bm25-flat"]["nDCG@10"]:8.4f}{final_scores["bm25-flat"]["R@100"]:8.4f}   ' +
           f'{final_scores["bm25-multifield"]["nDCG@10"]:8.4f}{final_scores["bm25-multifield"]["R@100"]:8.4f}   ' +
           f'{final_scores["splade-pp-ed"]["nDCG@10"]:8.4f}{final_scores["splade-pp-ed"]["R@100"]:8.4f}   ' +
           f'{final_scores["contriever"]["nDCG@10"]:8.4f}{final_scores["contriever"]["R@100"]:8.4f}   ' +
-          f'{final_scores["contriever-msmarco"]["nDCG@10"]:8.4f}{final_scores["contriever-msmarco"]["R@100"]:8.4f}' +
-            f'{final_scores["bge-base-en-v1.5"]["nDCG@10"]:8.4f}{final_scores["bge-base-en-v1.5"]["R@100"]:8.4f}')
+          f'{final_scores["contriever-msmarco"]["nDCG@10"]:8.4f}{final_scores["contriever-msmarco"]["R@100"]:8.4f}   ' +
+          f'{final_scores["bge-base-en-v1.5"]["nDCG@10"]:8.4f}{final_scores["bge-base-en-v1.5"]["R@100"]:8.4f}')
 
     end = time.time()
 
