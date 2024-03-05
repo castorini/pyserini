@@ -27,6 +27,12 @@ conditions:
           - MAP@100: 0.0325
             nDCG@10: 0.2692
             R@1K: 0.3321
+      - topic_key: dl23
+        eval_key: dl23-passage
+        scores:
+          - MAP@100: 0.0793
+            nDCG@10: 0.2627
+            R@1K: 0.4346
   - name: bm25-augmented-default
     display: BM25 augmented passage (k1=0.9, b=0.4)
     display-html: BM25 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -55,6 +61,12 @@ conditions:
           - MAP@100: 0.0346
             nDCG@10: 0.2742
             R@1K: 0.3666
+      - topic_key: dl23
+        eval_key: dl23-passage
+        scores:
+          - MAP@100: 0.0751
+            nDCG@10: 0.2061
+            R@1K: 0.4514
   - name: bm25-rm3-default
     display: BM25+RM3 original passage (k1=0.9, b=0.4)
     display-html: BM25+RM3 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -83,6 +95,12 @@ conditions:
           - MAP@100: 0.0310
             nDCG@10: 0.2686
             R@1K: 0.3559
+      - topic_key: dl23
+        eval_key: dl23-passage
+        scores:
+          - MAP@100: 0.0806
+            nDCG@10: 0.2602
+            R@1K: 0.4748
   - name: bm25-rm3-augmented-default
     display: BM25+RM3 augmented passage (k1=0.9, b=0.4)
     display-html: BM25+RM3 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -111,6 +129,12 @@ conditions:
           - MAP@100: 0.0318
             nDCG@10: 0.2571
             R@1K: 0.3441
+      - topic_key: dl23
+        eval_key: dl23-passage
+        scores:
+          - MAP@100: 0.0646
+            nDCG@10: 0.1798
+            R@1K: 0.4583
   - name: bm25-d2q-t5-default
     display: BM25 w/ doc2query-T5 original passage (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -139,6 +163,12 @@ conditions:
           - MAP@100: 0.0748
             nDCG@10: 0.3599
             R@1K: 0.4632
+      - topic_key: dl23
+        eval_key: dl23-passage
+        scores:
+          - MAP@100: 0.1085
+            nDCG@10: 0.3156
+            R@1K: 0.5608
   - name: bm25-d2q-t5-augmented-default
     display: BM25 w/ doc2query-T5 augmented passage (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -167,6 +197,12 @@ conditions:
           - MAP@100: 0.0735
             nDCG@10: 0.3609
             R@1K: 0.4739
+      - topic_key: dl23
+        eval_key: dl23-passage
+        scores:
+          - MAP@100: 0.1078
+            nDCG@10: 0.2926
+            R@1K: 0.5689
   - name: bm25-rm3-d2q-t5-default
     display: BM25+RM3 w/ doc2query-T5 original passage (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -195,6 +231,12 @@ conditions:
           - MAP@100: 0.0872
             nDCG@10: 0.3721
             R@1K: 0.4964
+      - topic_key: dl23
+        eval_key: dl23-passage
+        scores:
+          - MAP@100: 0.1135
+            nDCG@10: 0.3132
+            R@1K: 0.5978
   - name: bm25-rm3-d2q-t5-augmented-default
     display: BM25+RM3 w/ doc2query-T5 augmented passage (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -223,6 +265,12 @@ conditions:
           - MAP@100: 0.0821
             nDCG@10: 0.3749
             R@1K: 0.4914
+      - topic_key: dl23
+        eval_key: dl23-passage
+        scores:
+          - MAP@100: 0.1059
+            nDCG@10: 0.2719
+            R@1K: 0.5623
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
@@ -251,6 +299,12 @@ conditions:
           - MAP@100: 0.1050
             nDCG@10: 0.4614
             R@1K: 0.5253
+      - topic_key: dl23-unicoil
+        eval_key: dl23-passage
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0
   - name: unicoil-otf
     display: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
     display-html: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
@@ -278,6 +332,12 @@ conditions:
           - MAP@100: 0.1050
             nDCG@10: 0.4614
             R@1K: 0.5253
+      - topic_key: dl23
+        eval_key: dl23-passage
+        scores:
+          - MAP@100: 0
+            nDCG@10: 0
+            R@1K: 0
   - name: unicoil-noexp
     display: "uniCOIL (noexp): pre-encoded"
     display-html: "uniCOIL (noexp): pre-encoded queries"
@@ -306,6 +366,12 @@ conditions:
           - MAP@100: 0.0754
             nDCG@10: 0.4077
             R@1K: 0.4423
+      - topic_key: dl23-unicoil-noexp
+        eval_key: dl23-passage
+        scores:
+          - MAP@100: 0.1112
+            nDCG@10: 0.3262
+            R@1K: 0.5070
   - name: unicoil-noexp-otf
     display: "uniCOIL (noexp): query inference with PyTorch"
     display-html: "uniCOIL (noexp): query inference with PyTorch"
@@ -333,6 +399,12 @@ conditions:
           - MAP@100: 0.0754
             nDCG@10: 0.4077
             R@1K: 0.4423
+      - topic_key: dl23
+        eval_key: dl23-passage
+        scores:
+          - MAP@100: 0.1437
+            nDCG@10: 0.3855
+            R@1K: 0.5541
   - name: slimr-pp
     display: "SLIM++ (norefine, tau=0.5, min_idf=1)"
     display-html: "SLIM++ (norefine, tau=0.5, min_idf=1)"
@@ -360,4 +432,10 @@ conditions:
           - MAP@100: 0.1616
             nDCG@10: 0.5017
             R@1K: 0.6159
+      - topic_key: dl23
+        eval_key: dl23-passage
+        scores:
+          - MAP@100: 0.1772
+            nDCG@10: 0.4746
+            R@1K: 0.6412
 
