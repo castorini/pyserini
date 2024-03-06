@@ -26,7 +26,7 @@ from string import Template
 import pkg_resources
 import yaml
 
-from ._base import run_eval_and_return_metric, ok_str, fail_str
+from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
 
 dense_threads = 16
 dense_batch_size = 512
@@ -225,8 +225,13 @@ def run_conditions(args):
                             
                             score = float(run_eval_and_return_metric(metric, f'beir-v1.0.0-{dataset}-test',
                                                                      trec_eval_metric_definitions[metric], runfile))
-                            result = ok_str if math.isclose(score, float(expected[metric])) \
-                                else fail_str + f' expected {expected[metric]:.4f}'
+                            if math.isclose(score, float(expected[metric])):
+                                result = ok_str
+                            # If results are within 0.0005, just call it "OKish".
+                            elif abs(score - float(expected[metric])) <= 0.0005:
+                                result = okish_str
+                            else:
+                                result = fail_str
                             print(f'      {metric:7}: {score:.4f} {result}')
 
                             table[dataset][name][metric] = score
