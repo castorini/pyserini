@@ -24,9 +24,15 @@ conditions:
       - topic_key: dl22
         eval_key: dl22-doc
         scores:
-          - MAP@100: 0
-            nDCG@10: 0
-            R@1K: 0
+          - MAP@100: 0.0801
+            nDCG@10: 0.2993
+            R@1K: 0.4107
+      - topic_key: dl23
+        eval_key: dl23-doc
+        scores:
+          - MAP@100: 0.1046
+            nDCG@10: 0.2946
+            R@1K: 0.5262
   - name: bm25-doc-segmented-default
     display: BM25 doc segmented (k1=0.9, b=0.4)
     display-html: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -52,9 +58,15 @@ conditions:
       - topic_key: dl22
         eval_key: dl22-doc
         scores:
-          - MAP@100: 0
-            nDCG@10: 0
-            R@1K: 0
+          - MAP@100: 0.1036
+            nDCG@10: 0.3618
+            R@1K: 0.4664
+      - topic_key: dl23
+        eval_key: dl23-doc
+        scores:
+          - MAP@100: 0.1341
+            nDCG@10: 0.3405
+            R@1K: 0.5662
   - name: bm25-rm3-doc-default
     display: BM25+RM3 doc (k1=0.9, b=0.4)
     display-html: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -80,9 +92,15 @@ conditions:
       - topic_key: dl22
         eval_key: dl22-doc
         scores:
-          - MAP@100: 0
-            nDCG@10: 0
-            R@1K: 0
+          - MAP@100: 0.0798
+            nDCG@10: 0.2536
+            R@1K: 0.4217
+      - topic_key: dl23
+        eval_key: dl23-doc
+        scores:
+          - MAP@100: 0.1174
+            nDCG@10: 0.2462
+            R@1K: 0.5232
   - name: bm25-rm3-doc-segmented-default
     display: BM25+RM3 doc segmented (k1=0.9, b=0.4)
     display-html: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -108,9 +126,15 @@ conditions:
       - topic_key: dl22
         eval_key: dl22-doc
         scores:
-          - MAP@100: 0
-            nDCG@10: 0
-            R@1K: 0
+          - MAP@100: 0.1260
+            nDCG@10: 0.3834
+            R@1K: 0.5114
+      - topic_key: dl23
+        eval_key: dl23-doc
+        scores:
+          - MAP@100: 0.1652
+            nDCG@10: 0.3452
+            R@1K: 0.5755
   - name: bm25-d2q-t5-doc-default
     display: BM25 w/ doc2query-T5 doc (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -136,9 +160,15 @@ conditions:
       - topic_key: dl22
         eval_key: dl22-doc
         scores:
-          - MAP@100: 0
-            nDCG@10: 0
-            R@1K: 0
+          - MAP@100: 0.0977
+            nDCG@10: 0.3539
+            R@1K: 0.4301
+      - topic_key: dl23
+        eval_key: dl23-doc
+        scores:
+          - MAP@100: 0.1273
+            nDCG@10: 0.3511
+            R@1K: 0.5549
   - name: bm25-d2q-t5-doc-segmented-default
     display: BM25 w/ doc2query-T5 doc segmented (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -164,9 +194,15 @@ conditions:
       - topic_key: dl22
         eval_key: dl22-doc
         scores:
-          - MAP@100: 0
-            nDCG@10: 0
-            R@1K: 0
+          - MAP@100: 0.1203
+            nDCG@10: 0.3975
+            R@1K: 0.4984
+      - topic_key: dl23
+        eval_key: dl23-doc
+        scores:
+          - MAP@100: 0.1460
+            nDCG@10: 0.3612
+            R@1K: 0.5967
   - name: bm25-rm3-d2q-t5-doc-default
     display: BM25+RM3 w/ doc2query-T5 doc (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -192,9 +228,15 @@ conditions:
       - topic_key: dl22
         eval_key: dl22-doc
         scores:
-          - MAP@100: 0
-            nDCG@10: 0
-            R@1K: 0
+          - MAP@100: 0.0904
+            nDCG@10: 0.2758
+            R@1K: 0.4263
+      - topic_key: dl23
+        eval_key: dl23-doc
+        scores:
+          - MAP@100: 0.1246
+            nDCG@10: 0.2681
+            R@1K: 0.5616
   - name: bm25-rm3-d2q-t5-doc-segmented-default
     display: BM25+RM3 w/ doc2query-T5 doc segmented (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
@@ -220,9 +262,15 @@ conditions:
       - topic_key: dl22
         eval_key: dl22-doc
         scores:
-          - MAP@100: 0
-            nDCG@10: 0
-            R@1K: 0
+          - MAP@100: 0.1319
+            nDCG@10: 0.3912
+            R@1K: 0.5188
+      - topic_key: dl23
+        eval_key: dl23-doc
+        scores:
+          - MAP@100: 0.1699
+            nDCG@10: 0.3454
+            R@1K: 0.6006
   - name: unicoil-noexp
     display: "uniCOIL (noexp): pre-encoded"
     display-html: "uniCOIL (noexp): pre-encoded queries"
@@ -248,32 +296,11 @@ conditions:
       - topic_key: dl22-unicoil-noexp
         eval_key: dl22-doc
         scores:
-          - MAP@100: 0
-            nDCG@10: 0
-            R@1K: 0
-  - name: unicoil-noexp-otf
-    display: "uniCOIL (noexp): query inference with PyTorch"
-    display-html: "uniCOIL (noexp): query inference with PyTorch"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented-unicoil-noexp-0shot --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
-    topics:
-      - topic_key: msmarco-v2-doc-dev
-        eval_key: msmarco-v2-doc-dev
-        scores:
-          - MRR@100: 0.2231
-            R@1K: 0.8987
-      - topic_key: msmarco-v2-doc-dev2
-        eval_key: msmarco-v2-doc-dev2
-        scores:
-          - MRR@100: 0.2314
-            R@1K: 0.8995
-      - topic_key: dl21
-        eval_key: dl21-doc
-        scores:
-          - MAP@100: 0.2587
-            nDCG@10: 0.6495
-            R@1K: 0.6787
-      - topic_key: dl22
-        eval_key: dl22-doc
+          - MAP@100: 0.1180
+            nDCG@10: 0.4165
+            R@1K: 0.4779
+      - topic_key: dl23-unicoil-noexp
+        eval_key: dl23-doc
         scores:
           - MAP@100: 0
             nDCG@10: 0
@@ -303,9 +330,48 @@ conditions:
       - topic_key: dl22-unicoil
         eval_key: dl22-doc
         scores:
+          - MAP@100: 0.1400
+            nDCG@10: 0.4451
+            R@1K: 0.5235
+      - topic_key: dl23-unicoil
+        eval_key: dl23-doc
+        scores:
           - MAP@100: 0
             nDCG@10: 0
             R@1K: 0
+  - name: unicoil-noexp-otf
+    display: "uniCOIL (noexp): query inference with PyTorch"
+    display-html: "uniCOIL (noexp): query inference with PyTorch"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented-unicoil-noexp-0shot --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    topics:
+      - topic_key: msmarco-v2-doc-dev
+        eval_key: msmarco-v2-doc-dev
+        scores:
+          - MRR@100: 0.2231
+            R@1K: 0.8987
+      - topic_key: msmarco-v2-doc-dev2
+        eval_key: msmarco-v2-doc-dev2
+        scores:
+          - MRR@100: 0.2314
+            R@1K: 0.8995
+      - topic_key: dl21
+        eval_key: dl21-doc
+        scores:
+          - MAP@100: 0.2587
+            nDCG@10: 0.6495
+            R@1K: 0.6787
+      - topic_key: dl22
+        eval_key: dl22-doc
+        scores:
+          - MAP@100: 0.1180
+            nDCG@10: 0.4165
+            R@1K: 0.4779
+      - topic_key: dl23
+        eval_key: dl23-doc
+        scores:
+          - MAP@100: 0.1413
+            nDCG@10: 0.3898
+            R@1K: 0.5462
   - name: unicoil-otf
     display: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
     display-html: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
@@ -330,6 +396,12 @@ conditions:
       - topic_key: dl22
         eval_key: dl22-doc
         scores:
-          - MAP@100: 0
-            nDCG@10: 0
-            R@1K: 0
+          - MAP@100: 0.1400
+            nDCG@10: 0.4451
+            R@1K: 0.5235
+      - topic_key: dl23
+        eval_key: dl23-doc
+        scores:
+          - MAP@100: 0.1554
+            nDCG@10: 0.4150
+            R@1K: 0.5753
