@@ -231,6 +231,11 @@ trec_eval_metric_definitions = {
             'MAP@100': '-c -l 2 -M 100 -m map',
             'nDCG@10': '-c -m ndcg_cut.10',
             'R@1K': '-c -l 2 -m recall.1000'
+        },
+        'dl23-passage': {
+            'MAP@100': '-c -l 2 -M 100 -m map',
+            'nDCG@10': '-c -m ndcg_cut.10',
+            'R@1K': '-c -l 2 -m recall.1000'
         }
     },
     'msmarco-v2-doc': {
@@ -248,6 +253,11 @@ trec_eval_metric_definitions = {
             'R@1K': '-c -m recall.1000'
         },
         'dl22-doc': {
+            'MAP@100': '-c -M 100 -m map',
+            'nDCG@10': '-c -m ndcg_cut.10',
+            'R@1K': '-c -m recall.1000'
+        },
+        'dl23-doc': {
             'MAP@100': '-c -M 100 -m map',
             'nDCG@10': '-c -m ndcg_cut.10',
             'R@1K': '-c -m recall.1000'
@@ -279,6 +289,8 @@ def find_msmarco_table_topic_set_key_v2(topic_key):
         key = 'dl21'
     elif topic_key.startswith('dl22'):
         key = 'dl22'
+    elif topic_key.startswith('dl23'):
+        key = 'dl23'
 
     return key
 
@@ -325,7 +337,7 @@ def list_conditions(args):
             continue
         print(condition)
 
-def _get_display_num(num: int) -> str:
+def _get_display_num(num: int) -> str: 
     return f'{num:.4f}' if num != 0 else '-'
 
 def _remove_commands(table, name, s, v1):
@@ -337,6 +349,7 @@ def _remove_commands(table, name, s, v1):
     v2_unavilable_dict = {
         ('dl21', 'MAP@100'): 'Command to generate run on TREC 2021 queries:.*?</div>',
         ('dl22', 'MAP@100'): 'Command to generate run on TREC 2022 queries:.*?</div>',
+        ('dl23', 'MAP@100'): 'Command to generate run on TREC 2023 queries:.*?</div>',
         ('dev', 'MRR@100'): 'Command to generate run on dev queries:.*?</div>',
         ('dev2', 'MRR@100'): 'Command to generate run on dev2 queries:.*?</div>',
     }
@@ -465,18 +478,23 @@ def generate_report(args):
                              s4=_get_display_num(table[name]["dl22"]["MAP@100"]),
                              s5=_get_display_num(table[name]["dl22"]["nDCG@10"]),
                              s6=_get_display_num(table[name]["dl22"]["R@1K"]),
-                             s7=_get_display_num(table[name]["dev"]["MRR@100"]),
-                             s8=_get_display_num(table[name]["dev"]["R@1K"]),
-                             s9=_get_display_num(table[name]["dev2"]["MRR@100"]),
-                             s10=_get_display_num(table[name]["dev2"]["R@1K"]),
+                             s7=_get_display_num(table[name]["dl23"]["MAP@100"]),
+                             s8=_get_display_num(table[name]["dl23"]["nDCG@10"]),
+                             s9=_get_display_num(table[name]["dl23"]["R@1K"]),
+                             s10=_get_display_num(table[name]["dev"]["MRR@100"]),
+                             s11=_get_display_num(table[name]["dev"]["R@1K"]),
+                             s12=_get_display_num(table[name]["dev2"]["MRR@100"]),
+                             s13=_get_display_num(table[name]["dev2"]["R@1K"]),
                              cmd1=format_command(commands[name]['dl21']),
                              cmd2=format_command(commands[name]['dl22']),
-                             cmd3=format_command(commands[name]['dev']),
-                             cmd4=format_command(commands[name]['dev2']),
+                             cmd3=format_command(commands[name]['dl23']),
+                             cmd4=format_command(commands[name]['dev']),
+                             cmd5=format_command(commands[name]['dev2']),
                              eval_cmd1=eval_commands[name]['dl21'],
                              eval_cmd2=eval_commands[name]['dl22'],
-                             eval_cmd3=eval_commands[name]['dev'],
-                             eval_cmd4=eval_commands[name]['dev2']
+                             eval_cmd3=eval_commands[name]['dl23'],
+                             eval_cmd4=eval_commands[name]['dev'],
+                             eval_cmd5=eval_commands[name]['dev2']
                              )
 
             # If we don't have scores, we want to remove the commands also. Use simple regexp substitution.
@@ -606,9 +624,9 @@ def run_conditions(args):
                     f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
                     f'{table[name]["dev"]["MRR@10"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}')
     else:
-        print(' ' * 69 + 'TREC 2021' + ' ' * 16 + 'TREC 2022' + ' ' * 12 + 'MS MARCO dev' + ' ' * 5 + 'MS MARCO dev2')
-        print(' ' * 62 + 'MAP    nDCG@10    R@1K    MAP    nDCG@10    R@1K    MRR@100   R@1K    MRR@100   R@1K')
-        print(' ' * 62 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14 + '    ' + '-' * 14)
+        print(' ' * 69 + 'TREC 2021' + ' ' * 16 + 'TREC 2022' +  ' ' * 16 + 'TREC 2023' + ' ' * 12 + 'MS MARCO dev' + ' ' * 5 + 'MS MARCO dev2')
+        print(' ' * 62 + 'MAP    nDCG@10    R@1K    MAP    nDCG@10    R@1K    MAP    nDCG@10    R@1K    MRR@100   R@1K    MRR@100   R@1K')
+        print(' ' * 62 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14 + '    ' + '-' * 14)
 
         if args.condition:
             # If we've used --condition to specify a specific condition, print out only that row.
@@ -624,6 +642,7 @@ def run_conditions(args):
             print(f'{table_keys[name]:60}' +
                     f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
                     f'{table[name]["dl22"]["MAP@100"]:8.4f}{table[name]["dl22"]["nDCG@10"]:8.4f}{table[name]["dl22"]["R@1K"]:8.4f}  ' +
+                    f'{table[name]["dl23"]["MAP@100"]:8.4f}{table[name]["dl23"]["nDCG@10"]:8.4f}{table[name]["dl23"]["R@1K"]:8.4f}  ' +
                     f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
                     f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
 
