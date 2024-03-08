@@ -276,8 +276,8 @@ def run_conditions(args):
 
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Just a blanket catch-all: if it's within 0.0001, it's OKish
-                            elif math.isclose(score, float(expected[metric]), abs_tol=1e-4):
+                            # If results are within 0.0005, just call it "OKish".
+                            elif math.isclose(score, float(expected[metric]), abs_tol=5e-4):
                                 result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'

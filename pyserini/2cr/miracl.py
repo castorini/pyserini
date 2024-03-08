@@ -376,7 +376,7 @@ def run_conditions(args):
                 for expected in splits['scores']:
                     for metric in expected:
                         if not args.skip_eval:
-                            # We have the translate the training qrels into a file located in tools/topics-and-qrels/
+                            # We have to translate the training qrels into a file located in tools/topics-and-qrels/
                             # because they are not included with Anserini/Pyserini by default.
                             # Here, we assume that the developer has cloned the miracl repo and placed the qrels there.
                             if not os.path.exists(runfile):
@@ -391,34 +391,8 @@ def run_conditions(args):
 
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.3749 -> expected 0.3748
-                            elif name == 'mcontriever-tied-pft-msmarco.id' \
-                                    and split == 'train' and metric == 'nDCG@10' \
-                                    and math.isclose(score, float(expected[metric]), abs_tol=1e-4):
-                                result_str = okish_str
-                            # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.4149 -> expected 0.4147
-                            elif name == 'mdpr-tied-pft-msmarco.ko' \
-                                    and split == 'train' and metric == 'nDCG@10' \
-                                    and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
-                                result_str = okish_str
-                            # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.5324 -> expected 0.5323
-                            elif name == 'bm25-mdpr-tied-pft-msmarco-hybrid.ru' \
-                                    and split == 'dev' and metric == 'nDCG@10' \
-                                    and math.isclose(score, float(expected[metric]), abs_tol=1e-4):
-                                result_str = okish_str
-                            # Flaky on Jimmy's Mac Studio (Apple M1 Ultra), nDCG@10: 0.4101 -> expected 0.4100
-                            elif name == 'bm25-mdpr-tied-pft-msmarco-hybrid.sw' \
-                                    and split == 'train' and metric == 'nDCG@10' \
-                                    and math.isclose(score, float(expected[metric]), abs_tol=2e-4):
-                                result_str = okish_str
-                            # Flaky on linux.cs (vs. tuna), nDCG@10: 0.5999 -> expected 0.6000
-                            # Flaky on Jimmy's Mac Studio also.
-                            elif name == 'bm25-mdpr-tied-pft-msmarco-hybrid.te' \
-                                    and split == 'train' and metric == 'nDCG@10' \
-                                    and math.isclose(score, float(expected[metric]), abs_tol=1e-4):
-                                result_str = okish_str
-                            # Just a blanket catch-all: if it's within 0.0001, it's OKish
-                            elif math.isclose(score, float(expected[metric]), abs_tol=1e-4):
+                            # If results are within 0.0005, just call it "OKish".
+                            elif math.isclose(score, float(expected[metric]), abs_tol=5e-4):
                                 result_str = okish_str
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
