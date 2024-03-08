@@ -100,10 +100,10 @@ def print_results(table, metric, split):
     print(f'Metric = {metric}, Split = {split}')
     print(' ' * 32, end='')
     for lang in languages:
-        print(f'{lang[1]:3}    ', end='')
+        print(f' {lang[1]:4}   ', end='')
     print('')
     for model in models:
-        print(f'{model:30}', end='')
+        print(f'{model:32}', end='')
         for lang in languages:
             key = f'{model}.{lang[0]}'
             print(f'{table[key][split][metric]:7.4f}', end='   ')
