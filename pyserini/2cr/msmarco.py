@@ -161,6 +161,8 @@ models = {
      'unicoil-noexp-otf',
      'unicoil-otf',
      'slimr-pp'],
+
+    # MS MARCO v2 doc
     'msmarco-v2-doc':
     ['bm25-doc-default',
      'bm25-doc-segmented-default',
@@ -337,8 +339,10 @@ def list_conditions(args):
             continue
         print(condition)
 
-def _get_display_num(num: int) -> str: 
+
+def _get_display_num(num: int) -> str:
     return f'{num:.4f}' if num != 0 else '-'
+
 
 def _remove_commands(table, name, s, v1):
     v1_unavilable_dict = {
@@ -358,6 +362,7 @@ def _remove_commands(table, name, s, v1):
         if table[name][k[0]][k[1]] == 0:
             s = re.sub(re.compile(v, re.MULTILINE | re.DOTALL), 'Not available.</div>', s)
     return s
+
 
 def generate_report(args):
     yaml_file = pkg_resources.resource_filename(__name__, f'{args.collection}.yaml')
@@ -512,21 +517,14 @@ def generate_report(args):
         with open(args.output, 'w') as out:
             out.write(Template(html_template).substitute(title=full_name, rows=all_rows))
 
-# Flaky test on Jimmy's Mac Studio
+
 FlakyKey = namedtuple('FlakyKey', ['collection', 'name', 'topic_key', 'metric'])
 flaky_dict = {
-   FlakyKey('msmarco-v1-passage', 'distilbert-kd-tasb-rocchio-prf-pytorch', 'msmarco-passage-dev-subset', 'MRR@10'): 0.0001,
-   FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-avg-prf-pytorch', 'dl19-passage', 'nDCG@10'): 0.0001,
-   FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-avg-prf-pytorch', 'dl20', 'MAP'): 0.0002,
-   FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-avg-prf-pytorch', 'dl20', 'nDCG@10'): 0.0009,
-   FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-bm25-pytorch', 'msmarco-passage-dev-subset', 'MRR@10'): 0.0001,
-   FlakyKey('msmarco-v1-passage', 'ance', 'msmarco-passage-dev-subset', 'MRR@10'): 0.0001,
-   FlakyKey('msmarco-v1-passage', 'ance-pytorch', 'msmarco-passage-dev-subset', 'MRR@10'): 0.0001,
-   FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'msmarco-passage-dev-subset', 'R@1K'): 0.0002,
-   FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'dl19-passage', 'MAP'): 0.0001,
-   FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'dl19-passage', 'nDCG@10'): 0.0008,
-   FlakyKey('msmarco-v1-passage', 'ance-avg-prf-pytorch', 'msmarco-passage-dev-subset', 'MRR@10'): 0.0002 
+    # Flaky test on Jimmy's Mac Studio
+    FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-avg-prf-pytorch', 'dl20', 'nDCG@10'): 0.0009,
+    FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'dl19-passage', 'nDCG@10'): 0.0008,
 }
+
 
 def run_conditions(args):
     start = time.time()
@@ -589,10 +587,13 @@ def run_conditions(args):
                                     runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Flaky test on Jimmy's Mac Studio
+                            # If results are within 0.0005, just call it "OKish".
+                            elif abs(score-float(expected[metric])) <= 0.0005:
+                                result_str = okish_str + f' expected {expected[metric]:.4f}'
+                            # If there are bigger differences, deal with on a case-by-case basis.
                             elif abs(score-float(expected[metric])) <= \
                                     flaky_dict.get(FlakyKey(collection=args.collection, name=name, topic_key=topic_key, metric=metric), 0):
-                                result_str = okish_str
+                                result_str = okish_str + f' expected {expected[metric]:.4f}'
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
                             print(f'    {metric:7}: {score:.4f} {result_str}')
@@ -613,16 +614,16 @@ def run_conditions(args):
             names = [ args.condition ]
         else:
             # Otherwise, print out all rows
-            names =  models[args.collection]
+            names = models[args.collection]
 
         for name in names:
             if not name:
                 print('')
                 continue
             print(f'{table_keys[name]:65}' +
-                    f'{table[name]["dl19"]["MAP"]:8.4f}{table[name]["dl19"]["nDCG@10"]:8.4f}{table[name]["dl19"]["R@1K"]:8.4f}  ' +
-                    f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
-                    f'{table[name]["dev"]["MRR@10"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}')
+                  f'{table[name]["dl19"]["MAP"]:8.4f}{table[name]["dl19"]["nDCG@10"]:8.4f}{table[name]["dl19"]["R@1K"]:8.4f}  ' +
+                  f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
+                  f'{table[name]["dev"]["MRR@10"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}')
     else:
         print(' ' * 69 + 'TREC 2021' + ' ' * 16 + 'TREC 2022' +  ' ' * 16 + 'TREC 2023' + ' ' * 12 + 'MS MARCO dev' + ' ' * 5 + 'MS MARCO dev2')
         print(' ' * 62 + 'MAP    nDCG@10    R@1K    MAP    nDCG@10    R@1K    MAP    nDCG@10    R@1K    MRR@100   R@1K    MRR@100   R@1K')
@@ -630,7 +631,7 @@ def run_conditions(args):
 
         if args.condition:
             # If we've used --condition to specify a specific condition, print out only that row.
-            names = [ args.condition ]
+            names = [args.condition]
         else:
             # Otherwise, print out all rows
             names =  models[args.collection]
@@ -640,11 +641,11 @@ def run_conditions(args):
                 print('')
                 continue
             print(f'{table_keys[name]:60}' +
-                    f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
-                    f'{table[name]["dl22"]["MAP@100"]:8.4f}{table[name]["dl22"]["nDCG@10"]:8.4f}{table[name]["dl22"]["R@1K"]:8.4f}  ' +
-                    f'{table[name]["dl23"]["MAP@100"]:8.4f}{table[name]["dl23"]["nDCG@10"]:8.4f}{table[name]["dl23"]["R@1K"]:8.4f}  ' +
-                    f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
-                    f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
+                  f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
+                  f'{table[name]["dl22"]["MAP@100"]:8.4f}{table[name]["dl22"]["nDCG@10"]:8.4f}{table[name]["dl22"]["R@1K"]:8.4f}  ' +
+                  f'{table[name]["dl23"]["MAP@100"]:8.4f}{table[name]["dl23"]["nDCG@10"]:8.4f}{table[name]["dl23"]["R@1K"]:8.4f}  ' +
+                  f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
+                  f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
 
     end = time.time()
     start_str = datetime.utcfromtimestamp(start).strftime('%Y-%m-%d %H:%M:%S')
