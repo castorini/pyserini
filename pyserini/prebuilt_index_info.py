@@ -17,7 +17,7 @@
 TF_INDEX_INFO_MSMARCO = {
     # MS MARCO V1 document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v1-doc": {
-        "description": "Lucene index of the MS MARCO V1 document corpus. (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V1 document corpus.",
         "filename": "lucene-index.msmarco-v1-doc.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc.20221004.252b5e.README.md",
         "urls": [
@@ -31,7 +31,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-doc-slim": {
-        "description": "Lucene index of the MS MARCO V1 document corpus ('slim' version). (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V1 document corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v1-doc-slim.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc.20221004.252b5e.README.md",
         "urls": [
@@ -45,7 +45,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-doc-full": {
-        "description": "Lucene index of the MS MARCO V1 document corpus ('full' version). (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V1 document corpus ('full' version).",
         "filename": "lucene-index.msmarco-v1-doc-full.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc.20221004.252b5e.README.md",
         "urls": [
@@ -61,7 +61,7 @@ TF_INDEX_INFO_MSMARCO = {
 
     # MS MARCO V1 document corpus, doc2query-T5 expansions.
     "msmarco-v1-doc-d2q-t5": {
-        "description": "Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions. (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.README.md",
         "urls": [
@@ -75,7 +75,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-doc-d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V1 document corpus with doc2query-T5 expansions. (Lucene 9)",
+        "description": "Lucene index (+docvectors) of the MS MARCO V1 document corpus with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v1-doc-d2q-t5-docvectors.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.README.md",
         "urls": [
@@ -91,7 +91,7 @@ TF_INDEX_INFO_MSMARCO = {
 
     # MS MARCO V1 segmented document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v1-doc-segmented": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus. (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus.",
         "filename": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
         "urls": [
@@ -105,7 +105,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-doc-segmented-slim": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('slim' version). (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v1-doc-segmented-slim.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
         "urls": [
@@ -119,7 +119,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-doc-segmented-full": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('full' version). (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('full' version).",
         "filename": "lucene-index.msmarco-v1-doc-segmented-full.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
         "urls": [
@@ -135,7 +135,7 @@ TF_INDEX_INFO_MSMARCO = {
 
     # MS MARCO V1 segmented document corpus, doc2query-T5 expansions.
     "msmarco-v1-doc-segmented-d2q-t5": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions. (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.README.md",
         "urls": [
@@ -149,7 +149,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-doc-segmented-d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions. (Lucene 9)",
+        "description": "Lucene index (+docvectors) of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v1-doc-segmented-d2q-t5-docvectors.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.README.md",
         "urls": [
@@ -165,7 +165,7 @@ TF_INDEX_INFO_MSMARCO = {
 
     # MS MARCO V1 passage corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v1-passage": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus. (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V1 passage corpus.",
         "filename": "lucene-index.msmarco-v1-passage.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage.20221004.252b5e.README.md",
         "urls": [
@@ -179,7 +179,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage-slim": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus ('slim' version). (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V1 passage corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v1-passage-slim.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage.20221004.252b5e.README.md",
         "urls": [
@@ -193,7 +193,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage-full": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus ('full' version). (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V1 passage corpus ('full' version).",
         "filename": "lucene-index.msmarco-v1-passage-full.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage.20221004.252b5e.README.md",
         "urls": [
@@ -209,7 +209,7 @@ TF_INDEX_INFO_MSMARCO = {
 
     # MS MARCO V1 passage corpus, doc2query-T5 expansions.
     "msmarco-v1-passage-d2q-t5": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus with doc2query-T5 expansions. (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V1 passage corpus with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.README.md",
         "urls": [
@@ -223,7 +223,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage-d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V1 passage corpus with doc2query-T5 expansions. (Lucene 9)",
+        "description": "Lucene index (+docvectors) of the MS MARCO V1 passage corpus with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20221004.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.README.md",
         "urls": [
@@ -283,7 +283,7 @@ TF_INDEX_INFO_MSMARCO = {
 
     # MS MARCO V2 document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-doc": {
-        "description": "Lucene index of the MS MARCO V2 document corpus. (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 document corpus.",
         "filename": "lucene-index.msmarco-v2-doc.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc.20220808.4d6d2a.README.md",
         "urls": [
@@ -297,7 +297,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-doc-slim": {
-        "description": "Lucene index of the MS MARCO V2 document corpus ('slim' version). (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 document corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v2-doc-slim.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc.20220808.4d6d2a.README.md",
         "urls": [
@@ -311,7 +311,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-doc-full": {
-        "description": "Lucene index of the MS MARCO V2 document corpus ('full' version). (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 document corpus ('full' version).",
         "filename": "lucene-index.msmarco-v2-doc-full.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc.20220808.4d6d2a.README.md",
         "urls": [
@@ -327,7 +327,7 @@ TF_INDEX_INFO_MSMARCO = {
 
     # MS MARCO V2 document corpus, doc2query-T5 expansions.
     "msmarco-v2-doc-d2q-t5": {
-        "description": "Lucene index of the MS MARCO V2 document corpus with doc2query-T5 expansions. (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 document corpus with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v2-doc-d2q-t5.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
@@ -341,7 +341,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-doc-d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V2 document corpus with doc2query-T5 expansions. (Lucene 9)",
+        "description": "Lucene index (+docvectors) of the MS MARCO V2 document corpus with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v2-doc-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
@@ -357,7 +357,7 @@ TF_INDEX_INFO_MSMARCO = {
 
     # MS MARCO V2 segmented document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-doc-segmented": {
-        "description": "Lucene index of the MS MARCO V2 segmented document corpus. (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus.",
         "filename": "lucene-index.msmarco-v2-doc-segmented.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md",
         "urls": [
@@ -371,7 +371,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-doc-segmented-slim": {
-        "description": "Lucene index of the MS MARCO V2 segmented document corpus ('slim' version). (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v2-doc-segmented-slim.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md",
         "urls": [
@@ -385,7 +385,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-doc-segmented-full": {
-        "description": "Lucene index of the MS MARCO V2 segmented document corpus ('full' version). (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus ('full' version).",
         "filename": "lucene-index.msmarco-v2-doc-segmented-full.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md",
         "urls": [
@@ -401,7 +401,7 @@ TF_INDEX_INFO_MSMARCO = {
 
     # MS MARCO V2 segmented document corpus, doc2query-T5 expansions.
     "msmarco-v2-doc-segmented-d2q-t5": {
-        "description": "Lucene index of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions. (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
@@ -415,7 +415,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-doc-segmented-d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions. (Lucene 9)",
+        "description": "Lucene index (+docvectors) of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v2-doc-segmented-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
@@ -431,7 +431,7 @@ TF_INDEX_INFO_MSMARCO = {
 
     # MS MARCO V2 passage corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-passage": {
-        "description": "Lucene index of the MS MARCO V2 passage corpus. (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 passage corpus.",
         "filename": "lucene-index.msmarco-v2-passage.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage.20220808.4d6d2a.README.md",
         "urls": [
@@ -445,7 +445,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-passage-slim": {
-        "description": "Lucene index of the MS MARCO V2 passage corpus ('slim' version). (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 passage corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v2-passage-slim.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage.20220808.4d6d2a.README.md",
         "urls": [
@@ -459,7 +459,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-passage-full": {
-        "description": "Lucene index of the MS MARCO V2 passage corpus ('full' version). (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 passage corpus ('full' version).",
         "filename": "lucene-index.msmarco-v2-passage-full.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage.20220808.4d6d2a.README.md",
         "urls": [
@@ -475,7 +475,7 @@ TF_INDEX_INFO_MSMARCO = {
 
     # MS MARCO V2 passage corpus, doc2query-T5 expansions.
     "msmarco-v2-passage-d2q-t5": {
-        "description": "Lucene index of the MS MARCO V2 passage corpus with doc2query-T5 expansions. (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 passage corpus with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v2-passage-d2q-t5.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
@@ -489,7 +489,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-passage-d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V2 passage corpus with doc2query-T5 expansions. (Lucene 9)",
+        "description": "Lucene index (+docvectors) of the MS MARCO V2 passage corpus with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v2-passage-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
@@ -505,7 +505,7 @@ TF_INDEX_INFO_MSMARCO = {
 
     # MS MARCO V2 augmented passage corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-passage-augmented": {
-        "description": "Lucene index of the MS MARCO V2 augmented passage corpus. (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 augmented passage corpus.",
         "filename": "lucene-index.msmarco-v2-passage-augmented.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md",
         "urls": [
@@ -519,7 +519,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-passage-augmented-slim": {
-        "description": "Lucene index of the MS MARCO V2 augmented passage corpus ('slim' version). (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 augmented passage corpus ('slim' version).",
         "filename": "lucene-index.msmarco-v2-passage-augmented-slim.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md",
         "urls": [
@@ -533,7 +533,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-passage-augmented-full": {
-        "description": "Lucene index of the MS MARCO V2 augmented passage corpus ('full' version). (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 augmented passage corpus ('full' version).",
         "filename": "lucene-index.msmarco-v2-passage-augmented-full.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md",
         "urls": [
@@ -549,7 +549,7 @@ TF_INDEX_INFO_MSMARCO = {
 
     # MS MARCO V2 augmented passage corpus, doc2query-T5 expansions.
     "msmarco-v2-passage-augmented-d2q-t5": {
-        "description": "Lucene index of the MS MARCO V2 augmented passage corpus with doc2query-T5 expansions. (Lucene 9)",
+        "description": "Lucene index of the MS MARCO V2 augmented passage corpus with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
@@ -563,7 +563,7 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-passage-augmented-d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V2 augmented passage corpus with doc2query-T5 expansions. (Lucene 9)",
+        "description": "Lucene index (+docvectors) of the MS MARCO V2 augmented passage corpus with doc2query-T5 expansions.",
         "filename": "lucene-index.msmarco-v2-passage-augmented-d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220808.4d6d2a.README.md",
         "urls": [
@@ -1934,7 +1934,7 @@ TF_INDEX_INFO_CIRAL = {
 
 TF_INDEX_INFO_OTHER = {
     "cacm": {
-        "description": "Lucene index of the CACM corpus. (Lucene 9)",
+        "description": "Lucene index of the CACM corpus.",
         "filename": "lucene-index.cacm.tar.gz",
         "urls": [
             "https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.20221005.252b5e.tar.gz",
@@ -1946,7 +1946,7 @@ TF_INDEX_INFO_OTHER = {
         "unique_terms": 14363,
     },
     "robust04": {
-        "description": "Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track. (Lucene 9)",
+        "description": "Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track.",
         "filename": "lucene-index.robust04.20221005.252b5e.tar.gz",
         "readme": "lucene-index.robust04.20221005.252b5e.README.md",
         "urls": [
@@ -2272,7 +2272,7 @@ TF_INDEX_INFO_OTHER = {
     },
 
     "hc4-v1.0-fa": {
-        "description": "Lucene index for HC4 v1.0 (Persian). (Lucene 9)",
+        "description": "Lucene index for HC4 v1.0 (Persian).",
         "filename": "lucene-index.hc4-v1.0-fa.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.hc4-v1.0.20221025.c4a8d0.README.md",
         "urls": [
@@ -2286,7 +2286,7 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
     "hc4-v1.0-ru": {
-        "description": "Lucene index for HC4 v1.0 (Russian). (Lucene 9)",
+        "description": "Lucene index for HC4 v1.0 (Russian).",
         "filename": "lucene-index.hc4-v1.0-ru.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.hc4-v1.0.20221025.c4a8d0.README.md",
         "urls": [
@@ -2300,7 +2300,7 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
     "hc4-v1.0-zh": {
-        "description": "Lucene index for HC4 v1.0 (Chinese). (Lucene 9)",
+        "description": "Lucene index for HC4 v1.0 (Chinese).",
         "filename": "lucene-index.hc4-v1.0-zh.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.hc4-v1.0.20221025.c4a8d0.README.md",
         "urls": [
@@ -2314,7 +2314,7 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
     "neuclir22-fa": {
-        "description": "Lucene index for NeuCLIR 2022 corpus (Persian). (Lucene 9)",
+        "description": "Lucene index for NeuCLIR 2022 corpus (Persian).",
         "filename": "lucene-index.neuclir22-fa.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.neuclir22.20221025.c4a8d0.README.md",
         "urls": [
@@ -2328,7 +2328,7 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
     "neuclir22-ru": {
-        "description": "Lucene index for NeuCLIR 2022 corpus (Russian). (Lucene 9)",
+        "description": "Lucene index for NeuCLIR 2022 corpus (Russian).",
         "filename": "lucene-index.neuclir22-ru.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.neuclir22.20221025.c4a8d0.README.md",
         "urls": [
@@ -2342,7 +2342,7 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
     "neuclir22-zh": {
-        "description": "Lucene index for NeuCLIR 2022 corpus (Chinese). (Lucene 9)",
+        "description": "Lucene index for NeuCLIR 2022 corpus (Chinese).",
         "filename": "lucene-index.neuclir22-zh.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.neuclir22.20221025.c4a8d0.README.md",
         "urls": [
@@ -2356,7 +2356,7 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
     "neuclir22-fa-en": {
-        "description": "Lucene index for NeuCLIR 2022 corpus (official English translation from Persian). (Lucene 9)",
+        "description": "Lucene index for NeuCLIR 2022 corpus (official English translation from Persian).",
         "filename": "lucene-index.neuclir22-fa-en.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.neuclir22-en.20221025.c4a8d0.README.md",
         "urls": [
@@ -2370,7 +2370,7 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
     "neuclir22-ru-en": {
-        "description": "Lucene index for NeuCLIR 2022 corpus (official English translation from Russian). (Lucene 9)",
+        "description": "Lucene index for NeuCLIR 2022 corpus (official English translation from Russian).",
         "filename": "lucene-index.neuclir22-ru-en.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.neuclir22-en.20221025.c4a8d0.README.md",
         "urls": [
@@ -2384,7 +2384,7 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
     "neuclir22-zh-en": {
-        "description": "Lucene index for NeuCLIR 2022 corpus (official English translation from Chinese). (Lucene 9)",
+        "description": "Lucene index for NeuCLIR 2022 corpus (official English translation from Chinese).",
         "filename": "lucene-index.neuclir22-zh-en.20221025.c4a8d0.tar.gz",
         "readme": "lucene-index.neuclir22-en.20221025.c4a8d0.README.md",
         "urls": [
@@ -2398,7 +2398,7 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
     "atomic_text_v0.2.1_small_validation": {
-        "description": "Lucene index for AToMiC Text v0.2.1 small setting on validation set (Lucene 9)",
+        "description": "Lucene index for AToMiC Text v0.2.1 small setting on validation set",
         "filename": "lucene-index.atomic.image.flat.small.validation.tar.gz",
         "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
         "urls": [
@@ -2412,7 +2412,7 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
     "atomic_text_v0.2.1_base": {
-        "description": "Lucene index for AToMiC Text v0.2.1 base setting on validation set (Lucene 9)",
+        "description": "Lucene index for AToMiC Text v0.2.1 base setting on validation set",
         "filename": "lucene-index.atomic.image.flat.base.tar.gz",
         "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
         "urls": [
@@ -2426,7 +2426,7 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
     "atomic_text_v0.2.1_large": {
-        "description": "Lucene index for AToMiC Text v0.2.1 large setting on validation set (Lucene 9)",
+        "description": "Lucene index for AToMiC Text v0.2.1 large setting on validation set",
         "filename": "lucene-index.atomic.image.flat.large.tar.gz",
         "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
         "urls": [
@@ -2440,7 +2440,7 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
     "atomic_image_v0.2_small_validation": {
-        "description": "Lucene index for AToMiC Images v0.2 small setting on validation set (Lucene 9)",
+        "description": "Lucene index for AToMiC Images v0.2 small setting on validation set",
         "filename": "lucene-index.atomic.image.flat.small.validation.tar.gz",
         "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
         "urls": [
@@ -2454,7 +2454,7 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
     "atomic_image_v0.2_base": {
-        "description": "Lucene index for AToMiC Images v0.2 base setting on validation set (Lucene 9)",
+        "description": "Lucene index for AToMiC Images v0.2 base setting on validation set",
         "filename": "lucene-index.atomic.image.flat.base.tar.gz",
         "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
         "urls": [
@@ -2468,7 +2468,7 @@ TF_INDEX_INFO_OTHER = {
         "downloaded": False
     },
     "atomic_image_v0.2_large": {
-        "description": "Lucene index for AToMiC Images v0.2 large setting on validation set (Lucene 9)",
+        "description": "Lucene index for AToMiC Images v0.2 large setting on validation set",
         "filename": "lucene-index.atomic.image.flat.large.tar.gz",
         "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
         "urls": [
@@ -2492,7 +2492,7 @@ TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
 
 IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage-slimr": {
-        "description": "Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with BM25 negatives. (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with BM25 negatives.",
         "filename": "lucene-index.msmarco-v1-passage-slimr.20230925.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-slimr.20230925.md",
         "urls": [
@@ -2506,7 +2506,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage-slimr-pp": {
-        "description": "Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with cross-encoder distillation and hardnegative mining. (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with cross-encoder distillation and hardnegative mining.",
         "filename": "lucene-index.msmarco-v1-passage-slimr-pp.20230925.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-slimr-pp.20230925.md",
         "urls": [
@@ -2520,7 +2520,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage-unicoil": {
-        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL. (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL.",
         "filename": "lucene-index.msmarco-v1-passage-unicoil.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-unicoil.20221005.252b5e.README.md",
         "urls": [
@@ -2534,7 +2534,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage-unicoil-noexp": {
-        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL (noexp). (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL (noexp).",
         "filename": "lucene-index.msmarco-v1-passage-unicoil-noexp.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-unicoil-noexp.20221005.252b5e.README.md",
         "urls": [
@@ -2548,7 +2548,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage-deepimpact": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by DeepImpact. (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by DeepImpact.",
         "filename": "lucene-index.msmarco-v1-passage-deepimpact.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-deepimpact.20221005.252b5e.README.md",
         "urls": [
@@ -2562,7 +2562,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage-unicoil-tilde": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-TILDE. (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-TILDE.",
         "filename": "lucene-index.msmarco-v1-passage-unicoil-tilde.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-unicoil-tilde.20221005.252b5e.README.md",
         "urls": [
@@ -2576,7 +2576,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage-distill-splade-max": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by distill-splade-max. (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by distill-splade-max.",
         "filename": "lucene-index.msmarco-v1-passage-distill-splade-max.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-distill-splade-max.20221005.252b5e.README.md",
         "urls": [
@@ -2591,7 +2591,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
     },
 
     "msmarco-v1-passage-splade-pp-ed": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil. (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil.",
         "filename": "lucene-index.msmarco-v1-passage-splade-pp-ed.20230524.a59610.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
         "urls": [
@@ -2605,7 +2605,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage-splade-pp-ed-docvectors": {
-        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil. (Lucene 9)",
+        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil.",
         "filename": "lucene-index.msmarco-v1-passage-splade-pp-ed-docvectors.20230524.a59610.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
         "urls": [
@@ -2619,7 +2619,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage-splade-pp-ed-text": {
-        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil. (Lucene 9)",
+        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil.",
         "filename": "lucene-index.msmarco-v1-passage-splade-pp-ed-text.20230524.a59610.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
         "urls": [
@@ -2633,7 +2633,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage-splade-pp-sd": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil. (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.",
         "filename": "lucene-index.msmarco-v1-passage-splade-pp-sd.20230524.a59610.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
         "urls": [
@@ -2647,7 +2647,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage-splade-pp-sd-docvectors": {
-        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil. (Lucene 9)",
+        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.",
         "filename": "lucene-index.msmarco-v1-passage-splade-pp-sd-docvectors.20230524.a59610.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
         "urls": [
@@ -2661,7 +2661,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage-splade-pp-sd-text": {
-        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil. (Lucene 9)",
+        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.",
         "filename": "lucene-index.msmarco-v1-passage-splade-pp-sd-text.20230524.a59610.tar.gz",
         "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
         "urls": [
@@ -2676,7 +2676,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
     },
 
     "msmarco-v1-doc-segmented-unicoil": {
-        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL, with title/segment encoding. (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL, with title/segment encoding.",
         "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil.20221005.252b5e.README.md",
         "urls": [
@@ -2690,7 +2690,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-doc-segmented-unicoil-noexp": {
-        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp), with title/segment encoding. (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp), with title/segment encoding.",
         "filename": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20221005.252b5e.README.md",
         "urls": [
@@ -2705,7 +2705,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
     },
 
     "msmarco-v2-passage-unicoil-0shot": {
-        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL. (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL.",
         "filename": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-unicoil-0shot.20220808.4d6d2a.README.md",
         "urls": [
@@ -2719,7 +2719,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-passage-unicoil-noexp-0shot": {
-        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL (noexp). (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL (noexp).",
         "filename": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220808.4d6d2a.README.md",
         "urls": [
@@ -2733,7 +2733,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-passage-slimr-pp-norefine-0shot": {
-        "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by SLIM (norefine) trained with cross-encoder distillation and hard-negative mining. (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by SLIM (norefine) trained with cross-encoder distillation and hard-negative mining.",
         "filename": "lucene-index.msmarco-v2-passage-slimr-pp.20230614.tar.gz",
         "readme": "lucene-index.msmarco-v2-passage-slimr-pp.20230614.md",
         "urls": [
@@ -2747,7 +2747,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-doc-segmented-unicoil-0shot": {
-        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL, with title prepended. (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL, with title prepended.",
         "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220808.4d6d2a.README.md",
         "urls": [
@@ -2761,7 +2761,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v2-doc-segmented-unicoil-noexp-0shot": {
-        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended. (Lucene 9)",
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended.",
         "filename": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220808.4d6d2a.tar.gz",
         "readme": "lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220808.4d6d2a.README.md",
         "urls": [
@@ -3184,7 +3184,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "unique_terms": 17486,
         "downloaded": False
     },
-        "beir-v1.0.0-arguana.splade-pp-ed": {
+    "beir-v1.0.0-arguana.splade-pp-ed": {
         "description": "Lucene impact index of BEIR (v1.0.0): ArguAna encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
         "filename": "lucene-index.beir-v1.0.0-arguana.splade-pp-ed.20231124.a66f86f.tar.gz",
         "readme": "lucene-index.beir-v1.0.0-arguana.splade-pp-ed.20231124.a66f86f.README.md",
@@ -4575,7 +4575,7 @@ FAISS_INDEX_INFO_BEIR = {
         "downloaded": False,
         "texts": "beir-v1.0.0-scifact.flat",
     },
-        # BEIR (v1.0.0) bge-base-en-v1.5 indexes
+    # BEIR (v1.0.0) bge-base-en-v1.5 indexes
     "beir-v1.0.0-trec-covid.bge-base-en-v1.5": {
         "description": "Faiss index for BEIR v1.0.0 (TREC-COVID) corpus encoded by BGE-base-en-v1.5 encoder.",
         "filename": "faiss.beir-v1.0.0-trec-covid.bge-base-en-v1.5.20240107.tar.gz",
@@ -6716,7 +6716,7 @@ FAISS_INDEX_INFO_OTHER = {
         "downloaded": False,
         "texts": "atomic_image_v0.2_small_validation"
     },
-     "atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.base": {
+    "atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.base": {
         "description": "Faiss index for AToMiC Texts v0.2.1 on base corpus encoded by laion/CLIP-ViT-L-14-laion2B-s32B-b82K",
         "filename": "ViT-L-14.laion2b_s32b_b82k.text.base.faiss.flat.tar.gz",
         "readme": "faiss.atomic.ViT-L-14.laion2b_s32b_b82k.20230621.83e97fc.README.md",
