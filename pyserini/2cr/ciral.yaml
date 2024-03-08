@@ -201,7 +201,7 @@ conditions:
 # afriberta-pft-msmarco-ft-mrtydi-latin
   - name: afriberta-pft-msmarco-ft-mrtydi.ha
     eval_key: ciral-v1.0-ha
-    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --topics ciral-v1.0-ha-${split} --index ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-mrtydi --output $output --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi --topics ciral-v1.0-ha-${split} --index ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: test-a
         scores:
@@ -217,7 +217,7 @@ conditions:
             R@100: 0.3900
   - name: afriberta-pft-msmarco-ft-mrtydi.so
     eval_key: ciral-v1.0-so
-    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --topics ciral-v1.0-so-${split} --index ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-mrtydi --output $output --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi --topics ciral-v1.0-so-${split} --index ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: test-a
         scores:
@@ -233,7 +233,7 @@ conditions:
             R@100: 0.3558
   - name: afriberta-pft-msmarco-ft-mrtydi.sw
     eval_key: ciral-v1.0-sw
-    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --topics ciral-v1.0-sw-${split} --index ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-mrtydi --output $output --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi --topics ciral-v1.0-sw-${split} --index ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: test-a
         scores:
@@ -249,7 +249,7 @@ conditions:
             R@100: 0.4608
   - name: afriberta-pft-msmarco-ft-mrtydi.yo
     eval_key: ciral-v1.0-yo
-    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --topics ciral-v1.0-yo-${split} --index ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-mrtydi --output $output --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi --topics ciral-v1.0-yo-${split} --index ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --output $output --batch 128 --threads 16 --hits 1000
     splits:
       - split: test-a
         scores:

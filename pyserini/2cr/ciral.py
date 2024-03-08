@@ -52,8 +52,8 @@ html_display = OrderedDict()
 html_display['bm25-qt'] = 'BM25 Human QT'
 html_display['bm25-dt'] = 'BM25 Machine DT'
 html_display['mdpr-tied-pft-msmarco'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO'
-html_display['afriberta-pft-msmarco-ft-mrtydi'] = 'Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi'
-html_display['bm25-dt-afriberta-dpr-fusion'] = 'RRF Fusion of BM25 Machine DT and Afriberta-DPR'
+html_display['afriberta-pft-msmarco-ft-mrtydi'] = 'AfriBERTa, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi'
+html_display['bm25-dt-afriberta-dpr-fusion'] = 'RRF Fusion of BM25 Machine DT and AfriBERTa-DPR'
 
 models = list(html_display)
 
@@ -100,10 +100,10 @@ def print_results(table, metric, split):
     print(f'Metric = {metric}, Split = {split}')
     print(' ' * 32, end='')
     for lang in languages:
-        print(f'{lang[1]:3}    ', end='')
+        print(f' {lang[1]:4}   ', end='')
     print('')
     for model in models:
-        print(f'{model:30}', end='')
+        print(f'{model:32}', end='')
         for lang in languages:
             key = f'{model}.{lang[0]}'
             print(f'{table[key][split][metric]:7.4f}', end='   ')
