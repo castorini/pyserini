@@ -52,8 +52,8 @@ html_display = OrderedDict()
 html_display['bm25-qt'] = 'BM25 Human QT'
 html_display['bm25-dt'] = 'BM25 Machine DT'
 html_display['mdpr-tied-pft-msmarco'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO'
-html_display['afriberta-pft-msmarco-ft-mrtydi'] = 'Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi'
-html_display['bm25-dt-afriberta-dpr-fusion'] = 'RRF Fusion of BM25 Machine DT and Afriberta-DPR'
+html_display['afriberta-pft-msmarco-ft-mrtydi'] = 'AfriBERTa, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi'
+html_display['bm25-dt-afriberta-dpr-fusion'] = 'RRF Fusion of BM25 Machine DT and AfriBERTa-DPR'
 
 models = list(html_display)
 

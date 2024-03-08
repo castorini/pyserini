@@ -145,7 +145,7 @@ pre[class*="prettyprint"] {
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col">nDCG@20, Test Set B</th>
+        <th scope="col">nDCG@20, Test Set A (Pools)</th>
         <th scope="col">Hausa</th>
         <th scope="col">Somali</th>
         <th scope="col">Swahili</th>
@@ -160,12 +160,12 @@ pre[class*="prettyprint"] {
 <tr class="accordion-toggle collapsed" id="table1-row1" data-toggle="collapse" data-parent="#table1-row1" href="#table1-collapse1">
 <td class="expand-button"></td>
 <td>BM25 Human QT</td>
-<td>0.2121</td>
-<td>0.1725</td>
-<td>0.1727</td>
-<td>0.3459</td>
+<td>0.1161</td>
+<td>0.1232</td>
+<td>0.1500</td>
+<td>0.3118</td>
 <td></td>
-<td>0.2258</td>
+<td>0.1753</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -198,17 +198,16 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language ha \
-  --topics ciral-v1.0-ha-test-b-native \
+  --topics ciral-v1.0-ha-test-a-pools-native \
   --index ciral-v1.0-ha \
-  --output run.ciral.bm25-qt.ha.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --output run.ciral.bm25-qt.ha.test-a-pools.txt --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-ha-test-b \
-  run.ciral.bm25-qt.ha.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-ha-test-a-pools \
+  run.ciral.bm25-qt.ha.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -218,17 +217,17 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language so \
-  --topics ciral-v1.0-so-test-b-native \
+  --topics ciral-v1.0-so-test-a-pools-native \
   --index ciral-v1.0-so \
-  --output run.ciral.bm25-qt.so.test-b.txt \
+  --output run.ciral.bm25-qt.so.test-a-pools.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-so-test-b \
-  run.ciral.bm25-qt.so.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-so-test-a-pools \
+  run.ciral.bm25-qt.so.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -238,17 +237,17 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language sw \
-  --topics ciral-v1.0-sw-test-b-native \
+  --topics ciral-v1.0-sw-test-a-pools-native \
   --index ciral-v1.0-sw \
-  --output run.ciral.bm25-qt.sw.test-b.txt \
+  --output run.ciral.bm25-qt.sw.test-a-pools.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-sw-test-b \
-  run.ciral.bm25-qt.sw.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-sw-test-a-pools \
+  run.ciral.bm25-qt.sw.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -258,17 +257,17 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language yo \
-  --topics ciral-v1.0-yo-test-b-native \
+  --topics ciral-v1.0-yo-test-a-pools-native \
   --index ciral-v1.0-yo \
-  --output run.ciral.bm25-qt.yo.test-b.txt \
+  --output run.ciral.bm25-qt.yo.test-a-pools.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-yo-test-b \
-  run.ciral.bm25-qt.yo.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-yo-test-a-pools \
+  run.ciral.bm25-qt.yo.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -282,12 +281,12 @@ Evaluation commands:
 <tr class="accordion-toggle collapsed" id="table1-row2" data-toggle="collapse" data-parent="#table1-row2" href="#table1-collapse2">
 <td class="expand-button"></td>
 <td>BM25 Machine DT</td>
-<td>0.2124</td>
-<td>0.2186</td>
-<td>0.2582</td>
-<td>0.3700</td>
+<td>0.2142</td>
+<td>0.2461</td>
+<td>0.2327</td>
+<td>0.4451</td>
 <td></td>
-<td>0.2648</td>
+<td>0.2845</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -319,17 +318,17 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --topics ciral-v1.0-ha-test-b \
+  --topics ciral-v1.0-ha-test-a-pools \
   --index ciral-v1.0-ha-en \
-  --output run.ciral.bm25-dt.ha.test-b.txt \
+  --output run.ciral.bm25-dt.ha.test-a-pools.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-ha-test-b \
-  run.ciral.bm25-dt.ha.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-ha-test-a-pools \
+  run.ciral.bm25-dt.ha.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -338,17 +337,17 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --topics ciral-v1.0-so-test-b \
+  --topics ciral-v1.0-so-test-a-pools \
   --index ciral-v1.0-so-en \
-  --output run.ciral.bm25-dt.so.test-b.txt \
+  --output run.ciral.bm25-dt.so.test-a-pools.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-so-test-b \
-  run.ciral.bm25-dt.so.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-so-test-a-pools \
+  run.ciral.bm25-dt.so.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -357,17 +356,17 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --topics ciral-v1.0-sw-test-b \
+  --topics ciral-v1.0-sw-test-a-pools \
   --index ciral-v1.0-sw-en \
-  --output run.ciral.bm25-dt.sw.test-b.txt \
+  --output run.ciral.bm25-dt.sw.test-a-pools.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-sw-test-b \
-  run.ciral.bm25-dt.sw.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-sw-test-a-pools \
+  run.ciral.bm25-dt.sw.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -376,17 +375,17 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --topics ciral-v1.0-yo-test-b \
+  --topics ciral-v1.0-yo-test-a-pools \
   --index ciral-v1.0-yo-en \
-  --output run.ciral.bm25-dt.yo.test-b.txt \
+  --output run.ciral.bm25-dt.yo.test-a-pools.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-yo-test-b \
-  run.ciral.bm25-dt.yo.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-yo-test-a-pools \
+  run.ciral.bm25-dt.yo.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -400,12 +399,12 @@ Evaluation commands:
 <tr class="accordion-toggle collapsed" id="table1-row3" data-toggle="collapse" data-parent="#table1-row3" href="#table1-collapse3">
 <td class="expand-button"></td>
 <td>mDPR (tied encoders), pre-FT w/ MS MARCO</td>
-<td>0.0397</td>
-<td>0.0635</td>
-<td>0.1227</td>
-<td>0.1458</td>
+<td>0.0472</td>
+<td>0.0621</td>
+<td>0.1556</td>
+<td>0.1819</td>
 <td></td>
-<td>0.0929</td>
+<td>0.1117</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -439,17 +438,17 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics ciral-v1.0-ha-test-b \
+  --topics ciral-v1.0-ha-test-a-pools \
   --index ciral-v1.0-ha-mdpr-tied-pft-msmarco \
-  --output run.ciral.mdpr-tied-pft-msmarco.ha.test-b.txt \
+  --output run.ciral.mdpr-tied-pft-msmarco.ha.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-ha-test-b \
-  run.ciral.mdpr-tied-pft-msmarco.ha.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-ha-test-a-pools \
+  run.ciral.mdpr-tied-pft-msmarco.ha.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -460,17 +459,17 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics ciral-v1.0-so-test-b \
+  --topics ciral-v1.0-so-test-a-pools \
   --index ciral-v1.0-so-mdpr-tied-pft-msmarco \
-  --output run.ciral.mdpr-tied-pft-msmarco.so.test-b.txt \
+  --output run.ciral.mdpr-tied-pft-msmarco.so.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-so-test-b \
-  run.ciral.mdpr-tied-pft-msmarco.so.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-so-test-a-pools \
+  run.ciral.mdpr-tied-pft-msmarco.so.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -481,17 +480,17 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics ciral-v1.0-sw-test-b \
+  --topics ciral-v1.0-sw-test-a-pools \
   --index ciral-v1.0-sw-mdpr-tied-pft-msmarco \
-  --output run.ciral.mdpr-tied-pft-msmarco.sw.test-b.txt \
+  --output run.ciral.mdpr-tied-pft-msmarco.sw.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-sw-test-b \
-  run.ciral.mdpr-tied-pft-msmarco.sw.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-sw-test-a-pools \
+  run.ciral.mdpr-tied-pft-msmarco.sw.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -502,17 +501,17 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics ciral-v1.0-yo-test-b \
+  --topics ciral-v1.0-yo-test-a-pools \
   --index ciral-v1.0-yo-mdpr-tied-pft-msmarco \
-  --output run.ciral.mdpr-tied-pft-msmarco.yo.test-b.txt \
+  --output run.ciral.mdpr-tied-pft-msmarco.yo.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-yo-test-b \
-  run.ciral.mdpr-tied-pft-msmarco.yo.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-yo-test-a-pools \
+  run.ciral.mdpr-tied-pft-msmarco.yo.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -522,16 +521,16 @@ Evaluation commands:
 </div></td>
 </tr>
 
-<!-- Condition: Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi -->
+<!-- Condition: AfriBERTa, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi -->
 <tr class="accordion-toggle collapsed" id="table1-row4" data-toggle="collapse" data-parent="#table1-row4" href="#table1-collapse4">
 <td class="expand-button"></td>
-<td>Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi</td>
-<td>0.2028</td>
-<td>0.1682</td>
-<td>0.2166</td>
-<td>0.1157</td>
+<td>AfriBERTa, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi</td>
+<td>0.1726</td>
+<td>0.1345</td>
+<td>0.1602</td>
+<td>0.0916</td>
 <td></td>
-<td>0.1758</td>
+<td>0.1397</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -564,18 +563,18 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
-  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
-  --topics ciral-v1.0-ha-test-b \
-  --index ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-mrtydi \
-  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt \
+  --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-ha-test-a-pools \
+  --index ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-ha-test-b \
-  run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-ha-test-a-pools \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -585,18 +584,18 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
-  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
-  --topics ciral-v1.0-so-test-b \
-  --index ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-mrtydi \
-  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt \
+  --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-so-test-a-pools \
+  --index ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-so-test-b \
-  run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-so-test-a-pools \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -606,18 +605,18 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
-  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
-  --topics ciral-v1.0-sw-test-b \
-  --index ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-mrtydi \
-  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt \
+  --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-sw-test-a-pools \
+  --index ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-sw-test-b \
-  run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-sw-test-a-pools \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -627,18 +626,18 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
-  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
-  --topics ciral-v1.0-yo-test-b \
-  --index ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-mrtydi \
-  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt \
+  --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-yo-test-a-pools \
+  --index ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-yo-test-b \
-  run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-yo-test-a-pools \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -648,16 +647,16 @@ Evaluation commands:
 </div></td>
 </tr>
 
-<!-- Condition: RRF Fusion of BM25 Machine DT and Afriberta-DPR -->
+<!-- Condition: RRF Fusion of BM25 Machine DT and AfriBERTa-DPR -->
 <tr class="accordion-toggle collapsed" id="table1-row5" data-toggle="collapse" data-parent="#table1-row5" href="#table1-collapse5">
 <td class="expand-button"></td>
-<td>RRF Fusion of BM25 Machine DT and Afriberta-DPR</td>
-<td>0.2935</td>
-<td>0.2878</td>
-<td>0.3187</td>
-<td>0.3435</td>
+<td>RRF Fusion of BM25 Machine DT and AfriBERTa-DPR</td>
+<td>0.3108</td>
+<td>0.2860</td>
+<td>0.2821</td>
+<td>0.3832</td>
 <td></td>
-<td>0.3109</td>
+<td>0.3155</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -689,16 +688,16 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.ha.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt \
+  --runs  run.ciral.bm25-dt.ha.test-a-pools.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-a-pools.txt \
   --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
-  --output run.ciral.bm25-dt-afriberta-dpr-fusion.ha.test-b.txt
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.ha.test-a-pools.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-ha-test-b \
-  run.ciral.bm25-dt-afriberta-dpr-fusion.ha.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-ha-test-a-pools \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.ha.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -707,16 +706,16 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.so.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt \
+  --runs  run.ciral.bm25-dt.so.test-a-pools.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-a-pools.txt \
   --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
-  --output run.ciral.bm25-dt-afriberta-dpr-fusion.so.test-b.txt
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.so.test-a-pools.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-so-test-b \
-  run.ciral.bm25-dt-afriberta-dpr-fusion.so.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-so-test-a-pools \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.so.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -725,16 +724,16 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.sw.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt \
+  --runs  run.ciral.bm25-dt.sw.test-a-pools.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-a-pools.txt \
   --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
-  --output run.ciral.bm25-dt-afriberta-dpr-fusion.sw.test-b.txt
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.sw.test-a-pools.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-sw-test-b \
-  run.ciral.bm25-dt-afriberta-dpr-fusion.sw.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-sw-test-a-pools \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.sw.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -743,16 +742,16 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.yo.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt \
+  --runs  run.ciral.bm25-dt.yo.test-a-pools.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-a-pools.txt \
   --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
-  --output run.ciral.bm25-dt-afriberta-dpr-fusion.yo.test-b.txt
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.yo.test-a-pools.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.20 ciral-v1.0-yo-test-b \
-  run.ciral.bm25-dt-afriberta-dpr-fusion.yo.test-b.txt</code></pre>
+  -c -m ndcg_cut.20 ciral-v1.0-yo-test-a-pools \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.yo.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -771,7 +770,7 @@ Evaluation commands:
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col">Recall@100, Test Set B</th>
+        <th scope="col">Recall@100, Test Set A (Pools)</th>
         <th scope="col">Hausa</th>
         <th scope="col">Somali</th>
         <th scope="col">Swahili</th>
@@ -786,12 +785,12 @@ Evaluation commands:
 <tr class="accordion-toggle collapsed" id="table3-row1" data-toggle="collapse" data-parent="#table3-row1" href="#table3-collapse1">
 <td class="expand-button"></td>
 <td>BM25 Human QT</td>
-<td>0.3800</td>
-<td>0.3479</td>
-<td>0.4166</td>
-<td>0.6434</td>
+<td>0.1916</td>
+<td>0.1923</td>
+<td>0.2430</td>
+<td>0.4899</td>
 <td></td>
-<td>0.4470</td>
+<td>0.2792</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -824,17 +823,16 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language ha \
-  --topics ciral-v1.0-ha-test-b-native \
+  --topics ciral-v1.0-ha-test-a-pools-native \
   --index ciral-v1.0-ha \
-  --output run.ciral.bm25-qt.ha.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --output run.ciral.bm25-qt.ha.test-a-pools.txt --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-ha-test-b \
-  run.ciral.bm25-qt.ha.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-ha-test-a-pools \
+  run.ciral.bm25-qt.ha.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -844,17 +842,17 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language so \
-  --topics ciral-v1.0-so-test-b-native \
+  --topics ciral-v1.0-so-test-a-pools-native \
   --index ciral-v1.0-so \
-  --output run.ciral.bm25-qt.so.test-b.txt \
+  --output run.ciral.bm25-qt.so.test-a-pools.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-so-test-b \
-  run.ciral.bm25-qt.so.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-so-test-a-pools \
+  run.ciral.bm25-qt.so.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -864,17 +862,17 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language sw \
-  --topics ciral-v1.0-sw-test-b-native \
+  --topics ciral-v1.0-sw-test-a-pools-native \
   --index ciral-v1.0-sw \
-  --output run.ciral.bm25-qt.sw.test-b.txt \
+  --output run.ciral.bm25-qt.sw.test-a-pools.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-sw-test-b \
-  run.ciral.bm25-qt.sw.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-sw-test-a-pools \
+  run.ciral.bm25-qt.sw.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -884,17 +882,17 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --language yo \
-  --topics ciral-v1.0-yo-test-b-native \
+  --topics ciral-v1.0-yo-test-a-pools-native \
   --index ciral-v1.0-yo \
-  --output run.ciral.bm25-qt.yo.test-b.txt \
+  --output run.ciral.bm25-qt.yo.test-a-pools.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-yo-test-b \
-  run.ciral.bm25-qt.yo.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-yo-test-a-pools \
+  run.ciral.bm25-qt.yo.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -908,12 +906,12 @@ Evaluation commands:
 <tr class="accordion-toggle collapsed" id="table3-row2" data-toggle="collapse" data-parent="#table3-row2" href="#table3-collapse2">
 <td class="expand-button"></td>
 <td>BM25 Machine DT</td>
-<td>0.4394</td>
-<td>0.4637</td>
-<td>0.4918</td>
-<td>0.7348</td>
+<td>0.4039</td>
+<td>0.4379</td>
+<td>0.3636</td>
+<td>0.7199</td>
 <td></td>
-<td>0.5324</td>
+<td>0.4813</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -945,17 +943,17 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --topics ciral-v1.0-ha-test-b \
+  --topics ciral-v1.0-ha-test-a-pools \
   --index ciral-v1.0-ha-en \
-  --output run.ciral.bm25-dt.ha.test-b.txt \
+  --output run.ciral.bm25-dt.ha.test-a-pools.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-ha-test-b \
-  run.ciral.bm25-dt.ha.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-ha-test-a-pools \
+  run.ciral.bm25-dt.ha.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -964,17 +962,17 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --topics ciral-v1.0-so-test-b \
+  --topics ciral-v1.0-so-test-a-pools \
   --index ciral-v1.0-so-en \
-  --output run.ciral.bm25-dt.so.test-b.txt \
+  --output run.ciral.bm25-dt.so.test-a-pools.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-so-test-b \
-  run.ciral.bm25-dt.so.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-so-test-a-pools \
+  run.ciral.bm25-dt.so.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -983,17 +981,17 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --topics ciral-v1.0-sw-test-b \
+  --topics ciral-v1.0-sw-test-a-pools \
   --index ciral-v1.0-sw-en \
-  --output run.ciral.bm25-dt.sw.test-b.txt \
+  --output run.ciral.bm25-dt.sw.test-a-pools.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-sw-test-b \
-  run.ciral.bm25-dt.sw.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-sw-test-a-pools \
+  run.ciral.bm25-dt.sw.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1002,17 +1000,17 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --topics ciral-v1.0-yo-test-b \
+  --topics ciral-v1.0-yo-test-a-pools \
   --index ciral-v1.0-yo-en \
-  --output run.ciral.bm25-dt.yo.test-b.txt \
+  --output run.ciral.bm25-dt.yo.test-a-pools.txt \
   --batch 128 --threads 16 --bm25 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-yo-test-b \
-  run.ciral.bm25-dt.yo.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-yo-test-a-pools \
+  run.ciral.bm25-dt.yo.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1026,12 +1024,12 @@ Evaluation commands:
 <tr class="accordion-toggle collapsed" id="table3-row3" data-toggle="collapse" data-parent="#table3-row3" href="#table3-collapse3">
 <td class="expand-button"></td>
 <td>mDPR (tied encoders), pre-FT w/ MS MARCO</td>
-<td>0.1027</td>
-<td>0.1345</td>
-<td>0.3019</td>
-<td>0.3249</td>
+<td>0.0947</td>
+<td>0.0988</td>
+<td>0.2117</td>
+<td>0.3132</td>
 <td></td>
-<td>0.2160</td>
+<td>0.1796</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -1065,17 +1063,17 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics ciral-v1.0-ha-test-b \
+  --topics ciral-v1.0-ha-test-a-pools \
   --index ciral-v1.0-ha-mdpr-tied-pft-msmarco \
-  --output run.ciral.mdpr-tied-pft-msmarco.ha.test-b.txt \
+  --output run.ciral.mdpr-tied-pft-msmarco.ha.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-ha-test-b \
-  run.ciral.mdpr-tied-pft-msmarco.ha.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-ha-test-a-pools \
+  run.ciral.mdpr-tied-pft-msmarco.ha.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1086,17 +1084,17 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics ciral-v1.0-so-test-b \
+  --topics ciral-v1.0-so-test-a-pools \
   --index ciral-v1.0-so-mdpr-tied-pft-msmarco \
-  --output run.ciral.mdpr-tied-pft-msmarco.so.test-b.txt \
+  --output run.ciral.mdpr-tied-pft-msmarco.so.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-so-test-b \
-  run.ciral.mdpr-tied-pft-msmarco.so.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-so-test-a-pools \
+  run.ciral.mdpr-tied-pft-msmarco.so.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1107,17 +1105,17 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics ciral-v1.0-sw-test-b \
+  --topics ciral-v1.0-sw-test-a-pools \
   --index ciral-v1.0-sw-mdpr-tied-pft-msmarco \
-  --output run.ciral.mdpr-tied-pft-msmarco.sw.test-b.txt \
+  --output run.ciral.mdpr-tied-pft-msmarco.sw.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-sw-test-b \
-  run.ciral.mdpr-tied-pft-msmarco.sw.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-sw-test-a-pools \
+  run.ciral.mdpr-tied-pft-msmarco.sw.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1128,17 +1126,17 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
-  --topics ciral-v1.0-yo-test-b \
+  --topics ciral-v1.0-yo-test-a-pools \
   --index ciral-v1.0-yo-mdpr-tied-pft-msmarco \
-  --output run.ciral.mdpr-tied-pft-msmarco.yo.test-b.txt \
+  --output run.ciral.mdpr-tied-pft-msmarco.yo.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-yo-test-b \
-  run.ciral.mdpr-tied-pft-msmarco.yo.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-yo-test-a-pools \
+  run.ciral.mdpr-tied-pft-msmarco.yo.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1148,16 +1146,16 @@ Evaluation commands:
 </div></td>
 </tr>
 
-<!-- Condition: Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi -->
+<!-- Condition: AfriBERTa, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi -->
 <tr class="accordion-toggle collapsed" id="table3-row4" data-toggle="collapse" data-parent="#table3-row4" href="#table3-collapse4">
 <td class="expand-button"></td>
-<td>Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi</td>
-<td>0.3900</td>
-<td>0.3558</td>
-<td>0.4608</td>
-<td>0.2907</td>
+<td>AfriBERTa, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi</td>
+<td>0.2692</td>
+<td>0.2017</td>
+<td>0.2093</td>
+<td>0.2262</td>
 <td></td>
-<td>0.3743</td>
+<td>0.2266</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -1190,18 +1188,18 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
-  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
-  --topics ciral-v1.0-ha-test-b \
-  --index ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-mrtydi \
-  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt \
+  --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-ha-test-a-pools \
+  --index ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-ha-test-b \
-  run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-ha-test-a-pools \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1211,18 +1209,18 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
-  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
-  --topics ciral-v1.0-so-test-b \
-  --index ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-mrtydi \
-  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt \
+  --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-so-test-a-pools \
+  --index ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-so-test-b \
-  run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-so-test-a-pools \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1232,18 +1230,18 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
-  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
-  --topics ciral-v1.0-sw-test-b \
-  --index ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-mrtydi \
-  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt \
+  --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-sw-test-a-pools \
+  --index ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-sw-test-b \
-  run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-sw-test-a-pools \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1253,18 +1251,18 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class auto \
-  --encoder castorini/afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
-  --topics ciral-v1.0-yo-test-b \
-  --index ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-mrtydi \
-  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt \
+  --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
+  --topics ciral-v1.0-yo-test-a-pools \
+  --index ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
+  --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-a-pools.txt \
   --batch 128 --threads 16 --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-yo-test-b \
-  run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-yo-test-a-pools \
+  run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1274,16 +1272,16 @@ Evaluation commands:
 </div></td>
 </tr>
 
-<!-- Condition: RRF Fusion of BM25 Machine DT and Afriberta-DPR -->
+<!-- Condition: RRF Fusion of BM25 Machine DT and AfriBERTa-DPR -->
 <tr class="accordion-toggle collapsed" id="table3-row5" data-toggle="collapse" data-parent="#table3-row5" href="#table3-collapse5">
 <td class="expand-button"></td>
-<td>RRF Fusion of BM25 Machine DT and Afriberta-DPR</td>
-<td>0.6007</td>
-<td>0.5618</td>
-<td>0.7007</td>
-<td>0.7525</td>
+<td>RRF Fusion of BM25 Machine DT and AfriBERTa-DPR</td>
+<td>0.4638</td>
+<td>0.4565</td>
+<td>0.4290</td>
+<td>0.6960</td>
 <td></td>
-<td>0.6539</td>
+<td>0.5113</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -1315,16 +1313,16 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.ha.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt \
+  --runs  run.ciral.bm25-dt.ha.test-a-pools.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-a-pools.txt \
   --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
-  --output run.ciral.bm25-dt-afriberta-dpr-fusion.ha.test-b.txt
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.ha.test-a-pools.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-ha-test-b \
-  run.ciral.bm25-dt-afriberta-dpr-fusion.ha.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-ha-test-a-pools \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.ha.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1333,16 +1331,16 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.so.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt \
+  --runs  run.ciral.bm25-dt.so.test-a-pools.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-a-pools.txt \
   --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
-  --output run.ciral.bm25-dt-afriberta-dpr-fusion.so.test-b.txt
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.so.test-a-pools.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-so-test-b \
-  run.ciral.bm25-dt-afriberta-dpr-fusion.so.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-so-test-a-pools \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.so.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1351,16 +1349,16 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.sw.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt \
+  --runs  run.ciral.bm25-dt.sw.test-a-pools.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-a-pools.txt \
   --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
-  --output run.ciral.bm25-dt-afriberta-dpr-fusion.sw.test-b.txt
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.sw.test-a-pools.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-sw-test-b \
-  run.ciral.bm25-dt-afriberta-dpr-fusion.sw.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-sw-test-a-pools \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.sw.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1369,16 +1367,16 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.yo.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt \
+  --runs  run.ciral.bm25-dt.yo.test-a-pools.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-a-pools.txt \
   --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
-  --output run.ciral.bm25-dt-afriberta-dpr-fusion.yo.test-b.txt
+  --output run.ciral.bm25-dt-afriberta-dpr-fusion.yo.test-a-pools.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.100 ciral-v1.0-yo-test-b \
-  run.ciral.bm25-dt-afriberta-dpr-fusion.yo.test-b.txt</code></pre>
+  -c -m recall.100 ciral-v1.0-yo-test-a-pools \
+  run.ciral.bm25-dt-afriberta-dpr-fusion.yo.test-a-pools.txt</code></pre>
   </blockquote>
 
   </div>
