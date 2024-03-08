@@ -381,6 +381,12 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 500)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
 
+    def test_dl23(self):
+        topics = search.get_topics('dl23')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 700)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
     # Various multi-lingual test collections
     def test_ntcir8_zh(self):
         topics = search.get_topics('ntcir8-zh')

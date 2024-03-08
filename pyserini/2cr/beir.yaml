@@ -1013,8 +1013,8 @@ conditions:
             R@1000: 0.7824
       - dataset: scifact
         scores:
-          - nDCG@10: 0.7376
-            R@100: 0.9700
+          - nDCG@10: 0.7408
+            R@100: 0.9667
             R@1000: 0.9967
       - dataset: signal1m
         scores:

@@ -8,20 +8,20 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.3557
-            R@1K: 0.9814
+          - MRR@10: 0.3583
+            R@1K: 0.9811
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.4436
-            nDCG@10: 0.7055
-            R@1K: 0.8472
+          - MAP: 0.4485
+            nDCG@10: 0.7016
+            R@1K: 0.8427
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.4651
-            nDCG@10: 0.6780
-            R@1K: 0.8503
+          - MAP: 0.4628
+            nDCG@10: 0.6768
+            R@1K: 0.8547
   - name: cosdpr-distil-pytorch
     display: "cosDPR-distil: PyTorch"
     display-html: "cosDPR-distil: PyTorch"

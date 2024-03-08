@@ -358,10 +358,29 @@ class TestLoadQrels(unittest.TestCase):
         self.assertFalse(isinstance(next(iter(qrels.keys())), str))
 
     def test_dl22(self):
+        qrels = search.get_qrels('dl22-doc')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 76)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 369638)
+        self.assertFalse(isinstance(next(iter(qrels.keys())), str))
+
         qrels = search.get_qrels('dl22-passage')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 76)
         self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 386416)
+        self.assertFalse(isinstance(next(iter(qrels.keys())), str))
+
+    def test_dl23(self):
+        qrels = search.get_qrels('dl23-doc')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 82)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 18034)
+        self.assertFalse(isinstance(next(iter(qrels.keys())), str))
+
+        qrels = search.get_qrels('dl23-passage')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 82)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 22327)
         self.assertFalse(isinstance(next(iter(qrels.keys())), str))
 
     # Various multi-lingual test collections
