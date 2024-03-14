@@ -24,7 +24,7 @@ Dense retrieval with Aggretriever-DistilBERT, brute-force index:
 
 ```bash
 python -m pyserini.search.faiss \
-  --index msmarco-passage.aggretriever-distilbert \
+  --index msmarco-v1-passage.aggretriever-distilbert \
   --topics msmarco-passage-dev-subset \
   --encoded-queries aggretriever-distilbert-msmarco-passage-dev-subset \
   --output runs/run.msmarco-passage.distilbert-agg.bf.tsv \
@@ -63,7 +63,7 @@ Dense retrieval with Aggretriever-coCondenser, brute-force index:
 
 ```bash
 python -m pyserini.search.faiss \
-  --index msmarco-passage.aggretriever-cocondenser \
+  --index msmarco-v1-passage.aggretriever-distilbert \
   --topics msmarco-passage-dev-subset \
   --encoded-queries aggretriever-cocondenser-msmarco-passage-dev-subset \
   --output runs/run.msmarco-passage.cocondenser-agg.bf.tsv \
