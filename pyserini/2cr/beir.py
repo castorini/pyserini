@@ -229,9 +229,9 @@ def run_conditions(args):
                                 result = ok_str
                             # If results are within 0.0005, just call it "OKish".
                             elif abs(score - float(expected[metric])) <= 0.0005:
-                                result = okish_str
+                                result = okish_str + f' expected {expected[metric]:.4f}'
                             else:
-                                result = fail_str
+                                result = fail_str + f' expected {expected[metric]:.4f}'
                             print(f'      {metric:7}: {score:.4f} {result}')
 
                             table[dataset][name][metric] = score
