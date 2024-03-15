@@ -520,9 +520,11 @@ def generate_report(args):
 
 FlakyKey = namedtuple('FlakyKey', ['collection', 'name', 'topic_key', 'metric'])
 flaky_dict = {
-    # Flaky test on Jimmy's Mac Studio
+    # Score differences between runs on Ubuntu and (Jimmy's) Mac Studio
     FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-avg-prf-pytorch', 'dl20', 'nDCG@10'): 0.0009,
     FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'dl19-passage', 'nDCG@10'): 0.0008,
+    # Score differences between tuna and linux.cs
+    FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'dl20', 'R@1K'): 0.0011,
 }
 
 
