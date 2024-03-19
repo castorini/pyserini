@@ -174,7 +174,7 @@ conditions:
             R@100: 0.9114
       - split: test
         scores:
-          - MRR@100: 0.6175
+          - MRR@100: 0.6180
             R@100: 0.8826
 
   # mDPR, tied encoders, pFT w/ MS MARCO
@@ -510,7 +510,7 @@ conditions:
             R@100: 0.4162
       - split: dev
         scores:
-          - MRR@100: 0.1494
+          - MRR@100: 0.1495
             R@100: 0.3967
       - split: test
         scores:

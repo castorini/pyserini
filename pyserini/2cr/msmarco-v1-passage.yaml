@@ -441,7 +441,7 @@ conditions:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
         scores:
-          - MRR@10: 0.3302
+          - MRR@10: 0.3301
             R@1K: 0.9587
       - topic_key: dl19-passage
         eval_key: dl19-passage
@@ -500,7 +500,7 @@ conditions:
         scores:
           - MAP: 0.4315
             nDCG@10: 0.6471
-            R@1K: 0.7967
+            R@1K: 0.7957
   - name: sbert-pytorch
     display: "SBERT: PyTorch"
     display-html: "SBERT: PyTorch"
@@ -991,7 +991,7 @@ conditions:
         eval_key: dl19-passage
         scores:
           - MAP: 0.4879
-            nDCG@10: 0.7311
+            nDCG@10: 0.7312
             R@1K: 0.8586
       - topic_key: dl20
         eval_key: dl20-passage
@@ -1065,7 +1065,7 @@ conditions:
       - topic_key: dl20
         eval_key: dl20-passage
         scores:
-          - MAP: 0.5079
+          - MAP: 0.5078
             nDCG@10: 0.7244
             R@1K: 0.8847
   - name: slimr

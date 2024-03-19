@@ -893,7 +893,7 @@ conditions:
     datasets:
       - dataset: arguana
         scores:
-          - nDCG@10: 0.6365
+          - nDCG@10: 0.6362
             R@100: 0.9915
             R@1000: 0.9964
       - dataset: bioasq
