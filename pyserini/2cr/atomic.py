@@ -3,7 +3,7 @@ import os
 import sys
 from collections import defaultdict
 from string import Template
-import pkg_resources
+import importlib.resources
 import time
 import yaml
 import math
@@ -42,7 +42,7 @@ def format_eval_command(raw):
         .replace('run.', '\\\n  run.')
 
 def read_file(f):
-    fin = open(f, 'r')
+    fin = open(importlib.resources.files("pyserini.2cr")/f, 'r')
     text = fin.read()
     fin.close()
 
@@ -53,13 +53,13 @@ def list_models():
         print(model)
 
 def get_conditions():
-    with open(pkg_resources.resource_filename(__name__, 'atomic.yaml')) as f:
+    with open(importlib.resources.files("pyserini.2cr")/'atomic.yaml') as f:
         yaml_data = yaml.safe_load(f)
     
     return [condition['name'] for condition in yaml_data['conditions']]
 
 def list_conditions():
-    with open(pkg_resources.resource_filename(__name__, 'atomic.yaml')) as f:
+    with open(importlib.resources.files("pyserini.2cr")/'atomic.yaml') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             print(condition['name'])
@@ -84,10 +84,10 @@ def generate_report(args):
     commands = defaultdict(lambda: defaultdict(lambda: ''))
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
 
-    html_template = read_file(pkg_resources.resource_filename(__name__, 'atomic_html.template'))
-    row_template = read_file(pkg_resources.resource_filename(__name__, 'atomic_html_row.template'))
+    html_template = read_file('atomic_html.template')
+    row_template = read_file('atomic_html_row.template')
 
-    with open(pkg_resources.resource_filename(__name__, 'atomic.yaml')) as f:
+    with open(importlib.resources.files("pyserini.2cr")/'atomic.yaml') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -160,7 +160,7 @@ def run_conditions(args):
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 
-    with open(pkg_resources.resource_filename(__name__, 'atomic.yaml')) as f:
+    with open(importlib.resources.files("pyserini.2cr")/'atomic.yaml') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
