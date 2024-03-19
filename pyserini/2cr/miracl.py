@@ -24,7 +24,7 @@ from collections import defaultdict, OrderedDict
 from datetime import datetime
 from string import Template
 
-import pkg_resources
+import importlib.resources
 import yaml
 
 from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
@@ -88,7 +88,7 @@ def format_eval_command(raw):
 
 
 def read_file(f):
-    fin = open(f, 'r')
+    fin = open(importlib.resources.files("pyserini.2cr")/f, 'r')
     text = fin.read()
     fin.close()
 
@@ -229,11 +229,11 @@ def generate_report(args):
     commands = defaultdict(lambda: '')
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
 
-    html_template = read_file(pkg_resources.resource_filename(__name__, 'miracl_html.template'))
-    table_template = read_file(pkg_resources.resource_filename(__name__, 'miracl_html_table.template'))
-    row_template = read_file(pkg_resources.resource_filename(__name__, 'miracl_html_table_row.template'))
+    html_template = read_file('miracl_html.template')
+    table_template = read_file('miracl_html_table.template')
+    row_template = read_file('miracl_html_table_row.template')
 
-    with open(pkg_resources.resource_filename(__name__, 'miracl.yaml')) as f:
+    with open(importlib.resources.files("pyserini.2cr")/'miracl.yaml') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -305,7 +305,7 @@ def run_conditions(args):
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 
-    with open(pkg_resources.resource_filename(__name__, 'miracl.yaml')) as f:
+    with open(importlib.resources.files("pyserini.2cr")/'miracl.yaml') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']

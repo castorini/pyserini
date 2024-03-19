@@ -20,7 +20,7 @@ import os
 import sys
 import time
 import subprocess
-import pkg_resources
+import importlib.resources
 from collections import defaultdict, OrderedDict
 from string import Template
 
@@ -52,8 +52,8 @@ html_display = OrderedDict()
 html_display['bm25-qt'] = 'BM25 Human QT'
 html_display['bm25-dt'] = 'BM25 Machine DT'
 html_display['mdpr-tied-pft-msmarco'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO'
-html_display['afriberta-pft-msmarco-ft-mrtydi'] = 'Afriberta, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi'
-html_display['bm25-dt-afriberta-dpr-fusion'] = 'RRF Fusion of BM25 Machine DT and Afriberta-DPR'
+html_display['afriberta-pft-msmarco-ft-mrtydi'] = 'AfriBERTa, pre-FT w/ MS MARCO FT w/ latin Mr. TyDi'
+html_display['bm25-dt-afriberta-dpr-fusion'] = 'RRF Fusion of BM25 Machine DT and AfriBERTa-DPR'
 
 models = list(html_display)
 
@@ -81,7 +81,7 @@ def format_eval_command(raw):
 
 
 def read_file(f):
-    fin = open(f, 'r')
+    fin = open(importlib.resources.files("pyserini.2cr")/f, 'r')
     text = fin.read()
     fin.close()
 
@@ -100,10 +100,10 @@ def print_results(table, metric, split):
     print(f'Metric = {metric}, Split = {split}')
     print(' ' * 32, end='')
     for lang in languages:
-        print(f'{lang[1]:3}    ', end='')
+        print(f' {lang[1]:4}   ', end='')
     print('')
     for model in models:
-        print(f'{model:30}', end='')
+        print(f'{model:32}', end='')
         for lang in languages:
             key = f'{model}.{lang[0]}'
             print(f'{table[key][split][metric]:7.4f}', end='   ')
@@ -164,11 +164,11 @@ def generate_report(args):
     commands = defaultdict(lambda: '')
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
 
-    html_template = read_file(pkg_resources.resource_filename(__name__, 'ciral_html.template'))
-    table_template = read_file(pkg_resources.resource_filename(__name__, 'ciral_html_table.template'))
-    row_template = read_file(pkg_resources.resource_filename(__name__, 'ciral_html_table_row.template'))
+    html_template = read_file('ciral_html.template')
+    table_template = read_file('ciral_html_table.template')
+    row_template = read_file('ciral_html_table_row.template')
 
-    with open(pkg_resources.resource_filename(__name__, 'ciral.yaml')) as f:
+    with open(importlib.resources.files("pyserini.2cr")/'ciral.yaml') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -233,7 +233,7 @@ def run_conditions(args):
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 
-    with open(pkg_resources.resource_filename(__name__, 'ciral.yaml')) as f:
+    with open(importlib.resources.files("pyserini.2cr")/'ciral.yaml') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
