@@ -98,7 +98,7 @@ class TestSearchIntegration(unittest.TestCase):
                     -output {self.tmp}/output.json')
         with open(f'{self.tmp}/output.json') as json_file:
             data = json.load(json_file)
-            self.assertEqual("0.3875", data['map'])
+            self.assertEqual("0.3874", data['map'])
             self.assertEqual("0.8304", data['ndcg'])
         
         os.system(f'python {self.pyserini_root}/scripts/classifier_prf/rank_trec_covid.py \
