@@ -313,6 +313,8 @@ for s in scores_c[:10]:
     print(f'{s[0]} {s[1]:.6f}')
 ```
 
+Again, the output is the same as search with `FaissSearcher` above.
+
 </details>
 <br/>
 
