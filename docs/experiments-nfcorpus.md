@@ -90,7 +90,7 @@ python -m pyserini.encode \
           --batch 32
 ```
 
-We're using the [`BAAI/bge-base-en-v1.5](https://huggingface.co/BAAI/bge-base-en-v1.5) encoder, which can be found on HuggingFace.
+We're using the [`BAAI/bge-base-en-v1.5`](https://huggingface.co/BAAI/bge-base-en-v1.5) encoder, which can be found on HuggingFace.
 
 <details>
 <summary>Try it using the Contriever model!</summary>
