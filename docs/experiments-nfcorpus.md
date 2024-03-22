@@ -26,7 +26,7 @@ How to actually train such models will be covered later.
 
 **Learning outcomes** for this guide, building on previous steps in the onboarding path:
 
-+ Be able to use Pyserini to encode documents in NFCorpus with an existing dense retrieval model (Contriever) and to build a Faiss index on the vector representations..
++ Be able to use Pyserini to encode documents in NFCorpus with an existing dense retrieval model (BGE-base) and to build a Faiss index on the vector representations..
 + Be able to use Pyserini to perform a batch retrieval run on queries from NFCorpus.
 + Be able to evaluate the retrieved results above.
 + Be able to generate the retrieved results above _interactively_ by directly manipulating Pyserini Python classes.

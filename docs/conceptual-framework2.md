@@ -17,7 +17,7 @@ Informally, we're "peeling back the covers".
 With respect to dense retrieval models:
 
 1. Be able to materialize and inspect dense vectors stored in Faiss.
-2. Be able to encode documents and queries with the Contriever model and manipulate the resulting vector representations.
+2. Be able to encode documents and queries with the BGE-base model and manipulate the resulting vector representations.
 3. Be able to compute query-document scores (i.e., retrieval scores) "by hand" for dense retrieval, by directly manipulating the vectors.
 4. Be able to perform retrieval "by hand" given a query, by directly manipulating the document vectors stored in the index.
 
@@ -46,7 +46,7 @@ And this is the bi-encoder architecture for tackling the above challenge:
 
 It's all about representations!
 BM25 generates bag-of-words sparse lexical vectors where the terms are assigned BM25 weights in an unsupervised manner.
-Contriever, which is an example of a dense retrieval model, uses transformer-based encoders, trained on large amounts of supervised data, that generate _dense_ vectors. 
+Contriever and BGE-base, which are examples of dense retrieval models, use transformer-based encoders, trained on large amounts of supervised data, that generate _dense_ vectors. 
 
 ## Dense Retrieval Models
 
@@ -55,7 +55,7 @@ Let's start by first peeking inside the Faiss index we built:
 ```python
 import faiss
 
-index = faiss.read_index('indexes/faiss.nfcorpus.contriever-msmacro/index')
+index = faiss.read_index('indexes/nfcorpus.bge-base-en-v1.5/index')
 num_vectors = index.ntotal
 ```
 
@@ -75,7 +75,7 @@ In the code snippet below, we load in the mapping data and then look up the vect
 
 ```python
 docids = []
-with open('indexes/faiss.nfcorpus.contriever-msmacro/docid', 'r') as fin:
+with open('indexes/nfcorpus.bge-base-en-v1.5/docid', 'r') as fin:
     docids = [line.rstrip() for line in fin.readlines()]
 
 v1 = index.reconstruct(docids.index('MED-4555'))
@@ -92,7 +92,7 @@ Let's verify this by first encoding the contents of the document, which is in `d
 doc_text = 'Analysis of risk factors for abdominal aortic aneurysm in a cohort of more than 3 million individuals. BACKGROUND: Abdominal aortic aneurysm (AAA) disease is an insidious condition with an 85% chance of death after rupture. Ultrasound screening can reduce mortality, but its use is advocated only for a limited subset of the population at risk. METHODS: We used data from a retrospective cohort of 3.1 million patients who completed a medical and lifestyle questionnaire and were evaluated by ultrasound imaging for the presence of AAA by Life Line Screening in 2003 to 2008. Risk factors associated with AAA were identified using multivariable logistic regression analysis. RESULTS: We observed a positive association with increasing years of smoking and cigarettes smoked and a negative association with smoking cessation. Excess weight was associated with increased risk, whereas exercise and consumption of nuts, vegetables, and fruits were associated with reduced risk. Blacks, Hispanics, and Asians had lower risk of AAA than whites and Native Americans. Well-known risk factors were reaffirmed, including male gender, age, family history, and cardiovascular disease. A predictive scoring system was created that identifies aneurysms more efficiently than current criteria and includes women, nonsmokers, and individuals aged <65 years. Using this model on national statistics of risk factors prevalence, we estimated 1.1 million AAAs in the United States, of which 569,000 are among women, nonsmokers, and individuals aged <65 years. CONCLUSIONS: Smoking cessation and a healthy lifestyle are associated with lower risk of AAA. We estimated that about half of the patients with AAA disease are not eligible for screening under current guidelines. We have created a high-yield screening algorithm that expands the target population for screening by including at-risk individuals not identified with existing screening criteria.'
 
 from pyserini.encode import AutoDocumentEncoder
-encoder = AutoDocumentEncoder('facebook/contriever-msmarco', device='cpu', pooling='mean')
+encoder = AutoDocumentEncoder('BAAI/bge-base-en-v1.5', device='cpu', pooling='mean', l2_norm=True)
 
 v2 = encoder.encode(doc_text)
 ```
@@ -113,8 +113,8 @@ We can perform interactive retrieval as follows:
 ```python
 from pyserini.search.faiss import FaissSearcher, AutoQueryEncoder
 
-encoder = AutoQueryEncoder('facebook/contriever-msmarco', device='cpu', pooling='mean')
-searcher = FaissSearcher('indexes/faiss.nfcorpus.contriever-msmacro', encoder)
+encoder = AutoQueryEncoder('BAAI/bge-base-en-v1.5', device='cpu', pooling='mean', l2_norm=True)
+searcher = FaissSearcher('indexes/nfcorpus.bge-base-en-v1.5', encoder)
 hits = searcher.search('How to Help Prevent Abdominal Aortic Aneurysms')
 
 for i in range(0, 10):
@@ -124,16 +124,16 @@ for i in range(0, 10):
 And the result will be:
 
 ```
- 1 MED-4555 1.472201
- 2 MED-3180 1.125014
- 3 MED-1309 1.067153
- 4 MED-2224 1.059536
- 5 MED-4423 1.038440
- 6 MED-4887 1.032622
- 7 MED-2530 1.020758
- 8 MED-2372 1.016142
- 9 MED-1006 1.013599
-10 MED-2587 1.010811
+ 1 MED-4555 0.791379
+ 2 MED-4560 0.710725
+ 3 MED-4421 0.688938
+ 4 MED-4993 0.686238
+ 5 MED-4424 0.686214
+ 6 MED-1663 0.682199
+ 7 MED-3436 0.680585
+ 8 MED-2750 0.677033
+ 9 MED-4324 0.675772
+10 MED-2939 0.674646
 ```
 
 Let's go ahead and encode the query, producing the query vector `q_vec`:
@@ -141,7 +141,7 @@ Let's go ahead and encode the query, producing the query vector `q_vec`:
 ```python
 from pyserini.encode import AutoQueryEncoder
 
-q_encoder = AutoQueryEncoder('facebook/contriever-msmarco', device='cpu', pooling='mean')
+q_encoder = AutoQueryEncoder('BAAI/bge-base-en-v1.5', device='cpu', pooling='mean', l2_norm=True)
 q_vec = q_encoder.encode('How to Help Prevent Abdominal Aortic Aneurysms')
 ```
 
@@ -151,7 +151,7 @@ Then, we compute the dot product between the query vector `q_vec` and the docume
 np.dot(q_vec, v1)
 ```
 
-We should arrive at the same score as above (`1.472201`).
+We should arrive at the same score as above (`0.7913785`).
 In other words, the query-document score (i.e., the relevance score of the document with respect to the query) is exactly the dot product of the two vector representations.
 This is as expected!
 
@@ -181,6 +181,20 @@ This sorting operation corresponds to top-_k_ retrieval.
 
 We can see that the output is the same as search with `FaissSearcher` above.
 This is exactly as expected.
+
+<details>
+<summary>Trying it with Contriever:</summary>
+<br/>
+
+To repeat with Contriever, replace:
+`indexes/nfcorpus.bge-base-en-v1.5` with `indexes/faiss.nfcorpus.contriever-msmacro` 
+
+`encoder = AutoQueryEncoder('BAAI/bge-base-en-v1.5', device='cpu', pooling='mean', l2_norm=True)` with `encoder = AutoDocumentEncoder('facebook/contriever-msmarco', device='cpu', pooling='mean')`
+
+and `searcher = FaissSearcher('indexes/nfcorpus.bge-base-en-v1.5', encoder)` with `searcher = FaissSearcher('indexes/faiss.nfcorpus.contriever-msmacro', encoder)`
+
+</details>
+<br/>
 
 ## Sparse Retrieval Models
 
