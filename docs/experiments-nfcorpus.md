@@ -1,6 +1,6 @@
-# Pyserini: Contriever Baseline for NFCorpus
+# Pyserini: BGE-base Baseline for NFCorpus
 
-This guide contains instructions for running a Contriever baseline for NFCorpus.
+This guide contains instructions for running a BGE-base baseline for NFCorpus.
 
 If you're a Waterloo student traversing the [onboarding path](https://github.com/lintool/guide/blob/master/ura.md) (which [starts here](https://github.com/castorini/anserini/blob/master/docs/start-here.md)),
 make sure you've first done the previous step, [a conceptual framework for retrieval
@@ -92,6 +92,26 @@ python -m pyserini.encode \
 
 We're using the [`BAAI/bge-base-en-v1.5](https://huggingface.co/BAAI/bge-base-en-v1.5) encoder, which can be found on HuggingFace.
 
+<details>
+<summary>Try it using the Contriever model!</summary>
+
+```bash
+python -m pyserini.encode \
+  input   --corpus collections/nfcorpus/corpus.jsonl \
+          --fields title text \
+  output  --embeddings indexes/faiss.nfcorpus.contriever-msmacro \
+          --to-faiss \
+  encoder --encoder facebook/contriever-msmarco \
+          --device cpu \
+          --pooling mean \
+          --fields title text \
+          --batch 32
+```
+
+We're using the [`facebook/contriever-msmarco`](https://huggingface.co/facebook/contriever-msmarco) encoder, which can be found on HuggingFace.
+
+</details>
+
 Pyserini wraps [Faiss](https://github.com/facebookresearch/faiss/), which is a library for efficient similarity search on dense vectors.
 That is, once all the documents have been encoded (i.e., converted into representation vectors), they are passed to Faiss to manage (i.e., for storage and for search later on).
 "Index" here is in quotes because, in reality we're using something called a ["flat" index](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes) (`FlatIP` to be exact), which just stores the vectors in fixed-width bytes, one after the other.
@@ -118,6 +138,21 @@ python -m pyserini.search.faiss \
 
 The queries are in `collections/nfcorpus/queries.tsv`.
 
+<details>
+<summary>If you indexed with Contriever above, try retrieval with it too:</summary>
+
+```bash
+python -m pyserini.search.faiss \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index indexes/faiss.nfcorpus.contriever-msmacro \
+  --topics collections/nfcorpus/queries.tsv \
+  --output runs/run.beir-contriever-msmarco.nfcorpus.txt \
+  --batch 128 --threads 16 \
+  --hits 1000
+```
+
+</details>
+
 As mentioned above, Pyserini wraps the [Faiss](https://github.com/facebookresearch/faiss/) library.
 With the flat index here, we're performing brute-force computation of dot products (albeit in parallel and with batching).
 As a result, we are performing _exact_ search, i.e., we are finding the _exact_ top-_k_ documents that have the highest dot products. 
@@ -135,12 +170,33 @@ python -m pyserini.eval.trec_eval \
   runs/run.beir.bge-base-en-v1.5.nfcorpus.txt
 ```
 
+<details>
+<summary>And if you've been following along with Contriever:</summary>
+
+```bash
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 collections/nfcorpus/qrels/test.qrels \
+  runs/run.beir-contriever-msmarco.nfcorpus.txt
+```
+
+</details>
+
+
 The results will be something like:
 
 ```
 Results:
 ndcg_cut_10           	all	0.3808
 ```
+
+<details>
+<summary>Results for contriever:</summary>
+```
+Results:
+ndcg_cut_10           	all	0.3306
+```
+
+</details>
 
 If you've gotten here, congratulations!
 You've completed your first indexing and retrieval run using a dense retrieval model.
@@ -194,6 +250,56 @@ PLAIN-3074 Q0 MED-2750 8 0.677033 Faiss
 PLAIN-3074 Q0 MED-4324 9 0.675772 Faiss
 PLAIN-3074 Q0 MED-2939 10 0.674647 Faiss
 ```
+
+<details>
+<summary>Again with Contriever!</summary>
+
+Here's the snippet of Python code that does what we want:
+
+```python
+from pyserini.search.faiss import FaissSearcher, AutoQueryEncoder
+
+encoder = AutoQueryEncoder('facebook/contriever-msmarco', device='cpu', pooling='mean')
+searcher = FaissSearcher('indexes/faiss.nfcorpus.contriever-msmacro', encoder)
+hits = searcher.search('How to Help Prevent Abdominal Aortic Aneurysms')
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.6f}')
+```
+
+The `FaissSearcher` provides search capabilities using Faiss as its underlying implementation.
+The `AutoQueryEncoder` allows us to initialize an encoder using a HuggingFace model.
+
+```
+ 1 MED-4555 1.472201
+ 2 MED-3180 1.125014
+ 3 MED-1309 1.067153
+ 4 MED-2224 1.059536
+ 5 MED-4423 1.038440
+ 6 MED-4887 1.032622
+ 7 MED-2530 1.020758
+ 8 MED-2372 1.016142
+ 9 MED-1006 1.013599
+10 MED-2587 1.010811
+```
+
+You'll see that the ranked list is the same as the batch run you performed above:
+
+```bash
+$ grep PLAIN-3074 runs/run.beir-contriever-msmarco.nfcorpus.txt | head -10
+PLAIN-3074 Q0 MED-4555 1 1.472201 Faiss
+PLAIN-3074 Q0 MED-3180 2 1.125014 Faiss
+PLAIN-3074 Q0 MED-1309 3 1.067153 Faiss
+PLAIN-3074 Q0 MED-2224 4 1.059537 Faiss
+PLAIN-3074 Q0 MED-4423 5 1.038440 Faiss
+PLAIN-3074 Q0 MED-4887 6 1.032622 Faiss
+PLAIN-3074 Q0 MED-2530 7 1.020758 Faiss
+PLAIN-3074 Q0 MED-2372 8 1.016142 Faiss
+PLAIN-3074 Q0 MED-1006 9 1.013599 Faiss
+PLAIN-3074 Q0 MED-2587 10 1.010811 Faiss
+```
+
+</details>
 
 And that's it!
 
