@@ -20,7 +20,7 @@ import os
 import sys
 import time
 import subprocess
-import pkg_resources
+import importlib.resources
 from collections import defaultdict, OrderedDict
 from string import Template
 
@@ -81,7 +81,7 @@ def format_eval_command(raw):
 
 
 def read_file(f):
-    fin = open(f, 'r')
+    fin = open(importlib.resources.files("pyserini.2cr")/f, 'r')
     text = fin.read()
     fin.close()
 
@@ -164,11 +164,11 @@ def generate_report(args):
     commands = defaultdict(lambda: '')
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
 
-    html_template = read_file(pkg_resources.resource_filename(__name__, 'ciral_html.template'))
-    table_template = read_file(pkg_resources.resource_filename(__name__, 'ciral_html_table.template'))
-    row_template = read_file(pkg_resources.resource_filename(__name__, 'ciral_html_table_row.template'))
+    html_template = read_file('ciral_html.template')
+    table_template = read_file('ciral_html_table.template')
+    row_template = read_file('ciral_html_table_row.template')
 
-    with open(pkg_resources.resource_filename(__name__, 'ciral.yaml')) as f:
+    with open(importlib.resources.files("pyserini.2cr")/'ciral.yaml') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -233,7 +233,7 @@ def run_conditions(args):
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 
-    with open(pkg_resources.resource_filename(__name__, 'ciral.yaml')) as f:
+    with open(importlib.resources.files("pyserini.2cr")/'ciral.yaml') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']

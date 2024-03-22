@@ -5,5 +5,6 @@ python -m pyserini.2cr.msmarco --collection v2-doc     --all --directory runs/ -
 python -m pyserini.2cr.miracl --all --directory runs/ --display-commands > logs/log.miracl 2>&1
 python -m pyserini.2cr.mrtydi --all --directory runs/ --display-commands > logs/log.mrtydi 2>&1
 python -m pyserini.2cr.beir   --all --directory runs/ --display-commands > logs/log.beir 2>&1
+python -m pyserini.2cr.ciral  --all --directory runs/ --display-commands > logs/log.ciral 2>&1
 python -m pyserini.2cr.odqa   --all --directory runs/ --topic tqa --display-commands > logs/log.odqa.tqa 2>&1
 python -m pyserini.2cr.odqa   --all --directory runs/ --topic nq  --display-commands > logs/log.odqa.nq 2>&1

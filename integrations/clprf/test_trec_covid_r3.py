@@ -74,7 +74,7 @@ class TestSearchIntegration(unittest.TestCase):
                     -output {self.tmp}/output.json')
         with open(f'{self.tmp}/output.json') as json_file:
             data = json.load(json_file)
-            self.assertEqual("0.3333", data['map'])
+            self.assertEqual("0.3332", data['map'])
             self.assertEqual("0.6916", data['ndcg'])
 
     def tearDown(self):

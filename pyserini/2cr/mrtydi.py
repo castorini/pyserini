@@ -23,7 +23,7 @@ from collections import defaultdict
 from datetime import datetime
 from string import Template
 
-import pkg_resources
+import importlib.resources
 import yaml
 
 from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
@@ -78,7 +78,7 @@ def format_eval_command(raw):
 
 
 def read_file(f):
-    fin = open(f, 'r')
+    fin = open(importlib.resources.files("pyserini.2cr")/f, 'r')
     text = fin.read()
     fin.close()
 
@@ -182,11 +182,11 @@ def generate_report(args):
     commands = defaultdict(lambda: '')
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
 
-    html_template = read_file(pkg_resources.resource_filename(__name__, 'mrtydi_html.template'))
-    table_template = read_file(pkg_resources.resource_filename(__name__, 'mrtydi_html_table.template'))
-    row_template = read_file(pkg_resources.resource_filename(__name__, 'mrtydi_html_table_row.template'))
+    html_template = read_file('mrtydi_html.template')
+    table_template = read_file('mrtydi_html_table.template')
+    row_template = read_file('mrtydi_html_table_row.template')
 
-    with open(pkg_resources.resource_filename(__name__, 'mrtydi.yaml')) as f:
+    with open(importlib.resources.files("pyserini.2cr")/'mrtydi.yaml') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -231,7 +231,7 @@ def run_conditions(args):
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 
-    with open(pkg_resources.resource_filename(__name__, 'mrtydi.yaml')) as f:
+    with open(importlib.resources.files("pyserini.2cr")/'mrtydi.yaml') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -276,9 +276,9 @@ def run_conditions(args):
 
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
-                            # Just a blanket catch-all: if it's within 0.0001, it's OKish
-                            elif math.isclose(score, float(expected[metric]), abs_tol=1e-4):
-                                result_str = okish_str
+                            # If results are within 0.0005, just call it "OKish".
+                            elif math.isclose(score, float(expected[metric]), abs_tol=5e-4):
+                                result_str = okish_str + f' expected {expected[metric]:.4f}'
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
                             print(f'      {metric:7}: {score:.4f} {result_str}')

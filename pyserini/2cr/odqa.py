@@ -23,7 +23,7 @@ from collections import defaultdict
 from datetime import datetime
 from string import Template
 
-import pkg_resources
+import importlib.resources
 import yaml
 
 from ._base import run_dpr_retrieval_eval_and_return_metric, convert_trec_run_to_dpr_retrieval_json, run_fusion, ok_str, \
@@ -110,7 +110,7 @@ def format_eval_command(raw):
 
 
 def read_file(f):
-    fin = open(f, 'r')
+    fin = open(importlib.resources.files("pyserini.2cr")/f, 'r')
     text = fin.read()
     fin.close()
 
@@ -126,9 +126,9 @@ def generate_table_rows(table, table_id, commands, convert_commands, eval_comman
     row_cnt = 1
     html_rows = []
 
-    row_template = read_file(pkg_resources.resource_filename(__name__, 'odqa_html_table_row.template'))
-    row_template_garrrf = read_file(pkg_resources.resource_filename(__name__, 'odqa_html_table_row_gar-rrf.template'))
-    row_template_rrf = read_file(pkg_resources.resource_filename(__name__, 'odqa_html_table_row_rrf.template'))
+    row_template = read_file('odqa_html_table_row.template')
+    row_template_garrrf = read_file('odqa_html_table_row_gar-rrf.template')
+    row_template_rrf = read_file('odqa_html_table_row_rrf.template')
     
     for model in models['models']:
         if model == "GarT5-RRF":
@@ -194,10 +194,10 @@ def generate_report(args):
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
     convert_commands = defaultdict(lambda: defaultdict(lambda: ''))
 
-    html_template = read_file(pkg_resources.resource_filename(__name__, 'odqa_html.template'))
-    table_template = read_file(pkg_resources.resource_filename(__name__, 'odqa_html_table.template'))
-    tqa_yaml_path = pkg_resources.resource_filename(__name__, 'triviaqa.yaml')
-    nq_yaml_path = pkg_resources.resource_filename(__name__, 'naturalquestion.yaml')
+    html_template = read_file('odqa_html.template')
+    table_template = read_file('odqa_html_table.template')
+    tqa_yaml_path = importlib.resources.files("pyserini.2cr")/'triviaqa.yaml'
+    nq_yaml_path = importlib.resources.files("pyserini.2cr")/'naturalquestion.yaml'
 
     garrrf_ls = ['answers', 'titles', 'sentences']
     fusion_cmd_tqa = []
@@ -325,8 +325,8 @@ def generate_report(args):
 
 def run_conditions(args):
     hits = 1000 if args.full_topk else 100
-    yaml_path = pkg_resources.resource_filename(__name__, 'triviaqa.yaml') \
-        if args.topics == "tqa" else pkg_resources.resource_filename(__name__, 'naturalquestion.yaml')
+    yaml_path = importlib.resources.files("pyserini.2cr")/'triviaqa.yaml' \
+        if args.topics == "tqa" else importlib.resources.files("pyserini.2cr")/'naturalquestion.yaml'
     topics = 'dpr-trivia-test' if args.topics == 'tqa' else 'nq-test'
     start = time.time()
     table = defaultdict(lambda: defaultdict(lambda: 0.0))

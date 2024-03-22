@@ -24,7 +24,7 @@ from collections import defaultdict, namedtuple
 from datetime import datetime
 from string import Template
 
-import pkg_resources
+import importlib.resources
 import yaml
 
 from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
@@ -326,7 +326,7 @@ def format_command(raw):
 
 
 def read_file(f):
-    fin = open(f, 'r')
+    fin = open(importlib.resources.files("pyserini.2cr")/f, 'r')
     text = fin.read()
     fin.close()
 
@@ -365,20 +365,20 @@ def _remove_commands(table, name, s, v1):
 
 
 def generate_report(args):
-    yaml_file = pkg_resources.resource_filename(__name__, f'{args.collection}.yaml')
+    yaml_file = importlib.resources.files("pyserini.2cr")/f'{args.collection}.yaml'
 
     if args.collection == 'msmarco-v1-passage':
-        html_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_v1_passage.template'))
-        row_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_row_v1.template'))
+        html_template = read_file('msmarco_html_v1_passage.template')
+        row_template = read_file('msmarco_html_row_v1.template')
     elif args.collection == 'msmarco-v1-doc':
-        html_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_v1_doc.template'))
-        row_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_row_v1.template'))
+        html_template = read_file('msmarco_html_v1_doc.template')
+        row_template = read_file('msmarco_html_row_v1.template')
     elif args.collection == 'msmarco-v2-passage':
-        html_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_v2_passage.template'))
-        row_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_row_v2.template'))
+        html_template = read_file('msmarco_html_v2_passage.template')
+        row_template = read_file('msmarco_html_row_v2.template')
     elif args.collection == 'msmarco-v2-doc':
-        html_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_v2_doc.template'))
-        row_template = read_file(pkg_resources.resource_filename(__name__, 'msmarco_html_row_v2.template'))
+        html_template = read_file('msmarco_html_v2_doc.template')
+        row_template = read_file('msmarco_html_row_v2.template')
     else:
         raise ValueError(f'Unknown corpus: {args.collection}')
 
@@ -520,9 +520,11 @@ def generate_report(args):
 
 FlakyKey = namedtuple('FlakyKey', ['collection', 'name', 'topic_key', 'metric'])
 flaky_dict = {
-    # Flaky test on Jimmy's Mac Studio
+    # Score differences between runs on Ubuntu and (Jimmy's) Mac Studio
     FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-avg-prf-pytorch', 'dl20', 'nDCG@10'): 0.0009,
     FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'dl19-passage', 'nDCG@10'): 0.0008,
+    # Score differences between tuna and linux.cs
+    FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'dl20', 'R@1K'): 0.0011,
 }
 
 
@@ -532,7 +534,7 @@ def run_conditions(args):
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
     table_keys = {}
 
-    yaml_file = pkg_resources.resource_filename(__name__, f'{args.collection}.yaml')
+    yaml_file = importlib.resources.files("pyserini.2cr")/f'{args.collection}.yaml'
 
     with open(yaml_file) as f:
         yaml_data = yaml.safe_load(f)
