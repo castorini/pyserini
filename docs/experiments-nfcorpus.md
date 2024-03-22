@@ -81,16 +81,16 @@ We can now "index" these documents using Pyserini:
 python -m pyserini.encode \
   input   --corpus collections/nfcorpus/corpus.jsonl \
           --fields title text \
-  output  --embeddings indexes/faiss.nfcorpus.contriever-msmacro \
+  output  --embeddings indexes/nfcorpus.bge-base-en-v1.5 \
           --to-faiss \
-  encoder --encoder facebook/contriever-msmarco \
+  encoder --encoder BAAI/bge-base-en-v1.5 --l2-norm \
           --device cpu \
           --pooling mean \
           --fields title text \
           --batch 32
 ```
 
-We're using the [`facebook/contriever-msmarco`](https://huggingface.co/facebook/contriever-msmarco) encoder, which can be found on HuggingFace.
+We're using the [`BAAI/bge-base-en-v1.5](https://huggingface.co/BAAI/bge-base-en-v1.5) encoder, which can be found on HuggingFace.
 
 Pyserini wraps [Faiss](https://github.com/facebookresearch/faiss/), which is a library for efficient similarity search on dense vectors.
 That is, once all the documents have been encoded (i.e., converted into representation vectors), they are passed to Faiss to manage (i.e., for storage and for search later on).
@@ -107,11 +107,11 @@ We can now perform retrieval in Pyserini using the following command:
 
 ```bash
 python -m pyserini.search.faiss \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index indexes/faiss.nfcorpus.contriever-msmacro \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --index indexes/nfcorpus.bge-base-en-v1.5 \
   --topics collections/nfcorpus/queries.tsv \
-  --output runs/run.beir-contriever-msmarco.nfcorpus.txt \
-  --batch 128 --threads 16 \
+  --output runs/run.beir.bge-base-en-v1.5.nfcorpus.txt \
+  --batch 128 --threads 32 \
   --hits 1000
 ```
 
@@ -131,14 +131,14 @@ After the run finishes, we can evaluate the results using `trec_eval`:
 ```bash
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 collections/nfcorpus/qrels/test.qrels \
-  runs/run.beir-contriever-msmarco.nfcorpus.txt
+  runs/run.beir.bge-base-en-v1.5.nfcorpus.txt
 ```
 
 The results will be something like:
 
 ```
 Results:
-ndcg_cut_10           	all	0.3306
+ndcg_cut_10           	all	0.3798
 ```
 
 If you've gotten here, congratulations!
@@ -154,8 +154,8 @@ Here's the snippet of Python code that does what we want:
 ```python
 from pyserini.search.faiss import FaissSearcher, AutoQueryEncoder
 
-encoder = AutoQueryEncoder('facebook/contriever-msmarco', device='cpu', pooling='mean')
-searcher = FaissSearcher('indexes/faiss.nfcorpus.contriever-msmacro', encoder)
+encoder = AutoQueryEncoder('BAAI/bge-base-en-v1.5', device='cpu', pooling='mean',l2_norm=True)
+searcher = FaissSearcher('indexes/nfcorpus.bge-base-en-v1.5', encoder)
 hits = searcher.search('How to Help Prevent Abdominal Aortic Aneurysms')
 
 for i in range(0, 10):
@@ -166,32 +166,32 @@ The `FaissSearcher` provides search capabilities using Faiss as its underlying i
 The `AutoQueryEncoder` allows us to initialize an encoder using a HuggingFace model.
 
 ```
- 1 MED-4555 1.472201
- 2 MED-3180 1.125014
- 3 MED-1309 1.067153
- 4 MED-2224 1.059536
- 5 MED-4423 1.038440
- 6 MED-4887 1.032622
- 7 MED-2530 1.020758
- 8 MED-2372 1.016142
- 9 MED-1006 1.013599
-10 MED-2587 1.010811
+ 1 MED-4555 0.791379
+ 2 MED-4560 0.710725
+ 3 MED-4421 0.688938
+ 4 MED-4993 0.686238
+ 5 MED-4424 0.686214
+ 6 MED-1663 0.682199
+ 7 MED-3436 0.680585
+ 8 MED-2750 0.677033
+ 9 MED-4324 0.675772
+10 MED-2939 0.674646
 ```
 
 You'll see that the ranked list is the same as the batch run you performed above:
 
 ```bash
-$ grep PLAIN-3074 runs/run.beir-contriever-msmarco.nfcorpus.txt | head -10
-PLAIN-3074 Q0 MED-4555 1 1.472201 Faiss
-PLAIN-3074 Q0 MED-3180 2 1.125014 Faiss
-PLAIN-3074 Q0 MED-1309 3 1.067153 Faiss
-PLAIN-3074 Q0 MED-2224 4 1.059537 Faiss
-PLAIN-3074 Q0 MED-4423 5 1.038440 Faiss
-PLAIN-3074 Q0 MED-4887 6 1.032622 Faiss
-PLAIN-3074 Q0 MED-2530 7 1.020758 Faiss
-PLAIN-3074 Q0 MED-2372 8 1.016142 Faiss
-PLAIN-3074 Q0 MED-1006 9 1.013599 Faiss
-PLAIN-3074 Q0 MED-2587 10 1.010811 Faiss
+$ grep PLAIN-3074 runs/run.beir.bge-base-en-v1.5.nfcorpus.txt | head -10
+PLAIN-3074 Q0 MED-4555 1 0.766195 Faiss
+PLAIN-3074 Q0 MED-4560 2 0.677510 Faiss
+PLAIN-3074 Q0 MED-3436 3 0.656377 Faiss
+PLAIN-3074 Q0 MED-1663 4 0.654107 Faiss
+PLAIN-3074 Q0 MED-4424 5 0.652038 Faiss
+PLAIN-3074 Q0 MED-4421 6 0.651435 Faiss
+PLAIN-3074 Q0 MED-4993 7 0.646209 Faiss
+PLAIN-3074 Q0 MED-4324 8 0.642927 Faiss
+PLAIN-3074 Q0 MED-2939 9 0.642839 Faiss
+PLAIN-3074 Q0 MED-2750 10 0.640500 Faiss
 ```
 
 And that's it!
