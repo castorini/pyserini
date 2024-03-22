@@ -108,6 +108,7 @@ We can now perform retrieval in Pyserini using the following command:
 ```bash
 python -m pyserini.search.faiss \
   --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --pooling mean \
   --index indexes/nfcorpus.bge-base-en-v1.5 \
   --topics collections/nfcorpus/queries.tsv \
   --output runs/run.beir.bge-base-en-v1.5.nfcorpus.txt \
@@ -138,7 +139,7 @@ The results will be something like:
 
 ```
 Results:
-ndcg_cut_10           	all	0.3798
+ndcg_cut_10           	all	0.3808
 ```
 
 If you've gotten here, congratulations!
@@ -182,16 +183,16 @@ You'll see that the ranked list is the same as the batch run you performed above
 
 ```bash
 $ grep PLAIN-3074 runs/run.beir.bge-base-en-v1.5.nfcorpus.txt | head -10
-PLAIN-3074 Q0 MED-4555 1 0.766195 Faiss
-PLAIN-3074 Q0 MED-4560 2 0.677510 Faiss
-PLAIN-3074 Q0 MED-3436 3 0.656377 Faiss
-PLAIN-3074 Q0 MED-1663 4 0.654107 Faiss
-PLAIN-3074 Q0 MED-4424 5 0.652038 Faiss
-PLAIN-3074 Q0 MED-4421 6 0.651435 Faiss
-PLAIN-3074 Q0 MED-4993 7 0.646209 Faiss
-PLAIN-3074 Q0 MED-4324 8 0.642927 Faiss
-PLAIN-3074 Q0 MED-2939 9 0.642839 Faiss
-PLAIN-3074 Q0 MED-2750 10 0.640500 Faiss
+PLAIN-3074 Q0 MED-4555 1 0.791378 Faiss
+PLAIN-3074 Q0 MED-4560 2 0.710725 Faiss
+PLAIN-3074 Q0 MED-4421 3 0.688938 Faiss
+PLAIN-3074 Q0 MED-4993 4 0.686238 Faiss
+PLAIN-3074 Q0 MED-4424 5 0.686214 Faiss
+PLAIN-3074 Q0 MED-1663 6 0.682199 Faiss
+PLAIN-3074 Q0 MED-3436 7 0.680585 Faiss
+PLAIN-3074 Q0 MED-2750 8 0.677033 Faiss
+PLAIN-3074 Q0 MED-4324 9 0.675772 Faiss
+PLAIN-3074 Q0 MED-2939 10 0.674647 Faiss
 ```
 
 And that's it!
