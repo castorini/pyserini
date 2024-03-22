@@ -94,6 +94,7 @@ We're using the [`BAAI/bge-base-en-v1.5](https://huggingface.co/BAAI/bge-base-en
 
 <details>
 <summary>Try it using the Contriever model!</summary>
+<br/>
 
 ```bash
 python -m pyserini.encode \
@@ -109,8 +110,8 @@ python -m pyserini.encode \
 ```
 
 We're using the [`facebook/contriever-msmarco`](https://huggingface.co/facebook/contriever-msmarco) encoder, which can be found on HuggingFace.
-
 </details>
+<br/>
 
 Pyserini wraps [Faiss](https://github.com/facebookresearch/faiss/), which is a library for efficient similarity search on dense vectors.
 That is, once all the documents have been encoded (i.e., converted into representation vectors), they are passed to Faiss to manage (i.e., for storage and for search later on).
@@ -140,6 +141,7 @@ The queries are in `collections/nfcorpus/queries.tsv`.
 
 <details>
 <summary>If you indexed with Contriever above, try retrieval with it too:</summary>
+<br/>
 
 ```bash
 python -m pyserini.search.faiss \
@@ -150,8 +152,8 @@ python -m pyserini.search.faiss \
   --batch 128 --threads 16 \
   --hits 1000
 ```
-
 </details>
+<br/>
 
 As mentioned above, Pyserini wraps the [Faiss](https://github.com/facebookresearch/faiss/) library.
 With the flat index here, we're performing brute-force computation of dot products (albeit in parallel and with batching).
@@ -169,19 +171,6 @@ python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 collections/nfcorpus/qrels/test.qrels \
   runs/run.beir.bge-base-en-v1.5.nfcorpus.txt
 ```
-
-<details>
-<summary>And if you've been following along with Contriever:</summary>
-
-```bash
-python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 collections/nfcorpus/qrels/test.qrels \
-  runs/run.beir-contriever-msmarco.nfcorpus.txt
-```
-
-</details>
-
-
 The results will be something like:
 
 ```
@@ -190,13 +179,24 @@ ndcg_cut_10           	all	0.3808
 ```
 
 <details>
-<summary>Results for contriever:</summary>
+<summary>And if you've been following along with Contriever:</summary>
+<br/>
+
+```bash
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 collections/nfcorpus/qrels/test.qrels \
+  runs/run.beir-contriever-msmarco.nfcorpus.txt
+```
+
+The results will be something like:
+
 ```
 Results:
 ndcg_cut_10           	all	0.3306
 ```
 
 </details>
+<br/>
 
 If you've gotten here, congratulations!
 You've completed your first indexing and retrieval run using a dense retrieval model.
@@ -253,6 +253,7 @@ PLAIN-3074 Q0 MED-2939 10 0.674647 Faiss
 
 <details>
 <summary>Again with Contriever!</summary>
+<br/>
 
 Here's the snippet of Python code that does what we want:
 
@@ -300,6 +301,7 @@ PLAIN-3074 Q0 MED-2587 10 1.010811 Faiss
 ```
 
 </details>
+<br/>
 
 And that's it!
 
