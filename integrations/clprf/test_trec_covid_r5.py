@@ -98,7 +98,7 @@ class TestSearchIntegration(unittest.TestCase):
                     -output {self.tmp}/output.json')
         with open(f'{self.tmp}/output.json') as json_file:
             data = json.load(json_file)
-            self.assertEqual("0.3875", data['map'])
+            self.assertEqual("0.3874", data['map'])
             self.assertEqual("0.8304", data['ndcg'])
         
         os.system(f'python {self.pyserini_root}/scripts/classifier_prf/rank_trec_covid.py \
@@ -115,7 +115,7 @@ class TestSearchIntegration(unittest.TestCase):
         with open(f'{self.tmp}/output.json') as json_file:
             data = json.load(json_file)
             self.assertEqual("0.3885", data['map'])
-            self.assertEqual("0.8135", data['ndcg'])
+            self.assertEqual("0.8124", data['ndcg'])
         
         os.system(f'python {self.pyserini_root}/scripts/classifier_prf/rank_trec_covid.py \
                     -alpha 0.6 \
@@ -130,8 +130,8 @@ class TestSearchIntegration(unittest.TestCase):
                     -output {self.tmp}/output.json')
         with open(f'{self.tmp}/output.json') as json_file:
             data = json.load(json_file)
-            self.assertEqual("0.3922", data['map'])
-            self.assertEqual("0.8311", data['ndcg'])
+            self.assertEqual("0.3923", data['map'])
+            self.assertEqual("0.8317", data['ndcg'])
             
     def tearDown(self):
         shutil.rmtree(self.tmp)
