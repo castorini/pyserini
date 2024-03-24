@@ -1876,7 +1876,7 @@ TF_INDEX_INFO_CIRAL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-ha-en.20240212.2154e7.tar.gz"
         ],
-        "md5": "7775d17520b8d2c9ebaca6aad6fda772",
+        "md5": "40af043730fe0fb31c32551ae615bfb0",
         "size compressed (bytes)": 485237964,
         "total_terms": 55768945,
         "documents": 715355,
@@ -1891,7 +1891,7 @@ TF_INDEX_INFO_CIRAL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-so-en.20240212.2154e7.tar.gz"
         ],
-        "md5": "56c7fd84ede12106113265d9f17751cc",
+        "md5": "ceff839268ebb1f41ac5398d613cbf32",
         "size compressed (bytes)": 611464833,
         "total_terms": 63835022,
         "documents": 827552,
@@ -1906,7 +1906,7 @@ TF_INDEX_INFO_CIRAL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-sw-en.20240212.2154e7.tar.gz"
         ],
-        "md5": "800d8d1fda146e00989dd6858d1191e5",
+        "md5": "60a57a128cda8c4a1460f1e3a0df002a",
         "size compressed (bytes)": 683277315,
         "total_terms": 83817100,
         "documents": 949013,
@@ -1921,7 +1921,7 @@ TF_INDEX_INFO_CIRAL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-yo-en.20240212.2154e7.tar.gz"
         ],
-        "md5": "52cbe92ffd6eb2143aad6f4c4196a432",
+        "md5": "84f29864973de98f2d93fe03a2908703",
         "size compressed (bytes)": 60936367,
         "total_terms": 7245155,
         "documents": 82095,
@@ -6468,7 +6468,7 @@ FAISS_INDEX_INFO_CIRAL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-ha.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
         ],
-        "md5": "b14792a3e3c8f09d1d0dfeab70049f3a",
+        "md5": "1feb2fb70d16117bd588f7d2168758c8",
         "size compressed (bytes)": 2023010322,
         "documents": 715355,
         "downloaded": False,
@@ -6482,7 +6482,7 @@ FAISS_INDEX_INFO_CIRAL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-so.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
         ],
-        "md5": "27aae0659a2642c1e724c9656d898df8",
+        "md5": "eb5a9ab2c0aea0939768980f93bd28a2",
         "size compressed (bytes)": 2356035617,
         "documents": 827552,
         "downloaded": False,
@@ -6496,7 +6496,7 @@ FAISS_INDEX_INFO_CIRAL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-sw.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
         ],
-        "md5": "c6972614b86282932f5a7e91bd743818",
+        "md5": "0a0412eadf7fb8895bbc6d7090019352",
         "size compressed (bytes)": 2689039681,
         "documents": 949013,
         "downloaded": False,
@@ -6510,7 +6510,7 @@ FAISS_INDEX_INFO_CIRAL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-yo.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
         ],
-        "md5": "a17209ad5ff7523ca9f12afd3423c6f1",
+        "md5": "0f84c7f8594b6352aa26970565877668",
         "size compressed (bytes)": 233478865,
         "documents": 82095,
         "downloaded": False,
@@ -6524,7 +6524,7 @@ FAISS_INDEX_INFO_CIRAL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-ha.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
         ],
-        "md5": "d3b497a919768483e9caf9073f20ed3c",
+        "md5": "809f7c3c211c019a345e7bc8a716ff7b",
         "size compressed (bytes)": 2023992537,
         "documents": 715355,
         "downloaded": False,
@@ -6538,7 +6538,7 @@ FAISS_INDEX_INFO_CIRAL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-so.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
         ],
-        "md5": "535431a567bd08fdf27037a7e4419c45",
+        "md5": "0ef7404ef10f3135f6a11addcf723504",
         "size compressed (bytes)": 2356542056,
         "documents": 827552,
         "downloaded": False,
@@ -6552,7 +6552,7 @@ FAISS_INDEX_INFO_CIRAL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-sw.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
         ],
-        "md5": "c33da9efb5b3caeef5d1effa41776c4c",
+        "md5": "1951d3f61eef760407c66c426e5047c6",
         "size compressed (bytes)": 2688836963,
         "documents": 949013,
         "downloaded": False,
@@ -6566,7 +6566,7 @@ FAISS_INDEX_INFO_CIRAL = {
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-yo.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
         ],
-        "md5": "a56fd0ea3b258e3bbc7d8790b73f94d0",
+        "md5": "f433299809c659cfc4dede6c42d4a3fd",
         "size compressed (bytes)": 233490972,
         "documents": 82095,
         "downloaded": False,
