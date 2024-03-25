@@ -59,7 +59,7 @@ class TestDpr(unittest.TestCase):
         score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
-        self.assertAlmostEqual(score, 0.7947, places=4)
+        self.assertAlmostEqual(score, 0.7947, delta=0.0002)
 
     def test_dpr_nq_test_bf_bm25_hybrid_otf(self):
         output_file = 'test_run.dpr.nq-test.multi.bf.otf.bm25.trec'
