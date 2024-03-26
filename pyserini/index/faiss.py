@@ -59,7 +59,7 @@ if __name__ == '__main__':
                         f_out.write(f'{docid}\n')
                         vectors.append(vector)
     vectors = np.array(vectors, dtype='float32')
-    print(vectors.shape)
+    print(f"Vector Shape: {vectors.shape}")
 
     if args.hnsw and args.pq:
         index = faiss.IndexHNSWPQ(args.dim, args.pq_m, args.M)
@@ -78,5 +78,5 @@ if __name__ == '__main__':
         index.train(vectors)
 
     index.add(vectors)
-    print(index.ntotal)
+    print(f"Number of indexed vectors: {index.ntotal}")
     faiss.write_index(index, os.path.join(args.output, 'index'))

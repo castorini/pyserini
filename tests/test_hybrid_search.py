@@ -16,14 +16,10 @@
 
 import os
 import shutil
-import tarfile
 import unittest
-from random import randint
 from typing import List, Dict
-from urllib.request import urlretrieve
 
-from pyserini.search.lucene import LuceneSearcher, JScoredDoc
-from pyserini.index.lucene import Document
+from pyserini.search.lucene import LuceneSearcher
 from pyserini.search.faiss import FaissSearcher, AutoQueryEncoder
 from pyserini.search.hybrid import HybridSearcher
 
@@ -38,9 +34,6 @@ class TestHybridSearch(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # Download pre-built CACM index built using Lucene 9; append a random value to avoid filename clashes.
-        r = randint(0, 10000000)
-        
         cls.s_index_name = 'beir-v1.0.0-arguana.flat'
         cls.d_searcher_name = 'facebook/contriever-msmarco'
         cls.d_index_name = 'beir-v1.0.0-arguana.contriever-msmarco'
