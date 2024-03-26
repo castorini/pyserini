@@ -97,6 +97,13 @@ class TestMultimodalSearch(unittest.TestCase):
         self.assertTrue(isinstance(hits, List))
         self.assertEqual(hits[0].docid, '00a3019b-c47c-3a97-8132-81896ab92dfc')
         self.assertAlmostEqual(hits[0].score, 0.9999999, places=5)
+    
+    def test_imageurl2text_search(self):
+        searcher = FaissSearcher(f'{self.index_dir}/texts', self.image_encoder)
+        hits = searcher.search('https://raw.githubusercontent.com/castorini/pyserini/master/docs/pyserini-logo.png')
+        self.assertTrue(isinstance(hits, List))
+        self.assertEqual(hits[0].docid, 'doc3')
+        self.assertAlmostEqual(hits[0].score, 0.20829172, places=5)
 
     @classmethod
     def tearDownClass(cls):
