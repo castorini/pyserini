@@ -15,12 +15,91 @@
   <script>
     $SCRIPT_ROOT = {{ request.script_root | tojson }};
 
-    $(document).ready(function () {
-      $("#loading").hide();
-      $('#index_name').val("{{index_name}}");
-    });
-
     $(function () {
+      $("#retriever_name").val("{{retriever}}");
+      $("#index_name").val("{{index_name}}");
+      $("#loading").hide();
+      $("#pre_encoded_query_table").hide();
+
+      $("#search_button").on("click", function () {
+        // for sparse search, we can submit the input directly as a query
+        // for dense search, we only support searching from pre-encoded queries,
+        // so the search button will retrieve valid pre-encoded queries
+        if ($("#retriever_name").val() === "BM25") {
+          $("#submit_query_form").submit();
+        } else {
+          const query = $("#query_input").val();
+          $.getJSON(
+            $SCRIPT_ROOT + "/search_options", {
+            query: query
+          }, function (data) {
+            $("#loading").hide();
+            $("#retriever_name").removeAttr('disabled');
+            $("#index_name").removeAttr('disabled');
+            $("#results_table").hide();
+            $("#pre_encoded_query_table").show();
+
+            const validQueries = $("#pre_encoded_queries");
+            validQueries.empty();
+            // construct row for each valid pre-encoded query
+            var rowNum = 0;
+            $.each(data, function (queryIndex, result) {
+              const tr = $("<tr>")
+                .attr({ "class": rowNum % 2 ? "table-secondary" : "table-light" });
+              tr.append($("<td>").text(queryIndex));
+              tr.append(
+                $("<td>")
+                  .attr({ "style": "word-wrap: break-word;min-width: 600px;max-width: 600px;", "class": "text-start" })
+                  .append($("<small></small>").attr({ "data-query-idx": queryIndex }).text(result))
+              );
+              tr.append(
+                $("<td>")
+                  .append($("<button>")
+                    .attr({ "type": "button" })
+                    .click(function () {
+                      const queryIndex = $(this).closest("tr").find("small").attr("data-query-idx");
+                      $("#query_input").val(queryIndex);
+                      $("#submit_query_form").submit();
+                    })
+                    .text("Use this query"))
+              );
+              validQueries.append(tr);
+              rowIndex += 1;
+            });
+          });
+
+          $("#retriever_name").attr('disabled', 'disabled');
+          $("#index_name").attr('disabled', 'disabled');
+          $("#loading").show();
+          return false;
+        }
+      });
+
+      $('#retriever_name').on('change', function () {
+        $.getJSON($SCRIPT_ROOT + '/retriever', {
+          new_retriever_name: this.value,
+        }, function (data) {
+          $("#retriever_name").removeAttr('disabled');
+          $("#loading").hide();
+
+          var dropdownElem = $('#index_name');
+          dropdownElem.empty();
+          $.each(data.index_list, function (index, val) {
+            var option = $('<option></option>');
+            option.text(val);
+            option.val(val);
+            if (index === 0) option.selected = true;
+            dropdownElem.append(option);
+          });
+        });
+
+        $(this).attr('disabled', 'disabled');
+        $("#pre_encoded_query_table").hide();
+        $("#loading").show();
+
+        return false;
+      });
+
       $('#index_name').on('change', function () {
         $.getJSON($SCRIPT_ROOT + '/index', {
           new_index_name: this.value,
@@ -30,6 +109,7 @@
         });
 
         $(this).attr('disabled', 'disabled');
+        $("#pre_encoded_query_table").hide();
         $("#loading").show();
 
         return false;
@@ -50,27 +130,36 @@
     collection designed to aid in multimedia content creation.
   </p>
 
+  <p>
+    For sparse search (BM25), simply type in your query and submit.<br>
+    For dense search, we support searching from a set of pre-encoded queries. Submitting your query will
+    retrieve the pre-encoded queries that begins with your query (case-insensitive).
+  </p>
+
   <div class="row g-3 align-items-center">
-    <label class="col-auto" for="index">You are perfoming search on the following dataset</label>
+    <label class="col-auto" for="retriever_name">You are using the following retriever</label>
+    <div class="col-auto">
+      <select class="form-select form-select-sm" aria-label=".form-select-sm" id="retriever_name">
+        {% for retriever in retriever_to_indexes.keys() %}
+        <option value="{{ retriever }}">{{ retriever }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
+  <div class="row g-3 align-items-center">
+    <label class="col-auto" for="index_name">You are perfoming search on the following dataset</label>
     <div class="col-auto">
       <select class="form-select form-select-sm" aria-label=".form-select-sm" id="index_name">
-        <option value="atomic_image_v0.2_small_validation">Text to Image (Small)</option>
-        <option value="atomic_image_v0.2_base">Text to Image (Base)</option>
-        <option value="atomic_image_v0.2_large">Text to Image (Large)</option>
-        <option value="atomic_text_v0.2.1_small_validation">Image to Text (Small)</option>
-        <option value="atomic_text_v0.2.1_base">Image to Text (Base)</option>
-        <option value="atomic_text_v0.2.1_large">Image to Text (Large)</option>
+        {% for index in retriever_to_indexes[retriever] %}
+        <option value="{{ index }}">{{ index }}</option>
+        {% endfor %}
       </select>
     </div>
     <div class="col-auto">
       <div class="spinner-border text-secondary" role="status" id="loading">
         <span class="visually-hidden">Loading...</span>
       </div>
-    </div>
-    <div class="col-auto">
-      <span>
-        retrieves passages using <em>{{retriever}}</em>.
-      </span>
     </div>
   </div>
 
@@ -81,27 +170,37 @@
     <div class="alert">{{ message }}</div>
     {% endfor %}
 
-    <form action="/search" method="post">
+    <form action="/search" method="post" id="submit_query_form">
       <div class="row-cols-3">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Enter a Question" aria-label="Question" name="q"
-            aria-describedby="button-addon2" value="{{query if query else ''}}">
-          <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i
-              class="bi bi-search"></i></button>
+          <input type="text" id="query_input" class="form-control" placeholder="Enter a Question" aria-label="Question"
+            name="q" aria-describedby="search_button" value="{{query if query else ''}}">
+          <button class="btn btn-outline-secondary" id="search_button"><i class="bi bi-search"></i></button>
         </div>
+        <table class="table" id="pre_encoded_query_table">
+          <thead>
+            <tr>
+              <th scope="col">Query Number</th>
+              <th scope="col">Pre-encoded Query</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider" id="pre_encoded_queries">
+          </tbody>
+        </table>
       </div>
     </form>
 
     {% if search_results %}
     <div class="row">
-      <table class="table">
+      <table class="table" id="results_table">
         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Score</th>
             <th scope="col">Passage ID</th>
             <th scope="col">Content</th>
-            {% if index_name.startswith("atomic_image") %}
+            {% if "image" in index_name %}
             <th scope="col">Image</th>
             {% endif %}
           </tr>
@@ -115,7 +214,7 @@
             <td style="word-wrap: break-word;min-width: 600px;max-width: 600px;" class="text-start">
               <small>{{res["content"]}}</small>
             </td>
-            {% if index_name.startswith("atomic_image") %}
+            {% if "image" in index_name %}
             <td>
               <img src="{{ res['image_url'] }}" width="500" height="auto">
             </td>
