@@ -714,5 +714,295 @@ QUERY_INFO = {
         "size (bytes)": 43949038,
         "total_queries": 16131,
         "downloaded": False
-     },       
+     },
+    "cohere-embed-english-v3.0-beir-v1.0.0-arguana-test": {
+        "description": "BEIR v1.0.0 arguana test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-arguana-test-20240302-bc5b3bf"
+        ],
+        "md5": "94a64cac21d6fcf3004eeb8c42c9f852",
+        "size (bytes)": 4466558,
+        "total_queries": 1406,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-bioasq-test": {
+        "description": "BEIR v1.0.0 bioasq test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-bioasq-test-20240302-bc5b3bf"
+        ],
+        "md5": "288a5a45ffc93e572da4d8aac2b8d36f",
+        "size (bytes)": 1375664,
+        "total_queries": 500,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-climate-fever-test": {
+        "description": "BEIR v1.0.0 climate-fever test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-climate-fever-test-20240302-bc5b3bf"
+        ],
+        "md5": "2a9aa722f2a011de4ed1a8411a9509a5",
+        "size (bytes)": 4244749,
+        "total_queries": 1535,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-android-test": {
+        "description": "BEIR v1.0.0 cqadupstack-android test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-android-test-20240302-bc5b3bf"
+        ],
+        "md5": "a8e9760ad08c9ae1c94cc9fe14a1f21d",
+        "size (bytes)": 1922096,
+        "total_queries": 699,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-english-test": {
+        "description": "BEIR v1.0.0 cqadupstack-english test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-english-test-20240302-bc5b3bf"
+        ],
+        "md5": "7fc17920a90cf3828e4806a1e8c472bf",
+        "size (bytes)": 4305006,
+        "total_queries": 1570,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gaming-test": {
+        "description": "BEIR v1.0.0 cqadupstack-gaming test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gaming-test-20240302-bc5b3bf"
+        ],
+        "md5": "0b508b15a53f006f12aca6d667a45073",
+        "size (bytes)": 4376856,
+        "total_queries": 1595,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gis-test": {
+        "description": "BEIR v1.0.0 cqadupstack-gis test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gis-test-20240302-bc5b3bf"
+        ],
+        "md5": "74b9501385edda952ac144ec7c214bcb",
+        "size (bytes)": 2430643,
+        "total_queries": 885,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-mathematica-test": {
+        "description": "BEIR v1.0.0 cqadupstack-mathematica test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-mathematica-test-20240302-bc5b3bf"
+        ],
+        "md5": "806f8e5d7fbd20419f73cb39cca9a39f",
+        "size (bytes)": 2207082,
+        "total_queries": 804,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-physics-test": {
+        "description": "BEIR v1.0.0 cqadupstack-physics test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-physics-test-20240302-bc5b3bf"
+        ],
+        "md5": "1fa7a4dea7463f66a49d870fb0503c93",
+        "size (bytes)": 2854200,
+        "total_queries": 1039,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-programmers-test": {
+        "description": "BEIR v1.0.0 cqadupstack-programmers test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-programmers-test-20240302-bc5b3bf"
+        ],
+        "md5": "c07cf4bf4810e16d51299f2eaa70091b",
+        "size (bytes)": 2407865,
+        "total_queries": 876,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-stats-test": {
+        "description": "BEIR v1.0.0 cqadupstack-stats test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-stats-test-20240302-bc5b3bf"
+        ],
+        "md5": "e6c32d8251d6b9869015e715a223010f",
+        "size (bytes)": 1791915,
+        "total_queries": 652,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-tex-test": {
+        "description": "BEIR v1.0.0 cqadupstack-tex test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-tex-test-20240302-bc5b3bf"
+        ],
+        "md5": "0b67a6f7294f74577b58d8b640c25474",
+        "size (bytes)": 7957116,
+        "total_queries": 2906,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-unix-test": {
+        "description": "BEIR v1.0.0 cqadupstack-unix test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-unix-test-20240302-bc5b3bf"
+        ],
+        "md5": "0234f4de5c16ce2ff3ecab806af4ebe2",
+        "size (bytes)": 2944402,
+        "total_queries": 1072,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-webmasters-test": {
+        "description": "BEIR v1.0.0 cqadupstack-webmasters test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-webmasters-test-20240302-bc5b3bf"
+        ],
+        "md5": "fea44d41d5574e7205c2f093eed03975",
+        "size (bytes)": 1392136,
+        "total_queries": 506,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-wordpress-test": {
+        "description": "BEIR v1.0.0 cqadupstack-wordpress test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-wordpress-test-20240302-bc5b3bf"
+        ],
+        "md5": "556ac39c08e32edda0b26742e1747e78",
+        "size (bytes)": 1486710,
+        "total_queries": 541,
+        "downloaded": False
+    },
+    # "cohere-embed-english-v3.0-beir-v1.0.0-dbpedia-entity-test": {
+    #     "description": "BEIR v1.0.0 dbpedia-entity test queries encoded by Cohere Embed English v3.0.",
+    #     "urls": [
+    #         "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-dbpedia-entity-test-20240302-bc5b3bf"
+    #     ],
+    #     "md5": "",
+    #     "size (bytes)": ,
+    #     "total_queries": ,
+    #     "downloaded": False
+    # },
+    "cohere-embed-english-v3.0-beir-v1.0.0-fever-test": {
+        "description": "BEIR v1.0.0 fever test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-fever-test-20240302-bc5b3bf"
+        ],
+        "md5": "3804b272e4315da9d66f98d94546894b",
+        "size (bytes)": 18258640,
+        "total_queries": 6666,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-fiqa-test": {
+        "description": "BEIR v1.0.0 fiqa test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-fiqa-test-20240302-bc5b3bf"
+        ],
+        "md5": "13f726f005e3426f0e9c4db07e3fca8f",
+        "size (bytes)": 1785281,
+        "total_queries": 648,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-hotpotqa-test": {
+        "description": "BEIR v1.0.0 hotpotqa test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-hotpotqa-test-20240302-bc5b3bf"
+        ],
+        "md5": "b49328d7ff86adb99df89084bdd24c2b",
+        "size (bytes)": 20468356,
+        "total_queries": 7405,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-nfcorpus-test": {
+        "description": "BEIR v1.0.0 nfcorpus test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-nfcorpus-test-20240302-bc5b3bf"
+        ],
+        "md5": "d0518dc8eaa6c682f6ac4672001d66d3",
+        "size (bytes)": 883892,
+        "total_queries": 323,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-nq-test": {
+        "description": "BEIR v1.0.0 nq test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-nq-test-20240302-bc5b3bf"
+        ],
+        "md5": "43e87becc885683b2d20841894c4c274",
+        "size (bytes)": 9461363,
+        "total_queries": 3452,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-quora-test": {
+        "description": "BEIR v1.0.0 quora test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-quora-test-20240302-bc5b3bf"
+        ],
+        "md5": "82f3960e6eb2efc51abcb0ccfdbb4667",
+        "size (bytes)": 27418718,
+        "total_queries": 10000,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-robust04-test": {
+        "description": "BEIR v1.0.0 robust04 test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-robust04-test-20240302-bc5b3bf"
+        ],
+        "md5": "ff0188434b497b005de6d04e132b09fd",
+        "size (bytes)": 689694,
+        "total_queries": 249,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-scidocs-test": {
+        "description": "BEIR v1.0.0 scidocs test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-scidocs-test-20240302-bc5b3bf"
+        ],
+        "md5": "697818aac26cda608aa9fac908890cfa",
+        "size (bytes)": 2776210,
+        "total_queries": 1000,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-scifact-test": {
+        "description": "BEIR v1.0.0 scifact test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-scifact-test-20240302-bc5b3bf"
+        ],
+        "md5": "b01039f949805e47108891d3cd8f6aad",
+        "size (bytes)": 829269,
+        "total_queries": 300,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-signal1m-test": {
+        "description": "BEIR v1.0.0 signal1m test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-signal1m-test-20240302-bc5b3bf"
+        ],
+        "md5": "3b59fcc12207c45a224b1c7211978be1",
+        "size (bytes)": 271950,
+        "total_queries": 97,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-trec-covid-test": {
+        "description": "BEIR v1.0.0 trec-covid test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-trec-covid-test-20240302-bc5b3bf"
+        ],
+        "md5": "8b50f30ca7c50dbcdc6635f56fe7309c",
+        "size (bytes)": 138848,
+        "total_queries": 50,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-trec-news-test": {
+        "description": "BEIR v1.0.0 trec-news test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-trec-news-test-20240302-bc5b3bf"
+        ],
+        "md5": "0e5da0dac133cf1d148a039d175c9fa4",
+        "size (bytes)": 158924,
+        "total_queries": 57,
+        "downloaded": False
+    },
+    "cohere-embed-english-v3.0-beir-v1.0.0-webis-touche2020-test": {
+        "description": "BEIR v1.0.0 webis-touche2020 test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-webis-touche2020-test-20240302-bc5b3bf"
+        ],
+        "md5": "95957f5f9be52cbc6e59dd19a1718b37",
+        "size (bytes)": 135674,
+        "total_queries": 49,
+        "downloaded": False
+    },       
 }

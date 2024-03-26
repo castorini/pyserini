@@ -4953,6 +4953,385 @@ FAISS_INDEX_INFO_BEIR = {
         "downloaded": False,
         "texts": "beir-v1.0.0-scifact.flat"
     },
+    # BEIR (v1.0.0) cohere-embed-english-v3.0 indexes
+    "beir-v1.0.0-trec-covid.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (TREC-COVID) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-trec-covid.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-trec-covid.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "e1cd1cd43cf64f73b77a724f831b45a3",
+        "size compressed (bytes)": 414024915,
+        "documents": 171332,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-trec-covid.flat"
+    },
+    "beir-v1.0.0-bioasq.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (BioASQ) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-bioasq.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-bioasq.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "ba33730ef2ff91691aee359645a6f1b2",
+        "size compressed (bytes)": 36008754470,
+        "documents": 14914603,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-bioasq.flat"
+    },
+    "beir-v1.0.0-nfcorpus.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (NFCorpus) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-nfcorpus.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-nfcorpus.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "1d1de58ffca37e014e15072e839738c9",
+        "size compressed (bytes)": 8769668,
+        "documents": 3633,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-nfcorpus.flat"
+    },
+    "beir-v1.0.0-nq.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (NQ) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-nq.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-nq.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "42bc4d4d008aa3d88ec4d4273b27edeb",
+        "size compressed (bytes)": 6456624999,
+        "documents": 2681468,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-nq.flat"
+    },
+    "beir-v1.0.0-hotpotqa.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (HotpotQA) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-hotpotqa.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-hotpotqa.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "4d3921452c6822bc5d3be67f65849f36",
+        "size compressed (bytes)": 12618101458,
+        "documents": 5233329,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-hotpotqa.flat"
+    },
+    "beir-v1.0.0-fiqa.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (FiQA-2018) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-fiqa.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-fiqa.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "76d4f2601d9a137928f452395f310471",
+        "size compressed (bytes)": 139105475,
+        "documents": 57638,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-fiqa.flat"
+    },
+    "beir-v1.0.0-signal1m.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (Signal-1M) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-signal1m.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-signal1m.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "1cd794d571f41f9c8b6b67a2dfefea21",
+        "size compressed (bytes)": 6910588964,
+        "documents": 2866316,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-signal1m.flat"
+    },
+    "beir-v1.0.0-trec-news.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (TREC-NEWS) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-trec-news.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-trec-news.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "068bc99b552f4609edd5e17f88bdab41",
+        "size compressed (bytes)": 1292117579,
+        "documents": 594977,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-trec-news.flat"
+    },
+    "beir-v1.0.0-robust04.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (Robust04) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-robust04.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-robust04.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "8b33b82211976bf783b4bed5eb8df2da",
+        "size compressed (bytes)": 1271872899,
+        "documents": 528155,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-robust04.flat"
+    },
+    "beir-v1.0.0-arguana.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (ArguAna) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-arguana.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-arguana.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "eae09bf5379b3899c78cb72bc7721c60",
+        "size compressed (bytes)": 20943557,
+        "documents": 8674,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-arguana.flat"
+    },
+    "beir-v1.0.0-webis-touche2020.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (Webis-Touche2020) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-webis-touche2020.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-webis-touche2020.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "1715e57901014f88557c1c31c9f44029",
+        "size compressed (bytes)": 920313809,
+        "documents": 382545,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-webis-touche2020.flat"
+    },
+    "beir-v1.0.0-cqadupstack-android.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-android) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-android.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-android.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "b8a2eeed6ae55fc56218863db02b3508",
+        "size compressed (bytes)": 55520428,
+        "documents": 22998,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-android.flat"
+    },
+    "beir-v1.0.0-cqadupstack-english.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-english) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-english.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-english.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "1858ef5133e1cbf03e6f77748342c64b",
+        "size compressed (bytes)": 97094601,
+        "documents": 40221,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-english.flat"
+    },
+    "beir-v1.0.0-cqadupstack-gaming.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gaming) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-gaming.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-gaming.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "0472dac652558bbbf213ebcd83a1b4ef",
+        "size compressed (bytes)": 109357947,
+        "documents": 45301,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-gaming.flat"
+    },
+    "beir-v1.0.0-cqadupstack-gis.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gis) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-gis.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-gis.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "7a9c762839b13538c2cda94fe730f92c",
+        "size compressed (bytes)": 90814197,
+        "documents": 37637,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-gis.flat"
+    },
+    "beir-v1.0.0-cqadupstack-mathematica.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-mathematica) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-mathematica.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-mathematica.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "5cc96789a7b6ddb31335d48c1aa26fe2",
+        "size compressed (bytes)": 40290646,
+        "documents": 16705,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-mathematica.flat"
+    },
+    "beir-v1.0.0-cqadupstack-physics.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-physics) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-physics.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-physics.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "d172b36f52807242198d88d25631560c",
+        "size compressed (bytes)": 92506330,
+        "documents": 38316,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-physics.flat"
+    },
+    "beir-v1.0.0-cqadupstack-programmers.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-programmers) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-programmers.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-programmers.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "dd7845ca228cbe1d71002e29fbf913a0",
+        "size compressed (bytes)": 77659520,
+        "documents": 32176,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-programmers.flat"
+    },
+    "beir-v1.0.0-cqadupstack-stats.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-stats) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-stats.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-stats.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "6b6c94b47361a0df89e81e1c2a90d029",
+        "size compressed (bytes)": 101984443,
+        "documents": 42269,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-stats.flat"
+    },
+    "beir-v1.0.0-cqadupstack-tex.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-tex) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-tex.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-tex.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "c4f7f19453be7538e81a6d44a151c835",
+        "size compressed (bytes)": 164384966,
+        "documents": 68184,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-tex.flat"
+    },
+    "beir-v1.0.0-cqadupstack-unix.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-unix) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-unix.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-unix.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "dbacc79a583314fa05c5202f4c1ab106",
+        "size compressed (bytes)": 114349199,
+        "documents": 47382,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-unix.flat"
+    },
+    "beir-v1.0.0-cqadupstack-webmasters.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-webmasters) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-webmasters.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-webmasters.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "ebffede804c1a4912c1a8df09178f3f0",
+        "size compressed (bytes)": 42021673,
+        "documents": 17405,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-webmasters.flat"
+    },
+    "beir-v1.0.0-cqadupstack-wordpress.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-wordpress) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-cqadupstack-wordpress.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-cqadupstack-wordpress.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "8490b5e12f976edb63ec17697c23ceb7",
+        "size compressed (bytes)": 117283179,
+        "documents": 48605,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-cqadupstack-wordpress.flat"
+    },
+    "beir-v1.0.0-quora.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (Quora) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-quora.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-quora.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "dfe29ebcbcb51b0afa53ea7f9d6b747f",
+        "size compressed (bytes)": 1261685799,
+        "documents": 522931,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-quora.flat"
+    },
+    # not yet available
+    # "beir-v1.0.0-dbpedia-entity.cohere-embed-english-v3.0": {
+    #     "description": "Faiss index for BEIR v1.0.0 (DBPedia) corpus encoded by cohere-embed-english-v3.0 encoder.",
+    #     "filename": "faiss.beir-v1.0.0-dbpedia-entity.cohere-embed-english-v3.0.20240302.tar.gz",
+    #     "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+    #     "urls": [
+    #         "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-dbpedia-entity.cohere-embed-english-v3.0.20240302.tar.gz"
+    #     ],
+    #     "md5": "",
+    #     "size compressed (bytes)": ,
+    #     "documents": 4635922,
+    #     "downloaded": False,
+    #     "texts": "beir-v1.0.0-dbpedia-entity.flat"
+    # },
+    "beir-v1.0.0-scidocs.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (SCIDOCS) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-scidocs.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-scidocs.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "f882e581d6abc3d7e1d7df26d7b0a471",
+        "size compressed (bytes)": 62465921,
+        "documents": 25657,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-scidocs.flat"
+    },
+    "beir-v1.0.0-fever.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (FEVER) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-fever.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-fever.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "bb51aef326092403500c4ffc44c91f9a",
+        "size compressed (bytes)": 13095399724,
+        "documents": 5416568,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-fever.flat"
+    },
+    "beir-v1.0.0-climate-fever.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (Climate-FEVER) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-climate-fever.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-climate-fever.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "57c1776d9866e3ad1665988952e942cb",
+        "size compressed (bytes)": 13095456507,
+        "documents": 5416593,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-climate-fever.flat"
+    },
+    "beir-v1.0.0-scifact.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-scifact.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-scifact.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "1a557af7b315574906cc1eb84aab3b68",
+        "size compressed (bytes)": 12522412,
+        "documents": 5183,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-scifact.flat"
+    }
 }
 
 FAISS_INDEX_INFO_MRTYDI = {
