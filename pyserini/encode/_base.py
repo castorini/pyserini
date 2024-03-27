@@ -150,7 +150,9 @@ class JsonlCollectionIterator:
 
                     for i in range(len(fields_info)):
                         if 'path' in self.fields[i]:
-                            fields_info[i] = os.path.join(self.collection_dir, fields_info[i])
+                            _info = fields_info[i]
+                            if not _info.startswith(("http://", "https://")):
+                                fields_info[i] = os.path.join(self.collection_dir, fields_info[i])
                         all_info[self.fields[i]].append(fields_info[i])
         return all_info
 

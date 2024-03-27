@@ -30,6 +30,7 @@ from urllib.error import HTTPError, URLError
 class TopicsFormat(Enum):
     DEFAULT = 'default'
     KILT = 'kilt'
+    Multimodal = 'multimodal'
 
 
 class QueryIterator(ABC):
@@ -153,9 +154,34 @@ class KiltQueryIterator(QueryIterator):
         raise ValueError(f'Unable to download encoded query at any known URLs.')
 
 
+class MultimodalQueryIterator(QueryIterator):
+    def get_query(self, id_):
+        """Prepare multimodal query, assume the file is placed near by the topic file."""
+        query_path = os.path.join(self.topic_dir, self.topics[id_].get('path', ''))
+        if not os.path.exists(query_path):
+            raise FileNotFoundError(f"Query file for ID {id_} not found at {query_path}")
+        return query_path
+
+    @classmethod
+    def from_topics(cls, topics_path: str):
+        if os.path.exists(topics_path):
+            if topics_path.endswith('.jsonl'):
+                topics = get_topics_with_reader('io.anserini.search.topicreader.JsonStringTopicReader', topics_path)
+            else:
+                raise NotImplementedError(f"Not sure how to parse {topics_path}. Please specify the file extension.")
+        else:
+            topics = get_topics(topics_path)
+        if not topics:
+            raise FileNotFoundError(f'Topic {topics_path} Not Found')
+        order = QueryIterator.get_predefined_order(topics_path)
+        cls.topic_dir = os.path.dirname(topics_path)
+        return cls(topics, order)
+    
+
 def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
     mapping = {
         TopicsFormat.DEFAULT: DefaultQueryIterator,
         TopicsFormat.KILT: KiltQueryIterator,
+        TopicsFormat.Multimodal: MultimodalQueryIterator
     }
     return mapping[topics_format].from_topics(topics_path)

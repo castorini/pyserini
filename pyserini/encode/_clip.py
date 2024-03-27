@@ -10,9 +10,8 @@ from pyserini.encode import DocumentEncoder, QueryEncoder
 
 os.environ['OPENBLAS_NUM_THREADS'] = '1'
 
-def prepare_inputs(inputs: dict, device: str):
-    """Prepare model inputs by moving them to the specified device."""
-    return {k: v.to(device) for k, v in inputs.items()}
+
+
 
 def load_pil_image(image, format='RGB'):
     if isinstance(image, str) or os.path.isfile(image):
@@ -32,6 +31,7 @@ def load_pil_image(image, format='RGB'):
 
     return image
 
+
 class BaseClipEncoder:
     """Base class for encoding using a CLIP model."""
     def __init__(self, model_name, device='cuda:0', l2_norm=True):
@@ -44,10 +44,15 @@ class BaseClipEncoder:
         """Apply L2 normalization to embeddings if required."""
         return normalize(embeddings, axis=1, norm='l2') if self.l2_norm else embeddings
 
+
 class ClipImageEncoder(BaseClipEncoder):
     """Encodes images using a CLIP model."""
     def encode(self, paths, **kwargs):
         processed_images = []
+
+        if isinstance(paths, str):
+            paths = [paths]
+            
         for image in paths:
             try:
                 img = load_pil_image(image)
@@ -56,13 +61,13 @@ class ClipImageEncoder(BaseClipEncoder):
                 print(f"Error loading image {image}: {e}")
 
         inputs = self.processor(images=processed_images, return_tensors="pt").to(self.device)
-        # inputs = prepare_inputs(inputs, self.device)
 
         with torch.no_grad():
             image_features = self.model.get_image_features(**inputs)
 
         embeddings = image_features.detach().cpu().numpy()
         return self.normalize_embeddings(embeddings)
+
 
 class ClipTextEncoder(BaseClipEncoder):
     """Encodes text using a CLIP model."""
@@ -71,6 +76,10 @@ class ClipTextEncoder(BaseClipEncoder):
         self.prefix = prefix
 
     def encode(self, texts, max_length=77, **kwargs):
+
+        if isinstance(texts, str):
+            texts = [texts]
+            
         if self.prefix:
             texts = [f"{self.prefix} {text}" for text in texts]
 
@@ -88,15 +97,16 @@ class ClipTextEncoder(BaseClipEncoder):
         embeddings = text_features.detach().cpu().numpy()
         return self.normalize_embeddings(embeddings)
     
+    
 class ClipDocumentEncoder(DocumentEncoder):
     """Encodes documents using a CLIP model, supporting both images and texts."""
     def __init__(self, model_name, device='cuda:0', l2_norm=False, prefix=None, multimodal=False):
         super().__init__()
-        print(multimodal)
         self.encoder = ClipImageEncoder(model_name, device, l2_norm) if multimodal else ClipTextEncoder(model_name, device, l2_norm, prefix)
 
     def encode(self, *args, **kwargs):
         return self.encoder.encode(*args, **kwargs)
+
 
 class ClipEncoder(QueryEncoder):
     """Encodes queries using a CLIP model, supporting both images and texts."""
