@@ -59,7 +59,7 @@ class ClipImageEncoder(BaseClipEncoder):
                 processed_images.append(img)
             except Exception as e:
                 print(f"Error loading image {image}: {e}")
-                
+
         inputs = self.processor(images=processed_images, return_tensors="pt").to(self.device)
 
         with torch.no_grad():
