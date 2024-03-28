@@ -35,7 +35,7 @@ if __name__ == '__main__':
     parser.add_argument('--pq-m', type=int, default=192, required=False)
     parser.add_argument('--pq-nbits', type=int, default=8, required=False)
     parser.add_argument('--threads', type=int, default=12, required=False)
-    parser.add_argument('--flatmetric', type=string, default="inner", required=False)
+    parser.add_argument('--metric', type=str, default="inner", required=False)
     args = parser.parse_args()
 
     faiss.omp_set_num_threads(args.threads)
