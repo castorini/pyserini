@@ -71,9 +71,9 @@ if __name__ == '__main__':
         index.hnsw.efConstruction = args.efC
     elif args.pq:
         index = faiss.IndexPQ(args.dim, args.pq_m, args.pq_nbits, faiss.METRIC_INNER_PRODUCT)
-    elif args.flatmetric == "inner":
+    elif args.metric == "inner":
         index = faiss.IndexFlatIP(args.dim)
-    elif args.flatmetric == "l2":
+    elif args.metric == "l2":
         index = faiss.IndexFlatL2(args.dim)
     index.verbose = True
 
