@@ -35,6 +35,7 @@ if __name__ == '__main__':
     parser.add_argument('--pq-m', type=int, default=192, required=False)
     parser.add_argument('--pq-nbits', type=int, default=8, required=False)
     parser.add_argument('--threads', type=int, default=12, required=False)
+    parser.add_argument('--metric', type=str, default="inner", required=False)
     args = parser.parse_args()
 
     faiss.omp_set_num_threads(args.threads)
@@ -70,8 +71,10 @@ if __name__ == '__main__':
         index.hnsw.efConstruction = args.efC
     elif args.pq:
         index = faiss.IndexPQ(args.dim, args.pq_m, args.pq_nbits, faiss.METRIC_INNER_PRODUCT)
-    else:
+    elif args.metric == "inner":
         index = faiss.IndexFlatIP(args.dim)
+    elif args.metric == "l2":
+        index = faiss.IndexFlatL2(args.dim)
     index.verbose = True
 
     if args.pq:
