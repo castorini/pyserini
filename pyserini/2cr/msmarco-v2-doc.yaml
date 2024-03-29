@@ -302,9 +302,9 @@ conditions:
       - topic_key: dl23-unicoil-noexp
         eval_key: dl23-doc
         scores:
-          - MAP@100: 0
-            nDCG@10: 0
-            R@1K: 0
+          - MAP@100: 0.1413
+            nDCG@10: 0.3898
+            R@1K: 0.5462
   - name: unicoil
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
@@ -336,9 +336,9 @@ conditions:
       - topic_key: dl23-unicoil
         eval_key: dl23-doc
         scores:
-          - MAP@100: 0
-            nDCG@10: 0
-            R@1K: 0
+          - MAP@100: 0.1554
+            nDCG@10: 0.4149
+            R@1K: 0.5753
   - name: unicoil-noexp-otf
     display: "uniCOIL (noexp): query inference with PyTorch"
     display-html: "uniCOIL (noexp): query inference with PyTorch"
