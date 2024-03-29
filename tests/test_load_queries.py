@@ -386,7 +386,7 @@ class TestLoadTopics(unittest.TestCase):
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 700)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
-    
+
         topics = search.get_topics('dl23-unicoil')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 700)
