@@ -1465,9 +1465,9 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <td>0.4165</td>
 <td>0.4779</td>
 <td></td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
+<td>0.1413</td>
+<td>0.3898</td>
+<td>0.5462</td>
 <td></td>
 <td>0.2231</td>
 <td>0.8987</td>
@@ -1545,7 +1545,26 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc run.msmarco-v2-doc.
 
   </div>
   <div class="tab-pane fade" id="row9-tab3" role="tabpanel" aria-labelledby="row9-tab3">
-    Not available.</div>
+    Command to generate run on TREC 2023 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2-doc-segmented-unicoil-noexp-0shot \
+  --topics dl23-unicoil-noexp \
+  --output run.msmarco-v2-doc.unicoil-noexp.dl23.txt \
+  --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl23-doc run.msmarco-v2-doc.unicoil-noexp.dl23.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl23-doc run.msmarco-v2-doc.unicoil-noexp.dl23.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl23-doc run.msmarco-v2-doc.unicoil-noexp.dl23.txt
+</code></pre>
+  </blockquote>
+
+  </div>
   <div class="tab-pane fade" id="row9-tab4" role="tabpanel" aria-labelledby="row9-tab4">
     Command to generate run on dev queries:
 
@@ -1604,9 +1623,9 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 <td>0.4451</td>
 <td>0.5235</td>
 <td></td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
+<td>0.1554</td>
+<td>0.4149</td>
+<td>0.5753</td>
 <td></td>
 <td>0.2419</td>
 <td>0.9122</td>
@@ -1684,7 +1703,26 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc run.msmarco-v2-doc.
 
   </div>
   <div class="tab-pane fade" id="row10-tab3" role="tabpanel" aria-labelledby="row10-tab3">
-    Not available.</div>
+    Command to generate run on TREC 2023 queries:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2-doc-segmented-unicoil-0shot \
+  --topics dl23-unicoil \
+  --output run.msmarco-v2-doc.unicoil.dl23.txt \
+  --impact --hits 10000 --max-passage-hits 1000 --max-passage
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl23-doc run.msmarco-v2-doc.unicoil.dl23.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl23-doc run.msmarco-v2-doc.unicoil.dl23.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl23-doc run.msmarco-v2-doc.unicoil.dl23.txt
+</code></pre>
+  </blockquote>
+
+  </div>
   <div class="tab-pane fade" id="row10-tab4" role="tabpanel" aria-labelledby="row10-tab4">
     Command to generate run on dev queries:
 

@@ -88,6 +88,8 @@ topics_mapping = {
     'dl22-unicoil': 'TREC2022_DL_UNICOIL',
     'dl22-unicoil-noexp': 'TREC2022_DL_UNICOIL_NOEXP',
     'dl23': 'TREC2023_DL',
+    'dl23-unicoil': 'TREC2023_DL_UNICOIL',
+    'dl23-unicoil-noexp': 'TREC2023_DL_UNICOIL_NOEXP',
     'msmarco-doc-dev': 'MSMARCO_DOC_DEV',
     'msmarco-doc-dev-unicoil': 'MSMARCO_DOC_DEV_UNICOIL',
     'msmarco-doc-dev-unicoil-noexp': 'MSMARCO_DOC_DEV_UNICOIL_NOEXP',
