@@ -8,7 +8,7 @@
 
 + Added `cohere-embed-english-v3.0` 2CRs for MS MARCO v1 passage.
 + Added `BGE-base-en-v1.5` 2CRs for MS MARCO v1 passage and BEIR.
-+ Added missing 2CRs for DL23 passage and DL22/23 doc.
++ Added support for DL22 doc and DL23 doc and passages from MS MARCO v2 and added corresponding 2CRs.
 + Added initial support for CLIP dense encoder and multimodal retrieval.
 + Added option for users to specify different distance metrics when building Faiss indexes.
 + Refactored and recalibrated 2CR scores, increased tolerance as needed.
