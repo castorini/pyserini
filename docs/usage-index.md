@@ -256,14 +256,14 @@ The output will be stored in jsonl format. Each line contains following info:
 }
 ```
 
-Once the collections are [encoded](usage-encode.md) into vectors,
+Once the collections are encoded into vectors,
 we can start to build the index.
 
 Pyserini supports four types of index so far:
 1. [HNSWPQ](https://faiss.ai/cpp_api/struct/structfaiss_1_1IndexHNSWPQ.html#struct-faiss-indexhnswpq)
 ```bash
 python -m pyserini.index.faiss \
-  --input path/to/encoded/corpus \  # either in the Faiss or the jsonl format
+  --input path/to/encoded/corpus \  # Folder containing file either in the Faiss or the jsonl format
   --output path/to/output/index \
   --hnsw \
   --pq
@@ -272,7 +272,7 @@ python -m pyserini.index.faiss \
 2. [HNSW](https://faiss.ai/cpp_api/struct/structfaiss_1_1IndexHNSW.html#struct-faiss-indexhnsw)
 ```bash
 python -m pyserini.index.faiss \
-  --input path/to/encoded/corpus \  # either in the Faiss or the jsonl format
+  --input path/to/encoded/corpus \  # The folder containing file either in the Faiss or the jsonl format
   --output path/to/output/index \
   --hnsw
 ```
@@ -280,7 +280,7 @@ python -m pyserini.index.faiss \
 3. [PQ](https://faiss.ai/cpp_api/struct/structfaiss_1_1IndexPQ.html)
 ```bash
 python -m pyserini.index.faiss \
-  --input path/to/encoded/corpus \  # either in the Faiss or the jsonl format
+  --input path/to/encoded/corpus \  # The folder containing file either in the Faiss or the jsonl format
   --output path/to/output/index \
   --pq
 ```
@@ -290,8 +290,8 @@ This command is for converting the `.jsonl` format into Faiss flat format,
 and generates the same files with `pyserini.encode` with `--to-faiss` specified.
 ```bash
 python -m pyserini.index.faiss \
-  --input path/to/encoded/corpus \  # in jsonl format
-  --output path/to/output/index \
+  --input path/to/encoded/corpus \  # The folder containing file in jsonl format
+  --output path/to/output/index
 ```
 
 Once the index is built, you can use `FaissSearcher` to search in the collection:
