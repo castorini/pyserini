@@ -242,7 +242,7 @@ python -m pyserini.encode \
   input   --corpus tests/resources/simple_cacm_corpus.json \
           --fields text \
   output  --embeddings path/to/output/dir \
-  encoder --encoder castorini/unicoil-d2q-msmarco-passage \
+  encoder --encoder castorini/unicoil-msmarco-passage \
           --fields text \
           --batch 32 \
           --fp16 # if inference with autocast()
