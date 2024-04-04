@@ -17,6 +17,9 @@ With Pyserini, it's easy to reproduce runs on a number of standard IR test colle
 
 For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.3463238) in SIGIR 2021 provides a nice overview.
 
+❗ Anserini was upgraded from JDK 11 to JDK 21 at commit [`272565`](https://github.com/castorini/anserini/commit/39cecf6c257bae85f4e9f6ab02e0be101338c3cc) (2024/04/03), which corresponds to the release of v0.35.0.
+Correspondingly, Pyserini was upgraded to JDK 21 at commit [`b2f677`](https://github.com/castorini/pyserini/commit/b2f677da46e1910c0fd95e5ff06070bc71075401) (2024/04/04).
+
 ## 🎬 Installation
 
 Install via PyPI (requires Python 3.10+):
@@ -25,7 +28,7 @@ Install via PyPI (requires Python 3.10+):
 pip install pyserini
 ```
 
-Sparse retrieval depends on [Anserini](http://anserini.io/), which is itself built on Lucene, and thus Java 11.
+Sparse retrieval depends on [Anserini](http://anserini.io/), which is itself built on Lucene (written in Java), and thus requiring JDK 21.
 
 Dense retrieval depends on neural networks and requires a more complex set of dependencies.
 A `pip` installation will automatically pull in the [🤗 Transformers library](https://github.com/huggingface/transformers) to satisfy the package requirements.
@@ -188,6 +191,7 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 
 ## 📜️ Release History
 
++ v0.35.0 (w/ Anserini v0.35.0): April 4, 2024 [[Release Notes](docs/release-notes/release-notes-v0.35.0.md)]
 + v0.25.0 (w/ Anserini v0.25.0): March 31, 2024 [[Release Notes](docs/release-notes/release-notes-v0.25.0.md)]
 + v0.24.0 (w/ Anserini v0.24.0): December 28, 2023 [[Release Notes](docs/release-notes/release-notes-v0.24.0.md)]
 + v0.23.0 (w/ Anserini v0.23.0): November 17, 2023 [[Release Notes](docs/release-notes/release-notes-v0.23.0.md)]
