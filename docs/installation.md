@@ -118,13 +118,9 @@ If everything is working properly, you should be able to reproduce the results a
 If you're planning on just _using_ Pyserini, then the instructions above are fine.
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
 
-Install dependencies:
+Start the same way as the install above, but **don't** install `pip install pyserini`.
 
-```bash
-pip install torch faiss-cpu cohere
-```
-
-Clone the Pyserini repo with the `--recurse-submodules` option to make sure the `tools/` submodule also gets cloned:
+Instead, clone the Pyserini repo with the `--recurse-submodules` option to make sure the `tools/` submodule also gets cloned:
 
 ```bash
 git clone git@github.com:castorini/pyserini.git --recurse-submodules
@@ -138,13 +134,7 @@ cd tools/eval && tar xvfz trec_eval.9.0.4.tar.gz && cd trec_eval.9.0.4 && make &
 cd tools/eval/ndeval && make && cd ../../..
 ```
 
-You can then set up your Python environment in exactly the same way as a `pip` installation, except replace this:
-
-```bash
-pip install pip
-```
-
-With an ["editable" installation](https://setuptools.pypa.io/en/latest/userguide/development_mode.html), as follows:
+Then, in the `pyserini` clone, use `pip` to add an ["editable" installation](https://setuptools.pypa.io/en/latest/userguide/development_mode.html), as follows:
 
 ```bash
 pip install -e .
