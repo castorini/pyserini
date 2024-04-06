@@ -948,7 +948,7 @@ TF_INDEX_INFO_BEIR = {
         "description": "Lucene flat index of BEIR (v1.0.0): FEVER",
         "filename": "lucene-inverted.beir-v1.0.0-fever.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "Urls": [
+        "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-fever.flat.20221116.505594.tar.gz"
         ],
         "md5": "30b5a338f9f16669ed3dae3bae4e7b32",
