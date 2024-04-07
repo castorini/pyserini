@@ -581,7 +581,7 @@ TF_INDEX_INFO_MSMARCO = {
 TF_INDEX_INFO_BEIR = {
     # BEIR (v1.0.0) flat indexes
     "beir-v1.0.0-trec-covid.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): TREC-COVID",
+        "description": "Lucene flat index of BEIR (v1.0.0): TREC-COVID.",
         "filename": "lucene-inverted.beir-v1.0.0-trec-covid.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -595,7 +595,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-bioasq.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): BioASQ",
+        "description": "Lucene flat index of BEIR (v1.0.0): BioASQ.",
         "filename": "lucene-inverted.beir-v1.0.0-bioasq.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -609,7 +609,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-nfcorpus.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): NFCorpus",
+        "description": "Lucene flat index of BEIR (v1.0.0): NFCorpus.",
         "filename": "lucene-inverted.beir-v1.0.0-nfcorpus.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -623,7 +623,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-nq.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): NQ",
+        "description": "Lucene flat index of BEIR (v1.0.0): NQ.",
         "filename": "lucene-inverted.beir-v1.0.0-nq.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -637,7 +637,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-hotpotqa.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): HotpotQA",
+        "description": "Lucene flat index of BEIR (v1.0.0): HotpotQA.",
         "filename": "lucene-inverted.beir-v1.0.0-hotpotqa.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -651,7 +651,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-fiqa.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): FiQA-2018",
+        "description": "Lucene flat index of BEIR (v1.0.0): FiQA-2018.",
         "filename": "lucene-inverted.beir-v1.0.0-fiqa.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -665,7 +665,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-signal1m.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): Signal-1M",
+        "description": "Lucene flat index of BEIR (v1.0.0): Signal-1M.",
         "filename": "lucene-inverted.beir-v1.0.0-signal1m.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -679,7 +679,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-trec-news.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): TREC-NEWS",
+        "description": "Lucene flat index of BEIR (v1.0.0): TREC-NEWS.",
         "filename": "lucene-inverted.beir-v1.0.0-trec-news.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -693,7 +693,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-robust04.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): Robust04",
+        "description": "Lucene flat index of BEIR (v1.0.0): Robust04.",
         "filename": "lucene-inverted.beir-v1.0.0-robust04.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -707,7 +707,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-arguana.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): ArguAna",
+        "description": "Lucene flat index of BEIR (v1.0.0): ArguAna.",
         "filename": "lucene-inverted.beir-v1.0.0-arguana.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -721,7 +721,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-webis-touche2020.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): Webis-Touche2020",
+        "description": "Lucene flat index of BEIR (v1.0.0): Webis-Touche2020.",
         "filename": "lucene-inverted.beir-v1.0.0-webis-touche2020.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -735,7 +735,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-android.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-android",
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-android.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-android.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -749,7 +749,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-english.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-english",
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-english.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-english.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -763,7 +763,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-gaming.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-gaming",
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-gaming.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-gaming.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -777,7 +777,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-gis.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-gis",
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-gis.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-gis.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -791,7 +791,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-mathematica.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-mathematica",
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-mathematica.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-mathematica.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -805,7 +805,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-physics.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-physics",
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-physics.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-physics.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -819,7 +819,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-programmers.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-programmers",
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-programmers.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-programmers.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -833,7 +833,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-stats.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-stats",
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-stats.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-stats.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -847,7 +847,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-tex.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-tex",
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-tex.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-tex.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -861,7 +861,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-unix.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-unix",
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-unix.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-unix.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -875,7 +875,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-webmasters.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-webmasters",
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-webmasters.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-webmasters.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -889,7 +889,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-wordpress.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-wordpress",
+        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-wordpress.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-wordpress.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -903,7 +903,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-quora.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): Quora",
+        "description": "Lucene flat index of BEIR (v1.0.0): Quora.",
         "filename": "lucene-inverted.beir-v1.0.0-quora.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -917,7 +917,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-dbpedia-entity.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): DBPedia",
+        "description": "Lucene flat index of BEIR (v1.0.0): DBPedia.",
         "filename": "lucene-inverted.beir-v1.0.0-dbpedia-entity.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -931,7 +931,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-scidocs.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): SCIDOCS",
+        "description": "Lucene flat index of BEIR (v1.0.0): SCIDOCS.",
         "filename": "lucene-inverted.beir-v1.0.0-scidocs.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -945,7 +945,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-fever.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): FEVER",
+        "description": "Lucene flat index of BEIR (v1.0.0): FEVER.",
         "filename": "lucene-inverted.beir-v1.0.0-fever.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -959,7 +959,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-climate-fever.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): Climate-FEVER",
+        "description": "Lucene flat index of BEIR (v1.0.0): Climate-FEVER.",
         "filename": "lucene-inverted.beir-v1.0.0-climate-fever.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -973,7 +973,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-scifact.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): SciFact",
+        "description": "Lucene flat index of BEIR (v1.0.0): SciFact.",
         "filename": "lucene-inverted.beir-v1.0.0-scifact.flat.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
         "urls": [
@@ -989,7 +989,7 @@ TF_INDEX_INFO_BEIR = {
 
     # BEIR (v1.0.0) multifield indexes
     "beir-v1.0.0-trec-covid.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): TREC-COVID",
+        "description": "Lucene multifield index of BEIR (v1.0.0): TREC-COVID.",
         "filename": "lucene-inverted.beir-v1.0.0-trec-covid.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1003,7 +1003,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-bioasq.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): BioASQ",
+        "description": "Lucene multifield index of BEIR (v1.0.0): BioASQ.",
         "filename": "lucene-inverted.beir-v1.0.0-bioasq.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1017,7 +1017,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-nfcorpus.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): NFCorpus",
+        "description": "Lucene multifield index of BEIR (v1.0.0): NFCorpus.",
         "filename": "lucene-inverted.beir-v1.0.0-nfcorpus.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1031,7 +1031,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-nq.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): NQ",
+        "description": "Lucene multifield index of BEIR (v1.0.0): NQ.",
         "filename": "lucene-inverted.beir-v1.0.0-nq.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1045,7 +1045,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-hotpotqa.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): HotpotQA",
+        "description": "Lucene multifield index of BEIR (v1.0.0): HotpotQA.",
         "filename": "lucene-inverted.beir-v1.0.0-hotpotqa.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1059,7 +1059,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-fiqa.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): FiQA-2018",
+        "description": "Lucene multifield index of BEIR (v1.0.0): FiQA-2018.",
         "filename": "lucene-inverted.beir-v1.0.0-fiqa.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1073,7 +1073,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-signal1m.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): Signal-1M",
+        "description": "Lucene multifield index of BEIR (v1.0.0): Signal-1M.",
         "filename": "lucene-inverted.beir-v1.0.0-signal1m.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1087,7 +1087,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-trec-news.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): TREC-NEWS",
+        "description": "Lucene multifield index of BEIR (v1.0.0): TREC-NEWS.",
         "filename": "lucene-inverted.beir-v1.0.0-trec-news.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1101,7 +1101,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-robust04.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): Robust04",
+        "description": "Lucene multifield index of BEIR (v1.0.0): Robust04.",
         "filename": "lucene-inverted.beir-v1.0.0-robust04.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1115,7 +1115,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-arguana.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): ArguAna",
+        "description": "Lucene multifield index of BEIR (v1.0.0): ArguAna.",
         "filename": "lucene-inverted.beir-v1.0.0-arguana.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1129,7 +1129,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-webis-touche2020.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): Webis-Touche2020",
+        "description": "Lucene multifield index of BEIR (v1.0.0): Webis-Touche2020.",
         "filename": "lucene-inverted.beir-v1.0.0-webis-touche2020.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1143,7 +1143,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-android.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-android",
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-android.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-android.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1157,7 +1157,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-english.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-english",
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-english.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-english.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1171,7 +1171,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-gaming.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-gaming",
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-gaming.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-gaming.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1185,7 +1185,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-gis.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-gis",
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-gis.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-gis.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1199,7 +1199,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-mathematica.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-mathematica",
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-mathematica.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-mathematica.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1213,7 +1213,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-physics.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-physics",
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-physics.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-physics.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1227,7 +1227,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-programmers.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-programmers",
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-programmers.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-programmers.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1241,7 +1241,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-stats.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-stats",
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-stats.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-stats.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1255,7 +1255,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-tex.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-tex",
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-tex.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-tex.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1269,7 +1269,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-unix.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-unix",
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-unix.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-unix.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1283,7 +1283,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-webmasters.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-webmasters",
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-webmasters.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-webmasters.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1297,7 +1297,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-wordpress.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-wordpress",
+        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-wordpress.",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-wordpress.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1311,7 +1311,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-quora.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): Quora",
+        "description": "Lucene multifield index of BEIR (v1.0.0): Quora.",
         "filename": "lucene-inverted.beir-v1.0.0-quora.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1325,7 +1325,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-dbpedia-entity.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): DBPedia",
+        "description": "Lucene multifield index of BEIR (v1.0.0): DBPedia.",
         "filename": "lucene-inverted.beir-v1.0.0-dbpedia-entity.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1339,7 +1339,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-scidocs.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): SCIDOCS",
+        "description": "Lucene multifield index of BEIR (v1.0.0): SCIDOCS.",
         "filename": "lucene-inverted.beir-v1.0.0-scidocs.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1353,7 +1353,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-fever.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): FEVER",
+        "description": "Lucene multifield index of BEIR (v1.0.0): FEVER.",
         "filename": "lucene-inverted.beir-v1.0.0-fever.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1367,7 +1367,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-climate-fever.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): Climate-FEVER",
+        "description": "Lucene multifield index of BEIR (v1.0.0): Climate-FEVER.",
         "filename": "lucene-inverted.beir-v1.0.0-climate-fever.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -1381,7 +1381,7 @@ TF_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-scifact.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): SciFact",
+        "description": "Lucene multifield index of BEIR (v1.0.0): SciFact.",
         "filename": "lucene-inverted.beir-v1.0.0-scifact.multifield.20221116.505594.tar.gz",
         "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
         "urls": [
@@ -2777,414 +2777,6 @@ IMPACT_INDEX_INFO_MSMARCO = {
 }
 
 IMPACT_INDEX_INFO_BEIR = {
-    # BEIR (v1.0.0) impact indexes encoded by SPLADE-distill CoCodenser-medium
-    "beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): TREC-COVID encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-covid-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "0f91fb01fec4b1c590fe683ad2383339",
-        "size compressed (bytes)": 55889585,
-        "total_terms": 1697942549,
-        "documents": 171332,
-        "unique_terms": 26611,
-        "downloaded": False
-    },
-    "beir-v1.0.0-bioasq-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): BioASQ encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-bioasq-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "a0317f26b1fab3bca71b46e0a4eff816",
-        "size compressed (bytes)": 5396189427,
-        "total_terms": 181960155708,
-        "documents": 14914603,
-        "unique_terms": 27703,
-        "downloaded": False
-    },
-    "beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): NFCorpus encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nfcorpus-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "9c6f3ecfa6186c3ab5125f5c3d4eb962",
-        "size compressed (bytes)": 1439110,
-        "total_terms": 41582222,
-        "documents": 3633,
-        "unique_terms": 16295,
-        "downloaded": False
-    },
-    "beir-v1.0.0-nq-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): NQ encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-nq-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "9d418f806b8304a075945afa80bfcc22",
-        "size compressed (bytes)": 833470407,
-        "total_terms": 21901570532,
-        "documents": 2681468,
-        "unique_terms": 28747,
-        "downloaded": False
-    },
-    "beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): HotpotQA encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-hotpotqa-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "e96767f3d97cba5104dfd76eafdb35b7",
-        "size compressed (bytes)": 1173403732,
-        "total_terms": 32565190895,
-        "documents": 5233329,
-        "unique_terms": 28724,
-        "downloaded": False
-    },
-    "beir-v1.0.0-fiqa-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): FiQA-2018 encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fiqa-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "937f0112a77a81879d6e42431d7fd522",
-        "size compressed (bytes)": 19624314,
-        "total_terms": 487502241,
-        "documents": 57638,
-        "unique_terms": 26244,
-        "downloaded": False
-    },
-    "beir-v1.0.0-signal1m-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): Signal-1M encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-signal1m-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "ac79812f60bcd597d351174a58fb085c",
-        "size compressed (bytes)": 602427178,
-        "total_terms": 13103073741,
-        "documents": 2866316,
-        "unique_terms": 28130,
-        "downloaded": False
-    },
-    "beir-v1.0.0-trec-news-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): TREC-NEWS encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-trec-news-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "d24ca30cb52510d193f9361e7f6996b7",
-        "size compressed (bytes)": 270800660,
-        "total_terms": 7519025445,
-        "documents": 594977,
-        "unique_terms": 27745,
-        "downloaded": False
-    },
-    "beir-v1.0.0-robust04-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): Robust04 encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-robust04-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "24e6310cd04a73604a8b467e582d153f",
-        "size compressed (bytes)": 213476457,
-        "total_terms": 6718533167,
-        "documents": 528155,
-        "unique_terms": 27623,
-        "downloaded": False
-    },
-    "beir-v1.0.0-arguana-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): ArguAna encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-arguana-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "d008e420e5be96ab7e9d40bafc3183ce",
-        "size compressed (bytes)": 3816904,
-        "total_terms": 96421121,
-        "documents": 8674,
-        "unique_terms": 22536,
-        "downloaded": False
-    },
-    "beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): Webis-Touche2020 encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-webis-touche2020-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "e05433f5cd3113b50b5fe166e18975d4",
-        "size compressed (bytes)": 124322238,
-        "total_terms": 3229042324,
-        "documents": 382545,
-        "unique_terms": 27742,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-android encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-android-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "753c02411a6391e5d45ba39fdc30a535",
-        "size compressed (bytes)": 5995405,
-        "total_terms": 157949889,
-        "documents": 22998,
-        "unique_terms": 18891,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-english encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-english-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "f377274f93d9f6426034fdd78457f5ee",
-        "size compressed (bytes)": 9857825,
-        "total_terms": 218761119,
-        "documents": 40221,
-        "unique_terms": 26613,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-gaming encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gaming-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "a8549ec6b7af25fe4a60fd7f4827afbd",
-        "size compressed (bytes)": 12976249,
-        "total_terms": 296073202,
-        "documents": 45301,
-        "unique_terms": 24564,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-gis encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-gis-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "26341f18a352668986bc8cf82006dc38",
-        "size compressed (bytes)": 10250646,
-        "total_terms": 296967034,
-        "documents": 37637,
-        "unique_terms": 22034,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-mathematica encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-mathematica-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "799a7c044cc774b29e55de4a8c0a813b",
-        "size compressed (bytes)": 4771584,
-        "total_terms": 132796971,
-        "documents": 16705,
-        "unique_terms": 19765,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-physics encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-physics-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "75ed5bb0217ba4f1c957bc25109f2823",
-        "size compressed (bytes)": 10887180,
-        "total_terms": 284896455,
-        "documents": 38316,
-        "unique_terms": 22985,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-programmers encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-programmers-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "42e2da2036a3e1d5780c90cda8c2193e",
-        "size compressed (bytes)": 10036425,
-        "total_terms": 258856106,
-        "documents": 32176,
-        "unique_terms": 22560,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-stats encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-stats-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "50043a036497ea6533fd2ce62f151370",
-        "size compressed (bytes)": 11867711,
-        "total_terms": 333590386,
-        "documents": 42269,
-        "unique_terms": 23322,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-tex encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-tex-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "83026f984c1007c656f15d7c01cf5da0",
-        "size compressed (bytes)": 19613041,
-        "total_terms": 604604076,
-        "documents": 68184,
-        "unique_terms": 24669,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-unix encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-unix-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "5bb2b4999e8769aca00c7dff2baaf297",
-        "size compressed (bytes)": 12705584,
-        "total_terms": 369576280,
-        "documents": 47382,
-        "unique_terms": 21712,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-webmasters encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-webmasters-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "bb2b4227659f8f32e1fcd4d7dee6065c",
-        "size compressed (bytes)": 4987493,
-        "total_terms": 127823828,
-        "documents": 17405,
-        "unique_terms": 20286,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-wordpress encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-cqadupstack-wordpress-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "2acbaa7b2a0f8699e54fdee2efb2d376",
-        "size compressed (bytes)": 12583602,
-        "total_terms": 362488001,
-        "documents": 48605,
-        "unique_terms": 21867,
-        "downloaded": False
-    },
-    "beir-v1.0.0-quora-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): Quora encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-quora-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "6358d683527284ecf4c1dbb6ad008a0f",
-        "size compressed (bytes)": 51880975,
-        "total_terms": 1322737004,
-        "documents": 522931,
-        "unique_terms": 27042,
-        "downloaded": False
-    },
-    "beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): DBPedia encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-dbpedia-entity-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "9cb05766611bea863a96818219657c78",
-        "size compressed (bytes)": 1225612002,
-        "total_terms": 30490098411,
-        "documents": 4635922,
-        "unique_terms": 28709,
-        "downloaded": False
-    },
-    "beir-v1.0.0-scidocs-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): SCIDOCS encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scidocs-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "38d2a4bbabf9b6b1cd627ce81660e07d",
-        "size compressed (bytes)": 11252695,
-        "total_terms": 273175826,
-        "documents": 25657,
-        "unique_terms": 24241,
-        "downloaded": False
-    },
-    "beir-v1.0.0-fever-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): FEVER encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-fever-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "cc71baa5838edd4e7cd288ca26488532",
-        "size compressed (bytes)": 1497554696,
-        "total_terms": 38844967407,
-        "documents": 5416568,
-        "unique_terms": 28670,
-        "downloaded": False
-    },
-    "beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): Climate-FEVER encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-climate-fever-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "1479d75cd9496a7d57064b86f6ee67ef",
-        "size compressed (bytes)": 1497450545,
-        "total_terms": 38845226073,
-        "documents": 5416593,
-        "unique_terms": 28670,
-        "downloaded": False
-    },
-    "beir-v1.0.0-scifact-splade_distil_cocodenser_medium": {
-        "description": "Lucene impact index of BEIR (v1.0.0): SciFact encoded by SPLADE-distill CoCodenser-medium",
-        "filename": "lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20221116.505594.tar.gz",
-        "readme": "lucene-index.beir-v1.0.0-splade_distil_cocodenser_medium.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-scifact-splade_distil_cocodenser_medium.20221116.505594.tar.gz"
-        ],
-        "md5": "367db6c4a466d442ba089a38dad9fc6e",
-        "size compressed (bytes)": 2173167,
-        "total_terms": 65836037,
-        "documents": 5183,
-        "unique_terms": 17486,
-        "downloaded": False
-    },
-
     # SPLADE++ (CoCondenser-EnsembleDistil)
     "beir-v1.0.0-trec-covid.splade-pp-ed": {
         "description": "Lucene impact index of BEIR (v1.0.0): TREC-COVID encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
@@ -3793,7 +3385,7 @@ FAISS_INDEX_INFO_MSMARCO = {
 FAISS_INDEX_INFO_BEIR = {
     # BEIR (v1.0.0) contriever indexes
     "beir-v1.0.0-trec-covid.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (TREC-COVID) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): TREC-COVID, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-trec-covid.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -3806,7 +3398,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-trec-covid.flat"
     },
     "beir-v1.0.0-bioasq.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (BioASQ) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): BioASQ, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-bioasq.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -3819,7 +3411,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-bioasq.flat"
     },
     "beir-v1.0.0-nfcorpus.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (NFCorpus) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): NFCorpus, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-nfcorpus.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -3832,7 +3424,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-nfcorpus.flat"
     },
     "beir-v1.0.0-nq.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (NQ) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): NQ, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-nq.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -3845,7 +3437,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-nq.flat"
     },
     "beir-v1.0.0-hotpotqa.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (HotpotQA) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): HotpotQA, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-hotpotqa.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -3858,7 +3450,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-hotpotqa.flat"
     },
     "beir-v1.0.0-fiqa.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (FiQA-2018) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): FiQA-2018, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-fiqa.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -3871,7 +3463,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-fiqa.flat"
     },
     "beir-v1.0.0-signal1m.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (Signal-1M) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): Signal-1M, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-signal1m.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -3884,7 +3476,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-signal1m.flat"
     },
     "beir-v1.0.0-trec-news.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (TREC-NEWS) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): TREC-NEWS, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-trec-news.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -3897,7 +3489,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-trec-news.flat"
     },
     "beir-v1.0.0-robust04.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (Robust04) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): Robust04, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-robust04.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -3910,7 +3502,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-robust04.flat"
     },
     "beir-v1.0.0-arguana.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (ArguAna) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): ArguAna, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-arguana.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -3923,7 +3515,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-arguana.flat"
     },
     "beir-v1.0.0-webis-touche2020.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (Webis-Touche2020) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): Webis-Touche2020, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-webis-touche2020.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -3936,7 +3528,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-webis-touche2020.flat"
     },
     "beir-v1.0.0-cqadupstack-android.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-android) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-android, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-android.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -3949,7 +3541,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-android.flat"
     },
     "beir-v1.0.0-cqadupstack-english.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-english) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-english, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-english.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -3962,7 +3554,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-english.flat"
     },
     "beir-v1.0.0-cqadupstack-gaming.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gaming) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-gaming, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-gaming.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -3975,7 +3567,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-gaming.flat"
     },
     "beir-v1.0.0-cqadupstack-gis.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gis) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-gis, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-gis.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -3988,7 +3580,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-gis.flat"
     },
     "beir-v1.0.0-cqadupstack-mathematica.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-mathematica) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-mathematica, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-mathematica.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -4001,7 +3593,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-mathematica.flat"
     },
     "beir-v1.0.0-cqadupstack-physics.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-physics) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-physics, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-physics.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -4014,7 +3606,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-physics.flat"
     },
     "beir-v1.0.0-cqadupstack-programmers.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-programmers) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-programmers, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-programmers.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -4027,7 +3619,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-programmers.flat"
     },
     "beir-v1.0.0-cqadupstack-stats.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-stats) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-stats, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-stats.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -4040,7 +3632,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-stats.flat"
     },
     "beir-v1.0.0-cqadupstack-tex.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-tex) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-tex, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-tex.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -4053,7 +3645,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-tex.flat"
     },
     "beir-v1.0.0-cqadupstack-unix.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-unix) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-unix, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-unix.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -4066,7 +3658,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-unix.flat"
     },
     "beir-v1.0.0-cqadupstack-webmasters.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-webmasters) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-webmasters, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-webmasters.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -4079,7 +3671,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-webmasters.flat"
     },
     "beir-v1.0.0-cqadupstack-wordpress.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-wordpress) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-wordpress, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-wordpress.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -4092,7 +3684,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-wordpress.flat"
     },
     "beir-v1.0.0-quora.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (Quora) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): Quora, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-quora.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -4105,7 +3697,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-quora.flat"
     },
     "beir-v1.0.0-dbpedia-entity.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (DBPedia) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): DBPedia, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-dbpedia-entity.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -4118,7 +3710,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-dbpedia-entity.flat"
     },
     "beir-v1.0.0-scidocs.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (SCIDOCS) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): SCIDOCS, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-scidocs.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -4131,7 +3723,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-scidocs.flat"
     },
     "beir-v1.0.0-fever.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (FEVER) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): FEVER, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-fever.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -4144,7 +3736,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-fever.flat"
     },
     "beir-v1.0.0-climate-fever.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (Climate-FEVER) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): Climate-FEVER, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-climate-fever.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -4157,7 +3749,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-climate-fever.flat"
     },
     "beir-v1.0.0-scifact.contriever": {
-        "description": "Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by Contriever encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): SciFact, encoded by Contriever.",
         "filename": "faiss-flat.beir-v1.0.0-scifact.contriever.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever.20230124.README.md",
         "urls": [
@@ -4172,7 +3764,7 @@ FAISS_INDEX_INFO_BEIR = {
 
     # BEIR (v1.0.0) contriever ft MSMARCO indexes
     "beir-v1.0.0-trec-covid.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (TREC-COVID) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): TREC-COVID, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-trec-covid.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4185,7 +3777,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-trec-covid.flat",
     },
     "beir-v1.0.0-bioasq.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (BioASQ) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): BioASQ, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-bioasq.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4198,7 +3790,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-bioasq.flat",
     },
     "beir-v1.0.0-nfcorpus.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (NFCorpus) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): NFCorpus, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-nfcorpus.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4211,7 +3803,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-nfcorpus.flat",
     },
     "beir-v1.0.0-nq.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (NQ) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): NQ, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-nq.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4224,7 +3816,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-nq.flat",
     },
     "beir-v1.0.0-hotpotqa.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (HotpotQA) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): HotpotQA, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-hotpotqa.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4237,7 +3829,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-hotpotqa.flat",
     },
     "beir-v1.0.0-fiqa.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (FiQA-2018) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): FiQA-2018, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-fiqa.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4250,7 +3842,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-fiqa.flat",
     },
     "beir-v1.0.0-signal1m.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (Signal-1M) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): Signal-1M, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-signal1m.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4263,7 +3855,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-signal1m.flat",
     },
     "beir-v1.0.0-trec-news.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (TREC-NEWS) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): TREC-NEWS, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-trec-news.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4276,7 +3868,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-trec-news.flat",
     },
     "beir-v1.0.0-robust04.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (Robust04) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): Robust04, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-robust04.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4289,7 +3881,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-robust04.flat",
     },
     "beir-v1.0.0-arguana.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (ArguAna) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): ArguAna, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-arguana.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4302,7 +3894,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-arguana.flat",
     },
     "beir-v1.0.0-webis-touche2020.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (Webis-Touche2020) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): Webis-Touche2020, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-webis-touche2020.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4315,7 +3907,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-webis-touche2020.flat",
     },
     "beir-v1.0.0-cqadupstack-android.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-android) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-android, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-android.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4328,7 +3920,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-android.flat",
     },
     "beir-v1.0.0-cqadupstack-english.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-english) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-english, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-english.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4341,7 +3933,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-english.flat",
     },
     "beir-v1.0.0-cqadupstack-gaming.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gaming) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-gaming, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-gaming.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4354,7 +3946,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-gaming.flat",
     },
     "beir-v1.0.0-cqadupstack-gis.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gis) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-gis, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-gis.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4367,7 +3959,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-gis.flat",
     },
     "beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-mathematica) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-mathematica, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4380,7 +3972,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-mathematica.flat",
     },
     "beir-v1.0.0-cqadupstack-physics.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-physics) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-physics, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-physics.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4393,7 +3985,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-physics.flat",
     },
     "beir-v1.0.0-cqadupstack-programmers.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-programmers) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-programmers, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-programmers.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4406,7 +3998,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-programmers.flat",
     },
     "beir-v1.0.0-cqadupstack-stats.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-stats) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-stats, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-stats.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4419,7 +4011,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-stats.flat",
     },
     "beir-v1.0.0-cqadupstack-tex.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-tex) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-tex, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-tex.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4432,7 +4024,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-tex.flat",
     },
     "beir-v1.0.0-cqadupstack-unix.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-unix) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-unix, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-unix.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4445,7 +4037,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-unix.flat",
     },
     "beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-webmasters) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-webmasters, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4458,7 +4050,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-webmasters.flat",
     },
     "beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-wordpress) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-wordpress, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4471,7 +4063,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-wordpress.flat",
     },
     "beir-v1.0.0-quora.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (Quora) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): Quora, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-quora.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4484,7 +4076,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-quora.flat",
     },
     "beir-v1.0.0-dbpedia-entity.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (DBPedia) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): DBPedia, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-dbpedia-entity.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4497,7 +4089,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-dbpedia-entity.flat",
     },
     "beir-v1.0.0-scidocs.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (SCIDOCS) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): SCIDOCS, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-scidocs.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4510,7 +4102,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-scidocs.flat",
     },
     "beir-v1.0.0-fever.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (FEVER) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): FEVER, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-fever.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4523,7 +4115,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-fever.flat",
     },
     "beir-v1.0.0-climate-fever.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (Climate-FEVER) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): Climate-FEVER, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-climate-fever.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4536,7 +4128,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-climate-fever.flat",
     },
     "beir-v1.0.0-scifact.contriever-msmarco": {
-        "description": "Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by Contriever encoder that has been fine-tuned with MS MARCO passage.",
+        "description": "Faiss flat index for BEIR (v1.0.0): SciFact, encoded by Contriever w/ MS MARCO FTing.",
         "filename": "faiss-flat.beir-v1.0.0-scifact.contriever-msmarco.20230124.tar.gz",
         "readme": "faiss-flat.beir-v1.0.0.contriever-msmarco.20230124.README.md",
         "urls": [
@@ -4551,7 +4143,7 @@ FAISS_INDEX_INFO_BEIR = {
 
     # BEIR (v1.0.0) bge-base-en-v1.5 indexes
     "beir-v1.0.0-trec-covid.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (TREC-COVID) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): TREC-COVID, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-trec-covid.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4564,7 +4156,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-trec-covid.flat"
     },
     "beir-v1.0.0-bioasq.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (BioASQ) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): BioASQ, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-bioasq.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4577,7 +4169,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-bioasq.flat"
     },
     "beir-v1.0.0-nfcorpus.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (NFCorpus) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): NFCorpus, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-nfcorpus.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4590,7 +4182,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-nfcorpus.flat"
     },
     "beir-v1.0.0-nq.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (NQ) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): NQ, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-nq.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4603,7 +4195,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-nq.flat"
     },
     "beir-v1.0.0-hotpotqa.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (HotpotQA) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): HotpotQA, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-hotpotqa.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4616,7 +4208,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-hotpotqa.flat"
     },
     "beir-v1.0.0-fiqa.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (FiQA-2018) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): FiQA-2018, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-fiqa.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4629,7 +4221,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-fiqa.flat"
     },
     "beir-v1.0.0-signal1m.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (Signal-1M) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): Signal-1M, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-signal1m.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4642,7 +4234,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-signal1m.flat"
     },
     "beir-v1.0.0-trec-news.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (TREC-NEWS) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): TREC-NEWS, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-trec-news.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4655,7 +4247,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-trec-news.flat"
     },
     "beir-v1.0.0-robust04.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (Robust04) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): Robust04, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-robust04.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4668,7 +4260,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-robust04.flat"
     },
     "beir-v1.0.0-arguana.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (ArguAna) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): ArguAna, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4681,7 +4273,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-arguana.flat"
     },
     "beir-v1.0.0-webis-touche2020.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (Webis-Touche2020) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): Webis-Touche2020, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4694,7 +4286,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-webis-touche2020.flat"
     },
     "beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-android) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-android, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4707,7 +4299,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-android.flat"
     },
     "beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-english) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-english, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4720,7 +4312,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-english.flat"
     },
     "beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gaming) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-gaming, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4733,7 +4325,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-gaming.flat"
     },
     "beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-gis) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-gis, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4746,7 +4338,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-gis.flat"
     },
     "beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-mathematica) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-mathematica, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4759,7 +4351,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-mathematica.flat"
     },
     "beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-physics) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-physics, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4772,7 +4364,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-physics.flat"
     },
     "beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-programmers) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-programmers, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4785,7 +4377,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-programmers.flat"
     },
     "beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-stats) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-stats, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4798,7 +4390,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-stats.flat"
     },
     "beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-tex) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-tex, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4811,7 +4403,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-tex.flat"
     },
     "beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-unix) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-unix, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4824,7 +4416,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-unix.flat"
     },
     "beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-webmasters) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-webmasters, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4837,7 +4429,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-webmasters.flat"
     },
     "beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (CQADupStack-wordpress) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-wordpress, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4850,7 +4442,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-cqadupstack-wordpress.flat"
     },
     "beir-v1.0.0-quora.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (Quora) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): Quora, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-quora.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4863,7 +4455,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-quora.flat"
     },
     "beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (DBPedia) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): DBPedia, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4876,7 +4468,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-dbpedia-entity.flat"
     },
     "beir-v1.0.0-scidocs.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (SCIDOCS) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): SCIDOCS, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-scidocs.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4889,7 +4481,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-scidocs.flat"
     },
     "beir-v1.0.0-fever.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (FEVER) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): FEVER, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-fever.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4902,7 +4494,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-fever.flat"
     },
     "beir-v1.0.0-climate-fever.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (Climate-FEVER) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): Climate-FEVER, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-climate-fever.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
@@ -4915,7 +4507,7 @@ FAISS_INDEX_INFO_BEIR = {
         "texts": "beir-v1.0.0-climate-fever.flat"
     },
     "beir-v1.0.0-scifact.bge-base-en-v1.5": {
-        "description": "Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by BGE-base-en-v1.5 encoder.",
+        "description": "Faiss flat index for BEIR (v1.0.0): SciFact, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-scifact.bge-base-en-v1.5.20240107.tar.gz",
         "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
