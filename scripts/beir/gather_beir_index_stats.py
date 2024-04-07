@@ -51,21 +51,21 @@ beir_keys = {
     'scifact': 'SciFact'
 }
 
-commitid = '505594'
-date = '20221116'
-type = 'flat'
+commitid = 'a66f86f'
+date = '20231124'
+type = 'splade-pp-ed'
 
 for key in beir_keys:
-    index_reader = IndexReader(f'indexes/lucene-index.beir-v1.0.0-{key}.{type}.{date}.{commitid}')
+    index_reader = IndexReader(f'indexes/lucene-inverted.beir-v1.0.0-{key}.{type}.{date}.{commitid}')
     stats = index_reader.stats()
-    md5 = compute_md5(f'indexes/lucene-index.beir-v1.0.0-{key}.{type}.{date}.{commitid}.tar.gz')
-    size = os.path.getsize(f'indexes/lucene-index.beir-v1.0.0-{key}.{type}.{date}.{commitid}.tar.gz')
+    md5 = compute_md5(f'indexes/lucene-inverted.beir-v1.0.0-{key}.{type}.{date}.{commitid}.tar.gz')
+    size = os.path.getsize(f'indexes/lucene-inverted.beir-v1.0.0-{key}.{type}.{date}.{commitid}.tar.gz')
     print(f'    "beir-v1.0.0-{key}.{type}": {{')
-    print(f'        "description": "Lucene flat index of BEIR (v1.0.0): {beir_keys[key]}",')
-    print(f'        "filename": "lucene-index.beir-v1.0.0-{key}.{type}.{date}.{commitid}.tar.gz",')
-    print(f'        "readme": "lucene-index.beir-v1.0.0-{key}.{type}.{date}.{commitid}.README.md",')
+    print(f'        "description": "Lucene impact index of BEIR (v1.0.0): {beir_keys[key]} encoded by SPLADE++ (CoCondenser-EnsembleDistil)",')
+    print(f'        "filename": "lucene-inverted.beir-v1.0.0-{key}.{type}.{date}.{commitid}.tar.gz",')
+    #print(f'        "readme": "lucene-inverted.beir-v1.0.0-{key}.{type}.{date}.{commitid}.README.md",')
     print(f'        "urls": [')
-    print(f'            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.beir-v1.0.0-{key}.{type}.{date}.{commitid}.tar.gz"')
+    print(f'            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-{key}.{type}.{date}.{commitid}.tar.gz"')
     print(f'        ],')
     print(f'        "md5": "{md5}",')
     print(f'        "size compressed (bytes)": {size},')
@@ -73,44 +73,4 @@ for key in beir_keys:
     print(f'        "documents": {stats["documents"]},')
     print(f'        "unique_terms": {stats["unique_terms"]},')
     print(f'        "downloaded": False')
-    print(f'    }},')
-
-# Stats for "contriever" indexes
-for key in beir_keys:
-    index_reader = IndexReader(f'indexes/faiss.beir-v1.0.0-{key}.contriever.{date}.{commitid}')
-    stats = index_reader.stats()
-    md5 = compute_md5(f'indexes/faiss.beir-v1.0.0-{key}.contriever.{date}.{commitid}.tar.gz')
-    size = os.path.getsize(f'indexes/faiss.beir-v1.0.0-{key}.contriever.{date}.{commitid}.tar.gz')
-    print(f'    "beir-v1.0.0-{key}.contriever": {{')
-    print(f'        "description": "Faiss index for BEIR v1.0.0 ({beir_keys[key]}) corpus encoded by Contriever encoder.",')
-    print(f'        "filename": "faiss.beir-v1.0.0-{key}.contriever.{date}.{commitid}.tar.gz",')
-    print(f'        "readme": "faiss.beir-v1.0.0-{key}.contriever.{date}.{commitid}.README.md",')
-    print(f'        "urls": [')
-    print(f'            "https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-indexes/faiss.beir-v1.0.0-{key}.contriever.{date}.{commitid}.tar.gz"')
-    print(f'        ],')
-    print(f'        "md5": "{md5}",')
-    print(f'        "size compressed (bytes)": {size},')
-    print(f'        "documents": {stats["documents"]},')
-    print(f'        "downloaded": False,')
-    print(f'        "texts": "beir-v1.0.0-{key}.flat"')
-    print(f'    }},')
-
-# Stats for "contriever" indexes with msmarco-ft
-for key in beir_keys:
-    index_reader = IndexReader(f'indexes/faiss.beir-v1.0.0-{key}.contriever-msmarco.{date}')
-    stats = index_reader.stats()
-    md5 = compute_md5(f'indexes/faiss.beir-v1.0.0-{key}.contriever-msmarco.{date}.tar.gz')
-    size = os.path.getsize(f'indexes/faiss.beir-v1.0.0-{key}.contriever-msmarco.{date}.tar.gz')
-    print(f'    "beir-v1.0.0-{key}.contriever": {{')
-    print(f'        "description": "Faiss index for BEIR v1.0.0 ({beir_keys[key]}) corpus encoded by Contriever encoder fine-tuned with MS MARCO.",')
-    print(f'        "filename": "faiss.beir-v1.0.0-{key}.contriever-msmarco.{date}.tar.gz",')
-    print(f'        "readme": "faiss.beir-v1.0.0-{key}.contriever-msmarco.{date}.README.md",')
-    print(f'        "urls": [')
-    print(f'            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-{key}.contriever-msmarco.20230124.tar.gz"')
-    print(f'        ],')
-    print(f'        "md5": "{md5}",')
-    print(f'        "size compressed (bytes)": {size},')
-    print(f'        "documents": {stats["documents"]},')
-    print(f'        "downloaded": False,')
-    print(f'        "texts": "beir-v1.0.0-{key}.flat"')
     print(f'    }},')
