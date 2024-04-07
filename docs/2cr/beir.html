@@ -40,6 +40,14 @@ blockquote.mycode {
   padding-left: 15px;
 }
 
+blockquote.mycode2 {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+}
+
 tr th.headertop {
   border-bottom: none;
   padding-bottom: 0rem
@@ -132,14 +140,17 @@ pre[class*="prettyprint"] {
 
 <div class="container my-4">
 
+<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing the experimental results below.
+Instructions for programmatic execution are shown at the bottom of this page (scroll down).</p>
+
 <p>Key:</p>
 
 <ul>
-  <li>BM25 Flat: BM25 "flat" baseline</li>
-  <li>BM25 Multifield: BM25 "multifield" baseline</li>
-  <li>SPLADE: SPLADE++ (CoCondenser-EnsembleDistil)</li>
-  <li>Contriever-msmarco: Contriever FT MS MARCO</li>
-  <li>BEG-base: BGE-base-en-v1.5</li>
+  <li>BM25 Flat: BM25 "flat" baseline [1]</li>
+  <li>BM25 Multifield: BM25 "multifield" baseline [1]</li>
+  <li>SPLADE: SPLADE++ (CoCondenser-EnsembleDistil) [2]</li>
+  <li>Contriever-msmarco: Contriever FT MS MARCO [3]</li>
+  <li>BEG-base: BGE-base-en-v1.5 [4]</li>
 </ul>
 
 <div class="table-responsive">
@@ -150,7 +161,7 @@ pre[class*="prettyprint"] {
         <th class="headertop"></th>
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
         <th class="headertop" colspan="3"><b>BM25 Multifield</b></th>
-        <th class="headertop" colspan="3"><b>SPLADE</b></th>
+        <th class="headertop" colspan="3"><b>SPLADE++ ED</b></th>
         <th class="headertop" colspan="3"><b>Contriever MSMARCO</b></th>
         <th class="headertop" colspan="3"><b>BGE-base</b></th>
       </tr>
@@ -6008,6 +6019,81 @@ Command to generate run:
     </tbody>
   </table>
 </div>
+
+<ul style="list-style-type:none; padding-top: 25px">
+
+<li><p>[1] Ehsan Kamalloo, Nandan Thakur, Carlos Lassance, Xueguang Ma, Jheng-Hong Yang, and Jimmy Lin.
+<a href="https://arxiv.org/abs/2306.07471">Resources for Brewing BEIR: Reproducible Reference Models and an Official Leaderboard.</a>
+<i>arXiv:2306.07471</i>, June 2023.</p></li>
+
+<li><p>[2] Thibault Formal, Carlos Lassance, Benjamin Piwowarski, and Stéphane Clinchant.
+<a href="https://dl.acm.org/doi/10.1145/3477495.3531857">From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.</a>
+<i>Proceedings of the 45th International ACM SIGIR Conference on Research and Development in Information Retrieval</i>, pages 2353–2359.</p></li>
+
+<li><p>[3] Gautier Izacard, Mathilde Caron, Lucas Hosseini, Sebastian Riedel, Piotr Bojanowski, Armand Joulin, and Edouard Grave.
+<a href="https://arxiv.org/abs/2112.09118">Towards Unsupervised Dense Information Retrieval with Contrastive Learning.</a>
+<i>arXiv:2112.09118</i>, December 2021.</p></li>
+
+<li><p>[4] Shitao Xiao, Zheng Liu, Peitian Zhang, and Niklas Muennighoff.
+<a href="https://arxiv.org/abs/2309.07597">C-Pack: Packaged Resources To Advance General Chinese Embedding.</a>
+<i>arXiv:2309.07597</i>, December 2023.</p></li>
+
+</ul>
+
+<div style="padding-top: 20px"/>
+
+<h4>Programmatic Execution</h4>
+
+<p>All experimental runs shown in the above table can be programmatically executed based on the instructions below.
+To list all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.beir --list-conditions
+</tt></blockquote>
+
+<p>These conditions correspond to the table rows above.</p>
+
+<p>For all conditions, just show the commands in a "dry run":</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.beir --all --display-commands --dry-run
+</tt></blockquote>
+
+<p>To actually run all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.beir --all --display-commands
+</tt></blockquote>
+
+<p>With the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>To show the commands for a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.beir --condition bm25-flat --display-commands --dry-run
+</tt></blockquote>
+
+<p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
+
+<p>To actually run a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.beir --condition bm25-flat --display-commands
+</tt></blockquote>
+
+<p>Again, with the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>Finally, to generate this page:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.beir --generate-report --output beir.html
+</tt></blockquote>
+
+<p>The output file <tt>beir.html</tt> should be identical to this page.</p>
+
+<div style="padding-top: 50px"/>
 
       </div>
 
