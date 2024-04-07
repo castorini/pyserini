@@ -803,91 +803,91 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): TREC-COVID encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): TREC-COVID, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): BioASQ encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): BioASQ, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): NFCorpus encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): NFCorpus, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): NQ encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): NQ, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): HotpotQA encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): HotpotQA, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): FiQA-2018 encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): FiQA-2018, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): Signal-1M encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): Signal-1M, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): TREC-NEWS encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): TREC-NEWS, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): Robust04 encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): Robust04, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): ArguAna encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): ArguAna, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): Webis-Touche2020 encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): Webis-Touche2020, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-android encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-android, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-english encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-english, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-gaming encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-gaming, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-gis encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-gis, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-mathematica encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-mathematica, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-physics encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-physics, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-programmers encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-programmers, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-stats encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-stats, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-tex encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-tex, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-unix encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-unix, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-webmasters encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-webmasters, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-wordpress encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-wordpress, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): Quora encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): Quora, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): DBPedia encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): DBPedia, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): SCIDOCS encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): SCIDOCS, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): FEVER encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): FEVER, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): Climate-FEVER encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): Climate-FEVER, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.splade-pp-ed</code></b>
-<dd>Lucene impact index of BEIR (v1.0.0): SciFact encoded by SPLADE++ (CoCondenser-EnsembleDistil)
+<dd>Lucene impact index of BEIR (v1.0.0): SciFact, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 </dl>
 
@@ -1181,119 +1181,90 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Faiss flat index for BEIR (v1.0.0): SciFact, encoded by Contriever w/ MS MARCO FTing.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): TREC-COVID, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): BioASQ, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): NFCorpus, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): NQ, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): HotpotQA, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): FiQA-2018, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): Signal-1M, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): TREC-NEWS, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): Robust04, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): ArguAna, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): Webis-Touche2020, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): CQADupStack-android, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): CQADupStack-english, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): CQADupStack-gaming, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): CQADupStack-gis, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): CQADupStack-mathematica, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): CQADupStack-physics, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): CQADupStack-programmers, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): CQADupStack-stats, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): CQADupStack-tex, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): CQADupStack-unix, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): CQADupStack-webmasters, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): CQADupStack-wordpress, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): Quora, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): DBPedia, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): SCIDOCS, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): FEVER, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): Climate-FEVER, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.bge-base-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bge-base-en-v1.5.20240107.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): SciFact, encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-arabic-mdpr-nq</code></b>

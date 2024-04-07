@@ -2779,7 +2779,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
 IMPACT_INDEX_INFO_BEIR = {
     # SPLADE++ (CoCondenser-EnsembleDistil)
     "beir-v1.0.0-trec-covid.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): TREC-COVID encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): TREC-COVID, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-trec-covid.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-trec-covid.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2792,7 +2792,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-bioasq.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): BioASQ encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): BioASQ, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-bioasq.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-bioasq.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2805,7 +2805,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-nfcorpus.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): NFCorpus encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): NFCorpus, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-nfcorpus.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-nfcorpus.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2818,7 +2818,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-nq.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): NQ encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): NQ, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-nq.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-nq.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2831,7 +2831,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-hotpotqa.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): HotpotQA encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): HotpotQA, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-hotpotqa.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-hotpotqa.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2844,7 +2844,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-fiqa.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): FiQA-2018 encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): FiQA-2018, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-fiqa.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-fiqa.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2857,7 +2857,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-signal1m.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): Signal-1M encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): Signal-1M, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-signal1m.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-signal1m.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2870,7 +2870,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-trec-news.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): TREC-NEWS encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): TREC-NEWS, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-trec-news.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-trec-news.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2883,7 +2883,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-robust04.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): Robust04 encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): Robust04, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-robust04.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-robust04.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2896,7 +2896,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-arguana.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): ArguAna encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): ArguAna, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-arguana.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-arguana.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2909,7 +2909,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-webis-touche2020.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): Webis-Touche2020 encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): Webis-Touche2020, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-webis-touche2020.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-webis-touche2020.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2922,7 +2922,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-android.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-android encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-android, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-android.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-android.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2935,7 +2935,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-english.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-english encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-english, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-english.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-english.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2948,7 +2948,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-gaming.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-gaming encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-gaming, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-gaming.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-gaming.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2961,7 +2961,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-gis.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-gis encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-gis, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-gis.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-gis.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2974,7 +2974,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-mathematica encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-mathematica, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -2987,7 +2987,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-physics.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-physics encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-physics, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-physics.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-physics.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -3000,7 +3000,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-programmers.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-programmers encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-programmers, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-programmers.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-programmers.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -3013,7 +3013,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-stats.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-stats encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-stats, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-stats.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-stats.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -3026,7 +3026,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-tex.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-tex encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-tex, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-tex.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-tex.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -3039,7 +3039,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-unix.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-unix encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-unix, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-unix.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-unix.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -3052,7 +3052,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-webmasters encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-webmasters, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -3065,7 +3065,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-wordpress encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-wordpress, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -3078,7 +3078,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-quora.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): Quora encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): Quora, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-quora.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-quora.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -3091,7 +3091,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-dbpedia-entity.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): DBPedia encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): DBPedia, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-dbpedia-entity.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-dbpedia-entity.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -3104,7 +3104,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-scidocs.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): SCIDOCS encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): SCIDOCS, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-scidocs.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-scidocs.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -3117,7 +3117,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-fever.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): FEVER encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): FEVER, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-fever.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-fever.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -3130,7 +3130,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-climate-fever.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): Climate-FEVER encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): Climate-FEVER, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-climate-fever.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-climate-fever.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -3143,7 +3143,7 @@ IMPACT_INDEX_INFO_BEIR = {
         "downloaded": False
     },
     "beir-v1.0.0-scifact.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): SciFact encoded by SPLADE++ (CoCondenser-EnsembleDistil)",
+        "description": "Lucene impact index of BEIR (v1.0.0): SciFact, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
         "filename": "lucene-inverted.beir-v1.0.0-scifact.splade-pp-ed.20231124.a66f86f.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-scifact.splade-pp-ed.20231124.a66f86f.tar.gz"
@@ -4145,7 +4145,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-trec-covid.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): TREC-COVID, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-trec-covid.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-trec-covid.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4158,7 +4157,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-bioasq.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): BioASQ, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-bioasq.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-bioasq.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4171,7 +4169,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-nfcorpus.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): NFCorpus, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-nfcorpus.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-nfcorpus.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4184,7 +4181,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-nq.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): NQ, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-nq.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-nq.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4197,7 +4193,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-hotpotqa.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): HotpotQA, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-hotpotqa.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-hotpotqa.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4210,7 +4205,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-fiqa.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): FiQA-2018, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-fiqa.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-fiqa.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4223,7 +4217,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-signal1m.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): Signal-1M, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-signal1m.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-signal1m.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4236,7 +4229,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-trec-news.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): TREC-NEWS, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-trec-news.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-trec-news.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4249,7 +4241,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-robust04.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): Robust04, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-robust04.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-robust04.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4262,7 +4253,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-arguana.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): ArguAna, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4275,7 +4265,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-webis-touche2020.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): Webis-Touche2020, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4288,7 +4277,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-android, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4301,7 +4289,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-english, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4314,7 +4301,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-gaming, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4327,7 +4313,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-gis, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4340,7 +4325,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-mathematica, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4353,7 +4337,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-physics, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4366,7 +4349,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-programmers, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4379,7 +4361,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-stats, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4392,7 +4373,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-tex, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4405,7 +4385,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-unix, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4418,7 +4397,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-webmasters, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4431,7 +4409,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): CQADupStack-wordpress, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4444,7 +4421,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-quora.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): Quora, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-quora.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-quora.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4457,7 +4433,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): DBPedia, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4470,7 +4445,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-scidocs.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): SCIDOCS, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-scidocs.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-scidocs.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4483,7 +4457,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-fever.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): FEVER, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-fever.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-fever.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4496,7 +4469,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-climate-fever.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): Climate-FEVER, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-climate-fever.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-climate-fever.bge-base-en-v1.5.20240107.tar.gz"
         ],
@@ -4509,7 +4481,6 @@ FAISS_INDEX_INFO_BEIR = {
     "beir-v1.0.0-scifact.bge-base-en-v1.5": {
         "description": "Faiss flat index for BEIR (v1.0.0): SciFact, encoded by BGE-base-en-v1.5.",
         "filename": "faiss-flat.beir-v1.0.0-scifact.bge-base-en-v1.5.20240107.tar.gz",
-        "readme": "faiss.bge-base-en-v1.5.20240107.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-scifact.bge-base-en-v1.5.20240107.tar.gz"
         ],
