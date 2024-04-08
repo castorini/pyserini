@@ -83,8 +83,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
                     urls.append(url)
 
         # 29 from SPLADE-distill CoCodenser-medium
-        # 29 from SPLADE++ (CoCondenser-EnsembleDistil)
-        self.assertEqual(cnt, 58)
+        self.assertEqual(cnt, 29)
         self._test_urls(urls)
 
     def test_impact_mrtydi(self):
