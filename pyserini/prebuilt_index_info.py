@@ -2676,13 +2676,13 @@ IMPACT_INDEX_INFO_MSMARCO = {
 
     "msmarco-v1-doc-segmented.unicoil": {
         "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL, with title/segment encoding.",
-        "filename": "lucene-index.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.tar.gz",
+        "filename": "lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-index.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.tar.gz",
         ],
-        "md5": "80342ef5dcbb83d79522f38d8463ab50",
-        "size compressed (bytes)": 5765257598,
+        "md5": "7dc32ad22876fbbe0f24f21fd1ea50c0",
+        "size compressed (bytes)": 5765257801,
         "total_terms": 214505277898,
         "documents": 20545677,
         "unique_terms": 29142,
@@ -2690,13 +2690,13 @@ IMPACT_INDEX_INFO_MSMARCO = {
     },
     "msmarco-v1-doc-segmented.unicoil-noexp": {
         "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp), with title/segment encoding.",
-        "filename": "lucene-index.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.tar.gz",
+        "filename": "lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.tar.gz",
         "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-index.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.tar.gz",
         ],
-        "md5": "d9337925931b37a130cbbd8ee89076cc",
-        "size compressed (bytes)": 5323380885,
+        "md5": "f92d5a2ba22274993b34f69e59427379",
+        "size compressed (bytes)": 5323380902,
         "total_terms": 152323732876,
         "documents": 20545677,
         "unique_terms": 29142,
