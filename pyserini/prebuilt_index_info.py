@@ -2548,9 +2548,9 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage.unicoil-tilde": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-TILDE.",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus encoded by uniCOIL-TILDE.",
         "filename": "lucene-inverted.msmarco-v1-passage.unicoil-tilde.20221005.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-unicoil-tilde.20221005.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.unicoil-tilde.20221005.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.unicoil-tilde.20221005.252b5e.tar.gz",
         ],
@@ -2562,9 +2562,9 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage.deepimpact": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by DeepImpact.",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus encoded by DeepImpact.",
         "filename": "lucene-inverted.msmarco-v1-passage.deepimpact.20221005.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-deepimpact.20221005.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.deepimpact.20221005.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.deepimpact.20221005.252b5e.tar.gz",
         ],
@@ -2576,9 +2576,9 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-passage.distill-splade-max": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by distill-splade-max.",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus encoded by distill-splade-max.",
         "filename": "lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-distill-splade-max.20221005.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.tar.gz",
         ],

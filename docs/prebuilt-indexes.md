@@ -739,16 +739,16 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL (noexp).
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.unicoil-tilde</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-unicoil-tilde.20221005.252b5e.README.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-TILDE.
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.unicoil-tilde.20221005.252b5e.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V1 passage corpus encoded by uniCOIL-TILDE.
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.deepimpact</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-deepimpact.20221005.252b5e.README.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO passage corpus encoded by DeepImpact.
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.deepimpact.20221005.252b5e.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V1 passage corpus encoded by DeepImpact.
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.distill-splade-max</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-distill-splade-max.20221005.252b5e.README.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO passage corpus encoded by distill-splade-max.
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V1 passage corpus encoded by distill-splade-max.
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md">readme</a>]
