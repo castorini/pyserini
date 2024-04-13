@@ -51,63 +51,63 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 ## Standard Lucene Indexes
 <dl>
 <dt></dt><b><code>msmarco-v1-doc</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 document corpus.
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 document corpus ('slim' version).
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 document corpus ('full' version).
 </dd>
-<dt></dt><b><code>msmarco-v1-doc-d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-doc.d2q-t5</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions.
 </dd>
-<dt></dt><b><code>msmarco-v1-doc-d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-doc.d2q-t5-docvectors</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index (+docvectors) of the MS MARCO V1 document corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 segmented document corpus.
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 segmented document corpus ('slim' version).
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 segmented document corpus ('full' version).
 </dd>
-<dt></dt><b><code>msmarco-v1-doc-segmented-d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-doc-segmented.d2q-t5</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.
 </dd>
-<dt></dt><b><code>msmarco-v1-doc-segmented-d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-doc-segmented.d2q-t5-docvectors</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index (+docvectors) of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v1-passage</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 passage corpus.
 </dd>
 <dt></dt><b><code>msmarco-v1-passage-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 passage corpus ('slim' version).
 </dd>
 <dt></dt><b><code>msmarco-v1-passage-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 passage corpus ('full' version).
 </dd>
-<dt></dt><b><code>msmarco-v1-passage-d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-passage.d2q-t5</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V1 passage corpus with doc2query-T5 expansions.
 </dd>
-<dt></dt><b><code>msmarco-v1-passage-d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-passage.d2q-t5-docvectors</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index (+docvectors) of the MS MARCO V1 passage corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-passage-ltr</code></b>
@@ -722,64 +722,64 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 
 ## Lucene Impact Indexes
 <dl>
-<dt></dt><b><code>msmarco-v1-passage-slimr</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-slimr.20230925.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-passage.slimr</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.slimr.20230925.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with BM25 negatives.
 </dd>
-<dt></dt><b><code>msmarco-v1-passage-slimr-pp</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-slimr-pp.20230925.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with cross-encoder distillation and hardnegative mining.
+<dt></dt><b><code>msmarco-v1-passage.slimr-pp</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.slimr-pp.20230925.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with cross-encoder distillation and hard-negative mining.
 </dd>
-<dt></dt><b><code>msmarco-v1-passage-unicoil</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-unicoil.20221005.252b5e.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-passage.unicoil</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL.
 </dd>
-<dt></dt><b><code>msmarco-v1-passage-unicoil-noexp</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-unicoil-noexp.20221005.252b5e.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-passage.unicoil-noexp</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.unicoil-noexp.20221005.252b5e.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL (noexp).
 </dd>
-<dt></dt><b><code>msmarco-v1-passage-deepimpact</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-deepimpact.20221005.252b5e.README.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO passage corpus encoded by DeepImpact.
-</dd>
-<dt></dt><b><code>msmarco-v1-passage-unicoil-tilde</code></b>
+<dt></dt><b><code>msmarco-v1-passage.unicoil-tilde</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-unicoil-tilde.20221005.252b5e.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO passage corpus encoded by uniCOIL-TILDE.
 </dd>
-<dt></dt><b><code>msmarco-v1-passage-distill-splade-max</code></b>
+<dt></dt><b><code>msmarco-v1-passage.deepimpact</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-deepimpact.20221005.252b5e.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO passage corpus encoded by DeepImpact.
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.distill-splade-max</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-distill-splade-max.20221005.252b5e.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO passage corpus encoded by distill-splade-max.
 </dd>
-<dt></dt><b><code>msmarco-v1-passage-splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-passage.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil.
 </dd>
-<dt></dt><b><code>msmarco-v1-passage-splade-pp-ed-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-passage.splade-pp-ed-docvectors</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md">readme</a>]
 <dd>Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil.
 </dd>
-<dt></dt><b><code>msmarco-v1-passage-splade-pp-ed-text</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-passage.splade-pp-ed-text</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md">readme</a>]
 <dd>Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil.
 </dd>
-<dt></dt><b><code>msmarco-v1-passage-splade-pp-sd</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-passage.splade-pp-sd</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.
 </dd>
-<dt></dt><b><code>msmarco-v1-passage-splade-pp-sd-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-passage.splade-pp-sd-docvectors</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md">readme</a>]
 <dd>Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.
 </dd>
-<dt></dt><b><code>msmarco-v1-passage-splade-pp-sd-text</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-passage.splade-pp-sd-text</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md">readme</a>]
 <dd>Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.
 </dd>
-<dt></dt><b><code>msmarco-v1-doc-segmented-unicoil</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-unicoil.20221005.252b5e.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-doc-segmented.unicoil</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL, with title/segment encoding.
 </dd>
-<dt></dt><b><code>msmarco-v1-doc-segmented-unicoil-noexp</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20221005.252b5e.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v1-doc-segmented.unicoil-noexp</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp), with title/segment encoding.
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-unicoil-0shot</code></b>

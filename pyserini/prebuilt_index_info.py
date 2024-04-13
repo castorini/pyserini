@@ -19,7 +19,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-doc": {
         "description": "Lucene index of the MS MARCO V1 document corpus.",
         "filename": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc.20221004.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc.20221004.252b5e.tar.gz",
         ],
@@ -33,7 +33,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-doc-slim": {
         "description": "Lucene index of the MS MARCO V1 document corpus ('slim' version).",
         "filename": "lucene-inverted.msmarco-v1-doc-slim.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc.20221004.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-slim.20221004.252b5e.tar.gz",
         ],
@@ -47,7 +47,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-doc-full": {
         "description": "Lucene index of the MS MARCO V1 document corpus ('full' version).",
         "filename": "lucene-inverted.msmarco-v1-doc-full.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc.20221004.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-full.20221004.252b5e.tar.gz",
         ],
@@ -63,7 +63,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-doc.d2q-t5": {
         "description": "Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions.",
         "filename": "lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.README.md",
+        "readme": "lucene-index.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.tar.gz",
         ],
@@ -77,7 +77,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-doc.d2q-t5-docvectors": {
         "description": "Lucene index (+docvectors) of the MS MARCO V1 document corpus with doc2query-T5 expansions.",
         "filename": "lucene-inverted.msmarco-v1-doc.d2q-t5-docvectors.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-d2q-t5.20221004.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc.d2q-t5-docvectors.20221004.252b5e.tar.gz",
         ],
@@ -93,7 +93,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-doc-segmented": {
         "description": "Lucene index of the MS MARCO V1 segmented document corpus.",
         "filename": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
         ],
@@ -107,7 +107,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-doc-segmented-slim": {
         "description": "Lucene index of the MS MARCO V1 segmented document corpus ('slim' version).",
         "filename": "lucene-inverted.msmarco-v1-doc-segmented-slim.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented-slim.20221004.252b5e.tar.gz",
         ],
@@ -121,7 +121,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-doc-segmented-full": {
         "description": "Lucene index of the MS MARCO V1 segmented document corpus ('full' version).",
         "filename": "lucene-inverted.msmarco-v1-doc-segmented-full.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented-full.20221004.252b5e.tar.gz",
         ],
@@ -137,7 +137,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-doc-segmented.d2q-t5": {
         "description": "Lucene index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.",
         "filename": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.tar.gz",
         ],
@@ -151,7 +151,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-doc-segmented.d2q-t5-docvectors": {
         "description": "Lucene index (+docvectors) of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.",
         "filename": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5-docvectors.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-segmented-d2q-t5.20221004.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5-docvectors.20221004.252b5e.tar.gz",
         ],
@@ -167,7 +167,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage": {
         "description": "Lucene index of the MS MARCO V1 passage corpus.",
         "filename": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage.20221004.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.20221004.252b5e.tar.gz",
         ],
@@ -181,7 +181,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage-slim": {
         "description": "Lucene index of the MS MARCO V1 passage corpus ('slim' version).",
         "filename": "lucene-inverted.msmarco-v1-passage-slim.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage.20221004.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage-slim.20221004.252b5e.tar.gz",
         ],
@@ -195,7 +195,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage-full": {
         "description": "Lucene index of the MS MARCO V1 passage corpus ('full' version).",
         "filename": "lucene-inverted.msmarco-v1-passage-full.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage.20221004.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage-full.20221004.252b5e.tar.gz",
         ],
@@ -211,7 +211,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.d2q-t5": {
         "description": "Lucene index of the MS MARCO V1 passage corpus with doc2query-T5 expansions.",
         "filename": "lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.tar.gz",
         ],
@@ -225,7 +225,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.d2q-t5-docvectors": {
         "description": "Lucene index (+docvectors) of the MS MARCO V1 passage corpus with doc2query-T5 expansions.",
         "filename": "lucene-inverted.msmarco-v1-passage.d2q-t5-docvectors.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-d2q-t5.20221004.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.d2q-t5-docvectors.20221004.252b5e.tar.gz",
         ],
@@ -2494,7 +2494,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.slimr": {
         "description": "Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with BM25 negatives.",
         "filename": "lucene-inverted.msmarco-v1-passage.slimr.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-slimr.20230925.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.slimr.20230925.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.slimr.tar.gz",
         ],
@@ -2508,7 +2508,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.slimr-pp": {
         "description": "Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with cross-encoder distillation and hard-negative mining.",
         "filename": "lucene-inverted.msmarco-v1-passage.slimr-pp.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-slimr-pp.20230925.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.slimr-pp.20230925.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.slimr-pp.tar.gz",
         ],
@@ -2522,7 +2522,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.unicoil": {
         "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL.",
         "filename": "lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-unicoil.20221005.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.tar.gz",
         ],
@@ -2536,7 +2536,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.unicoil-noexp": {
         "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL (noexp).",
         "filename": "lucene-inverted.msmarco-v1-passage.unicoil-noexp.20221005.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-unicoil-noexp.20221005.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.unicoil-noexp.20221005.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.unicoil-noexp.20221005.252b5e.tar.gz",
         ],
@@ -2592,7 +2592,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.splade-pp-ed": {
         "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil.",
         "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-ed.20230524.a59610.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-pp-ed.20230524.a59610.tar.gz",
         ],
@@ -2606,7 +2606,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.splade-pp-ed-docvectors": {
         "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil.",
         "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-ed-docvectors.20230524.a59610.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-pp-ed-docvectors.20230524.a59610.tar.gz",
         ],
@@ -2620,7 +2620,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.splade-pp-ed-text": {
         "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil.",
         "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-ed-text.20230524.a59610.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-pp-ed-text.20230524.a59610.tar.gz",
         ],
@@ -2634,7 +2634,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.splade-pp-sd": {
         "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.",
         "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-sd.20230524.a59610.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-pp-sd.20230524.a59610.tar.gz",
         ],
@@ -2648,7 +2648,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.splade-pp-sd-docvectors": {
         "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.",
         "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-sd-docvectors.20230524.a59610.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-pp-sd-docvectors.20230524.a59610.tar.gz",
         ],
@@ -2662,7 +2662,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.splade-pp-sd-text": {
         "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.",
         "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-sd-text.20230524.a59610.tar.gz",
-        "readme": "lucene-index.msmarco-v1-passage-splade-pp.20230524.a59610.README.md",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-pp-sd-text.20230524.a59610.tar.gz",
         ],
@@ -2677,7 +2677,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-doc-segmented.unicoil": {
         "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL, with title/segment encoding.",
         "filename": "lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil.20221005.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.tar.gz",
         ],
@@ -2691,7 +2691,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-doc-segmented.unicoil-noexp": {
         "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp), with title/segment encoding.",
         "filename": "lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc-segmented-unicoil-noexp.20221005.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.tar.gz",
         ],
