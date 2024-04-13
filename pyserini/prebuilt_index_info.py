@@ -63,7 +63,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-doc.d2q-t5": {
         "description": "Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions.",
         "filename": "lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.tar.gz",
-        "readme": "lucene-index.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md",
+        "readme": "lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.tar.gz",
         ],
