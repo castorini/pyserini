@@ -3347,6 +3347,7 @@ FAISS_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.openai-text-embedding-3-large": {
         "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by OpenAI text-embedding-3-large",
         "filename": "faiss-flat.msmarco-v1-passage.openai-text-embedding-3-large.20240410.c13cd6.tar.gz",
+        "readme": "faiss-flat.msmarco-v1-passage.openai-text-embedding-3-large.20240410.c13cd6.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.openai-text-embedding-3-large.20240410.c13cd6.tar.gz"
         ],
