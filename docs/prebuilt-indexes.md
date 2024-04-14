@@ -939,6 +939,9 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>msmarco-v1-passage.cohere-embed-english-v3.0</code></b>
 <dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by Cohere Embed English v3.0
 </dd>
+<dt></dt><b><code>msmarco-v1-passage.openai-text-embedding-3-large</code></b>
+<dd>Faiss FlatIP index of the MS MARCO passage corpus encoded by OpenAI text-embedding-3-large
+</dd>
 <dt></dt><b><code>msmarco-v1-doc.ance-maxp</code></b>
 <dd>Faiss FlatIP index of the MS MARCO document corpus encoded by the ANCE MaxP encoder
 </dd>
