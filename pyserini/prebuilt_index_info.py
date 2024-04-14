@@ -3344,6 +3344,19 @@ FAISS_INDEX_INFO_MSMARCO = {
         "downloaded": False,
         "texts": "msmarco-v1-passage"
     },
+    "msmarco-v1-passage.openai-text-embedding-3-large": {
+        "description": "Faiss FlatIP index of the MS MARCO passage corpus encoded by OpenAI text-embedding-3-large",
+        "filename": "faiss-flat.msmarco-v1-passage.openai-text-embedding-3-large.20240410.c13cd6.tar.gz",
+        "readme": "faiss-flat.msmarco-v1-passage.openai-text-embedding-3-large.20240410.c13cd6.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.openai-text-embedding-3-large.20240410.c13cd6.tar.gz"
+        ],
+        "md5": "e52f046b1decc9bf3a55ac0ff70780d0",
+        "size compressed (bytes)": 87658796879,
+        "documents": 8841823,
+        "downloaded": False,
+        "texts": "msmarco-v1-passage"
+    },
     "msmarco-v1-doc.ance-maxp": {
         "description": "Faiss FlatIP index of the MS MARCO document corpus encoded by the ANCE MaxP encoder",
         "filename": "faiss.msmarco-v1-doc.ance_maxp.20210304.b2a1b0.tar.gz",

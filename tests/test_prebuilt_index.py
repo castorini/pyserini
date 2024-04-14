@@ -158,7 +158,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
                 for url in FAISS_INDEX_INFO[key]['urls']:
                     urls.append(url)
 
-        self.assertEqual(cnt, 18)
+        self.assertEqual(cnt, 19)
         self._test_urls(urls)
 
     def test_faiss_ciral(self):
