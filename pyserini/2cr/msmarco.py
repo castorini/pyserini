@@ -103,6 +103,7 @@ models = {
      '',
      'openai-ada2',
      'openai-ada2-hyde',
+     'openai-text-embedding-3-large',
      '',
      'cosdpr-distil-pytorch',
      '',

@@ -1201,6 +1201,29 @@ conditions:
           - MAP: 0.4938
             nDCG@10: 0.6666
             R@1K: 0.8919
+  - name: openai-text-embedding-3-large
+    display: "OpenAI text-embedding-3-large: pre-encoded queries"
+    display-html: "OpenAI text-embedding-3-large: pre-encoded queries"
+    display-row: ""
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.openai-text-embedding-3-large --topics $topics --encoded-queries openai-text-embedding-3-large-$topics --output $output
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3342
+            R@1K: 0.9885
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.5259
+            nDCG@10: 0.7173
+            R@1K: 0.8991
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.5134
+            nDCG@10: 0.7163
+            R@1K: 0.8884
   - name: cohere-embed-english-v3.0
     display: "Cohere Embed English v3.0: pre-encoded queries"
     display-html: "Cohere Embed English v3.0: pre-encoded queries"

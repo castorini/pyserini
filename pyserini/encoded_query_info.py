@@ -515,6 +515,36 @@ QUERY_INFO = {
         "total_queries": 6980,
         "downloaded": False
      },
+     "openai-text-embedding-3-large-dl19-passage": {
+        "description": "TREC DL19 passage queries encoded by OpenAI text-embedding-3-large.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-openai-text-embedding-3-large-dl19-passage-20240410-c13cd6.tar.gz",
+        ],
+        "md5": "a2e4ad9dc3288d97b77577552df9ee2b",
+        "size (bytes)": 541753,
+        "total_queries": 43,
+        "downloaded": False
+     },
+     "openai-text-embedding-3-large-dl20": {
+        "description": "TREC DL20 passage queries encoded by OpenAI text-embedding-3-large.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-openai-text-embedding-3-large-dl20-passage-20240410-c13cd6.tar.gz",
+        ],
+        "md5": "9911fb1012ff5651f0cf832a81943967",
+        "size (bytes)": 2515768,
+        "total_queries": 200,
+        "downloaded": False
+     },
+     "openai-text-embedding-3-large-msmarco-passage-dev-subset": {
+        "description": "MS MARCO passage dev set queries encoded by OpenAI text-embedding-3-large.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-openai-text-embedding-3-large-msmarco-passage-dev-subset-20240410-c13cd6.tar.gz",
+        ],
+        "md5": "4b0bce9c7cb0b55e49920d340924c92f",
+        "size (bytes)": 87687020,
+        "total_queries": 6980,
+        "downloaded": False
+     },
      "atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation": {
         "description": "AToMiC text v0.2.1 validation set encoded by ViT-L-14.laion2b_s32b_b82k.",
         "urls": [
