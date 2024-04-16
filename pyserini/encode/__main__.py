@@ -18,7 +18,7 @@ import argparse
 import sys
 
 from pyserini.encode import JsonlRepresentationWriter, FaissRepresentationWriter, JsonlCollectionIterator
-from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AggretrieverDocumentEncoder, AutoDocumentEncoder, CosDprDocumentEncoder
+from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AggretrieverDocumentEncoder, AutoDocumentEncoder, CosDprDocumentEncoder, ClipDocumentEncoder
 from pyserini.encode import UniCoilDocumentEncoder
 from pyserini.encode import OpenAIDocumentEncoder, OPENAI_API_RETRY_DELAY
 
@@ -33,9 +33,10 @@ encoder_class_map = {
     "openai-api": OpenAIDocumentEncoder,
     "cosdpr": CosDprDocumentEncoder,
     "auto": AutoDocumentEncoder,
+    "clip": ClipDocumentEncoder,
 }
 
-def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix):
+def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multimodal):
     _encoder_class = encoder_class
 
     # determine encoder_class
@@ -63,6 +64,8 @@ def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix):
         kwargs.update(dict(pooling='mean', l2_norm=False))
     if (_encoder_class == "auto"):
         kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix))
+    if (_encoder_class == "clip") or ("clip" in encoder):
+        kwargs.update(dict(l2_norm=True, prefix=prefix, multimodal=multimodal))
     return encoder_class(**kwargs)
 
 
@@ -113,6 +116,7 @@ if __name__ == '__main__':
                                 choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto"],
                                 help='which query encoder class to use. `default` would infer from the args.encoder')
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
+    encoder_parser.add_argument('--multimodal', action='store_true', default=False)
     encoder_parser.add_argument('--batch-size', type=int, help='batch size', default=64, required=False)
     encoder_parser.add_argument('--max-length', type=int, help='max length', default=256, required=False)
     encoder_parser.add_argument('--dimension', type=int, help='dimension', default=768, required=False)
@@ -128,8 +132,7 @@ if __name__ == '__main__':
 
     args = parse_args(parser, commands)
     delimiter = args.input.delimiter.replace("\\n", "\n")  # argparse would add \ prior to the passed '\n\n'
-
-    encoder = init_encoder(args.encoder.encoder, args.encoder.encoder_class, device=args.encoder.device, pooling=args.encoder.pooling, l2_norm=args.encoder.l2_norm, prefix=args.encoder.prefix)
+    encoder = init_encoder(args.encoder.encoder, args.encoder.encoder_class, device=args.encoder.device, pooling=args.encoder.pooling, l2_norm=args.encoder.l2_norm, prefix=args.encoder.prefix, multimodal=args.encoder.multimodal)
     if args.output.to_faiss:
         embedding_writer = FaissRepresentationWriter(args.output.embeddings, dimension=args.encoder.dimension)
     else:
@@ -144,13 +147,16 @@ if __name__ == '__main__':
     with embedding_writer:
         for batch_info in collection_iterator(batch_size, args.input.shard_id, args.input.shard_num):
             kwargs = {
-                'texts': batch_info['text'],
-                'titles': batch_info['title'] if 'title' in args.encoder.fields else None,
-                'expands': batch_info['expand'] if 'expand' in args.encoder.fields else None,
                 'fp16': args.encoder.fp16,
                 'max_length': args.encoder.max_length,
                 'add_sep': args.encoder.add_sep,
             }
+            # Prepare input_kwargs for the encoder
+            if not args.encoder.multimodal:
+                kwargs['texts'] = batch_info['text'] # pyserini text encoders takes 'texts' as default input    
+            for field_name in args.encoder.fields:
+                kwargs[f'{field_name}s'] = batch_info[field_name] 
+            
             embeddings = encoder.encode(**kwargs)
             batch_info['vector'] = embeddings
             embedding_writer.write(batch_info, args.input.fields)

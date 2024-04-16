@@ -40,7 +40,7 @@ from pyserini.index import Document
 from ._model import AnceEncoder
 import torch
 
-from ...encode import PcaEncoder, CosDprQueryEncoder
+from ...encode import PcaEncoder, CosDprQueryEncoder, ClipEncoder
 from ...encode._aggretriever import BERTAggretrieverEncoder, DistlBERTAggretrieverEncoder
 
 if is_faiss_available():
@@ -86,6 +86,29 @@ class QueryEncoder:
     def _load_embeddings(encoded_query_dir):
         df = pd.read_pickle(os.path.join(encoded_query_dir, 'embedding.pkl'))
         return dict(zip(df['text'].tolist(), df['embedding'].tolist()))
+
+class ClipQueryEncoder(QueryEncoder):
+    """Encodes queries using a CLIP model, supporting both images and texts."""
+    def __init__(self,
+        encoder_dir: str=None,
+        encoded_query_dir: str = None,
+        device: str ='cuda:0',
+        l2_norm: bool=False,
+        prefix: str=None,
+        multimodal: bool=False,
+        **kwargs,
+    ):
+        super().__init__(encoded_query_dir)
+        if encoder_dir:
+            self.device = device
+            self.encoder = ClipEncoder(encoder_dir, device, l2_norm, prefix, multimodal)
+            self.has_model = True
+        
+        if not self.has_model and not self.has_encoded_query:
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
+
+    def encode(self, query: str):
+        return self.encoder.encode(query).flatten()
 
 
 class AggretrieverQueryEncoder(QueryEncoder):

@@ -1,6 +1,6 @@
 # Pyserini: Detailed Installation Guide
 
-Pyserini requires Python 3.10+.
+Pyserini is built on Python 3.10.
 At a high level, we try to keep our [`requirements.txt`](../requirements.txt) up to date.
 Pyserini has a number of important dependencies:
 
@@ -25,20 +25,20 @@ conda create -n pyserini python=3.10 -y
 conda activate pyserini
 ```
 
-If you do not already have JDK 11 installed, install via `conda`:
+If you do not already have JDK 21 installed, install via `conda`:
 
 ```bash
-conda install -c conda-forge openjdk=11 maven -y
+conda install -c conda-forge openjdk=21 maven -y
 ```
 
-If your system already has JDK 11 installed, the above step can be skipped.
+If your system already has JDK 21 installed, the above step can be skipped.
 Use `java --version` to check one way or the other.
 
 If you're on an Intel-based Mac, the following recipe should work:
 
 ```bash
 conda install wget -y
-conda install -c conda-forge openjdk=11 maven -y
+conda install -c conda-forge openjdk=21 maven -y
 conda install -c conda-forge lightgbm nmslib -y
 
 # from https://github.com/facebookresearch/faiss/blob/main/INSTALL.md
@@ -53,18 +53,14 @@ If you're on a Mac with an M-series (i.e., ARM) processor, the following recipe 
 
 ```bash
 conda install wget -y
-conda install -c conda-forge openjdk=11 maven -y
-conda install -c conda-forge lightgbm -y
-
-# from https://github.com/nmslib/nmslib/issues/476#issuecomment-1594889437
-CFLAGS="-mavx -DWARN(a)=(a)" pip install --use-pep517 nmslib
-
-# from https://github.com/facebookresearch/faiss/blob/main/INSTALL.md
-conda install -c pytorch faiss-cpu=1.7.4 blas=1.0 -y
+conda install -c conda-forge openjdk=21 maven -y
+conda install -c conda-forge lightgbm nmslib -y
 conda install -c pytorch faiss-cpu pytorch -y
 
 pip install pyserini
 ```
+
+As of April 2024, for `faiss-cpu`, `osx-64` is still at v1.7.4, whereas `osx-arm64` is at v1.8.0; hence the differences in the instructions above. 
 
 ### Linux
 
@@ -122,13 +118,9 @@ If everything is working properly, you should be able to reproduce the results a
 If you're planning on just _using_ Pyserini, then the instructions above are fine.
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
 
-Install dependencies:
+Start the same way as the install above, but **don't** install `pip install pyserini`.
 
-```bash
-pip install torch faiss-cpu cohere
-```
-
-Clone the Pyserini repo with the `--recurse-submodules` option to make sure the `tools/` submodule also gets cloned:
+Instead, clone the Pyserini repo with the `--recurse-submodules` option to make sure the `tools/` submodule also gets cloned:
 
 ```bash
 git clone git@github.com:castorini/pyserini.git --recurse-submodules
@@ -142,13 +134,7 @@ cd tools/eval && tar xvfz trec_eval.9.0.4.tar.gz && cd trec_eval.9.0.4 && make &
 cd tools/eval/ndeval && make && cd ../../..
 ```
 
-You can then set up your Python environment in exactly the same way as a `pip` installation, except replace this:
-
-```bash
-pip install pip
-```
-
-With an ["editable" installation](https://setuptools.pypa.io/en/latest/userguide/development_mode.html), as follows:
+Then, in the `pyserini` clone, use `pip` to add an ["editable" installation](https://setuptools.pypa.io/en/latest/userguide/development_mode.html), as follows:
 
 ```bash
 pip install -e .
@@ -177,13 +163,13 @@ Assuming all tests pass, you should be ready to go!
 
 + The above guide handle JVM installation via conda. If you are using your own Java environment and get an error about Java version mismatch, it's likely an issue with your `JAVA_HOME` environmental variable.
 In `bash`, use `echo $JAVA_HOME` to find out what the environmental variable is currently set to, and use `export JAVA_HOME=/path/to/java/home` to change it to the correct path.
-On a Linux system, the correct path might look something like `/usr/lib/jvm/java-11`.
+On a Linux system, the correct path might look something like `/usr/lib/jvm/java-21`.
 Unfortunately, we are unable to offer more concrete advice since the actual path depends on your OS, which JDK you're using, and a host of other factors.
 + On Apple's M-series processors, make sure you've installed the ARM-based release of Conda instead of the Intel-based release.
 
 ## Internal Notes
 
-At the University of Waterloo, we have two (CPU) development servers, `tuna` and `ocra`.
+At the University of Waterloo, we have two (CPU) development servers, `tuna` and `orca`.
 Note that on these two servers, the root disk (where your home directory is mounted) doesn't have much space.
 So, you need to set pyserini cache path to scratch space.
 

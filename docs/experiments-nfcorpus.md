@@ -1,6 +1,6 @@
-# Pyserini: Contriever Baseline for NFCorpus
+# Pyserini: BGE-base Baseline for NFCorpus
 
-This guide contains instructions for running a Contriever baseline for NFCorpus.
+This guide contains instructions for running a BGE-base baseline for NFCorpus.
 
 If you're a Waterloo student traversing the [onboarding path](https://github.com/lintool/guide/blob/master/ura.md) (which [starts here](https://github.com/castorini/anserini/blob/master/docs/start-here.md)),
 make sure you've first done the previous step, [a conceptual framework for retrieval
@@ -26,7 +26,7 @@ How to actually train such models will be covered later.
 
 **Learning outcomes** for this guide, building on previous steps in the onboarding path:
 
-+ Be able to use Pyserini to encode documents in NFCorpus with an existing dense retrieval model (Contriever) and to build a Faiss index on the vector representations..
++ Be able to use Pyserini to encode documents in NFCorpus with an existing dense retrieval model (BGE-base) and to build a Faiss index on the vector representations..
 + Be able to use Pyserini to perform a batch retrieval run on queries from NFCorpus.
 + Be able to evaluate the retrieved results above.
 + Be able to generate the retrieved results above _interactively_ by directly manipulating Pyserini Python classes.
@@ -81,6 +81,25 @@ We can now "index" these documents using Pyserini:
 python -m pyserini.encode \
   input   --corpus collections/nfcorpus/corpus.jsonl \
           --fields title text \
+  output  --embeddings indexes/nfcorpus.bge-base-en-v1.5 \
+          --to-faiss \
+  encoder --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+          --device cpu \
+          --pooling mean \
+          --fields title text \
+          --batch 32
+```
+
+We're using the [`BAAI/bge-base-en-v1.5`](https://huggingface.co/BAAI/bge-base-en-v1.5) encoder, which can be found on HuggingFace.
+
+<details>
+<summary>Try it using the Contriever model!</summary>
+<br/>
+
+```bash
+python -m pyserini.encode \
+  input   --corpus collections/nfcorpus/corpus.jsonl \
+          --fields title text \
   output  --embeddings indexes/faiss.nfcorpus.contriever-msmacro \
           --to-faiss \
   encoder --encoder facebook/contriever-msmarco \
@@ -91,6 +110,8 @@ python -m pyserini.encode \
 ```
 
 We're using the [`facebook/contriever-msmarco`](https://huggingface.co/facebook/contriever-msmarco) encoder, which can be found on HuggingFace.
+</details>
+<br/>
 
 Pyserini wraps [Faiss](https://github.com/facebookresearch/faiss/), which is a library for efficient similarity search on dense vectors.
 That is, once all the documents have been encoded (i.e., converted into representation vectors), they are passed to Faiss to manage (i.e., for storage and for search later on).
@@ -107,6 +128,23 @@ We can now perform retrieval in Pyserini using the following command:
 
 ```bash
 python -m pyserini.search.faiss \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --pooling mean \
+  --index indexes/nfcorpus.bge-base-en-v1.5 \
+  --topics collections/nfcorpus/queries.tsv \
+  --output runs/run.beir.bge-base-en-v1.5.nfcorpus.txt \
+  --batch 128 --threads 32 \
+  --hits 1000
+```
+
+The queries are in `collections/nfcorpus/queries.tsv`.
+
+<details>
+<summary>If you indexed with Contriever above, try retrieval with it too:</summary>
+<br/>
+
+```bash
+python -m pyserini.search.faiss \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
   --index indexes/faiss.nfcorpus.contriever-msmacro \
   --topics collections/nfcorpus/queries.tsv \
@@ -114,8 +152,8 @@ python -m pyserini.search.faiss \
   --batch 128 --threads 16 \
   --hits 1000
 ```
-
-The queries are in `collections/nfcorpus/queries.tsv`.
+</details>
+<br/>
 
 As mentioned above, Pyserini wraps the [Faiss](https://github.com/facebookresearch/faiss/) library.
 With the flat index here, we're performing brute-force computation of dot products (albeit in parallel and with batching).
@@ -131,6 +169,22 @@ After the run finishes, we can evaluate the results using `trec_eval`:
 ```bash
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 collections/nfcorpus/qrels/test.qrels \
+  runs/run.beir.bge-base-en-v1.5.nfcorpus.txt
+```
+The results will be something like:
+
+```
+Results:
+ndcg_cut_10           	all	0.3808
+```
+
+<details>
+<summary>And if you've been following along with Contriever:</summary>
+<br/>
+
+```bash
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 collections/nfcorpus/qrels/test.qrels \
   runs/run.beir-contriever-msmarco.nfcorpus.txt
 ```
 
@@ -141,6 +195,9 @@ Results:
 ndcg_cut_10           	all	0.3306
 ```
 
+</details>
+<br/>
+
 If you've gotten here, congratulations!
 You've completed your first indexing and retrieval run using a dense retrieval model.
 
@@ -148,6 +205,55 @@ You've completed your first indexing and retrieval run using a dense retrieval m
 
 The final step, as with Lucene, is to learn to use the dense retriever _interactively_.
 This contrasts with the _batch_ run above.
+
+Here's the snippet of Python code that does what we want:
+
+```python
+from pyserini.search.faiss import FaissSearcher, AutoQueryEncoder
+
+encoder = AutoQueryEncoder('BAAI/bge-base-en-v1.5', device='cpu', pooling='mean', l2_norm=True)
+searcher = FaissSearcher('indexes/nfcorpus.bge-base-en-v1.5', encoder)
+hits = searcher.search('How to Help Prevent Abdominal Aortic Aneurysms')
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.6f}')
+```
+
+The `FaissSearcher` provides search capabilities using Faiss as its underlying implementation.
+The `AutoQueryEncoder` allows us to initialize an encoder using a HuggingFace model.
+
+```
+ 1 MED-4555 0.791379
+ 2 MED-4560 0.710725
+ 3 MED-4421 0.688938
+ 4 MED-4993 0.686238
+ 5 MED-4424 0.686214
+ 6 MED-1663 0.682199
+ 7 MED-3436 0.680585
+ 8 MED-2750 0.677033
+ 9 MED-4324 0.675772
+10 MED-2939 0.674646
+```
+
+You'll see that the ranked list is the same as the batch run you performed above:
+
+```bash
+$ grep PLAIN-3074 runs/run.beir.bge-base-en-v1.5.nfcorpus.txt | head -10
+PLAIN-3074 Q0 MED-4555 1 0.791378 Faiss
+PLAIN-3074 Q0 MED-4560 2 0.710725 Faiss
+PLAIN-3074 Q0 MED-4421 3 0.688938 Faiss
+PLAIN-3074 Q0 MED-4993 4 0.686238 Faiss
+PLAIN-3074 Q0 MED-4424 5 0.686214 Faiss
+PLAIN-3074 Q0 MED-1663 6 0.682199 Faiss
+PLAIN-3074 Q0 MED-3436 7 0.680585 Faiss
+PLAIN-3074 Q0 MED-2750 8 0.677033 Faiss
+PLAIN-3074 Q0 MED-4324 9 0.675772 Faiss
+PLAIN-3074 Q0 MED-2939 10 0.674647 Faiss
+```
+
+<details>
+<summary>Again with Contriever!</summary>
+<br/>
 
 Here's the snippet of Python code that does what we want:
 
@@ -193,6 +299,9 @@ PLAIN-3074 Q0 MED-2372 8 1.016142 Faiss
 PLAIN-3074 Q0 MED-1006 9 1.013599 Faiss
 PLAIN-3074 Q0 MED-2587 10 1.010811 Faiss
 ```
+
+</details>
+<br/>
 
 And that's it!
 
@@ -253,3 +362,8 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@xpbowler](https://github.com/xpbowler) on 2024-03-11 (commit [`19fcd3b`](https://github.com/castorini/pyserini/commit/19fcd3b0ceb5a7d51517ce2fa58dc79b832db6b1))
 + Results reproduced by [@jodyz0203](https://github.com/jodyz0203) on 2024-03-12 (commit [`280e009`](https://github.com/castorini/pyserini/commit/280e009c33ce5023a4a9cf97f3478bdf19fec7ba))
 + Results reproduced by [@kxwtan](https://github.com/kxwtan) on 2024-03-12 (commit [`2bb342a`](https://github.com/castorini/pyserini/commit/2bb342acc124c69ec4fe13ebc3be0bd5a5bf497c))
++ Results reproduced by [@syedhuq28](https://github.com/syedhuq28) on 2024-03-28 (commit [`2bb342a`](https://github.com/castorini/pyserini/commit/2bb342acc124c69ec4fe13ebc3be0bd5a5bf497c))
++ Results reproduced by [@khufia](https://github.com/khufia) on 2024-03-29 (commit [`2bb342a`](https://github.com/castorini/pyserini/commit/2bb342acc124c69ec4fe13ebc3be0bd5a5bf497c))
++ Results reproduced by [@Lindaaa8](https://github.com/lindaaa8) on 2024-03-29 (commit [`7dda9f3`](https://github.com/castorini/pyserini/commit/7dda9f3246d791a52ebfcedb0c9c10ee01d4862d))
++ Results reproduced by [@th13nd4n0](https://github.com/th13nd4n0) on 2024-04-05 (commit [`df3bc6c`](https://github.com/castorini/pyserini/commit/df3bc6c2c887d7e3a3a5ee40972600b9ab8cefc2))
++ Results reproduced by [@a68lin](https://github.com/a68lin) on 2024-04-12 (commit [`7dda9f3`](https://github.com/castorini/pyserini/commit/7dda9f3246d791a52ebfcedb0c9c10ee01d4862d))
