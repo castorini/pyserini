@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-"""Integration tests for MS MARCO V1 passage corpus using pre-built indexes."""
+"""Integration tests for MS MARCO V1 passage corpus using prebuilt indexes."""
 
 import unittest
 
@@ -28,9 +28,9 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
 
     def test_passage_trec_output(self):
         """Test case for MS MARCO V1 passage, dev queries, TREC output
-           on all three pre-built indexes (base, slim, full)."""
+           on all three prebuilt indexes (base, slim, full)."""
 
-        # Loop over all three pre-built indexes.
+        # Loop over all three prebuilt indexes.
         for index in ['msmarco-v1-passage', 'msmarco-v1-passage-slim', 'msmarco-v1-passage-full']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-passage.trec.txt',
@@ -48,9 +48,9 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
 
     def test_passage_msmarco_output(self):
         """Test case for MS MARCO V1 passage, dev queries, MS MARCO output
-           on all three pre-built indexes (base, slim, full)."""
+           on all three prebuilt indexes (base, slim, full)."""
 
-        # Loop over all three pre-built indexes.
+        # Loop over all three prebuilt indexes.
         for index in ['msmarco-v1-passage', 'msmarco-v1-passage-slim', 'msmarco-v1-passage-full']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-passage.msmarco.txt',
@@ -65,31 +65,35 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
     def test_passage_expanded_trec_output(self):
         """Test case for MS MARCO V1 passage w/ doc2query-T5 expansions, dev queries, TREC output."""
 
-        scores = run_retrieval_and_return_scores(
-            'runs/test_run.msmarco-passage.expanded.trec.txt',
-            f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                --index msmarco-v1-passage-d2q-t5 --topics msmarco-passage-dev-subset --bm25',
-            'msmarco-passage-dev-subset',
-            'trec_eval',
-            [['map', 'map'], ['recall.1000', 'recall_1000']])
+        # Loop over both prebuilt indexes.
+        for index in ['msmarco-v1-passage.d2q-t5', 'msmarco-v1-passage.d2q-t5-docvectors']:
+            scores = run_retrieval_and_return_scores(
+                'runs/test_run.msmarco-passage.expanded.trec.txt',
+                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
+                    --index {index} --topics msmarco-passage-dev-subset --bm25',
+                'msmarco-passage-dev-subset',
+                'trec_eval',
+                [['map', 'map'], ['recall.1000', 'recall_1000']])
 
-        self.assertTrue('map' in scores)
-        self.assertTrue('recall.1000' in scores)
-        self.assertAlmostEqual(scores['map'], 0.2893, delta=0.0001)
-        self.assertAlmostEqual(scores['recall.1000'], 0.9506, delta=0.0001)
+            self.assertTrue('map' in scores)
+            self.assertTrue('recall.1000' in scores)
+            self.assertAlmostEqual(scores['map'], 0.2893, delta=0.0001)
+            self.assertAlmostEqual(scores['recall.1000'], 0.9506, delta=0.0001)
 
     def test_passage_expanded_msmarco_output(self):
         """Test case for MS MARCO V1 passage w/ doc2query-T5 expansions, dev queries, MS MARCO output."""
 
-        scores = run_retrieval_and_return_scores(
-            'runs/test_run.msmarco-passage.expanded.msmarco.txt',
-            f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                --index msmarco-v1-passage-d2q-t5 --topics msmarco-passage-dev-subset --bm25 --output-format msmarco',
-            'msmarco-passage-dev-subset',
-            'msmarco_passage_string', [])
+        # Loop over both prebuilt indexes.
+        for index in ['msmarco-v1-passage.d2q-t5', 'msmarco-v1-passage.d2q-t5-docvectors']:
+            scores = run_retrieval_and_return_scores(
+                'runs/test_run.msmarco-passage.expanded.msmarco.txt',
+                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
+                    --index {index} --topics msmarco-passage-dev-subset --bm25 --output-format msmarco',
+                'msmarco-passage-dev-subset',
+                'msmarco_passage_string', [])
 
-        self.assertTrue('MRR@10' in scores)
-        self.assertEqual(scores['MRR@10'], '0.281560751807885')
+            self.assertTrue('MRR@10' in scores)
+            self.assertEqual(scores['MRR@10'], '0.281560751807885')
 
 
 if __name__ == '__main__':

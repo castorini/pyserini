@@ -94,7 +94,7 @@ class TestTctColBert(unittest.TestCase):
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search.hybrid dense  --index msmarco-v1-passage.tct_colbert \
                                     --encoder castorini/tct_colbert-msmarco \
-                             sparse --index msmarco-v1-passage-d2q-t5 \
+                             sparse --index msmarco-v1-passage.d2q-t5 \
                              fusion --alpha 0.22 \
                              run    --topics msmarco-passage-dev-subset \
                                     --output {output_file} \
@@ -157,7 +157,7 @@ class TestTctColBert(unittest.TestCase):
         self.temp_files.append(output_file)
         cmd1 = f'python -m pyserini.search.hybrid dense  --index msmarco-v1-doc.tct_colbert \
                                     --encoder castorini/tct_colbert-msmarco \
-                             sparse --index msmarco-v1-doc-segmented-d2q-t5 \
+                             sparse --index msmarco-v1-doc-segmented.d2q-t5 \
                              fusion --alpha 0.32 \
                              run    --topics msmarco-doc-dev \
                                     --output {output_file} \
