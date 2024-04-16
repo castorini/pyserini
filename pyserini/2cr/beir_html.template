@@ -139,7 +139,8 @@ pre[class*="prettyprint"] {
   <li>BM25 Multifield: BM25 "multifield" baseline</li>
   <li>SPLADE: SPLADE++ (CoCondenser-EnsembleDistil)</li>
   <li>Contriever-msmarco: Contriever FT MS MARCO</li>
-  <li>BEG-base: BGE-base-en-v1.5</li>
+  <li>BGE-base: BGE-base-en-v1.5</li>
+  <li>Cohere embed-english: Cohere embed-english-v3.0</li>
 </ul>
 
 <div class="table-responsive">
@@ -153,9 +154,13 @@ pre[class*="prettyprint"] {
         <th class="headertop" colspan="3"><b>SPLADE</b></th>
         <th class="headertop" colspan="3"><b>Contriever MSMARCO</b></th>
         <th class="headertop" colspan="3"><b>BGE-base</b></th>
+        <th class="headertop" colspan="3"><b>Cohere embed-english</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@100</th>
