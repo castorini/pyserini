@@ -5266,20 +5266,19 @@ FAISS_INDEX_INFO_BEIR = {
         "downloaded": False,
         "texts": "beir-v1.0.0-quora.flat"
     },
-    # not yet available
-    # "beir-v1.0.0-dbpedia-entity.cohere-embed-english-v3.0": {
-    #     "description": "Faiss index for BEIR v1.0.0 (DBPedia) corpus encoded by cohere-embed-english-v3.0 encoder.",
-    #     "filename": "faiss.beir-v1.0.0-dbpedia-entity.cohere-embed-english-v3.0.20240302.tar.gz",
-    #     "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
-    #     "urls": [
-    #         "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-dbpedia-entity.cohere-embed-english-v3.0.20240302.tar.gz"
-    #     ],
-    #     "md5": "",
-    #     "size compressed (bytes)": ,
-    #     "documents": 4635922,
-    #     "downloaded": False,
-    #     "texts": "beir-v1.0.0-dbpedia-entity.flat"
-    # },
+    "beir-v1.0.0-dbpedia-entity.cohere-embed-english-v3.0": {
+        "description": "Faiss index for BEIR v1.0.0 (DBPedia) corpus encoded by cohere-embed-english-v3.0 encoder.",
+        "filename": "faiss.beir-v1.0.0-dbpedia-entity.cohere-embed-english-v3.0.20240302.tar.gz",
+        "readme": "faiss.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.beir-v1.0.0-dbpedia-entity.cohere-embed-english-v3.0.20240302.tar.gz"
+        ],
+        "md5": "ebcf7330b77c46043b6959baec275a7b",
+        "size compressed (bytes)": 11215256698,
+        "documents": 4635922,
+        "downloaded": False,
+        "texts": "beir-v1.0.0-dbpedia-entity.flat"
+    },
     "beir-v1.0.0-scidocs.cohere-embed-english-v3.0": {
         "description": "Faiss index for BEIR v1.0.0 (SCIDOCS) corpus encoded by cohere-embed-english-v3.0 encoder.",
         "filename": "faiss.beir-v1.0.0-scidocs.cohere-embed-english-v3.0.20240302.tar.gz",

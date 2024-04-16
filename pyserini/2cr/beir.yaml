@@ -1114,11 +1114,11 @@ conditions:
           - nDCG@10: 0.3426
             R@100: 0.6937
             R@1000: 0.8916
-      # - dataset: dbpedia-entity
-      #   scores:
-      #     - nDCG@10: 
-      #       R@100: 
-      #       R@1000: 
+      - dataset: dbpedia-entity
+        scores:
+          - nDCG@10: 0.4340
+            R@100: 0.5358
+            R@1000: 0.7642
       - dataset: fever
         scores:
           - nDCG@10: 0.8900

@@ -865,16 +865,16 @@ QUERY_INFO = {
         "total_queries": 541,
         "downloaded": False
     },
-    # "cohere-embed-english-v3.0-beir-v1.0.0-dbpedia-entity-test": {
-    #     "description": "BEIR v1.0.0 dbpedia-entity test queries encoded by Cohere Embed English v3.0.",
-    #     "urls": [
-    #         "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-dbpedia-entity-test-20240302-bc5b3bf"
-    #     ],
-    #     "md5": "",
-    #     "size (bytes)": ,
-    #     "total_queries": ,
-    #     "downloaded": False
-    # },
+    "cohere-embed-english-v3.0-beir-v1.0.0-dbpedia-entity-test": {
+        "description": "BEIR v1.0.0 dbpedia-entity test queries encoded by Cohere Embed English v3.0.",
+        "urls": [
+            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-cohere-embed-english-v3.0-beir-v1.0.0-dbpedia-entity-test-20240302-bc5b3bf"
+        ],
+        "md5": "11536fa529510b6bbd6a4be6e801281d",
+        "size (bytes)": 1096791,
+        "total_queries": 400,
+        "downloaded": False
+    },
     "cohere-embed-english-v3.0-beir-v1.0.0-fever-test": {
         "description": "BEIR v1.0.0 fever test queries encoded by Cohere Embed English v3.0.",
         "urls": [
