@@ -27,8 +27,8 @@ class LuceneSearcherAnseriniMatchChecker:
         self.qrels = qrels
         self.pyserini_topics = pyserini_topics
 
-        self.anserini_base_cmd = os.path.join(self.anserini_root,
-                                              'bin/run.sh io.anserini.search.SearchCollection -topicReader Trec')
+        # Run anserini directly from "here" (in pyserini), using the fatjar in pyserini/resources/jars
+        self.anserini_base_cmd = 'java -cp `ls pyserini/resources/jars/*-fatjar.jar` io.anserini.search.SearchCollection -topicReader Trec'
         self.pyserini_base_cmd = 'python -m pyserini.search.lucene'
 
         self.eval_base_cmd = os.path.join(eval_root, 'bin/trec_eval -m map -m P.30')
