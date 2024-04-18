@@ -3273,7 +3273,7 @@ FAISS_INDEX_INFO_MSMARCO = {
         "description": "Faiss HNSW index of the MS MARCO passage corpus encoded by TCT-ColBERT",
         "filename": "faiss-hnsw.msmarco-v1-passage.tct_colbert.20210112.be7119.tar.gz",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/hnsw-faiss.msmarco-v1-passage.tct_colbert.20210112.be7119.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-hnsw.msmarco-v1-passage.tct_colbert.20210112.be7119.tar.gz"
         ],
         "md5": "6b7285a7f0163d1a547214396be20488",
         "size compressed (bytes)": 33359120779,
