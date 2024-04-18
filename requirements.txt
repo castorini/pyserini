@@ -16,3 +16,5 @@ openai>=1.0.0
 tiktoken>=0.4.0
 pyarrow>=15.0.0
 pillow>=10.2.0
+mlx>=0.10.0
+mlx-transformers==0.1.0

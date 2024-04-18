@@ -21,6 +21,8 @@ import torch
 import numpy as np
 from tqdm import tqdm
 
+import mlx.core as mx
+
 
 class DocumentEncoder:
     def encode(self, texts, **kwargs):
@@ -54,6 +56,24 @@ class PcaEncoder:
             embeddings = self.encoder.encode(text, **kwargs)
             embeddings = self.pca_mat.apply_py(embeddings)
         return embeddings
+
+class MlxDocumentEncoder:
+    def encode(self, texts, **kwargs):
+        pass
+
+    @staticmethod
+    def _mean_pooling(last_hidden_state: mx.array, attention_mask: mx.array):
+        token_embeddings = last_hidden_state
+        input_mask_expanded = mx.expand_dims(attention_mask, -1)
+        input_mask_expanded = mx.broadcast_to(input_mask_expanded, token_embeddings.shape).astype(mx.float32)
+        sum_embeddings = mx.sum(token_embeddings * input_mask_expanded, 1)
+        sum_mask = mx.clip(input_mask_expanded.sum(axis=1), 1e-9, None)
+        return sum_embeddings / sum_mask
+
+
+class MlxQueryEncoder:
+    def encode(self, text, **kwargs):
+        pass
 
 
 class JsonlCollectionIterator:

@@ -21,6 +21,7 @@ from pyserini.encode import JsonlRepresentationWriter, FaissRepresentationWriter
 from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AggretrieverDocumentEncoder, AutoDocumentEncoder, CosDprDocumentEncoder, ClipDocumentEncoder
 from pyserini.encode import UniCoilDocumentEncoder
 from pyserini.encode import OpenAIDocumentEncoder, OPENAI_API_RETRY_DELAY
+from pyserini.encode import MlxTctColBertDocumentEncoder
 
 
 encoder_class_map = {
@@ -34,9 +35,10 @@ encoder_class_map = {
     "cosdpr": CosDprDocumentEncoder,
     "auto": AutoDocumentEncoder,
     "clip": ClipDocumentEncoder,
+    "mlx_tct_colbert": MlxTctColBertDocumentEncoder,
 }
 
-def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multimodal):
+def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multimodal, use_mlx, mlx_model_weights):
     _encoder_class = encoder_class
 
     # determine encoder_class
@@ -57,15 +59,20 @@ def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multi
             encoder_class = AutoDocumentEncoder
 
     # prepare arguments to encoder class
-    kwargs = dict(model_name=encoder, device=device)
-    if (_encoder_class == "sentence-transformers") or ("sentence-transformers" in encoder):
-        kwargs.update(dict(pooling='mean', l2_norm=True))
-    if (_encoder_class == "contriever") or ("contriever" in encoder):
-        kwargs.update(dict(pooling='mean', l2_norm=False))
-    if (_encoder_class == "auto"):
-        kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix))
-    if (_encoder_class == "clip") or ("clip" in encoder):
-        kwargs.update(dict(l2_norm=True, prefix=prefix, multimodal=multimodal))
+    if use_mlx:
+        kwargs = dict(model_name=encoder, mlx_model_weights=mlx_model_weights)
+    else:
+        kwargs = dict(model_name=encoder, device=device)
+        if (_encoder_class == "sentence-transformers") or ("sentence-transformers" in encoder):
+            kwargs.update(dict(pooling='mean', l2_norm=True))
+        if (_encoder_class == "contriever") or ("contriever" in encoder):
+            kwargs.update(dict(pooling='mean', l2_norm=False))
+        if (_encoder_class == "auto"):
+            kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix))
+        if (_encoder_class == "clip") or ("clip" in encoder):
+            kwargs.update(dict(l2_norm=True, prefix=prefix, multimodal=multimodal))
+
+    print(f'Initializing encoder: {encoder_class.__name__} with kwargs: {kwargs}')
     return encoder_class(**kwargs)
 
 
@@ -112,8 +119,10 @@ if __name__ == '__main__':
 
     encoder_parser = commands.add_parser('encoder')
     encoder_parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
+    encoder_parser.add_argument('--use-mlx', action='store_true', default=False)
+    encoder_parser.add_argument('--mlx-model-weights', type=str, help='encoder path to mlx weights', required=False, default=None)
     encoder_parser.add_argument('--encoder-class', type=str, required=False, default=None,
-                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto"],
+                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto", "mlx_tct_colbert"],
                                 help='which query encoder class to use. `default` would infer from the args.encoder')
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
     encoder_parser.add_argument('--multimodal', action='store_true', default=False)
@@ -132,7 +141,7 @@ if __name__ == '__main__':
 
     args = parse_args(parser, commands)
     delimiter = args.input.delimiter.replace("\\n", "\n")  # argparse would add \ prior to the passed '\n\n'
-    encoder = init_encoder(args.encoder.encoder, args.encoder.encoder_class, device=args.encoder.device, pooling=args.encoder.pooling, l2_norm=args.encoder.l2_norm, prefix=args.encoder.prefix, multimodal=args.encoder.multimodal)
+    encoder = init_encoder(args.encoder.encoder, args.encoder.encoder_class, device=args.encoder.device, pooling=args.encoder.pooling, l2_norm=args.encoder.l2_norm, prefix=args.encoder.prefix, multimodal=args.encoder.multimodal, use_mlx=args.encoder.use_mlx, mlx_model_weights=args.encoder.mlx_model_weights)
     if args.output.to_faiss:
         embedding_writer = FaissRepresentationWriter(args.output.embeddings, dimension=args.encoder.dimension)
     else:

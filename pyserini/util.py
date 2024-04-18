@@ -23,8 +23,10 @@ import logging
 from urllib.error import HTTPError, URLError
 from urllib.request import urlretrieve
 
+import numpy as np
 import pandas as pd
 from tqdm import tqdm
+from transformers import PreTrainedModel
 
 from pyserini.encoded_query_info import QUERY_INFO
 from pyserini.encoded_corpus_info import CORPUS_INFO
@@ -281,3 +283,26 @@ def get_sparse_index(index_name):
     if index_name not in FAISS_INDEX_INFO:
         raise ValueError(f'Unrecognized index name {index_name}')
     return FAISS_INDEX_INFO[index_name]["texts"]
+
+
+def convert_transformers_to_mlx(model_name: str, model_class: PreTrainedModel, output_path: str):
+    """
+    This function loads a huggingface model and converts the weights to MLX format.
+    
+    sample usage:
+    convert_transformers_to_mlx('castorini/tct_colbert-msmarco', BertModel, 'tct_colbert_msmarco.npz')
+
+    Args:
+        model_name (str): name of the model on the hub
+        model_class (PreTrainedModel): Model class e.g. BertModel
+        output_path (str): path to store the model checkpoint
+    """
+
+    model = model_class.from_pretrained(model_name)
+    tensors = {key: tensor.numpy() for key, tensor in model.state_dict().items()}
+    np.savez(output_path, **tensors)
+
+    if os.path.exists(output_path):
+        print(f"Model weights saved to {output_path}")
+    else:
+        raise ValueError("Model weights not converted successfully.")
