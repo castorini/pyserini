@@ -79,7 +79,7 @@ class TctColBertQueryEncoder(QueryEncoder):
         self.device = device
         self.model = BertModel.from_pretrained(model_name)
         self.model.to(self.device)
-        self.tokenizer = BertTokenizerFast.from_pretrained(tokenizer_name or model_name)
+        self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name)
 
     def encode(self, query: str, **kwargs):
         max_length = 36  # hardcode for now
