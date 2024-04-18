@@ -56,7 +56,6 @@ class TctColBertDocumentEncoder(DocumentEncoder):
             add_special_tokens=False,
             return_tensors='pt'
         )
-
         if self.onnx:
             inputs_onnx = {name: np.atleast_2d(value) for name, value in inputs.items()}
             inputs.to(self.device)
@@ -71,7 +70,6 @@ class TctColBertDocumentEncoder(DocumentEncoder):
                         outputs = self.model(**inputs)
             else:
                 outputs = self.model(**inputs)
-            
             embeddings = self._mean_pooling(outputs["last_hidden_state"][:, 4:, :], inputs['attention_mask'][:, 4:])
         return embeddings.detach().cpu().numpy()
 
