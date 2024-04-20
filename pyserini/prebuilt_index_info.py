@@ -2775,6 +2775,13 @@ IMPACT_INDEX_INFO_MSMARCO = {
     }
 }
 
+# Aliases to keep integrations functional:
+#   python -m unittest discover -s integrations/papers
+IMPACT_INDEX_INFO_MSMARCO_ALIASES = {
+    "msmarco-v1-passage-d2q-t5": IMPACT_INDEX_INFO_MSMARCO["msmarco-v1-passage.d2q-t5"],
+    "msmarco-v1-passage-unicoil": IMPACT_INDEX_INFO_MSMARCO["msmarco-v1-passage.unicoil"]
+}
+
 IMPACT_INDEX_INFO_BEIR = {
     # SPLADE++ (CoCondenser-EnsembleDistil)
     "beir-v1.0.0-trec-covid.splade-pp-ed": {
@@ -3157,6 +3164,7 @@ IMPACT_INDEX_INFO_BEIR = {
 }
 
 IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_MSMARCO,
+                     **IMPACT_INDEX_INFO_MSMARCO_ALIASES,
                      **IMPACT_INDEX_INFO_BEIR}
 
 FAISS_INDEX_INFO_MSMARCO = {
