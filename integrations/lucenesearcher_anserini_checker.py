@@ -20,7 +20,7 @@ from typing import List
 
 
 class LuceneSearcherAnseriniMatchChecker:
-    def __init__(self, anserini_root: str, index: str, topics: str, pyserini_topics: str, qrels: str, eval_root: str):
+    def __init__(self, anserini_root: str, index: str, topics: str, pyserini_topics: str, qrels: str):
         self.anserini_root = anserini_root
         self.index_path = index
         self.topics = topics
@@ -31,7 +31,7 @@ class LuceneSearcherAnseriniMatchChecker:
         self.anserini_base_cmd = 'java -cp `ls pyserini/resources/jars/*-fatjar.jar` io.anserini.search.SearchCollection -topicReader Trec'
         self.pyserini_base_cmd = 'python -m pyserini.search.lucene'
 
-        self.eval_base_cmd = os.path.join(eval_root, 'bin/trec_eval -m map -m P.30')
+        self.eval_base_cmd = 'java -cp `ls pyserini/resources/jars/*-fatjar.jar` trec_eval -m map -m P.30'
 
     @staticmethod
     def _cleanup(files: List[str]):

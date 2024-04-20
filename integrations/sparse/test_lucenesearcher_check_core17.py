@@ -36,8 +36,7 @@ class TestSearchIntegration(unittest.TestCase):
             index=os.path.join(anserini_root, 'indexes/lucene-index.nyt'),
             topics=os.path.join(pyserini_root, 'tools/topics-and-qrels/topics.core17.txt'),
             pyserini_topics='core17',
-            qrels=os.path.join(pyserini_root, 'tools/topics-and-qrels/qrels.core17.txt'),
-            eval_root=pyserini_root)
+            qrels=os.path.join(pyserini_root, 'tools/topics-and-qrels/qrels.core17.txt'))
 
     def test_bm25(self):
         self.assertTrue(self.checker.run('core17_bm25', '-bm25', '--bm25'))
