@@ -2789,6 +2789,8 @@ IMPACT_INDEX_INFO_MSMARCO = {
 }
 
 IMPACT_INDEX_INFO_MSMARCO_ALIASES = {
+    # To preserve working commands in published papers: integrations/papers/test_sigir2022.py testcase test_Trotman_etal
+    "msmarco-passage-unicoil-d2q": IMPACT_INDEX_INFO_MSMARCO["msmarco-v1-passage.unicoil"]
 }
 
 IMPACT_INDEX_INFO_BEIR = {

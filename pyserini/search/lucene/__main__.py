@@ -46,7 +46,7 @@ def set_bm25_parameters(searcher, index, k1=None, b=None):
             searcher.set_bm25(0.82, 0.68)
             # See https://github.com/castorini/anserini/blob/master/docs/regressions-msmarco-passage.md
         elif index == 'msmarco-v1-passage.d2q-t5' or index == 'msmarco-v1-passage.d2q-t5-docvectors' \
-                or index == 'msmarco-v1-passage.d2q-t5':
+                or index == 'msmarco-v1-passage-d2q-t5':
             # The final index name is to preserve working commands from published papers:
             # see integrations/papers/test_sigir2022.py testcase test_Ma_etal_section4_1a
             print('MS MARCO passage w/ doc2query-T5 expansion: setting k1=2.18, b=0.86')
