@@ -583,8 +583,6 @@ TF_INDEX_INFO_MSMARCO_ALIASES = {
     "msmarco-passage": TF_INDEX_INFO_MSMARCO["msmarco-v1-passage"],
     # To preserve working commands in published papers: integrations/papers/test_sigir2022.py testcase test_Ma_etal_section4_1a
     "msmarco-v1-passage-d2q-t5": TF_INDEX_INFO_MSMARCO["msmarco-v1-passage.d2q-t5"],
-    # To preserve working commands in published papers: integrations/papers/test_sigir2021.py
-    "wikipedia-dpr": TF_INDEX_INFO_MSMARCO["wikipedia-dpr-100w"],
 }
 
 TF_INDEX_INFO_BEIR = {
@@ -1940,7 +1938,6 @@ TF_INDEX_INFO_CIRAL = {
 
 }
 
-
 TF_INDEX_INFO_OTHER = {
     "cacm": {
         "description": "Lucene index of the CACM corpus.",
@@ -2492,13 +2489,19 @@ TF_INDEX_INFO_OTHER = {
     },
 }
 
+TF_INDEX_INFO_OTHER_ALIASES = {
+    # To preserve working commands in published papers: integrations/papers/test_sigir2021.py
+    "wikipedia-dpr": TF_INDEX_INFO_OTHER["wikipedia-dpr-100w"],
+}
+
 TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
                  **TF_INDEX_INFO_MSMARCO_ALIASES,
                  **TF_INDEX_INFO_BEIR,
                  **TF_INDEX_INFO_MRTYDI,
                  **TF_INDEX_INFO_MIRACL,
                  **TF_INDEX_INFO_CIRAL,
-                 **TF_INDEX_INFO_OTHER}
+                 **TF_INDEX_INFO_OTHER,
+                 **TF_INDEX_INFO_OTHER_ALIASES}
 
 IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.slimr": {
