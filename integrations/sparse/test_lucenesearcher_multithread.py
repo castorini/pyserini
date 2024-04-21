@@ -47,16 +47,16 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertTrue(self.check_equal(checker, 'msmarco-v1-passage', extras='--output-format msmarco'))
 
     def test_msmarco_passage_docTTTTTquery(self):
-        checker = RunLuceneSearcher(index='msmarco-v1-passage-d2q-t5', topics='msmarco-passage-dev-subset')
-        self.assertTrue(self.check_equal(checker, 'msmarco-v1-passage-d2q-t5', extras='--output-format msmarco'))
+        checker = RunLuceneSearcher(index='msmarco-v1-passage.d2q-t5', topics='msmarco-passage-dev-subset')
+        self.assertTrue(self.check_equal(checker, 'msmarco-v1-passage.d2q-t5', extras='--output-format msmarco'))
 
     def test_msmarco_doc(self):
         checker = RunLuceneSearcher(index='msmarco-v1-doc', topics='msmarco-doc-dev')
         self.assertTrue(self.check_equal(checker, 'msmarco-v1-doc', extras='--hits 100 --output-format msmarco'))
 
     def test_msmarco_doc_docTTTTTquery(self):
-        checker = RunLuceneSearcher(index='msmarco-v1-doc-d2q-t5', topics='msmarco-doc-dev')
-        self.assertTrue(self.check_equal(checker, 'msmarco-v1-doc-d2q-t5',
+        checker = RunLuceneSearcher(index='msmarco-v1-doc.d2q-t5', topics='msmarco-doc-dev')
+        self.assertTrue(self.check_equal(checker, 'msmarco-v1-doc.d2q-t5',
                                          extras='--hits 100 --output-format msmarco'))
 
     def test_msmarco_doc_per_passage(self):
@@ -66,10 +66,9 @@ class TestSearchIntegration(unittest.TestCase):
                              extras='--hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco'))
 
     def test_msmarco_doc_docTTTTTquery_passage(self):
-        checker = RunLuceneSearcher(index='msmarco-v1-doc-segmented-d2q-t5', topics='msmarco-doc-dev')
-        self.assertTrue(
-            self.check_equal(checker, 'msmarco-v1-doc-segmented-d2q-t5',
-                             extras='--hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco'))
+        checker = RunLuceneSearcher(index='msmarco-v1-doc-segmented.d2q-t5', topics='msmarco-doc-dev')
+        self.assertTrue(self.check_equal(checker, 'msmarco-v1-doc-segmented.d2q-t5',
+                                         extras='--hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco'))
 
     def tearDown(self):
         pass
