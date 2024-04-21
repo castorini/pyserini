@@ -33,7 +33,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.temp_files.append(output_file)
         cmd = f'python -m pyserini.search.lucene \
                    --threads {self.threads} --batch-size {self.batch_size} \
-                   --index msmarco-v1-passage-unicoil-tilde \
+                   --index msmarco-v1-passage.unicoil-tilde \
                    --topics msmarco-passage-dev-subset \
                    --encoder ielab/unicoil-tilde200-msmarco-passage \
                    --output {output_file} \
