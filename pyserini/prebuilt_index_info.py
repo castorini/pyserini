@@ -578,6 +578,12 @@ TF_INDEX_INFO_MSMARCO = {
     }
 }
 
+# Aliases to keep integrations functional:
+#   python -m unittest discover -s integrations/papers
+TF_INDEX_INFO_MSMARCO_ALIASES = {
+   "msmarco-v1-passage-d2q-t5": TF_INDEX_INFO_MSMARCO["msmarco-v1-passage.d2q-t5"]
+}
+
 TF_INDEX_INFO_BEIR = {
     # BEIR (v1.0.0) flat indexes
     "beir-v1.0.0-trec-covid.flat": {
@@ -2484,6 +2490,7 @@ TF_INDEX_INFO_OTHER = {
 }
 
 TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
+                 **TF_INDEX_INFO_MSMARCO_ALIASES,
                  **TF_INDEX_INFO_BEIR,
                  **TF_INDEX_INFO_MRTYDI,
                  **TF_INDEX_INFO_MIRACL,
@@ -2778,8 +2785,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
 # Aliases to keep integrations functional:
 #   python -m unittest discover -s integrations/papers
 IMPACT_INDEX_INFO_MSMARCO_ALIASES = {
-    "msmarco-v1-passage-d2q-t5": IMPACT_INDEX_INFO_MSMARCO["msmarco-v1-passage.d2q-t5"],
-    "msmarco-v1-passage-unicoil": IMPACT_INDEX_INFO_MSMARCO["msmarco-v1-passage.unicoil"]
+   "msmarco-v1-passage-unicoil": IMPACT_INDEX_INFO_MSMARCO["msmarco-v1-passage.unicoil"]
 }
 
 IMPACT_INDEX_INFO_BEIR = {
