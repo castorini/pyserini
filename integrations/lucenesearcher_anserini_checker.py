@@ -20,18 +20,18 @@ from typing import List
 
 
 class LuceneSearcherAnseriniMatchChecker:
-    def __init__(self, anserini_root: str, index: str, topics: str, pyserini_topics: str, qrels: str, eval_root: str):
+    def __init__(self, anserini_root: str, index: str, topics: str, pyserini_topics: str, qrels: str):
         self.anserini_root = anserini_root
         self.index_path = index
         self.topics = topics
         self.qrels = qrels
         self.pyserini_topics = pyserini_topics
 
-        self.anserini_base_cmd = os.path.join(self.anserini_root,
-                                              'target/appassembler/bin/SearchCollection -topicReader Trec')
+        # Run anserini directly from "here" (in pyserini), using the fatjar in pyserini/resources/jars
+        self.anserini_base_cmd = 'java -cp `ls pyserini/resources/jars/*-fatjar.jar` io.anserini.search.SearchCollection -topicReader Trec'
         self.pyserini_base_cmd = 'python -m pyserini.search.lucene'
 
-        self.eval_base_cmd = os.path.join(eval_root, 'tools/eval/trec_eval.9.0.4/trec_eval -m map -m P.30')
+        self.eval_base_cmd = 'java -cp `ls pyserini/resources/jars/*-fatjar.jar` trec_eval -m map -m P.30'
 
     @staticmethod
     def _cleanup(files: List[str]):

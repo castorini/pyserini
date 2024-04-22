@@ -96,9 +96,6 @@ class LuceneImpactSearcher:
             Searcher built from the prebuilt index.
         """
         print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
-        # see integrations/papers/test_sigir2021.py - preserve working commands published in papers
-        if prebuilt_index_name == 'msmarco-passage-unicoil-d2q':
-            prebuilt_index_name = 'msmarco-v1-passage-unicoil'
 
         try:
             index_dir = download_prebuilt_index(prebuilt_index_name)

@@ -36,8 +36,7 @@ class TestSearchIntegration(unittest.TestCase):
             index=os.path.join(anserini_root, 'indexes/lucene-index.disk45'),
             topics=os.path.join(pyserini_root, 'tools/topics-and-qrels/topics.robust04.txt'),
             pyserini_topics='robust04',
-            qrels=os.path.join(pyserini_root, 'tools/topics-and-qrels/qrels.robust04.txt'),
-            eval_root=pyserini_root)
+            qrels=os.path.join(pyserini_root, 'tools/topics-and-qrels/qrels.robust04.txt'))
 
     def test_bm25(self):
         self.assertTrue(self.checker.run('robust04_bm25', '-bm25', '--bm25'))

@@ -32,9 +32,9 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
 
     def test_doc_full_trec_output(self):
         """Test case for MS MARCO V1 doc (full), dev queries, TREC output
-           on all three pre-built indexes (base, slim, full)."""
+           on all three prebuilt indexes (base, slim, full)."""
 
-        # Loop over all three pre-built indexes.
+        # Loop over all three prebuilt indexes.
         for index in ['msmarco-v1-doc', 'msmarco-v1-doc-slim', 'msmarco-v1-doc-full']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-doc.trec.txt',
@@ -51,9 +51,9 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
 
     def test_doc_full_msmarco_output(self):
         """Test case for MS MARCO V1 doc (full), dev queries, MS MARCO output
-           on all three pre-built indexes (base, slim, full)."""
+           on all three prebuilt indexes (base, slim, full)."""
 
-        # Loop over all three pre-built indexes.
+        # Loop over all three prebuilt indexes.
         for index in ['msmarco-v1-doc', 'msmarco-v1-doc-slim', 'msmarco-v1-doc-full']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-doc.msmarco.txt',
@@ -71,9 +71,9 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
 
     def test_doc_segmented_trec_output(self):
         """Test case for MS MARCO V1 doc segmented, dev queries, TREC output
-           on all three pre-built indexes (base, slim, full)."""
+           on all three prebuilt indexes (base, slim, full)."""
 
-        # Loop over all three pre-built indexes.
+        # Loop over all three prebuilt indexes.
         for index in ['msmarco-v1-doc-segmented', 'msmarco-v1-doc-segmented-slim', 'msmarco-v1-doc-segmented-full']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-doc-segmented.trec.txt',
@@ -90,9 +90,9 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
 
     def test_doc_segmented_msmarco_output(self):
         """Test case for MS MARCO V1 doc segmented, dev queries, MS MARCO output
-           on all three pre-built indexes (base, slim, full)."""
+           on all three prebuilt indexes (base, slim, full)."""
 
-        # Loop over all three pre-built indexes.
+        # Loop over all three prebuilt indexes.
         for index in ['msmarco-v1-doc-segmented', 'msmarco-v1-doc-segmented-slim', 'msmarco-v1-doc-segmented-full']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-doc-segmented.msmarco.txt',
@@ -111,59 +111,71 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
 
     def test_doc_full_expanded_trec_output(self):
         """Test case for MS MARCO V1 doc (full) + doc2query-T5 expansions, dev queries, TREC output."""
-        scores = run_retrieval_and_return_scores(
-            'runs/test_run.msmarco-doc.expanded.trec.txt',
-            f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                --index msmarco-v1-doc-d2q-t5 --topics msmarco-doc-dev --bm25 --hits 1000',
-            'msmarco-doc-dev',
-            'trec_eval',
-            [['map', 'map'], ['recall.1000', 'recall_1000']])
 
-        self.assertTrue('map' in scores)
-        self.assertTrue('recall.1000' in scores)
-        self.assertAlmostEqual(scores['map'], 0.3273, delta=0.0001)
-        self.assertAlmostEqual(scores['recall.1000'], 0.9553, delta=0.0001)
+        # Loop over both prebuilt indexes.
+        for index in ['msmarco-v1-doc.d2q-t5', 'msmarco-v1-doc.d2q-t5-docvectors']:
+            scores = run_retrieval_and_return_scores(
+                'runs/test_run.msmarco-doc.expanded.trec.txt',
+                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
+                    --index {index} --topics msmarco-doc-dev --bm25 --hits 1000',
+                'msmarco-doc-dev',
+                'trec_eval',
+                [['map', 'map'], ['recall.1000', 'recall_1000']])
+
+            self.assertTrue('map' in scores)
+            self.assertTrue('recall.1000' in scores)
+            self.assertAlmostEqual(scores['map'], 0.3273, delta=0.0001)
+            self.assertAlmostEqual(scores['recall.1000'], 0.9553, delta=0.0001)
 
     def test_doc_full_expanded_msmarco_output(self):
         """Test case for MS MARCO V1 doc (full) + doc2query-T5 expansions, dev queries, MS MARCO output."""
-        scores = run_retrieval_and_return_scores(
-            'runs/test_run.msmarco-doc.expanded.msmarco.txt',
-            f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                --index msmarco-v1-doc-d2q-t5 --topics msmarco-doc-dev --bm25 --hits 100 --output-format msmarco',
-            'msmarco-doc-dev',
-            'msmarco_doc_string', [])
 
-        self.assertTrue('MRR@100' in scores)
-        self.assertEqual(scores['MRR@100'], '0.3268656233100833')
+        # Loop over both prebuilt indexes.
+        for index in ['msmarco-v1-doc.d2q-t5', 'msmarco-v1-doc.d2q-t5-docvectors']:
+            scores = run_retrieval_and_return_scores(
+                'runs/test_run.msmarco-doc.expanded.msmarco.txt',
+                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
+                    --index {index} --topics msmarco-doc-dev --bm25 --hits 100 --output-format msmarco',
+                'msmarco-doc-dev',
+                'msmarco_doc_string', [])
+
+            self.assertTrue('MRR@100' in scores)
+            self.assertEqual(scores['MRR@100'], '0.3268656233100833')
 
     def test_doc_segmented_expanded_trec_output(self):
         """Test case for MS MARCO V1 doc segmented + doc2query-T5 expansions, dev queries, TREC output."""
-        scores = run_retrieval_and_return_scores(
-            'runs/test_run.msmarco-doc-segmented.expanded.trec.txt',
-            f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                --index msmarco-v1-doc-segmented-d2q-t5 --topics msmarco-doc-dev \
-                --bm25 --hits 10000 --max-passage --max-passage-hits 1000',
-            'msmarco-doc-dev',
-            'trec_eval',
-            [['map', 'map'], ['recall.1000', 'recall_1000']])
 
-        self.assertTrue('map' in scores)
-        self.assertTrue('recall.1000' in scores)
-        self.assertAlmostEqual(scores['map'], 0.3213, delta=0.0001)
-        self.assertAlmostEqual(scores['recall.1000'], 0.9530, delta=0.0001)
+        # Loop over both prebuilt indexes.
+        for index in ['msmarco-v1-doc-segmented.d2q-t5', 'msmarco-v1-doc-segmented.d2q-t5-docvectors']:
+            scores = run_retrieval_and_return_scores(
+                'runs/test_run.msmarco-doc-segmented.expanded.trec.txt',
+                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
+                    --index {index} --topics msmarco-doc-dev \
+                    --bm25 --hits 10000 --max-passage --max-passage-hits 1000',
+                'msmarco-doc-dev',
+                'trec_eval',
+                [['map', 'map'], ['recall.1000', 'recall_1000']])
+
+            self.assertTrue('map' in scores)
+            self.assertTrue('recall.1000' in scores)
+            self.assertAlmostEqual(scores['map'], 0.3213, delta=0.0001)
+            self.assertAlmostEqual(scores['recall.1000'], 0.9530, delta=0.0001)
 
     def test_doc_segmented_expanded_msmarco_output(self):
         """Test case for MS MARCO V1 doc segmented + doc2query-T5 expansions, dev queries, MS MARCO output."""
-        scores = run_retrieval_and_return_scores(
-            'runs/test_run.msmarco-doc-segmented.expanded.msmarco.txt',
-            f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                --index msmarco-v1-doc-segmented-d2q-t5 --topics msmarco-doc-dev \
-                --bm25 --hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco',
-            'msmarco-doc-dev',
-            'msmarco_doc_string', [])
 
-        self.assertTrue('MRR@100' in scores)
-        self.assertEqual(scores['MRR@100'], '0.320918438140918')
+        # Loop over both prebuilt indexes.
+        for index in ['msmarco-v1-doc-segmented.d2q-t5', 'msmarco-v1-doc-segmented.d2q-t5-docvectors']:
+            scores = run_retrieval_and_return_scores(
+                'runs/test_run.msmarco-doc-segmented.expanded.msmarco.txt',
+                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
+                    --index {index} --topics msmarco-doc-dev \
+                    --bm25 --hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco',
+                'msmarco-doc-dev',
+                'msmarco_doc_string', [])
+
+            self.assertTrue('MRR@100' in scores)
+            self.assertEqual(scores['MRR@100'], '0.320918438140918')
 
 
 if __name__ == '__main__':
