@@ -22,7 +22,7 @@ from tqdm import tqdm
 
 from pyserini.search import FaissSearcher, BinaryDenseSearcher, TctColBertQueryEncoder, QueryEncoder, \
     DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, DenseVectorAveragePrf, \
-    DenseVectorRocchioPrf, DenseVectorAncePrf, OpenAIQueryEncoder
+    DenseVectorRocchioPrf, DenseVectorAncePrf, OpenAIQueryEncoder, ClipQueryEncoder
 
 from pyserini.encode import PcaEncoder, CosDprQueryEncoder, AutoQueryEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
@@ -47,6 +47,7 @@ def define_dsearch_args(parser):
     parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name',
                         required=False,
                         help="Path to query encoder pytorch checkpoint or hgf encoder model name")
+    parser.add_argument('--multimodal', action='store_true', default=False)
     parser.add_argument('--pooling', type=str, metavar='pooling strategy', required=False, default='cls',
                         choices=['cls', 'mean'],
                         help="Pooling strategy for query encoder")
@@ -90,7 +91,7 @@ def define_dsearch_args(parser):
                         help="Set efSearch for HNSW index")
 
 
-def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, encoded_queries, device, max_length, pooling, l2_norm, prefix):
+def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, encoded_queries, device, max_length, pooling, l2_norm, prefix, multimodal=False):
     encoded_queries_map = {
         'msmarco-passage-dev-subset': 'tct_colbert-msmarco-passage-dev-subset',
         'dpr-nq-dev': 'dpr_multi-nq-dev',
@@ -113,6 +114,7 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
         "aggretriever": AggretrieverQueryEncoder,
         "openai-api": OpenAIQueryEncoder,
         "auto": AutoQueryEncoder,
+        "clip": ClipQueryEncoder,
     }
 
     if encoder:
@@ -145,6 +147,8 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
             kwargs.update(dict(max_length=max_length))
         if (_encoder_class == "auto"):
             kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix))
+        if (_encoder_class == "clip") or ("clip" in encoder):
+            kwargs.update(dict(l2_norm=True, prefix=prefix, multimodal=multimodal))
         return encoder_class(**kwargs)
 
     if encoded_queries:
@@ -197,7 +201,7 @@ if __name__ == '__main__':
     topics = query_iterator.topics
 
     query_encoder = init_query_encoder(
-        args.encoder, args.encoder_class, args.tokenizer, args.topics, args.encoded_queries, args.device, args.max_length, args.pooling, args.l2_norm, args.query_prefix)
+        args.encoder, args.encoder_class, args.tokenizer, args.topics, args.encoded_queries, args.device, args.max_length, args.pooling, args.l2_norm, args.query_prefix, args.multimodal)
     if args.pca_model:
         query_encoder = PcaEncoder(query_encoder, args.pca_model)
     kwargs = {}

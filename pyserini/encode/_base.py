@@ -58,6 +58,11 @@ class PcaEncoder:
 
 class JsonlCollectionIterator:
     def __init__(self, collection_path: str, fields=None, docid_field=None, delimiter="\n"):
+        # Assume multimodal input files are located in the same directory as the collection file
+        if os.path.isdir(collection_path):
+            self.collection_dir = collection_path
+        else:
+            self.collection_dir = os.path.dirname(collection_path)
         if fields:
             self.fields = fields
         else:
@@ -144,6 +149,10 @@ class JsonlCollectionIterator:
                         )
 
                     for i in range(len(fields_info)):
+                        if 'path' in self.fields[i]:
+                            _info = fields_info[i]
+                            if not _info.startswith(("http://", "https://")):
+                                fields_info[i] = os.path.join(self.collection_dir, fields_info[i])
                         all_info[self.fields[i]].append(fields_info[i])
         return all_info
 

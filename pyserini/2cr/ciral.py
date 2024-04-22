@@ -19,9 +19,9 @@ import math
 import os
 import sys
 import time
-import subprocess
 import importlib.resources
 from collections import defaultdict, OrderedDict
+from datetime import datetime
 from string import Template
 
 import yaml
@@ -96,6 +96,7 @@ def list_conditions():
     for language in languages:
         print(language[1])
 
+
 def print_results(table, metric, split):
     print(f'Metric = {metric}, Split = {split}')
     print(' ' * 32, end='')
@@ -109,6 +110,7 @@ def print_results(table, metric, split):
             print(f'{table[key][split][metric]:7.4f}', end='   ')
         print('')
     print('')
+
 
 def generate_table_rows(table, row_template, commands, eval_commands, table_id, split, metric):
     row_cnt = 1
@@ -153,6 +155,7 @@ def generate_table_rows(table, row_template, commands, eval_commands, table_id, 
 
     return html_rows
 
+
 def extract_topic_fn_from_cmd(cmd):
     cmd = cmd.split()
     topic_idx = cmd.index('--topics')
@@ -189,12 +192,9 @@ def generate_report(args):
                                      afriberta_dpr_output=afriberta_dpr_output, fusion_tag=fusion_tag)
             else:
                 expected_args = dict(split=display_split, output=runfile,
-                                    sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
-                                    dense_threads=dense_threads, dense_batch_size=dense_batch_size)
+                                     sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+                                     dense_threads=dense_threads, dense_batch_size=dense_batch_size)
 
-            # cmd = Template(cmd_template).substitute(split=display_split, output=runfile,
-            #                                         sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
-            #                                         dense_threads=dense_threads, dense_batch_size=dense_batch_size)
             cmd = Template(cmd_template).substitute(**expected_args)
             commands[name] = format_run_command(cmd)
 
@@ -289,7 +289,7 @@ def run_conditions(args):
                             if not os.path.exists(runfile):
                                 continue
                             score = float(run_eval_and_return_metric(metric, f'{eval_key}-{split}',
-                                                                        trec_eval_metric_definitions[metric], runfile))
+                                                                     trec_eval_metric_definitions[metric], runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
                             else:
@@ -306,18 +306,24 @@ def run_conditions(args):
             print_results(table, metric, split)
 
     end = time.time()
-    print(f'Total elapsed time: {end - start:.0f}s')
+
+    start_str = datetime.utcfromtimestamp(start).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.utcfromtimestamp(end).strftime('%Y-%m-%d %H:%M:%S')
+
+    print('\n')
+    print(f'Start time: {start_str}')
+    print(f'End time: {end_str}')
+    print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for CIRAL.')
-    parser.add_argument('--condition', type=str,
-                        help='Condition to run', required=False)
+    parser.add_argument('--condition', type=str, help='Condition to run', required=False)
     # To list all conditions
     parser.add_argument('--list-conditions', action='store_true', default=False, help='List available conditions.')
     # For generating reports
     parser.add_argument('--generate-report', action='store_true', default=False, help='Generate report.')
-    parser.add_argument('--display-split', type=str, help='Split to generate report on.', 
-                        default='test-b', required=False)
+    parser.add_argument('--display-split', type=str, help='Split to generate report on.', default='test-b', required=False)
     parser.add_argument('--output', type=str, help='File to store report.', required=False)
     # For actually running the experimental conditions
     parser.add_argument('--all', action='store_true', default=False, help='Run using all languages.')

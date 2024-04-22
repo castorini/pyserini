@@ -25,7 +25,7 @@ from urllib.request import urlretrieve
 
 import faiss
 
-from pyserini.encode import TctColBertDocumentEncoder, DprDocumentEncoder, UniCoilDocumentEncoder
+from pyserini.encode import TctColBertDocumentEncoder, DprDocumentEncoder, UniCoilDocumentEncoder, ClipDocumentEncoder
 from pyserini.search.lucene import LuceneImpactSearcher
 
 
@@ -82,6 +82,14 @@ class TestEncode(unittest.TestCase):
         self.assertAlmostEqual(vectors[0]['normal'], 2.4618067741394043, places=4)
         self.assertAlmostEqual(vectors[2]['rounding'], 3.9474332332611084, places=4)
         self.assertAlmostEqual(vectors[2]['commercial'], 3.288801670074463, places=4)
+    
+    def test_clip_encoder(self):
+        encoder = ClipDocumentEncoder('openai/clip-vit-base-patch32', device='cpu')
+        vectors = encoder.encode(self.texts[:3])
+        self.assertAlmostEqual(vectors[0][0], 0.1933609, places=4)
+        self.assertAlmostEqual(vectors[0][-1], -0.21501173, places=4)
+        self.assertAlmostEqual(vectors[2][0], 0.06461975, places=4)
+        self.assertAlmostEqual(vectors[2][-1], 0.35396004, places=4)
 
     def test_tct_colbert_v2_encoder_cmd(self):
         index_dir = 'temp_index'
@@ -245,6 +253,82 @@ class TestEncode(unittest.TestCase):
 
         temp_object1.close()
         del temp_object1
+    
+    def test_clip_encoder_cmd_text(self):
+        index_dir = 'temp_index'
+        cmd = f'python -m pyserini.encode \
+                  input   --corpus {self.test_file} \
+                          --fields text \
+                  output  --embeddings {index_dir} \
+                  encoder --encoder openai/clip-vit-base-patch32 \
+                          --fields text \
+                          --batch 1 --max-length 77 \
+                          --device cpu'
+        status = os.system(cmd)
+        self.assertEqual(status, 0)
+
+        embedding_json_fn = os.path.join(index_dir, 'embeddings.jsonl')
+        self.assertIsFile(embedding_json_fn)
+
+        with open(embedding_json_fn) as f:
+            embeddings = [json.loads(line) for line in f]
+
+        self.assertListEqual([entry["id"] for entry in embeddings], self.docids)
+        self.assertListEqual(
+            [entry["contents"] for entry in embeddings], 
+            [entry.strip() for entry in self.texts],
+        )
+ 
+        self.assertAlmostEqual(embeddings[0]['vector'][0], 0.022726990282535553, places=4)
+        self.assertAlmostEqual(embeddings[0]['vector'][-1], -0.02527175098657608, places=4)
+        self.assertAlmostEqual(embeddings[2]['vector'][0], 0.00724585447460413, places=4)
+        self.assertAlmostEqual(embeddings[2]['vector'][-1], 0.039689723402261734, places=4)
+
+        shutil.rmtree(index_dir)
+    
+    def test_clip_encoder_cmd_image(self):
+        # special case setup for image data
+        docids = []
+        texts = []
+        test_file = 'tests/resources/sample_collection_jsonl_image/images.small.jsonl'
+        image_dir = pl.Path(test_file).parent
+        
+        with open(test_file) as f:
+            for line in f:
+                line = json.loads(line)
+                docids.append(line['id'])
+                texts.append(line['path'])
+        
+        index_dir = 'temp_index'
+        cmd = f'python -m pyserini.encode \
+                  input   --corpus {test_file} \
+                          --fields path \
+                  output  --embeddings {index_dir} \
+                  encoder --encoder openai/clip-vit-base-patch32 \
+                          --fields path \
+                          --batch 1 --multimodal --l2-norm \
+                          --device cpu'
+        status = os.system(cmd)
+        self.assertEqual(status, 0)
+
+        embedding_json_fn = os.path.join(index_dir, 'embeddings.jsonl')
+        self.assertIsFile(embedding_json_fn)
+
+        with open(embedding_json_fn) as f:
+            embeddings = [json.loads(line) for line in f]
+
+        self.assertListEqual([entry["id"] for entry in embeddings], docids)
+        self.assertListEqual(
+            [entry["contents"] for entry in embeddings], 
+            [str(pl.Path(image_dir, entry.strip())) for entry in texts],
+        )
+ 
+        self.assertAlmostEqual(embeddings[0]['vector'][0], 0.003283643862232566, places=4)
+        self.assertAlmostEqual(embeddings[0]['vector'][-1], -0.055951327085494995, places=4)
+        self.assertAlmostEqual(embeddings[2]['vector'][0], 0.021012384444475174, places=4)
+        self.assertAlmostEqual(embeddings[2]['vector'][-1], -0.0011692788684740663, places=4)
+
+        shutil.rmtree(index_dir)
 
     @classmethod
     def tearDownClass(cls):
