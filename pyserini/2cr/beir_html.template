@@ -150,7 +150,8 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
   <li>BM25 Multifield: BM25 "multifield" baseline [1]</li>
   <li>SPLADE: SPLADE++ (CoCondenser-EnsembleDistil) [2]</li>
   <li>Contriever-msmarco: Contriever FT MS MARCO [3]</li>
-  <li>BEG-base: BGE-base-en-v1.5 [4]</li>
+  <li>BGE-base: BGE-base-en-v1.5 [4]</li>
+  <li>Cohere embed-english: Cohere embed-english-v3.0 [5]</li>
 </ul>
 
 <div class="table-responsive">
@@ -164,9 +165,13 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
         <th class="headertop" colspan="3"><b>SPLADE++ ED</b></th>
         <th class="headertop" colspan="3"><b>Contriever MSMARCO</b></th>
         <th class="headertop" colspan="3"><b>BGE-base</b></th>
+        <th class="headertop" colspan="3"><b>Cohere embed-english</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@100</th>

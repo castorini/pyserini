@@ -156,16 +156,20 @@ def generate_report(args):
                              s8=f'{table[dataset]["contriever-msmarco"]["R@100"]:8.4f}',
                              s9=f'{table[dataset]["bge-base-en-v1.5"]["nDCG@10"]:8.4f}',
                              s10=f'{table[dataset]["bge-base-en-v1.5"]["R@100"]:8.4f}',
+                             s11=f'{table[dataset]["cohere-embed-english-v3.0"]["nDCG@10"]:8.4f}',
+                             s12=f'{table[dataset]["cohere-embed-english-v3.0"]["R@100"]:8.4f}',
                              cmd1=commands[dataset]["bm25-flat"],
                              cmd2=commands[dataset]["bm25-multifield"],
                              cmd3=commands[dataset]["splade-pp-ed"],
                              cmd4=commands[dataset]["contriever-msmarco"],
                              cmd5=commands[dataset]["bge-base-en-v1.5"],
+                             cmd6=commands[dataset]["cohere-embed-english-v3.0"],
                              eval_cmd1=eval_commands[dataset]["bm25-flat"].rstrip(),
                              eval_cmd2=eval_commands[dataset]["bm25-multifield"].rstrip(),
                              eval_cmd3=eval_commands[dataset]["splade-pp-ed"].rstrip(),
                              eval_cmd4=eval_commands[dataset]["contriever-msmarco"].rstrip(),
-                             eval_cmd5=eval_commands[dataset]["bge-base-en-v1.5"].rstrip())
+                             eval_cmd5=eval_commands[dataset]["bge-base-en-v1.5"].rstrip(),
+                             eval_cmd6=eval_commands[dataset]["cohere-embed-english-v3.0"].rstrip())
 
             html_rows.append(s)
             row_cnt += 1
@@ -241,7 +245,7 @@ def run_conditions(args):
 
             print('')
 
-    models = ['bm25-flat', 'bm25-multifield', 'splade-pp-ed', 'contriever', 'contriever-msmarco', 'bge-base-en-v1.5']
+    models = ['bm25-flat', 'bm25-multifield', 'splade-pp-ed', 'contriever', 'contriever-msmarco', 'bge-base-en-v1.5', 'cohere-embed-english-v3.0']
     metrics = ['nDCG@10', 'R@100', 'R@1000']
 
     top_level_sums = defaultdict(lambda: defaultdict(float))
@@ -267,9 +271,9 @@ def run_conditions(args):
             final_score = (top_level_sums[model][metric] + cqa_score) / 18
             final_scores[model][metric] = final_score
 
-    print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 13 + 'SPLADE' + ' ' * 11 + 'Contriever' + ' ' * 5 + 'Contriever-msmarco' + ' ' * 2 + 'BGE-base-en-v1.5')
+    print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 13 + 'SPLADE' + ' ' * 11 + 'Contriever' + ' ' * 5 + 'Contriever-msmarco' + ' ' * 2 + 'BGE-base-en-v1.5' + ' ' * 5 + 'cohere-embed-english-v3.0')
     print(' ' * 26 + 'nDCG@10   R@100    ' * 6)
-    print(' ' * 27 + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14)
+    print(' ' * 27 + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14)
     for dataset in beir_keys:
         print(f'{dataset:25}' +
               f'{table[dataset]["bm25-flat"]["nDCG@10"]:8.4f}{table[dataset]["bm25-flat"]["R@100"]:8.4f}   ' +
@@ -277,14 +281,16 @@ def run_conditions(args):
               f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.4f}{table[dataset]["splade-pp-ed"]["R@100"]:8.4f}   ' + 
               f'{table[dataset]["contriever"]["nDCG@10"]:8.4f}{table[dataset]["contriever"]["R@100"]:8.4f}   ' + 
               f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.4f}{table[dataset]["contriever-msmarco"]["R@100"]:8.4f}   ' +
-              f'{table[dataset]["bge-base-en-v1.5"]["nDCG@10"]:8.4f}{table[dataset]["bge-base-en-v1.5"]["R@100"]:8.4f}')
-    print(' ' * 27 + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14)
+              f'{table[dataset]["bge-base-en-v1.5"]["nDCG@10"]:8.4f}{table[dataset]["bge-base-en-v1.5"]["R@100"]:8.4f}   ' +
+              f'{table[dataset]["cohere-embed-english-v3.0"]["nDCG@10"]:8.4f}{table[dataset]["cohere-embed-english-v3.0"]["R@100"]:8.4f}')
+    print(' ' * 27 + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14)
     print('avg' + ' ' * 22 + f'{final_scores["bm25-flat"]["nDCG@10"]:8.4f}{final_scores["bm25-flat"]["R@100"]:8.4f}   ' +
           f'{final_scores["bm25-multifield"]["nDCG@10"]:8.4f}{final_scores["bm25-multifield"]["R@100"]:8.4f}   ' +
           f'{final_scores["splade-pp-ed"]["nDCG@10"]:8.4f}{final_scores["splade-pp-ed"]["R@100"]:8.4f}   ' +
           f'{final_scores["contriever"]["nDCG@10"]:8.4f}{final_scores["contriever"]["R@100"]:8.4f}   ' +
           f'{final_scores["contriever-msmarco"]["nDCG@10"]:8.4f}{final_scores["contriever-msmarco"]["R@100"]:8.4f}   ' +
-          f'{final_scores["bge-base-en-v1.5"]["nDCG@10"]:8.4f}{final_scores["bge-base-en-v1.5"]["R@100"]:8.4f}')
+          f'{final_scores["bge-base-en-v1.5"]["nDCG@10"]:8.4f}{final_scores["bge-base-en-v1.5"]["R@100"]:8.4f}   ' +
+          f'{final_scores["cohere-embed-english-v3.0"]["nDCG@10"]:8.4f}{final_scores["cohere-embed-english-v3.0"]["R@100"]:8.4f}')
 
     end = time.time()
 
