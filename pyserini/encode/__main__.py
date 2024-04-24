@@ -38,7 +38,7 @@ encoder_class_map = {
     "mlx_tct_colbert": MlxTctColBertDocumentEncoder,
 }
 
-def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multimodal, use_mlx, mlx_model_weights):
+def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multimodal, use_mlx):
     _encoder_class = encoder_class
 
     # determine encoder_class
@@ -60,7 +60,7 @@ def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multi
 
     # prepare arguments to encoder class
     if use_mlx:
-        kwargs = dict(model_name=encoder, mlx_model_weights=mlx_model_weights)
+        kwargs = dict(model_name=encoder)
     else:
         kwargs = dict(model_name=encoder, device=device)
         if (_encoder_class == "sentence-transformers") or ("sentence-transformers" in encoder):
@@ -120,7 +120,6 @@ if __name__ == '__main__':
     encoder_parser = commands.add_parser('encoder')
     encoder_parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
     encoder_parser.add_argument('--use-mlx', action='store_true', default=False)
-    encoder_parser.add_argument('--mlx-model-weights', type=str, help='encoder path to mlx weights', required=False, default=None)
     encoder_parser.add_argument('--encoder-class', type=str, required=False, default=None,
                                 choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto", "mlx_tct_colbert"],
                                 help='which query encoder class to use. `default` would infer from the args.encoder')
@@ -141,7 +140,7 @@ if __name__ == '__main__':
 
     args = parse_args(parser, commands)
     delimiter = args.input.delimiter.replace("\\n", "\n")  # argparse would add \ prior to the passed '\n\n'
-    encoder = init_encoder(args.encoder.encoder, args.encoder.encoder_class, device=args.encoder.device, pooling=args.encoder.pooling, l2_norm=args.encoder.l2_norm, prefix=args.encoder.prefix, multimodal=args.encoder.multimodal, use_mlx=args.encoder.use_mlx, mlx_model_weights=args.encoder.mlx_model_weights)
+    encoder = init_encoder(args.encoder.encoder, args.encoder.encoder_class, device=args.encoder.device, pooling=args.encoder.pooling, l2_norm=args.encoder.l2_norm, prefix=args.encoder.prefix, multimodal=args.encoder.multimodal, use_mlx=args.encoder.use_mlx)
     if args.output.to_faiss:
         embedding_writer = FaissRepresentationWriter(args.output.embeddings, dimension=args.encoder.dimension)
     else:

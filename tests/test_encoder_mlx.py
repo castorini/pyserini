@@ -56,12 +56,6 @@ class TestEncode(unittest.TestCase):
         tarball = tarfile.open(cls.tarball_name)
         tarball.extractall(cls.index_dir)
         tarball.close()
-        
-        cls.tct_colbert_msmarco_weights = 'tct_colbert_msmarco.npz'
-        convert_transformers_to_mlx('castorini/tct_colbert-msmarco', BertModel, cls.cls.tct_colbert_msmarco_weights)
-
-        cls.tct_colbert_v2_hnp_msmarco = 'tct_colbert-v2-hnp-msmarco.npz'
-        convert_transformers_to_mlx('castorini/tct_colbert-v2-hnp-msmarco', BertModel, cls.tct_colbert_v2_hnp_msmarco)
 
         
     @staticmethod
@@ -72,7 +66,6 @@ class TestEncode(unittest.TestCase):
     def test_tct_colbert_encoder(self):
         encoder = MlxTctColBertDocumentEncoder(
             'castorini/tct_colbert-msmarco',
-            mlx_model_weights=self.cls.tct_colbert_msmarco_weights
             )
 
         vectors = encoder.encode(self.texts[:3])
@@ -90,7 +83,6 @@ class TestEncode(unittest.TestCase):
                   output  --embeddings {index_dir} \
                   encoder --encoder castorini/tct_colbert-v2-hnp-msmarco \
                           --encoder-class mlx_tct_colbert \
-                          --mlx-model-weights {self.tct_colbert_v2_hnp_msmarco} \
                           --use-mlx \
                           --fields text \
                           --batch 1 '
@@ -119,8 +111,6 @@ class TestEncode(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         os.remove(cls.tarball_name)
-        os.remove(cls.cls.tct_colbert_msmarco_weights)
-        os.remove(cls.tct_colbert_v2_hnp_msmarco)
         shutil.rmtree(cls.index_dir)
 
 

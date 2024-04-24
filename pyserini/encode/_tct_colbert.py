@@ -97,13 +97,13 @@ class TctColBertQueryEncoder(QueryEncoder):
 
 
 class MlxTctColBertDocumentEncoder(MlxDocumentEncoder):
-    def __init__(self, model_name: str, mlx_model_weights: str, tokenizer_name: Optional[str]=None):
+    def __init__(self, model_name: str, tokenizer_name: Optional[str]=None):
 
         self.config = BertConfig.from_pretrained(model_name)
         self.model = MlxBertModel(self.config)
         self.tokenizer = BertTokenizerFast.from_pretrained(tokenizer_name or model_name)
 
-        self.load_model(mlx_model_weights)
+        self.model.from_pretrained(model_name, huggingface_model_architecture="BertModel")
 
     def encode(self, texts: List[str], titles: Optional[List[str]]=None, fp16: bool=False,  max_length: int=512, **kwargs):
         if titles is not None:
@@ -123,7 +123,3 @@ class MlxTctColBertDocumentEncoder(MlxDocumentEncoder):
         outputs = self.model(**inputs)
         embeddings = self._mean_pooling(outputs.last_hidden_state[:, 4:, :], inputs['attention_mask'][:, 4:])
         return np.array(embeddings)
-    
-    def load_model(self, mlx_model_weights: str):
-        assert os.path.exists(mlx_model_weights), f"Model weights not found at {mlx_model_weights}"
-        self.model.load_weights(mlx_model_weights, strict=True)

@@ -28,9 +28,10 @@ import pandas as pd
 import openai
 import tiktoken
 
-from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer, BertTokenizerFast,
+from transformers import (AutoModel, AutoTokenizer, BertModel, BertConfig, BertTokenizer, BertTokenizerFast,
                           DPRQuestionEncoder, DPRQuestionEncoderTokenizer, RobertaTokenizer)
 from transformers.file_utils import is_faiss_available, requires_backends
+from mlx_transformers.models.bert import BertModel as MlxBertModel
 
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
                            get_dense_indexes_info, get_sparse_index)
@@ -411,6 +412,37 @@ class AutoQueryEncoder(QueryEncoder):
             if self.l2_norm:
                 faiss.normalize_L2(embeddings)
             return embeddings.flatten()
+        else:
+            return super().encode(query)
+
+
+class MlxTctColBertQueryEncoder(QueryEncoder):
+    def __init__(self, encoder_dir: str = None, mlx_model_weights: str = None,  tokenizer_name: str = None,
+                 encoded_query_dir: str = None, **kwargs):
+        super().__init__(encoded_query_dir)
+        if encoder_dir:
+            self.config = BertConfig.from_pretrained(encoder_dir)
+            self.model = MlxBertModel(self.config)
+            self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+
+            self.model.from_pretrained(encoder_dir, huggingface_model_architecture="BertModel")
+            self.has_model = True
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
+
+    def encode(self, query: str):
+        if self.has_model:
+            max_length = 36  # hardcode for now
+            inputs = self.tokenizer(
+                '[CLS] [Q] ' + query + '[MASK]' * max_length,
+                max_length=max_length,
+                truncation=True,
+                add_special_tokens=False,
+                return_tensors='np'
+            )
+            outputs = self.model(**inputs)
+            embeddings = np.array(outputs.last_hidden_state)
+            return np.average(embeddings[:, 4:, :], axis=-2).flatten()
         else:
             return super().encode(query)
 
