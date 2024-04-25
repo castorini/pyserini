@@ -44,6 +44,9 @@ import torch
 from ...encode import PcaEncoder, CosDprQueryEncoder, ClipEncoder
 from ...encode._aggretriever import BERTAggretrieverEncoder, DistlBERTAggretrieverEncoder
 
+import mlx.core as mx
+from mlx_transformers.models.bert import BertModel as MlxBertModel
+
 if is_faiss_available():
     import faiss
 
@@ -176,6 +179,36 @@ class TctColBertQueryEncoder(QueryEncoder):
         else:
             return super().encode(query)
 
+class MlxTctColBertQueryEncoder(QueryEncoder):
+
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, **kwargs):
+        super().__init__(encoded_query_dir)
+        if encoder_dir:
+            self.config = BertConfig.from_pretrained(encoder_dir)
+            self.model = MlxBertModel(self.config)
+            self.tokenizer = BertTokenizerFast.from_pretrained(tokenizer_name or encoder_dir)
+            self.model.from_pretrained(encoder_dir, huggingface_model_architecture="BertModel")
+            self.has_model = True
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
+
+    def encode(self, query: str):
+        if self.has_model:
+            max_length = 36  # hardcode for now
+            inputs = self.tokenizer(
+                '[CLS] [Q] ' + query + '[MASK]' * max_length,
+                max_length=max_length,
+                truncation=True,
+                add_special_tokens=False,
+                return_tensors='np'
+            )
+            inputs = {key: mx.array(v) for key, v in inputs.items()}
+            outputs = self.model(**inputs)
+            embeddings = np.array(outputs.last_hidden_state)
+            return np.average(embeddings[:, 4:, :], axis=-2).flatten()
+        else:
+            return super().encode(query)
 
 class DprQueryEncoder(QueryEncoder):
 
@@ -414,38 +447,6 @@ class AutoQueryEncoder(QueryEncoder):
             return embeddings.flatten()
         else:
             return super().encode(query)
-
-
-class MlxTctColBertQueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir: str = None, mlx_model_weights: str = None,  tokenizer_name: str = None,
-                 encoded_query_dir: str = None, **kwargs):
-        super().__init__(encoded_query_dir)
-        if encoder_dir:
-            self.config = BertConfig.from_pretrained(encoder_dir)
-            self.model = MlxBertModel(self.config)
-            self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or encoder_dir)
-
-            self.model.from_pretrained(encoder_dir, huggingface_model_architecture="BertModel")
-            self.has_model = True
-        if (not self.has_model) and (not self.has_encoded_query):
-            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
-
-    def encode(self, query: str):
-        if self.has_model:
-            max_length = 36  # hardcode for now
-            inputs = self.tokenizer(
-                '[CLS] [Q] ' + query + '[MASK]' * max_length,
-                max_length=max_length,
-                truncation=True,
-                add_special_tokens=False,
-                return_tensors='np'
-            )
-            outputs = self.model(**inputs)
-            embeddings = np.array(outputs.last_hidden_state)
-            return np.average(embeddings[:, 4:, :], axis=-2).flatten()
-        else:
-            return super().encode(query)
-
 
 @dataclass
 class DenseSearchResult:

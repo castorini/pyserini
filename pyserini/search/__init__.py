@@ -21,7 +21,7 @@ from .lucene import JScoredDoc, LuceneImpactSearcher
 from ._deprecated import SimpleSearcher, ImpactSearcher, SimpleFusionSearcher
 
 from .faiss import DenseSearchResult, PRFDenseSearchResult, FaissSearcher, BinaryDenseSearcher, QueryEncoder, \
-    DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, AutoQueryEncoder, ClipQueryEncoder
+    DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, AutoQueryEncoder, ClipQueryEncoder, MlxTctColBertQueryEncoder
 from .faiss import AnceEncoder
 from .faiss import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
 from .faiss import OpenAIQueryEncoder
@@ -52,6 +52,7 @@ __all__ = ['JQuery',
            'BprQueryEncoder',
            'DkrrDprQueryEncoder',
            'TctColBertQueryEncoder',
+           'MlxTctColBertQueryEncoder',
            'AnceEncoder',
            'AnceQueryEncoder',
            'AggretrieverQueryEncoder',
