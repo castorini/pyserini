@@ -121,43 +121,43 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene index of the MS MARCO document segmented corpus with four extra preprocessed fields for LTR. (Lucene 8)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 document corpus.
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 document corpus ('slim' version).
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 document corpus ('full' version).
 </dd>
-<dt></dt><b><code>msmarco-v2-doc-d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-d2q-t5.20220808.4d6d2a.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v2-doc.d2q-t5</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 document corpus with doc2query-T5 expansions.
 </dd>
-<dt></dt><b><code>msmarco-v2-doc-d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-d2q-t5.20220808.4d6d2a.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v2-doc.d2q-t5-docvectors</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index (+docvectors) of the MS MARCO V2 document corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 segmented document corpus.
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 segmented document corpus ('slim' version).
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 segmented document corpus ('full' version).
 </dd>
-<dt></dt><b><code>msmarco-v2-doc-segmented-d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220808.4d6d2a.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v2-doc-segmented.d2q-t5</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions.
 </dd>
-<dt></dt><b><code>msmarco-v2-doc-segmented-d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-d2q-t5.20220808.4d6d2a.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v2-doc-segmented.d2q-t5-docvectors</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index (+docvectors) of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v2-passage</code></b>
@@ -200,14 +200,8 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index (+docvectors) of the MS MARCO V2 augmented passage corpus with doc2query-T5 expansions.
 </dd>
-<dt></dt><b><code>msmarco-passage</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V1 passage corpus.
-</dd>
-<dt></dt><b><code>msmarco-v1-passage-d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V1 passage corpus with doc2query-T5 expansions.
-</dd>
+</dl>
+<dl>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Lucene flat index of BEIR (v1.0.0): TREC-COVID.
@@ -440,6 +434,8 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Lucene multifield index of BEIR (v1.0.0): SciFact.
 </dd>
+</dl>
+<dl>
 <dt></dt><b><code>mrtydi-v1.1-arabic</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.README.md">readme</a>]
 <dd>Lucene index for Mr.TyDi v1.1 (Arabic).
@@ -484,6 +480,8 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.README.md">readme</a>]
 <dd>Lucene index for Mr.TyDi v1.1 (Thai).
 </dd>
+</dl>
+<dl>
 <dt></dt><b><code>miracl-v1.0-ar</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 (Arabic).
@@ -556,6 +554,8 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 (Yoruba).
 </dd>
+</dl>
+<dl>
 <dt></dt><b><code>ciral-v1.0-ha</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
 <dd>Lucene index for CIRAL v1.0 (Hausa).
@@ -588,6 +588,8 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0-en.20240212.2154e7.README.md">readme</a>]
 <dd>Lucene index for CIRAL v1.0 English Translations (Yoruba).
 </dd>
+</dl>
+<dl>
 <dt></dt><b><code>cacm</code></b>
 <dd>Lucene index of the CACM corpus.
 </dd>
@@ -725,10 +727,6 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.atomic.20231018.ae6ff6.README.md">readme</a>]
 <dd>Lucene index for AToMiC Images v0.2 large setting on validation set
 </dd>
-<dt></dt><b><code>wikipedia-dpr</code></b>
-[<a href="../pyserini/resources/index-metadata/index-wikipedia-dpr-20210120-d1b9e6-readme.txt">readme</a>]
-<dd>Lucene index of Wikipedia with DPR 100-word splits
-</dd>
 </dl>
 
 
@@ -806,18 +804,16 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-slimr-pp.20230614.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V2 passage corpus encoded by SLIM (norefine) trained with cross-encoder distillation and hard-negative mining.
 </dd>
-<dt></dt><b><code>msmarco-v2-doc-segmented-unicoil-0shot</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-unicoil-0shot.20220808.4d6d2a.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v2-doc-segmented.unicoil-0shot</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.unicoil-0shot.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL, with title prepended.
 </dd>
-<dt></dt><b><code>msmarco-v2-doc-segmented-unicoil-noexp-0shot</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-doc-segmented-unicoil-noexp-0shot.20220808.4d6d2a.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v2-doc-segmented.unicoil-noexp-0shot</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.unicoil-noexp-0shot.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended.
 </dd>
-<dt></dt><b><code>msmarco-passage-unicoil-d2q</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.README.md">readme</a>]
-<dd>Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL.
-</dd>
+</dl>
+<dl>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.splade-pp-ed</code></b>
 <dd>Lucene impact index of BEIR (v1.0.0): TREC-COVID, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
@@ -1286,6 +1282,122 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.bge-base-en-v1.5</code></b>
 <dd>Faiss flat index for BEIR (v1.0.0): SciFact, encoded by BGE-base-en-v1.5.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-trec-covid.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (TREC-COVID) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-bioasq.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (BioASQ) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-nfcorpus.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (NFCorpus) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-nq.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (NQ) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-hotpotqa.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (HotpotQA) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-fiqa.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (FiQA-2018) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-signal1m.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (Signal-1M) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-trec-news.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (TREC-NEWS) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-robust04.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (Robust04) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-arguana.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (ArguAna) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-webis-touche2020.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (Webis-Touche2020) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-android.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-android) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-english.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-english) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-gaming) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-gis) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-mathematica) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-physics) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-programmers) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-stats) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-tex) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-unix) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-webmasters) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (CQADupStack-wordpress) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-quora.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (Quora) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-dbpedia-entity.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (DBPedia) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-scidocs.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (SCIDOCS) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-fever.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (FEVER) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-climate-fever.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (Climate-FEVER) corpus encoded by cohere-embed-english-v3.0 encoder.
+</dd>
+<dt></dt><b><code>beir-v1.0.0-scifact.cohere-embed-english-v3.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
+<dd>Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by cohere-embed-english-v3.0 encoder.
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-arabic-mdpr-nq</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-arabic.20220207.5df364.README.md">readme</a>]

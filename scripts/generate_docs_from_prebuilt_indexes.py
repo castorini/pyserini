@@ -20,7 +20,7 @@ import sys
 # Use Pyserini in this repo (as opposed to pip install)
 sys.path.insert(0, './')
 
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
+from pyserini.prebuilt_index_info import *
 
 
 __boilerplate__ = '''
@@ -88,8 +88,14 @@ def generate_prebuilt(index):
 if __name__ == '__main__':
     print(__boilerplate__)
     print('\n\n## Standard Lucene Indexes')
-    generate_prebuilt(TF_INDEX_INFO)
+    generate_prebuilt(TF_INDEX_INFO_MSMARCO)
+    generate_prebuilt(TF_INDEX_INFO_BEIR)
+    generate_prebuilt(TF_INDEX_INFO_MRTYDI)
+    generate_prebuilt(TF_INDEX_INFO_MIRACL)
+    generate_prebuilt(TF_INDEX_INFO_CIRAL)
+    generate_prebuilt(TF_INDEX_INFO_OTHER)
     print('\n\n## Lucene Impact Indexes')
-    generate_prebuilt(IMPACT_INDEX_INFO)
+    generate_prebuilt(IMPACT_INDEX_INFO_MSMARCO)
+    generate_prebuilt(IMPACT_INDEX_INFO_BEIR)
     print('\n\n## Faiss Indexes')
     generate_prebuilt(FAISS_INDEX_INFO)
