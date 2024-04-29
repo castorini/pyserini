@@ -119,8 +119,8 @@ class TestPrebuiltIndexes(unittest.TestCase):
                 for url in FAISS_INDEX_INFO[key]['urls']:
                     urls.append(url)
 
-        # each 29: contriever, contriever-msmarco, bge
-        self.assertEqual(cnt, 87)
+        # each 29: contriever, contriever-msmarco, bge, cohere-embed-english-v3.0
+        self.assertEqual(cnt, 116)
         self._test_urls(urls)
 
     def test_faiss_mrtydi(self):

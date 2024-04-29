@@ -150,7 +150,8 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
   <li>BM25 Multifield: BM25 "multifield" baseline [1]</li>
   <li>SPLADE: SPLADE++ (CoCondenser-EnsembleDistil) [2]</li>
   <li>Contriever-msmarco: Contriever FT MS MARCO [3]</li>
-  <li>BEG-base: BGE-base-en-v1.5 [4]</li>
+  <li>BGE-base: BGE-base-en-v1.5 [4]</li>
+  <li>Cohere embed-english: Cohere embed-english-v3.0 [5]</li>
 </ul>
 
 <div class="table-responsive">
@@ -164,9 +165,13 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
         <th class="headertop" colspan="3"><b>SPLADE++ ED</b></th>
         <th class="headertop" colspan="3"><b>Contriever MSMARCO</b></th>
         <th class="headertop" colspan="3"><b>BGE-base</b></th>
+        <th class="headertop" colspan="3"><b>Cohere embed-english</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@100</th>
@@ -204,6 +209,9 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 <td></td>
 <td>  0.7815</td>
 <td>  0.1406</td>
+<td></td>
+<td>  0.8178</td>
+<td>  0.1594</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -226,6 +234,9 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row1-tab5-header" data-mdb-toggle="tab" href="#row1-tab5" role="tab" aria-controls="row1-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab6-header" data-mdb-toggle="tab" href="#row1-tab6" role="tab" aria-controls="row1-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -381,6 +392,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row1-tab6" role="tabpanel" aria-labelledby="row1-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-trec-covid.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-trec-covid-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-trec-covid-test \
+  --output run.beir.cohere-embed-english-v3.0.trec-covid.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-trec-covid-test \
+  run.beir.cohere-embed-english-v3.0.trec-covid.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-trec-covid-test \
+  run.beir.cohere-embed-english-v3.0.trec-covid.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-trec-covid-test \
+  run.beir.cohere-embed-english-v3.0.trec-covid.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -405,6 +440,9 @@ Command to generate run:
 <td></td>
 <td>  0.4148</td>
 <td>  0.6316</td>
+<td></td>
+<td>  0.4565</td>
+<td>  0.6790</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -427,6 +465,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row2-tab5-header" data-mdb-toggle="tab" href="#row2-tab5" role="tab" aria-controls="row2-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab6-header" data-mdb-toggle="tab" href="#row2-tab6" role="tab" aria-controls="row2-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -582,6 +623,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row2-tab6" role="tabpanel" aria-labelledby="row2-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-bioasq.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-bioasq-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-bioasq-test \
+  --output run.beir.cohere-embed-english-v3.0.bioasq.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-bioasq-test \
+  run.beir.cohere-embed-english-v3.0.bioasq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-bioasq-test \
+  run.beir.cohere-embed-english-v3.0.bioasq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-bioasq-test \
+  run.beir.cohere-embed-english-v3.0.bioasq.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -606,6 +671,9 @@ Command to generate run:
 <td></td>
 <td>  0.3735</td>
 <td>  0.3368</td>
+<td></td>
+<td>  0.3863</td>
+<td>  0.3512</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -628,6 +696,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row3-tab5-header" data-mdb-toggle="tab" href="#row3-tab5" role="tab" aria-controls="row3-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab6-header" data-mdb-toggle="tab" href="#row3-tab6" role="tab" aria-controls="row3-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -783,6 +854,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row3-tab6" role="tabpanel" aria-labelledby="row3-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-nfcorpus.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-nfcorpus-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-nfcorpus-test \
+  --output run.beir.cohere-embed-english-v3.0.nfcorpus.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-nfcorpus-test \
+  run.beir.cohere-embed-english-v3.0.nfcorpus.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-nfcorpus-test \
+  run.beir.cohere-embed-english-v3.0.nfcorpus.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-nfcorpus-test \
+  run.beir.cohere-embed-english-v3.0.nfcorpus.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -807,6 +902,9 @@ Command to generate run:
 <td></td>
 <td>  0.5414</td>
 <td>  0.9415</td>
+<td></td>
+<td>  0.6162</td>
+<td>  0.9560</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -829,6 +927,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row4-tab5-header" data-mdb-toggle="tab" href="#row4-tab5" role="tab" aria-controls="row4-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab6-header" data-mdb-toggle="tab" href="#row4-tab6" role="tab" aria-controls="row4-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -984,6 +1085,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row4-tab6" role="tabpanel" aria-labelledby="row4-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-nq.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-nq-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-nq-test \
+  --output run.beir.cohere-embed-english-v3.0.nq.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-nq-test \
+  run.beir.cohere-embed-english-v3.0.nq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-nq-test \
+  run.beir.cohere-embed-english-v3.0.nq.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-nq-test \
+  run.beir.cohere-embed-english-v3.0.nq.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -1008,6 +1133,9 @@ Command to generate run:
 <td></td>
 <td>  0.7259</td>
 <td>  0.8726</td>
+<td></td>
+<td>  0.7072</td>
+<td>  0.8232</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1030,6 +1158,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row5-tab5-header" data-mdb-toggle="tab" href="#row5-tab5" role="tab" aria-controls="row5-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab6-header" data-mdb-toggle="tab" href="#row5-tab6" role="tab" aria-controls="row5-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1185,6 +1316,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row5-tab6" role="tabpanel" aria-labelledby="row5-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-hotpotqa.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-hotpotqa-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-hotpotqa-test \
+  --output run.beir.cohere-embed-english-v3.0.hotpotqa.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-hotpotqa-test \
+  run.beir.cohere-embed-english-v3.0.hotpotqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-hotpotqa-test \
+  run.beir.cohere-embed-english-v3.0.hotpotqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-hotpotqa-test \
+  run.beir.cohere-embed-english-v3.0.hotpotqa.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -1209,6 +1364,9 @@ Command to generate run:
 <td></td>
 <td>  0.4065</td>
 <td>  0.7415</td>
+<td></td>
+<td>  0.4214</td>
+<td>  0.7357</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1231,6 +1389,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row6-tab5-header" data-mdb-toggle="tab" href="#row6-tab5" role="tab" aria-controls="row6-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab6-header" data-mdb-toggle="tab" href="#row6-tab6" role="tab" aria-controls="row6-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1386,6 +1547,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row6-tab6" role="tabpanel" aria-labelledby="row6-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-fiqa.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-fiqa-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-fiqa-test \
+  --output run.beir.cohere-embed-english-v3.0.fiqa.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fiqa-test \
+  run.beir.cohere-embed-english-v3.0.fiqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fiqa-test \
+  run.beir.cohere-embed-english-v3.0.fiqa.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fiqa-test \
+  run.beir.cohere-embed-english-v3.0.fiqa.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -1410,6 +1595,9 @@ Command to generate run:
 <td></td>
 <td>  0.2886</td>
 <td>  0.3112</td>
+<td></td>
+<td>  0.2632</td>
+<td>  0.2832</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1432,6 +1620,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row7-tab5-header" data-mdb-toggle="tab" href="#row7-tab5" role="tab" aria-controls="row7-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab6-header" data-mdb-toggle="tab" href="#row7-tab6" role="tab" aria-controls="row7-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1587,6 +1778,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row7-tab6" role="tabpanel" aria-labelledby="row7-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-signal1m.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-signal1m-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-signal1m-test \
+  --output run.beir.cohere-embed-english-v3.0.signal1m.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-signal1m-test \
+  run.beir.cohere-embed-english-v3.0.signal1m.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-signal1m-test \
+  run.beir.cohere-embed-english-v3.0.signal1m.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-signal1m-test \
+  run.beir.cohere-embed-english-v3.0.signal1m.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -1611,6 +1826,9 @@ Command to generate run:
 <td></td>
 <td>  0.4424</td>
 <td>  0.4992</td>
+<td></td>
+<td>  0.5042</td>
+<td>  0.5431</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1633,6 +1851,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row8-tab5-header" data-mdb-toggle="tab" href="#row8-tab5" role="tab" aria-controls="row8-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab6-header" data-mdb-toggle="tab" href="#row8-tab6" role="tab" aria-controls="row8-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1788,6 +2009,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row8-tab6" role="tabpanel" aria-labelledby="row8-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-trec-news.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-trec-news-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-trec-news-test \
+  --output run.beir.cohere-embed-english-v3.0.trec-news.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-trec-news-test \
+  run.beir.cohere-embed-english-v3.0.trec-news.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-trec-news-test \
+  run.beir.cohere-embed-english-v3.0.trec-news.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-trec-news-test \
+  run.beir.cohere-embed-english-v3.0.trec-news.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -1812,6 +2057,9 @@ Command to generate run:
 <td></td>
 <td>  0.4435</td>
 <td>  0.3510</td>
+<td></td>
+<td>  0.5406</td>
+<td>  0.4171</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1834,6 +2082,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row9-tab5-header" data-mdb-toggle="tab" href="#row9-tab5" role="tab" aria-controls="row9-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab6-header" data-mdb-toggle="tab" href="#row9-tab6" role="tab" aria-controls="row9-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1989,6 +2240,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row9-tab6" role="tabpanel" aria-labelledby="row9-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-robust04.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-robust04-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-robust04-test \
+  --output run.beir.cohere-embed-english-v3.0.robust04.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-robust04-test \
+  run.beir.cohere-embed-english-v3.0.robust04.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-robust04-test \
+  run.beir.cohere-embed-english-v3.0.robust04.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-robust04-test \
+  run.beir.cohere-embed-english-v3.0.robust04.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -2013,6 +2288,9 @@ Command to generate run:
 <td></td>
 <td>  0.6362</td>
 <td>  0.9915</td>
+<td></td>
+<td>  0.5398</td>
+<td>  0.9815</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2035,6 +2313,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row10-tab5-header" data-mdb-toggle="tab" href="#row10-tab5" role="tab" aria-controls="row10-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab6-header" data-mdb-toggle="tab" href="#row10-tab6" role="tab" aria-controls="row10-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2190,6 +2471,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row10-tab6" role="tabpanel" aria-labelledby="row10-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-arguana.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-arguana-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-arguana-test \
+  --output run.beir.cohere-embed-english-v3.0.arguana.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-arguana-test \
+  run.beir.cohere-embed-english-v3.0.arguana.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-arguana-test \
+  run.beir.cohere-embed-english-v3.0.arguana.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-arguana-test \
+  run.beir.cohere-embed-english-v3.0.arguana.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -2214,6 +2519,9 @@ Command to generate run:
 <td></td>
 <td>  0.2571</td>
 <td>  0.4867</td>
+<td></td>
+<td>  0.3264</td>
+<td>  0.5157</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2236,6 +2544,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row11-tab5-header" data-mdb-toggle="tab" href="#row11-tab5" role="tab" aria-controls="row11-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab6-header" data-mdb-toggle="tab" href="#row11-tab6" role="tab" aria-controls="row11-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2391,6 +2702,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row11-tab6" role="tabpanel" aria-labelledby="row11-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-webis-touche2020.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-webis-touche2020-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-webis-touche2020-test \
+  --output run.beir.cohere-embed-english-v3.0.webis-touche2020.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-webis-touche2020-test \
+  run.beir.cohere-embed-english-v3.0.webis-touche2020.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-webis-touche2020-test \
+  run.beir.cohere-embed-english-v3.0.webis-touche2020.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-webis-touche2020-test \
+  run.beir.cohere-embed-english-v3.0.webis-touche2020.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -2415,6 +2750,9 @@ Command to generate run:
 <td></td>
 <td>  0.5076</td>
 <td>  0.8454</td>
+<td></td>
+<td>  0.5001</td>
+<td>  0.8319</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2437,6 +2775,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row12-tab5-header" data-mdb-toggle="tab" href="#row12-tab5" role="tab" aria-controls="row12-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab6-header" data-mdb-toggle="tab" href="#row12-tab6" role="tab" aria-controls="row12-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2592,6 +2933,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row12-tab6" role="tabpanel" aria-labelledby="row12-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-android.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-android-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-android-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-android.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-android.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -2616,6 +2981,9 @@ Command to generate run:
 <td></td>
 <td>  0.4857</td>
 <td>  0.7586</td>
+<td></td>
+<td>  0.4909</td>
+<td>  0.7573</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2638,6 +3006,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row13-tab5-header" data-mdb-toggle="tab" href="#row13-tab5" role="tab" aria-controls="row13-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row13-tab6-header" data-mdb-toggle="tab" href="#row13-tab6" role="tab" aria-controls="row13-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2793,6 +3164,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row13-tab6" role="tabpanel" aria-labelledby="row13-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-english.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-english-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-english-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-english.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-english.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -2817,6 +3212,9 @@ Command to generate run:
 <td></td>
 <td>  0.5967</td>
 <td>  0.9036</td>
+<td></td>
+<td>  0.6050</td>
+<td>  0.9003</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2839,6 +3237,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row14-tab5-header" data-mdb-toggle="tab" href="#row14-tab5" role="tab" aria-controls="row14-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row14-tab6-header" data-mdb-toggle="tab" href="#row14-tab6" role="tab" aria-controls="row14-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2994,6 +3395,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row14-tab6" role="tabpanel" aria-labelledby="row14-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-gaming.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-gaming-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gaming-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-gaming.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gaming.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -3018,6 +3443,9 @@ Command to generate run:
 <td></td>
 <td>  0.4127</td>
 <td>  0.7682</td>
+<td></td>
+<td>  0.3917</td>
+<td>  0.7439</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -3040,6 +3468,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row15-tab5-header" data-mdb-toggle="tab" href="#row15-tab5" role="tab" aria-controls="row15-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row15-tab6-header" data-mdb-toggle="tab" href="#row15-tab6" role="tab" aria-controls="row15-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3195,6 +3626,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row15-tab6" role="tabpanel" aria-labelledby="row15-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-gis.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-gis-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gis-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-gis.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gis.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -3219,6 +3674,9 @@ Command to generate run:
 <td></td>
 <td>  0.3163</td>
 <td>  0.6922</td>
+<td></td>
+<td>  0.3038</td>
+<td>  0.6671</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -3241,6 +3699,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row16-tab5-header" data-mdb-toggle="tab" href="#row16-tab5" role="tab" aria-controls="row16-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row16-tab6-header" data-mdb-toggle="tab" href="#row16-tab6" role="tab" aria-controls="row16-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3396,6 +3857,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row16-tab6" role="tabpanel" aria-labelledby="row16-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-mathematica.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-mathematica-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-mathematica.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-mathematica.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -3420,6 +3905,9 @@ Command to generate run:
 <td></td>
 <td>  0.4724</td>
 <td>  0.8078</td>
+<td></td>
+<td>  0.4382</td>
+<td>  0.7843</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -3442,6 +3930,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row17-tab5-header" data-mdb-toggle="tab" href="#row17-tab5" role="tab" aria-controls="row17-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row17-tab6-header" data-mdb-toggle="tab" href="#row17-tab6" role="tab" aria-controls="row17-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3597,6 +4088,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row17-tab6" role="tabpanel" aria-labelledby="row17-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-physics.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-physics-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-physics-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-physics.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-physics.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -3621,6 +4136,9 @@ Command to generate run:
 <td></td>
 <td>  0.4238</td>
 <td>  0.7856</td>
+<td></td>
+<td>  0.4367</td>
+<td>  0.7889</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -3643,6 +4161,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row18-tab5-header" data-mdb-toggle="tab" href="#row18-tab5" role="tab" aria-controls="row18-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row18-tab6-header" data-mdb-toggle="tab" href="#row18-tab6" role="tab" aria-controls="row18-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3798,6 +4319,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row18-tab6" role="tabpanel" aria-labelledby="row18-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-programmers.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-programmers-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-programmers-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-programmers.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-programmers.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -3822,6 +4367,9 @@ Command to generate run:
 <td></td>
 <td>  0.3732</td>
 <td>  0.6727</td>
+<td></td>
+<td>  0.3524</td>
+<td>  0.6431</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -3844,6 +4392,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row19-tab5-header" data-mdb-toggle="tab" href="#row19-tab5" role="tab" aria-controls="row19-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row19-tab6-header" data-mdb-toggle="tab" href="#row19-tab6" role="tab" aria-controls="row19-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -3999,6 +4550,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row19-tab6" role="tabpanel" aria-labelledby="row19-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-stats.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-stats-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-stats-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-stats.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-stats.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -4023,6 +4598,9 @@ Command to generate run:
 <td></td>
 <td>  0.3115</td>
 <td>  0.6489</td>
+<td></td>
+<td>  0.3083</td>
+<td>  0.6235</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -4045,6 +4623,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row20-tab5-header" data-mdb-toggle="tab" href="#row20-tab5" role="tab" aria-controls="row20-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row20-tab6-header" data-mdb-toggle="tab" href="#row20-tab6" role="tab" aria-controls="row20-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -4200,6 +4781,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row20-tab6" role="tabpanel" aria-labelledby="row20-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-tex.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-tex-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-tex-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-tex.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-tex.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -4224,6 +4829,9 @@ Command to generate run:
 <td></td>
 <td>  0.4220</td>
 <td>  0.7797</td>
+<td></td>
+<td>  0.4059</td>
+<td>  0.7543</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -4246,6 +4854,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row21-tab5-header" data-mdb-toggle="tab" href="#row21-tab5" role="tab" aria-controls="row21-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row21-tab6-header" data-mdb-toggle="tab" href="#row21-tab6" role="tab" aria-controls="row21-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -4401,6 +5012,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row21-tab6" role="tabpanel" aria-labelledby="row21-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-unix.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-unix-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-unix-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-unix.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-unix.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -4425,6 +5060,9 @@ Command to generate run:
 <td></td>
 <td>  0.4072</td>
 <td>  0.7774</td>
+<td></td>
+<td>  0.4068</td>
+<td>  0.7485</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -4447,6 +5085,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row22-tab5-header" data-mdb-toggle="tab" href="#row22-tab5" role="tab" aria-controls="row22-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row22-tab6-header" data-mdb-toggle="tab" href="#row22-tab6" role="tab" aria-controls="row22-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -4602,6 +5243,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row22-tab6" role="tabpanel" aria-labelledby="row22-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-webmasters.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-webmasters-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-webmasters.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-webmasters.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -4626,6 +5291,9 @@ Command to generate run:
 <td></td>
 <td>  0.3547</td>
 <td>  0.7047</td>
+<td></td>
+<td>  0.3426</td>
+<td>  0.6937</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -4648,6 +5316,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row23-tab5-header" data-mdb-toggle="tab" href="#row23-tab5" role="tab" aria-controls="row23-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row23-tab6-header" data-mdb-toggle="tab" href="#row23-tab6" role="tab" aria-controls="row23-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -4803,6 +5474,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row23-tab6" role="tabpanel" aria-labelledby="row23-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-wordpress.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-wordpress-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-wordpress.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-wordpress.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -4827,6 +5522,9 @@ Command to generate run:
 <td></td>
 <td>  0.8890</td>
 <td>  0.9968</td>
+<td></td>
+<td>  0.8872</td>
+<td>  0.9962</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -4849,6 +5547,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row24-tab5-header" data-mdb-toggle="tab" href="#row24-tab5" role="tab" aria-controls="row24-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row24-tab6-header" data-mdb-toggle="tab" href="#row24-tab6" role="tab" aria-controls="row24-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -5004,6 +5705,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row24-tab6" role="tabpanel" aria-labelledby="row24-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-quora.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-quora-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-quora-test \
+  --output run.beir.cohere-embed-english-v3.0.quora.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
+  run.beir.cohere-embed-english-v3.0.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-quora-test \
+  run.beir.cohere-embed-english-v3.0.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-quora-test \
+  run.beir.cohere-embed-english-v3.0.quora.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -5028,6 +5753,9 @@ Command to generate run:
 <td></td>
 <td>  0.4073</td>
 <td>  0.5298</td>
+<td></td>
+<td>  0.4340</td>
+<td>  0.5358</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -5050,6 +5778,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row25-tab5-header" data-mdb-toggle="tab" href="#row25-tab5" role="tab" aria-controls="row25-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row25-tab6-header" data-mdb-toggle="tab" href="#row25-tab6" role="tab" aria-controls="row25-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -5205,6 +5936,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row25-tab6" role="tabpanel" aria-labelledby="row25-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-dbpedia-entity.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-dbpedia-entity-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-dbpedia-entity-test \
+  --output run.beir.cohere-embed-english-v3.0.dbpedia-entity.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.cohere-embed-english-v3.0.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.cohere-embed-english-v3.0.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.cohere-embed-english-v3.0.dbpedia-entity.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -5229,6 +5984,9 @@ Command to generate run:
 <td></td>
 <td>  0.2172</td>
 <td>  0.4959</td>
+<td></td>
+<td>  0.2034</td>
+<td>  0.4509</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -5251,6 +6009,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row26-tab5-header" data-mdb-toggle="tab" href="#row26-tab5" role="tab" aria-controls="row26-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row26-tab6-header" data-mdb-toggle="tab" href="#row26-tab6" role="tab" aria-controls="row26-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -5406,6 +6167,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row26-tab6" role="tabpanel" aria-labelledby="row26-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-scidocs.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-scidocs-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-scidocs-test \
+  --output run.beir.cohere-embed-english-v3.0.scidocs.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
+  run.beir.cohere-embed-english-v3.0.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scidocs-test \
+  run.beir.cohere-embed-english-v3.0.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scidocs-test \
+  run.beir.cohere-embed-english-v3.0.scidocs.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -5430,6 +6215,9 @@ Command to generate run:
 <td></td>
 <td>  0.8629</td>
 <td>  0.9719</td>
+<td></td>
+<td>  0.8900</td>
+<td>  0.9649</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -5452,6 +6240,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row27-tab5-header" data-mdb-toggle="tab" href="#row27-tab5" role="tab" aria-controls="row27-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row27-tab6-header" data-mdb-toggle="tab" href="#row27-tab6" role="tab" aria-controls="row27-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -5607,6 +6398,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row27-tab6" role="tabpanel" aria-labelledby="row27-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-fever.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-fever-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-fever-test \
+  --output run.beir.cohere-embed-english-v3.0.fever.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
+  run.beir.cohere-embed-english-v3.0.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fever-test \
+  run.beir.cohere-embed-english-v3.0.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fever-test \
+  run.beir.cohere-embed-english-v3.0.fever.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -5631,6 +6446,9 @@ Command to generate run:
 <td></td>
 <td>  0.3122</td>
 <td>  0.6362</td>
+<td></td>
+<td>  0.2590</td>
+<td>  0.5810</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -5653,6 +6471,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row28-tab5-header" data-mdb-toggle="tab" href="#row28-tab5" role="tab" aria-controls="row28-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row28-tab6-header" data-mdb-toggle="tab" href="#row28-tab6" role="tab" aria-controls="row28-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -5808,6 +6629,30 @@ python -m pyserini.eval.trec_eval \
   <div class="tab-pane fade" id="row28-tab6" role="tabpanel" aria-labelledby="row28-tab6">
 Command to generate run:
 
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-climate-fever.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-climate-fever-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-climate-fever-test \
+  --output run.beir.cohere-embed-english-v3.0.climate-fever.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
+  run.beir.cohere-embed-english-v3.0.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-climate-fever-test \
+  run.beir.cohere-embed-english-v3.0.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
+  run.beir.cohere-embed-english-v3.0.climate-fever.txt</code></pre>
+  </blockquote>
+
   </div>
 </div>
 <!-- Tabs content -->
@@ -5832,6 +6677,9 @@ Command to generate run:
 <td></td>
 <td>  0.7408</td>
 <td>  0.9667</td>
+<td></td>
+<td>  0.7181</td>
+<td>  0.9633</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -5854,6 +6702,9 @@ Command to generate run:
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row29-tab5-header" data-mdb-toggle="tab" href="#row29-tab5" role="tab" aria-controls="row29-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row29-tab6-header" data-mdb-toggle="tab" href="#row29-tab6" role="tab" aria-controls="row29-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -6008,6 +6859,30 @@ python -m pyserini.eval.trec_eval \
   </div>
   <div class="tab-pane fade" id="row29-tab6" role="tabpanel" aria-labelledby="row29-tab6">
 Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-scifact.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-scifact-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-scifact-test \
+  --output run.beir.cohere-embed-english-v3.0.scifact.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
+  run.beir.cohere-embed-english-v3.0.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scifact-test \
+  run.beir.cohere-embed-english-v3.0.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scifact-test \
+  run.beir.cohere-embed-english-v3.0.scifact.txt</code></pre>
+  </blockquote>
 
   </div>
 </div>
