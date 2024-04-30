@@ -139,7 +139,7 @@ conditions:
     display: BM25 w/ doc2query-T5 doc (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: (2a)
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-d2q-t5 --topics $topics --output $output --bm25
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc.d2q-t5 --topics $topics --output $output --bm25
     topics:
       - topic_key: msmarco-v2-doc-dev
         eval_key: msmarco-v2-doc-dev
@@ -173,7 +173,7 @@ conditions:
     display: BM25 w/ doc2query-T5 doc segmented (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: (2b)
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented-d2q-t5 --topics $topics --output $output --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.d2q-t5 --topics $topics --output $output --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev
         eval_key: msmarco-v2-doc-dev
@@ -207,7 +207,7 @@ conditions:
     display: BM25+RM3 w/ doc2query-T5 doc (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: (2c)
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-d2q-t5-docvectors --topics $topics --output $output --bm25 --rm3
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc.d2q-t5-docvectors --topics $topics --output $output --bm25 --rm3
     topics:
       - topic_key: msmarco-v2-doc-dev
         eval_key: msmarco-v2-doc-dev
@@ -241,7 +241,7 @@ conditions:
     display: BM25+RM3 w/ doc2query-T5 doc segmented (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
     display-row: (2d)
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented-d2q-t5-docvectors --topics $topics --output $output --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.d2q-t5-docvectors --topics $topics --output $output --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev
         eval_key: msmarco-v2-doc-dev
@@ -275,7 +275,7 @@ conditions:
     display: "uniCOIL (noexp): pre-encoded"
     display-html: "uniCOIL (noexp): pre-encoded queries"
     display-row: (3a)
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented-unicoil-noexp-0shot --topics $topics --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.unicoil-noexp-0shot --topics $topics --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev-unicoil-noexp
         eval_key: msmarco-v2-doc-dev
@@ -309,7 +309,7 @@ conditions:
     display: "uniCOIL (w/ doc2query-T5): pre-encoded"
     display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
     display-row: (3b)
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented-unicoil-0shot --topics $topics --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.unicoil-0shot --topics $topics --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev-unicoil
         eval_key: msmarco-v2-doc-dev
@@ -342,7 +342,7 @@ conditions:
   - name: unicoil-noexp-otf
     display: "uniCOIL (noexp): query inference with PyTorch"
     display-html: "uniCOIL (noexp): query inference with PyTorch"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented-unicoil-noexp-0shot --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.unicoil-noexp-0shot --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev
         eval_key: msmarco-v2-doc-dev
@@ -375,7 +375,7 @@ conditions:
   - name: unicoil-otf
     display: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
     display-html: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented-unicoil-0shot --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.unicoil-0shot --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev
         eval_key: msmarco-v2-doc-dev
