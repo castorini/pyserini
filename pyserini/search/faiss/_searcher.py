@@ -419,13 +419,24 @@ class AutoQueryEncoder(QueryEncoder):
 class DenseSearchResult:
     docid: str
     score: float
+    ssearcher: LuceneSearcher # only useful for prebuilt indexes, otherwise set to None
 
+    def raw(self):
+        if self.ssearcher is None:
+            return None
+        return self.ssearcher.doc(self.docid).raw()
 
 @dataclass
 class PRFDenseSearchResult:
     docid: str
     score: float
     vectors: [float]
+    ssearcher: LuceneSearcher # only useful for prebuilt indexes, otherwise set to None
+
+    def raw(self):
+        if self.ssearcher is None:
+            return None
+        return self.ssearcher.doc(self.docid).raw()
 
 
 class FaissSearcher:
@@ -449,6 +460,7 @@ class FaissSearcher:
         self.num_docs = self.index.ntotal
 
         assert self.docids is None or self.num_docs == len(self.docids)
+        self.ssearcher = None
         if prebuilt_index_name:
             sparse_index = get_sparse_index(prebuilt_index_name)
             self.ssearcher = LuceneSearcher.from_prebuilt_index(sparse_index)
@@ -525,7 +537,7 @@ class FaissSearcher:
             vectors = vectors[0]
             distances = distances.flat
             indexes = indexes.flat
-            return emb_q, [PRFDenseSearchResult(self.docids[idx], score, vector)
+            return emb_q, [PRFDenseSearchResult(self.docids[idx], score, vector, self.ssearcher)
                            for score, idx, vector in zip(distances, indexes, vectors) if idx != -1]
         else:
             distances, indexes = self.index.search(emb_q, k)
@@ -537,9 +549,9 @@ class FaissSearcher:
                 for score, idx in zip(distances, indexes):
                     if idx not in unique_docs:
                         unique_docs.add(idx)
-                        results.append(DenseSearchResult(self.docids[idx],score))
+                        results.append(DenseSearchResult(self.docids[idx], score, self.sssearcher))
                 return results
-            return [DenseSearchResult(self.docids[idx], score)
+            return [DenseSearchResult(self.docids[idx], score, self.ssearcher)
                     for score, idx in zip(distances, indexes) if idx != -1]
 
     def batch_search(self, queries: Union[List[str], np.ndarray], q_ids: List[str], k: int = 10,
@@ -576,12 +588,12 @@ class FaissSearcher:
         faiss.omp_set_num_threads(threads)
         if return_vector:
             D, I, V = self.index.search_and_reconstruct(q_embs, k)
-            return q_embs, {key: [PRFDenseSearchResult(self.docids[idx], score, vector)
+            return q_embs, {key: [PRFDenseSearchResult(self.docids[idx], score, vector, self.ssearcher)
                                   for score, idx, vector in zip(distances, indexes, vectors) if idx != -1]
                             for key, distances, indexes, vectors in zip(q_ids, D, I, V)}
         else:
             D, I = self.index.search(q_embs, k)
-            return {key: [DenseSearchResult(self.docids[idx], score)
+            return {key: [DenseSearchResult(self.docids[idx], score, self.ssearcher)
                           for score, idx in zip(distances, indexes) if idx != -1]
                     for key, distances, indexes in zip(q_ids, D, I)}
 
@@ -681,7 +693,7 @@ class BinaryDenseSearcher(FaissSearcher):
         distances, indexes = self.binary_dense_search(k, binary_k, rerank, dense_emb_q, sparse_emb_q)
         distances = distances.flat
         indexes = indexes.flat
-        return [DenseSearchResult(str(idx), score)
+        return [DenseSearchResult(str(idx), score, self.ssearcher)
                 for score, idx in zip(distances, indexes) if idx != -1]
 
     def batch_search(self, queries: List[str], q_ids: List[str], k: int = 10, binary_k: int = 100,
@@ -721,7 +733,7 @@ class BinaryDenseSearcher(FaissSearcher):
         assert m == self.dimension
         faiss.omp_set_num_threads(threads)
         D, I = self.binary_dense_search(k, binary_k, rerank, dense_q_embs, sparse_q_embs)
-        return {key: [DenseSearchResult(str(idx), score)
+        return {key: [DenseSearchResult(str(idx), score, self.ssearcher)
                       for score, idx in zip(distances, indexes) if idx != -1]
                 for key, distances, indexes in zip(q_ids, D, I)}
 

@@ -77,5 +77,5 @@ class HybridSearcher:
                 dense_score = (dense_score - (min_dense_score + max_dense_score) / 2) \
                               / (max_dense_score - min_dense_score)
             score = alpha * sparse_score + dense_score if not weight_on_dense else sparse_score + alpha * dense_score
-            hybrid_result.append(DenseSearchResult(doc, score))
+            hybrid_result.append(DenseSearchResult(doc, score, None))
         return sorted(hybrid_result, key=lambda x: x.score, reverse=True)[:k]
