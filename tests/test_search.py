@@ -23,7 +23,9 @@ from typing import List, Dict
 from urllib.request import urlretrieve
 
 from pyserini.search.lucene import LuceneSearcher, JScoredDoc
+from pyserini.search.faiss import FaissSearcher, AutoQueryEncoder
 from pyserini.index.lucene import Document
+from pyserini.util import get_sparse_index
 
 
 class TestSearch(unittest.TestCase):
@@ -408,6 +410,20 @@ class TestSearch(unittest.TestCase):
 
         # Should return None if we request a docid that doesn't exist
         self.assertTrue(self.searcher.doc_by_field('foo', 'bar') is None)
+
+    def test_dense_search_result_raw(self):
+        DENSE_INDEX = 'beir-v1.0.0-nfcorpus.bge-base-en-v1.5'
+
+        # Using a prebuilt index as this feature only works for this
+        encoder = AutoQueryEncoder('BAAI/bge-base-en-v1.5', device='cpu', pooling='mean', l2_norm=True)
+        faiss_searcher = FaissSearcher.from_prebuilt_index(DENSE_INDEX, encoder)
+        hits = faiss_searcher.search('How to Help Prevent Abdominal Aortic Aneurysms')
+        lucene_searcher= LuceneSearcher.from_prebuilt_index(get_sparse_index(DENSE_INDEX))
+
+        self.assertEqual(lucene_searcher.doc(hits[0].docid).raw(), hits[0].raw())
+        self.assertEqual(lucene_searcher.doc(hits[1].docid).raw(), hits[1].raw())
+        self.assertEqual(lucene_searcher.doc(hits[2].docid).raw(), hits[2].raw())
+        self.assertEqual(lucene_searcher.doc(hits[3].docid).raw(), hits[3].raw())
 
     @classmethod
     def tearDownClass(cls):
