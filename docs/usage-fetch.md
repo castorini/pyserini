@@ -75,3 +75,4 @@ searcher = FaissSearcher.from_prebuilt_index('beir-v1.0.0-nfcorpus.bge-base-en-v
 doc = searcher.doc('MED-14')
 ```
 
+Since a sparse index is used internally, all methods used on doc returned by a `LuceneSearcher` apply here as well (see above section).
