@@ -1,5 +1,6 @@
 # Pyserini: Fetching Document Content
 
+## Using a Sparse Representation
 Another commonly used feature in Pyserini is to fetch a document (i.e., its text) given its `docid`.
 A sparse (Lucene) index can be configured to include the raw document text, in which case the `doc()` method can be used to fetch the document:
 
@@ -60,3 +61,17 @@ Thus, a simple way to iterate through all documents in the collection (and for e
 for i in range(searcher.num_docs):
     print(searcher.doc(i).docid())
 ```
+
+## Using a Dense Representation 
+
+A similar operation can be performed using a dense (Faiss) index **for prebuilt indexes only**. 
+Note that internally, the corresponding sparse (Lucene) index is used to fetch document content.
+
+```python
+from pyserini.search.faiss import FaissSearcher, AutoQueryEncoder
+
+encoder = AutoQueryEncoder('BAAI/bge-base-en-v1.5', device='cpu', pooling='mean', l2_norm=True)
+searcher = FaissSearcher.from_prebuilt_index('beir-v1.0.0-nfcorpus.bge-base-en-v1.5', encoder)
+doc = searcher.doc('MED-14')
+```
+
