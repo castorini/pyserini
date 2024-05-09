@@ -71,7 +71,7 @@ This command-line invocation does the trick:
 tail -n +2 collections/nfcorpus/qrels/test.tsv | sed 's/\t/\tQ0\t/' > collections/nfcorpus/qrels/test.qrels
 ```
 
-Q0 instead of 0 (historical artifact mentioned in [Anserini: Start Here](https://github.com/castorini/anserini/blob/master/docs/start-here.md)) marks as trec format in pyserini to avoid extraneous conversion from msmarco in [trec_eval.py](https://github.com/castorini/pyserini/blob/c945c50c3e22e3c6ecae50a55aed48853617acc0/pyserini/eval/trec_eval.py#L67).
+Q0 instead of 0 (historical artifact mentioned in [Anserini: Start Here](https://github.com/castorini/anserini/blob/master/docs/start-here.md)) marks as trec format in pyserini to avoid extraneous conversion from msmarco in [trec_eval.py](https://github.com/castorini/pyserini/blob/master/pyserini/eval/trec_eval.py).
 
 Okay, the data are ready now.
 
