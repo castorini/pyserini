@@ -275,7 +275,7 @@ def run_conditions(args):
 
     cqa_output_flag = False
 
-    print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 13 + 'SPLADE' + ' ' * 11 + 'Contriever' + ' ' * 5 + 'Contriever-msmarco' + ' ' * 2 + 'BGE-base-en-v1.5' + ' ' * 3 + 'cohere (en-v3.0)')
+    print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 13 + 'SPLADE' + ' ' * 11 + 'Contriever' + ' ' * 5 + 'Contriever-msmarco' + ' ' * 2 + 'BGE-base-en-v1.5' + ' ' * 4 + 'cohere-en-v3.0')
     print(' ' * 26 + 'nDCG@10   R@100    ' * 7)
     print(' ' * 27 + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14)
     for dataset in beir_keys:
