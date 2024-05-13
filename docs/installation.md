@@ -60,6 +60,7 @@ conda install -c pytorch faiss-cpu pytorch -y
 pip install pyserini
 ```
 
+<<<<<<< HEAD
 If nmslib fails to build, try the following command:
 ```bash
 CFLAGS="-mavx -DWARN(a)=(a)" pip install --use-pep517 nmslib
@@ -67,6 +68,8 @@ CFLAGS="-mavx -DWARN(a)=(a)" pip install --use-pep517 nmslib
 
 Follow the most up-to-date solution of the issue [here](https://github.com/nmslib/nmslib/issues/476)
 
+=======
+>>>>>>> parent of 682f5e1 (Found issue with nmslib on M-series chip and attached solution with github issue link)
 As of April 2024, for `faiss-cpu`, `osx-64` is still at v1.7.4, whereas `osx-arm64` is at v1.8.0; hence the differences in the instructions above. 
 
 ### Linux
