@@ -12,7 +12,7 @@ Retrieval using sparse representations is provided via integration with our grou
 Retrieval using dense representations is provided via integration with Facebook's [Faiss](https://github.com/facebookresearch/faiss) library.
 
 Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multi-stage ranking architecture.
-Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, [pre-built indexes](docs/prebuilt-indexes.md), and evaluation scripts for many commonly used IR test collections
+Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, [pre-built indexes](docs/prebuilt-indexes.md), and evaluation scripts for many commonly used IR test collections.
 With Pyserini, it's easy to reproduce runs on a number of standard IR test collections!
 
 For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.3463238) in SIGIR 2021 provides a nice overview.
