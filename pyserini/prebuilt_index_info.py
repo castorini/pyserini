@@ -2747,7 +2747,6 @@ IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v2-passage.slimr-pp": {
         "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by SLIM (norefine) trained with cross-encoder distillation and hard-negative mining.",
         "filename": "lucene-inverted.msmarco-v2-passage.slimr-pp.20230614.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-passage.slimr-pp.20230614.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage.slimr-pp.20230614.tar.gz",
         ],

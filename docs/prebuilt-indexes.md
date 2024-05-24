@@ -801,7 +801,6 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL (noexp).
 </dd>
 <dt></dt><b><code>msmarco-v2-passage.slimr-pp</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.slimr-pp.20230614.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V2 passage corpus encoded by SLIM (norefine) trained with cross-encoder distillation and hard-negative mining.
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented.unicoil-0shot</code></b>
