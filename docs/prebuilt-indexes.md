@@ -161,43 +161,43 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene index (+docvectors) of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v2-passage</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 passage corpus.
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 passage corpus ('slim' version).
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 passage corpus ('full' version).
 </dd>
-<dt></dt><b><code>msmarco-v2-passage-d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-d2q-t5.20220808.4d6d2a.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v2-passage.d2q-t5</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 passage corpus with doc2query-T5 expansions.
 </dd>
-<dt></dt><b><code>msmarco-v2-passage-d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-d2q-t5.20220808.4d6d2a.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v2-passage.d2q-t5-docvectors</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index (+docvectors) of the MS MARCO V2 passage corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-augmented</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 augmented passage corpus.
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-augmented-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 augmented passage corpus ('slim' version).
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-augmented-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 augmented passage corpus ('full' version).
 </dd>
-<dt></dt><b><code>msmarco-v2-passage-augmented-d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220808.4d6d2a.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v2-passage-augmented.d2q-t5</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage-augmented.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 augmented passage corpus with doc2query-T5 expansions.
 </dd>
-<dt></dt><b><code>msmarco-v2-passage-augmented-d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-augmented-d2q-t5.20220808.4d6d2a.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v2-passage-augmented.d2q-t5-docvectors</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage-augmented.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index (+docvectors) of the MS MARCO V2 augmented passage corpus with doc2query-T5 expansions.
 </dd>
 </dl>
@@ -792,16 +792,15 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp), with title/segment encoding.
 </dd>
-<dt></dt><b><code>msmarco-v2-passage-unicoil-0shot</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-unicoil-0shot.20220808.4d6d2a.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v2-passage.unicoil-0shot</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.unicoil-0shot.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL.
 </dd>
-<dt></dt><b><code>msmarco-v2-passage-unicoil-noexp-0shot</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-unicoil-noexp-0shot.20220808.4d6d2a.README.md">readme</a>]
+<dt></dt><b><code>msmarco-v2-passage.unicoil-noexp-0shot</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.unicoil-noexp-0shot.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL (noexp).
 </dd>
-<dt></dt><b><code>msmarco-v2-passage-slimr-pp-norefine-0shot</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.msmarco-v2-passage-slimr-pp.20230614.md">readme</a>]
+<dt></dt><b><code>msmarco-v2-passage.slimr-pp</code></b>
 <dd>Lucene impact index of the MS MARCO V2 passage corpus encoded by SLIM (norefine) trained with cross-encoder distillation and hard-negative mining.
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented.unicoil-0shot</code></b>
