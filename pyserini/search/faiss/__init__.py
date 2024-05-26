@@ -15,7 +15,7 @@
 #
 
 from ._searcher import DenseSearchResult, PRFDenseSearchResult, FaissSearcher, BinaryDenseSearcher, QueryEncoder, \
-    DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, OpenAIQueryEncoder, \
+    DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, OpenAIQueryEncoder, MlxTctColBertQueryEncoder, \
     AutoQueryEncoder, ClipQueryEncoder
 
 from ._model import AnceEncoder
@@ -24,4 +24,4 @@ from._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePr
 __all__ = ['DenseSearchResult', 'PRFDenseSearchResult', 'FaissSearcher', 'BinaryDenseSearcher', 'QueryEncoder',
            'DprQueryEncoder', 'BprQueryEncoder', 'DkrrDprQueryEncoder', 'TctColBertQueryEncoder', 'AnceEncoder',
            'AnceQueryEncoder', 'AggretrieverQueryEncoder', 'AutoQueryEncoder', 'DenseVectorAveragePrf', 'DenseVectorRocchioPrf', 'DenseVectorAncePrf',
-           'OpenAIQueryEncoder', 'ClipQueryEncoder']
+           'OpenAIQueryEncoder', 'ClipQueryEncoder', 'MlxTctColBertQueryEncoder']

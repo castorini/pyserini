@@ -14,14 +14,19 @@
 # limitations under the License.
 #
 
+import os
+from typing import Optional, List
+
 import numpy as np
 import torch
 if torch.cuda.is_available():
     from torch.cuda.amp import autocast
-from transformers import BertModel, BertTokenizer, BertTokenizerFast
-
-from pyserini.encode import DocumentEncoder, QueryEncoder
+from transformers import BertModel, BertTokenizer, BertTokenizerFast, BertConfig
 from onnxruntime import ExecutionMode, SessionOptions, InferenceSession
+import mlx.core as mx
+from mlx_transformers.models.bert import BertModel as MlxBertModel
+
+from pyserini.encode import DocumentEncoder, QueryEncoder, MlxDocumentEncoder
 
 
 class TctColBertDocumentEncoder(DocumentEncoder):
@@ -89,3 +94,32 @@ class TctColBertQueryEncoder(QueryEncoder):
         outputs = self.model(**inputs)
         embeddings = outputs.last_hidden_state.detach().cpu().numpy()
         return np.average(embeddings[:, 4:, :], axis=-2).flatten()
+
+
+class MlxTctColBertDocumentEncoder(MlxDocumentEncoder):
+    def __init__(self, model_name: str, tokenizer_name: Optional[str]=None):
+
+        self.config = BertConfig.from_pretrained(model_name)
+        self.model = MlxBertModel(self.config)
+        self.tokenizer = BertTokenizerFast.from_pretrained(tokenizer_name or model_name)
+
+        self.model.from_pretrained(model_name, huggingface_model_architecture="BertModel")
+
+    def encode(self, texts: List[str], titles: Optional[List[str]]=None, fp16: bool=False,  max_length: int=512, **kwargs):
+        if titles is not None:
+            texts = [f'[CLS] [D] {title} {text}' for title, text in zip(titles, texts)]
+        else:
+            texts = ['[CLS] [D] ' + text for text in texts]
+        inputs = self.tokenizer(
+            texts,
+            max_length=max_length,
+            padding="longest",
+            truncation=True,
+            add_special_tokens=False,
+            return_tensors='np'
+        )
+
+        inputs = {key: mx.array(v) for key, v in inputs.items()}
+        outputs = self.model(**inputs)
+        embeddings = self._mean_pooling(outputs.last_hidden_state[:, 4:, :], inputs['attention_mask'][:, 4:])
+        return np.array(embeddings)

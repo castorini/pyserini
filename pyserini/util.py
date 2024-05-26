@@ -23,8 +23,10 @@ import logging
 from urllib.error import HTTPError, URLError
 from urllib.request import urlretrieve
 
+import numpy as np
 import pandas as pd
 from tqdm import tqdm
+from transformers import PreTrainedModel
 
 from pyserini.encoded_query_info import QUERY_INFO
 from pyserini.encoded_corpus_info import CORPUS_INFO

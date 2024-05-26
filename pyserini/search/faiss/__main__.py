@@ -22,7 +22,7 @@ from tqdm import tqdm
 
 from pyserini.search import FaissSearcher, BinaryDenseSearcher, TctColBertQueryEncoder, QueryEncoder, \
     DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, DenseVectorAveragePrf, \
-    DenseVectorRocchioPrf, DenseVectorAncePrf, OpenAIQueryEncoder, ClipQueryEncoder
+    DenseVectorRocchioPrf, DenseVectorAncePrf, OpenAIQueryEncoder, ClipQueryEncoder, MlxTctColBertQueryEncoder
 
 from pyserini.encode import PcaEncoder, CosDprQueryEncoder, AutoQueryEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
@@ -41,7 +41,7 @@ def define_dsearch_args(parser):
                         help="Path to Faiss index or name of prebuilt index.")
     parser.add_argument('--encoder-class', type=str, metavar='which query encoder class to use. `default` would infer from the args.encoder',
                         required=False,
-                        choices=["dkrr", "dpr", "bpr", "tct_colbert", "ance", "sentence", "contriever", "auto", "aggretriever", "openai-api", "cosdpr"],
+                        choices=["dkrr", "dpr", "bpr", "tct_colbert", "ance", "sentence", "contriever", "auto", "aggretriever", "openai-api", "cosdpr", "mlx_tct_colbert"],
                         default=None,
                         help='which query encoder class to use. `default` would infer from the args.encoder')
     parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name',
@@ -89,9 +89,10 @@ def define_dsearch_args(parser):
                         help='The path or name to ANCE-PRF model checkpoint')
     parser.add_argument('--ef-search', type=int, metavar='efSearch for HNSW index', required=False, default=None,
                         help="Set efSearch for HNSW index")
+    parser.add_argument('--use-mlx', action='store_true', default=False)
 
 
-def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, encoded_queries, device, max_length, pooling, l2_norm, prefix, multimodal=False):
+def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, encoded_queries, device, max_length, pooling, l2_norm, prefix, multimodal=False, use_mlx=False):
     encoded_queries_map = {
         'msmarco-passage-dev-subset': 'tct_colbert-msmarco-passage-dev-subset',
         'dpr-nq-dev': 'dpr_multi-nq-dev',
@@ -115,6 +116,7 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
         "openai-api": OpenAIQueryEncoder,
         "auto": AutoQueryEncoder,
         "clip": ClipQueryEncoder,
+        "mlx_tct_colbert": MlxTctColBertQueryEncoder,
     }
 
     if encoder:
@@ -138,17 +140,21 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
                 encoder_class = AutoQueryEncoder
 
         # prepare arguments to encoder class
-        kwargs = dict(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device, prefix=prefix)
-        if (_encoder_class == "sentence") or ("sentence" in encoder):
-            kwargs.update(dict(pooling='mean', l2_norm=True))
-        if (_encoder_class == "contriever") or ("contriever" in encoder):
-            kwargs.update(dict(pooling='mean', l2_norm=False))
-        if (_encoder_class == "openai-api") or ("openai" in encoder):
-            kwargs.update(dict(max_length=max_length))
-        if (_encoder_class == "auto"):
-            kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix))
-        if (_encoder_class == "clip") or ("clip" in encoder):
-            kwargs.update(dict(l2_norm=True, prefix=prefix, multimodal=multimodal))
+        # prepare arguments to encoder class
+        if use_mlx:
+            kwargs = dict(encoder_dir=encoder)
+        else:
+            kwargs = dict(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device, prefix=prefix)
+            if (_encoder_class == "sentence") or ("sentence" in encoder):
+                kwargs.update(dict(pooling='mean', l2_norm=True))
+            if (_encoder_class == "contriever") or ("contriever" in encoder):
+                kwargs.update(dict(pooling='mean', l2_norm=False))
+            if (_encoder_class == "openai-api") or ("openai" in encoder):
+                kwargs.update(dict(max_length=max_length))
+            if (_encoder_class == "auto"):
+                kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix))
+            if (_encoder_class == "clip") or ("clip" in encoder):
+                kwargs.update(dict(l2_norm=True, prefix=prefix, multimodal=multimodal))
         return encoder_class(**kwargs)
 
     if encoded_queries:
