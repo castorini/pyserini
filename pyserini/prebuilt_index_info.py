@@ -241,7 +241,7 @@ TF_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.ltr": {
         "description": "Lucene index of the MS MARCO passage corpus with four extra preprocessed fields for LTR. (Lucene 8)",
         "filename": "lucene-inverted.msmarco-v1-passage.ltr.20210519.e25e33f.tar.gz",
-        "readme": "index-msmarco-passage-ltr-20210519-e25e33f-readme.txt",
+        "readme": "lucene-inverted.msmarco-v1-passage.ltr.20210519.e25e33f.README.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.ltr.20210519.e25e33f.tar.gz"
         ],
@@ -265,19 +265,6 @@ TF_INDEX_INFO_MSMARCO = {
         "unique_terms": 10123678,
         "downloaded": False
     },
-    # "msmarco-v1-doc-segmented.ibm": {
-    #     "description": "Lucene index of the MS MARCO document segmented corpus with four extra preprocessed fields for LTR. (Lucene 8)",
-    #     "filename": "lucene-inverted.msmarco-v1-doc-segmented.ibm.20221221.tar.gz",
-    #     "urls": [
-    #         "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.ibm.20221221.tar.gz"
-    #     ],
-    #     "md5": "9cc7589de98dbb18ca383ec16a233e99",
-    #     "size compressed (bytes)": 98984843317,
-    #     "total_terms": 3197500226,
-    #     "documents": 20532330,
-    #     "unique_terms": -1,
-    #     "downloaded": False
-    # },
 
     # MS MARCO V2 document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-doc": {
@@ -1405,7 +1392,7 @@ TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-ar": {
         "description": "Lucene index for Mr.TyDi v1.1 (Arabic).",
         "filename": "lucene-inverted.mrtydi-v1.1-ar.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-arabic.20220928.b5ecc5.README.md",
+        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ar.20220928.b5ecc5.tar.gz",
         ],
@@ -1419,7 +1406,7 @@ TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-bn": {
         "description": "Lucene index for Mr.TyDi v1.1 (Bengali).",
         "filename": "lucene-inverted.mrtydi-v1.1-bn.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-bengali.20220928.b5ecc5.README.md",
+        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-bn.20220928.b5ecc5.tar.gz"
         ],
@@ -1433,7 +1420,7 @@ TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-en": {
         "description": "Lucene index for Mr.TyDi v1.1 (English).",
         "filename": "lucene-inverted.mrtydi-v1.1-en.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-english.20220928.b5ecc5.README.md",
+        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-en.20220928.b5ecc5.tar.gz"
         ],
@@ -1447,7 +1434,7 @@ TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-fi": {
         "description": "Lucene index for Mr.TyDi v1.1 (Finnish).",
         "filename": "lucene-inverted.mrtydi-v1.1-fi.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-finnish.20220928.b5ecc5.README.md",
+        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-fi.20220928.b5ecc5.tar.gz"
         ],
@@ -1461,7 +1448,7 @@ TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-id": {
         "description": "Lucene index for Mr.TyDi v1.1 (Indonesian).",
         "filename": "lucene-inverted.mrtydi-v1.1-id.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-indonesian.20220928.b5ecc5.README.md",
+        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-id.20220928.b5ecc5.tar.gz"
         ],
@@ -1475,7 +1462,7 @@ TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-ja": {
         "description": "Lucene index for Mr.TyDi v1.1 (Japanese).",
         "filename": "lucene-inverted.mrtydi-v1.1-ja.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-japanese.20220928.b5ecc5.README.md",
+        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ja.20220928.b5ecc5.tar.gz"
         ],
@@ -1489,7 +1476,7 @@ TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-ko": {
         "description": "Lucene index for Mr.TyDi v1.1 (Korean).",
         "filename": "lucene-inverted.mrtydi-v1.1-ko.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-korean.20220928.b5ecc5.README.md",
+        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ko.20220928.b5ecc5.tar.gz"
         ],
@@ -1503,7 +1490,7 @@ TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-ru": {
         "description": "Lucene index for Mr.TyDi v1.1 (Russian).",
         "filename": "lucene-inverted.mrtydi-v1.1-ru.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-russian.20220928.b5ecc5.README.md",
+        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ru.20220928.b5ecc5.tar.gz"
         ],
@@ -1517,7 +1504,7 @@ TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-sw": {
         "description": "Lucene index for Mr.TyDi v1.1 (Swahili).",
         "filename": "lucene-inverted.mrtydi-v1.1-sw.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-swahili.20220928.b5ecc5.README.md",
+        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-sw.20220928.b5ecc5.tar.gz"
         ],
@@ -1531,7 +1518,7 @@ TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-te": {
         "description": "Lucene index for Mr.TyDi v1.1 (Telugu).",
         "filename": "lucene-inverted.mrtydi-v1.1-te.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-telugu.20220928.b5ecc5.README.md",
+        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-te.20220928.b5ecc5.tar.gz"
         ],
@@ -1545,7 +1532,7 @@ TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-th": {
         "description": "Lucene index for Mr.TyDi v1.1 (Thai).",
         "filename": "lucene-inverted.mrtydi-v1.1-th.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-index.mrtydi-v1.1-thai.20220928.b5ecc5.README.md",
+        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-th.20220928.b5ecc5.tar.gz"
         ],
@@ -2788,7 +2775,9 @@ IMPACT_INDEX_INFO_MSMARCO = {
 
 IMPACT_INDEX_INFO_MSMARCO_ALIASES = {
     # To preserve working commands in published papers: integrations/papers/test_sigir2022.py testcase test_Trotman_etal
-    "msmarco-passage-unicoil-d2q": IMPACT_INDEX_INFO_MSMARCO["msmarco-v1-passage.unicoil"]
+    "msmarco-passage-unicoil-d2q": IMPACT_INDEX_INFO_MSMARCO["msmarco-v1-passage.unicoil"],
+    # To preserve working commands in published papers: integrations/papers/test_sigir2022.py testcase test_Ma_etal_section4_1b
+    "msmarco-v2-passage-unicoil-0shot": IMPACT_INDEX_INFO_MSMARCO["msmarco-v2-passage.unicoil-0shot"]
 }
 
 IMPACT_INDEX_INFO_BEIR = {
