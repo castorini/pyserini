@@ -44,7 +44,7 @@ class TestLtrMsmarcoDocument(unittest.TestCase):
                     --topic tools/topics-and-qrels/topics.msmarco-doc.dev.txt \
                     --model ltr_test/msmarco-passage-ltr-mrr-v1/   \
                     --qrel tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
-                    --index msmarco-doc-per-passage-ltr --ibm-model ltr_test/ibm_model/ \
+                    --index msmarco-v1-doc-segmented.ltr --ibm-model ltr_test/ibm_model/ \
                     --granularity document --output ltr_test/{outp} --max-passage --hits 10000')
 
         result = subprocess.check_output(f'python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt --run ltr_test/{outp}', shell=True).decode(sys.stdout.encoding)

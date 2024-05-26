@@ -265,19 +265,19 @@ TF_INDEX_INFO_MSMARCO = {
         "unique_terms": 10123678,
         "downloaded": False
     },
-    "msmarco-v1-doc-segmented.ibm": {
-        "description": "Lucene index of the MS MARCO document segmented corpus with four extra preprocessed fields for LTR. (Lucene 8)",
-        "filename": "lucene-inverted.msmarco-v1-doc-segmented.ibm.20221221.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.ibm.20221221.tar.gz"
-        ],
-        "md5": "9cc7589de98dbb18ca383ec16a233e99",
-        "size compressed (bytes)": 98984843317,
-        "total_terms": 3197500226,
-        "documents": 20532330,
-        "unique_terms": -1,
-        "downloaded": False
-    },
+    # "msmarco-v1-doc-segmented.ibm": {
+    #     "description": "Lucene index of the MS MARCO document segmented corpus with four extra preprocessed fields for LTR. (Lucene 8)",
+    #     "filename": "lucene-inverted.msmarco-v1-doc-segmented.ibm.20221221.tar.gz",
+    #     "urls": [
+    #         "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.ibm.20221221.tar.gz"
+    #     ],
+    #     "md5": "9cc7589de98dbb18ca383ec16a233e99",
+    #     "size compressed (bytes)": 98984843317,
+    #     "total_terms": 3197500226,
+    #     "documents": 20532330,
+    #     "unique_terms": -1,
+    #     "downloaded": False
+    # },
 
     # MS MARCO V2 document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-doc": {

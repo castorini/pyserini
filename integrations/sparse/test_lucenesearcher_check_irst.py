@@ -102,7 +102,6 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.3286)
         self.assertEqual(ndcg_score, 0.5371)
-        
 
     def test_max_aggregation_dl20_passage(self):
         # dl20 passage max
