@@ -239,7 +239,7 @@ TF_INDEX_INFO_MSMARCO = {
 
     # MS MARCO V1 indexes for LTR experiments.
     "msmarco-v1-passage.ltr": {
-        "description": "Lucene index of the MS MARCO passage corpus with four extra preprocessed fields for LTR. (Lucene 8)",
+        "description": "Lucene index of the MS MARCO V1 passage corpus with four extra preprocessed fields for LTR. (Lucene 8)",
         "filename": "lucene-inverted.msmarco-v1-passage.ltr.20210519.e25e33f.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.ltr.20210519.e25e33f.README.txt",
         "urls": [
@@ -253,8 +253,9 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
     "msmarco-v1-doc-segmented.ltr": {
-        "description": "Lucene index of the MS MARCO document per-passage corpus with four extra preprocessed fields for LTR. (Lucene 8)",
+        "description": "Lucene index of the MS MARCO V1 segmented document corpus with four extra preprocessed fields for LTR. (Lucene 8)",
         "filename": "lucene-inverted.msmarco-v1-doc-segmented.ltr.20211031.33e4151.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-doc-segmented.ltr.20211031.33e4151.README.txt",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.ltr.20211031.33e4151.tar.gz",
         ],

@@ -112,10 +112,11 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.ltr</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.ltr.20210519.e25e33f.README.txt">readme</a>]
-<dd>Lucene index of the MS MARCO passage corpus with four extra preprocessed fields for LTR. (Lucene 8)
+<dd>Lucene index of the MS MARCO V1 passage corpus with four extra preprocessed fields for LTR. (Lucene 8)
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented.ltr</code></b>
-<dd>Lucene index of the MS MARCO document per-passage corpus with four extra preprocessed fields for LTR. (Lucene 8)
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.ltr.20211031.33e4151.README.txt">readme</a>]
+<dd>Lucene index of the MS MARCO V1 segmented document corpus with four extra preprocessed fields for LTR. (Lucene 8)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
