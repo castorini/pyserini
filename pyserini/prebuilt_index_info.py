@@ -1545,6 +1545,20 @@ TF_INDEX_INFO_MRTYDI = {
     }
 }
 
+TF_INDEX_INFO_MRTYDI_ALIASES = {
+    "mrtydi-v1.1-arabic": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-ar"],
+    "mrtydi-v1.1-bengali": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-bn"],
+    "mrtydi-v1.1-english": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-en"],
+    "mrtydi-v1.1-finnish": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-fi"],
+    "mrtydi-v1.1-indonesian": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-id"],
+    "mrtydi-v1.1-japanese": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-ja"],
+    "mrtydi-v1.1-korean": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-ko"],
+    "mrtydi-v1.1-russian": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-ru"],
+    "mrtydi-v1.1-swahili": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-sw"],
+    "mrtydi-v1.1-telugu": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-te"],
+    "mrtydi-v1.1-thai": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-th"]
+}
+
 TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-ar": {
         "description": "Lucene index for MIRACL v1.0 (Arabic).",
@@ -2483,6 +2497,7 @@ TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
                  **TF_INDEX_INFO_MSMARCO_ALIASES,
                  **TF_INDEX_INFO_BEIR,
                  **TF_INDEX_INFO_MRTYDI,
+                 **TF_INDEX_INFO_MRTYDI_ALIASES,
                  **TF_INDEX_INFO_MIRACL,
                  **TF_INDEX_INFO_CIRAL,
                  **TF_INDEX_INFO_OTHER,
