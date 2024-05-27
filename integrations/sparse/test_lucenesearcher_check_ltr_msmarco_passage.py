@@ -45,7 +45,7 @@ class TestLtrMsmarcoPassage(unittest.TestCase):
                     --model ltr_test/msmarco-passage-ltr-mrr-v1 \
                     --topic tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt \
                     --qrel tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
-                    --index msmarco-passage-ltr --ibm-model ltr_test/ibm_model/ \
+                    --index msmarco-v1-passage.ltr --ibm-model ltr_test/ibm_model/ \
                     --output-format tsv --output ltr_test/{outp}')
         result = subprocess.check_output(f'python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt ltr_test/{outp}', shell=True).decode(sys.stdout.encoding)
         a,b = result.find('#####################\nMRR @10:'), result.find('\nQueriesRanked: 6980\n#####################\n')

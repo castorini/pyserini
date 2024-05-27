@@ -43,8 +43,8 @@ class TestPrebuiltIndexes(unittest.TestCase):
                 for url in TF_INDEX_INFO[key]['urls']:
                     urls.append(url)
 
-        # 11 languages
-        self.assertEqual(cnt, 11)
+        # 11 languages, but two entries for each language from aliases (e.g., arabic and ar)
+        self.assertEqual(cnt, 22)
         self._test_urls(urls)
 
     def test_tf_miracl(self):
