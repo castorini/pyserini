@@ -714,7 +714,7 @@ conditions:
   # BM25
   - name: bm25.ar
     eval_key: mrtydi-v1.1-arabic
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ar --topics mrtydi-v1.1-arabic-${split} --index mrtydi-v1.1-arabic --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ar --topics mrtydi-v1.1-arabic-${split} --index mrtydi-v1.1-ar --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -730,7 +730,7 @@ conditions:
             R@100: 0.7928
   - name: bm25.bn
     eval_key: mrtydi-v1.1-bengali
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language bn --topics mrtydi-v1.1-bengali-${split} --index mrtydi-v1.1-bengali --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language bn --topics mrtydi-v1.1-bengali-${split} --index mrtydi-v1.1-bn --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -746,7 +746,7 @@ conditions:
           - R@100: 0.8694
   - name: bm25.en
     eval_key: mrtydi-v1.1-english
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language en --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-english --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language en --topics mrtydi-v1.1-english-${split} --index mrtydi-v1.1-en --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -762,7 +762,7 @@ conditions:
           - R@100: 0.5365
   - name: bm25.fi
     eval_key: mrtydi-v1.1-finnish
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language fi --topics mrtydi-v1.1-finnish-${split} --index mrtydi-v1.1-finnish --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language fi --topics mrtydi-v1.1-finnish-${split} --index mrtydi-v1.1-fi --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -778,7 +778,7 @@ conditions:
           - R@100: 0.7196
   - name: bm25.id
     eval_key: mrtydi-v1.1-indonesian
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language id --topics mrtydi-v1.1-indonesian-${split} --index mrtydi-v1.1-indonesian --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language id --topics mrtydi-v1.1-indonesian-${split} --index mrtydi-v1.1-id --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -794,7 +794,7 @@ conditions:
           - R@100: 0.8426
   - name: bm25.ja
     eval_key: mrtydi-v1.1-japanese
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ja --topics mrtydi-v1.1-japanese-${split} --index mrtydi-v1.1-japanese --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ja --topics mrtydi-v1.1-japanese-${split} --index mrtydi-v1.1-ja --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -810,7 +810,7 @@ conditions:
           - R@100: 0.6431
   - name: bm25.ko
     eval_key: mrtydi-v1.1-korean
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ko --topics mrtydi-v1.1-korean-${split} --index mrtydi-v1.1-korean --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ko --topics mrtydi-v1.1-korean-${split} --index mrtydi-v1.1-ko --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -826,7 +826,7 @@ conditions:
           - R@100: 0.6188
   - name: bm25.ru
     eval_key: mrtydi-v1.1-russian
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ru --topics mrtydi-v1.1-russian-${split} --index mrtydi-v1.1-russian --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ru --topics mrtydi-v1.1-russian-${split} --index mrtydi-v1.1-ru --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -842,7 +842,7 @@ conditions:
           - R@100: 0.6541
   - name: bm25.sw
     eval_key: mrtydi-v1.1-swahili
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language sw --topics mrtydi-v1.1-swahili-${split} --index mrtydi-v1.1-swahili --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language sw --topics mrtydi-v1.1-swahili-${split} --index mrtydi-v1.1-sw --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -858,7 +858,7 @@ conditions:
           - R@100: 0.7642
   - name: bm25.te
     eval_key: mrtydi-v1.1-telugu
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language te --topics mrtydi-v1.1-telugu-${split} --index mrtydi-v1.1-telugu --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language te --topics mrtydi-v1.1-telugu-${split} --index mrtydi-v1.1-te --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
@@ -874,7 +874,7 @@ conditions:
           - R@100: 0.8971
   - name: bm25.th
     eval_key: mrtydi-v1.1-thai
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language th --topics mrtydi-v1.1-thai-${split} --index mrtydi-v1.1-thai --output $output --bm25 --hits 100
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language th --topics mrtydi-v1.1-thai-${split} --index mrtydi-v1.1-th --output $output --bm25 --hits 100
     splits:
       - split: train
         scores:
