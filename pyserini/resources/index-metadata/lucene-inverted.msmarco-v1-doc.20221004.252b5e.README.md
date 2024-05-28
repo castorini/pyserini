@@ -29,3 +29,5 @@ target/appassembler/bin/IndexCollection -collection JsonCollection \
   -index indexes/lucene-index.msmarco-v1-doc-full.20221004.252b5e/ \
   -storePositions -storeDocvectors -storeRaw -optimize >& logs/log.msmarco-v1-doc-full.20221004.252b5e &
 ```
+
+In April 2024, indexes were repackaged to adopt a more consistent naming scheme.

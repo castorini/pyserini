@@ -22,3 +22,5 @@ nohup target/appassembler/bin/IndexCollection -collection JsonCollection \
   -index indexes/lucene-index.msmarco-v1-passage-d2q-t5-docvectors.20221004.252b5e/ \
   -storeDocvectors -optimize >& logs/log.msmarco-v1-passage-d2q-t5-docvectors.20221004.252b5e &
 ```
+
+In April 2024, indexes were repackaged to adopt a more consistent naming scheme.

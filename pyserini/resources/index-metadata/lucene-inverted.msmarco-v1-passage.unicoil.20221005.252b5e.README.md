@@ -12,3 +12,5 @@ nohup target/appassembler/bin/IndexCollection \
   -generator DefaultLuceneDocumentGenerator \
   -threads 16 -impact -pretokenized -optimize >& logs/log.msmarco-v1-passage-unicoil.20221005.252b5e &
 ```
+
+In April 2024, index was repackaged to adopt a more consistent naming scheme.

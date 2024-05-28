@@ -13,3 +13,5 @@ nohup target/appassembler/bin/IndexCollection \
   -threads 18 -impact -pretokenized -optimize \
   >& logs/log.msmarco-v2-passage-unicoil-noexp-0shot.20220808.4d6d2a.txt &
 ```
+
+In May 2024, index was repackaged to adopt a more consistent naming scheme.

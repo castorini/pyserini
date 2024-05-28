@@ -9,3 +9,7 @@ Note, pretokenized option is used to keep preprocessed tokenization.
 This is built with spacy 3.0.6.
 
 index-msmarco-passage-ltr-20210519-e25e33f MD5 checksum = a5de642c268ac1ed5892c069bdc29ae3
+
+---
+
+In May 2024, index was repackaged to adopt a more consistent naming scheme.

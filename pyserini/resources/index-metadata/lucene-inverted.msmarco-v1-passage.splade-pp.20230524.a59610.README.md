@@ -61,3 +61,5 @@ target/appassembler/bin/IndexCollection \
   -threads 16 -impact -pretokenized -storeRaw -optimize \
   >& logs/log.msmarco-v1-passage-splade-pp-sd-text.20230524.a59610 &
 ```
+
+In April 2024, indexes were repackaged to adopt a more consistent naming scheme.
