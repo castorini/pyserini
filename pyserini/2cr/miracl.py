@@ -57,11 +57,11 @@ languages = [
 
 html_display = OrderedDict()
 html_display['bm25'] = 'BM25'
-html_display['mdpr-tied-pft-msmarco'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO'
-html_display['mdpr-tied-pft-msmarco-ft-all'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO then FT w/ all Mr. TyDi'
-html_display['bm25-mdpr-tied-pft-msmarco-hybrid'] = 'Hybrid of `bm25` and `mdpr-tied-pft-msmarco`'
-html_display['mdpr-tied-pft-msmarco-ft-miracl'] = 'mDPR (tied encoders), pre-FT w/ MS MARCO then in-lang FT w/ MIRACL'
-html_display['mcontriever-tied-pft-msmarco'] = 'mContriever (tied encoders), pre-FT w/ MS MARCO'
+html_display['mdpr-tied-pft-msmarco'] = 'mDPR pFT'
+html_display['bm25-mdpr-tied-pft-msmarco-hybrid'] = 'BM25+mDPR&nbsp;pFT'
+html_display['mdpr-tied-pft-msmarco-ft-all'] = 'mDPR pFT+FT1'
+html_display['mdpr-tied-pft-msmarco-ft-miracl'] = 'mDPR pFT+FT2'
+html_display['mcontriever-tied-pft-msmarco'] = 'mContriever'
 
 models = list(html_display)
 
@@ -285,12 +285,12 @@ def generate_report(args):
         # Build the table for MRR@100, test queries
         html_rows = generate_table_rows(table, row_template, commands, eval_commands, 1, split, 'nDCG@10')
         all_rows = '\n'.join(html_rows)
-        tables_html.append(Template(table_template).substitute(desc=f'nDCG@10, {split} queries', rows=all_rows))
+        tables_html.append(Template(table_template).substitute(desc=f'nDCG@10, {split}&nbsp;queries', rows=all_rows))
 
         # Build the table for R@100, test queries
         html_rows = generate_table_rows(table, row_template, commands, eval_commands, 2, split, 'R@100')
         all_rows = '\n'.join(html_rows)
-        tables_html.append(Template(table_template).substitute(desc=f'Recall@100, {split} queries', rows=all_rows))
+        tables_html.append(Template(table_template).substitute(desc=f'Recall@100, {split}&nbsp;queries', rows=all_rows))
 
     with open(args.output, 'w') as out:
         out.write(Template(html_template).substitute(title='MIRACL', tables=' '.join(tables_html)))

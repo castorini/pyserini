@@ -131,14 +131,33 @@ pre[class*="prettyprint"] {
           ">
         <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
           <div class="text-white">
-            <h1 class="mb-3">$title</h1>
+            <h1 class="mb-3">Pyserini Reproductions: $title</h1>
           </div>
         </div>
       </div>
     </div>
     <!-- Background image -->
 
-    <div class="container my-4">
+<div class="container my-4">
+
+<p>The page provides two-click reproductions<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> for a number of experimental runs on the MIRACL dataset. Instructions for programmatic execution are shown at the bottom of this page. The dataset is described in the following paper:</p>
+
+<p class="note note-light">Xinyu Zhang, Nandan Thakur, Odunayo Ogundepo, Ehsan Kamalloo, David Alfonso-Hermelo, Xiaoguang Li, Qun Liu, Mehdi Rezagholizadeh, and Jimmy Lin. <a href="https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00595/117438/MIRACL-A-Multilingual-Retrieval-Dataset-Covering">MIRACL: A Multilingual Retrieval Dataset Covering 18 Diverse Languages.</a> <i>Transactions of the Association for Computational Linguistics</i>, 11:1114–1131, 2023.</p>
+
+<p>Many of the models presented on this page are described in the following paper:</p>
+
+<p class="note note-light">Xinyu Zhang, Kelechi Ogueji, Xueguang Ma, and Jimmy Lin. <a href="https://dl.acm.org/doi/10.1145/3613447">Towards Best Practices for Training Multilingual Dense Retrieval Models.</a> <i>ACM Transactions on Information Systems</i>, 42(2), Article No. 39, 2023.</p>
+
+<p>Key:</p>
+
+<ul>
+  <li>BM25: BM25</li>
+  <li>mDPR pFT: mDPR (tied encoders), pre-FT w/ MS MARCO</li>
+  <li>BM25+mDPR&nbsp;pFT: hybrid of BM25 and mDPR (tied encoders), pre-FT w/ MS MARCO</li>
+  <li>mDPR pFT+FT1: mDPR (tied encoders), pre-FT w/ MS MARCO then FT w/ all Mr. TyDi</li>
+  <li>mDPR pFT+FT2: mDPR (tied encoders), pre-FT w/ MS MARCO then in-lang FT w/ MIRACL</li>
+  <li>mContriever: mContriever (tied encoders), pre-FT w/ MS MARCO</li>
+</ul>
 
     $tables
 
