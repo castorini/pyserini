@@ -51,10 +51,10 @@ models = ['bm25', 'mdpr-split-pft-nq', 'mdpr-tied-pft-nq', 'mdpr-tied-pft-msmarc
 
 html_display = {
     'bm25': 'BM25',
-    'mdpr-split-pft-nq': 'mDPR (split encoders), pre-FT w/ NQ',
-    'mdpr-tied-pft-nq': 'mDPR (tied encoders), pre-FT w/ NQ',
-    'mdpr-tied-pft-msmarco': 'mDPR (tied encoders), pre-FT w/ MS MARCO',
-    'mdpr-tied-pft-msmarco-ft-all': 'mDPR (tied encoders), pre-FT w/ MS MARCO, FT w/ all'
+    'mdpr-split-pft-nq': 'mDPR (split) pFT NQ',
+    'mdpr-tied-pft-nq': 'mDPR (tied) pFT NQ',
+    'mdpr-tied-pft-msmarco': 'mDPR (tied) pFT MS MARCO',
+    'mdpr-tied-pft-msmarco-ft-all': 'mDPR (tied) pFT MS MARCO + FT all'
 }
 
 trec_eval_metric_definitions = {

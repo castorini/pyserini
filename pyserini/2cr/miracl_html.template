@@ -140,7 +140,7 @@ pre[class*="prettyprint"] {
 
 <div class="container my-4">
 
-<p>The page provides two-click reproductions<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> for a number of experimental runs on the MIRACL dataset. Instructions for programmatic execution are shown at the bottom of this page. The dataset is described in the following paper:</p>
+<p>This page provides two-click reproductions<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> for a number of experimental runs on the MIRACL dataset. Instructions for programmatic execution are shown at the bottom of this page. The dataset is described in the following paper:</p>
 
 <p class="note note-light">Xinyu Zhang, Nandan Thakur, Odunayo Ogundepo, Ehsan Kamalloo, David Alfonso-Hermelo, Xiaoguang Li, Qun Liu, Mehdi Rezagholizadeh, and Jimmy Lin. <a href="https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00595/117438/MIRACL-A-Multilingual-Retrieval-Dataset-Covering">MIRACL: A Multilingual Retrieval Dataset Covering 18 Diverse Languages.</a> <i>Transactions of the Association for Computational Linguistics</i>, 11:1114–1131, 2023.</p>
 

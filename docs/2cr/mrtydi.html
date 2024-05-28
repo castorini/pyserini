@@ -140,9 +140,19 @@ pre[class*="prettyprint"] {
 
 <div class="container my-4">
 
-<p>The page provides two-click reproductions<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> for a number of experimental runs on the MIRACL dataset. Instructions for programmatic execution are shown at the bottom of this page. The dataset is described in the following paper:</p>
+<p>This page provides two-click reproductions<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> for a number of experimental runs on the Mr. TyDi dataset. Instructions for programmatic execution are shown at the bottom of this page. The dataset is described in the following paper:</p>
 
 <p class="note note-light">Xinyu Zhang, Xueguang Ma, Peng Shi, and Jimmy Lin. <a href="https://aclanthology.org/2021.mrl-1.12/">Mr. TyDi: A Multi-lingual Benchmark for Dense Retrieval.</a> <i>Proceedings of 1st Workshop on Multilingual Representation Learning</i>, pages 127-137, November 2021, Punta Cana, Dominican Republic.</p>
+
+<p>Key:</p>
+
+<ul>
+  <li>BM25</li>
+  <li>mDPR (split) pFT NQ: mDPR (split encoders), pre-FT w/ NQ</li>
+  <li>mDPR (tied) pFT NQ: mDPR (tied encoders), pre-FT w/ NQ</li>
+  <li>mDPR (tied) pFT MS MARCO: mDPR (tied encoders), pre-FT w/ MS MARCO</li>
+  <li>mDPR (tied) pFT MS MARCO + FT all: mDPR (tied encoders), pre-FT w/ MS MARCO, FT w/ all</li>
+</ul>
 
     <div class="table-responsive">
   <table class="table">
@@ -456,10 +466,10 @@ Evaluation commands:
 
 </div></td>
 </tr>
-<!-- Condition: mDPR (split encoders), pre-FT w/ NQ -->
+<!-- Condition: mDPR (split) pFT NQ -->
 <tr class="accordion-toggle collapsed" id="table1-row2" data-toggle="collapse" data-parent="#table1-row2" href="#table1-collapse2">
 <td class="expand-button"></td>
-<td>mDPR (split encoders), pre-FT w/ NQ</td>
+<td>mDPR (split) pFT NQ</td>
 <td>0.291</td>
 <td>0.296</td>
 <td>0.291</td>
@@ -745,10 +755,10 @@ Evaluation commands:
 
 </div></td>
 </tr>
-<!-- Condition: mDPR (tied encoders), pre-FT w/ NQ -->
+<!-- Condition: mDPR (tied) pFT NQ -->
 <tr class="accordion-toggle collapsed" id="table1-row3" data-toggle="collapse" data-parent="#table1-row3" href="#table1-collapse3">
 <td class="expand-button"></td>
-<td>mDPR (tied encoders), pre-FT w/ NQ</td>
+<td>mDPR (tied) pFT NQ</td>
 <td>0.221</td>
 <td>0.254</td>
 <td>0.243</td>
@@ -1045,10 +1055,10 @@ Evaluation commands:
 
 </div></td>
 </tr>
-<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO -->
+<!-- Condition: mDPR (tied) pFT MS MARCO -->
 <tr class="accordion-toggle collapsed" id="table1-row4" data-toggle="collapse" data-parent="#table1-row4" href="#table1-collapse4">
 <td class="expand-button"></td>
-<td>mDPR (tied encoders), pre-FT w/ MS MARCO</td>
+<td>mDPR (tied) pFT MS MARCO</td>
 <td>0.441</td>
 <td>0.397</td>
 <td>0.327</td>
@@ -1345,10 +1355,10 @@ Evaluation commands:
 
 </div></td>
 </tr>
-<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO, FT w/ all -->
+<!-- Condition: mDPR (tied) pFT MS MARCO + FT all -->
 <tr class="accordion-toggle collapsed" id="table1-row5" data-toggle="collapse" data-parent="#table1-row5" href="#table1-collapse5">
 <td class="expand-button"></td>
-<td>mDPR (tied encoders), pre-FT w/ MS MARCO, FT w/ all</td>
+<td>mDPR (tied) pFT MS MARCO + FT all</td>
 <td>0.695</td>
 <td>0.623</td>
 <td>0.492</td>
@@ -1961,10 +1971,10 @@ Evaluation commands:
 
 </div></td>
 </tr>
-<!-- Condition: mDPR (split encoders), pre-FT w/ NQ -->
+<!-- Condition: mDPR (split) pFT NQ -->
 <tr class="accordion-toggle collapsed" id="table2-row2" data-toggle="collapse" data-parent="#table2-row2" href="#table2-collapse2">
 <td class="expand-button"></td>
-<td>mDPR (split encoders), pre-FT w/ NQ</td>
+<td>mDPR (split) pFT NQ</td>
 <td>0.650</td>
 <td>0.793</td>
 <td>0.678</td>
@@ -2250,10 +2260,10 @@ Evaluation commands:
 
 </div></td>
 </tr>
-<!-- Condition: mDPR (tied encoders), pre-FT w/ NQ -->
+<!-- Condition: mDPR (tied) pFT NQ -->
 <tr class="accordion-toggle collapsed" id="table2-row3" data-toggle="collapse" data-parent="#table2-row3" href="#table2-collapse3">
 <td class="expand-button"></td>
-<td>mDPR (tied encoders), pre-FT w/ NQ</td>
+<td>mDPR (tied) pFT NQ</td>
 <td>0.600</td>
 <td>0.707</td>
 <td>0.689</td>
@@ -2550,10 +2560,10 @@ Evaluation commands:
 
 </div></td>
 </tr>
-<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO -->
+<!-- Condition: mDPR (tied) pFT MS MARCO -->
 <tr class="accordion-toggle collapsed" id="table2-row4" data-toggle="collapse" data-parent="#table2-row4" href="#table2-collapse4">
 <td class="expand-button"></td>
-<td>mDPR (tied encoders), pre-FT w/ MS MARCO</td>
+<td>mDPR (tied) pFT MS MARCO</td>
 <td>0.797</td>
 <td>0.784</td>
 <td>0.754</td>
@@ -2850,10 +2860,10 @@ Evaluation commands:
 
 </div></td>
 </tr>
-<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO, FT w/ all -->
+<!-- Condition: mDPR (tied) pFT MS MARCO + FT all -->
 <tr class="accordion-toggle collapsed" id="table2-row5" data-toggle="collapse" data-parent="#table2-row5" href="#table2-collapse5">
 <td class="expand-button"></td>
-<td>mDPR (tied encoders), pre-FT w/ MS MARCO, FT w/ all</td>
+<td>mDPR (tied) pFT MS MARCO + FT all</td>
 <td>0.900</td>
 <td>0.955</td>
 <td>0.841</td>
