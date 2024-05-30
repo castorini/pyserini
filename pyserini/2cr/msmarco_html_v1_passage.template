@@ -183,9 +183,7 @@ $rows
 
 <li><p>[1] Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin.
 <a href="https://cs.uwaterloo.ca/~jimmylin/publications/Ma_etal_SIGIR2022.pdf">Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.</a>
-<i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022.</p>
-
-<p>&nbsp; &nbsp; &nbsp; &nbsp;Numbers in parentheses correspond to rows in Table 1 of the paper.</p></li>
+<i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022. (Numbers in parentheses correspond to rows in Table 1 of the paper.)</p></li>
 
 <li><p>[2] Thibault Formal, Carlos Lassance, Benjamin Piwowarski, and Stéphane Clinchant
 <a href="https://arxiv.org/abs/2205.04733">From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.</a>

@@ -94,7 +94,7 @@ conditions:
   - name: splade-pp-ed-pytorch
     display: "SPLADE++ EnsembleDistil: PyTorch"
     display-html: "SPLADE++ EnsembleDistil: PyTorch"
-    display-row: "[2]"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Formal et al. (SIGIR 2022) From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.\">2</a>]"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-pp-ed --topics $topics --encoder naver/splade-cocondenser-ensembledistil --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -117,7 +117,7 @@ conditions:
   - name: splade-pp-sd-pytorch
     display: "SPLADE++ SelfDistil: PyTorch"
     display-html: "SPLADE++ SelfDistil: PyTorch"
-    display-row: "[2]"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Formal et al. (SIGIR 2022) From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.\">2</a>]"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-pp-sd --topics $topics --encoder naver/splade-cocondenser-selfdistil --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -272,8 +272,8 @@ conditions:
             nDCG@10: 0.4908
             R@1K: 0.8327
   - name: distilbert-kd-tasb
-    display: "DistilBERT KD TASB: pre-encoded"
-    display-html: "DistilBERT KD TASB: pre-encoded queries"
+    display: "DistilBERT KD TASB: cached queries"
+    display-html: "DistilBERT KD TASB: cached queries"
     display-row: "[5]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoded-queries distilbert_tas_b-$topics --output $output
     topics:
@@ -320,7 +320,7 @@ conditions:
   - name: distilbert-kd-tasb-avg-prf-pytorch
     display: "DistilBERT KD TASB w/ Average PRF: PyTorch"
     display-html: "DistilBERT KD TASB w/ Average PRF: PyTorch"
-    display-row: "[9]"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output --prf-method avg --prf-depth 3
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -343,7 +343,7 @@ conditions:
   - name: distilbert-kd-tasb-rocchio-prf-pytorch
     display: "DistilBERT KD TASB w/ Rocchio PRF: PyTorch"
     display-html: "DistilBERT KD TASB w/ Rocchio PRF: PyTorch"
-    display-row: "[9]"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -364,8 +364,8 @@ conditions:
             nDCG@10: 0.7083
             R@1K: 0.8926
   - name: distilbert-kd
-    display: "DistilBERT KD: pre-encoded"
-    display-html: "DistilBERT KD: pre-encoded queries"
+    display: "DistilBERT KD: cached queries"
+    display-html: "DistilBERT KD: cached queries"
     display-row: "[4]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.distilbert-dot-margin-mse-t2 --topics $topics --encoded-queries distilbert_kd-$topics --output $output
     topics:
@@ -410,9 +410,9 @@ conditions:
             nDCG@10: 0.6447
             R@1K: 0.7953
   - name: ance
-    display: "ANCE: pre-encoded"
-    display-html: "ANCE: pre-encoded queries"
-    display-row: "[3]"
+    display: "ANCE: cached queries"
+    display-html: "ANCE: cached queries"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Xiong et al. (ICLR 2021) Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval.\">3</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.ance --topics $topics --encoded-queries ance-$topics --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -435,7 +435,7 @@ conditions:
   - name: ance-pytorch
     display: "ANCE: PyTorch"
     display-html: "ANCE: PyTorch"
-    display-row: "[3]"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Xiong et al. (ICLR 2021) Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval.\">3</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -458,7 +458,7 @@ conditions:
   - name: ance-avg-prf-pytorch
     display: "ANCE w/ Average PRF: PyTorch"
     display-html: "ANCE w/ Average PRF: PyTorch"
-    display-row: "[9]"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output --prf-method avg --prf-depth 3
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -481,7 +481,7 @@ conditions:
   - name: ance-rocchio-prf-pytorch
     display: "ANCE w/ Rocchio PRF: PyTorch"
     display-html: "ANCE w/ Rocchio PRF: PyTorch"
-    display-row: "[9]"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -527,7 +527,7 @@ conditions:
   - name: sbert-avg-prf-pytorch
     display: "SBERT w/ Average PRF: PyTorch"
     display-html: "SBERT w/ Average PRF: PyTorch"
-    display-row: "[9]"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.sbert --topics $topics --encoder sentence-transformers/msmarco-distilbert-base-v3 --output $output --prf-method avg --prf-depth 3
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -550,7 +550,7 @@ conditions:
   - name: sbert-rocchio-prf-pytorch
     display: "SBERT w/ Rocchio PRF: PyTorch"
     display-html: "SBERT w/ Rocchio PRF: PyTorch"
-    display-row: "[9]"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.sbert --topics $topics --encoder sentence-transformers/msmarco-distilbert-base-v3 --output $output --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -617,7 +617,7 @@ conditions:
   - name: bm25-default
     display: BM25 (k1=0.9, b=0.4)
     display-html: BM25 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
-    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (1a)"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(1a)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage --topics $topics --output $output --bm25 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -640,7 +640,7 @@ conditions:
   - name: bm25-rm3-default
     display: BM25+RM3 (k1=0.9, b=0.4)
     display-html: BM25+RM3 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
-    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (1b)"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(1b)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage --topics $topics --output $output --bm25 --k1 0.9 --b 0.4 --rm3
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -685,7 +685,7 @@ conditions:
   - name: bm25-d2q-t5-default
     display: BM25 w/ doc2query-T5 (k1=0.9, b=0.4)
     display-html: BM25 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
-    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (2a)"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(2a)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.d2q-t5 --topics $topics --output $output --bm25 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -730,7 +730,7 @@ conditions:
   - name: bm25-rm3-d2q-t5-default
     display: BM25+RM3 w/ doc2query-T5 (k1=0.9, b=0.4)
     display-html: BM25+RM3 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
-    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (2b)"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(2b)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.d2q-t5-docvectors --topics $topics --output $output --bm25 --rm3 --k1 0.9 --b 0.4
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -795,9 +795,9 @@ conditions:
             nDCG@10: 0.6745
             R@1K: 0.8430
   - name: unicoil
-    display: "uniCOIL (w/ doc2query-T5): pre-encoded"
-    display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
-    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (3b)"
+    display: "uniCOIL (w/ doc2query-T5): cached queries"
+    display-html: "uniCOIL (w/ doc2query-T5): cached queries"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(3b)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.unicoil --topics $topics --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset-unicoil
@@ -862,9 +862,9 @@ conditions:
             nDCG@10: 0.6400
             R@1K: 0.7910
   - name: unicoil-noexp
-    display: "uniCOIL (noexp): pre-encoded"
-    display-html: "uniCOIL (noexp): pre-encoded queries"
-    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>] &mdash; (3a)"
+    display: "uniCOIL (noexp): cached queries"
+    display-html: "uniCOIL (noexp): cached queries"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(3a)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.unicoil-noexp --topics $topics --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset-unicoil-noexp
@@ -887,7 +887,7 @@ conditions:
   - name: splade-pp-ed-onnx
     display: "SPLADE++ EnsembleDistil: ONNX"
     display-html: "SPLADE++ EnsembleDistil: ONNX"
-    display-row: "[2]"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Formal et al. (SIGIR 2022) From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.\">2</a>]"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-pp-ed --topics $topics --onnx-encoder SpladePlusPlusEnsembleDistil --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -910,7 +910,7 @@ conditions:
   - name: splade-pp-sd-onnx
     display: "SPLADE++ SelfDistil: ONNX"
     display-html: "SPLADE++ SelfDistil: ONNX"
-    display-row: "[2]"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Formal et al. (SIGIR 2022) From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.\">2</a>]"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-pp-sd --topics $topics --onnx-encoder SpladePlusPlusSelfDistil --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -931,8 +931,8 @@ conditions:
             nDCG@10: 0.7282
             R@1K: 0.9024
   - name: tct_colbert-v2-hnp
-    display: "TCT_ColBERT-V2-HN+: pre-encoded"
-    display-html: "TCT_ColBERT-V2-HN+: pre-encoded queries"
+    display: "TCT_ColBERT-V2-HN+: cached queries"
+    display-html: "TCT_ColBERT-V2-HN+: cached queries"
     display-row: "[6]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoded-queries tct_colbert-v2-hnp-$topics --output $output
     topics:
@@ -979,7 +979,7 @@ conditions:
   - name: tct_colbert-v2-hnp-avg-prf-pytorch
     display: "TCT_ColBERT-V2-HN+ w/ Average PRF: PyTorch"
     display-html: "TCT_ColBERT-V2-HN+ w/ Average PRF: PyTorch"
-    display-row: "[9]"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output --prf-method avg --prf-depth 3
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -1002,7 +1002,7 @@ conditions:
   - name: tct_colbert-v2-hnp-rocchio-prf-pytorch
     display: "TCT_ColBERT-V2-HN+ w/ Rocchio PRF: PyTorch"
     display-html: "TCT_ColBERT-V2-HN+ w/ Rocchio PRF: PyTorch"
-    display-row: "[9]"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
     topics:
       - topic_key: msmarco-passage-dev-subset
@@ -1161,8 +1161,8 @@ conditions:
             nDCG@10: 0.6972
             R@1K: 0.8555
   - name: openai-ada2
-    display: "OpenAI ada2: pre-encoded queries"
-    display-html: "OpenAI ada2: pre-encoded queries"
+    display: "OpenAI ada2: cached queries"
+    display-html: "OpenAI ada2: cached queries"
     display-row: "[11]"
     command: python -m pyserini.search.faiss --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries openai-ada2-$topics --output $output
     topics:
@@ -1184,8 +1184,8 @@ conditions:
             nDCG@10: 0.6759
             R@1K: 0.8705
   - name: openai-ada2-hyde
-    display: "HyDE-OpenAI ada2: pre-encoded queries"
-    display-html: "HyDE-OpenAI ada2: pre-encoded queries"
+    display: "HyDE-OpenAI ada2: cached queries"
+    display-html: "HyDE-OpenAI ada2: cached queries"
     display-row: "[12]"
     command: python -m pyserini.search.faiss --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries openai-ada2-$topics-hyde --output $output
     topics:
@@ -1202,8 +1202,8 @@ conditions:
             nDCG@10: 0.6666
             R@1K: 0.8919
   - name: openai-text-embedding-3-large
-    display: "OpenAI text-embedding-3-large: pre-encoded queries"
-    display-html: "OpenAI text-embedding-3-large: pre-encoded queries"
+    display: "OpenAI text-embedding-3-large: cached queries"
+    display-html: "OpenAI text-embedding-3-large: cached queries"
     display-row: ""
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.openai-text-embedding-3-large --topics $topics --encoded-queries openai-text-embedding-3-large-$topics --output $output
     topics:
@@ -1225,8 +1225,8 @@ conditions:
             nDCG@10: 0.7163
             R@1K: 0.8884
   - name: cohere-embed-english-v3.0
-    display: "Cohere Embed English v3.0: pre-encoded queries"
-    display-html: "Cohere Embed English v3.0: pre-encoded queries"
+    display: "Cohere Embed English v3.0: cached queries"
+    display-html: "Cohere Embed English v3.0: cached queries"
     display-row: ""
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.cohere-embed-english-v3.0 --topics $topics --encoded-queries cohere-embed-english-v3.0-$topics --output $output
     topics:
