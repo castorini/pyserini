@@ -131,14 +131,28 @@ pre[class*="prettyprint"] {
           ">
         <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
           <div class="text-white">
-            <h1 class="mb-3">$title</h1>
+            <h1 class="mb-3">Pyserini Reproductions: $title</h1>
           </div>
         </div>
       </div>
     </div>
     <!-- Background image -->
 
-    <div class="container my-4">
+<div class="container my-4">
+
+<p>This page provides two-click reproductions<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> for a number of experimental runs on the Mr. TyDi dataset. Instructions for programmatic execution are shown at the bottom of this page. The dataset is described in the following paper:</p>
+
+<p class="note note-light">Xinyu Zhang, Xueguang Ma, Peng Shi, and Jimmy Lin. <a href="https://aclanthology.org/2021.mrl-1.12/">Mr. TyDi: A Multi-lingual Benchmark for Dense Retrieval.</a> <i>Proceedings of 1st Workshop on Multilingual Representation Learning</i>, pages 127-137, November 2021, Punta Cana, Dominican Republic.</p>
+
+<p>Key:</p>
+
+<ul>
+  <li>BM25</li>
+  <li>mDPR (split) pFT NQ: mDPR (split encoders), pre-FT w/ NQ</li>
+  <li>mDPR (tied) pFT NQ: mDPR (tied encoders), pre-FT w/ NQ</li>
+  <li>mDPR (tied) pFT MS MARCO: mDPR (tied encoders), pre-FT w/ MS MARCO</li>
+  <li>mDPR (tied) pFT MS MARCO + FT all: mDPR (tied encoders), pre-FT w/ MS MARCO, FT w/ all</li>
+</ul>
 
     $tables
 

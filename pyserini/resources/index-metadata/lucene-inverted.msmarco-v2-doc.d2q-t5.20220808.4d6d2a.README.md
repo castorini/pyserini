@@ -24,3 +24,5 @@ nohup target/appassembler/bin/IndexCollection -collection MsMarcoV2DocCollection
   -storeDocvectors -optimize \
   >& logs/log.msmarco-v2-doc-d2q-t5-docvectors.20220808.4d6d2a.txt &
  ```
+
+In May 2024, indexes were repackaged to adopt a more consistent naming scheme.

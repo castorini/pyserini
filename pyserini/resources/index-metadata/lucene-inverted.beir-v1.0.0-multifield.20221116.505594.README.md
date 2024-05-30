@@ -235,3 +235,5 @@ nohup target/appassembler/bin/IndexCollection \
   -threads 16 -fields title -storePositions -storeDocvectors -storeRaw -optimize \
   >& logs/log.beir-v1.0.0-scifact-multifield.20221116.505594 &
 ```
+
+In April 2024, indexes were repackaged to adopt a more consistent naming scheme.

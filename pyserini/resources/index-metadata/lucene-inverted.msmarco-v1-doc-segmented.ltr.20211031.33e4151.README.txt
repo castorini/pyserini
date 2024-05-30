@@ -10,3 +10,7 @@ This is built with spacy 3.0.6.
 The max length is 3 and stride is 1.
 
 index-msmarco-passage-ltr-20210519-e25e33f MD5 checksum = bd60e89041b4ebbabc4bf0cfac608a87
+
+---
+
+In May 2024, index was repackaged to adopt a more consistent naming scheme.

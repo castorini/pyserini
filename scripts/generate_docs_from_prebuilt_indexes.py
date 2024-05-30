@@ -88,14 +88,70 @@ def generate_prebuilt(index):
 if __name__ == '__main__':
     print(__boilerplate__)
     print('\n\n## Standard Lucene Indexes')
+
+    print('<details>')
+    print('<summary>MS MARCO</summary>')
     generate_prebuilt(TF_INDEX_INFO_MSMARCO)
+    print('</details>')
+
+    print('<details>')
+    print('<summary>BEIR</summary>')
     generate_prebuilt(TF_INDEX_INFO_BEIR)
+    print('</details>')
+
+    print('<details>')
+    print('<summary>Mr.TyDi</summary>')
     generate_prebuilt(TF_INDEX_INFO_MRTYDI)
+    print('</details>')
+
+    print('<details>')
+    print('<summary>MIRACL</summary>')
     generate_prebuilt(TF_INDEX_INFO_MIRACL)
+    print('</details>')
+
+    print('<details>')
+    print('<summary>Other</summary>')
     generate_prebuilt(TF_INDEX_INFO_CIRAL)
     generate_prebuilt(TF_INDEX_INFO_OTHER)
+    print('</details>')
+
     print('\n\n## Lucene Impact Indexes')
+
+    print('<details>')
+    print('<summary>MS MARCO</summary>')
     generate_prebuilt(IMPACT_INDEX_INFO_MSMARCO)
+    print('</details>')
+
+    print('<details>')
+    print('<summary>BEIR</summary>')
     generate_prebuilt(IMPACT_INDEX_INFO_BEIR)
+    print('</details>')
+
     print('\n\n## Faiss Indexes')
-    generate_prebuilt(FAISS_INDEX_INFO)
+
+    print('<details>')
+    print('<summary>MS MARCO</summary>')
+    generate_prebuilt(FAISS_INDEX_INFO_MSMARCO)
+    print('</details>')
+
+    print('<details>')
+    print('<summary>BEIR</summary>')
+    generate_prebuilt(FAISS_INDEX_INFO_BEIR)
+    print('</details>')
+
+    print('<details>')
+    print('<summary>Mr.TyDi</summary>')
+    generate_prebuilt(FAISS_INDEX_INFO_MRTYDI)
+    print('</details>')
+
+    print('<details>')
+    print('<summary>MIRACL</summary>')
+    generate_prebuilt(FAISS_INDEX_INFO_MIRACL)
+    print('</details>')
+
+    print('<details>')
+    print('<summary>Other</summary>')
+    generate_prebuilt(FAISS_INDEX_INFO_CIRAL)
+    generate_prebuilt(FAISS_INDEX_INFO_WIKIPEDIA)
+    generate_prebuilt(FAISS_INDEX_INFO_OTHER)
+    print('</details>')

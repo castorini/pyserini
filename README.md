@@ -12,7 +12,7 @@ Retrieval using sparse representations is provided via integration with our grou
 Retrieval using dense representations is provided via integration with Facebook's [Faiss](https://github.com/facebookresearch/faiss) library.
 
 Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multi-stage ranking architecture.
-Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, [pre-built indexes](docs/prebuilt-indexes.md), and evaluation scripts for many commonly used IR test collections.
+Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, [prebuilt indexes](docs/prebuilt-indexes.md), and evaluation scripts for many commonly used IR test collections.
 With Pyserini, it's easy to reproduce runs on a number of standard IR test collections!
 
 For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.3463238) in SIGIR 2021 provides a nice overview.
@@ -86,7 +86,7 @@ The steps are different for different classes of models:
 ## ⚗️ Reproducibility
 
 With Pyserini, it's easy to [reproduce](docs/reproducibility.md) runs on a number of standard IR test collections!
-We provide a number of [pre-built indexes](docs/prebuilt-indexes.md) that directly support reproducibility "out of the box".
+We provide a number of [prebuilt indexes](docs/prebuilt-indexes.md) that directly support reproducibility "out of the box".
 
 In our [SIGIR 2022 paper](https://dl.acm.org/doi/10.1145/3477495.3531749), we introduced "two-click reproductions" that allow anyone to reproduce experimental runs with only two clicks (i.e., copy and paste).
 Documentation is organized into reproduction matrices for different corpora that provide a summary of different experimental conditions and query sets:
@@ -177,7 +177,7 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 
 ## 📃 Additional Documentation
 
-+ [Guide to pre-built indexes](docs/prebuilt-indexes.md)
++ [Guide to prebuilt indexes](docs/prebuilt-indexes.md)
 + [Guide to interactive searching](docs/usage-interactive-search.md)
 + [Guide to text classification with the 20Newsgroups dataset](docs/experiments-20newgroups.md)
 + [Guide to working with the COVID-19 Open Research Dataset (CORD-19)](docs/working-with-cord19.md)
@@ -236,7 +236,7 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 
 ⁉️ **Lucene 8 to Lucene 9 Transition.**
 In 2022, Pyserini underwent a transition from Lucene 8 to Lucene 9.
-Most of the pre-built indexes have been rebuilt using Lucene 9, but there are a few still based on Lucene 8.
+Most of the prebuilt indexes have been rebuilt using Lucene 9, but there are a few still based on Lucene 8.
 
 More details:
 

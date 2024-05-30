@@ -17,3 +17,5 @@ python -m tevatron.driver.encode \
 where the `subdataset` is one of the BEIR dataset, e.g. `scifact`.
 
 The Embedding is then converted to Pyserini index format.
+
+In April 2024, indexes were repackaged to adopt a more consistent naming scheme.

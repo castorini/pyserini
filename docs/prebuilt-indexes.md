@@ -49,6 +49,8 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 
 
 ## Standard Lucene Indexes
+<details>
+<summary>MS MARCO</summary>
 <dl>
 <dt></dt><b><code>msmarco-v1-doc</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
@@ -199,6 +201,9 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene index (+docvectors) of the MS MARCO V2 augmented passage corpus with doc2query-T5 expansions.
 </dd>
 </dl>
+</details>
+<details>
+<summary>BEIR</summary>
 <dl>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
@@ -433,6 +438,9 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene multifield index of BEIR (v1.0.0): SciFact.
 </dd>
 </dl>
+</details>
+<details>
+<summary>Mr.TyDi</summary>
 <dl>
 <dt></dt><b><code>mrtydi-v1.1-ar</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md">readme</a>]
@@ -479,6 +487,9 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene index for Mr.TyDi v1.1 (Thai).
 </dd>
 </dl>
+</details>
+<details>
+<summary>MIRACL</summary>
 <dl>
 <dt></dt><b><code>miracl-v1.0-ar</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
@@ -553,6 +564,9 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene index for MIRACL v1.0 (Yoruba).
 </dd>
 </dl>
+</details>
+<details>
+<summary>Other</summary>
 <dl>
 <dt></dt><b><code>ciral-v1.0-ha</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
@@ -726,9 +740,12 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene index for AToMiC Images v0.2 large setting on validation set
 </dd>
 </dl>
+</details>
 
 
 ## Lucene Impact Indexes
+<details>
+<summary>MS MARCO</summary>
 <dl>
 <dt></dt><b><code>msmarco-v1-passage.slimr</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.slimr.20230925.md">readme</a>]
@@ -810,98 +827,133 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended.
 </dd>
 </dl>
+</details>
+<details>
+<summary>BEIR</summary>
 <dl>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): TREC-COVID, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): BioASQ, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): NFCorpus, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): NQ, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): HotpotQA, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): FiQA-2018, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): Signal-1M, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): TREC-NEWS, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): Robust04, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): ArguAna, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): Webis-Touche2020, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-android, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-english, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-gaming, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-gis, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-mathematica, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-physics, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-programmers, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-stats, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-tex, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-unix, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-webmasters, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-wordpress, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): Quora, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): DBPedia, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): SCIDOCS, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): FEVER, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): Climate-FEVER, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.splade-pp-ed</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Lucene impact index of BEIR (v1.0.0): SciFact, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
 </dd>
 </dl>
+</details>
 
 
 ## Faiss Indexes
+<details>
+<summary>MS MARCO</summary>
 <dl>
 <dt></dt><b><code>msmarco-v1-passage.cosdpr-distil</code></b>
 <dd>Faiss flat index of the MS MARCO passage corpus encoded by cosDPR-distil.
@@ -961,6 +1013,11 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dt></dt><b><code>msmarco-v1-doc-segmented.tct_colbert-v2-hnp</code></b>
 <dd>Faiss flat index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP
 </dd>
+</dl>
+</details>
+<details>
+<summary>BEIR</summary>
+<dl>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.contriever</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.contriever.20230124.README.md">readme</a>]
 <dd>Faiss flat index for BEIR (v1.0.0): TREC-COVID, encoded by Contriever.
@@ -1396,6 +1453,11 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/faiss-flat.beir-v1.0.0.cohere-embed-english-v3.0.20240302.README.md">readme</a>]
 <dd>Faiss index for BEIR v1.0.0 (SciFact) corpus encoded by cohere-embed-english-v3.0 encoder.
 </dd>
+</dl>
+</details>
+<details>
+<summary>Mr.TyDi</summary>
+<dl>
 <dt></dt><b><code>mrtydi-v1.1-arabic-mdpr-nq</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1-arabic.20220207.5df364.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
@@ -1572,6 +1634,11 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md">readme</a>]
 <dd>Faiss index for Mr.TyDi v1.1 (Thai) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.
 </dd>
+</dl>
+</details>
+<details>
+<summary>MIRACL</summary>
+<dl>
 <dt></dt><b><code>miracl-v1.0-ar-mdpr-tied-pft-msmarco</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20221004.2b2856.mdpr-tied-pft-msmarco.README.md">readme</a>]
 <dd>Faiss index for MIRACL v1.0 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
@@ -1852,28 +1919,11 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
 <dd>Faiss index for MIRACL v1.0 (Yoruba) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
 </dd>
-<dt></dt><b><code>wikipedia-dpr-100w.dpr-multi</code></b>
-<dd>Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on multiple QA datasets
-</dd>
-<dt></dt><b><code>wikipedia-dpr-100w.dpr-single-nq</code></b>
-<dd>Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on NQ
-</dd>
-<dt></dt><b><code>wikipedia-dpr-100w.bpr-single-nq</code></b>
-<dd>Faiss binary index of Wikipedia encoded by the BPR doc encoder trained on NQ
-</dd>
-<dt></dt><b><code>wikipedia-dpr-100w.ance-multi</code></b>
-<dd>Faiss FlatIP index of Wikipedia encoded by the ANCE-multi encoder
-</dd>
-<dt></dt><b><code>wikipedia-dpr-100w.dkrr-nq</code></b>
-<dd>Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on NQ
-</dd>
-<dt></dt><b><code>wikipedia-dpr-100w.dkrr-tqa</code></b>
-<dd>Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA
-</dd>
-<dt></dt><b><code>wiki-all-6-3.dpr2-multi-retriever</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.README.md">readme</a>]
-<dd>Faiss FlatIP index of wiki-all-6-3-tamber encoded by a 2nd iteration DPR model trained on multiple QA datasets
-</dd>
+</dl>
+</details>
+<details>
+<summary>Other</summary>
+<dl>
 <dt></dt><b><code>ciral-v1.0-ha-mdpr-tied-pft-msmarco</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss.ciral-v1.0.mdpr-tied-pft-msmarco.20240212.2154e7.README.md">readme</a>]
 <dd>Faiss index for CIRAL v1.0 (Hausa) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.
@@ -1906,6 +1956,32 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/faiss.ciral-v1.0.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20240212.2154e7.README.md">readme</a>]
 <dd>Faiss index for CIRAL v1.0 (Yoruba) corpus encoded by Afriberta-DPR passage encoder pre-fine-tuned on MS MARCO and fine-tuned on Latin languages in Mr. TyDi.
 </dd>
+</dl>
+<dl>
+<dt></dt><b><code>wikipedia-dpr-100w.dpr-multi</code></b>
+<dd>Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on multiple QA datasets
+</dd>
+<dt></dt><b><code>wikipedia-dpr-100w.dpr-single-nq</code></b>
+<dd>Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on NQ
+</dd>
+<dt></dt><b><code>wikipedia-dpr-100w.bpr-single-nq</code></b>
+<dd>Faiss binary index of Wikipedia encoded by the BPR doc encoder trained on NQ
+</dd>
+<dt></dt><b><code>wikipedia-dpr-100w.ance-multi</code></b>
+<dd>Faiss FlatIP index of Wikipedia encoded by the ANCE-multi encoder
+</dd>
+<dt></dt><b><code>wikipedia-dpr-100w.dkrr-nq</code></b>
+<dd>Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on NQ
+</dd>
+<dt></dt><b><code>wikipedia-dpr-100w.dkrr-tqa</code></b>
+<dd>Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA
+</dd>
+<dt></dt><b><code>wiki-all-6-3.dpr2-multi-retriever</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.README.md">readme</a>]
+<dd>Faiss FlatIP index of wiki-all-6-3-tamber encoded by a 2nd iteration DPR model trained on multiple QA datasets
+</dd>
+</dl>
+<dl>
 <dt></dt><b><code>cast2019-tct_colbert-v2.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-hnsw.cast2019.tct_colbert-v2-readme.txt">readme</a>]
 <dd>Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder
@@ -2007,3 +2083,4 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 <dd>Faiss index for AToMiC Texts v0.2.1 on large corpus encoded by laion/CLIP-Salesforce.blip-itm-large-coco
 </dd>
 </dl>
+</details>

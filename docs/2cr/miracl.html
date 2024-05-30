@@ -131,21 +131,40 @@ pre[class*="prettyprint"] {
           ">
         <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
           <div class="text-white">
-            <h1 class="mb-3">MIRACL</h1>
+            <h1 class="mb-3">Pyserini Reproductions: MIRACL</h1>
           </div>
         </div>
       </div>
     </div>
     <!-- Background image -->
 
-    <div class="container my-4">
+<div class="container my-4">
+
+<p>This page provides two-click reproductions<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> for a number of experimental runs on the MIRACL dataset. Instructions for programmatic execution are shown at the bottom of this page. The dataset is described in the following paper:</p>
+
+<p class="note note-light">Xinyu Zhang, Nandan Thakur, Odunayo Ogundepo, Ehsan Kamalloo, David Alfonso-Hermelo, Xiaoguang Li, Qun Liu, Mehdi Rezagholizadeh, and Jimmy Lin. <a href="https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00595/117438/MIRACL-A-Multilingual-Retrieval-Dataset-Covering">MIRACL: A Multilingual Retrieval Dataset Covering 18 Diverse Languages.</a> <i>Transactions of the Association for Computational Linguistics</i>, 11:1114–1131, 2023.</p>
+
+<p>Many of the models presented on this page are described in the following paper:</p>
+
+<p class="note note-light">Xinyu Zhang, Kelechi Ogueji, Xueguang Ma, and Jimmy Lin. <a href="https://dl.acm.org/doi/10.1145/3613447">Towards Best Practices for Training Multilingual Dense Retrieval Models.</a> <i>ACM Transactions on Information Systems</i>, 42(2), Article No. 39, 2023.</p>
+
+<p>Key:</p>
+
+<ul>
+  <li>BM25: BM25</li>
+  <li>mDPR pFT: mDPR (tied encoders), pre-FT w/ MS MARCO</li>
+  <li>BM25+mDPR&nbsp;pFT: hybrid of BM25 and mDPR (tied encoders), pre-FT w/ MS MARCO</li>
+  <li>mDPR pFT+FT1: mDPR (tied encoders), pre-FT w/ MS MARCO then FT w/ all Mr. TyDi</li>
+  <li>mDPR pFT+FT2: mDPR (tied encoders), pre-FT w/ MS MARCO then in-lang FT w/ MIRACL</li>
+  <li>mContriever: mContriever (tied encoders), pre-FT w/ MS MARCO</li>
+</ul>
 
     <div class="table-responsive">
   <table class="table">
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col">nDCG@10, dev queries</th>
+        <th scope="col">nDCG@10, dev&nbsp;queries</th>
         <th scope="col">ar</th>
         <th scope="col">bn</th>
         <th scope="col">en</th>
@@ -650,10 +669,10 @@ Evaluation commands:
 </div></td>
 </tr>
 
-<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO -->
+<!-- Condition: mDPR pFT -->
 <tr class="accordion-toggle collapsed" id="table1-row2" data-toggle="collapse" data-parent="#table1-row2" href="#table1-collapse2">
 <td class="expand-button"></td>
-<td>mDPR (tied encoders), pre-FT w/ MS MARCO</td>
+<td>mDPR pFT</td>
 <td>0.499</td>
 <td>0.443</td>
 <td>0.394</td>
@@ -1131,30 +1150,30 @@ Evaluation commands:
 </div></td>
 </tr>
 
-<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO then FT w/ all Mr. TyDi -->
+<!-- Condition: BM25+mDPR&nbsp;pFT -->
 <tr class="accordion-toggle collapsed" id="table1-row3" data-toggle="collapse" data-parent="#table1-row3" href="#table1-collapse3">
 <td class="expand-button"></td>
-<td>mDPR (tied encoders), pre-FT w/ MS MARCO then FT w/ all Mr. TyDi</td>
-<td>0.578</td>
-<td>0.580</td>
-<td>0.281</td>
-<td>0.251</td>
-<td>0.384</td>
-<td>0.569</td>
-<td>0.301</td>
-<td>0.329</td>
-<td>0.346</td>
-<td>0.500</td>
-<td>0.486</td>
-<td>0.393</td>
-<td>0.658</td>
-<td>0.778</td>
-<td>0.598</td>
-<td>0.358</td>
-<td>0.322</td>
-<td>0.598</td>
+<td>BM25+mDPR&nbsp;pFT</td>
+<td>0.673</td>
+<td>0.654</td>
+<td>0.549</td>
+<td>0.641</td>
+<td>0.594</td>
+<td>0.672</td>
+<td>0.523</td>
+<td>0.616</td>
+<td>0.443</td>
+<td>0.576</td>
+<td>0.609</td>
+<td>0.532</td>
+<td>0.446</td>
+<td>0.602</td>
+<td>0.599</td>
+<td>0.525</td>
+<td>0.564</td>
+<td>0.611</td>
 <td></td>
-<td>0.462</td>
+<td>0.579</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -1226,20 +1245,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-ar-dev \
-  --index miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ar.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.ar.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ar.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ar.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-ar-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.ar.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ar.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1247,20 +1262,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-bn-dev \
-  --index miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.bn.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.bn.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.bn.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.bn.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-bn-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.bn.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.bn.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1268,20 +1279,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-en-dev \
-  --index miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.en.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.en.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.en.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.en.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-en-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.en.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.en.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1289,20 +1296,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-es-dev \
-  --index miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.es.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.es.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.es.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.es.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-es-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.es.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.es.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1310,20 +1313,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-fa-dev \
-  --index miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.fa.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.fa.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.fa.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fa.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-fa-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.fa.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fa.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1331,20 +1330,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-fi-dev \
-  --index miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.fi.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.fi.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.fi.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fi.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-fi-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.fi.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fi.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1352,20 +1347,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-fr-dev \
-  --index miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.fr.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.fr.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.fr.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fr.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-fr-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.fr.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fr.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1373,20 +1364,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-hi-dev \
-  --index miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.hi.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.hi.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.hi.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.hi.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-hi-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.hi.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.hi.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1394,20 +1381,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-id-dev \
-  --index miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.id.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.id.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.id.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.id.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-id-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.id.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.id.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1415,20 +1398,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-ja-dev \
-  --index miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ja.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.ja.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ja.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ja.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-ja-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.ja.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ja.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1436,20 +1415,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-ko-dev \
-  --index miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ko.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.ko.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ko.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ko.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-ko-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.ko.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ko.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1457,20 +1432,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-ru-dev \
-  --index miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ru.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.ru.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ru.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ru.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-ru-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.ru.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ru.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1478,20 +1449,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-sw-dev \
-  --index miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.sw.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.sw.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.sw.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.sw.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-sw-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.sw.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.sw.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1500,20 +1467,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-te-dev \
-  --index miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.te.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.te.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.te.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.te.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-te-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.te.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.te.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1522,20 +1485,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-th-dev \
-  --index miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.th.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.th.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.th.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.th.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-th-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.th.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.th.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1544,20 +1503,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-zh-dev \
-  --index miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.zh.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.zh.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.zh.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.zh.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-zh-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.zh.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.zh.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1566,20 +1521,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-de-dev \
-  --index miracl-v1.0-de-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.de.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.de.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.de.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.de.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-de-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.de.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.de.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1588,20 +1539,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-yo-dev \
-  --index miracl-v1.0-yo-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.yo.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.yo.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.yo.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.yo.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-yo-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.yo.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.yo.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1612,30 +1559,30 @@ Evaluation commands:
 </div></td>
 </tr>
 
-<!-- Condition: Hybrid of `bm25` and `mdpr-tied-pft-msmarco` -->
+<!-- Condition: mDPR pFT+FT1 -->
 <tr class="accordion-toggle collapsed" id="table1-row4" data-toggle="collapse" data-parent="#table1-row4" href="#table1-collapse4">
 <td class="expand-button"></td>
-<td>Hybrid of `bm25` and `mdpr-tied-pft-msmarco`</td>
-<td>0.673</td>
-<td>0.654</td>
-<td>0.549</td>
-<td>0.641</td>
-<td>0.594</td>
-<td>0.672</td>
-<td>0.523</td>
-<td>0.616</td>
-<td>0.443</td>
-<td>0.576</td>
-<td>0.609</td>
-<td>0.532</td>
-<td>0.446</td>
-<td>0.602</td>
-<td>0.599</td>
-<td>0.525</td>
-<td>0.564</td>
-<td>0.611</td>
+<td>mDPR pFT+FT1</td>
+<td>0.578</td>
+<td>0.580</td>
+<td>0.281</td>
+<td>0.251</td>
+<td>0.384</td>
+<td>0.569</td>
+<td>0.301</td>
+<td>0.329</td>
+<td>0.346</td>
+<td>0.500</td>
+<td>0.486</td>
+<td>0.393</td>
+<td>0.658</td>
+<td>0.778</td>
+<td>0.598</td>
+<td>0.358</td>
+<td>0.322</td>
+<td>0.598</td>
 <td></td>
-<td>0.579</td>
+<td>0.462</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -1707,16 +1654,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.ar.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ar.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ar.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-ar-dev \
+  --index miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ar.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-ar-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ar.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.ar.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1724,16 +1675,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.bn.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.bn.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.bn.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-bn-dev \
+  --index miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.bn.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-bn-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.bn.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.bn.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1741,16 +1696,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.en.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.en.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.en.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-en-dev \
+  --index miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.en.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-en-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.en.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.en.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1758,16 +1717,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.es.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.es.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.es.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-es-dev \
+  --index miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.es.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-es-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.es.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.es.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1775,16 +1738,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.fa.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.fa.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fa.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-fa-dev \
+  --index miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.fa.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-fa-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fa.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.fa.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1792,16 +1759,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.fi.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.fi.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fi.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-fi-dev \
+  --index miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.fi.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-fi-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fi.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.fi.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1809,16 +1780,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.fr.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.fr.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fr.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-fr-dev \
+  --index miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.fr.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-fr-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fr.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.fr.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1826,16 +1801,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.hi.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.hi.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.hi.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-hi-dev \
+  --index miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.hi.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-hi-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.hi.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.hi.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1843,16 +1822,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.id.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.id.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.id.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-id-dev \
+  --index miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.id.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-id-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.id.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.id.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1860,16 +1843,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.ja.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ja.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ja.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-ja-dev \
+  --index miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ja.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-ja-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ja.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.ja.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1877,16 +1864,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.ko.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ko.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ko.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-ko-dev \
+  --index miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ko.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-ko-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ko.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.ko.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1894,16 +1885,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.ru.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ru.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ru.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-ru-dev \
+  --index miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ru.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-ru-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ru.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.ru.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1911,16 +1906,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.sw.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.sw.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.sw.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-sw-dev \
+  --index miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.sw.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-sw-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.sw.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.sw.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1929,16 +1928,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.te.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.te.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.te.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-te-dev \
+  --index miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.te.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-te-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.te.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.te.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1947,16 +1950,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.th.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.th.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.th.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-th-dev \
+  --index miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.th.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-th-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.th.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.th.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1965,16 +1972,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.zh.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.zh.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.zh.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-zh-dev \
+  --index miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.zh.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-zh-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.zh.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.zh.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1983,16 +1994,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.de.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.de.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.de.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-de-dev \
+  --index miracl-v1.0-de-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.de.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-de-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.de.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.de.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2001,16 +2016,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.yo.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.yo.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.yo.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-yo-dev \
+  --index miracl-v1.0-yo-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.yo.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -M 100 -m ndcg_cut.10 miracl-v1.0-yo-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.yo.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.yo.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2021,10 +2040,10 @@ Evaluation commands:
 </div></td>
 </tr>
 
-<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO then in-lang FT w/ MIRACL -->
+<!-- Condition: mDPR pFT+FT2 -->
 <tr class="accordion-toggle collapsed" id="table1-row5" data-toggle="collapse" data-parent="#table1-row5" href="#table1-collapse5">
 <td class="expand-button"></td>
-<td>mDPR (tied encoders), pre-FT w/ MS MARCO then in-lang FT w/ MIRACL</td>
+<td>mDPR pFT+FT2</td>
 <td>0.725</td>
 <td>0.684</td>
 <td>0.488</td>
@@ -2486,10 +2505,10 @@ Evaluation commands:
 </div></td>
 </tr>
 
-<!-- Condition: mContriever (tied encoders), pre-FT w/ MS MARCO -->
+<!-- Condition: mContriever -->
 <tr class="accordion-toggle collapsed" id="table1-row6" data-toggle="collapse" data-parent="#table1-row6" href="#table1-collapse6">
 <td class="expand-button"></td>
-<td>mContriever (tied encoders), pre-FT w/ MS MARCO</td>
+<td>mContriever</td>
 <td>0.525</td>
 <td>0.501</td>
 <td>0.364</td>
@@ -2976,7 +2995,7 @@ Evaluation commands:
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col">Recall@100, dev queries</th>
+        <th scope="col">Recall@100, dev&nbsp;queries</th>
         <th scope="col">ar</th>
         <th scope="col">bn</th>
         <th scope="col">en</th>
@@ -3481,10 +3500,10 @@ Evaluation commands:
 </div></td>
 </tr>
 
-<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO -->
+<!-- Condition: mDPR pFT -->
 <tr class="accordion-toggle collapsed" id="table2-row2" data-toggle="collapse" data-parent="#table2-row2" href="#table2-collapse2">
 <td class="expand-button"></td>
-<td>mDPR (tied encoders), pre-FT w/ MS MARCO</td>
+<td>mDPR pFT</td>
 <td>0.841</td>
 <td>0.819</td>
 <td>0.768</td>
@@ -3962,30 +3981,30 @@ Evaluation commands:
 </div></td>
 </tr>
 
-<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO then FT w/ all Mr. TyDi -->
+<!-- Condition: BM25+mDPR&nbsp;pFT -->
 <tr class="accordion-toggle collapsed" id="table2-row3" data-toggle="collapse" data-parent="#table2-row3" href="#table2-collapse3">
 <td class="expand-button"></td>
-<td>mDPR (tied encoders), pre-FT w/ MS MARCO then FT w/ all Mr. TyDi</td>
-<td>0.795</td>
-<td>0.848</td>
-<td>0.508</td>
-<td>0.471</td>
-<td>0.686</td>
-<td>0.798</td>
-<td>0.601</td>
-<td>0.637</td>
-<td>0.584</td>
-<td>0.745</td>
-<td>0.718</td>
-<td>0.671</td>
-<td>0.888</td>
-<td>0.951</td>
-<td>0.836</td>
-<td>0.673</td>
-<td>0.599</td>
-<td>0.891</td>
+<td>BM25+mDPR&nbsp;pFT</td>
+<td>0.941</td>
+<td>0.932</td>
+<td>0.882</td>
+<td>0.948</td>
+<td>0.937</td>
+<td>0.895</td>
+<td>0.965</td>
+<td>0.912</td>
+<td>0.768</td>
+<td>0.904</td>
+<td>0.900</td>
+<td>0.874</td>
+<td>0.725</td>
+<td>0.857</td>
+<td>0.823</td>
+<td>0.959</td>
+<td>0.948</td>
+<td>0.950</td>
 <td></td>
-<td>0.717</td>
+<td>0.895</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -4057,20 +4076,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-ar-dev \
-  --index miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ar.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.ar.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ar.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ar.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-ar-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.ar.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ar.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4078,20 +4093,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-bn-dev \
-  --index miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.bn.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.bn.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.bn.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.bn.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-bn-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.bn.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.bn.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4099,20 +4110,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-en-dev \
-  --index miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.en.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.en.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.en.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.en.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-en-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.en.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.en.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4120,20 +4127,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-es-dev \
-  --index miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.es.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.es.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.es.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.es.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-es-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.es.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.es.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4141,20 +4144,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-fa-dev \
-  --index miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.fa.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.fa.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.fa.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fa.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-fa-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.fa.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fa.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4162,20 +4161,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-fi-dev \
-  --index miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.fi.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.fi.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.fi.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fi.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-fi-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.fi.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fi.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4183,20 +4178,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-fr-dev \
-  --index miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.fr.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.fr.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.fr.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fr.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-fr-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.fr.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fr.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4204,20 +4195,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-hi-dev \
-  --index miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.hi.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.hi.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.hi.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.hi.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-hi-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.hi.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.hi.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4225,20 +4212,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-id-dev \
-  --index miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.id.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.id.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.id.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.id.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-id-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.id.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.id.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4246,20 +4229,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-ja-dev \
-  --index miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ja.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.ja.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ja.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ja.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-ja-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.ja.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ja.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4267,20 +4246,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-ko-dev \
-  --index miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ko.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.ko.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ko.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ko.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-ko-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.ko.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ko.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4288,20 +4263,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-ru-dev \
-  --index miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ru.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.ru.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ru.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ru.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-ru-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.ru.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ru.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4309,20 +4280,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-sw-dev \
-  --index miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.sw.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.sw.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.sw.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.sw.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-sw-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.sw.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.sw.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4331,20 +4298,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-te-dev \
-  --index miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.te.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.te.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.te.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.te.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-te-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.te.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.te.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4353,20 +4316,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-th-dev \
-  --index miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.th.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.th.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.th.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.th.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-th-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.th.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.th.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4375,20 +4334,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-zh-dev \
-  --index miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.zh.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.zh.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.zh.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.zh.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-zh-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.zh.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.zh.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4397,20 +4352,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-de-dev \
-  --index miracl-v1.0-de-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.de.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.de.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.de.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.de.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-de-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.de.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.de.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4419,20 +4370,16 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto \
-  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
-  --topics miracl-v1.0-yo-dev \
-  --index miracl-v1.0-yo-mdpr-tied-pft-msmarco-ft-all \
-  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.yo.dev.txt --hits 1000
+<pre><code>python -m pyserini.fusion \
+  --runs  run.miracl.bm25.yo.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.yo.dev.top1000.txt \
+  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.yo.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-yo-dev \
-  run.miracl.mdpr-tied-pft-msmarco-ft-all.yo.dev.txt</code></pre>
+  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.yo.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4443,30 +4390,30 @@ Evaluation commands:
 </div></td>
 </tr>
 
-<!-- Condition: Hybrid of `bm25` and `mdpr-tied-pft-msmarco` -->
+<!-- Condition: mDPR pFT+FT1 -->
 <tr class="accordion-toggle collapsed" id="table2-row4" data-toggle="collapse" data-parent="#table2-row4" href="#table2-collapse4">
 <td class="expand-button"></td>
-<td>Hybrid of `bm25` and `mdpr-tied-pft-msmarco`</td>
-<td>0.941</td>
-<td>0.932</td>
-<td>0.882</td>
-<td>0.948</td>
-<td>0.937</td>
-<td>0.895</td>
-<td>0.965</td>
-<td>0.912</td>
-<td>0.768</td>
-<td>0.904</td>
-<td>0.900</td>
-<td>0.874</td>
-<td>0.725</td>
-<td>0.857</td>
-<td>0.823</td>
-<td>0.959</td>
-<td>0.948</td>
-<td>0.950</td>
+<td>mDPR pFT+FT1</td>
+<td>0.795</td>
+<td>0.848</td>
+<td>0.508</td>
+<td>0.471</td>
+<td>0.686</td>
+<td>0.798</td>
+<td>0.601</td>
+<td>0.637</td>
+<td>0.584</td>
+<td>0.745</td>
+<td>0.718</td>
+<td>0.671</td>
+<td>0.888</td>
+<td>0.951</td>
+<td>0.836</td>
+<td>0.673</td>
+<td>0.599</td>
+<td>0.891</td>
 <td></td>
-<td>0.895</td>
+<td>0.717</td>
 </tr>
 <tr class="hide-table-padding">
 <td colspan="22">
@@ -4538,16 +4485,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.ar.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ar.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ar.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-ar-dev \
+  --index miracl-v1.0-ar-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ar.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-ar-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ar.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.ar.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4555,16 +4506,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.bn.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.bn.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.bn.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-bn-dev \
+  --index miracl-v1.0-bn-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.bn.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-bn-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.bn.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.bn.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4572,16 +4527,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.en.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.en.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.en.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-en-dev \
+  --index miracl-v1.0-en-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.en.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-en-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.en.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.en.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4589,16 +4548,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.es.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.es.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.es.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-es-dev \
+  --index miracl-v1.0-es-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.es.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-es-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.es.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.es.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4606,16 +4569,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.fa.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.fa.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fa.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-fa-dev \
+  --index miracl-v1.0-fa-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.fa.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-fa-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fa.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.fa.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4623,16 +4590,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.fi.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.fi.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fi.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-fi-dev \
+  --index miracl-v1.0-fi-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.fi.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-fi-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fi.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.fi.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4640,16 +4611,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.fr.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.fr.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fr.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-fr-dev \
+  --index miracl-v1.0-fr-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.fr.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-fr-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.fr.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.fr.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4657,16 +4632,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.hi.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.hi.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.hi.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-hi-dev \
+  --index miracl-v1.0-hi-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.hi.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-hi-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.hi.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.hi.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4674,16 +4653,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.id.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.id.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.id.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-id-dev \
+  --index miracl-v1.0-id-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.id.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-id-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.id.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.id.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4691,16 +4674,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.ja.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ja.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ja.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-ja-dev \
+  --index miracl-v1.0-ja-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ja.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-ja-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ja.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.ja.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4708,16 +4695,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.ko.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ko.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ko.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-ko-dev \
+  --index miracl-v1.0-ko-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ko.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-ko-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ko.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.ko.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4725,16 +4716,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.ru.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.ru.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ru.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-ru-dev \
+  --index miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.ru.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-ru-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.ru.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.ru.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4742,16 +4737,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.sw.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.sw.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.sw.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-sw-dev \
+  --index miracl-v1.0-sw-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.sw.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-sw-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.sw.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.sw.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4760,16 +4759,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.te.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.te.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.te.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-te-dev \
+  --index miracl-v1.0-te-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.te.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-te-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.te.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.te.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4778,16 +4781,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.th.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.th.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.th.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-th-dev \
+  --index miracl-v1.0-th-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.th.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-th-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.th.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.th.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4796,16 +4803,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.zh.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.zh.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.zh.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-zh-dev \
+  --index miracl-v1.0-zh-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.zh.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-zh-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.zh.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.zh.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4814,16 +4825,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.de.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.de.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.de.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-de-dev \
+  --index miracl-v1.0-de-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.de.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-de-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.de.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.de.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4832,16 +4847,20 @@ Evaluation commands:
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.fusion \
-  --runs  run.miracl.bm25.yo.dev.top1000.txt run.miracl.mdpr-tied-pft-msmarco.yo.dev.top1000.txt \
-  --output run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.yo.dev.txt --method interpolation --alpha 0.5 --depth 1000 --k 1000
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto \
+  --encoder castorini/mdpr-tied-pft-msmarco-ft-all \
+  --topics miracl-v1.0-yo-dev \
+  --index miracl-v1.0-yo-mdpr-tied-pft-msmarco-ft-all \
+  --output run.miracl.mdpr-tied-pft-msmarco-ft-all.yo.dev.txt --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.100 miracl-v1.0-yo-dev \
-  run.miracl.bm25-mdpr-tied-pft-msmarco-hybrid.yo.dev.txt</code></pre>
+  run.miracl.mdpr-tied-pft-msmarco-ft-all.yo.dev.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4852,10 +4871,10 @@ Evaluation commands:
 </div></td>
 </tr>
 
-<!-- Condition: mDPR (tied encoders), pre-FT w/ MS MARCO then in-lang FT w/ MIRACL -->
+<!-- Condition: mDPR pFT+FT2 -->
 <tr class="accordion-toggle collapsed" id="table2-row5" data-toggle="collapse" data-parent="#table2-row5" href="#table2-collapse5">
 <td class="expand-button"></td>
-<td>mDPR (tied encoders), pre-FT w/ MS MARCO then in-lang FT w/ MIRACL</td>
+<td>mDPR pFT+FT2</td>
 <td>0.949</td>
 <td>0.955</td>
 <td>0.834</td>
@@ -5317,10 +5336,10 @@ Evaluation commands:
 </div></td>
 </tr>
 
-<!-- Condition: mContriever (tied encoders), pre-FT w/ MS MARCO -->
+<!-- Condition: mContriever -->
 <tr class="accordion-toggle collapsed" id="table2-row6" data-toggle="collapse" data-parent="#table2-row6" href="#table2-collapse6">
 <td class="expand-button"></td>
-<td>mContriever (tied encoders), pre-FT w/ MS MARCO</td>
+<td>mContriever</td>
 <td>0.925</td>
 <td>0.921</td>
 <td>0.797</td>
