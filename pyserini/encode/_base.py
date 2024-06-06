@@ -43,9 +43,9 @@ class MLXDocumentEncoder:
     @staticmethod
     def _mean_pooling(last_hidden_state: mx.array, attention_mask: mx.array):
         token_embeddings = last_hidden_state
-        input_mask_expanded = attention_mask.expand_dims(-1).broadcast_to(token_embeddings.size()).float()
+        input_mask_expanded = attention_mask.expand_dims(-1).broadcast_to(token_embeddings.shape).astype(mx.float32)
         sum_embeddings = mx.sum(token_embeddings * input_mask_expanded, 1)
-        sum_mask = mx.clip(input_mask_expanded.sum(1), a_min=1e-9)
+        sum_mask = mx.clip(input_mask_expanded.sum(axis=1), a_min=1e-9, a_max=None)
         return sum_embeddings / sum_mask
 
 class QueryEncoder:
