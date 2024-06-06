@@ -14,11 +14,20 @@
 # limitations under the License.
 #
 
-from ._base import DocumentEncoder, QueryEncoder, JsonlCollectionIterator,\
-    RepresentationWriter, FaissRepresentationWriter, JsonlRepresentationWriter, PcaEncoder
+from ._base import ( 
+    DocumentEncoder,
+    MLXDocumentEncoder,
+    QueryEncoder, 
+    MLXQueryEncoder,
+    JsonlCollectionIterator,
+    RepresentationWriter,
+    FaissRepresentationWriter, 
+    JsonlRepresentationWriter,
+    PcaEncoder
+)
 from ._ance import AnceEncoder, AnceDocumentEncoder, AnceQueryEncoder
 from ._auto import AutoQueryEncoder, AutoDocumentEncoder
-from ._dpr import DprDocumentEncoder, DprQueryEncoder
+from ._dpr import MLXDprDocumentEncoder, DprDocumentEncoder, DprQueryEncoder, MLXDprQueryEncoder
 from ._tct_colbert import TctColBertDocumentEncoder, TctColBertQueryEncoder
 from ._aggretriever import AggretrieverDocumentEncoder, AggretrieverQueryEncoder
 from ._unicoil import UniCoilEncoder, UniCoilDocumentEncoder, UniCoilQueryEncoder
@@ -27,5 +36,12 @@ from ._tok_freq import TokFreqQueryEncoder
 from ._splade import SpladeQueryEncoder
 from ._slim import SlimQueryEncoder
 from ._openai import OpenAIDocumentEncoder, OpenAIQueryEncoder, OPENAI_API_RETRY_DELAY
-from ._cosdpr import CosDprEncoder, CosDprDocumentEncoder, CosDprQueryEncoder
+from ._cosdpr import ( 
+    CosDprEncoder, 
+    MLXCosDprEncoder, 
+    CosDprDocumentEncoder, 
+    MLXCosDprDocumentEncoder, 
+    CosDprQueryEncoder, 
+    MLXCosDprQueryEncoder 
+)
 from ._clip import ClipEncoder, ClipDocumentEncoder

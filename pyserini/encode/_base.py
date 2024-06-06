@@ -21,6 +21,8 @@ import torch
 import numpy as np
 from tqdm import tqdm
 
+# apple silicon
+import mlx as mx
 
 class DocumentEncoder:
     def encode(self, texts, **kwargs):
@@ -33,12 +35,26 @@ class DocumentEncoder:
         sum_embeddings = torch.sum(token_embeddings * input_mask_expanded, 1)
         sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
         return sum_embeddings / sum_mask
+    
+class MLXDocumentEncoder:
+    def encode(self, texts, **kwargs):
+        pass
 
+    @staticmethod
+    def _mean_pooling(last_hidden_state: mx.array, attention_mask: mx.array):
+        token_embeddings = last_hidden_state
+        input_mask_expanded = attention_mask.expand_dims(-1).broadcast_to(token_embeddings.size()).float()
+        sum_embeddings = mx.sum(token_embeddings * input_mask_expanded, 1)
+        sum_mask = mx.clip(input_mask_expanded.sum(1), a_min=1e-9)
+        return sum_embeddings / sum_mask
 
 class QueryEncoder:
     def encode(self, text, **kwargs):
         pass
 
+class MLXQueryEncoder:
+    def encode(self, text, **kwargs):
+        pass
 
 class PcaEncoder:
     def __init__(self, encoder, pca_model_path):
