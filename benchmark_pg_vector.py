@@ -45,10 +45,10 @@ def setup_database():
     conn.commit()
 
     # Create indexes with pgvector
-    cur.execute("CREATE INDEX ON documents USING ivfflat (vector vector_l2_ops);")
-    cur.execute("CREATE INDEX ON documents USING ivfflat (vector vector_cosine_ops);")
-    cur.execute("CREATE INDEX ON documents USING ivfflat (vector vector_ip_ops);")
-    conn.commit()
+    cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_l2_ops);")
+    cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_cosine_ops);")
+    cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_ip_ops);")
+    # conn.commit()
 
     return cur, conn
 
@@ -74,13 +74,13 @@ def run_benchmark(cur, trec_output_file_path, metric):
 
                 # Select appropriate SQL query based on the metric
                 if metric == 'l2sq':
-                    sql_query = "SELECT id, vector <-> %s::vector AS score FROM documents ORDER BY vector <-> %s::vector LIMIT %s"
+                    sql_query = "SELECT id, vector <-> %s::vector AS score FROM documents ORDER BY score LIMIT %s"
                 elif metric == 'ip':
-                    sql_query = "SELECT id, vector <#> %s::vector AS score FROM documents ORDER BY vector <#> %s::vector LIMIT %s"
+                    sql_query = "SELECT id, (vector <#> %s::vector) * -1 AS score FROM documents ORDER BY score DESC LIMIT %s"
                 elif metric == 'cosine':
-                    sql_query = "SELECT id, vector <=> %s::vector AS score FROM documents ORDER BY vector <=> %s::vector DESC LIMIT %s"
+                    sql_query = "SELECT id, 1 - (vector <=> %s::vector) AS score FROM documents ORDER BY score DESC LIMIT %s"
 
-                cur.execute(sql_query, (vector, vector, K))
+                cur.execute(sql_query, (vector, K))
                 results = cur.fetchall()
 
                 # Write results in TREC format
