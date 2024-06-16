@@ -573,9 +573,9 @@ TF_INDEX_INFO_MSMARCO = {
         ],
         "md5": "cecd55856c34afa82f1a499705c9df02",
         "size compressed (bytes)": 54190811494,
-        "total_terms": 14165667143,
-        "documents": 11959635,
-        "unique_terms": 44860768,
+        "total_terms": 12710796540,
+        "documents": 10960555,
+        "unique_terms": 44599151,
         "downloaded": False
     },
     "msmarco-v2.1-doc-slim": {
@@ -587,9 +587,9 @@ TF_INDEX_INFO_MSMARCO = {
         ],
         "md5": "2c31a8c0a7133eb6ea04c91ceffa7e08",
         "size compressed (bytes)": 6191736133,
-        "total_terms": 14165667143,
-        "documents": 11959635,
-        "unique_terms": 44860768,
+        "total_terms": 12710796540,
+        "documents": 10960555,
+        "unique_terms": 44599151,
         "downloaded": False
     },
     "msmarco-v2.1-doc-full": {
@@ -601,9 +601,9 @@ TF_INDEX_INFO_MSMARCO = {
         ],
         "md5": "794708c9cf8fc6eafff07c5485e934b9",
         "size compressed (bytes)": 102997532522,
-        "total_terms": 14165667143,
-        "documents": 11959635,
-        "unique_terms": 44860768,
+        "total_terms": 12710796540,
+        "documents": 10960555,
+        "unique_terms": 44599151,
         "downloaded": False
     },
 
@@ -617,9 +617,9 @@ TF_INDEX_INFO_MSMARCO = {
         ],
         "md5": "6ec4cd595c9fe1ad91b43eabb39a637c",
         "size compressed (bytes)": 60071133069,
-        "total_terms": 24780918039,
-        "documents": 124131414,
-        "unique_terms": 29265408,
+        "total_terms": 22707699649,
+        "documents": 113520750,
+        "unique_terms": 29040364,
         "downloaded": False
     },
     "msmarco-v2.1-doc-segmented-slim": {
@@ -631,9 +631,9 @@ TF_INDEX_INFO_MSMARCO = {
         ],
         "md5": "3c6c946c722a201b65903a92f082ea4f",
         "size compressed (bytes)": 15374492909,
-        "total_terms": 24780918039,
-        "documents": 124131414,
-        "unique_terms": 29265408,
+        "total_terms": 22707699649,
+        "documents": 113520750,
+        "unique_terms": 29040364,
         "downloaded": False
     },
     "msmarco-v2.1-doc-segmented-full": {
@@ -645,9 +645,9 @@ TF_INDEX_INFO_MSMARCO = {
         ],
         "md5": "a43d09d31ae4e5dac81f5cfde1a810a7",
         "size compressed (bytes)": 146130406504,
-        "total_terms": 24780918039,
-        "documents": 124131414,
-        "unique_terms": 29265408,
+        "total_terms": 22707699649,
+        "documents": 113520750,
+        "unique_terms": 29040364,
         "downloaded": False
     }
 }
