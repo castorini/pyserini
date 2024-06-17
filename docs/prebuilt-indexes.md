@@ -200,6 +200,30 @@ Detailed configuration information for the pre-built indexes are stored in [`pys
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage-augmented.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index (+docvectors) of the MS MARCO V2 augmented passage corpus with doc2query-T5 expansions.
 </dd>
+<dt></dt><b><code>msmarco-v2.1-doc</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md">readme</a>]
+<dd>Lucene index of the MS MARCO V2.1 document corpus.
+</dd>
+<dt></dt><b><code>msmarco-v2.1-doc-slim</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md">readme</a>]
+<dd>Lucene index of the MS MARCO V2.1 document corpus ('slim' version).
+</dd>
+<dt></dt><b><code>msmarco-v2.1-doc-full</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md">readme</a>]
+<dd>Lucene index of the MS MARCO V2.1 document corpus ('full' version).
+</dd>
+<dt></dt><b><code>msmarco-v2.1-doc-segmented</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md">readme</a>]
+<dd>Lucene index of the MS MARCO V2.1 segmented document corpus.
+</dd>
+<dt></dt><b><code>msmarco-v2.1-doc-segmented-slim</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md">readme</a>]
+<dd>Lucene index of the MS MARCO V2.1 segmented document corpus ('slim' version).
+</dd>
+<dt></dt><b><code>msmarco-v2.1-doc-segmented-full</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md">readme</a>]
+<dd>Lucene index of the MS MARCO V2.1 segmented document corpus ('full' version).
+</dd>
 </dl>
 </details>
 <details>
