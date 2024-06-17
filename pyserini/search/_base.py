@@ -82,14 +82,18 @@ topics_mapping = {
     'dl20-unicoil': 'TREC2020_DL_UNICOIL',
     'dl20-unicoil-noexp': 'TREC2020_DL_UNICOIL_NOEXP',
     'dl21': 'TREC2021_DL',
+    'dl21-doc': 'TREC2021_DL',
     'dl21-unicoil': 'TREC2021_DL_UNICOIL',
     'dl21-unicoil-noexp': 'TREC2021_DL_UNICOIL_NOEXP',
     'dl22': 'TREC2022_DL',
+    'dl22-doc': 'TREC2022_DL',
     'dl22-unicoil': 'TREC2022_DL_UNICOIL',
     'dl22-unicoil-noexp': 'TREC2022_DL_UNICOIL_NOEXP',
     'dl23': 'TREC2023_DL',
+    'dl23-doc': 'TREC2023_DL',
     'dl23-unicoil': 'TREC2023_DL_UNICOIL',
     'dl23-unicoil-noexp': 'TREC2023_DL_UNICOIL_NOEXP',
+    'rag24.raggy-dev': 'TREC2024_RAG_RAGGY_DEV',
     'msmarco-doc-dev': 'MSMARCO_DOC_DEV',
     'msmarco-doc-dev-unicoil': 'MSMARCO_DOC_DEV_UNICOIL',
     'msmarco-doc-dev-unicoil-noexp': 'MSMARCO_DOC_DEV_UNICOIL_NOEXP',
@@ -102,9 +106,11 @@ topics_mapping = {
     'msmarco-passage-dev-subset-distill-splade-max': 'MSMARCO_PASSAGE_DEV_SUBSET_DISTILL_SPLADE_MAX',
     'msmarco-passage-test-subset': 'MSMARCO_PASSAGE_TEST_SUBSET',
     'msmarco-v2-doc-dev': 'MSMARCO_V2_DOC_DEV',
+    'msmarco-v2-doc.dev': 'MSMARCO_V2_DOC_DEV',
     'msmarco-v2-doc-dev-unicoil': 'MSMARCO_V2_DOC_DEV_UNICOIL',
     'msmarco-v2-doc-dev-unicoil-noexp': 'MSMARCO_V2_DOC_DEV_UNICOIL_NOEXP',
     'msmarco-v2-doc-dev2': 'MSMARCO_V2_DOC_DEV2',
+    'msmarco-v2-doc.dev2': 'MSMARCO_V2_DOC_DEV2',
     'msmarco-v2-doc-dev2-unicoil': 'MSMARCO_V2_DOC_DEV2_UNICOIL',
     'msmarco-v2-doc-dev2-unicoil-noexp': 'MSMARCO_V2_DOC_DEV2_UNICOIL_NOEXP',
     'msmarco-v2-passage-dev': 'MSMARCO_V2_PASSAGE_DEV',
@@ -419,12 +425,18 @@ qrels_mapping = {
     'dl22-passage': 'TREC2022_DL_PASSAGE',
     'dl23-doc': 'TREC2023_DL_DOC',
     'dl23-passage': 'TREC2023_DL_PASSAGE',
+    'dl21-doc-msmarco-v2.1': 'TREC2021_DL_DOC_MSMARCO_V21',
+    'dl22-doc-msmarco-v2.1': 'TREC2022_DL_DOC_MSMARCO_V21',
+    'dl23-doc-msmarco-v2.1': 'TREC2023_DL_DOC_MSMARCO_V21',
+    'rag24.raggy-dev': 'TREC2024_RAG_RAGGY_DEV',
     'msmarco-doc-dev': 'MSMARCO_DOC_DEV',
     'msmarco-passage-dev-subset': 'MSMARCO_PASSAGE_DEV_SUBSET',
     'msmarco-v2-doc-dev': 'MSMARCO_V2_DOC_DEV',
     'msmarco-v2-doc-dev2': 'MSMARCO_V2_DOC_DEV2',
     'msmarco-v2-passage-dev': 'MSMARCO_V2_PASSAGE_DEV',
     'msmarco-v2-passage-dev2': 'MSMARCO_V2_PASSAGE_DEV2',
+    'msmarco-v2.1-doc.dev': 'MSMARCO_V21_DOC_DEV',
+    'msmarco-v2.1-doc.dev2': 'MSMARCO_V21_DOC_DEV2',
     'ntcir8-zh': 'NTCIR8_ZH',
     'clef2006-fr': 'CLEF2006_FR',
     'trec2002-ar': 'TREC2002_AR',
@@ -564,6 +576,7 @@ for qrel in qrels_mapping:
 
 topics_mapping = {k: v for k, v in topics_mapping.items() if v is not None}
 qrels_mapping = {k: v for k, v in qrels_mapping.items() if v is not None}
+
 
 def get_topics(collection_name):
     """
