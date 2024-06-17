@@ -1,8 +1,8 @@
 
 # Pyserini: Prebuilt Indexes
 
-Pyserini provides a number of pre-built Lucene indexes.
-To list what's available in code:
+Pyserini provides a number of prebuilt Lucene indexes.
+To list what's available:
 
 ```python
 from pyserini.search.lucene import LuceneSearcher
@@ -12,13 +12,13 @@ from pyserini.index.lucene import IndexReader
 IndexReader.list_prebuilt_indexes()
 ```
 
-It's easy initialize a searcher from a pre-built index:
+It's easy initialize a searcher from a prebuilt index:
 
 ```python
 searcher = LuceneSearcher.from_prebuilt_index('robust04')
 ```
 
-You can use this simple Python one-liner to download the pre-built index:
+You can use this simple Python one-liner to download the prebuilt index:
 
 ```
 python -c "from pyserini.search.lucene import LuceneSearcher; LuceneSearcher.from_prebuilt_index('robust04')"
@@ -26,7 +26,7 @@ python -c "from pyserini.search.lucene import LuceneSearcher; LuceneSearcher.fro
 
 The downloaded index will be in `~/.cache/pyserini/indexes/`.
 
-It's similarly easy initialize an index reader from a pre-built index:
+It's similarly easy initialize an index reader from a prebuilt index:
 
 ```python
 index_reader = IndexReader.from_prebuilt_index('robust04')
@@ -42,8 +42,22 @@ The output will be:
 Note that unless the underlying index was built with the `-optimize` option (i.e., merging all index segments into a single segment), `unique_terms` will show -1.
 Nope, that's not a bug.
 
-Below is a summary of the pre-built indexes that are currently available.
-Detailed configuration information for the pre-built indexes are stored in [`pyserini/prebuilt_index_info.py`](../pyserini/prebuilt_index_info.py).
+Pyserini also provides a number of prebuilt Faiss indexes.
+To list what's available:
+
+```python
+from pyserini.search.faiss import FaissSearcher
+FaissSearcher.list_prebuilt_indexes()
+```
+
+And to initialize a specific Faiss index:
+
+```python
+searcher = FaissSearcher.from_prebuilt_index('msmarco-v1-passage.bge-base-en-v1.5', None)
+```
+
+Below is a summary of the prebuilt indexes that are currently available.
+Detailed configuration information for the prebuilt indexes are stored in [`pyserini/prebuilt_index_info.py`](../pyserini/prebuilt_index_info.py).
 
 
 
