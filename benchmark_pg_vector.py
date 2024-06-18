@@ -48,7 +48,7 @@ def setup_database():
     cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_l2_ops);")
     cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_cosine_ops);")
     cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_ip_ops);")
-    # conn.commit()
+    conn.commit()
 
     return cur, conn
 
