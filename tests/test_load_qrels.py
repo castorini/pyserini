@@ -333,6 +333,16 @@ class TestLoadQrels(unittest.TestCase):
         self.assertEqual(len(qrels), 5000)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
+        qrels = search.get_qrels('msmarco-v2.1-doc.dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 4552)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('msmarco-v2.1-doc.dev2')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 5000)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
     def test_msmarco_v2_passage(self):
         qrels = search.get_qrels('msmarco-v2-passage-dev')
         self.assertIsNotNone(qrels)
@@ -351,6 +361,12 @@ class TestLoadQrels(unittest.TestCase):
         self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 13058)
         self.assertFalse(isinstance(next(iter(qrels.keys())), str))
 
+        qrels = search.get_qrels('dl21-doc-msmarco-v2.1')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 57)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 10973)
+        self.assertFalse(isinstance(next(iter(qrels.keys())), str))
+
         qrels = search.get_qrels('dl21-passage')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 53)
@@ -362,6 +378,12 @@ class TestLoadQrels(unittest.TestCase):
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 76)
         self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 369638)
+        self.assertFalse(isinstance(next(iter(qrels.keys())), str))
+
+        qrels = search.get_qrels('dl22-doc-msmarco-v2.1')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 76)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 349541)
         self.assertFalse(isinstance(next(iter(qrels.keys())), str))
 
         qrels = search.get_qrels('dl22-passage')
@@ -377,10 +399,23 @@ class TestLoadQrels(unittest.TestCase):
         self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 18034)
         self.assertFalse(isinstance(next(iter(qrels.keys())), str))
 
+        qrels = search.get_qrels('dl23-doc-msmarco-v2.1')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 82)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 15995)
+        self.assertFalse(isinstance(next(iter(qrels.keys())), str))
+
         qrels = search.get_qrels('dl23-passage')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 82)
         self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 22327)
+        self.assertFalse(isinstance(next(iter(qrels.keys())), str))
+
+    def test_rag24(self):
+        qrels = search.get_qrels('rag24.raggy-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 120)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 147328)
         self.assertFalse(isinstance(next(iter(qrels.keys())), str))
 
     # Various multi-lingual test collections
