@@ -17,6 +17,8 @@ With Pyserini, it's easy to reproduce runs on a number of standard IR test colle
 
 For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.3463238) in SIGIR 2021 provides a nice overview.
 
+✨ **New!** Guide to working with the [MS MARCO 2.1 Document Corpus](docs/experiments-msmarco-v2.1.md) for TREC 2024 RAG Track.
+
 ❗ Anserini was upgraded from JDK 11 to JDK 21 at commit [`272565`](https://github.com/castorini/anserini/commit/39cecf6c257bae85f4e9f6ab02e0be101338c3cc) (2024/04/03), which corresponds to the release of v0.35.0.
 Correspondingly, Pyserini was upgraded to JDK 21 at commit [`b2f677`](https://github.com/castorini/pyserini/commit/b2f677da46e1910c0fd95e5ff06070bc71075401) (2024/04/04).
 
