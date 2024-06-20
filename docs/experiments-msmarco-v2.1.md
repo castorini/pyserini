@@ -1,6 +1,6 @@
 # Pyserini: BM25 Baselines for MS MARCO V2.1
 
-The MS MARCO V2.1 document corpus was curated for the TREC 2004 RAG Track and comes in two flavors: the doc corpus and the segmented doc corpus.
+The MS MARCO V2.1 document corpus was curated for the TREC 2024 RAG Track and comes in two flavors: the doc corpus and the segmented doc corpus.
 This guide provides instructions for getting started with both variants using Pyserini: we provide prebuilt indexes that you can use "right out of the box".
 
 ❗ Beware, you need lots of space to run these experiments.
