@@ -187,8 +187,8 @@ And the output looks something like:
 ```bash
 {
   "query": {
-    "qid": "",
-    "text": "How does the process of digestion and metabolism of carbohydrates start"
+    "text": "How does the process of digestion and metabolism of carbohydrates start",
+    "qid": ""
   },
   "candidates": [
     {
@@ -215,6 +215,14 @@ And the output looks something like:
   ]
 }
 ```
+
+Here's the command to query the `msmarco-v2.1-doc-segmented` index for 1000 hits (i.e., `hits=1000`):
+
+```bash
+curl -X GET "http://localhost:8082/api/collection/msmarco-v2.1-doc-segmented/search?query=How%20does%20the%20process%20of%20digestion%20and%20metabolism%20of%20carbohydrates%20start&hits=1000" 
+```
+
+You get the idea...
 
 The API also provides an interactive search interface.
 To access it, navigate to [`http://localhost:8082/`](http://localhost:8082/) in your browser.
