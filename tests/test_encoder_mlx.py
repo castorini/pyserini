@@ -23,13 +23,7 @@ import unittest
 from random import randint
 from urllib.request import urlretrieve
 
-import faiss
-from transformers import BertModel
-
 from pyserini.encode import MlxTctColBertDocumentEncoder
-from pyserini.encode import TctColBertDocumentEncoder
-from pyserini.search.lucene import LuceneImpactSearcher
-from pyserini.util import convert_transformers_to_mlx
 
 
 class TestEncode(unittest.TestCase):
