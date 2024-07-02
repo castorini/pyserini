@@ -40,6 +40,10 @@ class TestSearch(unittest.TestCase):
         os.system(
             f'python -m pyserini.fusion --method interpolation --alpha 0.4 --runs {qruns_str} --output {self.output_path} --runtag test')
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
+        
+        os.system(
+            f'python -m pyserini.fusion --method interpolation --alpha 0.4 0.6 --runs {qruns_str} --output {self.output_path} --runtag test')
+        self.assertTrue(filecmp.cmp(verify_path, self.output_path))
 
     def test_average_fusion_simple(self):
         input_paths = ['tests/resources/simple_trec_run_fusion_1.txt', 'tests/resources/simple_trec_run_fusion_2.txt']
