@@ -28,34 +28,36 @@ def setup_database():
     )
     cur = conn.cursor()
 
-    # # Create documents table
-    # cur.execute(f"""
-    #     CREATE TABLE documents (
-    #         id TEXT PRIMARY KEY,
-    #         content TEXT,
-    #         vector VECTOR({VECTOR_SIZE})
-    #     )
-    # """)
-    # conn.commit()
+    # Create documents table
+    cur.execute(f"""
+        CREATE TABLE documents (
+            id TEXT PRIMARY KEY,
+            content TEXT,
+            vector VECTOR({VECTOR_SIZE})
+        )
+    """)
+    conn.commit()
 
-    # # Insert data from JSONL file
-    # with open(DOCUMENT_JSONL_FILE_PATH, 'r') as file:
-    #     for line in file:
-    #         data = json.loads(line)
-    #         insert_data_into_table(cur, data['id'], data['contents'], data['vector'])
-    # conn.commit()
+    # Insert data from JSONL file
+    with open(DOCUMENT_JSONL_FILE_PATH, 'r') as file:
+        for line in file:
+            data = json.loads(line)
+            insert_data_into_table(cur, data['id'], data['contents'], data['vector'])
+    conn.commit()
 
-    # # Create indexes with pgvector
-    # start_time = time.time()
-    # cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_l2_ops);")
-    # print('building l2sq index: ', time.time() - start_time)
-    # start_time = time.time()
-    # cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_cosine_ops);")
-    # print('building cosine index: ', time.time() - start_time)
-    # start_time = time.time()
-    # cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_ip_ops);")
-    # print('building ip index: ', time.time() - start_time)
-    # conn.commit()
+    # Create indexes with pgvector
+    start_time = time.time()
+    cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_l2_ops);")
+    print('building l2sq index: ', time.time() - start_time)
+
+    start_time = time.time()
+    cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_cosine_ops);")
+    print('building cosine index: ', time.time() - start_time)
+    
+    start_time = time.time()
+    cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_ip_ops);")
+    print('building ip index: ', time.time() - start_time)
+    conn.commit()
 
     return cur, conn
 
