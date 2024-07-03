@@ -288,6 +288,12 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 4552)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+        # This is an alias used by Anserini fatjar regressions, making sure it works in Pyserini also.
+        topics = search.get_topics('msmarco-v2-doc.dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 4552)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
         topics = search.get_topics('msmarco-v2-doc-dev-unicoil')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 4552)
@@ -299,6 +305,12 @@ class TestLoadTopics(unittest.TestCase):
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
         topics = search.get_topics('msmarco-v2-doc-dev2')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 5000)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        # This is an alias used by Anserini fatjar regressions, making sure it works in Pyserini also.
+        topics = search.get_topics('msmarco-v2-doc.dev2')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 5000)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
@@ -355,6 +367,12 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 477)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
 
+        # This is an alias used by Anserini fatjar regressions, making sure it works in Pyserini also.
+        topics = search.get_topics('dl21-doc')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 477)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
         topics = search.get_topics('dl21-unicoil')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 477)
@@ -367,6 +385,12 @@ class TestLoadTopics(unittest.TestCase):
 
     def test_dl22(self):
         topics = search.get_topics('dl22')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 500)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
+        # This is an alias used by Anserini fatjar regressions, making sure it works in Pyserini also.
+        topics = search.get_topics('dl22-doc')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 500)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
@@ -387,6 +411,12 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 700)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
 
+        # This is an alias used by Anserini fatjar regressions, making sure it works in Pyserini also.
+        topics = search.get_topics('dl23-doc')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 700)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
         topics = search.get_topics('dl23-unicoil')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 700)
@@ -395,6 +425,12 @@ class TestLoadTopics(unittest.TestCase):
         topics = search.get_topics('dl23-unicoil-noexp')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 700)
+        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
+    def test_rag24(self):
+        topics = search.get_topics('rag24.raggy-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 120)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
 
     # Various multi-lingual test collections
