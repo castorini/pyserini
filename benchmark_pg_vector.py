@@ -1,6 +1,7 @@
 import psycopg2
 import json
 import subprocess
+import time
 
 # Paths to embedding, query, and output files
 DOCUMENT_JSONL_FILE_PATH = 'indexes/non-faiss-nfcorpus/documents/embeddings.jsonl'
@@ -27,28 +28,34 @@ def setup_database():
     )
     cur = conn.cursor()
 
-    # Create documents table
-    cur.execute(f"""
-        CREATE TABLE documents (
-            id TEXT PRIMARY KEY,
-            content TEXT,
-            vector VECTOR({VECTOR_SIZE})
-        )
-    """)
-    conn.commit()
+    # # Create documents table
+    # cur.execute(f"""
+    #     CREATE TABLE documents (
+    #         id TEXT PRIMARY KEY,
+    #         content TEXT,
+    #         vector VECTOR({VECTOR_SIZE})
+    #     )
+    # """)
+    # conn.commit()
 
-    # Insert data from JSONL file
-    with open(DOCUMENT_JSONL_FILE_PATH, 'r') as file:
-        for line in file:
-            data = json.loads(line)
-            insert_data_into_table(cur, data['id'], data['contents'], data['vector'])
-    conn.commit()
+    # # Insert data from JSONL file
+    # with open(DOCUMENT_JSONL_FILE_PATH, 'r') as file:
+    #     for line in file:
+    #         data = json.loads(line)
+    #         insert_data_into_table(cur, data['id'], data['contents'], data['vector'])
+    # conn.commit()
 
-    # Create indexes with pgvector
-    cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_l2_ops);")
-    cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_cosine_ops);")
-    cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_ip_ops);")
-    conn.commit()
+    # # Create indexes with pgvector
+    # start_time = time.time()
+    # cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_l2_ops);")
+    # print('building l2sq index: ', time.time() - start_time)
+    # start_time = time.time()
+    # cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_cosine_ops);")
+    # print('building cosine index: ', time.time() - start_time)
+    # start_time = time.time()
+    # cur.execute("CREATE INDEX ON documents USING HNSW (vector vector_ip_ops);")
+    # print('building ip index: ', time.time() - start_time)
+    # conn.commit()
 
     return cur, conn
 
@@ -64,6 +71,7 @@ def run_trec_eval(trec_output_file_path):
     subprocess.run(command)
 
 def run_benchmark(cur, trec_output_file_path, metric):
+    total_time = 0
     """Runs the benchmark and writes results in TREC format."""
     with open(trec_output_file_path, 'w') as trec_file:
         with open(QUERY_JSONL_FILE_PATH, 'r') as query_file:
@@ -80,8 +88,13 @@ def run_benchmark(cur, trec_output_file_path, metric):
                 elif metric == 'cosine':
                     sql_query = "SELECT id, 1 - (vector <=> %s::vector) AS score FROM documents ORDER BY score DESC LIMIT %s"
 
+                # time the execution
+                start_time = time.time()
                 cur.execute(sql_query, (vector, K))
                 results = cur.fetchall()
+                end_time = time.time()
+                # aggregate the time
+                total_time += end_time - start_time
 
                 # Write results in TREC format
                 for rank, (doc_id, score) in enumerate(results, start=1):
@@ -89,14 +102,15 @@ def run_benchmark(cur, trec_output_file_path, metric):
 
     print(f"TREC results written to {trec_output_file_path}")
     run_trec_eval(trec_output_file_path)
+    return total_time
 
 if __name__ == "__main__":
     cur, conn = setup_database()
 
     # Running the benchmarks
-    run_benchmark(cur, TREC_L2SQ_OUTPUT_FILE_PATH, 'l2sq')
-    run_benchmark(cur, TREC_COSINE_OUTPUT_FILE_PATH, 'cosine')
-    run_benchmark(cur, TREC_DOT_PRODUCT_OUTPUT_FILE_PATH, 'ip')
+    print('l2sq: ', run_benchmark(cur, TREC_L2SQ_OUTPUT_FILE_PATH, 'l2sq'))
+    print('cosine: ', run_benchmark(cur, TREC_COSINE_OUTPUT_FILE_PATH, 'cosine'))
+    print('ip: ', run_benchmark(cur, TREC_DOT_PRODUCT_OUTPUT_FILE_PATH, 'ip'))
 
     # Close PostgreSQL connection
     cur.close()
