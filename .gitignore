@@ -19,3 +19,9 @@ runs/
 
 # logs should also be ignored
 logs/
+
+# binaries should also be ignored
+bin/*
+lib*
+pyvenv*
+share*
