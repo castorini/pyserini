@@ -119,7 +119,7 @@ That is, once all the documents have been encoded (i.e., converted into represen
 At search time, each document vector is sequentially compared to the query vector.
 In other words, the library just performs brute force dot products of each query vector against all document vectors.
 
-The above indexing command takes around 30 minutes to run on a modern laptop, with most of the time occupied by performing neural inference using the CPU.
+The above indexing command takes around 30 minutes to run on a modern laptop, with most of the time occupied by performing neural inference using the CPU. We also provide a bunch of [prebuilt indexes](prebuilt-indexes.md) including the BGE-base index for the MS MARCO dataset, so that you don't have to go through the indexing process for these standard large datasets. You can also try to reproduce many other experiments via the [two click commands](../readme.md#reproducibility) page.
 Adjust the `batch` parameter above accordingly for your hardware; 32 is the default, but reduce the value if you find that the encoding is taking too long.
 
 ## Retrieval
