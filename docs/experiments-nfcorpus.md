@@ -119,7 +119,7 @@ That is, once all the documents have been encoded (i.e., converted into represen
 At search time, each document vector is sequentially compared to the query vector.
 In other words, the library just performs brute force dot products of each query vector against all document vectors.
 
-The above indexing command takes around 30 minutes to run on a modern laptop, with most of the time occupied by performing neural inference using the CPU.
+The above indexing command takes around 30 minutes to run on a modern laptop, with most of the time occupied by performing neural inference using the CPU. We also provide a bunch of [prebuilt indexes](prebuilt-indexes.md) including the BGE-base index for the MS MARCO dataset, so that you don't have to go through the indexing process for these standard large datasets. You can also try to reproduce many other experiments via the Reproducibility section of the [README](../readme.md/reproducibility) page of this repo, it's a simple 2 click to copy and paste the commands!
 Adjust the `batch` parameter above accordingly for your hardware; 32 is the default, but reduce the value if you find that the encoding is taking too long.
 
 ## Retrieval
@@ -159,7 +159,7 @@ As mentioned above, Pyserini wraps the [Faiss](https://github.com/facebookresear
 With the flat index here, we're performing brute-force computation of dot products (albeit in parallel and with batching).
 As a result, we are performing _exact_ search, i.e., we are finding the _exact_ top-_k_ documents that have the highest dot products. 
 
-The above retrieval command takes only a few minutes on a modern laptop.
+The above retrieval command takes only a few minutes on a modern laptop. 
 Adjust the `threads` and `batch` parameters above accordingly for your hardware.
 
 ## Evaluation
