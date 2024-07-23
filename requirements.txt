@@ -17,3 +17,4 @@ tiktoken>=0.4.0
 pyarrow>=15.0.0
 pillow>=10.2.0
 pybind11>=2.11.0
+mlx>=0.14.1

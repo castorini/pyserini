@@ -17,9 +17,18 @@
 from typing import Optional
 
 import torch
+import numpy as np
 from transformers import PreTrainedModel, BertConfig, BertModel, BertTokenizer
 
-from pyserini.encode import DocumentEncoder, QueryEncoder
+# apple silicon
+import mlx as mx
+
+from pyserini.encode import (
+    DocumentEncoder, 
+    MLXDocumentEncoder,
+    QueryEncoder,
+    MLXQueryEncoder
+)
 
 
 class CosDprEncoder(PreTrainedModel):
@@ -72,6 +81,51 @@ class CosDprEncoder(PreTrainedModel):
         return pooled_output
 
 
+class MLXCosDprEncoder(PreTrainedModel):
+    config_class = BertConfig
+    base_model_prefix = 'bert'
+    load_tf_weights = None
+
+    def __init__(self, config: BertConfig):
+        super().__init__(config)
+        self.config = config
+        self.bert = BertModel(config)
+        self.linear = mx.nn.Linear(config.hidden_size, config.hidden_size)
+        self.init_weights()
+
+    def _init_weights(self, module):
+        """ Initialize the weights """
+        if isinstance(module, (mx.nn.Linear, mx.nn.Embedding)):
+            module.weight.data.normal_(mean=0.0, std=self.config.initializer_range)
+        if isinstance(module, mx.nn.Linear) and module.bias is not None:
+            module.bias.data.zero_()
+
+    def init_weights(self):
+        self.bert.init_weights()
+        self.linear.apply(self._init_weights)
+
+    def forward(
+            self,
+            input_ids: mx.array,
+            attention_mask: Optional[mx.array] = None,
+    ):
+        input_shape = input_ids.size()
+        if attention_mask is None:
+            attention_mask = (
+                mx.ones(input_shape, device=input_ids.default_device())
+                if input_ids is None
+                else (input_ids != self.bert.config.pad_token_id)
+            )
+        outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
+        sequence_output = outputs.last_hidden_state
+        pooled_output = sequence_output[:, 0, :]
+        # Lp normalization
+        pooled_output = self.linear(pooled_output)
+        pooled_output = mx.core.linalg.norm(pooled_output, p=2, dim=1)
+        return pooled_output
+
+
+
 class CosDprDocumentEncoder(DocumentEncoder):
     def __init__(self, model_name, tokenizer_name=None, device='cuda:0'):
         self.device = device
@@ -113,4 +167,42 @@ class CosDprQueryEncoder(QueryEncoder):
         )
         inputs.to(self.device)
         embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
+        return embeddings.flatten()
+
+
+class MLXCosDprDocumentEncoder(MLXDocumentEncoder):
+    def __init__(self, model_name, tokenizer_name=None):
+        self.model = MLXCosDprEncoder.from_pretrained(model_name)
+        self.model.to(self.default_device())
+        self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name)
+
+    def encode(self, texts, titles=None,  max_length=256, **kwargs):
+        if titles is not None:
+            texts = [f'{title} {text}' for title, text in zip(titles, texts)]
+        inputs = self.tokenizer(
+            texts,
+            max_length=max_length,
+            padding='longest',
+            truncation=True,
+            add_special_tokens=True,
+            return_tensors='pt'
+        )
+        return np.array(self.model(inputs["input_ids"]), copy=False)
+
+
+class MLXCosDprQueryEncoder(MLXQueryEncoder):
+    def __init__(self, encoder_dir: str, tokenizer_name: str = None, **kwargs):
+        self.model = MLXCosDprEncoder.from_pretrained(encoder_dir)
+        self.tokenizer = BertTokenizer.from_pretrained(encoder_dir or tokenizer_name)
+
+    def encode(self, query: str, **kwargs):
+        inputs = self.tokenizer(
+            query,
+            add_special_tokens=True,
+            return_tensors='pt',
+            truncation='only_first',
+            padding='longest',
+            return_token_type_ids=False,
+        )
+        embeddings = np.array(self.model(inputs["input_ids"]))
         return embeddings.flatten()
