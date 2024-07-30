@@ -28,7 +28,7 @@ parser.add_argument('--runtag', type=str, default="pyserini.fusion", help="Tag n
 parser.add_argument('--method', type=FusionMethod, default=FusionMethod.RRF, help="The fusion method to be used.")
 parser.add_argument('--rrf.k', dest='rrf_k', type=int, default=60,
                     help="Parameter k needed for reciprocal rank fusion.")
-parser.add_argument('--alpha', type=float, default=0.5, required=False, help='Alpha value used for interpolation.')
+parser.add_argument('--alpha', type=float, nargs='+', default=[0.5], required=False, help='Alpha value used for interpolation.')
 parser.add_argument('--depth', type=int, default=1000, required=False, help='Pool depth per topic.')
 parser.add_argument('--k', type=int, default=1000, required=False, help='Number of documents to output per topic.')
 parser.add_argument('--resort', action='store_true', help='We resort the Trec run files or not')

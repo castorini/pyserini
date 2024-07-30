@@ -54,7 +54,7 @@ def reciprocal_rank_fusion(runs: List[TrecRun], rrf_k: int = 60, depth: int = No
     return TrecRun.merge(rrf_runs, AggregationMethod.SUM, depth=depth, k=k)
 
 
-def interpolation(runs: List[TrecRun], alpha: int = 0.5, depth: int = None, k: int = None):
+def interpolation(runs: List[TrecRun], alpha: float | List[float] = 0.5, depth: int = None, k: int = None):
     """Perform fusion by interpolation on a list of exactly two ``TrecRun`` objects.
     new_score = first_run_score * alpha + (1 - alpha) * second_run_score.
 
@@ -62,8 +62,8 @@ def interpolation(runs: List[TrecRun], alpha: int = 0.5, depth: int = None, k: i
     ----------
     runs : List[TrecRun]
         List of ``TrecRun`` objects. Exactly two runs.
-    alpha : int
-        Parameter alpha will be applied on the first run and (1 - alpha) will be applied on the second run.
+    alpha : float | List[float]
+        Interpolation parameter. If a single value is provided, alpha will be applied to the first run and (1 - alpha) will be applied to the second run. If a list of two values are provided, the first value will be applied to the first run and the second value to the second run. 
     depth : int
         Maximum number of results from each input run to consider. Set to ``None`` by default, which indicates that
         the complete list of results is considered.
@@ -80,9 +80,22 @@ def interpolation(runs: List[TrecRun], alpha: int = 0.5, depth: int = None, k: i
     if len(runs) != 2:
         raise Exception('Interpolation must be performed on exactly two runs.')
 
+    if isinstance(alpha, list):
+        if len(alpha) == 1:
+            alpha1 = alpha[0]
+            alpha2 = 1 - alpha[0]
+        elif len(alpha) == 2:
+            alpha1 = alpha[0]
+            alpha2 = alpha[1]
+        else:
+            raise Exception('Alpha must be a single value or a list of two values.')
+    else:
+        alpha1 = alpha
+        alpha2 = 1 - alpha
+
     scaled_runs = []
-    scaled_runs.append(runs[0].clone().rescore(method=RescoreMethod.SCALE, scale=alpha))
-    scaled_runs.append(runs[1].clone().rescore(method=RescoreMethod.SCALE, scale=(1-alpha)))
+    scaled_runs.append(runs[0].clone().rescore(method=RescoreMethod.SCALE, scale=alpha1))
+    scaled_runs.append(runs[1].clone().rescore(method=RescoreMethod.SCALE, scale=alpha2))
 
     return TrecRun.merge(scaled_runs, AggregationMethod.SUM, depth=depth, k=k)
 
