@@ -2,6 +2,7 @@ import json
 import duckdb
 import numpy as np
 import subprocess
+import time
 
 # Paths to embedding, query, and output files
 DOCUMENT_JSONL_FILE_PATH = 'indexes/non-faiss-nfcorpus/documents/embeddings.jsonl'
@@ -52,9 +53,16 @@ def setup_database():
             insert_data_into_table(con, data['id'], data['contents'], data['vector'], 'documents')
 
     # Create HNSW indices with different metrics
+    # print the time taken for each index building
+    start_time = time.time()
     con.execute("CREATE INDEX l2sq_idx ON documents USING HNSW(vector) WITH (metric = 'l2sq')")
+    print('building l2sq index: ', time.time() - start_time)
+    start_time = time.time()
     con.execute("CREATE INDEX cos_idx ON documents USING HNSW(vector) WITH (metric = 'cosine')")
+    print('building cosine index: ', time.time() - start_time)
+    start_time = time.time()
     con.execute("CREATE INDEX ip_idx ON documents USING HNSW(vector) WITH (metric = 'ip')")
+    print('building ip index: ', time.time() - start_time)
 
     return con
 
@@ -71,6 +79,7 @@ def run_trec_eval(trec_output_file_path):
 
 def run_benchmark(con, trec_output_file_path, metric):
     """Runs the benchmark and writes results in TREC format."""
+    total_time = 0
     with open(trec_output_file_path, 'w') as trec_file:
         with open(QUERY_JSONL_FILE_PATH, 'r') as query_file:
             for line in query_file:
@@ -87,7 +96,12 @@ def run_benchmark(con, trec_output_file_path, metric):
                     evaluation_metric = 'array_inner_product'
 
                 sql_query = f"SELECT id, {evaluation_metric}(vector, ?::FLOAT[{len(vector)}]) as score FROM documents ORDER BY score DESC LIMIT ?"
+                # time the execution
+                start_time = time.time()
                 results = con.execute(sql_query, (vector, K)).fetchall()
+                end_time = time.time()
+                # aggregate time
+                total_time += end_time - start_time
 
                 # Write results in TREC format
                 for rank, (doc_id, score) in enumerate(results, start=1):
@@ -95,11 +109,18 @@ def run_benchmark(con, trec_output_file_path, metric):
 
     print(f"TREC results written to {trec_output_file_path}")
     run_trec_eval(trec_output_file_path)
+    return total_time
 
 if __name__ == "__main__":
     con = setup_database()
 
     # Running the benchmarks
-    run_benchmark(con, TREC_L2SQ_OUTPUT_FILE_PATH, 'l2sq')
-    run_benchmark(con, TREC_COSINE_OUTPUT_FILE_PATH, 'cosine')
-    run_benchmark(con, TREC_DOT_PRODUCT_OUTPUT_FILE_PATH, 'ip')
+    print('l2sq: ', run_benchmark(con, TREC_L2SQ_OUTPUT_FILE_PATH, 'l2sq'))
+    print('cosine: ', run_benchmark(con, TREC_COSINE_OUTPUT_FILE_PATH, 'cosine'))
+    print('ip: ', run_benchmark(con, TREC_DOT_PRODUCT_OUTPUT_FILE_PATH, 'ip'))
+
+    # second run
+    print("second run")
+    print('l2sq: ', run_benchmark(con, TREC_L2SQ_OUTPUT_FILE_PATH, 'l2sq'))
+    print('cosine: ', run_benchmark(con, TREC_COSINE_OUTPUT_FILE_PATH, 'cosine'))
+    print('ip: ', run_benchmark(con, TREC_DOT_PRODUCT_OUTPUT_FILE_PATH, 'ip'))
