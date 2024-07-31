@@ -79,7 +79,7 @@ def run_trec_eval(trec_output_file_path):
 
 def run_benchmark(con, trec_output_file_path, metric):
     """Runs the benchmark and writes results in TREC format."""
-    total_time = 0
+    query_times = []
     with open(trec_output_file_path, 'w') as trec_file:
         with open(QUERY_JSONL_FILE_PATH, 'r') as query_file:
             for line in query_file:
@@ -100,8 +100,10 @@ def run_benchmark(con, trec_output_file_path, metric):
                 start_time = time.time()
                 results = con.execute(sql_query, (vector, K)).fetchall()
                 end_time = time.time()
-                # aggregate time
-                total_time += end_time - start_time
+
+                # Calculate the time for this query and add it to the list
+                query_time = end_time - start_time
+                query_times.append(query_time)
 
                 # Write results in TREC format
                 for rank, (doc_id, score) in enumerate(results, start=1):
@@ -109,7 +111,13 @@ def run_benchmark(con, trec_output_file_path, metric):
 
     print(f"TREC results written to {trec_output_file_path}")
     run_trec_eval(trec_output_file_path)
-    return total_time
+    # Aggregate statistics
+    total_time = sum(query_times)
+    mean_time = np.mean(query_times)
+    variance_time = np.var(query_times)
+    min_time = min(query_times)
+    max_time = max(query_times)
+    return total_time, mean_time, variance_time, min_time, max_time
 
 if __name__ == "__main__":
     con = setup_database()
