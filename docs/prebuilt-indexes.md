@@ -643,9 +643,21 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dt></dt><b><code>cacm</code></b>
 <dd>Lucene index of the CACM corpus.
 </dd>
-<dt></dt><b><code>robust04</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.robust04.20221005.252b5e.README.md">readme</a>]
+<dt></dt><b><code>disk45</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.disk45.20240803.36f7e3.README.md">readme</a>]
 <dd>Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track.
+</dd>
+<dt></dt><b><code>aquaint</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.aquaint.20240803.36f7e3.README.md">readme</a>]
+<dd>Lucene index of the AQUAINT collection, used in the TREC 2005 Robust Track.
+</dd>
+<dt></dt><b><code>nyt</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.nyt.20240803.36f7e3.README.md">readme</a>]
+<dd>Lucene index of the New York Times Annotated Corpus, used in the TREC 2017 Common Core Track.
+</dd>
+<dt></dt><b><code>wapo.v2</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.wapo.v2.20240803.36f7e3.README.md">readme</a>]
+<dd>Lucene index of the TREC Washington Post Corpus, used in the TREC 2018 Common Core Track.
 </dd>
 <dt></dt><b><code>enwiki-paragraphs</code></b>
 <dd>Lucene index of English Wikipedia for BERTserini
