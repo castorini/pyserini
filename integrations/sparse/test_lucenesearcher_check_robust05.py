@@ -14,29 +14,18 @@
 # limitations under the License.
 #
 
-import os
 import unittest
 
 from integrations.lucenesearcher_anserini_checker import LuceneSearcherAnseriniMatchChecker
 
 
-class TestSearchIntegration(unittest.TestCase):
+class CheckSearchResultsAgainstAnseriniForRobust05(unittest.TestCase):
     def setUp(self):
-        # The current directory depends on if you're running inside an IDE or from command line.
-        curdir = os.getcwd()
-        if curdir.endswith('sparse'):
-            anserini_root = '../../../anserini'
-            pyserini_root = '../..'
-        else:
-            anserini_root = '../anserini'
-            pyserini_root = '.'
-
         self.checker = LuceneSearcherAnseriniMatchChecker(
-            anserini_root=anserini_root,
-            index=os.path.join(anserini_root, 'indexes/lucene-index.robust05'),
-            topics=os.path.join(pyserini_root, 'tools/topics-and-qrels/topics.robust05.txt'),
+            index='robust05',
+            topics='tools/topics-and-qrels/topics.robust05.txt',
             pyserini_topics='robust05',
-            qrels=os.path.join(pyserini_root, 'tools/topics-and-qrels/qrels.robust05.txt'))
+            qrels='tools/topics-and-qrels/qrels.robust05.txt')
 
     def test_bm25(self):
         self.assertTrue(self.checker.run('robust05_bm25', '-bm25', '--bm25'))
