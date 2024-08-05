@@ -21,10 +21,17 @@ from random import randint
 
 from integrations.lucenesearcher_score_checker import LuceneSearcherScoreChecker
 from integrations.utils import run_command, parse_score
+from pyserini.search import LuceneSearcher
 
 
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
+        # Make sure the required indexes are downloaded.
+        LuceneSearcher.from_prebuilt_index('nyt')
+        LuceneSearcher.from_prebuilt_index('wapo.v2')
+        LuceneSearcher.from_prebuilt_index('disk45')
+        LuceneSearcher.from_prebuilt_index('aquaint')
+
         self.tmp = f'integrations/tmp{randint(0, 10000)}'
 
         if os.path.exists(self.tmp):
@@ -78,8 +85,7 @@ class TestSearchIntegration(unittest.TestCase):
 
             status = os.system(run_file_cmd)
             self.assertEqual(status, 0)
-        os.system(f'python scripts/classifier_prf/cross_validate.py \
-                      --anserini . --run_file {self.tmp} --pyserini . \
+        os.system(f'python scripts/classifier_prf/cross_validate.py --run_file {self.tmp} \
                       --collection core17 --output {self.tmp}/core17_lr.txt --classifier lr ')
 
         cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
