@@ -17,10 +17,14 @@
 import unittest
 
 from integrations.lucenesearcher_anserini_checker import LuceneSearcherAnseriniMatchChecker
+from pyserini.search import LuceneSearcher
 
 
 class CheckSearchResultsAgainstAnseriniForRobust05(unittest.TestCase):
     def setUp(self):
+        # Make sure the required index is downloaded.
+        LuceneSearcher.from_prebuilt_index('aquaint')
+
         self.checker = LuceneSearcherAnseriniMatchChecker(
             index='robust05',
             topics='tools/topics-and-qrels/topics.robust05.txt',

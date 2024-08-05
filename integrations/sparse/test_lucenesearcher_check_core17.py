@@ -17,10 +17,14 @@
 import unittest
 
 from integrations.lucenesearcher_anserini_checker import LuceneSearcherAnseriniMatchChecker
+from pyserini.search import LuceneSearcher
 
 
 class CheckSearchResultsAgainstAnseriniForCore17(unittest.TestCase):
     def setUp(self):
+        # Make sure the required index is downloaded.
+        LuceneSearcher.from_prebuilt_index('nyt')
+
         self.checker = LuceneSearcherAnseriniMatchChecker(
             index='nyt',
             topics='tools/topics-and-qrels/topics.core17.txt',
