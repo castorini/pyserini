@@ -34,7 +34,6 @@ class LuceneSearcherAnseriniMatchChecker:
 
         self.anserini_base_cmd = 'java -cp `ls pyserini/resources/jars/*-fatjar.jar` io.anserini.search.SearchCollection -topicReader Trec'
         self.pyserini_base_cmd = 'python -m pyserini.search.lucene'
-
         self.eval_base_cmd = 'java -cp `ls pyserini/resources/jars/*-fatjar.jar` trec_eval -m map -m P.30'
 
     @staticmethod
