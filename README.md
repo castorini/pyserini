@@ -24,7 +24,8 @@ Correspondingly, Pyserini was upgraded to JDK 21 at commit [`b2f677`](https://gi
 
 ## 🎬 Installation
 
-Install via PyPI (requires Python 3.10+):
+Pyserini is built on Python 3.10 (other versions might work, but YMMV).
+Install via PyPI:
 
 ```
 pip install pyserini
