@@ -18,19 +18,22 @@ import filecmp
 import os
 from typing import List
 
+from pyserini.util import get_cache_home
+from pyserini.prebuilt_index_info import TF_INDEX_INFO
+
 
 class LuceneSearcherAnseriniMatchChecker:
-    def __init__(self, anserini_root: str, index: str, topics: str, pyserini_topics: str, qrels: str):
-        self.anserini_root = anserini_root
-        self.index_path = index
+    def __init__(self, index: str, topics: str, pyserini_topics: str, qrels: str):
+        self.index_path = os.path.join(
+            get_cache_home(),
+            f'indexes/{TF_INDEX_INFO[index]["filename"].removesuffix(".tar.gz")}.{TF_INDEX_INFO[index]["md5"]}')
+
         self.topics = topics
         self.qrels = qrels
         self.pyserini_topics = pyserini_topics
 
-        # Run anserini directly from "here" (in pyserini), using the fatjar in pyserini/resources/jars
         self.anserini_base_cmd = 'java -cp `ls pyserini/resources/jars/*-fatjar.jar` io.anserini.search.SearchCollection -topicReader Trec'
         self.pyserini_base_cmd = 'python -m pyserini.search.lucene'
-
         self.eval_base_cmd = 'java -cp `ls pyserini/resources/jars/*-fatjar.jar` trec_eval -m map -m P.30'
 
     @staticmethod

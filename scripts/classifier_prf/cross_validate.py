@@ -34,15 +34,7 @@ def get_res_file_path(run_file, collection, classifier, alpha: str, rm3: bool):
     return res + get_file_extension(rm3)
 
 
-def get_trec_eval_cmd(anserini_root: str):
-    return os.path.join(anserini_root, 'tools/eval/trec_eval.9.0.4/trec_eval')
-
-
-def get_qrels_path(anserini_root: str, collection: str):
-    return f"{anserini_root}/tools/topics-and-qrels/qrels.{collection}.txt"
-
-
-def read_topics_alpha_map(anserini_root, collection, run_file, classifier, rm3: bool):
+def read_topics_alpha_map(collection, run_file, classifier, rm3: bool):
     res_paths = []
 
     for num in range(0, 11):
@@ -55,9 +47,10 @@ def read_topics_alpha_map(anserini_root, collection, run_file, classifier, rm3: 
             run_file, collection, classifier, alpha, rm3)
 
         res_paths.append(res_filename)
-        trec_eval_cmd = get_trec_eval_cmd(anserini_root)
-        qrels_path = get_qrels_path(anserini_root, collection)
+        trec_eval_cmd = 'tools/eval/trec_eval.9.0.4/trec_eval'
+        qrels_path = f'tools/topics-and-qrels/qrels.{collection}.txt'
         cmd = f'{trec_eval_cmd} -q -m map -m P.30 {qrels_path} {file_path} > {res_filename}'
+
         res = os.system(cmd)
         if res == 0:
             print(file_path + ' run successfully!')
@@ -67,15 +60,12 @@ def read_topics_alpha_map(anserini_root, collection, run_file, classifier, rm3: 
 
 
 def load_in_res(res_paths):
-    df = pd.read_csv(
-        res_paths[0], sep='\s+', header=None,
-        names=['Type', 'topicid', '0.0'], dtype={'0.0': float})
+    df = pd.read_csv(res_paths[0], sep='\s+', header=None, names=['Type', 'topicid', '0.0'], dtype={'0.0': float})
     df.set_index('topicid', inplace=True)
 
     for num in range(1, 11):
-        dataset = pd.read_csv(
-            res_paths[num], sep='\s+', header=None, names=['Type', 'topicid', 'score'],
-            dtype={'topicid': str, 'score': float})
+        dataset = pd.read_csv(res_paths[num], sep='\s+', header=None, names=['Type', 'topicid', 'score'],
+                              dtype={'topicid': str, 'score': float})
         df[str(num / 10)] = dataset.score.values
 
     df = df[df['Type'] == 'map'][:-1]
@@ -88,20 +78,18 @@ def generate_run_file(folders, df, collection, run_file, classifier, rm3, output
 
     with open(output_path, 'w') as target_file:
         for folder in folders:
-            train_topicids = [str(topic)
-                              for f in folders for topic in f if f != folder and str(topic) in df.index]
+            train_topicids = [str(topic) for f in folders for topic in f if f != folder and str(topic) in df.index]
             train_df = df.loc[train_topicids, :]
             train_df.loc['Mean', :] = train_df.mean(axis=0)
             highest_alpha = train_df.iloc[-1, :].idxmax(axis=0)
             highest_alpha_lst.append(highest_alpha)
 
             for topic in folder:
-                alpha_run_file = get_file_path(
-                    run_file, collection, classifier, highest_alpha, rm3)
+                alpha_run_file = get_file_path(run_file, collection, classifier, highest_alpha, rm3)
 
                 with open(alpha_run_file) as fp:
-                    Lines = fp.readlines()
-                    for line in Lines:
+                    lines = fp.readlines()
+                    for line in lines:
                         if line.startswith(str(topic)):
                             write_lst.append(line)
 
@@ -114,33 +102,26 @@ def generate_run_file(folders, df, collection, run_file, classifier, rm3, output
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Get Best alpha score for corresponding topics')
-    parser.add_argument('--anserini', metavar='path', required=True,
-                        help='the path to anserini root')
-    parser.add_argument('--pyserini', metavar='path', required=True,
-                        help='a path to the folder json file')
-    parser.add_argument('--collection', metavar='collectionsname', required=True,
-                        help='one of the collectionname in robust04,robust05, core17,core18')
+    parser.add_argument('--collection', metavar='collection_name', required=True,
+                        help='one of these collection_name: robust04, robust05, core17, core18')
     parser.add_argument('--run_file', metavar='path', required=True,
                         help='the path to run files root')
     parser.add_argument('--output', metavar='path', required=True,
                         help='the path to the output file')
     parser.add_argument('--classifier', metavar='name', required=True,
-                        help='one of three classifers lr or svm or lr+svm')
+                        help='one of three classifiers: lr, svm, lr+svm')
     parser.add_argument('-rm3', action='store_true',
                         help='use rm3 ranker')
 
     args = parser.parse_args()
 
-    res_paths = read_topics_alpha_map(
-        args.anserini, args.collection, args.run_file, args.classifier, args.rm3)
+    res_paths = read_topics_alpha_map(args.collection, args.run_file, args.classifier, args.rm3)
     clean_df = load_in_res(res_paths)
-    folders_path = os.path.join(
-        args.pyserini, f'scripts/classifier_prf/folds/{args.collection}.json')
+    folders_path = f'scripts/classifier_prf/folds/{args.collection}.json'
 
     with open(folders_path) as f:
         folders = json.load(f)
 
-    generate_run_file(folders, clean_df, args.collection,
-                      args.run_file, args.classifier, args.rm3, args.output)
+    generate_run_file(folders, clean_df, args.collection, args.run_file, args.classifier, args.rm3, args.output)
 
     print("Successfully generated a trained runfile in " + args.output)
