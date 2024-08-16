@@ -18,7 +18,7 @@ import argparse
 import sys
 
 from pyserini.encode import JsonlRepresentationWriter, FaissRepresentationWriter, JsonlCollectionIterator
-from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AggretrieverDocumentEncoder, AutoDocumentEncoder, CosDprDocumentEncoder, ClipDocumentEncoder
+from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AggretrieverDocumentEncoder, AutoDocumentEncoder, CosDprDocumentEncoder, ClipDocumentEncoder, ArcticDocumentEncoder
 from pyserini.encode import UniCoilDocumentEncoder
 from pyserini.encode import OpenAIDocumentEncoder, OPENAI_API_RETRY_DELAY
 
@@ -35,6 +35,7 @@ encoder_class_map = {
     "auto": AutoDocumentEncoder,
     "clip": ClipDocumentEncoder,
     "contriever": AutoDocumentEncoder,
+    "arctic": ArcticDocumentEncoder,
 }
 
 def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multimodal):
@@ -114,7 +115,7 @@ if __name__ == '__main__':
     encoder_parser = commands.add_parser('encoder')
     encoder_parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
     encoder_parser.add_argument('--encoder-class', type=str, required=False, default=None,
-                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto", "contriever"],
+                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto", "contriever", "arctic"],
                                 help='which query encoder class to use. `default` would infer from the args.encoder')
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
     encoder_parser.add_argument('--multimodal', action='store_true', default=False)
