@@ -1,11 +1,11 @@
 # Pyserini: Detailed Installation Guide
 
-Pyserini is built on Python 3.10.
+Pyserini is built on Python 3.10 (other versions might work, but YMMV).
 At a high level, we try to keep our [`requirements.txt`](../requirements.txt) up to date.
 Pyserini has a number of important dependencies:
 
 + For sparse retrieval, Pyserini depends on [Anserini](http://anserini.io/), which is built on Lucene.
-[PyJNIus](https://github.com/kivy/pyjnius) is used to interact with the JVM.
+[PyJNIus](https://github.com/kivy/pyjnius) is used to interact with the JVM. We depend on Java 21.
 + For dense retrieval (since it involves neural networks), we need the [🤗 Transformers library](https://github.com/huggingface/transformers), [PyTorch](https://pytorch.org/), and [Faiss](https://github.com/facebookresearch/faiss) (specifically `faiss-cpu`).
 A `pip` installation will automatically pull in the first to satisfy the package requirements, but since the other two may require platform-specific custom configuration, they are _not_ explicitly listed in the package requirements.
 We leave the installation of these packages to you (but provide detailed instructions below).
@@ -42,7 +42,7 @@ conda install -c conda-forge openjdk=21 maven -y
 conda install -c conda-forge lightgbm nmslib -y
 
 # from https://github.com/facebookresearch/faiss/blob/main/INSTALL.md
-# NOTE: due to a bug in the latest 1.7.4 release, Intel MKL 2021 needs to be installed separately where applicable.
+# NOTE: due to a bug in the latest 1.7.4 release (on osx-64), Intel MKL 2021 needs to be installed separately where applicable.
 conda install -c pytorch faiss-cpu=1.7.4 mkl=2021 blas=1.0=mkl -y
 conda install -c pytorch pytorch -y
 
@@ -60,7 +60,7 @@ conda install -c pytorch faiss-cpu pytorch -y
 pip install pyserini
 ```
 
-As of April 2024, for `faiss-cpu`, `osx-64` is still at v1.7.4, whereas `osx-arm64` is at v1.8.0; hence the differences in the instructions above. 
+As of August 2024, for `faiss-cpu`, `osx-64` is still at v1.7.4, whereas `osx-arm64` is at v1.8.0; hence the differences in the instructions above.
 
 ### Linux
 
@@ -161,7 +161,7 @@ Assuming all tests pass, you should be ready to go!
 
 ## Troubleshooting Tips
 
-+ The above guide handle JVM installation via conda. If you are using your own Java environment and get an error about Java version mismatch, it's likely an issue with your `JAVA_HOME` environmental variable.
++ The above guide handles JVM installation via conda. If you are using your own Java environment and get an error about Java version mismatch, it's likely an issue with your `JAVA_HOME` environmental variable.
 In `bash`, use `echo $JAVA_HOME` to find out what the environmental variable is currently set to, and use `export JAVA_HOME=/path/to/java/home` to change it to the correct path.
 On a Linux system, the correct path might look something like `/usr/lib/jvm/java-21`.
 Unfortunately, we are unable to offer more concrete advice since the actual path depends on your OS, which JDK you're using, and a host of other factors.

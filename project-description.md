@@ -13,7 +13,7 @@ Install via PyPI:
 pip install pyserini
 ```
 
-Pyserini requires Python 3.10+ and Java 11 (due to its dependency on [Anserini](http://anserini.io/)).
+Pyserini requires Python 3.10 and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
 
 Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
 A `pip` installation will automatically pull in the [🤗 Transformers library](https://github.com/huggingface/transformers) to satisfy the package requirements.

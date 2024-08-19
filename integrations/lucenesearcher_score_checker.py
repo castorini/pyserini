@@ -26,9 +26,7 @@ class LuceneSearcherScoreChecker:
         self.topics = topics
         self.qrels = qrels
         self.pyserini_topics = pyserini_topics
-
         self.pyserini_base_cmd = 'python -m pyserini.search.lucene'
-
         self.eval_base_cmd = eval
 
     @staticmethod
