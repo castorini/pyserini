@@ -54,13 +54,19 @@ If you're on a Mac with an M-series (i.e., ARM) processor, the following recipe 
 ```bash
 conda install wget -y
 conda install -c conda-forge openjdk=21 maven -y
-conda install -c conda-forge lightgbm nmslib -y
+conda install -c conda-forge lightgbm -y
+conda install anaconda::nmslib -y
 conda install -c pytorch faiss-cpu pytorch -y
 
 pip install pyserini
 ```
 
-As of August 2024, for `faiss-cpu`, `osx-64` is still at v1.7.4, whereas `osx-arm64` is at v1.8.0; hence the differences in the instructions above.
+As of August 2024:
+
++ For `faiss-cpu`, `osx-64` is still at v1.7.4, whereas `osx-arm64` is at v1.8.0.
++ For `nmslib`, [`conda-forge`](https://anaconda.org/conda-forge/nmslib) does not provide `osx-arm64`.
+
+Hence the differences in the instructions above.
 
 ### Linux
 
