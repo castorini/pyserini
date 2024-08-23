@@ -13,10 +13,10 @@ We leave the installation of these packages to you (but provide detailed instruc
 ## PyPI Installation Walkthrough
 
 Below is a step-by-step Pyserini installation guide based on Python 3.10.
+We recommend using [Anaconda](https://www.anaconda.com/) and assume you have already installed it.
+The following instructions are up to date as of August 2024 and _should_ work.
 
 ### Mac
-
-We recommend using [Anaconda](https://www.anaconda.com/) and assume you have already installed it.
 
 Create new environment:
 
@@ -25,38 +25,30 @@ conda create -n pyserini python=3.10 -y
 conda activate pyserini
 ```
 
-If you do not already have JDK 21 installed, install via `conda`:
+If you're on a Mac with an M-series (i.e., ARM) processor:
 
 ```bash
 conda install -c conda-forge openjdk=21 maven -y
-```
-
-If your system already has JDK 21 installed, the above step can be skipped.
-Use `java --version` to check one way or the other.
-
-If you're on an Intel-based Mac, the following recipe should work:
-
-```bash
-conda install wget -y
-conda install -c conda-forge openjdk=21 maven -y
-conda install -c conda-forge lightgbm nmslib -y
-
-# from https://github.com/facebookresearch/faiss/blob/main/INSTALL.md
-# NOTE: due to a bug in the latest 1.7.4 release (on osx-64), Intel MKL 2021 needs to be installed separately where applicable.
-conda install -c pytorch faiss-cpu=1.7.4 mkl=2021 blas=1.0=mkl -y
-conda install -c pytorch pytorch -y
+conda install -c conda-forge lightgbm -y
+conda install -c anaconda wget -y
+conda install -c anaconda nmslib -y
+conda install -c pytorch faiss-cpu pytorch -y
 
 pip install pyserini
 ```
 
-If you're on a Mac with an M-series (i.e., ARM) processor, the following recipe should work:
+If you're on an Intel-based Mac:
 
 ```bash
 conda install wget -y
+
 conda install -c conda-forge openjdk=21 maven -y
-conda install -c conda-forge lightgbm -y
-conda install anaconda::nmslib -y
-conda install -c pytorch faiss-cpu pytorch -y
+conda install -c conda-forge lightgbm nmslib -y
+
+# from https://github.com/facebookresearch/faiss/blob/main/INSTALL.md
+# NOTE: due to a bug in the latest 1.7.4 release, Intel MKL 2021 needs to be installed separately where applicable.
+conda install -c pytorch faiss-cpu=1.7.4 mkl=2021 blas=1.0=mkl -y
+conda install -c pytorch pytorch -y
 
 pip install pyserini
 ```
@@ -70,10 +62,20 @@ Hence the differences in the instructions above.
 
 ### Linux
 
-On Linux, `pip` is an alternative that's a bit more lightweight:
+Create new environment:
 
 ```bash
-pip install torch faiss-cpu
+conda create -n pyserini python=3.10 -y
+conda activate pyserini
+```
+
+Install packages:
+
+```bash
+conda install -c conda-forge openjdk=21 maven -y
+conda install -c conda-forge lightgbm nmslib -y
+conda install -c pytorch faiss-cpu pytorch -y
+
 pip install pyserini
 ```
 
