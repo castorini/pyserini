@@ -561,6 +561,94 @@ TF_INDEX_INFO_MSMARCO = {
         "documents": 138364198,
         "unique_terms": 41177061,
         "downloaded": False
+    },
+
+    # MS MARCO V2.1 document corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v2.1-doc": {
+        "description": "Lucene index of the MS MARCO V2.1 document corpus.",
+        "filename": "lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.tar.gz",
+        "readme": "lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.tar.gz",
+        ],
+        "md5": "cecd55856c34afa82f1a499705c9df02",
+        "size compressed (bytes)": 54190811494,
+        "total_terms": 12710796540,
+        "documents": 10960555,
+        "unique_terms": 44599151,
+        "downloaded": False
+    },
+    "msmarco-v2.1-doc-slim": {
+        "description": "Lucene index of the MS MARCO V2.1 document corpus ('slim' version).",
+        "filename": "lucene-inverted.msmarco-v2.1-doc-slim.20240418.4f9675.tar.gz",
+        "readme": "lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2.1-doc-slim.20240418.4f9675.tar.gz",
+        ],
+        "md5": "2c31a8c0a7133eb6ea04c91ceffa7e08",
+        "size compressed (bytes)": 6191736133,
+        "total_terms": 12710796540,
+        "documents": 10960555,
+        "unique_terms": 44599151,
+        "downloaded": False
+    },
+    "msmarco-v2.1-doc-full": {
+        "description": "Lucene index of the MS MARCO V2.1 document corpus ('full' version).",
+        "filename": "lucene-inverted.msmarco-v2.1-doc-full.20240418.4f9675.tar.gz",
+        "readme": "lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2.1-doc-full.20240418.4f9675.tar.gz",
+        ],
+        "md5": "794708c9cf8fc6eafff07c5485e934b9",
+        "size compressed (bytes)": 102997532522,
+        "total_terms": 12710796540,
+        "documents": 10960555,
+        "unique_terms": 44599151,
+        "downloaded": False
+    },
+
+    # MS MARCO V2.1 segmented document corpus, three indexes with different amounts of information (and sizes).
+    "msmarco-v2.1-doc-segmented": {
+        "description": "Lucene index of the MS MARCO V2.1 segmented document corpus.",
+        "filename": "lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.tar.gz",
+        "readme": "lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.tar.gz"
+        ],
+        "md5": "6ec4cd595c9fe1ad91b43eabb39a637c",
+        "size compressed (bytes)": 60071133069,
+        "total_terms": 22707699649,
+        "documents": 113520750,
+        "unique_terms": 29040364,
+        "downloaded": False
+    },
+    "msmarco-v2.1-doc-segmented-slim": {
+        "description": "Lucene index of the MS MARCO V2.1 segmented document corpus ('slim' version).",
+        "filename": "lucene-inverted.msmarco-v2.1-doc-segmented-slim.20240418.4f9675.tar.gz",
+        "readme": "lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2.1-doc-segmented-slim.20240418.4f9675.tar.gz"
+        ],
+        "md5": "3c6c946c722a201b65903a92f082ea4f",
+        "size compressed (bytes)": 15374492909,
+        "total_terms": 22707699649,
+        "documents": 113520750,
+        "unique_terms": 29040364,
+        "downloaded": False
+    },
+    "msmarco-v2.1-doc-segmented-full": {
+        "description": "Lucene index of the MS MARCO V2.1 segmented document corpus ('full' version).",
+        "filename": "lucene-inverted.msmarco-v2.1-doc-segmented-full.20240418.4f9675.tar.gz",
+        "readme": "lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2.1-doc-segmented-full.20240418.4f9675.tar.gz"
+        ],
+        "md5": "a43d09d31ae4e5dac81f5cfde1a810a7",
+        "size compressed (bytes)": 146130406504,
+        "total_terms": 22707699649,
+        "documents": 113520750,
+        "unique_terms": 29040364,
+        "downloaded": False
     }
 }
 
@@ -1951,18 +2039,57 @@ TF_INDEX_INFO_OTHER = {
         "documents": 3204,
         "unique_terms": 14363,
     },
-    "robust04": {
+    "disk45": {
         "description": "Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track.",
-        "filename": "lucene-index.robust04.20221005.252b5e.tar.gz",
-        "readme": "lucene-index.robust04.20221005.252b5e.README.md",
+        "filename": "lucene-inverted.disk45.20240803.36f7e3.tar.gz",
+        "readme": "lucene-inverted.disk45.20240803.36f7e3.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.robust04.20221005.252b5e.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.disk45.20240803.36f7e3.tar.gz",
         ],
-        "md5": "a1abd5437394956b7ec8bea4699b5e46",
-        "size compressed (bytes)": 1806776535,
+        "md5": "0bb7f40c88a9246d068bbda86a6b90d5",
+        "size compressed (bytes)": 1782067062,
         "total_terms": 174540872,
         "documents": 528030,
         "unique_terms": 923436,
+    },
+    "aquaint": {
+        "description": "Lucene index of the AQUAINT collection, used in the TREC 2005 Robust Track.",
+        "filename": "lucene-inverted.aquaint.20240803.36f7e3.tar.gz",
+        "readme": "lucene-inverted.aquaint.20240803.36f7e3.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.aquaint.20240803.36f7e3.tar.gz",
+        ],
+        "md5": "3adbc54b7fcaaf568e741797e407199c",
+        "size compressed (bytes)": 3185164151,
+        "total_terms": 317246296,
+        "documents": 1031455,
+        "unique_terms": 966312,
+    },
+    "nyt": {
+        "description": "Lucene index of the New York Times Annotated Corpus, used in the TREC 2017 Common Core Track.",
+        "filename": "lucene-inverted.nyt.20240803.36f7e3.tar.gz",
+        "readme": "lucene-inverted.nyt.20240803.36f7e3.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.nyt.20240803.36f7e3.tar.gz",
+        ],
+        "md5": "0db100878ee9556515cf2acf3a9f1ac5",
+        "size compressed (bytes)": 7622623345,
+        "total_terms": 751047962,
+        "documents": 1855650,
+        "unique_terms": 1730963,
+    },
+    "wapo.v2": {
+        "description": "Lucene index of the TREC Washington Post Corpus, used in the TREC 2018 Common Core Track.",
+        "filename": "lucene-inverted.wapo.v2.20240803.36f7e3.tar.gz",
+        "readme": "lucene-inverted.wapo.v2.20240803.36f7e3.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.wapo.v2.20240803.36f7e3.tar.gz",
+        ],
+        "md5": "fbe8fa7a7f0dcae2bae9b8fe1dd7ab07",
+        "size compressed (bytes)": 3994471983,
+        "total_terms": 318219870,
+        "documents": 595031,
+        "unique_terms": 835854,
     },
 
     "enwiki-paragraphs": {
@@ -2492,6 +2619,12 @@ TF_INDEX_INFO_OTHER = {
 TF_INDEX_INFO_OTHER_ALIASES = {
     # To preserve working commands in published papers: integrations/papers/test_sigir2021.py
     "wikipedia-dpr": TF_INDEX_INFO_OTHER["wikipedia-dpr-100w"],
+
+    # Common names mapping to corpora
+    "robust04": TF_INDEX_INFO_OTHER["disk45"],
+    "robust05": TF_INDEX_INFO_OTHER["aquaint"],
+    "core17": TF_INDEX_INFO_OTHER["nyt"],
+    "core18": TF_INDEX_INFO_OTHER["wapo.v2"],
 }
 
 TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
