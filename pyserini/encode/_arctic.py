@@ -79,8 +79,6 @@ class ArcticQueryEncoder(QueryEncoder):
         else:
             query_embeddings = normalize(query_embeddings)
 
-        query_embeddings = normalize(query_embeddings)       
-
         return query_embeddings.cpu().numpy().flatten()
 
 # # Example usage

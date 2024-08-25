@@ -43,6 +43,8 @@ import torch
 from ...encode import PcaEncoder, CosDprQueryEncoder, ClipEncoder
 from ...encode._aggretriever import BERTAggretrieverEncoder, DistlBERTAggretrieverEncoder
 
+from torch.nn.functional import normalize
+
 if is_faiss_available():
     import faiss
 
@@ -362,6 +364,47 @@ class OpenAIQueryEncoder(QueryEncoder):
             return self.get_embedding(inputs)
         else:
             return super().encode(query)
+        
+        
+class ArcticQueryEncoder(QueryEncoder):
+    # TODO: investigate on how do set-up a default model id. Currently, it is set to a specific model id regardless of what user passes on arguement encoder/encoder_dir
+    # However, pyserini is designed not to have a default model id for any classes, the model id is solely dependent on the user, which is conflicting with the current implementation
+    def __init__(self, model_id: str = "Snowflake/snowflake-arctic-embed-m-v1.5", 
+                 query_prefix: str = 'Represent this sentence for searching relevant passages: ', 
+                 encode_dir: str = None,
+                 tokenizer_name: str = None, encoded_query_dir: str = None, device: str = 'cpu', **kwargs): 
+        super().__init__(encoded_query_dir)
+        
+        if encode_dir:
+            self.device = device if torch.cuda.is_available() else 'cpu'
+            self.query_prefix = query_prefix
+            self.model = AutoModel.from_pretrained(model_id, add_pooling_layer=False).to(self.device)
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_id)
+            self.model.eval()
+            self.has_model = True
+
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one.')
+
+    def encode(self, query: str):
+        if self.has_model:
+            # Apply the query prefix
+            query_with_prefix = f"{self.query_prefix}{query}"
+            query_tokens = self.tokenizer(
+                query_with_prefix,
+                padding=True,
+                truncation=True,
+                return_tensors='pt',
+                max_length=512
+            ).to(self.device)
+            
+            with torch.inference_mode():
+                query_embeddings = self.model(**query_tokens)[0][:, 0]  # CLS token
+                query_embeddings = normalize(query_embeddings).cpu().numpy().flatten()
+            return query_embeddings
+        else:
+            # Fallback to using pre-encoded queries
+            return super().encode(query)
 
 class AutoQueryEncoder(QueryEncoder):
 
@@ -413,6 +456,14 @@ class AutoQueryEncoder(QueryEncoder):
             return embeddings.flatten()
         else:
             return super().encode(query)
+        
+
+
+
+        
+
+
+
 
 
 @dataclass

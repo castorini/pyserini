@@ -22,7 +22,7 @@ from tqdm import tqdm
 
 from pyserini.search import FaissSearcher, BinaryDenseSearcher, TctColBertQueryEncoder, QueryEncoder, \
     DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, DenseVectorAveragePrf, \
-    DenseVectorRocchioPrf, DenseVectorAncePrf, OpenAIQueryEncoder, ClipQueryEncoder
+    DenseVectorRocchioPrf, DenseVectorAncePrf, OpenAIQueryEncoder, ClipQueryEncoder, ArcticQueryEncoder
 
 from pyserini.encode import PcaEncoder, CosDprQueryEncoder, AutoQueryEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
@@ -41,7 +41,7 @@ def define_dsearch_args(parser):
                         help="Path to Faiss index or name of prebuilt index.")
     parser.add_argument('--encoder-class', type=str, metavar='which query encoder class to use. `default` would infer from the args.encoder',
                         required=False,
-                        choices=["dkrr", "dpr", "bpr", "tct_colbert", "ance", "sentence", "contriever", "auto", "aggretriever", "openai-api", "cosdpr"],
+                        choices=["dkrr", "dpr", "bpr", "tct_colbert", "ance", "sentence", "contriever", "auto", "aggretriever", "openai-api", "cosdpr", "arctic"],
                         default=None,
                         help='which query encoder class to use. `default` would infer from the args.encoder')
     parser.add_argument('--encoder', type=str, metavar='path to query encoder checkpoint or encoder name',
@@ -115,6 +115,7 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
         "openai-api": OpenAIQueryEncoder,
         "auto": AutoQueryEncoder,
         "clip": ClipQueryEncoder,
+        "arctic": ArcticQueryEncoder,
     }
 
     if encoder:
