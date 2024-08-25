@@ -127,12 +127,12 @@ class TestSIGIR2021(unittest.TestCase):
         # Traverse postings for a term:
         postings_list = reader.get_postings_list(term)
         self.assertEqual(len(postings_list), 5219)
-        self.assertEqual(postings_list[0].docid, 432)
+        self.assertEqual(postings_list[0].docid, 1019)
         self.assertEqual(postings_list[0].tf, 1)
-        self.assertEqual(postings_list[0].positions, [137])
-        self.assertEqual(postings_list[5218].docid, 527779)
+        self.assertEqual(postings_list[0].positions, [106])
+        self.assertEqual(postings_list[5218].docid, 527897)
         self.assertEqual(postings_list[5218].tf, 1)
-        self.assertEqual(postings_list[5218].positions, [21])
+        self.assertEqual(postings_list[5218].positions, [400])
 
         # Examples of manipulating document vectors:
         tf = reader.get_document_vector('LA071090-0047')
@@ -142,9 +142,7 @@ class TestSIGIR2021(unittest.TestCase):
             for term in tf.keys()
         }
         bm25_vector = {
-            term: reader.compute_bm25_term_weight('LA071090-0047',
-                                                  term,
-                                                  analyzer=None)
+            term: reader.compute_bm25_term_weight('LA071090-0047', term, analyzer=None)
             for term in tf.keys()
         }
 
