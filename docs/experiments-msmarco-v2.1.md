@@ -1,6 +1,6 @@
 # Pyserini: BM25 Baselines for MS MARCO V2.1
 
-The MS MARCO V2.1 document corpus was curated for the TREC 2024 RAG Track and comes in two flavors: the doc corpus and the segmented doc corpus.
+The MS MARCO V2.1 document corpus was curated for the [TREC 2024 RAG Track](https://trec-rag.github.io/) and comes in two flavors: the doc corpus and the segmented doc corpus.
 We have implemented BM25 baselines.
 This guide provides instructions for getting started with both variants using Pyserini: we provide prebuilt indexes that you can use "right out of the box".
 
@@ -13,7 +13,7 @@ Both indexes will be downloaded automatically with the following commands.
 
 ## Batch Runs on TREC 2024 RAG Topics
 
-Bindings for the test topics for the TREC 2024 RAG track (`--topics rag24.test`) are provided.
+Bindings for the test topics for the [TREC 2024 RAG Track](https://trec-rag.github.io/) (`--topics rag24.test`) are provided.
 For example:
 
 ```bash
@@ -74,7 +74,7 @@ Here's a specific example of using the REST API to issue the query "How does the
 curl -X GET "http://localhost:8082/api/v1.0/indexes/msmarco-v2.1-doc/search?query=How%20does%20the%20process%20of%20digestion%20and%20metabolism%20of%20carbohydrates%20start"
 ```
 
-And the output looks something like (pipe through `jq`):
+And the output looks something like (pipe through `jq` to pretty-print):
 
 ```bash
 {
@@ -110,7 +110,6 @@ And the output looks something like (pipe through `jq`):
 
 Switch to `msmarco-v2.1-doc-segmented` in the route to query the segmented docs instead.
 Adjust the `hits` parameter to change the number of hits returned.
-You get the idea...
 
 The API also provides an interactive search interface.
 To access it, navigate to [`http://localhost:8082/`](http://localhost:8082/) in your browser.
