@@ -19,9 +19,11 @@ import signal
 
 from pyserini.pyclass import autoclass
 
+
 def stop_server(signal, frame):
     print("Server shutting down...")
     sys.exit(0)
+
 
 if __name__ == '__main__':
     args = sys.argv[1:]
@@ -29,8 +31,9 @@ if __name__ == '__main__':
     JServer = autoclass('io.anserini.server.Application')
     JServer.main(args)
 
-    # wait for terminating / interrupting signal
     signal.signal(signal.SIGINT, stop_server)
     signal.signal(signal.SIGTERM, stop_server)
 
-    signal.pause()
+    while True:
+        # wait for terminating / interrupting signal
+        signal.pause()

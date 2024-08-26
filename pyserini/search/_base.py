@@ -42,9 +42,11 @@ JBagOfWordsQueryGenerator = autoclass('io.anserini.search.query.BagOfWordsQueryG
 JDisjunctionMaxQueryGenerator = autoclass('io.anserini.search.query.DisjunctionMaxQueryGenerator')
 JCovid19QueryGenerator = autoclass('io.anserini.search.query.Covid19QueryGenerator')
 
+
 # Function to safely get attributes from a class, returns None if not found
 def safe_getattr(cls, attr):
     return getattr(cls, attr, None)
+
 
 topics_mapping = {
     'trec1-adhoc': 'TREC1_ADHOC',
@@ -94,6 +96,8 @@ topics_mapping = {
     'dl23-unicoil': 'TREC2023_DL_UNICOIL',
     'dl23-unicoil-noexp': 'TREC2023_DL_UNICOIL_NOEXP',
     'rag24.raggy-dev': 'TREC2024_RAG_RAGGY_DEV',
+    'rag24.researchy-dev': 'TREC2024_RAG_RESEARCHY_DEV',
+    'rag24.test': 'TREC2024_RAG_TEST',
     'msmarco-doc-dev': 'MSMARCO_DOC_DEV',
     'msmarco-doc-dev-unicoil': 'MSMARCO_DOC_DEV_UNICOIL',
     'msmarco-doc-dev-unicoil-noexp': 'MSMARCO_DOC_DEV_UNICOIL_NOEXP',
@@ -219,6 +223,7 @@ topics_mapping = {
     'beir-v1.0.0-fever-test': 'BEIR_V1_0_0_FEVER_TEST',
     'beir-v1.0.0-climate-fever-test': 'BEIR_V1_0_0_CLIMATE_FEVER_TEST',
     'beir-v1.0.0-scifact-test': 'BEIR_V1_0_0_SCIFACT_TEST',
+
     # SPLADE-distil CoCodenser Medium
     'beir-v1.0.0-trec-covid-test-splade_distil_cocodenser_medium': 'BEIR_V1_0_0_TREC_COVID_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM',
     'beir-v1.0.0-bioasq-test-splade_distil_cocodenser_medium': 'BEIR_V1_0_0_BIOASQ_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM',
@@ -249,6 +254,7 @@ topics_mapping = {
     'beir-v1.0.0-fever-test-splade_distil_cocodenser_medium': 'BEIR_V1_0_0_FEVER_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM',
     'beir-v1.0.0-climate-fever-test-splade_distil_cocodenser_medium': 'BEIR_V1_0_0_CLIMATE_FEVER_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM',
     'beir-v1.0.0-scifact-test-splade_distil_cocodenser_medium': 'BEIR_V1_0_0_SCIFACT_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM',
+
     # SPLADE++ (CoCondenser-EnsembleDistil)
     'beir-v1.0.0-trec-covid.test.splade-pp-ed': 'BEIR_V1_0_0_TREC_COVID_TEST_SPLADE_PP_ED',
     'beir-v1.0.0-bioasq.test.splade-pp-ed': 'BEIR_V1_0_0_BIOASQ_TEST_SPLADE_PP_ED',
@@ -306,6 +312,7 @@ topics_mapping = {
     'hc4-v1.0-zh-en-test-title': 'HC4_V1_0_ZH_EN_TEST_TITLE',
     'hc4-v1.0-zh-en-test-desc': 'HC4_V1_0_ZH_EN_TEST_DESC',
     'hc4-v1.0-zh-en-test-desc-title': 'HC4_V1_0_ZH_EN_TEST_DESC_TITLE',
+
     # NeuCLIR 2022 topics
     'neuclir22-en-title':         'NEUCLIR22_EN_TITLE',
     'neuclir22-en-desc':          'NEUCLIR22_EN_DESC',
@@ -328,6 +335,7 @@ topics_mapping = {
     'neuclir22-zh-mt-title':      'NEUCLIR22_ZH_MT_TITLE',
     'neuclir22-zh-mt-desc':       'NEUCLIR22_ZH_MT_DESC',
     'neuclir22-zh-mt-desc-title': 'NEUCLIR22_ZH_MT_DESC_TITLE',
+
     # MIRACL topics
     'miracl-v1.0-ar-dev': 'MIRACL_V10_AR_DEV',
     'miracl-v1.0-bn-dev': 'MIRACL_V10_BN_DEV',

@@ -431,7 +431,17 @@ class TestLoadTopics(unittest.TestCase):
         topics = search.get_topics('rag24.raggy-dev')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 120)
-        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('rag24.researchy-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 600)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('rag24.test')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 301)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
 
     # Various multi-lingual test collections
     def test_ntcir8_zh(self):
