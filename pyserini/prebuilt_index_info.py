@@ -3347,7 +3347,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
      "beir-v1.0.0-trec-covid.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'trec-covid' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-trec-covid.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-trec-covid.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3357,7 +3357,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-bioasq.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'bioasq' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-bioasq.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-bioasq.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3367,7 +3367,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-nfcorpus.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'nfcorpus' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-nfcorpus.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-nfcorpus.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3377,7 +3377,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-nq.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'nq' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-nq.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-nq.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3387,7 +3387,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-hotpotqa.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'hotpotqa' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-hotpotqa.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-hotpotqa.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3397,7 +3397,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-fiqa.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'fiqa' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-fiqa.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-fiqa.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3407,7 +3407,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-signal1m.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'signal1m' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-signal1m.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-signal1m.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3417,7 +3417,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-trec-news.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'trec-news' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-trec-news.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-trec-news.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3427,7 +3427,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-robust04.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'robust04' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-robust04.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-robust04.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3437,7 +3437,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-arguana.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'arguana' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-arguana.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-arguana.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3447,7 +3447,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'webis-touche2020' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3457,7 +3457,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'cqadupstack-android' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3467,7 +3467,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'cqadupstack-english' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3477,7 +3477,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'cqadupstack-gaming' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3487,7 +3487,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'cqadupstack-gis' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3497,7 +3497,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'cqadupstack-mathematica' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3507,7 +3507,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'cqadupstack-physics' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3517,7 +3517,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'cqadupstack-programmers' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3527,7 +3527,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'cqadupstack-stats' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3537,7 +3537,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'cqadupstack-tex' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3547,7 +3547,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'cqadupstack-unix' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3557,7 +3557,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'cqadupstack-webmasters' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3567,7 +3567,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'cqadupstack-wordpress' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3577,7 +3577,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-quora.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'quora' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-quora.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-quora.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3587,7 +3587,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'dbpedia-entity' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3597,7 +3597,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-scidocs.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'scidocs' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-scidocs.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-scidocs.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3607,7 +3607,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-fever.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'fever' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-fever.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-fever.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3617,7 +3617,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-climate-fever.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'climate-fever' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-climate-fever.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-climate-fever.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
@@ -3627,7 +3627,7 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-scifact.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'scifact' encoded by BGE-base-en-v1.5.",
         "filename": "lucene-hnsw.beir-v1.0.0-scifact.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
-        "readme": "",
+        "readme": "lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-scifact.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
         ],
