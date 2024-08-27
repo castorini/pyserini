@@ -42,32 +42,35 @@ class LuceneHnswDenseSearcher:
 
         args = JHnswDenseSearcherArgs()
         args.index = index_dir
+        args.efSearch = ef_search
         if encoder:
             args.encoder = encoder
-            args.efSearch = ef_search
+
         self.searcher = JHnswDenseSearcher(args)
 
-        # Keep track if self is a known pre-built index.
+        # Keep track if self is a known prebuilt index.
         self.prebuilt_index_name = prebuilt_index_name
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str, encoder=None, verbose=False):
-        """Build a searcher from a pre-built index; download the index if necessary.
+        """Build a searcher from a prebuilt index; download the index if necessary.
 
         Parameters
         ----------
         prebuilt_index_name : str
             Prebuilt index name.
+        encoder : str
+            Encoder name.
         verbose : bool
             Print status information.
 
         Returns
         -------
-        LuceneSearcher
-            Searcher built from the prebuilt index.
+        LuceneHnswDenseSearcher
+            Searcher initialized from the prebuilt index.
         """
         if verbose:
-            print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
+            print(f'Attempting to initialize prebuilt index {prebuilt_index_name}.')
 
         try:
             index_dir = download_prebuilt_index(prebuilt_index_name, verbose=verbose)

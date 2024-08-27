@@ -15,14 +15,13 @@
 #
 
 """
-This module provides Pyserini's Python search interface to Anserini. The main entry point is the ``LuceneSearcher``
-class, which wraps the Java class with the same name in Anserini.
+This module serves as the 'root' of Pyserini search capabilities, providing common functionalities across sparse
+and dense retrieval.
 """
 
 import logging
 import os
 
-from pyserini.util import get_cache_home
 from pyserini.pyclass import autoclass
 
 logger = logging.getLogger(__name__)
@@ -194,6 +193,8 @@ topics_mapping = {
     'mrtydi-v1.1-thai-train': 'MRTYDI_V11_TH_TRAIN',
     'mrtydi-v1.1-thai-dev': 'MRTYDI_V11_TH_DEV',
     'mrtydi-v1.1-thai-test': 'MRTYDI_V11_TH_TEST',
+
+    # BEIR topics
     'beir-v1.0.0-trec-covid-test': 'BEIR_V1_0_0_TREC_COVID_TEST',
     'beir-v1.0.0-bioasq-test': 'BEIR_V1_0_0_BIOASQ_TEST',
     'beir-v1.0.0-nfcorpus-test': 'BEIR_V1_0_0_NFCORPUS_TEST',
@@ -223,6 +224,37 @@ topics_mapping = {
     'beir-v1.0.0-fever-test': 'BEIR_V1_0_0_FEVER_TEST',
     'beir-v1.0.0-climate-fever-test': 'BEIR_V1_0_0_CLIMATE_FEVER_TEST',
     'beir-v1.0.0-scifact-test': 'BEIR_V1_0_0_SCIFACT_TEST',
+
+    # BEIR topics (aliases, because 'test' is often dropped)
+    'beir-v1.0.0-trec-covid': 'BEIR_V1_0_0_TREC_COVID_TEST',
+    'beir-v1.0.0-bioasq': 'BEIR_V1_0_0_BIOASQ_TEST',
+    'beir-v1.0.0-nfcorpus': 'BEIR_V1_0_0_NFCORPUS_TEST',
+    'beir-v1.0.0-nq': 'BEIR_V1_0_0_NQ_TEST',
+    'beir-v1.0.0-hotpotqa': 'BEIR_V1_0_0_HOTPOTQA_TEST',
+    'beir-v1.0.0-fiqa': 'BEIR_V1_0_0_FIQA_TEST',
+    'beir-v1.0.0-signal1m': 'BEIR_V1_0_0_SIGNAL1M_TEST',
+    'beir-v1.0.0-trec-news': 'BEIR_V1_0_0_TREC_NEWS_TEST',
+    'beir-v1.0.0-robust04': 'BEIR_V1_0_0_ROBUST04_TEST',
+    'beir-v1.0.0-arguana': 'BEIR_V1_0_0_ARGUANA_TEST',
+    'beir-v1.0.0-webis-touche2020': 'BEIR_V1_0_0_WEBIS_TOUCHE2020_TEST',
+    'beir-v1.0.0-cqadupstack-android': 'BEIR_V1_0_0_CQADUPSTACK_ANDROID_TEST',
+    'beir-v1.0.0-cqadupstack-english': 'BEIR_V1_0_0_CQADUPSTACK_ENGLISH_TEST',
+    'beir-v1.0.0-cqadupstack-gaming': 'BEIR_V1_0_0_CQADUPSTACK_GAMING_TEST',
+    'beir-v1.0.0-cqadupstack-gis': 'BEIR_V1_0_0_CQADUPSTACK_GIS_TEST',
+    'beir-v1.0.0-cqadupstack-mathematica': 'BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_TEST',
+    'beir-v1.0.0-cqadupstack-physics': 'BEIR_V1_0_0_CQADUPSTACK_PHYSICS_TEST',
+    'beir-v1.0.0-cqadupstack-programmers': 'BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_TEST',
+    'beir-v1.0.0-cqadupstack-stats': 'BEIR_V1_0_0_CQADUPSTACK_STATS_TEST',
+    'beir-v1.0.0-cqadupstack-tex': 'BEIR_V1_0_0_CQADUPSTACK_TEX_TEST',
+    'beir-v1.0.0-cqadupstack-unix': 'BEIR_V1_0_0_CQADUPSTACK_UNIX_TEST',
+    'beir-v1.0.0-cqadupstack-webmasters': 'BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_TEST',
+    'beir-v1.0.0-cqadupstack-wordpress': 'BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_TEST',
+    'beir-v1.0.0-quora': 'BEIR_V1_0_0_QUORA_TEST',
+    'beir-v1.0.0-dbpedia-entity': 'BEIR_V1_0_0_DBPEDIA_ENTITY_TEST',
+    'beir-v1.0.0-scidocs': 'BEIR_V1_0_0_SCIDOCS_TEST',
+    'beir-v1.0.0-fever': 'BEIR_V1_0_0_FEVER_TEST',
+    'beir-v1.0.0-climate-fever': 'BEIR_V1_0_0_CLIMATE_FEVER_TEST',
+    'beir-v1.0.0-scifact': 'BEIR_V1_0_0_SCIFACT_TEST',
 
     # SPLADE-distil CoCodenser Medium
     'beir-v1.0.0-trec-covid-test-splade_distil_cocodenser_medium': 'BEIR_V1_0_0_TREC_COVID_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM',
@@ -495,6 +527,8 @@ qrels_mapping = {
     'mrtydi-v1.1-thai-train': 'MRTYDI_V11_TH_TRAIN',
     'mrtydi-v1.1-thai-dev': 'MRTYDI_V11_TH_DEV',
     'mrtydi-v1.1-thai-test': 'MRTYDI_V11_TH_TEST',
+
+    # BEIR qrels
     'beir-v1.0.0-trec-covid-test': 'BEIR_V1_0_0_TREC_COVID_TEST',
     'beir-v1.0.0-bioasq-test': 'BEIR_V1_0_0_BIOASQ_TEST',
     'beir-v1.0.0-nfcorpus-test': 'BEIR_V1_0_0_NFCORPUS_TEST',
@@ -524,6 +558,38 @@ qrels_mapping = {
     'beir-v1.0.0-fever-test': 'BEIR_V1_0_0_FEVER_TEST',
     'beir-v1.0.0-climate-fever-test': 'BEIR_V1_0_0_CLIMATE_FEVER_TEST',
     'beir-v1.0.0-scifact-test': 'BEIR_V1_0_0_SCIFACT_TEST',
+
+    # BEIR qrels (aliases, because 'test' is often dropped)
+    'beir-v1.0.0-trec-covid': 'BEIR_V1_0_0_TREC_COVID_TEST',
+    'beir-v1.0.0-bioasq': 'BEIR_V1_0_0_BIOASQ_TEST',
+    'beir-v1.0.0-nfcorpus': 'BEIR_V1_0_0_NFCORPUS_TEST',
+    'beir-v1.0.0-nq': 'BEIR_V1_0_0_NQ_TEST',
+    'beir-v1.0.0-hotpotqa': 'BEIR_V1_0_0_HOTPOTQA_TEST',
+    'beir-v1.0.0-fiqa': 'BEIR_V1_0_0_FIQA_TEST',
+    'beir-v1.0.0-signal1m': 'BEIR_V1_0_0_SIGNAL1M_TEST',
+    'beir-v1.0.0-trec-news': 'BEIR_V1_0_0_TREC_NEWS_TEST',
+    'beir-v1.0.0-robust04': 'BEIR_V1_0_0_ROBUST04_TEST',
+    'beir-v1.0.0-arguana': 'BEIR_V1_0_0_ARGUANA_TEST',
+    'beir-v1.0.0-webis-touche2020': 'BEIR_V1_0_0_WEBIS_TOUCHE2020_TEST',
+    'beir-v1.0.0-cqadupstack-android': 'BEIR_V1_0_0_CQADUPSTACK_ANDROID_TEST',
+    'beir-v1.0.0-cqadupstack-english': 'BEIR_V1_0_0_CQADUPSTACK_ENGLISH_TEST',
+    'beir-v1.0.0-cqadupstack-gaming': 'BEIR_V1_0_0_CQADUPSTACK_GAMING_TEST',
+    'beir-v1.0.0-cqadupstack-gis': 'BEIR_V1_0_0_CQADUPSTACK_GIS_TEST',
+    'beir-v1.0.0-cqadupstack-mathematica': 'BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_TEST',
+    'beir-v1.0.0-cqadupstack-physics': 'BEIR_V1_0_0_CQADUPSTACK_PHYSICS_TEST',
+    'beir-v1.0.0-cqadupstack-programmers': 'BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_TEST',
+    'beir-v1.0.0-cqadupstack-stats': 'BEIR_V1_0_0_CQADUPSTACK_STATS_TEST',
+    'beir-v1.0.0-cqadupstack-tex': 'BEIR_V1_0_0_CQADUPSTACK_TEX_TEST',
+    'beir-v1.0.0-cqadupstack-unix': 'BEIR_V1_0_0_CQADUPSTACK_UNIX_TEST',
+    'beir-v1.0.0-cqadupstack-webmasters': 'BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_TEST',
+    'beir-v1.0.0-cqadupstack-wordpress': 'BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_TEST',
+    'beir-v1.0.0-quora': 'BEIR_V1_0_0_QUORA_TEST',
+    'beir-v1.0.0-dbpedia-entity': 'BEIR_V1_0_0_DBPEDIA_ENTITY_TEST',
+    'beir-v1.0.0-scidocs': 'BEIR_V1_0_0_SCIDOCS_TEST',
+    'beir-v1.0.0-fever': 'BEIR_V1_0_0_FEVER_TEST',
+    'beir-v1.0.0-climate-fever': 'BEIR_V1_0_0_CLIMATE_FEVER_TEST',
+    'beir-v1.0.0-scifact': 'BEIR_V1_0_0_SCIFACT_TEST',
+
     'hc4-v1.0-fa-dev': 'HC4_V1_0_FA_DEV',
     'hc4-v1.0-fa-test': 'HC4_V1_0_FA_TEST',
     'hc4-v1.0-ru-dev': 'HC4_V1_0_RU_DEV',

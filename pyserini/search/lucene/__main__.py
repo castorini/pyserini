@@ -319,6 +319,8 @@ if __name__ == "__main__":
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()
+                else:
+                    continue
 
             for topic, hits in results:
                 # do rerank

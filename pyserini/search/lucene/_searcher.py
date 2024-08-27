@@ -50,12 +50,12 @@ class LuceneSearcher:
         self.index_dir = index_dir
         self.object = JSimpleSearcher(index_dir)
         self.num_docs = self.object.get_total_num_docs()
-        # Keep track if self is a known pre-built index.
+        # Keep track if self is a known prebuilt index.
         self.prebuilt_index_name = prebuilt_index_name
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str, verbose=False):
-        """Build a searcher from a pre-built index; download the index if necessary.
+        """Build a searcher from a prebuilt index; download the index if necessary.
 
         Parameters
         ----------
@@ -67,10 +67,10 @@ class LuceneSearcher:
         Returns
         -------
         LuceneSearcher
-            Searcher built from the prebuilt index.
+            Searcher initialized from the prebuilt index.
         """
         if verbose:
-            print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
+            print(f'Attempting to initialize prebuilt index {prebuilt_index_name}.')
 
         try:
             index_dir = download_prebuilt_index(prebuilt_index_name, verbose=verbose)
