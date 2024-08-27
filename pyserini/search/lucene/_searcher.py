@@ -101,7 +101,7 @@ class LuceneSearcher:
         Parameters
         ----------
         q : Union[str, JQuery]
-            Query string or the ``JQuery`` objected.
+            Query string or the ``JQuery`` object.
         k : int
             Number of hits to return.
         query_generator : JQueryGenerator
@@ -109,13 +109,13 @@ class LuceneSearcher:
         fields : dict
             Optional map of fields to search with associated boosts.
         strip_segment_id : bool
-            Remove the .XXXXX suffix used to denote different segments from an document.
+            Remove the .XXXXX suffix used to denote different segments from a document.
         remove_dups : bool
             Remove duplicate docids when writing final run output.
 
         Returns
         -------
-        List[JLuceneSearcherResult]
+        List[JScoredDoc]
             List of search results.
         """
 
@@ -218,7 +218,7 @@ class LuceneSearcher:
         Parameters
         ----------
         q : str
-            Query string or the ``JQuery`` objected.
+            Query string or the ``JQuery`` object.
 
         Returns
         -------

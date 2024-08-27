@@ -25,7 +25,7 @@ from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.pyclass import autoclass
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.search import JDisjunctionMaxQueryGenerator
-from . import LuceneImpactSearcher, LuceneSearcher, SlimSearcher
+from . import LuceneImpactSearcher, LuceneSearcher, SlimSearcher, LuceneHnswDenseSearcher
 from .reranker import ClassifierType, PseudoRelevanceClassifierReranker
 
 
@@ -73,6 +73,8 @@ def set_bm25_parameters(searcher, index, k1=None, b=None):
 def define_search_args(parser):
     parser.add_argument('--dense', action='store_true', help="Search dense vectors.")
     parser.add_argument('--hnsw', action='store_true', help="Search dense vectors using HNSW indexes.")
+    parser.add_argument('--ef-search', type=int, metavar='num', required=False, default=100, help="HNSW efSearch parameter.")
+
     parser.add_argument('--flat', action='store_true', help="Search dense vectors using flat indexes.")
 
     parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
@@ -146,7 +148,6 @@ def define_search_args(parser):
 
 
 if __name__ == "__main__":
-    JLuceneSearcher = autoclass('io.anserini.search.SimpleSearcher')
     parser = argparse.ArgumentParser(description='Search a Lucene index.')
     define_search_args(parser)
     args = parser.parse_args()
@@ -154,7 +155,9 @@ if __name__ == "__main__":
     query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
     topics = query_iterator.topics
 
-    if not args.impact:
+    if args.dense:
+        searcher = LuceneHnswDenseSearcher(args.index, ef_search=args.ef_search, encoder=args.onnx_encoder)
+    elif not args.impact:
         if os.path.exists(args.index):
             # create searcher from index directory
             searcher = LuceneSearcher(args.index)
@@ -292,7 +295,9 @@ if __name__ == "__main__":
                 text = ' '
                 text = text.join(toks)
             if args.batch_size <= 1 and args.threads <= 1:
-                if args.impact:
+                if args.dense:
+                    hits = searcher.search(text, args.hits)
+                elif args.impact:
                     hits = searcher.search(text, args.hits, fields=fields)
                 else:
                     hits = searcher.search(text, args.hits, query_generator=query_generator, fields=fields)
@@ -314,8 +319,6 @@ if __name__ == "__main__":
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()
-                else:
-                    continue
 
             for topic, hits in results:
                 # do rerank

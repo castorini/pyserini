@@ -17,8 +17,6 @@
 import logging
 from typing import List, Dict
 
-from jnius import cast
-
 from pyserini.pyclass import autoclass
 from pyserini.util import download_prebuilt_index
 
@@ -27,26 +25,7 @@ logger = logging.getLogger(__name__)
 # Wrappers around Anserini classes
 JHnswDenseSearcher = autoclass('io.anserini.search.HnswDenseSearcher')
 JHnswDenseSearcherArgs = autoclass('io.anserini.search.HnswDenseSearcher$Args')
-
-JFlatDenseSearcher = autoclass('io.anserini.search.FlatDenseSearcher')
-
 JScoredDoc = autoclass('io.anserini.search.ScoredDoc')
-
-
-class LuceneHnswDenseSearcherOld:
-    def __init__(self, index_dir: str):
-        self.index_dir = index_dir
-
-        args = JHnswDenseSearcherArgs()
-        args.index = index_dir
-        self.searcher = JHnswDenseSearcher(args)
-
-    @staticmethod
-    def _string_to_comparable(string: str):
-        return cast('java.lang.Comparable', autoclass('java.lang.String')(string))
-
-    def search(self, q: str, k: int = 10) -> List[JScoredDoc]:
-        return self.searcher.search(self._string_to_comparable('dummy'), q, k)
 
 
 class LuceneHnswDenseSearcher:
@@ -58,13 +37,14 @@ class LuceneHnswDenseSearcher:
         Path to Lucene index directory.
     """
 
-    def __init__(self, index_dir: str, encoder=None, prebuilt_index_name=None):
+    def __init__(self, index_dir: str, ef_search=100, encoder=None, prebuilt_index_name=None):
         self.index_dir = index_dir
 
         args = JHnswDenseSearcherArgs()
         args.index = index_dir
         if encoder:
             args.encoder = encoder
+            args.efSearch = ef_search
         self.searcher = JHnswDenseSearcher(args)
 
         # Keep track if self is a known pre-built index.
@@ -105,27 +85,18 @@ class LuceneHnswDenseSearcher:
 
         Parameters
         ----------
-        q : Union[str, JQuery]
-            Query string or the ``JQuery`` objected.
+        q : str
+            Query string.
         k : int
             Number of hits to return.
-        query_generator : JQueryGenerator
-            Generator to build queries. Set to ``None`` by default to use Anserini default.
-        fields : dict
-            Optional map of fields to search with associated boosts.
-        strip_segment_id : bool
-            Remove the .XXXXX suffix used to denote different segments from an document.
-        remove_dups : bool
-            Remove duplicate docids when writing final run output.
 
         Returns
         -------
-        List[JLuceneSearcherResult]
+        List[JScoredDoc]
             List of search results.
         """
 
         return self.searcher.search(q, k)
-
 
     def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1) -> Dict[str, List[JScoredDoc]]:
         """Search the collection concurrently for multiple queries, using multiple threads.
@@ -140,10 +111,6 @@ class LuceneHnswDenseSearcher:
             Number of hits to return.
         threads : int
             Maximum number of threads to use.
-        query_generator : JQueryGenerator
-            Generator to build queries. Set to ``None`` by default to use Anserini default.
-        fields : dict
-            Optional map of fields to search with associated boosts.
 
         Returns
         -------
@@ -155,4 +122,4 @@ class LuceneHnswDenseSearcher:
 
     def close(self):
         """Close the searcher."""
-        self.object.close()
+        self.searcher.close()

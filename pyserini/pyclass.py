@@ -24,7 +24,7 @@ from .setup import configure_classpath, os
 configure_classpath(os.environ['ANSERINI_CLASSPATH'] if 'ANSERINI_CLASSPATH' in os.environ else
                     os.path.join(os.path.split(__file__)[0], 'resources/jars/'))
 
-from jnius import autoclass, cast
+from jnius import autoclass
 
 # Base Java classes
 JString = autoclass('java.lang.String')
