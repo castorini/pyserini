@@ -71,11 +71,16 @@ def set_bm25_parameters(searcher, index, k1=None, b=None):
 
 
 def define_search_args(parser):
+    parser.add_argument('--dense', action='store_true', help="Search dense vectors.")
+    parser.add_argument('--hnsw', action='store_true', help="Search dense vectors using HNSW indexes.")
+    parser.add_argument('--flat', action='store_true', help="Search dense vectors using flat indexes.")
+
     parser.add_argument('--index', type=str, metavar='path to index or index name', required=True,
                         help="Path to Lucene index or name of prebuilt index.")
     parser.add_argument('--encoded-corpus', type=str, default=None, help="path to stored sparse vectors")
 
     parser.add_argument('--impact', action='store_true', help="Use Impact.")
+
     parser.add_argument('--encoder', type=str, default=None, help="encoder name")
     parser.add_argument('--onnx-encoder', type=str, default=None, help="onnx encoder name")
     parser.add_argument('--min-idf', type=int, default=0, help="minimum idf")
@@ -112,11 +117,6 @@ def define_search_args(parser):
 
     parser.add_argument('--stopwords', type=str, help='Path to file with customstopwords.')
 
-
-if __name__ == "__main__":
-    JLuceneSearcher = autoclass('io.anserini.search.SimpleSearcher')
-    parser = argparse.ArgumentParser(description='Search a Lucene index.')
-    define_search_args(parser)
     parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
                         help="Name of topics. Available: robust04, robust05, core17, core18.")
     parser.add_argument('--hits', type=int, metavar='num',
@@ -139,10 +139,16 @@ if __name__ == "__main__":
                         default=1, help="Maximum number of threads to use.")
     parser.add_argument('--tokenizer', type=str, help='tokenizer used to preprocess topics')
     parser.add_argument('--remove-duplicates', action='store_true', default=False, help="Remove duplicate docs.")
+
     # For some test collections, a query is doc from the corpus (e.g., arguana in BEIR).
     # We want to remove the query from the results. This is equivalent to -removeQuery in Java.
     parser.add_argument('--remove-query', action='store_true', default=False, help="Remove query from results list.")
 
+
+if __name__ == "__main__":
+    JLuceneSearcher = autoclass('io.anserini.search.SimpleSearcher')
+    parser = argparse.ArgumentParser(description='Search a Lucene index.')
+    define_search_args(parser)
     args = parser.parse_args()
 
     query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
@@ -228,7 +234,7 @@ if __name__ == "__main__":
         if args.tokenizer is not None:
             raise ValueError(f"--tokenizer is not supported with when setting --pretokenized.")
 
-    if args.tokenizer != None:
+    if args.tokenizer is not None:
         analyzer = JWhiteSpaceAnalyzer()
         searcher.set_analyzer(analyzer)
         print(f'Using whitespace analyzer because of pretokenized topics')
@@ -281,7 +287,7 @@ if __name__ == "__main__":
         batch_topics = list()
         batch_topic_ids = list()
         for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
-            if (args.tokenizer != None):
+            if args.tokenizer is not None:
                 toks = tokenizer.tokenize(text)
                 text = ' '
                 text = text.join(toks)

@@ -3343,6 +3343,21 @@ IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_MSMARCO,
                      **IMPACT_INDEX_INFO_MSMARCO_ALIASES,
                      **IMPACT_INDEX_INFO_BEIR}
 
+LUCENE_HNSW_INDEX_INFO_BEIR = {
+    "beir-v1.0.0-arguana.bge-base-en-v1.5.hnsw": {
+        "description": "Lucene HNSW index of BEIR collection 'arguana' encoded by BGE-base-en-v1.5.",
+        "filename": "lucene-hnsw.beir-v1.0.0-arguana.bge-base-en-v1.5.20240223.43c9ec.tar.gz",
+        "readme": "",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-hnsw.beir-v1.0.0-arguana.bge-base-en-v1.5.20240223.43c9ec.tar.gz"
+        ],
+        "md5": "468129157636526a3e96bc9427d62808",
+        "downloaded": False
+    },
+}
+
+LUCENE_HNSW_INDEX_INFO = {**LUCENE_HNSW_INDEX_INFO_BEIR}
+
 FAISS_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.cosdpr-distil": {
         "description": "Faiss flat index of the MS MARCO passage corpus encoded by cosDPR-distil.",
