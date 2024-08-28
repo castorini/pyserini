@@ -117,10 +117,10 @@ def define_search_args(parser):
     parser.add_argument('--dismax.tiebreaker', dest='tiebreaker', type=float, default=0.0,
                         help='The tiebreaker weight to use in disjunction max queries.')
 
-    parser.add_argument('--stopwords', type=str, help='Path to file with customstopwords.')
+    parser.add_argument('--stopwords', type=str, help='Path to file with custom stopwords.')
 
     parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
-                        help="Name of topics. Available: robust04, robust05, core17, core18.")
+                        help="Name of topics, e.g., robust04.")
     parser.add_argument('--hits', type=int, metavar='num',
                         required=False, default=1000, help="Number of hits.")
     parser.add_argument('--topics-format', type=str, metavar='format', default=TopicsFormat.DEFAULT.value,
