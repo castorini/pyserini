@@ -22,7 +22,8 @@ from pyserini.search.lucene import LuceneHnswDenseSearcher
 
 class TestLuceneDenseSearch(unittest.TestCase):
     def test_lucene_hnsw_searcher(self):
-        searcher = LuceneHnswDenseSearcher.from_prebuilt_index('beir-v1.0.0-arguana.bge-base-en-v1.5.hnsw', encoder='BgeBaseEn15')
+        searcher = LuceneHnswDenseSearcher.from_prebuilt_index(
+            'beir-v1.0.0-arguana.bge-base-en-v1.5.hnsw', encoder='BgeBaseEn15')
         topics = get_topics('beir-v1.0.0-arguana-test')
         qid = 'test-culture-ahrtsdlgra-con01a'
         q = topics[qid]['title']
@@ -47,9 +48,6 @@ class TestLuceneDenseSearch(unittest.TestCase):
         self.assertAlmostEqual(hits[2].score, 0.892179, places=5)
         self.assertAlmostEqual(hits[3].score, 0.888884, places=5)
         self.assertAlmostEqual(hits[4].score, 0.883876, places=5)
-
-        for hit in hits:
-            print(f'{hit.docid} {hit.score}')
 
 
 if __name__ == '__main__':
