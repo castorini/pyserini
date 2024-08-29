@@ -33,6 +33,8 @@ dense_batch_size = 512
 sparse_threads = 16
 sparse_batch_size = 128
 
+metrics = ['nDCG@10', 'R@100', 'R@1000']
+
 trec_eval_metric_definitions = {
     'nDCG@10': '-c -m ndcg_cut.10',
     'R@100': '-c -m recall.100',
@@ -70,6 +72,13 @@ beir_keys = ['trec-covid',
              'scifact'
              ]
 
+models = ['bm25-flat', 
+          'bm25-multifield', 
+          'splade-pp-ed', 
+          'contriever', 
+          'contriever-msmarco', 
+          'bge-base-en-v1.5', 
+          'cohere-embed-english-v3.0']
 
 def format_run_command(raw):
     return raw.replace('--topics', '\\\n  --topics') \
@@ -108,9 +117,6 @@ def list_datasets():
 
 
 def generate_report(args):
-    models = ['bm25-flat', 'bm25-multifield', 'splade-pp-ed', 'contriever', 'contriever-msmarco', 'bge-base-en-v1.5', 'cohere-embed-english-v3.0']
-    metrics = ['nDCG@10', 'R@100', 'R@1000']
-
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
     commands = defaultdict(lambda: defaultdict(lambda: ''))
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
@@ -145,6 +151,7 @@ def generate_report(args):
                         eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
                                    f'{trec_eval_metric_definitions[metric]} beir-v1.0.0-{dataset}-test {runfile}'
                         eval_commands[dataset][name] += format_eval_command(eval_cmd) + '\n\n'
+                        
                         if dataset.startswith('cqadupstack-'):
                             cqa_eval_commands[name] += eval_commands[dataset][name]
                         
@@ -187,7 +194,7 @@ def generate_report(args):
 
             if dataset.startswith('cqadupstack-'):
                 cqa_rows.append(s)
-                if cqa_row_flag == False:
+                if cqa_row_flag is False:
                     cqa_row_flag = True
 
                 for model in models:
@@ -299,9 +306,6 @@ def run_conditions(args):
                     print('')
 
             print('')
-
-    models = ['bm25-flat', 'bm25-multifield', 'splade-pp-ed', 'contriever', 'contriever-msmarco', 'bge-base-en-v1.5', 'cohere-embed-english-v3.0']
-    metrics = ['nDCG@10', 'R@100', 'R@1000']
 
     top_level_sums = defaultdict(lambda: defaultdict(float))
     cqadupstack_sums = defaultdict(lambda: defaultdict(float))
