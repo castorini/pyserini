@@ -17,11 +17,11 @@
 import requests
 import unittest
 
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO, LUCENE_HNSW_INDEX_INFO
 
 
 class TestPrebuiltIndexes(unittest.TestCase):
-    def test_tf_beir(self):
+    def test_lucene_tf_beir(self):
         urls = []
         cnt = 0
         for key in TF_INDEX_INFO:
@@ -34,7 +34,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(cnt, 58)
         self._test_urls(urls)
 
-    def test_tf_mrtydi(self):
+    def test_lucene_tf_mrtydi(self):
         urls = []
         cnt = 0
         for key in TF_INDEX_INFO:
@@ -47,7 +47,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(cnt, 22)
         self._test_urls(urls)
 
-    def test_tf_miracl(self):
+    def test_lucene_tf_miracl(self):
         urls = []
         cnt = 0
         for key in TF_INDEX_INFO:
@@ -60,7 +60,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(cnt, 18)
         self._test_urls(urls)
 
-    def test_tf_ciral(self):
+    def test_lucene_tf_ciral(self):
         urls = []
         cnt = 0
         for key in TF_INDEX_INFO:
@@ -73,7 +73,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(cnt, 8)
         self._test_urls(urls)
 
-    def test_impact_beir(self):
+    def test_lucene_impact_beir(self):
         urls = []
         cnt = 0
         for key in IMPACT_INDEX_INFO:
@@ -86,7 +86,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(cnt, 29)
         self._test_urls(urls)
 
-    def test_impact_mrtydi(self):
+    def test_lucene_impact_mrtydi(self):
         urls = []
         cnt = 0
         for key in IMPACT_INDEX_INFO:
@@ -98,7 +98,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
         # currently, none
         self.assertEqual(cnt, 0)
 
-    def test_impact_miracl(self):
+    def test_lucene_impact_miracl(self):
         urls = []
         cnt = 0
         for key in IMPACT_INDEX_INFO:
@@ -109,6 +109,18 @@ class TestPrebuiltIndexes(unittest.TestCase):
 
         # currently, none
         self.assertEqual(cnt, 0)
+
+    def test_lucene_hnsw_beir(self):
+        urls = []
+        cnt = 0
+        for key in LUCENE_HNSW_INDEX_INFO:
+            if 'beir' in key:
+                cnt += 1
+                for url in LUCENE_HNSW_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        self.assertEqual(cnt, 29)
+        self._test_urls(urls)
 
     def test_faiss_beir(self):
         urls = []

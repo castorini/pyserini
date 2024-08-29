@@ -15,11 +15,10 @@
 #
 
 import logging
-from typing import List
-
-from jnius import cast
+from typing import List, Dict
 
 from pyserini.pyclass import autoclass
+from pyserini.util import download_prebuilt_index
 
 logger = logging.getLogger(__name__)
 
@@ -30,16 +29,100 @@ JScoredDoc = autoclass('io.anserini.search.ScoredDoc')
 
 
 class LuceneHnswDenseSearcher:
-    def __init__(self, index_dir: str):
+    """Wrapper class for ``HnswDenseSearcher`` in Anserini.
+
+    Parameters
+    ----------
+    index_dir : str
+        Path to Lucene index directory.
+    """
+
+    def __init__(self, index_dir: str, ef_search=100, encoder=None, prebuilt_index_name=None):
         self.index_dir = index_dir
 
         args = JHnswDenseSearcherArgs()
         args.index = index_dir
+        args.efSearch = ef_search
+        if encoder:
+            args.encoder = encoder
+
         self.searcher = JHnswDenseSearcher(args)
 
-    @staticmethod
-    def _string_to_comparable(string: str):
-        return cast('java.lang.Comparable', autoclass('java.lang.String')(string))
+        # Keep track if self is a known prebuilt index.
+        self.prebuilt_index_name = prebuilt_index_name
+
+    @classmethod
+    def from_prebuilt_index(cls, prebuilt_index_name: str, encoder=None, verbose=False):
+        """Build a searcher from a prebuilt index; download the index if necessary.
+
+        Parameters
+        ----------
+        prebuilt_index_name : str
+            Prebuilt index name.
+        encoder : str
+            Encoder name.
+        verbose : bool
+            Print status information.
+
+        Returns
+        -------
+        LuceneHnswDenseSearcher
+            Searcher initialized from the prebuilt index.
+        """
+        if verbose:
+            print(f'Attempting to initialize prebuilt index {prebuilt_index_name}.')
+
+        try:
+            index_dir = download_prebuilt_index(prebuilt_index_name, verbose=verbose)
+        except ValueError as e:
+            print(str(e))
+            return None
+
+        if verbose:
+            print(f'Initializing {prebuilt_index_name}...')
+
+        return cls(index_dir, encoder=encoder, prebuilt_index_name=prebuilt_index_name)
 
     def search(self, q: str, k: int = 10) -> List[JScoredDoc]:
-        return self.searcher.search(self._string_to_comparable('dummy'), q, k)
+        """Search the collection.
+
+        Parameters
+        ----------
+        q : str
+            Query string.
+        k : int
+            Number of hits to return.
+
+        Returns
+        -------
+        List[JScoredDoc]
+            List of search results.
+        """
+
+        return self.searcher.search(q, k)
+
+    def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1) -> Dict[str, List[JScoredDoc]]:
+        """Search the collection concurrently for multiple queries, using multiple threads.
+
+        Parameters
+        ----------
+        queries : List[str]
+            List of query strings.
+        qids : List[str]
+            List of corresponding query ids.
+        k : int
+            Number of hits to return.
+        threads : int
+            Maximum number of threads to use.
+
+        Returns
+        -------
+        Dict[str, List[JScoredDoc]]
+            Dictionary holding the search results, with the query ids as keys and the corresponding lists of search
+            results as the values.
+        """
+        pass
+
+    def close(self):
+        """Close the searcher."""
+        self.searcher.close()

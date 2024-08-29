@@ -342,7 +342,7 @@ class TestIndexUtils(unittest.TestCase):
                                0., places=5)
         self.assertAlmostEqual(self.index_reader.compute_bm25_term_weight('CACM-3134', 'fox'), 0., places=5)
 
-    def test_docid_converstion(self):
+    def test_docid_conversion(self):
         self.assertEqual(self.index_reader.convert_internal_docid_to_collection_docid(1), 'CACM-0002')
         self.assertEqual(self.index_reader.convert_collection_docid_to_internal_docid('CACM-0002'), 1)
         self.assertEqual(self.index_reader.convert_internal_docid_to_collection_docid(1000), 'CACM-1001')
@@ -418,7 +418,7 @@ class TestIndexUtils(unittest.TestCase):
             """
             # Search through documents BM25 dump
             query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
-            heap = [] # heapq implements a min-heap, we can invert the values to have a max-heap
+            heap = []  # heapq implements a min-heap, we can invert the values to have a max-heap
 
             for line in dump_file:
                 doc = json.loads(line)
