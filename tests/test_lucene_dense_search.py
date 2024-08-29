@@ -17,7 +17,7 @@ import glob
 import os
 import unittest
 
-from build.lib.pyserini.util import get_cache_home
+from pyserini.util import get_cache_home
 from pyserini.search import get_topics
 from pyserini.search.lucene import LuceneHnswDenseSearcher, LuceneFlatDenseSearcher
 
