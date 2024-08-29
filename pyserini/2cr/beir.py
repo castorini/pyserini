@@ -191,7 +191,7 @@ def generate_report(args):
                              eval_cmd4=eval_commands[dataset]["contriever-msmarco"].rstrip(),
                              eval_cmd5=eval_commands[dataset]["bge-base-en-v1.5"].rstrip(),
                              eval_cmd6=eval_commands[dataset]["cohere-embed-english-v3.0"].rstrip())
-
+            row_cnt += 1
             if dataset.startswith('cqadupstack-'):
                 cqa_rows.append(s)
                 if cqa_row_flag is False:
@@ -233,8 +233,7 @@ def generate_report(args):
                     main_rows.append(cqa_row)
                     row_cnt += 1
                 main_rows.append(s)
-            row_cnt += 1
-
+            
         main_rows = '\n'.join(main_rows)
         cqa_rows = '\n'.join(cqa_rows)
         with open(args.output, 'w') as out:
