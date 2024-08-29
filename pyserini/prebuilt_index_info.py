@@ -14,6 +14,11 @@
 # limitations under the License.
 #
 
+from pyserini.pyclass import autoclass
+
+JIndexInfo = autoclass('io.anserini.index.IndexInfo')
+
+# Bindings for Lucene (standard) inverted indexes
 TF_INDEX_INFO_MSMARCO = {
     # MS MARCO V1 document corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v1-doc": {
@@ -2637,6 +2642,8 @@ TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
                  **TF_INDEX_INFO_OTHER,
                  **TF_INDEX_INFO_OTHER_ALIASES}
 
+
+# Bindings for Lucene impact indexes
 IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.slimr": {
         "description": "Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with BM25 negatives.",
@@ -3343,6 +3350,8 @@ IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_MSMARCO,
                      **IMPACT_INDEX_INFO_MSMARCO_ALIASES,
                      **IMPACT_INDEX_INFO_BEIR}
 
+
+# Bindings for Lucene HNSW indexes
 LUCENE_HNSW_INDEX_INFO_BEIR = {
      "beir-v1.0.0-trec-covid.bge-base-en-v1.5.hnsw": {
         "description": "Lucene HNSW index of BEIR collection 'trec-covid' encoded by BGE-base-en-v1.5.",
@@ -3638,6 +3647,57 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
 
 LUCENE_HNSW_INDEX_INFO = {**LUCENE_HNSW_INDEX_INFO_BEIR}
 
+
+# Bindings for Lucene flat indexes
+def add_lucene_index_info(enum, info):
+    info[enum.indexName] = {
+        "description": enum.description,
+        "filename": enum.filename,
+        "readme": "",
+        "urls": [
+            enum.urls[0]
+        ],
+        "md5": enum.md5,
+        "downloaded": False
+    }
+
+LUCENE_FLAT_INDEX_INFO_BEIR = {}
+
+# Metadata have already been defined in Anserini, just copy over into Pyserini.
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
+
+LUCENE_FLAT_INDEX_INFO = {**LUCENE_FLAT_INDEX_INFO_BEIR}
+
+
+# Bindings for Faiss indexes
 FAISS_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.cosdpr-distil": {
         "description": "Faiss flat index of the MS MARCO passage corpus encoded by cosDPR-distil.",
