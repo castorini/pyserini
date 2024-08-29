@@ -18,7 +18,8 @@ import requests
 import unittest
 
 from pyserini.pyclass import autoclass
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO, LUCENE_HNSW_INDEX_INFO
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, \
+    LUCENE_HNSW_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, FAISS_INDEX_INFO
 
 
 class TestPrebuiltIndexes(unittest.TestCase):
@@ -125,6 +126,18 @@ class TestPrebuiltIndexes(unittest.TestCase):
             if 'beir' in key:
                 cnt += 1
                 for url in LUCENE_HNSW_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        self.assertEqual(cnt, 29)
+        self._test_urls(urls)
+
+    def test_lucene_flat_beir(self):
+        urls = []
+        cnt = 0
+        for key in LUCENE_FLAT_INDEX_INFO:
+            if 'beir' in key:
+                cnt += 1
+                for url in LUCENE_FLAT_INDEX_INFO[key]['urls']:
                     urls.append(url)
 
         self.assertEqual(cnt, 29)

@@ -13,9 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+import glob
+import os
 import unittest
 
+from build.lib.pyserini.util import get_cache_home
 from pyserini.search import get_topics
 from pyserini.search.lucene import LuceneHnswDenseSearcher, LuceneFlatDenseSearcher
 
@@ -49,6 +51,27 @@ class TestLuceneDenseSearch(unittest.TestCase):
         self.assertAlmostEqual(hits[3].score, 0.888884, places=5)
         self.assertAlmostEqual(hits[4].score, 0.883876, places=5)
 
+        # We now run the same test again, but passing in a physical index directory location, as opposed to
+        # a symbol representing the index.
+        pattern = os.path.join(get_cache_home(), 'indexes/lucene-hnsw.beir-v1.0.0-arguana.bge-base-en-v1.5*')
+        directories = [d for d in glob.glob(pattern, recursive=False) if os.path.isdir(d)]
+
+        self.assertEqual(len(directories), 1)
+        index_dir = directories[0]
+
+        searcher = LuceneHnswDenseSearcher(index_dir, encoder='BgeBaseEn15')
+        hits = searcher.search(q, k=5)
+
+        self.assertEqual(len(hits), 5)
+        self.assertEqual(hits[1].docid, 'test-culture-ahrtsdlgra-con03a')
+        self.assertEqual(hits[2].docid, 'test-culture-ahrtsdlgra-con01b')
+        self.assertEqual(hits[3].docid, 'test-culture-ahrtsdlgra-pro02b')
+        self.assertEqual(hits[4].docid, 'test-culture-ahrtsdlgra-pro02a')
+        self.assertAlmostEqual(hits[1].score, 0.893029, places=5)
+        self.assertAlmostEqual(hits[2].score, 0.892179, places=5)
+        self.assertAlmostEqual(hits[3].score, 0.888884, places=5)
+        self.assertAlmostEqual(hits[4].score, 0.883876, places=5)
+
     def test_lucene_flat_dense_searcher(self):
         searcher = LuceneFlatDenseSearcher.from_prebuilt_index(
             'beir-v1.0.0-arguana.bge-base-en-v1.5.flat', encoder='BgeBaseEn15')
@@ -72,6 +95,27 @@ class TestLuceneDenseSearch(unittest.TestCase):
         self.assertEqual(hits[3].docid, 'test-culture-ahrtsdlgra-pro02b')
         self.assertEqual(hits[4].docid, 'test-culture-ahrtsdlgra-pro02a')
 
+        self.assertAlmostEqual(hits[1].score, 0.893029, places=5)
+        self.assertAlmostEqual(hits[2].score, 0.892179, places=5)
+        self.assertAlmostEqual(hits[3].score, 0.888884, places=5)
+        self.assertAlmostEqual(hits[4].score, 0.883876, places=5)
+
+        # We now run the same test again, but passing in a physical index directory location, as opposed to
+        # a symbol representing the index.
+        pattern = os.path.join(get_cache_home(), 'indexes/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5*')
+        directories = [d for d in glob.glob(pattern, recursive=False) if os.path.isdir(d)]
+
+        self.assertEqual(len(directories), 1)
+        index_dir = directories[0]
+
+        searcher = LuceneFlatDenseSearcher(index_dir, encoder='BgeBaseEn15')
+        hits = searcher.search(q, k=5)
+
+        self.assertEqual(len(hits), 5)
+        self.assertEqual(hits[1].docid, 'test-culture-ahrtsdlgra-con03a')
+        self.assertEqual(hits[2].docid, 'test-culture-ahrtsdlgra-con01b')
+        self.assertEqual(hits[3].docid, 'test-culture-ahrtsdlgra-pro02b')
+        self.assertEqual(hits[4].docid, 'test-culture-ahrtsdlgra-pro02a')
         self.assertAlmostEqual(hits[1].score, 0.893029, places=5)
         self.assertAlmostEqual(hits[2].score, 0.892179, places=5)
         self.assertAlmostEqual(hits[3].score, 0.888884, places=5)
