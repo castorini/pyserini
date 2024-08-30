@@ -191,7 +191,54 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
     </thead>
     <tbody>
 
-$rows
+$main_rows
+
+    </tbody>
+  </table>
+</div>
+
+<div style="padding-top: 20px"/>
+
+For cqadupstack collections:
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="headertop"></th>
+        <th class="headertop"></th>
+        <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
+        <th class="headertop" colspan="3"><b>BM25 Multifield</b></th>
+        <th class="headertop" colspan="3"><b>SPLADE++ ED</b></th>
+        <th class="headertop" colspan="3"><b>Contriever MSMARCO</b></th>
+        <th class="headertop" colspan="3"><b>BGE-base</b></th>
+        <th class="headertop" colspan="3"><b>Cohere embed-english</b></th>
+      </tr>
+      <tr>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+      </tr>
+    </thead>
+    <tbody>
+
+$cqa_rows
 
     </tbody>
   </table>
