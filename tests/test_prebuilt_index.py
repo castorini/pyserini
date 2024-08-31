@@ -17,10 +17,19 @@
 import requests
 import unittest
 
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO, LUCENE_HNSW_INDEX_INFO
+from pyserini.pyclass import autoclass
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, \
+    LUCENE_HNSW_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, FAISS_INDEX_INFO
 
 
 class TestPrebuiltIndexes(unittest.TestCase):
+    def test_index_inf(self):
+        # Test the accessibility of IndexInfo on the Anserini end to make sure everything is "connected together"
+        JIndexInfo = autoclass('io.anserini.index.IndexInfo')
+
+        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.indexName, 'beir-v1.0.0-arguana.bge-base-en-v1.5.flat')
+        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.urls[0], 'https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
+
     def test_lucene_tf_beir(self):
         urls = []
         cnt = 0
@@ -117,6 +126,18 @@ class TestPrebuiltIndexes(unittest.TestCase):
             if 'beir' in key:
                 cnt += 1
                 for url in LUCENE_HNSW_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        self.assertEqual(cnt, 29)
+        self._test_urls(urls)
+
+    def test_lucene_flat_beir(self):
+        urls = []
+        cnt = 0
+        for key in LUCENE_FLAT_INDEX_INFO:
+            if 'beir' in key:
+                cnt += 1
+                for url in LUCENE_FLAT_INDEX_INFO[key]['urls']:
                     urls.append(url)
 
         self.assertEqual(cnt, 29)

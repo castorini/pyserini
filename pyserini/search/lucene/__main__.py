@@ -22,10 +22,9 @@ from transformers import AutoTokenizer
 
 from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
 from pyserini.output_writer import OutputFormat, get_output_writer
-from pyserini.pyclass import autoclass
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.search import JDisjunctionMaxQueryGenerator
-from . import LuceneImpactSearcher, LuceneSearcher, SlimSearcher, LuceneHnswDenseSearcher
+from . import LuceneImpactSearcher, LuceneSearcher, SlimSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher
 from .reranker import ClassifierType, PseudoRelevanceClassifierReranker
 
 
@@ -156,7 +155,23 @@ if __name__ == "__main__":
     topics = query_iterator.topics
 
     if args.dense:
-        searcher = LuceneHnswDenseSearcher(args.index, ef_search=args.ef_search, encoder=args.onnx_encoder)
+        # Note that it's not actually necessary to check if it's a prebuilt index or an index location;
+        # The underlying Lucene search has the download prebuilt indexes transparently.
+        # Nevertheless, we still do this to be explicit and have Python manage all index downloads.
+        if os.path.exists(args.index):
+            if args.hnsw:
+                searcher = LuceneHnswDenseSearcher(args.index, ef_search=args.ef_search, encoder=args.onnx_encoder)
+            elif args.flat:
+                searcher = LuceneFlatDenseSearcher(args.index, encoder=args.onnx_encoder)
+            else:
+                raise ValueError(f'Unrecognized dense vector index type: must set either --hnsw or --flat')
+        else:
+            if args.hnsw:
+                searcher = LuceneHnswDenseSearcher.from_prebuilt_index(args.index, ef_search=args.ef_search, encoder=args.onnx_encoder)
+            elif args.flat:
+                searcher = LuceneFlatDenseSearcher.from_prebuilt_index(args.index, encoder=args.onnx_encoder)
+            else:
+                raise ValueError(f'Unrecognized dense vector index type: must set either --hnsw or --flat')
     elif not args.impact:
         if os.path.exists(args.index):
             # create searcher from index directory
@@ -296,6 +311,8 @@ if __name__ == "__main__":
                 text = text.join(toks)
             if args.batch_size <= 1 and args.threads <= 1:
                 if args.dense:
+                    # Both LuceneHnswDenseSearcher and LuceneFlatDenseSearcher are called the same way,
+                    # so we don't need to differentiate.
                     hits = searcher.search(text, args.hits)
                 elif args.impact:
                     hits = searcher.search(text, args.hits, fields=fields)

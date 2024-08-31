@@ -124,7 +124,7 @@ if __name__ == '__main__':
     generate_prebuilt(TF_INDEX_INFO_OTHER)
     print('</details>')
 
-    print('\n\n## Lucene Standard Impact Indexes')
+    print('\n\n## Lucene Impact Indexes')
 
     print('<details>')
     print('<summary>MS MARCO</summary>')
@@ -141,6 +141,13 @@ if __name__ == '__main__':
     print('<details>')
     print('<summary>BEIR</summary>')
     generate_prebuilt(LUCENE_HNSW_INDEX_INFO_BEIR)
+    print('</details>')
+
+    print('\n\n## Lucene Flat Indexes')
+
+    print('<details>')
+    print('<summary>BEIR</summary>')
+    generate_prebuilt(LUCENE_FLAT_INDEX_INFO_BEIR)
     print('</details>')
 
     print('\n\n## Faiss Indexes')

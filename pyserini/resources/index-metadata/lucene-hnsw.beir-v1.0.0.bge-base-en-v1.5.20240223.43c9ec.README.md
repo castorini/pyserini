@@ -1,4 +1,4 @@
-# beir-v1.0.0.bge-base-en-v1.5
+# beir-v1.0.0.bge-base-en-v1.5 (HNSW)
 
 Lucene HNSW indexes of BEIR corpora using BGE-base-en-v1.5.
 
