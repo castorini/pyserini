@@ -322,17 +322,18 @@ if __name__ == "__main__":
             else:
                 batch_topic_ids.append(str(topic_id))
                 batch_topics.append(text)
-                if (index + 1) % args.batch_size == 0 or \
-                        index == len(topics.keys()) - 1:
-                    if args.impact:
+                if (index + 1) % args.batch_size == 0 or index == len(topics.keys()) - 1:
+                    if args.dense:
+                        # Both LuceneHnswDenseSearcher and LuceneFlatDenseSearcher are called the same way,
+                        # so we don't need to differentiate.
+                        results = searcher.batch_search(batch_topics, batch_topic_ids, args.hits, args.threads)
+                    elif args.impact:
                         results = searcher.batch_search(
-                            batch_topics, batch_topic_ids, args.hits, args.threads, fields=fields
-                        )
+                            batch_topics, batch_topic_ids, args.hits, args.threads, fields=fields)
                     else:
                         results = searcher.batch_search(
                             batch_topics, batch_topic_ids, args.hits, args.threads,
-                            query_generator=query_generator, fields=fields
-                        )
+                            query_generator=query_generator, fields=fields)
                     results = [(id_, results[id_]) for id_ in batch_topic_ids]
                     batch_topic_ids.clear()
                     batch_topics.clear()
