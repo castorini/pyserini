@@ -369,7 +369,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-trec-covid.bge-base-en-v1.5 \
   --topics beir-v1.0.0-trec-covid-test \
-  --output run.beir.bge-base-en-v1.5.trec-covid.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.trec-covid.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -377,15 +377,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-trec-covid-test \
-  run.beir.bge-base-en-v1.5.trec-covid.txt
+  run.beir.bge-base-en-v1.5.faiss.trec-covid.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-trec-covid-test \
-  run.beir.bge-base-en-v1.5.trec-covid.txt
+  run.beir.bge-base-en-v1.5.faiss.trec-covid.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-trec-covid-test \
-  run.beir.bge-base-en-v1.5.trec-covid.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.trec-covid.txt</code></pre>
   </blockquote>
 
   </div>
@@ -600,7 +600,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-bioasq.bge-base-en-v1.5 \
   --topics beir-v1.0.0-bioasq-test \
-  --output run.beir.bge-base-en-v1.5.bioasq.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.bioasq.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -608,15 +608,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-bioasq-test \
-  run.beir.bge-base-en-v1.5.bioasq.txt
+  run.beir.bge-base-en-v1.5.faiss.bioasq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-bioasq-test \
-  run.beir.bge-base-en-v1.5.bioasq.txt
+  run.beir.bge-base-en-v1.5.faiss.bioasq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-bioasq-test \
-  run.beir.bge-base-en-v1.5.bioasq.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.bioasq.txt</code></pre>
   </blockquote>
 
   </div>
@@ -831,7 +831,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-nfcorpus.bge-base-en-v1.5 \
   --topics beir-v1.0.0-nfcorpus-test \
-  --output run.beir.bge-base-en-v1.5.nfcorpus.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.nfcorpus.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -839,15 +839,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-nfcorpus-test \
-  run.beir.bge-base-en-v1.5.nfcorpus.txt
+  run.beir.bge-base-en-v1.5.faiss.nfcorpus.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-nfcorpus-test \
-  run.beir.bge-base-en-v1.5.nfcorpus.txt
+  run.beir.bge-base-en-v1.5.faiss.nfcorpus.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-nfcorpus-test \
-  run.beir.bge-base-en-v1.5.nfcorpus.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.nfcorpus.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1062,7 +1062,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-nq.bge-base-en-v1.5 \
   --topics beir-v1.0.0-nq-test \
-  --output run.beir.bge-base-en-v1.5.nq.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.nq.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -1070,15 +1070,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-nq-test \
-  run.beir.bge-base-en-v1.5.nq.txt
+  run.beir.bge-base-en-v1.5.faiss.nq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-nq-test \
-  run.beir.bge-base-en-v1.5.nq.txt
+  run.beir.bge-base-en-v1.5.faiss.nq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-nq-test \
-  run.beir.bge-base-en-v1.5.nq.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.nq.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1293,7 +1293,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-hotpotqa.bge-base-en-v1.5 \
   --topics beir-v1.0.0-hotpotqa-test \
-  --output run.beir.bge-base-en-v1.5.hotpotqa.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.hotpotqa.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -1301,15 +1301,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-hotpotqa-test \
-  run.beir.bge-base-en-v1.5.hotpotqa.txt
+  run.beir.bge-base-en-v1.5.faiss.hotpotqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-hotpotqa-test \
-  run.beir.bge-base-en-v1.5.hotpotqa.txt
+  run.beir.bge-base-en-v1.5.faiss.hotpotqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-hotpotqa-test \
-  run.beir.bge-base-en-v1.5.hotpotqa.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.hotpotqa.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1524,7 +1524,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-fiqa.bge-base-en-v1.5 \
   --topics beir-v1.0.0-fiqa-test \
-  --output run.beir.bge-base-en-v1.5.fiqa.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.fiqa.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -1532,15 +1532,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-fiqa-test \
-  run.beir.bge-base-en-v1.5.fiqa.txt
+  run.beir.bge-base-en-v1.5.faiss.fiqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-fiqa-test \
-  run.beir.bge-base-en-v1.5.fiqa.txt
+  run.beir.bge-base-en-v1.5.faiss.fiqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-fiqa-test \
-  run.beir.bge-base-en-v1.5.fiqa.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.fiqa.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1755,7 +1755,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-signal1m.bge-base-en-v1.5 \
   --topics beir-v1.0.0-signal1m-test \
-  --output run.beir.bge-base-en-v1.5.signal1m.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.signal1m.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -1763,15 +1763,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-signal1m-test \
-  run.beir.bge-base-en-v1.5.signal1m.txt
+  run.beir.bge-base-en-v1.5.faiss.signal1m.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-signal1m-test \
-  run.beir.bge-base-en-v1.5.signal1m.txt
+  run.beir.bge-base-en-v1.5.faiss.signal1m.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-signal1m-test \
-  run.beir.bge-base-en-v1.5.signal1m.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.signal1m.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1986,7 +1986,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-trec-news.bge-base-en-v1.5 \
   --topics beir-v1.0.0-trec-news-test \
-  --output run.beir.bge-base-en-v1.5.trec-news.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.trec-news.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -1994,15 +1994,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-trec-news-test \
-  run.beir.bge-base-en-v1.5.trec-news.txt
+  run.beir.bge-base-en-v1.5.faiss.trec-news.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-trec-news-test \
-  run.beir.bge-base-en-v1.5.trec-news.txt
+  run.beir.bge-base-en-v1.5.faiss.trec-news.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-trec-news-test \
-  run.beir.bge-base-en-v1.5.trec-news.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.trec-news.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2217,7 +2217,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-robust04.bge-base-en-v1.5 \
   --topics beir-v1.0.0-robust04-test \
-  --output run.beir.bge-base-en-v1.5.robust04.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.robust04.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -2225,15 +2225,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-robust04-test \
-  run.beir.bge-base-en-v1.5.robust04.txt
+  run.beir.bge-base-en-v1.5.faiss.robust04.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-robust04-test \
-  run.beir.bge-base-en-v1.5.robust04.txt
+  run.beir.bge-base-en-v1.5.faiss.robust04.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-robust04-test \
-  run.beir.bge-base-en-v1.5.robust04.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.robust04.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2448,7 +2448,7 @@ Command to generate run:
   --query-prefix "" \
   --index beir-v1.0.0-arguana.bge-base-en-v1.5 \
   --topics beir-v1.0.0-arguana-test \
-  --output run.beir.bge-base-en-v1.5.arguana.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.arguana.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -2456,15 +2456,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-arguana-test \
-  run.beir.bge-base-en-v1.5.arguana.txt
+  run.beir.bge-base-en-v1.5.faiss.arguana.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-arguana-test \
-  run.beir.bge-base-en-v1.5.arguana.txt
+  run.beir.bge-base-en-v1.5.faiss.arguana.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-arguana-test \
-  run.beir.bge-base-en-v1.5.arguana.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.arguana.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2679,7 +2679,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-webis-touche2020.bge-base-en-v1.5 \
   --topics beir-v1.0.0-webis-touche2020-test \
-  --output run.beir.bge-base-en-v1.5.webis-touche2020.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.webis-touche2020.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -2687,15 +2687,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-webis-touche2020-test \
-  run.beir.bge-base-en-v1.5.webis-touche2020.txt
+  run.beir.bge-base-en-v1.5.faiss.webis-touche2020.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-webis-touche2020-test \
-  run.beir.bge-base-en-v1.5.webis-touche2020.txt
+  run.beir.bge-base-en-v1.5.faiss.webis-touche2020.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-webis-touche2020-test \
-  run.beir.bge-base-en-v1.5.webis-touche2020.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.webis-touche2020.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4374,7 +4374,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-android-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-android.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-android.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
@@ -4383,7 +4383,7 @@ python -m pyserini.search.faiss \
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-english-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-english.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-english.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
@@ -4392,7 +4392,7 @@ python -m pyserini.search.faiss \
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-gaming.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
@@ -4401,7 +4401,7 @@ python -m pyserini.search.faiss \
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-gis-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-gis.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-gis.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
@@ -4410,7 +4410,7 @@ python -m pyserini.search.faiss \
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-mathematica.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
@@ -4419,7 +4419,7 @@ python -m pyserini.search.faiss \
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-physics-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-physics.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-physics.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
@@ -4428,7 +4428,7 @@ python -m pyserini.search.faiss \
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-programmers.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
@@ -4437,7 +4437,7 @@ python -m pyserini.search.faiss \
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-stats-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-stats.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-stats.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
@@ -4446,7 +4446,7 @@ python -m pyserini.search.faiss \
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-tex-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-tex.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-tex.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
@@ -4455,7 +4455,7 @@ python -m pyserini.search.faiss \
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-unix-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-unix.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-unix.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
@@ -4464,7 +4464,7 @@ python -m pyserini.search.faiss \
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-webmasters.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
@@ -4473,7 +4473,7 @@ python -m pyserini.search.faiss \
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-wordpress.txt \
   --hits 1000 --remove-query
 
 
@@ -4483,291 +4483,291 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-android.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-android.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-android.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-android.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-android.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-android.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-english.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-english.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-english.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-english.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-english.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-english.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gis.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gis.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gis.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gis.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gis.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gis.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-physics.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-physics.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-physics.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-physics.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-physics.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-physics.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-stats.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-stats.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-stats.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-stats.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-stats.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-stats.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-tex.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-tex.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-tex.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-tex.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-tex.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-tex.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-unix.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-unix.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-unix.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-unix.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-unix.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-unix.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-wordpress.txt</code></pre>
   </blockquote>
 
   </div>
@@ -5337,7 +5337,7 @@ Command to generate run:
   --query-prefix "" \
   --index beir-v1.0.0-quora.bge-base-en-v1.5 \
   --topics beir-v1.0.0-quora-test \
-  --output run.beir.bge-base-en-v1.5.quora.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.quora.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -5345,15 +5345,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
-  run.beir.bge-base-en-v1.5.quora.txt
+  run.beir.bge-base-en-v1.5.faiss.quora.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-quora-test \
-  run.beir.bge-base-en-v1.5.quora.txt
+  run.beir.bge-base-en-v1.5.faiss.quora.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-quora-test \
-  run.beir.bge-base-en-v1.5.quora.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.quora.txt</code></pre>
   </blockquote>
 
   </div>
@@ -5568,7 +5568,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5 \
   --topics beir-v1.0.0-dbpedia-entity-test \
-  --output run.beir.bge-base-en-v1.5.dbpedia-entity.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.dbpedia-entity.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -5576,15 +5576,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.bge-base-en-v1.5.dbpedia-entity.txt
+  run.beir.bge-base-en-v1.5.faiss.dbpedia-entity.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.bge-base-en-v1.5.dbpedia-entity.txt
+  run.beir.bge-base-en-v1.5.faiss.dbpedia-entity.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.bge-base-en-v1.5.dbpedia-entity.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.dbpedia-entity.txt</code></pre>
   </blockquote>
 
   </div>
@@ -5799,7 +5799,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-scidocs.bge-base-en-v1.5 \
   --topics beir-v1.0.0-scidocs-test \
-  --output run.beir.bge-base-en-v1.5.scidocs.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.scidocs.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -5807,15 +5807,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
-  run.beir.bge-base-en-v1.5.scidocs.txt
+  run.beir.bge-base-en-v1.5.faiss.scidocs.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-scidocs-test \
-  run.beir.bge-base-en-v1.5.scidocs.txt
+  run.beir.bge-base-en-v1.5.faiss.scidocs.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-scidocs-test \
-  run.beir.bge-base-en-v1.5.scidocs.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.scidocs.txt</code></pre>
   </blockquote>
 
   </div>
@@ -6030,7 +6030,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-fever.bge-base-en-v1.5 \
   --topics beir-v1.0.0-fever-test \
-  --output run.beir.bge-base-en-v1.5.fever.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.fever.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -6038,15 +6038,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
-  run.beir.bge-base-en-v1.5.fever.txt
+  run.beir.bge-base-en-v1.5.faiss.fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-fever-test \
-  run.beir.bge-base-en-v1.5.fever.txt
+  run.beir.bge-base-en-v1.5.faiss.fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-fever-test \
-  run.beir.bge-base-en-v1.5.fever.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.fever.txt</code></pre>
   </blockquote>
 
   </div>
@@ -6261,7 +6261,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-climate-fever.bge-base-en-v1.5 \
   --topics beir-v1.0.0-climate-fever-test \
-  --output run.beir.bge-base-en-v1.5.climate-fever.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.climate-fever.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -6269,15 +6269,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
-  run.beir.bge-base-en-v1.5.climate-fever.txt
+  run.beir.bge-base-en-v1.5.faiss.climate-fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-climate-fever-test \
-  run.beir.bge-base-en-v1.5.climate-fever.txt
+  run.beir.bge-base-en-v1.5.faiss.climate-fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-climate-fever-test \
-  run.beir.bge-base-en-v1.5.climate-fever.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.climate-fever.txt</code></pre>
   </blockquote>
 
   </div>
@@ -6492,7 +6492,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-scifact.bge-base-en-v1.5 \
   --topics beir-v1.0.0-scifact-test \
-  --output run.beir.bge-base-en-v1.5.scifact.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.scifact.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -6500,15 +6500,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
-  run.beir.bge-base-en-v1.5.scifact.txt
+  run.beir.bge-base-en-v1.5.faiss.scifact.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-scifact-test \
-  run.beir.bge-base-en-v1.5.scifact.txt
+  run.beir.bge-base-en-v1.5.faiss.scifact.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-scifact-test \
-  run.beir.bge-base-en-v1.5.scifact.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.scifact.txt</code></pre>
   </blockquote>
 
   </div>
@@ -6769,7 +6769,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-android-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-android.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-android.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -6777,15 +6777,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-android.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-android.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-android.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-android.txt</code></pre>
   </blockquote>
 
   </div>
@@ -7000,7 +7000,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-english-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-english.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-english.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -7008,15 +7008,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-english.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-english.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-english.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-english.txt</code></pre>
   </blockquote>
 
   </div>
@@ -7231,7 +7231,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-gaming.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -7239,15 +7239,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gaming.txt</code></pre>
   </blockquote>
 
   </div>
@@ -7462,7 +7462,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-gis-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-gis.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-gis.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -7470,15 +7470,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gis.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gis.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-gis.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-gis.txt</code></pre>
   </blockquote>
 
   </div>
@@ -7693,7 +7693,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-mathematica.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -7701,15 +7701,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-mathematica.txt</code></pre>
   </blockquote>
 
   </div>
@@ -7924,7 +7924,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-physics-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-physics.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-physics.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -7932,15 +7932,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-physics.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-physics.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-physics.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-physics.txt</code></pre>
   </blockquote>
 
   </div>
@@ -8155,7 +8155,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-programmers.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -8163,15 +8163,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-programmers.txt</code></pre>
   </blockquote>
 
   </div>
@@ -8386,7 +8386,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-stats-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-stats.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-stats.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -8394,15 +8394,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-stats.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-stats.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-stats.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-stats.txt</code></pre>
   </blockquote>
 
   </div>
@@ -8617,7 +8617,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-tex-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-tex.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-tex.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -8625,15 +8625,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-tex.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-tex.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-tex.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-tex.txt</code></pre>
   </blockquote>
 
   </div>
@@ -8848,7 +8848,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-unix-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-unix.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-unix.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -8856,15 +8856,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-unix.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-unix.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-unix.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-unix.txt</code></pre>
   </blockquote>
 
   </div>
@@ -9079,7 +9079,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-webmasters.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -9087,15 +9087,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-webmasters.txt</code></pre>
   </blockquote>
 
   </div>
@@ -9310,7 +9310,7 @@ Command to generate run:
   --query-prefix "Represent this sentence for searching relevant passages:" \
   --index beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
-  --output run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt \
+  --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-wordpress.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
@@ -9318,15 +9318,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt</code></pre>
+  run.beir.bge-base-en-v1.5.faiss.cqadupstack-wordpress.txt</code></pre>
   </blockquote>
 
   </div>
