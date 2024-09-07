@@ -79,7 +79,7 @@ models = ['bm25-flat',
           'contriever-msmarco', 
           'bge-base-en-v1.5.faiss',
           'bge-base-en-v1.5.lucene-flat',
-          'bge-base-en-v1.5.lucene-faiss',
+          'bge-base-en-v1.5.lucene-hnsw',
           'cohere-embed-english-v3.0']
 
 
