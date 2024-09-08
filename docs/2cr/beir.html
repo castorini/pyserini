@@ -131,7 +131,7 @@ pre[class*="prettyprint"] {
           ">
         <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
           <div class="text-white">
-            <h1 class="mb-3">BEIR</h1>
+            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> &nbsp; Pyserini BEIR Regressions</h1>
           </div>
         </div>
       </div>
@@ -140,19 +140,32 @@ pre[class*="prettyprint"] {
 
 <div class="container my-4">
 
-<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing the experimental results below.
+<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproductions below provides commands for reproducing experimental results on BEIR.
 Instructions for programmatic execution are shown at the bottom of this page (scroll down).</p>
 
-<p>Key:</p>
+<div style="padding-top: 20px"/>
+<h4>Main Results</h4>
+
+<p>The main results table provides commands for reproducing runs using the following models:</p>
 
 <ul>
-  <li>BM25 Flat: BM25 "flat" baseline [1]</li>
-  <li>BM25 Multifield: BM25 "multifield" baseline [1]</li>
-  <li>SPLADE: SPLADE++ (CoCondenser-EnsembleDistil) [2]</li>
-  <li>Contriever-msmarco: Contriever FT MS MARCO [3]</li>
-  <li>BGE-base: BGE-base-en-v1.5 [4]</li>
-  <li>Cohere embed-english: Cohere embed-english-v3.0 [5]</li>
+  <li><b>BM25 Flat</b>: BM25 "flat" baseline (<tt><small>bm25-flat</small></tt>) [1]</li>
+  <li><b>BM25 MF</b>: BM25 "multifield" baseline (<tt><small>bm25-multifield</small></tt>) [1]</li>
+  <li><b>SPLADE</b>: SPLADE++ CoCondenser-EnsembleDistil (<tt><small>splade-pp-ed</small></tt>) [2]</li>
+  <li><b>Contriever</b>: Contriever FT MS MARCO (<tt><small>contriever-msmarco</small></tt>) [3]</li>
+  <li><b>BGE</b>: BGE-base-en-v1.5 (Faiss flat index) (<tt><small>bge-base-en-v1.5.faiss</small></tt>) [4]</li>
+  <li><b>Cohere</b>: Cohere embed-english-v3.0 (Faiss flat index) (<tt><small>cohere-embed-english-v3.0</small></tt>) [5]</li>
 </ul>
+
+<p>The symbol shown in parentheses (e.g., <tt><small>bm25-flat</small></tt>) refers the parameter used in the <tt><small>--condition</small></tt> option for programmatic execution (see below).
+In addition, we provide the following models whose runs can be reproduced, but are not shown in the results table:</p>
+
+<ul>
+  <li>BGE-base-en-v1.5 (Lucene flat index) (<tt><small>bge-base-en-v1.5.lucene-flat</small></tt>) [4]</li>
+  <li>BGE-base-en-v1.5 (Lucene HNSW index) (<tt><small>bge-base-en-v1.5.lucene-hnsw</small></tt>) [4]</li>
+</ul>
+
+<div style="padding-top: 20px"/>
 
 <div class="table-responsive">
   <table class="table">
@@ -161,11 +174,11 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
         <th class="headertop"></th>
         <th class="headertop"></th>
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
-        <th class="headertop" colspan="3"><b>BM25 Multifield</b></th>
-        <th class="headertop" colspan="3"><b>SPLADE++ ED</b></th>
-        <th class="headertop" colspan="3"><b>Contriever MSMARCO</b></th>
-        <th class="headertop" colspan="3"><b>BGE-base</b></th>
-        <th class="headertop" colspan="3"><b>Cohere embed-english</b></th>
+        <th class="headertop" colspan="3"><b>BM25 MF</b></th>
+        <th class="headertop" colspan="3"><b>SPLADE</b></th>
+        <th class="headertop" colspan="3"><b>Contriever</b></th>
+        <th class="headertop" colspan="3"><b>BGE</b></th>
+        <th class="headertop" colspan="3"><b>Cohere</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
@@ -194,24 +207,24 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 <!-- Condition: trec-covid -->
 <tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">
 <td class="expand-button"></td>
-<td>trec-covid</td>
-<td>  0.5947</td>
-<td>  0.1091</td>
+<td width="200">trec-covid</td>
+<td>   0.595</td>
+<td>   0.109</td>
 <td></td>
-<td>  0.6559</td>
-<td>  0.1141</td>
+<td>   0.656</td>
+<td>   0.114</td>
 <td></td>
-<td>  0.7274</td>
-<td>  0.1282</td>
+<td>   0.727</td>
+<td>   0.128</td>
 <td></td>
-<td>  0.5964</td>
-<td>  0.0907</td>
+<td>   0.596</td>
+<td>   0.091</td>
 <td></td>
-<td>  0.7815</td>
-<td>  0.1406</td>
+<td>   0.781</td>
+<td>   0.141</td>
 <td></td>
-<td>  0.8178</td>
-<td>  0.1594</td>
+<td>   0.818</td>
+<td>   0.159</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -224,19 +237,19 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
     <a class="nav-link active" id="row1-tab1-header" data-mdb-toggle="tab" href="#row1-tab1" role="tab" aria-controls="row1-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab5-header" data-mdb-toggle="tab" href="#row1-tab5" role="tab" aria-controls="row1-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row1-tab5-header" data-mdb-toggle="tab" href="#row1-tab5" role="tab" aria-controls="row1-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab6-header" data-mdb-toggle="tab" href="#row1-tab6" role="tab" aria-controls="row1-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row1-tab6-header" data-mdb-toggle="tab" href="#row1-tab6" role="tab" aria-controls="row1-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -396,7 +409,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-trec-covid.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-trec-covid-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-trec-covid-test \
+  --topics beir-v1.0.0-trec-covid-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-trec-covid-test \
   --output run.beir.cohere-embed-english-v3.0.trec-covid.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -425,24 +439,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: bioasq -->
 <tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
 <td class="expand-button"></td>
-<td>bioasq</td>
-<td>  0.5225</td>
-<td>  0.7687</td>
+<td width="200">bioasq</td>
+<td>   0.522</td>
+<td>   0.769</td>
 <td></td>
-<td>  0.4646</td>
-<td>  0.7145</td>
+<td>   0.465</td>
+<td>   0.715</td>
 <td></td>
-<td>  0.4980</td>
-<td>  0.7385</td>
+<td>   0.498</td>
+<td>   0.739</td>
 <td></td>
-<td>  0.3829</td>
-<td>  0.6072</td>
+<td>   0.383</td>
+<td>   0.607</td>
 <td></td>
-<td>  0.4148</td>
-<td>  0.6316</td>
+<td>   0.415</td>
+<td>   0.632</td>
 <td></td>
-<td>  0.4565</td>
-<td>  0.6790</td>
+<td>   0.457</td>
+<td>   0.679</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -455,19 +469,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row2-tab1-header" data-mdb-toggle="tab" href="#row2-tab1" role="tab" aria-controls="row2-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row2-tab2-header" data-mdb-toggle="tab" href="#row2-tab2" role="tab" aria-controls="row2-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row2-tab2-header" data-mdb-toggle="tab" href="#row2-tab2" role="tab" aria-controls="row2-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row2-tab5-header" data-mdb-toggle="tab" href="#row2-tab5" role="tab" aria-controls="row2-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row2-tab5-header" data-mdb-toggle="tab" href="#row2-tab5" role="tab" aria-controls="row2-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row2-tab6-header" data-mdb-toggle="tab" href="#row2-tab6" role="tab" aria-controls="row2-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row2-tab6-header" data-mdb-toggle="tab" href="#row2-tab6" role="tab" aria-controls="row2-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -627,7 +641,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-bioasq.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-bioasq-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-bioasq-test \
+  --topics beir-v1.0.0-bioasq-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-bioasq-test \
   --output run.beir.cohere-embed-english-v3.0.bioasq.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -656,24 +671,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: nfcorpus -->
 <tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
 <td class="expand-button"></td>
-<td>nfcorpus</td>
-<td>  0.3218</td>
-<td>  0.2457</td>
+<td width="200">nfcorpus</td>
+<td>   0.322</td>
+<td>   0.246</td>
 <td></td>
-<td>  0.3254</td>
-<td>  0.2500</td>
+<td>   0.325</td>
+<td>   0.250</td>
 <td></td>
-<td>  0.3470</td>
-<td>  0.2844</td>
+<td>   0.347</td>
+<td>   0.284</td>
 <td></td>
-<td>  0.3281</td>
-<td>  0.3008</td>
+<td>   0.328</td>
+<td>   0.301</td>
 <td></td>
-<td>  0.3735</td>
-<td>  0.3368</td>
+<td>   0.373</td>
+<td>   0.337</td>
 <td></td>
-<td>  0.3863</td>
-<td>  0.3512</td>
+<td>   0.386</td>
+<td>   0.351</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -686,19 +701,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row3-tab1-header" data-mdb-toggle="tab" href="#row3-tab1" role="tab" aria-controls="row3-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row3-tab5-header" data-mdb-toggle="tab" href="#row3-tab5" role="tab" aria-controls="row3-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row3-tab5-header" data-mdb-toggle="tab" href="#row3-tab5" role="tab" aria-controls="row3-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row3-tab6-header" data-mdb-toggle="tab" href="#row3-tab6" role="tab" aria-controls="row3-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row3-tab6-header" data-mdb-toggle="tab" href="#row3-tab6" role="tab" aria-controls="row3-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -858,7 +873,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-nfcorpus.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-nfcorpus-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-nfcorpus-test \
+  --topics beir-v1.0.0-nfcorpus-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-nfcorpus-test \
   --output run.beir.cohere-embed-english-v3.0.nfcorpus.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -887,24 +903,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: nq -->
 <tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
 <td class="expand-button"></td>
-<td>nq</td>
-<td>  0.3055</td>
-<td>  0.7513</td>
+<td width="200">nq</td>
+<td>   0.305</td>
+<td>   0.751</td>
 <td></td>
-<td>  0.3285</td>
-<td>  0.7597</td>
+<td>   0.329</td>
+<td>   0.760</td>
 <td></td>
-<td>  0.5378</td>
-<td>  0.9296</td>
+<td>   0.538</td>
+<td>   0.930</td>
 <td></td>
-<td>  0.4977</td>
-<td>  0.9252</td>
+<td>   0.498</td>
+<td>   0.925</td>
 <td></td>
-<td>  0.5414</td>
-<td>  0.9415</td>
+<td>   0.541</td>
+<td>   0.942</td>
 <td></td>
-<td>  0.6162</td>
-<td>  0.9560</td>
+<td>   0.616</td>
+<td>   0.956</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -917,19 +933,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row4-tab1-header" data-mdb-toggle="tab" href="#row4-tab1" role="tab" aria-controls="row4-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row4-tab5-header" data-mdb-toggle="tab" href="#row4-tab5" role="tab" aria-controls="row4-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row4-tab5-header" data-mdb-toggle="tab" href="#row4-tab5" role="tab" aria-controls="row4-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row4-tab6-header" data-mdb-toggle="tab" href="#row4-tab6" role="tab" aria-controls="row4-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row4-tab6-header" data-mdb-toggle="tab" href="#row4-tab6" role="tab" aria-controls="row4-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1089,7 +1105,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-nq.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-nq-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-nq-test \
+  --topics beir-v1.0.0-nq-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-nq-test \
   --output run.beir.cohere-embed-english-v3.0.nq.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -1118,24 +1135,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: hotpotqa -->
 <tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
 <td class="expand-button"></td>
-<td>hotpotqa</td>
-<td>  0.6330</td>
-<td>  0.7957</td>
+<td width="200">hotpotqa</td>
+<td>   0.633</td>
+<td>   0.796</td>
 <td></td>
-<td>  0.6027</td>
-<td>  0.7400</td>
+<td>   0.603</td>
+<td>   0.740</td>
 <td></td>
-<td>  0.6868</td>
-<td>  0.8177</td>
+<td>   0.687</td>
+<td>   0.818</td>
 <td></td>
-<td>  0.6376</td>
-<td>  0.7772</td>
+<td>   0.638</td>
+<td>   0.777</td>
 <td></td>
-<td>  0.7259</td>
-<td>  0.8726</td>
+<td>   0.726</td>
+<td>   0.873</td>
 <td></td>
-<td>  0.7072</td>
-<td>  0.8232</td>
+<td>   0.707</td>
+<td>   0.823</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1148,19 +1165,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row5-tab1-header" data-mdb-toggle="tab" href="#row5-tab1" role="tab" aria-controls="row5-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row5-tab5-header" data-mdb-toggle="tab" href="#row5-tab5" role="tab" aria-controls="row5-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row5-tab5-header" data-mdb-toggle="tab" href="#row5-tab5" role="tab" aria-controls="row5-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row5-tab6-header" data-mdb-toggle="tab" href="#row5-tab6" role="tab" aria-controls="row5-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row5-tab6-header" data-mdb-toggle="tab" href="#row5-tab6" role="tab" aria-controls="row5-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1320,7 +1337,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-hotpotqa.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-hotpotqa-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-hotpotqa-test \
+  --topics beir-v1.0.0-hotpotqa-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-hotpotqa-test \
   --output run.beir.cohere-embed-english-v3.0.hotpotqa.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -1349,24 +1367,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: fiqa -->
 <tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
 <td class="expand-button"></td>
-<td>fiqa</td>
-<td>  0.2361</td>
-<td>  0.5395</td>
+<td width="200">fiqa</td>
+<td>   0.236</td>
+<td>   0.539</td>
 <td></td>
-<td>  0.2361</td>
-<td>  0.5395</td>
+<td>   0.236</td>
+<td>   0.539</td>
 <td></td>
-<td>  0.3475</td>
-<td>  0.6314</td>
+<td>   0.347</td>
+<td>   0.631</td>
 <td></td>
-<td>  0.3293</td>
-<td>  0.6558</td>
+<td>   0.329</td>
+<td>   0.656</td>
 <td></td>
-<td>  0.4065</td>
-<td>  0.7415</td>
+<td>   0.406</td>
+<td>   0.742</td>
 <td></td>
-<td>  0.4214</td>
-<td>  0.7357</td>
+<td>   0.421</td>
+<td>   0.736</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1379,19 +1397,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row6-tab1-header" data-mdb-toggle="tab" href="#row6-tab1" role="tab" aria-controls="row6-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row6-tab5-header" data-mdb-toggle="tab" href="#row6-tab5" role="tab" aria-controls="row6-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row6-tab5-header" data-mdb-toggle="tab" href="#row6-tab5" role="tab" aria-controls="row6-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row6-tab6-header" data-mdb-toggle="tab" href="#row6-tab6" role="tab" aria-controls="row6-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row6-tab6-header" data-mdb-toggle="tab" href="#row6-tab6" role="tab" aria-controls="row6-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1551,7 +1569,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-fiqa.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-fiqa-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-fiqa-test \
+  --topics beir-v1.0.0-fiqa-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-fiqa-test \
   --output run.beir.cohere-embed-english-v3.0.fiqa.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -1580,24 +1599,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: signal1m -->
 <tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
 <td class="expand-button"></td>
-<td>signal1m</td>
-<td>  0.3304</td>
-<td>  0.3703</td>
+<td width="200">signal1m</td>
+<td>   0.330</td>
+<td>   0.370</td>
 <td></td>
-<td>  0.3304</td>
-<td>  0.3703</td>
+<td>   0.330</td>
+<td>   0.370</td>
 <td></td>
-<td>  0.3008</td>
-<td>  0.3398</td>
+<td>   0.301</td>
+<td>   0.340</td>
 <td></td>
-<td>  0.2783</td>
-<td>  0.3220</td>
+<td>   0.278</td>
+<td>   0.322</td>
 <td></td>
-<td>  0.2886</td>
-<td>  0.3112</td>
+<td>   0.289</td>
+<td>   0.311</td>
 <td></td>
-<td>  0.2632</td>
-<td>  0.2832</td>
+<td>   0.263</td>
+<td>   0.283</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1610,19 +1629,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row7-tab1-header" data-mdb-toggle="tab" href="#row7-tab1" role="tab" aria-controls="row7-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row7-tab5-header" data-mdb-toggle="tab" href="#row7-tab5" role="tab" aria-controls="row7-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row7-tab5-header" data-mdb-toggle="tab" href="#row7-tab5" role="tab" aria-controls="row7-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row7-tab6-header" data-mdb-toggle="tab" href="#row7-tab6" role="tab" aria-controls="row7-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row7-tab6-header" data-mdb-toggle="tab" href="#row7-tab6" role="tab" aria-controls="row7-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1782,7 +1801,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-signal1m.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-signal1m-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-signal1m-test \
+  --topics beir-v1.0.0-signal1m-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-signal1m-test \
   --output run.beir.cohere-embed-english-v3.0.signal1m.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -1811,24 +1831,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: trec-news -->
 <tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
 <td class="expand-button"></td>
-<td>trec-news</td>
-<td>  0.3952</td>
-<td>  0.4469</td>
+<td width="200">trec-news</td>
+<td>   0.395</td>
+<td>   0.447</td>
 <td></td>
-<td>  0.3977</td>
-<td>  0.4216</td>
+<td>   0.398</td>
+<td>   0.422</td>
 <td></td>
-<td>  0.4152</td>
-<td>  0.4414</td>
+<td>   0.415</td>
+<td>   0.441</td>
 <td></td>
-<td>  0.4283</td>
-<td>  0.4924</td>
+<td>   0.428</td>
+<td>   0.492</td>
 <td></td>
-<td>  0.4424</td>
-<td>  0.4992</td>
+<td>   0.442</td>
+<td>   0.499</td>
 <td></td>
-<td>  0.5042</td>
-<td>  0.5431</td>
+<td>   0.504</td>
+<td>   0.543</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1841,19 +1861,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row8-tab1-header" data-mdb-toggle="tab" href="#row8-tab1" role="tab" aria-controls="row8-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row8-tab5-header" data-mdb-toggle="tab" href="#row8-tab5" role="tab" aria-controls="row8-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row8-tab5-header" data-mdb-toggle="tab" href="#row8-tab5" role="tab" aria-controls="row8-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row8-tab6-header" data-mdb-toggle="tab" href="#row8-tab6" role="tab" aria-controls="row8-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row8-tab6-header" data-mdb-toggle="tab" href="#row8-tab6" role="tab" aria-controls="row8-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2013,7 +2033,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-trec-news.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-trec-news-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-trec-news-test \
+  --topics beir-v1.0.0-trec-news-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-trec-news-test \
   --output run.beir.cohere-embed-english-v3.0.trec-news.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -2042,24 +2063,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: robust04 -->
 <tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">
 <td class="expand-button"></td>
-<td>robust04</td>
-<td>  0.4070</td>
-<td>  0.3746</td>
+<td width="200">robust04</td>
+<td>   0.407</td>
+<td>   0.375</td>
 <td></td>
-<td>  0.4070</td>
-<td>  0.3746</td>
+<td>   0.407</td>
+<td>   0.375</td>
 <td></td>
-<td>  0.4679</td>
-<td>  0.3850</td>
+<td>   0.468</td>
+<td>   0.385</td>
 <td></td>
-<td>  0.4729</td>
-<td>  0.3917</td>
+<td>   0.473</td>
+<td>   0.392</td>
 <td></td>
-<td>  0.4435</td>
-<td>  0.3510</td>
+<td>   0.444</td>
+<td>   0.351</td>
 <td></td>
-<td>  0.5406</td>
-<td>  0.4171</td>
+<td>   0.541</td>
+<td>   0.417</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2072,19 +2093,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row9-tab1-header" data-mdb-toggle="tab" href="#row9-tab1" role="tab" aria-controls="row9-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row9-tab5-header" data-mdb-toggle="tab" href="#row9-tab5" role="tab" aria-controls="row9-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row9-tab5-header" data-mdb-toggle="tab" href="#row9-tab5" role="tab" aria-controls="row9-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row9-tab6-header" data-mdb-toggle="tab" href="#row9-tab6" role="tab" aria-controls="row9-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row9-tab6-header" data-mdb-toggle="tab" href="#row9-tab6" role="tab" aria-controls="row9-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2244,7 +2265,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-robust04.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-robust04-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-robust04-test \
+  --topics beir-v1.0.0-robust04-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-robust04-test \
   --output run.beir.cohere-embed-english-v3.0.robust04.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -2273,24 +2295,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: arguana -->
 <tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">
 <td class="expand-button"></td>
-<td>arguana</td>
-<td>  0.3970</td>
-<td>  0.9324</td>
+<td width="200">arguana</td>
+<td>   0.397</td>
+<td>   0.932</td>
 <td></td>
-<td>  0.4142</td>
-<td>  0.9431</td>
+<td>   0.414</td>
+<td>   0.943</td>
 <td></td>
-<td>  0.5203</td>
-<td>  0.9744</td>
+<td>   0.520</td>
+<td>   0.974</td>
 <td></td>
-<td>  0.4461</td>
-<td>  0.9765</td>
+<td>   0.446</td>
+<td>   0.977</td>
 <td></td>
-<td>  0.6362</td>
-<td>  0.9915</td>
+<td>   0.636</td>
+<td>   0.992</td>
 <td></td>
-<td>  0.5398</td>
-<td>  0.9815</td>
+<td>   0.540</td>
+<td>   0.982</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2303,19 +2325,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row10-tab1-header" data-mdb-toggle="tab" href="#row10-tab1" role="tab" aria-controls="row10-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row10-tab5-header" data-mdb-toggle="tab" href="#row10-tab5" role="tab" aria-controls="row10-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row10-tab5-header" data-mdb-toggle="tab" href="#row10-tab5" role="tab" aria-controls="row10-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row10-tab6-header" data-mdb-toggle="tab" href="#row10-tab6" role="tab" aria-controls="row10-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row10-tab6-header" data-mdb-toggle="tab" href="#row10-tab6" role="tab" aria-controls="row10-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2475,7 +2497,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-arguana.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-arguana-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-arguana-test \
+  --topics beir-v1.0.0-arguana-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-arguana-test \
   --output run.beir.cohere-embed-english-v3.0.arguana.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -2504,24 +2527,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: webis-touche2020 -->
 <tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">
 <td class="expand-button"></td>
-<td>webis-touche2020</td>
-<td>  0.4422</td>
-<td>  0.5822</td>
+<td width="200">webis-touche2020</td>
+<td>   0.442</td>
+<td>   0.582</td>
 <td></td>
-<td>  0.3673</td>
-<td>  0.5376</td>
+<td>   0.367</td>
+<td>   0.538</td>
 <td></td>
-<td>  0.2468</td>
-<td>  0.4715</td>
+<td>   0.247</td>
+<td>   0.471</td>
 <td></td>
-<td>  0.2040</td>
-<td>  0.4420</td>
+<td>   0.204</td>
+<td>   0.442</td>
 <td></td>
-<td>  0.2571</td>
-<td>  0.4867</td>
+<td>   0.257</td>
+<td>   0.487</td>
 <td></td>
-<td>  0.3264</td>
-<td>  0.5157</td>
+<td>   0.326</td>
+<td>   0.516</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2534,19 +2557,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row11-tab1-header" data-mdb-toggle="tab" href="#row11-tab1" role="tab" aria-controls="row11-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row11-tab2-header" data-mdb-toggle="tab" href="#row11-tab2" role="tab" aria-controls="row11-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row11-tab2-header" data-mdb-toggle="tab" href="#row11-tab2" role="tab" aria-controls="row11-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row11-tab4-header" data-mdb-toggle="tab" href="#row11-tab4" role="tab" aria-controls="row11-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row11-tab4-header" data-mdb-toggle="tab" href="#row11-tab4" role="tab" aria-controls="row11-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row11-tab5-header" data-mdb-toggle="tab" href="#row11-tab5" role="tab" aria-controls="row11-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row11-tab5-header" data-mdb-toggle="tab" href="#row11-tab5" role="tab" aria-controls="row11-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row11-tab6-header" data-mdb-toggle="tab" href="#row11-tab6" role="tab" aria-controls="row11-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row11-tab6-header" data-mdb-toggle="tab" href="#row11-tab6" role="tab" aria-controls="row11-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2706,7 +2729,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-webis-touche2020.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-webis-touche2020-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-webis-touche2020-test \
+  --topics beir-v1.0.0-webis-touche2020-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-webis-touche2020-test \
   --output run.beir.cohere-embed-english-v3.0.webis-touche2020.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -2735,24 +2759,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: cqadupstack (average) -->
 <tr class="accordion-toggle collapsed" id="row25" data-toggle="collapse" data-parent="#row25" href="#collapse25">
 <td class="expand-button"></td>
-<td>cqadupstack (average)</td>
-<td>  0.3021</td>
-<td>  0.5797</td>
+<td width="200">cqadupstack (average)</td>
+<td>   0.302</td>
+<td>   0.580</td>
 <td></td>
-<td>  0.2987</td>
-<td>  0.6056</td>
+<td>   0.299</td>
+<td>   0.606</td>
 <td></td>
-<td>  0.3338</td>
-<td>  0.6496</td>
+<td>   0.334</td>
+<td>   0.650</td>
 <td></td>
-<td>  0.3454</td>
-<td>  0.6628</td>
+<td>   0.345</td>
+<td>   0.663</td>
 <td></td>
-<td>  0.4237</td>
-<td>  0.7621</td>
+<td>   0.424</td>
+<td>   0.762</td>
 <td></td>
-<td>  0.4152</td>
-<td>  0.7447</td>
+<td>   0.415</td>
+<td>   0.745</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2765,19 +2789,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row25-tab1-header" data-mdb-toggle="tab" href="#row25-tab1" role="tab" aria-controls="row25-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab2-header" data-mdb-toggle="tab" href="#row25-tab2" role="tab" aria-controls="row25-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row25-tab2-header" data-mdb-toggle="tab" href="#row25-tab2" role="tab" aria-controls="row25-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row25-tab3-header" data-mdb-toggle="tab" href="#row25-tab3" role="tab" aria-controls="row25-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab4-header" data-mdb-toggle="tab" href="#row25-tab4" role="tab" aria-controls="row25-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row25-tab4-header" data-mdb-toggle="tab" href="#row25-tab4" role="tab" aria-controls="row25-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab5-header" data-mdb-toggle="tab" href="#row25-tab5" role="tab" aria-controls="row25-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row25-tab5-header" data-mdb-toggle="tab" href="#row25-tab5" role="tab" aria-controls="row25-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab6-header" data-mdb-toggle="tab" href="#row25-tab6" role="tab" aria-controls="row25-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row25-tab6-header" data-mdb-toggle="tab" href="#row25-tab6" role="tab" aria-controls="row25-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -4778,84 +4802,96 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-android.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-android-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-android-test \
+  --topics beir-v1.0.0-cqadupstack-android-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-android-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-android.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-english.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-english-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-english-test \
+  --topics beir-v1.0.0-cqadupstack-english-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-english-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-english.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-gaming.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-gaming-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gaming-test \
+  --topics beir-v1.0.0-cqadupstack-gaming-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gaming-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-gaming.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-gis.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-gis-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gis-test \
+  --topics beir-v1.0.0-cqadupstack-gis-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gis-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-gis.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-mathematica.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-mathematica-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-mathematica-test \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-mathematica-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-mathematica.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-physics.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-physics-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-physics-test \
+  --topics beir-v1.0.0-cqadupstack-physics-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-physics-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-physics.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-programmers.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-programmers-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-programmers-test \
+  --topics beir-v1.0.0-cqadupstack-programmers-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-programmers-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-programmers.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-stats.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-stats-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-stats-test \
+  --topics beir-v1.0.0-cqadupstack-stats-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-stats-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-stats.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-tex.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-tex-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-tex-test \
+  --topics beir-v1.0.0-cqadupstack-tex-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-tex-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-tex.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-unix.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-unix-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-unix-test \
+  --topics beir-v1.0.0-cqadupstack-unix-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-unix-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-unix.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-webmasters.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-webmasters-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-webmasters-test \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-webmasters-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-webmasters.txt \
   --hits 1000 --remove-query
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-wordpress.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-wordpress-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-wordpress-test \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-wordpress-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-wordpress.txt \
   --hits 1000 --remove-query
 
@@ -5162,24 +5198,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: quora -->
 <tr class="accordion-toggle collapsed" id="row24" data-toggle="collapse" data-parent="#row24" href="#collapse24">
 <td class="expand-button"></td>
-<td>quora</td>
-<td>  0.7886</td>
-<td>  0.9733</td>
+<td width="200">quora</td>
+<td>   0.789</td>
+<td>   0.973</td>
 <td></td>
-<td>  0.7886</td>
-<td>  0.9733</td>
+<td>   0.789</td>
+<td>   0.973</td>
 <td></td>
-<td>  0.8343</td>
-<td>  0.9863</td>
+<td>   0.834</td>
+<td>   0.986</td>
 <td></td>
-<td>  0.8648</td>
-<td>  0.9935</td>
+<td>   0.865</td>
+<td>   0.994</td>
 <td></td>
-<td>  0.8890</td>
-<td>  0.9968</td>
+<td>   0.889</td>
+<td>   0.997</td>
 <td></td>
-<td>  0.8872</td>
-<td>  0.9962</td>
+<td>   0.887</td>
+<td>   0.996</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -5192,19 +5228,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row24-tab1-header" data-mdb-toggle="tab" href="#row24-tab1" role="tab" aria-controls="row24-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab2-header" data-mdb-toggle="tab" href="#row24-tab2" role="tab" aria-controls="row24-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row24-tab2-header" data-mdb-toggle="tab" href="#row24-tab2" role="tab" aria-controls="row24-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row24-tab3-header" data-mdb-toggle="tab" href="#row24-tab3" role="tab" aria-controls="row24-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab4-header" data-mdb-toggle="tab" href="#row24-tab4" role="tab" aria-controls="row24-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row24-tab4-header" data-mdb-toggle="tab" href="#row24-tab4" role="tab" aria-controls="row24-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab5-header" data-mdb-toggle="tab" href="#row24-tab5" role="tab" aria-controls="row24-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row24-tab5-header" data-mdb-toggle="tab" href="#row24-tab5" role="tab" aria-controls="row24-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab6-header" data-mdb-toggle="tab" href="#row24-tab6" role="tab" aria-controls="row24-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row24-tab6-header" data-mdb-toggle="tab" href="#row24-tab6" role="tab" aria-controls="row24-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -5364,7 +5400,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-quora.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-quora-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-quora-test \
+  --topics beir-v1.0.0-quora-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-quora-test \
   --output run.beir.cohere-embed-english-v3.0.quora.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -5393,24 +5430,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: dbpedia-entity -->
 <tr class="accordion-toggle collapsed" id="row26" data-toggle="collapse" data-parent="#row26" href="#collapse26">
 <td class="expand-button"></td>
-<td>dbpedia-entity</td>
-<td>  0.3180</td>
-<td>  0.4682</td>
+<td width="200">dbpedia-entity</td>
+<td>   0.318</td>
+<td>   0.468</td>
 <td></td>
-<td>  0.3128</td>
-<td>  0.3981</td>
+<td>   0.313</td>
+<td>   0.398</td>
 <td></td>
-<td>  0.4366</td>
-<td>  0.5624</td>
+<td>   0.437</td>
+<td>   0.562</td>
 <td></td>
-<td>  0.4128</td>
-<td>  0.5414</td>
+<td>   0.413</td>
+<td>   0.541</td>
 <td></td>
-<td>  0.4073</td>
-<td>  0.5298</td>
+<td>   0.407</td>
+<td>   0.530</td>
 <td></td>
-<td>  0.4340</td>
-<td>  0.5358</td>
+<td>   0.434</td>
+<td>   0.536</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -5423,19 +5460,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row26-tab1-header" data-mdb-toggle="tab" href="#row26-tab1" role="tab" aria-controls="row26-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab2-header" data-mdb-toggle="tab" href="#row26-tab2" role="tab" aria-controls="row26-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row26-tab2-header" data-mdb-toggle="tab" href="#row26-tab2" role="tab" aria-controls="row26-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row26-tab3-header" data-mdb-toggle="tab" href="#row26-tab3" role="tab" aria-controls="row26-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab4-header" data-mdb-toggle="tab" href="#row26-tab4" role="tab" aria-controls="row26-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row26-tab4-header" data-mdb-toggle="tab" href="#row26-tab4" role="tab" aria-controls="row26-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab5-header" data-mdb-toggle="tab" href="#row26-tab5" role="tab" aria-controls="row26-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row26-tab5-header" data-mdb-toggle="tab" href="#row26-tab5" role="tab" aria-controls="row26-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab6-header" data-mdb-toggle="tab" href="#row26-tab6" role="tab" aria-controls="row26-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row26-tab6-header" data-mdb-toggle="tab" href="#row26-tab6" role="tab" aria-controls="row26-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -5595,7 +5632,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-dbpedia-entity.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-dbpedia-entity-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-dbpedia-entity-test \
+  --topics beir-v1.0.0-dbpedia-entity-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-dbpedia-entity-test \
   --output run.beir.cohere-embed-english-v3.0.dbpedia-entity.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -5624,24 +5662,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: scidocs -->
 <tr class="accordion-toggle collapsed" id="row27" data-toggle="collapse" data-parent="#row27" href="#collapse27">
 <td class="expand-button"></td>
-<td>scidocs</td>
-<td>  0.1490</td>
-<td>  0.3477</td>
+<td width="200">scidocs</td>
+<td>   0.149</td>
+<td>   0.348</td>
 <td></td>
-<td>  0.1581</td>
-<td>  0.3561</td>
+<td>   0.158</td>
+<td>   0.356</td>
 <td></td>
-<td>  0.1591</td>
-<td>  0.3730</td>
+<td>   0.159</td>
+<td>   0.373</td>
 <td></td>
-<td>  0.1652</td>
-<td>  0.3783</td>
+<td>   0.165</td>
+<td>   0.378</td>
 <td></td>
-<td>  0.2172</td>
-<td>  0.4959</td>
+<td>   0.217</td>
+<td>   0.496</td>
 <td></td>
-<td>  0.2034</td>
-<td>  0.4509</td>
+<td>   0.203</td>
+<td>   0.451</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -5654,19 +5692,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row27-tab1-header" data-mdb-toggle="tab" href="#row27-tab1" role="tab" aria-controls="row27-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab2-header" data-mdb-toggle="tab" href="#row27-tab2" role="tab" aria-controls="row27-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row27-tab2-header" data-mdb-toggle="tab" href="#row27-tab2" role="tab" aria-controls="row27-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row27-tab3-header" data-mdb-toggle="tab" href="#row27-tab3" role="tab" aria-controls="row27-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab4-header" data-mdb-toggle="tab" href="#row27-tab4" role="tab" aria-controls="row27-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row27-tab4-header" data-mdb-toggle="tab" href="#row27-tab4" role="tab" aria-controls="row27-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab5-header" data-mdb-toggle="tab" href="#row27-tab5" role="tab" aria-controls="row27-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row27-tab5-header" data-mdb-toggle="tab" href="#row27-tab5" role="tab" aria-controls="row27-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab6-header" data-mdb-toggle="tab" href="#row27-tab6" role="tab" aria-controls="row27-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row27-tab6-header" data-mdb-toggle="tab" href="#row27-tab6" role="tab" aria-controls="row27-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -5826,7 +5864,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-scidocs.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-scidocs-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-scidocs-test \
+  --topics beir-v1.0.0-scidocs-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-scidocs-test \
   --output run.beir.cohere-embed-english-v3.0.scidocs.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -5855,24 +5894,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: fever -->
 <tr class="accordion-toggle collapsed" id="row28" data-toggle="collapse" data-parent="#row28" href="#collapse28">
 <td class="expand-button"></td>
-<td>fever</td>
-<td>  0.6513</td>
-<td>  0.9185</td>
+<td width="200">fever</td>
+<td>   0.651</td>
+<td>   0.918</td>
 <td></td>
-<td>  0.7530</td>
-<td>  0.9309</td>
+<td>   0.753</td>
+<td>   0.931</td>
 <td></td>
-<td>  0.7882</td>
-<td>  0.9459</td>
+<td>   0.788</td>
+<td>   0.946</td>
 <td></td>
-<td>  0.7583</td>
-<td>  0.9494</td>
+<td>   0.758</td>
+<td>   0.949</td>
 <td></td>
-<td>  0.8629</td>
-<td>  0.9719</td>
+<td>   0.863</td>
+<td>   0.972</td>
 <td></td>
-<td>  0.8900</td>
-<td>  0.9649</td>
+<td>   0.890</td>
+<td>   0.965</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -5885,19 +5924,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row28-tab1-header" data-mdb-toggle="tab" href="#row28-tab1" role="tab" aria-controls="row28-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab2-header" data-mdb-toggle="tab" href="#row28-tab2" role="tab" aria-controls="row28-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row28-tab2-header" data-mdb-toggle="tab" href="#row28-tab2" role="tab" aria-controls="row28-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row28-tab3-header" data-mdb-toggle="tab" href="#row28-tab3" role="tab" aria-controls="row28-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab4-header" data-mdb-toggle="tab" href="#row28-tab4" role="tab" aria-controls="row28-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row28-tab4-header" data-mdb-toggle="tab" href="#row28-tab4" role="tab" aria-controls="row28-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab5-header" data-mdb-toggle="tab" href="#row28-tab5" role="tab" aria-controls="row28-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row28-tab5-header" data-mdb-toggle="tab" href="#row28-tab5" role="tab" aria-controls="row28-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab6-header" data-mdb-toggle="tab" href="#row28-tab6" role="tab" aria-controls="row28-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row28-tab6-header" data-mdb-toggle="tab" href="#row28-tab6" role="tab" aria-controls="row28-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -6057,7 +6096,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-fever.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-fever-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-fever-test \
+  --topics beir-v1.0.0-fever-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-fever-test \
   --output run.beir.cohere-embed-english-v3.0.fever.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -6086,24 +6126,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: climate-fever -->
 <tr class="accordion-toggle collapsed" id="row29" data-toggle="collapse" data-parent="#row29" href="#collapse29">
 <td class="expand-button"></td>
-<td>climate-fever</td>
-<td>  0.1651</td>
-<td>  0.4249</td>
+<td width="200">climate-fever</td>
+<td>   0.165</td>
+<td>   0.425</td>
 <td></td>
-<td>  0.2129</td>
-<td>  0.4357</td>
+<td>   0.213</td>
+<td>   0.436</td>
 <td></td>
-<td>  0.2297</td>
-<td>  0.5211</td>
+<td>   0.230</td>
+<td>   0.521</td>
 <td></td>
-<td>  0.2371</td>
-<td>  0.5746</td>
+<td>   0.237</td>
+<td>   0.575</td>
 <td></td>
-<td>  0.3122</td>
-<td>  0.6362</td>
+<td>   0.312</td>
+<td>   0.636</td>
 <td></td>
-<td>  0.2590</td>
-<td>  0.5810</td>
+<td>   0.259</td>
+<td>   0.581</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -6116,19 +6156,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row29-tab1-header" data-mdb-toggle="tab" href="#row29-tab1" role="tab" aria-controls="row29-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab2-header" data-mdb-toggle="tab" href="#row29-tab2" role="tab" aria-controls="row29-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row29-tab2-header" data-mdb-toggle="tab" href="#row29-tab2" role="tab" aria-controls="row29-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row29-tab3-header" data-mdb-toggle="tab" href="#row29-tab3" role="tab" aria-controls="row29-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab4-header" data-mdb-toggle="tab" href="#row29-tab4" role="tab" aria-controls="row29-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row29-tab4-header" data-mdb-toggle="tab" href="#row29-tab4" role="tab" aria-controls="row29-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab5-header" data-mdb-toggle="tab" href="#row29-tab5" role="tab" aria-controls="row29-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row29-tab5-header" data-mdb-toggle="tab" href="#row29-tab5" role="tab" aria-controls="row29-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab6-header" data-mdb-toggle="tab" href="#row29-tab6" role="tab" aria-controls="row29-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row29-tab6-header" data-mdb-toggle="tab" href="#row29-tab6" role="tab" aria-controls="row29-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -6288,7 +6328,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-climate-fever.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-climate-fever-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-climate-fever-test \
+  --topics beir-v1.0.0-climate-fever-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-climate-fever-test \
   --output run.beir.cohere-embed-english-v3.0.climate-fever.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -6317,24 +6358,24 @@ python -m pyserini.eval.trec_eval \
 <!-- Condition: scifact -->
 <tr class="accordion-toggle collapsed" id="row30" data-toggle="collapse" data-parent="#row30" href="#collapse30">
 <td class="expand-button"></td>
-<td>scifact</td>
-<td>  0.6789</td>
-<td>  0.9253</td>
+<td width="200">scifact</td>
+<td>   0.679</td>
+<td>   0.925</td>
 <td></td>
-<td>  0.6647</td>
-<td>  0.9076</td>
+<td>   0.665</td>
+<td>   0.908</td>
 <td></td>
-<td>  0.7041</td>
-<td>  0.9353</td>
+<td>   0.704</td>
+<td>   0.935</td>
 <td></td>
-<td>  0.6768</td>
-<td>  0.9470</td>
+<td>   0.677</td>
+<td>   0.947</td>
 <td></td>
-<td>  0.7408</td>
-<td>  0.9667</td>
+<td>   0.741</td>
+<td>   0.967</td>
 <td></td>
-<td>  0.7181</td>
-<td>  0.9633</td>
+<td>   0.718</td>
+<td>   0.963</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -6347,19 +6388,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row30-tab1-header" data-mdb-toggle="tab" href="#row30-tab1" role="tab" aria-controls="row30-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row30-tab2-header" data-mdb-toggle="tab" href="#row30-tab2" role="tab" aria-controls="row30-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row30-tab2-header" data-mdb-toggle="tab" href="#row30-tab2" role="tab" aria-controls="row30-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row30-tab3-header" data-mdb-toggle="tab" href="#row30-tab3" role="tab" aria-controls="row30-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row30-tab4-header" data-mdb-toggle="tab" href="#row30-tab4" role="tab" aria-controls="row30-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row30-tab4-header" data-mdb-toggle="tab" href="#row30-tab4" role="tab" aria-controls="row30-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row30-tab5-header" data-mdb-toggle="tab" href="#row30-tab5" role="tab" aria-controls="row30-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row30-tab5-header" data-mdb-toggle="tab" href="#row30-tab5" role="tab" aria-controls="row30-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row30-tab6-header" data-mdb-toggle="tab" href="#row30-tab6" role="tab" aria-controls="row30-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row30-tab6-header" data-mdb-toggle="tab" href="#row30-tab6" role="tab" aria-controls="row30-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -6519,7 +6560,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-scifact.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-scifact-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-scifact-test \
+  --topics beir-v1.0.0-scifact-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-scifact-test \
   --output run.beir.cohere-embed-english-v3.0.scifact.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -6551,9 +6593,11 @@ python -m pyserini.eval.trec_eval \
 </div>
 
 <div style="padding-top: 20px"/>
+<h4>CQADupStack Results</h4>
 
-For cqadupstack collections:
+<p>The "cqadupstack (average)" row above represents the average across the individual CQADupStack datasets, shown below.</p>
 
+<div style="padding-top: 20px"/>
 <div class="table-responsive">
   <table class="table">
     <thead>
@@ -6561,11 +6605,11 @@ For cqadupstack collections:
         <th class="headertop"></th>
         <th class="headertop"></th>
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
-        <th class="headertop" colspan="3"><b>BM25 Multifield</b></th>
-        <th class="headertop" colspan="3"><b>SPLADE++ ED</b></th>
-        <th class="headertop" colspan="3"><b>Contriever MSMARCO</b></th>
-        <th class="headertop" colspan="3"><b>BGE-base</b></th>
-        <th class="headertop" colspan="3"><b>Cohere embed-english</b></th>
+        <th class="headertop" colspan="3"><b>BM25 MF</b></th>
+        <th class="headertop" colspan="3"><b>SPLADE</b></th>
+        <th class="headertop" colspan="3"><b>Contriever</b></th>
+        <th class="headertop" colspan="3"><b>BGE</b></th>
+        <th class="headertop" colspan="3"><b>Cohere</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
@@ -6591,27 +6635,27 @@ For cqadupstack collections:
     </thead>
     <tbody>
 
-<!-- Condition: cqadupstack-android -->
+<!-- Condition: android -->
 <tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">
 <td class="expand-button"></td>
-<td>cqadupstack-android</td>
-<td>  0.3801</td>
-<td>  0.6829</td>
+<td width="200">android</td>
+<td>   0.380</td>
+<td>   0.683</td>
 <td></td>
-<td>  0.3709</td>
-<td>  0.6889</td>
+<td>   0.371</td>
+<td>   0.689</td>
 <td></td>
-<td>  0.3904</td>
-<td>  0.7404</td>
+<td>   0.390</td>
+<td>   0.740</td>
 <td></td>
-<td>  0.4255</td>
-<td>  0.7503</td>
+<td>   0.425</td>
+<td>   0.750</td>
 <td></td>
-<td>  0.5076</td>
-<td>  0.8454</td>
+<td>   0.508</td>
+<td>   0.845</td>
 <td></td>
-<td>  0.5001</td>
-<td>  0.8319</td>
+<td>   0.500</td>
+<td>   0.832</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -6624,19 +6668,19 @@ For cqadupstack collections:
     <a class="nav-link active" id="row12-tab1-header" data-mdb-toggle="tab" href="#row12-tab1" role="tab" aria-controls="row12-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row12-tab2-header" data-mdb-toggle="tab" href="#row12-tab2" role="tab" aria-controls="row12-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row12-tab2-header" data-mdb-toggle="tab" href="#row12-tab2" role="tab" aria-controls="row12-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row12-tab4-header" data-mdb-toggle="tab" href="#row12-tab4" role="tab" aria-controls="row12-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row12-tab4-header" data-mdb-toggle="tab" href="#row12-tab4" role="tab" aria-controls="row12-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row12-tab5-header" data-mdb-toggle="tab" href="#row12-tab5" role="tab" aria-controls="row12-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row12-tab5-header" data-mdb-toggle="tab" href="#row12-tab5" role="tab" aria-controls="row12-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row12-tab6-header" data-mdb-toggle="tab" href="#row12-tab6" role="tab" aria-controls="row12-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row12-tab6-header" data-mdb-toggle="tab" href="#row12-tab6" role="tab" aria-controls="row12-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -6796,7 +6840,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-android.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-android-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-android-test \
+  --topics beir-v1.0.0-cqadupstack-android-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-android-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-android.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -6822,27 +6867,27 @@ python -m pyserini.eval.trec_eval \
 
 </div></td>
 </tr>
-<!-- Condition: cqadupstack-english -->
+<!-- Condition: english -->
 <tr class="accordion-toggle collapsed" id="row13" data-toggle="collapse" data-parent="#row13" href="#collapse13">
 <td class="expand-button"></td>
-<td>cqadupstack-english</td>
-<td>  0.3453</td>
-<td>  0.5757</td>
+<td width="200">english</td>
+<td>   0.345</td>
+<td>   0.576</td>
 <td></td>
-<td>  0.3321</td>
-<td>  0.5842</td>
+<td>   0.332</td>
+<td>   0.584</td>
 <td></td>
-<td>  0.4079</td>
-<td>  0.6946</td>
+<td>   0.408</td>
+<td>   0.695</td>
 <td></td>
-<td>  0.4326</td>
-<td>  0.6935</td>
+<td>   0.433</td>
+<td>   0.694</td>
 <td></td>
-<td>  0.4857</td>
-<td>  0.7586</td>
+<td>   0.486</td>
+<td>   0.759</td>
 <td></td>
-<td>  0.4909</td>
-<td>  0.7573</td>
+<td>   0.491</td>
+<td>   0.757</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -6855,19 +6900,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row13-tab1-header" data-mdb-toggle="tab" href="#row13-tab1" role="tab" aria-controls="row13-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row13-tab2-header" data-mdb-toggle="tab" href="#row13-tab2" role="tab" aria-controls="row13-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row13-tab2-header" data-mdb-toggle="tab" href="#row13-tab2" role="tab" aria-controls="row13-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row13-tab3-header" data-mdb-toggle="tab" href="#row13-tab3" role="tab" aria-controls="row13-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row13-tab4-header" data-mdb-toggle="tab" href="#row13-tab4" role="tab" aria-controls="row13-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row13-tab4-header" data-mdb-toggle="tab" href="#row13-tab4" role="tab" aria-controls="row13-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row13-tab5-header" data-mdb-toggle="tab" href="#row13-tab5" role="tab" aria-controls="row13-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row13-tab5-header" data-mdb-toggle="tab" href="#row13-tab5" role="tab" aria-controls="row13-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row13-tab6-header" data-mdb-toggle="tab" href="#row13-tab6" role="tab" aria-controls="row13-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row13-tab6-header" data-mdb-toggle="tab" href="#row13-tab6" role="tab" aria-controls="row13-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -7027,7 +7072,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-english.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-english-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-english-test \
+  --topics beir-v1.0.0-cqadupstack-english-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-english-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-english.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -7053,27 +7099,27 @@ python -m pyserini.eval.trec_eval \
 
 </div></td>
 </tr>
-<!-- Condition: cqadupstack-gaming -->
+<!-- Condition: gaming -->
 <tr class="accordion-toggle collapsed" id="row14" data-toggle="collapse" data-parent="#row14" href="#collapse14">
 <td class="expand-button"></td>
-<td>cqadupstack-gaming</td>
-<td>  0.4822</td>
-<td>  0.7651</td>
+<td width="200">gaming</td>
+<td>   0.482</td>
+<td>   0.765</td>
 <td></td>
-<td>  0.4418</td>
-<td>  0.7571</td>
+<td>   0.442</td>
+<td>   0.757</td>
 <td></td>
-<td>  0.4957</td>
-<td>  0.8131</td>
+<td>   0.496</td>
+<td>   0.813</td>
 <td></td>
-<td>  0.5276</td>
-<td>  0.8481</td>
+<td>   0.528</td>
+<td>   0.848</td>
 <td></td>
-<td>  0.5967</td>
-<td>  0.9036</td>
+<td>   0.597</td>
+<td>   0.904</td>
 <td></td>
-<td>  0.6050</td>
-<td>  0.9003</td>
+<td>   0.605</td>
+<td>   0.900</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -7086,19 +7132,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row14-tab1-header" data-mdb-toggle="tab" href="#row14-tab1" role="tab" aria-controls="row14-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row14-tab2-header" data-mdb-toggle="tab" href="#row14-tab2" role="tab" aria-controls="row14-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row14-tab2-header" data-mdb-toggle="tab" href="#row14-tab2" role="tab" aria-controls="row14-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row14-tab3-header" data-mdb-toggle="tab" href="#row14-tab3" role="tab" aria-controls="row14-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row14-tab4-header" data-mdb-toggle="tab" href="#row14-tab4" role="tab" aria-controls="row14-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row14-tab4-header" data-mdb-toggle="tab" href="#row14-tab4" role="tab" aria-controls="row14-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row14-tab5-header" data-mdb-toggle="tab" href="#row14-tab5" role="tab" aria-controls="row14-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row14-tab5-header" data-mdb-toggle="tab" href="#row14-tab5" role="tab" aria-controls="row14-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row14-tab6-header" data-mdb-toggle="tab" href="#row14-tab6" role="tab" aria-controls="row14-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row14-tab6-header" data-mdb-toggle="tab" href="#row14-tab6" role="tab" aria-controls="row14-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -7258,7 +7304,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-gaming.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-gaming-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gaming-test \
+  --topics beir-v1.0.0-cqadupstack-gaming-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gaming-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-gaming.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -7284,27 +7331,27 @@ python -m pyserini.eval.trec_eval \
 
 </div></td>
 </tr>
-<!-- Condition: cqadupstack-gis -->
+<!-- Condition: gis -->
 <tr class="accordion-toggle collapsed" id="row15" data-toggle="collapse" data-parent="#row15" href="#collapse15">
 <td class="expand-button"></td>
-<td>cqadupstack-gis</td>
-<td>  0.2901</td>
-<td>  0.6119</td>
+<td width="200">gis</td>
+<td>   0.290</td>
+<td>   0.612</td>
 <td></td>
-<td>  0.2904</td>
-<td>  0.6458</td>
+<td>   0.290</td>
+<td>   0.646</td>
 <td></td>
-<td>  0.3150</td>
-<td>  0.6320</td>
+<td>   0.315</td>
+<td>   0.632</td>
 <td></td>
-<td>  0.3022</td>
-<td>  0.6272</td>
+<td>   0.302</td>
+<td>   0.627</td>
 <td></td>
-<td>  0.4127</td>
-<td>  0.7682</td>
+<td>   0.413</td>
+<td>   0.768</td>
 <td></td>
-<td>  0.3917</td>
-<td>  0.7439</td>
+<td>   0.392</td>
+<td>   0.744</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -7317,19 +7364,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row15-tab1-header" data-mdb-toggle="tab" href="#row15-tab1" role="tab" aria-controls="row15-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row15-tab2-header" data-mdb-toggle="tab" href="#row15-tab2" role="tab" aria-controls="row15-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row15-tab2-header" data-mdb-toggle="tab" href="#row15-tab2" role="tab" aria-controls="row15-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row15-tab3-header" data-mdb-toggle="tab" href="#row15-tab3" role="tab" aria-controls="row15-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row15-tab4-header" data-mdb-toggle="tab" href="#row15-tab4" role="tab" aria-controls="row15-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row15-tab4-header" data-mdb-toggle="tab" href="#row15-tab4" role="tab" aria-controls="row15-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row15-tab5-header" data-mdb-toggle="tab" href="#row15-tab5" role="tab" aria-controls="row15-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row15-tab5-header" data-mdb-toggle="tab" href="#row15-tab5" role="tab" aria-controls="row15-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row15-tab6-header" data-mdb-toggle="tab" href="#row15-tab6" role="tab" aria-controls="row15-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row15-tab6-header" data-mdb-toggle="tab" href="#row15-tab6" role="tab" aria-controls="row15-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -7489,7 +7536,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-gis.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-gis-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gis-test \
+  --topics beir-v1.0.0-cqadupstack-gis-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gis-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-gis.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -7515,27 +7563,27 @@ python -m pyserini.eval.trec_eval \
 
 </div></td>
 </tr>
-<!-- Condition: cqadupstack-mathematica -->
+<!-- Condition: mathematica -->
 <tr class="accordion-toggle collapsed" id="row16" data-toggle="collapse" data-parent="#row16" href="#collapse16">
 <td class="expand-button"></td>
-<td>cqadupstack-mathematica</td>
-<td>  0.2015</td>
-<td>  0.4877</td>
+<td width="200">mathematica</td>
+<td>   0.202</td>
+<td>   0.488</td>
 <td></td>
-<td>  0.2046</td>
-<td>  0.5215</td>
+<td>   0.205</td>
+<td>   0.521</td>
 <td></td>
-<td>  0.2377</td>
-<td>  0.5797</td>
+<td>   0.238</td>
+<td>   0.580</td>
 <td></td>
-<td>  0.2355</td>
-<td>  0.5726</td>
+<td>   0.235</td>
+<td>   0.573</td>
 <td></td>
-<td>  0.3163</td>
-<td>  0.6922</td>
+<td>   0.316</td>
+<td>   0.692</td>
 <td></td>
-<td>  0.3038</td>
-<td>  0.6671</td>
+<td>   0.304</td>
+<td>   0.667</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -7548,19 +7596,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row16-tab1-header" data-mdb-toggle="tab" href="#row16-tab1" role="tab" aria-controls="row16-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row16-tab2-header" data-mdb-toggle="tab" href="#row16-tab2" role="tab" aria-controls="row16-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row16-tab2-header" data-mdb-toggle="tab" href="#row16-tab2" role="tab" aria-controls="row16-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row16-tab3-header" data-mdb-toggle="tab" href="#row16-tab3" role="tab" aria-controls="row16-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row16-tab4-header" data-mdb-toggle="tab" href="#row16-tab4" role="tab" aria-controls="row16-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row16-tab4-header" data-mdb-toggle="tab" href="#row16-tab4" role="tab" aria-controls="row16-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row16-tab5-header" data-mdb-toggle="tab" href="#row16-tab5" role="tab" aria-controls="row16-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row16-tab5-header" data-mdb-toggle="tab" href="#row16-tab5" role="tab" aria-controls="row16-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row16-tab6-header" data-mdb-toggle="tab" href="#row16-tab6" role="tab" aria-controls="row16-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row16-tab6-header" data-mdb-toggle="tab" href="#row16-tab6" role="tab" aria-controls="row16-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -7720,7 +7768,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-mathematica.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-mathematica-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-mathematica-test \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-mathematica-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-mathematica.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -7746,27 +7795,27 @@ python -m pyserini.eval.trec_eval \
 
 </div></td>
 </tr>
-<!-- Condition: cqadupstack-physics -->
+<!-- Condition: physics -->
 <tr class="accordion-toggle collapsed" id="row17" data-toggle="collapse" data-parent="#row17" href="#collapse17">
 <td class="expand-button"></td>
-<td>cqadupstack-physics</td>
-<td>  0.3214</td>
-<td>  0.6326</td>
+<td width="200">physics</td>
+<td>   0.321</td>
+<td>   0.633</td>
 <td></td>
-<td>  0.3248</td>
-<td>  0.6486</td>
+<td>   0.325</td>
+<td>   0.649</td>
 <td></td>
-<td>  0.3599</td>
-<td>  0.7196</td>
+<td>   0.360</td>
+<td>   0.720</td>
 <td></td>
-<td>  0.4159</td>
-<td>  0.7619</td>
+<td>   0.416</td>
+<td>   0.762</td>
 <td></td>
-<td>  0.4724</td>
-<td>  0.8078</td>
+<td>   0.472</td>
+<td>   0.808</td>
 <td></td>
-<td>  0.4382</td>
-<td>  0.7843</td>
+<td>   0.438</td>
+<td>   0.784</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -7779,19 +7828,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row17-tab1-header" data-mdb-toggle="tab" href="#row17-tab1" role="tab" aria-controls="row17-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row17-tab2-header" data-mdb-toggle="tab" href="#row17-tab2" role="tab" aria-controls="row17-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row17-tab2-header" data-mdb-toggle="tab" href="#row17-tab2" role="tab" aria-controls="row17-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row17-tab3-header" data-mdb-toggle="tab" href="#row17-tab3" role="tab" aria-controls="row17-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row17-tab4-header" data-mdb-toggle="tab" href="#row17-tab4" role="tab" aria-controls="row17-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row17-tab4-header" data-mdb-toggle="tab" href="#row17-tab4" role="tab" aria-controls="row17-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row17-tab5-header" data-mdb-toggle="tab" href="#row17-tab5" role="tab" aria-controls="row17-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row17-tab5-header" data-mdb-toggle="tab" href="#row17-tab5" role="tab" aria-controls="row17-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row17-tab6-header" data-mdb-toggle="tab" href="#row17-tab6" role="tab" aria-controls="row17-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row17-tab6-header" data-mdb-toggle="tab" href="#row17-tab6" role="tab" aria-controls="row17-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -7951,7 +8000,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-physics.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-physics-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-physics-test \
+  --topics beir-v1.0.0-cqadupstack-physics-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-physics-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-physics.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -7977,27 +8027,27 @@ python -m pyserini.eval.trec_eval \
 
 </div></td>
 </tr>
-<!-- Condition: cqadupstack-programmers -->
+<!-- Condition: programmers -->
 <tr class="accordion-toggle collapsed" id="row18" data-toggle="collapse" data-parent="#row18" href="#collapse18">
 <td class="expand-button"></td>
-<td>cqadupstack-programmers</td>
-<td>  0.2802</td>
-<td>  0.5588</td>
+<td width="200">programmers</td>
+<td>   0.280</td>
+<td>   0.559</td>
 <td></td>
-<td>  0.2963</td>
-<td>  0.6194</td>
+<td>   0.296</td>
+<td>   0.619</td>
 <td></td>
-<td>  0.3401</td>
-<td>  0.6585</td>
+<td>   0.340</td>
+<td>   0.658</td>
 <td></td>
-<td>  0.3574</td>
-<td>  0.7191</td>
+<td>   0.357</td>
+<td>   0.719</td>
 <td></td>
-<td>  0.4238</td>
-<td>  0.7856</td>
+<td>   0.424</td>
+<td>   0.786</td>
 <td></td>
-<td>  0.4367</td>
-<td>  0.7889</td>
+<td>   0.437</td>
+<td>   0.789</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -8010,19 +8060,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row18-tab1-header" data-mdb-toggle="tab" href="#row18-tab1" role="tab" aria-controls="row18-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row18-tab2-header" data-mdb-toggle="tab" href="#row18-tab2" role="tab" aria-controls="row18-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row18-tab2-header" data-mdb-toggle="tab" href="#row18-tab2" role="tab" aria-controls="row18-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row18-tab3-header" data-mdb-toggle="tab" href="#row18-tab3" role="tab" aria-controls="row18-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row18-tab4-header" data-mdb-toggle="tab" href="#row18-tab4" role="tab" aria-controls="row18-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row18-tab4-header" data-mdb-toggle="tab" href="#row18-tab4" role="tab" aria-controls="row18-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row18-tab5-header" data-mdb-toggle="tab" href="#row18-tab5" role="tab" aria-controls="row18-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row18-tab5-header" data-mdb-toggle="tab" href="#row18-tab5" role="tab" aria-controls="row18-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row18-tab6-header" data-mdb-toggle="tab" href="#row18-tab6" role="tab" aria-controls="row18-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row18-tab6-header" data-mdb-toggle="tab" href="#row18-tab6" role="tab" aria-controls="row18-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -8182,7 +8232,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-programmers.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-programmers-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-programmers-test \
+  --topics beir-v1.0.0-cqadupstack-programmers-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-programmers-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-programmers.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -8208,27 +8259,27 @@ python -m pyserini.eval.trec_eval \
 
 </div></td>
 </tr>
-<!-- Condition: cqadupstack-stats -->
+<!-- Condition: stats -->
 <tr class="accordion-toggle collapsed" id="row19" data-toggle="collapse" data-parent="#row19" href="#collapse19">
 <td class="expand-button"></td>
-<td>cqadupstack-stats</td>
-<td>  0.2711</td>
-<td>  0.5338</td>
+<td width="200">stats</td>
+<td>   0.271</td>
+<td>   0.534</td>
 <td></td>
-<td>  0.2790</td>
-<td>  0.5719</td>
+<td>   0.279</td>
+<td>   0.572</td>
 <td></td>
-<td>  0.2990</td>
-<td>  0.5894</td>
+<td>   0.299</td>
+<td>   0.589</td>
 <td></td>
-<td>  0.3095</td>
-<td>  0.5860</td>
+<td>   0.309</td>
+<td>   0.586</td>
 <td></td>
-<td>  0.3732</td>
-<td>  0.6727</td>
+<td>   0.373</td>
+<td>   0.673</td>
 <td></td>
-<td>  0.3524</td>
-<td>  0.6431</td>
+<td>   0.352</td>
+<td>   0.643</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -8241,19 +8292,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row19-tab1-header" data-mdb-toggle="tab" href="#row19-tab1" role="tab" aria-controls="row19-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row19-tab2-header" data-mdb-toggle="tab" href="#row19-tab2" role="tab" aria-controls="row19-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row19-tab2-header" data-mdb-toggle="tab" href="#row19-tab2" role="tab" aria-controls="row19-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row19-tab3-header" data-mdb-toggle="tab" href="#row19-tab3" role="tab" aria-controls="row19-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row19-tab4-header" data-mdb-toggle="tab" href="#row19-tab4" role="tab" aria-controls="row19-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row19-tab4-header" data-mdb-toggle="tab" href="#row19-tab4" role="tab" aria-controls="row19-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row19-tab5-header" data-mdb-toggle="tab" href="#row19-tab5" role="tab" aria-controls="row19-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row19-tab5-header" data-mdb-toggle="tab" href="#row19-tab5" role="tab" aria-controls="row19-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row19-tab6-header" data-mdb-toggle="tab" href="#row19-tab6" role="tab" aria-controls="row19-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row19-tab6-header" data-mdb-toggle="tab" href="#row19-tab6" role="tab" aria-controls="row19-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -8413,7 +8464,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-stats.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-stats-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-stats-test \
+  --topics beir-v1.0.0-cqadupstack-stats-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-stats-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-stats.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -8439,27 +8491,27 @@ python -m pyserini.eval.trec_eval \
 
 </div></td>
 </tr>
-<!-- Condition: cqadupstack-tex -->
+<!-- Condition: tex -->
 <tr class="accordion-toggle collapsed" id="row20" data-toggle="collapse" data-parent="#row20" href="#collapse20">
 <td class="expand-button"></td>
-<td>cqadupstack-tex</td>
-<td>  0.2244</td>
-<td>  0.4686</td>
+<td width="200">tex</td>
+<td>   0.224</td>
+<td>   0.469</td>
 <td></td>
-<td>  0.2086</td>
-<td>  0.4954</td>
+<td>   0.209</td>
+<td>   0.495</td>
 <td></td>
-<td>  0.2530</td>
-<td>  0.5161</td>
+<td>   0.253</td>
+<td>   0.516</td>
 <td></td>
-<td>  0.2209</td>
-<td>  0.4985</td>
+<td>   0.221</td>
+<td>   0.498</td>
 <td></td>
-<td>  0.3115</td>
-<td>  0.6489</td>
+<td>   0.311</td>
+<td>   0.649</td>
 <td></td>
-<td>  0.3083</td>
-<td>  0.6235</td>
+<td>   0.308</td>
+<td>   0.624</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -8472,19 +8524,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row20-tab1-header" data-mdb-toggle="tab" href="#row20-tab1" role="tab" aria-controls="row20-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row20-tab2-header" data-mdb-toggle="tab" href="#row20-tab2" role="tab" aria-controls="row20-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row20-tab2-header" data-mdb-toggle="tab" href="#row20-tab2" role="tab" aria-controls="row20-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row20-tab3-header" data-mdb-toggle="tab" href="#row20-tab3" role="tab" aria-controls="row20-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row20-tab4-header" data-mdb-toggle="tab" href="#row20-tab4" role="tab" aria-controls="row20-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row20-tab4-header" data-mdb-toggle="tab" href="#row20-tab4" role="tab" aria-controls="row20-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row20-tab5-header" data-mdb-toggle="tab" href="#row20-tab5" role="tab" aria-controls="row20-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row20-tab5-header" data-mdb-toggle="tab" href="#row20-tab5" role="tab" aria-controls="row20-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row20-tab6-header" data-mdb-toggle="tab" href="#row20-tab6" role="tab" aria-controls="row20-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row20-tab6-header" data-mdb-toggle="tab" href="#row20-tab6" role="tab" aria-controls="row20-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -8644,7 +8696,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-tex.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-tex-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-tex-test \
+  --topics beir-v1.0.0-cqadupstack-tex-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-tex-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-tex.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -8670,27 +8723,27 @@ python -m pyserini.eval.trec_eval \
 
 </div></td>
 </tr>
-<!-- Condition: cqadupstack-unix -->
+<!-- Condition: unix -->
 <tr class="accordion-toggle collapsed" id="row21" data-toggle="collapse" data-parent="#row21" href="#collapse21">
 <td class="expand-button"></td>
-<td>cqadupstack-unix</td>
-<td>  0.2749</td>
-<td>  0.5417</td>
+<td width="200">unix</td>
+<td>   0.275</td>
+<td>   0.542</td>
 <td></td>
-<td>  0.2788</td>
-<td>  0.5721</td>
+<td>   0.279</td>
+<td>   0.572</td>
 <td></td>
-<td>  0.3167</td>
-<td>  0.6214</td>
+<td>   0.317</td>
+<td>   0.621</td>
 <td></td>
-<td>  0.3257</td>
-<td>  0.6161</td>
+<td>   0.326</td>
+<td>   0.616</td>
 <td></td>
-<td>  0.4220</td>
-<td>  0.7797</td>
+<td>   0.422</td>
+<td>   0.780</td>
 <td></td>
-<td>  0.4059</td>
-<td>  0.7543</td>
+<td>   0.406</td>
+<td>   0.754</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -8703,19 +8756,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row21-tab1-header" data-mdb-toggle="tab" href="#row21-tab1" role="tab" aria-controls="row21-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row21-tab2-header" data-mdb-toggle="tab" href="#row21-tab2" role="tab" aria-controls="row21-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row21-tab2-header" data-mdb-toggle="tab" href="#row21-tab2" role="tab" aria-controls="row21-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row21-tab3-header" data-mdb-toggle="tab" href="#row21-tab3" role="tab" aria-controls="row21-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row21-tab4-header" data-mdb-toggle="tab" href="#row21-tab4" role="tab" aria-controls="row21-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row21-tab4-header" data-mdb-toggle="tab" href="#row21-tab4" role="tab" aria-controls="row21-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row21-tab5-header" data-mdb-toggle="tab" href="#row21-tab5" role="tab" aria-controls="row21-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row21-tab5-header" data-mdb-toggle="tab" href="#row21-tab5" role="tab" aria-controls="row21-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row21-tab6-header" data-mdb-toggle="tab" href="#row21-tab6" role="tab" aria-controls="row21-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row21-tab6-header" data-mdb-toggle="tab" href="#row21-tab6" role="tab" aria-controls="row21-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -8875,7 +8928,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-unix.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-unix-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-unix-test \
+  --topics beir-v1.0.0-cqadupstack-unix-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-unix-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-unix.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -8901,27 +8955,27 @@ python -m pyserini.eval.trec_eval \
 
 </div></td>
 </tr>
-<!-- Condition: cqadupstack-webmasters -->
+<!-- Condition: webmasters -->
 <tr class="accordion-toggle collapsed" id="row22" data-toggle="collapse" data-parent="#row22" href="#collapse22">
 <td class="expand-button"></td>
-<td>cqadupstack-webmasters</td>
-<td>  0.3059</td>
-<td>  0.5820</td>
+<td width="200">webmasters</td>
+<td>   0.306</td>
+<td>   0.582</td>
 <td></td>
-<td>  0.3008</td>
-<td>  0.6100</td>
+<td>   0.301</td>
+<td>   0.610</td>
 <td></td>
-<td>  0.3167</td>
-<td>  0.6360</td>
+<td>   0.317</td>
+<td>   0.636</td>
 <td></td>
-<td>  0.3392</td>
-<td>  0.7032</td>
+<td>   0.339</td>
+<td>   0.703</td>
 <td></td>
-<td>  0.4072</td>
-<td>  0.7774</td>
+<td>   0.407</td>
+<td>   0.777</td>
 <td></td>
-<td>  0.4068</td>
-<td>  0.7485</td>
+<td>   0.407</td>
+<td>   0.749</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -8934,19 +8988,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row22-tab1-header" data-mdb-toggle="tab" href="#row22-tab1" role="tab" aria-controls="row22-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row22-tab2-header" data-mdb-toggle="tab" href="#row22-tab2" role="tab" aria-controls="row22-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row22-tab2-header" data-mdb-toggle="tab" href="#row22-tab2" role="tab" aria-controls="row22-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row22-tab3-header" data-mdb-toggle="tab" href="#row22-tab3" role="tab" aria-controls="row22-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row22-tab4-header" data-mdb-toggle="tab" href="#row22-tab4" role="tab" aria-controls="row22-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row22-tab4-header" data-mdb-toggle="tab" href="#row22-tab4" role="tab" aria-controls="row22-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row22-tab5-header" data-mdb-toggle="tab" href="#row22-tab5" role="tab" aria-controls="row22-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row22-tab5-header" data-mdb-toggle="tab" href="#row22-tab5" role="tab" aria-controls="row22-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row22-tab6-header" data-mdb-toggle="tab" href="#row22-tab6" role="tab" aria-controls="row22-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row22-tab6-header" data-mdb-toggle="tab" href="#row22-tab6" role="tab" aria-controls="row22-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -9106,7 +9160,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-webmasters.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-webmasters-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-webmasters-test \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-webmasters-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-webmasters.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -9132,27 +9187,27 @@ python -m pyserini.eval.trec_eval \
 
 </div></td>
 </tr>
-<!-- Condition: cqadupstack-wordpress -->
+<!-- Condition: wordpress -->
 <tr class="accordion-toggle collapsed" id="row23" data-toggle="collapse" data-parent="#row23" href="#collapse23">
 <td class="expand-button"></td>
-<td>cqadupstack-wordpress</td>
-<td>  0.2483</td>
-<td>  0.5152</td>
+<td width="200">wordpress</td>
+<td>   0.248</td>
+<td>   0.515</td>
 <td></td>
-<td>  0.2562</td>
-<td>  0.5526</td>
+<td>   0.256</td>
+<td>   0.553</td>
 <td></td>
-<td>  0.2733</td>
-<td>  0.5945</td>
+<td>   0.273</td>
+<td>   0.595</td>
 <td></td>
-<td>  0.2532</td>
-<td>  0.5769</td>
+<td>   0.253</td>
+<td>   0.577</td>
 <td></td>
-<td>  0.3547</td>
-<td>  0.7047</td>
+<td>   0.355</td>
+<td>   0.705</td>
 <td></td>
-<td>  0.3426</td>
-<td>  0.6937</td>
+<td>   0.343</td>
+<td>   0.694</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -9165,19 +9220,19 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link active" id="row23-tab1-header" data-mdb-toggle="tab" href="#row23-tab1" role="tab" aria-controls="row23-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row23-tab2-header" data-mdb-toggle="tab" href="#row23-tab2" role="tab" aria-controls="row23-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row23-tab2-header" data-mdb-toggle="tab" href="#row23-tab2" role="tab" aria-controls="row23-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row23-tab3-header" data-mdb-toggle="tab" href="#row23-tab3" role="tab" aria-controls="row23-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row23-tab4-header" data-mdb-toggle="tab" href="#row23-tab4" role="tab" aria-controls="row23-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row23-tab4-header" data-mdb-toggle="tab" href="#row23-tab4" role="tab" aria-controls="row23-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row23-tab5-header" data-mdb-toggle="tab" href="#row23-tab5" role="tab" aria-controls="row23-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row23-tab5-header" data-mdb-toggle="tab" href="#row23-tab5" role="tab" aria-controls="row23-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row23-tab6-header" data-mdb-toggle="tab" href="#row23-tab6" role="tab" aria-controls="row23-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row23-tab6-header" data-mdb-toggle="tab" href="#row23-tab6" role="tab" aria-controls="row23-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -9337,7 +9392,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index beir-v1.0.0-cqadupstack-wordpress.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-cqadupstack-wordpress-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-wordpress-test \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test \
+  --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-wordpress-test \
   --output run.beir.cohere-embed-english-v3.0.cqadupstack-wordpress.txt \
   --hits 1000 --remove-query
 </code></pre></blockquote>
@@ -9367,6 +9423,9 @@ python -m pyserini.eval.trec_eval \
     </tbody>
   </table>
 </div>
+
+<div style="padding-top: 20px"/>
+<h4>References</h4>
 
 <ul style="list-style-type:none; padding-top: 25px">
 

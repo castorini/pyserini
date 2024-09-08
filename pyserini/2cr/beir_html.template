@@ -131,7 +131,7 @@ pre[class*="prettyprint"] {
           ">
         <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
           <div class="text-white">
-            <h1 class="mb-3">$title</h1>
+            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> &nbsp; $title</h1>
           </div>
         </div>
       </div>
@@ -140,19 +140,32 @@ pre[class*="prettyprint"] {
 
 <div class="container my-4">
 
-<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing the experimental results below.
+<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproductions below provides commands for reproducing experimental results on BEIR.
 Instructions for programmatic execution are shown at the bottom of this page (scroll down).</p>
 
-<p>Key:</p>
+<div style="padding-top: 20px"/>
+<h4>Main Results</h4>
+
+<p>The main results table provides commands for reproducing runs using the following models:</p>
 
 <ul>
-  <li>BM25 Flat: BM25 "flat" baseline [1]</li>
-  <li>BM25 Multifield: BM25 "multifield" baseline [1]</li>
-  <li>SPLADE: SPLADE++ (CoCondenser-EnsembleDistil) [2]</li>
-  <li>Contriever-msmarco: Contriever FT MS MARCO [3]</li>
-  <li>BGE-base: BGE-base-en-v1.5 [4]</li>
-  <li>Cohere embed-english: Cohere embed-english-v3.0 [5]</li>
+  <li><b>BM25 Flat</b>: BM25 "flat" baseline (<tt><small>bm25-flat</small></tt>) [1]</li>
+  <li><b>BM25 MF</b>: BM25 "multifield" baseline (<tt><small>bm25-multifield</small></tt>) [1]</li>
+  <li><b>SPLADE</b>: SPLADE++ CoCondenser-EnsembleDistil (<tt><small>splade-pp-ed</small></tt>) [2]</li>
+  <li><b>Contriever</b>: Contriever FT MS MARCO (<tt><small>contriever-msmarco</small></tt>) [3]</li>
+  <li><b>BGE</b>: BGE-base-en-v1.5 (Faiss flat index) (<tt><small>bge-base-en-v1.5.faiss</small></tt>) [4]</li>
+  <li><b>Cohere</b>: Cohere embed-english-v3.0 (Faiss flat index) (<tt><small>cohere-embed-english-v3.0</small></tt>) [5]</li>
 </ul>
+
+<p>The symbol shown in parentheses (e.g., <tt><small>bm25-flat</small></tt>) refers the parameter used in the <tt><small>--condition</small></tt> option for programmatic execution (see below).
+In addition, we provide the following models whose runs can be reproduced, but are not shown in the results table:</p>
+
+<ul>
+  <li>BGE-base-en-v1.5 (Lucene flat index) (<tt><small>bge-base-en-v1.5.lucene-flat</small></tt>) [4]</li>
+  <li>BGE-base-en-v1.5 (Lucene HNSW index) (<tt><small>bge-base-en-v1.5.lucene-hnsw</small></tt>) [4]</li>
+</ul>
+
+<div style="padding-top: 20px"/>
 
 <div class="table-responsive">
   <table class="table">
@@ -161,11 +174,11 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
         <th class="headertop"></th>
         <th class="headertop"></th>
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
-        <th class="headertop" colspan="3"><b>BM25 Multifield</b></th>
-        <th class="headertop" colspan="3"><b>SPLADE++ ED</b></th>
-        <th class="headertop" colspan="3"><b>Contriever MSMARCO</b></th>
-        <th class="headertop" colspan="3"><b>BGE-base</b></th>
-        <th class="headertop" colspan="3"><b>Cohere embed-english</b></th>
+        <th class="headertop" colspan="3"><b>BM25 MF</b></th>
+        <th class="headertop" colspan="3"><b>SPLADE</b></th>
+        <th class="headertop" colspan="3"><b>Contriever</b></th>
+        <th class="headertop" colspan="3"><b>BGE</b></th>
+        <th class="headertop" colspan="3"><b>Cohere</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
@@ -198,9 +211,11 @@ $main_rows
 </div>
 
 <div style="padding-top: 20px"/>
+<h4>CQADupStack Results</h4>
 
-For cqadupstack collections:
+<p>The "cqadupstack (average)" row above represents the average across the individual CQADupStack datasets, shown below.</p>
 
+<div style="padding-top: 20px"/>
 <div class="table-responsive">
   <table class="table">
     <thead>
@@ -208,11 +223,11 @@ For cqadupstack collections:
         <th class="headertop"></th>
         <th class="headertop"></th>
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
-        <th class="headertop" colspan="3"><b>BM25 Multifield</b></th>
-        <th class="headertop" colspan="3"><b>SPLADE++ ED</b></th>
-        <th class="headertop" colspan="3"><b>Contriever MSMARCO</b></th>
-        <th class="headertop" colspan="3"><b>BGE-base</b></th>
-        <th class="headertop" colspan="3"><b>Cohere embed-english</b></th>
+        <th class="headertop" colspan="3"><b>BM25 MF</b></th>
+        <th class="headertop" colspan="3"><b>SPLADE</b></th>
+        <th class="headertop" colspan="3"><b>Contriever</b></th>
+        <th class="headertop" colspan="3"><b>BGE</b></th>
+        <th class="headertop" colspan="3"><b>Cohere</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
@@ -243,6 +258,9 @@ $cqa_rows
     </tbody>
   </table>
 </div>
+
+<div style="padding-top: 20px"/>
+<h4>References</h4>
 
 <ul style="list-style-type:none; padding-top: 25px">
 
