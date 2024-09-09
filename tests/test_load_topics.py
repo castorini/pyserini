@@ -431,7 +431,17 @@ class TestLoadTopics(unittest.TestCase):
         topics = search.get_topics('rag24.raggy-dev')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 120)
-        self.assertFalse(isinstance(next(iter(topics.keys())), str))
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('rag24.researchy-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 600)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('rag24.test')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 301)
+        self.assertTrue(isinstance(next(iter(topics.keys())), str))
 
     # Various multi-lingual test collections
     def test_ntcir8_zh(self):
@@ -961,7 +971,124 @@ class TestLoadTopics(unittest.TestCase):
         topics = search.get_topics('beir-v1.0.0-scifact-test')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 300)
-    
+
+    def test_beir_aliases(self):
+        topics = search.get_topics('beir-v1.0.0-trec-covid')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 50)
+
+        topics = search.get_topics('beir-v1.0.0-bioasq')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 500)
+
+        topics = search.get_topics('beir-v1.0.0-nfcorpus')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 323)
+
+        topics = search.get_topics('beir-v1.0.0-nq')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 3452)
+
+        topics = search.get_topics('beir-v1.0.0-hotpotqa')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 7405)
+
+        topics = search.get_topics('beir-v1.0.0-fiqa')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 648)
+
+        topics = search.get_topics('beir-v1.0.0-signal1m')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 97)
+
+        topics = search.get_topics('beir-v1.0.0-trec-news')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 57)
+
+        topics = search.get_topics('beir-v1.0.0-robust04')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 249)
+
+        topics = search.get_topics('beir-v1.0.0-arguana')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1406)
+
+        topics = search.get_topics('beir-v1.0.0-webis-touche2020')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 49)
+
+        topics = search.get_topics('beir-v1.0.0-cqadupstack-android')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 699)
+
+        topics = search.get_topics('beir-v1.0.0-cqadupstack-english')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1570)
+
+        topics = search.get_topics('beir-v1.0.0-cqadupstack-gaming')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1595)
+
+        topics = search.get_topics('beir-v1.0.0-cqadupstack-gis')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 885)
+
+        topics = search.get_topics('beir-v1.0.0-cqadupstack-mathematica')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 804)
+
+        topics = search.get_topics('beir-v1.0.0-cqadupstack-physics')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1039)
+
+        topics = search.get_topics('beir-v1.0.0-cqadupstack-programmers')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 876)
+
+        topics = search.get_topics('beir-v1.0.0-cqadupstack-stats')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 652)
+
+        topics = search.get_topics('beir-v1.0.0-cqadupstack-tex')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 2906)
+
+        topics = search.get_topics('beir-v1.0.0-cqadupstack-unix')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1072)
+
+        topics = search.get_topics('beir-v1.0.0-cqadupstack-webmasters')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 506)
+
+        topics = search.get_topics('beir-v1.0.0-cqadupstack-wordpress')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 541)
+
+        topics = search.get_topics('beir-v1.0.0-quora')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 10000)
+
+        topics = search.get_topics('beir-v1.0.0-dbpedia-entity')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 400)
+
+        topics = search.get_topics('beir-v1.0.0-scidocs')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1000)
+
+        topics = search.get_topics('beir-v1.0.0-fever')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6666)
+
+        topics = search.get_topics('beir-v1.0.0-climate-fever')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 1535)
+
+        topics = search.get_topics('beir-v1.0.0-scifact')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 300)
+
     def test_hc4_1_0_fa(self):
         topics = search.get_topics('hc4-v1.0-fa-dev-title')
         self.assertIsNotNone(topics)

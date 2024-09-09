@@ -1,8 +1,8 @@
 <!-- Condition: ${condition_name} -->
 <tr class="accordion-toggle collapsed" id="row${row_cnt}" data-toggle="collapse" data-parent="#row${row_cnt}" href="#collapse${row_cnt}">
 <td class="expand-button"></td>
-<td style="min-width: 85px">$row</td>
-<td style="min-width: 400px">${condition_name}</td>
+<td style="min-width: 75px">$row</td>
+<td style="min-width: 410px">${condition_name}</td>
 <td>$s1</td>
 <td>$s2</td>
 <td>$s3</td>

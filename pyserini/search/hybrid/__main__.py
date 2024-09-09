@@ -15,7 +15,6 @@
 #
 
 import argparse
-import json
 import os
 import sys
 
@@ -64,6 +63,23 @@ def parse_args(parser, commands):
     return args
 
 
+# How to remove an argument from argparse:
+# https://stackoverflow.com/questions/32807319/disable-remove-argument-in-argparse
+def remove_argument(parser, arg):
+    for action in parser._actions:
+        opts = action.option_strings
+        if (opts and opts[0] == arg) or action.dest == arg:
+            parser._remove_action(action)
+            break
+
+    for action in parser._action_groups:
+        for group_action in action._group_actions:
+            opts = group_action.option_strings
+            if (opts and opts[0] == arg) or group_action.dest == arg:
+                action._group_actions.remove(group_action)
+                return
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Conduct a hybrid search on dense+sparse indexes.')
 
@@ -74,6 +90,8 @@ if __name__ == '__main__':
 
     sparse_parser = commands.add_parser('sparse')
     define_search_args(sparse_parser)
+    # --topics isn't necessary here, since we're getting it from the 'run' sub-command.
+    remove_argument(sparse_parser, '--topics')
 
     fusion_parser = commands.add_parser('fusion')
     define_fusion_args(fusion_parser)

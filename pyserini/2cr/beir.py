@@ -33,6 +33,8 @@ dense_batch_size = 512
 sparse_threads = 16
 sparse_batch_size = 128
 
+metrics = ['nDCG@10', 'R@100', 'R@1000']
+
 trec_eval_metric_definitions = {
     'nDCG@10': '-c -m ndcg_cut.10',
     'R@100': '-c -m recall.100',
@@ -70,6 +72,13 @@ beir_keys = ['trec-covid',
              'scifact'
              ]
 
+models = ['bm25-flat', 
+          'bm25-multifield', 
+          'splade-pp-ed', 
+          'contriever', 
+          'contriever-msmarco', 
+          'bge-base-en-v1.5', 
+          'cohere-embed-english-v3.0']
 
 def format_run_command(raw):
     return raw.replace('--topics', '\\\n  --topics') \
@@ -111,6 +120,8 @@ def generate_report(args):
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
     commands = defaultdict(lambda: defaultdict(lambda: ''))
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
+    cqa_commands = defaultdict(lambda: '')
+    cqa_eval_commands = defaultdict(lambda: '')
 
     html_template = read_file('beir_html.template')
     row_template = read_file('beir_html_row.template')
@@ -132,16 +143,26 @@ def generate_report(args):
                                                         dense_threads=dense_threads, dense_batch_size=dense_batch_size, query_prefix=query_prefix)
                 commands[dataset][name] = format_run_command(cmd)
 
+                if dataset.startswith('cqadupstack-'):
+                    cqa_commands[name] += commands[dataset][name] + '\n\n'
+
                 for expected in datasets['scores']:
                     for metric in expected:
                         eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
                                    f'{trec_eval_metric_definitions[metric]} beir-v1.0.0-{dataset}-test {runfile}'
                         eval_commands[dataset][name] += format_eval_command(eval_cmd) + '\n\n'
-
+                        
+                        if dataset.startswith('cqadupstack-'):
+                            cqa_eval_commands[name] += eval_commands[dataset][name]
+                        
                         table[dataset][name][metric] = expected[metric]
 
         row_cnt = 1
-        html_rows = []
+        main_rows = []
+        cqa_rows = []
+        cqa_row_flag = False
+        cqadupstack_sums = defaultdict(lambda: defaultdict(float))
+        
         for dataset in beir_keys:
             s = Template(row_template)
             s = s.substitute(row_cnt=row_cnt,
@@ -170,13 +191,53 @@ def generate_report(args):
                              eval_cmd4=eval_commands[dataset]["contriever-msmarco"].rstrip(),
                              eval_cmd5=eval_commands[dataset]["bge-base-en-v1.5"].rstrip(),
                              eval_cmd6=eval_commands[dataset]["cohere-embed-english-v3.0"].rstrip())
-
-            html_rows.append(s)
             row_cnt += 1
+            if dataset.startswith('cqadupstack-'):
+                cqa_rows.append(s)
+                if cqa_row_flag is False:
+                    cqa_row_flag = True
 
-        all_rows = '\n'.join(html_rows)
+                for model in models:
+                    for metric in metrics:
+                        cqadupstack_sums[model][metric] += table[dataset][model][metric]
+            else:
+                if cqa_row_flag:
+                    cqa_row_flag = False
+                    cqa_row = Template(row_template)
+                    cqa_row = cqa_row.substitute(row_cnt=row_cnt,
+                             dataset='cqadupstack (average)',
+                             s1=f'{cqadupstack_sums["bm25-flat"]["nDCG@10"]/12:8.4f}',
+                             s2=f'{cqadupstack_sums["bm25-flat"]["R@100"]/12:8.4f}',
+                             s3=f'{cqadupstack_sums["bm25-multifield"]["nDCG@10"]/12:8.4f}',
+                             s4=f'{cqadupstack_sums["bm25-multifield"]["R@100"]/12:8.4f}',
+                             s5=f'{cqadupstack_sums["splade-pp-ed"]["nDCG@10"]/12:8.4f}',
+                             s6=f'{cqadupstack_sums["splade-pp-ed"]["R@100"]/12:8.4f}',
+                             s7=f'{cqadupstack_sums["contriever-msmarco"]["nDCG@10"]/12:8.4f}',
+                             s8=f'{cqadupstack_sums["contriever-msmarco"]["R@100"]/12:8.4f}',
+                             s9=f'{cqadupstack_sums["bge-base-en-v1.5"]["nDCG@10"]/12:8.4f}',
+                             s10=f'{cqadupstack_sums["bge-base-en-v1.5"]["R@100"]/12:8.4f}',
+                             s11=f'{cqadupstack_sums["cohere-embed-english-v3.0"]["nDCG@10"]/12:8.4f}',
+                             s12=f'{cqadupstack_sums["cohere-embed-english-v3.0"]["R@100"]/12:8.4f}',
+                             cmd1=cqa_commands["bm25-flat"],
+                             cmd2=cqa_commands["bm25-multifield"],
+                             cmd3=cqa_commands["splade-pp-ed"],
+                             cmd4=cqa_commands["contriever-msmarco"],
+                             cmd5=cqa_commands["bge-base-en-v1.5"],
+                             cmd6=cqa_commands["cohere-embed-english-v3.0"],
+                             eval_cmd1=cqa_eval_commands["bm25-flat"].rstrip(),
+                             eval_cmd2=cqa_eval_commands["bm25-multifield"].rstrip(),
+                             eval_cmd3=cqa_eval_commands["splade-pp-ed"].rstrip(),
+                             eval_cmd4=cqa_eval_commands["contriever-msmarco"].rstrip(),
+                             eval_cmd5=cqa_eval_commands["bge-base-en-v1.5"].rstrip(),
+                             eval_cmd6=cqa_eval_commands["cohere-embed-english-v3.0"].rstrip())
+                    main_rows.append(cqa_row)
+                    row_cnt += 1
+                main_rows.append(s)
+            
+        main_rows = '\n'.join(main_rows)
+        cqa_rows = '\n'.join(cqa_rows)
         with open(args.output, 'w') as out:
-            out.write(Template(html_template).substitute(title='BEIR', rows=all_rows))
+            out.write(Template(html_template).substitute(title='BEIR', main_rows=main_rows, cqa_rows=cqa_rows))
 
 
 def run_conditions(args):
@@ -244,9 +305,6 @@ def run_conditions(args):
                     print('')
 
             print('')
-
-    models = ['bm25-flat', 'bm25-multifield', 'splade-pp-ed', 'contriever', 'contriever-msmarco', 'bge-base-en-v1.5', 'cohere-embed-english-v3.0']
-    metrics = ['nDCG@10', 'R@100', 'R@1000']
 
     top_level_sums = defaultdict(lambda: defaultdict(float))
     cqadupstack_sums = defaultdict(lambda: defaultdict(float))

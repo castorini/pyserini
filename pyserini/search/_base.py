@@ -15,14 +15,13 @@
 #
 
 """
-This module provides Pyserini's Python search interface to Anserini. The main entry point is the ``LuceneSearcher``
-class, which wraps the Java class with the same name in Anserini.
+This module serves as the 'root' of Pyserini search capabilities, providing common functionalities across sparse
+and dense retrieval.
 """
 
 import logging
 import os
 
-from pyserini.util import get_cache_home
 from pyserini.pyclass import autoclass
 
 logger = logging.getLogger(__name__)
@@ -42,9 +41,11 @@ JBagOfWordsQueryGenerator = autoclass('io.anserini.search.query.BagOfWordsQueryG
 JDisjunctionMaxQueryGenerator = autoclass('io.anserini.search.query.DisjunctionMaxQueryGenerator')
 JCovid19QueryGenerator = autoclass('io.anserini.search.query.Covid19QueryGenerator')
 
+
 # Function to safely get attributes from a class, returns None if not found
 def safe_getattr(cls, attr):
     return getattr(cls, attr, None)
+
 
 topics_mapping = {
     'trec1-adhoc': 'TREC1_ADHOC',
@@ -94,6 +95,8 @@ topics_mapping = {
     'dl23-unicoil': 'TREC2023_DL_UNICOIL',
     'dl23-unicoil-noexp': 'TREC2023_DL_UNICOIL_NOEXP',
     'rag24.raggy-dev': 'TREC2024_RAG_RAGGY_DEV',
+    'rag24.researchy-dev': 'TREC2024_RAG_RESEARCHY_DEV',
+    'rag24.test': 'TREC2024_RAG_TEST',
     'msmarco-doc-dev': 'MSMARCO_DOC_DEV',
     'msmarco-doc-dev-unicoil': 'MSMARCO_DOC_DEV_UNICOIL',
     'msmarco-doc-dev-unicoil-noexp': 'MSMARCO_DOC_DEV_UNICOIL_NOEXP',
@@ -190,6 +193,8 @@ topics_mapping = {
     'mrtydi-v1.1-thai-train': 'MRTYDI_V11_TH_TRAIN',
     'mrtydi-v1.1-thai-dev': 'MRTYDI_V11_TH_DEV',
     'mrtydi-v1.1-thai-test': 'MRTYDI_V11_TH_TEST',
+
+    # BEIR topics
     'beir-v1.0.0-trec-covid-test': 'BEIR_V1_0_0_TREC_COVID_TEST',
     'beir-v1.0.0-bioasq-test': 'BEIR_V1_0_0_BIOASQ_TEST',
     'beir-v1.0.0-nfcorpus-test': 'BEIR_V1_0_0_NFCORPUS_TEST',
@@ -219,6 +224,38 @@ topics_mapping = {
     'beir-v1.0.0-fever-test': 'BEIR_V1_0_0_FEVER_TEST',
     'beir-v1.0.0-climate-fever-test': 'BEIR_V1_0_0_CLIMATE_FEVER_TEST',
     'beir-v1.0.0-scifact-test': 'BEIR_V1_0_0_SCIFACT_TEST',
+
+    # BEIR topics (aliases, because 'test' is often dropped)
+    'beir-v1.0.0-trec-covid': 'BEIR_V1_0_0_TREC_COVID_TEST',
+    'beir-v1.0.0-bioasq': 'BEIR_V1_0_0_BIOASQ_TEST',
+    'beir-v1.0.0-nfcorpus': 'BEIR_V1_0_0_NFCORPUS_TEST',
+    'beir-v1.0.0-nq': 'BEIR_V1_0_0_NQ_TEST',
+    'beir-v1.0.0-hotpotqa': 'BEIR_V1_0_0_HOTPOTQA_TEST',
+    'beir-v1.0.0-fiqa': 'BEIR_V1_0_0_FIQA_TEST',
+    'beir-v1.0.0-signal1m': 'BEIR_V1_0_0_SIGNAL1M_TEST',
+    'beir-v1.0.0-trec-news': 'BEIR_V1_0_0_TREC_NEWS_TEST',
+    'beir-v1.0.0-robust04': 'BEIR_V1_0_0_ROBUST04_TEST',
+    'beir-v1.0.0-arguana': 'BEIR_V1_0_0_ARGUANA_TEST',
+    'beir-v1.0.0-webis-touche2020': 'BEIR_V1_0_0_WEBIS_TOUCHE2020_TEST',
+    'beir-v1.0.0-cqadupstack-android': 'BEIR_V1_0_0_CQADUPSTACK_ANDROID_TEST',
+    'beir-v1.0.0-cqadupstack-english': 'BEIR_V1_0_0_CQADUPSTACK_ENGLISH_TEST',
+    'beir-v1.0.0-cqadupstack-gaming': 'BEIR_V1_0_0_CQADUPSTACK_GAMING_TEST',
+    'beir-v1.0.0-cqadupstack-gis': 'BEIR_V1_0_0_CQADUPSTACK_GIS_TEST',
+    'beir-v1.0.0-cqadupstack-mathematica': 'BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_TEST',
+    'beir-v1.0.0-cqadupstack-physics': 'BEIR_V1_0_0_CQADUPSTACK_PHYSICS_TEST',
+    'beir-v1.0.0-cqadupstack-programmers': 'BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_TEST',
+    'beir-v1.0.0-cqadupstack-stats': 'BEIR_V1_0_0_CQADUPSTACK_STATS_TEST',
+    'beir-v1.0.0-cqadupstack-tex': 'BEIR_V1_0_0_CQADUPSTACK_TEX_TEST',
+    'beir-v1.0.0-cqadupstack-unix': 'BEIR_V1_0_0_CQADUPSTACK_UNIX_TEST',
+    'beir-v1.0.0-cqadupstack-webmasters': 'BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_TEST',
+    'beir-v1.0.0-cqadupstack-wordpress': 'BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_TEST',
+    'beir-v1.0.0-quora': 'BEIR_V1_0_0_QUORA_TEST',
+    'beir-v1.0.0-dbpedia-entity': 'BEIR_V1_0_0_DBPEDIA_ENTITY_TEST',
+    'beir-v1.0.0-scidocs': 'BEIR_V1_0_0_SCIDOCS_TEST',
+    'beir-v1.0.0-fever': 'BEIR_V1_0_0_FEVER_TEST',
+    'beir-v1.0.0-climate-fever': 'BEIR_V1_0_0_CLIMATE_FEVER_TEST',
+    'beir-v1.0.0-scifact': 'BEIR_V1_0_0_SCIFACT_TEST',
+
     # SPLADE-distil CoCodenser Medium
     'beir-v1.0.0-trec-covid-test-splade_distil_cocodenser_medium': 'BEIR_V1_0_0_TREC_COVID_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM',
     'beir-v1.0.0-bioasq-test-splade_distil_cocodenser_medium': 'BEIR_V1_0_0_BIOASQ_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM',
@@ -249,6 +286,7 @@ topics_mapping = {
     'beir-v1.0.0-fever-test-splade_distil_cocodenser_medium': 'BEIR_V1_0_0_FEVER_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM',
     'beir-v1.0.0-climate-fever-test-splade_distil_cocodenser_medium': 'BEIR_V1_0_0_CLIMATE_FEVER_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM',
     'beir-v1.0.0-scifact-test-splade_distil_cocodenser_medium': 'BEIR_V1_0_0_SCIFACT_TEST_SPLADE_DISTILL_COCODENSER_MEDIUM',
+
     # SPLADE++ (CoCondenser-EnsembleDistil)
     'beir-v1.0.0-trec-covid.test.splade-pp-ed': 'BEIR_V1_0_0_TREC_COVID_TEST_SPLADE_PP_ED',
     'beir-v1.0.0-bioasq.test.splade-pp-ed': 'BEIR_V1_0_0_BIOASQ_TEST_SPLADE_PP_ED',
@@ -306,6 +344,7 @@ topics_mapping = {
     'hc4-v1.0-zh-en-test-title': 'HC4_V1_0_ZH_EN_TEST_TITLE',
     'hc4-v1.0-zh-en-test-desc': 'HC4_V1_0_ZH_EN_TEST_DESC',
     'hc4-v1.0-zh-en-test-desc-title': 'HC4_V1_0_ZH_EN_TEST_DESC_TITLE',
+
     # NeuCLIR 2022 topics
     'neuclir22-en-title':         'NEUCLIR22_EN_TITLE',
     'neuclir22-en-desc':          'NEUCLIR22_EN_DESC',
@@ -328,6 +367,7 @@ topics_mapping = {
     'neuclir22-zh-mt-title':      'NEUCLIR22_ZH_MT_TITLE',
     'neuclir22-zh-mt-desc':       'NEUCLIR22_ZH_MT_DESC',
     'neuclir22-zh-mt-desc-title': 'NEUCLIR22_ZH_MT_DESC_TITLE',
+
     # MIRACL topics
     'miracl-v1.0-ar-dev': 'MIRACL_V10_AR_DEV',
     'miracl-v1.0-bn-dev': 'MIRACL_V10_BN_DEV',
@@ -487,6 +527,8 @@ qrels_mapping = {
     'mrtydi-v1.1-thai-train': 'MRTYDI_V11_TH_TRAIN',
     'mrtydi-v1.1-thai-dev': 'MRTYDI_V11_TH_DEV',
     'mrtydi-v1.1-thai-test': 'MRTYDI_V11_TH_TEST',
+
+    # BEIR qrels
     'beir-v1.0.0-trec-covid-test': 'BEIR_V1_0_0_TREC_COVID_TEST',
     'beir-v1.0.0-bioasq-test': 'BEIR_V1_0_0_BIOASQ_TEST',
     'beir-v1.0.0-nfcorpus-test': 'BEIR_V1_0_0_NFCORPUS_TEST',
@@ -516,6 +558,38 @@ qrels_mapping = {
     'beir-v1.0.0-fever-test': 'BEIR_V1_0_0_FEVER_TEST',
     'beir-v1.0.0-climate-fever-test': 'BEIR_V1_0_0_CLIMATE_FEVER_TEST',
     'beir-v1.0.0-scifact-test': 'BEIR_V1_0_0_SCIFACT_TEST',
+
+    # BEIR qrels (aliases, because 'test' is often dropped)
+    'beir-v1.0.0-trec-covid': 'BEIR_V1_0_0_TREC_COVID_TEST',
+    'beir-v1.0.0-bioasq': 'BEIR_V1_0_0_BIOASQ_TEST',
+    'beir-v1.0.0-nfcorpus': 'BEIR_V1_0_0_NFCORPUS_TEST',
+    'beir-v1.0.0-nq': 'BEIR_V1_0_0_NQ_TEST',
+    'beir-v1.0.0-hotpotqa': 'BEIR_V1_0_0_HOTPOTQA_TEST',
+    'beir-v1.0.0-fiqa': 'BEIR_V1_0_0_FIQA_TEST',
+    'beir-v1.0.0-signal1m': 'BEIR_V1_0_0_SIGNAL1M_TEST',
+    'beir-v1.0.0-trec-news': 'BEIR_V1_0_0_TREC_NEWS_TEST',
+    'beir-v1.0.0-robust04': 'BEIR_V1_0_0_ROBUST04_TEST',
+    'beir-v1.0.0-arguana': 'BEIR_V1_0_0_ARGUANA_TEST',
+    'beir-v1.0.0-webis-touche2020': 'BEIR_V1_0_0_WEBIS_TOUCHE2020_TEST',
+    'beir-v1.0.0-cqadupstack-android': 'BEIR_V1_0_0_CQADUPSTACK_ANDROID_TEST',
+    'beir-v1.0.0-cqadupstack-english': 'BEIR_V1_0_0_CQADUPSTACK_ENGLISH_TEST',
+    'beir-v1.0.0-cqadupstack-gaming': 'BEIR_V1_0_0_CQADUPSTACK_GAMING_TEST',
+    'beir-v1.0.0-cqadupstack-gis': 'BEIR_V1_0_0_CQADUPSTACK_GIS_TEST',
+    'beir-v1.0.0-cqadupstack-mathematica': 'BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_TEST',
+    'beir-v1.0.0-cqadupstack-physics': 'BEIR_V1_0_0_CQADUPSTACK_PHYSICS_TEST',
+    'beir-v1.0.0-cqadupstack-programmers': 'BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_TEST',
+    'beir-v1.0.0-cqadupstack-stats': 'BEIR_V1_0_0_CQADUPSTACK_STATS_TEST',
+    'beir-v1.0.0-cqadupstack-tex': 'BEIR_V1_0_0_CQADUPSTACK_TEX_TEST',
+    'beir-v1.0.0-cqadupstack-unix': 'BEIR_V1_0_0_CQADUPSTACK_UNIX_TEST',
+    'beir-v1.0.0-cqadupstack-webmasters': 'BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_TEST',
+    'beir-v1.0.0-cqadupstack-wordpress': 'BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_TEST',
+    'beir-v1.0.0-quora': 'BEIR_V1_0_0_QUORA_TEST',
+    'beir-v1.0.0-dbpedia-entity': 'BEIR_V1_0_0_DBPEDIA_ENTITY_TEST',
+    'beir-v1.0.0-scidocs': 'BEIR_V1_0_0_SCIDOCS_TEST',
+    'beir-v1.0.0-fever': 'BEIR_V1_0_0_FEVER_TEST',
+    'beir-v1.0.0-climate-fever': 'BEIR_V1_0_0_CLIMATE_FEVER_TEST',
+    'beir-v1.0.0-scifact': 'BEIR_V1_0_0_SCIFACT_TEST',
+
     'hc4-v1.0-fa-dev': 'HC4_V1_0_FA_DEV',
     'hc4-v1.0-fa-test': 'HC4_V1_0_FA_TEST',
     'hc4-v1.0-ru-dev': 'HC4_V1_0_RU_DEV',

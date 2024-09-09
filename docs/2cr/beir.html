@@ -2732,6 +2732,3865 @@ python -m pyserini.eval.trec_eval \
 
 </div></td>
 </tr>
+<!-- Condition: cqadupstack (average) -->
+<tr class="accordion-toggle collapsed" id="row25" data-toggle="collapse" data-parent="#row25" href="#collapse25">
+<td class="expand-button"></td>
+<td>cqadupstack (average)</td>
+<td>  0.3021</td>
+<td>  0.5797</td>
+<td></td>
+<td>  0.2987</td>
+<td>  0.6056</td>
+<td></td>
+<td>  0.3338</td>
+<td>  0.6496</td>
+<td></td>
+<td>  0.3454</td>
+<td>  0.6628</td>
+<td></td>
+<td>  0.4237</td>
+<td>  0.7621</td>
+<td></td>
+<td>  0.4152</td>
+<td>  0.7447</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse25" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row25-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row25-tab1-header" data-mdb-toggle="tab" href="#row25-tab1" role="tab" aria-controls="row25-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row25-tab2-header" data-mdb-toggle="tab" href="#row25-tab2" role="tab" aria-controls="row25-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row25-tab3-header" data-mdb-toggle="tab" href="#row25-tab3" role="tab" aria-controls="row25-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row25-tab4-header" data-mdb-toggle="tab" href="#row25-tab4" role="tab" aria-controls="row25-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row25-tab5-header" data-mdb-toggle="tab" href="#row25-tab5" role="tab" aria-controls="row25-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row25-tab6-header" data-mdb-toggle="tab" href="#row25-tab6" role="tab" aria-controls="row25-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row25-content">
+  <div class="tab-pane fade show active" id="row25-tab1" role="tabpanel" aria-labelledby="row25-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-android.flat \
+  --topics beir-v1.0.0-cqadupstack-android-test \
+  --output run.beir.bm25-flat.cqadupstack-android.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-english.flat \
+  --topics beir-v1.0.0-cqadupstack-english-test \
+  --output run.beir.bm25-flat.cqadupstack-english.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-gaming.flat \
+  --topics beir-v1.0.0-cqadupstack-gaming-test \
+  --output run.beir.bm25-flat.cqadupstack-gaming.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-gis.flat \
+  --topics beir-v1.0.0-cqadupstack-gis-test \
+  --output run.beir.bm25-flat.cqadupstack-gis.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-mathematica.flat \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test \
+  --output run.beir.bm25-flat.cqadupstack-mathematica.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-physics.flat \
+  --topics beir-v1.0.0-cqadupstack-physics-test \
+  --output run.beir.bm25-flat.cqadupstack-physics.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-programmers.flat \
+  --topics beir-v1.0.0-cqadupstack-programmers-test \
+  --output run.beir.bm25-flat.cqadupstack-programmers.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-stats.flat \
+  --topics beir-v1.0.0-cqadupstack-stats-test \
+  --output run.beir.bm25-flat.cqadupstack-stats.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-tex.flat \
+  --topics beir-v1.0.0-cqadupstack-tex-test \
+  --output run.beir.bm25-flat.cqadupstack-tex.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-unix.flat \
+  --topics beir-v1.0.0-cqadupstack-unix-test \
+  --output run.beir.bm25-flat.cqadupstack-unix.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-webmasters.flat \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test \
+  --output run.beir.bm25-flat.cqadupstack-webmasters.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-wordpress.flat \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test \
+  --output run.beir.bm25-flat.cqadupstack-wordpress.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+
+
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bm25-flat.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bm25-flat.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bm25-flat.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bm25-flat.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bm25-flat.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bm25-flat.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bm25-flat.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bm25-flat.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bm25-flat.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bm25-flat.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bm25-flat.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bm25-flat.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bm25-flat.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bm25-flat.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bm25-flat.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bm25-flat.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bm25-flat.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bm25-flat.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bm25-flat.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bm25-flat.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bm25-flat.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bm25-flat.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bm25-flat.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bm25-flat.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bm25-flat.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bm25-flat.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bm25-flat.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bm25-flat.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bm25-flat.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bm25-flat.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bm25-flat.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bm25-flat.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bm25-flat.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bm25-flat.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bm25-flat.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bm25-flat.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bm25-flat.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bm25-flat.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bm25-flat.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bm25-flat.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bm25-flat.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bm25-flat.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bm25-flat.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bm25-flat.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bm25-flat.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bm25-flat.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bm25-flat.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bm25-flat.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bm25-flat.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bm25-flat.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bm25-flat.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bm25-flat.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bm25-flat.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bm25-flat.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bm25-flat.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bm25-flat.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bm25-flat.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bm25-flat.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bm25-flat.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bm25-flat.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bm25-flat.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bm25-flat.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bm25-flat.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bm25-flat.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bm25-flat.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bm25-flat.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bm25-flat.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bm25-flat.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bm25-flat.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bm25-flat.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bm25-flat.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bm25-flat.cqadupstack-wordpress.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row25-tab2" role="tabpanel" aria-labelledby="row25-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-android.multifield \
+  --topics beir-v1.0.0-cqadupstack-android-test \
+  --output run.beir.bm25-multifield.cqadupstack-android.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-english.multifield \
+  --topics beir-v1.0.0-cqadupstack-english-test \
+  --output run.beir.bm25-multifield.cqadupstack-english.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-gaming.multifield \
+  --topics beir-v1.0.0-cqadupstack-gaming-test \
+  --output run.beir.bm25-multifield.cqadupstack-gaming.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-gis.multifield \
+  --topics beir-v1.0.0-cqadupstack-gis-test \
+  --output run.beir.bm25-multifield.cqadupstack-gis.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-mathematica.multifield \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test \
+  --output run.beir.bm25-multifield.cqadupstack-mathematica.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-physics.multifield \
+  --topics beir-v1.0.0-cqadupstack-physics-test \
+  --output run.beir.bm25-multifield.cqadupstack-physics.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-programmers.multifield \
+  --topics beir-v1.0.0-cqadupstack-programmers-test \
+  --output run.beir.bm25-multifield.cqadupstack-programmers.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-stats.multifield \
+  --topics beir-v1.0.0-cqadupstack-stats-test \
+  --output run.beir.bm25-multifield.cqadupstack-stats.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-tex.multifield \
+  --topics beir-v1.0.0-cqadupstack-tex-test \
+  --output run.beir.bm25-multifield.cqadupstack-tex.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-unix.multifield \
+  --topics beir-v1.0.0-cqadupstack-unix-test \
+  --output run.beir.bm25-multifield.cqadupstack-unix.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-webmasters.multifield \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test \
+  --output run.beir.bm25-multifield.cqadupstack-webmasters.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-wordpress.multifield \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test \
+  --output run.beir.bm25-multifield.cqadupstack-wordpress.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+
+
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bm25-multifield.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bm25-multifield.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bm25-multifield.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bm25-multifield.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bm25-multifield.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bm25-multifield.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bm25-multifield.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bm25-multifield.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bm25-multifield.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bm25-multifield.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bm25-multifield.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bm25-multifield.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bm25-multifield.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bm25-multifield.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bm25-multifield.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bm25-multifield.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bm25-multifield.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bm25-multifield.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bm25-multifield.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bm25-multifield.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bm25-multifield.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bm25-multifield.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bm25-multifield.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bm25-multifield.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bm25-multifield.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bm25-multifield.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bm25-multifield.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bm25-multifield.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bm25-multifield.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bm25-multifield.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bm25-multifield.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bm25-multifield.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bm25-multifield.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bm25-multifield.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bm25-multifield.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bm25-multifield.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bm25-multifield.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bm25-multifield.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bm25-multifield.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bm25-multifield.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bm25-multifield.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bm25-multifield.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bm25-multifield.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bm25-multifield.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bm25-multifield.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bm25-multifield.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bm25-multifield.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bm25-multifield.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bm25-multifield.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bm25-multifield.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bm25-multifield.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bm25-multifield.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bm25-multifield.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bm25-multifield.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bm25-multifield.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bm25-multifield.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bm25-multifield.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bm25-multifield.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bm25-multifield.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bm25-multifield.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bm25-multifield.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bm25-multifield.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bm25-multifield.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bm25-multifield.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bm25-multifield.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bm25-multifield.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bm25-multifield.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bm25-multifield.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bm25-multifield.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bm25-multifield.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bm25-multifield.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bm25-multifield.cqadupstack-wordpress.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row25-tab3" role="tabpanel" aria-labelledby="row25-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-android.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-android.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-android.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-english.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-english.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-english.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-gaming.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-gaming.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-gaming.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-gis.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-gis.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-gis.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-mathematica.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-mathematica.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-physics.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-physics.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-physics.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-programmers.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-programmers.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-programmers.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-stats.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-stats.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-stats.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-tex.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-tex.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-tex.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-unix.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-unix.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-unix.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-webmasters.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-webmasters.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-wordpress.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.cqadupstack-wordpress.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+
+
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.splade-pp-ed.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.splade-pp-ed.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.splade-pp-ed.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.splade-pp-ed.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.splade-pp-ed.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.splade-pp-ed.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.splade-pp-ed.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.splade-pp-ed.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.splade-pp-ed.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.splade-pp-ed.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.splade-pp-ed.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.splade-pp-ed.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.splade-pp-ed.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.splade-pp-ed.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.splade-pp-ed.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.splade-pp-ed.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.splade-pp-ed.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.splade-pp-ed.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.splade-pp-ed.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.splade-pp-ed.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.splade-pp-ed.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.splade-pp-ed.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.splade-pp-ed.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.splade-pp-ed.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.splade-pp-ed.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.splade-pp-ed.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.splade-pp-ed.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.splade-pp-ed.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.splade-pp-ed.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.splade-pp-ed.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.splade-pp-ed.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.splade-pp-ed.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.splade-pp-ed.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.splade-pp-ed.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.splade-pp-ed.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.splade-pp-ed.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.splade-pp-ed.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.splade-pp-ed.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.splade-pp-ed.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.splade-pp-ed.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.splade-pp-ed.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.splade-pp-ed.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.splade-pp-ed.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.splade-pp-ed.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.splade-pp-ed.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.splade-pp-ed.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.splade-pp-ed.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.splade-pp-ed.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.splade-pp-ed.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.splade-pp-ed.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.splade-pp-ed.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.splade-pp-ed.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.splade-pp-ed.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.splade-pp-ed.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.splade-pp-ed.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.splade-pp-ed.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.splade-pp-ed.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.splade-pp-ed.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.splade-pp-ed.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.splade-pp-ed.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.splade-pp-ed.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.splade-pp-ed.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.splade-pp-ed.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.splade-pp-ed.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.splade-pp-ed.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.splade-pp-ed.cqadupstack-wordpress.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row25-tab4" role="tabpanel" aria-labelledby="row25-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-android.contriever-msmarco \
+  --topics beir-v1.0.0-cqadupstack-android-test \
+  --output run.beir.contriever-msmarco.cqadupstack-android.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-english.contriever-msmarco \
+  --topics beir-v1.0.0-cqadupstack-english-test \
+  --output run.beir.contriever-msmarco.cqadupstack-english.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-gaming.contriever-msmarco \
+  --topics beir-v1.0.0-cqadupstack-gaming-test \
+  --output run.beir.contriever-msmarco.cqadupstack-gaming.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-gis.contriever-msmarco \
+  --topics beir-v1.0.0-cqadupstack-gis-test \
+  --output run.beir.contriever-msmarco.cqadupstack-gis.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test \
+  --output run.beir.contriever-msmarco.cqadupstack-mathematica.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-physics.contriever-msmarco \
+  --topics beir-v1.0.0-cqadupstack-physics-test \
+  --output run.beir.contriever-msmarco.cqadupstack-physics.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-programmers.contriever-msmarco \
+  --topics beir-v1.0.0-cqadupstack-programmers-test \
+  --output run.beir.contriever-msmarco.cqadupstack-programmers.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-stats.contriever-msmarco \
+  --topics beir-v1.0.0-cqadupstack-stats-test \
+  --output run.beir.contriever-msmarco.cqadupstack-stats.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-tex.contriever-msmarco \
+  --topics beir-v1.0.0-cqadupstack-tex-test \
+  --output run.beir.contriever-msmarco.cqadupstack-tex.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-unix.contriever-msmarco \
+  --topics beir-v1.0.0-cqadupstack-unix-test \
+  --output run.beir.contriever-msmarco.cqadupstack-unix.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test \
+  --output run.beir.contriever-msmarco.cqadupstack-webmasters.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test \
+  --output run.beir.contriever-msmarco.cqadupstack-wordpress.txt \
+  --hits 1000 --remove-query
+
+
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.contriever-msmarco.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.contriever-msmarco.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.contriever-msmarco.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.contriever-msmarco.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.contriever-msmarco.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.contriever-msmarco.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.contriever-msmarco.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.contriever-msmarco.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.contriever-msmarco.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.contriever-msmarco.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.contriever-msmarco.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.contriever-msmarco.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.contriever-msmarco.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.contriever-msmarco.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.contriever-msmarco.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.contriever-msmarco.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.contriever-msmarco.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.contriever-msmarco.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.contriever-msmarco.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.contriever-msmarco.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.contriever-msmarco.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.contriever-msmarco.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.contriever-msmarco.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.contriever-msmarco.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.contriever-msmarco.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.contriever-msmarco.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.contriever-msmarco.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.contriever-msmarco.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.contriever-msmarco.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.contriever-msmarco.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.contriever-msmarco.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.contriever-msmarco.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.contriever-msmarco.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.contriever-msmarco.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.contriever-msmarco.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.contriever-msmarco.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.contriever-msmarco.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.contriever-msmarco.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.contriever-msmarco.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.contriever-msmarco.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.contriever-msmarco.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.contriever-msmarco.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.contriever-msmarco.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.contriever-msmarco.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.contriever-msmarco.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.contriever-msmarco.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.contriever-msmarco.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.contriever-msmarco.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.contriever-msmarco.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.contriever-msmarco.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.contriever-msmarco.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.contriever-msmarco.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.contriever-msmarco.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.contriever-msmarco.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.contriever-msmarco.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.contriever-msmarco.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.contriever-msmarco.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.contriever-msmarco.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.contriever-msmarco.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.contriever-msmarco.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.contriever-msmarco.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.contriever-msmarco.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.contriever-msmarco.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.contriever-msmarco.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.contriever-msmarco.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.contriever-msmarco.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.contriever-msmarco.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.contriever-msmarco.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.contriever-msmarco.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.contriever-msmarco.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.contriever-msmarco.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.contriever-msmarco.cqadupstack-wordpress.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row25-tab5" role="tabpanel" aria-labelledby="row25-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-cqadupstack-android-test \
+  --output run.beir.bge-base-en-v1.5.cqadupstack-android.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-cqadupstack-english-test \
+  --output run.beir.bge-base-en-v1.5.cqadupstack-english.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-cqadupstack-gaming-test \
+  --output run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-cqadupstack-gis-test \
+  --output run.beir.bge-base-en-v1.5.cqadupstack-gis.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test \
+  --output run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-cqadupstack-physics-test \
+  --output run.beir.bge-base-en-v1.5.cqadupstack-physics.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-cqadupstack-programmers-test \
+  --output run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-cqadupstack-stats-test \
+  --output run.beir.bge-base-en-v1.5.cqadupstack-stats.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-cqadupstack-tex-test \
+  --output run.beir.bge-base-en-v1.5.cqadupstack-tex.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-cqadupstack-unix-test \
+  --output run.beir.bge-base-en-v1.5.cqadupstack-unix.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test \
+  --output run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test \
+  --output run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt \
+  --hits 1000 --remove-query
+
+
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.bge-base-en-v1.5.cqadupstack-wordpress.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row25-tab6" role="tabpanel" aria-labelledby="row25-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-android.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-android-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-android-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-android.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-english.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-english-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-english-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-english.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-gaming.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-gaming-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gaming-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-gaming.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-gis.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-gis-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-gis-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-gis.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-mathematica.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-mathematica-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-mathematica.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-physics.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-physics-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-physics-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-physics.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-programmers.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-programmers-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-programmers-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-programmers.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-stats.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-stats-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-stats-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-stats.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-tex.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-tex-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-tex-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-tex.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-unix.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-unix-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-unix-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-unix.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-webmasters.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-webmasters-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-webmasters.txt \
+  --hits 1000 --remove-query
+
+python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-cqadupstack-wordpress.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-cqadupstack-wordpress-test \
+  --output run.beir.cohere-embed-english-v3.0.cqadupstack-wordpress.txt \
+  --hits 1000 --remove-query
+
+
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-android.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-english.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gaming.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-gis.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-mathematica.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-physics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-programmers.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-stats.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-tex.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-unix.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-webmasters.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-wordpress.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
+  run.beir.cohere-embed-english-v3.0.cqadupstack-wordpress.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: quora -->
+<tr class="accordion-toggle collapsed" id="row24" data-toggle="collapse" data-parent="#row24" href="#collapse24">
+<td class="expand-button"></td>
+<td>quora</td>
+<td>  0.7886</td>
+<td>  0.9733</td>
+<td></td>
+<td>  0.7886</td>
+<td>  0.9733</td>
+<td></td>
+<td>  0.8343</td>
+<td>  0.9863</td>
+<td></td>
+<td>  0.8648</td>
+<td>  0.9935</td>
+<td></td>
+<td>  0.8890</td>
+<td>  0.9968</td>
+<td></td>
+<td>  0.8872</td>
+<td>  0.9962</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse24" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row24-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row24-tab1-header" data-mdb-toggle="tab" href="#row24-tab1" role="tab" aria-controls="row24-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row24-tab2-header" data-mdb-toggle="tab" href="#row24-tab2" role="tab" aria-controls="row24-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row24-tab3-header" data-mdb-toggle="tab" href="#row24-tab3" role="tab" aria-controls="row24-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row24-tab4-header" data-mdb-toggle="tab" href="#row24-tab4" role="tab" aria-controls="row24-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row24-tab5-header" data-mdb-toggle="tab" href="#row24-tab5" role="tab" aria-controls="row24-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row24-tab6-header" data-mdb-toggle="tab" href="#row24-tab6" role="tab" aria-controls="row24-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row24-content">
+  <div class="tab-pane fade show active" id="row24-tab1" role="tabpanel" aria-labelledby="row24-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-quora.flat \
+  --topics beir-v1.0.0-quora-test \
+  --output run.beir.bm25-flat.quora.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
+  run.beir.bm25-flat.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-quora-test \
+  run.beir.bm25-flat.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-quora-test \
+  run.beir.bm25-flat.quora.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row24-tab2" role="tabpanel" aria-labelledby="row24-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-quora.multifield \
+  --topics beir-v1.0.0-quora-test \
+  --output run.beir.bm25-multifield.quora.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
+  run.beir.bm25-multifield.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-quora-test \
+  run.beir.bm25-multifield.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-quora-test \
+  run.beir.bm25-multifield.quora.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row24-tab3" role="tabpanel" aria-labelledby="row24-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-quora.splade-pp-ed \
+  --topics beir-v1.0.0-quora.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.quora.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
+  run.beir.splade-pp-ed.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-quora-test \
+  run.beir.splade-pp-ed.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-quora-test \
+  run.beir.splade-pp-ed.quora.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row24-tab4" role="tabpanel" aria-labelledby="row24-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-quora.contriever-msmarco \
+  --topics beir-v1.0.0-quora-test \
+  --output run.beir.contriever-msmarco.quora.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
+  run.beir.contriever-msmarco.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-quora-test \
+  run.beir.contriever-msmarco.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-quora-test \
+  run.beir.contriever-msmarco.quora.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row24-tab5" role="tabpanel" aria-labelledby="row24-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "" \
+  --index beir-v1.0.0-quora.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-quora-test \
+  --output run.beir.bge-base-en-v1.5.quora.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
+  run.beir.bge-base-en-v1.5.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-quora-test \
+  run.beir.bge-base-en-v1.5.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-quora-test \
+  run.beir.bge-base-en-v1.5.quora.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row24-tab6" role="tabpanel" aria-labelledby="row24-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-quora.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-quora-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-quora-test \
+  --output run.beir.cohere-embed-english-v3.0.quora.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
+  run.beir.cohere-embed-english-v3.0.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-quora-test \
+  run.beir.cohere-embed-english-v3.0.quora.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-quora-test \
+  run.beir.cohere-embed-english-v3.0.quora.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: dbpedia-entity -->
+<tr class="accordion-toggle collapsed" id="row26" data-toggle="collapse" data-parent="#row26" href="#collapse26">
+<td class="expand-button"></td>
+<td>dbpedia-entity</td>
+<td>  0.3180</td>
+<td>  0.4682</td>
+<td></td>
+<td>  0.3128</td>
+<td>  0.3981</td>
+<td></td>
+<td>  0.4366</td>
+<td>  0.5624</td>
+<td></td>
+<td>  0.4128</td>
+<td>  0.5414</td>
+<td></td>
+<td>  0.4073</td>
+<td>  0.5298</td>
+<td></td>
+<td>  0.4340</td>
+<td>  0.5358</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse26" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row26-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row26-tab1-header" data-mdb-toggle="tab" href="#row26-tab1" role="tab" aria-controls="row26-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row26-tab2-header" data-mdb-toggle="tab" href="#row26-tab2" role="tab" aria-controls="row26-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row26-tab3-header" data-mdb-toggle="tab" href="#row26-tab3" role="tab" aria-controls="row26-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row26-tab4-header" data-mdb-toggle="tab" href="#row26-tab4" role="tab" aria-controls="row26-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row26-tab5-header" data-mdb-toggle="tab" href="#row26-tab5" role="tab" aria-controls="row26-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row26-tab6-header" data-mdb-toggle="tab" href="#row26-tab6" role="tab" aria-controls="row26-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row26-content">
+  <div class="tab-pane fade show active" id="row26-tab1" role="tabpanel" aria-labelledby="row26-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-dbpedia-entity.flat \
+  --topics beir-v1.0.0-dbpedia-entity-test \
+  --output run.beir.bm25-flat.dbpedia-entity.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.bm25-flat.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.bm25-flat.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.bm25-flat.dbpedia-entity.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row26-tab2" role="tabpanel" aria-labelledby="row26-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-dbpedia-entity.multifield \
+  --topics beir-v1.0.0-dbpedia-entity-test \
+  --output run.beir.bm25-multifield.dbpedia-entity.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.bm25-multifield.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.bm25-multifield.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.bm25-multifield.dbpedia-entity.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row26-tab3" role="tabpanel" aria-labelledby="row26-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-dbpedia-entity.splade-pp-ed \
+  --topics beir-v1.0.0-dbpedia-entity.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.dbpedia-entity.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.splade-pp-ed.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.splade-pp-ed.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.splade-pp-ed.dbpedia-entity.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row26-tab4" role="tabpanel" aria-labelledby="row26-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-dbpedia-entity.contriever-msmarco \
+  --topics beir-v1.0.0-dbpedia-entity-test \
+  --output run.beir.contriever-msmarco.dbpedia-entity.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.contriever-msmarco.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.contriever-msmarco.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.contriever-msmarco.dbpedia-entity.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row26-tab5" role="tabpanel" aria-labelledby="row26-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-dbpedia-entity-test \
+  --output run.beir.bge-base-en-v1.5.dbpedia-entity.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.bge-base-en-v1.5.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.bge-base-en-v1.5.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.bge-base-en-v1.5.dbpedia-entity.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row26-tab6" role="tabpanel" aria-labelledby="row26-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-dbpedia-entity.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-dbpedia-entity-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-dbpedia-entity-test \
+  --output run.beir.cohere-embed-english-v3.0.dbpedia-entity.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.cohere-embed-english-v3.0.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.cohere-embed-english-v3.0.dbpedia-entity.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
+  run.beir.cohere-embed-english-v3.0.dbpedia-entity.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: scidocs -->
+<tr class="accordion-toggle collapsed" id="row27" data-toggle="collapse" data-parent="#row27" href="#collapse27">
+<td class="expand-button"></td>
+<td>scidocs</td>
+<td>  0.1490</td>
+<td>  0.3477</td>
+<td></td>
+<td>  0.1581</td>
+<td>  0.3561</td>
+<td></td>
+<td>  0.1591</td>
+<td>  0.3730</td>
+<td></td>
+<td>  0.1652</td>
+<td>  0.3783</td>
+<td></td>
+<td>  0.2172</td>
+<td>  0.4959</td>
+<td></td>
+<td>  0.2034</td>
+<td>  0.4509</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse27" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row27-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row27-tab1-header" data-mdb-toggle="tab" href="#row27-tab1" role="tab" aria-controls="row27-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row27-tab2-header" data-mdb-toggle="tab" href="#row27-tab2" role="tab" aria-controls="row27-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row27-tab3-header" data-mdb-toggle="tab" href="#row27-tab3" role="tab" aria-controls="row27-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row27-tab4-header" data-mdb-toggle="tab" href="#row27-tab4" role="tab" aria-controls="row27-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row27-tab5-header" data-mdb-toggle="tab" href="#row27-tab5" role="tab" aria-controls="row27-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row27-tab6-header" data-mdb-toggle="tab" href="#row27-tab6" role="tab" aria-controls="row27-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row27-content">
+  <div class="tab-pane fade show active" id="row27-tab1" role="tabpanel" aria-labelledby="row27-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-scidocs.flat \
+  --topics beir-v1.0.0-scidocs-test \
+  --output run.beir.bm25-flat.scidocs.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
+  run.beir.bm25-flat.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scidocs-test \
+  run.beir.bm25-flat.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scidocs-test \
+  run.beir.bm25-flat.scidocs.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row27-tab2" role="tabpanel" aria-labelledby="row27-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-scidocs.multifield \
+  --topics beir-v1.0.0-scidocs-test \
+  --output run.beir.bm25-multifield.scidocs.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
+  run.beir.bm25-multifield.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scidocs-test \
+  run.beir.bm25-multifield.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scidocs-test \
+  run.beir.bm25-multifield.scidocs.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row27-tab3" role="tabpanel" aria-labelledby="row27-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-scidocs.splade-pp-ed \
+  --topics beir-v1.0.0-scidocs.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.scidocs.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
+  run.beir.splade-pp-ed.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scidocs-test \
+  run.beir.splade-pp-ed.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scidocs-test \
+  run.beir.splade-pp-ed.scidocs.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row27-tab4" role="tabpanel" aria-labelledby="row27-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-scidocs.contriever-msmarco \
+  --topics beir-v1.0.0-scidocs-test \
+  --output run.beir.contriever-msmarco.scidocs.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
+  run.beir.contriever-msmarco.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scidocs-test \
+  run.beir.contriever-msmarco.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scidocs-test \
+  run.beir.contriever-msmarco.scidocs.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row27-tab5" role="tabpanel" aria-labelledby="row27-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-scidocs.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-scidocs-test \
+  --output run.beir.bge-base-en-v1.5.scidocs.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
+  run.beir.bge-base-en-v1.5.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scidocs-test \
+  run.beir.bge-base-en-v1.5.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scidocs-test \
+  run.beir.bge-base-en-v1.5.scidocs.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row27-tab6" role="tabpanel" aria-labelledby="row27-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-scidocs.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-scidocs-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-scidocs-test \
+  --output run.beir.cohere-embed-english-v3.0.scidocs.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
+  run.beir.cohere-embed-english-v3.0.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scidocs-test \
+  run.beir.cohere-embed-english-v3.0.scidocs.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scidocs-test \
+  run.beir.cohere-embed-english-v3.0.scidocs.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: fever -->
+<tr class="accordion-toggle collapsed" id="row28" data-toggle="collapse" data-parent="#row28" href="#collapse28">
+<td class="expand-button"></td>
+<td>fever</td>
+<td>  0.6513</td>
+<td>  0.9185</td>
+<td></td>
+<td>  0.7530</td>
+<td>  0.9309</td>
+<td></td>
+<td>  0.7882</td>
+<td>  0.9459</td>
+<td></td>
+<td>  0.7583</td>
+<td>  0.9494</td>
+<td></td>
+<td>  0.8629</td>
+<td>  0.9719</td>
+<td></td>
+<td>  0.8900</td>
+<td>  0.9649</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse28" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row28-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row28-tab1-header" data-mdb-toggle="tab" href="#row28-tab1" role="tab" aria-controls="row28-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row28-tab2-header" data-mdb-toggle="tab" href="#row28-tab2" role="tab" aria-controls="row28-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row28-tab3-header" data-mdb-toggle="tab" href="#row28-tab3" role="tab" aria-controls="row28-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row28-tab4-header" data-mdb-toggle="tab" href="#row28-tab4" role="tab" aria-controls="row28-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row28-tab5-header" data-mdb-toggle="tab" href="#row28-tab5" role="tab" aria-controls="row28-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row28-tab6-header" data-mdb-toggle="tab" href="#row28-tab6" role="tab" aria-controls="row28-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row28-content">
+  <div class="tab-pane fade show active" id="row28-tab1" role="tabpanel" aria-labelledby="row28-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-fever.flat \
+  --topics beir-v1.0.0-fever-test \
+  --output run.beir.bm25-flat.fever.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
+  run.beir.bm25-flat.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fever-test \
+  run.beir.bm25-flat.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fever-test \
+  run.beir.bm25-flat.fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row28-tab2" role="tabpanel" aria-labelledby="row28-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-fever.multifield \
+  --topics beir-v1.0.0-fever-test \
+  --output run.beir.bm25-multifield.fever.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
+  run.beir.bm25-multifield.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fever-test \
+  run.beir.bm25-multifield.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fever-test \
+  run.beir.bm25-multifield.fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row28-tab3" role="tabpanel" aria-labelledby="row28-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-fever.splade-pp-ed \
+  --topics beir-v1.0.0-fever.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.fever.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
+  run.beir.splade-pp-ed.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fever-test \
+  run.beir.splade-pp-ed.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fever-test \
+  run.beir.splade-pp-ed.fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row28-tab4" role="tabpanel" aria-labelledby="row28-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-fever.contriever-msmarco \
+  --topics beir-v1.0.0-fever-test \
+  --output run.beir.contriever-msmarco.fever.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
+  run.beir.contriever-msmarco.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fever-test \
+  run.beir.contriever-msmarco.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fever-test \
+  run.beir.contriever-msmarco.fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row28-tab5" role="tabpanel" aria-labelledby="row28-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-fever.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-fever-test \
+  --output run.beir.bge-base-en-v1.5.fever.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
+  run.beir.bge-base-en-v1.5.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fever-test \
+  run.beir.bge-base-en-v1.5.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fever-test \
+  run.beir.bge-base-en-v1.5.fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row28-tab6" role="tabpanel" aria-labelledby="row28-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-fever.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-fever-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-fever-test \
+  --output run.beir.cohere-embed-english-v3.0.fever.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
+  run.beir.cohere-embed-english-v3.0.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-fever-test \
+  run.beir.cohere-embed-english-v3.0.fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-fever-test \
+  run.beir.cohere-embed-english-v3.0.fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: climate-fever -->
+<tr class="accordion-toggle collapsed" id="row29" data-toggle="collapse" data-parent="#row29" href="#collapse29">
+<td class="expand-button"></td>
+<td>climate-fever</td>
+<td>  0.1651</td>
+<td>  0.4249</td>
+<td></td>
+<td>  0.2129</td>
+<td>  0.4357</td>
+<td></td>
+<td>  0.2297</td>
+<td>  0.5211</td>
+<td></td>
+<td>  0.2371</td>
+<td>  0.5746</td>
+<td></td>
+<td>  0.3122</td>
+<td>  0.6362</td>
+<td></td>
+<td>  0.2590</td>
+<td>  0.5810</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse29" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row29-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row29-tab1-header" data-mdb-toggle="tab" href="#row29-tab1" role="tab" aria-controls="row29-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row29-tab2-header" data-mdb-toggle="tab" href="#row29-tab2" role="tab" aria-controls="row29-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row29-tab3-header" data-mdb-toggle="tab" href="#row29-tab3" role="tab" aria-controls="row29-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row29-tab4-header" data-mdb-toggle="tab" href="#row29-tab4" role="tab" aria-controls="row29-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row29-tab5-header" data-mdb-toggle="tab" href="#row29-tab5" role="tab" aria-controls="row29-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row29-tab6-header" data-mdb-toggle="tab" href="#row29-tab6" role="tab" aria-controls="row29-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row29-content">
+  <div class="tab-pane fade show active" id="row29-tab1" role="tabpanel" aria-labelledby="row29-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-climate-fever.flat \
+  --topics beir-v1.0.0-climate-fever-test \
+  --output run.beir.bm25-flat.climate-fever.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
+  run.beir.bm25-flat.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-climate-fever-test \
+  run.beir.bm25-flat.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
+  run.beir.bm25-flat.climate-fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row29-tab2" role="tabpanel" aria-labelledby="row29-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-climate-fever.multifield \
+  --topics beir-v1.0.0-climate-fever-test \
+  --output run.beir.bm25-multifield.climate-fever.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
+  run.beir.bm25-multifield.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-climate-fever-test \
+  run.beir.bm25-multifield.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
+  run.beir.bm25-multifield.climate-fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row29-tab3" role="tabpanel" aria-labelledby="row29-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-climate-fever.splade-pp-ed \
+  --topics beir-v1.0.0-climate-fever.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.climate-fever.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
+  run.beir.splade-pp-ed.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-climate-fever-test \
+  run.beir.splade-pp-ed.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
+  run.beir.splade-pp-ed.climate-fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row29-tab4" role="tabpanel" aria-labelledby="row29-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-climate-fever.contriever-msmarco \
+  --topics beir-v1.0.0-climate-fever-test \
+  --output run.beir.contriever-msmarco.climate-fever.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
+  run.beir.contriever-msmarco.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-climate-fever-test \
+  run.beir.contriever-msmarco.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
+  run.beir.contriever-msmarco.climate-fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row29-tab5" role="tabpanel" aria-labelledby="row29-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-climate-fever.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-climate-fever-test \
+  --output run.beir.bge-base-en-v1.5.climate-fever.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
+  run.beir.bge-base-en-v1.5.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-climate-fever-test \
+  run.beir.bge-base-en-v1.5.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
+  run.beir.bge-base-en-v1.5.climate-fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row29-tab6" role="tabpanel" aria-labelledby="row29-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-climate-fever.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-climate-fever-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-climate-fever-test \
+  --output run.beir.cohere-embed-english-v3.0.climate-fever.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
+  run.beir.cohere-embed-english-v3.0.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-climate-fever-test \
+  run.beir.cohere-embed-english-v3.0.climate-fever.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
+  run.beir.cohere-embed-english-v3.0.climate-fever.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: scifact -->
+<tr class="accordion-toggle collapsed" id="row30" data-toggle="collapse" data-parent="#row30" href="#collapse30">
+<td class="expand-button"></td>
+<td>scifact</td>
+<td>  0.6789</td>
+<td>  0.9253</td>
+<td></td>
+<td>  0.6647</td>
+<td>  0.9076</td>
+<td></td>
+<td>  0.7041</td>
+<td>  0.9353</td>
+<td></td>
+<td>  0.6768</td>
+<td>  0.9470</td>
+<td></td>
+<td>  0.7408</td>
+<td>  0.9667</td>
+<td></td>
+<td>  0.7181</td>
+<td>  0.9633</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse30" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row30-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row30-tab1-header" data-mdb-toggle="tab" href="#row30-tab1" role="tab" aria-controls="row30-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row30-tab2-header" data-mdb-toggle="tab" href="#row30-tab2" role="tab" aria-controls="row30-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row30-tab3-header" data-mdb-toggle="tab" href="#row30-tab3" role="tab" aria-controls="row30-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row30-tab4-header" data-mdb-toggle="tab" href="#row30-tab4" role="tab" aria-controls="row30-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row30-tab5-header" data-mdb-toggle="tab" href="#row30-tab5" role="tab" aria-controls="row30-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row30-tab6-header" data-mdb-toggle="tab" href="#row30-tab6" role="tab" aria-controls="row30-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row30-content">
+  <div class="tab-pane fade show active" id="row30-tab1" role="tabpanel" aria-labelledby="row30-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-scifact.flat \
+  --topics beir-v1.0.0-scifact-test \
+  --output run.beir.bm25-flat.scifact.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
+  run.beir.bm25-flat.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scifact-test \
+  run.beir.bm25-flat.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scifact-test \
+  run.beir.bm25-flat.scifact.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row30-tab2" role="tabpanel" aria-labelledby="row30-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-scifact.multifield \
+  --topics beir-v1.0.0-scifact-test \
+  --output run.beir.bm25-multifield.scifact.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
+  run.beir.bm25-multifield.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scifact-test \
+  run.beir.bm25-multifield.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scifact-test \
+  run.beir.bm25-multifield.scifact.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row30-tab3" role="tabpanel" aria-labelledby="row30-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-scifact.splade-pp-ed \
+  --topics beir-v1.0.0-scifact.test.splade-pp-ed \
+  --output run.beir.splade-pp-ed.scifact.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
+  run.beir.splade-pp-ed.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scifact-test \
+  run.beir.splade-pp-ed.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scifact-test \
+  run.beir.splade-pp-ed.scifact.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row30-tab4" role="tabpanel" aria-labelledby="row30-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --index beir-v1.0.0-scifact.contriever-msmarco \
+  --topics beir-v1.0.0-scifact-test \
+  --output run.beir.contriever-msmarco.scifact.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
+  run.beir.contriever-msmarco.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scifact-test \
+  run.beir.contriever-msmarco.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scifact-test \
+  run.beir.contriever-msmarco.scifact.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row30-tab5" role="tabpanel" aria-labelledby="row30-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --index beir-v1.0.0-scifact.bge-base-en-v1.5 \
+  --topics beir-v1.0.0-scifact-test \
+  --output run.beir.bge-base-en-v1.5.scifact.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
+  run.beir.bge-base-en-v1.5.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scifact-test \
+  run.beir.bge-base-en-v1.5.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scifact-test \
+  run.beir.bge-base-en-v1.5.scifact.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row30-tab6" role="tabpanel" aria-labelledby="row30-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
+  --index beir-v1.0.0-scifact.cohere-embed-english-v3.0  \
+  --topics beir-v1.0.0-scifact-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-scifact-test \
+  --output run.beir.cohere-embed-english-v3.0.scifact.txt \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
+  run.beir.cohere-embed-english-v3.0.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 beir-v1.0.0-scifact-test \
+  run.beir.cohere-embed-english-v3.0.scifact.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 beir-v1.0.0-scifact-test \
+  run.beir.cohere-embed-english-v3.0.scifact.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+
+<div style="padding-top: 20px"/>
+
+For cqadupstack collections:
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="headertop"></th>
+        <th class="headertop"></th>
+        <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
+        <th class="headertop" colspan="3"><b>BM25 Multifield</b></th>
+        <th class="headertop" colspan="3"><b>SPLADE++ ED</b></th>
+        <th class="headertop" colspan="3"><b>Contriever MSMARCO</b></th>
+        <th class="headertop" colspan="3"><b>BGE-base</b></th>
+        <th class="headertop" colspan="3"><b>Cohere embed-english</b></th>
+      </tr>
+      <tr>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+      </tr>
+    </thead>
+    <tbody>
+
 <!-- Condition: cqadupstack-android -->
 <tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">
 <td class="expand-button"></td>
@@ -5496,1392 +9355,6 @@ python -m pyserini.eval.trec_eval \
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
   run.beir.cohere-embed-english-v3.0.cqadupstack-wordpress.txt</code></pre>
-  </blockquote>
-
-  </div>
-</div>
-<!-- Tabs content -->
-
-</div></td>
-</tr>
-<!-- Condition: quora -->
-<tr class="accordion-toggle collapsed" id="row24" data-toggle="collapse" data-parent="#row24" href="#collapse24">
-<td class="expand-button"></td>
-<td>quora</td>
-<td>  0.7886</td>
-<td>  0.9733</td>
-<td></td>
-<td>  0.7886</td>
-<td>  0.9733</td>
-<td></td>
-<td>  0.8343</td>
-<td>  0.9863</td>
-<td></td>
-<td>  0.8648</td>
-<td>  0.9935</td>
-<td></td>
-<td>  0.8890</td>
-<td>  0.9968</td>
-<td></td>
-<td>  0.8872</td>
-<td>  0.9962</td>
-</tr>
-<tr class="hide-table-padding">
-<td></td>
-<td colspan="15">
-<div id="collapse24" class="collapse in p-3">
-
-<!-- Tabs navs -->
-<ul class="nav nav-tabs mb-3" id="row24-tabs" role="tablist">
-  <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="row24-tab1-header" data-mdb-toggle="tab" href="#row24-tab1" role="tab" aria-controls="row24-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab2-header" data-mdb-toggle="tab" href="#row24-tab2" role="tab" aria-controls="row24-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab3-header" data-mdb-toggle="tab" href="#row24-tab3" role="tab" aria-controls="row24-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab4-header" data-mdb-toggle="tab" href="#row24-tab4" role="tab" aria-controls="row24-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab5-header" data-mdb-toggle="tab" href="#row24-tab5" role="tab" aria-controls="row24-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab6-header" data-mdb-toggle="tab" href="#row24-tab6" role="tab" aria-controls="row24-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
-  </li>
-</ul>
-<!-- Tabs navs -->
-
-<!-- Tabs content -->
-<div class="tab-content" id="row24-content">
-  <div class="tab-pane fade show active" id="row24-tab1" role="tabpanel" aria-labelledby="row24-tab1">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-quora.flat \
-  --topics beir-v1.0.0-quora-test \
-  --output run.beir.bm25-flat.quora.txt \
-  --output-format trec \
-  --hits 1000 --bm25 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
-  run.beir.bm25-flat.quora.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-quora-test \
-  run.beir.bm25-flat.quora.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-quora-test \
-  run.beir.bm25-flat.quora.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row24-tab2" role="tabpanel" aria-labelledby="row24-tab2">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-quora.multifield \
-  --topics beir-v1.0.0-quora-test \
-  --output run.beir.bm25-multifield.quora.txt \
-  --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
-  run.beir.bm25-multifield.quora.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-quora-test \
-  run.beir.bm25-multifield.quora.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-quora-test \
-  run.beir.bm25-multifield.quora.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row24-tab3" role="tabpanel" aria-labelledby="row24-tab3">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-quora.splade-pp-ed \
-  --topics beir-v1.0.0-quora.test.splade-pp-ed \
-  --output run.beir.splade-pp-ed.quora.txt \
-  --output-format trec \
-  --hits 1000 --impact --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
-  run.beir.splade-pp-ed.quora.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-quora-test \
-  run.beir.splade-pp-ed.quora.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-quora-test \
-  run.beir.splade-pp-ed.quora.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row24-tab4" role="tabpanel" aria-labelledby="row24-tab4">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-quora.contriever-msmarco \
-  --topics beir-v1.0.0-quora-test \
-  --output run.beir.contriever-msmarco.quora.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
-  run.beir.contriever-msmarco.quora.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-quora-test \
-  run.beir.contriever-msmarco.quora.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-quora-test \
-  run.beir.contriever-msmarco.quora.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row24-tab5" role="tabpanel" aria-labelledby="row24-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "" \
-  --index beir-v1.0.0-quora.bge-base-en-v1.5 \
-  --topics beir-v1.0.0-quora-test \
-  --output run.beir.bge-base-en-v1.5.quora.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
-  run.beir.bge-base-en-v1.5.quora.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-quora-test \
-  run.beir.bge-base-en-v1.5.quora.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-quora-test \
-  run.beir.bge-base-en-v1.5.quora.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row24-tab6" role="tabpanel" aria-labelledby="row24-tab6">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --index beir-v1.0.0-quora.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-quora-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-quora-test \
-  --output run.beir.cohere-embed-english-v3.0.quora.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
-  run.beir.cohere-embed-english-v3.0.quora.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-quora-test \
-  run.beir.cohere-embed-english-v3.0.quora.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-quora-test \
-  run.beir.cohere-embed-english-v3.0.quora.txt</code></pre>
-  </blockquote>
-
-  </div>
-</div>
-<!-- Tabs content -->
-
-</div></td>
-</tr>
-<!-- Condition: dbpedia-entity -->
-<tr class="accordion-toggle collapsed" id="row25" data-toggle="collapse" data-parent="#row25" href="#collapse25">
-<td class="expand-button"></td>
-<td>dbpedia-entity</td>
-<td>  0.3180</td>
-<td>  0.4682</td>
-<td></td>
-<td>  0.3128</td>
-<td>  0.3981</td>
-<td></td>
-<td>  0.4366</td>
-<td>  0.5624</td>
-<td></td>
-<td>  0.4128</td>
-<td>  0.5414</td>
-<td></td>
-<td>  0.4073</td>
-<td>  0.5298</td>
-<td></td>
-<td>  0.4340</td>
-<td>  0.5358</td>
-</tr>
-<tr class="hide-table-padding">
-<td></td>
-<td colspan="15">
-<div id="collapse25" class="collapse in p-3">
-
-<!-- Tabs navs -->
-<ul class="nav nav-tabs mb-3" id="row25-tabs" role="tablist">
-  <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="row25-tab1-header" data-mdb-toggle="tab" href="#row25-tab1" role="tab" aria-controls="row25-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab2-header" data-mdb-toggle="tab" href="#row25-tab2" role="tab" aria-controls="row25-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab3-header" data-mdb-toggle="tab" href="#row25-tab3" role="tab" aria-controls="row25-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab4-header" data-mdb-toggle="tab" href="#row25-tab4" role="tab" aria-controls="row25-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab5-header" data-mdb-toggle="tab" href="#row25-tab5" role="tab" aria-controls="row25-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab6-header" data-mdb-toggle="tab" href="#row25-tab6" role="tab" aria-controls="row25-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
-  </li>
-</ul>
-<!-- Tabs navs -->
-
-<!-- Tabs content -->
-<div class="tab-content" id="row25-content">
-  <div class="tab-pane fade show active" id="row25-tab1" role="tabpanel" aria-labelledby="row25-tab1">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-dbpedia-entity.flat \
-  --topics beir-v1.0.0-dbpedia-entity-test \
-  --output run.beir.bm25-flat.dbpedia-entity.txt \
-  --output-format trec \
-  --hits 1000 --bm25 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.bm25-flat.dbpedia-entity.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.bm25-flat.dbpedia-entity.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.bm25-flat.dbpedia-entity.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row25-tab2" role="tabpanel" aria-labelledby="row25-tab2">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-dbpedia-entity.multifield \
-  --topics beir-v1.0.0-dbpedia-entity-test \
-  --output run.beir.bm25-multifield.dbpedia-entity.txt \
-  --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.bm25-multifield.dbpedia-entity.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.bm25-multifield.dbpedia-entity.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.bm25-multifield.dbpedia-entity.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row25-tab3" role="tabpanel" aria-labelledby="row25-tab3">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-dbpedia-entity.splade-pp-ed \
-  --topics beir-v1.0.0-dbpedia-entity.test.splade-pp-ed \
-  --output run.beir.splade-pp-ed.dbpedia-entity.txt \
-  --output-format trec \
-  --hits 1000 --impact --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.splade-pp-ed.dbpedia-entity.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.splade-pp-ed.dbpedia-entity.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.splade-pp-ed.dbpedia-entity.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row25-tab4" role="tabpanel" aria-labelledby="row25-tab4">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-dbpedia-entity.contriever-msmarco \
-  --topics beir-v1.0.0-dbpedia-entity-test \
-  --output run.beir.contriever-msmarco.dbpedia-entity.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.contriever-msmarco.dbpedia-entity.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.contriever-msmarco.dbpedia-entity.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.contriever-msmarco.dbpedia-entity.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row25-tab5" role="tabpanel" aria-labelledby="row25-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
-  --index beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5 \
-  --topics beir-v1.0.0-dbpedia-entity-test \
-  --output run.beir.bge-base-en-v1.5.dbpedia-entity.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.bge-base-en-v1.5.dbpedia-entity.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.bge-base-en-v1.5.dbpedia-entity.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.bge-base-en-v1.5.dbpedia-entity.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row25-tab6" role="tabpanel" aria-labelledby="row25-tab6">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --index beir-v1.0.0-dbpedia-entity.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-dbpedia-entity-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-dbpedia-entity-test \
-  --output run.beir.cohere-embed-english-v3.0.dbpedia-entity.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.cohere-embed-english-v3.0.dbpedia-entity.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.cohere-embed-english-v3.0.dbpedia-entity.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.cohere-embed-english-v3.0.dbpedia-entity.txt</code></pre>
-  </blockquote>
-
-  </div>
-</div>
-<!-- Tabs content -->
-
-</div></td>
-</tr>
-<!-- Condition: scidocs -->
-<tr class="accordion-toggle collapsed" id="row26" data-toggle="collapse" data-parent="#row26" href="#collapse26">
-<td class="expand-button"></td>
-<td>scidocs</td>
-<td>  0.1490</td>
-<td>  0.3477</td>
-<td></td>
-<td>  0.1581</td>
-<td>  0.3561</td>
-<td></td>
-<td>  0.1591</td>
-<td>  0.3730</td>
-<td></td>
-<td>  0.1652</td>
-<td>  0.3783</td>
-<td></td>
-<td>  0.2172</td>
-<td>  0.4959</td>
-<td></td>
-<td>  0.2034</td>
-<td>  0.4509</td>
-</tr>
-<tr class="hide-table-padding">
-<td></td>
-<td colspan="15">
-<div id="collapse26" class="collapse in p-3">
-
-<!-- Tabs navs -->
-<ul class="nav nav-tabs mb-3" id="row26-tabs" role="tablist">
-  <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="row26-tab1-header" data-mdb-toggle="tab" href="#row26-tab1" role="tab" aria-controls="row26-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab2-header" data-mdb-toggle="tab" href="#row26-tab2" role="tab" aria-controls="row26-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab3-header" data-mdb-toggle="tab" href="#row26-tab3" role="tab" aria-controls="row26-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab4-header" data-mdb-toggle="tab" href="#row26-tab4" role="tab" aria-controls="row26-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab5-header" data-mdb-toggle="tab" href="#row26-tab5" role="tab" aria-controls="row26-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab6-header" data-mdb-toggle="tab" href="#row26-tab6" role="tab" aria-controls="row26-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
-  </li>
-</ul>
-<!-- Tabs navs -->
-
-<!-- Tabs content -->
-<div class="tab-content" id="row26-content">
-  <div class="tab-pane fade show active" id="row26-tab1" role="tabpanel" aria-labelledby="row26-tab1">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-scidocs.flat \
-  --topics beir-v1.0.0-scidocs-test \
-  --output run.beir.bm25-flat.scidocs.txt \
-  --output-format trec \
-  --hits 1000 --bm25 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
-  run.beir.bm25-flat.scidocs.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-scidocs-test \
-  run.beir.bm25-flat.scidocs.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-scidocs-test \
-  run.beir.bm25-flat.scidocs.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row26-tab2" role="tabpanel" aria-labelledby="row26-tab2">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-scidocs.multifield \
-  --topics beir-v1.0.0-scidocs-test \
-  --output run.beir.bm25-multifield.scidocs.txt \
-  --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
-  run.beir.bm25-multifield.scidocs.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-scidocs-test \
-  run.beir.bm25-multifield.scidocs.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-scidocs-test \
-  run.beir.bm25-multifield.scidocs.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row26-tab3" role="tabpanel" aria-labelledby="row26-tab3">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-scidocs.splade-pp-ed \
-  --topics beir-v1.0.0-scidocs.test.splade-pp-ed \
-  --output run.beir.splade-pp-ed.scidocs.txt \
-  --output-format trec \
-  --hits 1000 --impact --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
-  run.beir.splade-pp-ed.scidocs.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-scidocs-test \
-  run.beir.splade-pp-ed.scidocs.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-scidocs-test \
-  run.beir.splade-pp-ed.scidocs.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row26-tab4" role="tabpanel" aria-labelledby="row26-tab4">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-scidocs.contriever-msmarco \
-  --topics beir-v1.0.0-scidocs-test \
-  --output run.beir.contriever-msmarco.scidocs.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
-  run.beir.contriever-msmarco.scidocs.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-scidocs-test \
-  run.beir.contriever-msmarco.scidocs.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-scidocs-test \
-  run.beir.contriever-msmarco.scidocs.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row26-tab5" role="tabpanel" aria-labelledby="row26-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
-  --index beir-v1.0.0-scidocs.bge-base-en-v1.5 \
-  --topics beir-v1.0.0-scidocs-test \
-  --output run.beir.bge-base-en-v1.5.scidocs.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
-  run.beir.bge-base-en-v1.5.scidocs.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-scidocs-test \
-  run.beir.bge-base-en-v1.5.scidocs.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-scidocs-test \
-  run.beir.bge-base-en-v1.5.scidocs.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row26-tab6" role="tabpanel" aria-labelledby="row26-tab6">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --index beir-v1.0.0-scidocs.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-scidocs-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-scidocs-test \
-  --output run.beir.cohere-embed-english-v3.0.scidocs.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
-  run.beir.cohere-embed-english-v3.0.scidocs.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-scidocs-test \
-  run.beir.cohere-embed-english-v3.0.scidocs.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-scidocs-test \
-  run.beir.cohere-embed-english-v3.0.scidocs.txt</code></pre>
-  </blockquote>
-
-  </div>
-</div>
-<!-- Tabs content -->
-
-</div></td>
-</tr>
-<!-- Condition: fever -->
-<tr class="accordion-toggle collapsed" id="row27" data-toggle="collapse" data-parent="#row27" href="#collapse27">
-<td class="expand-button"></td>
-<td>fever</td>
-<td>  0.6513</td>
-<td>  0.9185</td>
-<td></td>
-<td>  0.7530</td>
-<td>  0.9309</td>
-<td></td>
-<td>  0.7882</td>
-<td>  0.9459</td>
-<td></td>
-<td>  0.7583</td>
-<td>  0.9494</td>
-<td></td>
-<td>  0.8629</td>
-<td>  0.9719</td>
-<td></td>
-<td>  0.8900</td>
-<td>  0.9649</td>
-</tr>
-<tr class="hide-table-padding">
-<td></td>
-<td colspan="15">
-<div id="collapse27" class="collapse in p-3">
-
-<!-- Tabs navs -->
-<ul class="nav nav-tabs mb-3" id="row27-tabs" role="tablist">
-  <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="row27-tab1-header" data-mdb-toggle="tab" href="#row27-tab1" role="tab" aria-controls="row27-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab2-header" data-mdb-toggle="tab" href="#row27-tab2" role="tab" aria-controls="row27-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab3-header" data-mdb-toggle="tab" href="#row27-tab3" role="tab" aria-controls="row27-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab4-header" data-mdb-toggle="tab" href="#row27-tab4" role="tab" aria-controls="row27-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab5-header" data-mdb-toggle="tab" href="#row27-tab5" role="tab" aria-controls="row27-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab6-header" data-mdb-toggle="tab" href="#row27-tab6" role="tab" aria-controls="row27-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
-  </li>
-</ul>
-<!-- Tabs navs -->
-
-<!-- Tabs content -->
-<div class="tab-content" id="row27-content">
-  <div class="tab-pane fade show active" id="row27-tab1" role="tabpanel" aria-labelledby="row27-tab1">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-fever.flat \
-  --topics beir-v1.0.0-fever-test \
-  --output run.beir.bm25-flat.fever.txt \
-  --output-format trec \
-  --hits 1000 --bm25 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
-  run.beir.bm25-flat.fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-fever-test \
-  run.beir.bm25-flat.fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-fever-test \
-  run.beir.bm25-flat.fever.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row27-tab2" role="tabpanel" aria-labelledby="row27-tab2">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-fever.multifield \
-  --topics beir-v1.0.0-fever-test \
-  --output run.beir.bm25-multifield.fever.txt \
-  --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
-  run.beir.bm25-multifield.fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-fever-test \
-  run.beir.bm25-multifield.fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-fever-test \
-  run.beir.bm25-multifield.fever.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row27-tab3" role="tabpanel" aria-labelledby="row27-tab3">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-fever.splade-pp-ed \
-  --topics beir-v1.0.0-fever.test.splade-pp-ed \
-  --output run.beir.splade-pp-ed.fever.txt \
-  --output-format trec \
-  --hits 1000 --impact --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
-  run.beir.splade-pp-ed.fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-fever-test \
-  run.beir.splade-pp-ed.fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-fever-test \
-  run.beir.splade-pp-ed.fever.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row27-tab4" role="tabpanel" aria-labelledby="row27-tab4">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-fever.contriever-msmarco \
-  --topics beir-v1.0.0-fever-test \
-  --output run.beir.contriever-msmarco.fever.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
-  run.beir.contriever-msmarco.fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-fever-test \
-  run.beir.contriever-msmarco.fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-fever-test \
-  run.beir.contriever-msmarco.fever.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row27-tab5" role="tabpanel" aria-labelledby="row27-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
-  --index beir-v1.0.0-fever.bge-base-en-v1.5 \
-  --topics beir-v1.0.0-fever-test \
-  --output run.beir.bge-base-en-v1.5.fever.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
-  run.beir.bge-base-en-v1.5.fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-fever-test \
-  run.beir.bge-base-en-v1.5.fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-fever-test \
-  run.beir.bge-base-en-v1.5.fever.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row27-tab6" role="tabpanel" aria-labelledby="row27-tab6">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --index beir-v1.0.0-fever.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-fever-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-fever-test \
-  --output run.beir.cohere-embed-english-v3.0.fever.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
-  run.beir.cohere-embed-english-v3.0.fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-fever-test \
-  run.beir.cohere-embed-english-v3.0.fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-fever-test \
-  run.beir.cohere-embed-english-v3.0.fever.txt</code></pre>
-  </blockquote>
-
-  </div>
-</div>
-<!-- Tabs content -->
-
-</div></td>
-</tr>
-<!-- Condition: climate-fever -->
-<tr class="accordion-toggle collapsed" id="row28" data-toggle="collapse" data-parent="#row28" href="#collapse28">
-<td class="expand-button"></td>
-<td>climate-fever</td>
-<td>  0.1651</td>
-<td>  0.4249</td>
-<td></td>
-<td>  0.2129</td>
-<td>  0.4357</td>
-<td></td>
-<td>  0.2297</td>
-<td>  0.5211</td>
-<td></td>
-<td>  0.2371</td>
-<td>  0.5746</td>
-<td></td>
-<td>  0.3122</td>
-<td>  0.6362</td>
-<td></td>
-<td>  0.2590</td>
-<td>  0.5810</td>
-</tr>
-<tr class="hide-table-padding">
-<td></td>
-<td colspan="15">
-<div id="collapse28" class="collapse in p-3">
-
-<!-- Tabs navs -->
-<ul class="nav nav-tabs mb-3" id="row28-tabs" role="tablist">
-  <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="row28-tab1-header" data-mdb-toggle="tab" href="#row28-tab1" role="tab" aria-controls="row28-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab2-header" data-mdb-toggle="tab" href="#row28-tab2" role="tab" aria-controls="row28-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab3-header" data-mdb-toggle="tab" href="#row28-tab3" role="tab" aria-controls="row28-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab4-header" data-mdb-toggle="tab" href="#row28-tab4" role="tab" aria-controls="row28-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab5-header" data-mdb-toggle="tab" href="#row28-tab5" role="tab" aria-controls="row28-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab6-header" data-mdb-toggle="tab" href="#row28-tab6" role="tab" aria-controls="row28-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
-  </li>
-</ul>
-<!-- Tabs navs -->
-
-<!-- Tabs content -->
-<div class="tab-content" id="row28-content">
-  <div class="tab-pane fade show active" id="row28-tab1" role="tabpanel" aria-labelledby="row28-tab1">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-climate-fever.flat \
-  --topics beir-v1.0.0-climate-fever-test \
-  --output run.beir.bm25-flat.climate-fever.txt \
-  --output-format trec \
-  --hits 1000 --bm25 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
-  run.beir.bm25-flat.climate-fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-climate-fever-test \
-  run.beir.bm25-flat.climate-fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
-  run.beir.bm25-flat.climate-fever.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row28-tab2" role="tabpanel" aria-labelledby="row28-tab2">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-climate-fever.multifield \
-  --topics beir-v1.0.0-climate-fever-test \
-  --output run.beir.bm25-multifield.climate-fever.txt \
-  --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
-  run.beir.bm25-multifield.climate-fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-climate-fever-test \
-  run.beir.bm25-multifield.climate-fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
-  run.beir.bm25-multifield.climate-fever.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row28-tab3" role="tabpanel" aria-labelledby="row28-tab3">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-climate-fever.splade-pp-ed \
-  --topics beir-v1.0.0-climate-fever.test.splade-pp-ed \
-  --output run.beir.splade-pp-ed.climate-fever.txt \
-  --output-format trec \
-  --hits 1000 --impact --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
-  run.beir.splade-pp-ed.climate-fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-climate-fever-test \
-  run.beir.splade-pp-ed.climate-fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
-  run.beir.splade-pp-ed.climate-fever.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row28-tab4" role="tabpanel" aria-labelledby="row28-tab4">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-climate-fever.contriever-msmarco \
-  --topics beir-v1.0.0-climate-fever-test \
-  --output run.beir.contriever-msmarco.climate-fever.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
-  run.beir.contriever-msmarco.climate-fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-climate-fever-test \
-  run.beir.contriever-msmarco.climate-fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
-  run.beir.contriever-msmarco.climate-fever.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row28-tab5" role="tabpanel" aria-labelledby="row28-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
-  --index beir-v1.0.0-climate-fever.bge-base-en-v1.5 \
-  --topics beir-v1.0.0-climate-fever-test \
-  --output run.beir.bge-base-en-v1.5.climate-fever.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
-  run.beir.bge-base-en-v1.5.climate-fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-climate-fever-test \
-  run.beir.bge-base-en-v1.5.climate-fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
-  run.beir.bge-base-en-v1.5.climate-fever.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row28-tab6" role="tabpanel" aria-labelledby="row28-tab6">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --index beir-v1.0.0-climate-fever.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-climate-fever-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-climate-fever-test \
-  --output run.beir.cohere-embed-english-v3.0.climate-fever.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
-  run.beir.cohere-embed-english-v3.0.climate-fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-climate-fever-test \
-  run.beir.cohere-embed-english-v3.0.climate-fever.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-climate-fever-test \
-  run.beir.cohere-embed-english-v3.0.climate-fever.txt</code></pre>
-  </blockquote>
-
-  </div>
-</div>
-<!-- Tabs content -->
-
-</div></td>
-</tr>
-<!-- Condition: scifact -->
-<tr class="accordion-toggle collapsed" id="row29" data-toggle="collapse" data-parent="#row29" href="#collapse29">
-<td class="expand-button"></td>
-<td>scifact</td>
-<td>  0.6789</td>
-<td>  0.9253</td>
-<td></td>
-<td>  0.6647</td>
-<td>  0.9076</td>
-<td></td>
-<td>  0.7041</td>
-<td>  0.9353</td>
-<td></td>
-<td>  0.6768</td>
-<td>  0.9470</td>
-<td></td>
-<td>  0.7408</td>
-<td>  0.9667</td>
-<td></td>
-<td>  0.7181</td>
-<td>  0.9633</td>
-</tr>
-<tr class="hide-table-padding">
-<td></td>
-<td colspan="15">
-<div id="collapse29" class="collapse in p-3">
-
-<!-- Tabs navs -->
-<ul class="nav nav-tabs mb-3" id="row29-tabs" role="tablist">
-  <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="row29-tab1-header" data-mdb-toggle="tab" href="#row29-tab1" role="tab" aria-controls="row29-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab2-header" data-mdb-toggle="tab" href="#row29-tab2" role="tab" aria-controls="row29-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab3-header" data-mdb-toggle="tab" href="#row29-tab3" role="tab" aria-controls="row29-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab4-header" data-mdb-toggle="tab" href="#row29-tab4" role="tab" aria-controls="row29-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab5-header" data-mdb-toggle="tab" href="#row29-tab5" role="tab" aria-controls="row29-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab6-header" data-mdb-toggle="tab" href="#row29-tab6" role="tab" aria-controls="row29-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
-  </li>
-</ul>
-<!-- Tabs navs -->
-
-<!-- Tabs content -->
-<div class="tab-content" id="row29-content">
-  <div class="tab-pane fade show active" id="row29-tab1" role="tabpanel" aria-labelledby="row29-tab1">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-scifact.flat \
-  --topics beir-v1.0.0-scifact-test \
-  --output run.beir.bm25-flat.scifact.txt \
-  --output-format trec \
-  --hits 1000 --bm25 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
-  run.beir.bm25-flat.scifact.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-scifact-test \
-  run.beir.bm25-flat.scifact.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-scifact-test \
-  run.beir.bm25-flat.scifact.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row29-tab2" role="tabpanel" aria-labelledby="row29-tab2">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-scifact.multifield \
-  --topics beir-v1.0.0-scifact-test \
-  --output run.beir.bm25-multifield.scifact.txt \
-  --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
-  run.beir.bm25-multifield.scifact.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-scifact-test \
-  run.beir.bm25-multifield.scifact.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-scifact-test \
-  run.beir.bm25-multifield.scifact.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row29-tab3" role="tabpanel" aria-labelledby="row29-tab3">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-scifact.splade-pp-ed \
-  --topics beir-v1.0.0-scifact.test.splade-pp-ed \
-  --output run.beir.splade-pp-ed.scifact.txt \
-  --output-format trec \
-  --hits 1000 --impact --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
-  run.beir.splade-pp-ed.scifact.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-scifact-test \
-  run.beir.splade-pp-ed.scifact.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-scifact-test \
-  run.beir.splade-pp-ed.scifact.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row29-tab4" role="tabpanel" aria-labelledby="row29-tab4">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-scifact.contriever-msmarco \
-  --topics beir-v1.0.0-scifact-test \
-  --output run.beir.contriever-msmarco.scifact.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
-  run.beir.contriever-msmarco.scifact.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-scifact-test \
-  run.beir.contriever-msmarco.scifact.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-scifact-test \
-  run.beir.contriever-msmarco.scifact.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row29-tab5" role="tabpanel" aria-labelledby="row29-tab5">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
-  --index beir-v1.0.0-scifact.bge-base-en-v1.5 \
-  --topics beir-v1.0.0-scifact-test \
-  --output run.beir.bge-base-en-v1.5.scifact.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
-  run.beir.bge-base-en-v1.5.scifact.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-scifact-test \
-  run.beir.bge-base-en-v1.5.scifact.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-scifact-test \
-  run.beir.bge-base-en-v1.5.scifact.txt</code></pre>
-  </blockquote>
-
-  </div>
-  <div class="tab-pane fade" id="row29-tab6" role="tabpanel" aria-labelledby="row29-tab6">
-Command to generate run:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --index beir-v1.0.0-scifact.cohere-embed-english-v3.0  \
-  --topics beir-v1.0.0-scifact-test --encoded-queries cohere-embed-english-v3.0-beir-v1.0.0-scifact-test \
-  --output run.beir.cohere-embed-english-v3.0.scifact.txt \
-  --hits 1000 --remove-query
-</code></pre></blockquote>
-Evaluation commands:
-
-  <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
-  run.beir.cohere-embed-english-v3.0.scifact.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.100 beir-v1.0.0-scifact-test \
-  run.beir.cohere-embed-english-v3.0.scifact.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1000 beir-v1.0.0-scifact-test \
-  run.beir.cohere-embed-english-v3.0.scifact.txt</code></pre>
   </blockquote>
 
   </div>

@@ -38,3 +38,4 @@ def configure_classpath(anserini_root="."):
 
     latest = max(paths, key=os.path.getctime)
     jnius_config.add_classpath(latest)
+    jnius_config.add_options('--add-modules=jdk.incubator.vector')

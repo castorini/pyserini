@@ -1028,7 +1028,153 @@ class TestLoadQrels(unittest.TestCase):
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 300)
         self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 339)
-    
+
+    def test_beir_aliases(self):
+        qrels = search.get_qrels('beir-v1.0.0-trec-covid')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 50)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 66334)
+
+        qrels = search.get_qrels('beir-v1.0.0-bioasq')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 500)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 2359)
+
+        qrels = search.get_qrels('beir-v1.0.0-nfcorpus')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 323)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 12334)
+
+        qrels = search.get_qrels('beir-v1.0.0-nq')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 3452)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 4201)
+
+        qrels = search.get_qrels('beir-v1.0.0-hotpotqa')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 7405)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 14810)
+
+        qrels = search.get_qrels('beir-v1.0.0-fiqa')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 648)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 1706)
+
+        qrels = search.get_qrels('beir-v1.0.0-signal1m')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 97)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 1899)
+
+        qrels = search.get_qrels('beir-v1.0.0-trec-news')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 57)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 15655)
+
+        qrels = search.get_qrels('beir-v1.0.0-robust04')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 249)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 311410)
+
+        qrels = search.get_qrels('beir-v1.0.0-arguana')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1406)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 1406)
+
+        qrels = search.get_qrels('beir-v1.0.0-webis-touche2020')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 49)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 932)
+
+        qrels = search.get_qrels('beir-v1.0.0-cqadupstack-android')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 699)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 1696)
+
+        qrels = search.get_qrels('beir-v1.0.0-cqadupstack-english')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1570)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 3765)
+
+        qrels = search.get_qrels('beir-v1.0.0-cqadupstack-gaming')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1595)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 2263)
+
+        qrels = search.get_qrels('beir-v1.0.0-cqadupstack-gis')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 885)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 1114)
+
+        qrels = search.get_qrels('beir-v1.0.0-cqadupstack-mathematica')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 804)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 1358)
+
+        qrels = search.get_qrels('beir-v1.0.0-cqadupstack-physics')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1039)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 1933)
+
+        qrels = search.get_qrels('beir-v1.0.0-cqadupstack-programmers')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 876)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 1675)
+
+        qrels = search.get_qrels('beir-v1.0.0-cqadupstack-stats')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 652)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 913)
+
+        qrels = search.get_qrels('beir-v1.0.0-cqadupstack-tex')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 2906)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 5154)
+
+        qrels = search.get_qrels('beir-v1.0.0-cqadupstack-unix')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1072)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 1693)
+
+        qrels = search.get_qrels('beir-v1.0.0-cqadupstack-webmasters')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 506)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 1395)
+
+        qrels = search.get_qrels('beir-v1.0.0-cqadupstack-wordpress')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 541)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 744)
+
+        qrels = search.get_qrels('beir-v1.0.0-quora')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 10000)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 15675)
+
+        qrels = search.get_qrels('beir-v1.0.0-dbpedia-entity')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 400)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 43515)
+
+        qrels = search.get_qrels('beir-v1.0.0-scidocs')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1000)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 29928)
+
+        qrels = search.get_qrels('beir-v1.0.0-fever')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 6666)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 7937)
+
+        qrels = search.get_qrels('beir-v1.0.0-climate-fever')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1535)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 4681)
+
+        qrels = search.get_qrels('beir-v1.0.0-scifact')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 300)
+        self.assertEqual(sum([len(qrels[topic_id]) for topic_id in qrels]), 339)
+
     def test_hc4_10_fa(self):
         qrels = search.get_qrels('hc4-v1.0-fa-dev')
         self.assertIsNotNone(qrels)

@@ -14,8 +14,6 @@
 # limitations under the License.
 #
 
-import os
-import shutil
 import unittest
 from typing import List, Dict
 
