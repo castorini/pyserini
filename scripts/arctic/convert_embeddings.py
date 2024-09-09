@@ -1,5 +1,4 @@
-"""Converts the hgf embeddings for documents into pyserini compatible format.
-"""
+"""Converts the hgf embeddings for documents into pyserini compatible format."""
 
 import argparse
 import os
@@ -26,12 +25,21 @@ if __name__ == "__main__":
         required=False,
         default="full",
     )
+    parser.add_argument(
+        "--start_filter",
+        type=str,
+        help="Filter to be used with string start.",
+        required=False,
+        default="",
+    )
 
     args = parser.parse_args()
 
+    os.makedirs(args.output, exist_ok=True)
+
     folder_path = args.embeddings_folder
 
-    files = [file for file in os.listdir(folder_path) if file.endswith(".parquet")]
+    files = [file for file in os.listdir(folder_path) if file.endswith(".parquet") and file.startswith(args.start_filter)]
 
     if args.indices == "full":
         start = 0
@@ -46,12 +54,12 @@ if __name__ == "__main__":
     for file_name in tqdm(files[start:end]):
         file_path = os.path.join(folder_path, file_name)
         df = pd.read_parquet(file_path)
-        embeddings = df["embedding"].tolist()
+        embeddings = df["VECTOR_MAIN"].tolist()
         embeddings = np.array(embeddings)
         dim = embeddings[0].shape[0]
         faiss.normalize_L2(embeddings)
         all_embeddings.append(embeddings.reshape(-1, dim))
-        doc_ids.extend(df["doc_id"].tolist())
+        doc_ids.extend(df["DOC_ID"].tolist())
 
     combined_embeddings = np.vstack(all_embeddings)
 

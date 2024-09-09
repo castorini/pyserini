@@ -18,7 +18,7 @@ python -m pyserini.search.faiss --index /store/scratch/sjupadhy/indexes/msmarco-
 --hits 2000 --threads 16 --batch-size 128
 ```
 
-## Marging and compiling docwise results
+### Merging and compiling docwise results
 As the available embeddings refer to doc segments, we need to complile doc wise results. Thus we merge and compile them with:
 ```bash
 python scripts/arctic/merge_retrieved_results.py --arctic_run_folder arctic_runs \
@@ -26,11 +26,25 @@ python scripts/arctic/merge_retrieved_results.py --arctic_run_folder arctic_runs
 --k 1000
 ```
 
-## Evaluation
+### Evaluation
 ```bash
 python -m pyserini.eval.trec_eval -c -m recall.1000 -m recall.100 -m ndcg_cut.10 /store/scratch/sjupadhy/msmarco-v2.1-snowflake-arctic-embed-l/qrels/qrels_qrels.msmarco-v2.1-doc.dev.txt run.msmarco-v2.1-doc.arctic-embed-l-merged.dev.txt
 Results:
 recall_1000           	all	0.9408
 recall_100            	all	0.8513
 ndcg_cut_10           	all	0.3583
+```
+
+## BEIR
+Retrieval run on NQ subdataset:
+```bash
+python -m pyserini.search.faiss --threads 16 --batch-size 512 --index beir-v1.0.0-nq.arctic-embed-m-v1.5 --topics beir-v1.0.0-nq-test --encoded-queries snowflake-arctic-embed-m-v1.5-beir-v1.0.0-nq-test  --output run.beir.arctic-embed.nq.txt --hits 1000
+```
+
+### Evaluation
+```bash
+python -m pyserini.eval.trec_eval   -c -m ndcg_cut.10  -m recall.1000 -m recall.100 beir-v1.0.0-nq-test   run.beir.arctic-embed.nq.txt
+Results:
+recall_1000             all     0.9951
+ndcg_cut_10             all     0.6244
 ```
