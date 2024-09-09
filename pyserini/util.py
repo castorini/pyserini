@@ -69,6 +69,7 @@ def download_url(url, save_dir, local_filename=None, md5=None, force=False, verb
     if not local_filename:
         filename = url.split('/')[-1]
         filename = re.sub('\\?dl=1$', '', filename)  # Remove the Dropbox 'force download' parameter
+        filename = re.sub(r'\?.*$', '', filename)
     else:
         # Otherwise, use the specified local_filename:
         filename = local_filename
