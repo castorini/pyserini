@@ -17,7 +17,7 @@
 import logging
 from typing import List, Dict
 
-from pyserini.pyclass import autoclass
+from pyserini.pyclass import autoclass, JArrayList
 from pyserini.util import download_prebuilt_index
 
 logger = logging.getLogger(__name__)
@@ -105,7 +105,7 @@ class LuceneHnswDenseSearcher:
 
         return self.searcher.search(q, k)
 
-    def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1) -> Dict[str, List[JScoredDoc]]:
+    def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 4) -> Dict[str, List[JScoredDoc]]:
         """Search the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
@@ -125,7 +125,17 @@ class LuceneHnswDenseSearcher:
             Dictionary holding the search results, with the query ids as keys and the corresponding lists of search
             results as the values.
         """
-        pass
+        query_strings = JArrayList()
+        for query in queries:
+            query_strings.add(query)
+
+        qid_strings = JArrayList()
+        for qid in qids:
+            qid_strings.add(qid)
+
+        results = self.searcher.batch_search(query_strings, qid_strings, int(k), int(threads))
+
+        return {r.getKey(): r.getValue() for r in results.entrySet().toArray()}
 
     def close(self):
         """Close the searcher."""
@@ -204,7 +214,7 @@ class LuceneFlatDenseSearcher:
 
         return self.searcher.search(q, k)
 
-    def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1) -> Dict[str, List[JScoredDoc]]:
+    def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 4) -> Dict[str, List[JScoredDoc]]:
         """Search the collection concurrently for multiple queries, using multiple threads.
 
         Parameters
@@ -224,7 +234,17 @@ class LuceneFlatDenseSearcher:
             Dictionary holding the search results, with the query ids as keys and the corresponding lists of search
             results as the values.
         """
-        pass
+        query_strings = JArrayList()
+        for query in queries:
+            query_strings.add(query)
+
+        qid_strings = JArrayList()
+        for qid in qids:
+            qid_strings.add(qid)
+
+        results = self.searcher.batch_search(query_strings, qid_strings, int(k), int(threads))
+
+        return {r.getKey(): r.getValue() for r in results.entrySet().toArray()}
 
     def close(self):
         """Close the searcher."""

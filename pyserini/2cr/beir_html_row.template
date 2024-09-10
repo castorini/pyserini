@@ -1,7 +1,7 @@
 <!-- Condition: $dataset -->
 <tr class="accordion-toggle collapsed" id="row${row_cnt}" data-toggle="collapse" data-parent="#row${row_cnt}" href="#collapse${row_cnt}">
 <td class="expand-button"></td>
-<td>$dataset</td>
+<td width="200">$dataset</td>
 <td>$s1</td>
 <td>$s2</td>
 <td></td>
@@ -31,19 +31,19 @@
     <a class="nav-link active" id="row${row_cnt}-tab1-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab1" role="tab" aria-controls="row${row_cnt}-tab1" aria-selected="true" style="text-transform:none">BM25 Flat</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row${row_cnt}-tab2-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab2" role="tab" aria-controls="row${row_cnt}-tab2" aria-selected="false" style="text-transform:none">BM25 Multifield</a>
+    <a class="nav-link" id="row${row_cnt}-tab2-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab2" role="tab" aria-controls="row${row_cnt}-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row${row_cnt}-tab3-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab3" role="tab" aria-controls="row${row_cnt}-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row${row_cnt}-tab4-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab4" role="tab" aria-controls="row${row_cnt}-tab4" aria-selected="false" style="text-transform:none">Contriever MSMARCO</a>
+    <a class="nav-link" id="row${row_cnt}-tab4-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab4" role="tab" aria-controls="row${row_cnt}-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row${row_cnt}-tab5-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab5" role="tab" aria-controls="row${row_cnt}-tab5" aria-selected="false" style="text-transform:none">BGE-base</a>
+    <a class="nav-link" id="row${row_cnt}-tab5-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab5" role="tab" aria-controls="row${row_cnt}-tab5" aria-selected="false" style="text-transform:none">BGE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row${row_cnt}-tab6-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab6" role="tab" aria-controls="row${row_cnt}-tab6" aria-selected="false" style="text-transform:none">Cohere embed-english</a>
+    <a class="nav-link" id="row${row_cnt}-tab6-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab6" role="tab" aria-controls="row${row_cnt}-tab6" aria-selected="false" style="text-transform:none">Cohere</a>
   </li>
 </ul>
 <!-- Tabs navs -->

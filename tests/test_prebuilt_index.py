@@ -27,8 +27,14 @@ class TestPrebuiltIndexes(unittest.TestCase):
         # Test the accessibility of IndexInfo on the Anserini end to make sure everything is "connected together"
         JIndexInfo = autoclass('io.anserini.index.IndexInfo')
 
-        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.indexName, 'beir-v1.0.0-arguana.bge-base-en-v1.5.flat')
-        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.urls[0], 'https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
+        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.indexName,
+                         'beir-v1.0.0-arguana.bge-base-en-v1.5.flat')
+        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.filename,
+                         'lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
+        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.readme,
+                         'lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md')
+        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.urls[0],
+                         'https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
 
     def test_lucene_tf_beir(self):
         urls = []
