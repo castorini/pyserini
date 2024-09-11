@@ -1,5 +1,7 @@
 import os
 os.environ['ANSERINI_CLASSPATH'] = '/home/stefanm/qwen/pyserini/pyserini/resources/jars'
+import sys
+sys.path.insert(0, '/home/stefanm/qwen/pyserini')
 
 
 from pyserini.search.faiss import FaissSearcher
@@ -10,9 +12,8 @@ index_dir = '/home/stefanm/qwen/pyserini/collections/faiss_index'
 
 # Initialize the Arctic Query Encoder
 query_encoder = ArcticQueryEncoder(
-    model_id="Snowflake/snowflake-arctic-embed-m-v1.5",  # Use the model ID for Arctic encoder
+    encoder_dir="Snowflake/snowflake-arctic-embed-m-v1.5",  # Use the model ID for Arctic encoder
     device='cuda:0',  # Change to 'cpu' if you're not using a GPU
-    encode_dir=1
 )
 
 # Initialize the FaissSearcher with the Arctic encoder

@@ -14,22 +14,19 @@
 # limitations under the License.
 #
 
-from pyserini.encode import DocumentEncoder, QueryEncoder
-
-
-
 import torch
 from torch.nn.functional import normalize
 from transformers import AutoModel, AutoTokenizer
+
 from pyserini.encode import DocumentEncoder, QueryEncoder
 
 class ArcticDocumentEncoder(DocumentEncoder):
-    def __init__(self, model_id="Snowflake/snowflake-arctic-embed-m-v1.5", device=None, truncate_to_256=False): # Truncate to output embedding to 256 for faster encoding 
+    def __init__(self, model_name="Snowflake/snowflake-arctic-embed-m-v1.5", device=None, truncate_to_256=False): # Truncate to output embedding to 256 for faster encoding 
         self.device = device if device else torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
         self.truncate_to_256 = truncate_to_256
-        self.model_id = model_id
-        self.model = AutoModel.from_pretrained(self.model_id, add_pooling_layer=False).to(self.device)
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_id)
+        self.model_name = model_name
+        self.model = AutoModel.from_pretrained(self.model_name, add_pooling_layer=False).to(self.device)
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
         self.model.eval()
 
     def encode(self, texts, max_length=512, **kwargs):
@@ -52,13 +49,13 @@ class ArcticDocumentEncoder(DocumentEncoder):
         return document_embeddings.cpu().numpy()
 
 class ArcticQueryEncoder(QueryEncoder):
-    def __init__(self, model_id="Snowflake/snowflake-arctic-embed-m-v1.5", query_prefix='Represent this sentence for searching relevant passages: ', device=None, truncate_to_256=False): # Truncate to output embedding to 256 for faster encoding
+    def __init__(self, encoder_dir="Snowflake/snowflake-arctic-embed-m-v1.5", query_prefix='Represent this sentence for searching relevant passages: ', device=None, truncate_to_256=False): # Truncate to output embedding to 256 for faster encoding
         self.device = device if device else torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
         self.truncate_to_256 = truncate_to_256
-        self.model_id = model_id
+        self.encoder_dir = encoder_dir
         self.query_prefix = query_prefix
-        self.model = AutoModel.from_pretrained(self.model_id, add_pooling_layer=False).to(self.device)
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_id)
+        self.model = AutoModel.from_pretrained(self.encoder_dir, add_pooling_layer=False).to(self.device)
+        self.tokenizer = AutoTokenizer.from_pretrained(self.encoder_dir)
         self.model.eval()
 
     def encode(self, query, max_length=512, **kwargs):
@@ -81,30 +78,30 @@ class ArcticQueryEncoder(QueryEncoder):
 
         return query_embeddings.cpu().numpy().flatten()
 
-# # Example usage
-# document_encoder = ArcticDocumentEncoder(device='cuda:0')
-# query_encoder = ArcticQueryEncoder(device='cuda:0')
+# Example usage
+document_encoder = ArcticDocumentEncoder(device='cuda:0')
+query_encoder = ArcticQueryEncoder(device='cuda:0')
 
-# queries  = ['what is snowflake?', 'Where can I get the best tacos?']
-# documents = ['The Data Cloud!', 'Mexico City of Course!']
-# # Encode documents
-# doc_embeddings = document_encoder.encode(documents)
-# # Encode queries
-# query_embeddings_0 = query_encoder.encode(queries[0])  # Example with one query
-# query_embeddings_1 = query_encoder.encode(queries[1])  # Example with another query
+queries  = ['what is snowflake?', 'Where can I get the best tacos?']
+documents = ['The Data Cloud!', 'Mexico City of Course!']
+# Encode documents
+doc_embeddings = document_encoder.encode(documents)
+# Encode queries
+query_embeddings_0 = query_encoder.encode(queries[0])  # Example with one query
+query_embeddings_1 = query_encoder.encode(queries[1])  # Example with another query
 
-# # Scores via dotproduct.
-# scores_0 = query_embeddings_0 @ doc_embeddings.T
-# scores_1 = query_embeddings_1 @ doc_embeddings.T
+# Scores via dotproduct.
+scores_0 = query_embeddings_0 @ doc_embeddings.T
+scores_1 = query_embeddings_1 @ doc_embeddings.T
 
-# scores = []
-# scores.append(scores_0)
-# scores.append(scores_1)
+scores = []
+scores.append(scores_0)
+scores.append(scores_1)
 
-# for query, query_scores in zip(queries, scores):
-#     doc_score_pairs = list(zip(documents, query_scores))
-#     doc_score_pairs = sorted(doc_score_pairs, key=lambda x: x[1], reverse=True)
-#     print(f'Query: "{query}"')
-#     for document, score in doc_score_pairs:
-#         print(f'Score: {score:.4f} | Document: "{document}"')
-#     print()
+for query, query_scores in zip(queries, scores):
+    doc_score_pairs = list(zip(documents, query_scores))
+    doc_score_pairs = sorted(doc_score_pairs, key=lambda x: x[1], reverse=True)
+    print(f'Query: "{query}"')
+    for document, score in doc_score_pairs:
+        print(f'Score: {score:.4f} | Document: "{document}"')
+    print()

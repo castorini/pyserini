@@ -369,17 +369,16 @@ class OpenAIQueryEncoder(QueryEncoder):
 class ArcticQueryEncoder(QueryEncoder):
     # TODO: investigate on how do set-up a default model id. Currently, it is set to a specific model id regardless of what user passes on arguement encoder/encoder_dir
     # However, pyserini is designed not to have a default model id for any classes, the model id is solely dependent on the user, which is conflicting with the current implementation
-    def __init__(self, model_id: str = "Snowflake/snowflake-arctic-embed-m-v1.5", 
+    def __init__(self, encoder_dir: str = "Snowflake/snowflake-arctic-embed-m-v1.5", 
                  query_prefix: str = 'Represent this sentence for searching relevant passages: ', 
-                 encode_dir: str = None,
                  tokenizer_name: str = None, encoded_query_dir: str = None, device: str = 'cpu', **kwargs): 
         super().__init__(encoded_query_dir)
         
-        if encode_dir:
+        if encoder_dir:
             self.device = device if torch.cuda.is_available() else 'cpu'
             self.query_prefix = query_prefix
-            self.model = AutoModel.from_pretrained(model_id, add_pooling_layer=False).to(self.device)
-            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_id)
+            self.model = AutoModel.from_pretrained(encoder_dir, add_pooling_layer=False).to(self.device)
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
             self.model.eval()
             self.has_model = True
 
