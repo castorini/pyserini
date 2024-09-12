@@ -21,13 +21,12 @@ from transformers import AutoModel, AutoTokenizer
 from pyserini.encode import DocumentEncoder, QueryEncoder
 
 class ArcticDocumentEncoder(DocumentEncoder):
-    def __init__(self, model_name="Snowflake/snowflake-arctic-embed-m-v1.5", device=None, truncate_to_256=False): # Truncate to output embedding to 256 for faster encoding 
-        self.device = device if device else torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    def __init__(self, model_name, device='cuda:0', truncate_to_256=False): # Truncate to output embedding to 256 for faster encoding 
+        self.device = device 
         self.truncate_to_256 = truncate_to_256
         self.model_name = model_name
         self.model = AutoModel.from_pretrained(self.model_name, add_pooling_layer=False).to(self.device)
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
-        self.model.eval()
 
     def encode(self, texts, max_length=512, **kwargs):
         document_tokens = self.tokenizer(
@@ -49,14 +48,14 @@ class ArcticDocumentEncoder(DocumentEncoder):
         return document_embeddings.cpu().numpy()
 
 class ArcticQueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir="Snowflake/snowflake-arctic-embed-m-v1.5", query_prefix='Represent this sentence for searching relevant passages: ', device=None, truncate_to_256=False): # Truncate to output embedding to 256 for faster encoding
-        self.device = device if device else torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    def __init__(self, encoder_dir: str, query_prefix: str = 'Represent this sentence for searching relevant passages: ', 
+                 device: str = 'cpu', truncate_to_256: bool = False): # Truncate to output embedding to 256 for faster encoding
+        self.device = device
         self.truncate_to_256 = truncate_to_256
         self.encoder_dir = encoder_dir
         self.query_prefix = query_prefix
         self.model = AutoModel.from_pretrained(self.encoder_dir, add_pooling_layer=False).to(self.device)
         self.tokenizer = AutoTokenizer.from_pretrained(self.encoder_dir)
-        self.model.eval()
 
     def encode(self, query, max_length=512, **kwargs):
         query_with_prefix = f"{self.query_prefix}{query}"
@@ -79,8 +78,8 @@ class ArcticQueryEncoder(QueryEncoder):
         return query_embeddings.cpu().numpy().flatten()
 
 # Example usage
-document_encoder = ArcticDocumentEncoder(device='cuda:0')
-query_encoder = ArcticQueryEncoder(device='cuda:0')
+document_encoder = ArcticDocumentEncoder(device='cuda:0', model_name="Snowflake/snowflake-arctic-embed-m-v1.5")
+query_encoder = ArcticQueryEncoder(device='cuda:0', encoder_dir="Snowflake/snowflake-arctic-embed-m-v1.5")
 
 queries  = ['what is snowflake?', 'Where can I get the best tacos?']
 documents = ['The Data Cloud!', 'Mexico City of Course!']
