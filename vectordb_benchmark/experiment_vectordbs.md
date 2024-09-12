@@ -50,6 +50,8 @@ $ python3 vectordb_benchmark/run_benchmark.py \
         --db_config_file='pgvector_db_config.txt' \
 ```
 
+Note that after one run, your postgresql will contain the table data, so you may want to drop the table after running the benchmark. Later, we will add an option to skip table creation and index building, so that you can run the benchmark multiple times without having to re-create the table and index every time.
+
 # Encoding and Benchmarking NFCorpus using DuckDB and PGVector
 
 This document contains instructions for encoding and benchmarking NFCorpus using DuckDB and PGVector.
