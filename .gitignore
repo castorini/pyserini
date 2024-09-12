@@ -8,6 +8,8 @@ collections/*
 indexes/*
 .vscode/
 venv/
+*.txt
+*.duckdb
 
 # build directories from `python3 setup.py sdist bdist_wheel`
 build/
@@ -19,3 +21,9 @@ runs/
 
 # logs should also be ignored
 logs/
+
+# binaries should also be ignored
+bin/*
+lib*
+pyvenv*
+share*
