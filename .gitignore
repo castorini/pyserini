@@ -8,8 +8,9 @@ collections/*
 indexes/*
 .vscode/
 venv/
-*.txt
 *.duckdb
+*trec_dot_product*
+*msmarco_benchmark_results*
 
 # build directories from `python3 setup.py sdist bdist_wheel`
 build/
@@ -21,6 +22,9 @@ runs/
 
 # logs should also be ignored
 logs/
+
+# tools
+tools/
 
 # binaries should also be ignored
 bin/*
