@@ -15,21 +15,21 @@ class VectorDBFaissIndexAdaptor:
     def extract_vectors_and_construct_index(self, table_name, metric, extract_all_vectors=False, vector_size=768):
         self.initialize_database_and_table(table_name, self.DBConfig, vector_size)
         # if extract all vectors, extract all, otherwise extract by batch via a while loop
-        # if extract_all_vectors:
-        #     self.vector_map = self.extractor.extract_all_vectors()
-        #     self.insert_vector_map_into_table(table_name, metric)
-        # else:
-        #     startid = 0
-        #     batch_size = 100000
-        #     self.extractor.load_index()
-        #     while startid < self.extractor.index.ntotal:
-        #         # time extraction
-        #         start_time = time.time()
-        #         self.vector_map = self.extractor.extract_one_batch_of_vectors(startid, batch_size)
-        #         end_time = time.time()
-        #         print(f"Extracted {batch_size} vectors in {end_time - start_time} seconds")
-        #         self.insert_vector_map_into_table(table_name, metric)
-        #         startid += batch_size
+        if extract_all_vectors:
+            self.vector_map = self.extractor.extract_all_vectors()
+            self.insert_vector_map_into_table(table_name, metric)
+        else:
+            startid = 0
+            batch_size = 100000
+            self.extractor.load_index()
+            while startid < self.extractor.index.ntotal:
+                # time extraction
+                start_time = time.time()
+                self.vector_map = self.extractor.extract_one_batch_of_vectors(startid, batch_size)
+                end_time = time.time()
+                print(f"Extracted {batch_size} vectors in {end_time - start_time} seconds")
+                self.insert_vector_map_into_table(table_name, metric)
+                startid += batch_size
         self.construct_index(table_name, metric)
     
     def insert_vector_map_into_table(self, table_name, metric):

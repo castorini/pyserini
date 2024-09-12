@@ -15,23 +15,19 @@ if __name__ == "__main__":
     parser.add_argument('--table_name', type=str, required=True, help='name of the table to store the vectors')
     parser.add_argument('--query_index_path', type=str, required=True, help='optional, if given, run benchmark on the query index')
     parser.add_argument('--db_type', type=str, required=True, help='type of the database')
+    parser.add_argument('--db_config_file', type=str, required=True, help='config of the database, separated by end of line, key:value')
     parser.add_argument('--file_path', type=str, required=False, help='optional, if given, create hnsw index on the file')
 
     args = parser.parse_args()
 
+    # parse the db_config_file
+    with open(args.db_config_file, 'r') as f:
+        db_config = f.readlines()
+    DBConfig = {line.strip().split(':')[0]: line.strip().split(':')[1] for line in db_config}
+    
     if args.db_type == 'duckdb':
-        DBConfig = {
-            'memory_limit': '100GB'
-        }
         adaptor = duckdb_faiss_index_adaptor.DuckDBVectorDBFaissIndexAdaptor(args.index_name, DBConfig)
     elif args.db_type == 'pgvector':
-        DBConfig = {
-            'dbname': 'x59song',
-            'user': 'x59song',
-            'password': '123456',
-            'host': 'localhost',
-            'port': '5432'
-        }
         adaptor = pgvector_faiss_index_adaptor.PGVectorFaissIndexAdaptor(args.index_name, DBConfig)
     
     if args.file_path:
