@@ -1,4 +1,3 @@
-Results:
 ndcg_cut_5            	all	0.0848
 ndcg_cut_10           	all	0.0550
 judged_5              	all	0.5000

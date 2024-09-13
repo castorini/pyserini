@@ -12,30 +12,37 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
+
+
+
 # Example usage
 # python -m pyserini.eval.trec_eval -m ndcg_cut.10,20 -m all_trec qrels.dev.small.tsv runs/run.Colbert.txt -remove-unjudged -cutoffs.20,50
 
+# python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m judged.5,10 beir-v1.0.0-arguana-test run.beir.contriever-msmarco.arguana.txt
 
+import glob
+import importlib.resources
+import jnius_config
 import os
-import re
+import pandas as pd
+import platform
+import tempfile
 import subprocess
 import sys
-import platform
-import pandas as pd
-import tempfile
+
+# WARNING: Using incubator modules: jdk.incubator.vector
+
+jar_directory = str(importlib.resources.files("pyserini.resources.jars").joinpath(''))
+jar_path = glob.glob(os.path.join(jar_directory, '*.jar'))[0]
+
+jnius_config.add_classpath(jar_path)
+
+# This triggers loading of the JVM.
+from jnius import autoclass
 
 from pyserini.search import get_qrels_file
-from pyserini.util import download_evaluation_script
 
-script_path = download_evaluation_script('trec_eval')
-
-if platform.platform().startswith('macOS'):
-    # Hack around the fact that jtrec_eval hasn't been compiled for Mac M processors.
-    # Explicitly set os to x86, and then force the use of Rosetta.
-    cmd_prefix = ['java', '-Dos.arch=x86_64', '-jar', script_path]
-else:
-    cmd_prefix = ['java', '-jar', script_path]
+cmd_prefix = ['java', '-cp', jar_path, 'trec_eval']
 
 args = sys.argv
 
@@ -99,7 +106,7 @@ if len(args) > 1:
 else:
     cmd = cmd_prefix
 
-print(f'Running command: {cmd}')
+# print(f'Running command: {cmd}')
 shell = platform.system() == "Windows"
 process = subprocess.Popen(cmd,
                            stdout=subprocess.PIPE,
@@ -109,7 +116,6 @@ stdout, stderr = process.communicate()
 if stderr:
     print(stderr.decode("utf-8"))
 
-print('Results:')
 print(stdout.decode("utf-8").rstrip())
 
 for judged in judged_result:
