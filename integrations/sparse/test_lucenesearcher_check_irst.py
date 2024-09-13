@@ -54,9 +54,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         ndcg_score = parse_score(stdout, "ndcg")
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.3281)
         self.assertEqual(ndcg_score, 0.5260)
 
@@ -78,9 +76,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         ndcg_score = parse_score(stdout, "ndcg")
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.3520)
         self.assertEqual(ndcg_score, 0.5578)
     
@@ -103,9 +99,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         ndcg_score = parse_score(stdout, "ndcg")
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.3286)
         self.assertEqual(ndcg_score, 0.5371)
 
@@ -128,9 +122,7 @@ class TestMsmarcoPassageIrst(unittest.TestCase):
         ndcg_score = parse_score(stdout, "ndcg")
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.3357)
         self.assertEqual(ndcg_score, 0.5469)
 
@@ -170,9 +162,7 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
         ndcg_score = parse_score(stdout, "ndcg")
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.2524)
         self.assertEqual(ndcg_score, 0.5494)
 
@@ -194,9 +184,7 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
         ndcg_score = parse_score(stdout, "ndcg")
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.3825)
         self.assertEqual(ndcg_score, 0.5559)
 
@@ -219,9 +207,7 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
         ndcg_score = parse_score(stdout, "ndcg")
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.2205)
         self.assertEqual(ndcg_score, 0.4917)
 
@@ -244,9 +230,7 @@ class TestMsmarcoDocumentIrst(unittest.TestCase):
         ndcg_score = parse_score(stdout, "ndcg")
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.3373)
         self.assertEqual(ndcg_score, 0.5015)
 
@@ -287,9 +271,7 @@ class TestMsmarcoDocumentSegIrst(unittest.TestCase):
         ndcg_score = parse_score(stdout, "ndcg")
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.2711)
         self.assertEqual(ndcg_score, 0.5596)
 
@@ -312,9 +294,7 @@ class TestMsmarcoDocumentSegIrst(unittest.TestCase):
         ndcg_score = parse_score(stdout, "ndcg")
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.3759)
         self.assertEqual(ndcg_score, 0.5343)
 
@@ -338,9 +318,7 @@ class TestMsmarcoDocumentSegIrst(unittest.TestCase):
         ndcg_score = parse_score(stdout, "ndcg")
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.2425)
         self.assertEqual(ndcg_score, 0.5193)
 
@@ -364,9 +342,7 @@ class TestMsmarcoDocumentSegIrst(unittest.TestCase):
         ndcg_score = parse_score(stdout, "ndcg")
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertEqual(map_score, 0.3496)
         self.assertEqual(ndcg_score, 0.5089)
 
