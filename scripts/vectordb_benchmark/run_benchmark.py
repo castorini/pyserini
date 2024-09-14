@@ -16,7 +16,6 @@ if __name__ == "__main__":
     parser.add_argument('--query_index_path', type=str, required=True, help='optional, if given, run benchmark on the query index')
     parser.add_argument('--db_type', type=str, required=True, help='type of the database')
     parser.add_argument('--db_config_file', type=str, required=True, help='config of the database, separated by end of line, key:value')
-    parser.add_argument('--file_path', type=str, required=False, help='optional, if given, create hnsw index on the file')
 
     args = parser.parse_args()
 

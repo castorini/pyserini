@@ -24,8 +24,8 @@ $ python3 vectordb_benchmark/run_benchmark.py \
         --table_name='msmarco' \
         --metric='ip' \
         --query_index_path='pyserini/indexes/msmarco-dev.bge-base-en-v1.5' \
-        --db_type='duckdb' 
-        --db_config_file='duckdb_db_config.txt' \
+        --db_type='duckdb' \
+        --db_config_file='duckdb_db_config.txt' 
 ```
 The entire process may take over a day to complete, depending on your hardware set up. This code will download the index, extract the embedded vectors of the index, build the table in duckdb and run the benchmark.
 

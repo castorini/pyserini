@@ -3,5 +3,5 @@ python3 ./run_benchmark.py \
 --table_name='msmarco' \
 --metric='ip' \
 --query_index_path='../../indexes/msmarco-dev.bge-base-en-v1.5' \
---db_config_file='duckdb_db_config.txt' \
 --db_type='duckdb' \
+--db_config_file='duckdb_db_config.txt' 

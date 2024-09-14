@@ -1,5 +1,3 @@
-#!/bin/bash
-
 python3 ./run_benchmark.py \
 --index_name='msmarco-v1-passage.bge-base-en-v1.5' \
 --table_name='msmarco' \
