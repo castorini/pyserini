@@ -12,13 +12,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
+# Example usage:
+# python -m pyserini.eval.trec_eval -c \
+#   -m ndcg_cut.10 \
+#   -m judged.5,10 beir-v1.0.0-arguana-test run.beir.contriever-msmarco.arguana.txt -remove-unjudged
 
-
-# Example usage
-# python -m pyserini.eval.trec_eval -m ndcg_cut.10,20 -m all_trec qrels.dev.small.tsv runs/run.Colbert.txt -remove-unjudged -cutoffs.20,50
-
-# python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m judged.5,10 beir-v1.0.0-arguana-test run.beir.contriever-msmarco.arguana.txt
+# From Jimmy, Sept 2024 -
+#
+# This file has a load sequence that is very different from all the other files.
+# The JVM by default in Pyserini is loaded with the option '--add-modules=jdk.incubator.vector', which triggers the
+# following warning: 'WARNING: Using incubator modules: jdk.incubator.vector'
+#
+# I have looked extensively online and was not able to find a way to suppress that warning.
+# The solution here is to start the JVM without the vector module, which isn't needed here.
+# This explains the code sequence below.
 
 import glob
 import importlib.resources
@@ -30,16 +39,15 @@ import tempfile
 import subprocess
 import sys
 
-# WARNING: Using incubator modules: jdk.incubator.vector
-
+# Don't use the jdk.incubator.vector module.
 jar_directory = str(importlib.resources.files("pyserini.resources.jars").joinpath(''))
 jar_path = glob.glob(os.path.join(jar_directory, '*.jar'))[0]
-
 jnius_config.add_classpath(jar_path)
 
 # This triggers loading of the JVM.
 from jnius import autoclass
 
+# Now we can load qrels
 from pyserini.search import get_qrels_file
 
 cmd_prefix = ['java', '-cp', jar_path, 'trec_eval']
@@ -106,7 +114,10 @@ if len(args) > 1:
 else:
     cmd = cmd_prefix
 
-# print(f'Running command: {cmd}')
+# We're going to shell out to call trec_eval.
+# Obvious question here: why we *not* just call the trec_eval main (Java) class, which already wraps the executable?
+# in Java (which wraps the binaries). The answer is that the Java class explicitly calls System.exit, so we wouldn't
+# be able to do cleanup here in Python.
 shell = platform.system() == "Windows"
 process = subprocess.Popen(cmd,
                            stdout=subprocess.PIPE,
