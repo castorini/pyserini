@@ -5,7 +5,7 @@ import numpy as np
 import duckdb
 import faiss
 
-TREC_DOT_PRODUCT_OUTPUT_FILE_PATH = 'runs/.run-faiss-msmarco-passage-result_dot_product.txt'
+TREC_DOT_PRODUCT_OUTPUT_FILE_PATH = '../../runs/.run-faiss-msmarco-passage-result_dot_product.txt'
 
 class FaissVectorExtractor:
     def __init__(self, index_name):

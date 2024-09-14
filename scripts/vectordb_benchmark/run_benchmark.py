@@ -5,7 +5,7 @@ import faiss_index_adaptor
 import argparse
 from faiss_vector_extractor import run_benchmark, run_benchmark_on_file
 
-TREC_DOT_PRODUCT_OUTPUT_FILE_PATH = "trec_dot_product_output.txt"
+TREC_DOT_PRODUCT_OUTPUT_FILE_PATH = "../../trec_dot_product_output.txt"
 
 
 if __name__ == "__main__":

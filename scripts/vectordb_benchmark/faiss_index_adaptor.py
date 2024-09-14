@@ -52,7 +52,7 @@ class VectorDBFaissIndexAdaptor:
         command = [
             "python", "-m", "pyserini.eval.trec_eval",
             "-c", "-M", "10", "-m", "recip_rank",
-            "collections/msmarco-passage/qrels.dev.small.trec",
+            "../../collections/msmarco-passage/qrels.dev.small.trec",
             trec_output_file_path
         ]
         return subprocess.run(command)

@@ -5,11 +5,11 @@ import subprocess
 import time
 
 # Paths to embedding, query, and output files
-DOCUMENT_JSONL_FILE_PATH = 'indexes/non-faiss-nfcorpus/documents/embeddings.jsonl'
-QUERY_JSONL_FILE_PATH = 'indexes/non-faiss-nfcorpus/queries/embeddings.jsonl'
-TREC_DOT_PRODUCT_OUTPUT_FILE_PATH = 'runs/.run-non-faiss-nfcorpus-result_dot_product.txt'
-TREC_COSINE_OUTPUT_FILE_PATH = 'runs/.run-non-faiss-nfcorpus-result_cosine.txt'
-TREC_L2SQ_OUTPUT_FILE_PATH = 'runs/.run-non-faiss-nfcorpus-result_l2sq.txt'
+DOCUMENT_JSONL_FILE_PATH = '../../indexes/non-faiss-nfcorpus/documents/embeddings.jsonl'
+QUERY_JSONL_FILE_PATH = '../../indexes/non-faiss-nfcorpus/queries/embeddings.jsonl'
+TREC_DOT_PRODUCT_OUTPUT_FILE_PATH = '../../runs/.run-non-faiss-nfcorpus-result_dot_product.txt'
+TREC_COSINE_OUTPUT_FILE_PATH = '../../runs/.run-non-faiss-nfcorpus-result_cosine.txt'
+TREC_L2SQ_OUTPUT_FILE_PATH = '../../runs/.run-non-faiss-nfcorpus-result_l2sq.txt'
 K = 10  # Number of nearest neighbors to retrieve
 RUN_ID = "DuckDBHNSW"  # Identifier for the run
 
@@ -71,7 +71,7 @@ def run_trec_eval(trec_output_file_path):
     command = [
         "python", "-m", "pyserini.eval.trec_eval",
         "-c", "-m", "ndcg_cut.10",
-        "collections/nfcorpus/qrels/test.qrels",
+        "../../collections/nfcorpus/qrels/test.qrels",
         trec_output_file_path
     ]
     print("ndcg@10 for ", trec_output_file_path)
