@@ -141,5 +141,5 @@ python -m pyserini.encode \
 ## 3. Run Benchmarks
 
 ```bash
-python3 benchmark_duckdb_nfcorpus.py 
-python3 benchmark_pgvector_nfcorpus.py
+python3 benchmark_nfcorpus_duckdb.py 
+python3 benchmark_nfcorpus_pgvector.py
