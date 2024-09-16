@@ -1,10 +1,10 @@
 # Pyserini: Detailed Installation Guide
 
-Pyserini is built on Python 3.10 (other versions might work, but YMMV).
+Pyserini is built on Python 3.10 (other versions might not work).
 At a high level, we try to keep our [`requirements.txt`](../requirements.txt) up to date.
 Pyserini has a number of important dependencies:
 
-+ For sparse retrieval, Pyserini depends on [Anserini](http://anserini.io/), which is built on Lucene.
++ For sparse retrieval, Pyserini depends on [Anserini](http://anserini.io/), which is built on Lucene. Make sure that Anserini is up to date, otherwise version compatibility may be an issue.
 [PyJNIus](https://github.com/kivy/pyjnius) is used to interact with the JVM. We depend on Java 21.
 + For dense retrieval (since it involves neural networks), we need the [🤗 Transformers library](https://github.com/huggingface/transformers), [PyTorch](https://pytorch.org/), and [Faiss](https://github.com/facebookresearch/faiss) (specifically `faiss-cpu`).
 A `pip` installation will automatically pull in the first to satisfy the package requirements, but since the other two may require platform-specific custom configuration, they are _not_ explicitly listed in the package requirements.
@@ -146,6 +146,7 @@ Then, in the `pyserini` clone, use `pip` to add an ["editable" installation](htt
 
 ```bash
 pip install -e .
+# If an error occurred during installation, try this: python -m pip install -e .
 ```
 
 You'll need to download the Spacy English model to reproduce tasks such as [LTR Filtering for MS MARCO Passage](https://github.com/castorini/pyserini/blob/master/docs/experiments-ltr-msmarco-passage-reranking.md).
