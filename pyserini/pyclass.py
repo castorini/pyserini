@@ -20,9 +20,13 @@ Module for hiding Python-Java calls via Pyjnius
 
 from .setup import configure_classpath, os
 
-# If the environment variable isn't defined, look in the current directory.
-configure_classpath(os.environ['ANSERINI_CLASSPATH'] if 'ANSERINI_CLASSPATH' in os.environ else
-                    os.path.join(os.path.split(__file__)[0], 'resources/jars/'))
+try:
+    # If the environment variable isn't defined, look in the current directory.
+    configure_classpath(os.environ['ANSERINI_CLASSPATH'] if 'ANSERINI_CLASSPATH' in os.environ else
+                        os.path.join(os.path.split(__file__)[0], 'resources/jars/'))
+except:
+    # This might happen if the JVM's already been initialized. Just eat the error.
+    pass
 
 from jnius import autoclass, cast
 

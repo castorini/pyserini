@@ -97,9 +97,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2462, delta=0.0001)
 
     def test_core17(self):
@@ -127,9 +125,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2473, delta=0.0001)
 
     def test_core17_lr_rm3(self):
@@ -151,9 +147,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2926, delta=0.0001)
 
     def test_core17_svm(self):
@@ -175,9 +169,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2385, delta=0.0001)
 
     def test_core17_svm_rm3(self):
@@ -199,9 +191,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2956, delta=0.0001)
 
     def test_core17_avg(self):
@@ -223,9 +213,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2442, delta=0.0001)
 
     def test_core17_avg_rm3(self):
@@ -247,9 +235,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2950, delta=0.0001)
 
     def test_core17_rrf(self):
@@ -284,9 +270,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2445, delta=0.0001)
 
     def test_core17_rrf_rm3(self):
@@ -321,9 +305,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2957, delta=0.0001)
 
     def test_core18(self):
@@ -351,9 +333,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2839, delta=0.0001)
 
     def test_core18_lr_rm3(self):
@@ -375,9 +355,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3216, delta=0.0001)
 
     def test_core18_svm(self):
@@ -399,9 +377,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2841, delta=0.0001)
 
     def test_core18_svm_rm3(self):
@@ -423,9 +399,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3200, delta=0.0001)
 
     def test_core18_avg(self):
@@ -447,9 +421,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2861, delta=0.0001)
 
     def test_core18_avg_rm3(self):
@@ -471,9 +443,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3213, delta=0.0001)
 
     def test_core18_rrf(self):
@@ -508,9 +478,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2880, delta=0.0001)
 
     def test_core18_rrf_rm3(self):
@@ -545,9 +513,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.3205, delta=0.0001)
 
     def test_robust04(self):
@@ -575,9 +541,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2747, delta=0.0001)
 
     def test_robust04_lr_rm3(self):
@@ -599,9 +563,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2969, delta=0.0001)
 
     def test_robust04_svm(self):
@@ -623,9 +585,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2726, delta=0.0001)
 
     def test_robust04_svm_rm3(self):
@@ -647,9 +607,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2972, delta=0.0001)
 
     def test_robust04_avg(self):
@@ -671,9 +629,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.276, delta=0.0001)
 
     def test_robust04_avg_rm3(self):
@@ -695,9 +651,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2980, delta=0.0001)
 
     def test_robust04_rrf(self):
@@ -732,9 +686,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.275, delta=0.0001)
 
     def test_robust04_rrf_rm3(self):
@@ -769,9 +721,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2977, delta=0.0001)
 
     def test_robust05(self):
@@ -799,9 +749,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2477, delta=0.0001)
 
     def test_robust05_lr_rm3(self):
@@ -823,9 +771,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2872, delta=0.0001)
 
     def test_robust05_svm(self):
@@ -847,9 +793,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2486, delta=0.0001)
 
     def test_robust05_svm_rm3(self):
@@ -871,9 +815,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2871, delta=0.0001)
 
     def test_robust05_avg(self):
@@ -895,9 +837,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2485, delta=0.0001)
 
     def test_robust05_avg_rm3(self):
@@ -919,9 +859,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2880, delta=0.0001)
 
     def test_robust05_rrf(self):
@@ -956,9 +894,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2401, delta=0.0001)
 
     def test_robust05_rrf_rm3(self):
@@ -993,9 +929,7 @@ class TestSearchIntegration(unittest.TestCase):
         score = parse_score(stdout, 'map')
 
         self.assertEqual(status, 0)
-        # Currently, we get 'WARNING: Using incubator modules: jdk.incubator.vector\n' from stderr,
-        # so turn off check until this issue is resolved in a later JDK version.
-        # self.assertEqual(stderr, '')
+        self.assertEqual(stderr, '')
         self.assertAlmostEqual(score, 0.2808, delta=0.0001)
 
     def tearDown(self):
