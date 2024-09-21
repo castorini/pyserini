@@ -240,7 +240,7 @@ The two major axes of variations are:
 
 + The basis of the representation vectors (sparse vs. dense).
 They could be sparse vectors (as in the case of BM25) or they could be dense vectors.
-In the case of dense vectors, the dimensions of the vectors putatively capture some "latent semantic space". 
+In the case of dense vectors, the dimensions of the vectors putatively capture some "latent semantic space".
 Thus, we often contrast sparse lexical vector with dense semantic vectors.
 + Whether the representations are learned (supervised vs. unsupervised).
 In the case of BM25, there is no "learning" (modulo minor parameter tuning): the BM25 scoring function specifies the weights that each term should receive.
@@ -266,7 +266,7 @@ To complete the possibilities, yes, there are learned sparse representations and
 
 We'll save a more complete exploration of this design space for some other time, but they're sketched out in this article (on which this guide is based) if you want to learn more:
 
-> Jimmy Lin. [A Proposed Conceptual Framework for a Representational Approach to Information Retrieval.](https://arxiv.org/abs/2110.01529) arXiv:2110.01529, October 2021. 
+> Jimmy Lin. [A Proposed Conceptual Framework for a Representational Approach to Information Retrieval.](https://arxiv.org/abs/2110.01529) arXiv:2110.01529, October 2021.
 
 Okay, that's it for this lesson.
 Next, you're going to play with [an actual dense retrieval model](experiments-nfcorpus.md).
@@ -359,3 +359,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@anshulsc](https://github.com/anshulsc) on 2024-09-07 (commit [`2e4fa5d`](https://github.com/castorini/pyserini/commit/2e4fa5ddc8059e0e6655b1db2591f8f069db52fd))
 + Results reproduced by [@r-aya](https://github.com/r-aya) on 2024-09-08 (commit [`2e4fa5d`](https://github.com/castorini/pyserini/commit/2e4fa5ddc8059e0e6655b1db2591f8f069db52fd))
 + Results reproduced by [@Amirkia1998](https://github.com/Amirkia1998) on 2024-09-20 (commit [`83537a3`](https://github.com/castorini/pyserini/commit/83537a32814b20fe7fe6e41e68d61ffea4b1fc5f))
++ Results reproduced by [@pjyi2147](https://github.com/pjyi2147) on 2024-09-20 (commit [`f511655`](https://github.com/castorini/pyserini/commit/f5116554779e48a5be151136a0cbec74a5fad4c0))
