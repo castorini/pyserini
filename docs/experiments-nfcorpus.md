@@ -3,8 +3,7 @@
 This guide contains instructions for running a BGE-base baseline for NFCorpus.
 
 If you're a Waterloo student traversing the [onboarding path](https://github.com/lintool/guide/blob/master/ura.md) (which [starts here](https://github.com/castorini/anserini/blob/master/docs/start-here.md)),
-make sure you've first done the previous step, [a conceptual framework for retrieval
-](conceptual-framework).
+make sure you've first done the previous step, [a conceptual framework for retrieval](https://github.com/castorini/pyserini/blob/master/docs/conceptual-framework.md).
 In general, don't try to rush through this guide by just blindly copying and pasting commands into a shell;
 that's what I call [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming).
 Instead, really try to understand what's going on.
@@ -91,6 +90,7 @@ python -m pyserini.encode \
 ```
 
 We're using the [`BAAI/bge-base-en-v1.5`](https://huggingface.co/BAAI/bge-base-en-v1.5) encoder, which can be found on HuggingFace.
+Use `--device cuda` for a faster computation if you have a CUDA-enabled GPU.
 
 <details>
 <summary>Try it using the Contriever model!</summary>
@@ -110,6 +110,7 @@ python -m pyserini.encode \
 ```
 
 We're using the [`facebook/contriever-msmarco`](https://huggingface.co/facebook/contriever-msmarco) encoder, which can be found on HuggingFace.
+Use `--device cuda` for a faster computation if you have a CUDA-enabled GPU.
 </details>
 <br/>
 
@@ -133,7 +134,7 @@ python -m pyserini.search.faiss \
   --index indexes/nfcorpus.bge-base-en-v1.5 \
   --topics collections/nfcorpus/queries.tsv \
   --output runs/run.beir.bge-base-en-v1.5.nfcorpus.txt \
-  --batch 128 --threads 32 \
+  --batch 128 --threads 8 \
   --hits 1000
 ```
 
@@ -149,7 +150,7 @@ python -m pyserini.search.faiss \
   --index indexes/faiss.nfcorpus.contriever-msmacro \
   --topics collections/nfcorpus/queries.tsv \
   --output runs/run.beir-contriever-msmarco.nfcorpus.txt \
-  --batch 128 --threads 16 \
+  --batch 128 --threads 8 \
   --hits 1000
 ```
 </details>
@@ -157,7 +158,7 @@ python -m pyserini.search.faiss \
 
 As mentioned above, Pyserini wraps the [Faiss](https://github.com/facebookresearch/faiss/) library.
 With the flat index here, we're performing brute-force computation of dot products (albeit in parallel and with batching).
-As a result, we are performing _exact_ search, i.e., we are finding the _exact_ top-_k_ documents that have the highest dot products. 
+As a result, we are performing _exact_ search, i.e., we are finding the _exact_ top-_k_ documents that have the highest dot products.
 
 The above retrieval command takes only a few minutes on a modern laptop.
 Adjust the `threads` and `batch` parameters above accordingly for your hardware.
@@ -395,3 +396,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@anshulsc](https://github.com/anshulsc) on 2024-09-07 (commit [`2e4fa5d`](https://github.com/castorini/pyserini/commit/2e4fa5ddc8059e0e6655b1db2591f8f069db52fd))
 + Results reproduced by [@r-aya](https://github.com/r-aya) on 2024-09-08 (commit [`2e4fa5d`](https://github.com/castorini/pyserini/commit/2e4fa5ddc8059e0e6655b1db2591f8f069db52fd))
 + Results reproduced by [@Amirkia1998](https://github.com/Amirkia1998) on 2024-09-20 (commit [`83537a3`](https://github.com/castorini/pyserini/commit/83537a32814b20fe7fe6e41e68d61ffea4b1fc5f))
++ Results reproduced by [@pjyi2147](https://github.com/pjyi2147) on 2024-09-20 (commit [`f511655`](https://github.com/castorini/pyserini/commit/f5116554779e48a5be151136a0cbec74a5fad4c0))
