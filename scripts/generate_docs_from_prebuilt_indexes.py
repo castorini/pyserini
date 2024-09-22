@@ -140,6 +140,11 @@ if __name__ == '__main__':
 
     print('<details>')
     print('<summary>BEIR</summary>')
+    generate_prebuilt(LUCENE_HNSW_INDEX_INFO_MSMARCO)
+    print('</details>')
+
+    print('<details>')
+    print('<summary>BEIR</summary>')
     generate_prebuilt(LUCENE_HNSW_INDEX_INFO_BEIR)
     print('</details>')
 

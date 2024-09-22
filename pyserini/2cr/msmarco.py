@@ -463,9 +463,9 @@ def generate_report(args):
 
         all_rows = '\n'.join(html_rows)
         if args.collection == 'msmarco-v1-passage':
-            full_name = 'MS MARCO V1 Passage'
+            full_name = 'MS MARCO V1 Passage Regressions'
         else:
-            full_name = 'MS MARCO V1 Document'
+            full_name = 'MS MARCO V1 Document Regressions'
 
         with open(args.output, 'w') as out:
             out.write(Template(html_template).substitute(title=full_name, rows=all_rows))
@@ -515,9 +515,9 @@ def generate_report(args):
 
         all_rows = '\n'.join(html_rows)
         if args.collection == 'msmarco-v2-passage':
-            full_name = 'MS MARCO V2 Passage'
+            full_name = 'MS MARCO V2 Passage Regressions'
         else:
-            full_name = 'MS MARCO V2 Document'
+            full_name = 'MS MARCO V2 Document Regressions'
 
         with open(args.output, 'w') as out:
             out.write(Template(html_template).substitute(title=full_name, rows=all_rows))

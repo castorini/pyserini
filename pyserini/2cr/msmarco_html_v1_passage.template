@@ -131,7 +131,7 @@ pre[class*="prettyprint"] {
           ">
         <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
           <div class="text-white">
-            <h1 class="mb-3">$title</h1>
+            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> &nbsp; $title</h1>
           </div>
         </div>
       </div>
@@ -178,6 +178,9 @@ $rows
     </tbody>
   </table>
 </div>
+
+<div style="padding-top: 20px"/>
+<h4>References</h4>
 
 <ul style="list-style-type:none; padding-top: 25px">
 
