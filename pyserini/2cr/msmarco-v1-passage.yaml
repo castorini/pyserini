@@ -1,7 +1,53 @@
 conditions:
-  - name: bge-base-en-v1.5-pytorch
-    display: "BGE-base-en-v1.5: PyTorch"
-    display-html: "BGE-base-en-v1.5: PyTorch"
+  - name: bge-base-en-v1.5.lucene-hnsw-int8.onnx
+    display: "BGE-base-en-v1.5: Lucene HNSW, ONNX"
+    display-html: "BGE-base-en-v1.5: Lucene HNSW, ONNX"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Xiao et al. (2023) C-Pack: Packaged Resources To Advance General Chinese Embedding.\">14</a>]"
+    command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --dense --hnsw --index msmarco-v1-passage.bge-base-en-v1.5.hnsw-int8 --topics $topics --onnx-encoder BgeBaseEn15 --output $output --hits 1000 --ef-search 1000
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3575
+            R@1K: 0.9772
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4454
+            nDCG@10: 0.7017
+            R@1K: 0.8436
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4596
+            nDCG@10: 0.6767
+            R@1K: 0.8468
+  - name: bge-base-en-v1.5.lucene-hnsw.onnx
+    display: "BGE-base-en-v1.5: Lucene HNSW, ONNX"
+    display-html: "BGE-base-en-v1.5: Lucene HNSW, ONNX"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Xiao et al. (2023) C-Pack: Packaged Resources To Advance General Chinese Embedding.\">14</a>]"
+    command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --dense --hnsw --index msmarco-v1-passage.bge-base-en-v1.5.hnsw --topics $topics --onnx-encoder BgeBaseEn15 --output $output --hits 1000 --ef-search 1000
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3575
+            R@1K: 0.9788
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4486
+            nDCG@10: 0.7016
+            R@1K: 0.8441
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4626
+            nDCG@10: 0.6768
+            R@1K: 0.8526
+  - name: bge-base-en-v1.5.faiss-flat.pytorch
+    display: "BGE-base-en-v1.5: Faiss flat, PyTorch"
+    display-html: "BGE-base-en-v1.5: Faiss flat, PyTorch"
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Xiao et al. (2023) C-Pack: Packaged Resources To Advance General Chinese Embedding.\">14</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" --index msmarco-v1-passage.bge-base-en-v1.5 --topics $topics --output $output --hits 1000
     topics:
@@ -22,11 +68,57 @@ conditions:
           - MAP: 0.4628
             nDCG@10: 0.6768
             R@1K: 0.8547
-  - name: cosdpr-distil-pytorch
-    display: "cosDPR-distil: PyTorch"
-    display-html: "cosDPR-distil: PyTorch"
+  - name: cosdpr-distil.lucene-hnsw-int8.onnx
+    display: "cosDPR-distil: Lucene HNSW, ONNX"
+    display-html: "cosDPR-distil: Lucene HNSW, ONNX"
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (CIKM&nbsp;2023) Anserini Gets Dense Retrieval: Integration of Lucene's HNSW Indexes.\">13</a>]"
-    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.cosdpr-distil  --topics $topics --encoder castorini/cosdpr-distil --output $output
+    command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --dense --hnsw --index msmarco-v1-passage.cosdpr-distil.hnsw-int8 --topics $topics --onnx-encoder CosDprDistil --output $output --hits 1000 --ef-search 1000
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3899
+            R@1K: 0.9764
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4664
+            nDCG@10: 0.7247
+            R@1K: 0.8218
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4871
+            nDCG@10: 0.6996
+            R@1K: 0.8538
+  - name: cosdpr-distil.lucene-hnsw.onnx
+    display: "cosDPR-distil: Lucene HNSW, ONNX"
+    display-html: "cosDPR-distil: Lucene HNSW, ONNX"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (CIKM&nbsp;2023) Anserini Gets Dense Retrieval: Integration of Lucene's HNSW Indexes.\">13</a>]"
+    command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --dense --hnsw --index msmarco-v1-passage.cosdpr-distil.hnsw --topics $topics --onnx-encoder CosDprDistil --output $output --hits 1000 --ef-search 1000
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3887
+            R@1K: 0.9765
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4660
+            nDCG@10: 0.7250
+            R@1K: 0.8222
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.4876
+            nDCG@10: 0.7025
+            R@1K: 0.8540
+  - name: cosdpr-distil-faiss-flat-pytorch
+    display: "cosDPR-distil: Faiss flat, PyTorch"
+    display-html: "cosDPR-distil: Faiss flat, PyTorch"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (CIKM&nbsp;2023) Anserini Gets Dense Retrieval: Integration of Lucene's HNSW Indexes.\">13</a>]"
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.cosdpr-distil --topics $topics --encoder castorini/cosdpr-distil --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
