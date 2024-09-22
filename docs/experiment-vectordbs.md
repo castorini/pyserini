@@ -67,18 +67,14 @@ ls $(pg_config --pkglibdir)/vector.so
 ```
 If both files are present, the installation was successful.
 
-Restart PostgreSQL to enable the pgvector extension:
-```bash
-pg_ctl -D /path/to/your/database_directory stop
-pg_ctl -D /path/to/your/database_directory start
-```
+Now, you have to initialize the database, create the vector extension and create a user and database for your experiment. The script
+`vectordb_benchmark/init_and_start_postgres.sh` will do this for you. It will ask you for a directory for the database data, and then it will create a database
+called `main_database` and a user called `main_user`, and enable the vector extension, so you can simply run:
 
 ```bash
-psql postgres
-CREATE EXTENSION pgvector;
+./init_and_start_postgres.sh <pg_data_dir>
 ```
-
-Now that you have the PGVector extension installed and enabled in PostgreSQL. You can start running the benchmark, but first, make sure you supply the correct database configuration in the `pgvector_db_config.txt` file. For example:
+Now that you have the PGVector extension installed and enabled in PostgreSQL. You can start running the benchmark, but first, make sure you supply the correct database configuration in the `pgvector_db_config.txt` file. For example, by default:
 
 ```
 dbname: main_db
@@ -99,8 +95,9 @@ $ python3 vectordb_benchmark/run_benchmark.py \
         --db_type='pgvector' \
         --db_config_file='pgvector_db_config.txt' \
 ```
+or simply run the script `benchmark_msmarco_pgvector.sh`
 
-Note that after one run, your postgresql will contain the table data, so you may want to drop the table after running the benchmark. Later, we will add an option to skip table creation and index building, so that you can run the benchmark multiple times without having to re-create the table and index every time.
+Note that after one run, your postgresql will contain the table data, the current behaviour is to drop the table and index if they exist when the benchmark started. Later, we will add an option to skip table creation and index building, so that you can run the benchmark multiple times without having to re-create the table and index every time.
 
 # Encoding and Benchmarking NFCorpus using DuckDB and PGVector
 
@@ -110,15 +107,14 @@ This document contains instructions for encoding and benchmarking NFCorpus using
 Create a directory for document embeddings and encode the corpus using the specified encoder.
 
 ```bash
-mkdir indexes/non-faiss-nfcorpus/documents
+mkdir ../../indexes/non-faiss-nfcorpus
+mkdir ../../indexes/non-faiss-nfcorpus/documents
 python -m pyserini.encode \
-  input   --corpus collections/nfcorpus/corpus.jsonl \
-          --fields title text \
-  output  --embeddings indexes/non-faiss-nfcorpus/documents \
+  input   --corpus ../../collections/nfcorpus/corpus.jsonl \
+  output  --embeddings ../../indexes/non-faiss-nfcorpus/documents \
   encoder --encoder BAAI/bge-base-en-v1.5 --l2-norm \
           --device cpu \
           --pooling mean \
-          --fields title text \
           --batch 32
 ```
 
@@ -126,15 +122,13 @@ python -m pyserini.encode \
 Create a directory for query embeddings and encode the queries using the specified encoder.
 
 ```bash
-mkdir indexes/non-faiss-nfcorpus/queries
+mkdir ../../indexes/non-faiss-nfcorpus/queries
 python -m pyserini.encode \
-  input   --corpus collections/nfcorpus/queries.jsonl \
-          --fields title text \
-  output  --embeddings indexes/non-faiss-nfcorpus/queries \
+  input   --corpus ../../collections/nfcorpus/queries.jsonl \
+  output  --embeddings ../../indexes/non-faiss-nfcorpus/queries \
   encoder --encoder BAAI/bge-base-en-v1.5 --l2-norm \
           --device cpu \
           --pooling mean \
-          --fields title text \
           --batch 32
 ```
 

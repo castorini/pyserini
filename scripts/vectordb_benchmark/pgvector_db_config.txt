@@ -1,5 +1,5 @@
-username:main_user
+user:main_user
 password:123456
 host:localhost
 port:5432
-database:main_database
+dbname:main_database

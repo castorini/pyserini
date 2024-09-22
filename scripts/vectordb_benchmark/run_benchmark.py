@@ -29,11 +29,8 @@ if __name__ == "__main__":
     elif args.db_type == 'pgvector':
         adaptor = pgvector_faiss_index_adaptor.PGVectorFaissIndexAdaptor(args.index_name, DBConfig)
     
-    if args.file_path:
-        run_benchmark_on_file(TREC_DOT_PRODUCT_OUTPUT_FILE_PATH, args.metric, args.query_index_path, adaptor, args.table_name)
-    else:
-        adaptor.extract_vectors_and_construct_index(args.table_name, args.metric)
-        run_benchmark(TREC_DOT_PRODUCT_OUTPUT_FILE_PATH, args.metric, args.query_index_path, adaptor, args.table_name)
+    adaptor.extract_vectors_and_construct_index(args.table_name, args.metric)
+    run_benchmark(TREC_DOT_PRODUCT_OUTPUT_FILE_PATH, args.metric, args.query_index_path, adaptor, args.table_name)
 
     
 

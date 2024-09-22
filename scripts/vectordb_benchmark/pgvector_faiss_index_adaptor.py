@@ -19,7 +19,10 @@ class PGVectorFaissIndexAdaptor(faiss_index_adaptor.VectorDBFaissIndexAdaptor):
             port=DBConfig['port']
         )
         cur = conn.cursor()
-
+        cur.execute(f"DROP TABLE IF EXISTS {table_name};")
+        cur.execute(f"DROP INDEX IF EXISTS {table_name}_vector_ip_ops_idx;")
+        cur.execute(f"DROP INDEX IF EXISTS {table_name}_vector_l2_ops_idx;")
+        cur.execute(f"DROP INDEX IF EXISTS {table_name}_vector_cosine_ops_idx;")
         # Create documents table
         cur.execute(f"""
         CREATE TABLE {table_name} (

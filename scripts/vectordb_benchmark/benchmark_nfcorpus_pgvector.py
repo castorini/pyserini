@@ -18,16 +18,18 @@ def insert_data_into_table(cur, id, content, vector):
     """Inserts data into the PostgreSQL table."""
     cur.execute("INSERT INTO documents (id, content, vector) VALUES (%s, %s, %s)", (id, content, vector))
 
-def setup_database():
+def setup_database(config):
     """Sets up the PostgreSQL database and inserts document data."""
+
     conn = psycopg2.connect(
-        dbname='main_database',
-        user='mainuser',
-        password='password',
-        host='localhost',
-        port='5432'
+        dbname=config['dbname'],
+        user=config['user'],
+        password=config['password'],
+        host=config['host'],
+        port=config['port']
     )
     cur = conn.cursor()
+    cur.execute("DROP TABLE IF EXISTS documents;")
 
     # Create documents table
     cur.execute(f"""
@@ -45,6 +47,10 @@ def setup_database():
             data = json.loads(line)
             insert_data_into_table(cur, data['id'], data['contents'], data['vector'])
     conn.commit()
+
+    cur.execute("DROP INDEX IF EXISTS documents_vector_ip_ops_idx;")
+    cur.execute("DROP INDEX IF EXISTS documents_vector_l2_ops_idx;")
+    cur.execute("DROP INDEX IF EXISTS documents_vector_cosine_ops_idx;")
 
     # Create indexes with pgvector
     start_time = time.time()
@@ -116,7 +122,12 @@ def run_benchmark(cur, trec_output_file_path, metric):
     return total_time, mean_time, variance_time, min_time, max_time
 
 if __name__ == "__main__":
-    cur, conn = setup_database()
+    # parse the db_config_file
+    with open('pgvector_db_config.txt', 'r') as f:
+        db_config = f.readlines()
+    DBConfig = {line.strip().split(':')[0]: line.strip().split(':')[1] for line in db_config}
+
+    cur, conn = setup_database(DBConfig)
 
     # Running the benchmarks
     print('l2sq: ', run_benchmark(cur, TREC_L2SQ_OUTPUT_FILE_PATH, 'l2sq'))
