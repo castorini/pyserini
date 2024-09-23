@@ -1003,7 +1003,7 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 
 ## Lucene HNSW Indexes
 <details>
-<summary>BEIR</summary>
+<summary>MS MARCO</summary>
 <dl>
 <dt></dt><b><code>msmarco-v1-passage.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.bge-base-en-v1.5.20240117.53514b.README.md">readme</a>]

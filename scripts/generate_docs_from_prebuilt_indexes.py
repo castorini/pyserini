@@ -139,7 +139,7 @@ if __name__ == '__main__':
     print('\n\n## Lucene HNSW Indexes')
 
     print('<details>')
-    print('<summary>BEIR</summary>')
+    print('<summary>MS MARCO</summary>')
     generate_prebuilt(LUCENE_HNSW_INDEX_INFO_MSMARCO)
     print('</details>')
 
