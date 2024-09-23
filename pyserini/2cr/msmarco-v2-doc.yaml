@@ -272,8 +272,8 @@ conditions:
             nDCG@10: 0.3454
             R@1K: 0.6006
   - name: unicoil-noexp
-    display: "uniCOIL (noexp): pre-encoded"
-    display-html: "uniCOIL (noexp): pre-encoded queries"
+    display: "uniCOIL (noexp): cached queries"
+    display-html: "uniCOIL (noexp): cached queries"
     display-row: (3a)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.unicoil-noexp-0shot --topics $topics --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
@@ -306,8 +306,8 @@ conditions:
             nDCG@10: 0.3898
             R@1K: 0.5462
   - name: unicoil
-    display: "uniCOIL (w/ doc2query-T5): pre-encoded"
-    display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
+    display: "uniCOIL (w/ doc2query-T5): cached queries"
+    display-html: "uniCOIL (w/ doc2query-T5): cached queries"
     display-row: (3b)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.unicoil-0shot --topics $topics --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
@@ -340,8 +340,8 @@ conditions:
             nDCG@10: 0.4149
             R@1K: 0.5753
   - name: unicoil-noexp-otf
-    display: "uniCOIL (noexp): query inference with PyTorch"
-    display-html: "uniCOIL (noexp): query inference with PyTorch"
+    display: "uniCOIL (noexp): PyTorch"
+    display-html: "uniCOIL (noexp): PyTorch"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.unicoil-noexp-0shot --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev
@@ -373,8 +373,8 @@ conditions:
             nDCG@10: 0.3898
             R@1K: 0.5462
   - name: unicoil-otf
-    display: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
-    display-html: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
+    display: "uniCOIL (w/ doc2query-T5): PyTorch"
+    display-html: "uniCOIL (w/ doc2query-T5): PyTorch"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.unicoil-0shot --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev
