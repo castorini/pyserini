@@ -1006,19 +1006,19 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <summary>BEIR</summary>
 <dl>
 <dt></dt><b><code>msmarco-v1-passage.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.bge-base-en-v1.5.20240117.53514b.README.md">readme</a>]
 <dd>Lucene HNSW index of the MS MARCO V1 passage corpus encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.bge-base-en-v1.5.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.bge-base-en-v1.5.20240117.53514b.README.md">readme</a>]
 <dd>Lucene quantized HNSW index of the MS MARCO V1 passage corpus encoded by BGE-base-en-v1.5.
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.cosdpr-distil.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.cosdpr-distil.20240108.825148.README.md">readme</a>]
 <dd>Lucene HNSW index of the MS MARCO V1 passage corpus encoded by cos-DPR Distil.
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.cosdpr-distil.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.cosdpr-distil.20240108.825148.README.md">readme</a>]
 <dd>Lucene quantized HNSW index of the MS MARCO V1 passage corpus encoded by cos-DPR Distil.
 </dd>
 </dl>
