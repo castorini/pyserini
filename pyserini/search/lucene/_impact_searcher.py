@@ -29,8 +29,11 @@ from collections import namedtuple
 import numpy as np
 import scipy
 
-from pyserini.encode import QueryEncoder, TokFreqQueryEncoder, UniCoilQueryEncoder, \
-    CachedDataQueryEncoder, SpladeQueryEncoder, SlimQueryEncoder
+from pyserini.encode._base import QueryEncoder
+from pyserini.encode._splade import SpladeQueryEncoder
+
+#, TokFreqQueryEncoder, UniCoilQueryEncoder, \
+#    CachedDataQueryEncoder, SpladeQueryEncoder, SlimQueryEncoder)
 from pyserini.index import Document
 from pyserini.pyclass import autoclass, JFloat, JInt, JArrayList, JHashMap
 from pyserini.util import download_prebuilt_index, download_encoded_corpus

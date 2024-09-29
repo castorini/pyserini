@@ -14,50 +14,51 @@
 # limitations under the License.
 #
 
-from ._base import JQuery, JQueryGenerator, JDisjunctionMaxQueryGenerator, get_topics,\
-    get_topics_with_reader, get_qrels_file, get_qrels
-from .lucene import JScoredDoc, LuceneSimilarities, LuceneFusionSearcher, LuceneSearcher
-from .lucene import JScoredDoc, LuceneImpactSearcher
-from ._deprecated import SimpleSearcher, ImpactSearcher, SimpleFusionSearcher
+# from ._base import JQuery, JQueryGenerator, JDisjunctionMaxQueryGenerator, get_topics,\
+#     get_topics_with_reader, get_qrels_file, get_qrels
+# from .lucene import JScoredDoc, LuceneSimilarities, LuceneFusionSearcher, LuceneSearcher
+# from .lucene import JScoredDoc, LuceneImpactSearcher
+# from ._deprecated import SimpleSearcher, ImpactSearcher, SimpleFusionSearcher
+#
+# from .faiss import DenseSearchResult, PRFDenseSearchResult, FaissSearcher, BinaryDenseSearcher, QueryEncoder, \
+#     DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, AutoQueryEncoder, ClipQueryEncoder
+# from .faiss import AnceEncoder
+# from .faiss import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
+# from .faiss import OpenAIQueryEncoder
+#
+#
+# __all__ = ['JQuery',
+#            'LuceneSimilarities',
+#            'LuceneFusionSearcher',
+#            'LuceneSearcher',
+#            'JScoredDoc',
+#            'LuceneImpactSearcher',
+#            'JScoredDoc',
+#            'JDisjunctionMaxQueryGenerator',
+#            'JQueryGenerator',
+#            'get_topics',
+#            'get_topics_with_reader',
+#            'get_qrels_file',
+#            'get_qrels',
+#            'SimpleSearcher',
+#            'ImpactSearcher',
+#            'SimpleFusionSearcher',
+#            'DenseSearchResult',
+#            'PRFDenseSearchResult',
+#            'FaissSearcher',
+#            'BinaryDenseSearcher',
+#            'QueryEncoder',
+#            'DprQueryEncoder',
+#            'BprQueryEncoder',
+#            'DkrrDprQueryEncoder',
+#            'TctColBertQueryEncoder',
+#            'AnceEncoder',
+#            'AnceQueryEncoder',
+#            'AggretrieverQueryEncoder',
+#            'OpenAIQueryEncoder',
+#            'AutoQueryEncoder',
+#            'DenseVectorAveragePrf',
+#            'DenseVectorRocchioPrf',
+#            'DenseVectorAncePrf']
 
-from .faiss import DenseSearchResult, PRFDenseSearchResult, FaissSearcher, BinaryDenseSearcher, QueryEncoder, \
-    DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, AutoQueryEncoder, ClipQueryEncoder
-from .faiss import AnceEncoder
-from .faiss import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
-from .faiss import OpenAIQueryEncoder
-
-
-__all__ = ['JQuery',
-           'LuceneSimilarities',
-           'LuceneFusionSearcher',
-           'LuceneSearcher',
-           'JScoredDoc',
-           'LuceneImpactSearcher',
-           'JScoredDoc',
-           'JDisjunctionMaxQueryGenerator',
-           'JQueryGenerator',
-           'get_topics',
-           'get_topics_with_reader',
-           'get_qrels_file',
-           'get_qrels',
-           'SimpleSearcher',
-           'ImpactSearcher',
-           'SimpleFusionSearcher',
-           'DenseSearchResult',
-           'PRFDenseSearchResult',
-           'FaissSearcher',
-           'BinaryDenseSearcher',
-           'QueryEncoder',
-           'DprQueryEncoder',
-           'BprQueryEncoder',
-           'DkrrDprQueryEncoder',
-           'TctColBertQueryEncoder',
-           'AnceEncoder',
-           'AnceQueryEncoder',
-           'AggretrieverQueryEncoder',
-           'OpenAIQueryEncoder',
-           'AutoQueryEncoder',
-           'DenseVectorAveragePrf',
-           'DenseVectorRocchioPrf',
-           'DenseVectorAncePrf']
-
+from ._base import get_topics, get_topics_with_reader, get_qrels_file, get_qrels

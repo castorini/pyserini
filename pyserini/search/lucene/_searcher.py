@@ -25,7 +25,7 @@ from typing import Dict, List, Optional, Union
 from pyserini.fusion import FusionMethod, reciprocal_rank_fusion
 from pyserini.index import Document, IndexReader
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap
-from pyserini.search import JQuery, JQueryGenerator
+from pyserini.search.lucene import JQuery, JQueryGenerator, JScoredDoc
 from pyserini.trectools import TrecRun
 from pyserini.util import download_prebuilt_index, get_sparse_indexes_info
 
@@ -34,7 +34,6 @@ logger = logging.getLogger(__name__)
 
 # Wrappers around Anserini classes
 JSimpleSearcher = autoclass('io.anserini.search.SimpleSearcher')
-JScoredDoc = autoclass('io.anserini.search.ScoredDoc')
 
 
 class LuceneSearcher:

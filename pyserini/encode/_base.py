@@ -13,12 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 import json
 import os
 
-import faiss
-import torch
+#import faiss
 import numpy as np
+import torch
 from tqdm import tqdm
 
 
