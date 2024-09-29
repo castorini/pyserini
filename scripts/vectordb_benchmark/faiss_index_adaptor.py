@@ -22,7 +22,8 @@ class VectorDBFaissIndexAdaptor:
             startid = 0
             batch_size = 100000
             self.extractor.load_index()
-            while startid < self.extractor.index.ntotal:
+            # while startid < self.extractor.index.ntotal:
+            while startid < 100000:
                 # time extraction
                 start_time = time.time()
                 self.vector_map = self.extractor.extract_one_batch_of_vectors(startid, batch_size)
@@ -55,6 +56,8 @@ class VectorDBFaissIndexAdaptor:
             "../../collections/msmarco-passage/qrels.dev.small.trec",
             trec_output_file_path
         ]
-        return subprocess.run(command)
+        # Capture both stdout and stderr
+        result = subprocess.run(command, capture_output=True, text=True)
+        return result
     
 

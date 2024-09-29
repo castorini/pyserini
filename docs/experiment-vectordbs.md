@@ -126,6 +126,9 @@ or simply run the script `./scripts/vectordb_benchmark/benchmark_msmarco_pgvecto
 
 Note that after one run, your postgresql will contain the table data, the current behaviour is to drop the table and index if they exist when the benchmark started. Later, we will add an option to skip table creation and index building, so that you can run the benchmark multiple times without having to re-create the table and index every time.
 
+# Results
+Too view the output of the benchmark, you can check the `msmarco_benchmark_results.txt` file in the `scripts/vectordb_benchmark` folder. It contains the Total time, the mean, variance, min, max time to run a single query on the HNSW index built in the vectordb, as well as the actual ndcg@10 result and verbose output of the trec evaluation tool. The raw trec evaluation output is in the file `trec_dot_product_output.txt` in the top level directory
+
 # NFCorpus
 
 ## Data Prep
