@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Check if data directory is provided
 if [ $# -eq 0 ]; then
     echo "Please provide the data directory path as an argument."

@@ -5,11 +5,11 @@ import subprocess
 import time
 
 # Paths to embedding, query, and output files
-DOCUMENT_JSONL_FILE_PATH = '../../indexes/non-faiss-nfcorpus/documents/embeddings.jsonl'
-QUERY_JSONL_FILE_PATH = '../../indexes/non-faiss-nfcorpus/queries/embeddings.jsonl'
-TREC_DOT_PRODUCT_OUTPUT_FILE_PATH = '../../runs/.run-non-faiss-nfcorpus-result_dot_product.txt'
-TREC_COSINE_OUTPUT_FILE_PATH = '../../runs/.run-non-faiss-nfcorpus-result_cosine.txt'
-TREC_L2SQ_OUTPUT_FILE_PATH = '../../runs/.run-non-faiss-nfcorpus-result_l2sq.txt'
+DOCUMENT_JSONL_FILE_PATH = '../../indexes/faiss-nfcorpus/documents/embeddings.jsonl'
+QUERY_JSONL_FILE_PATH = '../../indexes/faiss-nfcorpus/queries/embeddings.jsonl'
+TREC_DOT_PRODUCT_OUTPUT_FILE_PATH = '../../runs/.run-faiss-nfcorpus-result_dot_product.txt'
+TREC_COSINE_OUTPUT_FILE_PATH = '../../runs/.run-faiss-nfcorpus-result_cosine.txt'
+TREC_L2SQ_OUTPUT_FILE_PATH = '../../runs/.run-faiss-nfcorpus-result_l2sq.txt'
 VECTOR_SIZE = 768
 K = 10  # Number of nearest neighbors to retrieve
 RUN_ID = "PostgresHNSW"

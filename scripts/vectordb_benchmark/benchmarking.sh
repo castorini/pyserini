@@ -5,7 +5,7 @@ screen -dmS benchmarking
 screen -S benchmarking -X stuff "conda activate pyserini\n"
 
 # Run the benchmark.py script in the background within the "benchmarking" session
-screen -S benchmarking -X stuff "./benchmark_msmarco_duckdb.sh\n"
+screen -S benchmarking -X stuff "./benchmark_msmarco_pgvector.sh\n"
 
 # Detach from the screen session and return to the main terminal
 screen -d benchmarking
