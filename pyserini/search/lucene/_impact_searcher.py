@@ -30,10 +30,11 @@ import numpy as np
 import scipy
 
 from pyserini.encode._base import QueryEncoder
+from pyserini.encode._cached_data import CachedDataQueryEncoder
+from pyserini.encode._slim import SlimQueryEncoder
 from pyserini.encode._splade import SpladeQueryEncoder
-
-#, TokFreqQueryEncoder, UniCoilQueryEncoder, \
-#    CachedDataQueryEncoder, SpladeQueryEncoder, SlimQueryEncoder)
+from pyserini.encode._tok_freq import TokFreqQueryEncoder
+from pyserini.encode._unicoil import UniCoilQueryEncoder
 from pyserini.index import Document
 from pyserini.pyclass import autoclass, JFloat, JInt, JArrayList, JHashMap
 from pyserini.util import download_prebuilt_index, download_encoded_corpus

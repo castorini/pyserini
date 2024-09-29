@@ -17,7 +17,6 @@
 import json
 import os
 
-#import faiss
 import numpy as np
 import torch
 from tqdm import tqdm
@@ -39,22 +38,6 @@ class DocumentEncoder:
 class QueryEncoder:
     def encode(self, text, **kwargs):
         pass
-
-
-class PcaEncoder:
-    def __init__(self, encoder, pca_model_path):
-        self.encoder = encoder
-        self.pca_mat = faiss.read_VectorTransform(pca_model_path)
-
-    def encode(self, text, **kwargs):
-        if isinstance(text, str):
-            embeddings = self.encoder.encode(text, **kwargs)
-            embeddings = self.pca_mat.apply_py(np.array([embeddings]))
-            embeddings = embeddings[0]
-        else:
-            embeddings = self.encoder.encode(text, **kwargs)
-            embeddings = self.pca_mat.apply_py(embeddings)
-        return embeddings
 
 
 class JsonlCollectionIterator:
