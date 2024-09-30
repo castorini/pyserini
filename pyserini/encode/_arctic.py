@@ -76,31 +76,3 @@ class ArcticQueryEncoder(QueryEncoder):
             query_embeddings = normalize(query_embeddings)
 
         return query_embeddings.cpu().numpy().flatten()
-
-# Example usage
-document_encoder = ArcticDocumentEncoder(device='cuda:0', model_name="Snowflake/snowflake-arctic-embed-m-v1.5")
-query_encoder = ArcticQueryEncoder(device='cuda:0', encoder_dir="Snowflake/snowflake-arctic-embed-m-v1.5")
-
-queries  = ['what is snowflake?', 'Where can I get the best tacos?']
-documents = ['The Data Cloud!', 'Mexico City of Course!']
-# Encode documents
-doc_embeddings = document_encoder.encode(documents)
-# Encode queries
-query_embeddings_0 = query_encoder.encode(queries[0])  # Example with one query
-query_embeddings_1 = query_encoder.encode(queries[1])  # Example with another query
-
-# Scores via dotproduct.
-scores_0 = query_embeddings_0 @ doc_embeddings.T
-scores_1 = query_embeddings_1 @ doc_embeddings.T
-
-scores = []
-scores.append(scores_0)
-scores.append(scores_1)
-
-for query, query_scores in zip(queries, scores):
-    doc_score_pairs = list(zip(documents, query_scores))
-    doc_score_pairs = sorted(doc_score_pairs, key=lambda x: x[1], reverse=True)
-    print(f'Query: "{query}"')
-    for document, score in doc_score_pairs:
-        print(f'Score: {score:.4f} | Document: "{document}"')
-    print()
