@@ -453,15 +453,6 @@ class AutoQueryEncoder(QueryEncoder):
         else:
             return super().encode(query)
         
-
-
-
-        
-
-
-
-
-
 @dataclass
 class DenseSearchResult:
     docid: str
