@@ -1,7 +1,7 @@
 conditions:
   - name: bm25-default
-    display: BM25 original passage (k1=0.9, b=0.4)
-    display-html: BM25 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25 original passage
+    display-html: BM25 original passage
     display-row: (1a)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --bm25
     topics:
@@ -34,8 +34,8 @@ conditions:
             nDCG@10: 0.2627
             R@1K: 0.4346
   - name: bm25-augmented-default
-    display: BM25 augmented passage (k1=0.9, b=0.4)
-    display-html: BM25 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25 augmented passage
+    display-html: BM25 augmented passage
     display-row: (1b)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-augmented --topics $topics --output $output --bm25
     topics:
@@ -68,8 +68,8 @@ conditions:
             nDCG@10: 0.2061
             R@1K: 0.4514
   - name: bm25-rm3-default
-    display: BM25+RM3 original passage (k1=0.9, b=0.4)
-    display-html: BM25+RM3 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25+RM3 original passage
+    display-html: BM25+RM3 original passage
     display-row: (1c)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --bm25 --rm3
     topics:
@@ -102,8 +102,8 @@ conditions:
             nDCG@10: 0.2602
             R@1K: 0.4748
   - name: bm25-rm3-augmented-default
-    display: BM25+RM3 augmented passage (k1=0.9, b=0.4)
-    display-html: BM25+RM3 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25+RM3 augmented passage
+    display-html: BM25+RM3 augmented passage
     display-row: (1d)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-augmented --topics $topics --output $output --bm25 --rm3
     topics:
@@ -136,8 +136,8 @@ conditions:
             nDCG@10: 0.1798
             R@1K: 0.4583
   - name: bm25-d2q-t5-default
-    display: BM25 w/ doc2query-T5 original passage (k1=0.9, b=0.4)
-    display-html: BM25 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25 w/ doc2query-T5 original passage
+    display-html: BM25 w/ doc2query-T5 original passage
     display-row: (2a)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage.d2q-t5 --topics $topics --output $output --bm25
     topics:
@@ -170,8 +170,8 @@ conditions:
             nDCG@10: 0.3156
             R@1K: 0.5608
   - name: bm25-d2q-t5-augmented-default
-    display: BM25 w/ doc2query-T5 augmented passage (k1=0.9, b=0.4)
-    display-html: BM25 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25 w/ doc2query-T5 augmented passage
+    display-html: BM25 w/ doc2query-T5 augmented passage
     display-row: (2b)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-augmented.d2q-t5 --topics $topics --output $output --bm25
     topics:
@@ -204,8 +204,8 @@ conditions:
             nDCG@10: 0.2926
             R@1K: 0.5689
   - name: bm25-rm3-d2q-t5-default
-    display: BM25+RM3 w/ doc2query-T5 original passage (k1=0.9, b=0.4)
-    display-html: BM25+RM3 w/ doc2query-T5 original passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25+RM3 w/ doc2query-T5 original passage
+    display-html: BM25+RM3 w/ doc2query-T5 original passage
     display-row: (2c)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage.d2q-t5-docvectors --topics $topics --output $output --bm25 --rm3
     topics:
@@ -238,8 +238,8 @@ conditions:
             nDCG@10: 0.3132
             R@1K: 0.5978
   - name: bm25-rm3-d2q-t5-augmented-default
-    display: BM25+RM3 w/ doc2query-T5 augmented passage (k1=0.9, b=0.4)
-    display-html: BM25+RM3 w/ doc2query-T5 augmented passage (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25+RM3 w/ doc2query-T5 augmented passage
+    display-html: BM25+RM3 w/ doc2query-T5 augmented passage
     display-row: (2d)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-augmented.d2q-t5-docvectors --topics $topics --output $output --bm25 --rm3
     topics:
@@ -272,8 +272,8 @@ conditions:
             nDCG@10: 0.2719
             R@1K: 0.5623
   - name: unicoil-noexp
-    display: "uniCOIL (noexp): pre-encoded"
-    display-html: "uniCOIL (noexp): pre-encoded queries"
+    display: "uniCOIL (noexp): cached queries"
+    display-html: "uniCOIL (noexp): cached queries"
     display-row: (3a)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage.unicoil-noexp-0shot --topics $topics --output $output --hits 1000 --impact
     topics:
@@ -306,8 +306,8 @@ conditions:
             nDCG@10: 0.3262
             R@1K: 0.5070
   - name: unicoil
-    display: "uniCOIL (w/ doc2query-T5): pre-encoded"
-    display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
+    display: "uniCOIL (w/ doc2query-T5): cached queries"
+    display-html: "uniCOIL (w/ doc2query-T5): cached queries"
     display-row: (3b)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage.unicoil-0shot --topics $topics --output $output --hits 1000 --impact
     topics:
@@ -340,8 +340,8 @@ conditions:
             nDCG@10: 0.3855
             R@1K: 0.5541
   - name: unicoil-noexp-otf
-    display: "uniCOIL (noexp): query inference with PyTorch"
-    display-html: "uniCOIL (noexp): query inference with PyTorch"
+    display: "uniCOIL (noexp): PyTorch"
+    display-html: "uniCOIL (noexp): PyTorch"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage.unicoil-noexp-0shot --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-v2-passage-dev
@@ -373,8 +373,8 @@ conditions:
             nDCG@10: 0.3262
             R@1K: 0.5070
   - name: unicoil-otf
-    display: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
-    display-html: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
+    display: "uniCOIL (w/ doc2query-T5): PyTorch"
+    display-html: "uniCOIL (w/ doc2query-T5): PyTorch"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage.unicoil-0shot --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-v2-passage-dev
@@ -407,7 +407,7 @@ conditions:
             R@1K: 0.5541
   - name: slimr-pp
     display: "SLIM++ (norefine, tau=0.5, min_idf=1)"
-    display-html: "SLIM++ (norefine, tau=0.5, min_idf=1)"
+    display-html: "SLIM++ (<small><tt>norefine</tt></small>, <small><tt>tau</tt></small>=0.5, <small><tt>min_idf</tt></small>=1)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage.slimr-pp --topics $topics --encoder castorini/slimr-pp-msmarco-passage --output $output --hits 1000 --impact --min-idf 1
     topics:
       - topic_key: msmarco-v2-passage-dev

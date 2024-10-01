@@ -79,7 +79,7 @@ class TestTrecTools(unittest.TestCase):
                                     self.output_path))
 
     # This and the next test case go together - to keep and to remove unjudged docs.
-    def test_undjudged_keep(self):
+    def test_unjudged_keep(self):
         qrels_path = os.path.join(self.root, 'tools/topics-and-qrels/qrels.covid-round1.txt')
         run_path = os.path.join(self.root, 'tests/resources/simple_trec_run_filter.txt')
         results = subprocess.check_output(

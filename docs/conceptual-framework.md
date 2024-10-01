@@ -240,7 +240,7 @@ The two major axes of variations are:
 
 + The basis of the representation vectors (sparse vs. dense).
 They could be sparse vectors (as in the case of BM25) or they could be dense vectors.
-In the case of dense vectors, the dimensions of the vectors putatively capture some "latent semantic space". 
+In the case of dense vectors, the dimensions of the vectors putatively capture some "latent semantic space".
 Thus, we often contrast sparse lexical vector with dense semantic vectors.
 + Whether the representations are learned (supervised vs. unsupervised).
 In the case of BM25, there is no "learning" (modulo minor parameter tuning): the BM25 scoring function specifies the weights that each term should receive.
@@ -266,7 +266,7 @@ To complete the possibilities, yes, there are learned sparse representations and
 
 We'll save a more complete exploration of this design space for some other time, but they're sketched out in this article (on which this guide is based) if you want to learn more:
 
-> Jimmy Lin. [A Proposed Conceptual Framework for a Representational Approach to Information Retrieval.](https://arxiv.org/abs/2110.01529) arXiv:2110.01529, October 2021. 
+> Jimmy Lin. [A Proposed Conceptual Framework for a Representational Approach to Information Retrieval.](https://arxiv.org/abs/2110.01529) arXiv:2110.01529, October 2021.
 
 Okay, that's it for this lesson.
 Next, you're going to play with [an actual dense retrieval model](experiments-nfcorpus.md).
@@ -350,3 +350,17 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@MehrnazSadeghieh](https://github.com/MehrnazSadeghieh) on 2024-07-19 (commit [`26a2538`](https://github.com/castorini/pyserini/commit/26a2538701a7de417428a705ee5abd8fcafd20dd))
 + Results reproduced by [@alireza-nasirian](https://github.com/alireza-nasirian) on 2024-07-19 (commit [`544046e`](https://github.com/castorini/pyserini/commit/544046ef99e3516ac168a0d1b8de4dc0994ccf31))
 + Results reproduced by [@MariaPonomarenko38](https://github.com/alireza-nasirian) on 2024-07-19 (commit [`d4509dc`](https://github.com/castorini/pyserini/commit/d4509dc5add81573d8a2577c9f2abe25d6a4aab8))
++ Results reproduced by [@valamuri2020](https://github.com/valamuri2020) on 2024-08-03 (commit [`3f81997`](https://github.com/castorini/pyserini/commit/3f81997b7f3999701a3b8efe6911125ca377d28c))
++ Results reproduced by [@daisyyedda](https://github.com/daisyyedda) on 2024-08-06 (commit [`d814290`](https://github.com/castorini/pyserini/commit/d814290e846d94ff4d9083afb5da73a491a10a0d))
++ Results reproduced by [@emily-emily](https://github.com/emily-emily) on 2024-08-16 (commit [`1bbf7a7`](https://github.com/castorini/pyserini/commit/1bbf7a72626866c88e8b21da99d48da6cb43673f))
++ Results reproduced by [@nicoella](https://github.com/nicoella) on 2024-08-18 (commit [`e65dd95`](https://github.com/castorini/pyserini/commit/e65dd952d62d0eb105f24d9f45a961a6c1ad52da))
++ Results reproduced by [@natek-1](https://github.com/natek-1) on 2024-08-19 ( commit [`e65dd95`](https://github.com/castorini/pyserini/commit/e65dd952d62d0eb105f24d9f45a961a6c1ad52da))
++ Results reproduced by [@setarehbabajani](https://github.com/setarehbabajani) on 2024-08-31 (commit [`0dd5fa7`](https://github.com/castorini/pyserini/commit/0dd5fa7e94d7c275c5abd3a35acf64fbeb3013fb))
++ Results reproduced by [@anshulsc](https://github.com/anshulsc) on 2024-09-07 (commit [`2e4fa5d`](https://github.com/castorini/pyserini/commit/2e4fa5ddc8059e0e6655b1db2591f8f069db52fd))
++ Results reproduced by [@r-aya](https://github.com/r-aya) on 2024-09-08 (commit [`2e4fa5d`](https://github.com/castorini/pyserini/commit/2e4fa5ddc8059e0e6655b1db2591f8f069db52fd))
++ Results reproduced by [@Amirkia1998](https://github.com/Amirkia1998) on 2024-09-20 (commit [`83537a3`](https://github.com/castorini/pyserini/commit/83537a32814b20fe7fe6e41e68d61ffea4b1fc5f))
++ Results reproduced by [@pjyi2147](https://github.com/pjyi2147) on 2024-09-20 (commit [`f511655`](https://github.com/castorini/pyserini/commit/f5116554779e48a5be151136a0cbec74a5fad4c0))
++ Results reproduced by [@krishh-p](https://github.com/krishh-p) on 2024-09-21 (commit [`f511655`](https://github.com/castorini/pyserini/commit/f5116554779e48a5be151136a0cbec74a5fad4c0))
++ Results reproduced by [@andrewxucs](https://github.com/andrewxucs) on 2024-09-22 (commit [`dd57b7d`](https://github.com/castorini/pyserini/commit/dd57b7d08934fd635a7f117edf1363eea4405470))
++ Results reproduced by [@Hossein-Molaeian](https://github.com/Hossein-Molaeian) on 2024-09-22 (commit [`bc13901`](https://github.com/castorini/pyserini/commit/bc139014a6e9248d8d7da337e683c8bad190e5dd))
++ Results reproduced by [@AhmedEssam19](https://github.com/AhmedEssam19) on 2024-09-30 (commit [`07f04d4`](https://github.com/castorini/pyserini/commit/07f04d46c78bbae71ee3125d72ad52309d189831))

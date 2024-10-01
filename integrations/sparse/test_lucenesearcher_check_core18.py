@@ -14,29 +14,22 @@
 # limitations under the License.
 #
 
-import os
 import unittest
 
 from integrations.lucenesearcher_anserini_checker import LuceneSearcherAnseriniMatchChecker
+from pyserini.search import LuceneSearcher
 
 
-class TestSearchIntegration(unittest.TestCase):
+class CheckSearchResultsAgainstAnseriniForCore18(unittest.TestCase):
     def setUp(self):
-        # The current directory depends on if you're running inside an IDE or from command line.
-        curdir = os.getcwd()
-        if curdir.endswith('sparse'):
-            anserini_root = '../../../anserini'
-            pyserini_root = '../..'
-        else:
-            anserini_root = '../anserini'
-            pyserini_root = '.'
+        # Make sure the required index is downloaded.
+        LuceneSearcher.from_prebuilt_index('wapo.v2')
 
         self.checker = LuceneSearcherAnseriniMatchChecker(
-            anserini_root=anserini_root,
-            index=os.path.join(anserini_root, 'indexes/lucene-index.wapo.v2'),
-            topics=os.path.join(pyserini_root, 'tools/topics-and-qrels/topics.core18.txt'),
+            index='wapo.v2',
+            topics='tools/topics-and-qrels/topics.core18.txt',
             pyserini_topics='core18',
-            qrels=os.path.join(pyserini_root, 'tools/topics-and-qrels/qrels.core18.txt'))
+            qrels='tools/topics-and-qrels/qrels.core18.txt')
 
     def test_bm25(self):
         self.assertTrue(self.checker.run('core18_bm25', '-bm25', '--bm25'))

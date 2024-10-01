@@ -33,6 +33,8 @@ dense_batch_size = 512
 sparse_threads = 16
 sparse_batch_size = 128
 
+metrics = ['nDCG@10', 'R@100', 'R@1000']
+
 trec_eval_metric_definitions = {
     'nDCG@10': '-c -m ndcg_cut.10',
     'R@100': '-c -m recall.100',
@@ -70,12 +72,23 @@ beir_keys = ['trec-covid',
              'scifact'
              ]
 
+models = ['bm25-flat', 
+          'bm25-multifield', 
+          'splade-pp-ed', 
+          'contriever', 
+          'contriever-msmarco', 
+          'bge-base-en-v1.5.faiss',
+          'bge-base-en-v1.5.lucene-flat',
+          'bge-base-en-v1.5.lucene-hnsw',
+          'cohere-embed-english-v3.0']
+
 
 def format_run_command(raw):
     return raw.replace('--topics', '\\\n  --topics') \
         .replace('--threads', '\\\n  --threads') \
         .replace('--index', '\\\n  --index') \
         .replace('--encoder-class', '\\\n  --encoder-class') \
+        .replace('--encoded-queries', '\\\n  --encoded-queries') \
         .replace('--output ', '\\\n  --output ') \
         .replace('--output-format trec ', '\\\n  --output-format trec ') \
         .replace('--hits ', '\\\n  --hits ') \
@@ -111,6 +124,8 @@ def generate_report(args):
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
     commands = defaultdict(lambda: defaultdict(lambda: ''))
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
+    cqa_commands = defaultdict(lambda: '')
+    cqa_eval_commands = defaultdict(lambda: '')
 
     html_template = read_file('beir_html.template')
     row_template = read_file('beir_html_row.template')
@@ -124,7 +139,7 @@ def generate_report(args):
             for datasets in condition['datasets']:
                 dataset = datasets['dataset']
                 query_prefix = '""'
-                if name == 'bge-base-en-v1.5' and dataset not in ['quora', 'arguana']:
+                if name == 'bge-base-en-v1.5.faiss' and dataset not in ['quora', 'arguana']:
                     query_prefix = '"Represent this sentence for searching relevant passages:"'
                 runfile = os.path.join(args.directory, f'run.beir.{name}.{dataset}.txt')
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile,
@@ -132,51 +147,101 @@ def generate_report(args):
                                                         dense_threads=dense_threads, dense_batch_size=dense_batch_size, query_prefix=query_prefix)
                 commands[dataset][name] = format_run_command(cmd)
 
+                if dataset.startswith('cqadupstack-'):
+                    cqa_commands[name] += commands[dataset][name] + '\n\n'
+
                 for expected in datasets['scores']:
                     for metric in expected:
                         eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
                                    f'{trec_eval_metric_definitions[metric]} beir-v1.0.0-{dataset}-test {runfile}'
                         eval_commands[dataset][name] += format_eval_command(eval_cmd) + '\n\n'
-
+                        
+                        if dataset.startswith('cqadupstack-'):
+                            cqa_eval_commands[name] += eval_commands[dataset][name]
+                        
                         table[dataset][name][metric] = expected[metric]
 
         row_cnt = 1
-        html_rows = []
+        main_rows = []
+        cqa_rows = []
+        cqa_row_flag = False
+        cqadupstack_sums = defaultdict(lambda: defaultdict(float))
+        
         for dataset in beir_keys:
             s = Template(row_template)
             s = s.substitute(row_cnt=row_cnt,
-                             dataset=dataset,
-                             s1=f'{table[dataset]["bm25-flat"]["nDCG@10"]:8.4f}',
-                             s2=f'{table[dataset]["bm25-flat"]["R@100"]:8.4f}',
-                             s3=f'{table[dataset]["bm25-multifield"]["nDCG@10"]:8.4f}',
-                             s4=f'{table[dataset]["bm25-multifield"]["R@100"]:8.4f}',
-                             s5=f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.4f}',
-                             s6=f'{table[dataset]["splade-pp-ed"]["R@100"]:8.4f}',
-                             s7=f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.4f}',
-                             s8=f'{table[dataset]["contriever-msmarco"]["R@100"]:8.4f}',
-                             s9=f'{table[dataset]["bge-base-en-v1.5"]["nDCG@10"]:8.4f}',
-                             s10=f'{table[dataset]["bge-base-en-v1.5"]["R@100"]:8.4f}',
-                             s11=f'{table[dataset]["cohere-embed-english-v3.0"]["nDCG@10"]:8.4f}',
-                             s12=f'{table[dataset]["cohere-embed-english-v3.0"]["R@100"]:8.4f}',
+                             dataset=dataset.split('-')[1] if dataset.startswith('cqadupstack-') else dataset,
+                             s1=f'{table[dataset]["bm25-flat"]["nDCG@10"]:8.3f}',
+                             s2=f'{table[dataset]["bm25-flat"]["R@100"]:8.3f}',
+                             s3=f'{table[dataset]["bm25-multifield"]["nDCG@10"]:8.3f}',
+                             s4=f'{table[dataset]["bm25-multifield"]["R@100"]:8.3f}',
+                             s5=f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.3f}',
+                             s6=f'{table[dataset]["splade-pp-ed"]["R@100"]:8.3f}',
+                             s7=f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.3f}',
+                             s8=f'{table[dataset]["contriever-msmarco"]["R@100"]:8.3f}',
+                             s9=f'{table[dataset]["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}',
+                             s10=f'{table[dataset]["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}',
+                             s11=f'{table[dataset]["cohere-embed-english-v3.0"]["nDCG@10"]:8.3f}',
+                             s12=f'{table[dataset]["cohere-embed-english-v3.0"]["R@100"]:8.3f}',
                              cmd1=commands[dataset]["bm25-flat"],
                              cmd2=commands[dataset]["bm25-multifield"],
                              cmd3=commands[dataset]["splade-pp-ed"],
                              cmd4=commands[dataset]["contriever-msmarco"],
-                             cmd5=commands[dataset]["bge-base-en-v1.5"],
+                             cmd5=commands[dataset]["bge-base-en-v1.5.faiss"],
                              cmd6=commands[dataset]["cohere-embed-english-v3.0"],
                              eval_cmd1=eval_commands[dataset]["bm25-flat"].rstrip(),
                              eval_cmd2=eval_commands[dataset]["bm25-multifield"].rstrip(),
                              eval_cmd3=eval_commands[dataset]["splade-pp-ed"].rstrip(),
                              eval_cmd4=eval_commands[dataset]["contriever-msmarco"].rstrip(),
-                             eval_cmd5=eval_commands[dataset]["bge-base-en-v1.5"].rstrip(),
+                             eval_cmd5=eval_commands[dataset]["bge-base-en-v1.5.faiss"].rstrip(),
                              eval_cmd6=eval_commands[dataset]["cohere-embed-english-v3.0"].rstrip())
-
-            html_rows.append(s)
             row_cnt += 1
+            if dataset.startswith('cqadupstack-'):
+                cqa_rows.append(s)
+                if cqa_row_flag is False:
+                    cqa_row_flag = True
 
-        all_rows = '\n'.join(html_rows)
+                for model in models:
+                    for metric in metrics:
+                        cqadupstack_sums[model][metric] += table[dataset][model][metric]
+            else:
+                if cqa_row_flag:
+                    cqa_row_flag = False
+                    cqa_row = Template(row_template)
+                    cqa_row = cqa_row.substitute(row_cnt=row_cnt,
+                             dataset='cqadupstack (average)',
+                             s1=f'{cqadupstack_sums["bm25-flat"]["nDCG@10"]/12:8.3f}',
+                             s2=f'{cqadupstack_sums["bm25-flat"]["R@100"]/12:8.3f}',
+                             s3=f'{cqadupstack_sums["bm25-multifield"]["nDCG@10"]/12:8.3f}',
+                             s4=f'{cqadupstack_sums["bm25-multifield"]["R@100"]/12:8.3f}',
+                             s5=f'{cqadupstack_sums["splade-pp-ed"]["nDCG@10"]/12:8.3f}',
+                             s6=f'{cqadupstack_sums["splade-pp-ed"]["R@100"]/12:8.3f}',
+                             s7=f'{cqadupstack_sums["contriever-msmarco"]["nDCG@10"]/12:8.3f}',
+                             s8=f'{cqadupstack_sums["contriever-msmarco"]["R@100"]/12:8.3f}',
+                             s9=f'{cqadupstack_sums["bge-base-en-v1.5.faiss"]["nDCG@10"]/12:8.3f}',
+                             s10=f'{cqadupstack_sums["bge-base-en-v1.5.faiss"]["R@100"]/12:8.3f}',
+                             s11=f'{cqadupstack_sums["cohere-embed-english-v3.0"]["nDCG@10"]/12:8.3f}',
+                             s12=f'{cqadupstack_sums["cohere-embed-english-v3.0"]["R@100"]/12:8.3f}',
+                             cmd1=cqa_commands["bm25-flat"],
+                             cmd2=cqa_commands["bm25-multifield"],
+                             cmd3=cqa_commands["splade-pp-ed"],
+                             cmd4=cqa_commands["contriever-msmarco"],
+                             cmd5=cqa_commands["bge-base-en-v1.5.faiss"],
+                             cmd6=cqa_commands["cohere-embed-english-v3.0"],
+                             eval_cmd1=cqa_eval_commands["bm25-flat"].rstrip(),
+                             eval_cmd2=cqa_eval_commands["bm25-multifield"].rstrip(),
+                             eval_cmd3=cqa_eval_commands["splade-pp-ed"].rstrip(),
+                             eval_cmd4=cqa_eval_commands["contriever-msmarco"].rstrip(),
+                             eval_cmd5=cqa_eval_commands["bge-base-en-v1.5.faiss"].rstrip(),
+                             eval_cmd6=cqa_eval_commands["cohere-embed-english-v3.0"].rstrip())
+                    main_rows.append(cqa_row)
+                    row_cnt += 1
+                main_rows.append(s)
+            
+        main_rows = '\n'.join(main_rows)
+        cqa_rows = '\n'.join(cqa_rows)
         with open(args.output, 'w') as out:
-            out.write(Template(html_template).substitute(title='BEIR', rows=all_rows))
+            out.write(Template(html_template).substitute(title='Pyserini BEIR Regressions', main_rows=main_rows, cqa_rows=cqa_rows))
 
 
 def run_conditions(args):
@@ -198,7 +263,7 @@ def run_conditions(args):
             for datasets in condition['datasets']:
                 dataset = datasets['dataset']
                 query_prefix = '""'
-                if name == 'bge-base-en-v1.5' and dataset not in ['quora', 'arguana']:
+                if name == 'bge-base-en-v1.5.faiss' and dataset not in ['quora', 'arguana']:
                     query_prefix = '"Represent this sentence for searching relevant passages:"'
                 if args.all:
                     pass
@@ -245,9 +310,6 @@ def run_conditions(args):
 
             print('')
 
-    models = ['bm25-flat', 'bm25-multifield', 'splade-pp-ed', 'contriever', 'contriever-msmarco', 'bge-base-en-v1.5', 'cohere-embed-english-v3.0']
-    metrics = ['nDCG@10', 'R@100', 'R@1000']
-
     top_level_sums = defaultdict(lambda: defaultdict(float))
     cqadupstack_sums = defaultdict(lambda: defaultdict(float))
     cqa_scores = defaultdict(lambda: defaultdict(float))
@@ -275,9 +337,10 @@ def run_conditions(args):
 
     cqa_output_flag = False
 
-    print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 13 + 'SPLADE' + ' ' * 11 + 'Contriever' + ' ' * 5 + 'Contriever-msmarco' + ' ' * 2 + 'BGE-base-en-v1.5' + ' ' * 4 + 'cohere-en-v3.0')
-    print(' ' * 26 + 'nDCG@10   R@100    ' * 7)
-    print(' ' * 27 + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14)
+    print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 13 + 'SPLADE' + ' ' * 11 + 'Contriever' + ' ' * 5 + 'Contriever-msmarco' +
+          ' ' * 6 + 'BGE.Faiss' + ' ' * 7 + 'BGE.Lucene-flat' + ' ' * 4 + 'BGE.Lucene-HNSW' + ' ' * 8 + 'Cohere')
+    print(' ' * 28 + 'nDCG    R@100      ' * 9)
+    print(' ' * 28 + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13)
     for dataset in beir_keys:
         # The first encounter of 'cqa', print out the average.
         if dataset.startswith('cqa') and not cqa_output_flag:
@@ -286,7 +349,9 @@ def run_conditions(args):
                   f'{cqa_scores["splade-pp-ed"]["nDCG@10"]:8.3f}{cqa_scores["splade-pp-ed"]["R@100"]:8.3f}   ' +
                   f'{cqa_scores["contriever"]["nDCG@10"]:8.3f}{cqa_scores["contriever"]["R@100"]:8.3f}   ' +
                   f'{cqa_scores["contriever-msmarco"]["nDCG@10"]:8.3f}{cqa_scores["contriever-msmarco"]["R@100"]:8.3f}   ' +
-                  f'{cqa_scores["bge-base-en-v1.5"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5"]["R@100"]:8.3f}   ' +
+                  f'{cqa_scores["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
+                  f'{cqa_scores["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
+                  f'{cqa_scores["bge-base-en-v1.5.lucene-hnsw"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.lucene-hnsw"]["R@100"]:8.3f}   ' +
                   f'{cqa_scores["cohere-embed-english-v3.0"]["nDCG@10"]:8.3f}{cqa_scores["cohere-embed-english-v3.0"]["R@100"]:8.3f}')
             cqa_output_flag = True
             continue
@@ -301,15 +366,19 @@ def run_conditions(args):
               f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.3f}{table[dataset]["splade-pp-ed"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["contriever"]["nDCG@10"]:8.3f}{table[dataset]["contriever"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.3f}{table[dataset]["contriever-msmarco"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["bge-base-en-v1.5"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["bge-base-en-v1.5.lucene-hnsw"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.lucene-hnsw"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["cohere-embed-english-v3.0"]["nDCG@10"]:8.3f}{table[dataset]["cohere-embed-english-v3.0"]["R@100"]:8.3f}')
-    print(' ' * 27 + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14)
+    print(' ' * 28 + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13)
     print('avg' + ' ' * 22 + f'{final_scores["bm25-flat"]["nDCG@10"]:8.3f}{final_scores["bm25-flat"]["R@100"]:8.3f}   ' +
           f'{final_scores["bm25-multifield"]["nDCG@10"]:8.3f}{final_scores["bm25-multifield"]["R@100"]:8.3f}   ' +
           f'{final_scores["splade-pp-ed"]["nDCG@10"]:8.3f}{final_scores["splade-pp-ed"]["R@100"]:8.3f}   ' +
           f'{final_scores["contriever"]["nDCG@10"]:8.3f}{final_scores["contriever"]["R@100"]:8.3f}   ' +
           f'{final_scores["contriever-msmarco"]["nDCG@10"]:8.3f}{final_scores["contriever-msmarco"]["R@100"]:8.3f}   ' +
-          f'{final_scores["bge-base-en-v1.5"]["nDCG@10"]:8.3f}{final_scores["bge-base-en-v1.5"]["R@100"]:8.3f}   ' +
+          f'{final_scores["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{final_scores["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
+          f'{final_scores["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{final_scores["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
+          f'{final_scores["bge-base-en-v1.5.lucene-hnsw"]["nDCG@10"]:8.3f}{final_scores["bge-base-en-v1.5.lucene-hnsw"]["R@100"]:8.3f}   ' +
           f'{final_scores["cohere-embed-english-v3.0"]["nDCG@10"]:8.3f}{final_scores["cohere-embed-english-v3.0"]["R@100"]:8.3f}')
 
     print('\n')
@@ -324,15 +393,19 @@ def run_conditions(args):
               f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.3f}{table[dataset]["splade-pp-ed"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["contriever"]["nDCG@10"]:8.3f}{table[dataset]["contriever"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.3f}{table[dataset]["contriever-msmarco"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["bge-base-en-v1.5"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["bge-base-en-v1.5.lucene-hnsw"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.lucene-hnsw"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["cohere-embed-english-v3.0"]["nDCG@10"]:8.3f}{table[dataset]["cohere-embed-english-v3.0"]["R@100"]:8.3f}')
-    print(' ' * 27 + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14 + '     ' + '-' * 14)
+    print(' ' * 28 + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13)
     print('avg' + ' ' * 22 + f'{cqa_scores["bm25-flat"]["nDCG@10"]:8.3f}{cqa_scores["bm25-flat"]["R@100"]:8.3f}   ' +
           f'{cqa_scores["bm25-multifield"]["nDCG@10"]:8.3f}{cqa_scores["bm25-multifield"]["R@100"]:8.3f}   ' +
           f'{cqa_scores["splade-pp-ed"]["nDCG@10"]:8.3f}{cqa_scores["splade-pp-ed"]["R@100"]:8.3f}   ' +
           f'{cqa_scores["contriever"]["nDCG@10"]:8.3f}{cqa_scores["contriever"]["R@100"]:8.3f}   ' +
           f'{cqa_scores["contriever-msmarco"]["nDCG@10"]:8.3f}{cqa_scores["contriever-msmarco"]["R@100"]:8.3f}   ' +
-          f'{cqa_scores["bge-base-en-v1.5"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5"]["R@100"]:8.3f}   ' +
+          f'{cqa_scores["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
+          f'{cqa_scores["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
+          f'{cqa_scores["bge-base-en-v1.5.lucene-hnsw"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.lucene-hnsw"]["R@100"]:8.3f}   ' +
           f'{cqa_scores["cohere-embed-english-v3.0"]["nDCG@10"]:8.3f}{cqa_scores["cohere-embed-english-v3.0"]["R@100"]:8.3f}')
 
     end = time.time()
@@ -378,6 +451,10 @@ if __name__ == '__main__':
             sys.exit()
 
         generate_report(args)
+        sys.exit()
+
+    if args.condition and args.condition not in models:
+        print(f'Invalid condition: {args.condition}')
         sys.exit()
 
     if not args.all and not args.condition:

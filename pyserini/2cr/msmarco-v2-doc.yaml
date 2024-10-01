@@ -1,7 +1,7 @@
 conditions:
   - name: bm25-doc-default
-    display: BM25 doc (k1=0.9, b=0.4)
-    display-html: BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25 doc
+    display-html: BM25 doc
     display-row: (1a)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc --topics $topics --output $output --bm25
     topics:
@@ -34,8 +34,8 @@ conditions:
             nDCG@10: 0.2946
             R@1K: 0.5262
   - name: bm25-doc-segmented-default
-    display: BM25 doc segmented (k1=0.9, b=0.4)
-    display-html: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25 doc segmented
+    display-html: BM25 doc segmented
     display-row: (1b)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented --topics $topics --output $output --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
@@ -68,8 +68,8 @@ conditions:
             nDCG@10: 0.3405
             R@1K: 0.5662
   - name: bm25-rm3-doc-default
-    display: BM25+RM3 doc (k1=0.9, b=0.4)
-    display-html: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25+RM3 doc
+    display-html: BM25+RM3 doc
     display-row: (1c)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc --topics $topics --output $output --bm25 --rm3
     topics:
@@ -102,8 +102,8 @@ conditions:
             nDCG@10: 0.2462
             R@1K: 0.5232
   - name: bm25-rm3-doc-segmented-default
-    display: BM25+RM3 doc segmented (k1=0.9, b=0.4)
-    display-html: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25+RM3 doc segmented
+    display-html: BM25+RM3 doc segmented
     display-row: (1d)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented --topics $topics --output $output --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
@@ -136,8 +136,8 @@ conditions:
             nDCG@10: 0.3452
             R@1K: 0.5755
   - name: bm25-d2q-t5-doc-default
-    display: BM25 w/ doc2query-T5 doc (k1=0.9, b=0.4)
-    display-html: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25 w/ doc2query-T5 doc
+    display-html: BM25 w/ doc2query-T5 doc
     display-row: (2a)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc.d2q-t5 --topics $topics --output $output --bm25
     topics:
@@ -170,8 +170,8 @@ conditions:
             nDCG@10: 0.3511
             R@1K: 0.5549
   - name: bm25-d2q-t5-doc-segmented-default
-    display: BM25 w/ doc2query-T5 doc segmented (k1=0.9, b=0.4)
-    display-html: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25 w/ doc2query-T5 doc segmented
+    display-html: BM25 w/ doc2query-T5 doc segmented
     display-row: (2b)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.d2q-t5 --topics $topics --output $output --bm25 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
@@ -204,8 +204,8 @@ conditions:
             nDCG@10: 0.3612
             R@1K: 0.5967
   - name: bm25-rm3-d2q-t5-doc-default
-    display: BM25+RM3 w/ doc2query-T5 doc (k1=0.9, b=0.4)
-    display-html: BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25+RM3 w/ doc2query-T5 doc
+    display-html: BM25+RM3 w/ doc2query-T5 doc
     display-row: (2c)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc.d2q-t5-docvectors --topics $topics --output $output --bm25 --rm3
     topics:
@@ -238,8 +238,8 @@ conditions:
             nDCG@10: 0.2681
             R@1K: 0.5616
   - name: bm25-rm3-d2q-t5-doc-segmented-default
-    display: BM25+RM3 w/ doc2query-T5 doc segmented (k1=0.9, b=0.4)
-    display-html: BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)
+    display: BM25+RM3 w/ doc2query-T5 doc segmented
+    display-html: BM25+RM3 w/ doc2query-T5 doc segmented
     display-row: (2d)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.d2q-t5-docvectors --topics $topics --output $output --bm25 --rm3 --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
@@ -272,8 +272,8 @@ conditions:
             nDCG@10: 0.3454
             R@1K: 0.6006
   - name: unicoil-noexp
-    display: "uniCOIL (noexp): pre-encoded"
-    display-html: "uniCOIL (noexp): pre-encoded queries"
+    display: "uniCOIL (noexp): cached queries"
+    display-html: "uniCOIL (noexp): cached queries"
     display-row: (3a)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.unicoil-noexp-0shot --topics $topics --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
@@ -306,8 +306,8 @@ conditions:
             nDCG@10: 0.3898
             R@1K: 0.5462
   - name: unicoil
-    display: "uniCOIL (w/ doc2query-T5): pre-encoded"
-    display-html: "uniCOIL (w/ doc2query-T5): pre-encoded queries"
+    display: "uniCOIL (w/ doc2query-T5): cached queries"
+    display-html: "uniCOIL (w/ doc2query-T5): cached queries"
     display-row: (3b)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.unicoil-0shot --topics $topics --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
@@ -340,8 +340,8 @@ conditions:
             nDCG@10: 0.4149
             R@1K: 0.5753
   - name: unicoil-noexp-otf
-    display: "uniCOIL (noexp): query inference with PyTorch"
-    display-html: "uniCOIL (noexp): query inference with PyTorch"
+    display: "uniCOIL (noexp): PyTorch"
+    display-html: "uniCOIL (noexp): PyTorch"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.unicoil-noexp-0shot --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev
@@ -373,8 +373,8 @@ conditions:
             nDCG@10: 0.3898
             R@1K: 0.5462
   - name: unicoil-otf
-    display: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
-    display-html: "uniCOIL (w/ doc2query-T5): query inference with PyTorch"
+    display: "uniCOIL (w/ doc2query-T5): PyTorch"
+    display-html: "uniCOIL (w/ doc2query-T5): PyTorch"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-doc-segmented.unicoil-0shot --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-v2-doc-dev
