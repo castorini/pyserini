@@ -96,7 +96,7 @@ def generate_prebuilt(index):
 
 if __name__ == '__main__':
     print(__boilerplate__)
-    print('\n\n## Standard Lucene Indexes')
+    print('\n\n## Lucene Standard Inverted Indexes')
 
     print('<details>')
     print('<summary>MS MARCO</summary>')
@@ -134,6 +134,25 @@ if __name__ == '__main__':
     print('<details>')
     print('<summary>BEIR</summary>')
     generate_prebuilt(IMPACT_INDEX_INFO_BEIR)
+    print('</details>')
+
+    print('\n\n## Lucene HNSW Indexes')
+
+    print('<details>')
+    print('<summary>MS MARCO</summary>')
+    generate_prebuilt(LUCENE_HNSW_INDEX_INFO_MSMARCO)
+    print('</details>')
+
+    print('<details>')
+    print('<summary>BEIR</summary>')
+    generate_prebuilt(LUCENE_HNSW_INDEX_INFO_BEIR)
+    print('</details>')
+
+    print('\n\n## Lucene Flat Indexes')
+
+    print('<details>')
+    print('<summary>BEIR</summary>')
+    generate_prebuilt(LUCENE_FLAT_INDEX_INFO_BEIR)
     print('</details>')
 
     print('\n\n## Faiss Indexes')

@@ -1,11 +1,11 @@
 # Pyserini: Detailed Installation Guide
 
-Pyserini is built on Python 3.10.
+Pyserini is built on Python 3.10 (other versions might work, but YMMV).
 At a high level, we try to keep our [`requirements.txt`](../requirements.txt) up to date.
 Pyserini has a number of important dependencies:
 
 + For sparse retrieval, Pyserini depends on [Anserini](http://anserini.io/), which is built on Lucene.
-[PyJNIus](https://github.com/kivy/pyjnius) is used to interact with the JVM.
+[PyJNIus](https://github.com/kivy/pyjnius) is used to interact with the JVM. We depend on Java 21.
 + For dense retrieval (since it involves neural networks), we need the [🤗 Transformers library](https://github.com/huggingface/transformers), [PyTorch](https://pytorch.org/), and [Faiss](https://github.com/facebookresearch/faiss) (specifically `faiss-cpu`).
 A `pip` installation will automatically pull in the first to satisfy the package requirements, but since the other two may require platform-specific custom configuration, they are _not_ explicitly listed in the package requirements.
 We leave the installation of these packages to you (but provide detailed instructions below).
@@ -13,10 +13,10 @@ We leave the installation of these packages to you (but provide detailed instruc
 ## PyPI Installation Walkthrough
 
 Below is a step-by-step Pyserini installation guide based on Python 3.10.
+We recommend using [Anaconda](https://www.anaconda.com/) and assume you have already installed it.
+The following instructions are up to date as of August 2024 and _should_ work.
 
 ### Mac
-
-We recommend using [Anaconda](https://www.anaconda.com/) and assume you have already installed it.
 
 Create new environment:
 
@@ -25,19 +25,23 @@ conda create -n pyserini python=3.10 -y
 conda activate pyserini
 ```
 
-If you do not already have JDK 21 installed, install via `conda`:
+If you're on a Mac with an M-series (i.e., ARM) processor:
 
 ```bash
 conda install -c conda-forge openjdk=21 maven -y
+conda install -c conda-forge lightgbm -y
+conda install -c anaconda wget -y
+conda install -c anaconda nmslib -y
+conda install -c pytorch faiss-cpu pytorch -y
+
+pip install pyserini
 ```
 
-If your system already has JDK 21 installed, the above step can be skipped.
-Use `java --version` to check one way or the other.
-
-If you're on an Intel-based Mac, the following recipe should work:
+If you're on an Intel-based Mac:
 
 ```bash
 conda install wget -y
+
 conda install -c conda-forge openjdk=21 maven -y
 conda install -c conda-forge lightgbm nmslib -y
 
@@ -49,25 +53,29 @@ conda install -c pytorch pytorch -y
 pip install pyserini
 ```
 
-If you're on a Mac with an M-series (i.e., ARM) processor, the following recipe should work:
+As of August 2024:
+
++ For `faiss-cpu`, `osx-64` is still at v1.7.4, whereas `osx-arm64` is at v1.8.0.
++ For `nmslib`, [`conda-forge`](https://anaconda.org/conda-forge/nmslib) does not provide `osx-arm64`.
+
+Hence the differences in the instructions above.
+
+### Linux
+
+Create new environment:
 
 ```bash
-conda install wget -y
+conda create -n pyserini python=3.10 -y
+conda activate pyserini
+```
+
+Install packages:
+
+```bash
 conda install -c conda-forge openjdk=21 maven -y
 conda install -c conda-forge lightgbm nmslib -y
 conda install -c pytorch faiss-cpu pytorch -y
 
-pip install pyserini
-```
-
-As of April 2024, for `faiss-cpu`, `osx-64` is still at v1.7.4, whereas `osx-arm64` is at v1.8.0; hence the differences in the instructions above. 
-
-### Linux
-
-On Linux, `pip` is an alternative that's a bit more lightweight:
-
-```bash
-pip install torch faiss-cpu
 pip install pyserini
 ```
 
@@ -161,7 +169,7 @@ Assuming all tests pass, you should be ready to go!
 
 ## Troubleshooting Tips
 
-+ The above guide handle JVM installation via conda. If you are using your own Java environment and get an error about Java version mismatch, it's likely an issue with your `JAVA_HOME` environmental variable.
++ The above guide handles JVM installation via conda. If you are using your own Java environment and get an error about Java version mismatch, it's likely an issue with your `JAVA_HOME` environmental variable.
 In `bash`, use `echo $JAVA_HOME` to find out what the environmental variable is currently set to, and use `export JAVA_HOME=/path/to/java/home` to change it to the correct path.
 On a Linux system, the correct path might look something like `/usr/lib/jvm/java-21`.
 Unfortunately, we are unable to offer more concrete advice since the actual path depends on your OS, which JDK you're using, and a host of other factors.

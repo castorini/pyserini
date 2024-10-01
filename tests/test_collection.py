@@ -25,7 +25,6 @@ from pyserini import collection, index
 
 
 class TestIterateCollection(unittest.TestCase):
-
     def test_cacm(self):
         # We're going to append a random value to downloaded files:
         r = randint(0, 10000000)

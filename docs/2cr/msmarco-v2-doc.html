@@ -131,7 +131,7 @@ pre[class*="prettyprint"] {
           ">
         <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
           <div class="text-white">
-            <h1 class="mb-3">MS MARCO V2 Document</h1>
+            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> &nbsp; MS MARCO V2 Document Regressions</h1>
           </div>
         </div>
       </div>
@@ -186,11 +186,11 @@ Numbered rows correspond to tables in the paper; additional conditions are provi
     </thead>
     <tbody>
 
-<!-- Condition: BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25 doc -->
 <tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">
 <td class="expand-button"></td>
 <td>(1a)</td>
-<td style="min-width: 400px">BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 400px">BM25 doc</td>
 <td>0.2126</td>
 <td>0.5116</td>
 <td>0.6739</td>
@@ -344,11 +344,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25 doc segmented -->
 <tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
 <td class="expand-button"></td>
 <td>(1b)</td>
-<td style="min-width: 400px">BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 400px">BM25 doc segmented</td>
 <td>0.2436</td>
 <td>0.5776</td>
 <td>0.6930</td>
@@ -502,11 +502,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25+RM3 doc -->
 <tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
 <td class="expand-button"></td>
 <td>(1c)</td>
-<td style="min-width: 400px">BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 400px">BM25+RM3 doc</td>
 <td>0.2452</td>
 <td>0.5304</td>
 <td>0.7341</td>
@@ -660,11 +660,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25+RM3 doc segmented -->
 <tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
 <td class="expand-button"></td>
 <td>(1d)</td>
-<td style="min-width: 400px">BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 400px">BM25+RM3 doc segmented</td>
 <td>0.2936</td>
 <td>0.6189</td>
 <td>0.7678</td>
@@ -819,11 +819,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 </div></td>
 </tr>
 <tr><td style="border-bottom: 0"></td></tr>
-<!-- Condition: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25 w/ doc2query-T5 doc -->
 <tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
 <td class="expand-button"></td>
 <td>(2a)</td>
-<td style="min-width: 400px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 400px">BM25 w/ doc2query-T5 doc</td>
 <td>0.2387</td>
 <td>0.5792</td>
 <td>0.7066</td>
@@ -977,11 +977,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25 w/ doc2query-T5 doc segmented -->
 <tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
 <td class="expand-button"></td>
 <td>(2b)</td>
-<td style="min-width: 400px">BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 400px">BM25 w/ doc2query-T5 doc segmented</td>
 <td>0.2683</td>
 <td>0.6289</td>
 <td>0.7202</td>
@@ -1135,11 +1135,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25+RM3 w/ doc2query-T5 doc -->
 <tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
 <td class="expand-button"></td>
 <td>(2c)</td>
-<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc</td>
 <td>0.2611</td>
 <td>0.5375</td>
 <td>0.7574</td>
@@ -1293,11 +1293,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25+RM3 w/ doc2query-T5 doc segmented -->
 <tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
 <td class="expand-button"></td>
 <td>(2d)</td>
-<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc segmented</td>
 <td>0.3191</td>
 <td>0.6559</td>
 <td>0.7948</td>
@@ -1452,11 +1452,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 </div></td>
 </tr>
 <tr><td style="border-bottom: 0"></td></tr>
-<!-- Condition: uniCOIL (noexp): pre-encoded queries -->
+<!-- Condition: uniCOIL (noexp): cached queries -->
 <tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">
 <td class="expand-button"></td>
 <td>(3a)</td>
-<td style="min-width: 400px">uniCOIL (noexp): pre-encoded queries</td>
+<td style="min-width: 400px">uniCOIL (noexp): cached queries</td>
 <td>0.2587</td>
 <td>0.6495</td>
 <td>0.6787</td>
@@ -1610,11 +1610,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: uniCOIL (w/ doc2query-T5): pre-encoded queries -->
+<!-- Condition: uniCOIL (w/ doc2query-T5): cached queries -->
 <tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">
 <td class="expand-button"></td>
 <td>(3b)</td>
-<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): pre-encoded queries</td>
+<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): cached queries</td>
 <td>0.2718</td>
 <td>0.6783</td>
 <td>0.7069</td>
@@ -1769,11 +1769,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 </div></td>
 </tr>
 <tr><td style="border-bottom: 0"></td></tr>
-<!-- Condition: uniCOIL (noexp): query inference with PyTorch -->
+<!-- Condition: uniCOIL (noexp): PyTorch -->
 <tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">
 <td class="expand-button"></td>
 <td></td>
-<td style="min-width: 400px">uniCOIL (noexp): query inference with PyTorch</td>
+<td style="min-width: 400px">uniCOIL (noexp): PyTorch</td>
 <td>0.2587</td>
 <td>0.6495</td>
 <td>0.6787</td>
@@ -1932,11 +1932,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v2-doc-dev2 run.msma
 
 </div></td>
 </tr>
-<!-- Condition: uniCOIL (w/ doc2query-T5): query inference with PyTorch -->
+<!-- Condition: uniCOIL (w/ doc2query-T5): PyTorch -->
 <tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">
 <td class="expand-button"></td>
 <td></td>
-<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): query inference with PyTorch</td>
+<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): PyTorch</td>
 <td>0.2718</td>
 <td>0.6783</td>
 <td>0.7069</td>

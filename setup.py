@@ -13,7 +13,7 @@ pyserini_packages.append('pyserini.2cr')
 
 setuptools.setup(
     name="pyserini",
-    version="0.36.0",
+    version="0.39.0",
     author="Jimmy Lin",
     author_email="jimmylin@uwaterloo.ca",
     description="A Python toolkit for reproducible information retrieval research with sparse and dense representations",

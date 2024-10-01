@@ -131,7 +131,7 @@ pre[class*="prettyprint"] {
           ">
         <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
           <div class="text-white">
-            <h1 class="mb-3">MS MARCO V1 Document</h1>
+            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> &nbsp; MS MARCO V1 Document Regressions</h1>
           </div>
         </div>
       </div>
@@ -175,8 +175,8 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 <!-- Condition: BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">
 <td class="expand-button"></td>
-<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (1a)</td>
-<td style="min-width: 400px">BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 75px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(1a)</td>
+<td style="min-width: 410px">BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2434</td>
 <td>0.5176</td>
 <td>0.6966</td>
@@ -284,11 +284,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 
 </div></td>
 </tr>
-<!-- Condition: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25 doc seg (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
 <td class="expand-button"></td>
-<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (1b)</td>
-<td style="min-width: 400px">BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 75px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(1b)</td>
+<td style="min-width: 410px">BM25 doc seg (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2449</td>
 <td>0.5302</td>
 <td>0.6871</td>
@@ -399,8 +399,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 <!-- Condition: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
 <td class="expand-button"></td>
-<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (1c)</td>
-<td style="min-width: 400px">BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 75px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(1c)</td>
+<td style="min-width: 410px">BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2773</td>
 <td>0.5174</td>
 <td>0.7507</td>
@@ -508,11 +508,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25+RM3 doc seg (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
 <td class="expand-button"></td>
-<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (1d)</td>
-<td style="min-width: 400px">BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 75px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(1d)</td>
+<td style="min-width: 410px">BM25+RM3 doc seg (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2892</td>
 <td>0.5684</td>
 <td>0.7368</td>
@@ -623,8 +623,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 <!-- Condition: BM25+Rocchio doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
-<td style="min-width: 400px">BM25+Rocchio doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 75px"></td>
+<td style="min-width: 410px">BM25+Rocchio doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2811</td>
 <td>0.5256</td>
 <td>0.7546</td>
@@ -732,11 +732,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 
 </div></td>
 </tr>
-<!-- Condition: BM25+Rocchio doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25+Rocchio doc seg (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
-<td style="min-width: 400px">BM25+Rocchio doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 75px"></td>
+<td style="min-width: 410px">BM25+Rocchio doc seg (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2889</td>
 <td>0.5570</td>
 <td>0.7423</td>
@@ -848,8 +848,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 <!-- Condition: BM25 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82) -->
 <tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
-<td style="min-width: 400px">BM25 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)</td>
+<td style="min-width: 75px"></td>
+<td style="min-width: 410px">BM25 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)</td>
 <td>0.2336</td>
 <td>0.5233</td>
 <td>0.6757</td>
@@ -957,11 +957,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 
 </div></td>
 </tr>
-<!-- Condition: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61) -->
+<!-- Condition: BM25 doc seg (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61) -->
 <tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
-<td style="min-width: 400px">BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)</td>
+<td style="min-width: 75px"></td>
+<td style="min-width: 410px">BM25 doc seg (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)</td>
 <td>0.2398</td>
 <td>0.5389</td>
 <td>0.6565</td>
@@ -1072,8 +1072,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 <!-- Condition: BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82) -->
 <tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
-<td style="min-width: 400px">BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)</td>
+<td style="min-width: 75px"></td>
+<td style="min-width: 410px">BM25+RM3 doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)</td>
 <td>0.2638</td>
 <td>0.5526</td>
 <td>0.7188</td>
@@ -1181,11 +1181,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61) -->
+<!-- Condition: BM25+RM3 doc seg (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61) -->
 <tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
-<td style="min-width: 400px">BM25+RM3 doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)</td>
+<td style="min-width: 75px"></td>
+<td style="min-width: 410px">BM25+RM3 doc seg (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)</td>
 <td>0.2655</td>
 <td>0.5392</td>
 <td>0.7037</td>
@@ -1296,8 +1296,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 <!-- Condition: BM25+Rocchio doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82) -->
 <tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
-<td style="min-width: 400px">BM25+Rocchio doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)</td>
+<td style="min-width: 75px"></td>
+<td style="min-width: 410px">BM25+Rocchio doc (<i>k<sub><small>1</small></sub></i>=4.46, <i>b</i>=0.82)</td>
 <td>0.2657</td>
 <td>0.5584</td>
 <td>0.7299</td>
@@ -1405,11 +1405,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 
 </div></td>
 </tr>
-<!-- Condition: BM25+Rocchio doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61) -->
+<!-- Condition: BM25+Rocchio doc seg (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61) -->
 <tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
-<td style="min-width: 400px">BM25+Rocchio doc segmented (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)</td>
+<td style="min-width: 75px"></td>
+<td style="min-width: 410px">BM25+Rocchio doc seg (<i>k<sub><small>1</small></sub></i>=2.16, <i>b</i>=0.61)</td>
 <td>0.2672</td>
 <td>0.5421</td>
 <td>0.7115</td>
@@ -1521,8 +1521,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 <!-- Condition: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row13" data-toggle="collapse" data-parent="#row13" href="#collapse13">
 <td class="expand-button"></td>
-<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (2a)</td>
-<td style="min-width: 400px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 75px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(2a)</td>
+<td style="min-width: 410px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2700</td>
 <td>0.5968</td>
 <td>0.7190</td>
@@ -1630,11 +1630,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 
 </div></td>
 </tr>
-<!-- Condition: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25 w/ doc2query-T5 doc seg (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row14" data-toggle="collapse" data-parent="#row14" href="#collapse14">
 <td class="expand-button"></td>
-<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (2b)</td>
-<td style="min-width: 400px">BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 75px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(2b)</td>
+<td style="min-width: 410px">BM25 w/ doc2query-T5 doc seg (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.2798</td>
 <td>0.6119</td>
 <td>0.7165</td>
@@ -1745,8 +1745,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 <!-- Condition: BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row15" data-toggle="collapse" data-parent="#row15" href="#collapse15">
 <td class="expand-button"></td>
-<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (2c)</td>
-<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 75px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(2c)</td>
+<td style="min-width: 410px">BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.3045</td>
 <td>0.5904</td>
 <td>0.7737</td>
@@ -1854,11 +1854,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
+<!-- Condition: BM25+RM3 w/ doc2query-T5 doc seg (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) -->
 <tr class="accordion-toggle collapsed" id="row16" data-toggle="collapse" data-parent="#row16" href="#collapse16">
 <td class="expand-button"></td>
-<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (2d)</td>
-<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
+<td style="min-width: 75px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(2d)</td>
+<td style="min-width: 410px">BM25+RM3 w/ doc2query-T5 doc seg (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4)</td>
 <td>0.3030</td>
 <td>0.6290</td>
 <td>0.7483</td>
@@ -1970,8 +1970,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 <!-- Condition: BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=4.68, <i>b</i>=0.87) -->
 <tr class="accordion-toggle collapsed" id="row17" data-toggle="collapse" data-parent="#row17" href="#collapse17">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
-<td style="min-width: 400px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=4.68, <i>b</i>=0.87)</td>
+<td style="min-width: 75px"></td>
+<td style="min-width: 410px">BM25 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=4.68, <i>b</i>=0.87)</td>
 <td>0.2620</td>
 <td>0.5972</td>
 <td>0.6867</td>
@@ -2079,11 +2079,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 
 </div></td>
 </tr>
-<!-- Condition: BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59) -->
+<!-- Condition: BM25 w/ doc2query-T5 doc seg (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59) -->
 <tr class="accordion-toggle collapsed" id="row18" data-toggle="collapse" data-parent="#row18" href="#collapse18">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
-<td style="min-width: 400px">BM25 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59)</td>
+<td style="min-width: 75px"></td>
+<td style="min-width: 410px">BM25 w/ doc2query-T5 doc seg (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59)</td>
 <td>0.2658</td>
 <td>0.6273</td>
 <td>0.6707</td>
@@ -2194,8 +2194,8 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 <!-- Condition: BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=4.68, <i>b</i>=0.87) -->
 <tr class="accordion-toggle collapsed" id="row19" data-toggle="collapse" data-parent="#row19" href="#collapse19">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
-<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=4.68, <i>b</i>=0.87)</td>
+<td style="min-width: 75px"></td>
+<td style="min-width: 410px">BM25+RM3 w/ doc2query-T5 doc (<i>k<sub><small>1</small></sub></i>=4.68, <i>b</i>=0.87)</td>
 <td>0.2813</td>
 <td>0.6091</td>
 <td>0.7184</td>
@@ -2303,11 +2303,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 
 </div></td>
 </tr>
-<!-- Condition: BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59) -->
+<!-- Condition: BM25+RM3 w/ doc2query-T5 doc seg (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59) -->
 <tr class="accordion-toggle collapsed" id="row20" data-toggle="collapse" data-parent="#row20" href="#collapse20">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
-<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 doc segmented (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59)</td>
+<td style="min-width: 75px"></td>
+<td style="min-width: 410px">BM25+RM3 w/ doc2query-T5 doc seg (<i>k<sub><small>1</small></sub></i>=2.56, <i>b</i>=0.59)</td>
 <td>0.2892</td>
 <td>0.6247</td>
 <td>0.7069</td>
@@ -2416,11 +2416,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 </div></td>
 </tr>
 <tr><td style="border-bottom: 0"></td></tr>
-<!-- Condition: uniCOIL (noexp): pre-encoded queries -->
+<!-- Condition: uniCOIL (noexp): cached queries -->
 <tr class="accordion-toggle collapsed" id="row21" data-toggle="collapse" data-parent="#row21" href="#collapse21">
 <td class="expand-button"></td>
-<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (3a)</td>
-<td style="min-width: 400px">uniCOIL (noexp): pre-encoded queries</td>
+<td style="min-width: 75px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(3a)</td>
+<td style="min-width: 410px">uniCOIL (noexp): cached queries</td>
 <td>0.2665</td>
 <td>0.6349</td>
 <td>0.6391</td>
@@ -2528,11 +2528,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 
 </div></td>
 </tr>
-<!-- Condition: uniCOIL (noexp): query inference with PyTorch -->
+<!-- Condition: uniCOIL (noexp): PyTorch -->
 <tr class="accordion-toggle collapsed" id="row22" data-toggle="collapse" data-parent="#row22" href="#collapse22">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
-<td style="min-width: 400px">uniCOIL (noexp): query inference with PyTorch</td>
+<td style="min-width: 75px"></td>
+<td style="min-width: 410px">uniCOIL (noexp): PyTorch</td>
 <td>0.2665</td>
 <td>0.6349</td>
 <td>0.6391</td>
@@ -2644,11 +2644,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 </div></td>
 </tr>
 <tr><td style="border-bottom: 0"></td></tr>
-<!-- Condition: uniCOIL (w/ doc2query-T5): pre-encoded queries -->
+<!-- Condition: uniCOIL (w/ doc2query-T5): cached queries -->
 <tr class="accordion-toggle collapsed" id="row23" data-toggle="collapse" data-parent="#row23" href="#collapse23">
 <td class="expand-button"></td>
-<td style="min-width: 85px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2021) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>] &mdash; (3b)</td>
-<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): pre-encoded queries</td>
+<td style="min-width: 75px">[<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(3b)</td>
+<td style="min-width: 410px">uniCOIL (w/ doc2query-T5): cached queries</td>
 <td>0.2789</td>
 <td>0.6396</td>
 <td>0.6652</td>
@@ -2756,11 +2756,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
 
 </div></td>
 </tr>
-<!-- Condition: uniCOIL (w/ doc2query-T5): query inference with PyTorch -->
+<!-- Condition: uniCOIL (w/ doc2query-T5): PyTorch -->
 <tr class="accordion-toggle collapsed" id="row24" data-toggle="collapse" data-parent="#row24" href="#collapse24">
 <td class="expand-button"></td>
-<td style="min-width: 85px"></td>
-<td style="min-width: 400px">uniCOIL (w/ doc2query-T5): query inference with PyTorch</td>
+<td style="min-width: 75px"></td>
+<td style="min-width: 410px">uniCOIL (w/ doc2query-T5): PyTorch</td>
 <td>0.2789</td>
 <td>0.6396</td>
 <td>0.6652</td>
@@ -2875,6 +2875,9 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-doc-dev \
     </tbody>
   </table>
 </div>
+
+<div style="padding-top: 20px"/>
+<h4>References</h4>
 
 <ul style="list-style-type:none; padding-top: 25px">
 
