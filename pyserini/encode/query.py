@@ -18,7 +18,7 @@ import argparse
 
 import numpy as np
 import pandas as pd
-import tqdm
+from tqdm import tqdm
 
 from pyserini.encode import DprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder, \
     UniCoilQueryEncoder, SpladeQueryEncoder, OpenAIQueryEncoder, CosDprQueryEncoder

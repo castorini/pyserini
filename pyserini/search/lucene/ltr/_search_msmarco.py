@@ -25,7 +25,7 @@ import os
 import pickle
 import time
 
-import tqdm
+from tqdm import tqdm
 
 from pyserini.index.lucene import LuceneIndexReader
 from pyserini.search.lucene import LuceneSearcher

@@ -26,7 +26,7 @@ import math
 from enum import Enum
 from typing import Dict, Iterator, List, Optional, Tuple
 
-import tqdm
+from tqdm import tqdm
 
 from pyserini.analysis import get_lucene_analyzer, JAnalyzer, JAnalyzerUtils
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO

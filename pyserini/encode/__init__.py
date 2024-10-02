@@ -14,10 +14,13 @@
 # limitations under the License.
 #
 
+# This has to be first, otherwise we'll get circular import errors
+from ._base import QueryEncoder, DocumentEncoder, JsonlCollectionIterator, JsonlRepresentationWriter
+
+# Then import these...
 from ._aggretriever import AggretrieverDocumentEncoder, AggretrieverQueryEncoder
 from ._ance import AnceEncoder, AnceDocumentEncoder, AnceQueryEncoder
 from ._auto import AutoQueryEncoder, AutoDocumentEncoder
-from ._base import QueryEncoder, DocumentEncoder, JsonlCollectionIterator, JsonlRepresentationWriter
 from ._cached_data import CachedDataQueryEncoder
 from ._cosdpr import CosDprEncoder, CosDprDocumentEncoder, CosDprQueryEncoder
 from ._dpr import DprDocumentEncoder, DprQueryEncoder

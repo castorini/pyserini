@@ -17,7 +17,7 @@
 import argparse
 import os
 
-import tqdm
+from tqdm import tqdm
 from transformers import AutoTokenizer
 
 from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer

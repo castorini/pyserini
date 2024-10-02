@@ -19,7 +19,7 @@ import glob
 import os
 
 import faiss
-import tqdm
+from tqdm import tqdm
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dimension', type=int, help='dimension of passage embeddings', required=False, default=768)

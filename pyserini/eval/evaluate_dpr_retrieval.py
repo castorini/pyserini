@@ -27,7 +27,7 @@ import unicodedata
 
 import numpy as np
 import regex
-import tqdm
+from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
 
