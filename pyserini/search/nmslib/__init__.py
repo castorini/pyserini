@@ -15,5 +15,3 @@
 #
 
 from ._searcher import SearchResult, NmslibSearcher
-
-__all__ = ['SearchResult', 'NmslibSearcher']

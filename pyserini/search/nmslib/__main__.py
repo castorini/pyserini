@@ -17,10 +17,11 @@
 import argparse
 import json
 import time
+
 from tqdm import tqdm
 
-from ._searcher import NmslibSearcher
 from pyserini.output_writer import get_output_writer, OutputFormat, tie_breaker
+from ._searcher import NmslibSearcher
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Search a nmslib index.')

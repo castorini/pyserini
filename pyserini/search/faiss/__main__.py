@@ -16,21 +16,23 @@
 
 import argparse
 import os
-from typing import OrderedDict
 
+import numpy as np
 from tqdm import tqdm
 
-from pyserini.search import FaissSearcher, BinaryDenseSearcher, TctColBertQueryEncoder, QueryEncoder, \
-    DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, DenseVectorAveragePrf, \
-    DenseVectorRocchioPrf, DenseVectorAncePrf, OpenAIQueryEncoder, ClipQueryEncoder
-
 from pyserini.encode import CosDprQueryEncoder, AutoQueryEncoder
+from pyserini.encode import TctColBertQueryEncoder, QueryEncoder, \
+    DprQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder
+from pyserini.encode._openai import OpenAIQueryEncoder
 from pyserini.encode._pca import PcaEncoder
-from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
+from pyserini.query_iterator import get_query_iterator, TopicsFormat
+from pyserini.search.faiss import BinaryDenseSearcher
+from pyserini.search.faiss import BprQueryEncoder, DkrrDprQueryEncoder
+from pyserini.search.faiss import ClipQueryEncoder
 from pyserini.search.lucene import LuceneSearcher
-
-# from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf
+from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
+from ._searcher import FaissSearcher
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial

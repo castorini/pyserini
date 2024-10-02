@@ -23,9 +23,14 @@ import unittest
 from random import randint
 from urllib.request import urlretrieve
 
-from pyserini.encode import TctColBertDocumentEncoder, DprDocumentEncoder, UniCoilDocumentEncoder #, ClipDocumentEncoder
+import faiss
+
+from pyserini.encode import TctColBertDocumentEncoder, DprDocumentEncoder, UniCoilDocumentEncoder
+from pyserini.encode._clip import ClipDocumentEncoder
 from pyserini.search.lucene import LuceneImpactSearcher
 
+
+## We need to de-dup wrt tests/test_encoder
 
 class TestEncode(unittest.TestCase):
     @classmethod
