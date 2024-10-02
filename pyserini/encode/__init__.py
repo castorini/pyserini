@@ -14,23 +14,16 @@
 # limitations under the License.
 #
 
-from ._base import QueryEncoder, DocumentEncoder
-from ._base import JsonlCollectionIterator, JsonlRepresentationWriter
-
-# from ._base import DocumentEncoder, QueryEncoder, JsonlCollectionIterator,\
-#     RepresentationWriter, FaissRepresentationWriter, JsonlRepresentationWriter, PcaEncoder
+from ._aggretriever import AggretrieverDocumentEncoder, AggretrieverQueryEncoder
 from ._ance import AnceEncoder, AnceDocumentEncoder, AnceQueryEncoder
 from ._auto import AutoQueryEncoder, AutoDocumentEncoder
-from ._dpr import DprDocumentEncoder, DprQueryEncoder
-from ._tct_colbert import TctColBertDocumentEncoder, TctColBertQueryEncoder
-from ._aggretriever import AggretrieverDocumentEncoder, AggretrieverQueryEncoder
-from ._unicoil import UniCoilEncoder, UniCoilDocumentEncoder, UniCoilQueryEncoder
+from ._base import QueryEncoder, DocumentEncoder, JsonlCollectionIterator, JsonlRepresentationWriter
 from ._cached_data import CachedDataQueryEncoder
-from ._tok_freq import TokFreqQueryEncoder
-from ._splade import SpladeQueryEncoder
-from ._slim import SlimQueryEncoder
 from ._cosdpr import CosDprEncoder, CosDprDocumentEncoder, CosDprQueryEncoder
-
-# from ._openai import OpenAIDocumentEncoder, OpenAIQueryEncoder, OPENAI_API_RETRY_DELAY
-# from ._clip import ClipEncoder, ClipDocumentEncoder
-
+from ._dpr import DprDocumentEncoder, DprQueryEncoder
+from ._openai import OpenAIDocumentEncoder, OpenAIQueryEncoder, OPENAI_API_RETRY_DELAY
+from ._slim import SlimQueryEncoder
+from ._splade import SpladeQueryEncoder
+from ._tct_colbert import TctColBertDocumentEncoder, TctColBertQueryEncoder
+from ._tok_freq import TokFreqQueryEncoder
+from ._unicoil import UniCoilEncoder, UniCoilDocumentEncoder, UniCoilQueryEncoder

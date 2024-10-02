@@ -14,14 +14,14 @@
 # limitations under the License.
 #
 
+import heapq
+import json
 import os
 import shutil
 import tarfile
 import unittest
 from random import randint
 from urllib.request import urlretrieve
-import json
-import heapq
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB

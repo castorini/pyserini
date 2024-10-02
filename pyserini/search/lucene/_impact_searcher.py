@@ -22,23 +22,18 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 import os
 import pickle
-from tqdm import tqdm
-from typing import Dict, List, Optional, Union
 from collections import namedtuple
+from typing import Dict, List, Optional, Union
 
 import numpy as np
 import scipy
+from tqdm import tqdm
 
-from pyserini.encode import QueryEncoder #, DocumentEncoder
-from pyserini.encode._cached_data import CachedDataQueryEncoder
-from pyserini.encode._slim import SlimQueryEncoder
-from pyserini.encode._splade import SpladeQueryEncoder
-from pyserini.encode._tok_freq import TokFreqQueryEncoder
-from pyserini.encode._unicoil import UniCoilQueryEncoder
-from pyserini.index import Document
-from pyserini.index.lucene import LuceneIndexReader
-from pyserini.search.lucene import JScoredDoc
+from pyserini.encode import QueryEncoder, CachedDataQueryEncoder, SlimQueryEncoder, SpladeQueryEncoder, \
+    TokFreqQueryEncoder, UniCoilQueryEncoder
+from pyserini.index.lucene import Document, LuceneIndexReader
 from pyserini.pyclass import autoclass, JFloat, JInt, JArrayList, JHashMap
+from pyserini.search.lucene import JScoredDoc
 from pyserini.util import download_prebuilt_index, download_encoded_corpus
 
 logger = logging.getLogger(__name__)

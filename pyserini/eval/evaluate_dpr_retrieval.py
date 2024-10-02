@@ -24,10 +24,10 @@ import json
 import logging
 import re
 import unicodedata
-from tqdm import tqdm
-import numpy as np
 
+import numpy as np
 import regex
+import tqdm
 
 logger = logging.getLogger(__name__)
 

@@ -15,10 +15,9 @@
 #
 
 import argparse
-
-import faiss
 import os
 
+import faiss
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dimension', type=int, help='dimension of passage embeddings', required=False, default=768)

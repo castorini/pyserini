@@ -15,8 +15,9 @@
 #
 
 from enum import Enum
-from pyserini.trectools import AggregationMethod, RescoreMethod, TrecRun
 from typing import List
+
+from pyserini.trectools import AggregationMethod, RescoreMethod, TrecRun
 
 
 class FusionMethod(Enum):

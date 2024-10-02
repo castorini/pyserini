@@ -15,9 +15,9 @@
 #
 
 import os
+import platform
 import subprocess
 import sys
-import platform
 
 from pyserini.search import get_qrels_file
 from pyserini.util import download_evaluation_script

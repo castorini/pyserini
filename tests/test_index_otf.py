@@ -15,9 +15,9 @@
 #
 
 import os
+import random
 import shutil
 import unittest
-import random
 from typing import List
 
 from pyserini.index.lucene import LuceneIndexer, LuceneIndexReader, JacksonObjectMapper

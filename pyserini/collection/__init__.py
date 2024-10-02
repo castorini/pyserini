@@ -16,5 +16,3 @@
 
 from ._base import Collection, FileSegment, SourceDocument
 from ._collection_support import Cord19Article
-
-__all__ = ['Collection', 'FileSegment', 'SourceDocument', 'Cord19Article']

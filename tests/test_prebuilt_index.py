@@ -14,12 +14,13 @@
 # limitations under the License.
 #
 
-import requests
 import unittest
 
-from pyserini.pyclass import autoclass
+import requests
+
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, \
     LUCENE_HNSW_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, FAISS_INDEX_INFO
+from pyserini.pyclass import autoclass
 
 
 class TestPrebuiltIndexes(unittest.TestCase):

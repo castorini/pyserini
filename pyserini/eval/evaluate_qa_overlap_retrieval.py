@@ -19,16 +19,16 @@ Most of the tokenization code here is copied from Facebook/DPR & DrQA codebase t
 """
 
 import argparse
+import collections
 import copy
 import json
 import logging
+import os
 import re
 import unicodedata
-from tqdm import tqdm
+
 import numpy as np
-import os
 import regex
-import collections
 
 logger = logging.getLogger(__name__)
 

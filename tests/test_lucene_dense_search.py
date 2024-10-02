@@ -18,9 +18,9 @@ import glob
 import os
 import unittest
 
-from pyserini.util import get_cache_home
 from pyserini.search import get_topics
 from pyserini.search.lucene import LuceneHnswDenseSearcher, LuceneFlatDenseSearcher
+from pyserini.util import get_cache_home
 
 
 class TestLuceneDenseSearch(unittest.TestCase):

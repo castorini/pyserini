@@ -23,8 +23,7 @@ import logging
 from typing import List
 
 from pyserini.pyclass import autoclass
-from pyserini.search import JQuery
-
+from pyserini.search.lucene import JQuery
 
 logger = logging.getLogger(__name__)
 

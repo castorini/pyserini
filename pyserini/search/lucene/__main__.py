@@ -17,16 +17,16 @@
 import argparse
 import os
 
-from tqdm import tqdm
+import tqdm
 from transformers import AutoTokenizer
 
 from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
 from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.search.lucene import JDisjunctionMaxQueryGenerator
-from ._searcher import LuceneSearcher
 from ._hnsw_searcher import LuceneHnswDenseSearcher, LuceneFlatDenseSearcher
 from ._impact_searcher import LuceneImpactSearcher, SlimSearcher
+from ._searcher import LuceneSearcher
 from .reranker import ClassifierType, PseudoRelevanceClassifierReranker
 
 

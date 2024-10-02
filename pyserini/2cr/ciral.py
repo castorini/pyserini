@@ -15,18 +15,18 @@
 #
 
 import argparse
+import importlib.resources
 import math
 import os
 import sys
 import time
-import importlib.resources
 from collections import defaultdict, OrderedDict
 from datetime import datetime
 from string import Template
 
 import yaml
 
-from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
+from ._base import run_eval_and_return_metric, ok_str, fail_str
 
 dense_threads = 16
 dense_batch_size = 512

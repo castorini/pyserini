@@ -15,15 +15,16 @@
 #
 
 import argparse
+from collections import defaultdict
+
 import numpy as np
 import pandas as pd
-
 from tqdm import tqdm
-from collections import defaultdict
 from transformers import AutoTokenizer
-from pyserini.search.lucene.ltr import *
-from pyserini.search.lucene import LuceneSearcher
+
 from pyserini.analysis import Analyzer, get_lucene_analyzer
+from pyserini.search.lucene import LuceneSearcher
+from pyserini.search.lucene.ltr import *
 
 """
 Running prediction on candidates

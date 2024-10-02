@@ -16,12 +16,13 @@
 
 import argparse
 
-from tqdm import tqdm
 import numpy as np
 import pandas as pd
+import tqdm
+
+from pyserini.encode import DprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder, \
+    UniCoilQueryEncoder, SpladeQueryEncoder, OpenAIQueryEncoder, CosDprQueryEncoder
 from pyserini.query_iterator import DefaultQueryIterator
-from pyserini.encode import DprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder
-from pyserini.encode import UniCoilQueryEncoder, SpladeQueryEncoder, OpenAIQueryEncoder, CosDprQueryEncoder
 
 
 def init_encoder(encoder, device, pooling, l2_norm, prefix):

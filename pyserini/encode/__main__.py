@@ -17,12 +17,11 @@
 import argparse
 import sys
 
-from pyserini.encode import JsonlRepresentationWriter, JsonlCollectionIterator
-from pyserini.encode._faiss import FaissRepresentationWriter
-from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, AggretrieverDocumentEncoder, AutoDocumentEncoder, CosDprDocumentEncoder
-from pyserini.encode import UniCoilDocumentEncoder
-from pyserini.encode._openai import OpenAIDocumentEncoder, OPENAI_API_RETRY_DELAY
+from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, \
+    AggretrieverDocumentEncoder, AutoDocumentEncoder, CosDprDocumentEncoder, JsonlRepresentationWriter, \
+    JsonlCollectionIterator, UniCoilDocumentEncoder, OpenAIDocumentEncoder, OPENAI_API_RETRY_DELAY
 from pyserini.encode._clip import ClipDocumentEncoder
+from pyserini.encode._faiss import FaissRepresentationWriter
 
 encoder_class_map = {
     "dpr": DprDocumentEncoder,

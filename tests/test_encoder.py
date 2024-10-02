@@ -23,7 +23,7 @@ import unittest
 from random import randint
 from urllib.request import urlretrieve
 
-from pyserini.encode import TctColBertDocumentEncoder, DprDocumentEncoder, UniCoilDocumentEncoder #, ClipDocumentEncoder
+from pyserini.encode import TctColBertDocumentEncoder, DprDocumentEncoder, UniCoilDocumentEncoder
 from pyserini.search.lucene import LuceneImpactSearcher
 
 

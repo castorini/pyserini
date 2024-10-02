@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-import sys
 import signal
+import sys
 
 from pyserini.pyclass import autoclass
 

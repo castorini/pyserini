@@ -25,8 +25,9 @@ import os
 import pickle
 import time
 
-from tqdm import tqdm
+import tqdm
 
+from pyserini.index.lucene import LuceneIndexReader
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.search.lucene.ltr._base import *
 from pyserini.util import get_cache_home
@@ -45,10 +46,10 @@ class MsmarcoLtrSearcher:
                 index_path = os.path.join(index_directory, 'lucene-inverted.msmarco-v1-passage.ltr.20210519.e25e33f.5da425ca44d2e3e5c38a7f564f13ad23')
             else:
                 index_path = os.path.join(index_directory, 'lucene-inverted.msmarco-v1-doc-segmented.ltr.20211031.33e4151.86f108d8441b6845f8caf1208dd7ac7a')
-            self.index_reader = IndexReader.from_prebuilt_index(index)
+            self.index_reader = LuceneIndexReader.from_prebuilt_index(index)
         else:
             index_path = index
-            self.index_reader = IndexReader(index)
+            self.index_reader = LuceneIndexReader(index)
         self.fe = FeatureExtractor(index_path, max(multiprocessing.cpu_count()//2, 1))
         self.data = data
 

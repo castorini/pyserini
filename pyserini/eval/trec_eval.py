@@ -31,13 +31,14 @@
 
 import glob
 import importlib.resources
-import jnius_config
 import os
-import pandas as pd
 import platform
-import tempfile
 import subprocess
 import sys
+import tempfile
+
+import jnius_config
+import pandas as pd
 
 # Don't use the jdk.incubator.vector module.
 jar_directory = str(importlib.resources.files("pyserini.resources.jars").joinpath(''))
@@ -45,7 +46,6 @@ jar_path = glob.glob(os.path.join(jar_directory, '*.jar'))[0]
 jnius_config.add_classpath(jar_path)
 
 # This triggers loading of the JVM.
-from jnius import autoclass
 
 # Now we can load qrels
 from pyserini.search import get_qrels_file

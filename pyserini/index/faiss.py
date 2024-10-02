@@ -21,7 +21,7 @@ import shutil
 
 import faiss
 import numpy as np
-from tqdm import tqdm
+import tqdm
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

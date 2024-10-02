@@ -17,9 +17,9 @@
 import math
 from typing import List, Optional
 
+import tqdm
 from scipy.sparse import csr_matrix
 from sklearn.preprocessing import normalize
-from tqdm import tqdm
 
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 from pyserini.index.lucene import LuceneIndexReader

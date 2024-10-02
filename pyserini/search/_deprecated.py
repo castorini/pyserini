@@ -14,7 +14,8 @@
 # limitations under the License.
 #
 
-from pyserini.search.lucene import LuceneImpactSearcher, LuceneSearcher, LuceneFusionSearcher
+from pyserini.search.lucene import LuceneImpactSearcher, LuceneSearcher
+from pyserini.search.lucene._searcher import LuceneFusionSearcher
 
 
 class SimpleSearcher(LuceneSearcher):

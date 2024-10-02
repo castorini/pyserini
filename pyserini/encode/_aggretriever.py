@@ -15,10 +15,11 @@
 #
 
 from typing import Optional
-import numpy as np
+
 import torch
-from torch import Tensor
 import torch.nn as nn
+from torch import Tensor
+
 if torch.cuda.is_available():
     from torch.cuda.amp import autocast
 

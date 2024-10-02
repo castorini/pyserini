@@ -15,5 +15,3 @@
 #
 
 from ._base import average, FusionMethod, interpolation, reciprocal_rank_fusion
-
-__all__ = ['FusionMethod', 'average', 'interpolation', 'reciprocal_rank_fusion']
