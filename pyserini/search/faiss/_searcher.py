@@ -40,7 +40,8 @@ from pyserini.index import Document
 from ._model import AnceEncoder
 import torch
 
-from ...encode import PcaEncoder, CosDprQueryEncoder, ClipEncoder
+from pyserini.encode._pca import PcaEncoder
+from pyserini.encode._clip import ClipEncoder
 from ...encode._aggretriever import BERTAggretrieverEncoder, DistlBERTAggretrieverEncoder
 
 if is_faiss_available():

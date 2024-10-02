@@ -24,7 +24,8 @@ from pyserini.search import FaissSearcher, BinaryDenseSearcher, TctColBertQueryE
     DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, DenseVectorAveragePrf, \
     DenseVectorRocchioPrf, DenseVectorAncePrf, OpenAIQueryEncoder, ClipQueryEncoder
 
-from pyserini.encode import PcaEncoder, CosDprQueryEncoder, AutoQueryEncoder
+from pyserini.encode import CosDprQueryEncoder, AutoQueryEncoder
+from pyserini.encode._pca import PcaEncoder
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.output_writer import get_output_writer, OutputFormat
 from pyserini.search.lucene import LuceneSearcher
