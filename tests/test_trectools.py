@@ -16,8 +16,8 @@
 
 import filecmp
 import os
-import unittest
 import subprocess
+import unittest
 
 from pyserini.trectools import TrecRun, Qrels, RescoreMethod
 

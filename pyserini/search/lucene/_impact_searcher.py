@@ -29,13 +29,15 @@ from collections import namedtuple
 import numpy as np
 import scipy
 
-from pyserini.encode._base import QueryEncoder
+from pyserini.encode import QueryEncoder #, DocumentEncoder
 from pyserini.encode._cached_data import CachedDataQueryEncoder
 from pyserini.encode._slim import SlimQueryEncoder
 from pyserini.encode._splade import SpladeQueryEncoder
 from pyserini.encode._tok_freq import TokFreqQueryEncoder
 from pyserini.encode._unicoil import UniCoilQueryEncoder
 from pyserini.index import Document
+from pyserini.index.lucene import LuceneIndexReader
+from pyserini.search.lucene import JScoredDoc
 from pyserini.pyclass import autoclass, JFloat, JInt, JArrayList, JHashMap
 from pyserini.util import download_prebuilt_index, download_encoded_corpus
 
@@ -43,7 +45,6 @@ logger = logging.getLogger(__name__)
 
 # Wrappers around Anserini classes
 JSimpleImpactSearcher = autoclass('io.anserini.search.SimpleImpactSearcher')
-JScoredDoc = autoclass('io.anserini.search.ScoredDoc')
 
 
 class LuceneImpactSearcher:
@@ -380,8 +381,7 @@ class LuceneImpactSearcher:
 
     @staticmethod
     def _compute_idf(index_path):
-        from pyserini.index.lucene import IndexReader
-        index_reader = IndexReader(index_path)
+        index_reader = LuceneIndexReader(index_path)
         tokens = []
         dfs = []
         for term in index_reader.terms():

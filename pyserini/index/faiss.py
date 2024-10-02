@@ -14,13 +14,13 @@
 # limitations under the License.
 #
 
+import argparse
 import json
 import os
-import argparse
 import shutil
-import numpy as np
 
 import faiss
+import numpy as np
 from tqdm import tqdm
 
 if __name__ == '__main__':

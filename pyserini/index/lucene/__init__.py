@@ -14,8 +14,5 @@
 # limitations under the License.
 #
 
-from ._base import Document, Generator, IndexTerm, Posting, IndexReader
+from ._base import Document, Generator, IndexTerm, Posting, LuceneIndexReader
 from ._indexer import LuceneIndexer, JacksonObjectMapper, JacksonJsonNode
-
-__all__ = ['Document', 'Generator', 'IndexTerm', 'Posting', 'IndexReader', 'LuceneIndexer',
-           'JacksonObjectMapper', 'JacksonJsonNode']

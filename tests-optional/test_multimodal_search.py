@@ -15,13 +15,12 @@
 #
 
 import os
+import pathlib as pl
 import shutil
 import unittest
-from typing import List, Dict
+from typing import List
 
 from pyserini.search.faiss import FaissSearcher, ClipQueryEncoder
-import pathlib as pl
-
 
 
 class TestMultimodalSearch(unittest.TestCase):

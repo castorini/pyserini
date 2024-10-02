@@ -180,7 +180,7 @@ class Posting:
         return repr
 
 
-class IndexReader:
+class LuceneIndexReader:
     """Wrapper class for ``IndexReaderUtils`` in Anserini.
 
     Parameters

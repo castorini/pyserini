@@ -23,7 +23,7 @@ import logging
 from typing import Dict, List, Optional, Union
 
 from pyserini.fusion import FusionMethod, reciprocal_rank_fusion
-from pyserini.index import Document, IndexReader
+from pyserini.index.lucene import Document, LuceneIndexReader
 from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap
 from pyserini.search.lucene import JQuery, JQueryGenerator, JScoredDoc
 from pyserini.trectools import TrecRun
@@ -77,10 +77,10 @@ class LuceneSearcher:
             print(str(e))
             return None
 
-        # Currently, the only way to validate stats is to create a separate IndexReader, because there is no method
+        # Currently, the only way to validate stats is to create a separate LuceneIndexReader, because there is no method
         # to obtain the underlying reader of a SimpleSearcher; see https://github.com/castorini/anserini/issues/2013
-        index_reader = IndexReader(index_dir)
-        # This is janky as we're created a separate IndexReader for the sole purpose of validating index stats.
+        index_reader = LuceneIndexReader(index_dir)
+        # This is janky as we're created a separate LuceneIndexReader for the sole purpose of validating index stats.
         index_reader.validate(prebuilt_index_name, verbose=verbose)
 
         if verbose:

@@ -17,6 +17,7 @@
 import unittest
 
 from transformers import BertTokenizer, T5Tokenizer, AutoTokenizer
+
 from pyserini.analysis import Analyzer, get_lucene_analyzer
 
 

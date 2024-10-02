@@ -14,21 +14,7 @@
 # limitations under the License.
 #
 
-# from ._geo_searcher import LuceneGeoSearcher
-# from ._impact_searcher import JScoredDoc, LuceneImpactSearcher, SlimSearcher
-#from ._searcher import JScoredDoc
-# from ._hnsw_searcher import LuceneHnswDenseSearcher, LuceneFlatDenseSearcher
-#
-# __all__ = ['JScoredDoc',
-#            'LuceneFusionSearcher',
-#            'LuceneGeoSearcher',
-#            'LuceneImpactSearcher',
-#            'LuceneSearcher',
-#            'LuceneHnswDenseSearcher',
-#            'LuceneFlatDenseSearcher',
-#            'SlimSearcher',
-#            'LuceneSimilarities']
-
+# We want to load the Java bindings first.
 from pyserini.pyclass import autoclass
 
 JQuery = autoclass('org.apache.lucene.search.Query')
@@ -37,3 +23,7 @@ JQueryGenerator = autoclass('io.anserini.search.query.QueryGenerator')
 JBagOfWordsQueryGenerator = autoclass('io.anserini.search.query.BagOfWordsQueryGenerator')
 JDisjunctionMaxQueryGenerator = autoclass('io.anserini.search.query.DisjunctionMaxQueryGenerator')
 JCovid19QueryGenerator = autoclass('io.anserini.search.query.Covid19QueryGenerator')
+
+from ._impact_searcher import LuceneImpactSearcher, SlimSearcher
+from ._searcher import LuceneSearcher, LuceneSimilarities
+from ._hnsw_searcher import LuceneHnswDenseSearcher, LuceneFlatDenseSearcher

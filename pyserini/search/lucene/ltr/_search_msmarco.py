@@ -21,16 +21,15 @@ class.
 
 import logging
 import multiprocessing
-import time
 import os
-from tqdm import tqdm
 import pickle
-from pyserini.index.lucene import IndexReader
+import time
+
+from tqdm import tqdm
+
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.util import get_cache_home
-
 from pyserini.search.lucene.ltr._base import *
-
+from pyserini.util import get_cache_home
 
 logger = logging.getLogger(__name__)
 

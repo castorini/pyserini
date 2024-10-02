@@ -20,7 +20,7 @@ import unittest
 import random
 from typing import List
 
-from pyserini.index.lucene import LuceneIndexer, IndexReader, JacksonObjectMapper
+from pyserini.index.lucene import LuceneIndexer, LuceneIndexReader, JacksonObjectMapper
 from pyserini.search.lucene import JScoredDoc, LuceneSearcher
 
 
@@ -151,7 +151,7 @@ class TestIndexOTF(unittest.TestCase):
         indexer.add_doc_raw('{"id": "0", "contents": "Document 0"}')
         indexer.close()
 
-        reader = IndexReader(self.tmp_dir)
+        reader = LuceneIndexReader(self.tmp_dir)
         stats = reader.stats()
         self.assertEqual(1, stats['documents'])
         self.assertIsNotNone(reader.doc('0'))
@@ -160,7 +160,7 @@ class TestIndexOTF(unittest.TestCase):
         indexer.add_doc_raw('{"id": "1", "contents": "Document 1"}')
         indexer.close()
 
-        reader = IndexReader(self.tmp_dir)
+        reader = LuceneIndexReader(self.tmp_dir)
         stats = reader.stats()
         self.assertEqual(2, stats['documents'])
         self.assertIsNotNone(reader.doc('0'))
@@ -172,7 +172,7 @@ class TestIndexOTF(unittest.TestCase):
         indexer.add_doc_raw('{"id": "0", "contents": "Document 0"}')
         indexer.close()
 
-        reader = IndexReader(self.tmp_dir)
+        reader = LuceneIndexReader(self.tmp_dir)
         stats = reader.stats()
         self.assertEqual(1, stats['documents'])
         self.assertIsNotNone(reader.doc('0'))
@@ -182,7 +182,7 @@ class TestIndexOTF(unittest.TestCase):
         indexer.add_doc_raw('{"id": "1", "contents": "Document 1"}')
         indexer.close()
 
-        reader = IndexReader(self.tmp_dir)
+        reader = LuceneIndexReader(self.tmp_dir)
         stats = reader.stats()
         self.assertEqual(1, stats['documents'])
         self.assertIsNone(reader.doc('0'))
@@ -193,7 +193,7 @@ class TestIndexOTF(unittest.TestCase):
         indexer.add_doc_raw('{"id": "x", "contents": "Document x"}')
         indexer.close()
 
-        reader = IndexReader(self.tmp_dir)
+        reader = LuceneIndexReader(self.tmp_dir)
         stats = reader.stats()
         self.assertEqual(2, stats['documents'])
         self.assertIsNone(reader.doc('0'))
@@ -206,7 +206,7 @@ class TestIndexOTF(unittest.TestCase):
         indexer.add_doc_raw('{"id": "doc1", "contents": "document 1 contents"}')
         indexer.close()
 
-        reader = IndexReader(self.tmp_dir)
+        reader = LuceneIndexReader(self.tmp_dir)
         stats = reader.stats()
         self.assertEqual(2, stats['documents'])
         self.assertIsNotNone(reader.doc('doc0'))
@@ -220,7 +220,7 @@ class TestIndexOTF(unittest.TestCase):
         indexer.add_batch_raw(batch)
         indexer.close()
 
-        reader = IndexReader(self.tmp_dir)
+        reader = LuceneIndexReader(self.tmp_dir)
         stats = reader.stats()
         self.assertEqual(2, stats['documents'])
         self.assertIsNotNone(reader.doc('doc0'))
@@ -232,7 +232,7 @@ class TestIndexOTF(unittest.TestCase):
         indexer.add_doc_dict({'id': 'doc1', 'contents': 'document 1 contents'})
         indexer.close()
 
-        reader = IndexReader(self.tmp_dir)
+        reader = LuceneIndexReader(self.tmp_dir)
         stats = reader.stats()
         self.assertEqual(2, stats['documents'])
         self.assertIsNotNone(reader.doc('doc0'))
@@ -246,7 +246,7 @@ class TestIndexOTF(unittest.TestCase):
         indexer.add_batch_dict(batch)
         indexer.close()
 
-        reader = IndexReader(self.tmp_dir)
+        reader = LuceneIndexReader(self.tmp_dir)
         stats = reader.stats()
         self.assertEqual(2, stats['documents'])
         self.assertIsNotNone(reader.doc('doc0'))
@@ -260,7 +260,7 @@ class TestIndexOTF(unittest.TestCase):
         indexer.add_doc_json(mapper.createObjectNode().put('id', 'doc1').put('contents', 'document 1 contents'))
         indexer.close()
 
-        reader = IndexReader(self.tmp_dir)
+        reader = LuceneIndexReader(self.tmp_dir)
         stats = reader.stats()
         self.assertEqual(2, stats['documents'])
         self.assertIsNotNone(reader.doc('doc0'))
@@ -275,7 +275,7 @@ class TestIndexOTF(unittest.TestCase):
         indexer.add_batch_json(batch)
         indexer.close()
 
-        reader = IndexReader(self.tmp_dir)
+        reader = LuceneIndexReader(self.tmp_dir)
         stats = reader.stats()
         self.assertEqual(2, stats['documents'])
         self.assertIsNotNone(reader.doc('doc0'))
