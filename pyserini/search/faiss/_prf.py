@@ -15,12 +15,20 @@
 #
 
 import json
+from dataclasses import dataclass
 from typing import List, Dict
 
 import numpy as np
 
-from pyserini.search.faiss import PRFDenseSearchResult, AnceQueryEncoder
+from pyserini.encode import AnceQueryEncoder
 from pyserini.search.lucene import LuceneSearcher
+
+
+@dataclass
+class PRFDenseSearchResult:
+    docid: str
+    score: float
+    vectors: [float]
 
 
 class DenseVectorPrf:

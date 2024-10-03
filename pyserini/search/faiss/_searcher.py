@@ -40,8 +40,10 @@ from pyserini.util import (download_encoded_queries, download_prebuilt_index,
 from ._model import AnceEncoder
 from ...encode._aggretriever import BERTAggretrieverEncoder, DistlBERTAggretrieverEncoder
 
-if is_faiss_available():
-    import faiss
+from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf, PRFDenseSearchResult
+
+#if is_faiss_available():
+import faiss
 
 
 class QueryEncoder:
@@ -416,13 +418,6 @@ class AutoQueryEncoder(QueryEncoder):
 class DenseSearchResult:
     docid: str
     score: float
-
-
-@dataclass
-class PRFDenseSearchResult:
-    docid: str
-    score: float
-    vectors: [float]
 
 
 class FaissSearcher:
