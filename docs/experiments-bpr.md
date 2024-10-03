@@ -28,7 +28,7 @@ python -m pyserini.search.faiss \
   --topics dpr-nq-test \
   --encoded-queries bpr_single_nq-nq-test \
   --output runs/run.bpr.rerank.nq-test.nq.hash.trec \
-  --batch-size 36 --threads 12 \
+  --batch-size 512 --threads 16 \
   --hits 100 --binary-hits 1000 \
   --searcher bpr --rerank
 ```
@@ -38,18 +38,22 @@ The option `--encoded-queries` specifies the use of encoded queries (i.e., queri
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
-    --index wikipedia-dpr-100w \
-    --topics dpr-nq-test \
-    --input runs/run.bpr.rerank.nq-test.nq.hash.trec \
-    --output runs/run.bpr.rerank.nq-test.nq.hash.json
+python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
+  --index wikipedia-dpr \
+  --topics dpr-nq-test \
+  --input runs/run.bpr.rerank.nq-test.nq.hash.trec \
+  --output runs/run.bpr.rerank.nq-test.nq.hash.json
 
-$ python -m pyserini.eval.evaluate_dpr_retrieval \
-    --retrieval runs/run.bpr.rerank.nq-test.nq.hash.json \
-    --topk 20 100
+python -m pyserini.eval.evaluate_dpr_retrieval \
+  --retrieval runs/run.bpr.rerank.nq-test.nq.hash.json \
+  --topk 20 100
+```
 
+Results:
+
+```
 Top20  accuracy: 0.7792
-Top100 accuracy: 0.8573
+Top100 accuracy: 0.8571
 ```
 
 ## Reproduction Log[*](reproducibility.md)

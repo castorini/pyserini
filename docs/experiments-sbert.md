@@ -13,9 +13,9 @@ python -m pyserini.search.faiss \
   --index msmarco-v1-passage.sbert \
   --topics msmarco-passage-dev-subset \
   --encoded-queries sbert-msmarco-passage-dev-subset \
-  --output runs/run.msmarco-passage.sbert.bf.tsv \
+  --output runs/run.msmarco-passage.sbert.tsv \
   --output-format msmarco \
-  --batch-size 36 --threads 12
+  --batch-size 512 --threads 16
 ```
 
 Replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbert-base-v3` for on-the-fly query encoding.
@@ -23,9 +23,13 @@ Replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbe
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
-    runs/run.msmarco-passage.sbert.bf.tsv
+python -m pyserini.eval.msmarco_passage_eval \
+  msmarco-passage-dev-subset runs/run.msmarco-passage.sbert.tsv
+```
 
+Results:
+
+```
 #####################
 MRR @10: 0.3314
 QueriesRanked: 6980
@@ -36,13 +40,17 @@ We can also use the official TREC evaluation tool `trec_eval` to compute other m
 For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
-    --input runs/run.msmarco-passage.sbert.bf.tsv \
-    --output runs/run.msmarco-passage.sbert.bf.trec
+python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+  --input runs/run.msmarco-passage.sbert.tsv \
+  --output runs/run.msmarco-passage.sbert.trec
 
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
-    runs/run.msmarco-passage.sbert.bf.trec
+python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.sbert.trec
+```
 
+Results:
+
+```
 map                     all     0.3373
 recall_1000             all     0.9558
 ```
@@ -55,12 +63,12 @@ Hybrid retrieval with dense-sparse representations (without document expansion):
 python -m pyserini.search.hybrid \
   dense  --index msmarco-v1-passage.sbert \
          --encoded-queries sbert-msmarco-passage-dev-subset \
-  sparse --index msmarco-v1-passage \
+  sparse --index msmarco-passage \
   fusion --alpha 0.015  \
   run    --topics msmarco-passage-dev-subset \
-         --output runs/run.msmarco-passage.sbert.bf.bm25.tsv \
+         --output runs/run.msmarco-passage.sbert.bm25.tsv \
          --output-format msmarco \
-         --batch-size 36 --threads 12
+         --batch-size 512 --threads 16
 ```
 
 Replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbert-base-v3` for on-the-fly query encoding.
@@ -68,22 +76,33 @@ Replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbe
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval \
-    msmarco-passage-dev-subset runs/run.msmarco-passage.sbert.bf.bm25.tsv
+python -m pyserini.eval.msmarco_passage_eval \
+  msmarco-passage-dev-subset runs/run.msmarco-passage.sbert.bm25.tsv
+```
 
+Results:
+
+```
 #####################
-MRR @10: 0.3380
+MRR @10: 0.3379
 QueriesRanked: 6980
 #####################
+```
 
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
-    --input runs/run.msmarco-passage.sbert.bf.bm25.tsv \
-    --output runs/run.msmarco-passage.sbert.bf.bm25.trec
+And more evaluation:
 
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
-    runs/run.msmarco-passage.sbert.bf.bm25.trec
+```bash
+python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+  --input runs/run.msmarco-passage.sbert.bm25.tsv \
+  --output runs/run.msmarco-passage.sbert.bm25.trec
 
-map                     all     0.3446
+python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
+  runs/run.msmarco-passage.sbert.bm25.trec
+```
+
+Results:
+```
+map                     all     0.3445
 recall_1000             all     0.9659
 ```
 
