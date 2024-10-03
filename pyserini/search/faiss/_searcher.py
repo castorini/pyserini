@@ -746,7 +746,7 @@ class BinaryDenseSearcher(FaissSearcher):
             sorted_indices = np.argsort(-distances, axis=1)
 
             indexes = indexes[np.arange(num_queries)[:, None], sorted_indices]
-            indexes = np.array([self.index.id_map.at(int(id_)) for id_ in indexes.reshape(-1)], dtype=np.int)
+            indexes = np.array([self.index.id_map.at(int(id_)) for id_ in indexes.reshape(-1)], dtype=np.int32)
             indexes = indexes.reshape(num_queries, -1)[:, :k]
             distances = distances[np.arange(num_queries)[:, None], sorted_indices][:, :k]
         return distances, indexes
