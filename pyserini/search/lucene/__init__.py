@@ -25,5 +25,5 @@ JDisjunctionMaxQueryGenerator = autoclass('io.anserini.search.query.DisjunctionM
 JCovid19QueryGenerator = autoclass('io.anserini.search.query.Covid19QueryGenerator')
 
 from ._impact_searcher import LuceneImpactSearcher, SlimSearcher
-from ._searcher import LuceneSearcher, LuceneSimilarities
+from ._searcher import LuceneSearcher, LuceneFusionSearcher, LuceneSimilarities
 from ._hnsw_searcher import LuceneHnswDenseSearcher, LuceneFlatDenseSearcher
