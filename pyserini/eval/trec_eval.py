@@ -46,8 +46,10 @@ jar_path = glob.glob(os.path.join(jar_directory, '*.jar'))[0]
 jnius_config.add_classpath(jar_path)
 
 # This triggers loading of the JVM.
+import jnius
 
-# Now we can load qrels
+# Now we can load qrels; this will trigger another attempt to reload the JVM, which won't happen because
+# the JVM has already loaded.
 from pyserini.search import get_qrels_file
 
 cmd_prefix = ['java', '-cp', jar_path, 'trec_eval']
