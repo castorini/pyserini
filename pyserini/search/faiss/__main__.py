@@ -20,12 +20,12 @@ import os
 import numpy as np
 from tqdm import tqdm
 
-from pyserini.encode import CosDprQueryEncoder, AutoQueryEncoder, TctColBertQueryEncoder, QueryEncoder, \
-    DprQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, OpenAIQueryEncoder
+from pyserini.encode import CosDprQueryEncoder, AutoQueryEncoder, QueryEncoder, \
+    AnceQueryEncoder, AggretrieverQueryEncoder, OpenAIQueryEncoder
 from pyserini.encode._pca import PcaEncoder
 from pyserini.output_writer import get_output_writer, OutputFormat
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
-from pyserini.search.faiss._searcher import BinaryDenseSearcher, BprQueryEncoder, DkrrDprQueryEncoder, ClipQueryEncoder
+from pyserini.search.faiss._searcher import BinaryDenseSearcher, BprQueryEncoder, DprQueryEncoder, DkrrDprQueryEncoder, ClipQueryEncoder, TctColBertQueryEncoder
 from pyserini.search.lucene import LuceneSearcher
 from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
 from ._searcher import FaissSearcher

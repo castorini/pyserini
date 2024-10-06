@@ -21,7 +21,7 @@ import os
 import sys
 
 import pyserini.search.faiss
-from pyserini.search.faiss._searcher import TctColBertQueryEncoder
+from pyserini.search.faiss._searcher import TctColBertQueryEncoder, BinaryDenseSearcher
 
 __all__ = ['SimpleDenseSearcher', 'BinaryDenseSearcher', 'TctColBertQueryEncoder']
 
