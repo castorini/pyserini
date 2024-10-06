@@ -22,9 +22,9 @@ import unittest
 from integrations.utils import clean_files, run_command, parse_score_msmarco
 from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder
 from pyserini.hsearch import HybridSearcher
-from pyserini.index import IndexReader
-from pyserini.search import SimpleSearcher
+from pyserini.index.lucene import LuceneIndexReader
 from pyserini.search import get_topics, get_qrels
+from pyserini.search._deprecated import SimpleSearcher
 
 
 class TestSIGIR2021(unittest.TestCase):
@@ -100,7 +100,7 @@ class TestSIGIR2021(unittest.TestCase):
         """Sample code in Figure 5."""
 
         # Initialize from a pre-built index:
-        reader = IndexReader.from_prebuilt_index('robust04')
+        reader = LuceneIndexReader.from_prebuilt_index('robust04')
 
         terms = reader.terms()
         term = next(terms)
