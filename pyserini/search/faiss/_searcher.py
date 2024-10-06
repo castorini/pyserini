@@ -43,6 +43,8 @@ import torch
 from ...encode import PcaEncoder, CosDprQueryEncoder, ClipEncoder
 from ...encode._aggretriever import BERTAggretrieverEncoder, DistlBERTAggretrieverEncoder
 
+from torch.nn.functional import normalize
+
 if is_faiss_available():
     import faiss
 
@@ -362,6 +364,43 @@ class OpenAIQueryEncoder(QueryEncoder):
             return self.get_embedding(inputs)
         else:
             return super().encode(query)
+        
+        
+class ArcticQueryEncoder(QueryEncoder):
+   
+    def __init__(self, encoder_dir: str, query_prefix: str = 'Represent this sentence for searching relevant passages: ', 
+                 tokenizer_name: str = None, encoded_query_dir: str = None, device: str = 'cpu', **kwargs): 
+        super().__init__(encoded_query_dir)
+        
+        if encoder_dir:
+            self.device = device 
+            self.query_prefix = query_prefix
+            self.model = AutoModel.from_pretrained(encoder_dir, add_pooling_layer=False).to(self.device)
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            self.has_model = True
+
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one.')
+
+    def encode(self, query: str):
+        if self.has_model:
+            # Apply the query prefix
+            query_with_prefix = f"{self.query_prefix}{query}"
+            query_tokens = self.tokenizer(
+                query_with_prefix,
+                padding=True,
+                truncation=True,
+                return_tensors='pt',
+                max_length=512
+            ).to(self.device)
+            
+            with torch.inference_mode():
+                query_embeddings = self.model(**query_tokens)[0][:, 0]  # CLS token
+                query_embeddings = normalize(query_embeddings).cpu().numpy().flatten()
+            return query_embeddings
+        else:
+            # Fallback to using pre-encoded queries
+            return super().encode(query)
 
 class AutoQueryEncoder(QueryEncoder):
 
@@ -413,8 +452,7 @@ class AutoQueryEncoder(QueryEncoder):
             return embeddings.flatten()
         else:
             return super().encode(query)
-
-
+        
 @dataclass
 class DenseSearchResult:
     docid: str

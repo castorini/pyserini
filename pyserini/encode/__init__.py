@@ -29,3 +29,4 @@ from ._slim import SlimQueryEncoder
 from ._openai import OpenAIDocumentEncoder, OpenAIQueryEncoder, OPENAI_API_RETRY_DELAY
 from ._cosdpr import CosDprEncoder, CosDprDocumentEncoder, CosDprQueryEncoder
 from ._clip import ClipEncoder, ClipDocumentEncoder
+from ._arctic import ArcticDocumentEncoder, ArcticQueryEncoder
