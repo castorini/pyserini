@@ -561,8 +561,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```
-Top20  accuracy: 0.7513
-Top100 accuracy: 0.8436
+Top20  accuracy: 0.7511
+Top100 accuracy: 0.8437
 ```
 
 ## Natural Questions (NQ) with DPR-Single
@@ -647,3 +647,4 @@ Top100	accuracy: 0.8837
 + Results reproduced by [@manveertamber](https://github.com/manveertamber) on 2022-01-22 (commit [`ef70c6`](https://github.com/castorini/pyserini/commit/ef70c63efd773e87afd9708338827342f4960540))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-25 (commit [`0c495c`](https://github.com/castorini/pyserini/commit/0c495cf2999dda980eb1f85efa30a4323cef5855))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2023-01-10 (commit [`7dafc4`](https://github.com/castorini/pyserini/commit/7dafc4f918bd44ada3771a5c81692ab19cc2cae9))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2024-10-16 (commit [`3f7609`](https://github.com/castorini/pyserini/commit/3f76099a73820afee12496c0354d52ca6a6175c2))
