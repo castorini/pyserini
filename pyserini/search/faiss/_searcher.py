@@ -27,17 +27,15 @@ import faiss
 import numpy as np
 import openai
 import tiktoken
-import torch
-from transformers import AutoModel, AutoTokenizer
 from transformers.file_utils import requires_backends
 
-from pyserini.encode import QueryEncoder
+from pyserini.encode import QueryEncoder, AutoQueryEncoder
 from pyserini.encode import AnceQueryEncoder, BprQueryEncoder, DprQueryEncoder, TctColBertQueryEncoder
 from pyserini.encode._clip import ClipEncoder
 from pyserini.index import Document
+from pyserini.search.faiss._prf import PrfDenseSearchResult
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.util import download_prebuilt_index, get_dense_indexes_info, get_sparse_index
-from pyserini.search.faiss import PrfDenseSearchResult
 
 
 class ClipQueryEncoder(QueryEncoder):
@@ -89,57 +87,6 @@ class OpenAIQueryEncoder(QueryEncoder):
         if self.has_model:
             inputs = self.tokenizer.encode(text=query)[:self.max_length]
             return self.get_embedding(inputs)
-        else:
-            return super().encode(query)
-
-class AutoQueryEncoder(QueryEncoder):
-
-    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu',
-                 pooling: str = 'cls', l2_norm: bool = False, **kwargs):
-        super().__init__(encoded_query_dir)
-        if encoder_dir:
-            self.device = device
-            self.model = AutoModel.from_pretrained(encoder_dir)
-            self.model.to(self.device)
-            try:
-                self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
-            except:
-                self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir, use_fast=False)
-            self.has_model = True
-            self.pooling = pooling
-            self.l2_norm = l2_norm
-        if (not self.has_model) and (not self.has_encoded_query):
-            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
-
-    @staticmethod
-    def _mean_pooling(model_output, attention_mask):
-        token_embeddings = model_output[0]  # First element of model_output contains all token embeddings
-        input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
-        sum_embeddings = torch.sum(token_embeddings * input_mask_expanded, 1)
-        sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
-        return sum_embeddings / sum_mask
-
-    def encode(self, query: str):
-        if self.has_model:
-            inputs = self.tokenizer(
-                query,
-                add_special_tokens=True,
-                return_tensors='pt',
-                truncation='only_first',
-                padding='longest',
-                return_token_type_ids=False,
-            )
-
-            inputs.to(self.device)
-            outputs = self.model(**inputs)
-            if self.pooling == "mean":
-                embeddings = self._mean_pooling(outputs, inputs['attention_mask']).detach().cpu().numpy()
-            else:
-                embeddings = outputs[0][:, 0, :].detach().cpu().numpy()
-            if self.l2_norm:
-                faiss.normalize_L2(embeddings)
-            return embeddings.flatten()
         else:
             return super().encode(query)
 
