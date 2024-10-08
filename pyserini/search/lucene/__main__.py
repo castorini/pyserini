@@ -23,8 +23,10 @@ from transformers import AutoTokenizer
 from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
 from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
-from pyserini.search import JDisjunctionMaxQueryGenerator
-from . import LuceneImpactSearcher, LuceneSearcher, SlimSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher
+from pyserini.search.lucene import JDisjunctionMaxQueryGenerator
+from ._hnsw_searcher import LuceneHnswDenseSearcher, LuceneFlatDenseSearcher
+from ._impact_searcher import LuceneImpactSearcher, SlimSearcher
+from ._searcher import LuceneSearcher
 from .reranker import ClassifierType, PseudoRelevanceClassifierReranker
 
 

@@ -2,11 +2,11 @@
 # https://github.com/facebookresearch/KILT/blob/9bcb119a7ed5fda88826058b062d0e45c726c676/kilt/eval_retrieval.py
 
 import argparse
-import pprint
 import json
+import os
+import pprint
 from collections import defaultdict, OrderedDict
 
-import os
 from pyserini.query_iterator import KiltQueryIterator
 
 

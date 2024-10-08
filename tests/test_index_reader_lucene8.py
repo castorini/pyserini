@@ -23,8 +23,9 @@ import unittest
 from random import randint
 from urllib.request import urlretrieve
 
-from pyserini import analysis, search
-from pyserini.index.lucene import IndexReader
+from pyserini.analysis import get_lucene_analyzer
+from pyserini.index.lucene import LuceneIndexReader
+from pyserini.search.lucene import LuceneSearcher, LuceneSimilarities
 
 
 class TestIndexUtilsForLucene8(unittest.TestCase):
@@ -43,8 +44,8 @@ class TestIndexUtilsForLucene8(unittest.TestCase):
         tarball.close()
 
         self.index_path = os.path.join(self.index_dir, 'lucene-index.cacm')
-        self.searcher = search.LuceneSearcher(self.index_path)
-        self.index_reader = IndexReader(self.index_path)
+        self.searcher = LuceneSearcher(self.index_path)
+        self.index_reader = LuceneIndexReader(self.index_path)
 
         self.temp_folders = []
 
@@ -61,7 +62,7 @@ class TestIndexUtilsForLucene8(unittest.TestCase):
                                        self.index_reader.compute_query_document_score(hits[i].docid, query), places=4)
 
     def test_query_doc_score_custom_similarity(self):
-        custom_bm25 = search.LuceneSimilarities.bm25(0.8, 0.2)
+        custom_bm25 = LuceneSimilarities.bm25(0.8, 0.2)
         queries = ['information retrieval', 'databases']
         self.searcher.set_bm25(0.8, 0.2)
 
@@ -75,7 +76,7 @@ class TestIndexUtilsForLucene8(unittest.TestCase):
                                        self.index_reader.compute_query_document_score(
                                            hits[i].docid, query, similarity=custom_bm25), places=4)
 
-        custom_qld = search.LuceneSimilarities.qld(500)
+        custom_qld = LuceneSimilarities.qld(500)
         self.searcher.set_qld(500)
 
         for query in queries:
@@ -107,7 +108,7 @@ class TestIndexUtilsForLucene8(unittest.TestCase):
                 The query for search.
             """
             # Search through documents BM25 dump
-            query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
+            query_terms = self.index_reader.analyze(query, analyzer=get_lucene_analyzer())
             heap = [] # heapq implements a min-heap, we can invert the values to have a max-heap
 
             for line in dump_file:
@@ -159,7 +160,7 @@ class TestIndexUtilsForLucene8(unittest.TestCase):
                 searching through documents in the dump is 2, then with a tolerance of 1 the ranking of the same
                 document with Lucene searcher should be between 1-3.
             """
-            query_terms = self.index_reader.analyze(query, analyzer=analysis.get_lucene_analyzer())
+            query_terms = self.index_reader.analyze(query, analyzer=get_lucene_analyzer())
             heap = []
             for line in quantized_weights_file:
                 doc = json.loads(line)

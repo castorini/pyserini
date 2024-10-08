@@ -24,27 +24,26 @@ from dataclasses import dataclass
 from typing import Dict, List, Union, Optional, Tuple
 
 import numpy as np
-import pandas as pd
 import openai
+import pandas as pd
 import tiktoken
-
+import torch
 from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer, BertTokenizerFast,
                           DPRQuestionEncoder, DPRQuestionEncoderTokenizer, RobertaTokenizer)
 from transformers.file_utils import is_faiss_available, requires_backends
 
+from pyserini.encode._clip import ClipEncoder
+from pyserini.index import Document
+from pyserini.search.lucene import LuceneSearcher
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
                            get_dense_indexes_info, get_sparse_index)
-from pyserini.search.lucene import LuceneSearcher
-from pyserini.index import Document
-
 from ._model import AnceEncoder
-import torch
-
-from ...encode import PcaEncoder, CosDprQueryEncoder, ClipEncoder
 from ...encode._aggretriever import BERTAggretrieverEncoder, DistlBERTAggretrieverEncoder
 
-if is_faiss_available():
-    import faiss
+from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf, PRFDenseSearchResult
+
+#if is_faiss_available():
+import faiss
 
 
 class QueryEncoder:
@@ -419,13 +418,6 @@ class AutoQueryEncoder(QueryEncoder):
 class DenseSearchResult:
     docid: str
     score: float
-
-
-@dataclass
-class PRFDenseSearchResult:
-    docid: str
-    score: float
-    vectors: [float]
 
 
 class FaissSearcher:

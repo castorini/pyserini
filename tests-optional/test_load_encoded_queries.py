@@ -18,8 +18,8 @@
 
 import unittest
 
-from pyserini.search import QueryEncoder
 from pyserini.search import get_topics
+from pyserini.search.faiss._searcher import QueryEncoder
 
 
 class TestLoadEncodedQueries(unittest.TestCase):

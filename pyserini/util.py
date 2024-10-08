@@ -15,23 +15,22 @@
 #
 
 import hashlib
+import logging
 import os
 import re
 import shutil
 import tarfile
-import logging
 from urllib.error import HTTPError, URLError
 from urllib.request import urlretrieve
 
 import pandas as pd
 from tqdm import tqdm
 
-from pyserini.encoded_query_info import QUERY_INFO
 from pyserini.encoded_corpus_info import CORPUS_INFO
+from pyserini.encoded_query_info import QUERY_INFO
 from pyserini.evaluate_script_info import EVALUATION_INFO
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, \
     LUCENE_HNSW_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, FAISS_INDEX_INFO
-
 
 logger = logging.getLogger(__name__)
 

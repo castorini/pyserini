@@ -24,7 +24,7 @@ from tqdm import tqdm
 
 from pyserini.fusion import FusionMethod
 from pyserini.search import get_topics
-from pyserini.search import LuceneFusionSearcher
+from pyserini.search.lucene import LuceneFusionSearcher
 from pyserini.trectools import TrecRun
 from pyserini.util import download_url, download_and_unpack_index
 

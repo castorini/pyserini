@@ -21,7 +21,7 @@ if torch.cuda.is_available():
 from transformers import BertModel, BertTokenizer, BertTokenizerFast
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
-from onnxruntime import ExecutionMode, SessionOptions, InferenceSession
+from onnxruntime import SessionOptions, InferenceSession
 
 
 class TctColBertDocumentEncoder(DocumentEncoder):

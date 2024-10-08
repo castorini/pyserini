@@ -22,7 +22,7 @@ from random import randint
 from urllib.request import urlretrieve
 
 from pyserini.analysis import JAnalyzer, JAnalyzerUtils, Analyzer, get_lucene_analyzer
-from pyserini.index.lucene import IndexReader
+from pyserini.index.lucene import LuceneIndexReader
 from pyserini.search.lucene import LuceneSearcher
 
 
@@ -40,7 +40,7 @@ class TestAnalyzers(unittest.TestCase):
         tarball.extractall(self.index_dir)
         tarball.close()
         self.searcher = LuceneSearcher(f'{self.index_dir}lucene9-index.cacm')
-        self.index_utils = IndexReader(f'{self.index_dir}lucene9-index.cacm')
+        self.index_utils = LuceneIndexReader(f'{self.index_dir}lucene9-index.cacm')
 
     def test_different_analyzers_are_different(self):
         self.searcher.set_analyzer(get_lucene_analyzer(stemming=False))

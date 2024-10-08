@@ -16,11 +16,10 @@
 
 import enum
 import importlib
-import os
-import uuid
+from typing import List
+
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
-from typing import List
 
 
 class ClassifierType(enum.Enum):

@@ -20,17 +20,18 @@ point is the ``IndexReaderUtils`` class, which wraps the Java class with the sam
 and methods provided are meant only to provide tools for examining an index and are not optimized for computing over.
 """
 
+import json
 import logging
+import math
 from enum import Enum
 from typing import Dict, Iterator, List, Optional, Tuple
+
 from tqdm import tqdm
-import json
-import math
 
 from pyserini.analysis import get_lucene_analyzer, JAnalyzer, JAnalyzerUtils
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO
 from pyserini.pyclass import autoclass
 from pyserini.util import download_prebuilt_index, get_sparse_indexes_info
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO
 
 logger = logging.getLogger(__name__)
 
@@ -180,7 +181,7 @@ class Posting:
         return repr
 
 
-class IndexReader:
+class LuceneIndexReader:
     """Wrapper class for ``IndexReaderUtils`` in Anserini.
 
     Parameters

@@ -30,10 +30,10 @@ from typing import Dict
 
 from transformers import AutoTokenizer
 
+from pyserini.prebuilt_index_info import TF_INDEX_INFO
 from pyserini.pyclass import autoclass
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.util import download_prebuilt_index, get_cache_home, download_url, download_and_unpack_index
-from pyserini.prebuilt_index_info import TF_INDEX_INFO
 
 # Wrappers around Anserini classes
 JQuery = autoclass('org.apache.lucene.search.Query')

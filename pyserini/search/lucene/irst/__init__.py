@@ -15,4 +15,3 @@
 #
 
 from ._searcher import LuceneIrstSearcher
-__all__ = ['LuceneIrstSearcher']

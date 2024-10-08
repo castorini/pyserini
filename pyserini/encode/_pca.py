@@ -14,4 +14,21 @@
 # limitations under the License.
 #
 
-from ._base import get_lucene_analyzer, Analyzer, JAnalyzer, JAnalyzerUtils, JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
+import faiss
+import numpy as np
+
+
+class PcaEncoder:
+    def __init__(self, encoder, pca_model_path):
+        self.encoder = encoder
+        self.pca_mat = faiss.read_VectorTransform(pca_model_path)
+
+    def encode(self, text, **kwargs):
+        if isinstance(text, str):
+            embeddings = self.encoder.encode(text, **kwargs)
+            embeddings = self.pca_mat.apply_py(np.array([embeddings]))
+            embeddings = embeddings[0]
+        else:
+            embeddings = self.encoder.encode(text, **kwargs)
+            embeddings = self.pca_mat.apply_py(embeddings)
+        return embeddings

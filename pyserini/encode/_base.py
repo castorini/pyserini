@@ -13,12 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 import json
 import os
 
-import faiss
-import torch
 import numpy as np
+import torch
 from tqdm import tqdm
 
 
@@ -38,22 +38,6 @@ class DocumentEncoder:
 class QueryEncoder:
     def encode(self, text, **kwargs):
         pass
-
-
-class PcaEncoder:
-    def __init__(self, encoder, pca_model_path):
-        self.encoder = encoder
-        self.pca_mat = faiss.read_VectorTransform(pca_model_path)
-
-    def encode(self, text, **kwargs):
-        if isinstance(text, str):
-            embeddings = self.encoder.encode(text, **kwargs)
-            embeddings = self.pca_mat.apply_py(np.array([embeddings]))
-            embeddings = embeddings[0]
-        else:
-            embeddings = self.encoder.encode(text, **kwargs)
-            embeddings = self.pca_mat.apply_py(embeddings)
-        return embeddings
 
 
 class JsonlCollectionIterator:
@@ -190,27 +174,3 @@ class JsonlRepresentationWriter(RepresentationWriter):
             self.file.write(json.dumps({'id': batch_info['id'][i],
                                         'contents': contents,
                                         'vector': vector}) + '\n')
-
-
-class FaissRepresentationWriter(RepresentationWriter):
-    def __init__(self, dir_path, dimension=768):
-        self.dir_path = dir_path
-        self.index_name = 'index'
-        self.id_file_name = 'docid'
-        self.dimension = dimension
-        self.index = faiss.IndexFlatIP(self.dimension)
-        self.id_file = None
-
-    def __enter__(self):
-        if not os.path.exists(self.dir_path):
-            os.makedirs(self.dir_path)
-        self.id_file = open(os.path.join(self.dir_path, self.id_file_name), 'w')
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.id_file.close()
-        faiss.write_index(self.index, os.path.join(self.dir_path, self.index_name))
-
-    def write(self, batch_info, fields=None):
-        for id_ in batch_info['id']:
-            self.id_file.write(f'{id_}\n')
-        self.index.add(np.ascontiguousarray(batch_info['vector']))

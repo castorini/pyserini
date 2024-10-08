@@ -15,6 +15,7 @@
 #
 
 import argparse
+import importlib.resources
 import math
 import os
 import sys
@@ -23,7 +24,6 @@ from collections import defaultdict
 from datetime import datetime
 from string import Template
 
-import importlib.resources
 import yaml
 
 from ._base import run_dpr_retrieval_eval_and_return_metric, convert_trec_run_to_dpr_retrieval_json, run_fusion, ok_str, \

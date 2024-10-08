@@ -15,10 +15,10 @@
 #
 
 import argparse
-from ._base import FusionMethod
-from pyserini.fusion import average, interpolation, reciprocal_rank_fusion
-from ..trectools import TrecRun
 
+from pyserini.fusion import average, interpolation, reciprocal_rank_fusion
+from ._base import FusionMethod
+from ..trectools import TrecRun
 
 parser = argparse.ArgumentParser(description='Perform various ways of fusion given a list of trec run files.')
 parser.add_argument('--runs', type=str, nargs='+', default=[], required=True,

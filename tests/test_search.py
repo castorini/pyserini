@@ -22,8 +22,8 @@ from random import randint
 from typing import List, Dict
 from urllib.request import urlretrieve
 
-from pyserini.search.lucene import LuceneSearcher, JScoredDoc
 from pyserini.index.lucene import Document
+from pyserini.search.lucene import LuceneSearcher, JScoredDoc
 
 
 class TestSearch(unittest.TestCase):
