@@ -14,4 +14,5 @@
 # limitations under the License.
 #
 
-from ._searcher import FaissSearcher, BinaryDenseSearcher, DenseSearchResult
+from ._searcher import FaissSearcher, BinaryDenseFaissSearcher, DenseSearchResult
+from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf, PrfDenseSearchResult

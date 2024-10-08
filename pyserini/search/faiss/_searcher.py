@@ -23,32 +23,21 @@ import os
 from dataclasses import dataclass
 from typing import Dict, List, Union, Optional, Tuple
 
+import faiss
 import numpy as np
 import openai
-import pandas as pd
 import tiktoken
 import torch
-from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer, BertTokenizerFast,
-                          DPRQuestionEncoder, DPRQuestionEncoderTokenizer, RobertaTokenizer)
-from transformers.file_utils import is_faiss_available, requires_backends
+from transformers import AutoModel, AutoTokenizer
+from transformers.file_utils import requires_backends
 
 from pyserini.encode import QueryEncoder
-from pyserini.encode import AnceQueryEncoder
-from pyserini.encode import BprQueryEncoder
-from pyserini.encode import DprQueryEncoder
-from pyserini.encode import TctColBertQueryEncoder
-
+from pyserini.encode import AnceQueryEncoder, BprQueryEncoder, DprQueryEncoder, TctColBertQueryEncoder
 from pyserini.encode._clip import ClipEncoder
 from pyserini.index import Document
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.util import (download_encoded_queries, download_prebuilt_index,
-                           get_dense_indexes_info, get_sparse_index)
-from ...encode._aggretriever import BERTAggretrieverEncoder, DistlBERTAggretrieverEncoder
-
-from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf, PRFDenseSearchResult
-
-#if is_faiss_available():
-import faiss
+from pyserini.util import download_prebuilt_index, get_dense_indexes_info, get_sparse_index
+from pyserini.search.faiss import PrfDenseSearchResult
 
 
 class ClipQueryEncoder(QueryEncoder):
@@ -73,71 +62,6 @@ class ClipQueryEncoder(QueryEncoder):
 
     def encode(self, query: str):
         return self.encoder.encode(query).flatten()
-
-
-class AggretrieverQueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
-        if encoder_dir:
-            self.device = device
-            if 'distilbert' in encoder_dir.lower():
-                self.model = DistlBERTAggretrieverEncoder.from_pretrained(encoder_dir)
-            else:
-                self.model = BERTAggretrieverEncoder.from_pretrained(encoder_dir)
-            self.model.to(self.device)
-            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
-            self.has_model = True
-        if (not self.has_model) and (not self.has_encoded_query):
-            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
-
-    def encode(self, query: str,  max_length: int=32):
-        if self.has_model:
-            inputs = self.tokenizer(
-                query,
-                max_length=max_length,
-                padding="longest",
-                truncation=True,
-                add_special_tokens=True,
-                return_tensors='pt'
-            )
-            inputs.to(self.device)
-            outputs = self.model(**inputs)
-            embeddings = outputs.detach().cpu().numpy() 
-            return embeddings.flatten()
-        else:
-            return super().encode(query)        
-
-
-class DkrrDprQueryEncoder(QueryEncoder):
-
-    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu',
-                 prefix: str = "question:", **kwargs):
-        super().__init__(encoded_query_dir)
-        self.device = device
-        self.model = BertModel.from_pretrained(encoder_dir)
-        self.model.to(self.device)
-        self.tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased")
-        self.has_model = True
-        self.prefix = prefix
-
-    @staticmethod
-    def _mean_pooling(model_output, attention_mask):
-        model_output = model_output[0].masked_fill(attention_mask[:, :, None] == 0, 0.)
-        model_output = torch.sum(model_output, dim=1) / torch.clamp(torch.sum(attention_mask, dim=1), min=1e-9)[:, None]
-        return model_output.flatten()
-
-    def encode(self, query: str):
-        if self.has_model:
-            if self.prefix:
-                query = f'{self.prefix} {query}'
-            inputs = self.tokenizer(query, return_tensors='pt', max_length=40, padding="max_length")
-            inputs.to(self.device)
-            outputs = self.model(input_ids=inputs["input_ids"],
-                                 attention_mask=inputs["attention_mask"])
-            embeddings = self._mean_pooling(outputs, inputs['attention_mask']).detach().cpu().numpy()
-            return embeddings.flatten()
-        else:
-            return super().encode(query)
 
 
 class OpenAIQueryEncoder(QueryEncoder):
@@ -290,7 +214,7 @@ class FaissSearcher:
         get_dense_indexes_info()
 
     def search(self, query: Union[str, np.ndarray], k: int = 10, threads: int = 1, remove_dups: bool = False, return_vector: bool = False) \
-            -> Union[List[DenseSearchResult], Tuple[np.ndarray, List[PRFDenseSearchResult]]]:
+            -> Union[List[DenseSearchResult], Tuple[np.ndarray, List[PrfDenseSearchResult]]]:
         """Search the collection.
 
         Parameters
@@ -323,7 +247,7 @@ class FaissSearcher:
             vectors = vectors[0]
             distances = distances.flat
             indexes = indexes.flat
-            return emb_q, [PRFDenseSearchResult(self.docids[idx], score, vector)
+            return emb_q, [PrfDenseSearchResult(self.docids[idx], score, vector)
                            for score, idx, vector in zip(distances, indexes, vectors) if idx != -1]
         else:
             distances, indexes = self.index.search(emb_q, k)
@@ -342,7 +266,7 @@ class FaissSearcher:
 
     def batch_search(self, queries: Union[List[str], np.ndarray], q_ids: List[str], k: int = 10,
                      threads: int = 1, return_vector: bool = False) \
-            -> Union[Dict[str, List[DenseSearchResult]], Tuple[np.ndarray, Dict[str, List[PRFDenseSearchResult]]]]:
+            -> Union[Dict[str, List[DenseSearchResult]], Tuple[np.ndarray, Dict[str, List[PrfDenseSearchResult]]]]:
         """
 
         Parameters
@@ -374,7 +298,7 @@ class FaissSearcher:
         faiss.omp_set_num_threads(threads)
         if return_vector:
             D, I, V = self.index.search_and_reconstruct(q_embs, k)
-            return q_embs, {key: [PRFDenseSearchResult(self.docids[idx], score, vector)
+            return q_embs, {key: [PrfDenseSearchResult(self.docids[idx], score, vector)
                                   for score, idx, vector in zip(distances, indexes, vectors) if idx != -1]
                             for key, distances, indexes, vectors in zip(q_ids, D, I, V)}
         else:
@@ -433,7 +357,7 @@ class FaissSearcher:
         self.index.hnsw.efSearch = ef_search
 
 
-class BinaryDenseSearcher(FaissSearcher):
+class BinaryDenseFaissSearcher(FaissSearcher):
     """Simple Searcher for binary-dense representation
 
     Parameters
