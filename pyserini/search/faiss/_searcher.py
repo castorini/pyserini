@@ -32,12 +32,17 @@ from transformers import (AutoModel, AutoTokenizer, BertModel, BertTokenizer, Be
                           DPRQuestionEncoder, DPRQuestionEncoderTokenizer, RobertaTokenizer)
 from transformers.file_utils import is_faiss_available, requires_backends
 
+from pyserini.encode import QueryEncoder
+from pyserini.encode import AnceQueryEncoder
+from pyserini.encode import BprQueryEncoder
+from pyserini.encode import DprQueryEncoder
+from pyserini.encode import TctColBertQueryEncoder
+
 from pyserini.encode._clip import ClipEncoder
 from pyserini.index import Document
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.util import (download_encoded_queries, download_prebuilt_index,
                            get_dense_indexes_info, get_sparse_index)
-from ._model import AnceEncoder
 from ...encode._aggretriever import BERTAggretrieverEncoder, DistlBERTAggretrieverEncoder
 
 from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf, PRFDenseSearchResult
@@ -45,46 +50,6 @@ from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAnceP
 #if is_faiss_available():
 import faiss
 
-
-class QueryEncoder:
-    def __init__(self, encoded_query_dir: str = None):
-        self.has_model = False
-        self.has_encoded_query = False
-        if encoded_query_dir:
-            self.embedding = self._load_embeddings(encoded_query_dir)
-            self.has_encoded_query = True
-
-    def encode(self, query: str):
-        return self.embedding[query]
-
-    @classmethod
-    def load_encoded_queries(cls, encoded_query_name: str):
-        """Build a query encoder from a pre-encoded query; download the encoded queries if necessary.
-
-        Parameters
-        ----------
-        encoded_query_name : str
-            pre encoded query name.
-
-        Returns
-        -------
-        QueryEncoder
-            Encoder built from the pre encoded queries.
-        """
-        print(f'Attempting to initialize pre-encoded queries {encoded_query_name}.')
-        try:
-            query_dir = download_encoded_queries(encoded_query_name)
-        except ValueError as e:
-            print(str(e))
-            return None
-
-        print(f'Initializing {encoded_query_name}...')
-        return cls(encoded_query_dir=query_dir)
-
-    @staticmethod
-    def _load_embeddings(encoded_query_dir):
-        df = pd.read_pickle(os.path.join(encoded_query_dir, 'embedding.pkl'))
-        return dict(zip(df['text'].tolist(), df['embedding'].tolist()))
 
 class ClipQueryEncoder(QueryEncoder):
     """Encodes queries using a CLIP model, supporting both images and texts."""
@@ -141,105 +106,6 @@ class AggretrieverQueryEncoder(QueryEncoder):
             return embeddings.flatten()
         else:
             return super().encode(query)        
-        
-
-class TctColBertQueryEncoder(QueryEncoder):
-
-    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
-        super().__init__(encoded_query_dir)
-        if encoder_dir:
-            self.device = device
-            self.model = BertModel.from_pretrained(encoder_dir)
-            self.model.to(self.device)
-            self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or encoder_dir)
-            self.has_model = True
-        if (not self.has_model) and (not self.has_encoded_query):
-            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
-
-    def encode(self, query: str):
-        if self.has_model:
-            max_length = 36  # hardcode for now
-            inputs = self.tokenizer(
-                '[CLS] [Q] ' + query + '[MASK]' * max_length,
-                max_length=max_length,
-                truncation=True,
-                add_special_tokens=False,
-                return_tensors='pt'
-            )
-            inputs.to(self.device)
-            outputs = self.model(**inputs)
-            embeddings = outputs.last_hidden_state.detach().cpu().numpy()
-            return np.average(embeddings[:, 4:, :], axis=-2).flatten()
-        else:
-            return super().encode(query)
-
-
-class DprQueryEncoder(QueryEncoder):
-
-    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
-        super().__init__(encoded_query_dir)
-        if encoder_dir:
-            self.device = device
-            self.model = DPRQuestionEncoder.from_pretrained(encoder_dir)
-            self.model.to(self.device)
-            self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(tokenizer_name or encoder_dir)
-            self.has_model = True
-        if (not self.has_model) and (not self.has_encoded_query):
-            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
-
-    def encode(self, query: str):
-        if self.has_model:
-            input_ids = self.tokenizer(query, return_tensors='pt')
-            input_ids.to(self.device)
-            embeddings = self.model(input_ids["input_ids"]).pooler_output.detach().cpu().numpy()
-            return embeddings.flatten()
-        else:
-            return super().encode(query)
-
-
-class BprQueryEncoder(QueryEncoder):
-
-    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
-        self.has_model = False
-        self.has_encoded_query = False
-        if encoded_query_dir:
-            self.embedding = self._load_embeddings(encoded_query_dir)
-            self.has_encoded_query = True
-
-        if encoder_dir:
-            self.device = device
-            self.model = DPRQuestionEncoder.from_pretrained(encoder_dir)
-            self.model.to(self.device)
-            self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(tokenizer_name or encoder_dir)
-            self.has_model = True
-        if (not self.has_model) and (not self.has_encoded_query):
-            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
-
-    def encode(self, query: str):
-        if self.has_model:
-            input_ids = self.tokenizer(query, return_tensors='pt')
-            input_ids.to(self.device)
-            embeddings = self.model(input_ids["input_ids"]).pooler_output.detach().cpu()
-            dense_embeddings = embeddings.numpy()
-            sparse_embeddings = self.convert_to_binary_code(embeddings).numpy()
-            return {'dense': dense_embeddings.flatten(), 'sparse': sparse_embeddings.flatten()}
-        else:
-            return super().encode(query)
-
-    def convert_to_binary_code(self, input_repr: torch.Tensor):
-        return input_repr.new_ones(input_repr.size()).masked_fill_(input_repr < 0, -1.0)
-
-    @staticmethod
-    def _load_embeddings(encoded_query_dir):
-        df = pd.read_pickle(os.path.join(encoded_query_dir, 'embedding.pkl'))
-        ret = {}
-        for text, dense, sparse in zip(df['text'].tolist(), df['dense_embedding'].tolist(),
-                                       df['sparse_embedding'].tolist()):
-            ret[text] = {'dense': dense, 'sparse': sparse}
-        return ret
 
 
 class DkrrDprQueryEncoder(QueryEncoder):
@@ -273,66 +139,6 @@ class DkrrDprQueryEncoder(QueryEncoder):
         else:
             return super().encode(query)
 
-
-class AnceQueryEncoder(QueryEncoder):
-
-    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
-        super().__init__(encoded_query_dir)
-        if encoder_dir:
-            self.device = device
-            self.model = AnceEncoder.from_pretrained(encoder_dir)
-            self.model.to(self.device)
-            self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or encoder_dir)
-            self.has_model = True
-            self.tokenizer.do_lower_case = True
-        if (not self.has_model) and (not self.has_encoded_query):
-            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
-
-    def encode(self, query: str):
-        if self.has_model:
-            inputs = self.tokenizer(
-                [query],
-                max_length=64,
-                padding='longest',
-                truncation=True,
-                add_special_tokens=True,
-                return_tensors='pt'
-            )
-            inputs.to(self.device)
-            embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
-            return embeddings.flatten()
-        else:
-            return super().encode(query)
-
-    def prf_encode(self, query: str):
-        if self.has_model:
-            inputs = self.tokenizer(
-                [query],
-                max_length=512,
-                padding='longest',
-                truncation=True,
-                add_special_tokens=False,
-                return_tensors='pt'
-            )
-            inputs.to(self.device)
-            embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
-            return embeddings.flatten()
-        else:
-            return super().encode(query)
-
-    def prf_batch_encode(self, query: List[str]):
-        inputs = self.tokenizer(
-            query,
-            max_length=512,
-            padding='longest',
-            truncation=True,
-            add_special_tokens=False,
-            return_tensors='pt'
-        )
-        inputs.to(self.device)
-        embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
-        return embeddings
 
 class OpenAIQueryEncoder(QueryEncoder):
     from pyserini.encode._openai import retry_with_delay

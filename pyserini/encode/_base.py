@@ -18,8 +18,11 @@ import json
 import os
 
 import numpy as np
+import pandas as pd
 import torch
 from tqdm import tqdm
+
+from pyserini.util import download_encoded_queries
 
 
 class DocumentEncoder:
@@ -36,8 +39,44 @@ class DocumentEncoder:
 
 
 class QueryEncoder:
-    def encode(self, text, **kwargs):
-        pass
+    def __init__(self, encoded_query_dir: str = None):
+        self.has_model = False
+        self.has_encoded_query = False
+        if encoded_query_dir:
+            self.embedding = self._load_embeddings(encoded_query_dir)
+            self.has_encoded_query = True
+
+    def encode(self, query: str):
+        return self.embedding[query]
+
+    @classmethod
+    def load_encoded_queries(cls, encoded_query_name: str):
+        """Build a query encoder from a pre-encoded query; download the encoded queries if necessary.
+
+        Parameters
+        ----------
+        encoded_query_name : str
+            pre encoded query name.
+
+        Returns
+        -------
+        QueryEncoder
+            Encoder built from the pre encoded queries.
+        """
+        print(f'Attempting to initialize pre-encoded queries {encoded_query_name}.')
+        try:
+            query_dir = download_encoded_queries(encoded_query_name)
+        except ValueError as e:
+            print(str(e))
+            return None
+
+        print(f'Initializing {encoded_query_name}...')
+        return cls(encoded_query_dir=query_dir)
+
+    @staticmethod
+    def _load_embeddings(encoded_query_dir):
+        df = pd.read_pickle(os.path.join(encoded_query_dir, 'embedding.pkl'))
+        return dict(zip(df['text'].tolist(), df['embedding'].tolist()))
 
 
 class JsonlCollectionIterator:

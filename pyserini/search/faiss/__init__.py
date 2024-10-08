@@ -14,10 +14,4 @@
 # limitations under the License.
 #
 
-from ._searcher import FaissSearcher, DenseSearchResult
-
-# from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf, PRFDenseSearchResult
-# from ._searcher import DenseSearchResult, FaissSearcher, BinaryDenseSearcher, QueryEncoder, \
-#     DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, \
-#     AggretrieverQueryEncoder, OpenAIQueryEncoder, \
-#     AutoQueryEncoder, ClipQueryEncoder
+from ._searcher import FaissSearcher, BinaryDenseSearcher, DenseSearchResult
