@@ -16,12 +16,16 @@
 
 import json
 import unittest
+from itertools import islice
 
-from pyserini.encode import DprDocumentEncoder
+import numpy as np
+
+from pyserini.encode import DprDocumentEncoder, DprQueryEncoder
+from pyserini.search import get_topics
 
 
 class TestEncodeDpr(unittest.TestCase):
-    def test_dpr_encoder(self):
+    def test_dpr_doc_encoder(self):
         texts = []
         with open('tests/resources/simple_cacm_corpus.json') as f:
             for line in f:
@@ -34,6 +38,25 @@ class TestEncodeDpr(unittest.TestCase):
         self.assertAlmostEqual(vectors[0][-1], -0.13036962, places=4)
         self.assertAlmostEqual(vectors[2][0], -0.3044764, places=4)
         self.assertAlmostEqual(vectors[2][-1], 0.1516793, places=4)
+
+    def test_dpr_encoded_queries(self):
+        encoded = DprQueryEncoder.load_encoded_queries('dpr_multi-nq-test')
+        topics = get_topics('dpr-nq-test')
+        for t in topics:
+            self.assertTrue(topics[t]['title'] in encoded.embedding)
+
+    def test_dpr_query_encoder(self):
+        encoder = DprQueryEncoder('facebook/dpr-question_encoder-multiset-base')
+
+        cached_encoder = DprQueryEncoder.load_encoded_queries('dpr_multi-nq-test')
+        topics = get_topics('dpr-nq-test')
+        # Just test the first 10 topics
+        for t in dict(islice(topics.items(), 10)):
+            cached_vector = np.array(cached_encoder.encode(topics[t]['title']))
+            encoded_vector = np.array(encoder.encode(topics[t]['title']))
+
+            l1 = np.sum(np.abs(cached_vector - encoded_vector))
+            self.assertTrue(l1 < 0.0005)
 
 
 if __name__ == '__main__':

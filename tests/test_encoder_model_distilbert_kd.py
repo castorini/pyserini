@@ -15,8 +15,11 @@
 #
 
 import unittest
+from itertools import islice
 
-from pyserini.encode import QueryEncoder
+import numpy as np
+
+from pyserini.encode import QueryEncoder, AutoQueryEncoder
 from pyserini.search import get_topics
 
 
@@ -36,6 +39,19 @@ class TestEncodeDistilBertKd(unittest.TestCase):
         topics = get_topics('dl20')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoded.embedding)
+
+    def test_distilbert_kd_encoder(self):
+        encoder = AutoQueryEncoder('sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco')
+
+        cached_encoder = QueryEncoder.load_encoded_queries('distilbert_kd-dl20')
+        topics = get_topics('dl20')
+        # Just test the first 10 topics
+        for t in dict(islice(topics.items(), 10)):
+            cached_vector = np.array(cached_encoder.encode(topics[t]['title']))
+            encoded_vector = np.array(encoder.encode(topics[t]['title']))
+
+            l1 = np.sum(np.abs(cached_vector - encoded_vector))
+            self.assertTrue(l1 < 0.0005)
 
 
 if __name__ == '__main__':
