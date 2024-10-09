@@ -25,7 +25,7 @@ from pyserini.search.lucene import LuceneSearcher
 
 
 @dataclass
-class PRFDenseSearchResult:
+class PrfDenseSearchResult:
     docid: str
     score: float
     vectors: [float]
@@ -43,15 +43,15 @@ class DenseVectorPrf:
 
 
 class DenseVectorAveragePrf(DenseVectorPrf):
-    def get_prf_q_emb(self, emb_qs: np.ndarray = None, prf_candidates: List[PRFDenseSearchResult] = None):
+    def get_prf_q_emb(self, emb_qs: np.ndarray = None, prf_candidates: List[PrfDenseSearchResult] = None):
         """Perform Average PRF with Dense Vectors
 
         Parameters
         ----------
         emb_qs : np.ndarray
             Query embedding
-        prf_candidates : List[PRFDenseSearchResult]
-            List of PRFDenseSearchResult, contains document embeddings.
+        prf_candidates : List[PrfDenseSearchResult]
+            List of PrfDenseSearchResult, contains document embeddings.
 
         Returns
         -------
@@ -63,7 +63,7 @@ class DenseVectorAveragePrf(DenseVectorPrf):
         return new_emb_qs
 
     def get_batch_prf_q_emb(self, topic_ids: List[str] = None, emb_qs: np.ndarray = None,
-                            prf_candidates: Dict[str, List[PRFDenseSearchResult]] = None):
+                            prf_candidates: Dict[str, List[PrfDenseSearchResult]] = None):
         """Perform Average PRF with Dense Vectors
 
         Parameters
@@ -72,8 +72,8 @@ class DenseVectorAveragePrf(DenseVectorPrf):
             List of topic ids.
         emb_qs : np.ndarray
             Query embeddings
-        prf_candidates : List[PRFDenseSearchResult]
-            List of PRFDenseSearchResult, contains document embeddings.
+        prf_candidates : List[PrfDenseSearchResult]
+            List of PrfDenseSearchResult, contains document embeddings.
 
         Returns
         -------
@@ -113,15 +113,15 @@ class DenseVectorRocchioPrf(DenseVectorPrf):
         self.topk = topk
         self.bottomk = bottomk
 
-    def get_prf_q_emb(self, emb_qs: np.ndarray = None, prf_candidates: List[PRFDenseSearchResult] = None):
+    def get_prf_q_emb(self, emb_qs: np.ndarray = None, prf_candidates: List[PrfDenseSearchResult] = None):
         """Perform Rocchio PRF with Dense Vectors
 
         Parameters
         ----------
         emb_qs : np.ndarray
             query embedding
-        prf_candidates : List[PRFDenseSearchResult]
-            List of PRFDenseSearchResult, contains document embeddings.
+        prf_candidates : List[PrfDenseSearchResult]
+            List of PrfDenseSearchResult, contains document embeddings.
 
         Returns
         -------
@@ -139,7 +139,7 @@ class DenseVectorRocchioPrf(DenseVectorPrf):
         return new_emb_q
 
     def get_batch_prf_q_emb(self, topic_ids: List[str] = None, emb_qs: np.ndarray = None,
-                            prf_candidates: Dict[str, List[PRFDenseSearchResult]] = None):
+                            prf_candidates: Dict[str, List[PrfDenseSearchResult]] = None):
         """Perform Rocchio PRF with Dense Vectors
 
         Parameters
@@ -148,8 +148,8 @@ class DenseVectorRocchioPrf(DenseVectorPrf):
             List of topic ids.
         emb_qs : np.ndarray
             Query embeddings
-        prf_candidates : List[PRFDenseSearchResult]
-            List of PRFDenseSearchResult, contains document embeddings.
+        prf_candidates : List[PrfDenseSearchResult]
+            List of PrfDenseSearchResult, contains document embeddings.
 
         Returns
         -------
@@ -179,15 +179,15 @@ class DenseVectorAncePrf(DenseVectorPrf):
         self.encoder = encoder
         self.sparse_searcher = sparse_searcher
 
-    def get_prf_q_emb(self, query: str = None, prf_candidates: List[PRFDenseSearchResult] = None):
+    def get_prf_q_emb(self, query: str = None, prf_candidates: List[PrfDenseSearchResult] = None):
         """Perform single ANCE-PRF with Dense Vectors
 
         Parameters
         ----------
         query : str
             query text
-        prf_candidates : List[PRFDenseSearchResult]
-            List of PRFDenseSearchResult, contains document embeddings.
+        prf_candidates : List[PrfDenseSearchResult]
+            List of PrfDenseSearchResult, contains document embeddings.
 
         Returns
         -------
@@ -204,7 +204,7 @@ class DenseVectorAncePrf(DenseVectorPrf):
         return emb_q
 
     def get_batch_prf_q_emb(self, topics: List[str], topic_ids: List[str],
-                            prf_candidates: Dict[str, List[PRFDenseSearchResult]]) -> np.ndarray:
+                            prf_candidates: Dict[str, List[PrfDenseSearchResult]]) -> np.ndarray:
         """Perform batch ANCE-PRF with Dense Vectors
 
         Parameters
@@ -213,8 +213,8 @@ class DenseVectorAncePrf(DenseVectorPrf):
             List of query texts.
         topic_ids: List[str]
             List of topic ids.
-        prf_candidates : List[PRFDenseSearchResult]
-            List of PRFDenseSearchResult, contains document embeddings.
+        prf_candidates : List[PrfDenseSearchResult]
+            List of PrfDenseSearchResult, contains document embeddings.
 
         Returns
         -------

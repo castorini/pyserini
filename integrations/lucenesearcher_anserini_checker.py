@@ -18,8 +18,8 @@ import filecmp
 import os
 from typing import List
 
-from pyserini.util import get_cache_home
 from pyserini.prebuilt_index_info import TF_INDEX_INFO
+from pyserini.util import get_cache_home
 
 
 class LuceneSearcherAnseriniMatchChecker:

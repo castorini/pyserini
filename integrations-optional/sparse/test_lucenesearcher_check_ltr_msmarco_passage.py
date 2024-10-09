@@ -20,12 +20,10 @@ import sys
 import unittest
 from shutil import rmtree
 
-from pyserini.search.lucene import LuceneSearcher
-
 
 class TestLtrMsmarcoPassage(unittest.TestCase):
     def test_reranking(self):
-        if(os.path.isdir('ltr_test')):
+        if os.path.isdir('ltr_test'):
             rmtree('ltr_test')
             os.mkdir('ltr_test')
         inp = 'run.msmarco-passage.bm25tuned.txt'

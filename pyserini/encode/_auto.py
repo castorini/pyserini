@@ -70,33 +70,45 @@ class AutoDocumentEncoder(DocumentEncoder):
 
 
 class AutoQueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir: str, tokenizer_name: str = None, device: str = 'cpu',
-                 pooling: str = 'cls', l2_norm: bool = False, prefix=None):
-        self.device = device
-        self.model = AutoModel.from_pretrained(encoder_dir)
-        self.model.to(self.device)
-        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
-        self.pooling = pooling
-        self.l2_norm = l2_norm
-        self.prefix = prefix
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, device: str = 'cpu',
+                 pooling: str = 'cls', l2_norm: bool = False, prefix=None, **kwargs):
+        super().__init__(encoded_query_dir)
+        if encoder_dir:
+            self.device = device
+            self.model = AutoModel.from_pretrained(encoder_dir)
+            self.model.to(self.device)
+            try:
+                self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            except:
+                self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir, use_fast=False)
+            self.has_model = True
+            self.pooling = pooling
+            self.l2_norm = l2_norm
+            self.prefix = prefix
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
-    def encode(self, query: str, **kwargs):
-        if self.prefix:
-            query = f'{self.prefix} {query}'
-        inputs = self.tokenizer(
-            query,
-            add_special_tokens=True,
-            return_tensors='pt',
-            truncation='only_first',
-            padding='longest',
-            return_token_type_ids=False,
-        )
-        inputs.to(self.device)
-        outputs = self.model(**inputs)[0].detach().cpu().numpy()
-        if self.pooling == "mean":
-            embeddings = np.average(outputs, axis=-2)
+    def encode(self, query: str):
+        if self.has_model:
+            if self.prefix:
+                query = f'{self.prefix} {query}'
+            inputs = self.tokenizer(
+                query,
+                add_special_tokens=True,
+                return_tensors='pt',
+                truncation='only_first',
+                padding='longest',
+                return_token_type_ids=False,
+            )
+            inputs.to(self.device)
+            outputs = self.model(**inputs)[0].detach().cpu().numpy()
+            if self.pooling == "mean":
+                embeddings = np.average(outputs, axis=-2)
+            else:
+                embeddings = outputs[:, 0, :]
+            if self.l2_norm:
+                embeddings = normalize(embeddings, norm='l2')
+            return embeddings.flatten()
         else:
-            embeddings = outputs[:, 0, :]
-        if self.l2_norm:
-            embeddings = normalize(embeddings, norm='l2')
-        return embeddings.flatten()
+            return super().encode(query)

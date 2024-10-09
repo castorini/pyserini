@@ -20,10 +20,8 @@ redirection purpose to ensure that code in existing published papers remain func
 import os
 import sys
 
-from pyserini.search.faiss import FaissSearcher
-from pyserini.search.faiss._searcher import TctColBertQueryEncoder, BinaryDenseSearcher
-
-__all__ = ['SimpleDenseSearcher', 'BinaryDenseSearcher', 'TctColBertQueryEncoder']
+from pyserini.encode import TctColBertQueryEncoder
+from pyserini.search.faiss import FaissSearcher, BinaryDenseFaissSearcher
 
 
 class SimpleDenseSearcher(FaissSearcher):
@@ -33,7 +31,7 @@ class SimpleDenseSearcher(FaissSearcher):
         return super().__new__(cls)
 
 
-class BinaryDenseSearcher(BinaryDenseSearcher):
+class BinaryDenseSearcher(BinaryDenseFaissSearcher):
     def __new__(cls, *args, **kwargs):
         print('pyserini.dsearch.BinaryDenseSearcher class has been deprecated, '
               'please use BinaryDenseSearcher from pyserini.search.faiss instead')

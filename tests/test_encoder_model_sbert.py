@@ -14,5 +14,19 @@
 # limitations under the License.
 #
 
-from ._searcher import FaissSearcher, BinaryDenseFaissSearcher, DenseSearchResult
-from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf, PrfDenseSearchResult
+import unittest
+
+from pyserini.encode import QueryEncoder
+from pyserini.search import get_topics
+
+
+class TestEncodeSBert(unittest.TestCase):
+    def test_msmarco_passage_sbert_encoded_queries(self):
+        encoded = QueryEncoder.load_encoded_queries('sbert-msmarco-passage-dev-subset')
+        topics = get_topics('msmarco-passage-dev-subset')
+        for t in topics:
+            self.assertTrue(topics[t]['title'] in encoded.embedding)
+
+
+if __name__ == '__main__':
+    unittest.main()

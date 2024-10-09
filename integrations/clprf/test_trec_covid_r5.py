@@ -14,13 +14,14 @@
 # limitations under the License.
 #
 
+import gzip
+import json
 import os
 import re
 import shutil
 import unittest
-import json
-import gzip
 from random import randint
+
 from pyserini.util import download_url, download_prebuilt_index
 
 
