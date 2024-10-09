@@ -1,0 +1,5 @@
+user:main_user
+password:123456
+host:localhost
+port:5432
+dbname:main_database
