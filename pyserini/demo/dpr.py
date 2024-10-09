@@ -18,8 +18,9 @@ import cmd
 import json
 import random
 
+from pyserini.encode import DprQueryEncoder
 from pyserini.search import get_topics
-from pyserini.search.faiss import FaissSearcher, DprQueryEncoder
+from pyserini.search.faiss import FaissSearcher
 from pyserini.search.hybrid import HybridSearcher
 from pyserini.search.lucene import LuceneSearcher
 

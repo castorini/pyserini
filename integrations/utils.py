@@ -15,8 +15,8 @@
 #
 
 import os
-import subprocess
 import shutil
+import subprocess
 
 
 def clean_files(files):
