@@ -127,7 +127,7 @@ class LuceneSearcher:
             if not fields:
                 hits = self.object.search(query_generator, q, k)
             else:
-                hits = self.object.searchFields(query_generator, q, jfields, k)
+                hits = self.object.search_fields(query_generator, q, jfields, k)
         elif isinstance(q, JQuery):
             # Note that RM3 requires the notion of a query (string) to estimate the appropriate models. If we're just
             # given a Lucene query, it's unclear what the "query" is for this estimation. One possibility is to extract
