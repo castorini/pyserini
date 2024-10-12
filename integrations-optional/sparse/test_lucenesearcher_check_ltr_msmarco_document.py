@@ -23,7 +23,7 @@ from shutil import rmtree
 
 class TestLtrMsmarcoDocument(unittest.TestCase):
     def test_reranking(self):
-        if(os.path.isdir('ltr_test')):
+        if os.path.isdir('ltr_test'):
             rmtree('ltr_test')
             os.mkdir('ltr_test')
         inp = 'run.msmarco-pass-doc.bm25.txt'

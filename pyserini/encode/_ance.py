@@ -14,10 +14,10 @@
 # limitations under the License.
 #
 
-from typing import Optional
+from typing import Optional, List
 
 import torch
-from transformers import PreTrainedModel, RobertaConfig, RobertaModel, RobertaTokenizer
+from transformers import PreTrainedModel, RobertaConfig, RobertaModel, RobertaTokenizer, requires_backends
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
 
@@ -30,6 +30,7 @@ class AnceEncoder(PreTrainedModel):
     _keys_to_ignore_on_load_unexpected = [r'pooler', r'classifier']
 
     def __init__(self, config: RobertaConfig):
+        requires_backends(self, 'torch')
         super().__init__(config)
         self.config = config
         self.roberta = RobertaModel(config)
@@ -55,11 +56,7 @@ class AnceEncoder(PreTrainedModel):
         self.embeddingHead.apply(self._init_weights)
         self.norm.apply(self._init_weights)
 
-    def forward(
-            self,
-            input_ids: torch.Tensor,
-            attention_mask: Optional[torch.Tensor] = None,
-    ):
+    def forward(self, input_ids: torch.Tensor, attention_mask: Optional[torch.Tensor] = None):
         input_shape = input_ids.size()
         device = input_ids.device
         if attention_mask is None:
@@ -98,22 +95,60 @@ class AnceDocumentEncoder(DocumentEncoder):
 
 
 class AnceQueryEncoder(QueryEncoder):
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
+        super().__init__(encoded_query_dir)
+        if encoder_dir:
+            self.device = device
+            self.model = AnceEncoder.from_pretrained(encoder_dir)
+            self.model.to(self.device)
+            self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            self.has_model = True
+            self.tokenizer.do_lower_case = True
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
-    def __init__(self, model_name: str, tokenizer_name: str = None, device: str = 'cpu'):
-        self.device = device
-        self.model = AnceEncoder.from_pretrained(model_name)
-        self.model.to(self.device)
-        self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or model_name)
+    def encode(self, query: str):
+        if self.has_model:
+            inputs = self.tokenizer(
+                [query],
+                max_length=64,
+                padding='longest',
+                truncation=True,
+                add_special_tokens=True,
+                return_tensors='pt'
+            )
+            inputs.to(self.device)
+            embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
+            return embeddings.flatten()
+        else:
+            return super().encode(query)
 
-    def encode(self, query: str, **kwargs):
+    def prf_encode(self, query: str):
+        if self.has_model:
+            inputs = self.tokenizer(
+                [query],
+                max_length=512,
+                padding='longest',
+                truncation=True,
+                add_special_tokens=False,
+                return_tensors='pt'
+            )
+            inputs.to(self.device)
+            embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
+            return embeddings.flatten()
+        else:
+            return super().encode(query)
+
+    def prf_batch_encode(self, query: List[str]):
         inputs = self.tokenizer(
-            [query],
-            max_length=64,
+            query,
+            max_length=512,
             padding='longest',
             truncation=True,
-            add_special_tokens=True,
+            add_special_tokens=False,
             return_tensors='pt'
         )
         inputs.to(self.device)
         embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
-        return embeddings.flatten()
+        return embeddings

@@ -27,7 +27,8 @@ from transformers import DistilBertConfig, BertConfig
 from transformers import AutoModelForMaskedLM, AutoTokenizer, PreTrainedModel
 from pyserini.encode import DocumentEncoder, QueryEncoder
 
-class BERTAggretrieverEncoder(PreTrainedModel):
+
+class BertAggretrieverEncoder(PreTrainedModel):
     config_class = BertConfig
     base_model_prefix = 'encoder'
     load_tf_weights = None
@@ -120,7 +121,7 @@ class BERTAggretrieverEncoder(PreTrainedModel):
         return torch.cat((semantic_reps, lexical_reps), -1)
 
 
-class DistlBERTAggretrieverEncoder(BERTAggretrieverEncoder):
+class DistlBertAggretrieverEncoder(BertAggretrieverEncoder):
     config_class = DistilBertConfig
     base_model_prefix = 'encoder'
     load_tf_weights = None
@@ -130,9 +131,9 @@ class AggretrieverDocumentEncoder(DocumentEncoder):
     def __init__(self, model_name: str, tokenizer_name=None, device='cuda:0'):
         self.device = device
         if 'distilbert' in model_name.lower():
-            self.model = DistlBERTAggretrieverEncoder.from_pretrained(model_name)
+            self.model = DistlBertAggretrieverEncoder.from_pretrained(model_name)
         else:
-            self.model = BERTAggretrieverEncoder.from_pretrained(model_name)
+            self.model = BertAggretrieverEncoder.from_pretrained(model_name)
         self.model.to(self.device)
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name)
 
@@ -160,30 +161,33 @@ class AggretrieverDocumentEncoder(DocumentEncoder):
 
 
 class AggretrieverQueryEncoder(QueryEncoder):
-    def __init__(self, model_name: str, tokenizer_name=None, device='cuda:0'):
-        self.device = device
-        if 'distilbert' in model_name.lower():
-            self.model = DistlBERTAggretrieverEncoder.from_pretrained(model_name)
-        else:
-            self.model = BERTAggretrieverEncoder.from_pretrained(model_name)
-        self.model.to(self.device)
-        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name)
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
+        if encoder_dir:
+            self.device = device
+            if 'distilbert' in encoder_dir.lower():
+                self.model = DistlBertAggretrieverEncoder.from_pretrained(encoder_dir)
+            else:
+                self.model = BertAggretrieverEncoder.from_pretrained(encoder_dir)
+            self.model.to(self.device)
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            self.has_model = True
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
-    def encode(self, texts, fp16=False,  max_length=32, **kwargs):
-        texts = [text for text in texts]
-        inputs = self.tokenizer(
-            texts,
-            max_length=max_length,
-            padding="longest",
-            truncation=True,
-            add_special_tokens=True,
-            return_tensors='pt'
-        )
-        inputs.to(self.device)
-        if fp16:
-            with autocast():
-                with torch.no_grad():
-                    outputs = self.model(**inputs)
-        else:
+    def encode(self, query: str,  max_length: int=32):
+        if self.has_model:
+            inputs = self.tokenizer(
+                query,
+                max_length=max_length,
+                padding="longest",
+                truncation=True,
+                add_special_tokens=True,
+                return_tensors='pt'
+            )
+            inputs.to(self.device)
             outputs = self.model(**inputs)
-        return outputs.detach().cpu().numpy()
+            embeddings = outputs.detach().cpu().numpy()
+            return embeddings.flatten()
+        else:
+            return super().encode(query)
