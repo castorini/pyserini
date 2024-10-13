@@ -22,7 +22,7 @@ from random import randint
 from typing import List, Dict
 from urllib.request import urlretrieve
 
-from pyserini.search.lucene import LuceneSearcher, JScoredDoc
+from pyserini.search.lucene import LuceneSearcher, JScoredDoc, JBagOfWordsQueryGenerator
 
 
 class TestSearch(unittest.TestCase):
@@ -134,10 +134,37 @@ class TestSearch(unittest.TestCase):
         self.assertTrue(isinstance(hits[0], JScoredDoc))
         self.assertEqual(len(hits), 42)
 
+    def test_basic_query_generator_fields(self):
+        # This test just provides a sanity check, it's not that interesting as it only searches using
+        # the default query generator on one field.
+        hits = self.searcher.search('information retrieval', k=42,
+                                    query_generator=JBagOfWordsQueryGenerator(), fields={'contents': 2.0})
+
+        self.assertEqual(3204, self.searcher.num_docs)
+        self.assertTrue(isinstance(hits, List))
+        self.assertTrue(isinstance(hits[0], JScoredDoc))
+        self.assertEqual(len(hits), 42)
+
     def test_batch_fields(self):
         # This test just provides a sanity check, it's not that interesting as it only searches one field.
         results = self.searcher.batch_search(['information retrieval', 'search'], ['q1', 'q2'], k=42,
                                              threads=2, fields={'contents': 2.0})
+
+        self.assertEqual(3204, self.searcher.num_docs)
+        self.assertTrue(isinstance(results, Dict))
+        self.assertTrue(isinstance(results['q1'], List))
+        self.assertTrue(isinstance(results['q1'][0], JScoredDoc))
+        self.assertEqual(len(results['q1']), 42)
+        self.assertTrue(isinstance(results['q2'], List))
+        self.assertTrue(isinstance(results['q2'][0], JScoredDoc))
+        self.assertEqual(len(results['q2']), 42)
+
+    def test_batch_query_generator_fields(self):
+        # This test just provides a sanity check, it's not that interesting as it only searches using
+        # the default query generator on one field.
+        results = self.searcher.batch_search(['information retrieval', 'search'], ['q1', 'q2'], k=42,
+                                              threads=2,
+                                              query_generator=JBagOfWordsQueryGenerator(), fields={'contents': 2.0})
 
         self.assertEqual(3204, self.searcher.num_docs)
         self.assertTrue(isinstance(results, Dict))
