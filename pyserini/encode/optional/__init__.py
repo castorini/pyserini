@@ -14,6 +14,5 @@
 # limitations under the License.
 #
 
-# Export these symbols
-from ._clip import ClipEncoder
 from ._pca import PcaEncoder
+from ._faiss import FaissRepresentationWriter
