@@ -16,12 +16,11 @@
 
 import json
 import os
-
 from abc import ABC, abstractmethod
 from enum import Enum, unique
 from typing import List
 
-from pyserini.search import JScoredDoc
+from pyserini.search.lucene import JScoredDoc
 
 
 @unique

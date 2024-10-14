@@ -28,7 +28,6 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.WARNING, format='\n%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 # Wrappers around Lucene classes
-JQuery = autoclass('org.apache.lucene.search.Query')
 JPath = autoclass('java.nio.file.Path')
 
 # Wrappers around Anserini classes
@@ -36,10 +35,6 @@ JQrels = autoclass('io.anserini.eval.Qrels')
 JRelevanceJudgments = autoclass('io.anserini.eval.RelevanceJudgments')
 JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
 JTopics = autoclass('io.anserini.search.topicreader.Topics')
-JQueryGenerator = autoclass('io.anserini.search.query.QueryGenerator')
-JBagOfWordsQueryGenerator = autoclass('io.anserini.search.query.BagOfWordsQueryGenerator')
-JDisjunctionMaxQueryGenerator = autoclass('io.anserini.search.query.DisjunctionMaxQueryGenerator')
-JCovid19QueryGenerator = autoclass('io.anserini.search.query.Covid19QueryGenerator')
 
 
 # Function to safely get attributes from a class, returns None if not found

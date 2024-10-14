@@ -17,7 +17,7 @@
 import unittest
 
 from integrations.lucenesearcher_anserini_checker import LuceneSearcherAnseriniMatchChecker
-from pyserini.search import LuceneSearcher
+from pyserini.search.lucene import LuceneSearcher
 
 
 class CheckSearchResultsAgainstAnseriniForCore17(unittest.TestCase):

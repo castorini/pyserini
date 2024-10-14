@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-import sys
 import os
+import sys
 
 print('WARNING: directly calling pyserini.search is deprecated, please use pyserini.search.lucene instead')
 args = " ".join(sys.argv[1:])

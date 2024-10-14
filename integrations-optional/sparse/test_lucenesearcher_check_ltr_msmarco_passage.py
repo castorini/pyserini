@@ -21,40 +21,37 @@ import unittest
 from shutil import rmtree
 
 
-class TestLtrMsmarcoDocument(unittest.TestCase):
+class TestLtrMsmarcoPassage(unittest.TestCase):
     def test_reranking(self):
-        if(os.path.isdir('ltr_test')):
+        if os.path.isdir('ltr_test'):
             rmtree('ltr_test')
             os.mkdir('ltr_test')
-        inp = 'run.msmarco-pass-doc.bm25.txt'
-        outp = 'run.ltr.msmarco-pass-doc.test.trec'
-        outp_tsv = 'run.ltr.msmarco-pass-doc.test.tsv'
+        inp = 'run.msmarco-passage.bm25tuned.txt'
+        outp = 'run.ltr.msmarco-passage.test.tsv'
         #Pre-trained ltr model
         model_url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-msmarco-passage-mrr-v1.tar.gz'
         model_tar_name = 'model-ltr-msmarco-passage-mrr-v1.tar.gz'
         os.system(f'wget {model_url} -P ltr_test/')
         os.system(f'tar -xzvf ltr_test/{model_tar_name} -C ltr_test')
-
         # IBM model
         ibm_model_url = 'https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/pyserini-models/model-ltr-ibm.tar.gz'
         ibm_model_tar_name = 'model-ltr-ibm.tar.gz'
         os.system(f'wget {ibm_model_url} -P ltr_test/')
         os.system(f'tar -xzvf ltr_test/{ibm_model_tar_name} -C ltr_test')
-        os.system(f'python -m pyserini.search.lucene.ltr  \
-                    --topic tools/topics-and-qrels/topics.msmarco-doc.dev.txt \
-                    --model ltr_test/msmarco-passage-ltr-mrr-v1/   \
-                    --qrel tools/topics-and-qrels/qrels.msmarco-doc.dev.txt \
-                    --index msmarco-v1-doc-segmented.ltr --ibm-model ltr_test/ibm_model/ \
-                    --granularity document --output ltr_test/{outp} --max-passage --hits 10000')
-
-        result = subprocess.check_output(f'python tools/scripts/msmarco/msmarco_doc_eval.py --judgments tools/topics-and-qrels/qrels.msmarco-doc.dev.txt --run ltr_test/{outp}', shell=True).decode(sys.stdout.encoding)
-        a,b = result.find('#####################\nMRR @100:'), result.find('\nQueriesRanked: 5193\n#####################\n')
-        mrr = result[a+32:b]
-        # See:
-        #  - https://github.com/castorini/pyserini/issues/951
-        #  - https://github.com/castorini/pyserini/issues/1430
-        self.assertAlmostEqual(float(mrr), 0.3108, delta=0.0002)
+        #queries process
+        os.system(f'python -m pyserini.search.lucene.ltr \
+                    --model ltr_test/msmarco-passage-ltr-mrr-v1 \
+                    --topic tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt \
+                    --qrel tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+                    --index msmarco-v1-passage.ltr --ibm-model ltr_test/ibm_model/ \
+                    --output-format tsv --output ltr_test/{outp}')
+        result = subprocess.check_output(f'python tools/scripts/msmarco/msmarco_passage_eval.py tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt ltr_test/{outp}', shell=True).decode(sys.stdout.encoding)
+        a,b = result.find('#####################\nMRR @10:'), result.find('\nQueriesRanked: 6980\n#####################\n')
+        mrr = result[a+31:b]
+        # See https://github.com/castorini/pyserini/issues/951
+        self.assertAlmostEqual(float(mrr), 0.2472, delta=0.0001)
         rmtree('ltr_test')
+
 
 if __name__ == '__main__':
     unittest.main()

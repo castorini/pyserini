@@ -16,13 +16,14 @@
 
 import math
 from typing import List, Optional
-from sklearn.preprocessing import normalize
 
 from scipy.sparse import csr_matrix
-
-from pyserini import index, search
-from pyserini.analysis import Analyzer, get_lucene_analyzer
+from sklearn.preprocessing import normalize
 from tqdm import tqdm
+
+from pyserini.analysis import Analyzer, get_lucene_analyzer
+from pyserini.index.lucene import LuceneIndexReader
+from pyserini.search.lucene import LuceneSearcher
 
 
 class Vectorizer:
@@ -41,8 +42,8 @@ class Vectorizer:
     def __init__(self, lucene_index_path: str, min_df: int = 1, verbose: bool = False):
         self.min_df: int = min_df
         self.verbose: bool = verbose
-        self.index_reader = index.IndexReader(lucene_index_path)
-        self.searcher = search.LuceneSearcher(lucene_index_path)
+        self.index_reader = LuceneIndexReader(lucene_index_path)
+        self.searcher = LuceneSearcher(lucene_index_path)
         self.num_docs: int = self.searcher.num_docs
         self.stats = self.index_reader.stats()
         self.analyzer = Analyzer(get_lucene_analyzer())

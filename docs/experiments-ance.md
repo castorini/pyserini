@@ -17,9 +17,9 @@ python -m pyserini.search.faiss \
   --index msmarco-v1-passage.ance \
   --topics msmarco-passage-dev-subset \
   --encoded-queries ance-msmarco-passage-dev-subset \
-  --output runs/run.msmarco-passage.ance.bf.tsv \
+  --output runs/run.msmarco-passage.ance.tsv \
   --output-format msmarco \
-  --batch-size 36 --threads 12
+  --batch-size 512 --threads 16
 ```
 
 The option `--encoded-queries` specifies the use of encoded queries (i.e., queries that have already been converted into dense vectors and cached).
@@ -28,9 +28,13 @@ As an alternative, replace with `--encoder castorini/ance-msmarco-passage` to pe
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
-    runs/run.msmarco-passage.ance.bf.tsv
+python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
+  runs/run.msmarco-passage.ance.tsv
+```
 
+Results:
+
+```
 #####################
 MRR @10: 0.3302
 QueriesRanked: 6980
@@ -41,14 +45,18 @@ We can also use the official TREC evaluation tool `trec_eval` to compute other m
 For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
-    --input runs/run.msmarco-passage.ance.bf.tsv \
-    --output runs/run.msmarco-passage.ance.bf.trec
+python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+  --input runs/run.msmarco-passage.ance.tsv \
+  --output runs/run.msmarco-passage.ance.trec
 
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
-    runs/run.msmarco-passage.ance.bf.trec
+python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
+    runs/run.msmarco-passage.ance.trec
+```
 
-map                   	all	0.3362
+Results:
+
+```
+map                   	all	0.3363
 recall_1000           	all	0.9584
 ```
 
@@ -63,7 +71,7 @@ python -m pyserini.search.faiss \
   --encoded-queries ance_maxp-msmarco-doc-dev \
   --output runs/run.msmarco-doc.passage.ance-maxp.txt \
   --output-format msmarco \
-  --batch-size 36 --threads 12 \
+  --batch-size 512 --threads 16 \
   --hits 1000 --max-passage --max-passage-hits 100
 ```
 
@@ -72,12 +80,16 @@ Same as above, replace `--encoded-queries` with `--encoder castorini/ance-msmarc
 To evaluate:
 
 ```bash
-$ python -m pyserini.eval.msmarco_doc_eval \
-    --judgments msmarco-doc-dev \
-    --run runs/run.msmarco-doc.passage.ance-maxp.txt
+python -m pyserini.eval.msmarco_doc_eval \
+  --judgments msmarco-doc-dev \
+  --run runs/run.msmarco-doc.passage.ance-maxp.txt
+```
 
+Results:
+
+```
 #####################
-MRR @100: 0.3796
+MRR @100: 0.3794
 QueriesRanked: 5193
 #####################
 ```
@@ -86,14 +98,18 @@ We can also use the official TREC evaluation tool `trec_eval` to compute other m
 For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
-$ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
-    --input runs/run.msmarco-doc.passage.ance-maxp.txt \
-    --output runs/run.msmarco-doc.passage.ance-maxp.trec
+python -m pyserini.eval.convert_msmarco_run_to_trec_run \
+  --input runs/run.msmarco-doc.passage.ance-maxp.txt \
+  --output runs/run.msmarco-doc.passage.ance-maxp.trec
 
-$ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap msmarco-doc-dev \
-    runs/run.msmarco-doc.passage.ance-maxp.trec
+python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap msmarco-doc-dev \
+  runs/run.msmarco-doc.passage.ance-maxp.trec
+```
 
-map                   	all	0.3796
+Results:
+
+```
+map                   	all	0.3794
 recall_100            	all	0.9033
 ```
 
@@ -106,8 +122,8 @@ python -m pyserini.search.faiss \
   --index wikipedia-dpr-100w.ance-multi \
   --topics dpr-nq-test \
   --encoded-queries ance_multi-nq-test \
-  --output runs/run.ance.nq-test.multi.bf.trec \
-  --batch-size 36 --threads 12
+  --output runs/run.ance.nq-test.multi.trec \
+  --batch-size 512 --threads 16
 ```
 
 Same as above, replace `--encoded-queries` with `--encoder castorini/ance-dpr-question-multi` for on-the-fly query encoding.
@@ -115,16 +131,20 @@ Same as above, replace `--encoded-queries` with `--encoder castorini/ance-dpr-qu
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
-    --topics dpr-nq-test \
-    --index wikipedia-dpr-100w \
-    --input runs/run.ance.nq-test.multi.bf.trec \
-    --output runs/run.ance.nq-test.multi.bf.json
+python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
+  --topics dpr-nq-test \
+  --index wikipedia-dpr \
+  --input runs/run.ance.nq-test.multi.trec \
+  --output runs/run.ance.nq-test.multi.json
 
-$ python -m pyserini.eval.evaluate_dpr_retrieval \
-    --retrieval runs/run.ance.nq-test.multi.bf.json \
-    --topk 20 100
+python -m pyserini.eval.evaluate_dpr_retrieval \
+  --retrieval runs/run.ance.nq-test.multi.json \
+  --topk 20 100
+```
 
+Results:
+
+```
 Top20	accuracy: 0.8224
 Top100	accuracy: 0.8787
 ```
@@ -138,8 +158,8 @@ python -m pyserini.search.faiss \
   --index wikipedia-dpr-100w.ance-multi \
   --topics dpr-trivia-test \
   --encoded-queries ance_multi-trivia-test \
-  --output runs/run.ance.trivia-test.multi.bf.trec \
-  --batch-size 36 --threads 12
+  --output runs/run.ance.trivia-test.multi.trec \
+  --batch-size 512 --threads 16
 ```
 
 Same as above, replace `--encoded-queries` with `--encoder castorini/ance-dpr-question-multi` for on-the-fly query encoding.
@@ -147,16 +167,20 @@ Same as above, replace `--encoded-queries` with `--encoder castorini/ance-dpr-qu
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
-    --topics dpr-trivia-test \
-    --index wikipedia-dpr-100w \
-    --input runs/run.ance.trivia-test.multi.bf.trec \
-    --output runs/run.ance.trivia-test.multi.bf.json
+python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
+  --topics dpr-trivia-test \
+  --index wikipedia-dpr \
+  --input runs/run.ance.trivia-test.multi.trec \
+  --output runs/run.ance.trivia-test.multi.json
 
-$ python -m pyserini.eval.evaluate_dpr_retrieval \
-    --retrieval runs/run.ance.trivia-test.multi.bf.json \
-    --topk 20 100
+python -m pyserini.eval.evaluate_dpr_retrieval \
+  --retrieval runs/run.ance.trivia-test.multi.json \
+  --topk 20 100
+```
 
+Results:
+
+```
 Top20	accuracy: 0.8010
 Top100	accuracy: 0.8522
 ```
@@ -170,3 +194,4 @@ Top100	accuracy: 0.8522
 + Results reproduced by [@ArthurChen189](https://github.com/ArthurChen189) on 2021-07-06 (commit [`c9f44b`](https://github.com/castorini/pyserini/commit/c9f44b2a24103fff4887cade831f9b7c2472b190))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-23 (commit [`0c495c`](https://github.com/castorini/pyserini/commit/0c495cf2999dda980eb1f85efa30a4323cef5855))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2023-01-10 (commit [`7dafc4`](https://github.com/castorini/pyserini/commit/7dafc4f918bd44ada3771a5c81692ab19cc2cae9))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2024-10-16 (commit [`3f7609`](https://github.com/castorini/pyserini/commit/3f76099a73820afee12496c0354d52ca6a6175c2))

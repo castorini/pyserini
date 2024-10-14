@@ -15,5 +15,3 @@
 #
 
 from ._base import BM25Vectorizer, TfidfVectorizer
-
-__all__ = ['BM25Vectorizer', 'TfidfVectorizer']

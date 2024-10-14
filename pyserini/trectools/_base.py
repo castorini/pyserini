@@ -15,13 +15,13 @@
 #
 
 import itertools
-import numpy as np
-import pandas as pd
-
 from concurrent.futures import ThreadPoolExecutor
 from copy import deepcopy
 from enum import Enum
 from typing import List, Set, Tuple
+
+import numpy as np
+import pandas as pd
 
 
 class AggregationMethod(Enum):

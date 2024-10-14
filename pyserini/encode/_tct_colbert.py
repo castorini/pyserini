@@ -16,12 +16,14 @@
 
 import numpy as np
 import torch
+
 if torch.cuda.is_available():
     from torch.cuda.amp import autocast
+
 from transformers import BertModel, BertTokenizer, BertTokenizerFast
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
-from onnxruntime import ExecutionMode, SessionOptions, InferenceSession
+from onnxruntime import SessionOptions, InferenceSession
 
 
 class TctColBertDocumentEncoder(DocumentEncoder):
@@ -70,22 +72,31 @@ class TctColBertDocumentEncoder(DocumentEncoder):
 
 
 class TctColBertQueryEncoder(QueryEncoder):
-    def __init__(self, model_name: str, tokenizer_name: str = None, device: str = 'cpu'):
-        self.device = device
-        self.model = BertModel.from_pretrained(model_name)
-        self.model.to(self.device)
-        self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name)
+    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
+                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
+        super().__init__(encoded_query_dir)
+        if encoder_dir:
+            self.device = device
+            self.model = BertModel.from_pretrained(encoder_dir)
+            self.model.to(self.device)
+            self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            self.has_model = True
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
-    def encode(self, query: str, **kwargs):
-        max_length = 36  # hardcode for now
-        inputs = self.tokenizer(
-            '[CLS] [Q] ' + query + '[MASK]' * max_length,
-            max_length=max_length,
-            truncation=True,
-            add_special_tokens=False,
-            return_tensors='pt'
-        )
-        inputs.to(self.device)
-        outputs = self.model(**inputs)
-        embeddings = outputs.last_hidden_state.detach().cpu().numpy()
-        return np.average(embeddings[:, 4:, :], axis=-2).flatten()
+    def encode(self, query: str):
+        if self.has_model:
+            max_length = 36  # hardcode for now
+            inputs = self.tokenizer(
+                '[CLS] [Q] ' + query + '[MASK]' * max_length,
+                max_length=max_length,
+                truncation=True,
+                add_special_tokens=False,
+                return_tensors='pt'
+            )
+            inputs.to(self.device)
+            outputs = self.model(**inputs)
+            embeddings = outputs.last_hidden_state.detach().cpu().numpy()
+            return np.average(embeddings[:, 4:, :], axis=-2).flatten()
+        else:
+            return super().encode(query)

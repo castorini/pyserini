@@ -16,20 +16,20 @@
 
 import argparse
 import os
-from typing import OrderedDict
 
+import numpy as np
 from tqdm import tqdm
 
-from pyserini.search import FaissSearcher, BinaryDenseSearcher, TctColBertQueryEncoder, QueryEncoder, \
-    DprQueryEncoder, BprQueryEncoder, DkrrDprQueryEncoder, AnceQueryEncoder, AggretrieverQueryEncoder, DenseVectorAveragePrf, \
-    DenseVectorRocchioPrf, DenseVectorAncePrf, OpenAIQueryEncoder, ClipQueryEncoder, ArcticQueryEncoder
-
-from pyserini.encode import PcaEncoder, CosDprQueryEncoder, AutoQueryEncoder
-from pyserini.query_iterator import get_query_iterator, TopicsFormat
+from pyserini.encode import QueryEncoder, AutoQueryEncoder
+from pyserini.encode import AggretrieverQueryEncoder, AnceQueryEncoder, BprQueryEncoder, CosDprQueryEncoder, \
+    DkrrDprQueryEncoder, DprQueryEncoder, TctColBertQueryEncoder, ArcticQueryEncoder
+from pyserini.encode._pca import PcaEncoder
 from pyserini.output_writer import get_output_writer, OutputFormat
+from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.search.lucene import LuceneSearcher
-
-# from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf
+from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
+from ._searcher import OpenAIQueryEncoder, ClipQueryEncoder
+from ._searcher import FaissSearcher, BinaryDenseFaissSearcher
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
 # https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
@@ -210,14 +210,14 @@ if __name__ == '__main__':
         # create searcher from index directory
         if args.searcher.lower() == 'bpr':
             kwargs = dict(binary_k=args.binary_hits, rerank=args.rerank)
-            searcher = BinaryDenseSearcher(args.index, query_encoder)
+            searcher = BinaryDenseFaissSearcher(args.index, query_encoder)
         else:
             searcher = FaissSearcher(args.index, query_encoder)
     else:
         # create searcher from prebuilt index name
         if args.searcher.lower() == 'bpr':
             kwargs = dict(binary_k=args.binary_hits, rerank=args.rerank)
-            searcher = BinaryDenseSearcher.from_prebuilt_index(args.index, query_encoder)
+            searcher = BinaryDenseFaissSearcher.from_prebuilt_index(args.index, query_encoder)
         else:
             searcher = FaissSearcher.from_prebuilt_index(args.index, query_encoder)
 

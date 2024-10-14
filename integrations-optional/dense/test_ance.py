@@ -20,8 +20,8 @@ import multiprocessing
 import os
 import unittest
 
-from integrations.utils import clean_files, run_command, parse_score, parse_score_qa, parse_score_msmarco
-from pyserini.search import QueryEncoder
+from integrations.utils import clean_files, run_command, parse_score_qa, parse_score_msmarco
+from pyserini.encode import QueryEncoder
 from pyserini.search import get_topics
 
 

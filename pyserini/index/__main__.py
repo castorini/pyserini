@@ -14,9 +14,10 @@
 # limitations under the License.
 #
 
-from jnius import autoclass
-import sys
 import os
+import sys
+
+from jnius import autoclass
 
 print('pyserini.index is deprecated, please use pyserini.index.lucene.')
 args = sys.argv[1:]

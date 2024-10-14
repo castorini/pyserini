@@ -21,12 +21,11 @@ from transformers import AutoModel, AutoTokenizer
 from pyserini.encode import DocumentEncoder, QueryEncoder
 
 class ArcticDocumentEncoder(DocumentEncoder):
-    def __init__(self, model_name, device='cuda:0', truncate_to_256=False): # Truncate to output embedding to 256 for faster encoding 
+    def __init__(self, model_name, device='cuda:0', truncate_to_256=False, tokenizer_name=None): # Truncate to output embedding to 256 for faster encoding 
         self.device = device 
         self.truncate_to_256 = truncate_to_256
-        self.model_name = model_name
-        self.model = AutoModel.from_pretrained(self.model_name, add_pooling_layer=False).to(self.device)
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+        self.model = AutoModel.from_pretrained(model_name, add_pooling_layer=False).to(self.device)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name or tokenizer_name)
 
     def encode(self, texts, max_length=512, **kwargs):
         document_tokens = self.tokenizer(
@@ -47,32 +46,38 @@ class ArcticDocumentEncoder(DocumentEncoder):
 
         return document_embeddings.cpu().numpy()
 
-class ArcticQueryEncoder(QueryEncoder):
+
+class ArcticQueryEncoder(QueryEncoder):  
     def __init__(self, encoder_dir: str, query_prefix: str = 'Represent this sentence for searching relevant passages: ', 
-                 device: str = 'cpu', truncate_to_256: bool = False): # Truncate to output embedding to 256 for faster encoding
-        self.device = device
-        self.truncate_to_256 = truncate_to_256
-        self.encoder_dir = encoder_dir
-        self.query_prefix = query_prefix
-        self.model = AutoModel.from_pretrained(self.encoder_dir, add_pooling_layer=False).to(self.device)
-        self.tokenizer = AutoTokenizer.from_pretrained(self.encoder_dir)
-
-    def encode(self, query, max_length=512, **kwargs):
-        query_with_prefix = f"{self.query_prefix}{query}"
-        query_tokens = self.tokenizer(
-            query_with_prefix,
-            padding=True,
-            truncation=True,
-            return_tensors='pt',
-            max_length=max_length
-        ).to(self.device)
+                 tokenizer_name: str = None, encoded_query_dir: str = None, device: str = 'cpu', **kwargs): 
+        super().__init__(encoded_query_dir)
         
-        with torch.inference_mode():
-            query_embeddings = self.model(**query_tokens)[0][:, 0]  # CLS token
+        if encoder_dir:
+            self.device = device 
+            self.query_prefix = query_prefix
+            self.model = AutoModel.from_pretrained(encoder_dir, add_pooling_layer=False).to(self.device)
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            self.has_model = True
 
-        if self.truncate_to_256:
-            query_embeddings = normalize(query_embeddings[:, :256])
+        if (not self.has_model) and (not self.has_encoded_query):
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one.')
+
+    def encode(self, query: str):
+        if self.has_model:
+            # Apply the query prefix
+            query_with_prefix = f"{self.query_prefix}{query}"
+            query_tokens = self.tokenizer(
+                query_with_prefix,
+                padding=True,
+                truncation=True,
+                return_tensors='pt',
+                max_length=512
+            ).to(self.device)
+            
+            with torch.inference_mode():
+                query_embeddings = self.model(**query_tokens)[0][:, 0]  # CLS token
+                query_embeddings = normalize(query_embeddings).cpu().numpy().flatten()
+            return query_embeddings
         else:
-            query_embeddings = normalize(query_embeddings)
-
-        return query_embeddings.cpu().numpy().flatten()
+            # Fallback to using pre-encoded queries
+            return super().encode(query)

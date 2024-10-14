@@ -14,16 +14,16 @@
 # limitations under the License.
 #
 
-import os
 import json
+import os
 from abc import ABC, abstractmethod
 from enum import Enum, unique
 from pathlib import Path
+from urllib.error import HTTPError, URLError
 
+from pyserini.external_query_info import KILT_QUERY_INFO
 from pyserini.search import get_topics, get_topics_with_reader
 from pyserini.util import download_url, get_cache_home
-from pyserini.external_query_info import KILT_QUERY_INFO
-from urllib.error import HTTPError, URLError
 
 
 @unique

@@ -14,10 +14,10 @@
 # limitations under the License.
 #
 
-from jnius import autoclass
-import sys
 import os
+import sys
 
+from jnius import autoclass
 
 if __name__ == '__main__':
     args = sys.argv[1:]

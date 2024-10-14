@@ -16,8 +16,8 @@
 
 import os
 import unittest
-from shutil import rmtree
 from random import randint
+from shutil import rmtree
 
 from integrations.utils import run_command, parse_score
 

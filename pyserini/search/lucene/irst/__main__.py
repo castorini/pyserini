@@ -13,10 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 import argparse
 from typing import List
-from tqdm import tqdm
+
 from transformers import AutoTokenizer
+
 from pyserini.search import get_topics
 from pyserini.search.lucene.irst import LuceneIrstSearcher
 

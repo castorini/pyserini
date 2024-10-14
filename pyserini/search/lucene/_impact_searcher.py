@@ -22,24 +22,24 @@ class, which wraps the Java class with the same name in Anserini.
 import logging
 import os
 import pickle
-from tqdm import tqdm
-from typing import Dict, List, Optional, Union
 from collections import namedtuple
+from typing import Dict, List, Optional, Union
 
 import numpy as np
 import scipy
+from tqdm import tqdm
 
-from pyserini.encode import QueryEncoder, TokFreqQueryEncoder, UniCoilQueryEncoder, \
-    CachedDataQueryEncoder, SpladeQueryEncoder, SlimQueryEncoder
-from pyserini.index import Document
+from pyserini.encode import QueryEncoder, CachedDataQueryEncoder, SlimQueryEncoder, SpladeQueryEncoder, \
+    TokFreqQueryEncoder, UniCoilQueryEncoder
+from pyserini.index.lucene import Document, LuceneIndexReader
 from pyserini.pyclass import autoclass, JFloat, JInt, JArrayList, JHashMap
+from pyserini.search.lucene import JScoredDoc
 from pyserini.util import download_prebuilt_index, download_encoded_corpus
 
 logger = logging.getLogger(__name__)
 
 # Wrappers around Anserini classes
 JSimpleImpactSearcher = autoclass('io.anserini.search.SimpleImpactSearcher')
-JScoredDoc = autoclass('io.anserini.search.ScoredDoc')
 
 
 class LuceneImpactSearcher:
@@ -376,8 +376,7 @@ class LuceneImpactSearcher:
 
     @staticmethod
     def _compute_idf(index_path):
-        from pyserini.index.lucene import IndexReader
-        index_reader = IndexReader(index_path)
+        index_reader = LuceneIndexReader(index_path)
         tokens = []
         dfs = []
         for term in index_reader.terms():

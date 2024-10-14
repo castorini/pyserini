@@ -16,12 +16,12 @@
 
 import json
 import os
+import pathlib as pl
 import random
-
-import faiss
 import shutil
 import unittest
-import pathlib as pl
+
+import faiss
 
 
 class TestIndexFaiss(unittest.TestCase):

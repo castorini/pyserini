@@ -14,13 +14,12 @@
 # limitations under the License.
 #
 
-import os
-import glob
 import argparse
+import glob
+import os
 
 import faiss
 from tqdm import tqdm
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dimension', type=int, help='dimension of passage embeddings', required=False, default=768)

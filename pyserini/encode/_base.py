@@ -13,13 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 import json
 import os
 
-import faiss
-import torch
 import numpy as np
+import pandas as pd
+import torch
 from tqdm import tqdm
+
+from pyserini.util import download_encoded_queries
 
 
 class DocumentEncoder:
@@ -36,24 +39,44 @@ class DocumentEncoder:
 
 
 class QueryEncoder:
-    def encode(self, text, **kwargs):
-        pass
+    def __init__(self, encoded_query_dir: str = None):
+        self.has_model = False
+        self.has_encoded_query = False
+        if encoded_query_dir:
+            self.embedding = self._load_embeddings(encoded_query_dir)
+            self.has_encoded_query = True
 
+    def encode(self, query: str):
+        return self.embedding[query]
 
-class PcaEncoder:
-    def __init__(self, encoder, pca_model_path):
-        self.encoder = encoder
-        self.pca_mat = faiss.read_VectorTransform(pca_model_path)
+    @classmethod
+    def load_encoded_queries(cls, encoded_query_name: str):
+        """Build a query encoder from a pre-encoded query; download the encoded queries if necessary.
 
-    def encode(self, text, **kwargs):
-        if isinstance(text, str):
-            embeddings = self.encoder.encode(text, **kwargs)
-            embeddings = self.pca_mat.apply_py(np.array([embeddings]))
-            embeddings = embeddings[0]
-        else:
-            embeddings = self.encoder.encode(text, **kwargs)
-            embeddings = self.pca_mat.apply_py(embeddings)
-        return embeddings
+        Parameters
+        ----------
+        encoded_query_name : str
+            pre encoded query name.
+
+        Returns
+        -------
+        QueryEncoder
+            Encoder built from the pre encoded queries.
+        """
+        print(f'Attempting to initialize pre-encoded queries {encoded_query_name}.')
+        try:
+            query_dir = download_encoded_queries(encoded_query_name)
+        except ValueError as e:
+            print(str(e))
+            return None
+
+        print(f'Initializing {encoded_query_name}...')
+        return cls(encoded_query_dir=query_dir)
+
+    @staticmethod
+    def _load_embeddings(encoded_query_dir):
+        df = pd.read_pickle(os.path.join(encoded_query_dir, 'embedding.pkl'))
+        return dict(zip(df['text'].tolist(), df['embedding'].tolist()))
 
 
 class JsonlCollectionIterator:
@@ -190,27 +213,3 @@ class JsonlRepresentationWriter(RepresentationWriter):
             self.file.write(json.dumps({'id': batch_info['id'][i],
                                         'contents': contents,
                                         'vector': vector}) + '\n')
-
-
-class FaissRepresentationWriter(RepresentationWriter):
-    def __init__(self, dir_path, dimension=768):
-        self.dir_path = dir_path
-        self.index_name = 'index'
-        self.id_file_name = 'docid'
-        self.dimension = dimension
-        self.index = faiss.IndexFlatIP(self.dimension)
-        self.id_file = None
-
-    def __enter__(self):
-        if not os.path.exists(self.dir_path):
-            os.makedirs(self.dir_path)
-        self.id_file = open(os.path.join(self.dir_path, self.id_file_name), 'w')
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.id_file.close()
-        faiss.write_index(self.index, os.path.join(self.dir_path, self.index_name))
-
-    def write(self, batch_info, fields=None):
-        for id_ in batch_info['id']:
-            self.id_file.write(f'{id_}\n')
-        self.index.add(np.ascontiguousarray(batch_info['vector']))

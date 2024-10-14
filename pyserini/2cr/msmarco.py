@@ -15,6 +15,7 @@
 #
 
 import argparse
+import importlib.resources
 import math
 import os
 import re
@@ -24,7 +25,6 @@ from collections import defaultdict, namedtuple
 from datetime import datetime
 from string import Template
 
-import importlib.resources
 import yaml
 
 from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str

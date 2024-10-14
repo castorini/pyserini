@@ -19,8 +19,9 @@ This module provides Pyserini's hybrid searcher by Dense + Sparse
 """
 
 from typing import List, Dict
-from pyserini.search.lucene import LuceneSearcher
+
 from pyserini.search.faiss import FaissSearcher, DenseSearchResult
+from pyserini.search.lucene import LuceneSearcher
 
 
 class HybridSearcher:

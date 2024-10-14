@@ -28,7 +28,7 @@ python -m pyserini.search.faiss \
   --topics dpr-nq-test \
   --encoded-queries bpr_single_nq-nq-test \
   --output runs/run.bpr.rerank.nq-test.nq.hash.trec \
-  --batch-size 36 --threads 12 \
+  --batch-size 512 --threads 16 \
   --hits 100 --binary-hits 1000 \
   --searcher bpr --rerank
 ```
@@ -38,18 +38,22 @@ The option `--encoded-queries` specifies the use of encoded queries (i.e., queri
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
-$ python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
-    --index wikipedia-dpr-100w \
-    --topics dpr-nq-test \
-    --input runs/run.bpr.rerank.nq-test.nq.hash.trec \
-    --output runs/run.bpr.rerank.nq-test.nq.hash.json
+python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
+  --index wikipedia-dpr \
+  --topics dpr-nq-test \
+  --input runs/run.bpr.rerank.nq-test.nq.hash.trec \
+  --output runs/run.bpr.rerank.nq-test.nq.hash.json
 
-$ python -m pyserini.eval.evaluate_dpr_retrieval \
-    --retrieval runs/run.bpr.rerank.nq-test.nq.hash.json \
-    --topk 20 100
+python -m pyserini.eval.evaluate_dpr_retrieval \
+  --retrieval runs/run.bpr.rerank.nq-test.nq.hash.json \
+  --topk 20 100
+```
 
+Results:
+
+```
 Top20  accuracy: 0.7792
-Top100 accuracy: 0.8573
+Top100 accuracy: 0.8571
 ```
 
 ## Reproduction Log[*](reproducibility.md)
@@ -58,3 +62,4 @@ Top100 accuracy: 0.8573
 + Results reproduced by [@HAKSOAT](https://github.com/HAKSOAT) on 2022-03-11 (commit [`779668`](https://github.com/castorini/pyserini/commit/77966851755163e36489544fb08f73171e98103f))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-24 (commit [`0c495c`](https://github.com/castorini/pyserini/commit/0c495cf2999dda980eb1f85efa30a4323cef5855))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2023-01-10 (commit [`7dafc4`](https://github.com/castorini/pyserini/commit/7dafc4f918bd44ada3771a5c81692ab19cc2cae9))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2024-10-16 (commit [`3f7609`](https://github.com/castorini/pyserini/commit/3f76099a73820afee12496c0354d52ca6a6175c2))

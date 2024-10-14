@@ -17,6 +17,7 @@
 """
 This module provides Pyserini's Python interface query building for Anserini.
 """
+
 import logging
 from enum import Enum
 

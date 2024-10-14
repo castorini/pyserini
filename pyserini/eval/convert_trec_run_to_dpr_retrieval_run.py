@@ -17,11 +17,12 @@
 import argparse
 import json
 import os
+
 from tqdm import tqdm
 
+from pyserini.eval.evaluate_dpr_retrieval import has_answers, SimpleTokenizer
 from pyserini.search import get_topics, get_topics_with_reader
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.eval.evaluate_dpr_retrieval import has_answers, SimpleTokenizer
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert an TREC run to DPR retrieval result json.')

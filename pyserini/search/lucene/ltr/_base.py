@@ -14,12 +14,15 @@
 # limitations under the License.
 #
 
-from pyserini.pyclass import autoclass
 import json
+import re
+
 import numpy as np
 import pandas as pd
 import spacy
-import re
+
+from pyserini.pyclass import autoclass
+
 
 class Feature:
    def name(self):

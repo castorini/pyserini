@@ -22,7 +22,7 @@ import os
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score_qa
-from pyserini.search import QueryEncoder
+from pyserini.encode import QueryEncoder
 from pyserini.search import get_topics
 
 

@@ -18,15 +18,16 @@ import cmd
 import json
 import random
 
-from pyserini.search.lucene import LuceneSearcher
-from pyserini.search.faiss import FaissSearcher, DprQueryEncoder
+from pyserini.encode import DprQueryEncoder
+from pyserini.search import get_topics
+from pyserini.search.faiss import FaissSearcher
 from pyserini.search.hybrid import HybridSearcher
-from pyserini import search
+from pyserini.search.lucene import LuceneSearcher
 
 
 class DPRDemo(cmd.Cmd):
-    nq_dev_topics = list(search.get_topics('dpr-nq-dev').values())
-    trivia_dev_topics = list(search.get_topics('dpr-trivia-dev').values())
+    nq_dev_topics = list(get_topics('dpr-nq-dev').values())
+    trivia_dev_topics = list(get_topics('dpr-trivia-dev').values())
 
     ssearcher = LuceneSearcher.from_prebuilt_index('wikipedia-dpr')
     searcher = ssearcher

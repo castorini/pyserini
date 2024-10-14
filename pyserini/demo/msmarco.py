@@ -16,17 +16,17 @@
 
 import cmd
 import json
-import os
 import random
 
-from pyserini.search.lucene import LuceneSearcher
-from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder, AnceQueryEncoder
+from pyserini.encode import AnceQueryEncoder, TctColBertQueryEncoder
+from pyserini.search import get_topics
+from pyserini.search.faiss import FaissSearcher
 from pyserini.search.hybrid import HybridSearcher
-from pyserini import search
+from pyserini.search.lucene import LuceneSearcher
 
 
 class MsMarcoDemo(cmd.Cmd):
-    dev_topics = list(search.get_topics('msmarco-passage-dev-subset').values())
+    dev_topics = list(get_topics('msmarco-passage-dev-subset').values())
 
     ssearcher = LuceneSearcher.from_prebuilt_index('msmarco-passage')
     dsearcher = None

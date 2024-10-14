@@ -23,14 +23,16 @@ Additional arguments include:
     --port [PORT] --hits [Number of hits] --index [BM25 or {dense retrieval flag}]
     --k1 [BM25 k1] --b [BM25 b] --device [cpu, cuda]
 """
+
 import json
 from argparse import ArgumentParser
 from functools import partial
 from typing import Callable, Optional, Tuple, Union
 
 from flask import Flask, render_template, request, flash, jsonify
-from pyserini.search import LuceneSearcher, FaissSearcher
 
+from pyserini.search.faiss import FaissSearcher
+from pyserini.search.lucene import LuceneSearcher
 
 INDEX_NAMES = (
     'atomic_image_v0.2_small_validation',

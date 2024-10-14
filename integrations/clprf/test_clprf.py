@@ -21,7 +21,7 @@ from random import randint
 
 from integrations.lucenesearcher_score_checker import LuceneSearcherScoreChecker
 from integrations.utils import run_command, parse_score
-from pyserini.search import LuceneSearcher
+from pyserini.search.lucene import LuceneSearcher
 
 
 class TestSearchIntegration(unittest.TestCase):

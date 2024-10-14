@@ -30,6 +30,7 @@ class TestNFCorpus(unittest.TestCase):
         cls.queries = 'tests/resources/nfcorpus-queries.tsv'
         cls.qrels = 'tests/resources/nfcorpus-qrels.tsv'
 
+        # TODO: Remove the Lucene part, just keep the Faiss part
         r = randint(0, 10000000)
         cls.dense_index_url = 'https://github.com/castorini/anserini-data/raw/master/NFCorpus/faiss.nfcorpus.contriever-msmacro.tar.gz'
         cls.dense_tarball_name = f'faiss.nfcorpus.contriever-msmacro-{r}.tar.gz'

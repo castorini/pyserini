@@ -17,6 +17,7 @@
 from typing import Optional
 
 import torch
+
 if torch.cuda.is_available():
     from torch.cuda.amp import autocast
 from transformers import BertConfig, BertModel, BertTokenizer, PreTrainedModel

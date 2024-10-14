@@ -15,20 +15,20 @@ Running DKRR retrieval on `dpr-nq-dev` and `nq-test` of the Natural Questions da
 
 ```bash
 python -m pyserini.search.faiss \
-  --index wikipedia-dpr-dkrr-nq \
+  --index wikipedia-dpr-100w.dkrr-nq \
   --topics dpr-nq-dev \
   --encoded-queries dkrr-dpr-nq-retriever-dpr-nq-dev \
   --output runs/run.dpr-dkrr-nq.dev.trec \
   --query-prefix question: \
-  --batch-size 36 --threads 12
+  --batch-size 512 --threads 16
 
 python -m pyserini.search.faiss \
-  --index wikipedia-dpr-dkrr-nq \
+  --index wikipedia-dpr-100w.dkrr-nq \
   --topics nq-test \
   --encoded-queries dkrr-dpr-nq-retriever-nq-test \
   --output runs/run.dpr-dkrr-nq.test.trec \
   --query-prefix question: \
-  --batch-size 36 --threads 12
+  --batch-size 512 --threads 16
 ```
 
 Alternatively, replace `--encoded-queries ...` with `--encoder castorini/dkrr-dpr-nq-retriever` for on-the-fly query encoding.
@@ -79,20 +79,20 @@ Running DKRR retrieval on `dpr-trivia-dev` and `dpr-trivia-test` of the TriviaQA
 
 ```bash
 python -m pyserini.search.faiss \
-  --index wikipedia-dpr-dkrr-tqa \
+  --index wikipedia-dpr-100w.dkrr-tqa \
   --topics dpr-trivia-dev \
   --encoded-queries dkrr-dpr-tqa-retriever-dpr-tqa-dev \
   --output runs/run.dpr-dkrr-trivia.dev.trec \
   --query-prefix question: \
-  --batch-size 36 --threads 12
+  --batch-size 512 --threads 16
 
 python -m pyserini.search.faiss \
-  --index wikipedia-dpr-dkrr-tqa \
+  --index wikipedia-dpr-100w.dkrr-tqa \
   --topics dpr-trivia-test \
   --encoded-queries dkrr-dpr-tqa-retriever-dpr-tqa-test \
   --output runs/run.dpr-dkrr-trivia.test.trec \
   --query-prefix question: \
-  --batch-size 36 --threads 12
+  --batch-size 512 --threads 16
 ```
 Alternatively, replace `--encoded-queries ...` with `--encoder castorini/dkrr-dpr-tqa-retriever` for on-the-fly query encoding.
 
@@ -145,3 +145,4 @@ Running hybrid sparse-dense retrieval with DKKR and [GAR-T5](https://github.com/
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-02-12 (commit [`52a1e7`](https://github.com/castorini/pyserini/commit/52a1e7f241b7b833a3ec1d739e629c08417a324c))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-23 (commit [`90676b`](https://github.com/castorini/pyserini/commit/90676b351b47585084aa8136265d02a67ced3803))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2023-01-10 (commit [`7dafc4`](https://github.com/castorini/pyserini/commit/7dafc4f918bd44ada3771a5c81692ab19cc2cae9))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2024-10-16 (commit [`3f7609`](https://github.com/castorini/pyserini/commit/3f76099a73820afee12496c0354d52ca6a6175c2))
