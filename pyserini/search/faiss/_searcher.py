@@ -25,70 +25,14 @@ from typing import Dict, List, Union, Optional, Tuple
 
 import faiss
 import numpy as np
-import openai
-import tiktoken
 from transformers.file_utils import requires_backends
 
 from pyserini.encode import QueryEncoder, AutoQueryEncoder
 from pyserini.encode import AnceQueryEncoder, BprQueryEncoder, DprQueryEncoder, TctColBertQueryEncoder
-from pyserini.encode.optional import ClipEncoder
 from pyserini.index import Document
 from pyserini.search.faiss._prf import PrfDenseSearchResult
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.util import download_prebuilt_index, get_dense_indexes_info, get_sparse_index
-
-
-class ClipQueryEncoder(QueryEncoder):
-    """Encodes queries using a CLIP model, supporting both images and texts."""
-    def __init__(self,
-        encoder_dir: str=None,
-        encoded_query_dir: str = None,
-        device: str ='cuda:0',
-        l2_norm: bool=False,
-        prefix: str=None,
-        multimodal: bool=False,
-        **kwargs,
-    ):
-        super().__init__(encoded_query_dir)
-        if encoder_dir:
-            self.device = device
-            self.encoder = ClipEncoder(encoder_dir, device, l2_norm, prefix, multimodal)
-            self.has_model = True
-        
-        if not self.has_model and not self.has_encoded_query:
-            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
-
-    def encode(self, query: str):
-        return self.encoder.encode(query).flatten()
-
-
-class OpenAIQueryEncoder(QueryEncoder):
-    from pyserini.encode._openai import retry_with_delay
-
-    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None,
-                 tokenizer_name: str = None, max_length: int = 512, **kwargs):
-        super().__init__(encoded_query_dir)
-        if encoder_dir:
-            api_key = '' if os.getenv("OPENAI_API_KEY") is None else os.getenv("OPENAI_API_KEY")
-            org_key = '' if os.getenv("OPENAI_ORG_KEY") is None else os.getenv("OPENAI_ORG_KEY")
-            self.client = openai.OpenAI(api_key=api_key, organization=org_key)
-            self.model = encoder_dir
-            self.tokenizer = tiktoken.get_encoding(tokenizer_name)
-            self.max_length = max_length
-            self.has_model = True
-        if (not self.has_model) and (not self.has_encoded_query):
-            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
-
-    @retry_with_delay
-    def get_embedding(self, text: str):
-        return np.array(self.client.embeddings.create(input=text, model=self.model)['data'][0]['embedding'])
-
-    def encode(self, query: str, **kwargs):
-        if self.has_model:
-            inputs = self.tokenizer.encode(text=query)[:self.max_length]
-            return self.get_embedding(inputs)
-        else:
-            return super().encode(query)
 
 
 @dataclass

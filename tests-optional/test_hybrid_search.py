@@ -17,8 +17,8 @@
 import unittest
 from typing import List, Dict
 
+from pyserini.encode import AutoQueryEncoder
 from pyserini.search.faiss import FaissSearcher
-from pyserini.search.faiss._searcher import AutoQueryEncoder
 from pyserini.search.hybrid import HybridSearcher
 from pyserini.search.lucene import LuceneSearcher
 

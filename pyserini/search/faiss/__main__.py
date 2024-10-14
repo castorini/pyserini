@@ -22,13 +22,12 @@ from tqdm import tqdm
 
 from pyserini.encode import QueryEncoder, AutoQueryEncoder
 from pyserini.encode import AggretrieverQueryEncoder, AnceQueryEncoder, BprQueryEncoder, CosDprQueryEncoder, \
-    DkrrDprQueryEncoder, DprQueryEncoder, TctColBertQueryEncoder
+    DkrrDprQueryEncoder, DprQueryEncoder, OpenAiQueryEncoder, ClipQueryEncoder,TctColBertQueryEncoder
 from pyserini.encode.optional import PcaEncoder
 from pyserini.output_writer import get_output_writer, OutputFormat
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.search.lucene import LuceneSearcher
 from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
-from ._searcher import OpenAIQueryEncoder, ClipQueryEncoder
 from ._searcher import FaissSearcher, BinaryDenseFaissSearcher
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
@@ -112,7 +111,7 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
         "sentence": AutoQueryEncoder,
         "contriever": AutoQueryEncoder,
         "aggretriever": AggretrieverQueryEncoder,
-        "openai-api": OpenAIQueryEncoder,
+        "openai-api": OpenAiQueryEncoder,
         "auto": AutoQueryEncoder,
         "clip": ClipQueryEncoder,
     }

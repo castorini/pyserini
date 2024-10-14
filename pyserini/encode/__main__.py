@@ -20,7 +20,7 @@ import sys
 from pyserini.encode import AutoDocumentEncoder
 from pyserini.encode import AggretrieverDocumentEncoder, AnceDocumentEncoder, ClipDocumentEncoder, \
     CosDprDocumentEncoder, DprDocumentEncoder, TctColBertDocumentEncoder, UniCoilDocumentEncoder
-from pyserini.encode import OpenAIDocumentEncoder, OPENAI_API_RETRY_DELAY
+from pyserini.encode import OpenAiDocumentEncoder, OPENAI_API_RETRY_DELAY
 from pyserini.encode import JsonlRepresentationWriter, JsonlCollectionIterator
 from pyserini.encode.optional import FaissRepresentationWriter
 
@@ -31,12 +31,13 @@ encoder_class_map = {
     "ance": AnceDocumentEncoder,
     "sentence-transformers": AutoDocumentEncoder,
     "unicoil": UniCoilDocumentEncoder,
-    "openai-api": OpenAIDocumentEncoder,
+    "openai-api": OpenAiDocumentEncoder,
     "cosdpr": CosDprDocumentEncoder,
     "auto": AutoDocumentEncoder,
     "clip": ClipDocumentEncoder,
     "contriever": AutoDocumentEncoder,
 }
+
 
 def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multimodal):
     _encoder_class = encoder_class
