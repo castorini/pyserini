@@ -20,16 +20,17 @@ from ._base import QueryEncoder, DocumentEncoder, JsonlCollectionIterator, Jsonl
 # Then import these...
 from ._aggretriever import AggretrieverDocumentEncoder, AggretrieverQueryEncoder
 from ._ance import AnceEncoder, AnceDocumentEncoder, AnceQueryEncoder
+from ._arctic import ArcticDocumentEncoder, ArcticQueryEncoder
 from ._auto import AutoQueryEncoder, AutoDocumentEncoder
 from ._bpr import BprQueryEncoder
 from ._cached_data import CachedDataQueryEncoder
+from ._clip import ClipDocumentEncoder, ClipTextEncoder, ClipImageEncoder, ClipQueryEncoder
 from ._cosdpr import CosDprEncoder, CosDprDocumentEncoder, CosDprQueryEncoder
 from ._dkrr import DkrrDprQueryEncoder
 from ._dpr import DprDocumentEncoder, DprQueryEncoder
-from ._openai import OpenAIDocumentEncoder, OpenAIQueryEncoder, OPENAI_API_RETRY_DELAY
+from ._openai import OpenAiDocumentEncoder, OpenAiQueryEncoder, OPENAI_API_RETRY_DELAY
 from ._slim import SlimQueryEncoder
 from ._splade import SpladeQueryEncoder
 from ._tct_colbert import TctColBertDocumentEncoder, TctColBertQueryEncoder
 from ._tok_freq import TokFreqQueryEncoder
 from ._unicoil import UniCoilEncoder, UniCoilDocumentEncoder, UniCoilQueryEncoder
-from ._arctic import ArcticDocumentEncoder, ArcticQueryEncoder

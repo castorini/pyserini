@@ -666,8 +666,7 @@ def run_conditions(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for MS MARCO corpora.')
-    parser.add_argument('--collection', type=str,
-                        help='Collection = {v1-passage, v1-doc, v2-passage, v2-doc}.', required=True)
+    parser.add_argument('--collection', type=str, help='Collection = {v1-passage, v1-doc, v2-passage, v2-doc}.', required=True)
     # To list all conditions
     parser.add_argument('--list-conditions', action='store_true', default=False, help='List available conditions.')
     # For generating reports

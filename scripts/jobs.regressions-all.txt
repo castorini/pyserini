@@ -8,3 +8,4 @@ python -m pyserini.2cr.beir   --all --directory runs/ --display-commands > logs/
 python -m pyserini.2cr.ciral  --all --directory runs/ --display-commands > logs/log.ciral 2>&1
 python -m pyserini.2cr.odqa   --all --directory runs/ --topic tqa --display-commands > logs/log.odqa.tqa 2>&1
 python -m pyserini.2cr.odqa   --all --directory runs/ --topic nq  --display-commands > logs/log.odqa.nq 2>&1
+python -m pyserini.2cr.atomic --all --directory runs/ --display-commands > logs/log.atomic 2>&1

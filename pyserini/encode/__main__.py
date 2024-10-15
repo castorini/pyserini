@@ -17,11 +17,12 @@
 import argparse
 import sys
 
-from pyserini.encode import DprDocumentEncoder, TctColBertDocumentEncoder, AnceDocumentEncoder, \
-    AggretrieverDocumentEncoder, AutoDocumentEncoder, CosDprDocumentEncoder, JsonlRepresentationWriter, \
-    JsonlCollectionIterator, UniCoilDocumentEncoder, OpenAIDocumentEncoder, ArcticDocumentEncoder, OPENAI_API_RETRY_DELAY
-from pyserini.encode._clip import ClipDocumentEncoder
-from pyserini.encode._faiss import FaissRepresentationWriter
+from pyserini.encode import AutoDocumentEncoder
+from pyserini.encode import ArcticDocumentEncoder, AggretrieverDocumentEncoder, AnceDocumentEncoder, \
+    ClipDocumentEncoder, CosDprDocumentEncoder, DprDocumentEncoder, TctColBertDocumentEncoder, UniCoilDocumentEncoder
+from pyserini.encode import OpenAiDocumentEncoder, OPENAI_API_RETRY_DELAY
+from pyserini.encode import JsonlRepresentationWriter, JsonlCollectionIterator
+from pyserini.encode.optional import FaissRepresentationWriter
 
 encoder_class_map = {
     "dpr": DprDocumentEncoder,
@@ -30,13 +31,14 @@ encoder_class_map = {
     "ance": AnceDocumentEncoder,
     "sentence-transformers": AutoDocumentEncoder,
     "unicoil": UniCoilDocumentEncoder,
-    "openai-api": OpenAIDocumentEncoder,
+    "openai-api": OpenAiDocumentEncoder,
     "cosdpr": CosDprDocumentEncoder,
     "auto": AutoDocumentEncoder,
     "clip": ClipDocumentEncoder,
     "contriever": AutoDocumentEncoder,
     "arctic": ArcticDocumentEncoder,
 }
+
 
 def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multimodal):
     _encoder_class = encoder_class

@@ -1256,7 +1256,7 @@ conditions:
     display: "OpenAI ada2: Faiss flat, cached queries"
     display-html: "OpenAI ada2: Faiss flat, cached queries"
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Lin et al. (2023) Vector Search with OpenAI Embeddings: Lucene Is All You Need.\">11</a>]"
-    command: python -m pyserini.search.faiss --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries openai-ada2-$topics --output $output
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries openai-ada2-$topics --output $output
     topics:
       - topic_key: msmarco-passage-dev-subset
         eval_key: msmarco-passage-dev-subset
@@ -1279,7 +1279,7 @@ conditions:
     display: "HyDE-OpenAI ada2: Faiss flat, cached queries"
     display-html: "HyDE-OpenAI ada2: Faiss flat, cached queries"
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Gao et al. (ACL&nbsp;2023) Precise Zero-Shot Dense Retrieval without Relevance Labels.\">12</a>]"
-    command: python -m pyserini.search.faiss --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries openai-ada2-$topics-hyde --output $output
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries openai-ada2-$topics-hyde --output $output
     topics:
       - topic_key: dl19-passage
         eval_key: dl19-passage

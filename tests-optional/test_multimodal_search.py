@@ -20,8 +20,8 @@ import shutil
 import unittest
 from typing import List
 
+from pyserini.encode import ClipQueryEncoder
 from pyserini.search.faiss import FaissSearcher
-from pyserini.search.faiss._searcher import ClipQueryEncoder
 
 
 class TestMultimodalSearch(unittest.TestCase):

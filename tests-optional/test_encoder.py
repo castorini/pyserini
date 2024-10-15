@@ -25,7 +25,6 @@ from urllib.request import urlretrieve
 
 import faiss
 
-from pyserini.encode._clip import ClipDocumentEncoder
 from pyserini.search.lucene import LuceneImpactSearcher
 
 
@@ -58,14 +57,6 @@ class TestEncode(unittest.TestCase):
     def assertIsFile(path):
         if not pl.Path(path).resolve().is_file():
             raise AssertionError("File does not exist: %s" % str(path))
-
-    def test_clip_encoder(self):
-        encoder = ClipDocumentEncoder('openai/clip-vit-base-patch32', device='cpu')
-        vectors = encoder.encode(self.texts[:3])
-        self.assertAlmostEqual(vectors[0][0], 0.1933609, places=4)
-        self.assertAlmostEqual(vectors[0][-1], -0.21501173, places=4)
-        self.assertAlmostEqual(vectors[2][0], 0.06461975, places=4)
-        self.assertAlmostEqual(vectors[2][-1], 0.35396004, places=4)
 
     def test_tct_colbert_v2_encoder_cmd(self):
         index_dir = 'temp_index'

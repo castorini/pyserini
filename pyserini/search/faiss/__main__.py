@@ -21,14 +21,13 @@ import numpy as np
 from tqdm import tqdm
 
 from pyserini.encode import QueryEncoder, AutoQueryEncoder
-from pyserini.encode import AggretrieverQueryEncoder, AnceQueryEncoder, BprQueryEncoder, CosDprQueryEncoder, \
-    DkrrDprQueryEncoder, DprQueryEncoder, TctColBertQueryEncoder, ArcticQueryEncoder
-from pyserini.encode._pca import PcaEncoder
+from pyserini.encode import ArcticQueryEncoder, AggretrieverQueryEncoder, AnceQueryEncoder, BprQueryEncoder, \
+    CosDprQueryEncoder, DkrrDprQueryEncoder, DprQueryEncoder, OpenAiQueryEncoder, ClipQueryEncoder,TctColBertQueryEncoder
+from pyserini.encode.optional import PcaEncoder
 from pyserini.output_writer import get_output_writer, OutputFormat
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
 from pyserini.search.lucene import LuceneSearcher
 from ._prf import DenseVectorAveragePrf, DenseVectorRocchioPrf, DenseVectorAncePrf
-from ._searcher import OpenAIQueryEncoder, ClipQueryEncoder
 from ._searcher import FaissSearcher, BinaryDenseFaissSearcher
 
 # Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
@@ -112,7 +111,7 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
         "sentence": AutoQueryEncoder,
         "contriever": AutoQueryEncoder,
         "aggretriever": AggretrieverQueryEncoder,
-        "openai-api": OpenAIQueryEncoder,
+        "openai-api": OpenAiQueryEncoder,
         "auto": AutoQueryEncoder,
         "clip": ClipQueryEncoder,
         "arctic": ArcticQueryEncoder,
@@ -140,15 +139,15 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
 
         # prepare arguments to encoder class
         kwargs = dict(encoder_dir=encoder, tokenizer_name=tokenizer_name, device=device, prefix=prefix)
-        if (_encoder_class == "sentence") or ("sentence" in encoder):
+        if _encoder_class == 'sentence' or 'sentence' in encoder:
             kwargs.update(dict(pooling='mean', l2_norm=True))
-        if (_encoder_class == "contriever") or ("contriever" in encoder):
+        if _encoder_class == 'contriever' or 'contriever' in encoder:
             kwargs.update(dict(pooling='mean', l2_norm=False))
-        if (_encoder_class == "openai-api") or ("openai" in encoder):
+        if _encoder_class == "openai-api" or 'openai' in encoder:
             kwargs.update(dict(max_length=max_length))
-        if (_encoder_class == "auto"):
+        if _encoder_class == 'auto':
             kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix))
-        if (_encoder_class == "clip") or ("clip" in encoder):
+        if _encoder_class == 'clip' or 'clip' in encoder:
             kwargs.update(dict(l2_norm=True, prefix=prefix, multimodal=multimodal))
         return encoder_class(**kwargs)
 
@@ -166,6 +165,7 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
 
     if topics_name in encoded_queries_map:
         return QueryEncoder.load_encoded_queries(encoded_queries_map[topics_name])
+
     raise ValueError(f'No encoded queries for topic {topics_name}')
 
 
