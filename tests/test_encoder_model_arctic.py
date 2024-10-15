@@ -24,5 +24,6 @@ class TestEncodeArctic(unittest.TestCase):
         pass
         #TODO: Implement test_arctic_query_encoder after beir regression incorporated
 
+
 if __name__ == '__main__':
     unittest.main()
