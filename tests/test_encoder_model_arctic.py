@@ -13,7 +13,7 @@ class TestEncodeArctic(unittest.TestCase):
                 line = json.loads(line)
                 texts.append(line['contents'])
 
-        encoder = ArcticDocumentEncoder('Snowflake/snowflake-arctic-embed-m-v1.5', device='cuda', truncate_to_256=True)
+        encoder = ArcticDocumentEncoder('Snowflake/snowflake-arctic-embed-m-v1.5', device='cpu', truncate_to_256=True)
         vectors = encoder.encode(texts[:3])
         self.assertAlmostEqual(vectors[0][0], 0.05097485, places=4)
         self.assertAlmostEqual(vectors[0][-1], 0.04520516, places=4)
