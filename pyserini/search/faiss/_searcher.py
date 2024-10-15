@@ -30,7 +30,7 @@ import tiktoken
 from transformers.file_utils import requires_backends
 
 from pyserini.encode import QueryEncoder, AutoQueryEncoder
-from pyserini.encode import AnceQueryEncoder, BprQueryEncoder, DprQueryEncoder, TctColBertQueryEncoder
+from pyserini.encode import AnceQueryEncoder, BprQueryEncoder, DprQueryEncoder, TctColBertQueryEncoder, ArcticQueryEncoder
 from pyserini.encode._clip import ClipEncoder
 from pyserini.index import Document
 from pyserini.search.faiss._prf import PrfDenseSearchResult
