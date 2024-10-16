@@ -18,26 +18,10 @@ import argparse
 import sys
 
 from pyserini.encode import AutoDocumentEncoder
-from pyserini.encode import ArcticDocumentEncoder, AggretrieverDocumentEncoder, AnceDocumentEncoder, \
-    ClipDocumentEncoder, CosDprDocumentEncoder, DprDocumentEncoder, TctColBertDocumentEncoder, UniCoilDocumentEncoder
-from pyserini.encode import OpenAiDocumentEncoder, OPENAI_API_RETRY_DELAY
+from pyserini.encode import document_encoder_class_map
+from pyserini.encode import OPENAI_API_RETRY_DELAY
 from pyserini.encode import JsonlRepresentationWriter, JsonlCollectionIterator
 from pyserini.encode.optional import FaissRepresentationWriter
-
-encoder_class_map = {
-    "dpr": DprDocumentEncoder,
-    "tct_colbert": TctColBertDocumentEncoder,
-    "aggretriever": AggretrieverDocumentEncoder,
-    "ance": AnceDocumentEncoder,
-    "sentence-transformers": AutoDocumentEncoder,
-    "unicoil": UniCoilDocumentEncoder,
-    "openai-api": OpenAiDocumentEncoder,
-    "cosdpr": CosDprDocumentEncoder,
-    "auto": AutoDocumentEncoder,
-    "clip": ClipDocumentEncoder,
-    "contriever": AutoDocumentEncoder,
-    "arctic": ArcticDocumentEncoder,
-}
 
 
 def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multimodal):
@@ -45,13 +29,13 @@ def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multi
 
     # determine encoder_class
     if encoder_class is not None:
-        encoder_class = encoder_class_map[encoder_class]
+        encoder_class = document_encoder_class_map[encoder_class]
     else:
         # if any class keyword was matched in the given encoder name,
         # use that encoder class
-        for class_keyword in encoder_class_map:
+        for class_keyword in document_encoder_class_map:
             if class_keyword in encoder.lower():
-                encoder_class = encoder_class_map[class_keyword]
+                encoder_class = document_encoder_class_map[class_keyword]
                 break
 
         # if none of the class keyword was matched,
@@ -62,13 +46,13 @@ def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multi
 
     # prepare arguments to encoder class
     kwargs = dict(model_name=encoder, device=device)
-    if (_encoder_class == "sentence-transformers") or ("sentence-transformers" in encoder):
+    if _encoder_class == 'sentence-transformers' or 'sentence-transformers' in encoder:
         kwargs.update(dict(pooling='mean', l2_norm=True))
-    if (_encoder_class == "contriever") or ("contriever" in encoder):
+    if _encoder_class == 'contriever' or 'contriever' in encoder:
         kwargs.update(dict(pooling='mean', l2_norm=False))
-    if (_encoder_class == "auto"):
+    if _encoder_class == 'auto':
         kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix))
-    if (_encoder_class == "clip") or ("clip" in encoder):
+    if _encoder_class == 'clip' or 'clip' in encoder:
         kwargs.update(dict(l2_norm=True, prefix=prefix, multimodal=multimodal))
     return encoder_class(**kwargs)
 

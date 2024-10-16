@@ -21,8 +21,8 @@ import numpy as np
 from tqdm import tqdm
 
 from pyserini.encode import QueryEncoder, AutoQueryEncoder
-from pyserini.encode import ArcticQueryEncoder, AggretrieverQueryEncoder, AnceQueryEncoder, BprQueryEncoder, \
-    CosDprQueryEncoder, DkrrDprQueryEncoder, DprQueryEncoder, OpenAiQueryEncoder, ClipQueryEncoder,TctColBertQueryEncoder
+from pyserini.encode import AnceQueryEncoder, BprQueryEncoder
+from pyserini.encode import query_encoder_class_map
 from pyserini.encode.optional import PcaEncoder
 from pyserini.output_writer import get_output_writer, OutputFormat
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
@@ -101,34 +101,19 @@ def init_query_encoder(encoder, encoder_class, tokenizer_name, topics_name, enco
         'dpr-squad-test': 'dpr_multi-squad-test',
         'dpr-curated-test': 'dpr_multi-curated-test'
     }
-    encoder_class_map = {
-        "dkrr": DkrrDprQueryEncoder,
-        "cosdpr": CosDprQueryEncoder,
-        "dpr": DprQueryEncoder,
-        "bpr": BprQueryEncoder,
-        "tct_colbert": TctColBertQueryEncoder,
-        "ance": AnceQueryEncoder,
-        "sentence": AutoQueryEncoder,
-        "contriever": AutoQueryEncoder,
-        "aggretriever": AggretrieverQueryEncoder,
-        "openai-api": OpenAiQueryEncoder,
-        "auto": AutoQueryEncoder,
-        "clip": ClipQueryEncoder,
-        "arctic": ArcticQueryEncoder,
-    }
 
     if encoder:
         _encoder_class = encoder_class
 
         # determine encoder_class
         if encoder_class is not None:
-            encoder_class = encoder_class_map[encoder_class]
+            encoder_class = query_encoder_class_map[encoder_class]
         else:
             # if any class keyword was matched in the given encoder name,
             # use that encoder class
-            for class_keyword in encoder_class_map:
+            for class_keyword in query_encoder_class_map:
                 if class_keyword in encoder.lower():
-                    encoder_class = encoder_class_map[class_keyword]
+                    encoder_class = query_encoder_class_map[class_keyword]
                     break
 
             # if none of the class keyword was matched,

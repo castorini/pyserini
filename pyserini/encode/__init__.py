@@ -34,3 +34,34 @@ from ._splade import SpladeQueryEncoder
 from ._tct_colbert import TctColBertDocumentEncoder, TctColBertQueryEncoder
 from ._tok_freq import TokFreqQueryEncoder
 from ._unicoil import UniCoilEncoder, UniCoilDocumentEncoder, UniCoilQueryEncoder
+
+document_encoder_class_map = {
+    "dpr": DprDocumentEncoder,
+    "tct_colbert": TctColBertDocumentEncoder,
+    "aggretriever": AggretrieverDocumentEncoder,
+    "ance": AnceDocumentEncoder,
+    "sentence-transformers": AutoDocumentEncoder,
+    "unicoil": UniCoilDocumentEncoder,
+    "openai-api": OpenAiDocumentEncoder,
+    "cosdpr": CosDprDocumentEncoder,
+    "auto": AutoDocumentEncoder,
+    "clip": ClipDocumentEncoder,
+    "contriever": AutoDocumentEncoder,
+    "arctic": ArcticDocumentEncoder,
+}
+
+query_encoder_class_map = {
+    "dkrr": DkrrDprQueryEncoder,
+    "cosdpr": CosDprQueryEncoder,
+    "dpr": DprQueryEncoder,
+    "bpr": BprQueryEncoder,
+    "tct_colbert": TctColBertQueryEncoder,
+    "ance": AnceQueryEncoder,
+    "sentence": AutoQueryEncoder,
+    "contriever": AutoQueryEncoder,
+    "aggretriever": AggretrieverQueryEncoder,
+    "openai-api": OpenAiQueryEncoder,
+    "auto": AutoQueryEncoder,
+    "clip": ClipQueryEncoder,
+    "arctic": ArcticQueryEncoder,
+}
