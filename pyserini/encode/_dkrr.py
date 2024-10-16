@@ -28,7 +28,8 @@ class DkrrDprQueryEncoder(QueryEncoder):
         self.device = device
         self.model = BertModel.from_pretrained(encoder_dir)
         self.model.to(self.device)
-        self.tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased")
+        self.tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased',
+                                                           clean_up_tokenization_spaces=True)
         self.has_model = True
         self.prefix = prefix
 

@@ -258,7 +258,8 @@ if __name__ == "__main__":
         analyzer = JWhiteSpaceAnalyzer()
         searcher.set_analyzer(analyzer)
         print(f'Using whitespace analyzer because of pretokenized topics')
-        tokenizer = AutoTokenizer.from_pretrained(args.tokenizer)
+        tokenizer = AutoTokenizer.from_pretrained(args.tokenizer,
+                                                  clean_up_tokenization_spaces=True)
         print(f'Using {args.tokenizer} to preprocess topics')
 
     if args.stopwords:

@@ -26,8 +26,6 @@ class AnceEncoder(PreTrainedModel):
     config_class = RobertaConfig
     base_model_prefix = 'ance_encoder'
     load_tf_weights = None
-    _keys_to_ignore_on_load_missing = [r'position_ids']
-    _keys_to_ignore_on_load_unexpected = [r'pooler', r'classifier']
 
     def __init__(self, config: RobertaConfig):
         requires_backends(self, 'torch')
@@ -77,7 +75,8 @@ class AnceDocumentEncoder(DocumentEncoder):
         self.device = device
         self.model = AnceEncoder.from_pretrained(model_name)
         self.model.to(self.device)
-        self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or model_name)
+        self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or model_name,
+                                                          clean_up_tokenization_spaces=True)
 
     def encode(self, texts, titles=None,  max_length=256, **kwargs):
         if titles is not None:
@@ -102,7 +101,8 @@ class AnceQueryEncoder(QueryEncoder):
             self.device = device
             self.model = AnceEncoder.from_pretrained(encoder_dir)
             self.model.to(self.device)
-            self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or encoder_dir,
+                                                              clean_up_tokenization_spaces=True)
             self.has_model = True
             self.tokenizer.do_lower_case = True
         if (not self.has_model) and (not self.has_encoded_query):

@@ -34,11 +34,13 @@ class TctColBertDocumentEncoder(DocumentEncoder):
             options = SessionOptions()
             self.session = InferenceSession(model_name, options)
             self.onnx = True
-            self.tokenizer = BertTokenizerFast.from_pretrained(tokenizer_name or model_name[:-5])
+            self.tokenizer = BertTokenizerFast.from_pretrained(tokenizer_name or model_name[:-5],
+                                                               clean_up_tokenization_spaces=True)
         else:
             self.model = BertModel.from_pretrained(model_name)
             self.model.to(self.device)
-            self.tokenizer = BertTokenizerFast.from_pretrained(tokenizer_name or model_name)
+            self.tokenizer = BertTokenizerFast.from_pretrained(tokenizer_name or model_name,
+                                                               clean_up_tokenization_spaces=True)
 
     def encode(self, texts, titles=None, fp16=False,  max_length=512, **kwargs):
         if titles is not None:
@@ -79,7 +81,8 @@ class TctColBertQueryEncoder(QueryEncoder):
             self.device = device
             self.model = BertModel.from_pretrained(encoder_dir)
             self.model.to(self.device)
-            self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or encoder_dir,
+                                                           clean_up_tokenization_spaces=True)
             self.has_model = True
         if (not self.has_model) and (not self.has_encoded_query):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')

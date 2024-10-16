@@ -27,9 +27,12 @@ class AutoDocumentEncoder(DocumentEncoder):
         self.model = AutoModel.from_pretrained(model_name)
         self.model.to(self.device)
         try:
-            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name)
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name,
+                                                           clean_up_tokenization_spaces=True)
         except:
-            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name, use_fast=False)
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name,
+                                                           use_fast=False,
+                                                           clean_up_tokenization_spaces=True)
         self.has_model = True
         self.pooling = pooling
         self.l2_norm = l2_norm
@@ -79,9 +82,12 @@ class AutoQueryEncoder(QueryEncoder):
             self.model = AutoModel.from_pretrained(encoder_dir)
             self.model.to(self.device)
             try:
-                self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+                self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir,
+                                                               clean_up_tokenization_spaces=True)
             except:
-                self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir, use_fast=False)
+                self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir,
+                                                               use_fast=False,
+                                                               clean_up_tokenization_spaces=True)
             self.has_model = True
             self.pooling = pooling
             self.l2_norm = l2_norm

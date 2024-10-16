@@ -27,7 +27,8 @@ class SlimQueryEncoder(QueryEncoder):
         self.fusion_weight = fusion_weight
         self.model = AutoModelForMaskedLM.from_pretrained(model_name_or_path)
         self.model.to(self.device)
-        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name_or_path)
+        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name_or_path,
+                                                       clean_up_tokenization_spaces=True)
         self.reverse_vocab = {v: k for k, v in self.tokenizer.vocab.items()}
         self.weight_range = 5
         self.quant_range = 256
