@@ -34,7 +34,7 @@ def normalize(scores: List[float]):
 
 def query_loader(topic: str):
     queries = {}
-    bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+    bert_tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased', clean_up_tokenization_spaces=True)
     topics_dic = get_topics(topic)
     line_num = 0
     for topic_id in topics_dic:
@@ -42,12 +42,12 @@ def query_loader(topic: str):
         query_text = topics_dic[topic_id]['title']
         text_bert_tok = bert_tokenizer.tokenize(query_text.lower())
         if len(text_bert_tok) >= 0:
-            query = {"raw": query_text,
-                "contents": ' '.join(text_bert_tok)}
+            query = {'raw': query_text,
+                     'contents': ' '.join(text_bert_tok)}
             queries[topic_id] = query
         if line_num % 10000 == 0:
-            print(f"Processed {line_num} queries")
-    print(f"Processed {line_num} queries")
+            print(f'Processed {line_num} queries')
+    print(f'Processed {line_num} queries')
     return queries
 
 

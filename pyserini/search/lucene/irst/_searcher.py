@@ -70,10 +70,11 @@ class LuceneIrstSearcher(object):
                                       TF_INDEX_INFO['msmarco-v1-doc-segmented']['filename'][:-6] +
                                       TF_INDEX_INFO['msmarco-v1-doc-segmented']['md5'])
         else:
-            print("We currently only support three indexes: msmarco-passage, msmarco-v1-doc and msmarco-v1-doc-segmented but the index you inserted is not one of those")
+            print('We currently only support three indexes: msmarco-passage, msmarco-v1-doc and msmarco-v1-doc-segmented but the index you inserted is not one of those')
         self.object = JLuceneSearcher(index_path)
         self.source_lookup, self.target_lookup, self.tran = self.load_tranprobs_table()
-        self.bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+        self.bert_tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased',
+                                                            clean_up_tokenization_spaces=True)
         self.pool = ThreadPool(num_threads)
 
 

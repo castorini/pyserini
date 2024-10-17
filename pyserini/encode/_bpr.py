@@ -37,7 +37,8 @@ class BprQueryEncoder(QueryEncoder):
             self.device = device
             self.model = DPRQuestionEncoder.from_pretrained(encoder_dir)
             self.model.to(self.device)
-            self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(tokenizer_name or encoder_dir,
+                                                                         clean_up_tokenization_spaces=True)
             self.has_model = True
 
         if (not self.has_model) and (not self.has_encoded_query):

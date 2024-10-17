@@ -58,7 +58,7 @@ class TestEncode(unittest.TestCase):
         if not pl.Path(path).resolve().is_file():
             raise AssertionError("File does not exist: %s" % str(path))
 
-    def test_tct_colbert_v2_encoder_cmd(self):
+    def test_tct_colbert_v2_encode_cmd(self):
         index_dir = 'temp_index'
         cmd = f'python -m pyserini.encode \
                   input   --corpus {self.test_file} \
@@ -90,7 +90,7 @@ class TestEncode(unittest.TestCase):
 
         shutil.rmtree(index_dir)
 
-    def test_tct_colbert_v2_encoder_cmd_shard(self):
+    def test_tct_colbert_v2_encode_cmd_shard(self):
         cleanup_list = []
         for shard_i in range(2):
             index_dir = f'temp_index-{shard_i}'
@@ -136,7 +136,7 @@ class TestEncode(unittest.TestCase):
         for index_dir in cleanup_list:
             shutil.rmtree(index_dir)
 
-    def test_aggretriever_distilbert_encoder_cmd(self):
+    def test_aggretriever_distilbert_encode_cmd(self):
         index_dir = 'temp_index'
         cmd = f'python -m pyserini.encode \
                   input   --corpus {self.test_file} \
@@ -167,7 +167,7 @@ class TestEncode(unittest.TestCase):
 
         shutil.rmtree(index_dir)
     
-    def test_aggretriever_cocondenser_encoder_cmd(self):
+    def test_aggretriever_cocondenser_encode_cmd(self):
         index_dir = 'temp_index'
         cmd = f'python -m pyserini.encode \
                   input   --corpus {self.test_file} \
@@ -199,27 +199,27 @@ class TestEncode(unittest.TestCase):
         shutil.rmtree(index_dir)
 
     def test_onnx_encode_unicoil(self):
-        temp_object = LuceneImpactSearcher(f'{self.index_dir}lucene9-index.cacm', 'SpladePlusPlusEnsembleDistil', encoder_type='onnx')
+        searcher1 = LuceneImpactSearcher(f'{self.index_dir}lucene9-index.cacm', 'SpladePlusPlusEnsembleDistil', encoder_type='onnx')
 
         # this function will never be called in _impact_searcher, here to check quantization correctness
-        results = temp_object.encode("here is a test")
+        results = searcher1.encode("here is a test")
         self.assertEqual(results.get("here"), 156)
         self.assertEqual(results.get("a"), 31)
         self.assertEqual(results.get("test"), 149)
 
-        temp_object.close()
-        del temp_object
+        searcher1.close()
+        del searcher1
 
-        temp_object1 = LuceneImpactSearcher(f'{self.index_dir}lucene9-index.cacm', 'naver/splade-cocondenser-ensembledistil')
+        searcher2 = LuceneImpactSearcher(f'{self.index_dir}lucene9-index.cacm', 'naver/splade-cocondenser-ensembledistil')
 
         # this function will never be called in _impact_searcher, here to check quantization correctness
-        results = temp_object1.encode("here is a test")
+        results = searcher2.encode("here is a test")
         self.assertEqual(results.get("here"), 156)
         self.assertEqual(results.get("a"), 31)
         self.assertEqual(results.get("test"), 149)
 
-        temp_object1.close()
-        del temp_object1
+        searcher2.close()
+        del searcher2
     
     def test_clip_encoder_cmd_text(self):
         index_dir = 'temp_index'

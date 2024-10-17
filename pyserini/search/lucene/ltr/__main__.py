@@ -113,7 +113,8 @@ def query_loader(topic):
     queries = {}
     nlp = SpacyTextParser('en_core_web_sm', keep_only_alpha_num=True, lower_case=True)
     analyzer = Analyzer(get_lucene_analyzer())
-    bert_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+    bert_tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased',
+                                                   clean_up_tokenization_spaces=True)
     inp_file = open(topic)
     ln = 0
     for line in tqdm(inp_file):

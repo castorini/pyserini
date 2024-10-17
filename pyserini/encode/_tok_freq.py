@@ -21,7 +21,8 @@ from pyserini.encode import QueryEncoder
 
 class TokFreqQueryEncoder(QueryEncoder):
     def __init__(self, model_name_or_path=None):
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name_or_path) if model_name_or_path else None
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, clean_up_tokenization_spaces=True) \
+            if model_name_or_path else None
 
     def encode(self, text, **kwargs):
         vector = {}

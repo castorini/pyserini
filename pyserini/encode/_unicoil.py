@@ -79,7 +79,7 @@ class UniCoilDocumentEncoder(DocumentEncoder):
         self.device = device
         self.model = UniCoilEncoder.from_pretrained(model_name)
         self.model.to(self.device)
-        self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name)
+        self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name, clean_up_tokenization_spaces=True)
 
     def encode(self, texts, titles=None, expands=None, fp16=False,  max_length=512, **kwargs):
         if titles:

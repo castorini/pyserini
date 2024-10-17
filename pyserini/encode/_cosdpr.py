@@ -26,8 +26,6 @@ class CosDprEncoder(PreTrainedModel):
     config_class = BertConfig
     base_model_prefix = 'bert'
     load_tf_weights = None
-    #_keys_to_ignore_on_load_missing = [r'position_ids']
-    #_keys_to_ignore_on_load_unexpected = [r'pooler', r'classifier']
 
     def __init__(self, config: BertConfig):
         super().__init__(config)
@@ -77,7 +75,8 @@ class CosDprDocumentEncoder(DocumentEncoder):
         self.device = device
         self.model = CosDprEncoder.from_pretrained(model_name)
         self.model.to(self.device)
-        self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name)
+        self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name,
+                                                       clean_up_tokenization_spaces=True)
 
     def encode(self, texts, titles=None,  max_length=256, **kwargs):
         if titles is not None:
@@ -100,7 +99,8 @@ class CosDprQueryEncoder(QueryEncoder):
         self.device = device
         self.model = CosDprEncoder.from_pretrained(encoder_dir)
         self.model.to(self.device)
-        self.tokenizer = BertTokenizer.from_pretrained(encoder_dir or tokenizer_name)
+        self.tokenizer = BertTokenizer.from_pretrained(encoder_dir or tokenizer_name,
+                                                       clean_up_tokenization_spaces=True)
 
     def encode(self, query: str, **kwargs):
         inputs = self.tokenizer(

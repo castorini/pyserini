@@ -15,16 +15,36 @@
 #
 
 from transformers import DPRContextEncoder, DPRContextEncoderTokenizer, DPRQuestionEncoder, DPRQuestionEncoderTokenizer
+from transformers.utils import logging
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
+
+
+# See https://github.com/huggingface/transformers/issues/5421
+# about suprressing warning "Some weights of the model checkpoint ... were not used when initializing"
+class log_level:
+    orig_log_level: int
+    log_level: int
+
+    def __init__(self, log_level: int):
+        self.log_level = log_level
+        self.orig_log_level = logging.get_verbosity()
+
+    def __enter__(self):
+        logging.set_verbosity(self.log_level)
+
+    def __exit__(self, exception_type, exception_value, traceback):
+        logging.set_verbosity(self.orig_log_level)
 
 
 class DprDocumentEncoder(DocumentEncoder):
     def __init__(self, model_name, tokenizer_name=None, device='cuda:0'):
         self.device = device
-        self.model = DPRContextEncoder.from_pretrained(model_name)
+        with log_level(logging.ERROR):
+            self.model = DPRContextEncoder.from_pretrained(model_name)
         self.model.to(self.device)
-        self.tokenizer = DPRContextEncoderTokenizer.from_pretrained(tokenizer_name or model_name)
+        self.tokenizer = DPRContextEncoderTokenizer.from_pretrained(tokenizer_name or model_name,
+                                                                    clean_up_tokenization_spaces=True)
 
     def encode(self, texts, titles=None,  max_length=256, **kwargs):
         if titles:
@@ -56,9 +76,10 @@ class DprQueryEncoder(QueryEncoder):
         super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
-            self.model = DPRQuestionEncoder.from_pretrained(encoder_dir)
+            with log_level(logging.ERROR):
+                self.model = DPRQuestionEncoder.from_pretrained(encoder_dir)
             self.model.to(self.device)
-            self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(tokenizer_name or encoder_dir, clean_up_tokenization_spaces=True)
             self.has_model = True
         if (not self.has_model) and (not self.has_encoded_query):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')

@@ -52,7 +52,7 @@ class BaseClipEncoder:
     def __init__(self, model_name, device='cuda:0', l2_norm=True):
         self.device = device
         self.model = CLIPModel.from_pretrained(model_name).to(device)
-        self.processor = CLIPProcessor.from_pretrained(model_name)
+        self.processor = CLIPProcessor.from_pretrained(model_name, clean_up_tokenization_spaces=True)
         self.l2_norm = l2_norm
 
     def normalize_embeddings(self, embeddings):
@@ -96,11 +96,11 @@ class ClipTextEncoder(BaseClipEncoder):
             texts = [texts]
             
         if self.prefix:
-            texts = [f"{self.prefix} {text}" for text in texts]
+            texts = [f'{self.prefix} {text}' for text in texts]
 
         inputs = self.processor(
             text=texts, 
-            return_tensors="pt",
+            return_tensors='pt',
             padding='max_length',
             max_length=max_length,
             truncation='longest_first',

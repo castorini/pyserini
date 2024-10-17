@@ -38,9 +38,9 @@ def write_to_file(tokenizer, input, output):
 
 def main(args):
     if ('bert' in args.tokenizer):
-        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', clean_up_tokenization_spaces=True)
     else:
-        tokenizer = T5Tokenizer.from_pretrained('castorini/doc2query-t5-base-msmarco', legacy=True)
+        tokenizer = T5Tokenizer.from_pretrained('castorini/doc2query-t5-base-msmarco', legacy=True, clean_up_tokenization_spaces=True)
     if (os.path.isdir(args.input)):
         for i, inf in enumerate(sorted(os.listdir(args.input))):
             if not os.path.isdir(args.output):

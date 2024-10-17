@@ -27,13 +27,13 @@ class TestTokenization(unittest.TestCase):
 
     def test_bert_base_uncased_demo(self):
         # https://huggingface.co/transformers/tokenizer_summary.html
-        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', clean_up_tokenization_spaces=True)
         tokens = tokenizer.tokenize('I have a new GPU!')
         self.assertEqual(['i', 'have', 'a', 'new', 'gp', '##u', '!'], tokens)
 
     def test_bert_base_uncased_en_book_examples(self):
         # These are examples used in the ptr4tr book
-        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('walking talking balking biking hiking rolling scrolling')
         self.assertEqual(['walking', 'talking', 'bal', '##king', 'biking', 'hiking', 'rolling', 'scrolling'], tokens)
@@ -44,7 +44,7 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('adversarial')
         self.assertEqual(['ad', '##vers', '##aria', '##l'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-cased', clean_up_tokenization_spaces=True)
         tokens = tokenizer.tokenize('walking talking balking biking hiking')
         self.assertEqual(['walking', 'talking', 'b', '##alk', '##ing', 'bi', '##king', 'hiking'], tokens)
 
@@ -59,7 +59,7 @@ class TestTokenization(unittest.TestCase):
 
     def test_xlm_roberta_base_en_book_examples(self):
         # These are examples used in the ptr4tr book
-        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base')
+        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('walking talking balking biking hiking rolling scrolling')
         self.assertEqual(['▁walking', '▁talking', '▁bal', 'king', '▁bi', 'king', '▁hi', 'king', '▁roll', 'ing', '▁scroll', 'ing'], tokens)
@@ -74,7 +74,7 @@ class TestTokenization(unittest.TestCase):
         self.assertEqual(['▁adversari', 'al'], tokens)
 
     def test_bert_base_multilingual_en_book_examples(self):
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('walking talking balking biking hiking rolling scrolling')
         self.assertEqual(['walking', 'talking', 'bal', '##king', 'bi', '##king', 'hi', '##king', 'rolling', 'sc', '##roll', '##ing'], tokens)
@@ -88,7 +88,7 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('adversarial')
         self.assertEqual(['ad', '##versari', '##al'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', clean_up_tokenization_spaces=True)
         tokens = tokenizer.tokenize('walking talking balking biking hiking')
         self.assertEqual(['walking', 'talking', 'bal', '##king', 'bi', '##king', 'hi', '##king'], tokens)
 
@@ -117,7 +117,7 @@ class TestTokenization(unittest.TestCase):
         self.assertEqual(['adversari'], tokens)
 
     def test_bert_base_multilingual_fr_book_examples(self):
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased', clean_up_tokenization_spaces=True)
 
         # walking talking biking hiking rolling scrolling
         tokens = tokenizer.tokenize('marche parler vélo randonnée rouler défilement')
@@ -135,7 +135,7 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('antagoniste')
         self.assertEqual(['ant', '##ago', '##niste'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', clean_up_tokenization_spaces=True)
 
         # walking talking biking hiking rolling scrolling
         tokens = tokenizer.tokenize('marche parler vélo randonnée rouler défilement')
@@ -169,7 +169,7 @@ class TestTokenization(unittest.TestCase):
         self.assertEqual(['antagonist'], tokens)
 
     def test_bert_base_multilingual_zh_book_examples(self):
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased', clean_up_tokenization_spaces=True)
 
         # walking talking biking hiking rolling scrolling
         tokens = tokenizer.tokenize('走路说话骑自行车远足滚动滚动')
@@ -187,7 +187,7 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('对抗的')
         self.assertEqual(['对', '抗', '的'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', clean_up_tokenization_spaces=True)
 
         # walking talking biking hiking rolling scrolling
         tokens = tokenizer.tokenize('走路说话骑自行车远足滚动滚动')
@@ -221,7 +221,7 @@ class TestTokenization(unittest.TestCase):
         self.assertEqual(['对抗', '抗的'], tokens)
 
     def test_bert_base_multilingual_ar_book_examples(self):
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased', clean_up_tokenization_spaces=True)
 
         # walking talking biking hiking rolling scrolling
         tokens = tokenizer.tokenize('المشي الحديث ركوب الدراجات المشي لمسافات طويلة المتداول التمرير')
@@ -239,7 +239,7 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('عدائي')
         self.assertEqual(['ع', '##دا', '##يي'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', clean_up_tokenization_spaces=True)
 
         # walking talking biking hiking rolling scrolling
         tokens = tokenizer.tokenize('المشي الحديث ركوب الدراجات المشي لمسافات طويلة المتداول التمرير')
@@ -258,7 +258,7 @@ class TestTokenization(unittest.TestCase):
         self.assertEqual(['ع', '##دا', '##ئي'], tokens)
 
     def test_bert_base_multilingual_hi_book_examples(self):
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased', clean_up_tokenization_spaces=True)
 
         # walking talking biking hiking rolling scrolling
         tokens = tokenizer.tokenize('चलने की बात करते हुए बाइक चलाना लंबी पैदल यात्रा स्क्रॉल')
@@ -276,7 +276,7 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('विरोधात्मक')
         self.assertEqual(['वि', '##रो', '##धा', '##तमक'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', clean_up_tokenization_spaces=True)
 
         # walking talking biking hiking rolling scrolling
         tokens = tokenizer.tokenize('चलने की बात करते हुए बाइक चलाना लंबी पैदल यात्रा स्क्रॉल')
@@ -295,7 +295,7 @@ class TestTokenization(unittest.TestCase):
         self.assertEqual(['वि', '##रो', '##धा', '##त्मक'], tokens)
 
     def test_bert_base_multilingual_bn_book_examples(self):
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased', clean_up_tokenization_spaces=True)
 
         # walking talking biking hiking rolling scrolling
         tokens = tokenizer.tokenize('হাঁটাচলা বাইকিং হাইকিং রোলিং স্ক্রোলিং')
@@ -313,7 +313,7 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('প্রতিকূল')
         self.assertEqual(['পরতি', '##ক', '##ল'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', clean_up_tokenization_spaces=True)
 
         # walking talking biking hiking rolling scrolling
         tokens = tokenizer.tokenize('হাঁটাচলা বাইকিং হাইকিং রোলিং স্ক্রোলিং')
@@ -330,12 +330,12 @@ class TestTokenization(unittest.TestCase):
         # adversarial
         tokens = tokenizer.tokenize('প্রতিকূল')
         self.assertEqual(['প্রতি', '##ক', '##ূ', '##ল'], tokens)
-    
+
     def test_bert_base_multilingual_am(self):
         """
         amharic
         """
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('የሽፋኑ ርዕሰ ጉዳይ የሞቱ ሰዎች ይነሳሉ')
         self.assertEqual(['[UNK]', '[UNK]', '[UNK]', '[UNK]', '[UNK]', '[UNK]'], tokens)
@@ -343,31 +343,31 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('የሽፋኑ')
         self.assertEqual(['[UNK]'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('የሽፋኑ ርዕሰ ጉዳይ የሞቱ ሰዎች ይነሳሉ')
         self.assertEqual(['[UNK]', '[UNK]', '[UNK]', '[UNK]', '[UNK]', '[UNK]'], tokens)
 
         tokens = tokenizer.tokenize('የሽፋኑ')
         self.assertEqual(['[UNK]'], tokens)
-    
+
     def test_xlmr_base_multilingual_am(self):
         """
         amharic
         """
-        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base')
+        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('የሽፋኑ ርዕሰ ጉዳይ የሞቱ ሰዎች ይነሳሉ')
         self.assertEqual(['▁የ', 'ሽ', 'ፋ', 'ኑ', '▁ርዕሰ', '▁ጉዳይ', '▁የ', 'ሞቱ', '▁ሰዎች', '▁ይ', 'ነሳ', 'ሉ'], tokens)
 
         tokens = tokenizer.tokenize('የሽፋኑ')
         self.assertEqual(['▁የ', 'ሽ', 'ፋ', 'ኑ'], tokens)
-    
+
     def test_bert_base_multilingual_ha(self):
         """
         hausa
         """
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Ya san kungiyar, ya san komai game da kungiyar')
         self.assertEqual(['ya', 'san', 'kung', '##iya', '##r', ',', 'ya', 'san', 'koma', '##i', 'game', 'da', 'kung', '##iya', '##r'], tokens)
@@ -375,19 +375,19 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('kungiyar')
         self.assertEqual(['kung', '##iya', '##r'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Ya san kungiyar, ya san komai game da kungiyar')
         self.assertEqual(['Ya', 'san', 'kung', '##iya', '##r', ',', 'ya', 'san', 'koma', '##i', 'game', 'da', 'kung', '##iya', '##r'], tokens)
 
         tokens = tokenizer.tokenize('kungiyar')
         self.assertEqual(['kung', '##iya', '##r'], tokens)
-    
+
     def test_xlmr_base_multilingual_ha(self):
         """
         hausa
         """
-        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base')
+        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Ya san kungiyar, ya san komai game da kungiyar')
         self.assertEqual(['▁Ya', '▁san', '▁kungiyar', ',', '▁ya', '▁san', '▁koma', 'i', '▁game', '▁da', '▁kungiyar'], tokens)
@@ -399,7 +399,7 @@ class TestTokenization(unittest.TestCase):
         """
         igbo
         """
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Oke Ọñụ Adaa Dịka Lọọlọ Ezenneka gbàrà Ahọ Otu Narị')
         self.assertEqual(['ok', '##e', 'onu', 'ada', '##a', 'dik', '##a', 'lo', '##olo', 'ezen', '##nek', '##a', 'gba', '##ra', 'ah', '##o', 'ot', '##u', 'nar', '##i'], tokens)
@@ -407,19 +407,19 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('Ezenneka')
         self.assertEqual(['ezen', '##nek', '##a'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Oke Ọñụ Adaa Dịka Lọọlọ Ezenneka gbàrà Ahọ Otu Narị')
         self.assertEqual(['Ok', '##e', 'Ọ', '##ñ', '##ụ', 'Ada', '##a', 'D', '##ị', '##ka', 'L', '##ọ', '##ọ', '##l', '##ọ', 'Ezen', '##nek', '##a', 'g', '##bà', '##rà', 'Ah', '##ọ', 'O', '##tu', 'Na', '##r', '##ị'], tokens)
 
         tokens = tokenizer.tokenize('Ezenneka')
         self.assertEqual(['Ezen', '##nek', '##a'], tokens)
-    
+
     def test_xlmr_base_multilingual_ig(self):
         """
         igbo
         """
-        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base')
+        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Oke Ọñụ Adaa Dịka Lọọlọ Ezenneka gbàrà Ahọ Otu Narị')
         self.assertEqual(['▁O', 'ke', '▁', 'Ọ', 'ñ', 'ụ', '▁Ada', 'a', '▁D', 'ị', 'ka', '▁L', 'ọ', 'ọ', 'l', 'ọ', '▁Ezen', 'nek', 'a', '▁', 'gb', 'à', 'rà', '▁Ah', 'ọ', '▁O', 'tu', '▁Nar', 'ị'], tokens)
@@ -431,7 +431,7 @@ class TestTokenization(unittest.TestCase):
         """
         Afaan Oromoo
         """
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Ani obbolaa keessan, Abdii Baalee Oromiyaatii')
         self.assertEqual(['ani', 'ob', '##bola', '##a', 'ke', '##essa', '##n', ',', 'abd', '##ii', 'ba', '##ale', '##e', 'oro', '##mi', '##ya', '##atii'], tokens)
@@ -439,19 +439,19 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('Oromiyaatii')
         self.assertEqual(['oro', '##mi', '##ya', '##atii'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Ani obbolaa keessan, Abdii Baalee Oromiyaatii')
         self.assertEqual(['Ani', 'ob', '##bola', '##a', 'ke', '##essa', '##n', ',', 'Abd', '##ii', 'Ba', '##ale', '##e', 'Oro', '##mi', '##ya', '##ati', '##i'], tokens)
 
         tokens = tokenizer.tokenize('Oromiyaatii')
         self.assertEqual(['Oro', '##mi', '##ya', '##ati', '##i'], tokens)
-    
+
     def test_xlmr_base_multilingual_om(self):
         """
         Afaan Oromoo
         """
-        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base')
+        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Ani obbolaa keessan, Abdii Baalee Oromiyaatii')
         self.assertEqual(['▁Ani', '▁ob', 'bola', 'a', '▁keessa', 'n', ',', '▁Ab', 'dii', '▁Ba', 'ale', 'e', '▁Oromiyaa', 'tii'], tokens)
@@ -463,7 +463,7 @@ class TestTokenization(unittest.TestCase):
         """
         Nigerian Pidgin
         """
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Crude oil dey kill pickin for Nigeria?')
         self.assertEqual(['cru', '##de', 'oil', 'de', '##y', 'kill', 'pick', '##in', 'for', 'nigeria', '?'], tokens)
@@ -471,19 +471,19 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('wahala')
         self.assertEqual(['wah', '##ala'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Crude oil dey kill pickin for Nigeria?')
         self.assertEqual(['C', '##rude', 'oil', 'de', '##y', 'kill', 'pick', '##in', 'for', 'Nigeria', '?'], tokens)
 
         tokens = tokenizer.tokenize('wahala')
         self.assertEqual(['wa', '##hala'], tokens)
-    
+
     def test_xlmr_base_multilingual_pcm(self):
         """
         Nigerian Pidgin
         """
-        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base')
+        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Crude oil dey kill pickin for Nigeria?')
         self.assertEqual(['▁Cru', 'de', '▁oil', '▁de', 'y', '▁kill', '▁pick', 'in', '▁for', '▁Nigeria', '?'], tokens)
@@ -495,7 +495,7 @@ class TestTokenization(unittest.TestCase):
         """
         Somali
         """
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Rabbigu wuxuu amar ku bixiyey in la dumiyo qalcadaha Kancaan.')
         self.assertEqual(['rabbi', '##gu', 'wu', '##xu', '##u', 'amar', 'ku', 'bi', '##xi', '##ye', '##y', 'in', 'la', 'dum', '##iy', '##o', 'qal', '##cada', '##ha', 'kan', '##ca', '##an', '.'], tokens)
@@ -503,19 +503,19 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('bixiyey')
         self.assertEqual(['bi', '##xi', '##ye', '##y'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Rabbigu wuxuu amar ku bixiyey in la dumiyo qalcadaha Kancaan.')
         self.assertEqual(['Rabbi', '##gu', 'w', '##ux', '##uu', 'amar', 'ku', 'bi', '##xi', '##ye', '##y', 'in', 'la', 'dum', '##iyo', 'q', '##al', '##cada', '##ha', 'Kan', '##ca', '##an', '.'], tokens)
 
         tokens = tokenizer.tokenize('bixiyey')
         self.assertEqual(['bi', '##xi', '##ye', '##y'], tokens)
-    
+
     def test_xlmr_base_multilingual_so(self):
         """
         Somali
         """
-        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base')
+        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Rabbigu wuxuu amar ku bixiyey in la dumiyo qalcadaha Kancaan.')
         self.assertEqual(['▁Rabbi', 'gu', '▁wuxuu', '▁amar', '▁ku', '▁bixi', 'yey', '▁in', '▁la', '▁dum', 'iyo', '▁qal', 'cada', 'ha', '▁Kan', 'ca', 'an', '.'], tokens)
@@ -527,7 +527,7 @@ class TestTokenization(unittest.TestCase):
         """
         Swahili
         """
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Huduma ya upasuaji mkubwa na mdogo')
         self.assertEqual(['hu', '##dum', '##a', 'ya', 'up', '##asu', '##aji', 'mk', '##ubwa', 'na', 'md', '##ogo'], tokens)
@@ -535,19 +535,19 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('upasuaji')
         self.assertEqual(['up', '##asu', '##aji'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Huduma ya upasuaji mkubwa na mdogo')
         self.assertEqual(['Hu', '##dum', '##a', 'ya', 'up', '##asu', '##aji', 'mk', '##ub', '##wa', 'na', 'm', '##dogo'], tokens)
 
         tokens = tokenizer.tokenize('upasuaji')
         self.assertEqual(['up', '##asu', '##aji'], tokens)
-    
+
     def test_xlmr_base_multilingual_sw(self):
         """
         Swahili
         """
-        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base')
+        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Huduma ya upasuaji mkubwa na mdogo')
         self.assertEqual(['▁Huduma', '▁ya', '▁up', 'asu', 'aji', '▁mkubwa', '▁na', '▁mdogo'], tokens)
@@ -559,7 +559,7 @@ class TestTokenization(unittest.TestCase):
         """
         Tigrinya
         """
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('ስርዓተ ቀብሪ ኢንጂነር ስመኘው በቀለ ትማሊ ተፈፂሙ')
         self.assertEqual(['[UNK]', '[UNK]', '[UNK]', '[UNK]', '[UNK]', '[UNK]', '[UNK]'], tokens)
@@ -567,19 +567,19 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('ኢንጂነር')
         self.assertEqual(['[UNK]'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('ስርዓተ ቀብሪ ኢንጂነር ስመኘው በቀለ ትማሊ ተፈፂሙ')
         self.assertEqual(['[UNK]', '[UNK]', '[UNK]', '[UNK]', '[UNK]', '[UNK]', '[UNK]'], tokens)
 
         tokens = tokenizer.tokenize('ኢንጂነር')
         self.assertEqual(['[UNK]'], tokens)
-    
+
     def test_xlmr_base_multilingual_ti(self):
         """
         Tigrinya
         """
-        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base')
+        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('ስርዓተ ቀብሪ ኢንጂነር ስመኘው በቀለ ትማሊ ተፈፂሙ')
         self.assertEqual(['▁ስር', 'ዓ', 'ተ', '▁ቀ', 'ብሪ', '▁ኢን', 'ጂ', 'ነ', 'ር', '▁ስ', 'መ', 'ኘ', 'ው', '▁በቀለ', '▁ት', 'ማ', 'ሊ', '▁ተፈ', 'ፂ', 'ሙ'], tokens)
@@ -591,7 +591,7 @@ class TestTokenization(unittest.TestCase):
         """
         Yoruba
         """
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-uncased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Orúkọ ọmọbinrin rẹ̀ àgbà ni Merabu, ti èyí àbúrò ni Mikali.')
         self.assertEqual(['oru', '##ko', 'omo', '##bin', '##rin', 're', 'ag', '##ba', 'ni', 'mera', '##bu', ',', 'ti', 'e', '##yi', 'abu', '##ro', 'ni', 'mika', '##li', '.'], tokens)
@@ -599,19 +599,19 @@ class TestTokenization(unittest.TestCase):
         tokens = tokenizer.tokenize('ọmọbinrin')
         self.assertEqual(['omo', '##bin', '##rin'], tokens)
 
-        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased')
+        tokenizer = BertTokenizer.from_pretrained('bert-base-multilingual-cased', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Orúkọ ọmọbinrin rẹ̀ àgbà ni Merabu, ti èyí àbúrò ni Mikali.')
         self.assertEqual(['Or', '##ú', '##k', '##ọ', 'ọ', '##m', '##ọ', '##bin', '##rin', 'r', '##ẹ̀', 'à', '##g', '##bà', 'ni', 'Mer', '##abu', ',', 'ti', 'è', '##y', '##í', 'à', '##b', '##úr', '##ò', 'ni', 'Mika', '##li', '.'], tokens)
 
         tokens = tokenizer.tokenize('ọmọbinrin')
         self.assertEqual(['ọ', '##m', '##ọ', '##bin', '##rin'], tokens)
-    
+
     def test_xlmr_base_multilingual_yo(self):
         """
         Yoruba
         """
-        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base')
+        tokenizer = AutoTokenizer.from_pretrained('xlm-roberta-base', clean_up_tokenization_spaces=True)
 
         tokens = tokenizer.tokenize('Orúkọ ọmọbinrin rẹ̀ àgbà ni Merabu, ti èyí àbúrò ni Mikali.')
         self.assertEqual(['▁O', 'rú', 'k', 'ọ', '▁', 'ọ', 'm', 'ọ', 'bin', 'rin', '▁r', 'ẹ', '̀', '▁à', 'gb', 'à', '▁ni', '▁Mera', 'bu', ',', '▁ti', '▁è', 'y', 'í', '▁à', 'bú', 'rò', '▁ni', '▁Mi', 'kali', '.'], tokens)
@@ -620,11 +620,11 @@ class TestTokenization(unittest.TestCase):
         self.assertEqual(['▁', 'ọ', 'm', 'ọ', 'bin', 'rin'], tokens)
 
     def test_doc2query(self):
-        tokenizer = T5Tokenizer.from_pretrained('castorini/doc2query-t5-base-msmarco', legacy=True)
+        tokenizer = T5Tokenizer.from_pretrained('castorini/doc2query-t5-base-msmarco', legacy=True, clean_up_tokenization_spaces=True)
         tokens = tokenizer.tokenize('I have a new GPU!')
         self.assertEqual(['▁I', '▁have', '▁', 'a', '▁new', '▁GPU', '!'], tokens)
 
-        tokenizer = T5Tokenizer.from_pretrained('castorini/doc2query-t5-base-msmarco', legacy=True)
+        tokenizer = T5Tokenizer.from_pretrained('castorini/doc2query-t5-base-msmarco', legacy=True, clean_up_tokenization_spaces=True)
         tokens = tokenizer.tokenize('walking talking biking scrolling')
         self.assertEqual(['▁walking', '▁talking', '▁biking', '▁scroll', 'ing'], tokens)
 

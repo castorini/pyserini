@@ -20,12 +20,14 @@ from transformers import AutoModel, AutoTokenizer
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
 
+
 class ArcticDocumentEncoder(DocumentEncoder):
     def __init__(self, model_name, device='cuda:0', truncate_to_256=False, tokenizer_name=None): # Truncate to output embedding to 256 for faster encoding 
         self.device = device 
         self.truncate_to_256 = truncate_to_256
         self.model = AutoModel.from_pretrained(model_name, add_pooling_layer=False).to(self.device)
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name or tokenizer_name)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name or tokenizer_name,
+                                                       clean_up_tokenization_spaces=True)
 
     def encode(self, texts, max_length=512, **kwargs):
         document_tokens = self.tokenizer(
@@ -56,7 +58,8 @@ class ArcticQueryEncoder(QueryEncoder):
             self.device = device 
             self.query_prefix = query_prefix
             self.model = AutoModel.from_pretrained(encoder_dir, add_pooling_layer=False).to(self.device)
-            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir)
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir,
+                                                           clean_up_tokenization_spaces=True)
             self.has_model = True
 
         if (not self.has_model) and (not self.has_encoded_query):
