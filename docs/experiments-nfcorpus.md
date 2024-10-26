@@ -210,7 +210,8 @@ This contrasts with the _batch_ run above.
 Here's the snippet of Python code that does what we want:
 
 ```python
-from pyserini.search.faiss import FaissSearcher, AutoQueryEncoder
+from pyserini.search.faiss import FaissSearcher
+from pyserini.encode import AutoQueryEncoder
 
 encoder = AutoQueryEncoder('BAAI/bge-base-en-v1.5', device='cpu', pooling='mean', l2_norm=True)
 searcher = FaissSearcher('indexes/nfcorpus.bge-base-en-v1.5', encoder)
