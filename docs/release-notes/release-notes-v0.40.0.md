@@ -10,7 +10,7 @@
 + Refactored package to clean up warnings.
 + Refactored documentation for various dense models.
 + Started untangling "core" dependencies from "optional" dependencies.
-  + "Core" dependencies: `tests/`, `integrations`
+  + "Core" dependencies: `tests/`, `integrations/`
   + "Optional" dependencies: `tests-optional/`, `integrations-optional/`
   + Noteworthy "optional" dependencies include `faiss`, `nmslib`, and `lightgbm`.
 + Added initial bindings for Snowflake's Arctic model.
