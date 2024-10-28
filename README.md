@@ -194,11 +194,16 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 
 ## 📜️ Release History
 
++ v0.40.0 (w/ Anserini v0.38.0): October 28, 2024 [[Release Notes](docs/release-notes/release-notes-v0.40.0.md)]
 + v0.39.0 (w/ Anserini v0.38.0): September 27, 2024 [[Release Notes](docs/release-notes/release-notes-v0.39.0.md)]
 + v0.38.0 (w/ Anserini v0.38.0): September 11, 2024 [[Release Notes](docs/release-notes/release-notes-v0.38.0.md)]
 + v0.37.0 (w/ Anserini v0.37.0): August 26, 2024 [[Release Notes](docs/release-notes/release-notes-v0.37.0.md)]
 + v0.36.0 (w/ Anserini v0.36.1): June 17, 2024 [[Release Notes](docs/release-notes/release-notes-v0.36.0.md)]
 + v0.35.0 (w/ Anserini v0.35.0): April 4, 2024 [[Release Notes](docs/release-notes/release-notes-v0.35.0.md)]
+
+<details>
+<summary>older... (and historic notes)</summary>
+
 + v0.25.0 (w/ Anserini v0.25.0): March 31, 2024 [[Release Notes](docs/release-notes/release-notes-v0.25.0.md)]
 + v0.24.0 (w/ Anserini v0.24.0): December 28, 2023 [[Release Notes](docs/release-notes/release-notes-v0.24.0.md)]
 + v0.23.0 (w/ Anserini v0.23.0): November 17, 2023 [[Release Notes](docs/release-notes/release-notes-v0.23.0.md)]
@@ -206,10 +211,6 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 + v0.22.0 (w/ Anserini v0.22.0): August 31, 2023 [[Release Notes](docs/release-notes/release-notes-v0.22.0.md)]
 + v0.21.0 (w/ Anserini v0.21.0): April 6, 2023 [[Release Notes](docs/release-notes/release-notes-v0.21.0.md)]
 + v0.20.0 (w/ Anserini v0.20.0): February 1, 2023 [[Release Notes](docs/release-notes/release-notes-v0.20.0.md)]
-
-<details>
-<summary>older... (and historic notes)</summary>
-
 + v0.19.2 (w/ Anserini v0.16.2): December 16, 2022 [[Release Notes](docs/release-notes/release-notes-v0.19.2.md)]
 + v0.19.1 (w/ Anserini v0.16.1): November 12, 2022 [[Release Notes](docs/release-notes/release-notes-v0.19.1.md)]
 + v0.19.0 (w/ Anserini v0.16.1): November 2, 2022 [[Release Notes](docs/release-notes/release-notes-v0.19.0.md)] [[Known Issues](docs/release-notes/known-issues-v0.19.0.md)]
