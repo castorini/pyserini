@@ -10,7 +10,7 @@ namespaces = false
 
 [project]
 name = "pyserini"
-version = "0.41.0rc1"
+version = "0.41.0rc2"
 authors = [
     { name="Jimmy Lin", email="jimmylin@uwaterloo.ca" },
 ]
@@ -33,7 +33,7 @@ dependencies = [
     "scikit-learn>=0.22.1",
     "scipy>=1.4.1",
     "transformers>=4.6.0",
-    "torch>=2.0.0",
+    "torch>=2.5.0",
     "onnxruntime>=1.8.1",
     "openai>=1.0.0",
     "sentencepiece>=0.2",
@@ -48,7 +48,7 @@ Issues = "https://github.com/castorini/pyserini/issues"
 
 [project.optional-dependencies]
 extras = [
-    "faiss>1.7.0",
+    "faiss-cpu>1.7.0",
     "nmslib>=2.0.6",
     "lightgbm>=3.3.2",
     "spacy>=3.2.1",
