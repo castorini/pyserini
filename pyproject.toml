@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = [""]
-include = ["pyserini.2cr"]
-exclude = ["tests", "tests-optional", "integrations", "integrations-optional"]
+include = ["pyserini*"]
+exclude = ["tests*", "tests-optional", "integrations", "integrations-optional"]
 namespaces = false
 
 [project]
 name = "pyserini"
-version = "0.41.0rc0"
+version = "0.41.0rc1"
 authors = [
     { name="Jimmy Lin", email="jimmylin@uwaterloo.ca" },
 ]
