@@ -276,7 +276,7 @@ The previous error was documented in [this notebook](https://github.com/castorin
 
 ## ✨ References
 
-If you use Pyserini, please cite the following paper: 
+If you use Pyserini, please cite the following paper:
 
 ```
 @INPROCEEDINGS{Lin_etal_SIGIR2021_Pyserini,
@@ -290,4 +290,4 @@ If you use Pyserini, please cite the following paper:
 
 ## 🙏 Acknowledgments
 
-This research is supported in part by the Natural Sciences and Engineering Research Council (NSERC) of Canada.
+This research is primarily supported in part by the Natural Sciences and Engineering Research Council (NSERC) of Canada.

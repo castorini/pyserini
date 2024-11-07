@@ -1,11 +1,16 @@
 Pyserini is a Python toolkit for reproducible information retrieval research with sparse and dense representations.
-Retrieval using sparse representations is provided via integration with our group's [Anserini](http://anserini.io/) IR toolkit, which is built on Lucene.
-Retrieval using dense representations is provided via integration with Facebook's [Faiss](https://github.com/facebookresearch/faiss) library.
+The toolkit provides Python bindings to the [Anserini IR toolkit](http://anserini.io/), which is built on Lucene.
+Our focus is on first-stage retrieval:
+
++ Retrieval with sparse representations (e.g., BM25 and the SPLADE family) using inverted indexes.
++ Retrieval with dense representations (i.e., embeddings) using flat or HNSW indexes.
+
+Additional support for dense retrieval is provided via integration with Facebook's [Faiss](https://github.com/facebookresearch/faiss) library, available as "extras" but not installed by default.
 
 Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multi-stage ranking architecture.
-Our toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, pre-built indexes, and evaluation scripts for many commonly used IR test collections
+The toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, prebuilt indexes, and evaluation scripts for many commonly used IR test collections
 
-## Installation
+## 🎬 Installation
 
 Install via PyPI:
 
@@ -14,24 +19,37 @@ pip install pyserini
 ```
 
 Pyserini requires Python 3.10 and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
+A `pip` installation will automatically pull in major dependencies such as [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/).
 
-Since dense retrieval depends on neural networks, Pyserini requires a more complex set of dependencies to use this feature.
-A `pip` installation will automatically pull in the [🤗 Transformers library](https://github.com/huggingface/transformers) to satisfy the package requirements.
-Pyserini also depends on [PyTorch](https://pytorch.org/) and [Faiss](https://github.com/facebookresearch/faiss), but since these packages may require platform-specific custom configuration, they are _not_ explicitly listed in the package requirements.
-We leave the installation of these packages to you.
-Refer to documentation in [our repo](https://github.com/castorini/pyserini/) for additional details.
+The toolkit also comes with "extras":
 
-## Usage
+```
+pip install 'pyserini[extras]'
+```
 
-The `LuceneSearcher` class provides the entry point for sparse retrieval using bag-of-words representations.
-Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
-Here's how to use a pre-built index for the [MS MARCO passage ranking task](http://www.msmarco.org/) and issue a query interactively (using BM25 ranking):
+Notably, `faiss-cpu`, `lightgbm`, and `nmslib` are included in these "extras".
+Installation of these packages can be temperamental, which is why they are not included in the core dependencies.
+It might be a good idea to install these yourself separately.
+
+Refer to documentation in [our repository](https://github.com/castorini/pyserini/) for additional details.
+
+## ⚗️ Usage
+
+For complete documentation, please refer to [our repository](https://github.com/castorini/pyserini/).
+This guide just provides examples of a few things that Pyserini can do.
+
+### BM25 Search Using Lucene
+
+The `LuceneSearcher` class provides the entry point for sparse retrieval (e.g., BM25).
+Pyserini supports a number of prebuilt indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
+
+Here's how to use a prebuilt index for the [MS MARCO passage ranking task](http://www.msmarco.org/) and issue a query interactively (with BM25 ranking):
 
 ```python
 from pyserini.search.lucene import LuceneSearcher
 
-lucene_searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
-hits = lucene_searcher.search('what is a lobster roll?')
+lucene_bm25_searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
+hits = lucene_bm25_searcher.search('what is a lobster roll?')
 
 for i in range(0, 10):
     print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
@@ -55,18 +73,64 @@ The results should be as follows:
 You can examine the actual text of the first hit, as follows:
 
 ```python
-hits[0].raw
+hits[0].lucene_document.get('raw')
 ```
 
-Which is:
+You'll get the complete JSON document, inside of which is the following text:
 
 > Cookbook: Lobster roll Media: Lobster roll A lobster-salad style roll from The Lobster Roll in Amagansett, New York on the Eastern End of Long Island A lobster roll is a fast-food sandwich native to New England made of lobster meat served on a grilled hot dog-style bun with the opening on the top rather than the side. The filling may also contain butter, lemon juice, salt and black pepper, with variants made in other parts of New England replacing the butter with mayonnaise. Others contain diced celery or scallion. Potato chips or french fries are the typical sides.
 
-The `FaissSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to `LuceneSearcher`.
-The only additional thing we need to specify for dense retrieval is the query encoder.
+### Dense Retrieval Using Lucene
+
+The `LuceneHnswDenseSearcher` class provides the entry point for dense retrieval using Lucene HNSW indexes, which has an API that parallels `LuceneSearcher`.
+Here, we perform dense retrieval using BGE-base-en-v1.5 embeddings from the MS MARCO passage corpus:
 
 ```python
-from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder
+from pyserini.search.lucene import LuceneHnswDenseSearcher
+
+lucene_hnsw_searcher = LuceneHnswDenseSearcher.from_prebuilt_index(
+    'msmarco-v1-passage.bge-base-en-v1.5.hnsw',
+    ef_search=1000,
+    encoder='BgeBaseEn15')
+hits = lucene_hnsw_searcher.search('what is a lobster roll?', 10)
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
+```
+
+The results should be as follows:
+
+```
+ 1 7157710 0.92551
+ 2 7157715 0.92268
+ 3 7157707 0.89374
+ 4 6321969 0.89337
+ 5 6034350 0.87711
+ 6 7157708 0.86886
+ 7 7157713 0.85649
+ 8 7157711 0.85526
+ 9 6321974 0.85484
+10 7157706 0.85433
+```
+
+The HNSW index does not store the original passages, so let's use the `lucene_bm25_searcher` to fetch the actual text:
+
+```python
+lucene_bm25_searcher.doc(hits[0].docid).raw()
+```
+
+You'll get the complete JSON document, inside of which is the following text:
+
+> Lobster roll. A lobster roll is a fast-food sandwich native to New England comprised of lobster meat served on a grilled hot dog-style bun with the opening on the top rather than the side. The filling may also contain butter, lemon juice, salt and black pepper, with variants made in other parts of New England replacing the butter with mayonnaise.
+
+### Dense Retrieval Using Faiss
+
+The `FaissSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to the examples above.
+Note that you'll need to have `faiss-cpu` installed (as part of "extras").
+
+```python
+from pyserini.search.faiss import FaissSearcher
+from pyserini.encode import TctColBertQueryEncoder
 
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-v2-hnp-msmarco')
 faiss_searcher = FaissSearcher.from_prebuilt_index(
@@ -97,11 +161,27 @@ The results should be as follows:
 The Faiss index does not store the original passages, so let's use the `lucene_searcher` to fetch the actual text:
 
 ```python
-lucene_searcher.doc(hits[0].docid).raw()
+lucene_bm25_searcher.doc(hits[0].docid).raw()
 ```
 
 Which is:
 
 > A Lobster Roll is a bread roll filled with bite-sized chunks of lobster meat. Lobster Rolls are made on the Atlantic coast of North America, from the New England area of the United States on up into the Maritimes areas of Canada.
 
-For complete documentation, please refer to [our repo](https://github.com/castorini/pyserini/).
+## ✨ References
+
+If you use Pyserini, please cite the following paper:
+
+```
+@INPROCEEDINGS{Lin_etal_SIGIR2021_Pyserini,
+   author = "Jimmy Lin and Xueguang Ma and Sheng-Chieh Lin and Jheng-Hong Yang and Ronak Pradeep and Rodrigo Nogueira",
+   title = "{Pyserini}: A {Python} Toolkit for Reproducible Information Retrieval Research with Sparse and Dense Representations",
+   booktitle = "Proceedings of the 44th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2021)",
+   year = 2021,
+   pages = "2356--2362",
+}
+```
+
+## 🙏 Acknowledgments
+
+This research is primarily supported in part by the Natural Sciences and Engineering Research Council (NSERC) of Canada.
