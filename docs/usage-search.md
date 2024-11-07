@@ -2,30 +2,33 @@
 
 Pyserini supports the following classes of retrieval models:
 
-+ [Traditional lexical models](#traditional-lexical-models) (e.g., BM25) using `LuceneSearcher`.
-+ [Learned sparse retrieval models](#learned-sparse-retrieval-models) (e.g., uniCOIL, SPLADE, etc.) using `LuceneImpactSearcher`.
-+ [Learned dense retrieval models](#learned-dense-retrieval-models) (e.g., DPR, Contriever, etc.) using `FaissSearcher`.
-+ [Hybrid retrieval models](#hybrid-retrieval-models) (e.g., dense-sparse fusion) using `HybridSearcher`.
++ [Traditional lexical models](#traditional-lexical-models) (e.g., BM25) using Lucene.
++ [Learned sparse retrieval models](#learned-sparse-retrieval-models) (e.g., uniCOIL, SPLADE, etc.) using using Lucene.
++ [Learned dense retrieval models](#learned-dense-retrieval-models) (e.g., DPR, Contriever, etc.) using Lucene or Faiss.
++ [Hybrid retrieval models](#hybrid-retrieval-models) (e.g., dense-sparse fusion).
 
 For many common IR and NLP corpora, we have already built indexes for you, so you can search them directly.
-This guide describes using thes indexes.
+This guide describes using these indexes.
 
 ## Traditional Lexical Models
 
-The `LuceneSearcher` class provides the entry point for retrieval using bag-of-words representations.
+The `LuceneSearcher` class provides the entry point for sparse retrieval (e.g., BM25).
+Pyserini supports a number of prebuilt indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
 
-Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
-Here's how to use a pre-built index for the [MS MARCO passage ranking task](http://www.msmarco.org/) and issue a query interactively:
+Here's how to use a prebuilt index for the [MS MARCO passage ranking task](http://www.msmarco.org/) and issue a query interactively (with BM25 ranking):
 
 ```python
 from pyserini.search.lucene import LuceneSearcher
 
-searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
-hits = searcher.search('what is a lobster roll?')
+lucene_bm25_searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
+hits = lucene_bm25_searcher.search('what is a lobster roll?')
 
 for i in range(0, 10):
     print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
 ```
+
+<details>
+<summary>Retrieval results</summary>
 
 The results should be as follows:
 
@@ -42,18 +45,25 @@ The results should be as follows:
 10 6234461 9.92200
 ```
 
-To further examine the results:
+</details>
+
+You can examine the actual text of the first hit, as follows:
 
 ```python
-# Grab the raw text:
-hits[0].raw
-
-# Grab the raw Lucene Document:
-hits[0].lucene_document
+hits[0].lucene_document.get('raw')
 ```
 
-Pre-built indexes are hosted on University of Waterloo servers.
-The following method will list available pre-built indexes:
+<details>
+<summary>Retrieved document</summary>
+
+You'll get the complete JSON document, and inside you'll find the following passage text:
+
+> Cookbook: Lobster roll Media: Lobster roll A lobster-salad style roll from The Lobster Roll in Amagansett, New York on the Eastern End of Long Island A lobster roll is a fast-food sandwich native to New England made of lobster meat served on a grilled hot dog-style bun with the opening on the top rather than the side. The filling may also contain butter, lemon juice, salt and black pepper, with variants made in other parts of New England replacing the butter with mayonnaise. Others contain diced celery or scallion. Potato chips or french fries are the typical sides.
+
+</details>
+
+Prebuilt indexes are hosted on University of Waterloo servers.
+The following method will list available prebuilt indexes:
 
 ```python
 LuceneSearcher.list_prebuilt_indexes()
@@ -64,88 +74,196 @@ Alternatively, see [this answer](usage-interactive-search.md#how-do-i-manually-d
 
 ## Learned Sparse Retrieval Models
 
+The `LuceneImpactSearcher` class provides the entry point for retrieval using learned sparse models, which has an API that parallels `LuceneSearcher`.
+Here, we are using the SPLADE++ EnsembleDistil model, with PyTorch query inference.
+
 ```python
 from pyserini.search.lucene import LuceneImpactSearcher
 
-searcher = LuceneImpactSearcher.from_prebuilt_index(
-    'msmarco-v1-passage-unicoil',
-    'castorini/unicoil-msmarco-passage')
-hits = searcher.search('what is a lobster roll?')
+lucene_impact_searcher = LuceneImpactSearcher.from_prebuilt_index(
+    'msmarco-v1-passage.splade-pp-ed',
+    'naver/splade-cocondenser-ensembledistil')
+hits = lucene_impact_searcher.search('what is a lobster roll?')
 
 for i in range(0, 10):
     print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
 ```
 
-## Learned Dense Retrieval Models
-
-The `FaissSearcher` class provides the entry point for retrieval using dense transformer-derived representations.
-
-Anserini supports a number of pre-built indexes for common collections that it'll automatically download for you and store in `~/.cache/pyserini/indexes/`.
-Here's how to use a pre-built index for the [MS MARCO passage ranking task](http://www.msmarco.org/) and issue a query interactively:
-
-```python
-from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder
-
-encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
-searcher = FaissSearcher.from_prebuilt_index(
-    'msmarco-passage-tct_colbert-hnsw',
-    encoder
-)
-hits = searcher.search('what is a lobster roll')
-
-for i in range(0, 10):
-    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
-```
-
-Usage parallels `LuceneSearcher`, but for dense retrieval, we need to additionally specify the query encoder.
-
-If you encounter an error (on macOS), you'll need the following:
-
-```python
-import os
-os.environ['KMP_DUPLICATE_LIB_OK']='True'
-```
+<details>
+<summary>Retrieval results</summary>
 
 The results should be as follows:
 
 ```
- 1 7157710 70.53742
- 2 7157715 70.50040
- 3 7157707 70.13804
- 4 6034350 69.93666
- 5 6321969 69.62683
- 6 4112862 69.34587
- 7 5515474 69.21354
- 8 7157708 69.08416
- 9 6321974 69.06841
-10 2920399 69.01737
+ 1 7157710 155163.00000
+ 2 7157715 151475.00000
+ 3 7157707 142734.00000
+ 4 6321969 136473.00000
+ 5 6034350 129062.00000
+ 6 5515474 126583.00000
+ 7 6034353 115402.00000
+ 8 6321974 114477.00000
+ 9 5037023 113925.00000
+10 1450828 111536.00000
 ```
+
+</details>
+
+The index does not store the original passages, so let's use the `lucene_bm25_searcher` to fetch the actual text:
+
+```python
+lucene_bm25_searcher.doc(hits[0].docid).raw()
+```
+
+<details>
+<summary>Retrieved document</summary>
+
+You'll get the complete JSON document, and inside you'll find the following passage text:
+
+> Lobster roll. A lobster roll is a fast-food sandwich native to New England comprised of lobster meat served on a grilled hot dog-style bun with the opening on the top rather than the side. The filling may also contain butter, lemon juice, salt and black pepper, with variants made in other parts of New England replacing the butter with mayonnaise.
+
+</details>
+
+## Learned Dense Retrieval Models
+
+### Lucene
+
+The `LuceneHnswDenseSearcher` class provides the entry point for dense retrieval using Lucene HNSW indexes, which has an API that parallels `LuceneSearcher`.
+Here, we perform dense retrieval using BGE-base-en-v1.5 embeddings on the MS MARCO passage corpus, with ONNX query inference:
+
+```python
+from pyserini.search.lucene import LuceneHnswDenseSearcher
+
+lucene_hnsw_searcher = LuceneHnswDenseSearcher.from_prebuilt_index(
+    'msmarco-v1-passage.bge-base-en-v1.5.hnsw',
+    ef_search=1000,
+    encoder='BgeBaseEn15')
+hits = lucene_hnsw_searcher.search('what is a lobster roll?', 10)
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
+```
+
+<details>
+<summary>Retrieval results</summary>
+
+The results should be as follows:
+
+```
+ 1 7157710 0.92551
+ 2 7157715 0.92268
+ 3 7157707 0.89374
+ 4 6321969 0.89337
+ 5 6034350 0.87711
+ 6 7157708 0.86886
+ 7 7157713 0.85649
+ 8 7157711 0.85526
+ 9 6321974 0.85484
+10 7157706 0.85433
+```
+
+</details>
+
+The HNSW index does not store the original passages, so let's use the `lucene_bm25_searcher` to fetch the actual text:
+
+```python
+lucene_bm25_searcher.doc(hits[0].docid).raw()
+```
+
+<details>
+<summary>Retrieved document</summary>
+
+You'll get the complete JSON document, and inside you'll find the following passage text:
+
+> Lobster roll. A lobster roll is a fast-food sandwich native to New England comprised of lobster meat served on a grilled hot dog-style bun with the opening on the top rather than the side. The filling may also contain butter, lemon juice, salt and black pepper, with variants made in other parts of New England replacing the butter with mayonnaise.
+
+</details>
+
+### Faiss
+
+The `FaissSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to the examples above.
+Note that you'll need to have `faiss-cpu` installed (as part of "extras").
+
+Here, we perform dense retrieval using the TCT_ColBERT-V2-HN+ embeddings on the MS MARCO passage corpus, with PyTorch query inference:
+
+```python
+from pyserini.search.faiss import FaissSearcher
+from pyserini.encode import TctColBertQueryEncoder
+
+encoder = TctColBertQueryEncoder('castorini/tct_colbert-v2-hnp-msmarco')
+faiss_searcher = FaissSearcher.from_prebuilt_index(
+    'msmarco-v1-passage.tct_colbert-v2-hnp',
+    encoder
+)
+hits = faiss_searcher.search('what is a lobster roll')
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
+```
+
+<details>
+<summary>Retrieval results</summary>
+
+The results should be as follows:
+
+```
+ 1 7157715 80.14327
+ 2 7157710 80.09985
+ 3 7157707 79.70108
+ 4 6321969 79.37906
+ 5 6034350 79.14087
+ 6 7157708 79.08399
+ 7 4112862 79.03954
+ 8 7157713 78.71204
+ 9 4112861 78.67692
+10 5515474 78.54551
+```
+
+</details>
+
+The Faiss index does not store the original passages, so let's use the `lucene_bm25_searcher` to fetch the actual text:
+
+```python
+lucene_bm25_searcher.doc(hits[0].docid).raw()
+```
+
+<details>
+<summary>Retrieved document</summary>
+
+You'll get the complete JSON document, and inside you'll find the following passage text:
+
+> A Lobster Roll is a bread roll filled with bite-sized chunks of lobster meat. Lobster Rolls are made on the Atlantic coast of North America, from the New England area of the United States on up into the Maritimes areas of Canada.
+
+</details>
 
 ## Hybrid Retrieval Models
 
 The `HybridSearcher` class provides the entry point to perform hybrid sparse-dense retrieval.
-
 The `HybridSearcher` class is constructed from combining the output of `LuceneSearcher` and `FaissSearcher`:
 
 ```python
+from pyserini.encode import TctColBertQueryEncoder
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.search.faiss import FaissSearcher, TctColBertQueryEncoder
+from pyserini.search.faiss import FaissSearcher
 from pyserini.search.hybrid import HybridSearcher
 
-ssearcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
+sparse_searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
-dsearcher = FaissSearcher.from_prebuilt_index(
+dense_searcher = FaissSearcher.from_prebuilt_index(
     'msmarco-passage-tct_colbert-hnsw',
     encoder
 )
-hsearcher = HybridSearcher(dsearcher, ssearcher)
-hits = hsearcher.search('what is a lobster roll')
+hybrid_searcher = HybridSearcher(dense_searcher, sparse_searcher)
+hits = hybrid_searcher.search('what is a lobster roll')
 
 for i in range(0, 10):
     print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.5f}')
 ```
 
 The results should be as follows:
+
+<details>
+<summary>Retrieval results</summary>
 
 ```
  1 7157715 71.56022
@@ -159,5 +277,7 @@ The results should be as follows:
  9 5837606 70.09911
 10 7157708 70.07636
 ```
+
+</details>
 
 In general, hybrid retrieval will be more effective than dense retrieval, which will be more effective than sparse retrieval.

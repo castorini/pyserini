@@ -47,15 +47,15 @@ Instructions are provided [here](./docs/installation.md#development-installation
 
 ## 🙋 How do I search?
 
-Pyserini supports the following classes of retrieval models:
-
-+ [Traditional lexical models](docs/usage-search.md#traditional-lexical-models) (e.g., BM25) using `LuceneSearcher`.
-+ [Learned sparse retrieval models](docs/usage-search.md#learned-sparse-retrieval-models) (e.g., uniCOIL, SPLADE, etc.) using `LuceneImpactSearcher`.
-+ [Learned dense retrieval models](docs/usage-search.md#learned-dense-retrieval-models) (e.g., DPR, Contriever, etc.) using `FaissSearcher`.
-+ [Hybrid retrieval models](docs/usage-search.md#hybrid-retrieval-models) (e.g., dense-sparse fusion) using `HybridSearcher`.
-
-See [this guide](docs/usage-search.md) (same as the links above) for details on how to search common corpora in IR and NLP research
+Pyserini supports different types of retrieval models.
+See [this guide](docs/usage-search.md) for details on how to search common corpora in IR and NLP research
 (e.g., MS MARCO, NaturalQuestions, BEIR, etc.) using indexes that we have already built for you.
+Here are direct links into the guide:
+
++ [Traditional lexical models](docs/usage-search.md#traditional-lexical-models) (e.g., BM25) using Lucene.
++ [Learned sparse retrieval models](docs/usage-search.md#learned-sparse-retrieval-models) (e.g., uniCOIL, SPLADE, etc.) using Lucene.
++ [Learned dense retrieval models](docs/usage-search.md#learned-dense-retrieval-models) (e.g., DPR, Contriever, BGE, etc.) using Lucene or Faiss.
++ [Hybrid retrieval models](docs/usage-search.md#hybrid-retrieval-models) (e.g., dense-sparse fusion).
 
 Once you get the top-_k_ results, you'll actually want to fetch the document text...
 See [this guide](docs/usage-fetch.md) for how.
@@ -194,7 +194,7 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 
 ## 📜️ Release History
 
-+ v0.41.0 (w/ Anserini v0.38.0): November 7, 2024 [[Release Notes](docs/release-notes/release-notes-v0.41.0.md)]
++ v0.41.0 (w/ Anserini v0.38.0): November 7, 2024 [[Release Notes](docs/release-notes/release-notes-v0.41.0.md)] [[Known Issues](docs/release-notes/known-issues-v0.41.0.md)]
 + v0.40.0 (w/ Anserini v0.38.0): October 28, 2024 [[Release Notes](docs/release-notes/release-notes-v0.40.0.md)]
 + v0.39.0 (w/ Anserini v0.38.0): September 27, 2024 [[Release Notes](docs/release-notes/release-notes-v0.39.0.md)]
 + v0.38.0 (w/ Anserini v0.38.0): September 11, 2024 [[Release Notes](docs/release-notes/release-notes-v0.38.0.md)]

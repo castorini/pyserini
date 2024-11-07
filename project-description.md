@@ -76,14 +76,14 @@ You can examine the actual text of the first hit, as follows:
 hits[0].lucene_document.get('raw')
 ```
 
-You'll get the complete JSON document, inside of which is the following text:
+You'll get the complete JSON document, and inside you'll find the following passage text:
 
 > Cookbook: Lobster roll Media: Lobster roll A lobster-salad style roll from The Lobster Roll in Amagansett, New York on the Eastern End of Long Island A lobster roll is a fast-food sandwich native to New England made of lobster meat served on a grilled hot dog-style bun with the opening on the top rather than the side. The filling may also contain butter, lemon juice, salt and black pepper, with variants made in other parts of New England replacing the butter with mayonnaise. Others contain diced celery or scallion. Potato chips or french fries are the typical sides.
 
 ### Dense Retrieval Using Lucene
 
 The `LuceneHnswDenseSearcher` class provides the entry point for dense retrieval using Lucene HNSW indexes, which has an API that parallels `LuceneSearcher`.
-Here, we perform dense retrieval using BGE-base-en-v1.5 embeddings from the MS MARCO passage corpus:
+Here, we perform dense retrieval using BGE-base-en-v1.5 embeddings on the MS MARCO passage corpus, with ONNX query inference:
 
 ```python
 from pyserini.search.lucene import LuceneHnswDenseSearcher
@@ -119,7 +119,7 @@ The HNSW index does not store the original passages, so let's use the `lucene_bm
 lucene_bm25_searcher.doc(hits[0].docid).raw()
 ```
 
-You'll get the complete JSON document, inside of which is the following text:
+You'll get the complete JSON document, and inside you'll find the following passage text:
 
 > Lobster roll. A lobster roll is a fast-food sandwich native to New England comprised of lobster meat served on a grilled hot dog-style bun with the opening on the top rather than the side. The filling may also contain butter, lemon juice, salt and black pepper, with variants made in other parts of New England replacing the butter with mayonnaise.
 
@@ -128,9 +128,11 @@ You'll get the complete JSON document, inside of which is the following text:
 The `FaissSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to the examples above.
 Note that you'll need to have `faiss-cpu` installed (as part of "extras").
 
+Here, we perform dense retrieval using the TCT_ColBERT-V2-HN+ embeddings on the MS MARCO passage corpus, with PyTorch query inference:
+
 ```python
-from pyserini.search.faiss import FaissSearcher
 from pyserini.encode import TctColBertQueryEncoder
+from pyserini.search.faiss import FaissSearcher
 
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-v2-hnp-msmarco')
 faiss_searcher = FaissSearcher.from_prebuilt_index(
@@ -164,7 +166,7 @@ The Faiss index does not store the original passages, so let's use the `lucene_s
 lucene_bm25_searcher.doc(hits[0].docid).raw()
 ```
 
-Which is:
+You'll get the complete JSON document, and inside you'll find the following passage text:
 
 > A Lobster Roll is a bread roll filled with bite-sized chunks of lobster meat. Lobster Rolls are made on the Atlantic coast of North America, from the New England area of the United States on up into the Maritimes areas of Canada.
 
