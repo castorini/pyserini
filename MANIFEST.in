@@ -1,5 +1,5 @@
 include *.md
-include requirements.txt
 include pyserini/2cr/*.yaml
 include pyserini/2cr/*.template
 include pyserini/resources/jars/anserini-*-fatjar.jar
+prune tests/
