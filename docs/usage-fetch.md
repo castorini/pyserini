@@ -61,6 +61,20 @@ lucene_bm25_searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
 hits = lucene_bm25_searcher.search('what is a lobster roll?')
 ```
 
+The `hits` object is an array of `io.anserini.search.ScoredDoc` objects, defined [here](https://github.com/castorini/anserini/blob/master/src/main/java/io/anserini/search/ScoredDoc.java).
+Thus, the accessible fields of a hit are:
+
+```python
+# The docid from the collection, type string.
+hits[0].docid
+# Lucene's internal docid, type int.
+hits[0].lucene_docid
+# Score, type float
+hits[0].score
+# Raw Lucene document, type org.apache.lucene.document.Document
+hits[0].lucene_document
+```
+
 You can examine the actual text of the first hit, as follows:
 
 ```python
@@ -116,4 +130,4 @@ for i in range(searcher.num_docs):
     print(searcher.doc(i).docid())
 ```
 
-Note that you don't actually want to do this in reality, since it'll take a long time to print `docid`s for 8.8M passages...
+Note that you don't actually want to do this, since it'll take a long time to print `docid`s for 8.8M passages...

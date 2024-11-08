@@ -47,7 +47,7 @@ The results should be as follows:
 
 </details>
 
-The `hits` object is an array of `io.anserini.search.ScoredDoc` objects, whose source is [here](https://github.com/castorini/anserini/blob/master/src/main/java/io/anserini/search/ScoredDoc.java).
+The `hits` object is an array of `io.anserini.search.ScoredDoc` objects, defined [here](https://github.com/castorini/anserini/blob/master/src/main/java/io/anserini/search/ScoredDoc.java).
 Thus, the accessible fields of a hit are:
 
 ```python
@@ -207,8 +207,8 @@ Note that you'll need to have `faiss-cpu` installed (as part of "extras").
 Here, we perform dense retrieval using the TCT_ColBERT-V2-HN+ embeddings on the MS MARCO passage corpus, with PyTorch query inference:
 
 ```python
-from pyserini.search.faiss import FaissSearcher
 from pyserini.encode import TctColBertQueryEncoder
+from pyserini.search.faiss import FaissSearcher
 
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-v2-hnp-msmarco')
 faiss_searcher = FaissSearcher.from_prebuilt_index(
