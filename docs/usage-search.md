@@ -213,8 +213,7 @@ from pyserini.encode import TctColBertQueryEncoder
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-v2-hnp-msmarco')
 faiss_searcher = FaissSearcher.from_prebuilt_index(
     'msmarco-v1-passage.tct_colbert-v2-hnp',
-    encoder
-)
+    encoder)
 hits = faiss_searcher.search('what is a lobster roll')
 
 for i in range(0, 10):
@@ -273,8 +272,7 @@ sparse_searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
 dense_searcher = FaissSearcher.from_prebuilt_index(
     'msmarco-passage-tct_colbert-hnsw',
-    encoder
-)
+    encoder)
 hybrid_searcher = HybridSearcher(dense_searcher, sparse_searcher)
 hits = hybrid_searcher.search('what is a lobster roll')
 
