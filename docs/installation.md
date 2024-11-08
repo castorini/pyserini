@@ -1,83 +1,98 @@
 # Pyserini: Detailed Installation Guide
 
 Pyserini is built on Python 3.10 (other versions might work, but YMMV).
-At a high level, we try to keep our [`requirements.txt`](../requirements.txt) up to date.
-Pyserini has a number of important dependencies:
+See [`pyproject.toml`](../pyproject.toml) for a detailed list of dependencies.
+At a high level:
 
-+ For sparse retrieval, Pyserini depends on [Anserini](http://anserini.io/), which is built on Lucene.
++ Pyserini depends on [Anserini](http://anserini.io/), which is built on Lucene.
 [PyJNIus](https://github.com/kivy/pyjnius) is used to interact with the JVM. We depend on Java 21.
-+ For dense retrieval (since it involves neural networks), we need the [🤗 Transformers library](https://github.com/huggingface/transformers), [PyTorch](https://pytorch.org/), and [Faiss](https://github.com/facebookresearch/faiss) (specifically `faiss-cpu`).
-A `pip` installation will automatically pull in the first to satisfy the package requirements, but since the other two may require platform-specific custom configuration, they are _not_ explicitly listed in the package requirements.
-We leave the installation of these packages to you (but provide detailed instructions below).
++ We need [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/) for "neural stuff".
+
+A `pip` installation will automatically pull in major dependencies without any major issues 🤞:
+
+```
+pip install pyserini
+```
+
+The toolkit also comes with "extras":
+
+```
+pip install 'pyserini[extras]'
+```
+
+Notably, `faiss-cpu`, `lightgbm`, and `nmslib` are included in these "extras".
+Installation of these packages can be temperamental, which is why they are not included in the core dependencies.
+It might be a good idea to install these yourself separately.
 
 ## PyPI Installation Walkthrough
 
 Below is a step-by-step Pyserini installation guide based on Python 3.10.
 We recommend using [Anaconda](https://www.anaconda.com/) and assume you have already installed it.
-The following instructions are up to date as of August 2024 and _should_ work.
+The following instructions are up to date as of November 2024 and _should_ work.
 
 ### Mac
-
-Create new environment:
-
-```bash
-conda create -n pyserini python=3.10 -y
-conda activate pyserini
-```
 
 If you're on a Mac with an M-series (i.e., ARM) processor:
 
 ```bash
-conda install -c conda-forge openjdk=21 maven -y
-conda install -c conda-forge lightgbm -y
+conda create -n pyserini python=3.10 -y
+conda activate pyserini
+
+# Inside the new environment...
 conda install -c anaconda wget -y
-conda install -c anaconda nmslib -y
-conda install -c pytorch faiss-cpu pytorch -y
-
-pip install pyserini
-```
-
-If you're on an Intel-based Mac:
-
-```bash
-conda install wget -y
-
 conda install -c conda-forge openjdk=21 maven -y
-conda install -c conda-forge lightgbm nmslib -y
 
-# from https://github.com/facebookresearch/faiss/blob/main/INSTALL.md
-# NOTE: due to a bug in the latest 1.7.4 release, Intel MKL 2021 needs to be installed separately where applicable.
-conda install -c pytorch faiss-cpu=1.7.4 mkl=2021 blas=1.0=mkl -y
-conda install -c pytorch pytorch -y
+# If you want the "extras", otherwise skip
+conda install -c conda-forge lightgbm -y
+conda install -c anaconda nmslib -y
+conda install -c pytorch faiss-cpu -y
 
-pip install pyserini
+# Good idea to always explicitly specify the latest version, found here: https://pypi.org/project/pyserini/
+pip install pyserini==latest
+# If you want the "extras", otherwise skip; the temperamental packages are already installed at this point
+# so should be smooth...
+pip install 'pyserini[extras]==latest'
 ```
 
-As of August 2024:
+If you're on an Intel-based Mac, adjust the recipe accordingly for `osx-64`.
 
-+ For `faiss-cpu`, `osx-64` is still at v1.7.4, whereas `osx-arm64` is at v1.8.0.
-+ For `nmslib`, [`conda-forge`](https://anaconda.org/conda-forge/nmslib) does not provide `osx-arm64`.
+❗ If you get `numpy` v2 vs. v1 issues, you might need to explicitly downgrade `numpy`:
 
-Hence the differences in the instructions above.
+```
+pip install numpy==1.26.4
+```
+
+For more details, see https://github.com/facebookresearch/faiss/issues/3526
 
 ### Linux
 
-Create new environment:
+Follow the recipe below:
 
 ```bash
 conda create -n pyserini python=3.10 -y
 conda activate pyserini
-```
 
-Install packages:
-
-```bash
+# Inside the new environment...
 conda install -c conda-forge openjdk=21 maven -y
-conda install -c conda-forge lightgbm nmslib -y
-conda install -c pytorch faiss-cpu pytorch -y
 
-pip install pyserini
+# If you want the "extras", otherwise skip
+conda install -c conda-forge lightgbm nmslib -y
+conda install -c pytorch faiss-cpu -y
+
+# Good idea to always explicitly specify the latest version, found here: https://pypi.org/project/pyserini/
+pip install pyserini==latest
+# If you want the "extras", otherwise skip; the temperamental packages are already installed at this point
+# so should be smooth...
+pip install 'pyserini[extras]==latest'
 ```
+
+❗ If you get `numpy` v2 vs. v1 issues, you might need to explicitly downgrade `numpy`:
+
+```
+pip install numpy==1.26.4
+```
+
+For more details, see https://github.com/facebookresearch/faiss/issues/3526
 
 ### Verifying the Installation
 
@@ -87,39 +102,75 @@ It might be worthwhile to do a bit of sanity checking, per below.
 To confirm that bag-of-words retrieval is working correctly, you can run the BM25 baseline on the MS MARCO passage ranking task:
 
 ```bash
-$ python -m pyserini.search.lucene \
-    --topics msmarco-passage-dev-subset \
-    --index msmarco-v1-passage \
-    --output run.msmarco-passage.txt \
-    --output-format msmarco \
-    --bm25
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage \
+  --topics msmarco-passage-dev-subset \
+  --output run.msmarco-v1-passage.bm25-default.dev.txt \
+  --bm25 --output-format msmarco
 
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset run.msmarco-passage.txt
-#####################
-MRR @10: 0.18741227770955546
-QueriesRanked: 6980
-#####################
+python -m pyserini.eval.msmarco_passage_eval \
+  msmarco-passage-dev-subset run.msmarco-v1-passage.bm25-default.dev.txt
 ```
 
-To confirm that dense retrieval is working correctly, you can run our TCT-ColBERT (v2) model on the MS MARCO passage ranking task:
+Expected Results:
+
+```
+MRR @10: 0.18741227770955546
+```
+
+To confirm that dense retrieval is working correctly with Lucene using an HNSW index:
+
+``` bash
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 --dense --hnsw \
+  --index msmarco-v1-passage.bge-base-en-v1.5.hnsw \
+  --topics dl19-passage \
+  --onnx-encoder BgeBaseEn15 \
+  --output run.msmarco-v1-passage.bge-base-en-v1.5.lucene-hnsw.onnx.dl19.txt \
+  --hits 1000 --ef-search 1000
+
+python -m pyserini.eval.trec_eval -c -l 2 -m map dl19-passage \
+  run.msmarco-v1-passage.bge-base-en-v1.5.lucene-hnsw.onnx.dl19.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl19-passage \
+  run.msmarco-v1-passage.bge-base-en-v1.5.lucene-hnsw.onnx.dl19.txt
+python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage \
+  run.msmarco-v1-passage.bge-base-en-v1.5.lucene-hnsw.onnx.dl19.txt
+```
+
+Expected Results:
+
+```
+map                   	all	0.4486
+ndcg_cut_10           	all	0.7016
+recall_1000           	all	0.8441
+```
+
+To confirm that dense retrieval is working correctly with Faiss, run our TCT-ColBERT (v2) model on the MS MARCO passage ranking task:
 
 ```bash
-$ python -m pyserini.search.faiss \
-    --topics msmarco-passage-dev-subset \
-    --index msmarco-v1-passage.tct_colbert-v2-hnp \
-    --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
-    --threads 12 --batch-size 384 \
-    --output run.msmarco-passage.tct_colbert-v2.bf.tsv \
-    --output-format msmarco
+python -m pyserini.search.faiss \
+  --topics msmarco-passage-dev-subset \
+  --index msmarco-v1-passage.tct_colbert-v2-hnp \
+  --encoded-queries tct_colbert-v2-hnp-msmarco-passage-dev-subset \
+  --threads 12 --batch-size 384 \
+  --output run.msmarco-passage.tct_colbert-v2.bf.tsv \
+  --output-format msmarco
 
-$ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset run.msmarco-passage.tct_colbert-v2.bf.tsv
+python -m pyserini.eval.msmarco_passage_eval \
+  msmarco-passage-dev-subset run.msmarco-passage.tct_colbert-v2.bf.tsv
+```
+
+Expected Results:
+
+```
 #####################
 MRR @10: 0.3584
 QueriesRanked: 6980
 #####################
 ```
 
-If everything is working properly, you should be able to reproduce the results above.
+If you've gotten to here, then everything should be working properly.
 
 ## Development Installation
 
