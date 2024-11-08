@@ -86,6 +86,14 @@ pip install pyserini==latest
 pip install 'pyserini[extras]==latest'
 ```
 
+❗ If you get `numpy` v2 vs. v1 issues, you might need to explicitly downgrade `numpy`:
+
+```
+pip install numpy==1.26.4
+```
+
+For more details, see https://github.com/facebookresearch/faiss/issues/3526
+
 ### Verifying the Installation
 
 By this point, Pyserini should have been installed.
