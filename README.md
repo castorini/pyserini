@@ -24,24 +24,29 @@ Correspondingly, Pyserini was upgraded to JDK 21 at commit [`b2f677`](https://gi
 
 ## 🎬 Installation
 
-Pyserini is built on Python 3.10 (other versions might work, but YMMV).
 Install via PyPI:
 
 ```
 pip install pyserini
 ```
 
-Sparse retrieval depends on [Anserini](http://anserini.io/), which is itself built on Lucene (written in Java), and thus requiring JDK 21.
+Pyserini is built on Python 3.10 (other versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
+A `pip` installation will automatically pull in major dependencies such as [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/).
 
-Dense retrieval depends on neural networks and requires a more complex set of dependencies.
-A `pip` installation will automatically pull in the [🤗 Transformers library](https://github.com/huggingface/transformers) to satisfy the package requirements.
-Pyserini also depends on [PyTorch](https://pytorch.org/) and [Faiss](https://github.com/facebookresearch/faiss), but since these packages may require platform-specific custom configuration, they are _not_ explicitly listed in the package requirements.
-We leave the installation of these packages to you.
+The toolkit also comes with "extras":
+
+```
+pip install 'pyserini[extras]'
+```
+
+Notably, `faiss-cpu`, `lightgbm`, and `nmslib` are included in these "extras".
+Installation of these packages can be temperamental, which is why they are not included in the core dependencies.
+It might be a good idea to install these yourself separately.
 
 The software ecosystem is rapidly evolving and a potential source of frustration is incompatibility among different versions of underlying dependencies.
 We provide additional detailed installation instructions [here](./docs/installation.md).
 
-If you're planning on just _using_ Pyserini, then the `pip` instructions above are fine.
+If you're planning on just _using_ Pyserini, then the `pip` instruction (without "extras") should be fine.
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
 Instructions are provided [here](./docs/installation.md#development-installation).
 

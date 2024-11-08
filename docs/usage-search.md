@@ -47,6 +47,20 @@ The results should be as follows:
 
 </details>
 
+The `hits` object is an array of `io.anserini.search.ScoredDoc` objects, whose source is [here](https://github.com/castorini/anserini/blob/master/src/main/java/io/anserini/search/ScoredDoc.java).
+Thus, the accessible fields of a hit are:
+
+```python
+# The docid from the collection, type string.
+hits[0].docid
+# Lucene's internal docid, type int.
+hits[0].lucene_docid
+# Score, type float
+hits[0].score
+# Raw Lucene document, type org.apache.lucene.document.Document
+hits[0].lucene_document
+```
+
 You can examine the actual text of the first hit, as follows:
 
 ```python
@@ -61,6 +75,8 @@ You'll get the complete JSON document, and inside you'll find the following pass
 > Cookbook: Lobster roll Media: Lobster roll A lobster-salad style roll from The Lobster Roll in Amagansett, New York on the Eastern End of Long Island A lobster roll is a fast-food sandwich native to New England made of lobster meat served on a grilled hot dog-style bun with the opening on the top rather than the side. The filling may also contain butter, lemon juice, salt and black pepper, with variants made in other parts of New England replacing the butter with mayonnaise. Others contain diced celery or scallion. Potato chips or french fries are the typical sides.
 
 </details>
+
+See [this page](usage-fetch.md) for additional information on accessing documents from the index.
 
 Prebuilt indexes are hosted on University of Waterloo servers.
 The following method will list available prebuilt indexes:
@@ -124,6 +140,8 @@ You'll get the complete JSON document, and inside you'll find the following pass
 
 </details>
 
+See [this page](usage-fetch.md) for additional information on accessing documents from the index.
+
 ## Learned Dense Retrieval Models
 
 ### Lucene
@@ -178,6 +196,8 @@ You'll get the complete JSON document, and inside you'll find the following pass
 > Lobster roll. A lobster roll is a fast-food sandwich native to New England comprised of lobster meat served on a grilled hot dog-style bun with the opening on the top rather than the side. The filling may also contain butter, lemon juice, salt and black pepper, with variants made in other parts of New England replacing the butter with mayonnaise.
 
 </details>
+
+See [this page](usage-fetch.md) for additional information on accessing documents from the index.
 
 ### Faiss
 
@@ -235,6 +255,8 @@ You'll get the complete JSON document, and inside you'll find the following pass
 > A Lobster Roll is a bread roll filled with bite-sized chunks of lobster meat. Lobster Rolls are made on the Atlantic coast of North America, from the New England area of the United States on up into the Maritimes areas of Canada.
 
 </details>
+
+See [this page](usage-fetch.md) for additional information on accessing documents from the index.
 
 ## Hybrid Retrieval Models
 

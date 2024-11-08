@@ -18,7 +18,7 @@ Install via PyPI:
 pip install pyserini
 ```
 
-Pyserini requires Python 3.10 and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
+Pyserini is built on Python 3.10 (other versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
 A `pip` installation will automatically pull in major dependencies such as [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/).
 
 The toolkit also comes with "extras":
