@@ -271,7 +271,7 @@ from pyserini.search.hybrid import HybridSearcher
 sparse_searcher = LuceneSearcher.from_prebuilt_index('msmarco-v1-passage')
 encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
 dense_searcher = FaissSearcher.from_prebuilt_index(
-    'msmarco-passage-tct_colbert-hnsw',
+    'msmarco-v1-passage.tct_colbert-v2-hnp',
     encoder)
 hybrid_searcher = HybridSearcher(dense_searcher, sparse_searcher)
 hits = hybrid_searcher.search('what is a lobster roll')
@@ -286,16 +286,16 @@ The results should be as follows:
 <summary>Retrieval results</summary>
 
 ```
- 1 7157715 71.56022
- 2 7157710 71.52962
- 3 7157707 71.23887
- 4 6034350 70.98502
- 5 6321969 70.61903
- 6 4112862 70.33807
- 7 5515474 70.20574
- 8 6034357 70.11168
- 9 5837606 70.09911
-10 7157708 70.07636
+ 1 7157715 73.84205
+ 2 7157710 73.70962
+ 3 7157707 73.47043
+ 4 6034350 73.07908
+ 5 6321969 72.89363
+ 6 2920399 72.83880
+ 7 6034357 72.72753
+ 8 5837606 72.71496
+ 9 7157708 72.68660
+10 2900045 72.66441
 ```
 
 </details>
