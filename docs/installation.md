@@ -50,10 +50,11 @@ conda install -c conda-forge lightgbm -y
 conda install -c anaconda nmslib -y
 conda install -c pytorch faiss-cpu -y
 
-pip install pyserini
+# Good idea to always explicitly specify the latest version, found here: https://pypi.org/project/pyserini/
+pip install pyserini==latest
 # If you want the "extras", otherwise skip; the temperamental packages are already installed at this point
 # so should be smooth...
-pip install 'pyserini[extras]'
+pip install 'pyserini[extras]==latest'
 ```
 
 If you're on an Intel-based Mac:
@@ -69,10 +70,11 @@ conda install -c conda-forge lightgbm nmslib -y
 # NOTE: due to a bug in the latest 1.7.4 release, Intel MKL 2021 needs to be installed separately where applicable.
 conda install -c pytorch faiss-cpu=1.7.4 mkl=2021 blas=1.0=mkl -y
 
-pip install pyserini
+# Good idea to always explicitly specify the latest version, found here: https://pypi.org/project/pyserini/
+pip install pyserini==latest
 # If you want the "extras", otherwise skip; the temperamental packages are already installed at this point
 # so should be smooth...
-pip install 'pyserini[extras]'
+pip install 'pyserini[extras]==latest'
 ```
 
 As of November 2024:
@@ -108,10 +110,11 @@ conda install -c conda-forge openjdk=21 maven -y
 conda install -c conda-forge lightgbm nmslib -y
 conda install -c pytorch faiss-cpu -y
 
-pip install pyserini
+# Good idea to always explicitly specify the latest version, found here: https://pypi.org/project/pyserini/
+pip install pyserini==latest
 # If you want the "extras", otherwise skip; the temperamental packages are already installed at this point
 # so should be smooth...
-pip install 'pyserini[extras]'
+pip install 'pyserini[extras]==latest'
 ```
 
 ### Verifying the Installation
