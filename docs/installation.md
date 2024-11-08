@@ -32,16 +32,13 @@ The following instructions are up to date as of November 2024 and _should_ work.
 
 ### Mac
 
-Create new environment:
+If you're on a Mac with an M-series (i.e., ARM) processor:
 
 ```bash
 conda create -n pyserini python=3.10 -y
 conda activate pyserini
-```
 
-If you're on a Mac with an M-series (i.e., ARM) processor:
-
-```bash
+# Inside the new environment...
 conda install -c anaconda wget -y
 conda install -c conda-forge openjdk=21 maven -y
 
@@ -57,32 +54,7 @@ pip install pyserini==latest
 pip install 'pyserini[extras]==latest'
 ```
 
-If you're on an Intel-based Mac:
-
-```bash
-conda install wget -y
-conda install -c conda-forge openjdk=21 maven -y
-
-# If you want the "extras", otherwise skip
-conda install -c conda-forge lightgbm nmslib -y
-
-# from https://github.com/facebookresearch/faiss/blob/main/INSTALL.md
-# NOTE: due to a bug in the latest 1.7.4 release, Intel MKL 2021 needs to be installed separately where applicable.
-conda install -c pytorch faiss-cpu=1.7.4 mkl=2021 blas=1.0=mkl -y
-
-# Good idea to always explicitly specify the latest version, found here: https://pypi.org/project/pyserini/
-pip install pyserini==latest
-# If you want the "extras", otherwise skip; the temperamental packages are already installed at this point
-# so should be smooth...
-pip install 'pyserini[extras]==latest'
-```
-
-As of November 2024:
-
-+ For `faiss-cpu`, at the [`pytorch`](https://anaconda.org/pytorch/faiss-cpu) channel, `osx-64` is still at v1.7.4, whereas `osx-arm64` is at v1.9.0.
-+ For `nmslib`, the [`conda-forge`](https://anaconda.org/conda-forge/nmslib) channel does not provide `osx-arm64`, but the [`anaconda`](https://anaconda.org/anaconda/nmslib) channel does.
-
-Hence the differences in the instructions above.
+If you're on an Intel-based Mac, adjust the recipe accordingly for `osx-64`.
 
 ❗ If you get `numpy` v2 vs. v1 issues, you might need to explicitly downgrade `numpy`:
 
@@ -94,16 +66,13 @@ For more details, see https://github.com/facebookresearch/faiss/issues/3526
 
 ### Linux
 
-Create new environment:
+Follow the recipe below:
 
 ```bash
 conda create -n pyserini python=3.10 -y
 conda activate pyserini
-```
 
-Install packages:
-
-```bash
+# Inside the new environment...
 conda install -c conda-forge openjdk=21 maven -y
 
 # If you want the "extras", otherwise skip
