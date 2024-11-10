@@ -5,7 +5,7 @@ Our focus is on first-stage retrieval:
 + Retrieval with sparse representations (e.g., BM25 and the SPLADE family) using inverted indexes.
 + Retrieval with dense representations (i.e., embeddings) using flat or HNSW indexes.
 
-Additional support for dense retrieval is provided via integration with Facebook's [Faiss](https://github.com/facebookresearch/faiss) library, available as "extras" but not installed by default.
+Additional support for dense retrieval is provided via integration with Facebook's [Faiss](https://github.com/facebookresearch/faiss) library, available as part of the optional dependencies, but not installed by default.
 
 Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multi-stage ranking architecture.
 The toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, prebuilt indexes, and evaluation scripts for many commonly used IR test collections
@@ -21,13 +21,13 @@ pip install pyserini
 Pyserini is built on Python 3.10 (other versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
 A `pip` installation will automatically pull in major dependencies such as [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/).
 
-The toolkit also comes with "extras":
+The toolkit also has a number of optional dependencies:
 
 ```
-pip install 'pyserini[extras]'
+pip install 'pyserini[optional]'
 ```
 
-Notably, `faiss-cpu`, `lightgbm`, and `nmslib` are included in these "extras".
+Notably, `faiss-cpu`, `lightgbm`, and `nmslib` are included in these optional dependencies.
 Installation of these packages can be temperamental, which is why they are not included in the core dependencies.
 It might be a good idea to install these yourself separately.
 
@@ -126,7 +126,7 @@ You'll get the complete JSON document, and inside you'll find the following pass
 ### Dense Retrieval Using Faiss
 
 The `FaissSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to the examples above.
-Note that you'll need to have `faiss-cpu` installed (as part of "extras").
+Note that you'll need to have `faiss` installed (as part of the optional dependencies).
 
 Here, we perform dense retrieval using the TCT_ColBERT-V2-HN+ embeddings on the MS MARCO passage corpus, with PyTorch query inference:
 
