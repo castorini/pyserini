@@ -202,7 +202,7 @@ See [this page](usage-fetch.md) for additional information on accessing document
 ### Faiss
 
 The `FaissSearcher` class provides the entry point for dense retrieval, and its usage is quite similar to the examples above.
-Note that you'll need to have `faiss-cpu` installed (as part of "extras").
+Note that you'll need to have `faiss` installed (as part of the optional dependencies).
 
 Here, we perform dense retrieval using the TCT_ColBERT-V2-HN+ embeddings on the MS MARCO passage corpus, with PyTorch query inference:
 

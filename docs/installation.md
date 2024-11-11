@@ -14,13 +14,13 @@ A `pip` installation will automatically pull in major dependencies without any m
 pip install pyserini
 ```
 
-The toolkit also comes with "extras":
+The toolkit also has a number of optional dependencies:
 
 ```
-pip install 'pyserini[extras]'
+pip install 'pyserini[optional]'
 ```
 
-Notably, `faiss-cpu`, `lightgbm`, and `nmslib` are included in these "extras".
+Notably, `faiss-cpu`, `lightgbm`, and `nmslib` are included in these optional dependencies.
 Installation of these packages can be temperamental, which is why they are not included in the core dependencies.
 It might be a good idea to install these yourself separately.
 
@@ -42,16 +42,16 @@ conda activate pyserini
 conda install -c anaconda wget -y
 conda install -c conda-forge openjdk=21 maven -y
 
-# If you want the "extras", otherwise skip
+# If you want the optional dependencies, otherwise skip
 conda install -c conda-forge lightgbm -y
 conda install -c anaconda nmslib -y
 conda install -c pytorch faiss-cpu -y
 
 # Good idea to always explicitly specify the latest version, found here: https://pypi.org/project/pyserini/
 pip install pyserini==latest
-# If you want the "extras", otherwise skip; the temperamental packages are already installed at this point
+# If you want the optional dependencies, otherwise skip; the temperamental packages are already installed at this point
 # so should be smooth...
-pip install 'pyserini[extras]==latest'
+pip install 'pyserini[optional]==latest'
 ```
 
 If you're on an Intel-based Mac, adjust the recipe accordingly for `osx-64`.
@@ -75,15 +75,15 @@ conda activate pyserini
 # Inside the new environment...
 conda install -c conda-forge openjdk=21 maven -y
 
-# If you want the "extras", otherwise skip
+# If you want the optional dependencies, otherwise skip
 conda install -c conda-forge lightgbm nmslib -y
 conda install -c pytorch faiss-cpu -y
 
 # Good idea to always explicitly specify the latest version, found here: https://pypi.org/project/pyserini/
 pip install pyserini==latest
-# If you want the "extras", otherwise skip; the temperamental packages are already installed at this point
+# If you want the optional dependencies, otherwise skip; the temperamental packages are already installed at this point
 # so should be smooth...
-pip install 'pyserini[extras]==latest'
+pip install 'pyserini[optional]==latest'
 ```
 
 ❗ If you get `numpy` v2 vs. v1 issues, you might need to explicitly downgrade `numpy`:

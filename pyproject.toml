@@ -10,7 +10,7 @@ namespaces = false
 
 [project]
 name = "pyserini"
-version = "0.42.0"
+version = "0.43.0rc0"
 authors = [
     { name="Jimmy Lin", email="jimmylin@uwaterloo.ca" },
 ]
@@ -47,8 +47,8 @@ Homepage = "https://github.com/castorini/pyserini"
 Issues = "https://github.com/castorini/pyserini/issues"
 
 [project.optional-dependencies]
-extras = [
-    "faiss-cpu>1.7.0",
+optional = [
+    "faiss>1.7.0",
     "nmslib>=2.0.6",
     "lightgbm>=3.3.2",
     "spacy>=3.2.1",

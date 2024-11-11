@@ -33,20 +33,20 @@ pip install pyserini
 Pyserini is built on Python 3.10 (other versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
 A `pip` installation will automatically pull in major dependencies such as [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/).
 
-The toolkit also comes with "extras":
+The toolkit also has a number of optional dependencies:
 
 ```
-pip install 'pyserini[extras]'
+pip install 'pyserini[optional]'
 ```
 
-Notably, `faiss-cpu`, `lightgbm`, and `nmslib` are included in these "extras".
+Notably, `faiss-cpu`, `lightgbm`, and `nmslib` are included in these optional dependencies.
 Installation of these packages can be temperamental, which is why they are not included in the core dependencies.
 It might be a good idea to install these yourself separately.
 
 The software ecosystem is rapidly evolving and a potential source of frustration is incompatibility among different versions of underlying dependencies.
 We provide additional detailed installation instructions [here](./docs/installation.md).
 
-If you're planning on just _using_ Pyserini, then the `pip` instruction (without "extras") should be fine.
+If you're planning on just _using_ Pyserini, then the `pip` instruction (without the optional dependencies) should be fine.
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
 Instructions are provided [here](./docs/installation.md#development-installation).
 
@@ -199,7 +199,7 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 
 ## 📜️ Release History
 
-+ v0.42.0 (w/ Anserini v0.38.0): November 8, 2024 [[Release Notes](docs/release-notes/release-notes-v0.42.0.md)]
++ v0.42.0 (w/ Anserini v0.38.0): November 8, 2024 [[Release Notes](docs/release-notes/release-notes-v0.42.0.md)] [[Known Issues](docs/release-notes/known-issues-v0.42.0.md)]
 + v0.41.0 (w/ Anserini v0.38.0): November 7, 2024 [[Release Notes](docs/release-notes/release-notes-v0.41.0.md)] [[Known Issues](docs/release-notes/known-issues-v0.41.0.md)]
 + v0.40.0 (w/ Anserini v0.38.0): October 28, 2024 [[Release Notes](docs/release-notes/release-notes-v0.40.0.md)]
 + v0.39.0 (w/ Anserini v0.38.0): September 27, 2024 [[Release Notes](docs/release-notes/release-notes-v0.39.0.md)]
