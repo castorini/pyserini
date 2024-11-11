@@ -10,7 +10,7 @@ namespaces = false
 
 [project]
 name = "pyserini"
-version = "0.43.0rc0"
+version = "0.43.0"
 authors = [
     { name="Jimmy Lin", email="jimmylin@uwaterloo.ca" },
 ]
