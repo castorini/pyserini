@@ -199,6 +199,7 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 
 ## 📜️ Release History
 
++ v0.43.0 (w/ Anserini v0.38.0): November 11, 2024 [[Release Notes](docs/release-notes/release-notes-v0.43.0.md)]
 + v0.42.0 (w/ Anserini v0.38.0): November 8, 2024 [[Release Notes](docs/release-notes/release-notes-v0.42.0.md)] [[Known Issues](docs/release-notes/known-issues-v0.42.0.md)]
 + v0.41.0 (w/ Anserini v0.38.0): November 7, 2024 [[Release Notes](docs/release-notes/release-notes-v0.41.0.md)] [[Known Issues](docs/release-notes/known-issues-v0.41.0.md)]
 + v0.40.0 (w/ Anserini v0.38.0): October 28, 2024 [[Release Notes](docs/release-notes/release-notes-v0.40.0.md)]
