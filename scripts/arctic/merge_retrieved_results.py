@@ -18,14 +18,8 @@ def merge_retrieved(shard_files: List[str], output_file: str, top_n: int) -> Non
 
     for query_id, doc_scores in merged_results.items():
         doc_score_dict = {}
-        for passage_id, score in doc_scores:
-            doc_id = passage_id.split("#")[0]
-            if doc_id not in doc_score_dict:
-                doc_score_dict[doc_id] = (
-                    -1
-                )  # scores are in range -1 to 1 on similairty so starting at -1 is floor
-            if float(score) > float(doc_score_dict[doc_id]):
-                doc_score_dict[doc_id] = score
+        for doc_id, score in doc_scores:
+            doc_score_dict[doc_id] = score
         top_docs = sorted(doc_score_dict.items(), key=lambda x: x[1], reverse=True)[
             :top_n
         ]

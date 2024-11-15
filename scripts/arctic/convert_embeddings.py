@@ -54,12 +54,22 @@ if __name__ == "__main__":
     for file_name in tqdm(files[start:end]):
         file_path = os.path.join(folder_path, file_name)
         df = pd.read_parquet(file_path)
-        embeddings = df["VECTOR_MAIN"].tolist()
+        if "VECTOR_MAIN" in df.columns:
+            embeddings = df["VECTOR_MAIN"].tolist()
+        elif "embedding" in df.columns:
+            embeddings = df["embedding"].tolist()
+        else:
+            print("Error!!")
         embeddings = np.array(embeddings)
         dim = embeddings[0].shape[0]
         faiss.normalize_L2(embeddings)
         all_embeddings.append(embeddings.reshape(-1, dim))
-        doc_ids.extend(df["DOC_ID"].tolist())
+        if "DOC_ID" in df.columns:
+            doc_ids.extend(df["DOC_ID"].tolist())
+        elif "doc_id" in df.columns:
+            doc_ids.extend(df["doc_id"].tolist())
+        else:
+            print("Error!!")
 
     combined_embeddings = np.vstack(all_embeddings)
 

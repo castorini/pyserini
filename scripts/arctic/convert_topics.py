@@ -10,6 +10,8 @@ import faiss
 import numpy as np
 import pandas as pd
 
+from tqdm import tqdm
+
 from pyserini.search import get_topics
 
 
@@ -40,8 +42,15 @@ if __name__ == "__main__":
     df["embedding"] = [array_2d[i, :] for i in range(array_2d.shape[0])]
 
     if "text" not in df.columns:
+        print(f"topic: {args.topic}")
         topics_mapping = get_topics(args.topic)
-        text_list = [topics_mapping.get(topic).get("title") for topic in df["id"].to_list()]
+        sampled = df["id"].to_list()[0]
+        sample_key = list(topics_mapping.keys())[0]
+        if isinstance(sampled, str) and isinstance(sample_key, str):
+            text_list = [topics_mapping.get(topic).get("title") for topic in tqdm(df["id"].to_list())]
+        else:
+            text_list = [topics_mapping.get(int(topic)).get("title") for topic in tqdm(df["id"].to_list())]
+
         df["text"] = text_list
 
     df.to_pickle(os.path.join(args.output, "embedding.pkl"))

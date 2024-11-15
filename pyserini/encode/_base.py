@@ -76,6 +76,7 @@ class QueryEncoder:
     @staticmethod
     def _load_embeddings(encoded_query_dir):
         df = pd.read_pickle(os.path.join(encoded_query_dir, 'embedding.pkl'))
+        df['text'] = df['text'].apply(lambda x: x.strip())
         return dict(zip(df['text'].tolist(), df['embedding'].tolist()))
 
 
