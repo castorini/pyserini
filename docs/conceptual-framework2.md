@@ -417,7 +417,7 @@ We did exactly the same thing for [the MS MARCO passage ranking test collection]
 Next, let's generate the BM25 document vector for doc `MED-4555`, the same document we examined above.
 
 ```python
-from pyserini.index.lucene import IndexReader
+from pyserini.index.lucene import LuceneIndexReader as IndexReader
 import json
 
 index_reader = IndexReader('indexes/lucene.nfcorpus')
@@ -472,7 +472,7 @@ With this setup, we can now perform end-to-end retrieval for a query "by hand", 
 
 ```python
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.index.lucene import IndexReader
+from pyserini.index.lucene import LuceneIndexReader as IndexReader
 from tqdm import tqdm
 
 searcher = LuceneSearcher('indexes/lucene.nfcorpus')

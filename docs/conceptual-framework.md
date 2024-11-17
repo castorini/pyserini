@@ -134,7 +134,7 @@ Conceptually, you've computed the BM25 document vector of every document in the 
 With the `IndexReader` class in Pyserini, you can materialize (i.e., reconstruct) the BM25 document vector for a particular document:
 
 ```python
-from pyserini.index.lucene import IndexReader
+from pyserini.index.lucene import LuceneIndexReader as IndexReader
 import json
 
 index_reader = IndexReader('indexes/lucene-index-msmarco-passage')
