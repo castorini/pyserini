@@ -131,13 +131,13 @@ So, the indexing phase with Lucene, as in the [previous exercise](experiments-ms
 Conceptually, you've computed the BM25 document vector of every document in the collection and stored them in a data structure called an inverted index.
 (Actually, in reality, the inverted index only stores component statistics that allow you to reconstruct the BM25 document vectors.)
 
-With the `IndexReader` class in Pyserini, you can materialize (i.e., reconstruct) the BM25 document vector for a particular document:
+With the `LuceneIndexReader` class in Pyserini, you can materialize (i.e., reconstruct) the BM25 document vector for a particular document:
 
 ```python
-from pyserini.index.lucene import LuceneIndexReader as IndexReader
+from pyserini.index.lucene import LuceneIndexReader
 import json
 
-index_reader = IndexReader('indexes/lucene-index-msmarco-passage')
+index_reader = LuceneIndexReader('indexes/lucene-index-msmarco-passage')
 tf = index_reader.get_document_vector('7187158')
 bm25_weights = \
     {term: index_reader.compute_bm25_term_weight('7187158', term, analyzer=None) \
