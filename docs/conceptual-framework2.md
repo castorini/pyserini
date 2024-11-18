@@ -417,10 +417,10 @@ We did exactly the same thing for [the MS MARCO passage ranking test collection]
 Next, let's generate the BM25 document vector for doc `MED-4555`, the same document we examined above.
 
 ```python
-from pyserini.index.lucene import IndexReader
+from pyserini.index.lucene import LuceneIndexReader
 import json
 
-index_reader = IndexReader('indexes/lucene.nfcorpus')
+index_reader = LuceneIndexReader('indexes/lucene.nfcorpus')
 tf = index_reader.get_document_vector('MED-4555')
 bm25_weights = \
     {term: index_reader.compute_bm25_term_weight('MED-4555', term, analyzer=None) \
@@ -472,11 +472,11 @@ With this setup, we can now perform end-to-end retrieval for a query "by hand", 
 
 ```python
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.index.lucene import IndexReader
+from pyserini.index.lucene import LuceneIndexReader
 from tqdm import tqdm
 
 searcher = LuceneSearcher('indexes/lucene.nfcorpus')
-index_reader = IndexReader('indexes/lucene.nfcorpus')
+index_reader = LuceneIndexReader('indexes/lucene.nfcorpus')
 
 scores = []
 # Iterate through all docids in the index.
@@ -611,3 +611,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@alirezaJvh](https://github.com/alirezaJvh) on 2024-10-05 (commit [`3f76099`](https://github.com/castorini/pyserini/commit/3f76099a73820afee12496c0354d52ca6a6175c2))
 + Results reproduced by [@Raghav0005](https://github.com/Raghav0005) on 2024-10-09 (commit [`7ed8369`](https://github.com/castorini/pyserini/commit/7ed83698298139efdfd62b6893d673aa367b4ac8))
 + Results reproduced by [@Pxlin-09](https://github.com/pxlin-09) on 2024-10-26 (commit [`af2d3c5`](https://github.com/castorini/pyserini/commit/af2d3c52953b916e242142dbcf4799ecdb9abbee))
++ Results reproduced by [@Samantha-Zhan](https://github.com/Samantha-Zhan) on 2024-11-17 (commit [`a95b0e0`](https://github.com/castorini/pyserini/commit/a95b0e04a1636e0f4151197c235c961b3c832802))

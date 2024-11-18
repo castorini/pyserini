@@ -131,13 +131,13 @@ So, the indexing phase with Lucene, as in the [previous exercise](experiments-ms
 Conceptually, you've computed the BM25 document vector of every document in the collection and stored them in a data structure called an inverted index.
 (Actually, in reality, the inverted index only stores component statistics that allow you to reconstruct the BM25 document vectors.)
 
-With the `IndexReader` class in Pyserini, you can materialize (i.e., reconstruct) the BM25 document vector for a particular document:
+With the `LuceneIndexReader` class in Pyserini, you can materialize (i.e., reconstruct) the BM25 document vector for a particular document:
 
 ```python
-from pyserini.index.lucene import IndexReader
+from pyserini.index.lucene import LuceneIndexReader
 import json
 
-index_reader = IndexReader('indexes/lucene-index-msmarco-passage')
+index_reader = LuceneIndexReader('indexes/lucene-index-msmarco-passage')
 tf = index_reader.get_document_vector('7187158')
 bm25_weights = \
     {term: index_reader.compute_bm25_term_weight('7187158', term, analyzer=None) \
@@ -368,3 +368,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@alirezaJvh](https://github.com/alirezaJvh) on 2024-10-05 (commit [`3f76099`](https://github.com/castorini/pyserini/commit/3f76099a73820afee12496c0354d52ca6a6175c2))
 + Results reproduced by [@Raghav0005](https://github.com/Raghav0005) on 2024-10-09 (commit [`7ed8369`](https://github.com/castorini/pyserini/commit/7ed83698298139efdfd62b6893d673aa367b4ac8))
 + Results reproduced by [@Pxlin-09](https://github.com/pxlin-09) on 2024-10-26 (commit [`af2d3c5`](https://github.com/castorini/pyserini/commit/af2d3c52953b916e242142dbcf4799ecdb9abbee))
++ Results reproduced by [@Samantha-Zhan](https://github.com/Samantha-Zhan) on 2024-11-17 (commit [`a95b0e0`](https://github.com/castorini/pyserini/commit/a95b0e04a1636e0f4151197c235c961b3c832802))
