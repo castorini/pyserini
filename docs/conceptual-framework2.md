@@ -629,4 +629,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@b8zhong](https://github.com/b8zhong) on 2024-11-24 (commit [`778968f`](https://github.com/castorini/pyserini/commit/778968fd3a4ab7e2e756d9f7e58aca0314bfbf5d))
 + Results reproduced by [@vincent-4](https://github.com/vincent-4) on 2024-11-28 (commit [`576fdaf`](https://github.com/castorini/pyserini/commit/576fdaffb9890beee1cb44c545f27b7110ccbd67))
 + Results reproduced by [@ShreyasP20](https://github.com/ShreyasP20) on 2024-11-28 (commit [`576fdaf`](https://github.com/castorini/pyserini/commit/576fdaffb9890beee1cb44c545f27b7110ccbd67))
-+ Results reproduced by [@zdann15](https://github.com/zdann15) on 2024-11-28 (commit [`576fdaf`](https://github.com/castorini/pyserini/commit/576fdaffb9890beee1cb44c545f27b7110ccbd67))
++ Results reproduced by [@zdann15](https://github.com/zdann15) on 2024-11-28 (commit [`da25640`](https://github.com/castorini/pyserini/commit/da25640ddc7e81bc480744fcfb1d514e5f954821))
