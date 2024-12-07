@@ -5231,19 +5231,6 @@ FAISS_INDEX_INFO_BEIR = {
         "downloaded": False,
         "texts": "beir-v1.0.0-scifact.flat"
     },
-    "beir-v1.0.0-nq.arctic-embed-m-v1.5": {
-        "description": "Faiss flat index for BEIR (v1.0.0): NQ, encoded by Arctic embed-m-v1.5.",
-        "filename": "faiss-flat.beir-v1.0.0-nq.arctic-embed-m-v1.5.20240908.tar.gz",
-        "readme": "faiss-flat.beir-v1.0.0.arctic-embed-m-v1.5.20240908.README.md",
-        "urls": [
-            "https://www.dropbox.com/scl/fi/abu8kn936rrxd85dk6sqy/faiss-flat.beir-v1.0.0-nq.arctic-embed-m-v1.5.20240908.tar.gz?dl=1&rlkey=9s7hy66d8en0nbv3ih6wjxh95&st=ooinw62c"
-        ],
-        "md5": "9a0dfded63e4554a002866ea57f4a30e",
-        "size compressed (bytes)": 7617697773,
-        "documents": 2681468,
-        "downloaded": False,
-        "texts": "beir-v1.0.0-nq.flat"
-    },
 }
 
 FAISS_INDEX_INFO_MRTYDI = {

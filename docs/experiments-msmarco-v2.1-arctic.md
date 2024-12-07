@@ -34,17 +34,3 @@ recall_1000           	all	0.9408
 recall_100            	all	0.8513
 ndcg_cut_10           	all	0.3583
 ```
-
-## BEIR
-Retrieval run on NQ subdataset:
-```bash
-python -m pyserini.search.faiss --threads 16 --batch-size 512 --index beir-v1.0.0-nq.arctic-embed-m-v1.5 --topics beir-v1.0.0-nq-test --encoded-queries snowflake-arctic-embed-m-v1.5-beir-v1.0.0-nq-test  --output run.beir.arctic-embed.nq.txt --hits 1000
-```
-
-### Evaluation
-```bash
-python -m pyserini.eval.trec_eval   -c -m ndcg_cut.10  -m recall.1000 -m recall.100 beir-v1.0.0-nq-test   run.beir.arctic-embed.nq.txt
-Results:
-recall_1000             all     0.9951
-ndcg_cut_10             all     0.6244
-```

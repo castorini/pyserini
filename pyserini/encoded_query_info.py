@@ -1034,15 +1034,5 @@ QUERY_INFO = {
         "size (bytes)": 135674,
         "total_queries": 49,
         "downloaded": False
-    },
-    "snowflake-arctic-embed-m-v1.5-beir-v1.0.0-nq-test": {
-        "description": "BEIR v1.0.0 nq test queries encoded by Snowflake arctic-embed-m-v1.5.",
-        "urls": [
-            "https://www.dropbox.com/scl/fi/i3du2elac5gxlvn595ioc/query-embedding-snowflake-arctic-embed-m-v1.5-beir-v1.0.0-nq-test-20240908.tar.gz?dl=1&rlkey=wkwfg8qpputewgixj7k7osxdv&st=zdlh9nrz"
-        ],
-        "md5": "9d869f5503c1b2606035ac0d512b666b",
-        "size (bytes)": 9461363,
-        "total_queries": 3452,
-        "downloaded": False
-    },       
+    },  
 }
