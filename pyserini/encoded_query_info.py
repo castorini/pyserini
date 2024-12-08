@@ -1034,5 +1034,5 @@ QUERY_INFO = {
         "size (bytes)": 135674,
         "total_queries": 49,
         "downloaded": False
-    },       
+    },  
 }
