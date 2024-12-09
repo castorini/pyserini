@@ -3697,6 +3697,7 @@ FAISS_INDEX_INFO_MSMARCO = {
     "msmarco-v2.1-doc-segmented-shard01.arctic-embed-l": {
         "description": "Faiss flat index of the MS MARCO 2.1 document corpus (shard 1) encoded by Snowflake's arctic-l",
         "filename": "faiss-flat.msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.20241111.tar.gz",
+        "readme": "faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.20241111.tar.gz"
         ],
@@ -3704,11 +3705,12 @@ FAISS_INDEX_INFO_MSMARCO = {
         "size compressed (bytes)": 226032429430,
         "documents": 59345785,
         "downloaded": False,
-        "texts": "msmarco-v1-doc-segmented"
+        "texts": "msmarco-v2.1-doc-segmented"
     },
     "msmarco-v2.1-doc-segmented-shard02.arctic-embed-l": {
         "description": "Faiss flat index of the MS MARCO 2.1 document corpus (shard 2) encoded by Snowflake's arctic-l",
         "filename": "faiss-flat.msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.20241111.tar.gz",
+        "readme": "faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.20241111.tar.gz"
         ],
@@ -3716,11 +3718,12 @@ FAISS_INDEX_INFO_MSMARCO = {
         "size compressed (bytes)": 206300692646,
         "documents": 54174965,
         "downloaded": False,
-        "texts": "msmarco-v1-doc-segmented"
+        "texts": "msmarco-v2.1-doc-segmented"
     },
     "msmarco-v2.1-doc-segmented-shard01.arctic-embed-m-v1.5": {
         "description": "Faiss flat index of the MS MARCO 2.1 document corpus (shard 1) encoded by Snowflake's arctic-m-v1.5",
         "filename": "faiss-flat.msmarco-v2.1-doc-segmented-shard01.arctic-embed-m-v1.5.20241111.tar.gz",
+        "readme": "faiss-flat.msmarco-v2.1-doc.arctic-embed-m-v1.5.20240824.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v2.1-doc-segmented-shard01.arctic-embed-m-v1.5.20241111.tar.gz"
         ],
@@ -3728,11 +3731,12 @@ FAISS_INDEX_INFO_MSMARCO = {
         "size compressed (bytes)": 174698080459,
         "documents": 61104707,
         "downloaded": False,
-        "texts": "msmarco-v1-doc-segmented"
+        "texts": "msmarco-v2.1-doc-segmented"
     },
     "msmarco-v2.1-doc-segmented-shard02.arctic-embed-m-v1.5": {
         "description": "Faiss flat index of the MS MARCO 2.1 document corpus (shard 2) encoded by Snowflake's arctic-m-v1.5",
         "filename": "faiss-flat.msmarco-v2.1-doc-segmented-shard02.arctic-embed-m-v1.5.20241111.tar.gz",
+        "readme": "faiss-flat.msmarco-v2.1-doc.arctic-embed-m-v1.5.20240824.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v2.1-doc-segmented-shard02.arctic-embed-m-v1.5.20241111.tar.gz"
         ],
@@ -3740,7 +3744,7 @@ FAISS_INDEX_INFO_MSMARCO = {
         "size compressed (bytes)": 149827891716,
         "documents": 52416043,
         "downloaded": False,
-        "texts": "msmarco-v1-doc-segmented"
+        "texts": "msmarco-v2.1-doc-segmented"
     }
 }
 

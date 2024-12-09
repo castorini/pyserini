@@ -1332,6 +1332,22 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dt></dt><b><code>msmarco-v1-doc-segmented.tct_colbert-v2-hnp</code></b>
 <dd>Faiss flat index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP
 </dd>
+<dt></dt><b><code>msmarco-v2.1-doc-segmented-shard01.arctic-embed-l</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
+<dd>Faiss flat index of the MS MARCO 2.1 document corpus (shard 1) encoded by Snowflake's arctic-l
+</dd>
+<dt></dt><b><code>msmarco-v2.1-doc-segmented-shard02.arctic-embed-l</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
+<dd>Faiss flat index of the MS MARCO 2.1 document corpus (shard 2) encoded by Snowflake's arctic-l
+</dd>
+<dt></dt><b><code>msmarco-v2.1-doc-segmented-shard01.arctic-embed-m-v1.5</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-m-v1.5.20240824.README.md">readme</a>]
+<dd>Faiss flat index of the MS MARCO 2.1 document corpus (shard 1) encoded by Snowflake's arctic-m-v1.5
+</dd>
+<dt></dt><b><code>msmarco-v2.1-doc-segmented-shard02.arctic-embed-m-v1.5</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-m-v1.5.20240824.README.md">readme</a>]
+<dd>Faiss flat index of the MS MARCO 2.1 document corpus (shard 2) encoded by Snowflake's arctic-m-v1.5
+</dd>
 </dl>
 </details>
 <details>
