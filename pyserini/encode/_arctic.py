@@ -51,7 +51,7 @@ class ArcticDocumentEncoder(DocumentEncoder):
 
 class ArcticQueryEncoder(QueryEncoder):  
     def __init__(self, encoder_dir: str, query_prefix: str = 'Represent this sentence for searching relevant passages: ', 
-                 tokenizer_name: str = None, encoded_query_dir: str = None, device: str = 'cpu', **kwargs): 
+                 tokenizer_name: str = None, encoded_query_dir: str = None, device: str = 'cpu', normalize: bool = True, **kwargs):
         super().__init__(encoded_query_dir)
         
         if encoder_dir:
@@ -61,6 +61,7 @@ class ArcticQueryEncoder(QueryEncoder):
             self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir,
                                                            clean_up_tokenization_spaces=True)
             self.has_model = True
+            self.normalize = normalize
 
         if (not self.has_model) and (not self.has_encoded_query):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one.')
@@ -79,7 +80,9 @@ class ArcticQueryEncoder(QueryEncoder):
             
             with torch.inference_mode():
                 query_embeddings = self.model(**query_tokens)[0][:, 0]  # CLS token
-                query_embeddings = normalize(query_embeddings).cpu().numpy().flatten()
+                if self.normalize:
+                    query_embeddings = normalize(query_embeddings)
+                query_embeddings = query_embeddings.cpu().numpy().flatten()
             return query_embeddings
         else:
             # Fallback to using pre-encoded queries
