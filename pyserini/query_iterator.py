@@ -87,7 +87,8 @@ class DefaultQueryIterator(QueryIterator):
                     topics = json.load(f)
             elif 'beir' in topics_path:
                 topics = get_topics_with_reader('io.anserini.search.topicreader.TsvStringTopicReader', topics_path)
-            elif topics_path.endswith('.tsv') or topics_path.endswith('.tsv.gz'):
+            # If extension is tsv or txt we just assume file contains (qid, query) pairs.
+            elif topics_path.endswith('.tsv') or topics_path.endswith('.tsv.gz') or topics_path.endswith('.txt') or topics_path.endswith('.txt.gz'):
                 try:
                     topics = get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', topics_path)
                 except ValueError as e:
