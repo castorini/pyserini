@@ -21,12 +21,13 @@ import json
 import pandas as pd
 
 from pyserini.encode import ArcticQueryEncoder
+from pyserini.search import get_topics
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
-    parser.add_argument('--input', type=str, help='query file to be encoded.', required=True)
+    parser.add_argument('--topic', type=str, help='topic name', required=True)
     parser.add_argument('--output', type=str, help='jsonl path to store query embeddings', required=True)
     parser.add_argument('--device', type=str,
                         help='device cpu or cuda [cuda:0, cuda:1...]', default='cpu', required=False)
@@ -34,12 +35,11 @@ if __name__ == '__main__':
 
     encoder = ArcticQueryEncoder(args.encoder, device=args.device, normalize=False)
 
-    df = pd.read_parquet(args.input)
+    topics = get_topics(args.topic)
 
     final_res = []
-    for _, row in tqdm(df.iterrows()):
-        qid = row.id.strip()
-        text = row.text.strip()
+    for qid in tqdm(topics.keys()):
+        text = topics[qid]["title"].strip()
         vector = encoder.encode(text)
         final_res.append({"qid": qid, "vector": vector.tolist()})
     
