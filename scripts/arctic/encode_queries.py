@@ -33,7 +33,7 @@ if __name__ == '__main__':
                         help='device cpu or cuda [cuda:0, cuda:1...]', default='cpu', required=False)
     args = parser.parse_args()
 
-    encoder = ArcticQueryEncoder(args.encoder, device=args.device, normalize=False)
+    encoder = ArcticQueryEncoder(args.encoder, device=args.device)
 
     topics = get_topics(args.topic)
 
