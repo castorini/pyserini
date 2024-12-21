@@ -260,7 +260,8 @@ PLAIN-3074 Q0 MED-2939 10 0.674647 Faiss
 Here's the snippet of Python code that does what we want:
 
 ```python
-from pyserini.search.faiss import FaissSearcher, AutoQueryEncoder
+from pyserini.search.faiss import FaissSearcher
+from pyserini.encode import AutoQueryEncoder
 
 encoder = AutoQueryEncoder('facebook/contriever-msmarco', device='cpu', pooling='mean')
 searcher = FaissSearcher('indexes/faiss.nfcorpus.contriever-msmacro', encoder)
