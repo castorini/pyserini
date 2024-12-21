@@ -260,7 +260,8 @@ PLAIN-3074 Q0 MED-2939 10 0.674647 Faiss
 Here's the snippet of Python code that does what we want:
 
 ```python
-from pyserini.search.faiss import FaissSearcher, AutoQueryEncoder
+from pyserini.search.faiss import FaissSearcher
+from pyserini.encode import AutoQueryEncoder
 
 encoder = AutoQueryEncoder('facebook/contriever-msmarco', device='cpu', pooling='mean')
 searcher = FaissSearcher('indexes/faiss.nfcorpus.contriever-msmacro', encoder)
@@ -415,3 +416,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@zdann15](https://github.com/zdann15) on 2024-12-04 (commit [`5e66e98`](https://github.com/castorini/pyserini/commit/5e66e98863b5929b137bd2eb39d8e4abf6633f23))
 + Results reproduced by [@sherloc512](https://github.com/sherloc512) on 2024-12-05 (commit [`5e66e98`](https://github.com/castorini/pyserini/commit/5e66e98863b5929b137bd2eb39d8e4abf6633f23))
 + Results reproduced by [@Alireza-Zwolf](https://github.com/Alireza-Zwolf) on 2024-12-18 (commit [`6cc23d5`](https://github.com/castorini/pyserini/commit/6cc23d5de4a8f4952156c45d13381a3764640f06))
++ Results reproduced by [@Linsen-gao-457](https://github.com/Linsen-gao-457) on 2024-12-20 (commit [`10606f0`](https://github.com/castorini/pyserini/commit/10606f03de23978877c9b130caf1b2e49c0dc853))
