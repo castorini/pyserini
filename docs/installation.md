@@ -233,6 +233,6 @@ Note that on these two servers, the root disk (where your home directory is moun
 So, you need to set pyserini cache path to scratch space.
 
 - For tuna, create the dir `/tuna1/scratch/{username}`
-- For ocra, create the dir `/store/scratch/{username}`
+- For orca, create the dir `/store/scratch/{username}`
 
 Set the `PYSERINI_CACHE` environment variable to point to the directory you created above.
