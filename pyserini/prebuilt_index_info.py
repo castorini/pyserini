@@ -3372,19 +3372,10 @@ IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_MSMARCO,
 LUCENE_HNSW_INDEX_INFO_MSMARCO = {}
 
 # Metadata have already been defined in Anserini, just copy over into Pyserini.
-# Here, we override the index name to append '.hnsw', which isn't present on the Anserini side
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_BGE_BASE_EN_15, LUCENE_HNSW_INDEX_INFO_MSMARCO,
-                      name='msmarco-v1-passage.bge-base-en-v1.5.hnsw',
-                      readme='lucene-hnsw.msmarco-v1-passage.bge-base-en-v1.5.20240117.53514b.README.md')
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_BGE_BASE_EN_15_QUANTIZED, LUCENE_HNSW_INDEX_INFO_MSMARCO,
-                      name='msmarco-v1-passage.bge-base-en-v1.5.hnsw-int8',
-                      readme='lucene-hnsw.msmarco-v1-passage.bge-base-en-v1.5.20240117.53514b.README.md')
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_COS_DPR_DISTIL, LUCENE_HNSW_INDEX_INFO_MSMARCO,
-                      name='msmarco-v1-passage.cosdpr-distil.hnsw',
-                      readme='lucene-hnsw.msmarco-v1-passage.cosdpr-distil.20240108.825148.README.md')
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_COS_DPR_DISTIL_QUANTIZED, LUCENE_HNSW_INDEX_INFO_MSMARCO,
-                      name='msmarco-v1-passage.cosdpr-distil.hnsw-int8',
-                      readme='lucene-hnsw.msmarco-v1-passage.cosdpr-distil.20240108.825148.README.md')
+add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_MSMARCO)
+add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_BGE_BASE_EN_15_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
+add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_COS_DPR_DISTIL_HNSW, LUCENE_HNSW_INDEX_INFO_MSMARCO)
+add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_COS_DPR_DISTIL_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
 
 # Bindings for Lucene HNSW BEIR indexes
 LUCENE_HNSW_INDEX_INFO_BEIR = {}
