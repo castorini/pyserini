@@ -86,7 +86,7 @@ python -m pyserini.encode \
           --device cpu \
           --pooling mean \
           --fields title text \
-          --batch 32
+          -- 32
 ```
 
 We're using the [`BAAI/bge-base-en-v1.5`](https://huggingface.co/BAAI/bge-base-en-v1.5) encoder, which can be found on HuggingFace.
@@ -106,7 +106,7 @@ python -m pyserini.encode \
           --device cpu \
           --pooling mean \
           --fields title text \
-          --batch 32
+          -- 32
 ```
 
 We're using the [`facebook/contriever-msmarco`](https://huggingface.co/facebook/contriever-msmarco) encoder, which can be found on HuggingFace.
@@ -138,6 +138,8 @@ python -m pyserini.search.faiss \
   --hits 1000
 ```
 
+(Adjust the `batch` and `threads` parameters above accordingly for your hardware; e.g., lower the settings for a laptop.)
+
 The queries are in `collections/nfcorpus/queries.tsv`.
 
 <details>
@@ -153,6 +155,9 @@ python -m pyserini.search.faiss \
   --batch 128 --threads 8 \
   --hits 1000
 ```
+
+(Adjust the `batch` and `threads` parameters above accordingly for your hardware; e.g., lower the settings for a laptop.)
+
 </details>
 <br/>
 
