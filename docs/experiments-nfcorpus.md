@@ -138,6 +138,8 @@ python -m pyserini.search.faiss \
   --hits 1000
 ```
 
+(Adjust the `batch` and `threads` parameters above accordingly for your hardware; e.g., lower the settings on a laptop.)
+
 The queries are in `collections/nfcorpus/queries.tsv`.
 
 <details>
@@ -153,6 +155,9 @@ python -m pyserini.search.faiss \
   --batch 128 --threads 8 \
   --hits 1000
 ```
+
+(Adjust the `batch` and `threads` parameters above accordingly for your hardware; e.g., lower the settings on a laptop.)
+
 </details>
 <br/>
 
