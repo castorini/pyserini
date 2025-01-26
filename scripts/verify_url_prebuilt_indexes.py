@@ -15,13 +15,9 @@
 #
 
 import os
-import sys
-
-# Use Pyserini in this repo (as opposed to pip install)
-sys.path.insert(0, './')
 
 from pyserini.util import download_url
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, FAISS_INDEX_INFO
 
 
 def check(index):
@@ -38,4 +34,6 @@ def check(index):
 if __name__ == '__main__':
     check(TF_INDEX_INFO)
     check(IMPACT_INDEX_INFO)
+    check(LUCENE_HNSW_INDEX_INFO)
+    check(LUCENE_FLAT_INDEX_INFO)
     check(FAISS_INDEX_INFO)
