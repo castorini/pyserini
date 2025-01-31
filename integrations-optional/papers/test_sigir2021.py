@@ -14,17 +14,18 @@
 # limitations under the License.
 #
 
-"""Integration tests for commands in Lin et al. (SIGIR 2021) paper."""
+"""Integration tests for commands in Lin et al. (SIGIR 2021) paper, but with class names updated."""
 
 import os
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score_msmarco
-from pyserini.dsearch import SimpleDenseSearcher, TctColBertQueryEncoder
-from pyserini.hsearch import HybridSearcher
+from pyserini.encode import TctColBertQueryEncoder
 from pyserini.index.lucene import LuceneIndexReader
 from pyserini.search import get_topics, get_qrels
-from pyserini.search._deprecated import SimpleSearcher
+from pyserini.search.faiss import FaissSearcher
+from pyserini.search.hybrid import HybridSearcher
+from pyserini.search.lucene import LuceneSearcher
 
 
 class TestSIGIR2021(unittest.TestCase):
@@ -34,7 +35,7 @@ class TestSIGIR2021(unittest.TestCase):
     def test_figure1(self):
         """Sample code in Figure 1."""
 
-        searcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+        searcher = LuceneSearcher.from_prebuilt_index('msmarco-passage')
         hits = searcher.search('what is a lobster roll?', 10)
 
         self.assertAlmostEqual(hits[0].score, 11.00830, delta=0.0001)
@@ -49,7 +50,7 @@ class TestSIGIR2021(unittest.TestCase):
         """Sample code in Figure 2."""
 
         encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
-        searcher = SimpleDenseSearcher.from_prebuilt_index('msmarco-passage-tct_colbert-hnsw', encoder)
+        searcher = FaissSearcher.from_prebuilt_index('msmarco-passage-tct_colbert-hnsw', encoder)
         hits = searcher.search('what is a lobster roll')
 
         self.assertAlmostEqual(hits[0].score, 70.53741, delta=0.0001)
@@ -63,9 +64,9 @@ class TestSIGIR2021(unittest.TestCase):
     def test_figure3(self):
         """Sample code in Figure 3."""
 
-        ssearcher = SimpleSearcher.from_prebuilt_index('msmarco-passage')
+        ssearcher = LuceneSearcher.from_prebuilt_index('msmarco-passage')
         encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco')
-        dsearcher = SimpleDenseSearcher.from_prebuilt_index('msmarco-passage-tct_colbert-hnsw', encoder)
+        dsearcher = FaissSearcher.from_prebuilt_index('msmarco-passage-tct_colbert-hnsw', encoder)
         hsearcher = HybridSearcher(dsearcher, ssearcher)
 
         hits = hsearcher.search('what is a lobster roll')
@@ -157,7 +158,7 @@ class TestSIGIR2021(unittest.TestCase):
 
         output_file = 'run.msmarco-passage.txt'
         self.temp_files.append(output_file)
-        run_cmd = f'python -m pyserini.search --topics msmarco-passage-dev-subset \
+        run_cmd = f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset \
                       --index msmarco-passage --output {output_file} \
                       --bm25 --output-format msmarco'
         status = os.system(run_cmd)
