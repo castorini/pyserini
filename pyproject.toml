@@ -49,8 +49,6 @@ Issues = "https://github.com/castorini/pyserini/issues"
 [project.optional-dependencies]
 optional = [
     "faiss>1.7.0",
-    "nmslib>=2.0.6",
-    "lightgbm>=3.3.2",
     "spacy>=3.2.1",
     "pyarrow>=15.0.0",
     "pybind11>=2.11.0"
