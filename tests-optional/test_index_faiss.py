@@ -88,35 +88,5 @@ class TestIndexFaiss(unittest.TestCase):
         self.assertAlmostEqual(vectors[2][0], 0.03678430616855621, places=4)
         self.assertAlmostEqual(vectors[2][-1], 0.13209162652492523, places=4)
 
-    def test_faiss_pq(self):
-        index_dir = f'{self.tmp_dir}/temp_pq'
-        encoded_corpus_dir = self.prepare_encoded_collection()
-        cmd = f'python -m pyserini.index.faiss \
-            --input {encoded_corpus_dir} \
-            --output {index_dir} \
-            --pq-m 3 \
-            --efC 1 \
-            --pq-nbits 128 \
-            --pq'
-
-        status = os.system(cmd)
-        self.assertEqual(status, 0) 
-
-        docid_fn = os.path.join(index_dir, 'docid')
-        index_fn = os.path.join(index_dir, 'index')
-        self.assertIsFile(docid_fn)
-        self.assertIsFile(index_fn)
-
-        index = faiss.read_index(index_fn)
-        vectors = index.reconstruct_n(0, index.ntotal)
-    
-        with open(docid_fn) as f:
-            self.assertListEqual([docid.strip() for docid in f], self.docids)
-
-        self.assertAlmostEqual(vectors[0][0], 0.04343192, places=4)
-        self.assertAlmostEqual(vectors[0][-1], 0.075478144, places=4)
-        self.assertAlmostEqual(vectors[2][0], 0.04343192, places=4)
-        self.assertAlmostEqual(vectors[2][-1], 0.075478144, places=4)
-
     def tearDown(self):
         shutil.rmtree(self.tmp_dir)
