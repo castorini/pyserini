@@ -360,6 +360,8 @@ with open('collections/nfcorpus/pyserini-corpus/corpus.jsonl', 'w') as out:
             out.write(s + '\n')
 ```
 
+### Encoding with BM25
+
 We can now index these documents as a `JsonCollection` using Pyserini:
 
 ```bash
@@ -516,6 +518,136 @@ We iterate through all documents, reconstruct the BM25 document vectors (as weig
 Once we've gone through all documents in the corpus in this manner, we sort the scores and print out the top-_k_.
 
 The output should match the results from `LuceneSearcher` above.
+
+### Encoding with a learned sparse model SPLADE-v3
+
+Next, we are basically going to do the same thing as BM25, encode the corpus into sparse vectors, index them into retrival systems, and then perform search and retrieval. However, instead of a bag-of-words model like BM25, we are going to use a learned sparse model: SPLADE-v3.
+
+#### Setting everything up
+
+Since the splade-v3 model is gated on Hugging Face, we will need to request access before being able to use it:
+1. Create an account for Hugging Face: https://huggingface.co/join
+2. Go to the model page on Hugging Face: [Splade-v3](https://huggingface.co/naver/splade-v3)
+3. Click the **"Log In"** button.
+
+Next, you will need to authenticate with Hugging Face to download and use the model.
+If you don’t already have the Hugging Face CLI installed, install it using:
+```bash
+pip install huggingface_hub
+```
+Run the following command to log in to your Hugging Face account:
+```bash
+huggingface-cli login
+```
+
+You’ll be prompted to enter your Hugging Face API token. You can generate a token from your Hugging Face account settings:
+1. Go to [https://huggingface.co/settings/tokens](https://huggingface.co/settings/tokens).
+2. Click **"New token"** to generate a token.
+3. Copy the token and paste it into the terminal when prompted.
+
+#### Using pyserini and SPLADE-v3
+Once you’re authenticated, run the command to encode the corpus into sparse vectors (we need to run this custom script using SpladeQueryEncoder as pyserini.encode only encodes corpus into dense vectors).
+```python
+import json
+import torch
+from pyserini.encode import SpladeQueryEncoder
+
+# Debugging: Print start message
+print("Starting SPLADE document encoding process...")
+
+# Initialize the SPLADE document encoder
+encoder = SpladeQueryEncoder(
+    model_name_or_path="naver/splade-cocondenser-ensembledistil",  # Pre-trained SPLADE model
+    device='cuda' if torch.cuda.is_available() else 'cpu'  # Use GPU if available
+)
+
+# Load the corpus
+corpus_file = "collections/nfcorpus/pyserini-corpus/corpus.jsonl"  # Path to your corpus file
+output_file = "encode/nfcorpus.splade/embeddings.jsonl"  # Path to save encoded documents
+
+# Debugging: Print corpus and output file paths
+print(f"Reading corpus from: {corpus_file}")
+print(f"Writing sparse vectors to: {output_file}")
+
+# Encode the corpus
+with open(corpus_file, "r") as infile, open(output_file, "w") as outfile:
+    for line_num, line in enumerate(infile, start=1):
+        # Debugging: Print progress
+        if line_num % 100 == 0:
+            print(f"Processing line {line_num}...")
+        
+        try:
+            # Load the document
+            data = json.loads(line)
+            doc_id = data["_id"]
+            text = data["title"] + " " + data["text"]  # Combine title and text
+            
+            # Encode the truncated text into a sparse vector
+            sparse_vector = encoder.encode(text, max_length=512)
+            
+            # Write the sparse vector to the output file
+            outfile.write(json.dumps({"id": doc_id, "content": text, "vector": sparse_vector}) + "\n")
+        except Exception as e:
+            print(f"Error processing line {line_num}: {e}")
+            continue
+
+# Debugging: Print completion message
+print("SPLADE document encoding process completed successfully.")
+```
+
+Turn the encoded sparse vectors into an retrieval system using inverted index:
+```bash
+python -m pyserini.index.lucene \
+  --collection JsonVectorCollection \
+  --input encode/nfcorpus.splade \
+  --index index/nfcorpus.splade \
+  --generator DefaultLuceneDocumentGenerator \
+  --threads 4 \
+  --impact \
+  --pretokenized
+```
+Here, we used pretokenized flag as splade already split the text into tokens (words and subwords) in the sparse vector.
+
+Retrieving with SPLADE-v3:
+```bash
+python -m pyserini.search.lucene \
+  --index index/nfcorpus.splade \
+  --topics collections/nfcorpus/queries.tsv \
+  --output runs/run.splade.txt \
+  --hits 1000 \
+  --encoder naver/splade-v3 \
+  --remove-query \
+  --output-format trec \
+  --impact \
+  --threads 4
+```
+
+Evaluating the model:
+```bash
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 collections/nfcorpus/qrels/test.qrels \
+  runs/run.splade.txt
+```
+
+Results should be something like this:
+```bash
+ndcg_cut_10           	all	0.3624
+```
+
+Interactive retrieval:
+You can also use the following script to perform interactive retrieval for nfcorpus:
+```python
+import torch
+from pyserini.search.lucene import LuceneImpactSearcher
+from pyserini.encode import SpladeQueryEncoder
+
+encoder = SpladeQueryEncoder(model_name_or_path="naver/splade-v3", device='cuda' if torch.cuda.is_available() else 'cpu')
+searcher = LuceneImpactSearcher('index/nfcorpus.splade', query_encoder=encoder)
+hits = searcher.search('How to Help Prevent Abdominal Aortic Aneurysms')
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.6f}')
+```
 
 To recap, what's the point for this exercise?
 
