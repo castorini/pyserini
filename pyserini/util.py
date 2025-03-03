@@ -64,7 +64,7 @@ def compute_md5(file, block_size=2**20):
     return m.hexdigest()
 
 
-def download_url(url, save_dir, local_filename=None, md5=None, force=False, verbose=True):
+x   def download_url(url, save_dir, local_filename=None, md5=None, size=None, force=False, verbose=True):
     # If caller does not specify local filename, figure it out from the download URL:
     if not local_filename:
         filename = url.split('/')[-1]
@@ -94,6 +94,10 @@ def download_url(url, save_dir, local_filename=None, md5=None, force=False, verb
     with TqdmUpTo(unit='B', unit_scale=True, unit_divisor=1024, miniters=1, desc=filename) as t:
         urlretrieve(url, filename=destination_path, reporthook=t.update_to)
 
+    if size:
+        actual_size = os.path.getsize(destination_path)
+        assert actual_size == size, f'{destination_path} does not match expected size! Expecting {size} bytes: got {actual_size} bytes.'
+
     if md5:
         md5_computed = compute_md5(destination_path)
         assert md5_computed == md5, f'{destination_path} does not match checksum! Expecting {md5} got {md5_computed}.'
@@ -108,7 +112,7 @@ def get_cache_home():
     return os.path.expanduser(os.path.join(f'~{os.path.sep}.cache', "pyserini"))
 
 def download_and_unpack_index(url, index_directory='indexes', local_filename=False,
-                              force=False, verbose=True, prebuilt=False, md5=None):
+                              force=False, verbose=True, prebuilt=False, md5=None, size=None):
     # If caller does not specify local filename, figure it out from the download URL:
     if not local_filename:
         index_name = url.split('/')[-1]
@@ -146,7 +150,7 @@ def download_and_unpack_index(url, index_directory='indexes', local_filename=Fal
         shutil.rmtree(index_path)
 
     print(f'Downloading index at {url}...')
-    download_url(url, index_directory, local_filename=local_filename, verbose=False, md5=md5)
+    download_url(url, index_directory, local_filename=local_filename, verbose=False, md5=md5, size=size)
 
     if verbose:
         print(f'Extracting {local_tarball} into {index_path}...')
@@ -238,11 +242,12 @@ def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
         target_index = FAISS_INDEX_INFO[index_name]
 
     index_md5 = target_index['md5']
+    index_size = target_index.get('size compressed (bytes)', None)
     for url in target_index['urls']:
         local_filename = target_index['filename'] if 'filename' in target_index else None
         try:
             return download_and_unpack_index(url, local_filename=local_filename,
-                                             prebuilt=True, md5=index_md5, verbose=verbose)
+                                             prebuilt=True, md5=index_md5, size=index_size, verbose=verbose)
         except (HTTPError, URLError) as e:
             print(f'Unable to download pre-built index at {url}, trying next URL...')
     raise ValueError(f'Unable to download pre-built index at any known URLs.')
