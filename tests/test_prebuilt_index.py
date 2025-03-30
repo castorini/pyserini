@@ -89,6 +89,18 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(cnt, 8)
         self._test_urls(urls)
 
+    def test_lucene_impact_msmarco(self):
+        urls = []
+        cnt = 0
+        for key in IMPACT_INDEX_INFO:
+            if 'msmarco' in key:
+                cnt += 1
+                for url in IMPACT_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        self.assertEqual(cnt, 25)
+        self._test_urls(urls)
+
     def test_lucene_impact_beir(self):
         urls = []
         cnt = 0
@@ -231,6 +243,6 @@ class TestPrebuiltIndexes(unittest.TestCase):
         for url in urls:
             cnt += 1
             response = requests.head(url)
-            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.status_code, 200, f'Error checking {url}')
 
         self.assertEqual(cnt, len(urls))
