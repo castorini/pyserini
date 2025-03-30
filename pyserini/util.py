@@ -244,8 +244,8 @@ def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
             return download_and_unpack_index(url, local_filename=local_filename,
                                              prebuilt=True, md5=index_md5, verbose=verbose)
         except (HTTPError, URLError) as e:
-            print(f'Unable to download pre-built index at {url}, trying next URL...')
-    raise ValueError(f'Unable to download pre-built index at any known URLs.')
+            print(f'Unable to download prebuilt index at {url}, trying next URL...')
+    raise ValueError(f'Unable to download prebuilt index at any known URLs.')
 
 
 def download_encoded_queries(query_name, force=False, verbose=True, mirror=None):

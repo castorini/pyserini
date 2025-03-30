@@ -2814,6 +2814,48 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "unique_terms": 28662,
         "downloaded": False
     },
+    "msmarco-v1-passage.splade-v3": {
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADEv3.",
+        "filename": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage-splade-v3.20250329.4f4c68.tar.gz",
+        ],
+        "md5": "fb376859475a3b0b4a129613a6d726c8",
+        "size compressed (bytes)": 2813677036,
+        "total_terms": 46922883529,
+        "documents": 8841823,
+        "unique_terms": 27952,
+        "downloaded": False
+    },
+    "msmarco-v1-passage.splade-v3-docvectors": {
+        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADEv3.",
+        "filename": "lucene-inverted.msmarco-v1-passage.splade-v3-docvectors.20250329.4f4c68.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-v3-docvectors.20250329.4f4c68.tar.gz",
+        ],
+        "md5": "e585c6b56beecbaea1d66ac0669c85fc",
+        "size compressed (bytes)": 17003543129,
+        "total_terms": 46922883529,
+        "documents": 8841823,
+        "unique_terms": 27952,
+        "downloaded": False
+    },
+    "msmarco-v1-passage.splade-v3-text": {
+        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADEv3.",
+        "filename": "lucene-inverted.msmarco-v1-passage.splade-v3-text.20250329.4f4c68.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-v3-text.20250329.4f4c68.tar.gz",
+        ],
+        "md5": "81b080d3aba5b13416174fe6aef5202b",
+        "size compressed (bytes)": 15479149450,
+        "total_terms": 46922883529,
+        "documents": 8841823,
+        "unique_terms": 27952,
+        "downloaded": False
+    },
 
     "msmarco-v1-doc-segmented.unicoil": {
         "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL, with title/segment encoding.",

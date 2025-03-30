@@ -68,7 +68,7 @@ class FaissSearcher:
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: QueryEncoder):
-        """Build a searcher from a pre-built index; download the index if necessary.
+        """Build a searcher from a prebuilt index; download the index if necessary.
 
         Parameters
         ----------
@@ -82,7 +82,7 @@ class FaissSearcher:
         FaissSearcher
             Searcher built from the prebuilt faiss index.
         """
-        print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
+        print(f'Attempting to initialize prebuilt index {prebuilt_index_name}.')
         # see integrations/papers/test_sigir2021.py - preserve working commands published in papers
         if prebuilt_index_name == 'msmarco-passage-tct_colbert-hnsw':
             prebuilt_index_name = 'msmarco-v1-passage.tct_colbert.hnsw'

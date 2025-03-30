@@ -77,7 +77,7 @@ class LuceneImpactSearcher:
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str], min_idf=0, encoder_type: str = 'pytorch'):
-        """Build a searcher from a pre-built index; download the index if necessary.
+        """Build a searcher from a prebuilt index; download the index if necessary.
 
         Parameters
         ----------
@@ -95,7 +95,7 @@ class LuceneImpactSearcher:
         LuceneImpactSearcher
             Searcher built from the prebuilt index.
         """
-        print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
+        print(f'Attempting to initialize prebuilt index {prebuilt_index_name}.')
 
         try:
             index_dir = download_prebuilt_index(prebuilt_index_name)
@@ -415,7 +415,7 @@ class SlimSearcher(LuceneImpactSearcher):
     
     @classmethod
     def from_prebuilt_index(cls, encoded_corpus:str, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str], min_idf=0):
-        print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
+        print(f'Attempting to initialize prebuilt index {prebuilt_index_name}.')
         try:
             index_dir = download_prebuilt_index(prebuilt_index_name)
             encoded_corpus = download_encoded_corpus(encoded_corpus)
