@@ -8,8 +8,8 @@ To list what's available:
 from pyserini.search.lucene import LuceneSearcher
 LuceneSearcher.list_prebuilt_indexes()
 
-from pyserini.index.lucene import IndexReader
-IndexReader.list_prebuilt_indexes()
+from pyserini.index.lucene import LuceneIndexReader
+LuceneIndexReader.list_prebuilt_indexes()
 ```
 
 It's easy initialize a searcher from a prebuilt index:
@@ -29,7 +29,7 @@ The downloaded index will be in `~/.cache/pyserini/indexes/`.
 It's similarly easy initialize an index reader from a prebuilt index:
 
 ```python
-index_reader = IndexReader.from_prebuilt_index('robust04')
+index_reader = LuceneIndexReader.from_prebuilt_index('robust04')
 index_reader.stats()
 ```
 

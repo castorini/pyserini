@@ -2814,6 +2814,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "unique_terms": 28662,
         "downloaded": False
     },
+
     "msmarco-v1-passage.splade-v3": {
         "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADEv3.",
         "filename": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.tar.gz",
