@@ -70,6 +70,7 @@ models = {
      'splade-pp-sd-onnx',
      'splade-pp-sd-rocchio-pytorch',
      'splade-pp-sd-rocchio-onnx',
+     'splade-v3-pytorch',
      '',
      'ance',
      'ance-pytorch',

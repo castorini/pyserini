@@ -126,14 +126,6 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Lucene index (+docvectors) of the MS MARCO V1 passage corpus with doc2query-T5 expansions.
 </dd>
-<dt></dt><b><code>msmarco-v1-passage.ltr</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.ltr.20210519.e25e33f.README.txt">readme</a>]
-<dd>Lucene index of the MS MARCO V1 passage corpus with four extra preprocessed fields for LTR. (Lucene 8)
-</dd>
-<dt></dt><b><code>msmarco-v1-doc-segmented.ltr</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.ltr.20211031.33e4151.README.txt">readme</a>]
-<dd>Lucene index of the MS MARCO V1 segmented document corpus with four extra preprocessed fields for LTR. (Lucene 8)
-</dd>
 <dt></dt><b><code>msmarco-v2-doc</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
 <dd>Lucene index of the MS MARCO V2 document corpus.
@@ -848,6 +840,18 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dt></dt><b><code>msmarco-v1-passage.splade-pp-sd-text</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md">readme</a>]
 <dd>Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md">readme</a>]
+<dd>Lucene impact index of the MS MARCO passage corpus encoded by SPLADEv3.
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.splade-v3-docvectors</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md">readme</a>]
+<dd>Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADEv3.
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.splade-v3-text</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md">readme</a>]
+<dd>Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADEv3.
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented.unicoil</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.README.md">readme</a>]

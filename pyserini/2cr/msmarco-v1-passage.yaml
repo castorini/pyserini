@@ -1,4 +1,50 @@
 conditions:
+  - name: splade-v3-pytorch
+    display: "SPLADEv3: Lucene, PyTorch"
+    display-html: "SPLADEv3: Lucene, PyTorch"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Formal et al. (SIGIR 2022) From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.\">2</a>]"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-v3 --topics $topics --encoder naver/splade-v3 --output $output --hits 1000 --impact
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3999
+            R@1K: 0.9868
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.5231
+            nDCG@10: 0.7264
+            R@1K: 0.8791
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.5402
+            nDCG@10: 0.7522
+            R@1K: 0.9039
+  - name: splade-v3-rocchio-pytorch
+    display: "SPLADEv3 w/ Rocchio: Lucene, PyTorch"
+    display-html: "SPLADEv3 w/ Rocchio: Lucene, PyTorch"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Formal et al. (SIGIR 2022) From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.\">2</a>]"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-v3 --topics $topics --encoder naver/splade-v3 --output $output --hits 1000 --impact --rocchio
+    topics:
+      - topic_key: msmarco-passage-dev-subset
+        eval_key: msmarco-passage-dev-subset
+        scores:
+          - MRR@10: 0.3999
+            R@1K: 0.9868
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.5231
+            nDCG@10: 0.7264
+            R@1K: 0.8791
+      - topic_key: dl20
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.5402
+            nDCG@10: 0.7522
+            R@1K: 0.9039
   - name: bge-base-en-v1.5.lucene-hnsw-int8.onnx
     display: "BGE-base-en-v1.5: Lucene quantized HNSW, ONNX"
     display-html: "BGE-base-en-v1.5: Lucene quantized HNSW, ONNX"
