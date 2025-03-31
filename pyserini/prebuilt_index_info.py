@@ -2834,7 +2834,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.splade-v3-docvectors.20250329.4f4c68.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-v3-docvectors.20250329.4f4c68.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage-splade-v3-docvectors.20250329.4f4c68.tar.gz",
         ],
         "md5": "e585c6b56beecbaea1d66ac0669c85fc",
         "size compressed (bytes)": 17003543129,
@@ -2848,7 +2848,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.splade-v3-text.20250329.4f4c68.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-v3-text.20250329.4f4c68.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage-splade-v3-text.20250329.4f4c68.tar.gz",
         ],
         "md5": "81b080d3aba5b13416174fe6aef5202b",
         "size compressed (bytes)": 15479149450,
