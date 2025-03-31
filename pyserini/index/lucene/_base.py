@@ -211,7 +211,7 @@ class LuceneIndexReader:
             Index reader built from the prebuilt index.
         """
         if verbose:
-            print(f'Attempting to initialize pre-built index {prebuilt_index_name}.')
+            print(f'Attempting to initialize prebuilt index {prebuilt_index_name}.')
 
         try:
             index_dir = download_prebuilt_index(prebuilt_index_name, verbose=verbose)
@@ -257,30 +257,30 @@ class LuceneIndexReader:
         return tokens
 
     def validate(self, prebuilt_index_name: str, verbose=False):
-        """Validate this index against stored stats for a pre-built index."""
+        """Validate this index against stored stats for a prebuilt index."""
         stats = self.stats()
 
         if prebuilt_index_name in TF_INDEX_INFO:
             if stats['documents'] != TF_INDEX_INFO[prebuilt_index_name]['documents']:
-                raise ValueError('Pre-built index fails consistency check: "documents" does not match!')
+                raise ValueError('Prebuilt index fails consistency check: "documents" does not match!')
             if stats['unique_terms'] != TF_INDEX_INFO[prebuilt_index_name]['unique_terms']:
-                raise ValueError('Pre-built index fails consistency check: "unique_terms" does not match!')
+                raise ValueError('Prebuilt index fails consistency check: "unique_terms" does not match!')
             if stats['total_terms'] != TF_INDEX_INFO[prebuilt_index_name]['total_terms']:
-                raise ValueError('Pre-built index fails consistency check: "total_terms" does not match!')
+                raise ValueError('Prebuilt index fails consistency check: "total_terms" does not match!')
         elif prebuilt_index_name in IMPACT_INDEX_INFO:
             if stats['documents'] != IMPACT_INDEX_INFO[prebuilt_index_name]['documents']:
-                raise ValueError('Pre-built index fails consistency check: "documents" does not match!')
+                raise ValueError('Prebuilt index fails consistency check: "documents" does not match!')
             if stats['unique_terms'] != IMPACT_INDEX_INFO[prebuilt_index_name]['unique_terms']:
-                raise ValueError('Pre-built index fails consistency check: "unique_terms" does not match!')
+                raise ValueError('Prebuilt index fails consistency check: "unique_terms" does not match!')
             if stats['total_terms'] != IMPACT_INDEX_INFO[prebuilt_index_name]['total_terms']:
-                raise ValueError('Pre-built index fails consistency check: "total_terms" does not match!')
+                raise ValueError('Prebuilt index fails consistency check: "total_terms" does not match!')
         else:
-            print(f'Unknown pre-built index \'{prebuilt_index_name}\'!')
+            print(f'Unknown prebuilt index \'{prebuilt_index_name}\'!')
             return False
 
         if verbose:
             print(stats)
-            print(f'Index passes consistency checks against pre-built index \'{prebuilt_index_name}\'!')
+            print(f'Index passes consistency checks against prebuilt index \'{prebuilt_index_name}\'!')
 
         return True
 
