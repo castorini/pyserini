@@ -63,19 +63,6 @@ class OpenAiDocumentEncoder(DocumentEncoder):
         inputs = self.tokenizer.encode_batch(text=texts)
         inputs = [embedding[:max_length] for embedding in inputs]
         return self.get_embeddings(inputs)
-    
-# class OpenAIQueryEncoder(QueryEncoder):
-#     def __init__(self, model_name: str = 'text-embedding-ada-002', tokenizer_name: str = 'cl100k_base', device = None):
-#         self.model = model_name
-#         self.tokenizer = tiktoken.get_encoding(tokenizer_name)
-#
-#     @retry_with_delay
-#     def get_embedding(self, text: str):
-#         return np.array(client.embeddings.create(input=text, model=self.model)['data'][0]['embedding'])
-#
-#     def encode(self, text: str, max_length: int = 512, **kwargs):
-#         inputs = self.tokenizer.encode(text=text)[:max_length]
-#         return self.get_embedding(inputs)
 
 
 class OpenAiQueryEncoder(QueryEncoder):
