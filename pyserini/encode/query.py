@@ -18,11 +18,10 @@ import argparse
 
 import numpy as np
 import pandas as pd
-from tqdm import tqdm
-
-from pyserini.encode import DprQueryEncoder, TctColBertQueryEncoder, AnceQueryEncoder, AutoQueryEncoder, \
-    UniCoilQueryEncoder, SpladeQueryEncoder, OpenAIQueryEncoder, CosDprQueryEncoder, ArcticQueryEncoder
+from pyserini.encode import AnceQueryEncoder, ArcticQueryEncoder, AutoQueryEncoder, CosDprQueryEncoder, \
+    DprQueryEncoder, OpenAiQueryEncoder, SpladeQueryEncoder, TctColBertQueryEncoder, UniCoilQueryEncoder
 from pyserini.query_iterator import DefaultQueryIterator
+from tqdm import tqdm
 
 
 def init_encoder(encoder, device, pooling, l2_norm, prefix):
@@ -50,19 +49,15 @@ def init_encoder(encoder, device, pooling, l2_norm, prefix):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--topics', type=str,
-                        help='path to topics file in tsv format or self-contained topics name', required=True)
+    parser.add_argument('--topics', type=str, help='path to topics file in tsv format or self-contained topics name', required=True)
     parser.add_argument('--encoder', type=str, help='encoder model name or path', required=True)
     parser.add_argument('--weight-range', type=int, help='range of weights for sparse embedding', required=False)
     parser.add_argument('--quant-range', type=int, help='range of quantization for sparse embedding', required=False)
     parser.add_argument('--output', type=str, help='path to stored encoded queries', required=True)
-    parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]',
-                        default='cpu', required=False)
+    parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]', default='cpu', required=False)
     parser.add_argument('--max-length', type=int, help='max length', default=256, required=False)
-    parser.add_argument('--pooling', type=str, help='pooling strategy', default='cls', choices=['cls', 'mean'],
-                        required=False)
-    parser.add_argument('--l2-norm', action='store_true', help='whether to normalize embedding', default=False,
-                        required=False)
+    parser.add_argument('--pooling', type=str, help='pooling strategy', default='cls', choices=['cls', 'mean'], required=False)
+    parser.add_argument('--l2-norm', action='store_true', help='whether to normalize embedding', default=False, required=False)
     parser.add_argument('--prefx', type=str, help='prefix query input', default=None, required=False)
     args = parser.parse_args()
 
@@ -86,6 +81,7 @@ if __name__ == '__main__':
         query_ids.append(topic_id)
         query_texts.append(text)
         query_embeddings.append(embedding)
+
     if is_sparse:
         with open(args.output, 'w') as f:
             for i in range(len(query_ids)):
