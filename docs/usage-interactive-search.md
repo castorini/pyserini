@@ -83,3 +83,11 @@ LuceneSearcher.list_prebuilt_indexes()
 ```
 
 A description of what's available can be found [here](prebuilt-indexes.md).
+
+## How do I manually remove indexes?
+
+A common issue is recovering from partial downloads, for example, if you abort the downloading of a large index tarball.
+In the standard flow, Pyserini downloads the tarball from UWaterloo servers, verifies the checksum, and then unpacks the tarball.
+If this process is interrupted, you'll end up in an inconsistent state.
+
+To recover, go to the default path for indexes `~/.cache/pyserini/indexes/`. If you've configured this directory, you'll need to go to your custom directory that was set. Remove any directories associated with the index you want to remove, and remove any tarballs (i.e., `.tar.gz` files), and re-run your command again.
