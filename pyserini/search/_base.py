@@ -688,6 +688,26 @@ for qrel in qrels_mapping:
 topics_mapping = {k: v for k, v in topics_mapping.items() if v is not None}
 qrels_mapping = {k: v for k, v in qrels_mapping.items() if v is not None}
 
+# Programmatically add aliases, e.g., dl19-passage-splade-v3 and dl19-passage.splade-v3 should both work.
+topics_alias = {}
+for topic in topics_mapping:
+    # Note that startswith can tell you if a str starts with any from a list of prefixes,
+    # but doesn't easily tell you *which* one. Easier just to iterate through options.
+    if topic.startswith('msmarco-passage-dev-subset-'):
+        topics_alias[topic.replace('msmarco-passage-dev-subset-', 'msmarco-passage-dev-subset.')] = topics_mapping[topic]
+        topics_alias[topic.replace('msmarco-passage-dev-subset-', 'msmarco-passage-dev.')] = topics_mapping[topic]
+        topics_alias[topic.replace('msmarco-passage-dev-subset-', 'msmarco-passage.dev.')] = topics_mapping[topic]
+        topics_alias[topic.replace('msmarco-passage-dev-subset-', 'msmarco-v1-passage-dev.')] = topics_mapping[topic]
+        topics_alias[topic.replace('msmarco-passage-dev-subset-', 'msmarco-v1-passage.dev.')] = topics_mapping[topic]
+    elif topic.startswith('dl19-passage-'):
+        topics_alias[topic.replace('dl19-passage-', 'dl19-passage.')] = topics_mapping[topic]
+    elif topic.startswith('dl20-passage-'):
+        topics_alias[topic.replace('dl20-passage-', 'dl20-passage.')] = topics_mapping[topic]
+
+
+# Union original mappings and the aliases.
+topics_mapping = {**topics_mapping, **topics_alias}
+
 
 def get_topics(collection_name):
     """
