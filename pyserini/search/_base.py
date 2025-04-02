@@ -79,12 +79,18 @@ topics_mapping = {
     'dl19-passage-unicoil': 'TREC2019_DL_PASSAGE_UNICOIL',
     'dl19-passage-unicoil-noexp': 'TREC2019_DL_PASSAGE_UNICOIL_NOEXP',
     'dl19-passage-unicoil': 'TREC2019_DL_PASSAGE_UNICOIL',
+    'dl19-passage-splade-distil-cocodenser-medium': 'TREC2019_DL_PASSAGE_SPLADE_DISTILL_COCODENSER_MEDIUM',
+    'dl19-passage-splade-pp-ed': 'TREC2019_DL_PASSAGE_SPLADE_PP_ED',
+    'dl19-passage-splade-pp-sd': 'TREC2019_DL_PASSAGE_SPLADE_PP_SD',
     'dl19-passage-splade-v3': 'TREC2019_DL_PASSAGE_SPLADE_V3',
 
     # DL20 (passage and doc are the same)
     'dl20': 'TREC2020_DL',
     'dl20-unicoil': 'TREC2020_DL_UNICOIL',
     'dl20-unicoil-noexp': 'TREC2020_DL_UNICOIL_NOEXP',
+    'dl20-splade-distil-cocodenser-medium': 'TREC2020_DL_SPLADE_DISTILL_COCODENSER_MEDIUM',
+    'dl20-splade-pp-ed': 'TREC2020_DL_SPLADE_PP_ED',
+    'dl20-splade-pp-sd': 'TREC2020_DL_SPLADE_PP_SD',
     'dl20-splade-v3': 'TREC2020_DL_SPLADE_V3',
 
     # DL20 doc
@@ -96,6 +102,9 @@ topics_mapping = {
     'dl20-passage': 'TREC2020_DL',
     'dl20-passage-unicoil': 'TREC2020_DL_UNICOIL',
     'dl20-passage-unicoil-noexp': 'TREC2020_DL_UNICOIL_NOEXP',
+    'dl20-passage-splade-distil-cocodenser-medium': 'TREC2020_DL_SPLADE_DISTILL_COCODENSER_MEDIUM',
+    'dl20-passage-splade-pp-ed': 'TREC2020_DL_SPLADE_PP_ED',
+    'dl20-passage-splade-pp-sd': 'TREC2020_DL_SPLADE_PP_SD',
     'dl20-passage-splade-v3': 'TREC2020_DL_SPLADE_V3',
 
     'dl21': 'TREC2021_DL',
@@ -127,6 +136,9 @@ topics_mapping = {
     'msmarco-passage-dev-subset-unicoil-noexp': 'MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL_NOEXP',
     'msmarco-passage-dev-subset-unicoil-tilde': 'MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL_TILDE',
     'msmarco-passage-dev-subset-distill-splade-max': 'MSMARCO_PASSAGE_DEV_SUBSET_DISTILL_SPLADE_MAX',
+    'msmarco-passage-dev-subset-splade-distil-cocodenser-medium': 'MSMARCO_PASSAGE_DEV_SUBSET_SPLADE_DISTILL_COCODENSER_MEDIUM',
+    'msmarco-passage-dev-subset-splade-pp-ed': 'MSMARCO_PASSAGE_DEV_SUBSET_SPLADE_PP_ED',
+    'msmarco-passage-dev-subset-splade-pp-sd': 'MSMARCO_PASSAGE_DEV_SUBSET_SPLADE_PP_SD',
     'msmarco-passage-dev-subset-splade-v3': 'MSMARCO_PASSAGE_DEV_SUBSET_SPLADE_V3',
 
     'msmarco-passage-test-subset': 'MSMARCO_PASSAGE_TEST_SUBSET',
