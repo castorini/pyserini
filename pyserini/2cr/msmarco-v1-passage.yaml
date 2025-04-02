@@ -16,7 +16,7 @@ conditions:
           - MAP: 0.5231
             nDCG@10: 0.7264
             R@1K: 0.8791
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.5402
@@ -39,7 +39,7 @@ conditions:
           - MAP: 0.5374
             nDCG@10: 0.7406
             R@1K: 0.8738
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.5456

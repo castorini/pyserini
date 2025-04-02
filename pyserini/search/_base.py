@@ -68,21 +68,36 @@ topics_mapping = {
     'mb14': 'MB14',
     'car17v1.5-benchmarkY1test': 'CAR17V15_BENCHMARK_Y1_TEST',
     'car17v2.0-benchmarkY1test': 'CAR17V20_BENCHMARK_Y1_TEST',
+
+    # DL19 doc
     'dl19-doc': 'TREC2019_DL_DOC',
     'dl19-doc-unicoil': 'TREC2019_DL_DOC_UNICOIL',
     'dl19-doc-unicoil-noexp': 'TREC2019_DL_DOC_UNICOIL_NOEXP',
+
+    # DL19 passage
     'dl19-passage': 'TREC2019_DL_PASSAGE',
     'dl19-passage-unicoil': 'TREC2019_DL_PASSAGE_UNICOIL',
     'dl19-passage-unicoil-noexp': 'TREC2019_DL_PASSAGE_UNICOIL_NOEXP',
+    'dl19-passage-unicoil': 'TREC2019_DL_PASSAGE_UNICOIL',
+    'dl19-passage-splade-v3': 'TREC2019_DL_PASSAGE_SPLADE_V3',
+
+    # DL20 (passage and doc are the same)
     'dl20': 'TREC2020_DL',
-    'dl20-passage': 'TREC2020_DL',
-    'dl20-doc': 'TREC2020_DL',
     'dl20-unicoil': 'TREC2020_DL_UNICOIL',
-    'dl20-passage-unicoil': 'TREC2020_DL_UNICOIL',
-    'dl20-doc-unicoil': 'TREC2020_DL_UNICOIL',
     'dl20-unicoil-noexp': 'TREC2020_DL_UNICOIL_NOEXP',
-    'dl20-passage-unicoil-noexp': 'TREC2020_DL_UNICOIL_NOEXP',
+    'dl20-splade-v3': 'TREC2020_DL_SPLADE_V3',
+
+    # DL20 doc
+    'dl20-doc': 'TREC2020_DL',
+    'dl20-doc-unicoil': 'TREC2020_DL_UNICOIL',
     'dl20-doc-unicoil-noexp': 'TREC2020_DL_UNICOIL_NOEXP',
+
+    # DL20 passage
+    'dl20-passage': 'TREC2020_DL',
+    'dl20-passage-unicoil': 'TREC2020_DL_UNICOIL',
+    'dl20-passage-unicoil-noexp': 'TREC2020_DL_UNICOIL_NOEXP',
+    'dl20-passage-splade-v3': 'TREC2020_DL_SPLADE_V3',
+
     'dl21': 'TREC2021_DL',
     'dl21-doc': 'TREC2021_DL',
     'dl21-unicoil': 'TREC2021_DL_UNICOIL',
@@ -102,14 +117,18 @@ topics_mapping = {
     'msmarco-doc-dev-unicoil': 'MSMARCO_DOC_DEV_UNICOIL',
     'msmarco-doc-dev-unicoil-noexp': 'MSMARCO_DOC_DEV_UNICOIL_NOEXP',
     'msmarco-doc-test': 'MSMARCO_DOC_TEST',
+
     'msmarco-passage-dev-subset': 'MSMARCO_PASSAGE_DEV_SUBSET',
     'msmarco-v1-passage.dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
     'msmarco-passage.dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
+
     'msmarco-passage-dev-subset-deepimpact': 'MSMARCO_PASSAGE_DEV_SUBSET_DEEPIMPACT',
     'msmarco-passage-dev-subset-unicoil': 'MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL',
     'msmarco-passage-dev-subset-unicoil-noexp': 'MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL_NOEXP',
     'msmarco-passage-dev-subset-unicoil-tilde': 'MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL_TILDE',
     'msmarco-passage-dev-subset-distill-splade-max': 'MSMARCO_PASSAGE_DEV_SUBSET_DISTILL_SPLADE_MAX',
+    'msmarco-passage-dev-subset-splade-v3': 'MSMARCO_PASSAGE_DEV_SUBSET_SPLADE_V3',
+
     'msmarco-passage-test-subset': 'MSMARCO_PASSAGE_TEST_SUBSET',
     'msmarco-v2-doc-dev': 'MSMARCO_V2_DOC_DEV',
     'msmarco-v2-doc.dev': 'MSMARCO_V2_DOC_DEV',
