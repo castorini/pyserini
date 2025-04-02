@@ -5,8 +5,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Lassance et al. (2024) SPLADE-v3: New baselines for SPLADE.\">15</a>]"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-v3 --topics $topics --encoder naver/splade-v3 --output $output --hits 1000 --impact
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3999
             R@1K: 0.9868
@@ -26,10 +26,10 @@ conditions:
     display: "SPLADEv3 w/ Rocchio: Lucene, PyTorch"
     display-html: "SPLADEv3 w/ Rocchio: Lucene, PyTorch"
     display-row: ""
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-v3-docvectors --topics $topics --encoder naver/splade-v3 --output $output --hits 1000 --impact --rocchio
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-v3-text --topics $topics --encoder naver/splade-v3 --output $output --hits 1000 --impact --rocchio
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3613
             R@1K: 0.9839
@@ -51,8 +51,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Xiao et al. (2023) C-Pack: Packaged Resources To Advance General Chinese Embedding.\">14</a>]"
     command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --dense --hnsw --index msmarco-v1-passage.bge-base-en-v1.5.hnsw-int8 --topics $topics --onnx-encoder BgeBaseEn15 --output $output --hits 1000 --ef-search 1000
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3575
             R@1K: 0.9772
@@ -62,7 +62,7 @@ conditions:
           - MAP: 0.4454
             nDCG@10: 0.7017
             R@1K: 0.8436
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4596
@@ -74,8 +74,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Xiao et al. (2023) C-Pack: Packaged Resources To Advance General Chinese Embedding.\">14</a>]"
     command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --dense --hnsw --index msmarco-v1-passage.bge-base-en-v1.5.hnsw --topics $topics --onnx-encoder BgeBaseEn15 --output $output --hits 1000 --ef-search 1000
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3575
             R@1K: 0.9788
@@ -85,7 +85,7 @@ conditions:
           - MAP: 0.4486
             nDCG@10: 0.7016
             R@1K: 0.8441
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4626
@@ -97,8 +97,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Xiao et al. (2023) C-Pack: Packaged Resources To Advance General Chinese Embedding.\">14</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" --index msmarco-v1-passage.bge-base-en-v1.5 --topics $topics --output $output --hits 1000
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3583
             R@1K: 0.9811
@@ -108,7 +108,7 @@ conditions:
           - MAP: 0.4485
             nDCG@10: 0.7016
             R@1K: 0.8427
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4628
@@ -120,8 +120,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (CIKM&nbsp;2023) Anserini Gets Dense Retrieval: Integration of Lucene's HNSW Indexes.\">13</a>]"
     command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --dense --hnsw --index msmarco-v1-passage.cosdpr-distil.hnsw-int8 --topics $topics --onnx-encoder CosDprDistil --output $output --hits 1000 --ef-search 1000
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3899
             R@1K: 0.9764
@@ -131,7 +131,7 @@ conditions:
           - MAP: 0.4664
             nDCG@10: 0.7247
             R@1K: 0.8218
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4871
@@ -143,8 +143,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (CIKM&nbsp;2023) Anserini Gets Dense Retrieval: Integration of Lucene's HNSW Indexes.\">13</a>]"
     command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --dense --hnsw --index msmarco-v1-passage.cosdpr-distil.hnsw --topics $topics --onnx-encoder CosDprDistil --output $output --hits 1000 --ef-search 1000
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3887
             R@1K: 0.9765
@@ -154,7 +154,7 @@ conditions:
           - MAP: 0.4660
             nDCG@10: 0.7250
             R@1K: 0.8222
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4876
@@ -166,8 +166,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (CIKM&nbsp;2023) Anserini Gets Dense Retrieval: Integration of Lucene's HNSW Indexes.\">13</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.cosdpr-distil --topics $topics --encoder castorini/cosdpr-distil --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3896
             R@1K: 0.9796
@@ -177,7 +177,7 @@ conditions:
           - MAP: 0.4656
             nDCG@10: 0.7250
             R@1K: 0.8201
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4876
@@ -189,8 +189,8 @@ conditions:
     display-row: ""
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-pp-ed-text --topics $topics --encoder naver/splade-cocondenser-ensembledistil --output $output --hits 1000 --impact --rocchio
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3301
             R@1K: 0.9811
@@ -200,7 +200,7 @@ conditions:
           - MAP: 0.5140
             nDCG@10: 0.7119
             R@1K: 0.8799
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.5084
@@ -212,8 +212,8 @@ conditions:
     display-row: ""
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-pp-sd-text --topics $topics --encoder naver/splade-cocondenser-selfdistil --output $output --hits 1000 --impact --rocchio
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3278
             R@1K: 0.9824
@@ -223,7 +223,7 @@ conditions:
           - MAP: 0.5072
             nDCG@10: 0.7156
             R@1K: 0.8918
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.5335
@@ -235,8 +235,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Formal et al. (SIGIR 2022) From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.\">2</a>]"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-pp-ed --topics $topics --encoder naver/splade-cocondenser-ensembledistil --output $output --hits 1000 --impact
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3828
             R@1K: 0.9831
@@ -246,7 +246,7 @@ conditions:
           - MAP: 0.5050
             nDCG@10: 0.7308
             R@1K: 0.8728
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4999
@@ -258,8 +258,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Formal et al. (SIGIR 2022) From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.\">2</a>]"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-pp-sd --topics $topics --encoder naver/splade-cocondenser-selfdistil --output $output --hits 1000 --impact
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3776
             R@1K: 0.9846
@@ -269,7 +269,7 @@ conditions:
           - MAP: 0.4998
             nDCG@10: 0.7358
             R@1K: 0.8761
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.5139
@@ -281,8 +281,8 @@ conditions:
     display-row: ""
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-pp-ed-text --topics $topics --onnx-encoder SpladePlusPlusEnsembleDistil --output $output --hits 1000 --impact --rocchio
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3300
             R@1K: 0.9811
@@ -292,7 +292,7 @@ conditions:
           - MAP: 0.5140
             nDCG@10: 0.7119
             R@1K: 0.8799
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.5084
@@ -304,8 +304,8 @@ conditions:
     display-row: ""
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-pp-sd-text --topics $topics --onnx-encoder SpladePlusPlusSelfDistil --output $output --hits 1000 --impact --rocchio
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3278
             R@1K: 0.9824
@@ -315,7 +315,7 @@ conditions:
           - MAP: 0.5072
             nDCG@10: 0.7156
             R@1K: 0.8918
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.5335
@@ -326,8 +326,8 @@ conditions:
     display-html: "BM25+Rocchio w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=2.18, <i>b</i>=0.86): Lucene"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.d2q-t5-docvectors --topics $topics --output $output --bm25 --rocchio
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.2395
             R@1K: 0.9535
@@ -337,7 +337,7 @@ conditions:
           - MAP: 0.4339
             nDCG@10: 0.6559
             R@1K: 0.8465
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4376
@@ -348,8 +348,8 @@ conditions:
     display-html: "BM25+Rocchio w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4): Lucene"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.d2q-t5-docvectors --topics $topics --output $output --bm25 --rocchio --k1 0.9 --b 0.4
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.2158
             R@1K: 0.9467
@@ -359,7 +359,7 @@ conditions:
           - MAP: 0.4469
             nDCG@10: 0.6538
             R@1K: 0.8855
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4246
@@ -370,8 +370,8 @@ conditions:
     display-html: "BM25+Rocchio (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4): Lucene"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage --topics $topics --output $output --bm25 --k1 0.9 --b 0.4 --rocchio
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.1595
             R@1K: 0.8620
@@ -381,7 +381,7 @@ conditions:
           - MAP: 0.3474
             nDCG@10: 0.5275
             R@1K: 0.8007
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.3115
@@ -392,8 +392,8 @@ conditions:
     display-html: "BM25+Rocchio (<i>k<sub><small>1</small></sub></i>=0.82, <i>b</i>=0.68): Lucene"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage --topics $topics --output $output --bm25 --rocchio
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.1684
             R@1K: 0.8726
@@ -403,7 +403,7 @@ conditions:
           - MAP: 0.3396
             nDCG@10: 0.5275
             R@1K: 0.7948
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.3120
@@ -415,8 +415,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Hofstätter et al. (SIGIR&nbsp;2021) Efficiently Teaching an Effective Dense Retriever with Balanced Topic Aware Sampling.\">5</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoded-queries distilbert_tas_b-$topics --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3444
             R@1K: 0.9771
@@ -426,7 +426,7 @@ conditions:
           - MAP: 0.4590
             nDCG@10: 0.7210
             R@1K: 0.8406
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4698
@@ -438,8 +438,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Hofstätter et al. (SIGIR&nbsp;2021) Efficiently Teaching an Effective Dense Retriever with Balanced Topic Aware Sampling.\">5</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3444
             R@1K: 0.9771
@@ -449,7 +449,7 @@ conditions:
           - MAP: 0.4590
             nDCG@10: 0.7210
             R@1K: 0.8406
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4698
@@ -461,8 +461,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output --prf-method avg --prf-depth 3
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.2910
             R@1K: 0.9613
@@ -472,7 +472,7 @@ conditions:
           - MAP: 0.4856
             nDCG@10: 0.7190
             R@1K: 0.8517
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4887
@@ -484,8 +484,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco --output $output --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.2896
             R@1K: 0.9702
@@ -495,7 +495,7 @@ conditions:
           - MAP: 0.4974
             nDCG@10: 0.7231
             R@1K: 0.8775
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4879
@@ -507,8 +507,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Hofstätter et al. (2020) Improving Efficient Neural Ranking Models with Cross-Architecture Knowledge Distillation.\">4</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.distilbert-dot-margin-mse-t2 --topics $topics --encoded-queries distilbert_kd-$topics --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3251
             R@1K: 0.9553
@@ -518,7 +518,7 @@ conditions:
           - MAP: 0.4053
             nDCG@10: 0.6994
             R@1K: 0.7653
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4159
@@ -530,8 +530,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Hofstätter et al. (2020) Improving Efficient Neural Ranking Models with Cross-Architecture Knowledge Distillation.\">4</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.distilbert-dot-margin-mse-t2 --topics $topics --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3251
             R@1K: 0.9553
@@ -541,7 +541,7 @@ conditions:
           - MAP: 0.4053
             nDCG@10: 0.6994
             R@1K: 0.7653
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4159
@@ -553,8 +553,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Xiong et al. (ICLR 2021) Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval.\">3</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.ance --topics $topics --encoded-queries ance-$topics --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3302
             R@1K: 0.9584
@@ -564,7 +564,7 @@ conditions:
           - MAP: 0.3710
             nDCG@10: 0.6452
             R@1K: 0.7554
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4076
@@ -576,8 +576,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Xiong et al. (ICLR 2021) Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval.\">3</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3301
             R@1K: 0.9587
@@ -587,7 +587,7 @@ conditions:
           - MAP: 0.3710
             nDCG@10: 0.6452
             R@1K: 0.7554
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4076
@@ -599,8 +599,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output --prf-method avg --prf-depth 3
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3075
             R@1K: 0.9490
@@ -610,7 +610,7 @@ conditions:
           - MAP: 0.4247
             nDCG@10: 0.6532
             R@1K: 0.7739
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4325
@@ -622,8 +622,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.ance --topics $topics --encoder castorini/ance-msmarco-passage --output $output --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3048
             R@1K: 0.9547
@@ -633,7 +633,7 @@ conditions:
           - MAP: 0.4211
             nDCG@10: 0.6539
             R@1K: 0.7825
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4315
@@ -645,8 +645,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Reimers et al. (EMNLP&nbsp;2019) Sentence-BERT: Sentence Embeddings using Siamese BERT-Network.\">10</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.sbert --topics $topics --encoder sentence-transformers/msmarco-distilbert-base-v3 --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3314
             R@1K: 0.9558
@@ -656,7 +656,7 @@ conditions:
           - MAP: 0.4060
             nDCG@10: 0.6930
             R@1K: 0.7872
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4124
@@ -668,8 +668,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.sbert --topics $topics --encoder sentence-transformers/msmarco-distilbert-base-v3 --output $output --prf-method avg --prf-depth 3
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3035
             R@1K: 0.9446
@@ -679,7 +679,7 @@ conditions:
           - MAP: 0.4354
             nDCG@10: 0.7001
             R@1K: 0.7937
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4258
@@ -691,8 +691,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.sbert --topics $topics --encoder sentence-transformers/msmarco-distilbert-base-v3 --output $output --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.2972
             R@1K: 0.9529
@@ -702,7 +702,7 @@ conditions:
           - MAP: 0.4371
             nDCG@10: 0.6952
             R@1K: 0.7941
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4342
@@ -713,8 +713,8 @@ conditions:
     display-html: "BM25 (<i>k<sub><small>1</small></sub></i>=0.82, <i>b</i>=0.68): Lucene"
     command: python -m pyserini.search.lucene --topics $topics --index msmarco-v1-passage --output $output --bm25
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.1875
             R@1K: 0.8573
@@ -724,7 +724,7 @@ conditions:
           - MAP: 0.2903
             nDCG@10: 0.4973
             R@1K: 0.7450
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.2876
@@ -735,8 +735,8 @@ conditions:
     display-html: "BM25+RM3 (<i>k<sub><small>1</small></sub></i>=0.82, <i>b</i>=0.68): Lucene"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage --topics $topics --output $output --bm25 --rm3
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.1646
             R@1K: 0.8704
@@ -746,7 +746,7 @@ conditions:
           - MAP: 0.3339
             nDCG@10: 0.5147
             R@1K: 0.7950
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.3017
@@ -758,8 +758,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(1a)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage --topics $topics --output $output --bm25 --k1 0.9 --b 0.4
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.1840
             R@1K: 0.8526
@@ -769,7 +769,7 @@ conditions:
           - MAP: 0.3013
             nDCG@10: 0.5058
             R@1K: 0.7501
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.2856
@@ -781,8 +781,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(1b)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage --topics $topics --output $output --bm25 --k1 0.9 --b 0.4 --rm3
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.1566
             R@1K: 0.8606
@@ -792,7 +792,7 @@ conditions:
           - MAP: 0.3416
             nDCG@10: 0.5216
             R@1K: 0.8136
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.3006
@@ -803,8 +803,8 @@ conditions:
     display-html: "BM25 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=2.18, <i>b</i>=0.86): Lucene"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.d2q-t5 --topics $topics --output $output --bm25
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.2816
             R@1K: 0.9506
@@ -814,7 +814,7 @@ conditions:
           - MAP: 0.4046
             nDCG@10: 0.6336
             R@1K: 0.8134
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4171
@@ -826,8 +826,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(2a)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.d2q-t5 --topics $topics --output $output --bm25 --k1 0.9 --b 0.4
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.2723
             R@1K: 0.9470
@@ -837,7 +837,7 @@ conditions:
           - MAP: 0.4034
             nDCG@10: 0.6417
             R@1K: 0.8310
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4074
@@ -848,8 +848,8 @@ conditions:
     display-html: "BM25+RM3 w/ doc2query-T5 (<i>k<sub><small>1</small></sub></i>=2.18, <i>b</i>=0.86): Lucene"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.d2q-t5-docvectors --topics $topics --output $output --bm25 --rm3
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.2382
             R@1K: 0.9528
@@ -859,7 +859,7 @@ conditions:
           - MAP: 0.4377
             nDCG@10: 0.6537
             R@1K: 0.8443
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4348
@@ -871,8 +871,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(2b)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.d2q-t5-docvectors --topics $topics --output $output --bm25 --rm3 --k1 0.9 --b 0.4
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.2139
             R@1K: 0.9460
@@ -882,7 +882,7 @@ conditions:
           - MAP: 0.4483
             nDCG@10: 0.6586
             R@1K: 0.8863
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4286
@@ -893,8 +893,8 @@ conditions:
     display-html: "uniCOIL (w/ doc2query-T5): Lucene, PyTorch"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.unicoil --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --hits 1000 --impact
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3509
             R@1K: 0.9583
@@ -904,7 +904,7 @@ conditions:
           - MAP: 0.4612
             nDCG@10: 0.7024
             R@1K: 0.8292
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4430
@@ -915,8 +915,8 @@ conditions:
     display-html: "uniCOIL (w/ doc2query-T5): Lucene, ONNX"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.unicoil --topics $topics --onnx-encoder UniCoil --output $output --hits 1000 --impact
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3509
             R@1K: 0.9583
@@ -926,7 +926,7 @@ conditions:
           - MAP: 0.4612
             nDCG@10: 0.7024
             R@1K: 0.8292
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4430
@@ -938,8 +938,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(3b)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.unicoil --topics $topics --output $output --hits 1000 --impact
     topics:
-      - topic_key: msmarco-passage-dev-subset-unicoil
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev-unicoil
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3516
             R@1K: 0.9582
@@ -949,7 +949,7 @@ conditions:
           - MAP: 0.4612
             nDCG@10: 0.7024
             R@1K: 0.8292
-      - topic_key: dl20-unicoil
+      - topic_key: dl20-passage-unicoil
         eval_key: dl20-passage
         scores:
           - MAP: 0.4430
@@ -960,8 +960,8 @@ conditions:
     display-html: "uniCOIL (noexp): Lucene, PyTorch"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.unicoil-noexp --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --hits 1000 --impact
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3153
             R@1K: 0.9239
@@ -971,7 +971,7 @@ conditions:
           - MAP: 0.4033
             nDCG@10: 0.6433
             R@1K: 0.7752
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4021
@@ -982,8 +982,8 @@ conditions:
     display-html: "uniCOIL (noexp): Lucene, ONNX"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.unicoil-noexp --topics $topics --onnx-encoder UniCoil --output $output --hits 1000 --impact
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3120
             R@1K: 0.9239
@@ -993,7 +993,7 @@ conditions:
           - MAP: 0.4059
             nDCG@10: 0.6535
             R@1K: 0.7811
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.3908
@@ -1005,8 +1005,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(3a)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.unicoil-noexp --topics $topics --output $output --hits 1000 --impact
     topics:
-      - topic_key: msmarco-passage-dev-subset-unicoil-noexp
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev-unicoil-noexp
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3153
             R@1K: 0.9239
@@ -1016,7 +1016,7 @@ conditions:
           - MAP: 0.4033
             nDCG@10: 0.6433
             R@1K: 0.7752
-      - topic_key: dl20-unicoil-noexp
+      - topic_key: dl20-passage-unicoil-noexp
         eval_key: dl20-passage
         scores:
           - MAP: 0.4021
@@ -1028,8 +1028,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Formal et al. (SIGIR 2022) From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.\">2</a>]"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-pp-ed --topics $topics --onnx-encoder SpladePlusPlusEnsembleDistil --output $output --hits 1000 --impact
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3828
             R@1K: 0.9831
@@ -1039,7 +1039,7 @@ conditions:
           - MAP: 0.5050
             nDCG@10: 0.7308
             R@1K: 0.8728
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4999
@@ -1051,8 +1051,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Formal et al. (SIGIR 2022) From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.\">2</a>]"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.splade-pp-sd --topics $topics --onnx-encoder SpladePlusPlusSelfDistil --output $output --hits 1000 --impact
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3776
             R@1K: 0.9846
@@ -1062,7 +1062,7 @@ conditions:
           - MAP: 0.4998
             nDCG@10: 0.7358
             R@1K: 0.8761
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.5139
@@ -1074,8 +1074,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Lin et al. (2021) In-Batch Negatives for Knowledge Distillation with Tightly-Coupled Teachers for Dense Retrieval.\">6</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoded-queries tct_colbert-v2-hnp-$topics --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3584
             R@1K: 0.9695
@@ -1085,7 +1085,7 @@ conditions:
           - MAP: 0.4469
             nDCG@10: 0.7204
             R@1K: 0.8261
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4754
@@ -1097,8 +1097,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Lin et al. (2021) In-Batch Negatives for Knowledge Distillation with Tightly-Coupled Teachers for Dense Retrieval.\">6</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3584
             R@1K: 0.9695
@@ -1108,7 +1108,7 @@ conditions:
           - MAP: 0.4469
             nDCG@10: 0.7204
             R@1K: 0.8261
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4754
@@ -1120,8 +1120,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output --prf-method avg --prf-depth 3
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3121
             R@1K: 0.9585
@@ -1131,7 +1131,7 @@ conditions:
           - MAP: 0.4879
             nDCG@10: 0.7312
             R@1K: 0.8586
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4811
@@ -1143,8 +1143,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (TOIS 2023) Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.\">9</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoder castorini/tct_colbert-v2-hnp-msmarco --output $output --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3125
             R@1K: 0.9659
@@ -1154,7 +1154,7 @@ conditions:
           - MAP: 0.4883
             nDCG@10: 0.7111
             R@1K: 0.8694
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4860
@@ -1166,8 +1166,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Lin et al. (2021) In-Batch Negatives for Knowledge Distillation with Tightly-Coupled Teachers for Dense Retrieval.\">6</a>]"
     command: python -m pyserini.search.hybrid dense --index msmarco-v1-passage.tct_colbert-v2-hnp --encoder castorini/tct_colbert-v2-hnp-msmarco sparse --index msmarco-v1-passage fusion --alpha 0.06 run --threads ${dense_threads} --batch-size ${dense_batch_size} --topics $topics --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3683
             R@1K: 0.9707
@@ -1177,7 +1177,7 @@ conditions:
           - MAP: 0.4697
             nDCG@10: 0.7320
             R@1K: 0.8802
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4859
@@ -1189,8 +1189,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Lin et al. (2021) In-Batch Negatives for Knowledge Distillation with Tightly-Coupled Teachers for Dense Retrieval.\">6</a>]"
     command: python -m pyserini.search.hybrid dense --index msmarco-v1-passage.tct_colbert-v2-hnp --encoder castorini/tct_colbert-v2-hnp-msmarco sparse --index msmarco-v1-passage.d2q-t5 fusion --alpha 0.1 run --threads ${dense_threads} --batch-size ${dense_batch_size} --topics $topics --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3731
             R@1K: 0.9759
@@ -1200,7 +1200,7 @@ conditions:
           - MAP: 0.4829
             nDCG@10: 0.7376
             R@1K: 0.8614
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.5078
@@ -1212,8 +1212,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (SIGIR 2023) SLIM: Sparsified Late Interaction for Multi-Vector Retrieval with Inverted Indexes.\">7</a>]"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.slimr --topics $topics --encoder castorini/slimr-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr --output $output --output-format msmarco --hits 1000 --impact --min-idf 3
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3581
             R@1K: 0.9622
@@ -1223,7 +1223,7 @@ conditions:
           - MAP: 0.4509
             nDCG@10: 0.7010
             R@1K: 0.8241
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4419
@@ -1235,8 +1235,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Li et al. (SIGIR 2023) SLIM: Sparsified Late Interaction for Multi-Vector Retrieval with Inverted Indexes.\">7</a>]"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.slimr-pp --topics $topics --encoder castorini/slimr-pp-msmarco-passage --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr-pp --output $output --output-format msmarco --hits 1000 --impact --min-idf 3
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.4032
             R@1K: 0.9680
@@ -1246,7 +1246,7 @@ conditions:
           - MAP: 0.4687
             nDCG@10: 0.7140
             R@1K: 0.8415
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4906
@@ -1258,8 +1258,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Lin et al. (TACL&nbsp;2023) Aggretriever: A Simple Approach to Aggregate Textual Representation for Robust Dense Passage Retrieval.\">8</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.aggretriever-distilbert --topics $topics --encoder castorini/aggretriever-distilbert --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3412
             R@1K: 0.9604
@@ -1269,7 +1269,7 @@ conditions:
           - MAP: 0.4301
             nDCG@10: 0.6816
             R@1K: 0.8023
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4329
@@ -1281,8 +1281,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Lin et al. (TACL&nbsp;2023) Aggretriever: A Simple Approach to Aggregate Textual Representation for Robust Dense Passage Retrieval.\">8</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.aggretriever-cocondenser --topics $topics --encoder castorini/aggretriever-cocondenser --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3619
             R@1K: 0.9735
@@ -1292,7 +1292,7 @@ conditions:
           - MAP: 0.4350
             nDCG@10: 0.6837
             R@1K: 0.8078
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4710
@@ -1304,8 +1304,8 @@ conditions:
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Lin et al. (2023) Vector Search with OpenAI Embeddings: Lucene Is All You Need.\">11</a>]"
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries openai-ada2-$topics --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3435
             R@1K: 0.9858
@@ -1315,7 +1315,7 @@ conditions:
           - MAP: 0.4788
             nDCG@10: 0.7035
             R@1K: 0.8629
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4771
@@ -1333,7 +1333,7 @@ conditions:
           - MAP: 0.5125
             nDCG@10: 0.7163
             R@1K: 0.9002
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.4938
@@ -1345,8 +1345,8 @@ conditions:
     display-row: ""
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.openai-text-embedding-3-large --topics $topics --encoded-queries openai-text-embedding-3-large-$topics --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3342
             R@1K: 0.9885
@@ -1356,7 +1356,7 @@ conditions:
           - MAP: 0.5259
             nDCG@10: 0.7173
             R@1K: 0.8991
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.5134
@@ -1368,8 +1368,8 @@ conditions:
     display-row: ""
     command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.cohere-embed-english-v3.0 --topics $topics --encoded-queries cohere-embed-english-v3.0-$topics --output $output
     topics:
-      - topic_key: msmarco-passage-dev-subset
-        eval_key: msmarco-passage-dev-subset
+      - topic_key: msmarco-v1-passage-dev
+        eval_key: msmarco-v1-passage-dev
         scores:
           - MRR@10: 0.3660
             R@1K: 0.9785
@@ -1379,7 +1379,7 @@ conditions:
           - MAP: 0.4884
             nDCG@10: 0.6956
             R@1K: 0.8630
-      - topic_key: dl20
+      - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
           - MAP: 0.5067
