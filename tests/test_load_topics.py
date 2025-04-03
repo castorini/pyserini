@@ -200,6 +200,32 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 6980)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+        topics = search.get_topics('msmarco-passage-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage.dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v1-passage-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v1-passage.dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage-test-subset')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6837)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_msmarco_unicoil(self):
         topics = search.get_topics('msmarco-passage-dev-subset-unicoil')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 6980)
@@ -208,11 +234,6 @@ class TestLoadTopics(unittest.TestCase):
         topics = search.get_topics('msmarco-passage-dev-subset-unicoil-noexp')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 6980)
-        self.assertTrue(isinstance(next(iter(topics.keys())), int))
-
-        topics = search.get_topics('msmarco-passage-test-subset')
-        self.assertIsNotNone(topics)
-        self.assertEqual(len(topics), 6837)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
     def test_msmarco_passage_deepimpact(self):

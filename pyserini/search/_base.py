@@ -128,8 +128,10 @@ topics_mapping = {
     'msmarco-doc-test': 'MSMARCO_DOC_TEST',
 
     'msmarco-passage-dev-subset': 'MSMARCO_PASSAGE_DEV_SUBSET',
-    'msmarco-v1-passage.dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
+    'msmarco-passage-dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
     'msmarco-passage.dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
+    'msmarco-v1-passage-dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
+    'msmarco-v1-passage.dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
 
     'msmarco-passage-dev-subset-deepimpact': 'MSMARCO_PASSAGE_DEV_SUBSET_DEEPIMPACT',
     'msmarco-passage-dev-subset-unicoil': 'MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL',
