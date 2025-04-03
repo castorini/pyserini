@@ -73,7 +73,6 @@ models = {
      'splade-v3-pytorch',
      'splade-v3-rocchio-pytorch',
      '',
-     'ance',
      'ance-pytorch',
      'ance-avg-prf-pytorch',
      'ance-rocchio-prf-pytorch',
@@ -82,14 +81,11 @@ models = {
      'sbert-avg-prf-pytorch',
      'sbert-rocchio-prf-pytorch',
      '',
-     'distilbert-kd',
      'distilbert-kd-pytorch',
-     'distilbert-kd-tasb',
      'distilbert-kd-tasb-pytorch',
      'distilbert-kd-tasb-avg-prf-pytorch',
      'distilbert-kd-tasb-rocchio-prf-pytorch',
      '',
-     'tct_colbert-v2-hnp',
      'tct_colbert-v2-hnp-pytorch',
      'tct_colbert-v2-hnp-avg-prf-pytorch',
      'tct_colbert-v2-hnp-rocchio-prf-pytorch',
@@ -191,7 +187,7 @@ models = {
 
 trec_eval_metric_definitions = {
     'msmarco-v1-passage': {
-        'msmarco-passage-dev-subset': {
+        'msmarco-v1-passage-dev': {
             'MRR@10': '-c -M 10 -m recip_rank',
             'R@1K': '-c -m recall.1000'
         },

@@ -409,29 +409,6 @@ conditions:
           - MAP: 0.3120
             nDCG@10: 0.4908
             R@1K: 0.8327
-  - name: distilbert-kd-tasb
-    display: "DistilBERT KD TASB: Faiss flat, cached queries"
-    display-html: "DistilBERT KD TASB: Faiss flat, cached queries"
-    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Hofstätter et al. (SIGIR&nbsp;2021) Efficiently Teaching an Effective Dense Retriever with Balanced Topic Aware Sampling.\">5</a>]"
-    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.distilbert-dot-tas_b-b256 --topics $topics --encoded-queries distilbert_tas_b-$topics --output $output
-    topics:
-      - topic_key: msmarco-v1-passage-dev
-        eval_key: msmarco-v1-passage-dev
-        scores:
-          - MRR@10: 0.3444
-            R@1K: 0.9771
-      - topic_key: dl19-passage
-        eval_key: dl19-passage
-        scores:
-          - MAP: 0.4590
-            nDCG@10: 0.7210
-            R@1K: 0.8406
-      - topic_key: dl20-passage
-        eval_key: dl20-passage
-        scores:
-          - MAP: 0.4698
-            nDCG@10: 0.6854
-            R@1K: 0.8727
   - name: distilbert-kd-tasb-pytorch
     display: "DistilBERT KD TASB: Faiss flat, PyTorch"
     display-html: "DistilBERT KD TASB: Faiss flat, PyTorch"
@@ -501,29 +478,6 @@ conditions:
           - MAP: 0.4879
             nDCG@10: 0.7083
             R@1K: 0.8926
-  - name: distilbert-kd
-    display: "DistilBERT KD: Faiss flat, cached queries"
-    display-html: "DistilBERT KD: Faiss flat, cached queries"
-    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Hofstätter et al. (2020) Improving Efficient Neural Ranking Models with Cross-Architecture Knowledge Distillation.\">4</a>]"
-    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.distilbert-dot-margin-mse-t2 --topics $topics --encoded-queries distilbert_kd-$topics --output $output
-    topics:
-      - topic_key: msmarco-v1-passage-dev
-        eval_key: msmarco-v1-passage-dev
-        scores:
-          - MRR@10: 0.3251
-            R@1K: 0.9553
-      - topic_key: dl19-passage
-        eval_key: dl19-passage
-        scores:
-          - MAP: 0.4053
-            nDCG@10: 0.6994
-            R@1K: 0.7653
-      - topic_key: dl20-passage
-        eval_key: dl20-passage
-        scores:
-          - MAP: 0.4159
-            nDCG@10: 0.6447
-            R@1K: 0.7953
   - name: distilbert-kd-pytorch
     display: "DistilBERT KD: Faiss flat, PyTorch"
     display-html: "DistilBERT KD: Faiss flat, PyTorch"
@@ -547,29 +501,6 @@ conditions:
           - MAP: 0.4159
             nDCG@10: 0.6447
             R@1K: 0.7953
-  - name: ance
-    display: "ANCE: Faiss flat, cached queries"
-    display-html: "ANCE: Faiss flat, cached queries"
-    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Xiong et al. (ICLR 2021) Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval.\">3</a>]"
-    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.ance --topics $topics --encoded-queries ance-$topics --output $output
-    topics:
-      - topic_key: msmarco-v1-passage-dev
-        eval_key: msmarco-v1-passage-dev
-        scores:
-          - MRR@10: 0.3302
-            R@1K: 0.9584
-      - topic_key: dl19-passage
-        eval_key: dl19-passage
-        scores:
-          - MAP: 0.3710
-            nDCG@10: 0.6452
-            R@1K: 0.7554
-      - topic_key: dl20-passage
-        eval_key: dl20-passage
-        scores:
-          - MAP: 0.4076
-            nDCG@10: 0.6458
-            R@1K: 0.7764
   - name: ance-pytorch
     display: "ANCE: Faiss flat, PyTorch"
     display-html: "ANCE: Faiss flat, PyTorch"
@@ -1068,29 +999,6 @@ conditions:
           - MAP: 0.5139
             nDCG@10: 0.7282
             R@1K: 0.9024
-  - name: tct_colbert-v2-hnp
-    display: "TCT_ColBERT-V2-HN+: Faiss flat, cached queries"
-    display-html: "TCT_ColBERT-V2-HN+: Faiss flat, cached queries"
-    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Lin et al. (2021) In-Batch Negatives for Knowledge Distillation with Tightly-Coupled Teachers for Dense Retrieval.\">6</a>]"
-    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.tct_colbert-v2-hnp --topics $topics --encoded-queries tct_colbert-v2-hnp-$topics --output $output
-    topics:
-      - topic_key: msmarco-v1-passage-dev
-        eval_key: msmarco-v1-passage-dev
-        scores:
-          - MRR@10: 0.3584
-            R@1K: 0.9695
-      - topic_key: dl19-passage
-        eval_key: dl19-passage
-        scores:
-          - MAP: 0.4469
-            nDCG@10: 0.7204
-            R@1K: 0.8261
-      - topic_key: dl20-passage
-        eval_key: dl20-passage
-        scores:
-          - MAP: 0.4754
-            nDCG@10: 0.6882
-            R@1K: 0.8429
   - name: tct_colbert-v2-hnp-pytorch
     display: "TCT_ColBERT-V2-HN+: Faiss flat, PyTorch"
     display-html: "TCT_ColBERT-V2-HN+: Faiss flat, PyTorch"
