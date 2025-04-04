@@ -265,16 +265,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --output run.msmarco-v1-passage.bm25-default.dev.txt \
   --bm25 --k1 0.9 --b 0.4
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-default.dev.txt
 </code></pre>
   </blockquote>
@@ -377,16 +377,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --output run.msmarco-v1-passage.bm25-rm3-default.dev.txt \
   --bm25 --k1 0.9 --b 0.4 --rm3
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rm3-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rm3-default.dev.txt
 </code></pre>
   </blockquote>
@@ -489,16 +489,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --output run.msmarco-v1-passage.bm25-rocchio-default.dev.txt \
   --bm25 --k1 0.9 --b 0.4 --rocchio
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rocchio-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rocchio-default.dev.txt
 </code></pre>
   </blockquote>
@@ -598,7 +598,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --index msmarco-v1-passage \
   --output run.msmarco-v1-passage.bm25-tuned.dev.txt \
   --bm25
@@ -606,9 +606,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-tuned.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-tuned.dev.txt
 </code></pre>
   </blockquote>
@@ -711,16 +711,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --output run.msmarco-v1-passage.bm25-rm3-tuned.dev.txt \
   --bm25 --rm3
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rm3-tuned.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rm3-tuned.dev.txt
 </code></pre>
   </blockquote>
@@ -823,16 +823,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --output run.msmarco-v1-passage.bm25-rocchio-tuned.dev.txt \
   --bm25 --rocchio
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rocchio-tuned.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rocchio-tuned.dev.txt
 </code></pre>
   </blockquote>
@@ -936,16 +936,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.d2q-t5 \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --output run.msmarco-v1-passage.bm25-d2q-t5-default.dev.txt \
   --bm25 --k1 0.9 --b 0.4
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-d2q-t5-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-d2q-t5-default.dev.txt
 </code></pre>
   </blockquote>
@@ -1048,16 +1048,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.d2q-t5-docvectors \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --output run.msmarco-v1-passage.bm25-rm3-d2q-t5-default.dev.txt \
   --bm25 --rm3 --k1 0.9 --b 0.4
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rm3-d2q-t5-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rm3-d2q-t5-default.dev.txt
 </code></pre>
   </blockquote>
@@ -1160,16 +1160,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.d2q-t5-docvectors \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --output run.msmarco-v1-passage.bm25-rocchio-d2q-t5-default.dev.txt \
   --bm25 --rocchio --k1 0.9 --b 0.4
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rocchio-d2q-t5-default.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rocchio-d2q-t5-default.dev.txt
 </code></pre>
   </blockquote>
@@ -1273,16 +1273,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.d2q-t5 \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --output run.msmarco-v1-passage.bm25-d2q-t5-tuned.dev.txt \
   --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-d2q-t5-tuned.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-d2q-t5-tuned.dev.txt
 </code></pre>
   </blockquote>
@@ -1385,16 +1385,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.d2q-t5-docvectors \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --output run.msmarco-v1-passage.bm25-rm3-d2q-t5-tuned.dev.txt \
   --bm25 --rm3
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rm3-d2q-t5-tuned.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rm3-d2q-t5-tuned.dev.txt
 </code></pre>
   </blockquote>
@@ -1497,16 +1497,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.d2q-t5-docvectors \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --output run.msmarco-v1-passage.bm25-rocchio-d2q-t5-tuned.dev.txt \
   --bm25 --rocchio
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rocchio-d2q-t5-tuned.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bm25-rocchio-d2q-t5-tuned.dev.txt
 </code></pre>
   </blockquote>
@@ -1562,7 +1562,7 @@ Command to generate run on TREC 2019 queries:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.unicoil \
-  --topics dl19-passage-unicoil \
+  --topics dl19-passage.unicoil \
   --output run.msmarco-v1-passage.unicoil.dl19.txt \
   --hits 1000 --impact
 </code></pre></blockquote>
@@ -1586,7 +1586,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.unicoil \
-  --topics dl20-passage-unicoil \
+  --topics dl20-passage.unicoil \
   --output run.msmarco-v1-passage.unicoil.dl20.txt \
   --hits 1000 --impact
 </code></pre></blockquote>
@@ -1610,16 +1610,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.unicoil \
-  --topics msmarco-v1-passage-dev-unicoil \
+  --topics msmarco-v1-passage.dev.unicoil \
   --output run.msmarco-v1-passage.unicoil.dev.txt \
   --hits 1000 --impact
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.unicoil.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.unicoil.dev.txt
 </code></pre>
   </blockquote>
@@ -1724,7 +1724,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.unicoil \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder castorini/unicoil-msmarco-passage \
   --output run.msmarco-v1-passage.unicoil-pytorch.dev.txt \
   --hits 1000 --impact
@@ -1732,9 +1732,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.unicoil-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.unicoil-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -1839,7 +1839,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.unicoil \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --onnx-encoder UniCoil \
   --output run.msmarco-v1-passage.unicoil-onnx.dev.txt \
   --hits 1000 --impact
@@ -1847,9 +1847,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.unicoil-onnx.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.unicoil-onnx.dev.txt
 </code></pre>
   </blockquote>
@@ -1905,7 +1905,7 @@ Command to generate run on TREC 2019 queries:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.unicoil-noexp \
-  --topics dl19-passage-unicoil-noexp \
+  --topics dl19-passage.unicoil-noexp \
   --output run.msmarco-v1-passage.unicoil-noexp.dl19.txt \
   --hits 1000 --impact
 </code></pre></blockquote>
@@ -1929,7 +1929,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.unicoil-noexp \
-  --topics dl20-passage-unicoil-noexp \
+  --topics dl20-passage.unicoil-noexp \
   --output run.msmarco-v1-passage.unicoil-noexp.dl20.txt \
   --hits 1000 --impact
 </code></pre></blockquote>
@@ -1953,16 +1953,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.unicoil-noexp \
-  --topics msmarco-v1-passage-dev-unicoil-noexp \
+  --topics msmarco-v1-passage.dev.unicoil-noexp \
   --output run.msmarco-v1-passage.unicoil-noexp.dev.txt \
   --hits 1000 --impact
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.unicoil-noexp.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.unicoil-noexp.dev.txt
 </code></pre>
   </blockquote>
@@ -2067,7 +2067,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.unicoil-noexp \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder castorini/unicoil-noexp-msmarco-passage \
   --output run.msmarco-v1-passage.unicoil-noexp-pytorch.dev.txt \
   --hits 1000 --impact
@@ -2075,9 +2075,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.unicoil-noexp-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.unicoil-noexp-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -2182,7 +2182,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.unicoil-noexp \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --onnx-encoder UniCoil \
   --output run.msmarco-v1-passage.unicoil-noexp-onnx.dev.txt \
   --hits 1000 --impact
@@ -2190,9 +2190,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.unicoil-noexp-onnx.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.unicoil-noexp-onnx.dev.txt
 </code></pre>
   </blockquote>
@@ -2298,7 +2298,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.splade-pp-ed \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder naver/splade-cocondenser-ensembledistil \
   --output run.msmarco-v1-passage.splade-pp-ed-pytorch.dev.txt \
   --hits 1000 --impact
@@ -2306,9 +2306,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-ed-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-ed-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -2413,7 +2413,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.splade-pp-ed \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --onnx-encoder SpladePlusPlusEnsembleDistil \
   --output run.msmarco-v1-passage.splade-pp-ed-onnx.dev.txt \
   --hits 1000 --impact
@@ -2421,9 +2421,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-ed-onnx.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-ed-onnx.dev.txt
 </code></pre>
   </blockquote>
@@ -2528,7 +2528,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.splade-pp-ed-text \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder naver/splade-cocondenser-ensembledistil \
   --output run.msmarco-v1-passage.splade-pp-ed-rocchio-pytorch.dev.txt \
   --hits 1000 --impact --rocchio
@@ -2536,9 +2536,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-ed-rocchio-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-ed-rocchio-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -2643,7 +2643,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.splade-pp-ed-text \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --onnx-encoder SpladePlusPlusEnsembleDistil \
   --output run.msmarco-v1-passage.splade-pp-ed-rocchio-onnx.dev.txt \
   --hits 1000 --impact --rocchio
@@ -2651,9 +2651,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-ed-rocchio-onnx.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-ed-rocchio-onnx.dev.txt
 </code></pre>
   </blockquote>
@@ -2758,7 +2758,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.splade-pp-sd \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder naver/splade-cocondenser-selfdistil \
   --output run.msmarco-v1-passage.splade-pp-sd-pytorch.dev.txt \
   --hits 1000 --impact
@@ -2766,9 +2766,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-sd-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-sd-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -2873,7 +2873,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.splade-pp-sd \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --onnx-encoder SpladePlusPlusSelfDistil \
   --output run.msmarco-v1-passage.splade-pp-sd-onnx.dev.txt \
   --hits 1000 --impact
@@ -2881,9 +2881,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-sd-onnx.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-sd-onnx.dev.txt
 </code></pre>
   </blockquote>
@@ -2988,7 +2988,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.splade-pp-sd-text \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder naver/splade-cocondenser-selfdistil \
   --output run.msmarco-v1-passage.splade-pp-sd-rocchio-pytorch.dev.txt \
   --hits 1000 --impact --rocchio
@@ -2996,9 +2996,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-sd-rocchio-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-sd-rocchio-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -3103,7 +3103,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.splade-pp-sd-text \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --onnx-encoder SpladePlusPlusSelfDistil \
   --output run.msmarco-v1-passage.splade-pp-sd-rocchio-onnx.dev.txt \
   --hits 1000 --impact --rocchio
@@ -3111,9 +3111,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-sd-rocchio-onnx.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-pp-sd-rocchio-onnx.dev.txt
 </code></pre>
   </blockquote>
@@ -3218,7 +3218,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.splade-v3 \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder naver/splade-v3 \
   --output run.msmarco-v1-passage.splade-v3-pytorch.dev.txt \
   --hits 1000 --impact
@@ -3226,9 +3226,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-v3-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-v3-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -3333,7 +3333,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.splade-v3-text \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder naver/splade-v3 \
   --output run.msmarco-v1-passage.splade-v3-rocchio-pytorch.dev.txt \
   --hits 1000 --impact --rocchio
@@ -3341,9 +3341,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-v3-rocchio-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.splade-v3-rocchio-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -3447,16 +3447,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.ance \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder castorini/ance-msmarco-passage \
   --output run.msmarco-v1-passage.ance-pytorch.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.ance-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.ance-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -3561,7 +3561,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.ance \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder castorini/ance-msmarco-passage \
   --output run.msmarco-v1-passage.ance-avg-prf-pytorch.dev.txt \
   --prf-method avg --prf-depth 3
@@ -3569,9 +3569,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.ance-avg-prf-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.ance-avg-prf-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -3676,7 +3676,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.ance \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder castorini/ance-msmarco-passage \
   --output run.msmarco-v1-passage.ance-rocchio-prf-pytorch.dev.txt \
   --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
@@ -3684,9 +3684,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.ance-rocchio-prf-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.ance-rocchio-prf-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -3790,16 +3790,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.sbert \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder sentence-transformers/msmarco-distilbert-base-v3 \
   --output run.msmarco-v1-passage.sbert-pytorch.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.sbert-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.sbert-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -3904,7 +3904,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.sbert \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder sentence-transformers/msmarco-distilbert-base-v3 \
   --output run.msmarco-v1-passage.sbert-avg-prf-pytorch.dev.txt \
   --prf-method avg --prf-depth 3
@@ -3912,9 +3912,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.sbert-avg-prf-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.sbert-avg-prf-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -4019,7 +4019,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.sbert \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder sentence-transformers/msmarco-distilbert-base-v3 \
   --output run.msmarco-v1-passage.sbert-rocchio-prf-pytorch.dev.txt \
   --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
@@ -4027,9 +4027,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.sbert-rocchio-prf-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.sbert-rocchio-prf-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -4133,16 +4133,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.distilbert-dot-margin-mse-t2 \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco \
   --output run.msmarco-v1-passage.distilbert-kd-pytorch.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.distilbert-kd-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.distilbert-kd-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -4245,16 +4245,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.distilbert-dot-tas_b-b256 \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
   --output run.msmarco-v1-passage.distilbert-kd-tasb-pytorch.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.distilbert-kd-tasb-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.distilbert-kd-tasb-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -4359,7 +4359,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.distilbert-dot-tas_b-b256 \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
   --output run.msmarco-v1-passage.distilbert-kd-tasb-avg-prf-pytorch.dev.txt \
   --prf-method avg --prf-depth 3
@@ -4367,9 +4367,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.distilbert-kd-tasb-avg-prf-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.distilbert-kd-tasb-avg-prf-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -4474,7 +4474,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.distilbert-dot-tas_b-b256 \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
   --output run.msmarco-v1-passage.distilbert-kd-tasb-rocchio-prf-pytorch.dev.txt \
   --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
@@ -4482,9 +4482,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.distilbert-kd-tasb-rocchio-prf-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.distilbert-kd-tasb-rocchio-prf-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -4588,16 +4588,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.tct_colbert-v2-hnp \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder castorini/tct_colbert-v2-hnp-msmarco \
   --output run.msmarco-v1-passage.tct_colbert-v2-hnp-pytorch.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.tct_colbert-v2-hnp-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.tct_colbert-v2-hnp-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -4702,7 +4702,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.tct_colbert-v2-hnp \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder castorini/tct_colbert-v2-hnp-msmarco \
   --output run.msmarco-v1-passage.tct_colbert-v2-hnp-avg-prf-pytorch.dev.txt \
   --prf-method avg --prf-depth 3
@@ -4710,9 +4710,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.tct_colbert-v2-hnp-avg-prf-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.tct_colbert-v2-hnp-avg-prf-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -4817,7 +4817,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.tct_colbert-v2-hnp \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder castorini/tct_colbert-v2-hnp-msmarco \
   --output run.msmarco-v1-passage.tct_colbert-v2-hnp-rocchio-prf-pytorch.dev.txt \
   --prf-method rocchio --prf-depth 5 --rocchio-alpha 0.4 --rocchio-beta 0.6 --rocchio-topk 5
@@ -4825,9 +4825,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.tct_colbert-v2-hnp-rocchio-prf-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.tct_colbert-v2-hnp-rocchio-prf-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -4938,15 +4938,15 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
   sparse --index msmarco-v1-passage \
   fusion --alpha 0.06 \
   run    --threads 16 --batch-size 512 \
-         --topics msmarco-v1-passage-dev \
+         --topics msmarco-v1-passage.dev \
          --output run.msmarco-v1-passage.tct_colbert-v2-hnp-bm25-pytorch.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.tct_colbert-v2-hnp-bm25-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.tct_colbert-v2-hnp-bm25-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -5056,15 +5056,15 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
   sparse --index msmarco-v1-passage.d2q-t5 \
   fusion --alpha 0.1 \
   run    --threads 16 --batch-size 512 \
-         --topics msmarco-v1-passage-dev \
+         --topics msmarco-v1-passage.dev \
          --output run.msmarco-v1-passage.tct_colbert-v2-hnp-bm25d2q-pytorch.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.tct_colbert-v2-hnp-bm25d2q-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.tct_colbert-v2-hnp-bm25d2q-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -5172,7 +5172,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.slimr \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder castorini/slimr-msmarco-passage \
   --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr \
   --output run.msmarco-v1-passage.slimr.dev.txt \
@@ -5181,9 +5181,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.slimr.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.slimr.dev.txt
 </code></pre>
   </blockquote>
@@ -5290,7 +5290,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.slimr-pp \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder castorini/slimr-pp-msmarco-passage \
   --encoded-corpus scipy-sparse-vectors.msmarco-v1-passage-slimr-pp \
   --output run.msmarco-v1-passage.slimr-pp.dev.txt \
@@ -5299,9 +5299,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.slimr-pp.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.slimr-pp.dev.txt
 </code></pre>
   </blockquote>
@@ -5405,16 +5405,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.aggretriever-distilbert \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder castorini/aggretriever-distilbert \
   --output run.msmarco-v1-passage.aggretriever-distilbert-pytorch.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.aggretriever-distilbert-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.aggretriever-distilbert-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -5517,16 +5517,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.aggretriever-cocondenser \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder castorini/aggretriever-cocondenser \
   --output run.msmarco-v1-passage.aggretriever-cocondenser-pytorch.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.aggretriever-cocondenser-pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.aggretriever-cocondenser-pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -5628,15 +5628,15 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.openai-ada2 \
-  --topics msmarco-v1-passage-dev --encoded-queries openai-ada2-msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev --encoded-queries openai-ada2-msmarco-v1-passage.dev \
   --output run.msmarco-v1-passage.openai-ada2.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.openai-ada2.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.openai-ada2.dev.txt
 </code></pre>
   </blockquote>
@@ -5827,15 +5827,15 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.openai-text-embedding-3-large \
-  --topics msmarco-v1-passage-dev --encoded-queries openai-text-embedding-3-large-msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev --encoded-queries openai-text-embedding-3-large-msmarco-v1-passage.dev \
   --output run.msmarco-v1-passage.openai-text-embedding-3-large.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.openai-text-embedding-3-large.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.openai-text-embedding-3-large.dev.txt
 </code></pre>
   </blockquote>
@@ -5939,16 +5939,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.cosdpr-distil \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --encoder castorini/cosdpr-distil \
   --output run.msmarco-v1-passage.cosdpr-distil.faiss-flat.pytorch.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.cosdpr-distil.faiss-flat.pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.cosdpr-distil.faiss-flat.pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -6053,7 +6053,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 512 --dense --hnsw \
   --index msmarco-v1-passage.cosdpr-distil.hnsw \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --onnx-encoder CosDprDistil \
   --output run.msmarco-v1-passage.cosdpr-distil.lucene-hnsw.onnx.dev.txt \
   --hits 1000 --ef-search 1000
@@ -6061,9 +6061,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.cosdpr-distil.lucene-hnsw.onnx.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.cosdpr-distil.lucene-hnsw.onnx.dev.txt
 </code></pre>
   </blockquote>
@@ -6168,7 +6168,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 512 --dense --hnsw \
   --index msmarco-v1-passage.cosdpr-distil.hnsw-int8 \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --onnx-encoder CosDprDistil \
   --output run.msmarco-v1-passage.cosdpr-distil.lucene-hnsw-int8.onnx.dev.txt \
   --hits 1000 --ef-search 1000
@@ -6176,9 +6176,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.cosdpr-distil.lucene-hnsw-int8.onnx.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.cosdpr-distil.lucene-hnsw-int8.onnx.dev.txt
 </code></pre>
   </blockquote>
@@ -6288,16 +6288,16 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
   --encoder-class auto \
   --encoder BAAI/bge-base-en-v1.5 --l2-norm --query-prefix "Represent this sentence for searching relevant passages:" \
   --index msmarco-v1-passage.bge-base-en-v1.5 \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --output run.msmarco-v1-passage.bge-base-en-v1.5.faiss-flat.pytorch.dev.txt \
   --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bge-base-en-v1.5.faiss-flat.pytorch.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bge-base-en-v1.5.faiss-flat.pytorch.dev.txt
 </code></pre>
   </blockquote>
@@ -6402,7 +6402,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 512 --dense --hnsw \
   --index msmarco-v1-passage.bge-base-en-v1.5.hnsw \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --onnx-encoder BgeBaseEn15 \
   --output run.msmarco-v1-passage.bge-base-en-v1.5.lucene-hnsw.onnx.dev.txt \
   --hits 1000 --ef-search 1000
@@ -6410,9 +6410,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bge-base-en-v1.5.lucene-hnsw.onnx.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bge-base-en-v1.5.lucene-hnsw.onnx.dev.txt
 </code></pre>
   </blockquote>
@@ -6517,7 +6517,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 512 --dense --hnsw \
   --index msmarco-v1-passage.bge-base-en-v1.5.hnsw-int8 \
-  --topics msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev \
   --onnx-encoder BgeBaseEn15 \
   --output run.msmarco-v1-passage.bge-base-en-v1.5.lucene-hnsw-int8.onnx.dev.txt \
   --hits 1000 --ef-search 1000
@@ -6525,9 +6525,9 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bge-base-en-v1.5.lucene-hnsw-int8.onnx.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.bge-base-en-v1.5.lucene-hnsw-int8.onnx.dev.txt
 </code></pre>
   </blockquote>
@@ -6629,15 +6629,15 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.cohere-embed-english-v3.0 \
-  --topics msmarco-v1-passage-dev --encoded-queries cohere-embed-english-v3.0-msmarco-v1-passage-dev \
+  --topics msmarco-v1-passage.dev --encoded-queries cohere-embed-english-v3.0-msmarco-v1-passage.dev \
   --output run.msmarco-v1-passage.cohere-embed-english-v3.0.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage-dev \
+<pre><code>python -m pyserini.eval.trec_eval -c -M 10 -m recip_rank msmarco-v1-passage.dev \
   run.msmarco-v1-passage.cohere-embed-english-v3.0.dev.txt
-python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage-dev \
+python -m pyserini.eval.trec_eval -c -m recall.1000 msmarco-v1-passage.dev \
   run.msmarco-v1-passage.cohere-embed-english-v3.0.dev.txt
 </code></pre>
   </blockquote>

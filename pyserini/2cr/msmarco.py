@@ -187,7 +187,7 @@ models = {
 
 trec_eval_metric_definitions = {
     'msmarco-v1-passage': {
-        'msmarco-v1-passage-dev': {
+        'msmarco-v1-passage.dev': {
             'MRR@10': '-c -M 10 -m recip_rank',
             'R@1K': '-c -m recall.1000'
         },
