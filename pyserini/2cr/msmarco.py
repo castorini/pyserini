@@ -325,6 +325,7 @@ def format_command(raw):
         .replace('--encoder', '\\\n  --encoder') \
         .replace('--onnx-encoder', '\\\n  --onnx-encoder') \
         .replace('--encoded-corpus', '\\\n  --encoded-corpus') \
+        .replace('--encoded-queries', '\\\n  --encoded-queries') \
         .replace('.txt ', '.txt \\\n  ')
 
 

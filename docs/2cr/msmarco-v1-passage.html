@@ -5582,7 +5582,8 @@ Command to generate run on TREC 2019 queries:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.openai-ada2 \
-  --topics dl19-passage --encoded-queries openai-ada2-dl19-passage \
+  --topics dl19-passage \
+  --encoded-queries dl19-passage.openai-ada2 \
   --output run.msmarco-v1-passage.openai-ada2.dl19.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -5605,7 +5606,8 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.openai-ada2 \
-  --topics dl20-passage --encoded-queries openai-ada2-dl20-passage \
+  --topics dl20-passage \
+  --encoded-queries dl20-passage.openai-ada2 \
   --output run.msmarco-v1-passage.openai-ada2.dl20.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -5628,7 +5630,8 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.openai-ada2 \
-  --topics msmarco-v1-passage.dev --encoded-queries openai-ada2-msmarco-v1-passage.dev \
+  --topics msmarco-v1-passage.dev \
+  --encoded-queries msmarco-v1-passage.dev.openai-ada2 \
   --output run.msmarco-v1-passage.openai-ada2.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -5691,7 +5694,8 @@ Command to generate run on TREC 2019 queries:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.openai-ada2 \
-  --topics dl19-passage --encoded-queries openai-ada2-dl19-passage-hyde \
+  --topics dl19-passage \
+  --encoded-queries dl19-passage.openai-ada2-hyde \
   --output run.msmarco-v1-passage.openai-ada2-hyde.dl19.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -5714,7 +5718,8 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.openai-ada2 \
-  --topics dl20-passage --encoded-queries openai-ada2-dl20-passage-hyde \
+  --topics dl20-passage \
+  --encoded-queries dl20-passage.openai-ada2-hyde \
   --output run.msmarco-v1-passage.openai-ada2-hyde.dl20.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -5781,7 +5786,8 @@ Command to generate run on TREC 2019 queries:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.openai-text-embedding-3-large \
-  --topics dl19-passage --encoded-queries openai-text-embedding-3-large-dl19-passage \
+  --topics dl19-passage \
+  --encoded-queries dl19-passage.openai-text-embedding-3-large \
   --output run.msmarco-v1-passage.openai-text-embedding-3-large.dl19.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -5804,7 +5810,8 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.openai-text-embedding-3-large \
-  --topics dl20-passage --encoded-queries openai-text-embedding-3-large-dl20-passage \
+  --topics dl20-passage \
+  --encoded-queries dl20-passage.openai-text-embedding-3-large \
   --output run.msmarco-v1-passage.openai-text-embedding-3-large.dl20.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -5827,7 +5834,8 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.openai-text-embedding-3-large \
-  --topics msmarco-v1-passage.dev --encoded-queries openai-text-embedding-3-large-msmarco-v1-passage.dev \
+  --topics msmarco-v1-passage.dev \
+  --encoded-queries msmarco-v1-passage.dev.openai-text-embedding-3-large \
   --output run.msmarco-v1-passage.openai-text-embedding-3-large.dev.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -6583,7 +6591,8 @@ Command to generate run on TREC 2019 queries:
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.cohere-embed-english-v3.0 \
-  --topics dl19-passage --encoded-queries cohere-embed-english-v3.0-dl19-passage \
+  --topics dl19-passage \
+  --encoded-queries dl19-passage.cohere-embed-english-v3.0 \
   --output run.msmarco-v1-passage.cohere-embed-english-v3.0.dl19.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -6606,7 +6615,8 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.cohere-embed-english-v3.0 \
-  --topics dl20-passage --encoded-queries cohere-embed-english-v3.0-dl20-passage \
+  --topics dl20-passage \
+  --encoded-queries dl20-passage.cohere-embed-english-v3.0 \
   --output run.msmarco-v1-passage.cohere-embed-english-v3.0.dl20.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -6629,7 +6639,8 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
   --index msmarco-v1-passage.cohere-embed-english-v3.0 \
-  --topics msmarco-v1-passage.dev --encoded-queries cohere-embed-english-v3.0-msmarco-v1-passage.dev \
+  --topics msmarco-v1-passage.dev \
+  --encoded-queries msmarco-v1-passage.dev.cohere-embed-english-v3.0 \
   --output run.msmarco-v1-passage.cohere-embed-english-v3.0.dev.txt
 </code></pre></blockquote>
 Evaluation commands:

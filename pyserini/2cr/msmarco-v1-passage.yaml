@@ -1210,7 +1210,7 @@ conditions:
     display: "OpenAI ada2: Faiss flat, cached queries"
     display-html: "OpenAI ada2: Faiss flat, cached queries"
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Lin et al. (2023) Vector Search with OpenAI Embeddings: Lucene Is All You Need.\">11</a>]"
-    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries openai-ada2-$topics --output $output
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries $topics.openai-ada2 --output $output
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
@@ -1233,7 +1233,7 @@ conditions:
     display: "HyDE-OpenAI ada2: Faiss flat, cached queries"
     display-html: "HyDE-OpenAI ada2: Faiss flat, cached queries"
     display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Gao et al. (ACL&nbsp;2023) Precise Zero-Shot Dense Retrieval without Relevance Labels.\">12</a>]"
-    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries openai-ada2-$topics-hyde --output $output
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.openai-ada2 --topics $topics --encoded-queries $topics.openai-ada2-hyde --output $output
     topics:
       - topic_key: dl19-passage
         eval_key: dl19-passage
@@ -1251,7 +1251,7 @@ conditions:
     display: "OpenAI text-embedding-3-large: Faiss flat, cached queries"
     display-html: "OpenAI text-embedding-3-large: Faiss flat, cached queries"
     display-row: ""
-    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.openai-text-embedding-3-large --topics $topics --encoded-queries openai-text-embedding-3-large-$topics --output $output
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.openai-text-embedding-3-large --topics $topics --encoded-queries $topics.openai-text-embedding-3-large --output $output
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
@@ -1274,7 +1274,7 @@ conditions:
     display: "Cohere Embed English v3.0: Faiss flat, cached queries"
     display-html: "Cohere Embed English v3.0: Faiss flat, cached queries"
     display-row: ""
-    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.cohere-embed-english-v3.0 --topics $topics --encoded-queries cohere-embed-english-v3.0-$topics --output $output
+    command: python -m pyserini.search.faiss --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v1-passage.cohere-embed-english-v3.0 --topics $topics --encoded-queries $topics.cohere-embed-english-v3.0 --output $output
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
