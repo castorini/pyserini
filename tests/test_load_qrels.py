@@ -156,7 +156,7 @@ class TestLoadQrels(unittest.TestCase):
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
     def test_trec2013_web(self):
-        qrels = search.get_topics('trec2013-web')
+        qrels = search.get_qrels('trec2013-web')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 50)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
@@ -268,43 +268,33 @@ class TestLoadQrels(unittest.TestCase):
         self.assertEqual(len(qrels), 6980)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
+        qrels = search.get_qrels('msmarco-passage-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 6980)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('msmarco-passage.dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 6980)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('msmarco-v1-passage-dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 6980)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
+        qrels = search.get_qrels('msmarco-v1-passage.dev')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 6980)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), int))
+
     def test_dl19_doc(self):
-        topics = search.get_topics('dl19-doc')
-        self.assertIsNotNone(topics)
-        self.assertEqual(len(topics), 43)
-        self.assertFalse(isinstance(next(iter(topics.keys())), str))
-
-        topics = search.get_topics('dl19-doc-unicoil')
-        self.assertIsNotNone(topics)
-        self.assertEqual(len(topics), 43)
-        self.assertFalse(isinstance(next(iter(topics.keys())), str))
-
-        topics = search.get_topics('dl19-doc-unicoil-noexp')
-        self.assertIsNotNone(topics)
-        self.assertEqual(len(topics), 43)
-        self.assertFalse(isinstance(next(iter(topics.keys())), str))
-
         qrels = search.get_qrels('dl19-doc')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 43)
         self.assertFalse(isinstance(next(iter(qrels.keys())), str))
 
     def test_dl19_passage(self):
-        topics = search.get_topics('dl19-passage')
-        self.assertIsNotNone(topics)
-        self.assertEqual(len(topics), 43)
-        self.assertFalse(isinstance(next(iter(topics.keys())), str))
-
-        topics = search.get_topics('dl19-passage-unicoil')
-        self.assertIsNotNone(topics)
-        self.assertEqual(len(topics), 43)
-        self.assertFalse(isinstance(next(iter(topics.keys())), str))
-
-        topics = search.get_topics('dl19-passage-unicoil-noexp')
-        self.assertIsNotNone(topics)
-        self.assertEqual(len(topics), 43)
-        self.assertFalse(isinstance(next(iter(topics.keys())), str))
-
         qrels = search.get_qrels('dl19-passage')
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 43)

@@ -200,6 +200,32 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 6980)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
+        topics = search.get_topics('msmarco-passage-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage.dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v1-passage-dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v1-passage.dev')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage-test-subset')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6837)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+    def test_msmarco_unicoil(self):
         topics = search.get_topics('msmarco-passage-dev-subset-unicoil')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 6980)
@@ -208,11 +234,6 @@ class TestLoadTopics(unittest.TestCase):
         topics = search.get_topics('msmarco-passage-dev-subset-unicoil-noexp')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 6980)
-        self.assertTrue(isinstance(next(iter(topics.keys())), int))
-
-        topics = search.get_topics('msmarco-passage-test-subset')
-        self.assertIsNotNone(topics)
-        self.assertEqual(len(topics), 6837)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
     def test_msmarco_passage_deepimpact(self):
@@ -227,8 +248,158 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 6980)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-    def test_msmarco_passage_distill_splade_max(self):
+    def test_msmarco_passage_splade_variants(self):
         topics = search.get_topics('msmarco-passage-dev-subset-distill-splade-max')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage-dev-subset-splade-distil-cocodenser-medium')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage-dev-subset-splade-pp-ed')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage-dev-subset-splade-pp-sd')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage-dev-subset-splade-v3')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        # Should also work with a "dot".
+        topics = search.get_topics('msmarco-passage-dev-subset.distill-splade-max')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage-dev-subset.splade-distil-cocodenser-medium')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage-dev-subset.splade-pp-ed')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage-dev-subset.splade-pp-sd')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage-dev-subset.splade-v3')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        # Should also work with "msmarco-passage-dev.".
+        topics = search.get_topics('msmarco-passage-dev.distill-splade-max')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage-dev.splade-distil-cocodenser-medium')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage-dev.splade-pp-ed')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage-dev.splade-pp-sd')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage-dev.splade-v3')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        # Should also work with "msmarco-passage.dev.".
+        topics = search.get_topics('msmarco-passage.dev.distill-splade-max')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage.dev.splade-distil-cocodenser-medium')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage.dev.splade-pp-ed')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage.dev.splade-pp-sd')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-passage.dev.splade-v3')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        # Should also work with "msmarco-v1-passage-dev.".
+        topics = search.get_topics('msmarco-v1-passage-dev.distill-splade-max')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v1-passage-dev.splade-distil-cocodenser-medium')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v1-passage-dev.splade-pp-ed')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v1-passage-dev.splade-pp-sd')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v1-passage-dev.splade-v3')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        # Should also work with "msmarco-v1-passage.dev.".
+        topics = search.get_topics('msmarco-v1-passage.dev.distill-splade-max')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v1-passage.dev.splade-distil-cocodenser-medium')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v1-passage.dev.splade-pp-ed')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v1-passage.dev.splade-pp-sd')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 6980)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('msmarco-v1-passage.dev.splade-v3')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 6980)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
@@ -265,6 +436,48 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 43)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
 
+    def test_dl19_passage_splade_variants(self):
+        topics = search.get_topics('dl19-passage-splade-distil-cocodenser-medium')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 43)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dl19-passage-splade-pp-ed')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 43)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dl19-passage-splade-pp-sd')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 43)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dl19-passage-splade-v3')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 43)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        # Should also work with a "dot".
+        topics = search.get_topics('dl19-passage.splade-distil-cocodenser-medium')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 43)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dl19-passage.splade-pp-ed')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 43)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dl19-passage.splade-pp-sd')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 43)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dl19-passage.splade-v3')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 43)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
     def test_dl20(self):
         topics = search.get_topics('dl20')
         self.assertIsNotNone(topics)
@@ -280,6 +493,70 @@ class TestLoadTopics(unittest.TestCase):
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 200)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
+
+    def test_dl20_splade_variants(self):
+        # Should work with dl20-xxx
+        topics = search.get_topics('dl20-splade-distil-cocodenser-medium')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 54)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dl20-splade-pp-ed')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 200)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dl20-splade-pp-sd')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 200)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dl20-splade-v3')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 200)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        # Should also work with dl20-passage-xxx
+        topics = search.get_topics('dl20-passage-splade-distil-cocodenser-medium')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 54)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dl20-passage-splade-pp-ed')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 200)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dl20-passage-splade-pp-sd')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 200)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dl20-passage-splade-v3')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 200)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        # Should also work with a "dot".
+        topics = search.get_topics('dl20-passage.splade-distil-cocodenser-medium')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 54)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dl20-passage.splade-pp-ed')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 200)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dl20-passage.splade-pp-sd')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 200)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
+
+        topics = search.get_topics('dl20-passage.splade-v3')
+        self.assertIsNotNone(topics)
+        self.assertEqual(len(topics), 200)
+        self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
     # MS MARCO V2
     def test_msmarco_v2_doc(self):
