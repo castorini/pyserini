@@ -29,9 +29,16 @@ logger = logging.getLogger(__name__)
 
 # Wrapper around Lucene clases
 JTerm = autoclass('org.apache.lucene.index.Term')
+JQuery = autoclass('org.apache.lucene.search.Query')
 JBooleanClause = autoclass('org.apache.lucene.search.BooleanClause')
 JBoostQuery = autoclass('org.apache.lucene.search.BoostQuery')
 JTermQuery = autoclass('org.apache.lucene.search.TermQuery')
+JWildcardQuery = autoclass('org.apache.lucene.search.WildcardQuery')
+JFuzzyQuery = autoclass('org.apache.lucene.search.FuzzyQuery')
+JPrefixQuery = autoclass('org.apache.lucene.search.PrefixQuery')
+JStandardQueryParser = autoclass('org.apache.lucene.queryparser.flexible.standard.StandardQueryParser')
+JComplexPhraseQueryParser = autoclass('org.apache.lucene.queryparser.complexPhrase.ComplexPhraseQueryParser')
+
 
 # Wrappers around Anserini classes
 JQueryGeneratorUtils = autoclass('io.anserini.search.query.QueryGeneratorUtils')
@@ -89,3 +96,44 @@ def get_boost_query(query, boost):
     JBoostQuery
     """
     return JBoostQuery(query, boost)
+
+
+def get_standard_query(query, field="contents", analyzer=get_lucene_analyzer()):
+    """Runs Lucene's StandardQueryParser to get a query.
+
+    Parameters
+    ----------
+    query : str
+        The query term string.
+    field : str
+        Field to search.
+    analyzer : Analyzer
+        Analyzer to use for tokenizing the query term.
+
+    Returns
+    -------
+    JQuery
+    """
+    query_parser = JStandardQueryParser()
+    query_parser.setAnalyzer(analyzer)
+    return query_parser.parse(query, field)
+
+
+def get_complex_phrase_query(query, field="contents", analyzer=get_lucene_analyzer()):
+    """Runs Lucene's ComplexPhraseQueryParser to get a query.
+
+    Parameters
+    ----------
+    query : str
+        The query term string.
+    field : str
+        Field to search.
+    analyzer : Analyzer
+        Analyzer to use for tokenizing the query term.
+
+    Returns
+    -------
+    JQuery
+    """
+    query_parser = JComplexPhraseQueryParser(field, analyzer)
+    return query_parser.parse(query)
