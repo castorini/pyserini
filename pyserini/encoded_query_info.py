@@ -1049,9 +1049,9 @@ QUERY_INFO_ALIASES = {
     'dl19-passage.openai-text-embedding-3-large': QUERY_INFO_BASE['openai-text-embedding-3-large-dl19-passage'],
     'dl20-passage.openai-text-embedding-3-large': QUERY_INFO_BASE['openai-text-embedding-3-large-dl20'],
 
-    'msmarco-v1-passage.dev.cohere-embed-english-v3.0': QUERY_INFO_BASE['cohere-embed-english-v3.0-dl19-passage'],
-    'dl19-passage.cohere-embed-english-v3.0': QUERY_INFO_BASE['cohere-embed-english-v3.0-dl20'],
-    'dl20-passage.cohere-embed-english-v3.0': QUERY_INFO_BASE['cohere-embed-english-v3.0-msmarco-passage-dev-subset'],
+    'msmarco-v1-passage.dev.cohere-embed-english-v3.0': QUERY_INFO_BASE['cohere-embed-english-v3.0-msmarco-passage-dev-subset'],
+    'dl19-passage.cohere-embed-english-v3.0': QUERY_INFO_BASE['cohere-embed-english-v3.0-dl19-passage'],
+    'dl20-passage.cohere-embed-english-v3.0': QUERY_INFO_BASE['cohere-embed-english-v3.0-dl20']
 }
 
 QUERY_INFO = {**QUERY_INFO_BASE, **QUERY_INFO_ALIASES}
