@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-QUERY_INFO = {
+QUERY_INFO_BASE = {
     "aggretriever-cocondenser-msmarco-passage-dev-subset": {
         "description": "MS MARCO passage dev set queries encoded by aggretriever-cocondenser",
         "urls": [
@@ -1036,3 +1036,22 @@ QUERY_INFO = {
         "downloaded": False
     },  
 }
+
+QUERY_INFO_ALIASES = {
+    'msmarco-v1-passage.dev.openai-ada2': QUERY_INFO_BASE['openai-ada2-msmarco-passage-dev-subset'],
+    'dl19-passage.openai-ada2': QUERY_INFO_BASE['openai-ada2-dl19-passage'],
+    'dl20-passage.openai-ada2': QUERY_INFO_BASE['openai-ada2-dl20'],
+
+    'dl19-passage.openai-ada2-hyde': QUERY_INFO_BASE['openai-ada2-dl19-passage-hyde'],
+    'dl20-passage.openai-ada2-hyde': QUERY_INFO_BASE['openai-ada2-dl20-hyde'],
+
+    'msmarco-v1-passage.dev.openai-text-embedding-3-large': QUERY_INFO_BASE['openai-text-embedding-3-large-msmarco-passage-dev-subset'],
+    'dl19-passage.openai-text-embedding-3-large': QUERY_INFO_BASE['openai-text-embedding-3-large-dl19-passage'],
+    'dl20-passage.openai-text-embedding-3-large': QUERY_INFO_BASE['openai-text-embedding-3-large-dl20'],
+
+    'msmarco-v1-passage.dev.cohere-embed-english-v3.0': QUERY_INFO_BASE['cohere-embed-english-v3.0-msmarco-passage-dev-subset'],
+    'dl19-passage.cohere-embed-english-v3.0': QUERY_INFO_BASE['cohere-embed-english-v3.0-dl19-passage'],
+    'dl20-passage.cohere-embed-english-v3.0': QUERY_INFO_BASE['cohere-embed-english-v3.0-dl20']
+}
+
+QUERY_INFO = {**QUERY_INFO_BASE, **QUERY_INFO_ALIASES}

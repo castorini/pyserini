@@ -68,21 +68,45 @@ topics_mapping = {
     'mb14': 'MB14',
     'car17v1.5-benchmarkY1test': 'CAR17V15_BENCHMARK_Y1_TEST',
     'car17v2.0-benchmarkY1test': 'CAR17V20_BENCHMARK_Y1_TEST',
+
+    # DL19 doc
     'dl19-doc': 'TREC2019_DL_DOC',
     'dl19-doc-unicoil': 'TREC2019_DL_DOC_UNICOIL',
     'dl19-doc-unicoil-noexp': 'TREC2019_DL_DOC_UNICOIL_NOEXP',
+
+    # DL19 passage
     'dl19-passage': 'TREC2019_DL_PASSAGE',
     'dl19-passage-unicoil': 'TREC2019_DL_PASSAGE_UNICOIL',
     'dl19-passage-unicoil-noexp': 'TREC2019_DL_PASSAGE_UNICOIL_NOEXP',
+    'dl19-passage-unicoil': 'TREC2019_DL_PASSAGE_UNICOIL',
+    'dl19-passage-splade-distil-cocodenser-medium': 'TREC2019_DL_PASSAGE_SPLADE_DISTILL_COCODENSER_MEDIUM',
+    'dl19-passage-splade-pp-ed': 'TREC2019_DL_PASSAGE_SPLADE_PP_ED',
+    'dl19-passage-splade-pp-sd': 'TREC2019_DL_PASSAGE_SPLADE_PP_SD',
+    'dl19-passage-splade-v3': 'TREC2019_DL_PASSAGE_SPLADE_V3',
+
+    # DL20 (passage and doc are the same)
     'dl20': 'TREC2020_DL',
-    'dl20-passage': 'TREC2020_DL',
-    'dl20-doc': 'TREC2020_DL',
     'dl20-unicoil': 'TREC2020_DL_UNICOIL',
-    'dl20-passage-unicoil': 'TREC2020_DL_UNICOIL',
-    'dl20-doc-unicoil': 'TREC2020_DL_UNICOIL',
     'dl20-unicoil-noexp': 'TREC2020_DL_UNICOIL_NOEXP',
-    'dl20-passage-unicoil-noexp': 'TREC2020_DL_UNICOIL_NOEXP',
+    'dl20-splade-distil-cocodenser-medium': 'TREC2020_DL_SPLADE_DISTILL_COCODENSER_MEDIUM',
+    'dl20-splade-pp-ed': 'TREC2020_DL_SPLADE_PP_ED',
+    'dl20-splade-pp-sd': 'TREC2020_DL_SPLADE_PP_SD',
+    'dl20-splade-v3': 'TREC2020_DL_SPLADE_V3',
+
+    # DL20 doc
+    'dl20-doc': 'TREC2020_DL',
+    'dl20-doc-unicoil': 'TREC2020_DL_UNICOIL',
     'dl20-doc-unicoil-noexp': 'TREC2020_DL_UNICOIL_NOEXP',
+
+    # DL20 passage
+    'dl20-passage': 'TREC2020_DL',
+    'dl20-passage-unicoil': 'TREC2020_DL_UNICOIL',
+    'dl20-passage-unicoil-noexp': 'TREC2020_DL_UNICOIL_NOEXP',
+    'dl20-passage-splade-distil-cocodenser-medium': 'TREC2020_DL_SPLADE_DISTILL_COCODENSER_MEDIUM',
+    'dl20-passage-splade-pp-ed': 'TREC2020_DL_SPLADE_PP_ED',
+    'dl20-passage-splade-pp-sd': 'TREC2020_DL_SPLADE_PP_SD',
+    'dl20-passage-splade-v3': 'TREC2020_DL_SPLADE_V3',
+
     'dl21': 'TREC2021_DL',
     'dl21-doc': 'TREC2021_DL',
     'dl21-unicoil': 'TREC2021_DL_UNICOIL',
@@ -102,14 +126,23 @@ topics_mapping = {
     'msmarco-doc-dev-unicoil': 'MSMARCO_DOC_DEV_UNICOIL',
     'msmarco-doc-dev-unicoil-noexp': 'MSMARCO_DOC_DEV_UNICOIL_NOEXP',
     'msmarco-doc-test': 'MSMARCO_DOC_TEST',
+
     'msmarco-passage-dev-subset': 'MSMARCO_PASSAGE_DEV_SUBSET',
-    'msmarco-v1-passage.dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
+    'msmarco-passage-dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
     'msmarco-passage.dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
+    'msmarco-v1-passage-dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
+    'msmarco-v1-passage.dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
+
     'msmarco-passage-dev-subset-deepimpact': 'MSMARCO_PASSAGE_DEV_SUBSET_DEEPIMPACT',
     'msmarco-passage-dev-subset-unicoil': 'MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL',
     'msmarco-passage-dev-subset-unicoil-noexp': 'MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL_NOEXP',
     'msmarco-passage-dev-subset-unicoil-tilde': 'MSMARCO_PASSAGE_DEV_SUBSET_UNICOIL_TILDE',
     'msmarco-passage-dev-subset-distill-splade-max': 'MSMARCO_PASSAGE_DEV_SUBSET_DISTILL_SPLADE_MAX',
+    'msmarco-passage-dev-subset-splade-distil-cocodenser-medium': 'MSMARCO_PASSAGE_DEV_SUBSET_SPLADE_DISTILL_COCODENSER_MEDIUM',
+    'msmarco-passage-dev-subset-splade-pp-ed': 'MSMARCO_PASSAGE_DEV_SUBSET_SPLADE_PP_ED',
+    'msmarco-passage-dev-subset-splade-pp-sd': 'MSMARCO_PASSAGE_DEV_SUBSET_SPLADE_PP_SD',
+    'msmarco-passage-dev-subset-splade-v3': 'MSMARCO_PASSAGE_DEV_SUBSET_SPLADE_V3',
+
     'msmarco-passage-test-subset': 'MSMARCO_PASSAGE_TEST_SUBSET',
     'msmarco-v2-doc-dev': 'MSMARCO_V2_DOC_DEV',
     'msmarco-v2-doc.dev': 'MSMARCO_V2_DOC_DEV',
@@ -475,7 +508,9 @@ qrels_mapping = {
     'rag24.test-umbrela': 'TREC2024_RAG_UMBRELA',
     'msmarco-doc-dev': 'MSMARCO_DOC_DEV',
     'msmarco-passage-dev-subset': 'MSMARCO_PASSAGE_DEV_SUBSET',
+    'msmarco-passage-dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
     'msmarco-passage.dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
+    'msmarco-v1-passage-dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
     'msmarco-v1-passage.dev': 'MSMARCO_PASSAGE_DEV_SUBSET',
     'msmarco-v2-doc-dev': 'MSMARCO_V2_DOC_DEV',
     'msmarco-v2-doc-dev2': 'MSMARCO_V2_DOC_DEV2',
@@ -656,6 +691,26 @@ for qrel in qrels_mapping:
 
 topics_mapping = {k: v for k, v in topics_mapping.items() if v is not None}
 qrels_mapping = {k: v for k, v in qrels_mapping.items() if v is not None}
+
+# Programmatically add aliases, e.g., dl19-passage-splade-v3 and dl19-passage.splade-v3 should both work.
+topics_alias = {}
+for topic in topics_mapping:
+    # Note that startswith can tell you if a str starts with any from a list of prefixes,
+    # but doesn't easily tell you *which* one. Easier just to iterate through options.
+    if topic.startswith('msmarco-passage-dev-subset-'):
+        topics_alias[topic.replace('msmarco-passage-dev-subset-', 'msmarco-passage-dev-subset.')] = topics_mapping[topic]
+        topics_alias[topic.replace('msmarco-passage-dev-subset-', 'msmarco-passage-dev.')] = topics_mapping[topic]
+        topics_alias[topic.replace('msmarco-passage-dev-subset-', 'msmarco-passage.dev.')] = topics_mapping[topic]
+        topics_alias[topic.replace('msmarco-passage-dev-subset-', 'msmarco-v1-passage-dev.')] = topics_mapping[topic]
+        topics_alias[topic.replace('msmarco-passage-dev-subset-', 'msmarco-v1-passage.dev.')] = topics_mapping[topic]
+    elif topic.startswith('dl19-passage-'):
+        topics_alias[topic.replace('dl19-passage-', 'dl19-passage.')] = topics_mapping[topic]
+    elif topic.startswith('dl20-passage-'):
+        topics_alias[topic.replace('dl20-passage-', 'dl20-passage.')] = topics_mapping[topic]
+
+
+# Union original mappings and the aliases.
+topics_mapping = {**topics_mapping, **topics_alias}
 
 
 def get_topics(collection_name):
