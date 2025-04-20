@@ -120,8 +120,8 @@ with open(corpus_file, "r") as infile, open(output_file, "w") as outfile:
         try:
             # Load the document
             data = json.loads(line)
-            doc_id = data["_id"]
-            text = data["title"] + " " + data["text"]  # Combine title and text
+            doc_id = data["id"]
+            text = data["contents"]
             
             # Encode the truncated text into a sparse vector
             sparse_vector = encoder.encode(text, max_length=512)
@@ -220,3 +220,5 @@ Okay, that's it for this lesson.
 Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Pyserini, and use its 7-hexadecimal prefix for the link anchor text.
 
 ## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@JJGreen0](https://github.com/JJGreen0) on 2025-02-16 (commit [`f7ed14d`](https://github.com/castorini/pyserini/commit/f7ed14d145746224be2e09b4046e9140237360ab))
