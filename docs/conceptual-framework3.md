@@ -39,27 +39,7 @@ Contriever and BGE-base, which are examples of dense retrieval models, use trans
 Now, we're going to basically do the same thing, but with SPLADE-v3 instead of BM25.
 A learned sparse model, such as **SPLADE-v3**, extends traditional bag-of-words models like BM25 by incorporating machine learning to optimize term weights and representations. While BM25 relies on fixed, rule-based scoring (e.g., term frequency and inverse document frequency), learned sparse models use neural networks to predict the importance of terms in a query or document, often producing sparse vectors where only the most relevant terms have non-zero weights. This allows learned sparse models to capture semantic relationships and context better than BoW models, which treat terms independently. However, both approaches result in sparse representations, making them efficient for retrieval tasks.
 
-We have to start with a bit of data munging, since the Lucene indexer expects the documents in a slightly different format.
-Start by creating a new sub-directory:
-
-```bash
-mkdir collections/nfcorpus/pyserini-corpus
-```
-
-Now run the following Python script to munge the data into the right format:
-
-```python
-import json
-
-with open('collections/nfcorpus/pyserini-corpus/corpus.jsonl', 'w') as out:
-    with open('collections/nfcorpus/corpus.jsonl', 'r') as f:
-        for line in f:
-            l = json.loads(line)
-            s = json.dumps({'id': l['_id'], 'contents': l['title'] + ' ' + l['text']})
-            out.write(s + '\n')
-```
-
-We need to store the encoded documents somewhere. Create the directories:
+Start by creating the directories where we will store the encoded documents:
 
 ```bash
 mkdir encode
@@ -112,7 +92,7 @@ encoder = SpladeQueryEncoder(
 )
 
 # Load the corpus
-corpus_file = "collections/nfcorpus/pyserini-corpus/corpus.jsonl"  # Path to your corpus file
+corpus_file = "collections/nfcorpus/corpus.jsonl"  # Path to your corpus file
 output_file = "encode/nfcorpus.splade/embeddings.jsonl"  # Path to save encoded documents
 
 # Debugging: Print corpus and output file paths
@@ -129,8 +109,8 @@ with open(corpus_file, "r") as infile, open(output_file, "w") as outfile:
         try:
             # Load the document
             data = json.loads(line)
-            doc_id = data["id"]
-            text = data["contents"]
+            doc_id = data["_id"]
+            text = data["title"] + " " + data["text"]  # Combine title and text
             
             # Encode the truncated text into a sparse vector
             sparse_vector = encoder.encode(text, max_length=512)
