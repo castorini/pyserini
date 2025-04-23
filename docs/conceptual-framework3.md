@@ -59,6 +59,8 @@ with open('collections/nfcorpus/pyserini-corpus/corpus.jsonl', 'w') as out:
             out.write(s + '\n')
 ```
 
+Note that we do not actually feed this munged file to the Lucene indexer in this guide, as we did with the previous ones. Thus, we don't really need the file that results from this munging. However, it's still good to have in case you want to swap back to BM25.
+
 We can then setup to use SPLADE-v3:
 First, we need to request access to SPLADE-v3 model on Hugging Face since it is gated:
 1. Create an account for Hugging Face: https://huggingface.co/join
