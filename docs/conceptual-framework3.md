@@ -83,7 +83,8 @@ huggingface-cli login
 You’ll be prompted to enter your Hugging Face API token. You can generate a token from your Hugging Face account settings:
 1. Go to https://huggingface.co/settings/tokens.
 2. Click **"New token"** to generate a token.
-3. Copy the token and paste it into the terminal when prompted.
+3. For your token's permissions, give “Read access to contents of all public gated repos you can access”.
+4. Copy the token and paste it into the terminal when prompted.
 
 We are now all set to use SPLADE-v3 model!
 
