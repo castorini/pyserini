@@ -59,6 +59,8 @@ with open('collections/nfcorpus/pyserini-corpus/corpus.jsonl', 'w') as out:
             out.write(s + '\n')
 ```
 
+Note that we do not actually feed this munged file to the Lucene indexer in this guide, as we did with the previous ones. Thus, we don't really need the file that results from this munging. However, it's still good to have in case you want to swap back to BM25.
+
 We can then setup to use SPLADE-v3:
 First, we need to request access to SPLADE-v3 model on Hugging Face since it is gated:
 1. Create an account for Hugging Face: https://huggingface.co/join
@@ -81,7 +83,8 @@ huggingface-cli login
 You’ll be prompted to enter your Hugging Face API token. You can generate a token from your Hugging Face account settings:
 1. Go to https://huggingface.co/settings/tokens.
 2. Click **"New token"** to generate a token.
-3. Copy the token and paste it into the terminal when prompted.
+3. For your token's permissions, give “Read access to contents of all public gated repos you can access”.
+4. Copy the token and paste it into the terminal when prompted.
 
 We are now all set to use SPLADE-v3 model!
 
@@ -120,8 +123,8 @@ with open(corpus_file, "r") as infile, open(output_file, "w") as outfile:
         try:
             # Load the document
             data = json.loads(line)
-            doc_id = data["_id"]
-            text = data["title"] + " " + data["text"]  # Combine title and text
+            doc_id = data["id"]
+            text = data["contents"]
             
             # Encode the truncated text into a sparse vector
             sparse_vector = encoder.encode(text, max_length=512)
@@ -220,3 +223,5 @@ Okay, that's it for this lesson.
 Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Pyserini, and use its 7-hexadecimal prefix for the link anchor text.
 
 ## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@JJGreen0](https://github.com/JJGreen0) on 2025-02-16 (commit [`f7ed14d`](https://github.com/castorini/pyserini/commit/f7ed14d145746224be2e09b4046e9140237360ab))
