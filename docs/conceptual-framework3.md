@@ -39,27 +39,13 @@ Contriever and BGE-base, which are examples of dense retrieval models, use trans
 Now, we're going to basically do the same thing, but with SPLADE-v3 instead of BM25.
 A learned sparse model, such as **SPLADE-v3**, extends traditional bag-of-words models like BM25 by incorporating machine learning to optimize term weights and representations. While BM25 relies on fixed, rule-based scoring (e.g., term frequency and inverse document frequency), learned sparse models use neural networks to predict the importance of terms in a query or document, often producing sparse vectors where only the most relevant terms have non-zero weights. This allows learned sparse models to capture semantic relationships and context better than BoW models, which treat terms independently. However, both approaches result in sparse representations, making them efficient for retrieval tasks.
 
-We have to start with a bit of data munging, since the Lucene indexer expects the documents in a slightly different format.
-Start by creating a new sub-directory:
+Start by creating the directories where we will store the encoded documents:
 
 ```bash
-mkdir collections/nfcorpus/pyserini-corpus
+mkdir encode
+cd encode
+mkdir nfcorpus.splade
 ```
-
-Now run the following Python script to munge the data into the right format:
-
-```python
-import json
-
-with open('collections/nfcorpus/pyserini-corpus/corpus.jsonl', 'w') as out:
-    with open('collections/nfcorpus/corpus.jsonl', 'r') as f:
-        for line in f:
-            l = json.loads(line)
-            s = json.dumps({'id': l['_id'], 'contents': l['title'] + ' ' + l['text']})
-            out.write(s + '\n')
-```
-
-Note that we do not actually feed this munged file to the Lucene indexer in this guide, as we did with the previous ones. Thus, we don't really need the file that results from this munging. However, it's still good to have in case you want to swap back to BM25.
 
 We can then setup to use SPLADE-v3:
 First, we need to request access to SPLADE-v3 model on Hugging Face since it is gated:
@@ -106,7 +92,7 @@ encoder = SpladeQueryEncoder(
 )
 
 # Load the corpus
-corpus_file = "collections/nfcorpus/pyserini-corpus/corpus.jsonl"  # Path to your corpus file
+corpus_file = "collections/nfcorpus/corpus.jsonl"  # Path to your corpus file
 output_file = "encode/nfcorpus.splade/embeddings.jsonl"  # Path to save encoded documents
 
 # Debugging: Print corpus and output file paths
@@ -123,8 +109,8 @@ with open(corpus_file, "r") as infile, open(output_file, "w") as outfile:
         try:
             # Load the document
             data = json.loads(line)
-            doc_id = data["id"]
-            text = data["contents"]
+            doc_id = data["_id"]
+            text = data["title"] + " " + data["text"]  # Combine title and text
             
             # Encode the truncated text into a sparse vector
             sparse_vector = encoder.encode(text, max_length=512)
@@ -225,3 +211,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@JJGreen0](https://github.com/JJGreen0) on 2025-02-16 (commit [`f7ed14d`](https://github.com/castorini/pyserini/commit/f7ed14d145746224be2e09b4046e9140237360ab))
++ Results reproduced by [@lilyjge](https://github.com/lilyjge) on 2025-04-22 (commit [`ba896e2`](https://github.com/lilyjge/pyserini/commit/ba896e217949208fbca88a10708bfad68bfa888f))
