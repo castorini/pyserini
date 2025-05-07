@@ -1,8 +1,12 @@
 # BGE-base for NFCorpus in Database Vector Stores
-This guide contains instructions for running a BGE-base baseline for NFCorpus in DuckDB and ChromaDB.
+This guide contains instructions for running a BGE-base baseline for NFCorpus in the following databases:
+
+- [DuckDB](#duckdb)
+- [ChromaDB](#chromadb)
+- [Weaviate](#weaviate)
 
 ## Indexing
-Assuming you have completed [this guide](https://github.com/castorini/pyserini/blob/master/docs/experiments-nfcorpus.md) and fetched the data, we start by encoding the corpus and queries to obtain embeddings.
+Assuming you have completed [this guide](https://github.com/castorini/pyserini/blob/master/docs/experiments-nfcorpus.md) and fetched the data, we start by encoding the corpus and queries to obtain embeddings. We will feed these embeddings into the vector stores directly. 
 
 ```bash
 mkdir indexes/nfcorpus.bge-base-en-v1.5
@@ -119,7 +123,7 @@ which should yield:
 
 
 ## ChromaDB
-Now let's do the same thing, but in ChromaDB, a vector database. Start by installing it with: 
+Now let's do the same thing, but in ChromaDB, an open source vector database. Start by installing it with: 
 ```bash
 pip install chromadb
 ```
@@ -185,6 +189,94 @@ with open("runs/chroma_bge_nfcorpus.txt", 'w') as f:
 To evaluate our results:
 ```
 python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 collections/nfcorpus/qrels/test.qrels runs/chroma_bge_nfcorpus.txt
+```
+which should yield:
+
+| **Retrieval Method**                                                                                                  | **nDCG@10**  |
+|:-------------------------------------------------------------------------------------------------------------|-----------|
+| BGE-Base (en-v1.5)                                                                                    | 0.3808    |
+> This exactly matches [that in Pyserini](https://github.com/castorini/pyserini/blob/master/docs/experiments-nfcorpus.md).
+
+## Weaviate
+Now let's do the same thing again, but in Weaviate, another open source vector database. This time, we will use its free cloud to store our embeddings, but it also supports running locally. Start by creating an account on its [website](https://console.weaviate.cloud/) and making a sandbox cluster. On your cluster's page, find the REST encdpoint and the admin API key and set them as environment variables.
+```bash
+export WEAVIATE_URL='...'
+export WEAVIATE_API_KEY='...'
+```
+
+Next, install its Python client.
+```bash
+pip install -U weaviate-client
+```
+
+Following this [guide](https://weaviate.io/developers/wcs/quickstart), we connect to our database and create a collection. We specify no vectorizer as we already have embeddings. 
+```python
+import weaviate, os
+import weaviate.classes as wvc
+
+# Set these environment variables
+URL = os.getenv("WEAVIATE_URL")
+APIKEY = os.getenv("WEAVIATE_API_KEY")
+
+# Connect to Weaviate Cloud
+client = weaviate.connect_to_weaviate_cloud(
+    cluster_url=URL,
+    auth_credentials=wvc.init.Auth.api_key(APIKEY),
+)
+
+# Check connection
+client.is_ready()
+
+import weaviate.classes as wvc
+
+# Create the collection. Weaviate's autoschema feature will infer properties when importing.
+documents = client.collections.create(
+    "corpus",
+    vectorizer_config=wvc.config.Configure.Vectorizer.none(),
+)
+```
+
+Let's load the corpus into our collection. It's more efficient to add in batches, so we will load documents to a list first. 
+```python
+corpus_file = 'indexes/nfcorpus.bge-base-en-v1.5/corpus_embeddings.jsonl'
+query_file = 'indexes/nfcorpus.bge-base-en-v1.5/query_embeddings.jsonl'
+docs = []
+with open(corpus_file, 'r') as file:
+    for line in file:
+        row = json.loads(line.strip())
+        docs.append(wvc.data.DataObject(properties={"doc_id": row['id']}, vector=row['vector']))
+
+documents.data.insert_many(docs)
+```
+
+We're ready to retrieve!    
+```python
+from weaviate.classes.query import MetadataQuery
+all_results = []
+query_ids = []
+with open(query_file, 'r') as file:
+    for line in file:
+        row = json.loads(line.strip())
+        query_ids.append(row['id'])
+        all_results.append(documents.query.near_vector(near_vector=row['vector'], limit=1000, return_metadata=MetadataQuery(distance=True)))
+```
+
+We need to reformat the results before we can write them to file. 
+```python
+formatted_results = []
+for i in range(3237):
+    for j in range(1000):
+        formatted_results.append((query_ids[i], all_results[i].objects[j].properties['doc_id'], 1 - all_results[i].objects[j].metadata.distance, 1 + j))
+
+run_tag = "bge_weaviate"
+with open("runs/weaviate_bge_nfcorpus.txt", 'w') as f:
+    for query_id, doc_id, score, rank in formatted_results:
+        a = f.write(f"{query_id} Q0 {doc_id} {rank} {score} {run_tag}\n")
+```
+
+To evaluate our results:
+```
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 collections/nfcorpus/qrels/test.qrels runs/weaviate_bge_nfcorpus.txt
 ```
 which should yield:
 
