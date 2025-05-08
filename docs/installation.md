@@ -20,7 +20,7 @@ The toolkit also has a number of optional dependencies:
 pip install 'pyserini[optional]'
 ```
 
-Notably, `faiss-cpu`, `lightgbm`, and `nmslib` are included in these optional dependencies.
+Notably, `faiss-cpu` is included as an optional dependency.
 Installation of these packages can be temperamental, which is why they are not included in the core dependencies.
 It might be a good idea to install these yourself separately.
 
@@ -76,7 +76,6 @@ conda activate pyserini
 conda install -c conda-forge openjdk=21 maven -y
 
 # If you want the optional dependencies, otherwise skip
-conda install -c conda-forge lightgbm nmslib -y
 conda install -c pytorch faiss-cpu -y
 
 # Good idea to always explicitly specify the latest version, found here: https://pypi.org/project/pyserini/
