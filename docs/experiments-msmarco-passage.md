@@ -133,7 +133,7 @@ For example, setting `--threads 16 --batch-size 64` on a CPU with sufficient cor
 After the run finishes, we can evaluate the results using the official MS MARCO evaluation script, which has been incorporated into Pyserini:
 
 ```bash
-$ python -m pyserini.eval.msmarco_passage_eval \
+python -m pyserini.eval.msmarco_passage_eval \
    tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
    runs/run.msmarco-passage.bm25tuned.txt
 
@@ -170,7 +170,7 @@ python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
 Finally, run the `trec_eval` tool, which has been incorporated into Pyserini:
 
 ```bash
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap \
+python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap \
    collections/msmarco-passage/qrels.dev.small.trec \
    runs/run.msmarco-passage.bm25tuned.trec
 
@@ -181,7 +181,7 @@ recall_1000           	all	0.8573
 If you want to examine the MRR@10 for `qid` 1048585:
 
 ```bash
-$ python -m pyserini.eval.trec_eval -q -c -M 10 -m recip_rank \
+python -m pyserini.eval.trec_eval -q -c -M 10 -m recip_rank \
     collections/msmarco-passage/qrels.dev.small.trec \
     runs/run.msmarco-passage.bm25tuned.trec | grep 1048585
 
@@ -433,3 +433,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@karush17](https://github.com/karush17) on 2025-05-08 (commit [`4745edc`](https://github.com/castorini/pyserini/commit/4745edc152169df18e1ecaabd920a77ef590432f))
 + Results reproduced by [@YousefNafea](https://github.com/YousefNafea) on 2025-05-10 (commit [`4745edc`](https://github.com/castorini/pyserini/commit/4745edc152169df18e1ecaabd920a77ef590432f))
 + Results reproduced by [@AnthonyZ0425](https://github.com/AnthonyZ0425) on 2025-05-13 (commit [`6b4b22c`](https://github.com/castorini/pyserini/commit/6b4b22cfad1126c721bae55bdde90c928194a6b6))
++ Results reproduced by [@luisvenezian](https://github.com/luisvenezian) on 2025-05-16 (commit [`6b4b22c`](https://github.com/castorini/pyserini/commit/6b4b22cfad1126c721bae55bdde90c928194a6b6))
