@@ -9,13 +9,13 @@ For example, if a method expects the unanalyzed term and is called with an analy
 Initialize the class as follows:
 
 ```python
-from pyserini.index.lucene import IndexReader
+from pyserini.index.lucene import LuceneIndexReader
 
 # Initialize from a pre-built index:
-index_reader = IndexReader.from_prebuilt_index('robust04')
+index_reader = LuceneIndexReader.from_prebuilt_index('robust04')
 
-# Initialize from an index path:
-index_reader = IndexReader('indexes/index-robust04-20191213/')
+# Alternatively, if you already have the index locally, initialize from an index path:
+index_reader = LuceneIndexReader('indexes/index-robust04-20191213/')
 ```
 
 ## How do I iterate over index terms and access term statistics?
