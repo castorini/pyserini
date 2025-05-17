@@ -1,6 +1,6 @@
 # Pyserini: Usage of the Index Reader API
 
-The `IndexReader` class provides methods for accessing and manipulating an inverted index.
+The `LuceneIndexReader` class provides methods for accessing and manipulating an inverted index.
 
 **IMPORTANT NOTE:** Be aware whether a method takes or returns _analyzed_ or _unanalyzed_ terms.
 "Analysis" refers to processing by a Lucene `Analyzer`, which typically includes tokenization, stemming, stopword removal, etc.
