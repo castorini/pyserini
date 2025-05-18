@@ -1,6 +1,6 @@
 # Pyserini: Usage of the Index Reader API
 
-The `IndexReader` class provides methods for accessing and manipulating an inverted index.
+The `LuceneIndexReader` class provides methods for accessing and manipulating an inverted index.
 
 **IMPORTANT NOTE:** Be aware whether a method takes or returns _analyzed_ or _unanalyzed_ terms.
 "Analysis" refers to processing by a Lucene `Analyzer`, which typically includes tokenization, stemming, stopword removal, etc.
@@ -9,13 +9,13 @@ For example, if a method expects the unanalyzed term and is called with an analy
 Initialize the class as follows:
 
 ```python
-from pyserini.index.lucene import IndexReader
+from pyserini.index.lucene import LuceneIndexReader
 
 # Initialize from a pre-built index:
-index_reader = IndexReader.from_prebuilt_index('robust04')
+index_reader = LuceneIndexReader.from_prebuilt_index('robust04')
 
-# Initialize from an index path:
-index_reader = IndexReader('indexes/index-robust04-20191213/')
+# Alternatively, if you already have the index locally, initialize from an index path:
+index_reader = LuceneIndexReader('indexes/index-robust04-20191213/')
 ```
 
 ## How do I iterate over index terms and access term statistics?
