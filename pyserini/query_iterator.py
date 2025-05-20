@@ -41,7 +41,16 @@ class QueryIterator(ABC):
                         'msmarco-passage-test-subset'}
 
     def __init__(self, topics: dict, order: list = None):
-        self.order = order if order else sorted(topics.keys())
+        if order:
+            self.order = order
+        else:
+            try:
+                self.order = sorted(topics.keys())
+            except:
+                # if not all topic ids are integers neither are all string,
+                # sort them by string representation
+                self.order = sorted(topics.keys(), key=str)
+       
         self.topics = topics
 
     @abstractmethod
