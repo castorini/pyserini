@@ -15,7 +15,7 @@
 #
 
 import unittest
-
+import tempfile
 from pyserini.query_iterator import DefaultQueryIterator
 
 
@@ -38,5 +38,49 @@ class TestEncodedQueries(unittest.TestCase):
         self.assertTrue(topic_ids[1], 2)
         self.assertTrue(topic_ids[-1], 524332)
 
+    def test_topics_as_int(self):
+        topics_int = (
+            "1999\tA simple query\n"
+            "1998\tAnother simple query\n"
+        )
+        with tempfile.NamedTemporaryFile(mode='w+', delete=False, suffix='.tsv') as tmpfile:
+            tmpfile.write(topics_int)
+            tmpfile_path = tmpfile.name
+    
+        query_iterator = DefaultQueryIterator.from_topics(tmpfile_path)
+        topic_ids, _ = zip(*list(query_iterator))
+        self.assertEqual(topic_ids[0], 1998)
+        self.assertEqual(topic_ids[1], 1999)
+        
+    def test_topics_as_str(self):
+        topics_str = (
+            "B\tAnother simple query\n"
+            "A\tA simple query\n"
+        )
+        with tempfile.NamedTemporaryFile(mode='w+', delete=False, suffix='.tsv') as tmpfile:
+            tmpfile.write(topics_str)
+            tmpfile_path = tmpfile.name
+
+        query_iterator = DefaultQueryIterator.from_topics(tmpfile_path)
+        topic_ids, _ = zip(*list(query_iterator))
+        self.assertEqual(topic_ids[0], "A")
+        self.assertEqual(topic_ids[1], "B")
+
+    def test_topics_as_int_str(self):
+        topics_int_string = (
+            "B\tAnother simple query\n"
+            "1998\tA simple query\n"
+        )
+        
+        with tempfile.NamedTemporaryFile(mode='w+', delete=False, suffix='.tsv') as tmpfile:
+            tmpfile.write(topics_int_string)
+            tmpfile_path = tmpfile.name
+    
+        query_iterator = DefaultQueryIterator.from_topics(tmpfile_path)
+        topic_ids, _ = zip(*list(query_iterator))
+        self.assertEqual(topic_ids[0], 1998)
+        self.assertEqual(topic_ids[1], "B")
+            
+            
     def tearDown(self):
         pass
