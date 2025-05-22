@@ -311,3 +311,6 @@ python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 collections/nfcorpus/qrels/t
 ```
 
 which should yield the corresponding results in the table.
+
+## Reproduction Log[*](reproducibility.md)
++ Results reproduced by [@Raghav0005](https://github.com/Raghav0005) on 2025-05-21 (commit [`74dce4f`](https://github.com/castorini/pyserini/commit/74dce4f0fde6b82f22d3ba6a2a798ac4d8033f66))
