@@ -109,7 +109,7 @@ We call the retrieval method on all our queries to retrieve the top 1000 results
 
 ```python
 from tqdm import tqdm
-queries = conn.execute("SELECT id, contents FROM query").fetchall()
+queries = conn.execute("SELECT id, embedding FROM query").fetchall()
 run_tag = "bge_duckdb"
 
 all_results = []
@@ -239,6 +239,7 @@ We specify no vectorizer as we already have embeddings.
 ```python
 import weaviate, os
 import weaviate.classes as wvc
+import json
 
 # Set these environment variables
 URL = os.getenv("WEAVIATE_URL")
@@ -302,6 +303,8 @@ run_tag = "bge_weaviate"
 with open("runs/weaviate_bge_nfcorpus.txt", 'w') as f:
     for query_id, doc_id, score, rank in formatted_results:
         a = f.write(f"{query_id} Q0 {doc_id} {rank} {score} {run_tag}\n")
+
+client.close()
 ```
 
 To evaluate our results:
