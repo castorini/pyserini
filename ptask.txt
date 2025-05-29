@@ -1,0 +1,18 @@
+Pyserini
+
+mkdir collections/msmarco-passage
+wget https://msmarco.z22.web.core.windows.net/msmarcoranking/collectionandqueries.tar.gz -P collections/msmarco-passage
+tar xvfz collections/msmarco-passage/collectionandqueries.tar.gz -C collections/msmarco-passage
+
+python tools/scripts/msmarco/convert_collection_to_jsonl.py \
+ --collection-path collections/msmarco-passage/collection.tsv \
+ --output-folder collections/msmarco-passage/collection_jsonl
+
+python -m pyserini.index.lucene \
+  --collection JsonCollection \
+  --input collections/msmarco-passage/collection_jsonl \
+  --index indexes/lucene-index-msmarco-passage \
+  --generator DefaultLuceneDocumentGenerator \
+  --threads 9 \
+  --storePositions --storeDocvectors --storeRaw
+
