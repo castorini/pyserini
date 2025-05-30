@@ -257,6 +257,8 @@ client.is_ready()
 import weaviate.classes as wvc
 
 # Create the collection. Weaviate's autoschema feature will infer properties when importing.
+if client.collections.exists("corpus"):
+    client.collections.delete("corpus")
 documents = client.collections.create(
     "corpus",
     vectorizer_config=wvc.config.Configure.Vectorizer.none(),
@@ -282,10 +284,16 @@ We're ready to retrieve!
 
 ```python
 from weaviate.classes.query import MetadataQuery
+from tqdm import tqdm
+run_tag = "bge_weaviate"
+
+with open(query_file, "r") as f:
+    n_queries = sum(1 for _ in f)
+
 all_results = []
 query_ids = []
 with open(query_file, 'r') as file:
-    for line in file:
+    for line in tqdm(file, total=n_queries, desc=f"Processing {run_tag}", unit="query"):
         row = json.loads(line.strip())
         query_ids.append(row['id'])
         all_results.append(documents.query.near_vector(near_vector=row['vector'], limit=1000, return_metadata=MetadataQuery(distance=True)))
@@ -317,3 +325,4 @@ which should yield the corresponding results in the table.
 
 ## Reproduction Log[*](reproducibility.md)
 + Results reproduced by [@Raghav0005](https://github.com/Raghav0005) on 2025-05-21 (commit [`74dce4f`](https://github.com/castorini/pyserini/commit/74dce4f0fde6b82f22d3ba6a2a798ac4d8033f66))
++ Results reproduced by [@JJGreen0](https://github.com/JJGreen0) on 2025-05-30 (commit ['60de330'](https://github.com/castorini/pyserini/commit/60de330278d89e14864fa004602958cb66d48923))
