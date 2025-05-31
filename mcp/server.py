@@ -5,8 +5,8 @@ A Model Context Protocol server that provides search functionality using Pyserin
 """
 from typing import Dict, List, Optional, Any
 from mcp.server.fastmcp import FastMCP         
+from mcpyserini.core import MCPyserini
 
-from mcpyserini import MCPyserini
 
 def register_tools(mcp: FastMCP, pyserini: MCPyserini):
     """Register all tools with the MCP server."""

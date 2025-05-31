@@ -6,8 +6,6 @@ from pathlib import Path
 
 from enum import Enum
 from pyserini.search.lucene import LuceneSearcher
-from typing import List, Dict
-from pyserini.search.lucene import LuceneSearcher
 from pyserini.index.lucene import LuceneIndexReader
 
 # Configure logging
@@ -36,7 +34,7 @@ class MCPyserini:
     
     def __init__(self):
         self.indexes: Dict[str, IndexConfig] = {}
-        self.default_index: Optional[str] = None
+        self.default_index: str = None
         self.logger = logging.getLogger(__name__)
         self._initialize_default_indexes()
         self.logger.info("Created Pyserini MCP Server")
@@ -81,7 +79,7 @@ class MCPyserini:
             return True
             
         except Exception as e:
-            self.ogger.error(f"Failed to add index {config.name}: {e}")
+            self.logger.error(f"Failed to add index {config.name}: {e}")
             return False
         
     def get_index(self, index_name: Optional[str] = None) -> Optional[IndexConfig]:

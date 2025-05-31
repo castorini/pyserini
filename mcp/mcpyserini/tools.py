@@ -1,7 +1,7 @@
 from typing import Dict, List, Optional, Any
 
 from mcp.server.fastmcp import FastMCP   
-from mcpyserini import MCPyserini
+from core import MCPyserini
 
 
 def register_tools(mcp: FastMCP, server: MCPyserini):
