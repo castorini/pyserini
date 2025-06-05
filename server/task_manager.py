@@ -1,3 +1,9 @@
+"""
+Task manager for Pyserini capabilities.
+
+Initialized with prebuilt index msmarco-v1-passage.
+"""
+
 from pathlib import Path
 import json
 from typing import Dict, List, Optional, Any

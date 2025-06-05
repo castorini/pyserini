@@ -1,3 +1,8 @@
+"""
+Models and configuration classes for the Pyserini FastAPI server.
+
+"""
+
 from dataclasses import dataclass
 from enum import Enum
 from typing import Optional

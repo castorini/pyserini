@@ -1,6 +1,10 @@
+"""
+Index-related API endpoints for the Pyserini server.
+
+Provides routes for searching indexes, retrieving documents, checking index status, listing indexes, and updating or fetching index settings.
+"""
 from fastapi import APIRouter, Query, Path, HTTPException
 from typing import Optional, Dict, Any
-from models import IndexConfig
 from task_manager import manager
 
 router = APIRouter(prefix="/indexes", tags=["indexes"])
