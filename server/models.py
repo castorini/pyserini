@@ -5,14 +5,18 @@ from typing import Optional
 from pyserini.search.lucene import LuceneSearcher
 from pyserini.index.lucene import LuceneIndexReader
 
+
 class IndexType(Enum):
     """Supported index types."""
+
     PREBUILT = "prebuilt"
     LOCAL = "local"
+
 
 @dataclass
 class IndexConfig:
     """Configuration for a search index."""
+
     name: str
     type: IndexType
     path: str
@@ -23,4 +27,3 @@ class IndexConfig:
     encoder_override: Optional[str] = None
     query_generator_override: Optional[str] = None
     shard: Optional[str] = None
-    

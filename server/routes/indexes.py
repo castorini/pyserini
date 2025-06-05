@@ -1,13 +1,10 @@
 from fastapi import APIRouter, Query, Path, HTTPException
 from typing import Optional, Dict, Any
-from dataclasses import asdict
-
+from models import IndexConfig
 from task_manager import manager
 
-router = APIRouter(
-    prefix="/indexes",
-    tags=["indexes"]
-)
+router = APIRouter(prefix="/indexes", tags=["indexes"])
+
 
 @router.get("/{index}/search")
 async def search_index(
@@ -18,52 +15,58 @@ async def search_index(
     ef_search: Optional[int] = Query(None, description="EF search parameter"),
     encoder: Optional[str] = Query(None, description="Encoder to use"),
     query_generator: Optional[str] = Query(None, description="Query generator to use"),
-    shard: Optional[str] = Query(None, description="Shard identifier")
+    shard: Optional[str] = Query(None, description="Shard identifier"),
 ) -> Dict[str, Any]:
     try:
-        return manager.search(query, index, hits, qid, ef_search, encoder, query_generator, shard)
+        return manager.search(
+            query, index, hits, qid, ef_search, encoder, query_generator, shard
+        )
+    except ValueError as ve:
+        raise HTTPException(status_code=404, detail=str(ve))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    
-    
+
+
 @router.get("/{index}/documents/{docid}")
 async def get_document(
     docid: str = Path(..., description="Document ID"),
-    index: str = Path(..., description="Index name")
+    index: str = Path(..., description="Index name"),
 ) -> Dict[str, Any]:
     try:
         return manager.get_document(docid, index)
+    except ValueError as ve:
+        raise HTTPException(status_code=404, detail=str(ve))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
- 
 
 
 @router.get("/{index}/status")
 async def get_index_status(
     index: str = Path(..., description="Index name")
 ) -> Dict[str, Any]:
-    return {
-        "cached": manager.get_status(index)
-    }
+    return {"cached": manager.get_status(index)}
+
 
 @router.get("/")
 async def list_indexes() -> Dict[str, Dict[str, Any]]:
     try:
-        return asdict(manager.indexes)
+        return manager.get_indexes()
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.post("/{index}/settings")
 async def update_index_settings(
     index: str = Path(..., description="Index name"),
-    ef_search: Optional[str] = Query(None, description="EF search parameter"),
+    ef_search: Optional[int] = Query(None, description="EF search parameter"),
     encoder: Optional[str] = Query(None, description="Encoder to use"),
-    query_generator: Optional[str] = Query(None, description="Query generator to use")
+    query_generator: Optional[str] = Query(None, description="Query generator to use"),
 ) -> Dict[str, Any]:
     try:
         return manager.update_settings(index, ef_search, encoder, query_generator)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.get("/{index}/settings")
 async def get_index_settings(

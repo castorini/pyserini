@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from routes import search, indexes
+from routes import indexes
 
 # TODO: add to pyproject.toml
 
@@ -9,15 +9,11 @@ version = "0.0.1"
 description = "REST API for Pyserini functionality"
 
 
-app = FastAPI(
-    title=name,
-    version=version,
-    description=description
-)
+app = FastAPI(title=name, version=version, description=description)
 
 # Include routers
-app.include_router(search.router)
 app.include_router(indexes.router)
+
 
 @app.get("/")
 async def root():
@@ -26,10 +22,11 @@ async def root():
         "name": name,
         "version": version,
         "description": description,
-        "documentation": "/docs"
+        "documentation": "/docs",
     }
+
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8081)
-    
