@@ -41,7 +41,7 @@ class LuceneHnswDenseSearcher:
         Path to Lucene index directory.
     """
 
-    def __init__(self, index_dir: str, ef_search=100, encoder=None, prebuilt_index_name=None):
+    def __init__(self, index_dir: str, ef_search=100, encoder=None, prebuilt_index_name=None, verbose=False):
         self.index_dir = index_dir
 
         args = JHnswDenseSearcherArgs()
@@ -49,7 +49,7 @@ class LuceneHnswDenseSearcher:
         args.efSearch = ef_search
         if encoder:
             args.encoder = encoder
-
+        args.verbose = verbose
         self.searcher = JHnswDenseSearcher(args)
 
         # Keep track if self is a known prebuilt index.
@@ -85,7 +85,7 @@ class LuceneHnswDenseSearcher:
         if verbose:
             print(f'Initializing {prebuilt_index_name}...')
 
-        return cls(index_dir, ef_search=ef_search, encoder=encoder, prebuilt_index_name=prebuilt_index_name)
+        return cls(index_dir, ef_search=ef_search, encoder=encoder, prebuilt_index_name=prebuilt_index_name, verbose=verbose)
 
     def search(self, q: str, k: int = 10) -> List[JScoredDoc]:
         """Search the collection.
