@@ -111,7 +111,7 @@ def generate_report(args):
     html_template = read_file('atomic_html.template')
     row_template = read_file('atomic_html_row.template')
 
-    with importlib.resources.files("pyserini.2cr").joinpath("atomic.yaml").open('r') as f:
+    with importlib.resources.files('pyserini.2cr').joinpath('atomic.yaml').open('r') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -157,21 +157,21 @@ def generate_report(args):
                              s16=f'{table[model]["small-i2t"]["MRR@10"]:8.4f}',
                              s17=f'{table[model]["small-i2t"]["MRR@10"]:8.4f}',
                              s18=f'{table[model]["small-i2t"]["R@1000"]:8.4f}',
-                             cmd1=commands[model]["large-t2i"],
-                             cmd2=commands[model]["large-i2t"],
-                             cmd3=commands[model]["base-t2i"],
-                             cmd4=commands[model]["base-i2t"],
-                             cmd5=commands[model]["small-t2i"],
-                             cmd6=commands[model]["small-i2t"],
-                             eval_cmd1=eval_commands[model]["large-t2i"].rstrip(),
-                             eval_cmd2=eval_commands[model]["large-i2t"].rstrip(),
-                             eval_cmd3=eval_commands[model]["base-t2i"].rstrip(),
-                             eval_cmd4=eval_commands[model]["base-i2t"].rstrip(),
-                             eval_cmd5=eval_commands[model]["small-t2i"].rstrip(),
-                             eval_cmd6=eval_commands[model]["small-i2t"].rstrip(),
+                             cmd1=commands[model]['large-t2i'],
+                             cmd2=commands[model]['large-i2t'],
+                             cmd3=commands[model]['base-t2i'],
+                             cmd4=commands[model]['base-i2t'],
+                             cmd5=commands[model]['small-t2i'],
+                             cmd6=commands[model]['small-i2t'],
+                             eval_cmd1=eval_commands[model]['large-t2i'].rstrip(),
+                             eval_cmd2=eval_commands[model]['large-i2t'].rstrip(),
+                             eval_cmd3=eval_commands[model]['base-t2i'].rstrip(),
+                             eval_cmd4=eval_commands[model]['base-i2t'].rstrip(),
+                             eval_cmd5=eval_commands[model]['small-t2i'].rstrip(),
+                             eval_cmd6=eval_commands[model]['small-i2t'].rstrip(),
                              )
 
-            s = s.replace("0.0000", "----")
+            s = s.replace('0.0000', '----')
             html_rows.append(s)
             row_cnt += 1
 
@@ -185,7 +185,7 @@ def run_conditions(args):
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 
-    with importlib.resources.files("pyserini.2cr").joinpath("atomic.yaml").open('r') as f:
+    with importlib.resources.files('pyserini.2cr').joinpath('atomic.yaml').open('r') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
