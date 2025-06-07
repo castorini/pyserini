@@ -21,7 +21,7 @@ import os
 import sys
 import time
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timezone
 from string import Template
 
 import yaml
@@ -109,7 +109,7 @@ def read_file(f):
 
 
 def list_conditions():
-    with open(importlib.resources.files("pyserini.2cr")/'beir.yaml') as f:
+    with importlib.resources.files('pyserini.2cr').joinpath('beir.yaml').open('r') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             print(condition['name'])
@@ -130,7 +130,7 @@ def generate_report(args):
     html_template = read_file('beir_html.template')
     row_template = read_file('beir_html_row.template')
 
-    with open(importlib.resources.files("pyserini.2cr")/'beir.yaml') as f:
+    with importlib.resources.files('pyserini.2cr').joinpath('beir.yaml').open('r') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -249,7 +249,7 @@ def run_conditions(args):
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 
-    with open(importlib.resources.files("pyserini.2cr")/'beir.yaml') as f:
+    with importlib.resources.files('pyserini.2cr').joinpath('beir.yaml').open('r') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -409,9 +409,8 @@ def run_conditions(args):
           f'{cqa_scores["cohere-embed-english-v3.0"]["nDCG@10"]:8.3f}{cqa_scores["cohere-embed-english-v3.0"]["R@100"]:8.3f}')
 
     end = time.time()
-
-    start_str = datetime.utcfromtimestamp(start).strftime('%Y-%m-%d %H:%M:%S')
-    end_str = datetime.utcfromtimestamp(end).strftime('%Y-%m-%d %H:%M:%S')
+    start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
 
     print('\n')
     print(f'Start time: {start_str}')

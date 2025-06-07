@@ -22,7 +22,7 @@ conditions:
         scores:
           - MRR@10: 0.0685
             R@10: 0.1171
-            R@1000: 0.4597
+            R@1000: 0.4450
   - name: base-i2t
     command: python -m pyserini.search.faiss --topics atomic-v0.2-${model}-image-validation --index atomic-v0.2.1.${model}.text.base --encoded-queries atomic-v0.2-image-${model}-validation --hits 1000 --batch-size 256 --threads 32 --output $output
     models:

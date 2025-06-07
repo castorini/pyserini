@@ -21,6 +21,7 @@ import os
 import sys
 import time
 from collections import defaultdict
+from datetime import datetime, timezone
 from string import Template
 
 import yaml
@@ -46,6 +47,7 @@ trec_eval_metric_definitions = {
     'R@1000': '-c -m recall.1000'
 }
 
+
 def format_run_command(raw):
     return raw.replace('--topics', '\\\n  --topics')\
         .replace('--index', '\\\n  --index')\
@@ -58,25 +60,29 @@ def format_eval_command(raw):
     return raw.replace('-c ', '\\\n  -c ')\
         .replace('run.', '\\\n  run.')
 
+
 def read_file(f):
-    fin = open(importlib.resources.files("pyserini.2cr")/f, 'r')
+    fin = open(importlib.resources.files('pyserini.2cr')/f, 'r')
     text = fin.read()
     fin.close()
 
     return text
 
+
 def list_models():
     for model in atomic_models:
         print(model)
 
+
 def get_conditions():
-    with open(importlib.resources.files("pyserini.2cr")/'atomic.yaml') as f:
+    with importlib.resources.files('pyserini.2cr').joinpath('atomic.yaml').open('r') as f:
         yaml_data = yaml.safe_load(f)
     
     return [condition['name'] for condition in yaml_data['conditions']]
 
+
 def list_conditions():
-    with open(importlib.resources.files("pyserini.2cr")/'atomic.yaml') as f:
+    with importlib.resources.files('pyserini.2cr').joinpath('atomic.yaml').open('r') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             print(condition['name'])
@@ -96,6 +102,7 @@ def print_results(table, metric):
         print('')
     print('')
 
+
 def generate_report(args):
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
     commands = defaultdict(lambda: defaultdict(lambda: ''))
@@ -104,7 +111,7 @@ def generate_report(args):
     html_template = read_file('atomic_html.template')
     row_template = read_file('atomic_html_row.template')
 
-    with open(importlib.resources.files("pyserini.2cr")/'atomic.yaml') as f:
+    with importlib.resources.files('pyserini.2cr').joinpath('atomic.yaml').open('r') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -150,21 +157,21 @@ def generate_report(args):
                              s16=f'{table[model]["small-i2t"]["MRR@10"]:8.4f}',
                              s17=f'{table[model]["small-i2t"]["MRR@10"]:8.4f}',
                              s18=f'{table[model]["small-i2t"]["R@1000"]:8.4f}',
-                             cmd1=commands[model]["large-t2i"],
-                             cmd2=commands[model]["large-i2t"],
-                             cmd3=commands[model]["base-t2i"],
-                             cmd4=commands[model]["base-i2t"],
-                             cmd5=commands[model]["small-t2i"],
-                             cmd6=commands[model]["small-i2t"],
-                             eval_cmd1=eval_commands[model]["large-t2i"].rstrip(),
-                             eval_cmd2=eval_commands[model]["large-i2t"].rstrip(),
-                             eval_cmd3=eval_commands[model]["base-t2i"].rstrip(),
-                             eval_cmd4=eval_commands[model]["base-i2t"].rstrip(),
-                             eval_cmd5=eval_commands[model]["small-t2i"].rstrip(),
-                             eval_cmd6=eval_commands[model]["small-i2t"].rstrip(),
+                             cmd1=commands[model]['large-t2i'],
+                             cmd2=commands[model]['large-i2t'],
+                             cmd3=commands[model]['base-t2i'],
+                             cmd4=commands[model]['base-i2t'],
+                             cmd5=commands[model]['small-t2i'],
+                             cmd6=commands[model]['small-i2t'],
+                             eval_cmd1=eval_commands[model]['large-t2i'].rstrip(),
+                             eval_cmd2=eval_commands[model]['large-i2t'].rstrip(),
+                             eval_cmd3=eval_commands[model]['base-t2i'].rstrip(),
+                             eval_cmd4=eval_commands[model]['base-i2t'].rstrip(),
+                             eval_cmd5=eval_commands[model]['small-t2i'].rstrip(),
+                             eval_cmd6=eval_commands[model]['small-i2t'].rstrip(),
                              )
 
-            s = s.replace("0.0000", "----")
+            s = s.replace('0.0000', '----')
             html_rows.append(s)
             row_cnt += 1
 
@@ -172,12 +179,13 @@ def generate_report(args):
         with open(args.output, 'w') as out:
             out.write(Template(html_template).substitute(title='AToMiC', rows=all_rows))
 
+
 def run_conditions(args):
     start = time.time()
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 
-    with open(importlib.resources.files("pyserini.2cr")/'atomic.yaml') as f:
+    with importlib.resources.files('pyserini.2cr').joinpath('atomic.yaml').open('r') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -231,6 +239,15 @@ def run_conditions(args):
 
     for metric in trec_eval_metric_definitions:
         print_results(table, metric)
+
+    end = time.time()
+    start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+
+    print('\n')
+    print(f'Start time: {start_str}')
+    print(f'End time: {end_str}')
+    print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
 
 
 if __name__ == '__main__':
