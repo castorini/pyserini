@@ -369,7 +369,7 @@ class LuceneIndexReader:
         except Exception as e:
             # In case if doc is empty
             exception_type = type(e).__name__  # Get the exception's type name
-            if "JavaException" == exception_type:
+            if 'JavaException' == exception_type:
                 return {}
             else:
                 # Re-raise the exception if it doesn't match the desired name
