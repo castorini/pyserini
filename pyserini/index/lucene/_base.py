@@ -367,7 +367,7 @@ class LuceneIndexReader:
         try:
             doc_vector_map = self.object.getDocumentVector(self.reader, docid)
         except Exception as e:
-            #in case if doc is empty
+            # In case if doc is empty
             exception_type = type(e).__name__  # Get the exception's type name
             if "JavaException" == exception_type:
                 return {}
