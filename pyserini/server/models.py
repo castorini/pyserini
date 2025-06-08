@@ -27,7 +27,6 @@ class IndexConfig:
     path: str
     description: Optional[str] = None
     searcher: Optional[LuceneSearcher] = None
-    reader: Optional[LuceneIndexReader] = None
     ef_search_override: Optional[int] = None
     encoder_override: Optional[str] = None
     query_generator_override: Optional[str] = None

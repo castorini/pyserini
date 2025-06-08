@@ -1,8 +1,12 @@
+"""
+Register tools for the MCP server.
+"""
+
 from typing import Dict, List, Optional, Any
 
 
-from mcp.server.fastmcp import FastMCP      
-from task_manager import TaskManager, DEFAULT_INDEX
+from mcp.server.fastmcp import FastMCP
+from ..task_manager import TaskManager
 
 
 def register_tools(mcp: FastMCP, manager: TaskManager):
@@ -10,9 +14,13 @@ def register_tools(mcp: FastMCP, manager: TaskManager):
 
     @mcp.tool(
         name="search",
-        description="Perform a BM25 search on a given index. Returns top‑k hits with docid, score, and snippet."
+        description="Perform a BM25 search on a given index. Returns top‑k hits with docid, score, and snippet.",
     )
-    def search(query: str, index_name: str = DEFAULT_INDEX, k: int = 10,) -> List[Dict[str, Any]]:
+    def search(
+        query: str,
+        index_name: str,
+        k: int = 10,
+    ) -> List[Dict[str, Any]]:
         """
         Search the Pyserini index with BM25 and return top-k hits
         Args:
@@ -26,16 +34,16 @@ def register_tools(mcp: FastMCP, manager: TaskManager):
 
     @mcp.tool(
         name="get_document",
-        description="Retrieve a full document by its document ID from a given index."
+        description="Retrieve a full document by its document ID from a given index.",
     )
     def get_document(docid: str, index_name: str) -> Optional[Dict[str, Any]]:
         """
         Retrieve the full text of a document by its ID.
-        
+
         Args:
             docid: Document ID to retrieve
             index_name: Name of index to search (default: use default index)
-        
+
         Returns:
             Document with full text, or None if not found
         """

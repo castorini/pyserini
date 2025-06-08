@@ -3,9 +3,10 @@ Index-related API endpoints for the Pyserini server.
 
 Provides routes for searching indexes, retrieving documents, checking index status, listing indexes, and updating or fetching index settings.
 """
+
 from fastapi import APIRouter, Query, Path, HTTPException
 from typing import Optional, Dict, Any
-from task_manager import manager
+from ...task_manager import get_manager
 
 router = APIRouter(prefix="/indexes", tags=["indexes"])
 
@@ -22,7 +23,7 @@ async def search_index(
     shard: Optional[str] = Query(None, description="Shard identifier"),
 ) -> Dict[str, Any]:
     try:
-        return manager.search(
+        return get_manager().search(
             query, index, hits, qid, ef_search, encoder, query_generator, shard
         )
     except ValueError as ve:
@@ -37,7 +38,7 @@ async def get_document(
     index: str = Path(..., description="Index name"),
 ) -> Dict[str, Any]:
     try:
-        return manager.get_document(docid, index)
+        return get_manager().get_document(docid, index)
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))
     except Exception as e:
@@ -48,13 +49,13 @@ async def get_document(
 async def get_index_status(
     index: str = Path(..., description="Index name")
 ) -> Dict[str, Any]:
-    return {"cached": manager.get_status(index)}
+    return {"cached": get_manager().get_status(index)}
 
 
 @router.get("/")
 async def list_indexes() -> Dict[str, Dict[str, Any]]:
     try:
-        return manager.get_indexes()
+        return get_manager().get_indexes()
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -67,7 +68,7 @@ async def update_index_settings(
     query_generator: Optional[str] = Query(None, description="Query generator to use"),
 ) -> Dict[str, Any]:
     try:
-        return manager.update_settings(index, ef_search, encoder, query_generator)
+        return get_manager().update_settings(index, ef_search, encoder, query_generator)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -77,6 +78,6 @@ async def get_index_settings(
     index: str = Path(..., description="Index name")
 ) -> Dict[str, Any]:
     try:
-        return manager.get_settings(index)
+        return get_manager().get_settings(index)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
