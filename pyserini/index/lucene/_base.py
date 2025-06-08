@@ -578,7 +578,7 @@ class LuceneIndexReader:
             BM25 b parameter.
         """
 
-        f = open(file_path, 'w', encoding="utf-8")
+        f = open(file_path, 'w', encoding='utf-8')
 
         assert 'documents' in self.stats()
         for i in tqdm(range(self.stats()['documents'])):
