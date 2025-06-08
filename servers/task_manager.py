@@ -15,6 +15,7 @@ from pyserini.util import check_downloaded
 
 from models import IndexConfig, IndexType
 
+DEFAULT_INDEX = "msmarco-v1-passage"
 
 class TaskManager:
     """Core functionality manager."""
@@ -157,4 +158,4 @@ class TaskManager:
 
 
 manager = TaskManager()
-manager.initialize_default_index("msmarco-v1-passage")
+manager.initialize_default_index(DEFAULT_INDEX)
