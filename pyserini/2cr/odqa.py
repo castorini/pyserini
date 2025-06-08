@@ -21,7 +21,7 @@ import os
 import sys
 import time
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timezone
 from string import Template
 
 import yaml
@@ -110,7 +110,7 @@ def format_eval_command(raw):
 
 
 def read_file(f):
-    fin = open(importlib.resources.files("pyserini.2cr")/f, 'r')
+    fin = open(importlib.resources.files('pyserini.2cr')/f, 'r')
     text = fin.read()
     fin.close()
 
@@ -131,15 +131,15 @@ def generate_table_rows(table, table_id, commands, convert_commands, eval_comman
     row_template_rrf = read_file('odqa_html_table_row_rrf.template')
     
     for model in models['models']:
-        if model == "GarT5-RRF":
+        if model == 'GarT5-RRF':
             s = Template(row_template_garrrf)
             s = s.substitute(table_cnt=table_id,
                              row_cnt=row_cnt,
                              model=model,
-                             TQA_Top20=table[model][TQA_TOPICS]["Top20"],
-                             TQA_Top100=table[model][TQA_TOPICS]["Top100"],
-                             NQ_Top20=table[model][NQ_TOPICS]["Top20"],
-                             NQ_Top100=table[model][NQ_TOPICS]["Top100"],
+                             TQA_Top20=table[model][TQA_TOPICS]['Top20'],
+                             TQA_Top100=table[model][TQA_TOPICS]['Top100'],
+                             NQ_Top20=table[model][NQ_TOPICS]['Top20'],
+                             NQ_Top100=table[model][NQ_TOPICS]['Top100'],
                              cmd1=f'{commands[model][TQA_TOPICS][0]}',
                              cmd2=f'{commands[model][TQA_TOPICS][1]}',
                              cmd3=f'{commands[model][TQA_TOPICS][2]}',
@@ -152,15 +152,15 @@ def generate_table_rows(table, table_id, commands, convert_commands, eval_comman
                              convert_cmd2=f'{convert_commands[model][NQ_TOPICS]}',
                              eval_cmd1=f'{eval_commands[model][TQA_TOPICS]}',
                              eval_cmd2=f'{eval_commands[model][NQ_TOPICS]}')
-        elif model == "GarT5RRF-DKRR-RRF":
+        elif model == 'GarT5RRF-DKRR-RRF':
             s = Template(row_template_rrf)
             s = s.substitute(table_cnt=table_id,
                              row_cnt=row_cnt,
                              model=model,
-                             TQA_Top20=table[model][TQA_TOPICS]["Top20"],
-                             TQA_Top100=table[model][TQA_TOPICS]["Top100"],
-                             NQ_Top20=table[model][NQ_TOPICS]["Top20"],
-                             NQ_Top100=table[model][NQ_TOPICS]["Top100"],
+                             TQA_Top20=table[model][TQA_TOPICS]['Top20'],
+                             TQA_Top100=table[model][TQA_TOPICS]['Top100'],
+                             NQ_Top20=table[model][NQ_TOPICS]['Top20'],
+                             NQ_Top100=table[model][NQ_TOPICS]['Top100'],
                              fusion_cmd1=fusion_cmd_tqa[1],
                              fusion_cmd2=fusion_cmd_nq[1],
                              convert_cmd1=f'{convert_commands[model][TQA_TOPICS]}',
@@ -172,10 +172,10 @@ def generate_table_rows(table, table_id, commands, convert_commands, eval_comman
             s = s.substitute(table_cnt=table_id,
                              row_cnt=row_cnt,
                              model=model,
-                             TQA_Top20=table[model][TQA_TOPICS]["Top20"],
-                             TQA_Top100=table[model][TQA_TOPICS]["Top100"],
-                             NQ_Top20=table[model][NQ_TOPICS]["Top20"],
-                             NQ_Top100=table[model][NQ_TOPICS]["Top100"],
+                             TQA_Top20=table[model][TQA_TOPICS]['Top20'],
+                             TQA_Top100=table[model][TQA_TOPICS]['Top100'],
+                             NQ_Top20=table[model][NQ_TOPICS]['Top20'],
+                             NQ_Top100=table[model][NQ_TOPICS]['Top100'],
                              cmd1=commands[model][TQA_TOPICS][0],
                              cmd2=commands[model][NQ_TOPICS][0],
                              convert_cmd1=f'{convert_commands[model][TQA_TOPICS]}',
@@ -196,8 +196,8 @@ def generate_report(args):
 
     html_template = read_file('odqa_html.template')
     table_template = read_file('odqa_html_table.template')
-    tqa_yaml_path = importlib.resources.files("pyserini.2cr")/'triviaqa.yaml'
-    nq_yaml_path = importlib.resources.files("pyserini.2cr")/'naturalquestion.yaml'
+    tqa_yaml_path = importlib.resources.files('pyserini.2cr').joinpath('triviaqa.yaml')
+    nq_yaml_path = importlib.resources.files('pyserini.2cr').joinpath('naturalquestion.yaml')
 
     garrrf_ls = ['answers', 'titles', 'sentences']
     fusion_cmd_tqa = []
@@ -205,7 +205,7 @@ def generate_report(args):
     tqa_fused_run = {}
     nq_fused_run = {}
 
-    with open(tqa_yaml_path) as f_tqa, open(nq_yaml_path) as f_nq:
+    with tqa_yaml_path.open('r') as f_tqa, nq_yaml_path.open('r') as f_nq:
         tqa_yaml_data = yaml.safe_load(f_tqa)
         nq_yaml_data = yaml.safe_load(f_nq)
         for condition_tqa, condition_nq in zip(tqa_yaml_data['conditions'], nq_yaml_data['conditions']):
@@ -244,8 +244,8 @@ def generate_report(args):
             display_runfile_nq = jsonfile_nq.replace('.json', '.txt')
 
             # fusion commands
-            if "RRF" in name:
-                if name == "GarT5RRF-DKRR-RRF":
+            if 'RRF' in name:
+                if name == 'GarT5RRF-DKRR-RRF':
                     nq_runs = ' \\\n\t '.join([NQ_DKRR_RUN, nq_fused_run['GarT5-RRF']])
                     tqa_runs = ' \\\n\t '.join([TQA_DKRR_RUN, tqa_fused_run['GarT5-RRF']])
                 else:
@@ -261,7 +261,7 @@ def generate_report(args):
                                      f'  --output {nq_fused_run[name]} \\\n' +
                                      f'  --k 100')
 
-            if name != "GarT5RRF-DKRR-RRF":
+            if name != 'GarT5RRF-DKRR-RRF':
                 hits = 100 if name not in HITS_1K else 1000
                 cmd_tqa = [Template(cmd_template_tqa[i])
                            .substitute(output=runfile_tqa[i],
@@ -325,13 +325,13 @@ def generate_report(args):
 
 def run_conditions(args):
     hits = 1000 if args.full_topk else 100
-    yaml_path = importlib.resources.files("pyserini.2cr")/'triviaqa.yaml' \
-        if args.topics == "tqa" else importlib.resources.files("pyserini.2cr")/'naturalquestion.yaml'
+    yaml_path = importlib.resources.files('pyserini.2cr').joinpath('triviaqa.yaml') \
+        if args.topics == 'tqa' else importlib.resources.files('pyserini.2cr').joinpath('naturalquestion.yaml')
     topics = 'dpr-trivia-test' if args.topics == 'tqa' else 'nq-test'
     start = time.time()
     table = defaultdict(lambda: defaultdict(lambda: 0.0))
 
-    with open(yaml_path) as f:
+    with yaml_path.open('r') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['model_name']
@@ -358,12 +358,12 @@ def run_conditions(args):
             print(f'  - Topics: {topics}')
 
             # running retrieval
-            if name == "GarT5-RRF":
+            if name == 'GarT5-RRF':
                 runfile = [os.path.join(args.directory, f'run.odqa.{name}.{topics}.{i}.hits-{hits}.txt') for i in GARRRF_LS]
             else:
                 runfile = [os.path.join(args.directory, f'run.odqa.{name}.{topics}.hits-{hits}.txt')]
 
-            if name != "GarT5RRF-DKRR-RRF":
+            if name != 'GarT5RRF-DKRR-RRF':
                 cmd = [Template(cmd_template[i]).substitute(output=runfile[i],
                                                             sparse_threads=sparse_threads,
                                                             sparse_batch_size=sparse_batch_size,
@@ -413,7 +413,7 @@ def run_conditions(args):
                 if not os.path.exists(jsonfile):
                     status = convert_trec_run_to_dpr_retrieval_json(topics, 'wikipedia-dpr-100w', runfile, jsonfile)
                     if status != 0:
-                        raise RuntimeError("dpr retrieval conversion failed")
+                        raise RuntimeError('dpr retrieval conversion failed')
                 topk_defs = evaluate_dpr_retrieval_metric_definitions['Top5-100']
                 if args.full_topk:
                     topk_defs = evaluate_dpr_retrieval_metric_definitions['Top5-1000']
@@ -440,8 +440,8 @@ def run_conditions(args):
         print_results(table, metric, topics)
 
     end = time.time()
-    start_str = datetime.utcfromtimestamp(start).strftime('%Y-%m-%d %H:%M:%S')
-    end_str = datetime.utcfromtimestamp(end).strftime('%Y-%m-%d %H:%M:%S')
+    start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
 
     print('\n')
     print(f'Start time: {start_str}')
@@ -480,7 +480,7 @@ if __name__ == '__main__':
         sys.exit()
         
     if not args.generate_report and not args.topics:
-        print(f"Must specify a topic [tqa, nq] when running an evaluation.")
+        print(f'Must specify a topic [tqa, nq] when running an evaluation.')
         sys.exit()
 
     if not args.all and not args.condition:
