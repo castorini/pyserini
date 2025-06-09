@@ -35,7 +35,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.readme,
                          'lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md')
         self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.urls[0],
-                         'https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
+                         'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/resolve/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
 
     def test_lucene_tf_beir(self):
         urls = []
@@ -242,7 +242,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
         cnt = 0
         for url in urls:
             cnt += 1
-            response = requests.head(url)
+            response = requests.head(url, allow_redirects=True)
             self.assertEqual(response.status_code, 200, f'Error checking {url}')
 
         self.assertEqual(cnt, len(urls))
