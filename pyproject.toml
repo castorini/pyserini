@@ -10,7 +10,10 @@ namespaces = false
 
 [project]
 name = "pyserini"
-version = "0.44.0"
+version = "1.0.0"
+license = "Apache-2.0"
+license-files = ["LICENSE.txt",
+]
 authors = [
     { name="Jimmy Lin", email="jimmylin@uwaterloo.ca" },
 ]
@@ -18,7 +21,6 @@ description = "A Python toolkit for reproducible information retrieval research 
 readme = "project-description.md"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
 ]
 requires-python = ">=3.10"
@@ -39,7 +41,9 @@ dependencies = [
     "sentencepiece>=0.2",
     "tiktoken>=0.4.0",
     "flask>3.0",
-    "pillow>=10.2.0"
+    "pillow>=10.2.0",
+    "fastapi>=0.70.0",
+    "uvicorn>=0.13.0"
 ]
 
 [project.urls]
