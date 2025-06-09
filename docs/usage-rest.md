@@ -7,13 +7,13 @@ The Pyserini FastAPI server provides a RESTful HTTP interface to Pyserini's sear
 You can start the FastAPI server by running the command:
 
 ```bash
-python -m pyserini.server.fastapi
+python -m pyserini.server.rest
 ```
 
 The server will start on `http://localhost:8081` by default. You can specify a different port using the `--port` argument:
 
 ```bash
-python -m pyserini.server.fastapi --port 8080
+python -m pyserini.server.rest --port 8080
 ```
 
 ### Interactive API Documentation
@@ -32,11 +32,13 @@ The FastAPI server provides several endpoints for interacting with Pyserini inde
 Perform a search query on the specified index.
 
 **Example Request:**
+
 ```bash
 curl "http://localhost:8081/indexes/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=1"
 ```
 
 **Example Response:**
+
 ```json
 {
   "query": {
@@ -62,11 +64,13 @@ curl "http://localhost:8081/indexes/msmarco-v1-passage/search?query=what%20is%20
 Retrieve a specific document by its document ID.
 
 **Example Request:**
+
 ```bash
 curl "http://localhost:8081/indexes/msmarco-v1-passage/documents/7157715"
 ```
 
 **Example Response:**
+
 ```json
 {
   "docid": "7157715",

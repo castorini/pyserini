@@ -9,6 +9,7 @@ The Pyserini MCP server provides search and document retrieval capabilities thro
 
 The MCP server uses stdio transport and is designed to be launched by MCP clients. 
 If you want to run the server manually, you will need the [development](https://github.com/castorini/pyserini/blob/master/docs/installation.md#development-installation) installation of Pyserini. In your project root directory, run:
+
 ```bash
 python pyserini/server/mcp/mcpyserini.py
 ```
@@ -59,6 +60,7 @@ The Pyserini MCP server provides two main tools for information retrieval:
 - `index_name`: Name of the index searched
 
 **Example Usage in MCP Client:**
+
 ```
 Search for "what is a lobster roll" in the msmarco-v1-passage index, returning 5 results.
 ```
@@ -79,6 +81,7 @@ Search for "what is a lobster roll" in the msmarco-v1-passage index, returning 5
 - `raw`: Raw document representation (if available)
 
 **Example Usage in MCP Client:**
+
 ```
 Retrieve the full text of document "7157715" from the msmarco-v1-passage index.
 ```
