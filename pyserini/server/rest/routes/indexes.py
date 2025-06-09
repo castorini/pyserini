@@ -23,7 +23,7 @@ Provides routes for searching indexes, retrieving documents, checking index stat
 
 from fastapi import APIRouter, Query, Path, HTTPException
 from typing import Optional, Dict, Any
-from ...search_controller import get_controller
+from pyserini.server.search_controller import get_controller
 
 router = APIRouter(prefix="/indexes", tags=["indexes"])
 

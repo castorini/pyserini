@@ -22,8 +22,8 @@ A Model Context Protocol server that provides search functionality using Pyserin
 
 from mcp.server.fastmcp import FastMCP
 
-from .tools import register_tools
-from ..search_controller import get_controller
+from pyserini.server.mcp.tools import register_tools
+from pyserini.server.search_controller import get_controller
 
 
 def main():

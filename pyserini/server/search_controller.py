@@ -29,7 +29,7 @@ from pyserini.search.lucene import LuceneSearcher
 from pyserini.prebuilt_index_info import TF_INDEX_INFO
 from pyserini.util import check_downloaded
 
-from .models import IndexConfig, IndexType
+from pyserini.server.models import IndexConfig, IndexType
 
 DEFAULT_INDEX = "msmarco-v1-passage"
 

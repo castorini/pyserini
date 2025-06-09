@@ -23,7 +23,7 @@ from typing import Dict, List, Optional, Any
 
 
 from mcp.server.fastmcp import FastMCP
-from ..search_controller import SearchController
+from pyserini.server.search_controller import SearchController
 
 
 def register_tools(mcp: FastMCP, controller: SearchController):

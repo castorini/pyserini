@@ -17,7 +17,7 @@ Endpoints:
 """
 
 from fastapi import FastAPI
-from .routes.indexes import router
+from pyserini.server.rest.routes.indexes import router
 
 
 name = "Pyserini API"
