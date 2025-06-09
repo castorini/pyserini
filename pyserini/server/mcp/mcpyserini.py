@@ -21,14 +21,9 @@ A Model Context Protocol server that provides search functionality using Pyserin
 """
 
 from mcp.server.fastmcp import FastMCP
-import sys
-from pathlib import Path
-
-# Ensure the parent directory is in sys.path for module resolution
-#sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from .tools import register_tools
-from ..task_manager import get_manager
+from ..search_controller import get_controller
 
 
 def main():
@@ -36,7 +31,7 @@ def main():
     try:
         mcp = FastMCP("pyserini-search-server")
 
-        register_tools(mcp, get_manager())
+        register_tools(mcp, get_controller())
 
         mcp.run(transport="stdio")
 

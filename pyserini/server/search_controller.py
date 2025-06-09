@@ -1,5 +1,22 @@
+#
+# Pyserini: Reproducible IR research with sparse and dense representations
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+
 """
-Task manager for Pyserini capabilities.
+Search controller for Pyserini capabilities.
 
 Initialized with prebuilt index msmarco-v1-passage.
 """
@@ -9,23 +26,23 @@ import json
 from typing import Dict, List, Optional, Any
 
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.index.lucene import LuceneIndexReader
 from pyserini.prebuilt_index_info import TF_INDEX_INFO
 from pyserini.util import check_downloaded
 
-from models import IndexConfig, IndexType
+from .models import IndexConfig, IndexType
 
+DEFAULT_INDEX = "msmarco-v1-passage"
 
-class TaskManager:
-    """Core functionality manager."""
+class SearchController:
+    """Core functionality controller."""
 
     def __init__(self):
         self.indexes: Dict[str, IndexConfig] = {}
 
-    def initialize_default_index(self, default_index: Optional[str]) -> None:
+    def initialize_default_index(self, default_index: str = DEFAULT_INDEX) -> None:
         """Initialize default prebuilt index."""
-
-        if default_index and default_index in TF_INDEX_INFO.keys():
+        
+        if default_index in TF_INDEX_INFO.keys():
             self.add_index(
                 IndexConfig(
                     name=default_index,
@@ -34,6 +51,8 @@ class TaskManager:
                     description=TF_INDEX_INFO[default_index].get("description", ""),
                 )
             )
+        else:
+            raise ValueError(f"Default index '{default_index}' not found in prebuilt indexes.")
 
     def add_index(self, config: IndexConfig) -> None:
         """Add a new index to the manager."""
@@ -41,10 +60,8 @@ class TaskManager:
             if not Path(config.path).exists():
                 raise FileNotFoundError(f"Index path does not exist: {config.path}")
             config.searcher = LuceneSearcher(config.path)
-            config.reader = LuceneIndexReader(config.path)
         else:
             config.searcher = LuceneSearcher.from_prebuilt_index(config.path)
-            config.reader = LuceneIndexReader.from_prebuilt_index(config.reader)
 
         self.indexes[config.name] = config
 
@@ -68,12 +85,9 @@ class TaskManager:
         if not index_config:
             raise ValueError(f"Index '{index_name}' not available")
 
-        if not index_config.searcher or not not index_config.reader:
+        if not index_config.searcher:
             index_config.searcher = LuceneSearcher.from_prebuilt_index(
                 index_config.path
-            )
-            index_config.reader = LuceneIndexReader.from_prebuilt_index(
-                index_config.reader
             )
 
         # TODO: actually use other params
@@ -101,12 +115,9 @@ class TaskManager:
         if not index_config:
             raise ValueError(f"Index '{index_name}' not available")
 
-        if not index_config.searcher or not not index_config.reader:
+        if not index_config.searcher:
             index_config.searcher = LuceneSearcher.from_prebuilt_index(
                 index_config.path
-            )
-            index_config.reader = LuceneIndexReader.from_prebuilt_index(
-                index_config.reader
             )
 
         doc = index_config.searcher.doc(docid)
@@ -155,6 +166,9 @@ class TaskManager:
             settings["queryGenerator"] = index_config.query_generator_override
         return settings
 
+controller = SearchController()
+controller.initialize_default_index()
 
-manager = TaskManager()
-manager.initialize_default_index("msmarco-v1-passage")
+def get_controller() -> SearchController:
+    """Get the singleton instance of SearchController."""
+    return controller

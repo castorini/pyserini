@@ -4,10 +4,10 @@ FastAPI Server for Pyserini
 Launches a REST API server for Pyserini search functionality.
 
 Usage:
-    python -m pyserini.server.fastapi [--port PORT]
+    python -m pyserini.server.rest [--port PORT]
 
 Example:
-    python -m pyserini.server.fastapi --port 8080
+    python -m pyserini.server.rest --port 8080
 
 Endpoints:
     GET /                 : API metadata and documentation link.

@@ -23,10 +23,10 @@ from typing import Dict, List, Optional, Any
 
 
 from mcp.server.fastmcp import FastMCP
-from ..task_manager import TaskManager
+from ..search_controller import SearchController
 
 
-def register_tools(mcp: FastMCP, manager: TaskManager):
+def register_tools(mcp: FastMCP, controller: SearchController):
     """Register all tools with the MCP server."""
 
     @mcp.tool(
@@ -47,7 +47,7 @@ def register_tools(mcp: FastMCP, manager: TaskManager):
         Returns:
             List of search results with docid, score, text snippet, and index name
         """
-        return manager.search(query, index_name, k)
+        return controller.search(query, index_name, k)
 
     @mcp.tool(
         name="get_document",
@@ -64,4 +64,4 @@ def register_tools(mcp: FastMCP, manager: TaskManager):
         Returns:
             Document with full text, or None if not found
         """
-        return manager.get_document(docid, index_name)
+        return controller.get_document(docid, index_name)

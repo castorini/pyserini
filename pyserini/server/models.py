@@ -25,7 +25,6 @@ from enum import Enum
 from typing import Optional
 
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.index.lucene import LuceneIndexReader
 
 
 class IndexType(Enum):
