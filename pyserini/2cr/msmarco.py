@@ -344,7 +344,7 @@ def list_conditions(args):
         print(condition)
 
 
-def _get_display_num(num: int) -> str:
+def _get_display_num(num: float) -> str:
     return f'{num:.4f}' if num != 0 else '-'
 
 
@@ -654,7 +654,7 @@ def run_conditions(args):
 
     end = time.time()
     start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
-    end_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.fromtimestamp(end, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
 
     print('\n')
     print(f'Start time: {start_str}')
