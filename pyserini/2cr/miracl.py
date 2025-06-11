@@ -22,7 +22,7 @@ import subprocess
 import sys
 import time
 from collections import defaultdict, OrderedDict
-from datetime import datetime
+from datetime import datetime, timezone
 from string import Template
 
 import yaml
@@ -233,7 +233,7 @@ def generate_report(args):
     table_template = read_file('miracl_html_table.template')
     row_template = read_file('miracl_html_table_row.template')
 
-    with open(importlib.resources.files("pyserini.2cr")/'miracl.yaml') as f:
+    with importlib.resources.files('pyserini.2cr').joinpath('miracl.yaml').open('r') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -305,7 +305,7 @@ def run_conditions(args):
 
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
 
-    with open(importlib.resources.files("pyserini.2cr")/'miracl.yaml') as f:
+    with importlib.resources.files('pyserini.2cr').joinpath('miracl.yaml').open('r') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -408,8 +408,8 @@ def run_conditions(args):
             print_results(table, metric, split)
 
     end = time.time()
-    start_str = datetime.utcfromtimestamp(start).strftime('%Y-%m-%d %H:%M:%S')
-    end_str = datetime.utcfromtimestamp(end).strftime('%Y-%m-%d %H:%M:%S')
+    start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.fromtimestamp(end, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
 
     print('\n')
     print(f'Start time: {start_str}')

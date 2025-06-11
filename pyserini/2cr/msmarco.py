@@ -22,7 +22,7 @@ import re
 import sys
 import time
 from collections import defaultdict, namedtuple
-from datetime import datetime
+from datetime import datetime, timezone
 from string import Template
 
 import yaml
@@ -344,32 +344,32 @@ def list_conditions(args):
         print(condition)
 
 
-def _get_display_num(num: int) -> str:
+def _get_display_num(num: float) -> str:
     return f'{num:.4f}' if num != 0 else '-'
 
 
 def _remove_commands(table, name, s, v1):
-    v1_unavilable_dict = {
+    v1_unavailable_dict = {
         ('dl19', 'MAP'): 'Command to generate run on TREC 2019 queries:.*?</div>',
         ('dl20', 'MAP'): 'Command to generate run on TREC 2020 queries:.*?</div>',
         ('dev', 'MRR@10'): 'Command to generate run on dev queries:.*?</div>',
     }
-    v2_unavilable_dict = {
+    v2_unavailable_dict = {
         ('dl21', 'MAP@100'): 'Command to generate run on TREC 2021 queries:.*?</div>',
         ('dl22', 'MAP@100'): 'Command to generate run on TREC 2022 queries:.*?</div>',
         ('dl23', 'MAP@100'): 'Command to generate run on TREC 2023 queries:.*?</div>',
         ('dev', 'MRR@100'): 'Command to generate run on dev queries:.*?</div>',
         ('dev2', 'MRR@100'): 'Command to generate run on dev2 queries:.*?</div>',
     }
-    unavilable_dict = v1_unavilable_dict if v1 else v2_unavilable_dict
-    for k, v in unavilable_dict.items():
+    unavailable_dict = v1_unavailable_dict if v1 else v2_unavailable_dict
+    for k, v in unavailable_dict.items():
         if table[name][k[0]][k[1]] == 0:
             s = re.sub(re.compile(v, re.MULTILINE | re.DOTALL), 'Not available.</div>', s)
     return s
 
 
 def generate_report(args):
-    yaml_file = importlib.resources.files("pyserini.2cr")/f'{args.collection}.yaml'
+    yaml_file = importlib.resources.files('pyserini.2cr').joinpath(f'{args.collection}.yaml')
 
     if args.collection == 'msmarco-v1-passage':
         html_template = read_file('msmarco_html_v1_passage.template')
@@ -393,7 +393,7 @@ def generate_report(args):
     table_keys = {}
     row_ids = {}
 
-    with open(yaml_file) as f:
+    with yaml_file.open('r') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
@@ -538,9 +538,7 @@ def run_conditions(args):
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
     table_keys = {}
 
-    yaml_file = importlib.resources.files("pyserini.2cr")/f'{args.collection}.yaml'
-
-    with open(yaml_file) as f:
+    with importlib.resources.files('pyserini.2cr').joinpath(f'{args.collection}.yaml').open('r') as f:
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             # Either we're running all conditions, or running only the condition specified in --condition
@@ -594,7 +592,8 @@ def run_conditions(args):
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
                             # If results are within 0.0005, just call it "OKish".
-                            elif abs(score-float(expected[metric])) <= 0.0005:
+                            # If results are actually higher, note with "OKish" also.
+                            elif abs(score-float(expected[metric])) <= 0.0005 or score > float(expected[metric]):
                                 result_str = okish_str + f' expected {expected[metric]:.4f}'
                             # If there are bigger differences, deal with on a case-by-case basis.
                             elif abs(score-float(expected[metric])) <= \
@@ -631,7 +630,7 @@ def run_conditions(args):
                   f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
                   f'{table[name]["dev"]["MRR@10"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}')
     else:
-        print(' ' * 69 + 'TREC 2021' + ' ' * 16 + 'TREC 2022' +  ' ' * 16 + 'TREC 2023' + ' ' * 12 + 'MS MARCO dev' + ' ' * 5 + 'MS MARCO dev2')
+        print(' ' * 69 + 'TREC 2021' + ' ' * 16 + 'TREC 2022' + ' ' * 16 + 'TREC 2023' + ' ' * 12 + 'MS MARCO dev' + ' ' * 5 + 'MS MARCO dev2')
         print(' ' * 62 + 'MAP    nDCG@10    R@1K    MAP    nDCG@10    R@1K    MAP    nDCG@10    R@1K    MRR@100   R@1K    MRR@100   R@1K')
         print(' ' * 62 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14 + '    ' + '-' * 14)
 
@@ -640,7 +639,7 @@ def run_conditions(args):
             names = [args.condition]
         else:
             # Otherwise, print out all rows
-            names =  models[args.collection]
+            names = models[args.collection]
 
         for name in names:
             if not name:
@@ -654,8 +653,8 @@ def run_conditions(args):
                   f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
 
     end = time.time()
-    start_str = datetime.utcfromtimestamp(start).strftime('%Y-%m-%d %H:%M:%S')
-    end_str = datetime.utcfromtimestamp(end).strftime('%Y-%m-%d %H:%M:%S')
+    start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.fromtimestamp(end, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
 
     print('\n')
     print(f'Start time: {start_str}')

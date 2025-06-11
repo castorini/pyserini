@@ -4,10 +4,10 @@ FastAPI Server for Pyserini
 Launches a REST API server for Pyserini search functionality.
 
 Usage:
-    python app.py [--port PORT]
+    python -m pyserini.server.rest [--port PORT]
 
 Example:
-    python app.py --port 5000
+    python -m pyserini.server.rest --port 8080
 
 Endpoints:
     GET /                 : API metadata and documentation link.
@@ -17,18 +17,17 @@ Endpoints:
 """
 
 from fastapi import FastAPI
+from pyserini.server.rest.routes.indexes import router
 
-from routes import indexes
 
 name = "Pyserini API"
 version = "0.0.1"
 description = "REST API for Pyserini functionality"
 
-
 app = FastAPI(title=name, version=version, description=description)
 
 # Include routers
-app.include_router(indexes.router)
+app.include_router(router)
 
 
 @app.get("/")
@@ -42,12 +41,18 @@ async def root():
     }
 
 
-if __name__ == "__main__":
+def main():
+    """Main function to run the FastAPI server."""
     import uvicorn
     import argparse
 
     parser = argparse.ArgumentParser(description="Run the Pyserini API server.")
-    parser.add_argument('--port', type=int, default=8081, help='Port to run the server on (default: 8081)')
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=8081,
+        help="Port to run the server on (default: 8081)",
+    )
     args = parser.parse_args()
 
     uvicorn.run(app, host="0.0.0.0", port=args.port)
