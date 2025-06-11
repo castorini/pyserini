@@ -1,4 +1,5 @@
 # BGE-base for NFCorpus in Database Vector Stores
+
 This guide contains instructions for running a BGE-base baseline for NFCorpus in the following databases:
 
 + [DuckDB](#duckdb)
@@ -7,14 +8,16 @@ This guide contains instructions for running a BGE-base baseline for NFCorpus in
 
 The following results can be obtained:
 
-| **Retrieval Method**                                                                                                  | **nDCG@10**  |
-|:-------------------------------------------------------------------------------------------------------------|-----------|
-| DuckDB BGE-Base (en-v1.5)                                                                                    | 0.3808    |
-| ChromaDB BGE-Base (en-v1.5)                                                                                    | 0.3808    |
-| Weaviate BGE-Base (en-v1.5)                                                                                    | 0.3808    |
-> This exactly matches [that in Pyserini](https://github.com/castorini/pyserini/blob/master/docs/experiments-nfcorpus.md).
+| **Retrieval Method**        | **nDCG@10** |
+|:----------------------------|-------------|
+| DuckDB BGE-Base (en-v1.5)   | 0.3808      |
+| ChromaDB BGE-Base (en-v1.5) | 0.3808      |
+| Weaviate BGE-Base (en-v1.5) | 0.3808      |
+
+These results exactly match those [in Pyserini](https://github.com/castorini/pyserini/blob/master/docs/experiments-nfcorpus.md).
 
 ## Encoding
+
 Assuming you have completed [this guide](https://github.com/castorini/pyserini/blob/master/docs/experiments-nfcorpus.md) and fetched the data, we start by encoding the corpus and queries to obtain embeddings. 
 We will feed these embeddings into the vector stores directly. 
 
@@ -47,6 +50,7 @@ mv indexes/nfcorpus.bge-base-en-v1.5/embeddings.jsonl indexes/nfcorpus.bge-base-
 ```
 
 ## DuckDB
+
 Let's start with DuckDB. Install it with:
 
 ```bash
@@ -136,6 +140,7 @@ which should yield the corresponding results in the table.
 
 
 ## ChromaDB
+
 Now let's do the same thing, but in ChromaDB, an open source vector database. 
 Start by installing it with: 
 
@@ -217,6 +222,7 @@ which should yield the corresponding results in the table.
 
 
 ## Weaviate
+
 Now let's do the same thing again, but in Weaviate, another open source vector database. 
 This time, we will use its free cloud to store our embeddings, but it also supports running locally. 
 Start by creating an account on its [website](https://console.weaviate.cloud/) and making a sandbox cluster. 
@@ -325,4 +331,4 @@ which should yield the corresponding results in the table.
 
 ## Reproduction Log[*](reproducibility.md)
 + Results reproduced by [@Raghav0005](https://github.com/Raghav0005) on 2025-05-21 (commit [`74dce4f`](https://github.com/castorini/pyserini/commit/74dce4f0fde6b82f22d3ba6a2a798ac4d8033f66))
-+ Results reproduced by [@JJGreen0](https://github.com/JJGreen0) on 2025-05-30 (commit ['60de330'](https://github.com/castorini/pyserini/commit/60de330278d89e14864fa004602958cb66d48923))
++ Results reproduced by [@JJGreen0](https://github.com/JJGreen0) on 2025-05-30 (commit [`60de330`](https://github.com/castorini/pyserini/commit/60de330278d89e14864fa004602958cb66d48923))
