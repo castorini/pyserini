@@ -33,10 +33,7 @@ To further examine the results:
 
 ```python
 # Grab the raw text:
-hits[0].raw
-
-# Grab the raw Lucene Document:
-hits[0].lucene_document
+hits[0].lucene_document.get('raw')
 ```
 
 Configure BM25 parameters and use RM3 query expansion:

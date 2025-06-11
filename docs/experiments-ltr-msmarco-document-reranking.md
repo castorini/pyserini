@@ -1,6 +1,9 @@
 # Pyserini: LTR Filtering for MS MARCO Document
 
-This page describes how to reproduce the ltr experiments in the following paper
+❗ Code associated with these experiments was removed in commit [`a65b96`](https://github.com/castorini/pyserini/commit/a65b9687a91d1ba0f754445ab0e93dd7116c619f).
+This page is preserved only for archival purposes.
+
+This page describes how to reproduce the ltr experiments in the following paper:
 
 > Yue Zhang, Chengcheng Hu, Yuqi Liu, Hui Fang, and Jimmy Lin. [Learning to Rank in the Age of Muppets: Effectiveness–Efficiency Tradeoffs in Multi-Stage Ranking](https://aclanthology.org/2021.sustainlp-1.8) _Proceedings of the Second Workshop on Simple and Efficient Natural Language Processing_, pages 64–73, 2021.
 

@@ -18,7 +18,7 @@ Install via PyPI:
 pip install pyserini
 ```
 
-Pyserini is built on Python 3.10 (other versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
+Pyserini is built on Python 3.11 (other versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
 A `pip` installation will automatically pull in major dependencies such as [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/).
 
 The toolkit also has a number of optional dependencies:
@@ -27,9 +27,8 @@ The toolkit also has a number of optional dependencies:
 pip install 'pyserini[optional]'
 ```
 
-Notably, `faiss-cpu`, `lightgbm`, and `nmslib` are included in these optional dependencies.
-Installation of these packages can be temperamental, which is why they are not included in the core dependencies.
-It might be a good idea to install these yourself separately.
+Notably, `faiss-cpu` is included as an optional dependency; the package can be tricky to install, which is why it is not included in the core dependencies.
+It might be a good idea to install it yourself separately.
 
 Refer to documentation in [our repository](https://github.com/castorini/pyserini/) for additional details.
 

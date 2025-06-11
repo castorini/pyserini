@@ -1,6 +1,6 @@
 # Pyserini: Detailed Installation Guide
 
-Pyserini is built on Python 3.10 (other versions might work, but YMMV).
+Pyserini is built on Python 3.11 (other versions might work, but YMMV).
 See [`pyproject.toml`](../pyproject.toml) for a detailed list of dependencies.
 At a high level:
 
@@ -20,31 +20,31 @@ The toolkit also has a number of optional dependencies:
 pip install 'pyserini[optional]'
 ```
 
-Notably, `faiss-cpu` is included as an optional dependency.
-Installation of these packages can be temperamental, which is why they are not included in the core dependencies.
-It might be a good idea to install these yourself separately.
+Notably, `faiss-cpu` is included as an optional dependency; the package can be tricky to install, which is why it is not included in the core dependencies.
+It might be a good idea to install it yourself separately.
 
 ## PyPI Installation Walkthrough
 
-Below is a step-by-step Pyserini installation guide based on Python 3.10.
+Below is a step-by-step Pyserini installation guide based on Python 3.11.
 We recommend using [Anaconda](https://www.anaconda.com/) and assume you have already installed it.
-The following instructions are up to date as of November 2024 and _should_ work.
+The following instructions are up to date as of June 2025 and _should_ work.
 
 ### Mac
 
 If you're on a Mac with an M-series (i.e., ARM) processor:
 
 ```bash
-conda create -n pyserini python=3.10 -y
+conda create -n pyserini python=3.11 -y
 conda activate pyserini
 
 # Inside the new environment...
 conda install -c anaconda wget -y
 conda install -c conda-forge openjdk=21 maven -y
 
+# from https://pytorch.org/get-started/locally/
+pip install torch torchvision torchaudio
+
 # If you want the optional dependencies, otherwise skip
-conda install -c conda-forge lightgbm -y
-conda install -c anaconda nmslib -y
 conda install -c pytorch faiss-cpu -y
 
 # Good idea to always explicitly specify the latest version, found here: https://pypi.org/project/pyserini/
@@ -69,11 +69,14 @@ For more details, see https://github.com/facebookresearch/faiss/issues/3526
 Follow the recipe below:
 
 ```bash
-conda create -n pyserini python=3.10 -y
+conda create -n pyserini python=3.11 -y
 conda activate pyserini
 
 # Inside the new environment...
 conda install -c conda-forge openjdk=21 maven -y
+
+# from https://pytorch.org/get-started/locally/
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
 # If you want the optional dependencies, otherwise skip
 conda install -c pytorch faiss-cpu -y
@@ -196,12 +199,6 @@ Then, in the `pyserini` clone, use `pip` to add an ["editable" installation](htt
 
 ```bash
 pip install -e .
-```
-
-You'll need to download the Spacy English model to reproduce tasks such as [LTR Filtering for MS MARCO Passage](https://github.com/castorini/pyserini/blob/master/docs/experiments-ltr-msmarco-passage-reranking.md).
-
-```bash
-python -m spacy download en_core_web_sm
 ```
 
 Next, you'll need to clone and build [Anserini](http://anserini.io/).
