@@ -16,7 +16,7 @@ for dataset in $(ls "${ENCODE_DIR}"); do
   python -m pyserini.index.lucene \
     --collection JsonVectorCollection \
     --input "${ENCODE_DIR}/${dataset}" \
-    --index "${INDEX_DIR}/lucene-index.beir-v1.0.0-${dataset}.splade-v3.${DATE}.${COMMIT_HASH}" \
+    --index "${INDEX_DIR}/lucene-inverted.beir-v1.0.0-${dataset}.splade-v3.${DATE}.${COMMIT_HASH}" \
     --generator DefaultLuceneDocumentGenerator \
     --threads 16 \
     --impact \
