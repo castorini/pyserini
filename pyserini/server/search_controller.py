@@ -24,8 +24,10 @@ Initialized with prebuilt index msmarco-v1-passage.
 from pathlib import Path
 import json
 from typing import Dict, List, Optional, Any
+from concurrent.futures import ThreadPoolExecutor
 
 from pyserini.search.lucene import LuceneSearcher
+from pyserini.search.faiss import FaissSearcher
 from pyserini.prebuilt_index_info import TF_INDEX_INFO
 from pyserini.util import check_downloaded
 
@@ -38,6 +40,18 @@ class SearchController:
 
     def __init__(self):
         self.indexes: Dict[str, IndexConfig] = {}
+    
+    def _is_shard_index(self, index_name: str) -> bool:
+        for shard_list in shards.values():
+            if index_name in shard_list:
+                return True
+        return False
+    
+    def _get_shard_key_for_index(self, index_name: str) -> Optional[str]:
+        for shard_key, shard_list in shards.items():
+            if index_name in shard_list:
+                return shard_key
+        return None
 
     def initialize_default_index(self, default_index: str = DEFAULT_INDEX) -> None:
         """Initialize default prebuilt index."""
@@ -49,6 +63,7 @@ class SearchController:
                     type=IndexType.PREBUILT,
                     path=default_index,
                     description=TF_INDEX_INFO[default_index].get("description", ""),
+                    
                 )
             )
         else:
@@ -61,7 +76,10 @@ class SearchController:
                 raise FileNotFoundError(f"Index path does not exist: {config.path}")
             config.searcher = LuceneSearcher(config.path)
         else:
-            config.searcher = LuceneSearcher.from_prebuilt_index(config.path)
+            if self._is_shard_index(config.name):
+                config.searcher = FaissSearcher.from_prebuilt_index(config.path)
+            else:
+                config.searcher = LuceneSearcher.from_prebuilt_index(config.path)
 
         self.indexes[config.name] = config
 
@@ -85,13 +103,6 @@ class SearchController:
         if not index_config:
             raise ValueError(f"Index '{index_name}' not available")
 
-        if not index_config.searcher:
-            index_config.searcher = LuceneSearcher.from_prebuilt_index(
-                index_config.path
-            )
-
-        # TODO: actually use other params
-
         hits = index_config.searcher.search(query, k)
         results: Dict[str, Any] = {"query": {"qid": qid, "text": query}}
         candidates: List[Dict[str, Any]] = []
@@ -108,6 +119,35 @@ class SearchController:
         results["candidates"] = candidates
 
         return results
+
+    def sharded_search(
+        self,
+        query: str,
+        index_name: str,
+        k: int = 10,
+        qid: str = "",
+        ef_search: Optional[int] = None,
+        encoder: Optional[str] = None,
+        query_generator: Optional[str] = None,
+        shard: Optional[str] = None,
+    ) -> Dict[str, Any]:    
+        shard_key = self._get_shard_key_for_index(index_name)
+        if not shard_key:
+            raise ValueError(f"Index '{index_name}' is not part of any shard")
+        
+        all_hits = []
+        with ThreadPoolExecutor() as executor:
+            future_to_shard = {
+                executor.submit(self.search, query, shard_index): shard_index 
+                for shard_index in shards[shard_key]
+            }
+            
+            for future in future_to_shard:
+                hits = future.result()
+                all_hits.extend(hits)
+                
+        return all_hits
+        
 
     def get_document(self, docid: str, index_name: str) -> Optional[Dict[str, Any]]:
         """Retrieve full document by document ID."""
@@ -157,13 +197,16 @@ class SearchController:
         if not index_config:
             raise ValueError(f"Index '{index_name}' not available")
 
-        settings = {}
-        if index_config.ef_search_override is not None:
-            settings["efSearch"] = index_config.ef_search_override
-        if index_config.encoder_override is not None:
-            settings["encoder"] = index_config.encoder_override
-        if index_config.query_generator_override is not None:
-            settings["queryGenerator"] = index_config.query_generator_override
+        settings = {
+            "indexName": index_config.name,
+            "indexType": index_config.type.value,
+            "path": index_config.path,
+            "description": index_config.description or "",
+            "efSearch": index_config.ef_search_override or "",
+            "encoder": index_config.encoder_override or "",
+            "queryGenerator": index_config.query_generator_override or "",
+            "shard": index_config.shard or "",
+        }
         return settings
 
 controller = SearchController()
@@ -172,3 +215,9 @@ controller.initialize_default_index()
 def get_controller() -> SearchController:
     """Get the singleton instance of SearchController."""
     return controller
+
+
+shards = {
+    "arctic_l": ["msmarco-v2.1-doc-segmented-shard01.arctic-embed-l", "msmarco-v2.1-doc-segmented-shard02.arctic-embed-l"],
+    "arctic-m-v1.5": ["msmarco-v2.1-doc-segmented-shard01.arctic-embed-m-v1.5", "msmarco-v2.1-doc-segmented-shard02.arctic-embed-m-v1.5"],
+}

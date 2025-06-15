@@ -24,7 +24,8 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Optional
 
-from pyserini.search.lucene import LuceneSearcher
+from pyserini.search.lucene import LuceneSearcher, LuceneImpactSearcher, LuceneHnswDenseSearcher
+from pyserini.search.faiss import FaissSearcher
 
 
 class IndexType(Enum):
@@ -42,7 +43,7 @@ class IndexConfig:
     type: IndexType
     path: str
     description: Optional[str] = None
-    searcher: Optional[LuceneSearcher] = None
+    searcher: Optional[LuceneSearcher | LuceneImpactSearcher | LuceneHnswDenseSearcher | FaissSearcher] = None
     ef_search_override: Optional[int] = None
     encoder_override: Optional[str] = None
     query_generator_override: Optional[str] = None
