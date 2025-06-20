@@ -37,11 +37,15 @@ async def search_index(
     ef_search: Optional[int] = Query(None, description="EF search parameter"),
     encoder: Optional[str] = Query(None, description="Encoder to use"),
     query_generator: Optional[str] = Query(None, description="Query generator to use"),
-    shard: Optional[str] = Query(None, description="Shard identifier"),
+    shard: Optional[bool] = Query(False, description="Shard identifier"),
 ) -> Dict[str, Any]:
     try:
+        if shard:
+            return get_controller().sharded_search(
+                query, index, hits, encoder
+            )
         return get_controller().search(
-            query, index, hits, qid, ef_search, encoder, query_generator, shard
+            query, index, hits, qid, ef_search, encoder, query_generator
         )
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))

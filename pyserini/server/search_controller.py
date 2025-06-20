@@ -20,14 +20,17 @@ Search controller for Pyserini capabilities.
 
 Initialized with prebuilt index msmarco-v1-passage.
 """
-
+        
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 import json
 from typing import Dict, List, Optional, Any
 
 from pyserini.search.lucene import LuceneSearcher
+from pyserini.search.faiss import FaissSearcher
 from pyserini.prebuilt_index_info import TF_INDEX_INFO
 from pyserini.util import check_downloaded
+from pyserini.encode import QueryEncoder
 
 from pyserini.server.models import IndexConfig, IndexType
 
@@ -54,12 +57,12 @@ class SearchController:
         else:
             raise ValueError(f"Default index '{default_index}' not found in prebuilt indexes.")
 
-    def add_index(self, config: IndexConfig) -> None:
+    def add_index(self, config: IndexConfig, type: str = "LuceneSearcher") -> None:
         """Add a new index to the manager."""
-        if config.type == IndexType.LOCAL:
-            if not Path(config.path).exists():
-                raise FileNotFoundError(f"Index path does not exist: {config.path}")
-            config.searcher = LuceneSearcher(config.path)
+        if type == "FaissSearcher":
+            config.searcher = FaissSearcher.from_prebuilt_index(
+                config.path, query_encoder=QueryEncoder(config.encoder_override)
+            )
         else:
             config.searcher = LuceneSearcher.from_prebuilt_index(config.path)
 
@@ -78,21 +81,18 @@ class SearchController:
         ef_search: Optional[int] = None,
         encoder: Optional[str] = None,
         query_generator: Optional[str] = None,
-        shard: Optional[str] = None,
     ) -> Dict[str, Any]:
         """Perform search on specified index."""
+        hits = []
+        
         index_config = self.indexes.get(index_name)
         if not index_config:
             raise ValueError(f"Index '{index_name}' not available")
-
         if not index_config.searcher:
-            index_config.searcher = LuceneSearcher.from_prebuilt_index(
-                index_config.path
-            )
-
-        # TODO: actually use other params
-
+            index_config.searcher = LuceneSearcher.from_prebuilt_index(index_config.path)
         hits = index_config.searcher.search(query, k)
+        
+            
         results: Dict[str, Any] = {"query": {"qid": qid, "text": query}}
         candidates: List[Dict[str, Any]] = []
 
@@ -108,6 +108,45 @@ class SearchController:
         results["candidates"] = candidates
 
         return results
+    
+    def sharded_search( # hardcoded for msmarco v2.1's 2 shards
+        self,
+        query: str,
+        index_name: str,
+        k: int = 10,
+        encoder: Optional[str] = None,
+    ) -> Dict[str, Any]:   
+        futures = [] 
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            hits = []
+            for i in range(2):
+                if not self.indexes.get(f"msmarco-v2.1-doc-segmented-shard0{i+1}.arctic-embed-l"):
+                    self.add_index(
+                        IndexConfig(
+                            name=f"msmarco-v2.1-doc-segmented-shard0{i+1}.arctic-embed-l",
+                            type=IndexType.PREBUILT,
+                            path=f"msmarco-v2.1-doc-segmented-shard0{i+1}.arctic-embed-l",
+                            encoder_override=encoder,
+                        ),
+                        "FaissSearcher"
+                    )
+                    print(f"msmarco-v2.1-doc-segmented-shard0{i+1}.arctic-embed-l added to indexes")
+                
+                index_config = self.indexes.get(f"msmarco-v2.1-doc-segmented-shard0{i+1}.arctic-embed-l")
+                hits.append(index_config.searcher.search(query, k))
+                # future = executor.submit(
+                #     index_config.searcher.search, query, k
+                # )
+                # futures.append(future)
+                    
+            for hit in hits:
+                print(f"Porcessing hit: {hit}")
+                    
+                # index_config = self.indexes.get(shards[i])
+                
+                # for future in futures:
+                #     hits.append(future.result())
+    
 
     def get_document(self, docid: str, index_name: str) -> Optional[Dict[str, Any]]:
         """Retrieve full document by document ID."""
@@ -115,7 +154,7 @@ class SearchController:
         if not index_config:
             raise ValueError(f"Index '{index_name}' not available")
 
-        if not index_config.searcher:
+        if not index_config.searcher: # TODO: handle different searcher types
             index_config.searcher = LuceneSearcher.from_prebuilt_index(
                 index_config.path
             )
@@ -172,3 +211,18 @@ controller.initialize_default_index()
 def get_controller() -> SearchController:
     """Get the singleton instance of SearchController."""
     return controller
+
+
+# NOT USED
+shards = {
+    0: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.20250114.4884f5.aab3f8e9aa0563bd0f875584784a0845",
+    1: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.20250114.4884f5.34ea30fe72c2bc1795ae83e71b191547",
+    2: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.20250114.4884f5.b6271d6db65119977491675f74f466d5",
+    3: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.20250114.4884f5.a9cd644eb6037f67d2e9c06a8f60928d",
+    4: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.20250114.4884f5.07b7e451e0525d01c1f1f2b1c42b1bd5",
+    5: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.20250114.4884f5.2573dce175788981be2f266ebb33c96d",
+    6: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.20250114.4884f5.a644aea445a8b78cc9e99d2ce111ff11",
+    7: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.20250114.4884f5.402d37deccb44b5fc105049889e8aaea",
+    8: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.20250114.4884f5.89ebcd027f7297b26a1edc8ae5726527",
+    9: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.20250114.4884f5.5e580bb7eb9ee2bb6bfa492b3430c17d",
+}
