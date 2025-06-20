@@ -43,7 +43,7 @@ TF_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc.20221004.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc.20221004.252b5e.tar.gz",
         ],
         "md5": "f66020a923df6430007bd5718e53de86",
         "size compressed (bytes)": 13736982339,
@@ -57,7 +57,7 @@ TF_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-doc-slim.20221004.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-slim.20221004.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-slim.20221004.252b5e.tar.gz",
         ],
         "md5": "1ac67c1150d5e6c9ec2b70b3ce1fb5e0",
         "size compressed (bytes)": 1791498091,
@@ -71,7 +71,7 @@ TF_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-doc-full.20221004.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-full.20221004.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-full.20221004.252b5e.tar.gz",
         ],
         "md5": "4975ca1b175343705b899c1e609234f9",
         "size compressed (bytes)": 25525613395,
@@ -87,7 +87,7 @@ TF_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.tar.gz",
         ],
         "md5": "c0b0a25c329c1bdd7df3189400ec2f38",
         "size compressed (bytes)": 1885596445,
@@ -101,7 +101,7 @@ TF_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-doc.d2q-t5-docvectors.20221004.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc.d2q-t5-docvectors.20221004.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc.d2q-t5-docvectors.20221004.252b5e.tar.gz",
         ],
         "md5": "3c7c47c5cb718081da91d36b81d0d820",
         "size compressed (bytes)": 11152231392,
@@ -117,7 +117,7 @@ TF_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
         ],
         "md5": "dbf968dbf6e9d64119b4e320334524aa",
         "size compressed (bytes)": 15924437950,
@@ -131,7 +131,7 @@ TF_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-doc-segmented-slim.20221004.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented-slim.20221004.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented-slim.20221004.252b5e.tar.gz",
         ],
         "md5": "8ab6f2a49e8a6f3157615c2f0d746e3a",
         "size compressed (bytes)": 3306727065,
@@ -145,7 +145,7 @@ TF_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-doc-segmented-full.20221004.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented-full.20221004.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented-full.20221004.252b5e.tar.gz",
         ],
         "md5": "3571ca047669b1e6dee5bcd8a640ef18",
         "size compressed (bytes)": 29470600225,
@@ -161,7 +161,7 @@ TF_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented-d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.tar.gz",
         ],
         "md5": "c76e514df930721401c215b90f9f5d14",
         "size compressed (bytes)": 3554554591,
@@ -175,7 +175,7 @@ TF_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5-docvectors.20221004.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5-docvectors.20221004.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented-d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5-docvectors.20221004.252b5e.tar.gz",
         ],
         "md5": "38e364692cd9c892ebb6f05b3255f0fb",
         "size compressed (bytes)": 16349673467,
@@ -191,7 +191,7 @@ TF_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.20221004.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage.20221004.252b5e.tar.gz",
         ],
         "md5": "678876e8c99a89933d553609a0fd8793",
         "size compressed (bytes)": 2170758745,
@@ -205,7 +205,7 @@ TF_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage-slim.20221004.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage-slim.20221004.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage-slim.20221004.252b5e.tar.gz",
         ],
         "md5": "229c750cc39eaa25f0c37bf69c2c708f",
         "size compressed (bytes)": 491451223,
@@ -219,7 +219,7 @@ TF_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage-full.20221004.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage-full.20221004.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage-full.20221004.252b5e.tar.gz",
         ],
         "md5": "4d2e2e1fdb7ffc7c9758c4c2234261a1",
         "size compressed (bytes)": 3720616156,
@@ -235,7 +235,7 @@ TF_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.tar.gz",
         ],
         "md5": "cfd6acef0912647603457b1e98ca5bc0",
         "size compressed (bytes)": 807866520,
@@ -249,7 +249,7 @@ TF_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.d2q-t5-docvectors.20221004.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.d2q-t5-docvectors.20221004.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage.d2q-t5-docvectors.20221004.252b5e.tar.gz",
         ],
         "md5": "3be8131464c2d1db23c8d6151c55740e",
         "size compressed (bytes)": 4409861674,
@@ -651,823 +651,67 @@ TF_INDEX_INFO_MSMARCO_ALIASES = {
     "msmarco-v1-passage-d2q-t5": TF_INDEX_INFO_MSMARCO["msmarco-v1-passage.d2q-t5"],
 }
 
-TF_INDEX_INFO_BEIR = {
-    # BEIR (v1.0.0) flat indexes
-    "beir-v1.0.0-trec-covid.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): TREC-COVID.",
-        "filename": "lucene-inverted.beir-v1.0.0-trec-covid.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-trec-covid.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "1aaf107b0787aa349deac92cb67d4230",
-        "size compressed (bytes)": 226271040,
-        "total_terms": 20822821,
-        "documents": 171331,
-        "unique_terms": 202648,
-        "downloaded": False
-    },
-    "beir-v1.0.0-bioasq.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): BioASQ.",
-        "filename": "lucene-inverted.beir-v1.0.0-bioasq.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-bioasq.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "12728b3629817d352322f18b0cb6199b",
-        "size compressed (bytes)": 24821943492,
-        "total_terms": 2257541758,
-        "documents": 14914603,
-        "unique_terms": 4960004,
-        "downloaded": False
-    },
-    "beir-v1.0.0-nfcorpus.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): NFCorpus.",
-        "filename": "lucene-inverted.beir-v1.0.0-nfcorpus.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-nfcorpus.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "eb7a6f1bb15071c2940bc50752d86626",
-        "size compressed (bytes)": 6510365,
-        "total_terms": 637485,
-        "documents": 3633,
-        "unique_terms": 22111,
-        "downloaded": False
-    },
-    "beir-v1.0.0-nq.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): NQ.",
-        "filename": "lucene-inverted.beir-v1.0.0-nq.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-nq.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "0ba1ef0412d8a0fb56b4a04ecb13ef0b",
-        "size compressed (bytes)": 1645445055,
-        "total_terms": 151249294,
-        "documents": 2681468,
-        "unique_terms": 997027,
-        "downloaded": False
-    },
-    "beir-v1.0.0-hotpotqa.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): HotpotQA.",
-        "filename": "lucene-inverted.beir-v1.0.0-hotpotqa.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-hotpotqa.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "3f41d640a8ebbcad4f598140750c24f8",
-        "size compressed (bytes)": 2019088696,
-        "total_terms": 172477066,
-        "documents": 5233329,
-        "unique_terms": 2644892,
-        "downloaded": False
-    },
-    "beir-v1.0.0-fiqa.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): FiQA-2018.",
-        "filename": "lucene-inverted.beir-v1.0.0-fiqa.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-fiqa.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "d98ee6ebfc234657ecbd04226e8a7849",
-        "size compressed (bytes)": 55983760,
-        "total_terms": 5288635,
-        "documents": 57600,
-        "unique_terms": 66977,
-        "downloaded": False
-    },
-    "beir-v1.0.0-signal1m.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): Signal-1M.",
-        "filename": "lucene-inverted.beir-v1.0.0-signal1m.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-signal1m.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "93d901916b473351fbc04fdf12c5ba4f",
-        "size compressed (bytes)": 496598928,
-        "total_terms": 32240069,
-        "documents": 2866315,
-        "unique_terms": 796647,
-        "downloaded": False
-    },
-    "beir-v1.0.0-trec-news.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): TREC-NEWS.",
-        "filename": "lucene-inverted.beir-v1.0.0-trec-news.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-trec-news.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "22e7752c3d0122c28013b33e5e2134ae",
-        "size compressed (bytes)": 2623562099,
-        "total_terms": 275651967,
-        "documents": 594589,
-        "unique_terms": 729872,
-        "downloaded": False
-    },
-    "beir-v1.0.0-robust04.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): Robust04.",
-        "filename": "lucene-inverted.beir-v1.0.0-robust04.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-robust04.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "d508fc770002a99a5dc3da3d0fa001b7",
-        "size compressed (bytes)": 1728445005,
-        "total_terms": 174384263,
-        "documents": 528036,
-        "unique_terms": 923466,
-        "downloaded": False
-    },
-    "beir-v1.0.0-arguana.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): ArguAna.",
-        "filename": "lucene-inverted.beir-v1.0.0-arguana.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-arguana.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "db59ef0cb74e9cfeac0ac735827381df",
-        "size compressed (bytes)": 10562079,
-        "total_terms": 969528,
-        "documents": 8674,
-        "unique_terms": 23895,
-        "downloaded": False
-    },
-    "beir-v1.0.0-webis-touche2020.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): Webis-Touche2020.",
-        "filename": "lucene-inverted.beir-v1.0.0-webis-touche2020.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-webis-touche2020.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "f6419ddfd53c0bf1d76ea132b1c0c352",
-        "size compressed (bytes)": 750402985,
-        "total_terms": 76082209,
-        "documents": 382545,
-        "unique_terms": 525540,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-android.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-android.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-android.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-android.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "443e413b49c39de43a6cece96a7513c0",
-        "size compressed (bytes)": 17426545,
-        "total_terms": 1760762,
-        "documents": 22998,
-        "unique_terms": 41456,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-english.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-english.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-english.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-english.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "f7db543f5bb56fa98c3c14224c6b96f2",
-        "size compressed (bytes)": 24945030,
-        "total_terms": 2236655,
-        "documents": 40221,
-        "unique_terms": 62517,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-gaming.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-gaming.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-gaming.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-gaming.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "775169fd863d3e91076e1905799456ea",
-        "size compressed (bytes)": 29159238,
-        "total_terms": 2827717,
-        "documents": 45301,
-        "unique_terms": 60070,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-gis.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-gis.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-gis.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-gis.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "4c5be1c7026a61ca7866b4f28cac91fe",
-        "size compressed (bytes)": 43393675,
-        "total_terms": 4048584,
-        "documents": 37637,
-        "unique_terms": 184133,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-mathematica.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-mathematica.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-mathematica.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-mathematica.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "43e2b33db7ecadc041165005aa5d4b6f",
-        "size compressed (bytes)": 21593600,
-        "total_terms": 2332642,
-        "documents": 16705,
-        "unique_terms": 111611,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-physics.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-physics.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-physics.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-physics.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "765b8013595962e01600f4f851e8f16d",
-        "size compressed (bytes)": 37955556,
-        "total_terms": 3785483,
-        "documents": 38316,
-        "unique_terms": 55950,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-programmers.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-programmers.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-programmers.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-programmers.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "aa4fc9f29a0436a6e0942656274ceaf5",
-        "size compressed (bytes)": 40301156,
-        "total_terms": 3905694,
-        "documents": 32176,
-        "unique_terms": 74195,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-stats.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-stats.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-stats.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-stats.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "d56538f56d982ce09961d4b680bd4dc5",
-        "size compressed (bytes)": 52213800,
-        "total_terms": 5356042,
-        "documents": 42269,
-        "unique_terms": 183358,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-tex.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-tex.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-tex.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-tex.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "36825b8428aa34fdaad7e420e120c101",
-        "size compressed (bytes)": 91817321,
-        "total_terms": 9556423,
-        "documents": 68184,
-        "unique_terms": 288088,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-unix.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-unix.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-unix.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-unix.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "961e386016c7eb7afa2bc26feb96902c",
-        "size compressed (bytes)": 53798364,
-        "total_terms": 5767374,
-        "documents": 47382,
-        "unique_terms": 206323,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-webmasters.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-webmasters.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-webmasters.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-webmasters.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "f31625436dc6efc24b9c2ae1b0f2364e",
-        "size compressed (bytes)": 15171145,
-        "total_terms": 1482585,
-        "documents": 17405,
-        "unique_terms": 40547,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-wordpress.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): CQADupStack-wordpress.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-wordpress.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-wordpress.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "5a0035fbb6ccabd20fe0eed742dce0d0",
-        "size compressed (bytes)": 54809846,
-        "total_terms": 5463472,
-        "documents": 48605,
-        "unique_terms": 125727,
-        "downloaded": False
-    },
-    "beir-v1.0.0-quora.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): Quora.",
-        "filename": "lucene-inverted.beir-v1.0.0-quora.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-quora.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "48c95c2da43e24cc603695d3e6bfd779",
-        "size compressed (bytes)": 52699889,
-        "total_terms": 4390852,
-        "documents": 522931,
-        "unique_terms": 69597,
-        "downloaded": False
-    },
-    "beir-v1.0.0-dbpedia-entity.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): DBPedia.",
-        "filename": "lucene-inverted.beir-v1.0.0-dbpedia-entity.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-dbpedia-entity.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "8ac66272fde08ff10491dc0ec52f17e2",
-        "size compressed (bytes)": 2085481920,
-        "total_terms": 164794982,
-        "documents": 4635922,
-        "unique_terms": 3351459,
-        "downloaded": False
-    },
-    "beir-v1.0.0-scidocs.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): SCIDOCS.",
-        "filename": "lucene-inverted.beir-v1.0.0-scidocs.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-scidocs.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "9555ecc5da399a73956d9302a98420fc",
-        "size compressed (bytes)": 186568206,
-        "total_terms": 3266767,
-        "documents": 25657,
-        "unique_terms": 63604,
-        "downloaded": False
-    },
-    "beir-v1.0.0-fever.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): FEVER.",
-        "filename": "lucene-inverted.beir-v1.0.0-fever.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-fever.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "30b5a338f9f16669ed3dae3bae4e7b32",
-        "size compressed (bytes)": 3880157241,
-        "total_terms": 325179165,
-        "documents": 5416568,
-        "unique_terms": 3293639,
-        "downloaded": False
-    },
-    "beir-v1.0.0-climate-fever.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): Climate-FEVER.",
-        "filename": "lucene-inverted.beir-v1.0.0-climate-fever.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-climate-fever.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "6e7101f4a5c241ba263bb6a826049826",
-        "size compressed (bytes)": 3880210072,
-        "total_terms": 325185072,
-        "documents": 5416593,
-        "unique_terms": 3293621,
-        "downloaded": False
-    },
-    "beir-v1.0.0-scifact.flat": {
-        "description": "Lucene flat index of BEIR (v1.0.0): SciFact.",
-        "filename": "lucene-inverted.beir-v1.0.0-scifact.flat.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-scifact.flat.20221116.505594.tar.gz"
-        ],
-        "md5": "59777038fe0539e600658591e322ea57",
-        "size compressed (bytes)": 8849995,
-        "total_terms": 838128,
-        "documents": 5183,
-        "unique_terms": 28865,
-        "downloaded": False
-    },
-
-    # BEIR (v1.0.0) multifield indexes
-    "beir-v1.0.0-trec-covid.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): TREC-COVID.",
-        "filename": "lucene-inverted.beir-v1.0.0-trec-covid.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-trec-covid.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "0439617a927a33727c7b592bd436d8d6",
-        "size compressed (bytes)": 222842016,
-        "total_terms": 19060122,
-        "documents": 129192,
-        "unique_terms": 193851,
-        "downloaded": False
-    },
-    "beir-v1.0.0-bioasq.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): BioASQ.",
-        "filename": "lucene-inverted.beir-v1.0.0-bioasq.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-bioasq.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "b2f4fed18b04414193f8368b6891e19c",
-        "size compressed (bytes)": 25346387550,
-        "total_terms": 2099554307,
-        "documents": 14914602,
-        "unique_terms": 4889053,
-        "downloaded": False
-    },
-    "beir-v1.0.0-nfcorpus.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): NFCorpus.",
-        "filename": "lucene-inverted.beir-v1.0.0-nfcorpus.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-nfcorpus.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "85cdcceaf06c482ab6a60c34c06c0448",
-        "size compressed (bytes)": 6648624,
-        "total_terms": 601950,
-        "documents": 3633,
-        "unique_terms": 21819,
-        "downloaded": False
-    },
-    "beir-v1.0.0-nq.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): NQ.",
-        "filename": "lucene-inverted.beir-v1.0.0-nq.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-nq.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "73b3e3c49c2d79a2851c1ba85f8fbbdf",
-        "size compressed (bytes)": 1642710572,
-        "total_terms": 144050891,
-        "documents": 2680961,
-        "unique_terms": 996653,
-        "downloaded": False
-    },
-    "beir-v1.0.0-hotpotqa.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): HotpotQA.",
-        "filename": "lucene-inverted.beir-v1.0.0-hotpotqa.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-hotpotqa.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "1d9f75122d4b50cb33cccaa125640a38",
-        "size compressed (bytes)": 2083442675,
-        "total_terms": 158180692,
-        "documents": 5233235,
-        "unique_terms": 2627639,
-        "downloaded": False
-    },
-    "beir-v1.0.0-fiqa.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): FiQA-2018.",
-        "filename": "lucene-inverted.beir-v1.0.0-fiqa.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-fiqa.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "1c9330baf3d9004ae46778d4d9e039f6",
-        "size compressed (bytes)": 55983827,
-        "total_terms": 5288635,
-        "documents": 57600,
-        "unique_terms": 66977,
-        "downloaded": False
-    },
-    "beir-v1.0.0-signal1m.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): Signal-1M.",
-        "filename": "lucene-inverted.beir-v1.0.0-signal1m.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-signal1m.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "0735de4f103330975d206285ea85aaf5",
-        "size compressed (bytes)": 496598936,
-        "total_terms": 32240069,
-        "documents": 2866315,
-        "unique_terms": 796647,
-        "downloaded": False
-    },
-    "beir-v1.0.0-trec-news.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): TREC-NEWS.",
-        "filename": "lucene-inverted.beir-v1.0.0-trec-news.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-trec-news.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "a7b5bd79d22d3631dffcad2ffa8afd0a",
-        "size compressed (bytes)": 2633899391,
-        "total_terms": 270886723,
-        "documents": 578605,
-        "unique_terms": 727856,
-        "downloaded": False
-    },
-    "beir-v1.0.0-robust04.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): Robust04.",
-        "filename": "lucene-inverted.beir-v1.0.0-robust04.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-robust04.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "49db6bf123b6224d0e0973a16ff9c243",
-        "size compressed (bytes)": 1728445191,
-        "total_terms": 174384263,
-        "documents": 528036,
-        "unique_terms": 923466,
-        "downloaded": False
-    },
-    "beir-v1.0.0-arguana.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): ArguAna.",
-        "filename": "lucene-inverted.beir-v1.0.0-arguana.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-arguana.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "895b0d78a1cc40222aaebcff10b6b929",
-        "size compressed (bytes)": 10523045,
-        "total_terms": 944123,
-        "documents": 8674,
-        "unique_terms": 23867,
-        "downloaded": False
-    },
-    "beir-v1.0.0-webis-touche2020.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): Webis-Touche2020.",
-        "filename": "lucene-inverted.beir-v1.0.0-webis-touche2020.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-webis-touche2020.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "390552c8b93dc95bf2f58808d1c8a37d",
-        "size compressed (bytes)": 750734533,
-        "total_terms": 74066724,
-        "documents": 382545,
-        "unique_terms": 524665,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-android.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-android.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-android.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-android.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "299fc8b542dabc241320db571b8f8ff0",
-        "size compressed (bytes)": 17886622,
-        "total_terms": 1591285,
-        "documents": 22998,
-        "unique_terms": 40824,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-english.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-english.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-english.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-english.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "5bb26ad0ba9184592b5ed935e65b5f17",
-        "size compressed (bytes)": 25562248,
-        "total_terms": 2006983,
-        "documents": 40221,
-        "unique_terms": 61530,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-gaming.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-gaming.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-gaming.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-gaming.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "90d1ae9a1862b8b96871b9b94cc46b4e",
-        "size compressed (bytes)": 29996620,
-        "total_terms": 2510477,
-        "documents": 45300,
-        "unique_terms": 59113,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-gis.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-gis.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-gis.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-gis.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "62869b2b6cf569424fed659adf1e5ea7",
-        "size compressed (bytes)": 44187762,
-        "total_terms": 3789161,
-        "documents": 37637,
-        "unique_terms": 183298,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-mathematica.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-mathematica.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-mathematica.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-mathematica.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "a78c9d2e29a4b727fbeb38e825629df5",
-        "size compressed (bytes)": 21914072,
-        "total_terms": 2234369,
-        "documents": 16705,
-        "unique_terms": 111306,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-physics.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-physics.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-physics.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-physics.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "d6e60e2665c1b6f2bac021dc6c767393",
-        "size compressed (bytes)": 38738718,
-        "total_terms": 3542078,
-        "documents": 38316,
-        "unique_terms": 55229,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-programmers.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-programmers.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-programmers.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-programmers.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "77b54cd7613b555d80998b9744eef85c",
-        "size compressed (bytes)": 40986350,
-        "total_terms": 3682227,
-        "documents": 32176,
-        "unique_terms": 73765,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-stats.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-stats.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-stats.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-stats.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "8469917c70c767ea398ec2b93aaf04ca",
-        "size compressed (bytes)": 53094510,
-        "total_terms": 5073873,
-        "documents": 42269,
-        "unique_terms": 182933,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-tex.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-tex.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-tex.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-tex.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "4d0b0efb2579e0fd73b9156921580a00",
-        "size compressed (bytes)": 93088212,
-        "total_terms": 9155405,
-        "documents": 68184,
-        "unique_terms": 287393,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-unix.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-unix.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-unix.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-unix.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "33e2510bb1414ca106766ae787e28670",
-        "size compressed (bytes)": 54757808,
-        "total_terms": 5449726,
-        "documents": 47382,
-        "unique_terms": 205471,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-webmasters.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-webmasters.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-webmasters.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-webmasters.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "cb16d3da34b6705747ec07ce89913457",
-        "size compressed (bytes)": 15528521,
-        "total_terms": 1358292,
-        "documents": 17405,
-        "unique_terms": 40073,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-wordpress.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): CQADupStack-wordpress.",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-wordpress.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-wordpress.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "f619c003e2d0cf84794cc672e18e0437",
-        "size compressed (bytes)": 55737065,
-        "total_terms": 5151575,
-        "documents": 48605,
-        "unique_terms": 125110,
-        "downloaded": False
-    },
-    "beir-v1.0.0-quora.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): Quora.",
-        "filename": "lucene-inverted.beir-v1.0.0-quora.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-quora.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "9248de265c88afc105231659d8c8be09",
-        "size compressed (bytes)": 52699891,
-        "total_terms": 4390852,
-        "documents": 522931,
-        "unique_terms": 69597,
-        "downloaded": False
-    },
-    "beir-v1.0.0-dbpedia-entity.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): DBPedia.",
-        "filename": "lucene-inverted.beir-v1.0.0-dbpedia-entity.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-dbpedia-entity.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "b7f0ae30f045188a608cc87553cade37",
-        "size compressed (bytes)": 2144410641,
-        "total_terms": 152205479,
-        "documents": 4635922,
-        "unique_terms": 3338476,
-        "downloaded": False
-    },
-    "beir-v1.0.0-scidocs.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): SCIDOCS.",
-        "filename": "lucene-inverted.beir-v1.0.0-scidocs.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-scidocs.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "6409f5ec569530fc3240590dab59bc4c",
-        "size compressed (bytes)": 175890028,
-        "total_terms": 3065828,
-        "documents": 25313,
-        "unique_terms": 62562,
-        "downloaded": False
-    },
-    "beir-v1.0.0-fever.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): FEVER.",
-        "filename": "lucene-inverted.beir-v1.0.0-fever.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-fever.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "841908da91e7e5eaa0d122faf1a486d8",
-        "size compressed (bytes)": 3947210591,
-        "total_terms": 310655699,
-        "documents": 5396138,
-        "unique_terms": 3275057,
-        "downloaded": False
-    },
-    "beir-v1.0.0-climate-fever.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): Climate-FEVER.",
-        "filename": "lucene-inverted.beir-v1.0.0-climate-fever.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-climate-fever.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "2901ac443ca4f0df424a35d068905829",
-        "size compressed (bytes)": 3947289128,
-        "total_terms": 310661477,
-        "documents": 5396163,
-        "unique_terms": 3275068,
-        "downloaded": False
-    },
-    "beir-v1.0.0-scifact.multifield": {
-        "description": "Lucene multifield index of BEIR (v1.0.0): SciFact.",
-        "filename": "lucene-inverted.beir-v1.0.0-scifact.multifield.20221116.505594.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-scifact.multifield.20221116.505594.tar.gz"
-        ],
-        "md5": "b40b26f44f68ab9aa4b573aafea27e2e",
-        "size compressed (bytes)": 9076714,
-        "total_terms": 784591,
-        "documents": 5183,
-        "unique_terms": 28581,
-        "downloaded": False
-    }
-}
+TF_INDEX_INFO_BEIR = {}
+# BEIR: flat
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_FLAT, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_FLAT, TF_INDEX_INFO_BEIR)
+# BEIR: multifield
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_MULTIFIELD, TF_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_MULTIFIELD, TF_INDEX_INFO_BEIR)
 
 TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-ar": {
@@ -2966,415 +2210,67 @@ IMPACT_INDEX_INFO_MSMARCO_ALIASES = {
     "msmarco-v2-passage-unicoil-0shot": IMPACT_INDEX_INFO_MSMARCO["msmarco-v2-passage.unicoil-0shot"]
 }
 
-IMPACT_INDEX_INFO_BEIR = {
-    # SPLADE++ (CoCondenser-EnsembleDistil)
-    "beir-v1.0.0-trec-covid.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): TREC-COVID, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-trec-covid.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-trec-covid.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "e808ff9d4a1f45de9f0bc292900302b4",
-        "size compressed (bytes)": 52144690,
-        "total_terms": 1206882333,
-        "documents": 171332,
-        "unique_terms": 26030,
-        "downloaded": False
-    },
-    "beir-v1.0.0-bioasq.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): BioASQ, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-bioasq.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-bioasq.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "fc661b2c2fa59e24f37c6dfa6de8e682",
-        "size compressed (bytes)": 4866347210,
-        "total_terms": 127381306317,
-        "documents": 14914603,
-        "unique_terms": 27606,
-        "downloaded": False
-    },
-    "beir-v1.0.0-nfcorpus.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): NFCorpus, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-nfcorpus.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-nfcorpus.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "7d6e66cca9d2db8bb7caa3bdf330cdd8",
-        "size compressed (bytes)": 1352017,
-        "total_terms": 30711150,
-        "documents": 3633,
-        "unique_terms": 15307,
-        "downloaded": False
-    },
-    "beir-v1.0.0-nq.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): NQ, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-nq.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-nq.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "a785d6636df60c861829507c3d806ee6",
-        "size compressed (bytes)": 737526054,
-        "total_terms": 15061905296,
-        "documents": 2681468,
-        "unique_terms": 28714,
-        "downloaded": False
-    },
-    "beir-v1.0.0-hotpotqa.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): HotpotQA, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-hotpotqa.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-hotpotqa.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "b280ed3f7b12034c0cc4b302f92801b9",
-        "size compressed (bytes)": 1168143910,
-        "total_terms": 23736328387,
-        "documents": 5233329,
-        "unique_terms": 28654,
-        "downloaded": False
-    },
-    "beir-v1.0.0-fiqa.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): FiQA-2018, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-fiqa.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-fiqa.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "ea53103c695c0da6cea5b1c8353371b0",
-        "size compressed (bytes)": 16919422,
-        "total_terms": 342348959,
-        "documents": 57638,
-        "unique_terms": 25136,
-        "downloaded": False
-    },
-    "beir-v1.0.0-signal1m.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): Signal-1M, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-signal1m.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-signal1m.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "0b46d71c97eabe9ca424f3ab9b2ddc64",
-        "size compressed (bytes)": 496739597,
-        "total_terms": 8237410263,
-        "documents": 2866316,
-        "unique_terms": 28020,
-        "downloaded": False
-    },
-    "beir-v1.0.0-trec-news.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): TREC-NEWS, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-trec-news.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-trec-news.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "ef4fb032b632b80355db46549f08a026",
-        "size compressed (bytes)": 250744439,
-        "total_terms": 5190619991,
-        "documents": 594977,
-        "unique_terms": 27774,
-        "downloaded": False
-    },
-    "beir-v1.0.0-robust04.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): Robust04, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-robust04.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-robust04.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "c1a6fd094bb9e34e69e10040d9b0ad2a",
-        "size compressed (bytes)": 193499509,
-        "total_terms": 4818025575,
-        "documents": 528155,
-        "unique_terms": 27545,
-        "downloaded": False
-    },
-    "beir-v1.0.0-arguana.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): ArguAna, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-arguana.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-arguana.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "c2725b375ca53ff031ee8b4ba8501eb6",
-        "size compressed (bytes)": 3559009,
-        "total_terms": 71992355,
-        "documents": 8674,
-        "unique_terms": 21501,
-        "downloaded": False
-    },
-    "beir-v1.0.0-webis-touche2020.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): Webis-Touche2020, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-webis-touche2020.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-webis-touche2020.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "1abec77feeb741edfb3c9b7565b42964",
-        "size compressed (bytes)": 119213878,
-        "total_terms": 2275005818,
-        "documents": 382545,
-        "unique_terms": 27611,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-android.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-android, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-android.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-android.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "0b6b36417df9095e9ed32e4127bdd2fd",
-        "size compressed (bytes)": 4789380,
-        "total_terms": 108476959,
-        "documents": 22998,
-        "unique_terms": 16844,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-english.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-english, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-english.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-english.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "f2a5f68523117638f957bcc353c956c1",
-        "size compressed (bytes)": 8868099,
-        "total_terms": 158861979,
-        "documents": 40221,
-        "unique_terms": 25618,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-gaming.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-gaming, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-gaming.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-gaming.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "804851ed2ca5c38464f28263fb664615",
-        "size compressed (bytes)": 10471910,
-        "total_terms": 197713644,
-        "documents": 45301,
-        "unique_terms": 22854,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-gis.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-gis, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-gis.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-gis.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "ee53ba7f26e678f39c3db8997785169a",
-        "size compressed (bytes)": 8652361,
-        "total_terms": 214744014,
-        "documents": 37637,
-        "unique_terms": 20225,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-mathematica, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "c3dd33ddfd364a0665450691963f9036",
-        "size compressed (bytes)": 3845630,
-        "total_terms": 90452420,
-        "documents": 16705,
-        "unique_terms": 17697,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-physics.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-physics, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-physics.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-physics.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "155a130b556072ec0b84788417361228",
-        "size compressed (bytes)": 9342353,
-        "total_terms": 199892911,
-        "documents": 38316,
-        "unique_terms": 21505,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-programmers.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-programmers, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-programmers.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-programmers.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "f0923dd88b7d4f050d54ff6f6efcc7f5",
-        "size compressed (bytes)": 8566346,
-        "total_terms": 182133939,
-        "documents": 32176,
-        "unique_terms": 20985,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-stats.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-stats, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-stats.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-stats.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "78e62040ed6d44e232e9381e96a56cc7",
-        "size compressed (bytes)": 10153907,
-        "total_terms": 236361350,
-        "documents": 42269,
-        "unique_terms": 21654,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-tex.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-tex, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-tex.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-tex.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "402088c62cbffeba3d710fec408226ed",
-        "size compressed (bytes)": 16238354,
-        "total_terms": 433864313,
-        "documents": 68184,
-        "unique_terms": 23064,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-unix.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-unix, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-unix.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-unix.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "66e884e446ff183e07973c65ccf32625",
-        "size compressed (bytes)": 10586092,
-        "total_terms": 260688145,
-        "documents": 47382,
-        "unique_terms": 19773,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-webmasters, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "17be129cbe65b4e4e64a181f95a56972",
-        "size compressed (bytes)": 4077803,
-        "total_terms": 89755810,
-        "documents": 17405,
-        "unique_terms": 18246,
-        "downloaded": False
-    },
-    "beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): CQADupStack-wordpress, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "f20bacfe92f21bc75360a9978278e690",
-        "size compressed (bytes)": 9973318,
-        "total_terms": 257594340,
-        "documents": 48605,
-        "unique_terms": 19864,
-        "downloaded": False
-    },
-    "beir-v1.0.0-quora.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): Quora, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-quora.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-quora.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "ce6dbaacf3b7b0e8282020565d324ea5",
-        "size compressed (bytes)": 62673280,
-        "total_terms": 1064938611,
-        "documents": 522931,
-        "unique_terms": 26583,
-        "downloaded": False
-    },
-    "beir-v1.0.0-dbpedia-entity.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): DBPedia, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-dbpedia-entity.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-dbpedia-entity.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "fc9ac8329b6e2c054290791e68e0a0e4",
-        "size compressed (bytes)": 1224474004,
-        "total_terms": 22302972729,
-        "documents": 4635922,
-        "unique_terms": 28628,
-        "downloaded": False
-    },
-    "beir-v1.0.0-scidocs.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): SCIDOCS, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-scidocs.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-scidocs.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "3285b17da7cd88d2e6e62a3bfc465039",
-        "size compressed (bytes)": 10386053,
-        "total_terms": 192911913,
-        "documents": 25657,
-        "unique_terms": 23225,
-        "downloaded": False
-    },
-    "beir-v1.0.0-fever.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): FEVER, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-fever.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-fever.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "22e67800879422840f20c7d0008795a9",
-        "size compressed (bytes)": 1499855743,
-        "total_terms": 28498465299,
-        "documents": 5416593,
-        "unique_terms": 28578,
-        "downloaded": False
-    },
-    "beir-v1.0.0-climate-fever.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): Climate-FEVER, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-climate-fever.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-climate-fever.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "bd5f3c804874ca18f99590037873a1bc",
-        "size compressed (bytes)": 1500344997,
-        "total_terms": 28498465299,
-        "documents": 5416593,
-        "unique_terms": 28578,
-        "downloaded": False
-    },
-    "beir-v1.0.0-scifact.splade-pp-ed": {
-        "description": "Lucene impact index of BEIR (v1.0.0): SciFact, encoded by SPLADE++ (CoCondenser-EnsembleDistil).",
-        "filename": "lucene-inverted.beir-v1.0.0-scifact.splade-pp-ed.20231124.a66f86f.tar.gz",
-        "readme": "lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-scifact.splade-pp-ed.20231124.a66f86f.tar.gz"
-        ],
-        "md5": "3abe52209fcd04f411da438a37254e3a",
-        "size compressed (bytes)": 1985785,
-        "total_terms": 47317323,
-        "documents": 5183,
-        "unique_terms": 16385,
-        "downloaded": False
-    }
-}
+IMPACT_INDEX_INFO_BEIR = {}
+# BEIR: SPLADE++ ED
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
+# BEIR: SPLADEv3
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
 
 IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_MSMARCO,
                      **IMPACT_INDEX_INFO_MSMARCO_ALIASES,

@@ -37,6 +37,19 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.urls[0],
                          'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/resolve/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
 
+    def test_lucene_tf_msmarco_v1(self):
+        urls = []
+        cnt = 0
+        for key in TF_INDEX_INFO:
+            if 'msmarco-v1' in key:
+                cnt += 1
+                for url in TF_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        # 10 for doc, 5 for passage, 1 alias
+        self.assertEqual(cnt, 16)
+        self._test_urls(urls)
+
     def test_lucene_tf_beir(self):
         urls = []
         cnt = 0
@@ -110,8 +123,8 @@ class TestPrebuiltIndexes(unittest.TestCase):
                 for url in IMPACT_INDEX_INFO[key]['urls']:
                     urls.append(url)
 
-        # 29 from SPLADE-distill CoCodenser-medium
-        self.assertEqual(cnt, 29)
+        # 29 each from SPLADE++ (CoCondenser-EnsembleDistil) and SPLADEv3
+        self.assertEqual(cnt, 58)
         self._test_urls(urls)
 
     def test_lucene_impact_mrtydi(self):
