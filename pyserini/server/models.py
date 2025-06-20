@@ -21,29 +21,16 @@ Models and configuration classes for Pyserini FastAPI and MCP server.
 """
 
 from dataclasses import dataclass
-from enum import Enum
-from typing import Optional
 
-from pyserini.search.lucene import LuceneSearcher
-from pyserini.search.faiss import FaissSearcher
-
-
-class IndexType(Enum):
-    """Supported index types."""
-
-    PREBUILT = "prebuilt"
-    LOCAL = "local"
+from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher
 
 
 @dataclass
 class IndexConfig:
     """Configuration for a search index."""
-
     name: str
-    type: IndexType
-    path: str
-    description: Optional[str] = None
-    searcher: Optional[LuceneSearcher | FaissSearcher] = None
-    ef_search_override: Optional[int] = None
-    encoder_override: Optional[str] = None
-    query_generator_override: Optional[str] = None
+    searcher: LuceneSearcher | LuceneHnswDenseSearcher | None = None
+    description: str | None = None  
+    ef_search: int | None = None
+    encoder: str | None = None
+    query_generator: str | None = None

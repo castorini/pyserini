@@ -21,26 +21,28 @@ Search controller for Pyserini capabilities.
 Initialized with prebuilt index msmarco-v1-passage.
 """
         
-from concurrent.futures import ThreadPoolExecutor
-from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
-from typing import Dict, List, Optional, Any
+from typing import Any
 
-from pyserini.search.lucene import LuceneSearcher
-from pyserini.search.faiss import FaissSearcher
-from pyserini.prebuilt_index_info import TF_INDEX_INFO
+from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_HNSW_INDEX_INFO
 from pyserini.util import check_downloaded
-from pyserini.encode import QueryEncoder
 
-from pyserini.server.models import IndexConfig, IndexType
+from pyserini.server.models import IndexConfig
 
 DEFAULT_INDEX = "msmarco-v1-passage"
+
+SHARDS = [
+    f"msmarco-v2.1-doc-segmented-shard0{i}.arctic-embed-l.hnsw-int8"
+    for i in range(10)
+]
 
 class SearchController:
     """Core functionality controller."""
 
     def __init__(self):
-        self.indexes: Dict[str, IndexConfig] = {}
+        self.indexes: dict[str, IndexConfig] = {}
 
     def initialize_default_index(self, default_index: str = DEFAULT_INDEX) -> None:
         """Initialize default prebuilt index."""
@@ -49,26 +51,26 @@ class SearchController:
             self.add_index(
                 IndexConfig(
                     name=default_index,
-                    type=IndexType.PREBUILT,
-                    path=default_index,
                     description=TF_INDEX_INFO[default_index].get("description", ""),
                 )
             )
         else:
             raise ValueError(f"Default index '{default_index}' not found in prebuilt indexes.")
 
-    def add_index(self, config: IndexConfig, type: str = "LuceneSearcher") -> None:
+    def add_index(self, config: IndexConfig) -> IndexConfig:
         """Add a new index to the manager."""
-        if type == "FaissSearcher":
-            config.searcher = FaissSearcher.from_prebuilt_index(
-                config.path, query_encoder=QueryEncoder(config.encoder_override)
-            )
+        
+        if config.name in SHARDS:
+            config.searcher = LuceneHnswDenseSearcher.from_prebuilt_index(config.name, ef_search=config.ef_search, encoder=config.encoder, verbose=True)
+        elif config.name in TF_INDEX_INFO.keys():   
+            config.searcher = LuceneSearcher.from_prebuilt_index(config.name)         
         else:
-            config.searcher = LuceneSearcher.from_prebuilt_index(config.path)
+            raise ValueError(f"Index '{config.name}' not currently supported in prebuilt indexes.")
 
         self.indexes[config.name] = config
+        return config
 
-    def get_indexes(self) -> Dict[str, Dict[str, Any]]:
+    def get_indexes(self) -> dict[str, dict[str, Any]]:
         """Get all indexes (only prebuilt for now)"""
         return TF_INDEX_INFO
 
@@ -78,23 +80,28 @@ class SearchController:
         index_name: str,
         k: int = 10,
         qid: str = "",
-        ef_search: Optional[int] = None,
-        encoder: Optional[str] = None,
-        query_generator: Optional[str] = None,
-    ) -> Dict[str, Any]:
+        ef_search: int | None = None,
+        encoder: str | None = None,
+        query_generator: str | None = None,
+    ) -> dict[str, Any]:
         """Perform search on specified index."""
         hits = []
         
         index_config = self.indexes.get(index_name)
-        if not index_config:
-            raise ValueError(f"Index '{index_name}' not available")
-        if not index_config.searcher:
-            index_config.searcher = LuceneSearcher.from_prebuilt_index(index_config.path)
-        hits = index_config.searcher.search(query, k)
-        
+        if not index_config or not index_config.searcher:
+            index_config = self.add_index(
+                IndexConfig(
+                    name=index_name,
+                    path=index_name,
+                    ef_search=ef_search,
+                    encoder=encoder,
+                    query_generator=query_generator
+                )
+            )
             
-        results: Dict[str, Any] = {"query": {"qid": qid, "text": query}}
-        candidates: List[Dict[str, Any]] = []
+        hits = index_config.searcher.search(query, k)
+        results: dict[str, Any] = {"query": {"qid": qid, "text": query}}
+        candidates: list[dict[str, Any]] = []
 
         for hit in hits:
             raw = json.loads(hit.lucene_document.get("raw"))
@@ -109,55 +116,46 @@ class SearchController:
 
         return results
     
-    def sharded_search( # hardcoded for msmarco v2.1's 2 shards
+    def sharded_search( # temporarily hardcode msmarco v2.1 arctic embed l shards
         self,
         query: str,
-        index_name: str,
-        k: int = 10,
-        encoder: Optional[str] = None,
-    ) -> Dict[str, Any]:   
-        futures = [] 
-        with ThreadPoolExecutor(max_workers=2) as executor:
-            hits = []
-            for i in range(2):
-                if not self.indexes.get(f"msmarco-v2.1-doc-segmented-shard0{i+1}.arctic-embed-l"):
-                    self.add_index(
-                        IndexConfig(
-                            name=f"msmarco-v2.1-doc-segmented-shard0{i+1}.arctic-embed-l",
-                            type=IndexType.PREBUILT,
-                            path=f"msmarco-v2.1-doc-segmented-shard0{i+1}.arctic-embed-l",
-                            encoder_override=encoder,
-                        ),
-                        "FaissSearcher"
-                    )
-                    print(f"msmarco-v2.1-doc-segmented-shard0{i+1}.arctic-embed-l added to indexes")
+        k: int,
+        ef_search: int,
+        encoder: str,
+    ) -> list[dict[str, float]]:   
                 
-                index_config = self.indexes.get(f"msmarco-v2.1-doc-segmented-shard0{i+1}.arctic-embed-l")
-                hits.append(index_config.searcher.search(query, k))
-                # future = executor.submit(
-                #     index_config.searcher.search, query, k
-                # )
-                # futures.append(future)
-                    
-            for hit in hits:
-                print(f"Porcessing hit: {hit}")
-                    
-                # index_config = self.indexes.get(shards[i])
-                
-                # for future in futures:
-                #     hits.append(future.result())
-    
+        executor = ThreadPoolExecutor(max_workers=10)
 
-    def get_document(self, docid: str, index_name: str) -> Optional[Dict[str, Any]]:
+        future_to_shard = {}
+        for shard_name in SHARDS:
+            future = executor.submit(
+                self._search_single_shard, 
+                shard_name, 
+                query, 
+                k, 
+                ef_search, 
+                encoder
+            )
+            future_to_shard[future] = shard_name
+        
+        all_results = []
+        for future in as_completed(future_to_shard):
+            shard_name = future_to_shard[future]
+            shard_results = future.result()
+            all_results.extend(shard_results)
+        
+        # Sort all results by score (descending) and take top k
+        all_results.sort(key=lambda x: x["score"], reverse=True)
+        print(f"Total results across shards: {all_results}")
+        return  all_results[:k]
+           
+
+    def get_document(self, docid: str, index_name: str) -> dict[str, Any]:
         """Retrieve full document by document ID."""
         index_config = self.indexes[index_name]
-        if not index_config:
-            raise ValueError(f"Index '{index_name}' not available")
 
-        if not index_config.searcher: # TODO: handle different searcher types
-            index_config.searcher = LuceneSearcher.from_prebuilt_index(
-                index_config.path
-            )
+        if not index_config.searcher:       
+            index_config.searcher = LuceneSearcher.from_prebuilt_index(index_config.name)
 
         doc = index_config.searcher.doc(docid)
         if doc is None:
@@ -174,9 +172,9 @@ class SearchController:
     def update_settings(
         self,
         index_name: str,
-        ef_search: Optional[str] = None,
-        encoder: Optional[str] = None,
-        query_generator: Optional[str] = None,
+        ef_search: str | None = None,
+        encoder: str | None = None,
+        query_generator: str | None = None,
     ) -> None:
         """Update index settings."""
         index_config = self.indexes[index_name]
@@ -184,26 +182,58 @@ class SearchController:
             raise ValueError(f"Index '{index_name}' not available")
 
         if ef_search is not None:
-            index_config.ef_search_override = int(ef_search)
+            index_config.ef_search = int(ef_search)
         if encoder is not None:
-            index_config.encoder_override = encoder
+            index_config.encoder = encoder
         if query_generator is not None:
-            index_config.query_generator_override = query_generator
+            index_config.query_generator = query_generator
 
-    def get_settings(self, index_name: str) -> Dict[str, Any]:
+    def get_settings(self, index_name: str) -> dict[str, Any]:
         """Get current index settings."""
         index_config = self.indexes[index_name]
         if not index_config:
             raise ValueError(f"Index '{index_name}' not available")
 
         settings = {}
-        if index_config.ef_search_override is not None:
-            settings["efSearch"] = index_config.ef_search_override
-        if index_config.encoder_override is not None:
-            settings["encoder"] = index_config.encoder_override
-        if index_config.query_generator_override is not None:
-            settings["queryGenerator"] = index_config.query_generator_override
+        if index_config.ef_search is not None:
+            settings["efSearch"] = index_config.ef_search
+        if index_config.encoder is not None:
+            settings["encoder"] = index_config.encoder
+        if index_config.query_generator is not None:
+            settings["queryGenerator"] = index_config.query_generator
         return settings
+    
+    def _search_single_shard(
+        self,
+        shard_name: str,
+        query: str,
+        k: int,
+        ef_search: int,
+        encoder: str,
+    ) -> list[dict[str, float]]:
+        """Search a single shard."""
+        index_config = self.indexes.get(shard_name)
+        if not index_config or not index_config.searcher:
+            index_config = self.add_index(
+                IndexConfig(
+                    name=shard_name,
+                    ef_search=ef_search,
+                    encoder=encoder,
+                )
+            )
+            
+        print("\nindex config:", index_config)
+
+        hits = index_config.searcher.search(query, k)
+        results = []
+
+        for hit in hits:
+            results.append({
+                "docid": hit.docid,
+                "score": hit.score,
+            })
+            
+        return results
 
 controller = SearchController()
 controller.initialize_default_index()
@@ -211,18 +241,3 @@ controller.initialize_default_index()
 def get_controller() -> SearchController:
     """Get the singleton instance of SearchController."""
     return controller
-
-
-# NOT USED
-shards = {
-    0: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.20250114.4884f5.aab3f8e9aa0563bd0f875584784a0845",
-    1: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.20250114.4884f5.34ea30fe72c2bc1795ae83e71b191547",
-    2: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.20250114.4884f5.b6271d6db65119977491675f74f466d5",
-    3: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.20250114.4884f5.a9cd644eb6037f67d2e9c06a8f60928d",
-    4: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.20250114.4884f5.07b7e451e0525d01c1f1f2b1c42b1bd5",
-    5: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.20250114.4884f5.2573dce175788981be2f266ebb33c96d",
-    6: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.20250114.4884f5.a644aea445a8b78cc9e99d2ce111ff11",
-    7: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.20250114.4884f5.402d37deccb44b5fc105049889e8aaea",
-    8: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.20250114.4884f5.89ebcd027f7297b26a1edc8ae5726527",
-    9: "lucene-hnsw-int8.msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.20250114.4884f5.5e580bb7eb9ee2bb6bfa492b3430c17d",
-}
