@@ -11,10 +11,17 @@ The MCP server uses stdio transport and is designed to be launched by MCP client
 If you want to run the server manually, you will need the [development](https://github.com/castorini/pyserini/blob/master/docs/installation.md#development-installation) installation of Pyserini. In your project root directory, run:
 
 ```bash
-python pyserini/server/mcp/mcpyserini.py
+python -m pyserini.server.mcp
 ```
 
 ### Configuration for MCP Clients
+
+Note that as of time of writing (June 2025), Claude Desktop only supports Windows and macOS, and remote MCP are in beta and only available with paid plans. 
+Thus, if your Pyserini is on a remote Linux server like `orca`, you will want to look into other MCP clients that support remote MCP servers.
+If you are using a remote MCP server, you will want to modify [`mcpyserini.py`](../pyserini/server/mcp/mcpyserini.py) to use HTTP to expose the server, and you can find more information about it [here](https://gofastmcp.com/deployment/running-server#streamable-http).
+
+While unconventional, one working option is Cursor, and though it needs a paid subscription, students get one year free.
+You can find more information about using it with MCP [here](https://docs.cursor.com/context/model-context-protocol). 
 
 #### Claude Desktop Configuration
 
@@ -85,3 +92,7 @@ Search for "what is a lobster roll" in the msmarco-v1-passage index, returning 5
 ```
 Retrieve the full text of document "7157715" from the msmarco-v1-passage index.
 ```
+
+## Reproduction Log[*](reproducibility.md)
+
++ Results reproduced by [@lilyjge](https://github.com/lilyjge) on 2025-06-20 (commit [`88584b9`](https://github.com/castorini/pyserini/commit/88584b982ac9878775be1ffb0b1a8673c0cccd3b))
