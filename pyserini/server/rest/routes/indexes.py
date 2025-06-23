@@ -47,6 +47,7 @@ async def search_index(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @router.get("/sharded/msmarco-v2.1-doc-artic-embed-l/search")
 async def sharded_search(
     query: str = Query(..., description="Search query"),
@@ -62,6 +63,7 @@ async def sharded_search(
         raise HTTPException(status_code=404, detail=str(ve))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.get("/{index}/documents/{docid}")
 async def get_document(
@@ -80,7 +82,7 @@ async def get_document(
 async def get_index_status(
     index: str = Path(..., description="Index name")
 ) -> dict[str, Any]:
-    return {"cached": get_controller().get_status(index)}
+    return get_controller().get_status(index)
 
 
 @router.get("/")

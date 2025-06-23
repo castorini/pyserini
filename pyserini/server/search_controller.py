@@ -49,10 +49,7 @@ class SearchController:
         
         if default_index in TF_INDEX_INFO.keys():
             self.add_index(
-                IndexConfig(
-                    name=default_index,
-                    description=TF_INDEX_INFO[default_index].get("description", ""),
-                )
+                IndexConfig(name=default_index)
             )
         else:
             raise ValueError(f"Default index '{default_index}' not found in prebuilt indexes.")
@@ -70,9 +67,12 @@ class SearchController:
         self.indexes[config.name] = config
         return config
 
-    def get_indexes(self) -> dict[str, dict[str, Any]]:
+    def get_indexes(self) -> dict[str, Any]:
         """Get all indexes (only prebuilt for now)"""
-        return TF_INDEX_INFO
+        indexes: dict[str, Any] = {}
+        indexes.update(TF_INDEX_INFO)
+        indexes.update(LUCENE_HNSW_INDEX_INFO)
+        return indexes
 
     def search(
         self,
@@ -146,10 +146,8 @@ class SearchController:
         
         # Sort all results by score (descending) and take top k
         all_results.sort(key=lambda x: x["score"], reverse=True)
-        print(f"Total results across shards: {all_results}")
-        return  all_results[:k]
+        return all_results[:k]
            
-
     def get_document(self, docid: str, index_name: str) -> dict[str, Any]:
         """Retrieve full document by document ID."""
         index_config = self.indexes[index_name]
@@ -166,8 +164,11 @@ class SearchController:
             "text": json.loads(doc.raw())["contents"],
         }
 
-    def get_status(self, index_name: str):
-        return check_downloaded(index_name)
+    def get_status(self, index_name: str) -> dict[str, Any]:
+        status = {}
+        status["downloaded"] = check_downloaded(index_name)
+        status["size compressed (bytes)"] = TF_INDEX_INFO[index_name]["size compressed (bytes)"] if TF_INDEX_INFO.get(index_name) else "Not available"
+        return status
 
     def update_settings(
         self,
@@ -222,8 +223,6 @@ class SearchController:
                 )
             )
             
-        print("\nindex config:", index_config)
-
         hits = index_config.searcher.search(query, k)
         results = []
 

@@ -30,7 +30,6 @@ class IndexConfig:
     """Configuration for a search index."""
     name: str
     searcher: LuceneSearcher | LuceneHnswDenseSearcher | None = None
-    description: str | None = None  
     ef_search: int | None = None
     encoder: str | None = None
     query_generator: str | None = None
