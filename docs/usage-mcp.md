@@ -4,6 +4,13 @@ The Pyserini MCP server provides search and document retrieval capabilities thro
 
 ## Getting Started
 
+If you are running remotely and need to force the server to connect to your local, run this before you login to create a tunnel between the server and local 
+
+When running mcp on remote with "streamable-http" it defaults to this link 127.0.0.1:800, so we set our server to connect to this local
+
+```bash
+ssh -L 8000:localhost:8000 username@dragon.cs.uwaterloo.ca
+```
 
 ### Starting the MCP Server
 
@@ -40,10 +47,24 @@ This takes you to the Claude config file `claude_desktop_config.json`, where you
   }
 }
 ```
-
 Restart Claude Desktop to apply the changes. You should be able to see `mcpyserini` as an available tool in Claude. To use mcpyserini, simply prompt Claude to use mcpyserini with a specific index and query.
 
 For more details on configuring Claude Desktop, refer to the [Claude Desktop documentation](https://modelcontextprotocol.io/quickstart/user).
+
+#### Cursor Configuration
+
+To use the Pyserini MCP server with Cursor, go to `~/.cursor/mcp.json` and add this to your file:
+
+
+```json
+{
+    "mcpServers": {
+      "mcpyserini": {
+        "url": "http://127.0.0.1:8000/mcp"
+      }
+    }
+  }
+```
 
 ## Available Tools
 
@@ -96,3 +117,4 @@ Retrieve the full text of document "7157715" from the msmarco-v1-passage index.
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@lilyjge](https://github.com/lilyjge) on 2025-06-20 (commit [`88584b9`](https://github.com/castorini/pyserini/commit/88584b982ac9878775be1ffb0b1a8673c0cccd3b))
++ Results reproduced by [@Vik7am10](https://github.com/Vik7am10) on 2025-06-23 (commit [`f7c1077`](https://github.com/castorini/pyserini/commit/f7c10776c486744b8f28f753df29036cdfd28389))
