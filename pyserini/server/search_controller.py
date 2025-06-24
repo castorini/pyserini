@@ -116,7 +116,8 @@ class SearchController:
 
         return results
     
-    def sharded_search( # temporarily hardcode msmarco v2.1 arctic embed l shards
+    # TODO: make this not default to sharded search for msmarco-v2.1-doc-artic-embed-l
+    def sharded_search( 
         self,
         query: str,
         k: int,
@@ -124,7 +125,7 @@ class SearchController:
         encoder: str,
     ) -> list[dict[str, float]]:   
                 
-        executor = ThreadPoolExecutor(max_workers=10)
+        executor = ThreadPoolExecutor(max_workers=len(SHARDS))
 
         future_to_shard = {}
         for shard_name in SHARDS:
