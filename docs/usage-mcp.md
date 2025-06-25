@@ -6,10 +6,10 @@ The Pyserini MCP server provides search and document retrieval capabilities thro
 
 If you are running remotely and need to force the server to connect to your local, run this before you login to create a tunnel between the server and local 
 
-When running mcp on remote with "streamable-http" it defaults to this link 127.0.0.1:800, so we set our server to connect to this local
+When running mcp on remote with "streamable-http" it defaults to this link 127.0.0.1:8000, so we set our server to connect to this local
 
 ```bash
-ssh -L 8000:localhost:8000 username@dragon.cs.uwaterloo.ca
+ssh -L 8000:localhost:8000 username@hostname
 ```
 
 ### Starting the MCP Server
@@ -113,6 +113,33 @@ Search for "what is a lobster roll" in the msmarco-v1-passage index, returning 5
 ```
 Retrieve the full text of document "7157715" from the msmarco-v1-passage index.
 ```
+
+**Running MCPyserini Remotely on Claude**
+
+To use the Pyserini MCP server remotely with Claude Desktop, use this config file `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "mcp_pyserini": {
+      "command": "/path/to/your/conda/env/bin/python",
+      "args": [
+        "path/to/your/pyserini_bridge.py"
+      ]
+    }
+  }
+}
+```
+
+Link here to download pyserini_bridge.py: add the path to this to your config file like shown above
+[Download script.py](https://github.com/Vik7am10/Bridge/blob/main/pyserini_bridge.py)
+
+
+Set your transport mode as "streamable-http" in mcp.run() in this file: [pyserini/server/mcp/mcpyserini.py](https://github.com/castorini/pyserini/blob/master/pyserini/server/mcp/mcpyserini.py)
+
+
+
+
 
 ## Reproduction Log[*](reproducibility.md)
 
