@@ -32,6 +32,8 @@ You can find more information about using it with MCP [here](https://docs.cursor
 
 #### Claude Desktop Configuration
 
+##### Running it on stdio
+
 To use the Pyserini MCP server with Claude Desktop, go to `Claude->Settings->Developer` and click edit config.
 This takes you to the Claude config file `claude_desktop_config.json`, where you can add the Pyserini MCP server configuration under the `mcpServers` section:
 
@@ -50,6 +52,31 @@ This takes you to the Claude config file `claude_desktop_config.json`, where you
 Restart Claude Desktop to apply the changes. You should be able to see `mcpyserini` as an available tool in Claude. To use mcpyserini, simply prompt Claude to use mcpyserini with a specific index and query.
 
 For more details on configuring Claude Desktop, refer to the [Claude Desktop documentation](https://modelcontextprotocol.io/quickstart/user).
+
+
+
+#### Running it Remotely on http
+
+To use the Pyserini MCP server remotely with Claude Desktop, use this config file `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "mcp_pyserini": {
+      "command": "/path/to/your/conda/env/bin/python",
+      "args": [
+        "path/to/your/pyserini_bridge.py"
+      ]
+    }
+  }
+}
+```
+
+Link here to download pyserini_bridge.py: add the path to this script to your config file like shown above 
+Find it at pyserini/server/mcp/pyserini_bridge.py
+
+
+Set your transport mode as "streamable-http" in mcp.run() in this file: [pyserini/server/mcp/mcpyserini.py](https://github.com/castorini/pyserini/blob/master/pyserini/server/mcp/mcpyserini.py)
 
 #### Cursor Configuration
 
@@ -113,32 +140,6 @@ Search for "what is a lobster roll" in the msmarco-v1-passage index, returning 5
 ```
 Retrieve the full text of document "7157715" from the msmarco-v1-passage index.
 ```
-
-**Running MCPyserini Remotely on Claude**
-
-To use the Pyserini MCP server remotely with Claude Desktop, use this config file `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "mcp_pyserini": {
-      "command": "/path/to/your/conda/env/bin/python",
-      "args": [
-        "path/to/your/pyserini_bridge.py"
-      ]
-    }
-  }
-}
-```
-
-Link here to download pyserini_bridge.py: add the path to this to your config file like shown above
-[Download script.py](https://github.com/Vik7am10/Bridge/blob/main/pyserini_bridge.py)
-
-
-Set your transport mode as "streamable-http" in mcp.run() in this file: [pyserini/server/mcp/mcpyserini.py](https://github.com/castorini/pyserini/blob/master/pyserini/server/mcp/mcpyserini.py)
-
-
-
 
 
 ## Reproduction Log[*](reproducibility.md)
