@@ -20,6 +20,7 @@ If you want to run the server manually, you will need the [development](https://
 ```bash
 python -m pyserini.server.mcp
 ```
+To use HTTP, set transport mode as "streamable-http" in mcp.run() in: [pyserini/server/mcp/mcpyserini.py](https://github.com/castorini/pyserini/blob/master/pyserini/server/mcp/mcpyserini.py)
 
 ### Configuration for MCP Clients
 
@@ -32,7 +33,7 @@ You can find more information about using it with MCP [here](https://docs.cursor
 
 #### Claude Desktop Configuration
 
-##### Running it on stdio
+##### Running on STDIO
 
 To use the Pyserini MCP server with Claude Desktop, go to `Claude->Settings->Developer` and click edit config.
 This takes you to the Claude config file `claude_desktop_config.json`, where you can add the Pyserini MCP server configuration under the `mcpServers` section:
@@ -55,7 +56,7 @@ For more details on configuring Claude Desktop, refer to the [Claude Desktop doc
 
 
 
-#### Running it Remotely on http
+#### Running Remotely on HTTP
 
 To use the Pyserini MCP server remotely with Claude Desktop, use this config file `claude_desktop_config.json`:
 
@@ -76,7 +77,7 @@ Link here to download pyserini_bridge.py: add the path to this script to your co
 Find it at pyserini/server/mcp/pyserini_bridge.py
 
 
-Set your transport mode as "streamable-http" in mcp.run() in this file: [pyserini/server/mcp/mcpyserini.py](https://github.com/castorini/pyserini/blob/master/pyserini/server/mcp/mcpyserini.py)
+
 
 #### Cursor Configuration
 
