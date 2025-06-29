@@ -72,11 +72,9 @@ To use the Pyserini MCP server remotely with Claude Desktop, use this config fil
   }
 }
 ```
+To download pyserini_bridge.py, run this: `wget https://raw.githubusercontent.com/castorini/pyserini/main/pyserini/server/mcp/pyserini_bridge.py -O pyserini_bridge.py`
 
-Link here to download pyserini_bridge.py: add the path to this script to your config file like shown above 
-Find it at pyserini/server/mcp/pyserini_bridge.py
-
-
+Add the path to this on your local to the `claude_desktop_config.json` file
 
 
 #### Cursor Configuration
