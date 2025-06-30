@@ -193,6 +193,8 @@ def check_downloaded(index_name):
         target_index = TF_INDEX_INFO[index_name]
     elif index_name in IMPACT_INDEX_INFO:
         target_index = IMPACT_INDEX_INFO[index_name]
+    elif index_name in LUCENE_HNSW_INDEX_INFO:
+        target_index = LUCENE_HNSW_INDEX_INFO[index_name]
     else:
         target_index = FAISS_INDEX_INFO[index_name]
     index_url = target_index['urls'][0]
