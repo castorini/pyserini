@@ -31,6 +31,10 @@ def add_lucene_index_info(enum, info, name=None, readme=None):
             enum.urls[0]
         ],
         "md5": enum.md5,
+        "size compressed (bytes)": enum.size,
+        "total_terms": enum.totalTerms,
+        "documents": enum.documents,
+        "unique_terms": enum.uniqueTerms,
         "downloaded": False
     }
 
