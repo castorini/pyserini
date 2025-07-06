@@ -79,7 +79,7 @@ Add the path to this on your local to the `claude_desktop_config.json` file
 
 #### Cursor Configuration
 
-To use the Pyserini MCP server with Cursor, go to `~/.cursor/mcp.json` and add this to your file:
+To use the Pyserini MCP server with Cursor, go to `~/.cursor/mcp.json` and add this to your cursor configuration file:
 
 
 ```json
