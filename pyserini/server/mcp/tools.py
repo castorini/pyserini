@@ -53,7 +53,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         name='get_document',
         description='Retrieve a full document by its document ID from a given index.',
     )
-    def get_document(docid: str, index_name: str) -> Optional[Dict[str, Any]]:
+    def get_document(docid: str, index_name: str) -> dict[str, Any]:
         """
         Retrieve the full text of a document by its ID.
 
@@ -62,7 +62,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             index_name: Name of index to search (default: use default index)
 
         Returns:
-            Document with full text, or None if not found
+            Document with full text, or ValueError if not found
         """
         return controller.get_document(docid, index_name)
     
