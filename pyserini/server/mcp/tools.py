@@ -96,7 +96,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         return controller.get_status(index_name)  
     
     @mcp.tool(
-        name='sharded_search_msmarco_v2.1',  
+        name='sharded_search_msmarco_v21',  
         description='Perform a sharded search on the msmarco-v2.1-doc-artic-embed-l index. Returns top-k hits with docid, score, and snippets.',
     )
     def sharded_search_msmarco_v21(
