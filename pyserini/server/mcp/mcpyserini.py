@@ -29,12 +29,12 @@ from pyserini.server.search_controller import get_controller
 def main():
     """Main entry point for the server."""
     try:
-        mcp = FastMCP("pyserini-search-server")
+        mcp = FastMCP('pyserini-search-server')
 
         register_tools(mcp, get_controller())
 
-        mcp.run(transport="stdio")
+        mcp.run(transport='stdio')
 
     except Exception as e:
-        print("Error", e)
+        print('Error', e)
         raise
