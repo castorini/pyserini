@@ -92,7 +92,6 @@ class SearchController:
             index_config = self.add_index(
                 IndexConfig(
                     name=index_name,
-                    path=index_name,
                     ef_search=ef_search,
                     encoder=encoder,
                     query_generator=query_generator
