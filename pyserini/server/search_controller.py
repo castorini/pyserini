@@ -196,13 +196,12 @@ class SearchController:
         if not index_config:
             raise ValueError(f'Index {index_name} not available')
 
-        settings = {}
-        if index_config.ef_search is not None:
-            settings['efSearch'] = index_config.ef_search
-        if index_config.encoder is not None:
-            settings['encoder'] = index_config.encoder
-        if index_config.query_generator is not None:
-            settings['queryGenerator'] = index_config.query_generator
+        settings = {
+            'efSearch': index_config.ef_search,
+            'encoder': index_config.encoder,
+            'queryGenerator': index_config.query_generator,
+        }
+
         return settings
     
     def _search_single_shard(

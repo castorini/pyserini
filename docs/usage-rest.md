@@ -19,7 +19,7 @@ python -m pyserini.server.rest --port 8080
 ### Interactive API Documentation
 
 Once the server is running, you can access the interactive API documentation at:
-- Swagger UI: `http://localhost:8081/docs`
+- Swagger UI: `http://localhost:XXXX/docs`
 
 ## API Endpoints
 
@@ -34,7 +34,7 @@ Perform a search query on the specified index.
 **Example Request:**
 
 ```bash
-curl "http://localhost:8081/indexes/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=1"
+curl "http://localhost:8081/v1/indexes/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=1"
 ```
 
 **Example Response:**

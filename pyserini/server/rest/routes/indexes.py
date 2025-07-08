@@ -93,7 +93,7 @@ async def list_indexes() -> dict[str, dict[str, Any]]:
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.post('/{index}/settings')
+@router.post('/{index}/search/settings')
 async def update_index_settings(
     index: str = Path(..., description='Index name'),
     ef_search: Optional[int] = Query(None, description='EF search parameter'),
@@ -106,7 +106,7 @@ async def update_index_settings(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get('/{index}/settings')
+@router.get('/{index}/search/settings')
 async def get_index_settings(
     index: str = Path(..., description='Index name')
 ) -> dict[str, Any]:
