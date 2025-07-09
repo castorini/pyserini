@@ -33,7 +33,7 @@ def main():
 
         register_tools(mcp, get_controller())
 
-        mcp.run(transport='streamable-http')
+        mcp.run(transport='stdio')
 
     except Exception as e:
         print('Error', e)

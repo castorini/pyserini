@@ -36,6 +36,17 @@ class SearchParams(BaseModel):
     ef_search: int | None = None
     encoder: str | None = None
     query_generator: str | None = None
+
+class ShardSearchParams(BaseModel):
+    query: str
+    hits: int = 10
+    ef_search: int | None = 100
+    encoder: str | None = "ArcticEmbedL"
+
+class IndexSettingParams(BaseModel):
+    efSearch: Optional[str] = None
+    encoder: Optional[str] = None
+    queryGenerator: Optional[str] = None
     
 @router.get('/{index}/search', response_model=Hits)
 async def search_index(
@@ -55,14 +66,11 @@ async def search_index(
 
 @router.get('/sharded/msmarco-v2.1-doc-artic-embed-l/search', response_model=List[ShardHit])
 async def sharded_search(
-    query: str = Query(..., description="Search query"),
-    hits: int = Query(default=10, description='Number of hits to return'),
-    ef_search: int | None = Query(default=100, description='EF search parameter'),
-    encoder: str | None = Query(default='ArcticEmbedL', description='Encoder to use'),
+    params: ShardSearchParams = Depends(),
 ) -> List[ShardHit]:
     try:
         return get_controller().sharded_search(
-            query, hits, ef_search, encoder
+            params.query, params.hits, params.ef_search, params.encoder
         )
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))
@@ -103,12 +111,10 @@ async def list_indexes(
 @router.post('/{index}/settings', response_model=dict[str, str])
 async def update_index_settings(
     index: str = Path(..., description='Index name'),
-    ef_search: Optional[int] = Query(None, description='EF search parameter'),
-    encoder: Optional[str] = Query(None, description='Encoder to use'),
-    query_generator: Optional[str] = Query(None, description='Query generator to use'),
+    params: IndexSettingParams = Depends()
 ) -> dict[str, str]:
     try:
-        get_controller().update_settings(index, ef_search, encoder, query_generator)
+        get_controller().update_settings(index, params.ef_search, params.encoder, params.query_generator)
         return {"status": "success"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
