@@ -142,7 +142,7 @@ class TestMCPyseriniServer(unittest.TestCase):
                 'k': 3
             }
         })
-
+    
         self.assertTrue('result' in response and not response['result']['isError'])
     
     def test_get_index_status_tool(self):
