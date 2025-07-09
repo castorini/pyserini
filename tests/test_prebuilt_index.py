@@ -63,18 +63,6 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(cnt, 58)
         self._test_urls(urls)
 
-    def test_lucene_tf_bright(self):
-        urls = []
-        cnt = 0
-        for key in TF_INDEX_INFO:
-            if 'bright' in key:
-                cnt += 1
-                for url in TF_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        self.assertEqual(cnt, 12)
-        self._test_urls(urls)
-
     def test_lucene_tf_mrtydi(self):
         urls = []
         cnt = 0

@@ -30,8 +30,8 @@ def register_tools(mcp: FastMCP, controller: SearchController):
     """Register all tools with the MCP server."""
 
     @mcp.tool(
-        name="search",
-        description="Perform a BM25 search on a given index. Returns top‑k hits with docid, score, and snippet.",
+        name='search',
+        description='Perform a BM25 search on a given index. Returns top‑k hits with docid, score, and snippet.',
     )
     def search(
         query: str,
@@ -50,10 +50,10 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         return controller.search(query, index_name, k)
 
     @mcp.tool(
-        name="get_document",
-        description="Retrieve a full document by its document ID from a given index.",
+        name='get_document',
+        description='Retrieve a full document by its document ID from a given index.',
     )
-    def get_document(docid: str, index_name: str) -> Optional[Dict[str, Any]]:
+    def get_document(docid: str, index_name: str) -> dict[str, Any]:
         """
         Retrieve the full text of a document by its ID.
 
@@ -62,13 +62,13 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             index_name: Name of index to search (default: use default index)
 
         Returns:
-            Document with full text, or None if not found
+            Document with full text, or ValueError if not found
         """
         return controller.get_document(docid, index_name)
     
     @mcp.tool(
-        name="list_all_indexes",
-        description="List all available indexes in the Pyserini server.",
+        name='list_all_indexes',
+        description='List all available indexes in the Pyserini server.',
     )
     def list_all_indexes() -> dict[str, Any]:
         """
@@ -80,8 +80,8 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         return controller.get_indexes()
     
     @mcp.tool(
-        name="get_index_status",
-        description="Check if the index is downloaded and what size it is.",
+        name='get_index_status',
+        description='Check if the index is downloaded and what size it is.',
     )
     def get_index_status(index_name: str) -> dict[str, Any]:
         """
@@ -96,14 +96,14 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         return controller.get_status(index_name)  
     
     @mcp.tool(
-        name="sharded_search_msmarco_v2.1",  
-        description="Perform a sharded search on the msmarco-v2.1-doc-artic-embed-l index. Returns top-k hits with docid, score, and snippets.",
+        name='sharded_search_msmarco_v21',  
+        description='Perform a sharded search on the msmarco-v2.1-doc-artic-embed-l index. Returns top-k hits with docid, score, and snippets.',
     )
     def sharded_search_msmarco_v21(
         query: str,
         k: int = 10,
         ef_search: int = 100,
-        encoder: str = "ArcticEmbedL",
+        encoder: str = 'ArcticEmbedL',
     ) -> List[Dict[str, Any]]:
         """
         Perform a sharded search on the msmarco-v2.1-doc-artic-embed-l index.
