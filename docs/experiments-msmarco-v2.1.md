@@ -64,6 +64,14 @@ print(json.dumps(json.loads(doc.raw()), indent=2))
 
 Pyserini provides a REST API for programmatic access:
 
+You can start the REST API server with the following command:
+
+```bash
+python -m pyserini.server.rest 
+```
+
+The default port is `8081`, and you can change it with the `--port` option like this:
+
 ```bash
 python -m pyserini.server.rest --port 8082
 ```
