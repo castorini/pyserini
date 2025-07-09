@@ -21,8 +21,11 @@ Models and configuration classes for Pyserini FastAPI and MCP server.
 """
 
 from dataclasses import dataclass
+from typing import List, Optional
+from enum import Enum
 
 from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_HNSW_INDEX_INFO
 
 
 @dataclass
@@ -33,3 +36,50 @@ class IndexConfig:
     ef_search: int | None = None
     encoder: str | None = None
     query_generator: str | None = None
+
+@dataclass
+class QueryInfo:
+    qid: str
+    text: str
+
+@dataclass
+class Candidate:
+    docid: str
+    score: float
+    doc: str
+
+@dataclass
+class Hits: 
+    query: QueryInfo
+    candidates: List[Candidate]
+
+@dataclass
+class ShardHit:
+    docid: str
+    score: float
+
+@dataclass 
+class Document:
+    docid: str
+    text: str
+
+@dataclass
+class IndexStatus:
+    downloaded: bool
+    size_bytes: str
+
+@dataclass
+class IndexSetting:
+    efSearch: Optional[str] = None
+    encoder: Optional[str] = None
+    queryGenerator: Optional[str] = None
+    
+SHARDS = {
+    f'msmarco-v2.1-doc-segmented-shard0{i}.arctic-embed-l.hnsw-int8': ""
+    for i in range(10)
+}
+
+INDEX_TYPE = {
+    "tf": TF_INDEX_INFO,
+    "sharded-msmarco": SHARDS
+}

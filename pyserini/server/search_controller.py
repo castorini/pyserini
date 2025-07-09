@@ -26,10 +26,10 @@ import json
 from typing import Any
 
 from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_HNSW_INDEX_INFO
+from pyserini.prebuilt_index_info import TF_INDEX_INFO
 from pyserini.util import check_downloaded
 
-from pyserini.server.models import IndexConfig
+from pyserini.server.models import IndexConfig, INDEX_TYPE
 
 DEFAULT_INDEX = 'msmarco-v1-passage'
 
@@ -48,13 +48,13 @@ class SearchController:
         """Initialize default prebuilt index."""
         
         if default_index in TF_INDEX_INFO.keys():
-            self.add_index(
+            self._add_index(
                 IndexConfig(name=default_index)
             )
         else:
             raise ValueError(f'Default index {default_index} not found in prebuilt indexes.')
 
-    def add_index(self, config: IndexConfig) -> IndexConfig:
+    def _add_index(self, config: IndexConfig) -> IndexConfig:
         """Add a new index to the manager."""
         
         if config.name in SHARDS:
@@ -67,11 +67,12 @@ class SearchController:
         self.indexes[config.name] = config
         return config
 
-    def get_indexes(self) -> dict[str, Any]:
-        """Get all indexes (only prebuilt for now)"""
-        indexes: dict[str, Any] = {}
-        indexes.update(TF_INDEX_INFO)
-        indexes.update(LUCENE_HNSW_INDEX_INFO)
+    def get_indexes(self, index_type: str) -> list[str]:
+        """Get indexes available for retrieval (only prebuilt for now)"""
+        indexes = INDEX_TYPE.get(index_type)
+        if indexes == None:
+            raise ValueError(f"Index type must be one of shard or {list(INDEX_TYPE.keys())}")
+        indexes = list(indexes.keys()) 
         return indexes
 
     def search(
@@ -89,7 +90,7 @@ class SearchController:
         
         index_config = self.indexes.get(index_name)
         if not index_config or not index_config.searcher:
-            index_config = self.add_index(
+            index_config = self._add_index(
                 IndexConfig(
                     name=index_name,
                     ef_search=ef_search,
@@ -108,7 +109,7 @@ class SearchController:
                 {
                     'docid': hit.docid,
                     'score': hit.score,
-                    'doc': {'contents': raw['contents']},
+                    'doc': raw['contents'],
                 }
             )
         results['candidates'] = candidates
@@ -167,7 +168,7 @@ class SearchController:
     def get_status(self, index_name: str) -> dict[str, Any]:
         status = {}
         status['downloaded'] = check_downloaded(index_name)
-        status['size compressed (bytes)'] = TF_INDEX_INFO[index_name]['size compressed (bytes)'] if TF_INDEX_INFO.get(index_name) else 'Not available'
+        status['size_bytes'] = TF_INDEX_INFO[index_name]['size compressed (bytes)'] if TF_INDEX_INFO.get(index_name) else 'Not available'
         return status
 
     def update_settings(
@@ -215,7 +216,7 @@ class SearchController:
         """Search a single shard."""
         index_config = self.indexes.get(shard_name)
         if not index_config or not index_config.searcher:
-            index_config = self.add_index(
+            index_config = self._add_index(
                 IndexConfig(
                     name=shard_name,
                     ef_search=ef_search,
