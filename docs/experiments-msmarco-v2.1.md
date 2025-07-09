@@ -62,16 +62,16 @@ print(json.dumps(json.loads(doc.raw()), indent=2))
 
 ## REST API and Webapp
 
-Pyserini provides a REST API for programmatic access (in truth, it's just a wrapper around a Java application in Anserini):
+Pyserini provides a REST API for programmatic access:
 
 ```bash
-python -m pyserini.server.AnseriniApplication --server.port=8082
+python -m pyserini.server.rest --port 8082
 ```
 
 Here's a specific example of using the REST API to issue the query "How does the process of digestion and metabolism of carbohydrates start" to `msmarco-v2.1-doc`:
 
 ```bash
-curl -X GET "http://localhost:8082/api/v1.0/indexes/msmarco-v2.1-doc/search?query=How%20does%20the%20process%20of%20digestion%20and%20metabolism%20of%20carbohydrates%20start"
+curl -X GET "http://localhost:8082/v1/indexes/msmarco-v2.1-doc/search?query=How%20does%20the%20process%20of%20digestion%20and%20metabolism%20of%20carbohydrates%20start"
 ```
 
 And the output looks something like (pipe through `jq` to pretty-print):
@@ -110,9 +110,6 @@ And the output looks something like (pipe through `jq` to pretty-print):
 
 Switch to `msmarco-v2.1-doc-segmented` in the route to query the segmented docs instead.
 Adjust the `hits` parameter to change the number of hits returned.
-
-The API also provides an interactive search interface.
-To access it, navigate to [`http://localhost:8082/`](http://localhost:8082/) in your browser.
 
 ## Batch Runs on Existing Topics
 
