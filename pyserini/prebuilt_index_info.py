@@ -2120,6 +2120,20 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "unique_terms": 27952,
         "downloaded": False
     },
+    "msmarco-v2.1-doc-segmented.splade-v3": {
+        "description": "Lucene impact index of the MS MARCO V2.1 segmented document corpus encoded by SPLADEv3.",
+        "filename": "lucene-inverted.msmarco-v2.1-doc-segmented.splade-v3.20250707.4039c3.tar.gz",
+        "readme": "lucene-inverted.msmarco-v2.1-doc-segmented.splade-v3.20250707.4039c3.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v2.1-doc-segmented/resolve/main/lucene-inverted.msmarco-v2.1-doc-segmented.splade-v3.20250707.4039c3.tar.gz"
+        ], # need to change
+        "md5": "75f677301833b4f3bf2c2c286be8879f",
+        "size compressed (bytes)": 48526928505,
+        "total_terms": 866904601378,
+        "documents": 113520750,
+        "unique_terms": 28819,
+        "downloaded": False
+    },
 
     "msmarco-v1-doc-segmented.unicoil": {
         "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL, with title/segment encoding.",
