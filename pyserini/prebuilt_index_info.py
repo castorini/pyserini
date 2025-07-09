@@ -2111,7 +2111,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "readme": "lucene-inverted.msmarco-v2.1-doc-segmented.splade-v3.20250707.4039c3.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v2.1-doc-segmented/resolve/main/lucene-inverted.msmarco-v2.1-doc-segmented.splade-v3.20250707.4039c3.tar.gz"
-        ], # need to change
+        ],
         "md5": "75f677301833b4f3bf2c2c286be8879f",
         "size compressed (bytes)": 48526928505,
         "total_terms": 866904601378,
