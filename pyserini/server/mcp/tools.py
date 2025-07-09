@@ -70,14 +70,17 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         name='list_all_indexes',
         description='List all available indexes in the Pyserini server.',
     )
-    def list_all_indexes() -> dict[str, Any]:
+    def list_all_indexes(index_type: str) -> dict[str, Any]:
         """
-        List all available indexes in the Pyserini server.
+        List all available indexes of a type in the Pyserini server.
+
+        Args:
+            index_type: Type of index out of 'tf', 'lucene_hnsw', 'lucene_flat', 'impact', or 'faiss'
 
         Returns:
             Dictionary of index names to their metadata.
         """
-        return controller.get_indexes()
+        return controller.get_indexes(index_type)
     
     @mcp.tool(
         name='get_index_status',

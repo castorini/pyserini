@@ -22,13 +22,14 @@ Provides routes for searching indexes, retrieving documents, checking index stat
 """
 
 from fastapi import APIRouter, Query, Path, HTTPException
-from typing import Optional, Any
+from typing import Optional, Any, List
 from pyserini.server.search_controller import get_controller
+from pyserini.server.models import Hits, ShardHit, Document, IndexStatus, IndexSetting
 
 router = APIRouter(prefix='/indexes', tags=['indexes'])
 
 
-@router.get('/{index}/search')
+@router.get('/{index}/search', response_model=Hits)
 async def search_index(
     index: str = Path(..., description='Index name'),
     query: str = Query(..., description='Search query'),
@@ -37,80 +38,84 @@ async def search_index(
     ef_search: int | None = Query(None, description='EF search parameter'),
     encoder: str | None = Query(None, description='Encoder to use'),
     query_generator: str | None = Query(None, description='Query generator to use'),
-) -> dict[str, Any]:
+) -> Hits:
     try:
-        return get_controller().search(
+        return Hits(**get_controller().search(
             query, index, hits, qid, ef_search, encoder, query_generator
-        )
+        ))
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get('/sharded/msmarco-v2.1-doc-artic-embed-l/search')
+@router.get('/sharded/msmarco-v2.1-doc-artic-embed-l/search', response_model=List[ShardHit])
 async def sharded_search(
     query: str = Query(..., description="Search query"),
     hits: int = Query(default=10, description='Number of hits to return'),
     ef_search: int | None = Query(default=100, description='EF search parameter'),
     encoder: str | None = Query(default='ArcticEmbedL', description='Encoder to use'),
-) -> list[dict[str, Any]]:
+) -> List[ShardHit]:
     try:
-        return get_controller().sharded_search(
+        results = get_controller().sharded_search(
             query, hits, ef_search, encoder
         )
+        return [ShardHit(**r) for r in results]
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get('/{index}/documents/{docid}')
+@router.get('/{index}/documents/{docid}', response_model=Document)
 async def get_document(
     docid: str = Path(..., description='Document ID'),
     index: str = Path(..., description='Index name'),
-) -> dict[str, Any]:
+) -> Document:
     try:
-        return get_controller().get_document(docid, index)
+        return Document(**get_controller().get_document(docid, index))
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get('/{index}/status')
+@router.get('/{index}/status', response_model=IndexStatus)
 async def get_index_status(
     index: str = Path(..., description='Index name')
 ) -> dict[str, Any]:
-    return get_controller().get_status(index)
+    return IndexStatus(**get_controller().get_status(index))
 
 
-@router.get('/')
-async def list_indexes() -> dict[str, dict[str, Any]]:
+@router.get('/', response_model=list[str])
+async def list_indexes(
+    index_type: str = Query(..., "Type of index out of 'tf', 'lucene_hnsw', 'lucene_flat', 'impact', or 'faiss'")
+) -> list[str]:
     try:
         return get_controller().get_indexes()
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.post('/{index}/settings')
+@router.post('/{index}/settings', response_model=dict[str, str])
 async def update_index_settings(
     index: str = Path(..., description='Index name'),
     ef_search: Optional[int] = Query(None, description='EF search parameter'),
     encoder: Optional[str] = Query(None, description='Encoder to use'),
     query_generator: Optional[str] = Query(None, description='Query generator to use'),
-) -> dict[str, Any]:
+) -> dict[str, str]:
     try:
-        return get_controller().update_settings(index, ef_search, encoder, query_generator)
+        get_controller().update_settings(index, ef_search, encoder, query_generator)
+        return {"status": "success"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get('/{index}/settings')
+@router.get('/{index}/settings', response_model=IndexSetting)
 async def get_index_settings(
     index: str = Path(..., description='Index name')
-) -> dict[str, Any]:
+) -> IndexSetting:
     try:
-        return get_controller().get_settings(index)
+        return IndexSetting(**get_controller().get_settings(index))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

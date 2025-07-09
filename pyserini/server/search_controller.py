@@ -26,7 +26,7 @@ import json
 from typing import Any
 
 from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_HNSW_INDEX_INFO
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, FAISS_INDEX_INFO
 from pyserini.util import check_downloaded
 
 from pyserini.server.models import IndexConfig
@@ -37,6 +37,14 @@ SHARDS = [
     f'msmarco-v2.1-doc-segmented-shard0{i}.arctic-embed-l.hnsw-int8'
     for i in range(10)
 ]
+
+INDEX_TYPE = {
+    "tf": TF_INDEX_INFO,
+    "lucene_hnsw": LUCENE_HNSW_INDEX_INFO,
+    "lucene_flat": LUCENE_FLAT_INDEX_INFO,
+    "impact": IMPACT_INDEX_INFO,
+    "faiss": FAISS_INDEX_INFO
+}
 
 class SearchController:
     """Core functionality controller."""
@@ -67,11 +75,12 @@ class SearchController:
         self.indexes[config.name] = config
         return config
 
-    def get_indexes(self) -> dict[str, Any]:
+    def get_indexes(self, index_type: str) -> list[str]:
         """Get all indexes (only prebuilt for now)"""
-        indexes: dict[str, Any] = {}
-        indexes.update(TF_INDEX_INFO)
-        indexes.update(LUCENE_HNSW_INDEX_INFO)
+        indexes = INDEX_TYPE.get(index_type)
+        if indexes == None:
+            raise ValueError(f"Index type must be one of {list(INDEX_TYPE.keys())}")
+        indexes = list(indexes.keys())
         return indexes
 
     def search(
@@ -167,7 +176,7 @@ class SearchController:
     def get_status(self, index_name: str) -> dict[str, Any]:
         status = {}
         status['downloaded'] = check_downloaded(index_name)
-        status['size compressed (bytes)'] = TF_INDEX_INFO[index_name]['size compressed (bytes)'] if TF_INDEX_INFO.get(index_name) else 'Not available'
+        status['size_bytes'] = TF_INDEX_INFO[index_name]['size compressed (bytes)'] if TF_INDEX_INFO.get(index_name) else 'Not available'
         return status
 
     def update_settings(

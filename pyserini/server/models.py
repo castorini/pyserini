@@ -21,6 +21,7 @@ Models and configuration classes for Pyserini FastAPI and MCP server.
 """
 
 from dataclasses import dataclass
+from typing import List, Optional
 
 from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher
 
@@ -33,3 +34,44 @@ class IndexConfig:
     ef_search: int | None = None
     encoder: str | None = None
     query_generator: str | None = None
+
+@dataclass
+class QueryInfo:
+    qid: str
+    text: str
+
+@dataclass
+class DocContents:
+    contents: str
+
+@dataclass
+class Candidate:
+    docid: str
+    score: float
+    doc: DocContents
+
+@dataclass
+class Hits: 
+    query: QueryInfo
+    candidates: List[Candidate]
+
+@dataclass
+class ShardHit:
+    docid: str
+    score: float
+
+@dataclass 
+class Document:
+    docid: str
+    text: str
+
+@dataclass
+class IndexStatus:
+    downloaded: bool
+    size_bytes: str
+
+@dataclass
+class IndexSetting:
+    efSearch: Optional[str] = None
+    encoder: Optional[str] = None
+    queryGenerator: Optional[str] = None
