@@ -15,7 +15,6 @@
 #
 
 import json
-import random
 import subprocess
 import sys
 import time
@@ -26,7 +25,6 @@ class TestMCPyseriniServer(unittest.TestCase):
     
     def setUp(self):
         try:
-            self.port = random.randint(10000, 20000)
             self.server_process = subprocess.Popen(
                 [sys.executable, '-m', 'pyserini.server.mcp'],
                 stdin=subprocess.PIPE,
