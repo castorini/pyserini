@@ -40,9 +40,9 @@ async def search_index(
     query_generator: str | None = Query(None, description='Query generator to use'),
 ) -> Hits:
     try:
-        return Hits(**get_controller().search(
+        return get_controller().search(
             query, index, hits, qid, ef_search, encoder, query_generator
-        ))
+        )
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))
     except Exception as e:
@@ -57,10 +57,9 @@ async def sharded_search(
     encoder: str | None = Query(default='ArcticEmbedL', description='Encoder to use'),
 ) -> List[ShardHit]:
     try:
-        results = get_controller().sharded_search(
+        return get_controller().sharded_search(
             query, hits, ef_search, encoder
         )
-        return [ShardHit(**r) for r in results]
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))
     except Exception as e:
@@ -73,7 +72,7 @@ async def get_document(
     index: str = Path(..., description='Index name'),
 ) -> Document:
     try:
-        return Document(**get_controller().get_document(docid, index))
+        return get_controller().get_document(docid, index)
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))
     except Exception as e:
@@ -84,12 +83,12 @@ async def get_document(
 async def get_index_status(
     index: str = Path(..., description='Index name')
 ) -> dict[str, Any]:
-    return IndexStatus(**get_controller().get_status(index))
+    return get_controller().get_status(index)
 
 
 @router.get('/', response_model=list[str])
 async def list_indexes(
-    index_type: str = Query(..., "Type of index out of 'tf', 'lucene_hnsw', 'lucene_flat', 'impact', or 'faiss'")
+    index_type: str = Query(..., description="Type of index out of 'tf', 'sharded-msmarco'")
 ) -> list[str]:
     try:
         return get_controller().get_indexes()
@@ -116,6 +115,6 @@ async def get_index_settings(
     index: str = Path(..., description='Index name')
 ) -> IndexSetting:
     try:
-        return IndexSetting(**get_controller().get_settings(index))
+        return get_controller().get_settings(index)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

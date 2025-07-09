@@ -45,7 +45,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             index_name: Name of index to search (default: use default index)
             k: Number of results to return (default: 10)
         Returns:
-            List of search results with docid, score, text snippet, and index name
+            List of search results with docid, score, and raw contents
         """
         return controller.search(query, index_name, k)
 
@@ -70,12 +70,12 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         name='list_all_indexes',
         description='List all available indexes in the Pyserini server.',
     )
-    def list_all_indexes(index_type: str) -> dict[str, Any]:
+    def list_indexes(index_type: str) -> dict[str, Any]:
         """
-        List all available indexes of a type in the Pyserini server.
+        List indexes available for search of a type in the Pyserini server.
 
         Args:
-            index_type: Type of index out of 'tf', 'lucene_hnsw', 'lucene_flat', 'impact', or 'faiss'
+            index_type: Type of index out of 'tf' or 'sharded-msmarco''
 
         Returns:
             Dictionary of index names to their metadata.

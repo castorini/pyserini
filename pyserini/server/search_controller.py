@@ -26,10 +26,10 @@ import json
 from typing import Any
 
 from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, FAISS_INDEX_INFO
+from pyserini.prebuilt_index_info import TF_INDEX_INFO
 from pyserini.util import check_downloaded
 
-from pyserini.server.models import IndexConfig
+from pyserini.server.models import IndexConfig, INDEX_TYPE
 
 DEFAULT_INDEX = 'msmarco-v1-passage'
 
@@ -37,14 +37,6 @@ SHARDS = [
     f'msmarco-v2.1-doc-segmented-shard0{i}.arctic-embed-l.hnsw-int8'
     for i in range(10)
 ]
-
-INDEX_TYPE = {
-    "tf": TF_INDEX_INFO,
-    "lucene_hnsw": LUCENE_HNSW_INDEX_INFO,
-    "lucene_flat": LUCENE_FLAT_INDEX_INFO,
-    "impact": IMPACT_INDEX_INFO,
-    "faiss": FAISS_INDEX_INFO
-}
 
 class SearchController:
     """Core functionality controller."""
@@ -56,13 +48,13 @@ class SearchController:
         """Initialize default prebuilt index."""
         
         if default_index in TF_INDEX_INFO.keys():
-            self.add_index(
+            self._add_index(
                 IndexConfig(name=default_index)
             )
         else:
             raise ValueError(f'Default index {default_index} not found in prebuilt indexes.')
 
-    def add_index(self, config: IndexConfig) -> IndexConfig:
+    def _add_index(self, config: IndexConfig) -> IndexConfig:
         """Add a new index to the manager."""
         
         if config.name in SHARDS:
@@ -76,11 +68,11 @@ class SearchController:
         return config
 
     def get_indexes(self, index_type: str) -> list[str]:
-        """Get all indexes (only prebuilt for now)"""
+        """Get indexes available for retrieval (only prebuilt for now)"""
         indexes = INDEX_TYPE.get(index_type)
         if indexes == None:
-            raise ValueError(f"Index type must be one of {list(INDEX_TYPE.keys())}")
-        indexes = list(indexes.keys())
+            raise ValueError(f"Index type must be one of shard or {list(INDEX_TYPE.keys())}")
+        indexes = list(indexes.keys()) 
         return indexes
 
     def search(
@@ -98,7 +90,7 @@ class SearchController:
         
         index_config = self.indexes.get(index_name)
         if not index_config or not index_config.searcher:
-            index_config = self.add_index(
+            index_config = self._add_index(
                 IndexConfig(
                     name=index_name,
                     ef_search=ef_search,
@@ -117,7 +109,7 @@ class SearchController:
                 {
                     'docid': hit.docid,
                     'score': hit.score,
-                    'doc': {'contents': raw['contents']},
+                    'doc': raw['contents'],
                 }
             )
         results['candidates'] = candidates
@@ -224,7 +216,7 @@ class SearchController:
         """Search a single shard."""
         index_config = self.indexes.get(shard_name)
         if not index_config or not index_config.searcher:
-            index_config = self.add_index(
+            index_config = self._add_index(
                 IndexConfig(
                     name=shard_name,
                     ef_search=ef_search,
