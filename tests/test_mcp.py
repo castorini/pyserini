@@ -14,19 +14,21 @@
 # limitations under the License.
 #
 
-import unittest
+import json
+import random
 import subprocess
 import sys
-import json
 import time
+import unittest
 
 
 class TestMCPyseriniServer(unittest.TestCase):
     
     def setUp(self):
         try:
+            self.port = random.randint(10000, 20000)
             self.server_process = subprocess.Popen(
-                [sys.executable, '-m', 'pyserini.server.mcp'],
+                [sys.executable, '-m', 'pyserini.server.mcp', '--port', str(self.port)],
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -47,7 +49,22 @@ class TestMCPyseriniServer(unittest.TestCase):
                 self.server_process.stderr.close()
             
             self.server_process.terminate()
-            self.server_process.wait(timeout=5)
+
+            try:
+                # Wait up to 5 seconds for graceful termination
+                self.server_process.wait(timeout=5)
+                print("Process terminated gracefully")
+            except subprocess.TimeoutExpired:
+                print("Process didn't terminate gracefully, forcing kill...")
+                # Force kill the process
+                self.server_process.kill()
+
+                try:
+                    # Wait a bit more for the kill to take effect
+                    self.server_process.wait(timeout=2)
+                    print("Process killed forcefully")
+                except subprocess.TimeoutExpired:
+                    print("Warning: Process still running after kill attempt")
 
     def send_mcp_request(self, method, params=None):
         # need to initialize the MCP connection first
@@ -124,7 +141,8 @@ class TestMCPyseriniServer(unittest.TestCase):
                 'index_name': 'msmarco-v1-passage',
                 'k': 3
             }
-        })  
+        })
+        print(response)
         self.assertTrue('result' in response and not response['result']['isError'])
     
     def test_get_index_status_tool(self):
