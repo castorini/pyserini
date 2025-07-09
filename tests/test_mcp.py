@@ -28,7 +28,7 @@ class TestMCPyseriniServer(unittest.TestCase):
         try:
             self.port = random.randint(10000, 20000)
             self.server_process = subprocess.Popen(
-                [sys.executable, '-m', 'pyserini.server.mcp', '--port', str(self.port)],
+                [sys.executable, '-m', 'pyserini.server.mcp'],
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
