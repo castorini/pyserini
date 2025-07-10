@@ -21,9 +21,7 @@ If you want to run the server manually, you will need the [development](https://
 python -m pyserini.server.mcp
 ```
 
-To use HTTP transport, you can either:
-1. Set transport mode as "streamable-http" in mcp.run() in: [pyserini/server/mcp/mcpyserini.py](https://github.com/castorini/pyserini/blob/master/pyserini/server/mcp/mcpyserini.py)
-2. Or use the CLI argument (if implemented):
+To use HTTP transport, you can use the CLI argument:
 ```bash
 python -m pyserini.server.mcp --transport streamable-http
 ```
