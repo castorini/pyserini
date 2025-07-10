@@ -20,7 +20,7 @@ MCPyserini Server
 A Model Context Protocol server that provides search functionality using Pyserini.
 """
 
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 
 from pyserini.server.mcp.tools import register_tools
 from pyserini.server.search_controller import get_controller
