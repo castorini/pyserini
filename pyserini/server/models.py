@@ -56,11 +56,6 @@ class Hits:
     candidates: List[Candidate]
 
 @dataclass
-class ShardHit:
-    docid: str
-    score: float
-
-@dataclass 
 class Document:
     docid: str
     text: str

@@ -19,8 +19,7 @@
 Register tools for the MCP server.
 """
 
-from typing import Dict, List, Optional, Any
-
+from typing import Any
 
 from fastmcp import FastMCP
 from pyserini.server.search_controller import SearchController
@@ -40,7 +39,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         ef_search: int = 100,
         encoder: str = None,
         query_generator: str = None
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Search the Pyserini index with BM25 and return top-k hits
         Args:
@@ -83,7 +82,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         Returns:
             Dictionary of index names to their metadata.
         """
-        return controller.get_indexes(index_type)
+        return {"tf": controller.get_indexes(index_type)}
     
     @mcp.tool(
         name='get_index_status',

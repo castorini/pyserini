@@ -31,7 +31,7 @@ from pyserini.encode import AutoQueryEncoder
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
 from pyserini.util import check_downloaded
 
-from pyserini.server.models import IndexConfig, INDEX_TYPE, Hits, SHARDS, Document, IndexSetting
+from pyserini.server.models import IndexConfig, INDEX_TYPE, Hits, SHARDS, Document, IndexSetting, IndexStatus
 
 DEFAULT_INDEX = 'msmarco-v1-passage'
 
@@ -187,7 +187,7 @@ class SearchController:
             'text': json.loads(doc.raw()),
         }
 
-    def get_status(self, index_name: str) -> dict[str, Any]:
+    def get_status(self, index_name: str) -> IndexStatus:
         status = {}
         status['downloaded'] = check_downloaded(index_name)
         for index_type in INDEX_TYPE:
