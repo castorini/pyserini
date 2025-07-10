@@ -23,13 +23,13 @@ Initialized with prebuilt index msmarco-v1-passage.
         
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
-from typing import Any
+from typing import Any, List
 
 from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher
 from pyserini.prebuilt_index_info import TF_INDEX_INFO
 from pyserini.util import check_downloaded
 
-from pyserini.server.models import IndexConfig, INDEX_TYPE
+from pyserini.server.models import IndexConfig, INDEX_TYPE, Hits, ShardHit, Document, IndexSetting
 
 DEFAULT_INDEX = 'msmarco-v1-passage'
 
@@ -71,7 +71,7 @@ class SearchController:
         """Get indexes available for retrieval (only prebuilt for now)"""
         indexes = INDEX_TYPE.get(index_type)
         if indexes == None:
-            raise ValueError(f"Index type must be one of shard or {list(INDEX_TYPE.keys())}")
+            raise ValueError(f"Index type must be one of {list(INDEX_TYPE.keys())}")
         indexes = list(indexes.keys()) 
         return indexes
 
@@ -84,7 +84,7 @@ class SearchController:
         ef_search: int | None = None,
         encoder: str | None = None,
         query_generator: str | None = None,
-    ) -> dict[str, Any]:
+    ) -> Hits:
         """Perform search on specified index."""
         hits = []
         
@@ -109,7 +109,7 @@ class SearchController:
                 {
                     'docid': hit.docid,
                     'score': hit.score,
-                    'doc': raw['contents'],
+                    'doc': raw,
                 }
             )
         results['candidates'] = candidates
@@ -123,7 +123,7 @@ class SearchController:
         k: int,
         ef_search: int,
         encoder: str,
-    ) -> list[dict[str, float]]:   
+    ) -> List[ShardHit]:   
                 
         executor = ThreadPoolExecutor(max_workers=len(SHARDS))
 
@@ -149,7 +149,7 @@ class SearchController:
         all_results.sort(key=lambda x: x['score'], reverse=True)
         return all_results[:k]
            
-    def get_document(self, docid: str, index_name: str) -> dict[str, Any]:
+    def get_document(self, docid: str, index_name: str) -> Document:
         """Retrieve full document by document ID."""
         index_config = self.indexes[index_name]
 
@@ -190,7 +190,7 @@ class SearchController:
         if query_generator is not None:
             index_config.query_generator = query_generator
 
-    def get_settings(self, index_name: str) -> dict[str, Any]:
+    def get_settings(self, index_name: str) -> IndexSetting:
         """Get current index settings."""
         index_config = self.indexes[index_name]
         if not index_config:

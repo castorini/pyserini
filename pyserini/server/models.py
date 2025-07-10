@@ -21,8 +21,7 @@ Models and configuration classes for Pyserini FastAPI and MCP server.
 """
 
 from dataclasses import dataclass
-from typing import List, Optional
-from enum import Enum
+from typing import List
 
 from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_HNSW_INDEX_INFO
@@ -70,9 +69,9 @@ class IndexStatus:
 
 @dataclass
 class IndexSetting:
-    efSearch: Optional[str] = None
-    encoder: Optional[str] = None
-    queryGenerator: Optional[str] = None
+    efSearch: str | None
+    encoder: str | None
+    queryGenerator: str | None
     
 SHARDS = {
     f'msmarco-v2.1-doc-segmented-shard0{i}.arctic-embed-l.hnsw-int8': ""

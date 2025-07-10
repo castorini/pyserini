@@ -37,7 +37,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         query: str,
         index_name: str,
         k: int = 10,
-    ) -> List[Dict[str, Any]]:
+    ) -> Dict[str, Any]:
         """
         Search the Pyserini index with BM25 and return top-k hits
         Args:
