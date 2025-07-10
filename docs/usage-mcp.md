@@ -20,7 +20,13 @@ If you want to run the server manually, you will need the [development](https://
 ```bash
 python -m pyserini.server.mcp
 ```
-To use HTTP, set transport mode as "streamable-http" in mcp.run() in: [pyserini/server/mcp/mcpyserini.py](https://github.com/castorini/pyserini/blob/master/pyserini/server/mcp/mcpyserini.py)
+
+To use HTTP transport, you can either:
+1. Set transport mode as "streamable-http" in mcp.run() in: [pyserini/server/mcp/mcpyserini.py](https://github.com/castorini/pyserini/blob/master/pyserini/server/mcp/mcpyserini.py)
+2. Or use the CLI argument (if implemented):
+```bash
+python -m pyserini.server.mcp --transport streamable-http
+```
 
 ### Configuration for MCP Clients
 
@@ -50,7 +56,9 @@ This takes you to the Claude config file `claude_desktop_config.json`, where you
   }
 }
 ```
-Restart Claude Desktop to apply the changes. You should be able to see `mcpyserini` as an available tool in Claude. To use mcpyserini, simply prompt Claude to use mcpyserini with a specific index and query.
+Restart Claude Desktop to apply the changes.
+You should be able to see `mcpyserini` as an available tool in Claude.
+To use mcpyserini, simply prompt Claude to use mcpyserini with a specific index and query.
 
 For more details on configuring Claude Desktop, refer to the [Claude Desktop documentation](https://modelcontextprotocol.io/quickstart/user).
 
