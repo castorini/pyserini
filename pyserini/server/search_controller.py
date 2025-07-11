@@ -23,20 +23,17 @@ Initialized with prebuilt index msmarco-v1-passage.
         
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
-from typing import Any, List
+from typing import Any
 
-from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher
-from pyserini.prebuilt_index_info import TF_INDEX_INFO
+from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher, LuceneImpactSearcher
+from pyserini.search.faiss import FaissSearcher
+from pyserini.encode import AutoQueryEncoder
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
 from pyserini.util import check_downloaded
 
-from pyserini.server.models import IndexConfig, INDEX_TYPE, Hits, ShardHit, Document, IndexSetting
+from pyserini.server.models import IndexConfig, INDEX_TYPE, Hits, SHARDS, Document, IndexSetting, IndexStatus
 
 DEFAULT_INDEX = 'msmarco-v1-passage'
-
-SHARDS = [
-    f'msmarco-v2.1-doc-segmented-shard0{i}.arctic-embed-l.hnsw-int8'
-    for i in range(10)
-]
 
 class SearchController:
     """Core functionality controller."""
@@ -56,14 +53,30 @@ class SearchController:
 
     def _add_index(self, config: IndexConfig) -> IndexConfig:
         """Add a new index to the manager."""
-        
-        if config.name in SHARDS:
+
+        if config.name in TF_INDEX_INFO.keys():
+            config.searcher = LuceneSearcher.from_prebuilt_index(config.name) 
+            config.base_index = config.name
+            config.index_type = "tf"
+        elif config.name in LUCENE_FLAT_INDEX_INFO.keys():
+            config.searcher = LuceneFlatDenseSearcher.from_prebuilt_index(config.name, encoder=config.encoder)
+            config.base_index = LUCENE_FLAT_INDEX_INFO.get(config.name).get("texts")
+            config.index_type = "lucene_flat"
+        elif config.name in LUCENE_HNSW_INDEX_INFO.keys():
             config.searcher = LuceneHnswDenseSearcher.from_prebuilt_index(config.name, ef_search=config.ef_search, encoder=config.encoder, verbose=True)
-        elif config.name in TF_INDEX_INFO.keys():   
-            config.searcher = LuceneSearcher.from_prebuilt_index(config.name)         
+            config.base_index = LUCENE_HNSW_INDEX_INFO.get(config.name).get("texts")
+            config.index_type = "lucene_hnsw"
+        elif config.name in IMPACT_INDEX_INFO.keys():
+            config.searcher = LuceneImpactSearcher.from_prebuilt_index(config.name, config.encoder)
+            config.base_index = IMPACT_INDEX_INFO.get(config.name).get("texts")
+            config.index_type = "impact"
+        elif config.name in FAISS_INDEX_INFO.keys():
+            config.searcher = FaissSearcher.from_prebuilt_index(config.name, query_encoder=AutoQueryEncoder(encoder_dir=config.encoder))
+            config.base_index = FAISS_INDEX_INFO.get(config.name).get("texts")
+            config.index_type = "faiss"
         else:
             raise ValueError(f'Index {config.name} not currently supported in prebuilt indexes.')
-
+        
         self.indexes[config.name] = config
         return config
 
@@ -87,28 +100,34 @@ class SearchController:
     ) -> Hits:
         """Perform search on specified index."""
         hits = []
-        
-        index_config = self.indexes.get(index_name)
-        if not index_config or not index_config.searcher:
-            index_config = self._add_index(
-                IndexConfig(
-                    name=index_name,
-                    ef_search=ef_search,
-                    encoder=encoder,
-                    query_generator=query_generator
+        if "shard" in index_name and "msmarco" in index_name:
+            hits = self.sharded_search(query, k, ef_search)
+        else:
+            index_config = self.indexes.get(index_name)
+            if not index_config or not index_config.searcher:
+                index_config = self._add_index(
+                    IndexConfig(
+                        name=index_name,
+                        ef_search=ef_search,
+                        encoder=encoder,
+                        query_generator=query_generator
+                    )
                 )
-            )
-            
-        hits = index_config.searcher.search(query, k)
+
+            hits = index_config.searcher.search(query, k)
+
         results: dict[str, Any] = {'query': {'qid': qid, 'text': query}}
         candidates: list[dict[str, Any]] = []
 
         for hit in hits:
-            raw = json.loads(hit.lucene_document.get('raw'))
+            if index_config.index_type == "tf":
+                raw = json.loads(hit.lucene_document.get('raw'))
+            else:
+                raw = self.get_document(hit.docid, index_config.base_index).get('text') if index_config.base_index else None
             candidates.append(
                 {
                     'docid': hit.docid,
-                    'score': hit.score,
+                    'score': float(hit.score),
                     'doc': raw,
                 }
             )
@@ -122,8 +141,8 @@ class SearchController:
         query: str,
         k: int,
         ef_search: int,
-        encoder: str,
-    ) -> List[ShardHit]:   
+        encoder: str = "ArcticEmbedL",
+    ) -> list:   
                 
         executor = ThreadPoolExecutor(max_workers=len(SHARDS))
 
@@ -151,10 +170,13 @@ class SearchController:
            
     def get_document(self, docid: str, index_name: str) -> Document:
         """Retrieve full document by document ID."""
-        index_config = self.indexes[index_name]
-
-        if not index_config.searcher:       
-            index_config.searcher = LuceneSearcher.from_prebuilt_index(index_config.name)
+        index_config = self.indexes.get(index_name)
+        if index_config == None:
+            index_config = self._add_index(IndexConfig(index_name))
+        if index_config.index_type != "tf":
+            index_config.searcher = LuceneSearcher.from_prebuilt_index(index_config.base_index)
+        else:
+            index_config.searcher = LuceneSearcher.from_prebuilt_index(index_name)
 
         doc = index_config.searcher.doc(docid)
         if doc is None:
@@ -162,13 +184,18 @@ class SearchController:
 
         return {
             'docid': docid,
-            'text': json.loads(doc.raw())['contents'],
+            'text': json.loads(doc.raw()),
         }
 
-    def get_status(self, index_name: str) -> dict[str, Any]:
+    def get_status(self, index_name: str) -> IndexStatus:
         status = {}
         status['downloaded'] = check_downloaded(index_name)
-        status['size_bytes'] = TF_INDEX_INFO[index_name]['size compressed (bytes)'] if TF_INDEX_INFO.get(index_name) else 'Not available'
+        for index_type in INDEX_TYPE:
+            if INDEX_TYPE[index_type].get(index_name):
+                status['size_bytes'] = INDEX_TYPE[index_type].get(index_name).get('size compressed (bytes)')
+                break
+        if status.get('size_bytes') is None:
+            status['size_bytes'] = "Not available"
         return status
 
     def update_settings(

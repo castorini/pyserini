@@ -23,9 +23,9 @@ Provides routes for searching indexes, retrieving documents, checking index stat
 
 from fastapi import APIRouter, Query, Path, Depends, HTTPException
 from pydantic import BaseModel
-from typing import Optional, Any, List
+from typing import Any
 from pyserini.server.search_controller import get_controller
-from pyserini.server.models import Hits, ShardHit, Document, IndexStatus, IndexSetting
+from pyserini.server.models import Hits, INDEX_TYPE, Document, IndexStatus, IndexSetting
 
 router = APIRouter(prefix='/indexes', tags=['indexes'])
 
@@ -37,16 +37,10 @@ class SearchParams(BaseModel):
     encoder: str | None = None
     query_generator: str | None = None
 
-class ShardSearchParams(BaseModel):
-    query: str
-    hits: int = 10
-    ef_search: int | None = 100
-    encoder: str | None = "ArcticEmbedL"
-
 class IndexSettingParams(BaseModel):
-    efSearch: Optional[str] = None
-    encoder: Optional[str] = None
-    queryGenerator: Optional[str] = None
+    efSearch: str | None = None
+    encoder: str | None = None
+    queryGenerator: str | None = None
     
 @router.get('/{index}/search', response_model=Hits)
 async def search_index(
@@ -57,20 +51,6 @@ async def search_index(
         return get_controller().search(
             params.query, index, params.hits, params.qid,
             params.ef_search, params.encoder, params.query_generator
-        )
-    except ValueError as ve:
-        raise HTTPException(status_code=404, detail=str(ve))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.get('/sharded/msmarco-v2.1-doc-artic-embed-l/search', response_model=List[ShardHit])
-async def sharded_search(
-    params: ShardSearchParams = Depends(),
-) -> List[ShardHit]:
-    try:
-        return get_controller().sharded_search(
-            params.query, params.hits, params.ef_search, params.encoder
         )
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))
@@ -100,7 +80,7 @@ async def get_index_status(
 
 @router.get('/', response_model=list[str])
 async def list_indexes(
-    index_type: str = Query(..., description="Type of index out of 'tf', 'sharded-msmarco'")
+    index_type: str = Query(..., description=f"Type of index out of {INDEX_TYPE.keys()}")
 ) -> list[str]:
     try:
         return get_controller().get_indexes(index_type)

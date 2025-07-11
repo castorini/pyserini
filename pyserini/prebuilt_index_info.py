@@ -35,7 +35,8 @@ def add_lucene_index_info(enum, info, name=None, readme=None):
         "total_terms": enum.totalTerms,
         "documents": enum.documents,
         "unique_terms": enum.uniqueTerms,
-        "downloaded": False
+        "downloaded": False,
+        "texts": enum.invertedIndex
     }
 
 
