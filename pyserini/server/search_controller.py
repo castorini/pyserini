@@ -23,7 +23,7 @@ Initialized with prebuilt index msmarco-v1-passage.
         
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
-from typing import Any, List
+from typing import Any
 
 from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher, LuceneImpactSearcher
 from pyserini.search.faiss import FaissSearcher
@@ -101,7 +101,7 @@ class SearchController:
         """Perform search on specified index."""
         hits = []
         if "shard" in index_name and "msmarco" in index_name:
-            hits = self.sharded_search(query, k, ef_search, encoder if encoder is not None else "ArcticEmbedL")
+            hits = self.sharded_search(query, k, ef_search)
         else:
             index_config = self.indexes.get(index_name)
             if not index_config or not index_config.searcher:
@@ -123,7 +123,7 @@ class SearchController:
             if index_config.index_type == "tf":
                 raw = json.loads(hit.lucene_document.get('raw'))
             else:
-                raw = self.get_document(hit.docid, index_config.base_index).get('text') 
+                raw = self.get_document(hit.docid, index_config.base_index).get('text') if index_config.base_index != None else None
             candidates.append(
                 {
                     'docid': hit.docid,
@@ -141,8 +141,8 @@ class SearchController:
         query: str,
         k: int,
         ef_search: int,
-        encoder: str,
-    ) -> List:   
+        encoder: str = "ArcticEmbedL",
+    ) -> list:   
                 
         executor = ThreadPoolExecutor(max_workers=len(SHARDS))
 

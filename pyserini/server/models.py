@@ -21,7 +21,6 @@ Models and configuration classes for Pyserini FastAPI and MCP server.
 """
 
 from dataclasses import dataclass
-from typing import List
 
 from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher, LuceneImpactSearcher
 from pyserini.search.faiss import FaissSearcher
@@ -53,7 +52,7 @@ class Candidate:
 @dataclass
 class Hits: 
     query: QueryInfo
-    candidates: List[Candidate]
+    candidates: list[Candidate]
 
 @dataclass
 class Document:
