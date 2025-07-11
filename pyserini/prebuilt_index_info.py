@@ -1886,7 +1886,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.slimr.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.slimr.20230925.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.slimr.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/slimr/lucene-inverted.msmarco-v1-passage.slimr.tar.gz",
         ],
         "md5": "2871da5fec6991b65032c7a159cfc9ec",
         "size compressed (bytes)": 1902711709,
@@ -1900,7 +1900,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.slimr-pp.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.slimr-pp.20230925.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.slimr-pp.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/slimr-pp/lucene-inverted.msmarco-v1-passage.slimr-pp.tar.gz",
         ],
         "md5": "af85ff00a264e5288bac9e745cc4bb62",
         "size compressed (bytes)": 2135050221,
@@ -1914,7 +1914,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/unicoil/lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.tar.gz",
         ],
         "md5": "f926bd3e17d210ff041f880d27bdcd6f",
         "size compressed (bytes)": 1161033793,
@@ -1928,7 +1928,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.unicoil-noexp.20221005.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.unicoil-noexp.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.unicoil-noexp.20221005.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/unicoil-noexp/lucene-inverted.msmarco-v1-passage.unicoil-noexp.20221005.252b5e.tar.gz",
         ],
         "md5": "8a2527e582c343374b8270b1db8d1a06",
         "size compressed (bytes)": 873513687,
@@ -1942,7 +1942,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.unicoil-tilde.20221005.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.unicoil-tilde.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.unicoil-tilde.20221005.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/unicoil-tilde/lucene-inverted.msmarco-v1-passage.unicoil-tilde.20221005.252b5e.tar.gz",
         ],
         "md5": "2d192adb9e0bfc6024d399dca9f36b50",
         "size compressed (bytes)": 1871923442,
@@ -1956,7 +1956,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.deepimpact.20221005.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.deepimpact.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.deepimpact.20221005.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/deepimpact/lucene-inverted.msmarco-v1-passage.deepimpact.20221005.252b5e.tar.gz",
         ],
         "md5": "b4f1d0886cdfca43230dfb6d4866ff14",
         "size compressed (bytes)": 1242661399,
@@ -1970,7 +1970,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/distill-splade-max/lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.tar.gz",
         ],
         "md5": "145e283e9f44235ae132f86fca07f083",
         "size compressed (bytes)": 3822890791,
@@ -1984,7 +1984,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-ed.20230524.a59610.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-pp-ed.20230524.a59610.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-ed.20230524.a59610.tar.gz",
         ],
         "md5": "2c008fc36131e27966a72292932358e6",
         "size compressed (bytes)": 2102230097,
@@ -1998,7 +1998,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-ed-docvectors.20230524.a59610.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-pp-ed-docvectors.20230524.a59610.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-ed-docvectors.20230524.a59610.tar.gz",
         ],
         "md5": "98d6bb5eaf7b0c704d200843115ef827",
         "size compressed (bytes)": 13052698276,
@@ -2012,7 +2012,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-ed-text.20230524.a59610.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-pp-ed-text.20230524.a59610.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-ed-text.20230524.a59610.tar.gz",
         ],
         "md5": "738f7a79c69075044da92127889fd191",
         "size compressed (bytes)": 9983469326,
@@ -2026,7 +2026,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-sd.20230524.a59610.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-pp-sd.20230524.a59610.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-sd.20230524.a59610.tar.gz",
         ],
         "md5": "b92bbe960186d2b7c752856b07b0e889",
         "size compressed (bytes)": 2367260823,
@@ -2040,7 +2040,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-sd-docvectors.20230524.a59610.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-pp-sd-docvectors.20230524.a59610.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-sd-docvectors.20230524.a59610.tar.gz",
         ],
         "md5": "32eab153ab5c67faf9c0411a421e2ac5",
         "size compressed (bytes)": 14829233252,
@@ -2054,7 +2054,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-sd-text.20230524.a59610.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage.splade-pp-sd-text.20230524.a59610.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-sd-text.20230524.a59610.tar.gz",
         ],
         "md5": "5483ec81dc4f4057468a3df21c22f236",
         "size compressed (bytes)": 11473064932,
@@ -2069,9 +2069,9 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage-splade-v3.20250329.4f4c68.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-v3/lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.tar.gz"
         ],
-        "md5": "fb376859475a3b0b4a129613a6d726c8",
+        "md5": "52f4b59d236547f570555715ed314311",
         "size compressed (bytes)": 2813677036,
         "total_terms": 46922883529,
         "documents": 8841823,
@@ -2083,9 +2083,9 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.splade-v3-docvectors.20250329.4f4c68.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage-splade-v3-docvectors.20250329.4f4c68.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-v3/lucene-inverted.msmarco-v1-passage.splade-v3-docvectors.20250329.4f4c68.tar.gz",
         ],
-        "md5": "e585c6b56beecbaea1d66ac0669c85fc",
+        "md5": "28fcf13a9b22ea2b9f9e90b650a9bee9",
         "size compressed (bytes)": 17003543129,
         "total_terms": 46922883529,
         "documents": 8841823,
@@ -2097,9 +2097,9 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-passage.splade-v3-text.20250329.4f4c68.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-passage-splade-v3-text.20250329.4f4c68.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-v3/lucene-inverted.msmarco-v1-passage.splade-v3-text.20250329.4f4c68.tar.gz",
         ],
-        "md5": "81b080d3aba5b13416174fe6aef5202b",
+        "md5": "ed19483173a6ebddb257cfef5f5d54d6",
         "size compressed (bytes)": 15479149450,
         "total_terms": 46922883529,
         "documents": 8841823,
@@ -2112,7 +2112,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/unicoil/lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.tar.gz",
         ],
         "md5": "7dc32ad22876fbbe0f24f21fd1ea50c0",
         "size compressed (bytes)": 5765257801,
@@ -2126,7 +2126,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
         "filename": "lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.tar.gz",
         "readme": "lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.tar.gz",
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/unicoil-noexp/lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.tar.gz",
         ],
         "md5": "f92d5a2ba22274993b34f69e59427379",
         "size compressed (bytes)": 5323380902,
