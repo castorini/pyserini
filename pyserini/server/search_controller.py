@@ -191,7 +191,7 @@ class SearchController:
         status = {}
         status['downloaded'] = check_downloaded(index_name)
         for index_type in INDEX_TYPE:
-            if INDEX_TYPE[index_type].get(index_name) != None:
+            if INDEX_TYPE[index_type].get(index_name):
                 status['size_bytes'] = INDEX_TYPE[index_type].get(index_name).get('size compressed (bytes)')
                 break
         if status.get('size_bytes') is None:
