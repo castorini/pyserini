@@ -21,7 +21,7 @@ A Model Context Protocol server that provides search functionality using Pyserin
 """
 
 import argparse
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 
 from pyserini.server.mcp.tools import register_tools
 from pyserini.server.search_controller import get_controller
@@ -40,12 +40,13 @@ def main():
     args = parser.parse_args()
     
     try:
-        mcp = FastMCP("pyserini-search-server")
+        mcp = FastMCP('pyserini-search-server')
 
         register_tools(mcp, get_controller())
 
         mcp.run(transport=args.transport)
 
+
     except Exception as e:
-        print("Error", e)
+        print('Error', e)
         raise

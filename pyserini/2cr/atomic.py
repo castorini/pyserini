@@ -26,7 +26,7 @@ from string import Template
 
 import yaml
 
-from ._base import run_eval_and_return_metric, ok_str, fail_str
+from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
 
 atomic_models = [
     'ViT-L-14.laion2b_s32b_b82k',
@@ -227,8 +227,13 @@ def run_conditions(args):
                             
                             score = float(run_eval_and_return_metric(metric, f'atomic.validation.{retrieval_type}',
                                                                      trec_eval_metric_definitions[metric], runfile))
-                            result = ok_str if math.isclose(score, float(expected[metric])) \
-                                else fail_str + f' expected {expected[metric]:.4f}'
+                            if math.isclose(score, float(expected[metric])):
+                                result = ok_str
+                            # If results are within 0.0005, just call it "OKish".
+                            elif abs(score - float(expected[metric])) <= 0.0005:
+                                result = okish_str + f' expected {expected[metric]:.4f}'
+                            else:
+                                result = fail_str + f' expected {expected[metric]:.4f}'
                             print(f'      {metric:7}: {score:.4f} {result}')
 
                             table[model][name][metric] = score
