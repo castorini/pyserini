@@ -123,7 +123,7 @@ class SearchController:
             if index_config.index_type == "tf":
                 raw = json.loads(hit.lucene_document.get('raw'))
             else:
-raw = self.get_document(hit.docid, index_config.base_index).get('text') if index_config.base_index else None 
+                raw = self.get_document(hit.docid, index_config.base_index).get('text') if index_config.base_index else None
             candidates.append(
                 {
                     'docid': hit.docid,
