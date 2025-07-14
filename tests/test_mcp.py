@@ -87,6 +87,8 @@ class TestMCPyseriniServer(unittest.TestCase):
                 self.server_process.stdin.flush()
                 
                 init_response = self.server_process.stdout.readline()
+                if init_response.startswith("Downloading index at "):
+                    init_response = self.server_process.stdout.readline()
                 if init_response:
                     json.loads(init_response.strip())
                 
