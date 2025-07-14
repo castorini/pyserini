@@ -21,44 +21,36 @@ Index-related API endpoints for the Pyserini server.
 Provides routes for searching indexes, retrieving documents, checking index status, listing indexes, and updating or fetching index settings.
 """
 
-from fastapi import APIRouter, Query, Path, HTTPException
-from typing import Optional, Any, List
+from fastapi import APIRouter, Query, Path, Depends, HTTPException
+from pydantic import BaseModel
+from typing import Any
 from pyserini.server.search_controller import get_controller
-from pyserini.server.models import Hits, ShardHit, Document, IndexStatus, IndexSetting
+from pyserini.server.models import Hits, INDEX_TYPE, Document, IndexStatus, IndexSetting
 
 router = APIRouter(prefix='/indexes', tags=['indexes'])
 
+class SearchParams(BaseModel):
+    query: str
+    hits: int = 10
+    qid: str = ''
+    ef_search: int | None = None
+    encoder: str | None = None
+    query_generator: str | None = None
 
+class IndexSettingParams(BaseModel):
+    efSearch: str | None = None
+    encoder: str | None = None
+    queryGenerator: str | None = None
+    
 @router.get('/{index}/search', response_model=Hits)
 async def search_index(
     index: str = Path(..., description='Index name'),
-    query: str = Query(..., description='Search query'),
-    hits: int = Query(default=10, description='Number of hits to return'),
-    qid: str = Query(default='', description='Query ID'),
-    ef_search: int | None = Query(None, description='EF search parameter'),
-    encoder: str | None = Query(None, description='Encoder to use'),
-    query_generator: str | None = Query(None, description='Query generator to use'),
+    params: SearchParams = Depends()
 ) -> Hits:
     try:
         return get_controller().search(
-            query, index, hits, qid, ef_search, encoder, query_generator
-        )
-    except ValueError as ve:
-        raise HTTPException(status_code=404, detail=str(ve))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.get('/sharded/msmarco-v2.1-doc-artic-embed-l/search', response_model=List[ShardHit])
-async def sharded_search(
-    query: str = Query(..., description="Search query"),
-    hits: int = Query(default=10, description='Number of hits to return'),
-    ef_search: int | None = Query(default=100, description='EF search parameter'),
-    encoder: str | None = Query(default='ArcticEmbedL', description='Encoder to use'),
-) -> List[ShardHit]:
-    try:
-        return get_controller().sharded_search(
-            query, hits, ef_search, encoder
+            params.query, index, params.hits, params.qid,
+            params.ef_search, params.encoder, params.query_generator
         )
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))
@@ -88,10 +80,10 @@ async def get_index_status(
 
 @router.get('/', response_model=list[str])
 async def list_indexes(
-    index_type: str = Query(..., description="Type of index out of 'tf', 'sharded-msmarco'")
+    index_type: str = Query(..., description=f"Type of index out of {INDEX_TYPE.keys()}")
 ) -> list[str]:
     try:
-        return get_controller().get_indexes()
+        return get_controller().get_indexes(index_type)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -99,12 +91,10 @@ async def list_indexes(
 @router.post('/{index}/settings', response_model=dict[str, str])
 async def update_index_settings(
     index: str = Path(..., description='Index name'),
-    ef_search: Optional[int] = Query(None, description='EF search parameter'),
-    encoder: Optional[str] = Query(None, description='Encoder to use'),
-    query_generator: Optional[str] = Query(None, description='Query generator to use'),
+    params: IndexSettingParams = Depends()
 ) -> dict[str, str]:
     try:
-        get_controller().update_settings(index, ef_search, encoder, query_generator)
+        get_controller().update_settings(index, params.ef_search, params.encoder, params.query_generator)
         return {"status": "success"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

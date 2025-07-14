@@ -21,21 +21,22 @@ Models and configuration classes for Pyserini FastAPI and MCP server.
 """
 
 from dataclasses import dataclass
-from typing import List, Optional
-from enum import Enum
 
-from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_HNSW_INDEX_INFO
+from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher, LuceneImpactSearcher
+from pyserini.search.faiss import FaissSearcher
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
 
 
 @dataclass
 class IndexConfig:
     """Configuration for a search index."""
     name: str
-    searcher: LuceneSearcher | LuceneHnswDenseSearcher | None = None
-    ef_search: int | None = None
-    encoder: str | None = None
+    searcher: LuceneSearcher | LuceneHnswDenseSearcher | LuceneFlatDenseSearcher | LuceneImpactSearcher | FaissSearcher| None = None
+    ef_search: int | None = 100
+    encoder: str | None = ""
     query_generator: str | None = None
+    base_index: str | None = None
+    index_type: str | None = ""
 
 @dataclass
 class QueryInfo:
@@ -51,14 +52,9 @@ class Candidate:
 @dataclass
 class Hits: 
     query: QueryInfo
-    candidates: List[Candidate]
+    candidates: list[Candidate]
 
 @dataclass
-class ShardHit:
-    docid: str
-    score: float
-
-@dataclass 
 class Document:
     docid: str
     text: str
@@ -70,9 +66,9 @@ class IndexStatus:
 
 @dataclass
 class IndexSetting:
-    efSearch: Optional[str] = None
-    encoder: Optional[str] = None
-    queryGenerator: Optional[str] = None
+    efSearch: str | None
+    encoder: str | None
+    queryGenerator: str | None
     
 SHARDS = {
     f'msmarco-v2.1-doc-segmented-shard0{i}.arctic-embed-l.hnsw-int8': ""
@@ -81,5 +77,8 @@ SHARDS = {
 
 INDEX_TYPE = {
     "tf": TF_INDEX_INFO,
-    "sharded-msmarco": SHARDS
+    "lucene_flat": LUCENE_FLAT_INDEX_INFO,
+    "lucene_hnsw": LUCENE_HNSW_INDEX_INFO,
+    "impact": IMPACT_INDEX_INFO,
+    "faiss": FAISS_INDEX_INFO
 }
