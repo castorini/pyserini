@@ -2,44 +2,11 @@
 
 The Pyserini MCP server provides search and document retrieval capabilities through the Model Context Protocol, enabling AI assistants and other MCP clients to access Pyserini's information retrieval features.
 
-## Getting Started
+This guide features Claude Desktop and Cursor as clients for our MCP server, but there exists many other clients that could work as well. 
 
-If you are running remotely and need to force the server to connect to your local, run this before you login to create a tunnel between the server and local 
+## Local Server
 
-When running mcp on remote with "streamable-http" it defaults to this link 127.0.0.1:8000, so we set our server to connect to this local
-
-```bash
-ssh -L 8000:localhost:8000 username@hostname
-```
-
-### Starting the MCP Server
-
-The MCP server uses stdio transport and is designed to be launched by MCP clients. 
-If you want to run the server manually, you will need the [development](https://github.com/castorini/pyserini/blob/master/docs/installation.md#development-installation) installation of Pyserini. In your project root directory, run:
-
-```bash
-python -m pyserini.server.mcp
-```
-
-To use HTTP transport, you can use the CLI argument:
-```bash
-python -m pyserini.server.mcp --transport streamable-http
-```
-
-### Configuration for MCP Clients
-
-Note that as of time of writing (June 2025), Claude Desktop only supports Windows and macOS, and remote MCP are in beta and only available with paid plans. 
-Thus, if your Pyserini is on a remote Linux server like `orca`, you will want to look into other MCP clients that support remote MCP servers.
-If you are using a remote MCP server, you will want to modify [`mcpyserini.py`](../pyserini/server/mcp/mcpyserini.py) to use HTTP to expose the server, and you can find more information about it [here](https://gofastmcp.com/deployment/running-server#streamable-http).
-
-While unconventional, one working option is Cursor, and though it needs a paid subscription, students get one year free.
-You can find more information about using it with MCP [here](https://docs.cursor.com/context/model-context-protocol). 
-
-#### Claude Desktop Configuration
-
-##### Running on STDIO
-
-To use the Pyserini MCP server with Claude Desktop, go to `Claude->Settings->Developer` and click edit config.
+To use the Pyserini MCP server locally with Claude Desktop, go to `Claude->Settings->Developer` and click edit config.
 This takes you to the Claude config file `claude_desktop_config.json`, where you can add the Pyserini MCP server configuration under the `mcpServers` section:
 
 ```json
@@ -54,17 +21,57 @@ This takes you to the Claude config file `claude_desktop_config.json`, where you
   }
 }
 ```
+
 Restart Claude Desktop to apply the changes.
 You should be able to see `mcpyserini` as an available tool in Claude.
 To use mcpyserini, simply prompt Claude to use mcpyserini with a specific index and query.
 
 For more details on configuring Claude Desktop, refer to the [Claude Desktop documentation](https://modelcontextprotocol.io/quickstart/user).
 
+## Remote Server
 
+To use the Pyserini MCP server remotely, first start the server on your remote machine:
 
-#### Running Remotely on HTTP
+```bash
+python -m pyserini.server.mcp --transport streamable-http
+```
 
-To use the Pyserini MCP server remotely with Claude Desktop, use this config file `claude_desktop_config.json`:
+Run the following on your local machine to forward the port from your remote machine:
+
+```bash
+ssh -L 8000:localhost:8000 username@hostname
+```
+
+To use it with Cursor, create `mcp.json` with the following and place it in your `.cursor` directory:
+
+```json
+{
+    "mcpServers": {
+      "mcpyserini": {
+        "url": "http://127.0.0.1:8000/mcp"
+      }
+    }
+  }
+```
+
+For more details on configuring Cursor with MCP, refer to the [documentation](https://docs.cursor.com/context/model-context-protocol). 
+
+As of time of writing (July 2025), Claude Desktop does not natively support remote MCP servers with the free plan. 
+However, it is probably a more conventional client than Cursor, so we include the following 'hack' for using Claude Desktop with a remote MCP server.
+
+<details>
+<summary>Claude Desktop with remote MCP server hack: </summary>
+<br/>
+
+Start the MCP server on your remote machine with the same instructions as above.
+
+Download our bridging script on your local machine with the following command:
+
+```bash
+wget https://raw.githubusercontent.com/castorini/pyserini/refs/heads/master/pyserini/server/mcp/pyserini_bridge.py -O pyserini_bridge.py
+```
+
+Modify your Claude Desktop configuration file `claude_desktop_config.json` with the following to point to the script you just downloaded: 
 
 ```json
 {
@@ -78,25 +85,10 @@ To use the Pyserini MCP server remotely with Claude Desktop, use this config fil
   }
 }
 ```
-To download pyserini_bridge.py, run this: `wget https://raw.githubusercontent.com/castorini/pyserini/main/pyserini/server/mcp/pyserini_bridge.py -O pyserini_bridge.py`
 
-Add the path to this on your local to the `claude_desktop_config.json` file
-
-
-#### Cursor Configuration
-
-To use the Pyserini MCP server with Cursor, go to `~/.cursor/mcp.json` and add this to your cursor configuration file:
-
-
-```json
-{
-    "mcpServers": {
-      "mcpyserini": {
-        "url": "http://127.0.0.1:8000/mcp"
-      }
-    }
-  }
-```
+Restart Claude Desktop and you should be good to go.
+</details>
+<br/>
 
 ## Available Tools
 
@@ -146,6 +138,7 @@ Search for "what is a lobster roll" in the msmarco-v1-passage index, returning 5
 Retrieve the full text of document "7157715" from the msmarco-v1-passage index.
 ```
 
+You can ask your MCP client for a full, detailed list of capabilities. 
 
 ## Reproduction Log[*](reproducibility.md)
 

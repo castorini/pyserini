@@ -40,7 +40,7 @@ def main():
     args = parser.parse_args()
     
     try:
-        mcp = FastMCP('pyserini-search-server')
+        mcp = FastMCP('mcpyserini')
 
         register_tools(mcp, get_controller())
 
