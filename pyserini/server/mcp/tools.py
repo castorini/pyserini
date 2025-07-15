@@ -19,12 +19,11 @@
 Register tools for the MCP server.
 """
 
-from typing import Dict, List, Optional, Any
+from typing import Any
 
-
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 from pyserini.server.search_controller import SearchController
-
+from pyserini.server.models import INDEX_TYPE
 
 def register_tools(mcp: FastMCP, controller: SearchController):
     """Register all tools with the MCP server."""
@@ -37,7 +36,10 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         query: str,
         index_name: str,
         k: int = 10,
-    ) -> List[Dict[str, Any]]:
+        ef_search: int = 100,
+        encoder: str = None,
+        query_generator: str = None
+    ) -> dict[str, Any]:
         """
         Search the Pyserini index with BM25 and return top-k hits
         Args:
@@ -45,9 +47,9 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             index_name: Name of index to search (default: use default index)
             k: Number of results to return (default: 10)
         Returns:
-            List of search results with docid, score, text snippet, and index name
+            List of search results with docid, score, and raw contents
         """
-        return controller.search(query, index_name, k)
+        return controller.search(query, index_name, k, ef_search=ef_search, encoder=encoder, query_generator=query_generator)
 
     @mcp.tool(
         name='get_document',
@@ -68,16 +70,19 @@ def register_tools(mcp: FastMCP, controller: SearchController):
     
     @mcp.tool(
         name='list_all_indexes',
-        description='List all available indexes in the Pyserini server.',
+        description='List available indexes of a given type in the Pyserini server.',
     )
-    def list_all_indexes() -> dict[str, Any]:
-        """
-        List all available indexes in the Pyserini server.
+    def list_indexes(index_type: str) -> dict[str, Any]:
+        f"""
+        List indexes available for search of a given type from Pyserini.
+
+        Args:
+            index_type: Type of index out of {INDEX_TYPE.keys()}'
 
         Returns:
             Dictionary of index names to their metadata.
         """
-        return controller.get_indexes()
+        return {"tf": controller.get_indexes(index_type)}
     
     @mcp.tool(
         name='get_index_status',
@@ -94,27 +99,3 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             Dictionary with index information.
         """
         return controller.get_status(index_name)  
-    
-    @mcp.tool(
-        name='sharded_search_msmarco_v2.1',  
-        description='Perform a sharded search on the msmarco-v2.1-doc-artic-embed-l index. Returns top-k hits with docid, score, and snippets.',
-    )
-    def sharded_search_msmarco_v21(
-        query: str,
-        k: int = 10,
-        ef_search: int = 100,
-        encoder: str = 'ArcticEmbedL',
-    ) -> List[Dict[str, Any]]:
-        """
-        Perform a sharded search on the msmarco-v2.1-doc-artic-embed-l index.
-
-        Args:
-            query: Search query string
-            k: Number of results to return (default: 10)
-            ef_search: EF search parameter (default: 100)
-            encoder: Encoder to use (default: ArcticEmbedL)
-
-        Returns:
-            List of search results with docid, score, text snippet, and index name
-        """
-        return controller.sharded_search(query, k, ef_search, encoder)
