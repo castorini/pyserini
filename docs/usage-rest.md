@@ -18,7 +18,7 @@ python -m pyserini.server.rest --port 8080
 
 ### Interactive API Documentation
 
-Once the server is running, you can access the interactive API documentation with Swagger UI at `http://localhost:8081/docs`.
+Once the server is running, you can access the interactive API documentation with Swagger UI at `/docs`. Ex. if you're running the rest server on port 8081, then go to `http://localhost:8081/docs`.
 
 ## API Endpoints
 
