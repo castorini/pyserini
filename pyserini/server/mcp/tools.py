@@ -22,7 +22,7 @@ Register tools for the MCP server.
 from typing import Any
 
 from fastmcp import FastMCP
-from pyserini.server.search_controller import SearchController
+from pyserini.server.search_controller import SearchController, DenseSearchResult
 from pyserini.server.models import INDEX_TYPE
 
 def register_tools(mcp: FastMCP, controller: SearchController):
@@ -30,7 +30,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
 
     @mcp.tool(
         name='search',
-        description='Perform a BM25 search on a given index. Returns top‑k hits with docid, score, and snippet.',
+        description='Perform search on a given index. Returns top‑k hits with docid, score, and snippet.',
     )
     def search(
         query: str,
@@ -99,3 +99,25 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             Dictionary with index information.
         """
         return controller.get_status(index_name)  
+    
+    @mcp.tool(
+        name="fuse_search_results",
+        description="Performs normalization fusion on search results to improve ranking."
+    )
+    def fuse_search_results(
+        hits1: list[DenseSearchResult], 
+        hits2: list[DenseSearchResult], 
+        k: int = 10
+    ) -> list[DenseSearchResult]:
+        """
+        Performs normalization fusion on search results to improve ranking.
+
+        Args:
+            hits1: First list of search results to merge with docid and score
+            hits2: Second list of search results to merge with docid and score
+            k: Number of results to return (default: 10)
+
+        Returns:
+            Dictionary with index information.
+        """
+        return controller.fuse(hits1, hits2)

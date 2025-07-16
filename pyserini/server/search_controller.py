@@ -26,7 +26,8 @@ import json
 from typing import Any
 
 from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher, LuceneImpactSearcher
-from pyserini.search.faiss import FaissSearcher
+from pyserini.search.faiss import FaissSearcher, DenseSearchResult
+from pyserini.search.hybrid import HybridSearcher
 from pyserini.encode import AutoQueryEncoder
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
 from pyserini.util import check_downloaded
@@ -135,6 +136,14 @@ class SearchController:
         results['candidates'] = candidates
 
         return results
+    
+    def fuse(
+        self,
+        hits1: list[DenseSearchResult],
+        hits2: list[DenseSearchResult],
+        k: int = 10
+    ) -> list[DenseSearchResult]:
+        return HybridSearcher._hybrid_results(hits1, hits2, 1, k, True)
     
     # TODO: make this not default to sharded search for msmarco-v2.1-doc-artic-embed-l
     def sharded_search( 
