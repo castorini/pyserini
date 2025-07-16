@@ -97,7 +97,6 @@ class SearchController:
         ef_search: int | None = None,
         encoder: str | None = None,
         query_generator: str | None = None,
-        fields: list[str] | None = None
     ) -> dict[str, Any]:
         """Perform search on specified index."""
         hits = []
@@ -121,15 +120,11 @@ class SearchController:
         candidates: list[dict[str, Any]] = []
 
         for hit in hits:
-            raw = ""
             if index_config.index_type == "tf":
                 doc = json.loads(hit.lucene_document.get('raw'))
             elif index_config.base_index:
                 doc = self.get_document(hit.docid, index_config.base_index)
-            if 'contents' in doc:
-                raw = doc.get('contents')
-            elif 'text' in doc:
-                raw = doc.get('text')
+            raw = doc.get('contents') or doc.get('text') or ""
             candidates.append(
                 {
                     'docid': hit.docid,
@@ -189,10 +184,7 @@ class SearchController:
             raise ValueError(f'Document {docid} not found in index {index_name}')
 
         doc = json.loads(doc.raw())
-        if 'contents' in doc:
-            raw = doc.get('contents')
-        elif 'text' in doc:
-            raw = doc.get('text')
+        raw = doc.get('contents') or doc.get('text') or ""
         return {
             'docid': docid,
             'text': raw,
