@@ -79,7 +79,7 @@ As of time of writing (July 2025), Claude Desktop does not natively support remo
 However, it is probably a more conventional client than Cursor, so we include the following 'hack' for using Claude Desktop with a remote MCP server.
 
 <details>
-<summary>Claude Desktop with remote MCP server hack: </summary>
+<summary>Claude Desktop with remote MCP server hack</summary>
 <br/>
 
 Start the MCP server on your remote machine with the same instructions as above.
