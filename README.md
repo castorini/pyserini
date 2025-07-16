@@ -17,7 +17,9 @@ With Pyserini, it's easy to reproduce runs on a number of standard IR test colle
 
 For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.3463238) in SIGIR 2021 provides a nice overview.
 
-✨ **New!** Guide to working with the [MS MARCO 2.1 Document Corpus](docs/experiments-msmarco-v2.1.md) for TREC 2024 RAG Track.
+✨ **New!** Pyserini provides a [REST API](docs/usage-rest.md) as well as an [MCP server](docs/usage-mcp.md)! 
+
+✨ Guide to working with the [MS MARCO 2.1 Document Corpus](docs/experiments-msmarco-v2.1.md) for TREC 2024 RAG Track.
 
 
 ## 🎬 Installation

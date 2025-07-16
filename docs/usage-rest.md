@@ -10,7 +10,7 @@ You can start the FastAPI server by running the command:
 python -m pyserini.server.rest
 ```
 
-The server will start on `http://localhost:8081` by default. You can specify a different port using the `--port` argument:
+The server will start on [`http://localhost:8081/`](http://localhost:8081/) by default. You can specify a different port using the `--port` argument:
 
 ```bash
 python -m pyserini.server.rest --port 8080
@@ -18,7 +18,8 @@ python -m pyserini.server.rest --port 8080
 
 ### Interactive API Documentation
 
-Once the server is running, you can access the interactive API documentation with Swagger UI at `/docs`. Ex. if you're running the rest server on port 8081, then go to `http://localhost:8081/docs`.
+Once the server is running, you can access the interactive API documentation with Swagger UI at `/docs`. 
+For example, if you're running the rest server on port 8081, then go to [`http://localhost:8081/docs`](http://localhost:8081/docs).
 
 ## API Endpoints
 

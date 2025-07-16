@@ -6,7 +6,7 @@ This guide features Claude Desktop and Cursor as clients for our MCP server, but
 
 ## Local Server
 
-To use the Pyserini MCP server locally with Claude Desktop, go to `Claude->Settings->Developer` and click edit config.
+To use the Pyserini MCP server locally with Claude Desktop, go to "Claude" -> "Settings" -> "Developer" and click edit config.
 This takes you to the Claude config file `claude_desktop_config.json`, where you can add the Pyserini MCP server configuration under the `mcpServers` section:
 
 ```json
@@ -15,7 +15,7 @@ This takes you to the Claude config file `claude_desktop_config.json`, where you
     "mcpyserini": {
       "command": "/path/to/your/conda/env/bin/python",
       "args": [
-        "python -m pyserini.server.mcp"
+        "-m", "pyserini.server.mcp"
       ]
     }
   }
@@ -26,7 +26,26 @@ Restart Claude Desktop to apply the changes.
 You should be able to see `mcpyserini` as an available tool in Claude.
 To use mcpyserini, simply prompt Claude to use mcpyserini with a specific index and query.
 
+If you run into Java version issues, one possible solution is to explicitly specify `JAVA_HOME`:
+
+```json
+{
+  "mcpServers": {
+    "mcpyserini": {
+      "command": "/path/to/your/conda/env/bin/python",
+      "args": [
+        "-m", "pyserini.server.mcp"
+      ],
+      "env": {
+        "JAVA_HOME": "/path/to/your/conda/env/"
+      }
+    }
+  }
+}
+```
+
 For more details on configuring Claude Desktop, refer to the [Claude Desktop documentation](https://modelcontextprotocol.io/quickstart/user).
+
 
 ## Remote Server
 
@@ -46,12 +65,12 @@ To use it with Cursor, create `mcp.json` with the following and place it in your
 
 ```json
 {
-    "mcpServers": {
-      "mcpyserini": {
-        "url": "http://127.0.0.1:8000/mcp"
-      }
+  "mcpServers": {
+    "mcpyserini": {
+      "url": "http://127.0.0.1:8000/mcp"
     }
   }
+}
 ```
 
 For more details on configuring Cursor with MCP, refer to the [documentation](https://docs.cursor.com/context/model-context-protocol). 
@@ -60,7 +79,7 @@ As of time of writing (July 2025), Claude Desktop does not natively support remo
 However, it is probably a more conventional client than Cursor, so we include the following 'hack' for using Claude Desktop with a remote MCP server.
 
 <details>
-<summary>Claude Desktop with remote MCP server hack: </summary>
+<summary>Claude Desktop with remote MCP server hack</summary>
 <br/>
 
 Start the MCP server on your remote machine with the same instructions as above.
