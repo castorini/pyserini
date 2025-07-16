@@ -21,7 +21,7 @@ Index-related API endpoints for the Pyserini server.
 Provides routes for searching indexes, retrieving documents, checking index status, listing indexes, and updating or fetching index settings.
 """
 
-from fastapi import APIRouter, Query, Path, Depends, HTTPException
+from fastapi import APIRouter, Query, Path, Depends, HTTPException, Body
 from typing import Any
 from pyserini.server.search_controller import get_controller
 from pyserini.server.models import INDEX_TYPE, Hits, Document, SearchParams, IndexSettingParams, IndexStatus, IndexSetting
@@ -60,7 +60,7 @@ async def get_document(
 @router.get('/{index}/status', response_model=IndexStatus)
 async def get_index_status(
     index: str = Path(..., description='Index name')
-) -> dict[str, Any]:
+) -> IndexStatus:
     return get_controller().get_status(index)
 
 
@@ -80,7 +80,7 @@ async def update_index_settings(
     params: IndexSettingParams = Depends()
 ) -> dict[str, str]:
     try:
-        get_controller().update_settings(index, params.ef_search, params.encoder, params.query_generator)
+        get_controller().update_settings(index, params.efSearch, params.encoder, params.queryGenerator)
         return {"status": "success"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
