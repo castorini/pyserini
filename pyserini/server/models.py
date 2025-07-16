@@ -21,7 +21,7 @@ Models and configuration classes for Pyserini FastAPI and MCP server.
 """
 
 from dataclasses import dataclass
-
+from pydantic import BaseModel
 from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher, LuceneImpactSearcher
 from pyserini.search.faiss import FaissSearcher
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
@@ -38,38 +38,6 @@ class IndexConfig:
     base_index: str | None = None
     index_type: str | None = ""
 
-@dataclass
-class QueryInfo:
-    qid: str
-    text: str
-
-@dataclass
-class Candidate:
-    docid: str
-    score: float
-    doc: str
-
-@dataclass
-class Hits: 
-    query: QueryInfo
-    candidates: list[Candidate]
-
-@dataclass
-class Document:
-    docid: str
-    text: str
-
-@dataclass
-class IndexStatus:
-    downloaded: bool
-    size_bytes: str
-
-@dataclass
-class IndexSetting:
-    efSearch: str | None
-    encoder: str | None
-    queryGenerator: str | None
-    
 SHARDS = {
     f'msmarco-v2.1-doc-segmented-shard0{i}.arctic-embed-l.hnsw-int8': ""
     for i in range(10)
@@ -82,3 +50,43 @@ INDEX_TYPE = {
     "impact": IMPACT_INDEX_INFO,
     "faiss": FAISS_INDEX_INFO
 }
+
+# Pydantic models for FastAPI
+class SearchParams(BaseModel):
+    query: str
+    hits: int = 10
+    qid: str = ''
+    ef_search: int | None = None
+    encoder: str | None = None
+    query_generator: str | None = None
+
+class IndexSettingParams(BaseModel):
+    efSearch: str | None = None
+    encoder: str | None = None
+    queryGenerator: str | None = None
+
+class QueryInfo(BaseModel):
+    qid: str
+    text: str
+
+class Candidate(BaseModel):
+    docid: str
+    score: float
+    doc: str
+
+class Hits(BaseModel): 
+    query: QueryInfo
+    candidates: list[Candidate]
+
+class Document(BaseModel):
+    docid: str
+    text: str
+
+class IndexStatus(BaseModel):
+    downloaded: bool
+    size_bytes: str
+
+class IndexSetting(BaseModel):
+    efSearch: str | None = None
+    encoder: str | None = None
+    queryGenerator: str | None = None

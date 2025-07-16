@@ -22,25 +22,11 @@ Provides routes for searching indexes, retrieving documents, checking index stat
 """
 
 from fastapi import APIRouter, Query, Path, Depends, HTTPException
-from pydantic import BaseModel
 from typing import Any
 from pyserini.server.search_controller import get_controller
-from pyserini.server.models import Hits, INDEX_TYPE, Document, IndexStatus, IndexSetting
+from pyserini.server.models import INDEX_TYPE, Hits, Document, SearchParams, IndexSettingParams, IndexStatus, IndexSetting
 
 router = APIRouter(prefix='/indexes', tags=['indexes'])
-
-class SearchParams(BaseModel):
-    query: str
-    hits: int = 10
-    qid: str = ''
-    ef_search: int | None = None
-    encoder: str | None = None
-    query_generator: str | None = None
-
-class IndexSettingParams(BaseModel):
-    efSearch: str | None = None
-    encoder: str | None = None
-    queryGenerator: str | None = None
     
 @router.get('/{index}/search', response_model=Hits)
 async def search_index(

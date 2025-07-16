@@ -31,7 +31,7 @@ from pyserini.encode import AutoQueryEncoder
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
 from pyserini.util import check_downloaded
 
-from pyserini.server.models import IndexConfig, INDEX_TYPE, Hits, SHARDS, Document, IndexSetting, IndexStatus
+from pyserini.server.models import IndexConfig, INDEX_TYPE, SHARDS
 
 DEFAULT_INDEX = 'msmarco-v1-passage'
 
@@ -97,7 +97,7 @@ class SearchController:
         ef_search: int | None = None,
         encoder: str | None = None,
         query_generator: str | None = None,
-    ) -> Hits:
+    ) -> dict[str, Any]:
         """Perform search on specified index."""
         hits = []
         if "shard" in index_name and "msmarco" in index_name:
@@ -121,9 +121,10 @@ class SearchController:
 
         for hit in hits:
             if index_config.index_type == "tf":
-                raw = json.loads(hit.lucene_document.get('raw'))
-            else:
-                raw = self.get_document(hit.docid, index_config.base_index).get('text') if index_config.base_index else None
+                doc = json.loads(hit.lucene_document.get('raw'))
+            elif index_config.base_index:
+                doc = self.get_document(hit.docid, index_config.base_index)
+            raw = doc.get('contents') or doc.get('text') or ""
             candidates.append(
                 {
                     'docid': hit.docid,
@@ -168,7 +169,7 @@ class SearchController:
         all_results.sort(key=lambda x: x['score'], reverse=True)
         return all_results[:k]
            
-    def get_document(self, docid: str, index_name: str) -> Document:
+    def get_document(self, docid: str, index_name: str) -> dict[str, str]:
         """Retrieve full document by document ID."""
         index_config = self.indexes.get(index_name)
         if index_config == None:
@@ -182,17 +183,19 @@ class SearchController:
         if doc is None:
             raise ValueError(f'Document {docid} not found in index {index_name}')
 
+        doc = json.loads(doc.raw())
+        raw = doc.get('contents') or doc.get('text') or ""
         return {
             'docid': docid,
-            'text': json.loads(doc.raw()),
+            'text': raw,
         }
 
-    def get_status(self, index_name: str) -> IndexStatus:
+    def get_status(self, index_name: str) -> dict[str, Any]:
         status = {}
         status['downloaded'] = check_downloaded(index_name)
         for index_type in INDEX_TYPE:
             if INDEX_TYPE[index_type].get(index_name):
-                status['size_bytes'] = INDEX_TYPE[index_type].get(index_name).get('size compressed (bytes)')
+                status['size_bytes'] = str(INDEX_TYPE[index_type].get(index_name).get('size compressed (bytes)'))
                 break
         if status.get('size_bytes') is None:
             status['size_bytes'] = "Not available"
@@ -217,7 +220,7 @@ class SearchController:
         if query_generator is not None:
             index_config.query_generator = query_generator
 
-    def get_settings(self, index_name: str) -> IndexSetting:
+    def get_settings(self, index_name: str) -> dict[str, str | None]:
         """Get current index settings."""
         index_config = self.indexes[index_name]
         if not index_config:
@@ -225,7 +228,7 @@ class SearchController:
 
         settings = {}
         if index_config.ef_search is not None:
-            settings['efSearch'] = index_config.ef_search
+            settings['efSearch'] = str(index_config.ef_search)
         if index_config.encoder is not None:
             settings['encoder'] = index_config.encoder
         if index_config.query_generator is not None:
