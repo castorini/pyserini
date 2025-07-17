@@ -184,7 +184,7 @@ class SearchController:
             raise ValueError(f'Document {docid} not found in index {index_name}')
 
         doc = json.loads(doc.raw())
-        raw = doc.get('contents') or doc.get('text') or ""
+        raw = doc.get('contents') or doc.get('text') or doc.get('segment') or ""
         return {
             'docid': docid,
             'text': raw,
