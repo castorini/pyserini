@@ -48,11 +48,11 @@ class SpladeEncoder(ABC):
         return to_return
 
 class SpladeDocumentEncoder(DocumentEncoder, SpladeEncoder):
-    def __init__(self, model_name_or_path, tokenizer_name=None, device='cuda:0', prefix=None, **kwargs):
+    def __init__(self, model_name, tokenizer_name=None, device='cuda:0', prefix=None, **kwargs):
         self.device = device
-        self.model = AutoModelForMaskedLM.from_pretrained(model_name_or_path)
+        self.model = AutoModelForMaskedLM.from_pretrained(model_name)
         self.model.to(self.device)
-        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name_or_path,
+        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name,
                                                        clean_up_tokenization_spaces=True)
         self.reverse_voc = {v: k for k, v in self.tokenizer.vocab.items()}
         self.weight_range = 5
