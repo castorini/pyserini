@@ -29,20 +29,25 @@ class SpladeEncoder(ABC):
         pass
 
     def _output_to_weight_dicts(self, batch_aggregated_logits):
+        reverse_voc = {v: k for k, v in self.tokenizer.vocab.items()}
         to_return = []
+
         for aggregated_logits in batch_aggregated_logits:
             col = np.nonzero(aggregated_logits)[0]
             weights = aggregated_logits[col]
-            d = {self.reverse_voc[k]: float(v) for k, v in zip(list(col), list(weights))}
+            d = {reverse_voc[k]: float(v) for k, v in zip(list(col), list(weights))}
             to_return.append(d)
         return to_return
 
     def _get_encoded_query_token_wight_dicts(self, tok_weights):
+        weight_range = 5
+        quant_range = 256
         to_return = []
+
         for _tok_weight in tok_weights:
             _weights = {}
             for token, weight in _tok_weight.items():
-                weight_quanted = round(weight / self.weight_range * self.quant_range)
+                weight_quanted = round(weight / weight_range * quant_range)
                 _weights[token] = weight_quanted
             to_return.append(_weights)
         return to_return
@@ -54,9 +59,6 @@ class SpladeDocumentEncoder(DocumentEncoder, SpladeEncoder):
         self.model.to(self.device)
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name,
                                                        clean_up_tokenization_spaces=True)
-        self.reverse_voc = {v: k for k, v in self.tokenizer.vocab.items()}
-        self.weight_range = 5
-        self.quant_range = 256
         self.prefix = prefix
 
     def encode(self, texts, titles=None, max_length=512, add_sep=False, **kwargs) -> List[Dict[str, float]]:
@@ -101,9 +103,6 @@ class SpladeQueryEncoder(QueryEncoder, SpladeEncoder):
         self.model.to(self.device)
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name_or_path,
                                                        clean_up_tokenization_spaces=True)
-        self.reverse_voc = {v: k for k, v in self.tokenizer.vocab.items()}
-        self.weight_range = 5
-        self.quant_range = 256
 
     def encode(self, text, max_length=256, **kwargs) -> Dict[str, float]:
         inputs = self.tokenizer([text], max_length=max_length, padding='longest',
