@@ -120,4 +120,21 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         Returns:
             Dictionary with index information.
         """
-        return controller.fuse(hits1, hits2)
+        return controller.fuse(hits1, hits2, k)
+    
+    @mcp.tool(
+        name="get_qrels",
+        description="Returns relevant judgements for a given index and query."
+    )
+    def get_qrels(
+        index_name: str,
+        query_id: str
+    ) -> dict[str, str]:
+        """
+        Returns relevant judgements for a given index and query.
+
+        Args:
+            index_name: Name of the index to get relevant judgements for
+            query_id: Query ID to to get relevant judgements for
+        """
+        return controller.get_query_qrels(index_name, query_id)

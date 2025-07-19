@@ -25,14 +25,14 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 from typing import Any
 
-from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher, LuceneImpactSearcher
-from pyserini.search.faiss import FaissSearcher, DenseSearchResult
-from pyserini.search.hybrid import HybridSearcher
 from pyserini.encode import AutoQueryEncoder
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
-from pyserini.util import check_downloaded
-
+from pyserini.search import get_qrels
+from pyserini.search.faiss import FaissSearcher, DenseSearchResult
+from pyserini.search.hybrid import HybridSearcher
+from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher, LuceneImpactSearcher
 from pyserini.server.models import IndexConfig, INDEX_TYPE, SHARDS
+from pyserini.util import check_downloaded
 
 DEFAULT_INDEX = 'msmarco-v1-passage'
 
@@ -209,6 +209,10 @@ class SearchController:
         if status.get('size_bytes') is None:
             status['size_bytes'] = "Not available"
         return status
+    
+    def get_query_qrels(self, index_name: str, query_id: str) -> dict[str, str]:
+        qrels = get_qrels(index_name)
+        return qrels.get(query_id)
 
     def update_settings(
         self,
