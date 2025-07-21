@@ -37,9 +37,9 @@ class TestRestServer(unittest.TestCase):
     def test_get_doc(self):
         response = client.get("v1/indexes/msmarco-v1-passage/documents/7157707")
         self.assertEqual(response.status_code, 200)
-        self.assertTrue("docid" in list(response.json().keys()))
-        self.assertTrue("text" in list(response.json().keys()))
-        self.assertTrue("Lobster Roll" in response.json().get("text"))
+        self.assertTrue("id" in list(response.json().keys()))
+        self.assertTrue("contents" in list(response.json().keys()))
+        self.assertTrue("Lobster Roll" in response.json().get("contents"))
 
     def test_index_status(self):
         response = client.get("v1/indexes/msmarco-v1-passage/status")

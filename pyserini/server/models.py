@@ -79,10 +79,6 @@ class Hits(BaseModel):
     query: QueryInfo
     candidates: list[Candidate]
 
-class Document(BaseModel):
-    docid: str
-    text: str
-
 class IndexStatus(BaseModel):
     downloaded: bool
     size_bytes: str
