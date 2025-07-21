@@ -44,8 +44,7 @@ Start by creating the directories where we will store the encoded documents:
 ```bash
 mkdir encode
 cd encode
-mkdir nfcorpus.splade
-cd ..
+mkdir nfcorpus.splade-v3
 ```
 
 We can then setup to use SPLADE-v3:
@@ -75,55 +74,10 @@ You’ll be prompted to enter your Hugging Face API token. You can generate a to
 
 We are now all set to use SPLADE-v3 model!
 
-Start by running the following script to encode the corpus into sparse vector representations.
-(we are using this custom script instead of pyserini.encode as pyserini.encode only encodes corpus into dense vectors)
+Start by running the following pyserini command to encode the corpus into sparse vector representations.
 
-```python
-import json
-import torch
-from pyserini.encode import SpladeQueryEncoder
-
-# Debugging: Print start message
-print("Starting SPLADE document encoding process...")
-
-# Initialize the SPLADE document encoder
-encoder = SpladeQueryEncoder(
-    model_name_or_path="naver/splade-v3",  # Pre-trained SPLADE model
-    device='cuda' if torch.cuda.is_available() else 'cpu'  # Use GPU if available
-)
-
-# Load the corpus
-corpus_file = "collections/nfcorpus/corpus.jsonl"  # Path to your corpus file
-output_file = "encode/nfcorpus.splade/embeddings.jsonl"  # Path to save encoded documents
-
-# Debugging: Print corpus and output file paths
-print(f"Reading corpus from: {corpus_file}")
-print(f"Writing sparse vectors to: {output_file}")
-
-# Encode the corpus
-with open(corpus_file, "r") as infile, open(output_file, "w") as outfile:
-    for line_num, line in enumerate(infile, start=1):
-        # Debugging: Print progress
-        if line_num % 100 == 0:
-            print(f"Processing line {line_num}...")
-        
-        try:
-            # Load the document
-            data = json.loads(line)
-            doc_id = data["_id"]
-            text = data["title"] + " " + data["text"]  # Combine title and text
-            
-            # Encode the truncated text into a sparse vector
-            sparse_vector = encoder.encode(text, max_length=512)
-            
-            # Write the sparse vector to the output file
-            outfile.write(json.dumps({"id": doc_id, "content": text, "vector": sparse_vector}) + "\n")
-        except Exception as e:
-            print(f"Error processing line {line_num}: {e}")
-            continue
-
-# Debugging: Print completion message
-print("SPLADE document encoding process completed successfully.")
+```bash
+python -m pyserini.encode   input --corpus collections/nfcorpus/corpus.jsonl --fields title text   output --embeddings encode/nfcorpus.splade-v3   encoder --encoder naver/splade-v3 --encoder-class splade --fields title text --max-length 512
 ```
 
 Next, we will index the encoded corpus using inverted index into a retrieval system.
@@ -131,8 +85,8 @@ Next, we will index the encoded corpus using inverted index into a retrieval sys
 ```bash
 python -m pyserini.index.lucene \
   --collection JsonVectorCollection \
-  --input encode/nfcorpus.splade \
-  --index index/nfcorpus.splade \
+  --input encode/nfcorpus.splade-v3 \
+  --index index/nfcorpus.splade-v3 \
   --generator DefaultLuceneDocumentGenerator \
   --threads 4 \
   --impact \
@@ -144,7 +98,7 @@ Perform retrieval:
 
 ```bash
 python -m pyserini.search.lucene \
-  --index index/nfcorpus.splade \
+  --index index/nfcorpus.splade-v3 \
   --topics collections/nfcorpus/queries.tsv \
   --output runs/run.splade.txt \
   --hits 1000 \
