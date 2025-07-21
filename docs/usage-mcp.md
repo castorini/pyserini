@@ -163,3 +163,4 @@ You can ask your MCP client for a full, detailed list of capabilities.
 
 + Results reproduced by [@lilyjge](https://github.com/lilyjge) on 2025-06-20 (commit [`88584b9`](https://github.com/castorini/pyserini/commit/88584b982ac9878775be1ffb0b1a8673c0cccd3b))
 + Results reproduced by [@Vik7am10](https://github.com/Vik7am10) on 2025-06-23 (commit [`f7c1077`](https://github.com/castorini/pyserini/commit/f7c10776c486744b8f28f753df29036cdfd28389))
++ Results reproduced by [@suraj-subrahmanyan](https://github.com/suraj-subrahmanyan) on 2025-07-16 (commit [`1915a15`](https://github.com/castorini/pyserini/commit/1915a154326f829b91308f275227a8bbb42eea9b))

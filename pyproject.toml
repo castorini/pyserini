@@ -44,7 +44,7 @@ dependencies = [
     "pillow>=10.2.0",
     "fastapi>=0.70.0",
     "uvicorn>=0.13.0",
-    "mcp>=1.9.4"
+    "fastmcp>=2.10.4"
 ]
 
 [project.urls]

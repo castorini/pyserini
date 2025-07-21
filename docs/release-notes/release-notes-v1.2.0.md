@@ -18,9 +18,9 @@ Sorted by number of commits:
 + Lily Ge ([lilyjge](https://github.com/lilyjge))
 + Jimmy Lin ([lintool](https://github.com/lintool))
 + sisixili ([sisixili](https://github.com/sisixili))
-+ Edward Huang [ed-ward-huang](https://github.com/ed-ward-huang))
-+ OmarKhaled0K [OmarKhaled0K](https://github.com/OmarKhaled0K))
-+ Suraj Subrahmanyan [suraj-subrahmanyan](https://github.com/suraj-subrahmanyan))
++ Edward Huang ([ed-ward-huang](https://github.com/ed-ward-huang))
++ OmarKhaled0K ([OmarKhaled0K](https://github.com/OmarKhaled0K))
++ Suraj Subrahmanyan ([suraj-subrahmanyan](https://github.com/suraj-subrahmanyan))
 + Vikram Chandramohan ([Vik7am10](https://github.com/Vik7am10))
 
 ### All Time
