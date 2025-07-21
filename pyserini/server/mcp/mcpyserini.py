@@ -28,7 +28,6 @@ from fastmcp import FastMCP
 from pyserini.server.mcp.tools import register_tools
 from pyserini.server.search_controller import get_controller
 
-LOG_PATH = '/logs/mcp-server.log'
 
 def main():
     """Main entry point for the server."""
@@ -76,5 +75,5 @@ def main():
     
 
     except Exception as e:
-        logger.info('Error', e, file=sys.stderr)
+        logger.info('Error', e)
         raise
