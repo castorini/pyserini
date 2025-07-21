@@ -21,7 +21,7 @@ Models and configuration classes for Pyserini FastAPI and MCP server.
 """
 
 from dataclasses import dataclass
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher, LuceneImpactSearcher
 from pyserini.search.faiss import FaissSearcher
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
@@ -60,11 +60,6 @@ class SearchParams(BaseModel):
     encoder: str | None = None
     query_generator: str | None = None
 
-class IndexSettingParams(BaseModel):
-    efSearch: str | None = None
-    encoder: str | None = None
-    queryGenerator: str | None = None
-
 class QueryInfo(BaseModel):
     qid: str
     text: str
@@ -87,6 +82,6 @@ class IndexStatus(BaseModel):
     size_bytes: str
 
 class IndexSetting(BaseModel):
-    efSearch: str | None = None
+    ef_search: str = Field(None, alias="efSearch")
     encoder: str | None = None
-    queryGenerator: str | None = None
+    query_generator : str = Field(None, alias="queryGenerator")

@@ -91,6 +91,9 @@ if len(args) > 1:
             run.to_csv(temp_file, sep='\t', header=None, index=None)
             args[-1] = temp_file
 
+    if not os.path.exists(args[-1]):
+       print(f"The run file {args[-1]} does not exist!")
+       sys.exit()
     run = pd.read_csv(args[-1], sep='\s+', engine='python', header=None)
     qrels = pd.read_csv(args[-2], sep='\s+', engine='python', header=None)
     
