@@ -23,7 +23,7 @@ from typing import Any
 
 from fastmcp import FastMCP
 from pyserini.server.search_controller import SearchController, DenseSearchResult
-from pyserini.server.models import INDEX_TYPE
+from pyserini.server.models import INDEX_TYPE, EVAL_METRICS
 
 def register_tools(mcp: FastMCP, controller: SearchController):
     """Register all tools with the MCP server."""
@@ -138,3 +138,28 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             query_id: Query ID to to get relevant judgements for
         """
         return controller.get_query_qrels(index_name, query_id)
+    
+    @mcp.tool(
+        name="eval_hits",
+        description="Evaluates search results with given metric and cutoff."
+    )
+    def eval_hits(
+        index_name: str,
+        metric: str,
+        query_id: str,
+        hits: dict[str, float],
+        cutoff: int = 10
+    ) -> float:
+        f"""
+        Evaluates search results with given metric and cutoff.
+
+        Args:
+            index_name: Name of the index the search results are from
+            metric: Evaluation metric out of {EVAL_METRICS.keys()}
+            query_id: Query ID to evaluate search results for
+            hits: Search results to evaluate in the format of {{docid: score}}
+            cutoff: Number of top results to evaluate (default: 10)
+        """
+        if not metric in EVAL_METRICS.keys():
+            raise ValueError(f"{metric} is not a valid evaluation metric! Must be one of {EVAL_METRICS.keys()}")
+        return controller.eval_hits(index_name, metric, query_id, hits, cutoff)
