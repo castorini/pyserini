@@ -77,7 +77,14 @@ We are now all set to use SPLADE-v3 model!
 Start by running the following pyserini command to encode the corpus into sparse vector representations.
 
 ```bash
-python -m pyserini.encode   input --corpus collections/nfcorpus/corpus.jsonl --fields title text   output --embeddings encode/nfcorpus.splade-v3   encoder --encoder naver/splade-v3 --encoder-class splade --fields title text --max-length 512
+python -m pyserini.encode \
+  input --corpus collections/nfcorpus/corpus.jsonl \
+        --fields title text \
+  output --embeddings encode/nfcorpus.splade-v3 \
+  encoder --encoder naver/splade-v3 \
+          --encoder-class splade \
+          --fields title text \
+          --max-length 512
 ```
 
 Next, we will index the encoded corpus using inverted index into a retrieval system.
