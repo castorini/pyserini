@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # NOTE: change the BASH_HOME and CONDA_ENV variables to match your setup
-BASH_HOME="~/.bashrc" 
+BASH_HOME="$HOME/.bashrc" 
 CONDA_ENV="pyserini" 
 
 set -e
