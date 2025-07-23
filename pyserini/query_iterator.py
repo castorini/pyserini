@@ -188,6 +188,7 @@ class MultimodalQueryIterator(QueryIterator):
         cls.topic_dir = os.path.dirname(topics_path)
         return cls(topics, order)
 
+<<<<<<< HEAD
 class MBEIRQueryIterator(QueryIterator):
     def __init__(self, topics: dict, order: list = None, topic_dir: str = None):
         super().__init__(topics, order)
@@ -230,6 +231,41 @@ class MBEIRQueryIterator(QueryIterator):
 
         topic_dir = os.path.dirname(topics_path)
         return cls(topics, order, topic_dir)
+=======
+class MBEIRQueryIterator(QueryIterator):  
+    def get_query(self, id_):  
+        """Extract qid, query_txt, query_img_path, query_modality, candidate_modality from M-BEIR query format"""  
+        topic = self.topics[id_]
+          
+        # Extract the fields you want  
+        query_data = {
+            'qid': topic.get('qid', id_),
+            'query_txt': topic.get('query_txt', ''),
+            'query_img_path': topic.get('query_img_path', None),
+            'query_modality': topic.get('query_modality', 'text'),
+            'candidate_modality': topic.get('candidate_modality', 'text'),
+        }  
+          
+        return query_data  
+      
+    @classmethod  
+    def from_topics(cls, topics_path: str):  
+        """Load M-BEIR topics from JSONL file"""  
+        if os.path.exists(topics_path):  
+            if topics_path.endswith('.jsonl'):  
+                topics = get_topics_with_reader('io.anserini.search.topicreader.JsonStringTopicReader', topics_path)  
+            else:  
+                raise NotImplementedError(f"Not sure how to parse {topics_path}. Please specify the file extension.")  
+        else:  
+            raise FileNotFoundError(f'Topic {topics_path} Not Found')  
+          
+        if not topics:  
+            raise FileNotFoundError(f'Topic {topics_path} Not Found')  
+          
+        order = cls.get_predefined_order(topics_path)  
+          
+        return cls(topics, order)
+>>>>>>> 5f10ce9 (implemented custom MBEIRQueryIterator so it is compatible with the UniIRQueryEncoder)
 
 def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
     mapping = {
