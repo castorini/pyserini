@@ -136,3 +136,77 @@ class UniIRCorpusEncoder(UniIREncoder):
             corpus_embeddings = corpus_embeddings.astype('float16') if use_fp16 else corpus_embeddings
 
         return corpus_embeddings
+
+
+class CustomQueryDataset(Dataset):
+    def __init__(self, query_info, img_preprocess_fn, **kwargs):
+        self.query_info = query_info
+        self.img_preprocess_fn = img_preprocess_fn
+        self.kwargs = kwargs
+        
+    def __len__(self):
+        return len(self.query_info)
+        
+    def __getitem__(self, idx):
+        entry = self.query_info[idx]
+          
+        query_img_path = entry.get("query_img_path", None)
+        if query_img_path:
+            img = Image.open(query_img_path).convert("RGB")
+            img = self.img_preprocess_fn(img)
+        else:
+            img = None
+          
+        query_txt = entry.get("query_txt", "")
+        query_txt = format_string(query_txt)
+          
+        query = {
+            "txt": query_txt,
+            "img": img
+        }
+          
+        instance = {"query": query}
+          
+        qid = entry.get("qid", None)
+        if qid:
+            instance.update({"qid": hash_qid(qid)})
+              
+        return instance
+
+class UniIRQueryConverter:
+    def __init__(self, query_info, img_preprocess_fn, tokenizer, **kwargs):
+        dataset = CustomQueryDataset(query_info, img_preprocess_fn, **kwargs)
+        collator = MBEIRInferenceOnlyCollator(tokenizer=tokenizer, image_size=(224, 224))
+        self.data = DataLoader(dataset, batch_size=1, collate_fn=collator)
+  
+    def get_data(self):
+        return self.data
+
+class UniIRQueryEncoder(UniIREncoder):
+    def __init__(self, model_name: str, device='cuda:0', l2_norm=False, **kwargs: Any):
+        super().__init__(model_name, device, l2_norm, **kwargs)
+
+    def encode(self, query_info, **kwargs: Any):
+        if kwargs.get('fp16', False):
+            self.model.half()
+        else:
+            self.model.float()
+
+        query_info = [query_info] # wrap into single list for UniIR query encoding compatibility
+
+        query_dataset = UniIRQueryConverter(
+            query_info=query_info,
+            img_preprocess_fn=self.img_preprocess_fn,
+            tokenizer=self.tokenizer,
+        ).get_data()
+
+        with torch.no_grad():
+            batch = next(iter(query_dataset))
+            for k, v in batch.items():
+                if isinstance(v, torch.Tensor):
+                    batch[k] = v.to(self.device)
+            query_embeddings, _ = self.model.encode_mbeir_batch(batch)
+            query_embeddings = query_embeddings.cpu().numpy()
+            if self.l2_norm:
+                query_embeddings = normalize(query_embeddings, axis=1, norm='l2')
+            return query_embeddings

@@ -31,6 +31,7 @@ class TopicsFormat(Enum):
     DEFAULT = 'default'
     KILT = 'kilt'
     Multimodal = 'multimodal'
+    MBEIR = 'mbeir'
 
 
 class QueryIterator(ABC):
@@ -186,12 +187,46 @@ class MultimodalQueryIterator(QueryIterator):
         order = QueryIterator.get_predefined_order(topics_path)
         cls.topic_dir = os.path.dirname(topics_path)
         return cls(topics, order)
-    
+
+class MBEIRQueryIterator(QueryIterator):  
+    def get_query(self, id_):  
+        """Extract qid, query_txt, query_img_path, query_modality, candidate_modality from M-BEIR query format"""  
+        topic = self.topics[id_]
+          
+        # Extract the fields you want  
+        query_data = {
+            'qid': topic.get('qid', id_),
+            'query_txt': topic.get('query_txt', ''),
+            'query_img_path': topic.get('query_img_path', None),
+            'query_modality': topic.get('query_modality', 'text'),
+            'candidate_modality': topic.get('candidate_modality', 'text'),
+        }  
+          
+        return query_data  
+      
+    @classmethod  
+    def from_topics(cls, topics_path: str):  
+        """Load M-BEIR topics from JSONL file"""  
+        if os.path.exists(topics_path):  
+            if topics_path.endswith('.jsonl'):  
+                topics = get_topics_with_reader('io.anserini.search.topicreader.JsonStringTopicReader', topics_path)  
+            else:  
+                raise NotImplementedError(f"Not sure how to parse {topics_path}. Please specify the file extension.")  
+        else:  
+            raise FileNotFoundError(f'Topic {topics_path} Not Found')  
+          
+        if not topics:  
+            raise FileNotFoundError(f'Topic {topics_path} Not Found')  
+          
+        order = cls.get_predefined_order(topics_path)  
+          
+        return cls(topics, order)
 
 def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
     mapping = {
         TopicsFormat.DEFAULT: DefaultQueryIterator,
         TopicsFormat.KILT: KiltQueryIterator,
-        TopicsFormat.Multimodal: MultimodalQueryIterator
+        TopicsFormat.Multimodal: MultimodalQueryIterator,
+        TopicsFormat.MBEIR: MBEIRQueryIterator,
     }
     return mapping[topics_format].from_topics(topics_path)

@@ -281,6 +281,9 @@ def init_query_encoder(
             kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix))
         if _encoder_class == "clip" or "clip" in encoder:
             kwargs.update(dict(l2_norm=True, prefix=prefix, multimodal=multimodal))
+        if _encoder_class == "uniir":
+            kwargs.update(dict(l2_norm=True))
+
         return encoder_class(**kwargs)
 
     if encoded_queries:
@@ -506,7 +509,7 @@ if __name__ == "__main__":
                         prf_emb_q = np.expand_dims(prf_emb_q, axis=0).astype("float32")
                     hits = searcher.search(prf_emb_q, k=args.hits, **kwargs)
                 else:
-                    hits = searcher.search(text, args.hits, **kwargs)
+                    hits = searcher.search(query_info, args.hits, **kwargs)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
