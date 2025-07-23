@@ -23,6 +23,7 @@ from typing import Any, List, Optional
 from types import SimpleNamespace
 from importlib.resources import files
 
+from pyserini import encode
 import torch
 import faiss
 import pandas as pd
