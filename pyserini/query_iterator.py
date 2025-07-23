@@ -204,22 +204,25 @@ class MBEIRQueryIterator(QueryIterator):
           
         return query_data  
       
-    @classmethod  
-    def from_topics(cls, topics_path: str):  
-        """Load M-BEIR topics from JSONL file"""  
-        if os.path.exists(topics_path):  
-            if topics_path.endswith('.jsonl'):  
-                topics = get_topics_with_reader('io.anserini.search.topicreader.JsonStringTopicReader', topics_path)  
-            else:  
-                raise NotImplementedError(f"Not sure how to parse {topics_path}. Please specify the file extension.")  
-        else:  
-            raise FileNotFoundError(f'Topic {topics_path} Not Found')  
-          
-        if not topics:  
-            raise FileNotFoundError(f'Topic {topics_path} Not Found')  
-          
-        order = cls.get_predefined_order(topics_path)  
-          
+    @classmethod
+    def from_topics(cls, topics_path: str):
+        """Load M-BEIR topics from JSONL file"""
+        if not os.path.exists(topics_path):
+            raise FileNotFoundError(f'Topic {topics_path} Not Found')
+
+        topics = {}
+        order = []
+        with open(topics_path, 'r') as f:
+            for line in f:
+                data = json.loads(line)
+                topic_id = data.get('qid')
+                if topic_id:
+                    topics[topic_id] = data
+                    order.append(topic_id)
+
+        if not topics:
+            raise ValueError(f'No topics found in {topics_path}')
+
         return cls(topics, order)
 
 def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
