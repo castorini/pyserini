@@ -187,13 +187,20 @@ class UniIRQueryEncoder(UniIREncoder):
     def __init__(self, encoder_dir: str, device='cuda:0', l2_norm=False, **kwargs: Any):
         super().__init__(encoder_dir, device, l2_norm, **kwargs)
 
-    def encode(self, query_info, **kwargs: Any):
+    def encode(self, qid, query_txt, query_img_path, query_modality, candidate_modality, **kwargs: Any):
         if kwargs.get('fp16', False):
             self.model.half()
         else:
             self.model.float()
 
-        query_info = [query_info] # wrap into single list for UniIR query encoding compatibility
+        query_info = {
+            "qid": qid,
+            "query_txt": query_txt,
+            "query_img_path": query_img_path if query_img_path else None,
+            "query_modality": query_modality,
+            "candidate_modality": candidate_modality
+        }
+        query_info = [query_info]  # Wrap in a list to match the dataset format
 
         query_dataset = UniIRQueryConverter(
             query_info=query_info,

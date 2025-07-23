@@ -130,6 +130,8 @@ class FaissSearcher:
             emb_q = self.query_encoder.encode(query)
             assert len(emb_q) == self.dimension
             emb_q = emb_q.reshape((1, len(emb_q)))
+        elif isinstance(query, dict):
+            emb_q = self.query_encoder.encode(**query)
         else:
             emb_q = query
         faiss.omp_set_num_threads(threads)
