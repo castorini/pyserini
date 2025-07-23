@@ -188,22 +188,26 @@ class MultimodalQueryIterator(QueryIterator):
         cls.topic_dir = os.path.dirname(topics_path)
         return cls(topics, order)
 
-class MBEIRQueryIterator(QueryIterator):  
-    def get_query(self, id_):  
-        """Extract qid, query_txt, query_img_path, query_modality, candidate_modality from M-BEIR query format"""  
+class MBEIRQueryIterator(QueryIterator):
+    def __init__(self, topics: dict, order: list = None, topic_dir: str = None):
+        super().__init__(topics, order)
+        self.topic_dir = topic_dir
+
+    def get_query(self, id_):
+        """Extract qid, query_txt, query_img_path, query_modality, candidate_modality from M-BEIR query format"""
         topic = self.topics[id_]
-          
-        # Extract the fields you want  
+
+        # Extract the fields you want
         query_data = {
             'qid': topic.get('qid', id_),
             'query_txt': topic.get('query_txt', ''),
-            'query_img_path': topic.get('query_img_path', None),
+            'query_img_path': os.path.join(self.topic_dir, topic.get('query_img_path', '')) if topic.get('query_img_path') else None,
             'query_modality': topic.get('query_modality', 'text'),
             'candidate_modality': topic.get('candidate_modality', 'text'),
-        }  
-          
-        return query_data  
-      
+        }
+
+        return query_data
+
     @classmethod
     def from_topics(cls, topics_path: str):
         """Load M-BEIR topics from JSONL file"""
@@ -223,7 +227,8 @@ class MBEIRQueryIterator(QueryIterator):
         if not topics:
             raise ValueError(f'No topics found in {topics_path}')
 
-        return cls(topics, order)
+        topic_dir = os.path.dirname(topics_path)
+        return cls(topics, order, topic_dir)
 
 def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
     mapping = {
