@@ -186,3 +186,4 @@ We can see that Pyserini's (tuned) BM25 baseline is already much better than the
 + Results reproduced by [@zoehahaha](https://github.com/zoehahaha) on 2023-05-12 (commit [`b429218`](https://github.com/castorini/anserini/commit/b429218e52a385eabf3fd81979e221111fbc4a19))
 + Results reproduced by [@Richard5678](https://github.com/richard5678) on 2023-06-14 (commit [`b713dea`](https://github.com/castorini/pyserini/commit/b713dea93e6c52bb372f482afde296cb45483084))
 + Results reproduced by [@pratyushpal](https://github.com/pratyushpal) on 2023-07-14 (commit [`760c22a`](https://github.com/castorini/pyserini/commit/760c22a3300a4fc3bfc83991140cdc1d6d7a35f9))
++ Results reproduced by [@br0mabs](https://github.com/br0mabs) on 2023-07-25 (commit [`44889de`](https://github.com/castorini/pyserini/commit/44889de3d151b2e1317934b405b3ad6badd81308))
