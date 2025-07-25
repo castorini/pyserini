@@ -21,7 +21,7 @@ from typing import Any, List
 from types import SimpleNamespace
 from importlib.resources import files
 
-from pyserini import encode
+import pandas as pd
 import torch
 import faiss
 from huggingface_hub import hf_hub_download
@@ -184,21 +184,74 @@ class UniIRQueryConverter:
         return self.data
 
 class UniIRQueryEncoder(UniIREncoder):
-    def __init__(self, encoder_dir: str, device='cuda:0', l2_norm=False, **kwargs: Any):
+    def __init__(self, encoder_dir: str, device='cuda:0', l2_norm=False, instruction_config=None, **kwargs: Any):
+        if instruction_config is not None:
+            instructions, modality_info, random_instruction = self._load_instruction_config(instruction_config)
+            self._instructions = instructions
+            self._modality_info = modality_info
+            self._random_instruction = random_instruction
         super().__init__(encoder_dir, device, l2_norm, **kwargs)
 
-    def encode(self, qid, query_txt, query_img_path, query_modality, candidate_modality, **kwargs: Any):
+    def _load_instruction_config(self, instruction_config):
+        try:
+            with open(instruction_config, 'r') as f:
+                config = yaml.safe_load(f)
+            instruction_file = config.get('instruction_file', None)
+            corpus_file = config.get('corpus_file', None)
+            dataset_id = config.get('dataset_id', None)
+            random_instruction = config.get('random_instruction', False)
+            if not instruction_file or not corpus_file or not dataset_id:
+                raise ValueError("Instruction file or corpus file not specified in the config.")
+        except Exception as e:
+            raise ValueError(f"Error loading instruction config: {e}")
+
+        try:
+            df = pd.read_csv(instruction_file, sep='\t')
+            filtered = df[df['dataset_id'].astype(int) == int(dataset_id)]
+            instructions = filtered.to_dict(orient="records")
+
+            modality_info = {}
+            with open(corpus_file, "r") as f:
+                for line in f:
+                    corpus = json.loads(line)
+                    modality_info[corpus['did']] = corpus['modality']
+
+            return instructions, modality_info, random_instruction
+        except Exception as e:
+            raise ValueError(f"Error reading instruction or corpus file: {e}")
+
+    def _get_instruction_prompt(self, q_modality, c_modality) -> str:
+        instructions = self._instructions
+        for instruction in instructions:
+            if instruction['query_modality'] == q_modality and instruction['cand_modality'] == c_modality:
+                if self._random_instruction:
+                    prompts = [instruction[k] for k in instruction if k.startswith('prompt_')]
+                    return random.choice(prompts)
+                else:
+                    return instruction['prompt_1']
+
+    def encode(self, qid, query_txt, query_img_path, query_modality, pos_cand_list, **kwargs: Any):
         if kwargs.get('fp16', False):
             self.model.half()
         else:
             self.model.float()
+
+        cand_modality = self._modality_info.get(pos_cand_list[0], 'text') if hasattr(self, '_modality_info') else 'text'
+        
+
+        if hasattr(self, '_instructions'):
+            prompt = self._get_instruction_prompt(
+                q_modality=query_modality,
+                c_modality=cand_modality
+            )
+            query_txt = f"{prompt} {query_txt}" if prompt else query_txt
 
         query_info = {
             "qid": qid,
             "query_txt": query_txt,
             "query_img_path": query_img_path if query_img_path else None,
             "query_modality": query_modality,
-            "candidate_modality": candidate_modality
+            "candidate_modality": cand_modality,
         }
         query_info = [query_info]  # Wrap in a list to match the dataset format
 

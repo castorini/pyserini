@@ -46,6 +46,13 @@ def define_dsearch_args(parser):
         help="Path to Faiss index or name of prebuilt index.",
     )
     parser.add_argument(
+        "--instruction-config",
+        type=str,
+        metavar="path to the instruction config file (only used for UniIR models)",
+        required=False,
+        help="Path to the instructions config file (only used for UniIR models).",
+    )
+    parser.add_argument(
         "--encoder-class",
         type=str,
         metavar="which query encoder class to use. `default` would infer from the args.encoder",
@@ -232,6 +239,7 @@ def init_query_encoder(
     l2_norm,
     prefix,
     multimodal=False,
+    instruction_config=None,
 ):
     encoded_queries_map = {
         "msmarco-passage-dev-subset": "tct_colbert-msmarco-passage-dev-subset",
@@ -413,6 +421,7 @@ if __name__ == "__main__":
         args.l2_norm,
         args.query_prefix,
         args.multimodal,
+        args.instruction_config,
     )
     if args.pca_model:
         query_encoder = PcaEncoder(query_encoder, args.pca_model)
