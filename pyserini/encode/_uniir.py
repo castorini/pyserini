@@ -23,6 +23,7 @@ from typing import Any, List, Optional
 from types import SimpleNamespace
 from importlib.resources import files
 
+import pandas as pd
 import torch
 import faiss
 import pandas as pd
