@@ -96,6 +96,22 @@ pip install numpy==1.26.4
 
 For more details, see https://github.com/facebookresearch/faiss/issues/3526
 
+### UniIR: Optional Installation
+
+In order to use UniIR's models and perform multimodal retrieval on the M-BEIR dataset, you will need to install UniIR.
+
+Since UniIR is integrated into pyserini as a git submodule, you can install it as follows:
+```bash
+git clone --recurse-submodules https://github.com/castorini/pyserini 
+```
+
+Or if you have already cloned it, you can update it with:
+```bash
+git submodule update --init --recursive
+```
+
+**Note:** To use UniIR, you must clone pyserini directly, installing it via pip will not work. Also, make sure you have installed all dependencies from UniIR.
+
 ### Verifying the Installation
 
 By this point, Pyserini should have been installed.
