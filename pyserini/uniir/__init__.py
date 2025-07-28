@@ -8,14 +8,23 @@ _vendor_path = Path(__file__).parent / "_uniir_vendor" / "src"
 def _load_module(name, rel_path):
     module_path = _vendor_path / rel_path
     module_parent = str(module_path.parent)
-    
-    spec = importlib.util.spec_from_file_location(
-        f"pyserini.uniir._vendor.{name}",
-        module_path
-    )
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+
+    import sys
+    sys.path.insert(0, str(_vendor_path))
+    sys.path.insert(0, module_parent)
+
+    try:    
+        spec = importlib.util.spec_from_file_location(
+            f"pyserini.uniir._vendor.{name}",
+            module_path
+        )
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+
+        return module
+    finally:
+        sys.path.remove(module_parent)
+        sys.path.remove(str(_vendor_path))
 
 mbeir = _load_module("mbeir", "data/mbeir_dataset.py")
 MBEIRCandidatePoolCollator = mbeir.MBEIRCandidatePoolCollator
