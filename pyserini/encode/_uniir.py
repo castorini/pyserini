@@ -21,7 +21,6 @@ from typing import Any, List
 from types import SimpleNamespace
 from importlib.resources import files
 
-import pandas as pd
 import torch
 import faiss
 from huggingface_hub import hf_hub_download
