@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/castorini-pyserini-badge.png)](https://mseep.ai/app/castorini-pyserini)
+
 # Pyserini <img src="docs/pyserini-logo.png" width="300" />
 
 [![PyPI](https://img.shields.io/pypi/v/pyserini?color=brightgreen)](https://pypi.org/project/pyserini/)
