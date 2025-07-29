@@ -110,7 +110,7 @@ Or if you have already cloned it, you can update it with:
 git submodule update --init --recursive
 ```
 
-**Note:** To use UniIR, you must clone pyserini directly, installing it via pip will not work. Also, make sure you have installed all dependencies from UniIR.
+After, make sure you have installed all dependencies from UniIR.
 
 ### Verifying the Installation
 

@@ -6,7 +6,7 @@ This guide contains instructions for running baselines on the CIRR dataset (one 
 
 ## Data Prep
  
-First, download the CIRR dataset from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/cand_pool/local/mbeir_cirr_task7_cand_pool.jsonl) to the `collections/m-beir/cirr` folder
+First, download the CIRR dataset from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/cand_pool/local/mbeir_cirr_task7_cand_pool.jsonl) to the `collections/m-beir/CIRR` folder inside pyserini.
 
 Then, download the 4 parts of the image dataset from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/tree/main), merge them into 1 tar.gz file and extract it. Make sure the extracted folder is in the same directory as the mbeir_cirr_task7_cand_pool.jsonl file.
 
@@ -19,7 +19,7 @@ To run UniIR models, you must first make sure you have properly set up pyserini,
 To encode the corpus, use the following command:
 ```bash
 python -m pyserini.encode \
-  input --corpus collections/m-beir/cirr/mbeir_cirr_task7_cand_pool.jsonl \
+  input --corpus collections/m-beir/CIRR/mbeir_cirr_task7_cand_pool.jsonl \
         --fields img_path modality txt did \
         --docid-field did \
   output --embeddings encode/mbeir-cirr.clipsf \
@@ -40,7 +40,7 @@ python -m pyserini.index.faiss \
     --metric inner
 ```
 
-The above minimal index should be ~11 GB.
+The above minimal index should be ~64 MB.
 
 Perform a run on the test queries without instructions:
 
@@ -49,8 +49,8 @@ python -m pyserini.search.faiss \
     --encoder-class uniir \
     --encoder clip_sf_large \
     --topics-format mbeir \
-    --topics collections/m-beir/cirr/topics_mbeir_cirr_task7_test.jsonl \
-    --index indexes/m-beir-index-test \
+    --topics collections/m-beir/CIRR/topics_mbeir_cirr_task7_test.jsonl \
+    --index indexes/faiss.mbeir-cirr.clipsf \
     --output runs/mbeir-cirr.no-instr.clipsf.txt \
     --hits 1000
 ```
@@ -58,8 +58,8 @@ python -m pyserini.search.faiss \
 If you want to use UniIR instructions, download it from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv)
 Then, create a yaml file like this:
 ```yaml
-instruction_file: path/to/query_instructions.tsv
-corpus_file: collections/m-beir/cirr/mbeir_cirr_task7_cand_pool.jsonl
+instruction_file: absolute/path/to/query_instructions.tsv
+corpus_file: absolute/path/to/mbeir_cirr_task7_cand_pool.jsonl
 dataset_id: 8 # the id for CIRR is 8
 random_instruction: False # set to true if you want to use a random instruction for each query
 ```
@@ -71,32 +71,36 @@ python -m pyserini.search.faiss \
     --encoder-class uniir \
     --encoder clip_sf_large \
     --topics-format mbeir \
-    --topics collections/m-beir/cirr/topics_mbeir_cirr_task7_test.jsonl \
-    --index indexes/m-beir-index-test \
+    --topics collections/m-beir/CIRR/topics_mbeir_cirr_task7_test.jsonl \
+    --index indexes/faiss.mbeir-cirr.clipsf \
     --output runs/mbeir-cirr.instr.clipsf.txt \
-    --instruction-config path/to/config.yaml \
+    --instruction-config path/to/instruction_config.yaml \
     --hits 1000
 ```
 
 Evaluation:
 
+First we will need to fix the qrels file to proper TREC format so it is compatible with pyserini's trec_eval:
+```bash
+cut -d' ' -f1-4 mbeir_cirr_task7_test_qrels.txt > mbeir_cirr_task7_test_qrels_fixed.txt
+```
+
 _Without instructions_
 ```bash
-python -m pyserini.eval.trec_eval -c -m recall.5 collections/m-beir/cirr/mbeir_cirr_task7_test_qrels_fixed.txt runs/mbeir-cirr.no-instr.clipsf.txt
+python -m pyserini.eval.trec_eval -c -m recall.5 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt runs/mbeir-cirr.no-instr.clipsf.txt
 
 Results:
-recall_5           	all	0.3808
+recall_5           	all	0.3876
 ```
 
 _With instructions_
 ```bash
-python -m pyserini.eval.trec_eval -c -m recall.5 collections/m-beir/cirr/mbeir_cirr_task7_test_qrels_fixed.txt runs/mbeir-cirr.no-instr.clipsf.txt
+python -m pyserini.eval.trec_eval -c -m recall.5 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt runs/mbeir-cirr.instr.clipsf.txt
 
 Results:
-recall_5           	all	0.3808
+recall_5           	all	0.4519
 ```
 
 
 ## Reproduction Log[*](reproducibility.md)
-
 
