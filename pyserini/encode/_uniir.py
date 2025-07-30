@@ -271,7 +271,8 @@ class UniIRQueryEncoder(UniIREncoder):
             prompt = self._get_instruction_prompt(
                 q_modality=query_modality, c_modality=cand_modality
             )
-            query_txt = f"{prompt} {query_txt}" if prompt else query_txt
+            if prompt is not None:
+                query_txt = f"{prompt} {query_txt}" if query_txt else prompt
 
         query_info = {
             "qid": qid,
