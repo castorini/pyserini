@@ -718,6 +718,177 @@ add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_MULTIFIELD, TF_INDEX_INFO_BEI
 add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_MULTIFIELD, TF_INDEX_INFO_BEIR)
 add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_MULTIFIELD, TF_INDEX_INFO_BEIR)
 
+TF_INDEX_INFO_BRIGHT = {
+    "bright-biology": {
+        "description": "Lucene inverted index of BRIGHT: biology.",
+        "filename": "lucene-inverted.bright-biology.20250705.44ae8e.tar.gz",
+        "readme": "lucene-inverted.bright.20250705.44ae8e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/lucene-inverted/tf/lucene-inverted.bright-biology.20250705.44ae8e.tar.gz"
+        ],
+        "md5": "28e2dabd2f3e57dec3f627351f8c4b11",
+        "size compressed (bytes)": 33637622,
+        "total_terms": 2133799,
+        "documents": 57359,
+        "unique_terms": 77273,
+        "downloaded": False
+    },
+    "bright-earth-science": {
+        "description": "Lucene inverted index of BRIGHT: earth-science.",
+        "filename": "lucene-inverted.bright-earth-science.20250705.44ae8e.tar.gz",
+        "readme": "lucene-inverted.bright.20250705.44ae8e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/lucene-inverted/tf/lucene-inverted.bright-earth-science.20250705.44ae8e.tar.gz"
+        ],
+        "md5": "beb1d21fcf297de450271361667f2992",
+        "size compressed (bytes)": 71919915,
+        "total_terms": 4924837,
+        "documents": 121249,
+        "unique_terms": 300607,
+        "downloaded": False
+    },
+    "bright-economics": {
+        "description": "Lucene inverted index of BRIGHT: economics.",
+        "filename": "lucene-inverted.bright-economics.20250705.44ae8e.tar.gz",
+        "readme": "lucene-inverted.bright.20250705.44ae8e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/lucene-inverted/tf/lucene-inverted.bright-economics.20250705.44ae8e.tar.gz"
+        ],
+        "md5": "59b9d0751eb933de06c2bd9ca815a620",
+        "size compressed (bytes)": 31944559,
+        "total_terms": 2209688,
+        "documents": 50220,
+        "unique_terms": 96651,
+        "downloaded": False
+    },
+    "bright-psychology": {
+        "description": "Lucene inverted index of BRIGHT: psychology.",
+        "filename": "lucene-inverted.bright-psychology.20250705.44ae8e.tar.gz",
+        "readme": "lucene-inverted.bright.20250705.44ae8e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/lucene-inverted/tf/lucene-inverted.bright-psychology.20250705.44ae8e.tar.gz"
+        ],
+        "md5": "92cfe0528ec00992539c5d71e43132b5",
+        "size compressed (bytes)": 33162950,
+        "total_terms": 2206965,
+        "documents": 52835,
+        "unique_terms": 116023,
+        "downloaded": False
+    },
+    "bright-robotics": {
+        "description": "Lucene inverted index of BRIGHT: robotics.",
+        "filename": "lucene-inverted.bright-robotics.20250705.44ae8e.tar.gz",
+        "readme": "lucene-inverted.bright.20250705.44ae8e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/lucene-inverted/tf/lucene-inverted.bright-robotics.20250705.44ae8e.tar.gz"
+        ],
+        "md5": "798ffdc9f8156f87092dab7222fc7015",
+        "size compressed (bytes)": 25874478,
+        "total_terms": 1965313,
+        "documents": 61961,
+        "unique_terms": 108765,
+        "downloaded": False
+    },
+    "bright-stackoverflow": {
+        "description": "Lucene inverted index of BRIGHT: stackoverflow.",
+        "filename": "lucene-inverted.bright-stackoverflow.20250705.44ae8e.tar.gz",
+        "readme": "lucene-inverted.bright.20250705.44ae8e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/lucene-inverted/tf/lucene-inverted.bright-stackoverflow.20250705.44ae8e.tar.gz"
+        ],
+        "md5": "228efa0a5f694e21ec72b8701cea544d",
+        "size compressed (bytes)": 141016328,
+        "total_terms": 12612557,
+        "documents": 107081,
+        "unique_terms": 176923,
+        "downloaded": False
+    },
+    "bright-sustainable-living": {
+        "description": "Lucene inverted index of BRIGHT: sustainable-living.",
+        "filename": "lucene-inverted.bright-sustainable-living.20250705.44ae8e.tar.gz",
+        "readme": "lucene-inverted.bright.20250705.44ae8e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/lucene-inverted/tf/lucene-inverted.bright-sustainable-living.20250705.44ae8e.tar.gz"
+        ],
+        "md5": "e2bd3276a1a95f899a285199a32ace2e",
+        "size compressed (bytes)": 34574188,
+        "total_terms": 2359358,
+        "documents": 60792,
+        "unique_terms": 108048,
+        "downloaded": False
+    },
+    "bright-pony": {
+        "description": "Lucene inverted index of BRIGHT: pony.",
+        "filename": "lucene-inverted.bright-pony.20250705.44ae8e.tar.gz",
+        "readme": "lucene-inverted.bright.20250705.44ae8e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/lucene-inverted/tf/lucene-inverted.bright-pony.20250705.44ae8e.tar.gz"
+        ],
+        "md5": "3cc53b8606c82f6ccbd1fe03deca42f5",
+        "size compressed (bytes)": 3366361,
+        "total_terms": 264645,
+        "documents": 7894,
+        "unique_terms": 10596,
+        "downloaded": False
+    },
+    "bright-leetcode": {
+        "description": "Lucene inverted index of BRIGHT: leetcode.",
+        "filename": "lucene-inverted.bright-leetcode.20250705.44ae8e.tar.gz",
+        "readme": "lucene-inverted.bright.20250705.44ae8e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/lucene-inverted/tf/lucene-inverted.bright-leetcode.20250705.44ae8e.tar.gz"
+        ],
+        "md5": "8f0c4fdbaf6fac01b3450da1ddfd91bc",
+        "size compressed (bytes)": 495880403,
+        "total_terms": 35338566,
+        "documents": 413932,
+        "unique_terms": 1808924,
+        "downloaded": False
+    },
+    "bright-aops": {
+        "description": "Lucene inverted index of BRIGHT: aops.",
+        "filename": "lucene-inverted.bright-aops.20250705.44ae8e.tar.gz",
+        "readme": "lucene-inverted.bright.20250705.44ae8e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/lucene-inverted/tf/lucene-inverted.bright-aops.20250705.44ae8e.tar.gz"
+        ],
+        "md5": "2427dbdd4e64c27a3fb86901f88ba72f",
+        "size compressed (bytes)": -1,
+        "total_terms": 20699175,
+        "documents": 188002,
+        "unique_terms": 110945,
+        "downloaded": False
+    },
+    "bright-theoremqa-theorems": {
+        "description": "Lucene inverted index of BRIGHT: theoremqa-theorems.",
+        "filename": "lucene-inverted.bright-theoremqa-theorems.20250705.44ae8e.tar.gz",
+        "readme": "lucene-inverted.bright.20250705.44ae8e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/lucene-inverted/tf/lucene-inverted.bright-theoremqa-theorems.20250705.44ae8e.tar.gz"
+        ],
+        "md5": "4b576146c71acde1045dbbc502b64a76",
+        "size compressed (bytes)": 20261206,
+        "total_terms": 2822888,
+        "documents": 23839,
+        "unique_terms": 17116,
+        "downloaded": False
+    },
+    "bright-theoremqa-questions": {
+        "description": "Lucene inverted index of BRIGHT: theoremqa-questions.",
+        "filename": "lucene-inverted.bright-theoremqa-questions.20250705.44ae8e.tar.gz",
+        "readme": "lucene-inverted.bright.20250705.44ae8e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/lucene-inverted/tf/lucene-inverted.bright-theoremqa-questions.20250705.44ae8e.tar.gz"
+        ],
+        "md5": "c5754371fb34423abf64c48b22b906d2",
+        "size compressed (bytes)": 165321495,
+        "total_terms": 20699175,
+        "documents": 188002,
+        "unique_terms": 110945,
+        "downloaded": False
+    }
+}
+
 TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-ar": {
         "description": "Lucene index for Mr.TyDi v1.1 (Arabic).",
@@ -1871,6 +2042,7 @@ TF_INDEX_INFO_OTHER_ALIASES = {
 TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
                  **TF_INDEX_INFO_MSMARCO_ALIASES,
                  **TF_INDEX_INFO_BEIR,
+                 **TF_INDEX_INFO_BRIGHT,
                  **TF_INDEX_INFO_MRTYDI,
                  **TF_INDEX_INFO_MRTYDI_ALIASES,
                  **TF_INDEX_INFO_MIRACL,
