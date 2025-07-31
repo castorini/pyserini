@@ -71,8 +71,8 @@ curl "http://localhost:8081/v1/indexes/msmarco-v1-passage/documents/7157715"
 
 ```json
 {
-  "docid": "7157715",
-  "text": "A Lobster Roll is a bread roll filled with bite-sized chunks of lobster meat. Lobster Rolls are made on the Atlantic coast of North America, from the New England area of the United States on up into the Maritimes areas of Canada."
+  "id": "7157715",
+  "contents": "A Lobster Roll is a bread roll filled with bite-sized chunks of lobster meat. Lobster Rolls are made on the Atlantic coast of North America, from the New England area of the United States on up into the Maritimes areas of Canada."
 }
 ```
 

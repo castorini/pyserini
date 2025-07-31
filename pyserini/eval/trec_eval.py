@@ -52,90 +52,100 @@ import jnius
 # the JVM has already loaded.
 from pyserini.search import get_qrels_file
 
-cmd_prefix = ['java', '-cp', jar_path, 'trec_eval']
+def trec_eval(args, query_id=None) -> float: 
+    cmd_prefix = ['java', '-cp', jar_path, 'trec_eval']
 
-args = sys.argv
+    # Option to discard non-judged hits in run file
+    judged_docs_only = ''
+    judged_result = []
+    cutoffs = []
 
-# Option to discard non-judged hits in run file
-judged_docs_only = ''
-judged_result = []
-cutoffs = []
+    if '-remove-unjudged' in args:
+        judged_docs_only = args.pop(args.index('-remove-unjudged'))
 
-if '-remove-unjudged' in args:
-    judged_docs_only = args.pop(args.index('-remove-unjudged'))
+    if any([i.startswith('judged.') for i in args]):
+        # Find what position the arg is in.
+        idx = [i.startswith('judged.') for i in args].index(True)
+        cutoffs = args.pop(idx)
+        cutoffs = list(map(int, cutoffs[7:].split(',')))
+        # Get rid of the '-m' before the 'judged.xxx' option
+        args.pop(idx-1)
 
-if any([i.startswith('judged.') for i in args]):
-    # Find what position the arg is in.
-    idx = [i.startswith('judged.') for i in args].index(True)
-    cutoffs = args.pop(idx)
-    cutoffs = list(map(int, cutoffs[7:].split(',')))
-    # Get rid of the '-m' before the 'judged.xxx' option
-    args.pop(idx-1)
+    temp_file = ''
 
-temp_file = ''
+    if len(args) > 1:
+        if not os.path.exists(args[-2]):
+            args[-2] = get_qrels_file(args[-2])
+        if os.path.exists(args[-1]):
+            # Convert run to trec if it's on msmarco
+            with open(args[-1]) as f:
+                first_line = f.readline()
+            if 'Q0' not in first_line:
+                temp_file = tempfile.NamedTemporaryFile(delete=False).name
+                print('msmarco run detected. Converting to trec...')
+                run = pd.read_csv(args[-1], sep='\s+', header=None, names=['query_id', 'doc_id', 'rank'])
+                run['score'] = 1 / run['rank']
+                run.insert(1, 'Q0', 'Q0')
+                run['name'] = 'TEMPRUN'
+                run.to_csv(temp_file, sep='\t', header=None, index=None)
+                args[-1] = temp_file
 
-if len(args) > 1:
-    if not os.path.exists(args[-2]):
-        args[-2] = get_qrels_file(args[-2])
-    if os.path.exists(args[-1]):
-        # Convert run to trec if it's on msmarco
-        with open(args[-1]) as f:
-            first_line = f.readline()
-        if 'Q0' not in first_line:
-            temp_file = tempfile.NamedTemporaryFile(delete=False).name
-            print('msmarco run detected. Converting to trec...')
-            run = pd.read_csv(args[-1], sep='\s+', header=None, names=['query_id', 'doc_id', 'rank'])
-            run['score'] = 1 / run['rank']
-            run.insert(1, 'Q0', 'Q0')
-            run['name'] = 'TEMPRUN'
+        if not os.path.exists(args[-1]):
+            print(f"The run file {args[-1]} does not exist!")
+            sys.exit()
+        run = pd.read_csv(args[-1], sep='\s+', engine='python', header=None)
+        qrels = pd.read_csv(args[-2], sep='\s+', engine='python', header=None)
+        
+        # cast doc_id column as string
+        run[0] = run[0].astype(str)
+        qrels[0] = qrels[0].astype(str)
+
+        # Discard non-judged hits
+        if judged_docs_only:
+            if not temp_file:
+                temp_file = tempfile.NamedTemporaryFile(delete=False).name
+            judged_indexes = pd.merge(run[[0,2]].reset_index(), qrels[[0,2]], on = [0,2])['index']
+            run = run.loc[judged_indexes]
             run.to_csv(temp_file, sep='\t', header=None, index=None)
             args[-1] = temp_file
+        # Measure judged@cutoffs
+        for cutoff in cutoffs:
+            run_cutoff = run.groupby(0).head(cutoff)
+            judged = len(pd.merge(run_cutoff[[0,2]], qrels[[0,2]], on = [0,2])) / len(run_cutoff)
+            metric_name = f'judged_{cutoff}'
+            judged_result.append(f'{metric_name:22}\tall\t{judged:.4f}')
+        cmd = cmd_prefix + args[1:]
+    else:
+        cmd = cmd_prefix
 
-    if not os.path.exists(args[-1]):
-       print(f"The run file {args[-1]} does not exist!")
-       sys.exit()
-    run = pd.read_csv(args[-1], sep='\s+', engine='python', header=None)
-    qrels = pd.read_csv(args[-2], sep='\s+', engine='python', header=None)
+    # We're going to shell out to call trec_eval.
+    # Obvious question here: why we *not* just call the trec_eval main (Java) class, which already wraps the executable?
+    # in Java (which wraps the binaries). The answer is that the Java class explicitly calls System.exit, so we wouldn't
+    # be able to do cleanup here in Python.
+    shell = platform.system() == "Windows"
+    process = subprocess.Popen(cmd,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE,
+                            shell=shell)
+    stdout, stderr = process.communicate()
+    if stderr:
+        print(stderr.decode("utf-8"))
+
+    output = stdout.decode("utf-8").rstrip()
+    print(output)
+
+    for judged in judged_result:
+        print(judged)
+
+    if temp_file:
+        os.remove(temp_file)
     
-    # cast doc_id column as string
-    run[0] = run[0].astype(str)
-    qrels[0] = qrels[0].astype(str)
+    output = output.split("\n")
+    lines = {line.split("\t")[1]: line.split("\t")[2] for line in output}
+    if query_id:
+        return float(lines[query_id])
+    else:
+        return float(lines["all"])
 
-    # Discard non-judged hits
-    if judged_docs_only:
-        if not temp_file:
-            temp_file = tempfile.NamedTemporaryFile(delete=False).name
-        judged_indexes = pd.merge(run[[0,2]].reset_index(), qrels[[0,2]], on = [0,2])['index']
-        run = run.loc[judged_indexes]
-        run.to_csv(temp_file, sep='\t', header=None, index=None)
-        args[-1] = temp_file
-    # Measure judged@cutoffs
-    for cutoff in cutoffs:
-        run_cutoff = run.groupby(0).head(cutoff)
-        judged = len(pd.merge(run_cutoff[[0,2]], qrels[[0,2]], on = [0,2])) / len(run_cutoff)
-        metric_name = f'judged_{cutoff}'
-        judged_result.append(f'{metric_name:22}\tall\t{judged:.4f}')
-    cmd = cmd_prefix + args[1:]
-else:
-    cmd = cmd_prefix
-
-# We're going to shell out to call trec_eval.
-# Obvious question here: why we *not* just call the trec_eval main (Java) class, which already wraps the executable?
-# in Java (which wraps the binaries). The answer is that the Java class explicitly calls System.exit, so we wouldn't
-# be able to do cleanup here in Python.
-shell = platform.system() == "Windows"
-process = subprocess.Popen(cmd,
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.PIPE,
-                           shell=shell)
-stdout, stderr = process.communicate()
-if stderr:
-    print(stderr.decode("utf-8"))
-
-print(stdout.decode("utf-8").rstrip())
-
-for judged in judged_result:
-    print(judged)
-
-if temp_file:
-    os.remove(temp_file)
+if __name__ == "__main__":
+    trec_eval(sys.argv)
