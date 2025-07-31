@@ -26,7 +26,7 @@ import json
 import os
 from typing import Any
 
-from pyserini.eval.trec_eval import eval
+from pyserini.eval.trec_eval import trec_eval
 from pyserini.encode import AutoQueryEncoder
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
 from pyserini.search import get_qrels, get_qrels_file
@@ -167,7 +167,7 @@ class SearchController:
             args.insert(3, f"{cutoff}")
         args.append(get_qrels_file(index_name))
         args.append(temp_file)
-        res = eval(args)
+        res = trec_eval(args)
         os.remove(temp_file)
         return res
     

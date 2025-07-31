@@ -52,7 +52,7 @@ import jnius
 # the JVM has already loaded.
 from pyserini.search import get_qrels_file
 
-def eval(args, query_id=None) -> float: 
+def trec_eval(args, query_id=None) -> float: 
     cmd_prefix = ['java', '-cp', jar_path, 'trec_eval']
 
     # Option to discard non-judged hits in run file
@@ -148,4 +148,4 @@ def eval(args, query_id=None) -> float:
         return float(lines["all"])
 
 if __name__ == "__main__":
-    eval(sys.argv)
+    trec_eval(sys.argv)
