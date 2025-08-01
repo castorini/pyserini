@@ -21,10 +21,8 @@ from typing import Any, List
 from types import SimpleNamespace
 from importlib.resources import files
 
-import pandas as pd
 import torch
 import faiss
-from huggingface_hub import hf_hub_download
 from torch.utils.data import DataLoader
 
 from pyserini.encode.mbeir.mbeir_dataset import MBEIRCorpusDataset
@@ -152,11 +150,11 @@ class CustomQueryDataset(Dataset):
         entry = self.query_info[idx]
 
         query_img_path = entry.get("query_img_path", None)
-        if query_img_path:
+        if not query_img_path:
+            img = None
+        else:
             img = Image.open(query_img_path).convert("RGB")
             img = self.img_preprocess_fn(img)
-        else:
-            img = None
 
         query_txt = entry.get("query_txt", "")
         query_txt = format_string(query_txt)
@@ -256,10 +254,7 @@ class UniIRQueryEncoder(UniIREncoder):
         pos_cand_list: List[str],
         **kwargs: Any,
     ):
-        if kwargs.get("fp16", False):
-            self.model.half()
-        else:
-            self.model.float()
+        use_fp16 = kwargs.get("fp16", False)
 
         cand_modality = (
             self._modality_info.get(pos_cand_list[0], "text")
@@ -274,28 +269,29 @@ class UniIRQueryEncoder(UniIREncoder):
             if prompt is not None:
                 query_txt = f"{prompt} {query_txt}" if query_txt else prompt
 
-        query_info = {
+        query_info = [{
             "qid": qid,
             "query_txt": query_txt,
             "query_img_path": query_img_path if query_img_path else None,
             "query_modality": query_modality,
             "candidate_modality": cand_modality,
-        }
-        query_info = [query_info]  # Wrap in a list to match the dataset format
+        }]
 
-        query_dataset = UniIRQueryConverter(
+        dataloader = UniIRQueryConverter(
             query_info=query_info,
             img_preprocess_fn=self.img_preprocess_fn,
             tokenizer=self.tokenizer,
         ).get_data()
 
-        with torch.no_grad():
-            batch = next(iter(query_dataset))
-            for k, v in batch.items():
-                if isinstance(v, torch.Tensor):
-                    batch[k] = v.to(self.device)
-            query_embeddings, _ = self.model.encode_mbeir_batch(batch)
-            query_embeddings = query_embeddings.cpu().numpy()
-            if self.l2_norm:
-                query_embeddings = normalize(query_embeddings, axis=1, norm="l2")
-            return query_embeddings
+        query_embeddings, _ = generate_embeds_and_ids_for_dataset_with_gather(
+            self.model,  
+            dataloader,
+            device=self.device,
+            use_fp16=use_fp16,
+        )
+
+        if self.l2_norm:
+            query_embeddings = query_embeddings.astype('float32')
+            faiss.normalize_L2(query_embeddings)
+
+        return query_embeddings
