@@ -44,3 +44,6 @@ utils = _load_module("utils", "data/preprocessing/utils.py")
 format_string = utils.format_string
 hash_did = utils.hash_did
 hash_qid = utils.hash_qid
+
+embedder = _load_module("embedder", "common/mbeir_embedder.py")
+generate_embeds_and_ids_for_dataset_with_gather = embedder.generate_embeds_and_ids_for_dataset_with_gather
