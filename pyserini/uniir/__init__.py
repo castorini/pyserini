@@ -3,6 +3,7 @@ from pathlib import Path
 
 # Path to submodule
 _vendor_path = Path(__file__).parent / "_uniir_vendor" / "src"
+MED_CONFIG_PATH = str(_vendor_path / "models" / "uniir_blip" / "backbone" / "configs" / "med_config.json")
 
 # Dynamically load modules
 def _load_module(name, rel_path):
