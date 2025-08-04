@@ -23,8 +23,8 @@ import faiss
 from huggingface_hub import hf_hub_download
 from torch.utils.data import DataLoader
 
-from pyserini.mbeir.mbeir_dataset import MBEIRCorpusDataset
-from pyserini.mbeir.uniir import (BLIPFeatureFusion, BLIPScoreFusion,
+from pyserini.encode.mbeir.mbeir_dataset import MBEIRCorpusDataset
+from pyserini.encode.mbeir.uniir import (BLIPFeatureFusion, BLIPScoreFusion,
                             CLIPFeatureFusion, CLIPScoreFusion,
                             MBEIRCandidatePoolCollator, generate_embeds_and_ids_for_dataset_with_gather,
                             format_string, hash_did)
