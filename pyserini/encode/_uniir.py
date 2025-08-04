@@ -14,7 +14,6 @@
 # limitations under the License.
 #
 
-<<<<<<< HEAD
 import yaml
 import random
 import importlib.resources
@@ -34,21 +33,6 @@ from pyserini.encode.mbeir.uniir import (BLIPFeatureFusion, BLIPScoreFusion,
                             MBEIRCandidatePoolCollator, MBEIRInferenceOnlyCollator,
                             generate_embeds_and_ids_for_dataset_with_gather,
                             format_string, hash_did, hash_qid)
-=======
-from abc import ABC, abstractmethod
-from typing import Any, List, Optional
-from types import SimpleNamespace
-
-import torch
-import faiss
-from huggingface_hub import hf_hub_download
-from PIL import Image
-from torch.utils.data import DataLoader, Dataset
-
-from pyserini.uniir import (BLIPFeatureFusion, BLIPScoreFusion,
-                            CLIPFeatureFusion, CLIPScoreFusion,
-                            MBEIRCandidatePoolCollator, generate_embeds_and_ids_for_dataset_with_gather,
-                            format_string, hash_did)
 
 
 class CustomCorpusDataset(Dataset):
@@ -109,6 +93,8 @@ class UniIRDatasetConverter:
 >>>>>>> d5c6ff6 (integrated uniir's encoding for pyserini)
 
 
+=======
+>>>>>>> 618cf4e (decoupled MBEIRCorpusDataset)
 MODEL_REGISTRY = {
     "clip_ff": (CLIPFeatureFusion, "CLIP_FF"),
     "clip_sf": (CLIPScoreFusion, "CLIP_SF"),
@@ -119,14 +105,10 @@ MODEL_REGISTRY = {
 
 class UniIREncoder(ABC):
     def __init__(self, model_name: str, device="cuda:0", l2_norm=False, **kwargs: Any):
-<<<<<<< HEAD
         config_path = importlib.resources.files('pyserini.encode.mbeir.uniir').joinpath('model_config.yaml')
         
         with config_path.open('r') as f:
             config_data = yaml.safe_load(f)
-=======
-        clip_vision_model = "ViT-L/14" if "large" in model_name else "ViT-B/32"
->>>>>>> d5c6ff6 (integrated uniir's encoding for pyserini)
 
         model_key = next((key for key in MODEL_REGISTRY if key in model_name), None)
         if not model_key:
@@ -134,7 +116,6 @@ class UniIREncoder(ABC):
 
         ModelClass, model_dir = MODEL_REGISTRY[model_key]
         if "clip" in model_name:
-<<<<<<< HEAD
             config = config_data["clip"]["large"] if "large" in model_name else config_data["clip"]["base"]
             config["device"] = device
         elif "blip" in model_name:
@@ -146,28 +127,6 @@ class UniIREncoder(ABC):
         else:
             raise ValueError(f"Unsupported model type for UniIR: {model_name}")
         model = ModelClass(**config)
-=======
-            model = ModelClass(model_name=clip_vision_model, device=device)
-        elif "blip" in model_name:
-            from pyserini.uniir import MED_CONFIG_PATH
-
-            config = SimpleNamespace()  
-            config.tokenizer_max_length = 100
-            config.alpha = 0.4
-            config.embed_dim = 768
-            config.image_size = 224
-
-            model = ModelClass(
-                med_config=MED_CONFIG_PATH,
-                vit="large" if "large" in model_name else "base",
-                vit_ckpt_layer=12 if "large" in model_name else 4,
-                queue_size=57960 if "large" in model_name else 57600,
-                vit_grad_ckpt=True,
-                config=config,
-            )
-        else:
-            raise ValueError(f"Unsupported model type for UniIR: {model_name}")
->>>>>>> d5c6ff6 (integrated uniir's encoding for pyserini)
 
         try:
             checkpoint_path = hf_hub_download(
@@ -206,22 +165,15 @@ class UniIRCorpusEncoder(UniIREncoder):
     def encode(
         self,
         dids: List[int],
-<<<<<<< HEAD
         img_paths: List[str],
         modalitys: List[str],
         txts: List[str],
-=======
-        img_paths: Optional[List[str]] = None,
-        modalitys: Optional[List[str]] = None,
-        txts: Optional[List[str]] = None,
->>>>>>> d5c6ff6 (integrated uniir's encoding for pyserini)
         **kwargs: Any,
     ):
         use_fp16 = kwargs.get("fp16", False)
 
         batch_len = len(dids)
         batch_info = {
-<<<<<<< HEAD
             "did": [hash_did(did) for did in dids],
             "img_path": img_paths,
             "modality": modalitys,
@@ -232,18 +184,16 @@ class UniIRCorpusEncoder(UniIREncoder):
             tokenizer=self.tokenizer, image_size=(224, 224)
         )
         dataloader = DataLoader(dataset, batch_size=batch_len, collate_fn=collator)
-=======
-            "did": dids,
-            "img_path": img_paths if img_paths else [None] * batch_len,
-            "modality": modalitys if modalitys else ["text"] * batch_len,
-            "txt": txts if txts else [""] * batch_len,
-        }
         dataloader = UniIRDatasetConverter(
             batch_info=batch_info,
             img_preprocess_fn=self.img_preprocess_fn,
             tokenizer=self.tokenizer,
         ).get_data()
->>>>>>> d5c6ff6 (integrated uniir's encoding for pyserini)
+        dataset = MBEIRCorpusDataset(batch_info, self.img_preprocess_fn)
+        collator = MBEIRCandidatePoolCollator(
+            tokenizer=self.tokenizer, image_size=(224, 224)
+        )
+        dataloader = DataLoader(dataset, batch_size=batch_len, collate_fn=collator)
 
         corpus_embeddings, _ = generate_embeds_and_ids_for_dataset_with_gather(  
             self.model,  
@@ -255,7 +205,6 @@ class UniIRCorpusEncoder(UniIREncoder):
         if self.l2_norm:
             corpus_embeddings = corpus_embeddings.astype('float32')
             faiss.normalize_L2(corpus_embeddings)
-<<<<<<< HEAD
             corpus_embeddings = corpus_embeddings.astype('float16') if use_fp16 else corpus_embeddings
 
         return corpus_embeddings
@@ -360,7 +309,3 @@ class UniIRQueryEncoder(UniIREncoder):
             query_embeddings = query_embeddings.astype('float16') if use_fp16 else query_embeddings
 
         return query_embeddings
-=======
-
-        return corpus_embeddings
->>>>>>> d5c6ff6 (integrated uniir's encoding for pyserini)
