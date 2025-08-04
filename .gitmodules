@@ -1,3 +1,6 @@
 [submodule "tools"]
 	path = tools
 	url = https://github.com/castorini/anserini-tools.git
+[submodule "pyserini/uniir/_uniir_vendor"]
+	path = pyserini/uniir/_uniir_vendor
+	url = https://github.com/TIGER-AI-Lab/UniIR
