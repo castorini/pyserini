@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+import yaml
+import importlib.resources
 from abc import ABC, abstractmethod
 from typing import Any, List, Optional
 from types import SimpleNamespace
@@ -40,7 +42,10 @@ MODEL_REGISTRY = {
 
 class UniIREncoder(ABC):
     def __init__(self, model_name: str, device="cuda:0", l2_norm=False, **kwargs: Any):
-        clip_vision_model = "ViT-L/14" if "large" in model_name else "ViT-B/32"
+        config_path = importlib.resources.files('pyserini.encode.mbeir.uniir').joinpath('model_config.yaml')
+        
+        with config_path.open('r') as f:
+            config_data = yaml.safe_load(f)
 
         model_key = next((key for key in MODEL_REGISTRY if key in model_name), None)
         if not model_key:
@@ -48,26 +53,15 @@ class UniIREncoder(ABC):
 
         ModelClass, model_dir = MODEL_REGISTRY[model_key]
         if "clip" in model_name:
-            model = ModelClass(model_name=clip_vision_model, device=device)
+            config = config_data["clip"]["large"] if "large" in model_name else config_data["clip"]["base"]
+            config["device"] = device
         elif "blip" in model_name:
-            from pyserini.uniir import MED_CONFIG_PATH
-
-            config = SimpleNamespace()  
-            config.tokenizer_max_length = 100
-            config.alpha = 0.4
-            config.embed_dim = 768
-            config.image_size = 224
-
-            model = ModelClass(
-                med_config=MED_CONFIG_PATH,
-                vit="large" if "large" in model_name else "base",
-                vit_ckpt_layer=12 if "large" in model_name else 4,
-                queue_size=57960 if "large" in model_name else 57600,
-                vit_grad_ckpt=True,
-                config=config,
-            )
+            config = config_data["blip"]["large"] if "large" in model_name else config_data["blip"]["base"]
+            config_obj = SimpleNamespace(**config["config"])
+            config["config"] = config_obj
         else:
             raise ValueError(f"Unsupported model type for UniIR: {model_name}")
+        model = ModelClass(**config)
 
         try:
             checkpoint_path = hf_hub_download(
