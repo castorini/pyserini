@@ -21,70 +21,13 @@ from types import SimpleNamespace
 import torch
 import faiss
 from huggingface_hub import hf_hub_download
-from PIL import Image
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import DataLoader
 
-from pyserini.uniir import (BLIPFeatureFusion, BLIPScoreFusion,
+from pyserini.mbeir.mbeir_dataset import MBEIRCorpusDataset
+from pyserini.mbeir.uniir import (BLIPFeatureFusion, BLIPScoreFusion,
                             CLIPFeatureFusion, CLIPScoreFusion,
                             MBEIRCandidatePoolCollator, generate_embeds_and_ids_for_dataset_with_gather,
                             format_string, hash_did)
-
-
-class CustomCorpusDataset(Dataset):
-    def __init__(self, batch_info, img_preprocess_fn, **kwargs):
-        data = []
-        num_records = len(batch_info["did"])
-        for i in range(num_records):
-            record = {
-                "did": batch_info["did"][i],
-                "img_path": batch_info["img_path"][i],
-                "modality": batch_info["modality"][i],
-                "txt": batch_info["txt"][i],
-            }
-            data.append(record)
-        self.data = data
-        self.img_preprocess_fn = img_preprocess_fn
-        self.kwargs = kwargs
-
-    def __len__(self):
-        return len(self.data)
-
-    def __getitem__(self, idx):
-        entry = self.data[idx]
-        img_path = entry.get("img_path", None)
-        if not img_path:
-            img = None
-        else:
-            img = Image.open(img_path).convert("RGB")
-            img = self.img_preprocess_fn(img)
-
-        did = entry.get("did", None)
-        did = hash_did(did)
-        cand_txt = entry.get("txt", "")
-        cand_txt = format_string(cand_txt)
-        cand_modality = entry.get("modality", None)
-
-        instance = {
-            "did": did,
-            "txt": cand_txt,
-            "img": img,
-            "modality": cand_modality,
-        }
-
-        return instance
-
-
-class UniIRDatasetConverter:
-    def __init__(self, batch_info, img_preprocess_fn, tokenizer, **kwargs):
-        dataset = CustomCorpusDataset(batch_info, img_preprocess_fn, **kwargs)
-        batch_size = len(batch_info["img_path"])
-        collator = MBEIRCandidatePoolCollator(
-            tokenizer=tokenizer, image_size=(224, 224)
-        )
-        self.data = DataLoader(dataset, batch_size=batch_size, collate_fn=collator)
-
-    def get_data(self):
-        return self.data
 
 
 MODEL_REGISTRY = {
@@ -172,16 +115,16 @@ class UniIRCorpusEncoder(UniIREncoder):
 
         batch_len = len(dids)
         batch_info = {
-            "did": dids,
+            "did": [hash_did(did) for did in dids],
             "img_path": img_paths if img_paths else [None] * batch_len,
             "modality": modalitys if modalitys else ["text"] * batch_len,
-            "txt": txts if txts else [""] * batch_len,
+            "txt": [format_string(txt) for txt in txts] if txts else [""] * batch_len,
         }
-        dataloader = UniIRDatasetConverter(
-            batch_info=batch_info,
-            img_preprocess_fn=self.img_preprocess_fn,
-            tokenizer=self.tokenizer,
-        ).get_data()
+        dataset = MBEIRCorpusDataset(batch_info, self.img_preprocess_fn)
+        collator = MBEIRCandidatePoolCollator(
+            tokenizer=self.tokenizer, image_size=(224, 224)
+        )
+        dataloader = DataLoader(dataset, batch_size=batch_len, collate_fn=collator)
 
         corpus_embeddings, _ = generate_embeds_and_ids_for_dataset_with_gather(  
             self.model,  
