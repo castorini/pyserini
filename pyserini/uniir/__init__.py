@@ -1,0 +1,48 @@
+import importlib.util
+from pathlib import Path
+
+# Path to submodule
+_vendor_path = Path(__file__).parent / "_uniir_vendor" / "src"
+MED_CONFIG_PATH = str(_vendor_path / "models" / "uniir_blip" / "backbone" / "configs" / "med_config.json")
+
+# Dynamically load modules
+def _load_module(name, rel_path):
+    module_path = _vendor_path / rel_path
+    module_parent = str(module_path.parent)
+
+    import sys
+    sys.path.insert(0, str(_vendor_path))
+    sys.path.insert(0, module_parent)
+
+    try:    
+        spec = importlib.util.spec_from_file_location(
+            f"pyserini.uniir._vendor.{name}",
+            module_path
+        )
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[spec.name] = module
+        spec.loader.exec_module(module)
+
+        return module
+    finally:
+        sys.path.remove(module_parent)
+        sys.path.remove(str(_vendor_path))
+
+mbeir = _load_module("mbeir", "data/mbeir_dataset.py")
+MBEIRCandidatePoolCollator = mbeir.MBEIRCandidatePoolCollator
+
+clip_sf_model = _load_module("clip_sf_model", "models/uniir_clip/clip_scorefusion/clip_sf.py")
+CLIPScoreFusion = clip_sf_model.CLIPScoreFusion
+clip_ff_model = _load_module("clip_ff_model", "models/uniir_clip/clip_featurefusion/clip_ff.py")
+CLIPFeatureFusion = clip_ff_model.CLIPFeatureFusion
+blip_sf_model = _load_module("blip_sf_model", "models/uniir_blip/blip_scorefusion/blip_sf.py")
+BLIPScoreFusion = blip_sf_model.BLIPScoreFusion
+blip_ff_model = _load_module("blip_ff_model", "models/uniir_blip/blip_featurefusion/blip_ff.py")
+BLIPFeatureFusion = blip_ff_model.BLIPFeatureFusion
+
+utils = _load_module("utils", "data/preprocessing/utils.py")
+format_string = utils.format_string
+hash_did = utils.hash_did
+
+embedder = _load_module("embedder", "common/mbeir_embedder.py")
+generate_embeds_and_ids_for_dataset_with_gather = embedder.generate_embeds_and_ids_for_dataset_with_gather
