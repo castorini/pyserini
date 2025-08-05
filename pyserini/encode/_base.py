@@ -130,7 +130,6 @@ class JsonlCollectionIterator:
         if all([field in info for field in self.fields]):
             return [info[field].strip() if info[field] else None for field in self.fields]
 
-        # Only check contents if all fields are None
         assert "contents" in info, f"contents not found in info: {info}"
         contents = info['contents']
         # whether to remove the final self.delimiter (especially \n)
