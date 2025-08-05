@@ -14,7 +14,9 @@
 # limitations under the License.
 #
 
+import json
 import yaml
+import random
 import importlib.resources
 from abc import ABC, abstractmethod
 from typing import Any, List
@@ -23,13 +25,15 @@ from importlib.resources import files
 
 import torch
 import faiss
+import pandas as pd
 from torch.utils.data import DataLoader
-
-from pyserini.encode.mbeir.mbeir_dataset import MBEIRCorpusDataset
+from huggingface_hub import hf_hub_download
+from pyserini.encode.mbeir.mbeir_dataset import MBEIRCorpusDataset, MBEIRQueryDataset
 from pyserini.encode.mbeir.uniir import (BLIPFeatureFusion, BLIPScoreFusion,
                             CLIPFeatureFusion, CLIPScoreFusion,
-                            MBEIRCandidatePoolCollator, generate_embeds_and_ids_for_dataset_with_gather,
-                            format_string, hash_did)
+                            MBEIRCandidatePoolCollator, MBEIRInferenceOnlyCollator,
+                            generate_embeds_and_ids_for_dataset_with_gather,
+                            format_string, hash_did, hash_qid)
 
 
 MODEL_REGISTRY = {
@@ -137,51 +141,6 @@ class UniIRCorpusEncoder(UniIREncoder):
         return corpus_embeddings
 
 
-class CustomQueryDataset(Dataset):
-    def __init__(self, query_info, img_preprocess_fn, **kwargs):
-        self.query_info = query_info
-        self.img_preprocess_fn = img_preprocess_fn
-        self.kwargs = kwargs
-
-    def __len__(self):
-        return len(self.query_info)
-
-    def __getitem__(self, idx):
-        entry = self.query_info[idx]
-
-        query_img_path = entry.get("query_img_path", None)
-        if not query_img_path:
-            img = None
-        else:
-            img = Image.open(query_img_path).convert("RGB")
-            img = self.img_preprocess_fn(img)
-
-        query_txt = entry.get("query_txt", "")
-        query_txt = format_string(query_txt)
-
-        query = {"txt": query_txt, "img": img}
-
-        instance = {"query": query}
-
-        qid = entry.get("qid", None)
-        if qid:
-            instance.update({"qid": hash_qid(qid)})
-
-        return instance
-
-
-class UniIRQueryConverter:
-    def __init__(self, query_info, img_preprocess_fn, tokenizer, **kwargs):
-        dataset = CustomQueryDataset(query_info, img_preprocess_fn, **kwargs)
-        collator = MBEIRInferenceOnlyCollator(
-            tokenizer=tokenizer, image_size=(224, 224)
-        )
-        self.data = DataLoader(dataset, batch_size=1, collate_fn=collator)
-
-    def get_data(self):
-        return self.data
-
-
 class UniIRQueryEncoder(UniIREncoder):
     def __init__(
         self,
@@ -270,25 +229,25 @@ class UniIRQueryEncoder(UniIREncoder):
                 query_txt = f"{prompt} {query_txt}" if query_txt else prompt
 
         query_info = [{
-            "qid": qid,
-            "query_txt": query_txt,
+            "qid": hash_qid(qid),
+            "query_txt": format_string(query_txt) if query_txt else "",
             "query_img_path": query_img_path if query_img_path else None,
             "query_modality": query_modality,
             "candidate_modality": cand_modality,
         }]
 
-        dataloader = UniIRQueryConverter(
-            query_info=query_info,
-            img_preprocess_fn=self.img_preprocess_fn,
-            tokenizer=self.tokenizer,
-        ).get_data()
-
-        query_embeddings, _ = generate_embeds_and_ids_for_dataset_with_gather(
-            self.model,  
-            dataloader,
-            device=self.device,
-            use_fp16=use_fp16,
+        dataset = MBEIRQueryDataset(query_info, self.img_preprocess_fn)
+        collator = MBEIRInferenceOnlyCollator(
+            tokenizer=self.tokenizer, image_size=(224, 224)
         )
+        dataloader = DataLoader(dataset, batch_size=1, collate_fn=collator)
+
+        query_embeddings, _ = generate_embeds_and_ids_for_dataset_with_gather(  
+            self.model,  
+            dataloader,  
+            device=self.device,  
+            use_fp16=use_fp16,  
+        )  
 
         if self.l2_norm:
             query_embeddings = query_embeddings.astype('float32')

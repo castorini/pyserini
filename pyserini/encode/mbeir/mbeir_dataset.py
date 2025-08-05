@@ -56,3 +56,35 @@ class MBEIRCorpusDataset(Dataset):
             "modality": entry["modality"],
         }
         return instance
+
+
+class MBEIRQueryDataset(Dataset):
+    def __init__(self, query_info, img_preprocess_fn, **kwargs):
+        self.query_info = query_info
+        self.img_preprocess_fn = img_preprocess_fn
+        self.kwargs = kwargs
+
+    def __len__(self):
+        return len(self.query_info)
+
+    def __getitem__(self, idx):
+        entry = self.query_info[idx]
+
+        query_img_path = entry.get("query_img_path", None)
+        if not query_img_path:
+            img = None
+        else:
+            img = Image.open(query_img_path).convert("RGB")
+            img = self.img_preprocess_fn(img)
+
+        query_txt = entry.get("query_txt", "")
+
+        query = {"txt": query_txt, "img": img}
+
+        instance = {"query": query}
+
+        qid = entry.get("qid", None)
+        if qid:
+            instance.update({"qid": qid})
+
+        return instance
