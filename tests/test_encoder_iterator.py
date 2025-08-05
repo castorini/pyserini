@@ -159,6 +159,21 @@ class TestJsonlCollectionIterator(unittest.TestCase):
             self.assertEqual(expected_info[1], info['title'][0])
             self.assertEqual(expected_info[2], info['text'][0])
 
+    def test_path_loading(self):
+        corpus_path = 'tests/resources/simple_mixed_modality_corpus.json'
+        all_expected_info = [
+            ('tests/resources/mbeir_images/cirr_images/train/49/train-1287-0-img0.jpg', 'image', '8:1'),
+            (None, 'image', '8:2'),
+            ('tests/resources/mbeir_images/cirr_images/train/97/train-10958-1-img1.jpg', 'image', '8:3'),
+        ]
+        collection_iterator = JsonlCollectionIterator(corpus_path, ['img_path', 'modality', 'did'], docid_field='did')
+        for i, info in enumerate(collection_iterator):
+            expected_info = all_expected_info[i]
+
+            self.assertEqual(expected_info[0], info['img_path'][0])
+            self.assertEqual(expected_info[1], info['modality'][0])
+            self.assertEqual(expected_info[2], info['did'][0])
+
 
 if __name__ == '__main__':
     unittest.main()

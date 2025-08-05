@@ -1,0 +1,3 @@
+{"img_path": "mbeir_images/cirr_images/train/49/train-1287-0-img0.jpg", "modality": "image", "did": "8:1", "src_content": "{\"id\": \"train-1287-0-img0\"}", "txt": null}
+{"img_path": null, "modality": "image", "did": "8:2", "src_content": "{\"id\": \"train-224-1-img1\"}", "txt": "test"}
+{"img_path": "mbeir_images/cirr_images/train/97/train-10958-1-img1.jpg", "modality": "image", "did": "8:3", "src_content": "{\"id\": \"train-10958-1-img1\"}", "txt": null}
