@@ -128,7 +128,7 @@ class JsonlCollectionIterator:
 
         # if all fields are under the key of info, read these rather than 'contents' 
         if all([field in info for field in self.fields]):
-            return [info[field].strip() for field in self.fields]
+            return [info[field].strip() if info[field] else None for field in self.fields]
 
         assert "contents" in info, f"contents not found in info: {info}"
         contents = info['contents']
