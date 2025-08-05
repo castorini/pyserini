@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+import json
 import yaml
 import random
 import importlib.resources
