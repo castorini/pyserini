@@ -174,7 +174,7 @@ class JsonlCollectionIterator:
                     for i in range(len(fields_info)):
                         if 'path' in self.fields[i]:
                             _info = fields_info[i]
-                            if not _info.startswith(("http://", "https://")):
+                            if _info is not None and not _info.startswith(("http://", "https://")):
                                 fields_info[i] = os.path.join(self.collection_dir, fields_info[i])
                         all_info[self.fields[i]].append(fields_info[i])
         return all_info
@@ -207,7 +207,7 @@ class JsonlRepresentationWriter(RepresentationWriter):
 
     def write(self, batch_info, fields=None):
         for i in range(len(batch_info['id'])):
-            contents = "\n".join([batch_info[key][i] for key in fields])
+            contents = "\n".join([batch_info[key][i] if batch_info[key][i] is not None else "" for key in fields])
             vector = batch_info['vector'][i]
             vector = vector.tolist() if isinstance(vector, np.ndarray) else vector
             self.file.write(json.dumps({'id': batch_info['id'][i],
