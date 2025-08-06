@@ -17,7 +17,7 @@
 import yaml
 import importlib.resources
 from abc import ABC, abstractmethod
-from typing import Any, List, Optional
+from typing import Any, List
 from types import SimpleNamespace
 
 import torch
@@ -100,9 +100,9 @@ class UniIRCorpusEncoder(UniIREncoder):
     def encode(
         self,
         dids: List[int],
-        img_paths: Optional[List[str]] = None,
-        modalitys: Optional[List[str]] = None,
-        txts: Optional[List[str]] = None,
+        img_paths: List[str],
+        modalitys: List[str],
+        txts: List[str],
         **kwargs: Any,
     ):
         use_fp16 = kwargs.get("fp16", False)
@@ -110,9 +110,9 @@ class UniIRCorpusEncoder(UniIREncoder):
         batch_len = len(dids)
         batch_info = {
             "did": [hash_did(did) for did in dids],
-            "img_path": img_paths if img_paths else [None] * batch_len,
-            "modality": modalitys if modalitys else ["text"] * batch_len,
-            "txt": [format_string(txt) for txt in txts] if txts else [""] * batch_len,
+            "img_path": img_paths,
+            "modality": modalitys,
+            "txt": [format_string(txt) for txt in txts],
         }
         dataset = MBEIRCorpusDataset(batch_info, self.img_preprocess_fn)
         collator = MBEIRCandidatePoolCollator(
