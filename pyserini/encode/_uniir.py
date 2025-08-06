@@ -19,6 +19,7 @@ import importlib.resources
 from abc import ABC, abstractmethod
 from typing import Any, List
 from types import SimpleNamespace
+from importlib.resources import files
 
 import torch
 import faiss
@@ -58,7 +59,9 @@ class UniIREncoder(ABC):
         elif "blip" in model_name:
             config = config_data["blip"]["large"] if "large" in model_name else config_data["blip"]["base"]
             config_obj = SimpleNamespace(**config["config"])
+            blip_config = files('pyserini.encode.mbeir.uniir.blip_config').joinpath('med_config.json')
             config["config"] = config_obj
+            config["med_config"] = str(blip_config)
         else:
             raise ValueError(f"Unsupported model type for UniIR: {model_name}")
         model = ModelClass(**config)

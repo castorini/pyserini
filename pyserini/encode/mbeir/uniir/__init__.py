@@ -10,6 +10,14 @@ def _load_module(name, rel_path):
     module_path = _vendor_path / rel_path
     module_parent = str(module_path.parent)
 
+    if module_path.is_dir():
+        init_path = module_path / "__init__.py"
+        if not init_path.exists():
+            raise ImportError(f"Not a Python package: {module_path} (missing __init__.py)")
+        load_path = init_path
+    else:
+        load_path = module_path
+
     import sys
     sys.path.insert(0, str(_vendor_path))
     sys.path.insert(0, module_parent)
@@ -17,7 +25,7 @@ def _load_module(name, rel_path):
     try:    
         spec = importlib.util.spec_from_file_location(
             f"pyserini.uniir._vendor.{name}",
-            module_path
+            load_path,
         )
         module = importlib.util.module_from_spec(spec)
         sys.modules[spec.name] = module
@@ -46,3 +54,5 @@ hash_did = utils.hash_did
 
 embedder = _load_module("embedder", "common/mbeir_embedder.py")
 generate_embeds_and_ids_for_dataset_with_gather = embedder.generate_embeds_and_ids_for_dataset_with_gather
+
+config = _load_module("blip_config", "models/uniir_blip/backbone/configs")
