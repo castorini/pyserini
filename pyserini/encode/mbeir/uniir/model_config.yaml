@@ -6,7 +6,6 @@ clip:
     model_name: "ViT-L/14"
 
 # BLIP models
-# DO NOT modify the med_config path unless you are not running the encoding script at the pyserini root directory
 blip:
   base:
     vit: "base"
