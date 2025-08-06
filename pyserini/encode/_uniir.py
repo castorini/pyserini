@@ -59,7 +59,7 @@ class UniIREncoder(ABC):
         elif "blip" in model_name:
             config = config_data["blip"]["large"] if "large" in model_name else config_data["blip"]["base"]
             config_obj = SimpleNamespace(**config["config"])
-            blip_config = files('pyserini.encode.mbeir.uniir.blip_backbone') / 'configs' / 'med_config.json'
+            blip_config = files('pyserini.uniir._vendor.blip_backbone') / 'configs' / 'med_config.json'
             config["config"] = config_obj
             config["med_config"] = str(blip_config)
         else:
