@@ -112,6 +112,9 @@ git submodule update --init --recursive
 
 After, make sure you have installed all dependencies from UniIR.
 
+To configure CLIP and BLIP model configurations, simply edit the config file at `pyserini/encode/mbeir/uniir
+/model_config.yaml`
+
 ### Verifying the Installation
 
 By this point, Pyserini should have been installed.

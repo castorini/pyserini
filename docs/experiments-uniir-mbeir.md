@@ -26,8 +26,6 @@ python -m pyserini.encode \
   encoder --encoder clip_sf_large \
           --encoder-class uniir \
           --device cuda:1 \
-          --multimodal \
-          --l2-norm \
           --fields img_path modality txt did
 ```
 
@@ -55,7 +53,7 @@ python -m pyserini.search.faiss \
     --hits 1000
 ```
 
-If you want to use UniIR instructions, download it from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv)
+If you want to use UniIR with M-BEIR query instructions, download it from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv)
 Then, create a yaml file like this:
 ```yaml
 instruction_file: absolute/path/to/query_instructions.tsv
