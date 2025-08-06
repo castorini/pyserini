@@ -230,7 +230,7 @@ class UniIRQueryEncoder(UniIREncoder):
 
         query_info = [{
             "qid": hash_qid(qid),
-            "query_txt": format_string(query_txt) if query_txt else "",
+            "query_txt": format_string(query_txt),
             "query_img_path": query_img_path,
             "query_modality": query_modality,
             "candidate_modality": cand_modality,
