@@ -252,5 +252,6 @@ class UniIRQueryEncoder(UniIREncoder):
         if self.l2_norm:
             query_embeddings = query_embeddings.astype('float32')
             faiss.normalize_L2(query_embeddings)
+            query_embeddings = query_embeddings.astype('float16') if use_fp16 else query_embeddings
 
         return query_embeddings
