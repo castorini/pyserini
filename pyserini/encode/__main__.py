@@ -48,13 +48,13 @@ def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multi
     kwargs = dict(model_name=encoder, device=device)
     if _encoder_class == 'sentence-transformers' or 'sentence-transformers' in encoder:
         kwargs.update(dict(pooling='mean', l2_norm=True))
-    elif _encoder_class == 'contriever' or 'contriever' in encoder:
+    if _encoder_class == 'contriever' or 'contriever' in encoder:
         kwargs.update(dict(pooling='mean', l2_norm=False))
-    elif _encoder_class == 'auto':
+    if _encoder_class == 'auto':
         kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix))
-    elif _encoder_class == 'uniir':
+    if _encoder_class == 'uniir':
         kwargs.update(dict(l2_norm=True))
-    elif _encoder_class == 'clip' or 'clip' in encoder:
+    if _encoder_class == 'clip' or 'clip' in encoder:
         kwargs.update(dict(l2_norm=True, prefix=prefix, multimodal=multimodal))
     if _encoder_class == 'uniir':
         kwargs.update(dict(l2_norm=True))
