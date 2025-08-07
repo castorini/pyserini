@@ -154,6 +154,7 @@ class JsonlCollectionIterator:
             for filename in os.listdir(collection_path):
                 filenames.append(os.path.join(collection_path, filename))
 
+        # Added condition since some MBEIR datasets have missing fields
         strict = True
         if any("mbeir" in filename for filename in filenames):
             strict = False
@@ -214,7 +215,7 @@ class JsonlRepresentationWriter(RepresentationWriter):
 
     def write(self, batch_info, fields=None):
         for i in range(len(batch_info['id'])):
-            contents = "\n".join([batch_info[key][i] for key in fields])
+            contents = "\n".join([batch_info[key][i] if batch_info[key][i] else "" for key in fields])
             vector = batch_info['vector'][i]
             vector = vector.tolist() if isinstance(vector, np.ndarray) else vector
             self.file.write(json.dumps({'id': batch_info['id'][i],

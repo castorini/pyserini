@@ -40,7 +40,7 @@ class MBEIRCorpusDataset(Dataset):
     def __getitem__(self, idx):
         entry = self.data[idx]
         img_path = entry.get("img_path", None)
-        if img_path is not None:
+        if img_path:
             try:
                 img = Image.open(img_path).convert("RGB")
                 img = self.img_preprocess_fn(img)
