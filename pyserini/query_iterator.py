@@ -194,10 +194,9 @@ class MBEIRQueryIterator(QueryIterator):
         self.topic_dir = topic_dir
 
     def get_query(self, id_):
-        """Extract qid, query_txt, query_img_path, query_modality, candidate_modality from M-BEIR query format"""
+        """Extract qid, query_txt, query_img_path, query_modality, pos_cand_list from M-BEIR query format"""
         topic = self.topics[id_]
 
-        # Extract the fields you want
         query_data = {
             'qid': topic.get('qid', id_),
             'query_txt': topic.get('query_txt', ''),
