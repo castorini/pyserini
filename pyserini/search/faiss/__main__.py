@@ -46,10 +46,11 @@ def define_dsearch_args(parser):
         help="Path to Faiss index or name of prebuilt index.",
     )
     parser.add_argument(
-        "--use-instructions",
-        action="store_true", default=False,
-        metavar="use the instruction config file for retriever models that require instructions like UniIR",
-        help="Use the instructions config file used for retriever models that require instructions like UniIR. File is located at pyserini/encode/mbeir/uniir/instruction_config.yaml",
+        "--instruction-config",
+        type=str,
+        metavar="path to the instruction config file used for retriever models that require instructions like UniIR",
+        required=False,
+        help="Path to the instructions config file used for retriever models that require instructions like UniIR",
     )
     parser.add_argument(
         "--encoder-class",
@@ -238,7 +239,7 @@ def init_query_encoder(
     l2_norm,
     prefix,
     multimodal=False,
-    use_instructions=False,
+    instruction_config=None,
 ):
     encoded_queries_map = {
         "msmarco-passage-dev-subset": "tct_colbert-msmarco-passage-dev-subset",
@@ -289,7 +290,7 @@ def init_query_encoder(
         if _encoder_class == "clip" or "clip" in encoder:
             kwargs.update(dict(l2_norm=True, prefix=prefix, multimodal=multimodal))
         if _encoder_class == "uniir":
-            kwargs.update(dict(l2_norm=True, use_instructions=use_instructions))
+            kwargs.update(dict(l2_norm=True, instruction_config=instruction_config))
 
         return encoder_class(**kwargs)
 
@@ -420,7 +421,7 @@ if __name__ == "__main__":
         args.l2_norm,
         args.query_prefix,
         args.multimodal,
-        args.use_instructions,
+        args.instruction_config,
     )
     if args.pca_model:
         query_encoder = PcaEncoder(query_encoder, args.pca_model)

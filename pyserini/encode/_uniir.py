@@ -147,11 +147,10 @@ class UniIRQueryEncoder(UniIREncoder):
         encoder_dir: str,
         device="cuda:0",
         l2_norm=False,
-        use_instructions=False,
+        instruction_config=None,
         **kwargs: Any,
     ):
-        if use_instructions:
-            instruction_config = importlib.resources.files('pyserini.encode.mbeir.uniir').joinpath('instruction_config.yaml')
+        if instruction_config:
             instructions, modality_info, randomize_instructions = (
                 self._load_instruction_config(instruction_config)
             )
@@ -170,7 +169,7 @@ class UniIRQueryEncoder(UniIREncoder):
             randomize_instructions = config.get("randomize_instructions", False)
             if not instruction_file or not corpus_file or not dataset_id:
                 raise ValueError(
-                    "Instruction file or corpus file not specified in the config."
+                    "Instruction file or corpus file not specified in the config. Please download the instruction file from https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv"
                 )
         except Exception as e:
             raise ValueError(f"Error loading instruction config: {e}")
@@ -188,7 +187,7 @@ class UniIRQueryEncoder(UniIREncoder):
 
             return instructions, modality_info, randomize_instructions
         except Exception as e:
-            raise ValueError(f"Error reading instruction or corpus file: {e}")
+            raise ValueError(f"Error reading instruction or corpus file: {e}. Please download the instruction file from https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv")
 
     def _get_instruction_prompt(self, q_modality, c_modality) -> str:
         instructions = self._instructions
