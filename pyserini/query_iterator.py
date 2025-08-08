@@ -218,8 +218,8 @@ class MBEIRQueryIterator(QueryIterator):
         with open(topics_path, 'r') as f:
             for line in f:
                 data = json.loads(line)
-                topic_id = data.get('qid')
                 try:
+                    topic_id = data['qid']
                     topics[topic_id] = data
                     order.append(topic_id)
                 except Exception as e:
