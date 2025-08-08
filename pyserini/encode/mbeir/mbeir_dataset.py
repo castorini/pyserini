@@ -81,6 +81,9 @@ class MBEIRQueryDataset(Dataset):
 
         query = {"txt": query_txt, "img": img, "qid": entry["qid"]}
 
-        instance = {"query": query}
+        instance = {  
+            "query": query,  
+            "qid": entry["qid"] 
+        }
 
         return instance
