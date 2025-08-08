@@ -219,9 +219,11 @@ class MBEIRQueryIterator(QueryIterator):
             for line in f:
                 data = json.loads(line)
                 topic_id = data.get('qid')
-                if topic_id:
+                try:
                     topics[topic_id] = data
                     order.append(topic_id)
+                except Exception as e:
+                    raise ValueError(f'Error processing topic with qid {topic_id}: {e}')
 
         if not topics:
             raise ValueError(f'No topics found in {topics_path}')

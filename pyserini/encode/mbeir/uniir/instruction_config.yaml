@@ -1,0 +1,4 @@
+instruction_file: # path to the instruction file
+corpus_file: # path to the corpus file
+dataset_id: # dataset id of the corpus
+random_instruction: False

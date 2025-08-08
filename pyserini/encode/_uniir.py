@@ -147,10 +147,11 @@ class UniIRQueryEncoder(UniIREncoder):
         encoder_dir: str,
         device="cuda:0",
         l2_norm=False,
-        instruction_config=None,
+        use_instructions=False,
         **kwargs: Any,
     ):
-        if instruction_config is not None:
+        if use_instructions:
+            instruction_config = importlib.resources.files('pyserini.encode.mbeir.uniir').joinpath('instruction_config.yaml')
             instructions, modality_info, randomize_instructions = (
                 self._load_instruction_config(instruction_config)
             )
