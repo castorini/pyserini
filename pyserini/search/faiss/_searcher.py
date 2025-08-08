@@ -110,7 +110,7 @@ class FaissSearcher:
 
         Parameters
         ----------
-        query : Union[str, np.ndarray]
+        query : Union[str, np.ndarray, dict]
             query text or query embeddings
         k : int
             Number of hits to return.
@@ -130,6 +130,8 @@ class FaissSearcher:
             emb_q = self.query_encoder.encode(query)
             assert len(emb_q) == self.dimension
             emb_q = emb_q.reshape((1, len(emb_q)))
+        elif isinstance(query, dict):
+            emb_q = self.query_encoder.encode(**query)
         else:
             emb_q = query
         faiss.omp_set_num_threads(threads)
