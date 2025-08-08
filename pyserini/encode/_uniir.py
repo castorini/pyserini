@@ -19,7 +19,7 @@ import yaml
 import random
 import importlib.resources
 from abc import ABC, abstractmethod
-from typing import Any, List
+from typing import Any, List, Optional
 from types import SimpleNamespace
 from importlib.resources import files
 
@@ -151,11 +151,10 @@ class UniIRQueryEncoder(UniIREncoder):
         **kwargs: Any,
     ):
         if instruction_config:
-            instructions, modality_info, randomize_instructions = (
+            instructions, randomize_instructions = (
                 self._load_instruction_config(instruction_config)
             )
             self._instructions = instructions
-            self._modality_info = modality_info
             self._randomize_instructions = randomize_instructions
         super().__init__(encoder_dir, device, l2_norm, **kwargs)
 
@@ -164,12 +163,15 @@ class UniIRQueryEncoder(UniIREncoder):
             with open(instruction_config, "r") as f:
                 config = yaml.safe_load(f)
             instruction_file = config.get("instruction_file", None)
-            corpus_file = config.get("corpus_file", None)
+            candidate_modality = config.get("candidate_modality", None)
             dataset_id = config.get("dataset_id", None)
             randomize_instructions = config.get("randomize_instructions", False)
-            if not instruction_file or not corpus_file or not dataset_id:
+
+            self._cand_modality = candidate_modality
+
+            if not instruction_file or not candidate_modality or not dataset_id:
                 raise ValueError(
-                    "Instruction file or corpus file not specified in the config. Please download the instruction file from https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv"
+                    "Instruction file, candidate_modality, or dataset_id is missing in the config. Please download the instruction file from https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv"
                 )
         except Exception as e:
             raise ValueError(f"Error loading instruction config: {e}")
@@ -179,28 +181,22 @@ class UniIRQueryEncoder(UniIREncoder):
             filtered = df[df["dataset_id"].astype(int) == int(dataset_id)]
             instructions = filtered.to_dict(orient="records")
 
-            modality_info = {}
-            with open(corpus_file, "r") as f:
-                for line in f:
-                    corpus = json.loads(line)
-                    modality_info[corpus["did"]] = corpus["modality"]
-
-            return instructions, modality_info, randomize_instructions
+            return instructions, randomize_instructions
         except Exception as e:
             raise ValueError(f"Error reading instruction or corpus file: {e}. Please download the instruction file from https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv")
 
-    def _get_instruction_prompt(self, q_modality, c_modality) -> str:
+    def _get_instruction_prompt(self, q_modality) -> Optional[str]:
         instructions = self._instructions
         for instruction in instructions:
             if (
                 instruction["query_modality"] == q_modality
-                and instruction["cand_modality"] == c_modality
+                and instruction["cand_modality"] == self._cand_modality
             ):
                 if self._randomize_instructions:
                     prompts = [
                         instruction[k] for k in instruction if k.startswith("prompt_")
                     ]
-                    return random.choice(prompts)
+                    return random.choice(prompts) if prompts else None
                 else:
                     return instruction["prompt_1"]
 
@@ -215,16 +211,8 @@ class UniIRQueryEncoder(UniIREncoder):
     ):
         use_fp16 = kwargs.get("fp16", False)
 
-        cand_modality = (
-            self._modality_info.get(pos_cand_list[0], "text")
-            if hasattr(self, "_modality_info")
-            else "text"
-        )
-
         if hasattr(self, "_instructions"):
-            prompt = self._get_instruction_prompt(
-                q_modality=query_modality, c_modality=cand_modality
-            )
+            prompt = self._get_instruction_prompt(q_modality=query_modality)
             if prompt is not None:
                 query_txt = f"{prompt} {query_txt}" if query_txt else prompt
 
@@ -233,7 +221,6 @@ class UniIRQueryEncoder(UniIREncoder):
             "query_txt": format_string(query_txt),
             "query_img_path": query_img_path,
             "query_modality": query_modality,
-            "candidate_modality": cand_modality,
         }]
 
         dataset = MBEIRQueryDataset(query_info, self.img_preprocess_fn)
