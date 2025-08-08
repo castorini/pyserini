@@ -502,17 +502,17 @@ if __name__ == "__main__":
     with output_writer:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(
+        for index, (topic_id, query_info) in enumerate(
             tqdm(query_iterator, total=len(topics.keys()))
         ):
             if args.batch_size <= 1 and args.threads <= 1:
                 if PRF_FLAG:
                     emb_q, prf_candidates = searcher.search(
-                        text, k=args.prf_depth, return_vector=True, **kwargs
+                        query_info, k=args.prf_depth, return_vector=True, **kwargs
                     )
                     # ANCE-PRF input is different, do not need query embeddings
                     if args.prf_method.lower() == "ance-prf":
-                        prf_emb_q = prfRule.get_prf_q_emb(text, prf_candidates)
+                        prf_emb_q = prfRule.get_prf_q_emb(query_info, prf_candidates)
                     else:
                         prf_emb_q = prfRule.get_prf_q_emb(emb_q[0], prf_candidates)
                         prf_emb_q = np.expand_dims(prf_emb_q, axis=0).astype("float32")
@@ -522,7 +522,7 @@ if __name__ == "__main__":
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
-                batch_topics.append(text)
+                batch_topics.append(query_info)
                 if (index + 1) % args.batch_size == 0 or index == len(
                     topics.keys()
                 ) - 1:
