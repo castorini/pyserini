@@ -70,6 +70,7 @@ def define_dsearch_args(parser):
             "openai-api",
             "cosdpr",
             "arctic",
+            "uniir",
         ],
         default=None,
         help="which query encoder class to use. `default` would infer from the args.encoder",
