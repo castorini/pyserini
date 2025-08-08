@@ -79,12 +79,8 @@ class MBEIRQueryDataset(Dataset):
 
         query_txt = entry.get("query_txt", "")
 
-        query = {"txt": query_txt, "img": img}
+        query = {"txt": query_txt, "img": img, "qid": entry["qid"]}
 
         instance = {"query": query}
-
-        qid = entry.get("qid", None)
-        if qid:
-            instance.update({"qid": qid})
 
         return instance

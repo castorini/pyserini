@@ -151,12 +151,12 @@ class UniIRQueryEncoder(UniIREncoder):
         **kwargs: Any,
     ):
         if instruction_config is not None:
-            instructions, modality_info, random_instruction = (
+            instructions, modality_info, randomize_instructions = (
                 self._load_instruction_config(instruction_config)
             )
             self._instructions = instructions
             self._modality_info = modality_info
-            self._random_instruction = random_instruction
+            self._randomize_instructions = randomize_instructions
         super().__init__(encoder_dir, device, l2_norm, **kwargs)
 
     def _load_instruction_config(self, instruction_config):
@@ -166,7 +166,7 @@ class UniIRQueryEncoder(UniIREncoder):
             instruction_file = config.get("instruction_file", None)
             corpus_file = config.get("corpus_file", None)
             dataset_id = config.get("dataset_id", None)
-            random_instruction = config.get("random_instruction", False)
+            randomize_instructions = config.get("randomize_instructions", False)
             if not instruction_file or not corpus_file or not dataset_id:
                 raise ValueError(
                     "Instruction file or corpus file not specified in the config."
@@ -185,7 +185,7 @@ class UniIRQueryEncoder(UniIREncoder):
                     corpus = json.loads(line)
                     modality_info[corpus["did"]] = corpus["modality"]
 
-            return instructions, modality_info, random_instruction
+            return instructions, modality_info, randomize_instructions
         except Exception as e:
             raise ValueError(f"Error reading instruction or corpus file: {e}")
 
@@ -196,7 +196,7 @@ class UniIRQueryEncoder(UniIREncoder):
                 instruction["query_modality"] == q_modality
                 and instruction["cand_modality"] == c_modality
             ):
-                if self._random_instruction:
+                if self._randomize_instructions:
                     prompts = [
                         instruction[k] for k in instruction if k.startswith("prompt_")
                     ]

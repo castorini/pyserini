@@ -110,7 +110,7 @@ class FaissSearcher:
 
         Parameters
         ----------
-        query : Union[str, np.ndarray]
+        query : Union[str, np.ndarray, dict]
             query text or query embeddings
         k : int
             Number of hits to return.
