@@ -151,10 +151,11 @@ class UniIRQueryEncoder(UniIREncoder):
         **kwargs: Any,
     ):
         if instruction_config:
-            instructions, randomize_instructions = (
+            instructions, candidate_modality, randomize_instructions = (
                 self._load_instruction_config(instruction_config)
             )
             self._instructions = instructions
+            self._cand_modality = candidate_modality
             self._randomize_instructions = randomize_instructions
         super().__init__(encoder_dir, device, l2_norm, **kwargs)
 
@@ -166,9 +167,6 @@ class UniIRQueryEncoder(UniIREncoder):
             candidate_modality = config.get("candidate_modality", None)
             dataset_id = config.get("dataset_id", None)
             randomize_instructions = config.get("randomize_instructions", False)
-
-            self._cand_modality = candidate_modality
-
             if not instruction_file or not candidate_modality or not dataset_id:
                 raise ValueError(
                     "Instruction file, candidate_modality, or dataset_id is missing in the config. Please download the instruction file from https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv"
@@ -181,7 +179,7 @@ class UniIRQueryEncoder(UniIREncoder):
             filtered = df[df["dataset_id"].astype(int) == int(dataset_id)]
             instructions = filtered.to_dict(orient="records")
 
-            return instructions, randomize_instructions
+            return instructions, candidate_modality, randomize_instructions
         except Exception as e:
             raise ValueError(f"Error reading instruction or corpus file: {e}. Please download the instruction file from https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv")
 
