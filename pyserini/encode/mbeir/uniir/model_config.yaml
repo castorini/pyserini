@@ -1,0 +1,29 @@
+# CLIP models
+clip:
+  base:
+    model_name: "ViT-B/32"
+  large:
+    model_name: "ViT-L/14"
+
+# BLIP models
+blip:
+  base:
+    vit: "base"
+    vit_ckpt_layer: 4
+    queue_size: 57600
+    vit_grad_ckpt: true
+    config:
+      tokenizer_max_length: 100
+      alpha: 0.4
+      embed_dim: 768
+      image_size: 224
+  large:
+    vit: "large"
+    vit_ckpt_layer: 12
+    queue_size: 57960
+    vit_grad_ckpt: true
+    config:
+      tokenizer_max_length: 100
+      alpha: 0.4
+      embed_dim: 768
+      image_size: 224
