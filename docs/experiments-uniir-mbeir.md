@@ -26,6 +26,8 @@ python -m pyserini.encode \
   encoder --encoder clip_sf_large \
           --encoder-class uniir \
           --device cuda:1 \
+          --fp16 \
+          --multimodal \
           --fields img_path modality txt did
 ```
 
@@ -38,7 +40,7 @@ python -m pyserini.index.faiss \
     --metric inner
 ```
 
-The above minimal index should be ~64 MB.
+The above index should be ~64 MB.
 
 Perform a run on the test queries without instructions:
 
@@ -50,6 +52,7 @@ python -m pyserini.search.faiss \
     --topics collections/m-beir/CIRR/topics_mbeir_cirr_task7_test.jsonl \
     --index indexes/faiss.mbeir-cirr.clipsf \
     --output runs/mbeir-cirr.no-instr.clipsf.txt \
+    --fp16 \
     --hits 1000
 ```
 
@@ -73,6 +76,7 @@ python -m pyserini.search.faiss \
     --index indexes/faiss.mbeir-cirr.clipsf \
     --output runs/mbeir-cirr.instr.clipsf.txt \
     --instruction-config path/to/instruction_config.yaml \
+    --fp16 \
     --hits 1000
 ```
 
@@ -88,7 +92,7 @@ _Without instructions_
 python -m pyserini.eval.trec_eval -c -m recall.5 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt runs/mbeir-cirr.no-instr.clipsf.txt
 
 Results:
-recall_5           	all	0.3876
+recall_5           	all	0.3879
 ```
 
 _With instructions_
