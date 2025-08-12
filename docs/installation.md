@@ -110,7 +110,7 @@ Or if you have already cloned it, you can update it with:
 git submodule update --init --recursive
 ```
 
-After, make sure you have installed all dependencies from UniIR.
+After, make sure you have installed all dependencies from UniIR. You can find a list of dependencies [here](https://github.com/TIGER-AI-Lab/UniIR/blob/main/src/common/faiss_env.yml).
 
 To configure CLIP and BLIP model configurations, simply edit the config file at `pyserini/encode/mbeir/uniir
 /model_config.yaml`
