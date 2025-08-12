@@ -14,7 +14,6 @@
 # limitations under the License.
 #
 
-import json
 import yaml
 import random
 import importlib.resources
@@ -23,7 +22,6 @@ from typing import Any, List, Optional
 from types import SimpleNamespace
 from importlib.resources import files
 
-import pandas as pd
 import torch
 import faiss
 import pandas as pd
@@ -37,66 +35,6 @@ from pyserini.encode.mbeir.uniir import (BLIPFeatureFusion, BLIPScoreFusion,
                             format_string, hash_did, hash_qid)
 
 
-class CustomCorpusDataset(Dataset):
-    def __init__(self, batch_info, img_preprocess_fn, **kwargs):
-        data = []
-        num_records = len(batch_info["did"])
-        for i in range(num_records):
-            record = {
-                "did": batch_info["did"][i],
-                "img_path": batch_info["img_path"][i],
-                "modality": batch_info["modality"][i],
-                "txt": batch_info["txt"][i],
-            }
-            data.append(record)
-        self.data = data
-        self.img_preprocess_fn = img_preprocess_fn
-        self.kwargs = kwargs
-
-    def __len__(self):
-        return len(self.data)
-
-    def __getitem__(self, idx):
-        entry = self.data[idx]
-        img_path = entry.get("img_path", None)
-        if not img_path:
-            img = None
-        else:
-            img = Image.open(img_path).convert("RGB")
-            img = self.img_preprocess_fn(img)
-
-        did = entry.get("did", None)
-        did = hash_did(did)
-        cand_txt = entry.get("txt", "")
-        cand_txt = format_string(cand_txt)
-        cand_modality = entry.get("modality", None)
-
-        instance = {
-            "did": did,
-            "txt": cand_txt,
-            "img": img,
-            "modality": cand_modality,
-        }
-
-        return instance
-
-
-class UniIRDatasetConverter:
-    def __init__(self, batch_info, img_preprocess_fn, tokenizer, **kwargs):
-        dataset = CustomCorpusDataset(batch_info, img_preprocess_fn, **kwargs)
-        batch_size = len(batch_info["img_path"])
-        collator = MBEIRCandidatePoolCollator(
-            tokenizer=tokenizer, image_size=(224, 224)
-        )
-        self.data = DataLoader(dataset, batch_size=batch_size, collate_fn=collator)
-
-    def get_data(self):
-        return self.data
->>>>>>> d5c6ff6 (integrated uniir's encoding for pyserini)
-
-
-=======
->>>>>>> 618cf4e (decoupled MBEIRCorpusDataset)
 MODEL_REGISTRY = {
     "clip_ff": (CLIPFeatureFusion, "CLIP_FF"),
     "clip_sf": (CLIPScoreFusion, "CLIP_SF"),
@@ -181,16 +119,6 @@ class UniIRCorpusEncoder(UniIREncoder):
             "modality": modalitys,
             "txt": [format_string(txt) for txt in txts],
         }
-        dataset = MBEIRCorpusDataset(batch_info, self.img_preprocess_fn)
-        collator = MBEIRCandidatePoolCollator(
-            tokenizer=self.tokenizer, image_size=(224, 224)
-        )
-        dataloader = DataLoader(dataset, batch_size=batch_len, collate_fn=collator)
-        dataloader = UniIRDatasetConverter(
-            batch_info=batch_info,
-            img_preprocess_fn=self.img_preprocess_fn,
-            tokenizer=self.tokenizer,
-        ).get_data()
         dataset = MBEIRCorpusDataset(batch_info, self.img_preprocess_fn)
         collator = MBEIRCandidatePoolCollator(
             tokenizer=self.tokenizer, image_size=(224, 224)

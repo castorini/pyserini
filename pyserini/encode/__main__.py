@@ -52,8 +52,6 @@ def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multi
         kwargs.update(dict(pooling='mean', l2_norm=False))
     if _encoder_class == 'auto':
         kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix))
-    if _encoder_class == 'uniir':
-        kwargs.update(dict(l2_norm=True))
     if _encoder_class == 'clip' or 'clip' in encoder:
         kwargs.update(dict(l2_norm=True, prefix=prefix, multimodal=multimodal))
     if _encoder_class == 'uniir':
@@ -121,7 +119,6 @@ if __name__ == '__main__':
     encoder_parser.add_argument('--prefix', type=str, help='prefix of document input', default=None, required=False)
     encoder_parser.add_argument('--use-openai', help='use OpenAI text-embedding-ada-002 to retreive embeddings', action='store_true', default=False)
     encoder_parser.add_argument('--rate-limit', type=int, help='rate limit of the requests per minute for OpenAI embeddings', default=3500, required=False)
-    encoder_parser.add_argument('--src-content', action='store_true', default=False, help='whether to use the source content as the input for encoding. This is a UniIR specific option')
 
     args = parse_args(parser, commands)
     delimiter = args.input.delimiter.replace("\\n", "\n")  # argparse would add \ prior to the passed '\n\n'
