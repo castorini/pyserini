@@ -398,7 +398,13 @@ if __name__ == "__main__":
         default=1,
         help="maximum threads to use during search",
     )
-    parser.add_argument('--fp16', action='store_true', default=False)
+    # This is used for UniIR encoder models
+    parser.add_argument(
+        "--fp16", 
+        action="store_true", 
+        default=False,
+        help="use fp16 for query embeddings"
+    )
     # For some test collections, a query is doc from the corpus (e.g., arguana in BEIR).
     # We want to remove the query from the results. This is equivalent to -removeQuery in Java.
     parser.add_argument(
