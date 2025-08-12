@@ -46,6 +46,13 @@ def define_dsearch_args(parser):
         help="Path to Faiss index or name of prebuilt index.",
     )
     parser.add_argument(
+        "--instruction-config",
+        type=str,
+        metavar="path to the instruction config file used for retriever models that require instructions like UniIR",
+        required=False,
+        help="Path to the instructions config file used for retriever models that require instructions like UniIR",
+    )
+    parser.add_argument(
         "--encoder-class",
         type=str,
         metavar="which query encoder class to use. `default` would infer from the args.encoder",
@@ -63,6 +70,7 @@ def define_dsearch_args(parser):
             "openai-api",
             "cosdpr",
             "arctic",
+            "uniir",
         ],
         default=None,
         help="which query encoder class to use. `default` would infer from the args.encoder",
@@ -232,6 +240,7 @@ def init_query_encoder(
     l2_norm,
     prefix,
     multimodal=False,
+    instruction_config=None,
 ):
     encoded_queries_map = {
         "msmarco-passage-dev-subset": "tct_colbert-msmarco-passage-dev-subset",
@@ -281,6 +290,9 @@ def init_query_encoder(
             kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix))
         if _encoder_class == "clip" or "clip" in encoder:
             kwargs.update(dict(l2_norm=True, prefix=prefix, multimodal=multimodal))
+        if _encoder_class == "uniir":
+            kwargs.update(dict(l2_norm=True, instruction_config=instruction_config))
+
         return encoder_class(**kwargs)
 
     if encoded_queries:
@@ -410,6 +422,7 @@ if __name__ == "__main__":
         args.l2_norm,
         args.query_prefix,
         args.multimodal,
+        args.instruction_config,
     )
     if args.pca_model:
         query_encoder = PcaEncoder(query_encoder, args.pca_model)
@@ -490,27 +503,27 @@ if __name__ == "__main__":
     with output_writer:
         batch_topics = list()
         batch_topic_ids = list()
-        for index, (topic_id, text) in enumerate(
+        for index, (topic_id, query_info) in enumerate(
             tqdm(query_iterator, total=len(topics.keys()))
         ):
             if args.batch_size <= 1 and args.threads <= 1:
                 if PRF_FLAG:
                     emb_q, prf_candidates = searcher.search(
-                        text, k=args.prf_depth, return_vector=True, **kwargs
+                        query_info, k=args.prf_depth, return_vector=True, **kwargs
                     )
                     # ANCE-PRF input is different, do not need query embeddings
                     if args.prf_method.lower() == "ance-prf":
-                        prf_emb_q = prfRule.get_prf_q_emb(text, prf_candidates)
+                        prf_emb_q = prfRule.get_prf_q_emb(query_info, prf_candidates)
                     else:
                         prf_emb_q = prfRule.get_prf_q_emb(emb_q[0], prf_candidates)
                         prf_emb_q = np.expand_dims(prf_emb_q, axis=0).astype("float32")
                     hits = searcher.search(prf_emb_q, k=args.hits, **kwargs)
                 else:
-                    hits = searcher.search(text, args.hits, **kwargs)
+                    hits = searcher.search(query_info, args.hits, **kwargs)
                 results = [(topic_id, hits)]
             else:
                 batch_topic_ids.append(str(topic_id))
-                batch_topics.append(text)
+                batch_topics.append(query_info)
                 if (index + 1) % args.batch_size == 0 or index == len(
                     topics.keys()
                 ) - 1:
