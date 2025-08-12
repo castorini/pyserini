@@ -57,7 +57,7 @@ If you want to use UniIR with M-BEIR query instructions, download it from [here]
 Then, create a yaml file like this:
 ```yaml
 instruction_file: absolute/path/to/query_instructions.tsv
-corpus_file: absolute/path/to/mbeir_cirr_task7_cand_pool.jsonl
+candidate_modality: image
 dataset_id: 8 # the id for CIRR is 8
 random_instruction: False # set to true if you want to use a random instruction for each query
 ```
