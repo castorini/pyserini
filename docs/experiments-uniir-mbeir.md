@@ -62,7 +62,7 @@ Then, create a yaml file like this:
 instruction_file: absolute/path/to/query_instructions.tsv
 candidate_modality: image
 dataset_id: 8 # the id for CIRR is 8
-random_instruction: False # set to true if you want to use a random instruction for each query
+randomize_instructions: False # set to true if you want to use a random instruction for each query
 ```
 
 Then, run the following command:
