@@ -23,15 +23,18 @@ Initialized with prebuilt index msmarco-v1-passage.
         
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
+import os
 from typing import Any
 
-from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher, LuceneImpactSearcher
-from pyserini.search.faiss import FaissSearcher
+from pyserini.eval.trec_eval import trec_eval
 from pyserini.encode import AutoQueryEncoder
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
+from pyserini.search import get_qrels, get_qrels_file
+from pyserini.search.faiss import FaissSearcher, DenseSearchResult
+from pyserini.search.hybrid import HybridSearcher
+from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher, LuceneImpactSearcher
+from pyserini.server.models import IndexConfig, INDEX_TYPE, SHARDS, EVAL_METRICS
 from pyserini.util import check_downloaded
-
-from pyserini.server.models import IndexConfig, INDEX_TYPE, SHARDS
 
 DEFAULT_INDEX = 'msmarco-v1-passage'
 
@@ -136,6 +139,38 @@ class SearchController:
 
         return results
     
+    def fuse(
+        self,
+        hits1: list[DenseSearchResult],
+        hits2: list[DenseSearchResult],
+        k: int = 10
+    ) -> list[DenseSearchResult]:
+        return HybridSearcher._hybrid_results(hits1, hits2, 1, k, True)
+    
+    def eval_hits(
+        self,
+        index_name: str,
+        metric: str,
+        query_id,
+        hits: dict[str, float],
+        cutoff: int = 10
+    ) -> float:
+        hits = sorted(hits.items(), key=lambda item: item[1], reverse=True)
+        temp_file = f"{index_name}-{metric}-{cutoff}-{query_id}.txt"
+        with open(temp_file, "w") as f:
+            for rank, doc in enumerate(hits, start=1):
+                f.write(f"{query_id} Q0 {doc[0]} {rank} {doc[1]} mcp\n")
+        args = EVAL_METRICS[metric]
+        if metric == "ndcg" or metric == "recall":
+            args[-1] += f".{cutoff}"
+        else:
+            args.insert(3, f"{cutoff}")
+        args.append(get_qrels_file(index_name))
+        args.append(temp_file)
+        res = trec_eval(args)
+        os.remove(temp_file)
+        return res
+    
     # TODO: make this not default to sharded search for msmarco-v2.1-doc-artic-embed-l
     def sharded_search( 
         self,
@@ -184,11 +219,7 @@ class SearchController:
             raise ValueError(f'Document {docid} not found in index {index_name}')
 
         doc = json.loads(doc.raw())
-        raw = doc.get('contents') or doc.get('text') or doc.get('segment') or ""
-        return {
-            'docid': docid,
-            'text': raw,
-        }
+        return doc
 
     def get_status(self, index_name: str) -> dict[str, Any]:
         status = {}
@@ -200,6 +231,10 @@ class SearchController:
         if status.get('size_bytes') is None:
             status['size_bytes'] = "Not available"
         return status
+    
+    def get_query_qrels(self, index_name: str, query_id: str) -> dict[str, str]:
+        qrels = get_qrels(index_name)
+        return qrels.get(query_id)
 
     def update_settings(
         self,

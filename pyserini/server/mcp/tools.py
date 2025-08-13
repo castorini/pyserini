@@ -22,15 +22,15 @@ Register tools for the MCP server.
 from typing import Any
 
 from fastmcp import FastMCP
-from pyserini.server.search_controller import SearchController
-from pyserini.server.models import INDEX_TYPE
+from pyserini.server.search_controller import SearchController, DenseSearchResult
+from pyserini.server.models import INDEX_TYPE, EVAL_METRICS
 
 def register_tools(mcp: FastMCP, controller: SearchController):
     """Register all tools with the MCP server."""
 
     @mcp.tool(
         name='search',
-        description='Perform a BM25 search on a given index. Returns top‑k hits with docid, score, and snippet.',
+        description='Perform search on a given index. Returns top‑k hits with docid, score, and snippet.',
     )
     def search(
         query: str,
@@ -99,3 +99,67 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             Dictionary with index information.
         """
         return controller.get_status(index_name)  
+    
+    @mcp.tool(
+        name="fuse_search_results",
+        description="Performs normalization fusion on search results to improve ranking."
+    )
+    def fuse_search_results(
+        hits1: list[DenseSearchResult], 
+        hits2: list[DenseSearchResult], 
+        k: int = 10
+    ) -> list[DenseSearchResult]:
+        """
+        Performs normalization fusion on search results to improve ranking.
+
+        Args:
+            hits1: First list of search results to merge with docid and score
+            hits2: Second list of search results to merge with docid and score
+            k: Number of results to return (default: 10)
+
+        Returns:
+            Dictionary with index information.
+        """
+        return controller.fuse(hits1, hits2, k)
+    
+    @mcp.tool(
+        name="get_qrels",
+        description="Returns relevant judgements for a given index and query."
+    )
+    def get_qrels(
+        index_name: str,
+        query_id: str
+    ) -> dict[str, str]:
+        """
+        Returns relevant judgements for a given index and query.
+
+        Args:
+            index_name: Name of the index to get relevant judgements for
+            query_id: Query ID to to get relevant judgements for
+        """
+        return controller.get_query_qrels(index_name, query_id)
+    
+    @mcp.tool(
+        name="eval_hits",
+        description="Evaluates search results with given metric and cutoff."
+    )
+    def eval_hits(
+        index_name: str,
+        metric: str,
+        query_id: str,
+        hits: dict[str, float],
+        cutoff: int = 10
+    ) -> float:
+        f"""
+        Evaluates search results with given metric and cutoff.
+
+        Args:
+            index_name: Name of the index the search results are from
+            metric: Evaluation metric out of {EVAL_METRICS.keys()}
+            query_id: Query ID to evaluate search results for
+            hits: Search results to evaluate in the format of {{docid: score}}
+            cutoff: Number of top results to evaluate (default: 10)
+        """
+        if not metric in EVAL_METRICS.keys():
+            raise ValueError(f"{metric} is not a valid evaluation metric! Must be one of {EVAL_METRICS.keys()}")
+        return controller.eval_hits(index_name, metric, query_id, hits, cutoff)
