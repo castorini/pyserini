@@ -22,7 +22,7 @@ python -m pyserini.encode \
 
 python -m pyserini.index.faiss \
     --input encode/m-beir-{dataset}.clipsf \
-    --output indexes/m-beir-{dataset}.clip-sf-large.20250813.a9ec58 \
+    --output indexes/faiss-flat.m-beir-{dataset}.clip-sf-large.20250813.a9ec58 \
     --metric inner
 ```
 
@@ -42,7 +42,7 @@ python -m pyserini.encode \
 
 python -m pyserini.index.faiss \
     --input encode/m-beir-{dataset}.blipff \
-    --output indexes/m-beir-{dataset}.blip-ff-large.20250813.a9ec58 \
+    --output indexes/faiss-flat.m-beir-{dataset}.blip-ff-large.20250813.a9ec58 \
     --metric inner
 ```
 
