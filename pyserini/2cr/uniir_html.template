@@ -243,10 +243,10 @@ Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.<
 <p>Finally, to generate this page:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.uniir --generate-report --output uniir.html
+python -m pyserini.2cr.uniir --generate-report --output m-beir.html
 </tt></blockquote>
 
-<p>The output file <tt>msmarco-v1-passage.html</tt> should be identical to this page.</p>
+<p>The output file <tt>m-beir.html</tt> should be identical to this page.</p>
 
 <div style="padding-top: 50px"/>
 
