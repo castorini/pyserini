@@ -143,12 +143,6 @@ pre[class*="prettyprint"] {
 <p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.
 Instructions for programmatic execution are shown at the bottom of this page (scroll down).</p>
 
-<div class="alert alert-info" role="alert">  
-  <h5><i class="fas fa-info-circle"></i>Metric Definitions</h5>  
-  <p><strong>For most datasets:</strong> Metric 1 = R@1, Metric 2 = R@5, Metric 3 = R@10</p>  
-  <p><strong>For fashion datasets</strong> (fashion200k_task0, fashion200k_task3, fashioniq_task7): Metric 1 = R@10, Metric 2 = R@20, Metric 3 = R@50</p>  
-</div>
-
 <div class="table-responsive">  
   <table class="table">  
     <thead>  
@@ -181,6 +175,28 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 $rows  
     </tbody>  
   </table>  
+</div>
+
+<div style="padding-top: 20px"/>  
+<h4>Important Note on Score Differences</h4>  
+  
+<div class="alert alert-warning" role="alert">  
+  <h5><i class="fas fa-exclamation-triangle"></i>Recall Calculation Differences</h5>  
+  <p>Scores from Pyserini may differ from UniIR's paper as UniIR uses a binary success metric instead of the traditional proportional recall calculation.</p>  
+    
+  <p><strong>Traditional Recall@K:</strong> (# relevant docs in top-k) / (total # relevant docs)</p>  
+  <ul>  
+    <li>Returns values between 0.0 and 1.0</li>  
+    <li>Accounts for the proportion of relevant documents retrieved</li>  
+  </ul>  
+    
+  <p><strong>UniIR's Recall@K:</strong> Binary success indicator</p>  
+  <ul>  
+    <li>Returns either 1.0 (success) or 0.0 (failure)</li>  
+    <li>Only checks if any relevant document appears in top-k results</li>  
+  </ul>  
+    
+  <p>This may cause significant score differences between datasets with multiple relevant candidates per corpus.</p>  
 </div>
 
 <div style="padding-top: 20px"/>
