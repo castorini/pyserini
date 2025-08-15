@@ -5860,11 +5860,11 @@ FAISS_INDEX_INFO_WIKIPEDIA = {
     }
 }
 
-FAISS_INDEX_INFO_MBEIR = {
+FAISS_INDEX_INFO_M_BEIR = {
     "m-beir-cirr_task7.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR CIRR task 7 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-cirr_task7.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-cirr_task7.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -5877,7 +5877,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-edis_task2.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-edis_task2.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-edis_task2.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -5890,7 +5890,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-fashion200k_task0.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-fashion200k_task0.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashion200k_task0.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -5903,7 +5903,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-fashion200k_task3.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-fashion200k_task3.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashion200k_task3.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -5916,7 +5916,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-fashioniq_task7.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-fashioniq_task7.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashioniq_task7.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -5929,7 +5929,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-infoseek_task6.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-infoseek_task6.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-infoseek_task6.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -5942,7 +5942,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-infoseek_task8.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-infoseek_task8.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-infoseek_task8.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -5955,7 +5955,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-mscoco_task0.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-mscoco_task0.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-mscoco_task0.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -5968,7 +5968,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-mscoco_task3.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-mscoco_task3.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-mscoco_task3.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -5981,7 +5981,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-nights_task4.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-nights_task4.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-nights_task4.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -5994,7 +5994,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-oven_task6.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-oven_task6.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-oven_task6.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -6007,7 +6007,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-oven_task8.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-oven_task8.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-oven_task8.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -6020,7 +6020,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-visualnews_task0.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-visualnews_task0.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-visualnews_task0.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -6033,7 +6033,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-visualnews_task3.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-visualnews_task3.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-visualnews_task3.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -6046,7 +6046,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-webqa_task1.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-webqa_task1.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-webqa_task1.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -6059,7 +6059,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-webqa_task2.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's clip-sf-large model",
         "filename": "faiss-flat.m-beir-webqa_task2.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-webqa_task2.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
@@ -6072,7 +6072,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-cirr_task7.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR CIRR task 7 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-cirr_task7.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-cirr_task7.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6085,7 +6085,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-edis_task2.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-edis_task2.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-edis_task2.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6098,7 +6098,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-fashion200k_task0.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-fashion200k_task0.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashion200k_task0.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6111,7 +6111,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-fashion200k_task3.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-fashion200k_task3.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashion200k_task3.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6124,7 +6124,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-fashioniq_task7.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-fashioniq_task7.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashioniq_task7.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6137,7 +6137,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-infoseek_task6.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-infoseek_task6.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-infoseek_task6.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6150,7 +6150,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-infoseek_task8.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-infoseek_task8.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-infoseek_task8.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6163,7 +6163,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-mscoco_task0.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-mscoco_task0.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-mscoco_task0.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6176,7 +6176,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-mscoco_task3.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-mscoco_task3.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-mscoco_task3.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6189,7 +6189,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-nights_task4.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-nights_task4.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-nights_task4.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6202,7 +6202,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-oven_task6.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-oven_task6.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-oven_task6.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6215,7 +6215,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-oven_task8.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-oven_task8.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-oven_task8.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6228,7 +6228,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-visualnews_task0.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-visualnews_task0.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-visualnews_task0.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6241,7 +6241,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-visualnews_task3.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-visualnews_task3.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-visualnews_task3.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6254,7 +6254,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-webqa_task1.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-webqa_task1.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-webqa_task1.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6267,7 +6267,7 @@ FAISS_INDEX_INFO_MBEIR = {
     "m-beir-webqa_task2.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's blip-ff-large model",
         "filename": "faiss-flat.m-beir-webqa_task2.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.mbeir.20250813.a9ec58.README.md",
+        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-webqa_task2.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
@@ -6614,5 +6614,5 @@ FAISS_INDEX_INFO = {**FAISS_INDEX_INFO_MSMARCO,
                     **FAISS_INDEX_INFO_MIRACL,
                     **FAISS_INDEX_INFO_WIKIPEDIA,
                     **FAISS_INDEX_INFO_CIRAL,
-                    **FAISS_INDEX_INFO_MBEIR,
+                    **FAISS_INDEX_INFO_M_BEIR,
                     **FAISS_INDEX_INFO_OTHER}
