@@ -4,9 +4,9 @@ conditions:
     datasets:
       - dataset: cirr_task7
         scores:
-          - R@1: 0.0406
+          - R@1: 0.0404
             R@5: 0.3879
-            R@10: 0.5137
+            R@10: 0.5141
       - dataset: edis_task2
         scores:
           - R@1: 0.1033

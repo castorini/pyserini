@@ -161,7 +161,7 @@ def run_conditions(args):
                   
                 for expected in datasets['scores']:  
                     for metric in expected:  
-                        if not args.skip_eval:  
+                        if not args.skip_eval and not args.dry_run:
                             if not os.path.exists(runfile):  
                                 continue  
                                   
