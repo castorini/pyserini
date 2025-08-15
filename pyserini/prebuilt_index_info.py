@@ -5872,7 +5872,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 38820684,
         "documents": 21551,
         "downloaded": False,
-        "texts": "mbeir_cirr_task7_cand_pool"
+        "texts": None
     },
     "m-beir-edis_task2.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's clip-sf-large model",
@@ -5885,7 +5885,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 1889299026,
         "documents": 1047067,
         "downloaded": False,
-        "texts": "mbeir_edis_task2_cand_pool"
+        "texts": None
     },
     "m-beir-fashion200k_task0.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's clip-sf-large model",
@@ -5898,7 +5898,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 275676082,
         "documents": 153472,
         "downloaded": False,
-        "texts": "mbeir_fashion200k_task0_cand_pool"
+        "texts": None
     },
     "m-beir-fashion200k_task3.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's clip-sf-large model",
@@ -5911,7 +5911,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 111421722,
         "documents": 61707,
         "downloaded": False,
-        "texts": "mbeir_fashion200k_task3_cand_pool"
+        "texts": None
     },
     "m-beir-fashioniq_task7.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's clip-sf-large model",
@@ -5924,7 +5924,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 134234402,
         "documents": 74381,
         "downloaded": False,
-        "texts": "mbeir_fashioniq_task7_cand_pool"
+        "texts": None
     },
     "m-beir-infoseek_task6.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's clip-sf-large model",
@@ -5937,7 +5937,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 1106443033,
         "documents": 611651,
         "downloaded": False,
-        "texts": "mbeir_infoseek_task6_cand_pool"
+        "texts": None
     },
     "m-beir-infoseek_task8.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's clip-sf-large model",
@@ -5950,7 +5950,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 870316057,
         "documents": 481782,
         "downloaded": False,
-        "texts": "mbeir_infoseek_task8_cand_pool"
+        "texts": None
     },
     "m-beir-mscoco_task0.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's clip-sf-large model",
@@ -5963,7 +5963,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 9018771,
         "documents": 5000,
         "downloaded": False,
-        "texts": "mbeir_mscoco_task0_test_cand_pool"
+        "texts": None
     },
     "m-beir-mscoco_task3.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's clip-sf-large model",
@@ -5976,7 +5976,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 44894559,
         "documents": 24809,
         "downloaded": False,
-        "texts": "mbeir_mscoco_task3_test_cand_pool"
+        "texts": None
     },
     "m-beir-nights_task4.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's clip-sf-large model",
@@ -5989,7 +5989,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 72059025,
         "documents": 40038,
         "downloaded": False,
-        "texts": "mbeir_nights_task4_cand_pool"
+        "texts": None
     },
     "m-beir-oven_task6.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's clip-sf-large model",
@@ -6002,7 +6002,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 1224169179,
         "documents": 676667,
         "downloaded": False,
-        "texts": "mbeir_oven_task6_cand_pool"
+        "texts": None
     },
     "m-beir-oven_task8.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's clip-sf-large model",
@@ -6015,7 +6015,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 605530531,
         "documents": 335135,
         "downloaded": False,
-        "texts": "mbeir_oven_task8_cand_pool"
+        "texts": None
     },
     "m-beir-visualnews_task0.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's clip-sf-large model",
@@ -6028,7 +6028,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 978324146,
         "documents": 542246,
         "downloaded": False,
-        "texts": "mbeir_visualnews_task0_cand_pool"
+        "texts": None
     },
     "m-beir-visualnews_task3.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's clip-sf-large model",
@@ -6041,7 +6041,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 972356742,
         "documents": 537568,
         "downloaded": False,
-        "texts": "mbeir_visualnews_task3_cand_pool"
+        "texts": None
     },
     "m-beir-webqa_task1.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's clip-sf-large model",
@@ -6054,7 +6054,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 983306341,
         "documents": 544457,
         "downloaded": False,
-        "texts": "mbeir_webqa_task1_cand_pool"
+        "texts": None
     },
     "m-beir-webqa_task2.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's clip-sf-large model",
@@ -6067,7 +6067,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 726339498,
         "documents": 403196,
         "downloaded": False,
-        "texts": "mbeir_webqa_task2_cand_pool"
+        "texts": None
     },
     "m-beir-cirr_task7.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR CIRR task 7 corpus encoded by UniIR's blip-ff-large model",
@@ -6080,7 +6080,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 38780122,
         "documents": 21551,
         "downloaded": False,
-        "texts": "mbeir_cirr_task7_cand_pool"
+        "texts": None
     },
     "m-beir-edis_task2.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's blip-ff-large model",
@@ -6093,7 +6093,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 1882867141,
         "documents": 1047067,
         "downloaded": False,
-        "texts": "mbeir_edis_task2_cand_pool"
+        "texts": None
     },
     "m-beir-fashion200k_task0.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's blip-ff-large model",
@@ -6106,7 +6106,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 361950389,
         "documents": 153472,
         "downloaded": False,
-        "texts": "mbeir_fashion200k_task0_cand_pool"
+        "texts": None
     },
     "m-beir-fashion200k_task3.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's blip-ff-large model",
@@ -6119,7 +6119,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 111002070,
         "documents": 61707,
         "downloaded": False,
-        "texts": "mbeir_fashion200k_task3_cand_pool"
+        "texts": None
     },
     "m-beir-fashioniq_task7.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's blip-ff-large model",
@@ -6132,7 +6132,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 133813777,
         "documents": 74381,
         "downloaded": False,
-        "texts": "mbeir_fashioniq_task7_cand_pool"
+        "texts": None
     },
     "m-beir-infoseek_task6.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's blip-ff-large model",
@@ -6145,7 +6145,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 1101016418,
         "documents": 611651,
         "downloaded": False,
-        "texts": "mbeir_infoseek_task6_cand_pool"
+        "texts": None
     },
     "m-beir-infoseek_task8.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's blip-ff-large model",
@@ -6158,7 +6158,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 867072933,
         "documents": 481782,
         "downloaded": False,
-        "texts": "mbeir_infoseek_task8_cand_pool"
+        "texts": None
     },
     "m-beir-mscoco_task0.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's blip-ff-large model",
@@ -6171,7 +6171,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 8997964,
         "documents": 5000,
         "downloaded": False,
-        "texts": "mbeir_mscoco_task0_test_cand_pool"
+        "texts": None
     },
     "m-beir-mscoco_task3.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's blip-ff-large model",
@@ -6184,7 +6184,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 44642826,
         "documents": 24809,
         "downloaded": False,
-        "texts": "mbeir_mscoco_task3_test_cand_pool"
+        "texts": None
     },
     "m-beir-nights_task4.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's blip-ff-large model",
@@ -6197,7 +6197,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 72066174,
         "documents": 40038,
         "downloaded": False,
-        "texts": "mbeir_nights_task4_cand_pool"
+        "texts": None
     },
     "m-beir-oven_task6.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's blip-ff-large model",
@@ -6210,7 +6210,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 1217884896,
         "documents": 676667,
         "downloaded": False,
-        "texts": "mbeir_oven_task6_cand_pool"
+        "texts": None
     },
     "m-beir-oven_task8.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's blip-ff-large model",
@@ -6223,7 +6223,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 603290739,
         "documents": 335135,
         "downloaded": False,
-        "texts": "mbeir_oven_task8_cand_pool"
+        "texts": None
     },
     "m-beir-visualnews_task0.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's blip-ff-large model",
@@ -6236,7 +6236,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 975316961,
         "documents": 542246,
         "downloaded": False,
-        "texts": "mbeir_visualnews_task0_cand_pool"
+        "texts": None
     },
     "m-beir-visualnews_task3.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's blip-ff-large model",
@@ -6249,7 +6249,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 967518642,
         "documents": 537568,
         "downloaded": False,
-        "texts": "mbeir_visualnews_task3_cand_pool"
+        "texts": None
     },
     "m-beir-webqa_task1.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's blip-ff-large model",
@@ -6262,7 +6262,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 979822885,
         "documents": 544457,
         "downloaded": False,
-        "texts": "mbeir_webqa_task1_cand_pool"
+        "texts": None
     },
     "m-beir-webqa_task2.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's blip-ff-large model",
@@ -6275,7 +6275,7 @@ FAISS_INDEX_INFO_MBEIR = {
         "size compressed (bytes)": 724733349,
         "documents": 403196,
         "downloaded": False,
-        "texts": "mbeir_webqa_task2_cand_pool"
+        "texts": None
     }
 }
 
