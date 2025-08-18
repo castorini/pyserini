@@ -470,6 +470,59 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 </dl>
 </details>
 <details>
+<summary>BRIGHT</summary>
+<dl>
+<dt></dt><b><code>bright-biology</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+<dd>Lucene inverted index of BRIGHT: biology.
+</dd>
+<dt></dt><b><code>bright-earth-science</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+<dd>Lucene inverted index of BRIGHT: earth-science.
+</dd>
+<dt></dt><b><code>bright-economics</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+<dd>Lucene inverted index of BRIGHT: economics.
+</dd>
+<dt></dt><b><code>bright-psychology</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+<dd>Lucene inverted index of BRIGHT: psychology.
+</dd>
+<dt></dt><b><code>bright-robotics</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+<dd>Lucene inverted index of BRIGHT: robotics.
+</dd>
+<dt></dt><b><code>bright-stackoverflow</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+<dd>Lucene inverted index of BRIGHT: stackoverflow.
+</dd>
+<dt></dt><b><code>bright-sustainable-living</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+<dd>Lucene inverted index of BRIGHT: sustainable-living.
+</dd>
+<dt></dt><b><code>bright-pony</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+<dd>Lucene inverted index of BRIGHT: pony.
+</dd>
+<dt></dt><b><code>bright-leetcode</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+<dd>Lucene inverted index of BRIGHT: leetcode.
+</dd>
+<dt></dt><b><code>bright-aops</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+<dd>Lucene inverted index of BRIGHT: aops.
+</dd>
+<dt></dt><b><code>bright-theoremqa-theorems</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+<dd>Lucene inverted index of BRIGHT: theoremqa-theorems.
+</dd>
+<dt></dt><b><code>bright-theoremqa-questions</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+<dd>Lucene inverted index of BRIGHT: theoremqa-questions.
+</dd>
+</dl>
+</details>
+<details>
 <summary>Mr.TyDi</summary>
 <dl>
 <dt></dt><b><code>mrtydi-v1.1-ar</code></b>

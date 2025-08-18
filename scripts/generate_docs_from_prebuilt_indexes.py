@@ -109,6 +109,11 @@ if __name__ == '__main__':
     print('</details>')
 
     print('<details>')
+    print('<summary>BRIGHT</summary>')
+    generate_prebuilt(TF_INDEX_INFO_BRIGHT)
+    print('</details>')
+
+    print('<details>')
     print('<summary>Mr.TyDi</summary>')
     generate_prebuilt(TF_INDEX_INFO_MRTYDI)
     print('</details>')
