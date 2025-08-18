@@ -31,6 +31,7 @@ class TopicsFormat(Enum):
     DEFAULT = 'default'
     KILT = 'kilt'
     Multimodal = 'multimodal'
+    MBEIR = 'mbeir'
 
 
 class QueryIterator(ABC):
@@ -186,12 +187,55 @@ class MultimodalQueryIterator(QueryIterator):
         order = QueryIterator.get_predefined_order(topics_path)
         cls.topic_dir = os.path.dirname(topics_path)
         return cls(topics, order)
-    
+
+class MBEIRQueryIterator(QueryIterator):
+    def __init__(self, topics: dict, order: list = None, topic_dir: str = None):
+        super().__init__(topics, order)
+        self.topic_dir = topic_dir
+
+    def get_query(self, id_):
+        """Extract qid, query_txt, query_img_path, query_modality, pos_cand_list from M-BEIR query format"""
+        topic = self.topics[id_]
+
+        query_data = {
+            'qid': topic.get('qid', id_),
+            'query_txt': topic.get('query_txt', ''),
+            'query_img_path': os.path.join(self.topic_dir, topic.get('query_img_path', '')) if topic.get('query_img_path') else None,
+            'query_modality': topic.get('query_modality', 'text'),
+            'pos_cand_list': topic.get('pos_cand_list', None),
+        }
+
+        return query_data
+
+    @classmethod
+    def from_topics(cls, topics_path: str):
+        """Load M-BEIR topics from JSONL file"""
+        if not os.path.exists(topics_path):
+            raise FileNotFoundError(f'Topic {topics_path} Not Found')
+
+        topics = {}
+        order = []
+        with open(topics_path, 'r') as f:
+            for line in f:
+                data = json.loads(line)
+                try:
+                    topic_id = data['qid']
+                    topics[topic_id] = data
+                    order.append(topic_id)
+                except Exception as e:
+                    raise ValueError(f'Error processing topic with qid {topic_id}: {e}')
+
+        if not topics:
+            raise ValueError(f'No topics found in {topics_path}')
+
+        topic_dir = os.path.dirname(topics_path)
+        return cls(topics, order, topic_dir)
 
 def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
     mapping = {
         TopicsFormat.DEFAULT: DefaultQueryIterator,
         TopicsFormat.KILT: KiltQueryIterator,
-        TopicsFormat.Multimodal: MultimodalQueryIterator
+        TopicsFormat.Multimodal: MultimodalQueryIterator,
+        TopicsFormat.MBEIR: MBEIRQueryIterator,
     }
     return mapping[topics_format].from_topics(topics_path)
