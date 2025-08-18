@@ -30,7 +30,7 @@ class UniIRCorpusEncoder:
             **kwargs: Any
     ):
         self.l2_norm = l2_norm
-        self.corpus_encoder = CorpusEncoder(model_name, device)
+        self.corpus_encoder = CorpusEncoder(model_name=model_name, device=device)
 
     def encode(
         self,
@@ -42,7 +42,13 @@ class UniIRCorpusEncoder:
     ):
         fp16 = kwargs.get("fp16", False)
         
-        corpus_embeddings = self.corpus_encoder.encode(dids, img_paths, modalitys, txts, fp16)
+        corpus_embeddings = self.corpus_encoder.encode(
+            dids=dids,
+            img_paths=img_paths, 
+            modalitys=modalitys,
+            txts=txts,
+            fp16=fp16
+        )
 
         if self.l2_norm:
             corpus_embeddings = corpus_embeddings.astype('float32')
@@ -63,7 +69,7 @@ class UniIRQueryEncoder:
     ):
         self.l2_norm = l2_norm
         self.instruction_config = instruction_config
-        self.query_encoder = QueryEncoder(encoder_dir, device)
+        self.query_encoder = QueryEncoder(model_name=encoder_dir, device=device)
 
     def encode(
         self,
@@ -80,8 +86,8 @@ class UniIRQueryEncoder:
             query_text=query_txt, 
             query_img_path=query_img_path, 
             query_modality=query_modality, 
+            instruction_config=self.instruction_config,
             fp16=fp16,
-            instruction_config=self.instruction_config
         )
 
         if self.l2_norm:
