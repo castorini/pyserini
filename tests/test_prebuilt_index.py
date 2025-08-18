@@ -33,7 +33,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.filename,
                          'lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
         self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.readme,
-                         'lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md')
+                         'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md')
         self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.urls[0],
                          'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/resolve/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
 
@@ -127,6 +127,18 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(cnt, 58)
         self._test_urls(urls)
 
+    def test_lucene_impact_bright(self):
+        urls = []
+        cnt = 0
+        for key in IMPACT_INDEX_INFO:
+            if 'bright' in key:
+                cnt += 1
+                for url in IMPACT_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        self.assertEqual(cnt, 12)
+        self._test_urls(urls)
+
     def test_lucene_impact_mrtydi(self):
         urls = []
         cnt = 0
@@ -185,7 +197,8 @@ class TestPrebuiltIndexes(unittest.TestCase):
                     urls.append(url)
 
         # each 29: contriever, contriever-msmarco, bge, cohere-embed-english-v3.0
-        self.assertEqual(cnt, 116)
+        # 32 for m-beir
+        self.assertEqual(cnt, 148)
         self._test_urls(urls)
 
     def test_faiss_bright(self):
