@@ -721,6 +721,20 @@ add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_MULTIFIELD, TF_INDEX_INFO_BEI
 add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_MULTIFIELD, TF_INDEX_INFO_BEIR)
 add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_MULTIFIELD, TF_INDEX_INFO_BEIR)
 
+TF_INDEX_INFO_BRIGHT = {}
+add_lucene_index_info(JIndexInfo.BRIGHT_BIOLOGY, TF_INDEX_INFO_BRIGHT)
+add_lucene_index_info(JIndexInfo.BRIGHT_EARTH_SCIENCE, TF_INDEX_INFO_BRIGHT)
+add_lucene_index_info(JIndexInfo.BRIGHT_ECONOMICS, TF_INDEX_INFO_BRIGHT)
+add_lucene_index_info(JIndexInfo.BRIGHT_PSYCHOLOGY, TF_INDEX_INFO_BRIGHT)
+add_lucene_index_info(JIndexInfo.BRIGHT_ROBOTICS, TF_INDEX_INFO_BRIGHT)
+add_lucene_index_info(JIndexInfo.BRIGHT_STACKOVERFLOW, TF_INDEX_INFO_BRIGHT)
+add_lucene_index_info(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING, TF_INDEX_INFO_BRIGHT)
+add_lucene_index_info(JIndexInfo.BRIGHT_PONY, TF_INDEX_INFO_BRIGHT)
+add_lucene_index_info(JIndexInfo.BRIGHT_LEETCODE, TF_INDEX_INFO_BRIGHT)
+add_lucene_index_info(JIndexInfo.BRIGHT_AOPS, TF_INDEX_INFO_BRIGHT)
+add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS, TF_INDEX_INFO_BRIGHT)
+add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS, TF_INDEX_INFO_BRIGHT)
+
 TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-ar": {
         "description": "Lucene index for Mr.TyDi v1.1 (Arabic).",
@@ -1874,6 +1888,7 @@ TF_INDEX_INFO_OTHER_ALIASES = {
 TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
                  **TF_INDEX_INFO_MSMARCO_ALIASES,
                  **TF_INDEX_INFO_BEIR,
+                 **TF_INDEX_INFO_BRIGHT,
                  **TF_INDEX_INFO_MRTYDI,
                  **TF_INDEX_INFO_MRTYDI_ALIASES,
                  **TF_INDEX_INFO_MIRACL,
