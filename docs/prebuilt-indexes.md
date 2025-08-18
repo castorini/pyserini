@@ -1119,6 +1119,59 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 </dd>
 </dl>
 </details>
+<details>
+<summary>BEIR</summary>
+<dl>
+<dt></dt><b><code>bright-biology.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'biology' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-earth-science.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'earth-science' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-economics.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'economics' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-psychology.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'psychology' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-robotics.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'robotics' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-stackoverflow.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'stackoverflow' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-sustainable-living.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'sustainable-living' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-pony.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'pony' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-leetcode.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'leetcode' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-aops.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'aops' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-theoremqa-theorems.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'theoremqa-theorems' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-theoremqa-questions.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'theoremqa-questions' encoded by SPLADE v3.
+</dd>
+</dl>
+</details>
 
 
 ## Lucene HNSW Indexes
