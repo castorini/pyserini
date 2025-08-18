@@ -1,6 +1,6 @@
 # BRIGHT: bge-large-en-v1.5
 
-Faiss indexes of BRIGHT corpora using BGE-large-en-v1.5.
+Faiss flat indexes of BRIGHT corpora using BGE-large-en-v1.5.
 
 These indexes were built on 2025/08/08 on `basilisk` at Pyserini commit [44889d](https://github.com/castorini/pyserini/commit/44889de3d151b2e1317934b405b3ad6badd81308).
 
