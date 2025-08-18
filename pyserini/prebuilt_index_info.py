@@ -39,6 +39,9 @@ def add_lucene_index_info(enum, info, name=None, readme=None):
         "texts": enum.invertedIndex
     }
 
+    if info[indexName]["readme"].startswith('https'):
+        info[indexName]["readme"] = info[indexName]["readme"].split('/')[-1]
+
 
 # Bindings for Lucene (standard) inverted indexes
 TF_INDEX_INFO_MSMARCO = {
@@ -4157,6 +4160,7 @@ FAISS_INDEX_INFO_BRIGHT = {
     "bright-biology.bge-large-en-v1.5": {
         "description": "Faiss flat index for BRIGHT: biology corpus encoded by BGE-large-en-v1.5.",
         "filename": "faiss-flat.bright-biology.bge-large-en-v1.5.20250808.44889d.tar.gz",
+        "readme": "faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-biology.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
@@ -4169,6 +4173,7 @@ FAISS_INDEX_INFO_BRIGHT = {
     "bright-earth-science.bge-large-en-v1.5": {
         "description": "Faiss flat index for BRIGHT: earth-science corpus encoded by BGE-large-en-v1.5.",
         "filename": "faiss-flat.bright-earth-science.bge-large-en-v1.5.20250808.44889d.tar.gz",
+        "readme": "faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-earth-science.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
@@ -4181,6 +4186,7 @@ FAISS_INDEX_INFO_BRIGHT = {
     "bright-economics.bge-large-en-v1.5": {
         "description": "Faiss flat index for BRIGHT: economics corpus encoded by BGE-large-en-v1.5.",
         "filename": "faiss-flat.bright-economics.bge-large-en-v1.5.20250808.44889d.tar.gz",
+        "readme": "faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-economics.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
@@ -4193,6 +4199,7 @@ FAISS_INDEX_INFO_BRIGHT = {
     "bright-psychology.bge-large-en-v1.5": {
         "description": "Faiss flat index for BRIGHT: psychology corpus encoded by BGE-large-en-v1.5.",
         "filename": "faiss-flat.bright-psychology.bge-large-en-v1.5.20250808.44889d.tar.gz",
+        "readme": "faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-psychology.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
@@ -4205,6 +4212,7 @@ FAISS_INDEX_INFO_BRIGHT = {
     "bright-robotics.bge-large-en-v1.5": {
         "description": "Faiss flat index for BRIGHT: robotics corpus encoded by BGE-large-en-v1.5.",
         "filename": "faiss-flat.bright-robotics.bge-large-en-v1.5.20250808.44889d.tar.gz",
+        "readme": "faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-robotics.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
@@ -4217,6 +4225,7 @@ FAISS_INDEX_INFO_BRIGHT = {
     "bright-stackoverflow.bge-large-en-v1.5": {
         "description": "Faiss flat index for BRIGHT: stackoverflow corpus encoded by BGE-large-en-v1.5.",
         "filename": "faiss-flat.bright-stackoverflow.bge-large-en-v1.5.20250808.44889d.tar.gz",
+        "readme": "faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-stackoverflow.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
@@ -4229,6 +4238,7 @@ FAISS_INDEX_INFO_BRIGHT = {
     "bright-sustainable-living.bge-large-en-v1.5": {
         "description": "Faiss flat index for BRIGHT: sustainable-living corpus encoded by BGE-large-en-v1.5.",
         "filename": "faiss-flat.bright-sustainable-living.bge-large-en-v1.5.20250808.44889d.tar.gz",
+        "readme": "faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-sustainable-living.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
@@ -4241,6 +4251,7 @@ FAISS_INDEX_INFO_BRIGHT = {
     "bright-pony.bge-large-en-v1.5": {
         "description": "Faiss flat index for BRIGHT: pony corpus encoded by BGE-large-en-v1.5.",
         "filename": "faiss-flat.bright-pony.bge-large-en-v1.5.20250808.44889d.tar.gz",
+        "readme": "faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-pony.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
@@ -4253,6 +4264,7 @@ FAISS_INDEX_INFO_BRIGHT = {
     "bright-leetcode.bge-large-en-v1.5": {
         "description": "Faiss flat index for BRIGHT: leetcode corpus encoded by BGE-large-en-v1.5.",
         "filename": "faiss-flat.bright-leetcode.bge-large-en-v1.5.20250808.44889d.tar.gz",
+        "readme": "faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-leetcode.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
@@ -4265,6 +4277,7 @@ FAISS_INDEX_INFO_BRIGHT = {
     "bright-aops.bge-large-en-v1.5": {
         "description": "Faiss flat index for BRIGHT: aops corpus encoded by BGE-large-en-v1.5.",
         "filename": "faiss-flat.bright-aops.bge-large-en-v1.5.20250808.44889d.tar.gz",
+        "readme": "faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-aops.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
@@ -4277,6 +4290,7 @@ FAISS_INDEX_INFO_BRIGHT = {
     "bright-theoremqa-theorems.bge-large-en-v1.5": {
         "description": "Faiss flat index for BRIGHT: theoremqa-theorems corpus encoded by BGE-large-en-v1.5.",
         "filename": "faiss-flat.bright-theoremqa-theorems.bge-large-en-v1.5.20250808.44889d.tar.gz",
+        "readme": "faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-theoremqa-theorems.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
@@ -4289,6 +4303,7 @@ FAISS_INDEX_INFO_BRIGHT = {
     "bright-theoremqa-questions.bge-large-en-v1.5": {
         "description": "Faiss flat index for BRIGHT: theoremqa-questions corpus encoded by BGE-large-en-v1.5.",
         "filename": "faiss-flat.bright-theoremqa-questions.bge-large-en-v1.5.20250808.44889d.tar.gz",
+        "readme": "faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md",
         "urls": [
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-theoremqa-questions.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
