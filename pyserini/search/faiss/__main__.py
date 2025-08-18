@@ -241,6 +241,7 @@ def init_query_encoder(
     prefix,
     multimodal=False,
     instruction_config=None,
+    fp16=False,
 ):
     encoded_queries_map = {
         "msmarco-passage-dev-subset": "tct_colbert-msmarco-passage-dev-subset",
@@ -279,6 +280,7 @@ def init_query_encoder(
             tokenizer_name=tokenizer_name,
             device=device,
             prefix=prefix,
+            fp16=fp16,
         )
         if _encoder_class == "sentence" or "sentence" in encoder:
             kwargs.update(dict(pooling="mean", l2_norm=True))
@@ -396,6 +398,13 @@ if __name__ == "__main__":
         default=1,
         help="maximum threads to use during search",
     )
+    # This is used for UniIR encoder models
+    parser.add_argument(
+        "--fp16", 
+        action="store_true", 
+        default=False,
+        help="use fp16 for query embeddings"
+    )
     # For some test collections, a query is doc from the corpus (e.g., arguana in BEIR).
     # We want to remove the query from the results. This is equivalent to -removeQuery in Java.
     parser.add_argument(
@@ -423,6 +432,7 @@ if __name__ == "__main__":
         args.query_prefix,
         args.multimodal,
         args.instruction_config,
+        args.fp16
     )
     if args.pca_model:
         query_encoder = PcaEncoder(query_encoder, args.pca_model)

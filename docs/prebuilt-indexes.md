@@ -1119,6 +1119,59 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 </dd>
 </dl>
 </details>
+<details>
+<summary>BEIR</summary>
+<dl>
+<dt></dt><b><code>bright-biology.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'biology' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-earth-science.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'earth-science' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-economics.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'economics' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-psychology.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'psychology' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-robotics.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'robotics' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-stackoverflow.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'stackoverflow' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-sustainable-living.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'sustainable-living' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-pony.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'pony' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-leetcode.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'leetcode' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-aops.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'aops' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-theoremqa-theorems.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'theoremqa-theorems' encoded by SPLADE v3.
+</dd>
+<dt></dt><b><code>bright-theoremqa-questions.splade-v3</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+<dd>Lucene impact index of BRIGHT: 'theoremqa-questions' encoded by SPLADE v3.
+</dd>
+</dl>
+</details>
 
 
 ## Lucene HNSW Indexes
@@ -1142,43 +1195,43 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dd>Lucene quantized (int8) HNSW index of the MS MARCO V1 passage corpus encoded by cos-DPR Distil.
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard00) encoded by Snowflake's arctic-embed-l model.
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard01) encoded by Snowflake's arctic-embed-l model.
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard02) encoded by Snowflake's arctic-embed-l model.
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard03) encoded by Snowflake's arctic-embed-l model.
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard04) encoded by Snowflake's arctic-embed-l model.
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard05) encoded by Snowflake's arctic-embed-l model.
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard06) encoded by Snowflake's arctic-embed-l model.
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard07) encoded by Snowflake's arctic-embed-l model.
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard08) encoded by Snowflake's arctic-embed-l model.
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard09) encoded by Snowflake's arctic-embed-l model.
 </dd>
 </dl>
@@ -1954,52 +2007,52 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <summary>BRIGHT</summary>
 <dl>
 <dt></dt><b><code>bright-biology.bge-large-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
-<dd>Faiss index for BRIGHT: biology corpus encoded by BGE-large-en-v1.5.
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
+<dd>Faiss flat index for BRIGHT: biology corpus encoded by BGE-large-en-v1.5.
 </dd>
 <dt></dt><b><code>bright-earth-science.bge-large-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
-<dd>Faiss index for BRIGHT: earth-science corpus encoded by BGE-large-en-v1.5.
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
+<dd>Faiss flat index for BRIGHT: earth-science corpus encoded by BGE-large-en-v1.5.
 </dd>
 <dt></dt><b><code>bright-economics.bge-large-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
-<dd>Faiss index for BRIGHT: economics corpus encoded by BGE-large-en-v1.5.
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
+<dd>Faiss flat index for BRIGHT: economics corpus encoded by BGE-large-en-v1.5.
 </dd>
 <dt></dt><b><code>bright-psychology.bge-large-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
-<dd>Faiss index for BRIGHT: psychology corpus encoded by BGE-large-en-v1.5.
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
+<dd>Faiss flat index for BRIGHT: psychology corpus encoded by BGE-large-en-v1.5.
 </dd>
 <dt></dt><b><code>bright-robotics.bge-large-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
-<dd>Faiss index for BRIGHT: robotics corpus encoded by BGE-large-en-v1.5.
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
+<dd>Faiss flat index for BRIGHT: robotics corpus encoded by BGE-large-en-v1.5.
 </dd>
 <dt></dt><b><code>bright-stackoverflow.bge-large-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
-<dd>Faiss index for BRIGHT: stackoverflow corpus encoded by BGE-large-en-v1.5.
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
+<dd>Faiss flat index for BRIGHT: stackoverflow corpus encoded by BGE-large-en-v1.5.
 </dd>
 <dt></dt><b><code>bright-sustainable-living.bge-large-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
-<dd>Faiss index for BRIGHT: sustainable-living corpus encoded by BGE-large-en-v1.5.
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
+<dd>Faiss flat index for BRIGHT: sustainable-living corpus encoded by BGE-large-en-v1.5.
 </dd>
 <dt></dt><b><code>bright-pony.bge-large-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
-<dd>Faiss index for BRIGHT: pony corpus encoded by BGE-large-en-v1.5.
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
+<dd>Faiss flat index for BRIGHT: pony corpus encoded by BGE-large-en-v1.5.
 </dd>
 <dt></dt><b><code>bright-leetcode.bge-large-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
-<dd>Faiss index for BRIGHT: leetcode corpus encoded by BGE-large-en-v1.5.
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
+<dd>Faiss flat index for BRIGHT: leetcode corpus encoded by BGE-large-en-v1.5.
 </dd>
 <dt></dt><b><code>bright-aops.bge-large-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
-<dd>Faiss index for BRIGHT: aops corpus encoded by BGE-large-en-v1.5.
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
+<dd>Faiss flat index for BRIGHT: aops corpus encoded by BGE-large-en-v1.5.
 </dd>
 <dt></dt><b><code>bright-theoremqa-theorems.bge-large-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
-<dd>Faiss index for BRIGHT: theoremqa-theorems corpus encoded by BGE-large-en-v1.5.
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
+<dd>Faiss flat index for BRIGHT: theoremqa-theorems corpus encoded by BGE-large-en-v1.5.
 </dd>
 <dt></dt><b><code>bright-theoremqa-questions.bge-large-en-v1.5</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
-<dd>Faiss index for BRIGHT: theoremqa-questions corpus encoded by BGE-large-en-v1.5.
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
+<dd>Faiss flat index for BRIGHT: theoremqa-questions corpus encoded by BGE-large-en-v1.5.
 </dd>
 </dl>
 </details>
