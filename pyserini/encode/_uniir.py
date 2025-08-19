@@ -83,7 +83,7 @@ class UniIRQueryEncoder:
 
         query_embeddings = self.query_encoder.encode(
             qid=qid, 
-            query_text=query_txt, 
+            query_txt=query_txt, 
             query_img_path=query_img_path, 
             query_modality=query_modality, 
             instruction_config=self.instruction_config,
