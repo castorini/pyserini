@@ -17,8 +17,8 @@
 from typing import Any, List
 import faiss
 
-from uniir_for_pyserini.pyserini_integration.uniir_corpus_encoder import CorpusEncoder
-from uniir_for_pyserini.pyserini_integration.uniir_query_encoder import QueryEncoder
+from uniir_for_pyserini.uniir_corpus_encoder import CorpusEncoder
+from uniir_for_pyserini.uniir_query_encoder import QueryEncoder
 
 
 class UniIRCorpusEncoder:
