@@ -202,7 +202,6 @@ class MBEIRQueryIterator(QueryIterator):
             'query_txt': topic.get('query_txt', ''),
             'query_img_path': os.path.join(self.topic_dir, topic.get('query_img_path', '')) if topic.get('query_img_path') else None,
             'query_modality': topic.get('query_modality', 'text'),
-            'pos_cand_list': topic.get('pos_cand_list', None),
         }
 
         return query_data

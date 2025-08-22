@@ -59,7 +59,7 @@ python -m pyserini.search.faiss \
 If you want to use UniIR with M-BEIR query instructions, download it from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv)
 Then, create a yaml file like this:
 ```yaml
-instruction_file: absolute/path/to/query_instructions.tsv
+instruction_file: /path/to/query_instructions.tsv
 candidate_modality: image
 dataset_id: 8 # the id for CIRR is 8
 randomize_instructions: False # set to true if you want to use a random instruction for each query
@@ -75,7 +75,7 @@ python -m pyserini.search.faiss \
     --topics collections/m-beir/CIRR/topics_mbeir_cirr_task7_test.jsonl \
     --index indexes/faiss.mbeir-cirr.clipsf \
     --output runs/mbeir-cirr.instr.clipsf.txt \
-    --instruction-config path/to/instruction_config.yaml \
+    --instruction-config /path/to/instruction_config.yaml \
     --fp16 \
     --hits 1000
 ```

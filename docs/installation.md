@@ -100,20 +100,16 @@ For more details, see https://github.com/facebookresearch/faiss/issues/3526
 
 In order to use UniIR's models and perform multimodal retrieval on the M-BEIR dataset, you will need to install UniIR.
 
-Since UniIR is integrated into pyserini as a git submodule, you can install it as follows:
+First, install uniir-for-pyserini with:
 ```bash
-git clone --recurse-submodules https://github.com/castorini/pyserini 
+pip install pyserini[uniir]
 ```
 
-Or if you have already cloned it, you can update it with:
+After, make sure to install the CLIP model with:
 ```bash
-git submodule update --init --recursive
+pip install git+https://github.com/openai/CLIP.git
 ```
 
-After, make sure you have installed all dependencies from UniIR. You can find a list of dependencies [here](https://github.com/TIGER-AI-Lab/UniIR/blob/main/src/common/faiss_env.yml).
-
-To configure CLIP and BLIP model configurations, simply edit the config file at `pyserini/encode/mbeir/uniir
-/model_config.yaml`
 
 ### Verifying the Installation
 
