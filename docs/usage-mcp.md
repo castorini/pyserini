@@ -146,10 +146,7 @@ Search for "what is a lobster roll" in the msmarco-v1-passage index, returning 5
 - `docid` (string, required): Document ID to retrieve
 - `index_name` (string, required): Name of the index containing the document
 
-**Returns:** Document object containing:
-- `docid`: Document identifier
-- `contents`: Full document text
-- `raw`: Raw document representation (if available)
+**Returns:** Document object containing the raw document representation.
 
 **Example Usage in MCP Client:**
 

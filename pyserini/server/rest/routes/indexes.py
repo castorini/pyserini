@@ -23,7 +23,7 @@ Provides routes for searching indexes, retrieving documents, checking index stat
 
 from fastapi import APIRouter, Query, Path, Depends, HTTPException, Body
 from pyserini.server.search_controller import get_controller
-from pyserini.server.models import INDEX_TYPE, Hits, Document, SearchParams, IndexStatus, IndexSetting
+from pyserini.server.models import INDEX_TYPE, Hits, SearchParams, IndexStatus, IndexSetting
 
 router = APIRouter(prefix='/indexes', tags=['indexes'])
     
@@ -43,11 +43,11 @@ async def search_index(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get('/{index}/documents/{docid}', response_model=Document)
+@router.get('/{index}/documents/{docid}', response_model=dict[str, str])
 async def get_document(
     docid: str = Path(..., description='Document ID'),
     index: str = Path(..., description='Index name'),
-) -> Document:
+) -> dict[str, str]:
     try:
         return get_controller().get_document(docid, index)
     except ValueError as ve:
