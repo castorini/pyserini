@@ -199,6 +199,18 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(cnt, 29)
         self._test_urls(urls)
 
+    def test_lucene_flat_bright(self):
+        urls = []
+        cnt = 0
+        for key in LUCENE_FLAT_INDEX_INFO:
+            if 'bright' in key:
+                cnt += 1
+                for url in LUCENE_FLAT_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        self.assertEqual(cnt, 12)
+        self._test_urls(urls)
+
     def test_faiss_beir(self):
         urls = []
         cnt = 0
