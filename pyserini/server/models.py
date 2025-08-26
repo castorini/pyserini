@@ -26,7 +26,6 @@ from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, Luce
 from pyserini.search.faiss import FaissSearcher
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
 
-
 @dataclass
 class IndexConfig:
     """Configuration for a search index."""
@@ -51,6 +50,13 @@ INDEX_TYPE = {
     "faiss": FAISS_INDEX_INFO
 }
 
+EVAL_METRICS = {
+    "ndcg": ["-c", "-q", "-m", "ndcg_cut"],
+    "recall": ["-c", "-q", "-m", "recall"],
+    "map": ["-c", "-q", "-M", "-m", "map"],
+    "recip_rank": ["-c", "-q", "-M", "-m", "recip_rank"]
+}
+
 # Pydantic models for FastAPI
 class SearchParams(BaseModel):
     query: str
@@ -72,10 +78,6 @@ class Candidate(BaseModel):
 class Hits(BaseModel): 
     query: QueryInfo
     candidates: list[Candidate]
-
-class Document(BaseModel):
-    docid: str
-    text: str
 
 class IndexStatus(BaseModel):
     downloaded: bool
