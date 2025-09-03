@@ -142,7 +142,7 @@ if __name__ == '__main__':
     print('</details>')
 
     print('<details>')
-    print('<summary>BEIR</summary>')
+    print('<summary>BRIGHT</summary>')
     generate_prebuilt(IMPACT_INDEX_INFO_BRIGHT)
     print('</details>')
 
@@ -163,6 +163,11 @@ if __name__ == '__main__':
     print('<details>')
     print('<summary>BEIR</summary>')
     generate_prebuilt(LUCENE_FLAT_INDEX_INFO_BEIR)
+    print('</details>')
+
+    print('<details>')
+    print('<summary>BRIGHT</summary>')
+    generate_prebuilt(LUCENE_FLAT_INDEX_INFO_BRIGHT)
     print('</details>')
 
     print('\n\n## Faiss Indexes')
