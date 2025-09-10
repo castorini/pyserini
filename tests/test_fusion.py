@@ -56,14 +56,17 @@ class TestSearch(unittest.TestCase):
         os.system('wget -q -nc https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.paragraph.qq.bm25.txt.gz')
         os.system('wget -q -nc https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.fusion1.txt.gz')
         os.system('gunzip -f anserini.covid-r2.*.txt.gz')
+        os.system('realpath anserini.covid-r2.full-text.qq.bm25.txt')
 
         txt_paths = ['anserini.covid-r2.abstract.qq.bm25.txt',
                      'anserini.covid-r2.full-text.qq.bm25.txt', 'anserini.covid-r2.paragraph.qq.bm25.txt']
 
         qruns_str = ' '.join(txt_paths)
-        os.system(
-            f'python -m pyserini.fusion --method rrf --runs {qruns_str} --output {self.output_path} --runtag reciprocal_rank_fusion_k=60')
+        s = f'python -m pyserini.fusion --method rrf --runs {qruns_str} --output {self.output_path} --runtag reciprocal_rank_fusion_k=60'
+        print(s)
+        os.system(s)
         verify_path = 'anserini.covid-r2.fusion1.txt'
+        os.system('realpath anserini.covid-r2.full-text.qq.bm25.txt {}'.format(self.output_path))
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
         os.system('rm anserini.covid-r2.*')
     

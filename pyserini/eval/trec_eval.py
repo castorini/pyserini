@@ -40,13 +40,48 @@ import tempfile
 import jnius_config
 import pandas as pd
 
-# Don't use the jdk.incubator.vector module.
+# # Don't use the jdk.incubator.vector module.
+# jar_directory = str(importlib.resources.files("pyserini.resources.jars").joinpath(''))
+# jar_path = glob.glob(os.path.join(jar_directory, '*.jar'))[0]
+# jnius_config.add_classpath(jar_path)
+
+# # This triggers loading of the JVM.
+# import jnius
+
 jar_directory = str(importlib.resources.files("pyserini.resources.jars").joinpath(''))
 jar_path = glob.glob(os.path.join(jar_directory, '*.jar'))[0]
-jnius_config.add_classpath(jar_path)
 
-# This triggers loading of the JVM.
-import jnius
+# --- Guarded classpath setup: idempotent & race-proof ---
+cp = getattr(jnius_config, "classpath", [])
+
+# Normalize to list if someone set it to a string earlier
+if isinstance(cp, str):
+    cp = [cp]
+    jnius_config.set_classpath(cp)
+
+# Only add our jar if it's not already present
+def _jar_in_cp(jar, entries):
+    try:
+        return any(str(jar) in str(x) for x in entries)
+    except Exception:
+        return False
+
+if not _jar_in_cp(jar_path, cp):
+    try:
+        jnius_config.add_classpath(jar_path)
+    except ValueError:
+        # JVM already started elsewhere; that's OK for this module because
+        # we shell out to `java -cp <jar> trec_eval` below.
+        pass
+
+# Optionally try to import jnius to keep prior behavior, but never fail import
+try:
+    import jnius  # noqa: F401
+except Exception:
+    # If JVM couldn't start here, it's fine; we invoke trec_eval via subprocess.
+    pass
+# --- end guard ---
+
 
 # Now we can load qrels; this will trigger another attempt to reload the JVM, which won't happen because
 # the JVM has already loaded.

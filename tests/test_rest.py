@@ -51,7 +51,7 @@ class TestRestServer(unittest.TestCase):
     def test_list_indexes(self):
         response = client.get(f"/{VERSION}/indexes/?index_type=tf")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json()), 196)
+        self.assertEqual(len(response.json()), 208)
 
     def test_get_index_settings(self):
         response = client.get(f"/{VERSION}/indexes/msmarco-v1-passage/settings")
