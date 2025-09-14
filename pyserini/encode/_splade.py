@@ -61,7 +61,7 @@ class SpladeDocumentEncoder(DocumentEncoder, SpladeEncoder):
                                                        clean_up_tokenization_spaces=True)
         self.prefix = prefix
 
-    def encode(self, texts, titles=None, max_length=256, add_sep=False, **kwargs) -> List[Dict[str, float]]:
+    def encode(self, texts, titles=None, max_length=512, add_sep=False, **kwargs) -> List[Dict[str, float]]:
         if self.prefix is not None:
             texts = [f'{self.prefix} {text}' for text in texts]
         shared_tokenizer_kwargs = dict(
