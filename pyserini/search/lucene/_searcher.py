@@ -45,12 +45,13 @@ class LuceneSearcher:
         Path to Lucene index directory.
     """
 
-    def __init__(self, index_dir: str, prebuilt_index_name=None):
+    def __init__(self, index_dir: str, prebuilt_index_name=None, index_reader: LuceneIndexReader = None):
         self.index_dir = index_dir
         self.object = JSimpleSearcher(index_dir)
         self.num_docs = self.object.get_total_num_docs()
         # Keep track if self is a known prebuilt index.
         self.prebuilt_index_name = prebuilt_index_name
+        self.index_reader = index_reader if index_reader else LuceneIndexReader(index_dir)
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str, verbose=False):
@@ -86,7 +87,7 @@ class LuceneSearcher:
         if verbose:
             print(f'Initializing {prebuilt_index_name}...')
 
-        return cls(index_dir, prebuilt_index_name=prebuilt_index_name)
+        return cls(index_dir, prebuilt_index_name=prebuilt_index_name, index_reader=index_reader)
 
     @staticmethod
     def list_prebuilt_indexes():

@@ -23,7 +23,7 @@ from transformers import AutoTokenizer
 from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
 from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
-from pyserini.search.lucene import JDisjunctionMaxQueryGenerator
+from pyserini.search.lucene import JDisjunctionMaxQueryGenerator, JQuerySideBm25QueryGenerator
 from ._hnsw_searcher import LuceneHnswDenseSearcher, LuceneFlatDenseSearcher
 from ._impact_searcher import LuceneImpactSearcher, SlimSearcher
 from ._searcher import LuceneSearcher
@@ -89,6 +89,7 @@ def define_search_args(parser):
     parser.add_argument('--min-idf', type=int, default=0, help="minimum idf")
 
     parser.add_argument('--bm25', action='store_true', default=True, help="Use BM25 (default).")
+    parser.add_argument('--bm25qs', action='store_true', help="Use BM25 also on query side.")
     parser.add_argument('--k1', type=float, help='BM25 k1 parameter.')
     parser.add_argument('--b', type=float, help='BM25 b parameter.')
 
@@ -223,7 +224,7 @@ if __name__ == "__main__":
     if args.qld:
         search_rankers.append('qld')
         searcher.set_qld()
-    elif args.bm25:
+    elif args.bm25 or args.bm25qs:
         search_rankers.append('bm25')
         set_bm25_parameters(searcher, args.index, args.k1, args.b)
 
@@ -247,6 +248,9 @@ if __name__ == "__main__":
     if args.dismax:
         query_generator = JDisjunctionMaxQueryGenerator(args.tiebreaker)
         print(f'Using dismax query generator with tiebreaker={args.tiebreaker}')
+    if args.bm25qs:
+        query_generator = JQuerySideBm25QueryGenerator(args.k1 or 0.9, args.b or 0.4, searcher.index_reader.reader)
+        print("Using query-side BM25 query generator")
     
     if args.pretokenized:
         analyzer = JWhiteSpaceAnalyzer()
