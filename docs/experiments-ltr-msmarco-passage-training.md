@@ -1,5 +1,8 @@
 # Pyserini: Train Learning-To-Rank Reranking Models for MS MARCO Passage
 
+❗ Code associated with these experiments was removed in commit [`a65b96`](https://github.com/castorini/pyserini/commit/a65b9687a91d1ba0f754445ab0e93dd7116c619f).
+This page is preserved only for archival purposes.
+
 ## Data Preprocessing
 
 Please first follow the [Pyserini BM25 retrieval guide](experiments-msmarco-passage.md) to obtain our reranking candidate.

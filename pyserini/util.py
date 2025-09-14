@@ -20,8 +20,8 @@ import os
 import re
 import shutil
 import tarfile
+import urllib.request
 from urllib.error import HTTPError, URLError
-from urllib.request import urlretrieve
 
 import pandas as pd
 from tqdm import tqdm
@@ -91,8 +91,25 @@ def download_url(url, save_dir, local_filename=None, md5=None, force=False, verb
             print(f'force=True, removing {destination_path}; fetching fresh copy...')
         os.remove(destination_path)
 
-    with TqdmUpTo(unit='B', unit_scale=True, unit_divisor=1024, miniters=1, desc=filename) as t:
-        urlretrieve(url, filename=destination_path, reporthook=t.update_to)
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+
+    # Note: urlretrieve doesn't directly support headers.
+    try:
+        with TqdmUpTo(unit='B', unit_scale=True, unit_divisor=1024, miniters=1, desc=filename) as t:
+            with urllib.request.urlopen(req) as response:
+                # Get file size from headers if available
+                file_size = int(response.headers.get('Content-Length', -1))
+                t.total = file_size
+
+                with open(destination_path, 'wb') as f:
+                    while True:
+                        chunk = response.read(4096)  # 4KB chunks
+                        if not chunk:
+                            break
+                        f.write(chunk)
+                        t.update(len(chunk))
+    except HTTPError as e:
+        print(f'HTTP Error {e.code}: {e.reason}')
 
     if md5:
         md5_computed = compute_md5(destination_path)
@@ -176,6 +193,10 @@ def check_downloaded(index_name):
         target_index = TF_INDEX_INFO[index_name]
     elif index_name in IMPACT_INDEX_INFO:
         target_index = IMPACT_INDEX_INFO[index_name]
+    elif index_name in LUCENE_HNSW_INDEX_INFO:
+        target_index = LUCENE_HNSW_INDEX_INFO[index_name]
+    elif index_name in LUCENE_FLAT_INDEX_INFO:
+        target_index = LUCENE_FLAT_INDEX_INFO[index_name]
     else:
         target_index = FAISS_INDEX_INFO[index_name]
     index_url = target_index['urls'][0]

@@ -1,6 +1,6 @@
 # Pyserini: Indexing Custom Corpora
 
-In addition to searching indexes on standard corpora in IR and NLP research that we've already built for you, with Pyserini youc can index and search your own corpora.
+In addition to searching indexes on standard corpora in IR and NLP research that we've already built for you, with Pyserini you can index and search your own corpora.
 
 + [Building a BM25 Index (Direct Java Implementation)](#building-a-bm25-index-direct-java-implementation)
 + [Building a BM25 Index (Embeddable Python Implementation)](#building-a-bm25-index-embeddable-python-implementation)

@@ -33,9 +33,22 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.filename,
                          'lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
         self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.readme,
-                         'lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md')
+                         'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md')
         self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.urls[0],
-                         'https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
+                         'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/resolve/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
+
+    def test_lucene_tf_msmarco_v1(self):
+        urls = []
+        cnt = 0
+        for key in TF_INDEX_INFO:
+            if 'msmarco-v1' in key:
+                cnt += 1
+                for url in TF_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        # 10 for doc, 5 for passage, 1 alias
+        self.assertEqual(cnt, 16)
+        self._test_urls(urls)
 
     def test_lucene_tf_beir(self):
         urls = []
@@ -48,6 +61,18 @@ class TestPrebuiltIndexes(unittest.TestCase):
 
         # 29 each for flat and multifield
         self.assertEqual(cnt, 58)
+        self._test_urls(urls)
+
+    def test_lucene_tf_bright(self):
+        urls = []
+        cnt = 0
+        for key in TF_INDEX_INFO:
+            if 'bright' in key:
+                cnt += 1
+                for url in TF_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        self.assertEqual(cnt, 12)
         self._test_urls(urls)
 
     def test_lucene_tf_mrtydi(self):
@@ -110,8 +135,20 @@ class TestPrebuiltIndexes(unittest.TestCase):
                 for url in IMPACT_INDEX_INFO[key]['urls']:
                     urls.append(url)
 
-        # 29 from SPLADE-distill CoCodenser-medium
-        self.assertEqual(cnt, 29)
+        # 29 each from SPLADE++ (CoCondenser-EnsembleDistil) and SPLADEv3
+        self.assertEqual(cnt, 58)
+        self._test_urls(urls)
+
+    def test_lucene_impact_bright(self):
+        urls = []
+        cnt = 0
+        for key in IMPACT_INDEX_INFO:
+            if 'bright' in key:
+                cnt += 1
+                for url in IMPACT_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        self.assertEqual(cnt, 12)
         self._test_urls(urls)
 
     def test_lucene_impact_mrtydi(self):
@@ -172,7 +209,20 @@ class TestPrebuiltIndexes(unittest.TestCase):
                     urls.append(url)
 
         # each 29: contriever, contriever-msmarco, bge, cohere-embed-english-v3.0
-        self.assertEqual(cnt, 116)
+        # 32 for m-beir
+        self.assertEqual(cnt, 148)
+        self._test_urls(urls)
+
+    def test_faiss_bright(self):
+        urls = []
+        cnt = 0
+        for key in FAISS_INDEX_INFO:
+            if 'bright' in key:
+                cnt += 1
+                for url in FAISS_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        self.assertEqual(cnt, 12)
         self._test_urls(urls)
 
     def test_faiss_mrtydi(self):
@@ -242,7 +292,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
         cnt = 0
         for url in urls:
             cnt += 1
-            response = requests.head(url)
+            response = requests.head(url, allow_redirects=True)
             self.assertEqual(response.status_code, 200, f'Error checking {url}')
 
         self.assertEqual(cnt, len(urls))

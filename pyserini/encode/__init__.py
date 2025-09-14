@@ -34,6 +34,8 @@ from ._splade import SpladeQueryEncoder
 from ._tct_colbert import TctColBertDocumentEncoder, TctColBertQueryEncoder
 from ._tok_freq import TokFreqQueryEncoder
 from ._unicoil import UniCoilEncoder, UniCoilDocumentEncoder, UniCoilQueryEncoder
+from ._uniir import UniIRCorpusEncoder, UniIRQueryEncoder
+
 
 document_encoder_class_map = {
     "dpr": DprDocumentEncoder,
@@ -48,6 +50,7 @@ document_encoder_class_map = {
     "clip": ClipDocumentEncoder,
     "contriever": AutoDocumentEncoder,
     "arctic": ArcticDocumentEncoder,
+    "uniir": UniIRCorpusEncoder,
 }
 
 query_encoder_class_map = {
@@ -64,4 +67,5 @@ query_encoder_class_map = {
     "auto": AutoQueryEncoder,
     "clip": ClipQueryEncoder,
     "arctic": ArcticQueryEncoder,
+    "uniir": UniIRQueryEncoder,
 }

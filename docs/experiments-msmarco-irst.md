@@ -1,5 +1,8 @@
 # Pyserini: IRST on MS MARCO V1 Collections
 
+❗ Code associated with these experiments was removed in commit [`a65b96`](https://github.com/castorini/pyserini/commit/a65b9687a91d1ba0f754445ab0e93dd7116c619f).
+This page is preserved only for archival purposes.
+
 This guide describes how to reproduce the IRST (Information Retrieval as Statistical Translation) experiments on the MS MARCO V1 collections, as described in the following paper:
 
 > Yuqi Liu, Chengcheng Hu, and Jimmy Lin. [Another Look at Information Retrieval as Statistical Translation.](https://cs.uwaterloo.ca/~jimmylin/publications/Liu_etal_SIGIR2022.pdf) _Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)_, July 2022.

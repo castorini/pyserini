@@ -364,7 +364,16 @@ class LuceneIndexReader:
         Optional[Dict[str, int]]
             A dictionary with analyzed terms as keys and their term frequencies as values.
         """
-        doc_vector_map = self.object.getDocumentVector(self.reader, docid)
+        try:
+            doc_vector_map = self.object.getDocumentVector(self.reader, docid)
+        except Exception as e:
+            # In case if doc is empty
+            exception_type = type(e).__name__  # Get the exception's type name
+            if 'JavaException' == exception_type:
+                return {}
+            else:
+                # Re-raise the exception if it doesn't match the desired name
+                raise e
         if doc_vector_map is None:
             return None
         doc_vector_dict = {}
@@ -569,7 +578,7 @@ class LuceneIndexReader:
             BM25 b parameter.
         """
 
-        f = open(file_path, 'w')
+        f = open(file_path, 'w', encoding='utf-8')
 
         assert 'documents' in self.stats()
         for i in tqdm(range(self.stats()['documents'])):

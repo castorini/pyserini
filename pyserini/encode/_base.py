@@ -117,7 +117,7 @@ class JsonlCollectionIterator:
                 to_yield[key] = self.all_info[key][idx: min(idx + self.batch_size, end_idx)]
             yield to_yield
 
-    def _parse_fields_from_info(self, info):
+    def _parse_fields_from_info(self, info, strict=True):
         """
         :params info: dict, containing all fields as speicifed in self.fields either under 
         the key of the field name or under the key of 'contents'.  If under `contents`, this 
@@ -126,10 +126,13 @@ class JsonlCollectionIterator:
         """
         n_fields = len(self.fields)
 
-        # if all fields are under the key of info, read these rather than 'contents' 
-        if all([field in info for field in self.fields]):
-            return [info[field].strip() for field in self.fields]
-
+        field_check = all if strict else any
+        if field_check(field in info for field in self.fields):
+            return [
+                info[field].strip() if field in info and info[field] else None
+                for field in self.fields
+            ]
+            
         assert "contents" in info, f"contents not found in info: {info}"
         contents = info['contents']
         # whether to remove the final self.delimiter (especially \n)
@@ -150,6 +153,12 @@ class JsonlCollectionIterator:
         else:
             for filename in os.listdir(collection_path):
                 filenames.append(os.path.join(collection_path, filename))
+
+        # Added condition since some MBEIR datasets have missing fields
+        strict = True
+        if any("mbeir" in filename for filename in filenames):
+            strict = False
+
         all_info = {field: [] for field in self.fields}
         all_info['id'] = []
         for filename in filenames:
@@ -163,18 +172,17 @@ class JsonlCollectionIterator:
                     if _id is None:
                         raise ValueError(f"Cannot find f'`{self.docid_field if self.docid_field else '`id` or `_id` or `docid'}`' from {filename}.")
                     all_info['id'].append(str(_id))
-                    fields_info = self._parse_fields_from_info(info)
+                    fields_info = self._parse_fields_from_info(info, strict=strict)
                     if len(fields_info) != len(self.fields):
                         raise ValueError(
                             f"{len(fields_info)} fields are found at Line#{line_i} in file {filename}." \
                             f"{len(self.fields)} fields expected." \
                             f"Line content: {info['contents']}"
                         )
-
                     for i in range(len(fields_info)):
                         if 'path' in self.fields[i]:
                             _info = fields_info[i]
-                            if not _info.startswith(("http://", "https://")):
+                            if _info is not None and not _info.startswith(("http://", "https://")):
                                 fields_info[i] = os.path.join(self.collection_dir, fields_info[i])
                         all_info[self.fields[i]].append(fields_info[i])
         return all_info
@@ -207,7 +215,7 @@ class JsonlRepresentationWriter(RepresentationWriter):
 
     def write(self, batch_info, fields=None):
         for i in range(len(batch_info['id'])):
-            contents = "\n".join([batch_info[key][i] for key in fields])
+            contents = "\n".join([batch_info[key][i] if batch_info[key][i] is not None else "" for key in fields])
             vector = batch_info['vector'][i]
             vector = vector.tolist() if isinstance(vector, np.ndarray) else vector
             self.file.write(json.dumps({'id': batch_info['id'][i],

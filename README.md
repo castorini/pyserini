@@ -1,8 +1,8 @@
 # Pyserini <img src="docs/pyserini-logo.png" width="300" />
 
 [![PyPI](https://img.shields.io/pypi/v/pyserini?color=brightgreen)](https://pypi.org/project/pyserini/)
-[![Downloads](https://static.pepy.tech/personalized-badge/pyserini?period=total&units=international_system&left_color=grey&right_color=brightgreen&left_text=downloads)](https://pepy.tech/project/pyserini)
-[![PyPI Download Stats](https://img.shields.io/pypi/dw/pyserini?color=brightgreen)](https://pypistats.org/packages/pyserini)
+[![PyPI Downloads](https://static.pepy.tech/badge/pyserini)](https://pepy.tech/projects/pyserini)
+[![PyPI Downloads](https://static.pepy.tech/badge/pyserini/week)](https://pepy.tech/projects/pyserini)
 [![Maven Central](https://img.shields.io/maven-central/v/io.anserini/anserini?color=brightgreen)](https://search.maven.org/search?q=a:anserini)
 [![Generic badge](https://img.shields.io/badge/Lucene-v9.9.1-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/9.9.1/)
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
@@ -17,10 +17,10 @@ With Pyserini, it's easy to reproduce runs on a number of standard IR test colle
 
 For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.3463238) in SIGIR 2021 provides a nice overview.
 
-✨ **New!** Guide to working with the [MS MARCO 2.1 Document Corpus](docs/experiments-msmarco-v2.1.md) for TREC 2024 RAG Track.
+✨ **New!** Pyserini provides a [REST API](docs/usage-rest.md) as well as an [MCP server](docs/usage-mcp.md)! 
 
-❗ Anserini was upgraded from JDK 11 to JDK 21 at commit [`272565`](https://github.com/castorini/anserini/commit/39cecf6c257bae85f4e9f6ab02e0be101338c3cc) (2024/04/03), which corresponds to the release of v0.35.0.
-Correspondingly, Pyserini was upgraded to JDK 21 at commit [`b2f677`](https://github.com/castorini/pyserini/commit/b2f677da46e1910c0fd95e5ff06070bc71075401) (2024/04/04).
+✨ Guide to working with the [MS MARCO 2.1 Document Corpus](docs/experiments-msmarco-v2.1.md) for TREC 2024 RAG Track.
+
 
 ## 🎬 Installation
 
@@ -30,7 +30,7 @@ Install via PyPI:
 pip install pyserini
 ```
 
-Pyserini is built on Python 3.10 (other versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
+Pyserini is built on Python 3.11 (other versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
 A `pip` installation will automatically pull in major dependencies such as [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/).
 
 The toolkit also has a number of optional dependencies:
@@ -39,9 +39,8 @@ The toolkit also has a number of optional dependencies:
 pip install 'pyserini[optional]'
 ```
 
-Notably, `faiss-cpu`, `lightgbm`, and `nmslib` are included in these optional dependencies.
-Installation of these packages can be temperamental, which is why they are not included in the core dependencies.
-It might be a good idea to install these yourself separately.
+Notably, `faiss-cpu` is included as an optional dependency; the package can be tricky to install, which is why it is not included in the core dependencies.
+It might be a good idea to install it yourself separately.
 
 The software ecosystem is rapidly evolving and a potential source of frustration is incompatibility among different versions of underlying dependencies.
 We provide additional detailed installation instructions [here](./docs/installation.md).
@@ -81,7 +80,7 @@ The steps are different for different classes of models:
 
 + [How do I configure search?](docs/usage-interactive-search.md#how-do-i-configure-search) (Guide to Interactive Search)
 + [How do I manually download indexes?](docs/usage-interactive-search.md#how-do-i-manually-download-indexes) (Guide to Interactive Search)
-+ [How do I perform dense and hybrid retrieval?](docs/usage-interactive-search.md#how-do-i-perform-dense-and-hybrid-retrieval) (Guide to Interactive Search)
++ [How do I clean up or delete my indexes?](docs/usage-interactive-search.md#how-do-i-manually-remove-indexes) (Guide to Interactive Search)
 + [How do I iterate over index terms and access term statistics?](docs/usage-indexreader.md#how-do-i-iterate-over-index-terms-and-access-term-statistics) (Index Reader API)
 + [How do I traverse postings?](docs/usage-indexreader.md#how-do-i-traverse-postings) (Index Reader API)
 + [How do I access and manipulate term vectors?](docs/usage-indexreader.md#how-do-i-access-and-manipulate-term-vectors) (Index Reader API)
@@ -199,6 +198,13 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 
 ## 📜️ Release History
 
++ v1.2.0 (w/ Anserini v1.1.1): July 16, 2025 [[Release Notes](docs/release-notes/release-notes-v1.2.0.md)]
++ v1.1.0 (w/ Anserini v1.1.1): July 4, 2025 [[Release Notes](docs/release-notes/release-notes-v1.1.0.md)]
++ v1.0.0 (w/ Anserini v1.0.0): June 1, 2025 [[Release Notes](docs/release-notes/release-notes-v1.0.0.md)]
+
+<details>
+<summary>older... (and historic notes)</summary>
+
 + v0.44.0 (w/ Anserini v0.39.0): January 20, 2025 [[Release Notes](docs/release-notes/release-notes-v0.44.0.md)]
 + v0.43.0 (w/ Anserini v0.38.0): November 11, 2024 [[Release Notes](docs/release-notes/release-notes-v0.43.0.md)]
 + v0.42.0 (w/ Anserini v0.38.0): November 8, 2024 [[Release Notes](docs/release-notes/release-notes-v0.42.0.md)] [[Known Issues](docs/release-notes/known-issues-v0.42.0.md)]
@@ -209,10 +215,6 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 + v0.37.0 (w/ Anserini v0.37.0): August 26, 2024 [[Release Notes](docs/release-notes/release-notes-v0.37.0.md)]
 + v0.36.0 (w/ Anserini v0.36.1): June 17, 2024 [[Release Notes](docs/release-notes/release-notes-v0.36.0.md)]
 + v0.35.0 (w/ Anserini v0.35.0): April 4, 2024 [[Release Notes](docs/release-notes/release-notes-v0.35.0.md)]
-
-<details>
-<summary>older... (and historic notes)</summary>
-
 + v0.25.0 (w/ Anserini v0.25.0): March 31, 2024 [[Release Notes](docs/release-notes/release-notes-v0.25.0.md)]
 + v0.24.0 (w/ Anserini v0.24.0): December 28, 2023 [[Release Notes](docs/release-notes/release-notes-v0.24.0.md)]
 + v0.23.0 (w/ Anserini v0.23.0): November 17, 2023 [[Release Notes](docs/release-notes/release-notes-v0.23.0.md)]
@@ -250,6 +252,9 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 + v0.6.0.0: November 2, 2019
 
 ## 📜️ Historical Notes
+
+❗ Anserini was upgraded from JDK 11 to JDK 21 at commit [`272565`](https://github.com/castorini/anserini/commit/39cecf6c257bae85f4e9f6ab02e0be101338c3cc) (2024/04/03), which corresponds to the release of v0.35.0.
+Correspondingly, Pyserini was upgraded to JDK 21 at commit [`b2f677`](https://github.com/castorini/pyserini/commit/b2f677da46e1910c0fd95e5ff06070bc71075401) (2024/04/04).
 
 ⁉️ **Lucene 8 to Lucene 9 Transition.**
 In 2022, Pyserini underwent a transition from Lucene 8 to Lucene 9.

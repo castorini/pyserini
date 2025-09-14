@@ -162,14 +162,14 @@ if __name__ == "__main__":
         # Nevertheless, we still do this to be explicit and have Python manage all index downloads.
         if os.path.exists(args.index):
             if args.hnsw:
-                searcher = LuceneHnswDenseSearcher(args.index, ef_search=args.ef_search, encoder=args.onnx_encoder)
+                searcher = LuceneHnswDenseSearcher(args.index, ef_search=args.ef_search, encoder=args.onnx_encoder, verbose=False)
             elif args.flat:
                 searcher = LuceneFlatDenseSearcher(args.index, encoder=args.onnx_encoder)
             else:
                 raise ValueError(f'Unrecognized dense vector index type: must set either --hnsw or --flat')
         else:
             if args.hnsw:
-                searcher = LuceneHnswDenseSearcher.from_prebuilt_index(args.index, ef_search=args.ef_search, encoder=args.onnx_encoder)
+                searcher = LuceneHnswDenseSearcher.from_prebuilt_index(args.index, ef_search=args.ef_search, encoder=args.onnx_encoder, verbose=False)
             elif args.flat:
                 searcher = LuceneFlatDenseSearcher.from_prebuilt_index(args.index, encoder=args.onnx_encoder)
             else:
