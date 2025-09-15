@@ -422,6 +422,7 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@NathanNCN](https://github.com/NathanNCN) on 2025-09-10 (commit [`b09c786`](https://github.com/castorini/pyserini/commit/b09c7869e07d41ae5b348ac69063914207e6617a))
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 + Results reproduced by [@CereNova](https://github.com/CereNova) on 2025-09-13 (commit [`cbd98c1`](https://github.com/castorini/pyserini/commit/cbd98c134d9d67893ab263973f438bfb87ef3f66))
 + Results reproduced by [@shreyaadritabanik](https://github.com/shreyaadritabanik) on 2025-09-18 (commit [`abcb05d`](https://github.com/castorini/pyserini/commit/abcb05d451e948e16067633c867de60ea62ea27a))
 =======
@@ -430,3 +431,6 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 =======
 + Results reproduced by [@shreyaadritabanik](https://github.com/shreyaadritabanik) on 2025-09-14 (commit [`abcb05d`](https://github.com/castorini/pyserini/commit/abcb05d451e948e16067633c867de60ea62ea27a))
 >>>>>>> 384bb1c (Add to onboarding reproduction logs)
+=======
++ Results reproduced by [@shreyaadritabanik](https://github.com/shreyaadritabanik) on 2025-09-15 (commit [`8947b0a`](https://github.com/castorini/pyserini/commit/8947b0a9a9797ed11d789835784b48b385c7a9df))
+>>>>>>> 9dde5f2 (Add Pyserini onboarding reproduction log entries – @shreyaadritabanik)
