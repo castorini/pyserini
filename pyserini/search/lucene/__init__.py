@@ -20,6 +20,7 @@ from pyserini.pyclass import autoclass
 JQuery = autoclass('org.apache.lucene.search.Query')
 JScoredDoc = autoclass('io.anserini.search.ScoredDoc')
 JQueryGenerator = autoclass('io.anserini.search.query.QueryGenerator')
+JQuerySideBm25QueryGenerator = autoclass('io.anserini.search.query.QuerySideBm25QueryGenerator')
 JBagOfWordsQueryGenerator = autoclass('io.anserini.search.query.BagOfWordsQueryGenerator')
 JDisjunctionMaxQueryGenerator = autoclass('io.anserini.search.query.DisjunctionMaxQueryGenerator')
 JCovid19QueryGenerator = autoclass('io.anserini.search.query.Covid19QueryGenerator')
