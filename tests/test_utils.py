@@ -19,11 +19,12 @@ import tarfile
 import tempfile
 import unittest
 
-from pyserini.util import download_url
+from pyserini.util import download_url, download_and_unpack_index
 from pyserini.prebuilt_index_info import TF_INDEX_INFO
 
 class TestIterateCollection(unittest.TestCase):
     def test_cacm_prebuilt_index_download(self):
+        """ Sanity check, download_url will assert file size and md5 checksum when enabled """
         info = TF_INDEX_INFO["cacm"]
         urls = info.get("urls") or []
         url = urls[0] if urls else None
@@ -56,6 +57,21 @@ class TestIterateCollection(unittest.TestCase):
             with self.assertRaises((AssertionError, ValueError)):
                 download_url(url, directory, md5=bad_md5, expected_size=expected_size, force=True)
 
+    def test_download_and_unpack_index_sanity(self):
+        """
+        Sanity check: rely on download_url (inside function) to validate MD5/size,
+        then ensure the extracted index directory exists and is non-empty.
+        """
+        info = TF_INDEX_INFO["cacm"]
+        url = (info.get("urls") or [None])[0]
+        expected_size = info.get("size compressed (bytes)", None)
+        expected_md5 = info.get("md5", None)
+
+        with tempfile.TemporaryDirectory(prefix="prebuilt-index-") as directory:
+            index_path = download_and_unpack_index(url, index_directory=directory, md5=expected_md5,
+                expected_size=expected_size, prebuilt=False, verbose=False, force=True)
+            self.assertTrue(os.path.isdir(index_path), f"Index path missing: {index_path}")
+            self.assertGreater(len(os.listdir(index_path)), 0, "Extracted index directory is empty.")
 
 if __name__ == "__main__":
     unittest.main()
