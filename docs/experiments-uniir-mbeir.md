@@ -7,10 +7,22 @@ This guide contains instructions for running baselines on the CIRR dataset (one 
 ## Data Prep
  
 First, download the CIRR dataset from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/cand_pool/local/mbeir_cirr_task7_cand_pool.jsonl) to the `collections/m-beir/CIRR` folder inside pyserini.
+```bash
+mkdir -p collections/m-beir/CIRR
+wget -O collections/m-beir/CIRR/mbeir_cirr_task7_cand_pool.jsonl \
+  "https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/cand_pool/local/mbeir_cirr_task7_cand_pool.jsonl"
 
-Then, download the 4 parts of the image dataset from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/tree/main), merge them into 1 tar.gz file and extract it. Make sure the extracted folder is in the same directory as the mbeir_cirr_task7_cand_pool.jsonl file.
+```
+
+Then, download the 4 parts of the image dataset from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/tree/main), merge them into 1 tar.gz file and extract it by following the specified [instructions](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/README.md#downloading-the-m-beir-dataset). Make sure the extracted folder is in the same directory as the mbeir_cirr_task7_cand_pool.jsonl file.
 
 Finally, download the [topics](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/query/test/mbeir_cirr_task7_test.jsonl) file and the [qrels](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/qrels/test/mbeir_cirr_task7_test_qrels.txt) file to the same directory as well.
+```bash
+wget -O collections/m-beir/CIRR/mbeir_cirr_task7_test_topics.jsonl \
+    https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/query/test/mbeir_cirr_task7_test.jsonl
+wget -O collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels.txt \
+  "https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/qrels/test/mbeir_cirr_task7_test_qrels.txt"
+```
 
 ## Passage Collection
 
@@ -49,20 +61,25 @@ python -m pyserini.search.faiss \
     --encoder-class uniir \
     --encoder clip_sf_large \
     --topics-format mbeir \
-    --topics collections/m-beir/CIRR/topics_mbeir_cirr_task7_test.jsonl \
+    --topics collections/m-beir/CIRR/mbeir_cirr_task7_test_topics.jsonl \
     --index indexes/faiss.mbeir-cirr.clipsf \
     --output runs/mbeir-cirr.no-instr.clipsf.txt \
     --fp16 \
-    --hits 1000
+    --hits 1000 \
+    --threads 16 # Adjust based on your hardware.
 ```
 
 If you want to use UniIR with M-BEIR query instructions, download it from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv)
 Then, create a yaml file like this:
+```bash
+wget -O collections/m-beir/query_instructions.tsv \
+"https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/instructions/query_instructions.tsv"
+```
 ```yaml
-instruction_file: /path/to/query_instructions.tsv
+instruction_file: collections/m-beir/query_instructions.tsv
 candidate_modality: image
 dataset_id: 8 # the id for CIRR is 8
-randomize_instructions: False # set to true if you want to use a random instruction for each query
+randomize_instructions: False # When False, always gets the first available instruction for each query. Set it to true if you want to use instructions at the random indexes.
 ```
 
 Then, run the following command:
@@ -72,19 +89,21 @@ python -m pyserini.search.faiss \
     --encoder-class uniir \
     --encoder clip_sf_large \
     --topics-format mbeir \
-    --topics collections/m-beir/CIRR/topics_mbeir_cirr_task7_test.jsonl \
+    --topics collections/m-beir/CIRR/mbeir_cirr_task7_test_topics.jsonl \
     --index indexes/faiss.mbeir-cirr.clipsf \
     --output runs/mbeir-cirr.instr.clipsf.txt \
     --instruction-config /path/to/instruction_config.yaml \
     --fp16 \
-    --hits 1000
+    --hits 1000 \
+    --threads 16 # Adjust based on your hardware.
 ```
 
 Evaluation:
 
 First we will need to fix the qrels file to proper TREC format so it is compatible with pyserini's trec_eval:
 ```bash
-cut -d' ' -f1-4 mbeir_cirr_task7_test_qrels.txt > mbeir_cirr_task7_test_qrels_fixed.txt
+cut -d' ' -f1-4 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels.txt \
+    > collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt
 ```
 
 _Without instructions_
