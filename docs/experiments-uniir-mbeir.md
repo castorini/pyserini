@@ -7,16 +7,17 @@ This guide contains instructions for running baselines on the CIRR dataset (one 
 ## Data Prep
  
 First, download the CIRR dataset from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/cand_pool/local/mbeir_cirr_task7_cand_pool.jsonl) to the `collections/m-beir/CIRR` folder inside pyserini.
+
 ```bash
 mkdir -p collections/m-beir/CIRR
 wget -O collections/m-beir/CIRR/mbeir_cirr_task7_cand_pool.jsonl \
   "https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/cand_pool/local/mbeir_cirr_task7_cand_pool.jsonl"
-
 ```
 
 Then, download the 4 parts of the image dataset from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/tree/main), merge them into 1 tar.gz file and extract it by following the specified [instructions](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/README.md#downloading-the-m-beir-dataset). Make sure the extracted folder is in the same directory as the mbeir_cirr_task7_cand_pool.jsonl file.
 
 Finally, download the [topics](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/query/test/mbeir_cirr_task7_test.jsonl) file and the [qrels](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/qrels/test/mbeir_cirr_task7_test_qrels.txt) file to the same directory as well.
+
 ```bash
 wget -O collections/m-beir/CIRR/mbeir_cirr_task7_test_topics.jsonl \
     https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/query/test/mbeir_cirr_task7_test.jsonl
@@ -29,6 +30,7 @@ wget -O collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels.txt \
 To run UniIR models, you must first make sure you have properly set up pyserini, follow the installation guide's UniIR section if you haven't.
 
 To encode the corpus, use the following command:
+
 ```bash
 python -m pyserini.encode \
   input --corpus collections/m-beir/CIRR/mbeir_cirr_task7_cand_pool.jsonl \
@@ -71,10 +73,12 @@ python -m pyserini.search.faiss \
 
 If you want to use UniIR with M-BEIR query instructions, download it from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv)
 Then, create a yaml file like this:
+
 ```bash
 wget -O collections/m-beir/query_instructions.tsv \
 "https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/instructions/query_instructions.tsv"
 ```
+
 ```yaml
 instruction_file: collections/m-beir/query_instructions.tsv
 candidate_modality: image
@@ -101,12 +105,14 @@ python -m pyserini.search.faiss \
 Evaluation:
 
 First we will need to fix the qrels file to proper TREC format so it is compatible with pyserini's trec_eval:
+
 ```bash
 cut -d' ' -f1-4 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels.txt \
     > collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt
 ```
 
 _Without instructions_
+
 ```bash
 python -m pyserini.eval.trec_eval -c -m recall.5 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt runs/mbeir-cirr.no-instr.clipsf.txt
 
@@ -115,6 +121,7 @@ recall_5           	all	0.3879
 ```
 
 _With instructions_
+
 ```bash
 python -m pyserini.eval.trec_eval -c -m recall.5 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt runs/mbeir-cirr.instr.clipsf.txt
 
