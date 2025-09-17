@@ -142,7 +142,7 @@ if __name__ == '__main__':
     print('</details>')
 
     print('<details>')
-    print('<summary>BEIR</summary>')
+    print('<summary>BRIGHT</summary>')
     generate_prebuilt(IMPACT_INDEX_INFO_BRIGHT)
     print('</details>')
 

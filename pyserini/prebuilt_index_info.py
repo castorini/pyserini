@@ -46,20 +46,25 @@ def add_lucene_index_info(enum, info, name=None, readme=None):
 # Bindings for Lucene (standard) inverted indexes
 TF_INDEX_INFO_MSMARCO = {
     # MS MARCO V1 document corpus, three indexes with different amounts of information (and sizes).
-    "msmarco-v1-doc": {
-        "description": "Lucene index of the MS MARCO V1 document corpus.",
-        "filename": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc.20221004.252b5e.tar.gz",
-        ],
-        "md5": "f66020a923df6430007bd5718e53de86",
-        "size compressed (bytes)": 13736982339,
-        "total_terms": 2742219865,
-        "documents": 3213835,
-        "unique_terms": 29823777,
-        "downloaded": False
-    },
+
+    # Defined in Anserini
+    "msmarco-v1-doc": {},
+
+    # "msmarco-v1-doc": {
+    #     "description": "Lucene index of the MS MARCO V1 document corpus.",
+    #     "filename": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.tar.gz",
+    #     "readme": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md",
+    #     "urls": [
+    #         "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc.20221004.252b5e.tar.gz",
+    #     ],
+    #     "md5": "f66020a923df6430007bd5718e53de86",
+    #     "size compressed (bytes)": 13736982339,
+    #     "total_terms": 2742219865,
+    #     "documents": 3213835,
+    #     "unique_terms": 29823777,
+    #     "downloaded": False
+    # },
+
     "msmarco-v1-doc-slim": {
         "description": "Lucene index of the MS MARCO V1 document corpus ('slim' version).",
         "filename": "lucene-inverted.msmarco-v1-doc-slim.20221004.252b5e.tar.gz",
@@ -90,20 +95,25 @@ TF_INDEX_INFO_MSMARCO = {
     },
 
     # MS MARCO V1 document corpus, doc2query-T5 expansions.
-    "msmarco-v1-doc.d2q-t5": {
-        "description": "Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.tar.gz",
-        ],
-        "md5": "c0b0a25c329c1bdd7df3189400ec2f38",
-        "size compressed (bytes)": 1885596445,
-        "total_terms": 3748343494,
-        "documents": 3213835,
-        "unique_terms": 30631009,
-        "downloaded": False
-    },
+
+    # Defined in Anserini
+    "msmarco-v1-doc.d2q-t5": {},
+
+    # "msmarco-v1-doc.d2q-t5": {
+    #     "description": "Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions.",
+    #     "filename": "lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.tar.gz",
+    #     "readme": "lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md",
+    #     "urls": [
+    #         "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.tar.gz",
+    #     ],
+    #     "md5": "c0b0a25c329c1bdd7df3189400ec2f38",
+    #     "size compressed (bytes)": 1885596445,
+    #     "total_terms": 3748343494,
+    #     "documents": 3213835,
+    #     "unique_terms": 30631009,
+    #     "downloaded": False
+    # },
+
     "msmarco-v1-doc.d2q-t5-docvectors": {
         "description": "Lucene index (+docvectors) of the MS MARCO V1 document corpus with doc2query-T5 expansions.",
         "filename": "lucene-inverted.msmarco-v1-doc.d2q-t5-docvectors.20221004.252b5e.tar.gz",
@@ -120,20 +130,25 @@ TF_INDEX_INFO_MSMARCO = {
     },
 
     # MS MARCO V1 segmented document corpus, three indexes with different amounts of information (and sizes).
-    "msmarco-v1-doc-segmented": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus.",
-        "filename": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
-        ],
-        "md5": "dbf968dbf6e9d64119b4e320334524aa",
-        "size compressed (bytes)": 15924437950,
-        "total_terms": 3200522554,
-        "documents": 20545677,
-        "unique_terms": 21191748,
-        "downloaded": False
-    },
+
+    # Defined in Anserini
+    "msmarco-v1-doc-segmented": {},
+
+    # "msmarco-v1-doc-segmented": {
+    #     "description": "Lucene index of the MS MARCO V1 segmented document corpus.",
+    #     "filename": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
+    #     "readme": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
+    #     "urls": [
+    #         "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
+    #     ],
+    #     "md5": "dbf968dbf6e9d64119b4e320334524aa",
+    #     "size compressed (bytes)": 15924437950,
+    #     "total_terms": 3200522554,
+    #     "documents": 20545677,
+    #     "unique_terms": 21191748,
+    #     "downloaded": False
+    # },
+
     "msmarco-v1-doc-segmented-slim": {
         "description": "Lucene index of the MS MARCO V1 segmented document corpus ('slim' version).",
         "filename": "lucene-inverted.msmarco-v1-doc-segmented-slim.20221004.252b5e.tar.gz",
@@ -164,20 +179,25 @@ TF_INDEX_INFO_MSMARCO = {
     },
 
     # MS MARCO V1 segmented document corpus, doc2query-T5 expansions.
-    "msmarco-v1-doc-segmented.d2q-t5": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented-d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.tar.gz",
-        ],
-        "md5": "c76e514df930721401c215b90f9f5d14",
-        "size compressed (bytes)": 3554554591,
-        "total_terms": 4206646183,
-        "documents": 20545677,
-        "unique_terms": 22055268,
-        "downloaded": False
-    },
+
+    # Defined in Anserini
+    "msmarco-v1-doc-segmented.d2q-t5": {},
+
+    # "msmarco-v1-doc-segmented.d2q-t5": {
+    #     "description": "Lucene index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.",
+    #     "filename": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.tar.gz",
+    #     "readme": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md",
+    #     "urls": [
+    #         "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented-d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.tar.gz",
+    #     ],
+    #     "md5": "c76e514df930721401c215b90f9f5d14",
+    #     "size compressed (bytes)": 3554554591,
+    #     "total_terms": 4206646183,
+    #     "documents": 20545677,
+    #     "unique_terms": 22055268,
+    #     "downloaded": False
+    # },
+
     "msmarco-v1-doc-segmented.d2q-t5-docvectors": {
         "description": "Lucene index (+docvectors) of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.",
         "filename": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5-docvectors.20221004.252b5e.tar.gz",
@@ -194,20 +214,25 @@ TF_INDEX_INFO_MSMARCO = {
     },
 
     # MS MARCO V1 passage corpus, three indexes with different amounts of information (and sizes).
-    "msmarco-v1-passage": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus.",
-        "filename": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage.20221004.252b5e.tar.gz",
-        ],
-        "md5": "678876e8c99a89933d553609a0fd8793",
-        "size compressed (bytes)": 2170758745,
-        "total_terms": 352316036,
-        "documents": 8841823,
-        "unique_terms": 2660824,
-        "downloaded": False
-    },
+
+    # Defined in Anserini
+    "msmarco-v1-passage": {},
+
+    # "msmarco-v1-passage": {
+    #     "description": "Lucene index of the MS MARCO V1 passage corpus.",
+    #     "filename": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.tar.gz",
+    #     "readme": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md",
+    #     "urls": [
+    #         "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage.20221004.252b5e.tar.gz",
+    #     ],
+    #     "md5": "678876e8c99a89933d553609a0fd8793",
+    #     "size compressed (bytes)": 2170758745,
+    #     "total_terms": 352316036,
+    #     "documents": 8841823,
+    #     "unique_terms": 2660824,
+    #     "downloaded": False
+    # },
+
     "msmarco-v1-passage-slim": {
         "description": "Lucene index of the MS MARCO V1 passage corpus ('slim' version).",
         "filename": "lucene-inverted.msmarco-v1-passage-slim.20221004.252b5e.tar.gz",
@@ -651,6 +676,12 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     }
 }
+
+add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE, TF_INDEX_INFO_MSMARCO)
+add_lucene_index_info(JIndexInfo.MSMARCO_V1_DOC, TF_INDEX_INFO_MSMARCO)
+add_lucene_index_info(JIndexInfo.MSMARCO_V1_DOC_D2Q_T5, TF_INDEX_INFO_MSMARCO)
+add_lucene_index_info(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED, TF_INDEX_INFO_MSMARCO)
+add_lucene_index_info(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_D2Q_T5, TF_INDEX_INFO_MSMARCO)
 
 TF_INDEX_INFO_MSMARCO_ALIASES = {
     # To preserve working commands in published papers: integrations/papers/test_sigir2021.py testcase test_section3_3

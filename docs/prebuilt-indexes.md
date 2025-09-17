@@ -68,7 +68,7 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dl>
 <dt></dt><b><code>msmarco-v1-doc</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V1 document corpus.
+<dd>Anserini Lucene inverted index of the MS MARCO V1 document corpus.
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-slim</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
@@ -80,7 +80,7 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 </dd>
 <dt></dt><b><code>msmarco-v1-doc.d2q-t5</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions.
+<dd>Anserini Lucene inverted index of the MS MARCO V1 document corpus with doc2query-T5 expansions
 </dd>
 <dt></dt><b><code>msmarco-v1-doc.d2q-t5-docvectors</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md">readme</a>]
@@ -88,7 +88,7 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V1 segmented document corpus.
+<dd>Anserini Lucene inverted index of the MS MARCO V1 segmented document corpus
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented-slim</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
@@ -100,7 +100,7 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented.d2q-t5</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.
+<dd>Anserini Lucene inverted index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented.d2q-t5-docvectors</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md">readme</a>]
@@ -108,7 +108,7 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 </dd>
 <dt></dt><b><code>msmarco-v1-passage</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V1 passage corpus.
+<dd>Anserini Lucene inverted index of the MS MARCO V1 passage corpus
 </dd>
 <dt></dt><b><code>msmarco-v1-passage-slim</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
@@ -237,235 +237,235 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dl>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): TREC-COVID.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'trec-covid'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): BioASQ.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'bioasq'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): NFCorpus.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'nfcorpus'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): NQ.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'nq'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): HotpotQA.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'hotpotqa'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): FiQA-2018.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'fiqa'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): Signal-1M.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'signal1m'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): TREC-NEWS.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'trec-news'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): Robust04.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'robust04'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): ArguAna.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'arguana'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): Webis-Touche2020.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'webis-touche2020'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): CQADupStack-android.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-android'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): CQADupStack-english.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-english'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): CQADupStack-gaming.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-gaming'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): CQADupStack-gis.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-gis'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): CQADupStack-mathematica.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-mathematica'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): CQADupStack-physics.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-physics'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): CQADupStack-programmers.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-programmers'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): CQADupStack-stats.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-stats'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): CQADupStack-tex.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-tex'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): CQADupStack-unix.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-unix'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): CQADupStack-webmasters.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-webmasters'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): CQADupStack-wordpress.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-wordpress'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): Quora.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'quora'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): DBPedia.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'dbpedia-entity'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): SCIDOCS.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'scidocs'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): FEVER.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'fever'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): Climate-FEVER.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'climate-fever'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
-<dd>Lucene inverted 'flat' index of BEIR (v1.0.0): SciFact.
+<dd>Anserini Lucene inverted 'flat' index of BEIR collection 'scifact'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): TREC-COVID.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'trec-covid'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): BioASQ.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'bioasq'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): NFCorpus.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'nfcorpus'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): NQ.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'nq'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): HotpotQA.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'hotpotqa'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): FiQA-2018.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'fiqa'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): Signal-1M.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'signal1m'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): TREC-NEWS.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'trec-news'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): Robust04.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'robust04'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): ArguAna.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'arguana'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): Webis-Touche2020.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'webis-touche2020'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-android.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-android'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-english.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-english'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-gaming.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-gaming'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-gis.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-gis'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-mathematica.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-mathematica'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-physics.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-physics'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-programmers.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-programmers'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-stats.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-stats'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-tex.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-tex'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-unix.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-unix'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-webmasters.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-webmasters'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): CQADupStack-wordpress.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-wordpress'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): Quora.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'quora'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): DBPedia.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'dbpedia-entity'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): SCIDOCS.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'scidocs'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): FEVER.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'fever'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): Climate-FEVER.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'climate-fever'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.multifield</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
-<dd>Lucene multifield index of BEIR (v1.0.0): SciFact.
+<dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'scifact'
 </dd>
 </dl>
 </details>
@@ -474,51 +474,51 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dl>
 <dt></dt><b><code>bright-biology</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
-<dd>Lucene inverted index of BRIGHT: biology.
+<dd>Anserini Lucene inverted index of BRIGHT collection 'biology'
 </dd>
 <dt></dt><b><code>bright-earth-science</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
-<dd>Lucene inverted index of BRIGHT: earth-science.
+<dd>Anserini Lucene inverted index of BRIGHT collection 'earth-science'
 </dd>
 <dt></dt><b><code>bright-economics</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
-<dd>Lucene inverted index of BRIGHT: economics.
+<dd>Anserini Lucene inverted index of BRIGHT collection 'economics'
 </dd>
 <dt></dt><b><code>bright-psychology</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
-<dd>Lucene inverted index of BRIGHT: psychology.
+<dd>Anserini Lucene inverted index of BRIGHT collection 'psychology'
 </dd>
 <dt></dt><b><code>bright-robotics</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
-<dd>Lucene inverted index of BRIGHT: robotics.
+<dd>Anserini Lucene inverted index of BRIGHT collection 'robotics'
 </dd>
 <dt></dt><b><code>bright-stackoverflow</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
-<dd>Lucene inverted index of BRIGHT: stackoverflow.
+<dd>Anserini Lucene inverted index of BRIGHT collection 'stackoverflow'
 </dd>
 <dt></dt><b><code>bright-sustainable-living</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
-<dd>Lucene inverted index of BRIGHT: sustainable-living.
+<dd>Anserini Lucene inverted index of BRIGHT collection 'sustainable-living'
 </dd>
 <dt></dt><b><code>bright-pony</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
-<dd>Lucene inverted index of BRIGHT: pony.
+<dd>Anserini Lucene inverted index of BRIGHT collection 'pony'
 </dd>
 <dt></dt><b><code>bright-leetcode</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
-<dd>Lucene inverted index of BRIGHT: leetcode.
+<dd>Anserini Lucene inverted index of BRIGHT collection 'leetcode'
 </dd>
 <dt></dt><b><code>bright-aops</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
-<dd>Lucene inverted index of BRIGHT: aops.
+<dd>Anserini Lucene inverted index of BRIGHT collection 'aops'
 </dd>
 <dt></dt><b><code>bright-theoremqa-theorems</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
-<dd>Lucene inverted index of BRIGHT: theoremqa-theorems.
+<dd>Anserini Lucene inverted index of BRIGHT collection 'theoremqa-theorems'
 </dd>
 <dt></dt><b><code>bright-theoremqa-questions</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
-<dd>Lucene inverted index of BRIGHT: theoremqa-questions.
+<dd>Anserini Lucene inverted index of BRIGHT collection 'theoremqa-questions'
 </dd>
 </dl>
 </details>
@@ -940,235 +940,235 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dl>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): TREC-COVID, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'trec-covid' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): BioASQ, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'bioasq' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): NFCorpus, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'nfcorpus' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): NQ, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'nq' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): HotpotQA, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'hotpotqa' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): FiQA-2018, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'fiqa' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): Signal-1M, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'signal1m' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): TREC-NEWS, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'trec-news' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): Robust04, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'robust04' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): ArguAna, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'arguana' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): Webis-Touche2020, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'webis-touche2020' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-android, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-android' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-english, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-english' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-gaming, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-gaming' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-gis, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-gis' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-mathematica, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-mathematica' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-physics, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-physics' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-programmers, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-programmers' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-stats, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-stats' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-tex, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-tex' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-unix, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-unix' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-webmasters, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-webmasters' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): CQADupStack-wordpress, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-wordpress' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): Quora, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'quora' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): DBPedia, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'dbpedia-entity' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): SCIDOCS, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'scidocs' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): FEVER, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'fever' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): Climate-FEVER, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'climate-fever' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.splade-pp-ed</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Lucene impact index of BEIR (v1.0.0): SciFact, encoded by SPLADE++ (CoCondenser-EnsembleDistil).
+<dd>Anserini Lucene impact index of BEIR collection 'scifact' encoded by SPLADE++ CoCondenser-EnsembleDistil
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'trec-covid' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'trec-covid' collection 'trec-covid' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'bioasq' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'bioasq' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'nfcorpus' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'nfcorpus' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'nq' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'nq' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'hotpotqa' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'hotpotqa' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'fiqa' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'fiqa' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'signal1m' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'signal1m' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'trec-news' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'trec-news' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'robust04' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'robust04' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'arguana' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'arguana' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'webis-touche2020' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'webis-touche2020' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'cqadupstack-android' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-android' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'cqadupstack-english' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-english' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'cqadupstack-gaming' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-gaming' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'cqadupstack-gis' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-gis' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'cqadupstack-mathematica' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-mathematica' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'cqadupstack-physics' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-physics' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'cqadupstack-programmers' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-programmers' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'cqadupstack-stats' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-stats' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'cqadupstack-tex' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-tex' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'cqadupstack-unix' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-unix' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'cqadupstack-webmasters' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-webmasters' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'cqadupstack-wordpress' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-wordpress' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'quora' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'quora' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'dbpedia-entity' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'dbpedia-entity' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'scidocs' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'scidocs' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'fever' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'fever' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'climate-fever' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'climate-fever' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
-<dd>Lucene impact index of BEIR collection 'scifact' encoded by SPLADE v3
+<dd>Anserini Lucene impact index of BEIR collection 'scifact' encoded by SPLADE-v3
 </dd>
 </dl>
 </details>
@@ -1177,51 +1177,51 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dl>
 <dt></dt><b><code>bright-biology.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
-<dd>Lucene impact index of BRIGHT: 'biology' encoded by SPLADE v3.
+<dd>Anserini Lucene impact index of BRIGHT collection 'biology' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-earth-science.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
-<dd>Lucene impact index of BRIGHT: 'earth-science' encoded by SPLADE v3.
+<dd>Anserini Lucene impact index of BRIGHT collection 'earth-science' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-economics.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
-<dd>Lucene impact index of BRIGHT: 'economics' encoded by SPLADE v3.
+<dd>Anserini Lucene impact index of BRIGHT collection 'economics' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-psychology.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
-<dd>Lucene impact index of BRIGHT: 'psychology' encoded by SPLADE v3.
+<dd>Anserini Lucene impact index of BRIGHT collection 'psychology' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-robotics.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
-<dd>Lucene impact index of BRIGHT: 'robotics' encoded by SPLADE v3.
+<dd>Anserini Lucene impact index of BRIGHT collection 'robotics' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-stackoverflow.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
-<dd>Lucene impact index of BRIGHT: 'stackoverflow' encoded by SPLADE v3.
+<dd>Anserini Lucene impact index of BRIGHT collection 'stackoverflow' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-sustainable-living.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
-<dd>Lucene impact index of BRIGHT: 'sustainable-living' encoded by SPLADE v3.
+<dd>Anserini Lucene impact index of BRIGHT collection 'sustainable-living' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-pony.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
-<dd>Lucene impact index of BRIGHT: 'pony' encoded by SPLADE v3.
+<dd>Anserini Lucene impact index of BRIGHT collection 'pony' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-leetcode.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
-<dd>Lucene impact index of BRIGHT: 'leetcode' encoded by SPLADE v3.
+<dd>Anserini Lucene impact index of BRIGHT collection 'leetcode' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-aops.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
-<dd>Lucene impact index of BRIGHT: 'aops' encoded by SPLADE v3.
+<dd>Anserini Lucene impact index of BRIGHT collection 'aops' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-theoremqa-theorems.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
-<dd>Lucene impact index of BRIGHT: 'theoremqa-theorems' encoded by SPLADE v3.
+<dd>Anserini Lucene impact index of BRIGHT collection 'theoremqa-theorems' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-theoremqa-questions.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
-<dd>Lucene impact index of BRIGHT: 'theoremqa-questions' encoded by SPLADE v3.
+<dd>Anserini Lucene impact index of BRIGHT collection 'theoremqa-questions' encoded by SPLADE-v3
 </dd>
 </dl>
 </details>
@@ -1233,59 +1233,59 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dl>
 <dt></dt><b><code>msmarco-v1-passage.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.bge-base-en-v1.5.20240117.53514b.README.md">readme</a>]
-<dd>Lucene HNSW index of the MS MARCO V1 passage corpus encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of the MS MARCO V1 passage corpus encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.bge-base-en-v1.5.hnsw-int8</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.bge-base-en-v1.5.20240117.53514b.README.md">readme</a>]
-<dd>Lucene quantized (int8) HNSW index of the MS MARCO V1 passage corpus encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V1 passage corpus encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.cosdpr-distil.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.cosdpr-distil.20240108.825148.README.md">readme</a>]
-<dd>Lucene HNSW index of the MS MARCO V1 passage corpus encoded by cos-DPR Distil.
+<dd>Anserini Lucene HNSW index of the MS MARCO V1 passage corpus encoded by cos-DPR Distil
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.cosdpr-distil.hnsw-int8</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.cosdpr-distil.20240108.825148.README.md">readme</a>]
-<dd>Lucene quantized (int8) HNSW index of the MS MARCO V1 passage corpus encoded by cos-DPR Distil.
+<dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V1 passage corpus encoded by cos-DPR Distil
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
-<dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard00) encoded by Snowflake's arctic-embed-l model.
+<dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard00) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.hnsw-int8</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
-<dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard01) encoded by Snowflake's arctic-embed-l model.
+<dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard01) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.hnsw-int8</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
-<dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard02) encoded by Snowflake's arctic-embed-l model.
+<dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard02) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.hnsw-int8</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
-<dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard03) encoded by Snowflake's arctic-embed-l model.
+<dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard03) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.hnsw-int8</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
-<dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard04) encoded by Snowflake's arctic-embed-l model.
+<dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard04) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.hnsw-int8</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
-<dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard05) encoded by Snowflake's arctic-embed-l model.
+<dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard05) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.hnsw-int8</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
-<dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard06) encoded by Snowflake's arctic-embed-l model.
+<dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard06) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.hnsw-int8</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
-<dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard07) encoded by Snowflake's arctic-embed-l model.
+<dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard07) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.hnsw-int8</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
-<dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard08) encoded by Snowflake's arctic-embed-l model.
+<dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard08) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.hnsw-int8</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
-<dd>Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard09) encoded by Snowflake's arctic-embed-l model.
+<dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard09) encoded by Snowflake's arctic-embed-l model
 </dd>
 </dl>
 </details>
@@ -1294,119 +1294,119 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dl>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'trec-covid' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'trec-covid' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'bioasq' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'bioasq' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'nfcorpus' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'nfcorpus' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'nq' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'nq' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'hotpotqa' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'hotpotqa' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'fiqa' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'fiqa' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'signal1m' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'signal1m' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'trec-news' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'trec-news' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'robust04' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'robust04' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'arguana' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'arguana' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'webis-touche2020' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'webis-touche2020' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'cqadupstack-android' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-android' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'cqadupstack-english' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-english' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'cqadupstack-gaming' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-gaming' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'cqadupstack-gis' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-gis' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'cqadupstack-mathematica' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-mathematica' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'cqadupstack-physics' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-physics' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'cqadupstack-programmers' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-programmers' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'cqadupstack-stats' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-stats' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'cqadupstack-tex' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-tex' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'cqadupstack-unix' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-unix' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'cqadupstack-webmasters' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-webmasters' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'cqadupstack-wordpress' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-wordpress' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'quora' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'quora' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'dbpedia-entity' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'dbpedia-entity' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'scidocs' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'scidocs' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'fever' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'fever' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'climate-fever' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'climate-fever' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Lucene HNSW index of BEIR collection 'scifact' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene HNSW index of BEIR collection 'scifact' encoded by BGE-base-en-v1.5
 </dd>
 </dl>
 </details>
@@ -1418,119 +1418,119 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dl>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'trec-covid' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'trec-covid' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'bioasq' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'bioasq' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'nfcorpus' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'nfcorpus' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'nq' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'nq' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'hotpotqa' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'hotpotqa' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'fiqa' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'fiqa' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'signal1m' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'signal1m' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'trec-news' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'trec-news' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'robust04' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'robust04' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'arguana' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'arguana' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'webis-touche2020' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'webis-touche2020' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'cqadupstack-android' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-android' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'cqadupstack-english' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-english' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'cqadupstack-gaming' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-gaming' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'cqadupstack-gis' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-gis' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'cqadupstack-mathematica' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-mathematica' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'cqadupstack-physics' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-physics' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'cqadupstack-programmers' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-programmers' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'cqadupstack-stats' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-stats' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'cqadupstack-tex' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-tex' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'cqadupstack-unix' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-unix' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'cqadupstack-webmasters' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-webmasters' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'cqadupstack-wordpress' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-wordpress' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'quora' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'quora' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'dbpedia-entity' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'dbpedia-entity' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'scidocs' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'scidocs' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'fever' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'fever' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'climate-fever' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'climate-fever' encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Lucene flat index of BEIR collection 'scifact' encoded by BGE-base-en-v1.5.
+<dd>Anserini Lucene flat vector index of BEIR collection 'scifact' encoded by BGE-base-en-v1.5
 </dd>
 </dl>
 </details>
