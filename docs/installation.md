@@ -101,7 +101,6 @@ However, you will need to make sure you also install the CLIP model with:
 ```bash
 pip install git+https://github.com/openai/CLIP.git
 ```
- 
 
 ### Verifying the Installation
 
