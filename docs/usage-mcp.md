@@ -73,9 +73,9 @@ To use it with Cursor, create `mcp.json` with the following and place it in your
 }
 ```
 
-For more details on configuring Cursor with MCP, refer to the [documentation](https://docs.cursor.com/context/model-context-protocol).
+For more details on configuring Cursor with MCP, refer to the [documentation](https://docs.cursor.com/context/model-context-protocol). 
 
-As of time of writing (July 2025), Claude Desktop does not natively support remote MCP servers with the free plan.
+As of time of writing (July 2025), Claude Desktop does not natively support remote MCP servers with the free plan. 
 However, it is probably a more conventional client than Cursor, so we include the following 'hack' for using Claude Desktop with a remote MCP server.
 
 <details>
@@ -90,7 +90,7 @@ Download our bridging script on your local machine with the following command:
 wget https://raw.githubusercontent.com/castorini/pyserini/refs/heads/master/pyserini/server/mcp/pyserini_bridge.py -O pyserini_bridge.py
 ```
 
-Modify your Claude Desktop configuration file `claude_desktop_config.json` with the following to point to the script you just downloaded:
+Modify your Claude Desktop configuration file `claude_desktop_config.json` with the following to point to the script you just downloaded: 
 
 ```json
 {
@@ -154,7 +154,7 @@ Search for "what is a lobster roll" in the msmarco-v1-passage index, returning 5
 Retrieve the full text of document "7157715" from the msmarco-v1-passage index.
 ```
 
-You can ask your MCP client for a full, detailed list of capabilities.
+You can ask your MCP client for a full, detailed list of capabilities. 
 
 ## Reproduction Log[*](reproducibility.md)
 
