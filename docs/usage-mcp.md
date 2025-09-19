@@ -2,7 +2,7 @@
 
 The Pyserini MCP server provides search and document retrieval capabilities through the Model Context Protocol, enabling AI assistants and other MCP clients to access Pyserini's information retrieval features.
 
-This guide features Claude Desktop and Cursor as clients for our MCP server, but there exists many other clients that could work as well. 
+This guide features Claude Desktop and Cursor as clients for our MCP server, but there exists many other clients that could work as well.
 
 ## Local Server
 
@@ -73,9 +73,9 @@ To use it with Cursor, create `mcp.json` with the following and place it in your
 }
 ```
 
-For more details on configuring Cursor with MCP, refer to the [documentation](https://docs.cursor.com/context/model-context-protocol). 
+For more details on configuring Cursor with MCP, refer to the [documentation](https://docs.cursor.com/context/model-context-protocol).
 
-As of time of writing (July 2025), Claude Desktop does not natively support remote MCP servers with the free plan. 
+As of time of writing (July 2025), Claude Desktop does not natively support remote MCP servers with the free plan.
 However, it is probably a more conventional client than Cursor, so we include the following 'hack' for using Claude Desktop with a remote MCP server.
 
 <details>
@@ -90,7 +90,7 @@ Download our bridging script on your local machine with the following command:
 wget https://raw.githubusercontent.com/castorini/pyserini/refs/heads/master/pyserini/server/mcp/pyserini_bridge.py -O pyserini_bridge.py
 ```
 
-Modify your Claude Desktop configuration file `claude_desktop_config.json` with the following to point to the script you just downloaded: 
+Modify your Claude Desktop configuration file `claude_desktop_config.json` with the following to point to the script you just downloaded:
 
 ```json
 {
@@ -154,7 +154,7 @@ Search for "what is a lobster roll" in the msmarco-v1-passage index, returning 5
 Retrieve the full text of document "7157715" from the msmarco-v1-passage index.
 ```
 
-You can ask your MCP client for a full, detailed list of capabilities. 
+You can ask your MCP client for a full, detailed list of capabilities.
 
 ## Reproduction Log[*](reproducibility.md)
 
@@ -162,3 +162,4 @@ You can ask your MCP client for a full, detailed list of capabilities.
 + Results reproduced by [@Vik7am10](https://github.com/Vik7am10) on 2025-06-23 (commit [`f7c1077`](https://github.com/castorini/pyserini/commit/f7c10776c486744b8f28f753df29036cdfd28389))
 + Results reproduced by [@suraj-subrahmanyan](https://github.com/suraj-subrahmanyan) on 2025-07-16 (commit [`1915a15`](https://github.com/castorini/pyserini/commit/1915a154326f829b91308f275227a8bbb42eea9b))
 + Results reproduced by [@jjgreen0](https://github.com/JJGreen0) on 2025-07-26 (commit [`44889de`](https://github.com/castorini/pyserini/commit/44889de3d151b2e1317934b405b3ad6badd81308))
++ Results reproduced by [@FarmersWrap](https://github.com/FarmersWrap) on 2025-09-18 (commit [`4189efe`](https://github.com/castorini/pyserini/commit/4189efe9b1f936eda9d4142a039d146d9341deb6))
