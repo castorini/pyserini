@@ -59,6 +59,6 @@ optional = [
     "pyarrow>=15.0.0",
     "pybind11>=2.11.0"
 ]
-
-[tool.setuptools.package-data]
-"pyserini.encode.mbeir.uniir" = ["*.yaml"] 
+uniir = [
+     "uniir-for-pyserini>=0.1.0"
+]

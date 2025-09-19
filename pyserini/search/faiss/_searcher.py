@@ -104,14 +104,14 @@ class FaissSearcher:
         """Display information about available prebuilt indexes."""
         get_dense_indexes_info()
 
-    def search(self, query: Union[str, np.ndarray], k: int = 10, threads: int = 1, remove_dups: bool = False, return_vector: bool = False) \
+    def search(self, query: Union[str, np.ndarray, Dict], k: int = 10, threads: int = 1, remove_dups: bool = False, return_vector: bool = False) \
             -> Union[List[DenseSearchResult], Tuple[np.ndarray, List[PrfDenseSearchResult]]]:
         """Search the collection.
 
         Parameters
         ----------
-        query : Union[str, np.ndarray, dict]
-            query text or query embeddings
+        query : Union[str, np.ndarray, Dict]
+            query text, query embeddings or query dict
         k : int
             Number of hits to return.
         threads : int
@@ -132,6 +132,7 @@ class FaissSearcher:
             emb_q = emb_q.reshape((1, len(emb_q)))
         elif isinstance(query, dict):
             emb_q = self.query_encoder.encode(**query)
+            emb_q = emb_q.reshape((1, self.dimension))
         else:
             emb_q = query
         faiss.omp_set_num_threads(threads)
@@ -157,15 +158,15 @@ class FaissSearcher:
             return [DenseSearchResult(self.docids[idx], score)
                     for score, idx in zip(distances, indexes) if idx != -1]
 
-    def batch_search(self, queries: Union[List[str], np.ndarray], q_ids: List[str], k: int = 10,
+    def batch_search(self, queries: Union[List[str], np.ndarray, List[Dict]], q_ids: List[str], k: int = 10,
                      threads: int = 1, return_vector: bool = False) \
             -> Union[Dict[str, List[DenseSearchResult]], Tuple[np.ndarray, Dict[str, List[PrfDenseSearchResult]]]]:
         """
 
         Parameters
         ----------
-        queries : Union[List[str], np.ndarray]
-            List of query texts or list of query embeddings
+        queries : Union[List[str], np.ndarray, List[Dict]]
+            List of query texts, list of query embeddings, or list of query dicts
         q_ids : List[str]
             List of corresponding query ids.
         k : int
@@ -185,7 +186,18 @@ class FaissSearcher:
         if isinstance(queries, np.ndarray):
             q_embs = queries
         else:
-            q_embs = np.array([self.query_encoder.encode(q) for q in queries])
+            def _enc(q):
+                if isinstance(q, dict):
+                    return self.query_encoder.encode(**q)
+                assert isinstance(q, str)
+                return self.query_encoder.encode(q)
+            q_embs = [_enc(q) for q in queries]
+            if len(q_embs[0]) == self.dimension:
+                q_embs = np.array(q_embs)
+            else:
+                assert isinstance(q_embs[0], np.ndarray)
+                q_embs =[q_emb.reshape((1, self.dimension)) for q_emb in q_embs]
+                q_embs = np.vstack(q_embs)
             n, m = q_embs.shape
             assert m == self.dimension
         faiss.omp_set_num_threads(threads)
