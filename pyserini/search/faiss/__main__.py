@@ -294,6 +294,8 @@ def init_query_encoder(
             kwargs.update(dict(l2_norm=True, prefix=prefix, multimodal=multimodal))
         if _encoder_class == "uniir":
             kwargs.update(dict(l2_norm=True, instruction_config=instruction_config))
+            if encoder_class is None:
+                raise ValueError("UniIR's query encoder class is not available (as the uniir-for-pyserini package is not installed). Please run 'pip install pyserini[optional]' to install the package.")
 
         return encoder_class(**kwargs)
 

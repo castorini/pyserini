@@ -27,7 +27,7 @@ wget -O collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels.txt \
 
 ## Passage Collection
 
-To run UniIR models, you must first make sure you have properly set up pyserini, follow the installation guide's UniIR section if you haven't.
+To run UniIR models, you must first make sure you have properly set up pyserini, follow the installation guide's optional section if you haven't.
 
 To encode the corpus, use the following command:
 

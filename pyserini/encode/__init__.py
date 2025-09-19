@@ -34,7 +34,11 @@ from ._splade import SpladeQueryEncoder
 from ._tct_colbert import TctColBertDocumentEncoder, TctColBertQueryEncoder
 from ._tok_freq import TokFreqQueryEncoder
 from ._unicoil import UniCoilEncoder, UniCoilDocumentEncoder, UniCoilQueryEncoder
-from ._uniir import UniIRCorpusEncoder, UniIRQueryEncoder
+try:
+    from optional._uniir import UniIRCorpusEncoder, UniIRQueryEncoder
+except ImportError:
+    UniIRCorpusEncoder = None
+    UniIRQueryEncoder = None
 
 
 document_encoder_class_map = {
