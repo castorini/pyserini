@@ -127,7 +127,7 @@ conditions:
           - nDCG@10: 0.1036
             R@100: 0.2119
             R@1000: 0.4027
-  - name: splade-v3.onnx
+  - name: splade-v3
     display: "SPLADE-v3: ONNX"
     display_html: "SPLADE-v3: ONNX"
     display_row: ""
@@ -193,7 +193,7 @@ conditions:
           - nDCG@10: 0.1113
             R@100: 0.2664
             R@1000: 0.4724
-  - name: bge-large-en-v1.5.flat.onnx
+  - name: bge-large-en-v1.5.flat
     display: "bge-large-en-v1.5 w/ flat indexes: ONNX"
     display_html: "bge-large-en-v1.5 w/ flat indexes: ONNX"
     display_row: ""
