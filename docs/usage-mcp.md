@@ -2,7 +2,7 @@
 
 The Pyserini MCP server provides search and document retrieval capabilities through the Model Context Protocol, enabling AI assistants and other MCP clients to access Pyserini's information retrieval features.
 
-This guide features Claude Desktop and Cursor as clients for our MCP server, but there exists many other clients that could work as well.
+This guide features Claude Desktop and Cursor as clients for our MCP server, but there exists many other clients that could work as well. 
 
 ## Local Server
 
