@@ -347,6 +347,7 @@ if __name__ == "__main__":
                 else:
                     continue
 
+            # For certain splits of BRIGHT, some docids are excluded for some queries
             bright_filter = False
             if "bright-aops"  in args.index or "bright-leetcode" in args.index or "bright-theoremqa-questions" in args.index:
                 bright_filter = True
