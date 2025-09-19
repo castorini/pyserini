@@ -347,6 +347,20 @@ if __name__ == "__main__":
                 else:
                     continue
 
+            # For certain splits of BRIGHT, some docids are excluded for some queries
+            bright_filter = False
+            if "bright-aops"  in args.index or "bright-leetcode" in args.index or "bright-theoremqa-questions" in args.index:
+                bright_filter = True
+                from datasets import load_dataset
+                if "aops" in args.index:
+                    split = "aops"
+                elif "leetcode" in args.index:
+                    split = "leetcode"
+                elif "theoremqa-questions" in args.index:
+                    split = "theoremqa_questions"
+                bright_queries = load_dataset("xlangai/BRIGHT", 'examples')[split]
+                bright_queries = {query["id"]: query["excluded_ids"] for query in bright_queries}
+                
             for topic, hits in results:
                 # do rerank
                 if use_prcl and len(hits) > (args.r + args.n):
@@ -371,6 +385,9 @@ if __name__ == "__main__":
                 # We want to remove the query from the results.
                 if args.remove_query:
                     hits = [hit for hit in hits if hit.docid != topic]
+
+                if bright_filter:
+                    hits = [hit for hit in hits if hit.docid.strip() not in bright_queries[str(topic)]]
 
                 # write results
                 output_writer.write(topic, hits)

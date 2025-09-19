@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Pyserini Reproductions</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet" />
+
+    <style>
+tr.hide-table-padding td {
+  padding: 0;
+}
+
+.expand-button {
+  position: relative;
+}
+
+.accordion-toggle .expand-button:after {
+  position: absolute;
+  left:.75rem;
+  top: 50%;
+  transform: translate(0, -50%);
+  content: '-';
+}
+
+.accordion-toggle.collapsed .expand-button:after {
+  content: '+';
+}
+
+blockquote.mycode {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  margin-top: 15px;
+  padding-left: 15px;
+}
+
+blockquote.mycode2 {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+}
+
+tr th.headertop {
+  border-bottom: none;
+  padding-bottom: 0rem
+}
+
+tr th.headerbottom {
+  padding-top: 0rem
+}
+
+.table>:not(caption)>*>*{padding:0.75rem 0.75rem}
+
+.copy-code-button {
+	border-radius: 0;
+	min-width: 55px;
+	background: none repeat scroll 0 0 transparent;
+	background-color: grey;
+	color: #F1F2F3 !important;
+	cursor: pointer;
+	border-style: none;
+	font-family: 'HELVETICA',sans-serif;
+	font-size: 0.8em;
+	font-weight: normal;
+	text-align: center;
+	text-decoration: none;
+	text-indent: 0;
+	text-transform: uppercase;
+	font-weight: 500;
+	line-height: 1.42rem;
+	margin: 0;
+	padding: 3px 8px;
+	position: absolute !important;
+	top: 0 !important;
+	right: 0 !important;
+}
+
+.copy-code-button > span {
+	color: #F1F2F3 !important;
+}
+
+.copy-code-button, ::before, ::after {
+	box-sizing: inherit;
+}
+
+.copy-code-button::before {
+	content: '';
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 3px;
+	background-size: contain;
+	background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTVweCIgaGVpZ2h0PSIxNXB4IiB2aWV3Qm94PSIwIDAgMTUgMTUiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUwLjIgKDU1MDQ3KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5QYWdlIDE8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iRmxvdyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IkJ0dG5faHRtbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTgxOS4wMDAwMDAsIC03NTMuMDAwMDAwKSIgZmlsbD0iI0ZGRkZGRiI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0xIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMTEuMDAwMDAwLCA0MDUuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8ZyBpZD0iR3JvdXAtMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTA4LjAwMDAwMCwgMzQyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xMy45NzcyNzI3LDYgTDMuNDA5MDkwOTEsNiBDMi44NDQ1NDU0NSw2IDIuMzg2MzYzNjQsNi40NTgxODE4MiAyLjM4NjM2MzY0LDcuMDIyNzI3MjcgTDIuMzg2MzYzNjQsMTcuNTkwOTA5MSBDMi4zODYzNjM2NCwxOC4xNTU0NTQ1IDIuODQ0NTQ1NDUsMTguNjEzNjM2NCAzLjQwOTA5MDkxLDE4LjYxMzYzNjQgTDEzLjk3NzI3MjcsMTguNjEzNjM2NCBDMTQuNTQxODE4MiwxOC42MTM2MzY0IDE1LDE4LjE1NTQ1NDUgMTUsMTcuNTkwOTA5MSBMMTUsNy4wMjI3MjcyNyBDMTUsNi40NTgxODE4MiAxNC41NDE4MTgyLDYgMTMuOTc3MjcyNyw2IFogTTE0LjMxODE4MTgsMTcuNTkwOTA5MSBDMTQuMzE4MTgxOCwxNy43NzkwOTA5IDE0LjE2NTQ1NDUsMTcuOTMxODE4MiAxMy45NzcyNzI3LDE3LjkzMTgxODIgTDMuNDA5MDkwOTEsMTcuOTMxODE4MiBDMy4yMjA5MDkwOSwxNy45MzE4MTgyIDMuMDY4MTgxODIsMTcuNzc5MDkwOSAzLjA2ODE4MTgyLDE3LjU5MDkwOTEgTDMuMDY4MTgxODIsNy4wMjI3MjcyNyBDMy4wNjgxODE4Miw2LjgzNDU0NTQ1IDMuMjIwOTA5MDksNi42ODE4MTgxOCAzLjQwOTA5MDkxLDYuNjgxODE4MTggTDEzLjk3NzI3MjcsNi42ODE4MTgxOCBDMTQuMTY1NDU0NSw2LjY4MTgxODE4IDE0LjMxODE4MTgsNi44MzQ1NDU0NSAxNC4zMTgxODE4LDcuMDIyNzI3MjcgTDE0LjMxODE4MTgsMTcuNTkwOTA5MSBaIE0xMS45MzE4MTgyLDE5Ljk3NzI3MjcgQzExLjkzMTgxODIsMjAuMTY1NDU0NSAxMS43NzkwOTA5LDIwLjMxODE4MTggMTEuNTkwOTA5MSwyMC4zMTgxODE4IEwxLjAyMjcyNzI3LDIwLjMxODE4MTggQzAuODM0NTQ1NDU1LDIwLjMxODE4MTggMC42ODE4MTgxODIsMjAuMTY1NDU0NSAwLjY4MTgxODE4MiwxOS45NzcyNzI3IEwwLjY4MTgxODE4Miw5LjQwOTA5MDkxIEMwLjY4MTgxODE4Miw5LjIyMDkwOTA5IDAuODM0NTQ1NDU1LDkuMDY4MTgxODIgMS4wMjI3MjcyNyw5LjA2ODE4MTgyIEwxLjM2MzYzNjM2LDkuMDY4MTgxODIgTDEuMzYzNjM2MzYsOC4zODYzNjM2NCBMMS4wMjI3MjcyNyw4LjM4NjM2MzY0IEMwLjQ1ODE4MTgxOCw4LjM4NjM2MzY0IDAsOC44NDQ1NDU0NSAwLDkuNDA5MDkwOTEgTDAsMTkuOTc3MjcyNyBDMCwyMC41NDE4MTgyIDAuNDU4MTgxODE4LDIxIDEuMDIyNzI3MjcsMjEgTDExLjU5MDkwOTEsMjEgQzEyLjE1NTQ1NDUsMjEgMTIuNjEzNjM2NCwyMC41NDE4MTgyIDEyLjYxMzYzNjQsMTkuOTc3MjcyNyBMMTIuNjEzNjM2NCwxOS42MzYzNjM2IEwxMS45MzE4MTgyLDE5LjYzNjM2MzYgTDExLjkzMTgxODIsMTkuOTc3MjcyNyBaIiBpZD0iUGFnZS0xIj48L3BhdGg+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==");
+	background-repeat: no-repeat;
+	position: relative;
+	top: 3px;
+}
+
+.copy-code-button:focus {
+    /* Avoid an ugly focus outline on click in Chrome,
+       but darken the button for accessibility.
+       See https://stackoverflow.com/a/25298082/1481479 */
+    /* background-color: #E6E6E6; */
+	outline: 0;
+}
+
+pre[class*="prettyprint"] {
+	position: relative;
+	overflow: hidden;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Background image -->
+    <div id="intro" class="bg-image vh-100 shadow-1-strong" style="max-height: 150px">
+      <div class="mask" style="
+            background: linear-gradient(
+              45deg,
+              rgba(29, 236, 197, 0.7),
+              rgba(91, 14, 214, 0.7) 100%
+            );
+          ">
+        <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
+          <div class="text-white">
+            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> &nbsp; Pyserini BRIGHT Regressions</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Background image -->
+
+<div class="container my-4">
+
+<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproductions below provides commands for reproducing experimental results on BRIGHT.
+Instructions for programmatic execution are shown at the bottom of this page (scroll down).</p>
+
+<div style="padding-top: 20px"/>
+<h4>Main Results</h4>
+
+<p>The main results table provides commands for reproducing runs using the following models:</p>
+
+<ul>
+  <li><b>BM25 BoW</b>: BM25 "bag-of-words" baseline (<tt><small>bm25</small></tt>) [1]</li>
+  <li><b>Query-side BM25</b>: Query-side BM25 BM25 baseline (<tt><small>bm25qs</small></tt>) [1]</li>
+  <li><b>SPLADE</b>: SPLADE-v3  (<tt><small>splade-v3</small></tt>) [1]</li>
+  <li><b>BGE</b>: BGE-large-en-v1.5 (Lucene flat index) (<tt><small>bge-large-en-v1.5.flat</small></tt>) [1]</li>
+</ul>
+
+<div style="padding-top: 20px"/>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="headertop"></th>
+        <th class="headertop"></th>
+        <th class="headertop" colspan="3"><b>BM25 BoW</b></th>
+        <th class="headertop" colspan="3"><b>Query-side BM25</b></th>
+        <th class="headertop" colspan="3"><b>SPLADE</b></th>
+        <th class="headertop" colspan="3"><b>BGE</b></th>
+      </tr>
+      <tr>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+      </tr>
+    </thead>
+    <tbody>
+
+<!-- Condition: biology -->
+<tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">
+<td class="expand-button"></td>
+<td width="200">biology</td>
+<td>   0.182</td>
+<td>   0.420</td>
+<td></td>
+<td>   0.197</td>
+<td>   0.458</td>
+<td></td>
+<td>   0.210</td>
+<td>   0.560</td>
+<td></td>
+<td>   0.124</td>
+<td>   0.408</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse1" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row1-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row1-tab1-header" data-mdb-toggle="tab" href="#row1-tab1" role="tab" aria-controls="row1-tab1" aria-selected="true" style="text-transform:none">BM25</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">BM25QS</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row1-content">
+  <div class="tab-pane fade" id="row1-tab1" role="tabpanel" aria-labelledby="row1-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-biology \
+  --topics bright-biology \
+  --output run.bright.bm25.biology.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-biology \
+  run.bright.bm25.biology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-biology \
+  run.bright.bm25.biology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-biology \
+  run.bright.bm25.biology.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row1-tab2" role="tabpanel" aria-labelledby="row1-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-biology \
+  --topics bright-biology \
+  --output run.bright.bm25qs.biology.txt \
+  --output-format trec \
+  --hits 1000 --bm25qs --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-biology \
+  run.bright.bm25qs.biology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-biology \
+  run.bright.bm25qs.biology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-biology \
+  run.bright.bm25qs.biology.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row1-tab3" role="tabpanel" aria-labelledby="row1-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-biology.splade-v3 \
+  --topics bright-biology \
+  --onnx-encoder SpladeV3 \
+  --output run.bright.splade-v3.biology.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-biology \
+  run.bright.splade-v3.biology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-biology \
+  run.bright.splade-v3.biology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-biology \
+  run.bright.splade-v3.biology.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row1-tab4" role="tabpanel" aria-labelledby="row1-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene --dense --flat \
+  --index bright-biology.bge-large-en-v1.5.flat \
+  --topics bright-biology \
+  --onnx-encoder BgeLargeEn15 \
+  --output run.bright.bge-large-en-v1.5.flat.biology.txt \
+  --output-format trec \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-biology \
+  run.bright.bge-large-en-v1.5.flat.biology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-biology \
+  run.bright.bge-large-en-v1.5.flat.biology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-biology \
+  run.bright.bge-large-en-v1.5.flat.biology.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: earth-science -->
+<tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
+<td class="expand-button"></td>
+<td width="200">earth-science</td>
+<td>   0.279</td>
+<td>   0.596</td>
+<td></td>
+<td>   0.279</td>
+<td>   0.601</td>
+<td></td>
+<td>   0.267</td>
+<td>   0.578</td>
+<td></td>
+<td>   0.255</td>
+<td>   0.540</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse2" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row2-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row2-tab1-header" data-mdb-toggle="tab" href="#row2-tab1" role="tab" aria-controls="row2-tab1" aria-selected="true" style="text-transform:none">BM25</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab2-header" data-mdb-toggle="tab" href="#row2-tab2" role="tab" aria-controls="row2-tab2" aria-selected="false" style="text-transform:none">BM25QS</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row2-content">
+  <div class="tab-pane fade" id="row2-tab1" role="tabpanel" aria-labelledby="row2-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-earth-science \
+  --topics bright-earth-science \
+  --output run.bright.bm25.earth-science.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-earth-science \
+  run.bright.bm25.earth-science.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-earth-science \
+  run.bright.bm25.earth-science.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-earth-science \
+  run.bright.bm25.earth-science.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row2-tab2" role="tabpanel" aria-labelledby="row2-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-earth-science \
+  --topics bright-earth-science \
+  --output run.bright.bm25qs.earth-science.txt \
+  --output-format trec \
+  --hits 1000 --bm25qs --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-earth-science \
+  run.bright.bm25qs.earth-science.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-earth-science \
+  run.bright.bm25qs.earth-science.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-earth-science \
+  run.bright.bm25qs.earth-science.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row2-tab3" role="tabpanel" aria-labelledby="row2-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-earth-science.splade-v3 \
+  --topics bright-earth-science \
+  --onnx-encoder SpladeV3 \
+  --output run.bright.splade-v3.earth-science.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-earth-science \
+  run.bright.splade-v3.earth-science.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-earth-science \
+  run.bright.splade-v3.earth-science.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-earth-science \
+  run.bright.splade-v3.earth-science.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row2-tab4" role="tabpanel" aria-labelledby="row2-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene --dense --flat \
+  --index bright-earth-science.bge-large-en-v1.5.flat \
+  --topics bright-earth-science \
+  --onnx-encoder BgeLargeEn15 \
+  --output run.bright.bge-large-en-v1.5.flat.earth-science.txt \
+  --output-format trec \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-earth-science \
+  run.bright.bge-large-en-v1.5.flat.earth-science.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-earth-science \
+  run.bright.bge-large-en-v1.5.flat.earth-science.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-earth-science \
+  run.bright.bge-large-en-v1.5.flat.earth-science.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: economics -->
+<tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
+<td class="expand-button"></td>
+<td width="200">economics</td>
+<td>   0.165</td>
+<td>   0.408</td>
+<td></td>
+<td>   0.152</td>
+<td>   0.377</td>
+<td></td>
+<td>   0.160</td>
+<td>   0.448</td>
+<td></td>
+<td>   0.166</td>
+<td>   0.487</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse3" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row3-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row3-tab1-header" data-mdb-toggle="tab" href="#row3-tab1" role="tab" aria-controls="row3-tab1" aria-selected="true" style="text-transform:none">BM25</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">BM25QS</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row3-content">
+  <div class="tab-pane fade" id="row3-tab1" role="tabpanel" aria-labelledby="row3-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-economics \
+  --topics bright-economics \
+  --output run.bright.bm25.economics.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-economics \
+  run.bright.bm25.economics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-economics \
+  run.bright.bm25.economics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-economics \
+  run.bright.bm25.economics.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab2" role="tabpanel" aria-labelledby="row3-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-economics \
+  --topics bright-economics \
+  --output run.bright.bm25qs.economics.txt \
+  --output-format trec \
+  --hits 1000 --bm25qs --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-economics \
+  run.bright.bm25qs.economics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-economics \
+  run.bright.bm25qs.economics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-economics \
+  run.bright.bm25qs.economics.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab3" role="tabpanel" aria-labelledby="row3-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-economics.splade-v3 \
+  --topics bright-economics \
+  --onnx-encoder SpladeV3 \
+  --output run.bright.splade-v3.economics.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-economics \
+  run.bright.splade-v3.economics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-economics \
+  run.bright.splade-v3.economics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-economics \
+  run.bright.splade-v3.economics.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab4" role="tabpanel" aria-labelledby="row3-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene --dense --flat \
+  --index bright-economics.bge-large-en-v1.5.flat \
+  --topics bright-economics \
+  --onnx-encoder BgeLargeEn15 \
+  --output run.bright.bge-large-en-v1.5.flat.economics.txt \
+  --output-format trec \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-economics \
+  run.bright.bge-large-en-v1.5.flat.economics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-economics \
+  run.bright.bge-large-en-v1.5.flat.economics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-economics \
+  run.bright.bge-large-en-v1.5.flat.economics.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: psychology -->
+<tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
+<td class="expand-button"></td>
+<td width="200">psychology</td>
+<td>   0.134</td>
+<td>   0.377</td>
+<td></td>
+<td>   0.127</td>
+<td>   0.410</td>
+<td></td>
+<td>   0.153</td>
+<td>   0.469</td>
+<td></td>
+<td>   0.180</td>
+<td>   0.465</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse4" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row4-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row4-tab1-header" data-mdb-toggle="tab" href="#row4-tab1" role="tab" aria-controls="row4-tab1" aria-selected="true" style="text-transform:none">BM25</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">BM25QS</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row4-content">
+  <div class="tab-pane fade" id="row4-tab1" role="tabpanel" aria-labelledby="row4-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-psychology \
+  --topics bright-psychology \
+  --output run.bright.bm25.psychology.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-psychology \
+  run.bright.bm25.psychology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-psychology \
+  run.bright.bm25.psychology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-psychology \
+  run.bright.bm25.psychology.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab2" role="tabpanel" aria-labelledby="row4-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-psychology \
+  --topics bright-psychology \
+  --output run.bright.bm25qs.psychology.txt \
+  --output-format trec \
+  --hits 1000 --bm25qs --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-psychology \
+  run.bright.bm25qs.psychology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-psychology \
+  run.bright.bm25qs.psychology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-psychology \
+  run.bright.bm25qs.psychology.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab3" role="tabpanel" aria-labelledby="row4-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-psychology.splade-v3 \
+  --topics bright-psychology \
+  --onnx-encoder SpladeV3 \
+  --output run.bright.splade-v3.psychology.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-psychology \
+  run.bright.splade-v3.psychology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-psychology \
+  run.bright.splade-v3.psychology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-psychology \
+  run.bright.splade-v3.psychology.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab4" role="tabpanel" aria-labelledby="row4-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene --dense --flat \
+  --index bright-psychology.bge-large-en-v1.5.flat \
+  --topics bright-psychology \
+  --onnx-encoder BgeLargeEn15 \
+  --output run.bright.bge-large-en-v1.5.flat.psychology.txt \
+  --output-format trec \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-psychology \
+  run.bright.bge-large-en-v1.5.flat.psychology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-psychology \
+  run.bright.bge-large-en-v1.5.flat.psychology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-psychology \
+  run.bright.bge-large-en-v1.5.flat.psychology.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: robotics -->
+<tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
+<td class="expand-button"></td>
+<td width="200">robotics</td>
+<td>   0.109</td>
+<td>   0.371</td>
+<td></td>
+<td>   0.139</td>
+<td>   0.467</td>
+<td></td>
+<td>   0.158</td>
+<td>   0.447</td>
+<td></td>
+<td>   0.123</td>
+<td>   0.344</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse5" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row5-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row5-tab1-header" data-mdb-toggle="tab" href="#row5-tab1" role="tab" aria-controls="row5-tab1" aria-selected="true" style="text-transform:none">BM25</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">BM25QS</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row5-content">
+  <div class="tab-pane fade" id="row5-tab1" role="tabpanel" aria-labelledby="row5-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-robotics \
+  --topics bright-robotics \
+  --output run.bright.bm25.robotics.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-robotics \
+  run.bright.bm25.robotics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-robotics \
+  run.bright.bm25.robotics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-robotics \
+  run.bright.bm25.robotics.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab2" role="tabpanel" aria-labelledby="row5-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-robotics \
+  --topics bright-robotics \
+  --output run.bright.bm25qs.robotics.txt \
+  --output-format trec \
+  --hits 1000 --bm25qs --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-robotics \
+  run.bright.bm25qs.robotics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-robotics \
+  run.bright.bm25qs.robotics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-robotics \
+  run.bright.bm25qs.robotics.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab3" role="tabpanel" aria-labelledby="row5-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-robotics.splade-v3 \
+  --topics bright-robotics \
+  --onnx-encoder SpladeV3 \
+  --output run.bright.splade-v3.robotics.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-robotics \
+  run.bright.splade-v3.robotics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-robotics \
+  run.bright.splade-v3.robotics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-robotics \
+  run.bright.splade-v3.robotics.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab4" role="tabpanel" aria-labelledby="row5-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene --dense --flat \
+  --index bright-robotics.bge-large-en-v1.5.flat \
+  --topics bright-robotics \
+  --onnx-encoder BgeLargeEn15 \
+  --output run.bright.bge-large-en-v1.5.flat.robotics.txt \
+  --output-format trec \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-robotics \
+  run.bright.bge-large-en-v1.5.flat.robotics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-robotics \
+  run.bright.bge-large-en-v1.5.flat.robotics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-robotics \
+  run.bright.bge-large-en-v1.5.flat.robotics.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: stackoverflow -->
+<tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
+<td class="expand-button"></td>
+<td width="200">stackoverflow</td>
+<td>   0.163</td>
+<td>   0.409</td>
+<td></td>
+<td>   0.185</td>
+<td>   0.463</td>
+<td></td>
+<td>   0.129</td>
+<td>   0.432</td>
+<td></td>
+<td>   0.110</td>
+<td>   0.532</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse6" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row6-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row6-tab1-header" data-mdb-toggle="tab" href="#row6-tab1" role="tab" aria-controls="row6-tab1" aria-selected="true" style="text-transform:none">BM25</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">BM25QS</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row6-content">
+  <div class="tab-pane fade" id="row6-tab1" role="tabpanel" aria-labelledby="row6-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-stackoverflow \
+  --topics bright-stackoverflow \
+  --output run.bright.bm25.stackoverflow.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-stackoverflow \
+  run.bright.bm25.stackoverflow.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-stackoverflow \
+  run.bright.bm25.stackoverflow.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-stackoverflow \
+  run.bright.bm25.stackoverflow.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab2" role="tabpanel" aria-labelledby="row6-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-stackoverflow \
+  --topics bright-stackoverflow \
+  --output run.bright.bm25qs.stackoverflow.txt \
+  --output-format trec \
+  --hits 1000 --bm25qs --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-stackoverflow \
+  run.bright.bm25qs.stackoverflow.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-stackoverflow \
+  run.bright.bm25qs.stackoverflow.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-stackoverflow \
+  run.bright.bm25qs.stackoverflow.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab3" role="tabpanel" aria-labelledby="row6-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-stackoverflow.splade-v3 \
+  --topics bright-stackoverflow \
+  --onnx-encoder SpladeV3 \
+  --output run.bright.splade-v3.stackoverflow.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-stackoverflow \
+  run.bright.splade-v3.stackoverflow.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-stackoverflow \
+  run.bright.splade-v3.stackoverflow.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-stackoverflow \
+  run.bright.splade-v3.stackoverflow.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab4" role="tabpanel" aria-labelledby="row6-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene --dense --flat \
+  --index bright-stackoverflow.bge-large-en-v1.5.flat \
+  --topics bright-stackoverflow \
+  --onnx-encoder BgeLargeEn15 \
+  --output run.bright.bge-large-en-v1.5.flat.stackoverflow.txt \
+  --output-format trec \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-stackoverflow \
+  run.bright.bge-large-en-v1.5.flat.stackoverflow.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-stackoverflow \
+  run.bright.bge-large-en-v1.5.flat.stackoverflow.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-stackoverflow \
+  run.bright.bge-large-en-v1.5.flat.stackoverflow.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: sustainable-living -->
+<tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
+<td class="expand-button"></td>
+<td width="200">sustainable-living</td>
+<td>   0.161</td>
+<td>   0.420</td>
+<td></td>
+<td>   0.151</td>
+<td>   0.465</td>
+<td></td>
+<td>   0.150</td>
+<td>   0.492</td>
+<td></td>
+<td>   0.144</td>
+<td>   0.516</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse7" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row7-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row7-tab1-header" data-mdb-toggle="tab" href="#row7-tab1" role="tab" aria-controls="row7-tab1" aria-selected="true" style="text-transform:none">BM25</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">BM25QS</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row7-content">
+  <div class="tab-pane fade" id="row7-tab1" role="tabpanel" aria-labelledby="row7-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-sustainable-living \
+  --topics bright-sustainable-living \
+  --output run.bright.bm25.sustainable-living.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-sustainable-living \
+  run.bright.bm25.sustainable-living.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-sustainable-living \
+  run.bright.bm25.sustainable-living.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-sustainable-living \
+  run.bright.bm25.sustainable-living.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab2" role="tabpanel" aria-labelledby="row7-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-sustainable-living \
+  --topics bright-sustainable-living \
+  --output run.bright.bm25qs.sustainable-living.txt \
+  --output-format trec \
+  --hits 1000 --bm25qs --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-sustainable-living \
+  run.bright.bm25qs.sustainable-living.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-sustainable-living \
+  run.bright.bm25qs.sustainable-living.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-sustainable-living \
+  run.bright.bm25qs.sustainable-living.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab3" role="tabpanel" aria-labelledby="row7-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-sustainable-living.splade-v3 \
+  --topics bright-sustainable-living \
+  --onnx-encoder SpladeV3 \
+  --output run.bright.splade-v3.sustainable-living.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-sustainable-living \
+  run.bright.splade-v3.sustainable-living.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-sustainable-living \
+  run.bright.splade-v3.sustainable-living.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-sustainable-living \
+  run.bright.splade-v3.sustainable-living.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab4" role="tabpanel" aria-labelledby="row7-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene --dense --flat \
+  --index bright-sustainable-living.bge-large-en-v1.5.flat \
+  --topics bright-sustainable-living \
+  --onnx-encoder BgeLargeEn15 \
+  --output run.bright.bge-large-en-v1.5.flat.sustainable-living.txt \
+  --output-format trec \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-sustainable-living \
+  run.bright.bge-large-en-v1.5.flat.sustainable-living.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-sustainable-living \
+  run.bright.bge-large-en-v1.5.flat.sustainable-living.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-sustainable-living \
+  run.bright.bge-large-en-v1.5.flat.sustainable-living.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: pony -->
+<tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
+<td class="expand-button"></td>
+<td width="200">pony</td>
+<td>   0.043</td>
+<td>   0.172</td>
+<td></td>
+<td>   0.079</td>
+<td>   0.282</td>
+<td></td>
+<td>   0.144</td>
+<td>   0.245</td>
+<td></td>
+<td>   0.034</td>
+<td>   0.180</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse8" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row8-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row8-tab1-header" data-mdb-toggle="tab" href="#row8-tab1" role="tab" aria-controls="row8-tab1" aria-selected="true" style="text-transform:none">BM25</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">BM25QS</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row8-content">
+  <div class="tab-pane fade" id="row8-tab1" role="tabpanel" aria-labelledby="row8-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-pony \
+  --topics bright-pony \
+  --output run.bright.bm25.pony.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-pony \
+  run.bright.bm25.pony.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-pony \
+  run.bright.bm25.pony.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-pony \
+  run.bright.bm25.pony.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab2" role="tabpanel" aria-labelledby="row8-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-pony \
+  --topics bright-pony \
+  --output run.bright.bm25qs.pony.txt \
+  --output-format trec \
+  --hits 1000 --bm25qs --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-pony \
+  run.bright.bm25qs.pony.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-pony \
+  run.bright.bm25qs.pony.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-pony \
+  run.bright.bm25qs.pony.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab3" role="tabpanel" aria-labelledby="row8-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-pony.splade-v3 \
+  --topics bright-pony \
+  --onnx-encoder SpladeV3 \
+  --output run.bright.splade-v3.pony.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-pony \
+  run.bright.splade-v3.pony.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-pony \
+  run.bright.splade-v3.pony.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-pony \
+  run.bright.splade-v3.pony.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab4" role="tabpanel" aria-labelledby="row8-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene --dense --flat \
+  --index bright-pony.bge-large-en-v1.5.flat \
+  --topics bright-pony \
+  --onnx-encoder BgeLargeEn15 \
+  --output run.bright.bge-large-en-v1.5.flat.pony.txt \
+  --output-format trec \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-pony \
+  run.bright.bge-large-en-v1.5.flat.pony.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-pony \
+  run.bright.bge-large-en-v1.5.flat.pony.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-pony \
+  run.bright.bge-large-en-v1.5.flat.pony.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: leetcode -->
+<tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">
+<td class="expand-button"></td>
+<td width="200">leetcode</td>
+<td>   0.247</td>
+<td>   0.508</td>
+<td></td>
+<td>   0.250</td>
+<td>   0.538</td>
+<td></td>
+<td>   0.260</td>
+<td>   0.502</td>
+<td></td>
+<td>   0.267</td>
+<td>   0.529</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse9" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row9-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row9-tab1-header" data-mdb-toggle="tab" href="#row9-tab1" role="tab" aria-controls="row9-tab1" aria-selected="true" style="text-transform:none">BM25</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">BM25QS</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row9-content">
+  <div class="tab-pane fade" id="row9-tab1" role="tabpanel" aria-labelledby="row9-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-leetcode \
+  --topics bright-leetcode \
+  --output run.bright.bm25.leetcode.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-leetcode \
+  run.bright.bm25.leetcode.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-leetcode \
+  run.bright.bm25.leetcode.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-leetcode \
+  run.bright.bm25.leetcode.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab2" role="tabpanel" aria-labelledby="row9-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-leetcode \
+  --topics bright-leetcode \
+  --output run.bright.bm25qs.leetcode.txt \
+  --output-format trec \
+  --hits 1000 --bm25qs --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-leetcode \
+  run.bright.bm25qs.leetcode.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-leetcode \
+  run.bright.bm25qs.leetcode.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-leetcode \
+  run.bright.bm25qs.leetcode.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab3" role="tabpanel" aria-labelledby="row9-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-leetcode.splade-v3 \
+  --topics bright-leetcode \
+  --onnx-encoder SpladeV3 \
+  --output run.bright.splade-v3.leetcode.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-leetcode \
+  run.bright.splade-v3.leetcode.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-leetcode \
+  run.bright.splade-v3.leetcode.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-leetcode \
+  run.bright.splade-v3.leetcode.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab4" role="tabpanel" aria-labelledby="row9-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene --dense --flat \
+  --index bright-leetcode.bge-large-en-v1.5.flat \
+  --topics bright-leetcode \
+  --onnx-encoder BgeLargeEn15 \
+  --output run.bright.bge-large-en-v1.5.flat.leetcode.txt \
+  --output-format trec \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-leetcode \
+  run.bright.bge-large-en-v1.5.flat.leetcode.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-leetcode \
+  run.bright.bge-large-en-v1.5.flat.leetcode.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-leetcode \
+  run.bright.bge-large-en-v1.5.flat.leetcode.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: aops -->
+<tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">
+<td class="expand-button"></td>
+<td width="200">aops</td>
+<td>   0.065</td>
+<td>   0.197</td>
+<td></td>
+<td>   0.063</td>
+<td>   0.217</td>
+<td></td>
+<td>   0.069</td>
+<td>   0.262</td>
+<td></td>
+<td>   0.064</td>
+<td>   0.240</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse10" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row10-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row10-tab1-header" data-mdb-toggle="tab" href="#row10-tab1" role="tab" aria-controls="row10-tab1" aria-selected="true" style="text-transform:none">BM25</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">BM25QS</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row10-content">
+  <div class="tab-pane fade" id="row10-tab1" role="tabpanel" aria-labelledby="row10-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-aops \
+  --topics bright-aops \
+  --output run.bright.bm25.aops.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-aops \
+  run.bright.bm25.aops.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-aops \
+  run.bright.bm25.aops.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-aops \
+  run.bright.bm25.aops.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab2" role="tabpanel" aria-labelledby="row10-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-aops \
+  --topics bright-aops \
+  --output run.bright.bm25qs.aops.txt \
+  --output-format trec \
+  --hits 1000 --bm25qs --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-aops \
+  run.bright.bm25qs.aops.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-aops \
+  run.bright.bm25qs.aops.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-aops \
+  run.bright.bm25qs.aops.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab3" role="tabpanel" aria-labelledby="row10-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-aops.splade-v3 \
+  --topics bright-aops \
+  --onnx-encoder SpladeV3 \
+  --output run.bright.splade-v3.aops.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-aops \
+  run.bright.splade-v3.aops.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-aops \
+  run.bright.splade-v3.aops.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-aops \
+  run.bright.splade-v3.aops.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab4" role="tabpanel" aria-labelledby="row10-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene --dense --flat \
+  --index bright-aops.bge-large-en-v1.5.flat \
+  --topics bright-aops \
+  --onnx-encoder BgeLargeEn15 \
+  --output run.bright.bge-large-en-v1.5.flat.aops.txt \
+  --output-format trec \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-aops \
+  run.bright.bge-large-en-v1.5.flat.aops.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-aops \
+  run.bright.bge-large-en-v1.5.flat.aops.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-aops \
+  run.bright.bge-large-en-v1.5.flat.aops.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: theoremqa-theorems -->
+<tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">
+<td class="expand-button"></td>
+<td width="200">theoremqa-theorems</td>
+<td>   0.021</td>
+<td>   0.134</td>
+<td></td>
+<td>   0.049</td>
+<td>   0.184</td>
+<td></td>
+<td>   0.055</td>
+<td>   0.262</td>
+<td></td>
+<td>   0.053</td>
+<td>   0.259</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse11" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row11-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row11-tab1-header" data-mdb-toggle="tab" href="#row11-tab1" role="tab" aria-controls="row11-tab1" aria-selected="true" style="text-transform:none">BM25</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab2-header" data-mdb-toggle="tab" href="#row11-tab2" role="tab" aria-controls="row11-tab2" aria-selected="false" style="text-transform:none">BM25QS</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab4-header" data-mdb-toggle="tab" href="#row11-tab4" role="tab" aria-controls="row11-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row11-content">
+  <div class="tab-pane fade" id="row11-tab1" role="tabpanel" aria-labelledby="row11-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-theoremqa-theorems \
+  --topics bright-theoremqa-theorems \
+  --output run.bright.bm25.theoremqa-theorems.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-theoremqa-theorems \
+  run.bright.bm25.theoremqa-theorems.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-theoremqa-theorems \
+  run.bright.bm25.theoremqa-theorems.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-theoremqa-theorems \
+  run.bright.bm25.theoremqa-theorems.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row11-tab2" role="tabpanel" aria-labelledby="row11-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-theoremqa-theorems \
+  --topics bright-theoremqa-theorems \
+  --output run.bright.bm25qs.theoremqa-theorems.txt \
+  --output-format trec \
+  --hits 1000 --bm25qs --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-theoremqa-theorems \
+  run.bright.bm25qs.theoremqa-theorems.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-theoremqa-theorems \
+  run.bright.bm25qs.theoremqa-theorems.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-theoremqa-theorems \
+  run.bright.bm25qs.theoremqa-theorems.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row11-tab3" role="tabpanel" aria-labelledby="row11-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-theoremqa-theorems.splade-v3 \
+  --topics bright-theoremqa-theorems \
+  --onnx-encoder SpladeV3 \
+  --output run.bright.splade-v3.theoremqa-theorems.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-theoremqa-theorems \
+  run.bright.splade-v3.theoremqa-theorems.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-theoremqa-theorems \
+  run.bright.splade-v3.theoremqa-theorems.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-theoremqa-theorems \
+  run.bright.splade-v3.theoremqa-theorems.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row11-tab4" role="tabpanel" aria-labelledby="row11-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene --dense --flat \
+  --index bright-theoremqa-theorems.bge-large-en-v1.5.flat \
+  --topics bright-theoremqa-theorems \
+  --onnx-encoder BgeLargeEn15 \
+  --output run.bright.bge-large-en-v1.5.flat.theoremqa-theorems.txt \
+  --output-format trec \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-theoremqa-theorems \
+  run.bright.bge-large-en-v1.5.flat.theoremqa-theorems.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-theoremqa-theorems \
+  run.bright.bge-large-en-v1.5.flat.theoremqa-theorems.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-theoremqa-theorems \
+  run.bright.bge-large-en-v1.5.flat.theoremqa-theorems.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+<!-- Condition: theoremqa-questions -->
+<tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">
+<td class="expand-button"></td>
+<td width="200">theoremqa-questions</td>
+<td>   0.073</td>
+<td>   0.159</td>
+<td></td>
+<td>   0.104</td>
+<td>   0.212</td>
+<td></td>
+<td>   0.111</td>
+<td>   0.266</td>
+<td></td>
+<td>   0.141</td>
+<td>   0.282</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="15">
+<div id="collapse12" class="collapse in p-3">
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="row12-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="row12-tab1-header" data-mdb-toggle="tab" href="#row12-tab1" role="tab" aria-controls="row12-tab1" aria-selected="true" style="text-transform:none">BM25</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab2-header" data-mdb-toggle="tab" href="#row12-tab2" role="tab" aria-controls="row12-tab2" aria-selected="false" style="text-transform:none">BM25QS</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab4-header" data-mdb-toggle="tab" href="#row12-tab4" role="tab" aria-controls="row12-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+</ul>
+<!-- Tabs navs -->
+
+<!-- Tabs content -->
+<div class="tab-content" id="row12-content">
+  <div class="tab-pane fade" id="row12-tab1" role="tabpanel" aria-labelledby="row12-tab1">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-theoremqa-questions \
+  --topics bright-theoremqa-questions \
+  --output run.bright.bm25.theoremqa-questions.txt \
+  --output-format trec \
+  --hits 1000 --bm25 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-theoremqa-questions \
+  run.bright.bm25.theoremqa-questions.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-theoremqa-questions \
+  run.bright.bm25.theoremqa-questions.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-theoremqa-questions \
+  run.bright.bm25.theoremqa-questions.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row12-tab2" role="tabpanel" aria-labelledby="row12-tab2">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-theoremqa-questions \
+  --topics bright-theoremqa-questions \
+  --output run.bright.bm25qs.theoremqa-questions.txt \
+  --output-format trec \
+  --hits 1000 --bm25qs --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-theoremqa-questions \
+  run.bright.bm25qs.theoremqa-questions.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-theoremqa-questions \
+  run.bright.bm25qs.theoremqa-questions.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-theoremqa-questions \
+  run.bright.bm25qs.theoremqa-questions.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row12-tab3" role="tabpanel" aria-labelledby="row12-tab3">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene \
+  --index bright-theoremqa-questions.splade-v3 \
+  --topics bright-theoremqa-questions \
+  --onnx-encoder SpladeV3 \
+  --output run.bright.splade-v3.theoremqa-questions.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-theoremqa-questions \
+  run.bright.splade-v3.theoremqa-questions.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-theoremqa-questions \
+  run.bright.splade-v3.theoremqa-questions.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-theoremqa-questions \
+  run.bright.splade-v3.theoremqa-questions.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row12-tab4" role="tabpanel" aria-labelledby="row12-tab4">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.lucene --dense --flat \
+  --index bright-theoremqa-questions.bge-large-en-v1.5.flat \
+  --topics bright-theoremqa-questions \
+  --onnx-encoder BgeLargeEn15 \
+  --output run.bright.bge-large-en-v1.5.flat.theoremqa-questions.txt \
+  --output-format trec \
+  --hits 1000 --remove-query
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-theoremqa-questions \
+  run.bright.bge-large-en-v1.5.flat.theoremqa-questions.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-theoremqa-questions \
+  run.bright.bge-large-en-v1.5.flat.theoremqa-questions.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.1000 bright-theoremqa-questions \
+  run.bright.bge-large-en-v1.5.flat.theoremqa-questions.txt</code></pre>
+  </blockquote>
+
+  </div>
+</div>
+<!-- Tabs content -->
+
+</div></td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+
+<div style="padding-top: 20px"/>
+<h4>References</h4>
+
+<ul style="list-style-type:none; padding-top: 25px">
+
+<li><p>[1] Yijun Ge, Sahel Sharifymoghaddam, and Jimmy Lin.
+<a href="https://arxiv.org/abs/2509.02558">Lighting the Way for BRIGHT: Reproducible Baselines with Anserini, Pyserini, and RankLLM.</a>
+<i>arXiv:2509.02558</i>, September 2025.</p></li>
+
+</ul>
+
+<div style="padding-top: 20px"/>
+
+<h4>Programmatic Execution</h4>
+
+<p>All experimental runs shown in the above table can be programmatically executed based on the instructions below.
+To list all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.bright --list-conditions
+</tt></blockquote>
+
+<p>These conditions correspond to the table rows above.</p>
+
+<p>For all conditions, just show the commands in a "dry run":</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.bright --all --display-commands --dry-run
+</tt></blockquote>
+
+<p>To actually run all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.bright --all --display-commands
+</tt></blockquote>
+
+<p>With the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>To show the commands for a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.bright --condition bm25qs --display-commands --dry-run
+</tt></blockquote>
+
+<p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
+
+<p>To actually run a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.bright --condition bm25qs --display-commands
+</tt></blockquote>
+
+<p>Again, with the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>Finally, to generate this page:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.bright --generate-report --output bright.html
+</tt></blockquote>
+
+<p>The output file <tt>bright.html</tt> should be identical to this page.</p>
+
+<div style="padding-top: 50px"/>
+
+      </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+
+<script>
+document.querySelectorAll('pre').forEach(function (codeBlock) {
+    var button = document.createElement('button');
+    button.className = 'copy-code-button';
+    button.type = 'button';
+    var s = codeBlock.innerText;
+    button.setAttribute('data-clipboard-text',s);
+    button.innerText = 'Copy';
+
+    // var pre = codeBlock.parentNode;
+    codeBlock.classList.add('prettyprint');
+    // pre.parentNode.insertBefore(button, pre);
+    codeBlock.appendChild(button);
+});
+
+var clipboard = new ClipboardJS('.copy-code-button');
+
+clipboard.on('success', function(e) {
+  console.info('Action:', e.action);
+  console.info('Text:', e.text);
+  console.info('Trigger:', e.trigger);
+  e.trigger.textContent = 'Copied';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+clipboard.on('error', function(e) {
+  console.error('Action:', e.action);
+  console.error('Trigger:', e.trigger);
+  e.trigger.textContent = 'Error Copying';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+</script>
+
+</body>
+</html>
