@@ -111,11 +111,11 @@ def download_url(url, save_dir, local_filename=None, md5=None, force=False, verb
     except HTTPError as e:
         print(f'HTTP Error {e.code}: {e.reason}')
 
-    if expected_size:
+    # Don't do the size check if the size is -1, which indicates that it wasn't properly recorded in the metadata.
+    if expected_size != -1:
         actual_size = os.path.getsize(destination_path)
         assert actual_size == expected_size, (
-            f"{destination_path} does not match expected file size! "
-            f"Expecting {expected_size} bytes, got {actual_size} bytes."
+            f'{destination_path} does not match expected file size! Expecting {expected_size} bytes, got {actual_size} bytes.'
         )
 
     if md5:
@@ -126,7 +126,7 @@ def download_url(url, save_dir, local_filename=None, md5=None, force=False, verb
 
 
 def get_cache_home():
-    custom_dir = os.environ.get("PYSERINI_CACHE")
+    custom_dir = os.environ.get('PYSERINI_CACHE')
     if custom_dir is not None and custom_dir != '':
         return custom_dir
     return os.path.expanduser(os.path.join(f'~{os.path.sep}.cache', "pyserini"))
