@@ -1,7 +1,15 @@
+import sys
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 class TestUniIREncoder(unittest.TestCase):
+    def setUp(self):
+        # Clear cached imports before each test
+        modules_to_clear = [k for k in sys.modules.keys() if k.startswith('pyserini')]
+        for module in modules_to_clear:
+            if module in sys.modules:
+                del sys.modules[module]
+
     def test_uniir_encoder_missing_package(self):
         """Test UniIR corpus encoder fails when uniir-for-pyserini package is missing"""
         with patch.dict('sys.modules', {'uniir_for_pyserini': None}):
@@ -31,7 +39,6 @@ class TestUniIREncoder(unittest.TestCase):
 
     def test_uniir_encoder_with_package_available(self):
         """Test UniIR encoder works when package is available (mocked)"""
-        from unittest.mock import MagicMock
         import numpy as np
 
         MOCK_CORPUS_EMBEDDINGS = np.array([[0.1, 0.2, 0.3], [0.4, 0.5, 0.6], [0.7, 0.8, 0.9]])
