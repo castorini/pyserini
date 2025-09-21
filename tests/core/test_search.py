@@ -54,7 +54,7 @@ class TestSearch(unittest.TestCase):
         # The current directory depends on if you're running inside an IDE or from command line.
         curdir = os.getcwd()
         if curdir.endswith('tests'):
-            corpus_path = '../tests/resources/sample_collection_json'
+            corpus_path = '../resources/sample_collection_json'
         else:
             corpus_path = 'tests/resources/sample_collection_json'
 

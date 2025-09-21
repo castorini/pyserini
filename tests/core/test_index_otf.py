@@ -32,7 +32,7 @@ class TestIndexOTF(unittest.TestCase):
         # The current directory depends on if you're running inside an IDE or from command line.
         curdir = os.getcwd()
         if curdir.endswith('tests'):
-            self.test_file = '../tests/resources/simple_cacm_corpus.json'
+            self.test_file = '../resources/simple_cacm_corpus.json'
         else:
             self.test_file = 'tests/resources/simple_cacm_corpus.json'
 
