@@ -1173,7 +1173,7 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 </dl>
 </details>
 <details>
-<summary>BEIR</summary>
+<summary>BRIGHT</summary>
 <dl>
 <dt></dt><b><code>bright-biology.splade-v3</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
@@ -1531,6 +1531,59 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dt></dt><b><code>beir-v1.0.0-scifact.bge-base-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
 <dd>Anserini Lucene flat vector index of BEIR collection 'scifact' encoded by BGE-base-en-v1.5
+</dd>
+</dl>
+</details>
+<details>
+<summary>BRIGHT</summary>
+<dl>
+<dt></dt><b><code>bright-biology.bge-large-en-v1.5.flat</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+<dd>Lucene flat index of BRIGHT collection 'biology' encoded by BGE-large-en-v1.5.
+</dd>
+<dt></dt><b><code>bright-earth-science.bge-large-en-v1.5.flat</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+<dd>Lucene flat index of BRIGHT collection 'earth-science' encoded by BGE-large-en-v1.5.
+</dd>
+<dt></dt><b><code>bright-economics.bge-large-en-v1.5.flat</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+<dd>Lucene flat index of BRIGHT collection 'economics' encoded by BGE-large-en-v1.5.
+</dd>
+<dt></dt><b><code>bright-psychology.bge-large-en-v1.5.flat</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+<dd>Lucene flat index of BRIGHT collection 'psychology' encoded by BGE-large-en-v1.5.
+</dd>
+<dt></dt><b><code>bright-robotics.bge-large-en-v1.5.flat</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+<dd>Lucene flat index of BRIGHT collection 'robotics' encoded by BGE-large-en-v1.5.
+</dd>
+<dt></dt><b><code>bright-stackoverflow.bge-large-en-v1.5.flat</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+<dd>Lucene flat index of BRIGHT collection 'stackoverflow' encoded by BGE-large-en-v1.5.
+</dd>
+<dt></dt><b><code>bright-sustainable-living.bge-large-en-v1.5.flat</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+<dd>Lucene flat index of BRIGHT collection 'sustainable-living' encoded by BGE-large-en-v1.5.
+</dd>
+<dt></dt><b><code>bright-pony.bge-large-en-v1.5.flat</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+<dd>Lucene flat index of BRIGHT collection 'pony' encoded by BGE-large-en-v1.5.
+</dd>
+<dt></dt><b><code>bright-leetcode.bge-large-en-v1.5.flat</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+<dd>Lucene flat index of BRIGHT collection 'leetcode' encoded by BGE-large-en-v1.5.
+</dd>
+<dt></dt><b><code>bright-aops.bge-large-en-v1.5.flat</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+<dd>Lucene flat index of BRIGHT collection 'aops' encoded by BGE-large-en-v1.5.
+</dd>
+<dt></dt><b><code>bright-theoremqa-theorems.bge-large-en-v1.5.flat</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+<dd>Lucene flat index of BRIGHT collection 'theoremqa-theorems' encoded by BGE-large-en-v1.5.
+</dd>
+<dt></dt><b><code>bright-theoremqa-questions.bge-large-en-v1.5.flat</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+<dd>Lucene flat index of BRIGHT collection 'theoremqa-questions' encoded by BGE-large-en-v1.5.
 </dd>
 </dl>
 </details>

@@ -44,7 +44,8 @@ dependencies = [
     "pillow>=10.2.0",
     "fastapi>=0.70.0",
     "uvicorn>=0.13.0",
-    "fastmcp>=2.10.4"
+    "fastmcp>=2.10.4",
+    "datasets",
 ]
 
 [project.urls]
@@ -56,8 +57,6 @@ optional = [
     "faiss>1.7.0",
     "spacy>=3.2.1",
     "pyarrow>=15.0.0",
-    "pybind11>=2.11.0"
+    "pybind11>=2.11.0",
+    "uniir-for-pyserini>=0.1.0"
 ]
-
-[tool.setuptools.package-data]
-"pyserini.encode.mbeir.uniir" = ["*.yaml"] 

@@ -296,7 +296,7 @@ python -m pyserini.index.faiss \
 
 Once the index is built, you can use `FaissSearcher` to search in the collection:
 ```python
-from pyserini.search import FaissSearcher
+from pyserini.search.faiss import FaissSearcher
 
 searcher = FaissSearcher(
     'indexes/dindex-sample-dpr-multi',

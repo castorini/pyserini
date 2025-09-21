@@ -23,9 +23,10 @@ from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, LUCEN
 def check(index):
     for entry in index:
         print(f'# Checking "{entry}"...')
+        expected_size = index[entry].get('size compressed (bytes)', None)
         md5sum = index[entry]['md5']
         for url in index[entry]['urls']:
-            destination = download_url(url, '.', md5=md5sum)
+            destination = download_url(url, '.', md5=md5sum, expected_size=expected_size)
             print(f'Finished downloading to {destination}, cleaning up.')
             os.remove(destination)
         print('\n')

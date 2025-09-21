@@ -23,7 +23,7 @@ from transformers import AutoTokenizer
 from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
 from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
-from pyserini.search.lucene import JDisjunctionMaxQueryGenerator
+from pyserini.search.lucene import JDisjunctionMaxQueryGenerator, JQuerySideBm25QueryGenerator
 from ._hnsw_searcher import LuceneHnswDenseSearcher, LuceneFlatDenseSearcher
 from ._impact_searcher import LuceneImpactSearcher, SlimSearcher
 from ._searcher import LuceneSearcher
@@ -89,6 +89,7 @@ def define_search_args(parser):
     parser.add_argument('--min-idf', type=int, default=0, help="minimum idf")
 
     parser.add_argument('--bm25', action='store_true', default=True, help="Use BM25 (default).")
+    parser.add_argument('--bm25qs', action='store_true', help="Use BM25 also on query side.")
     parser.add_argument('--k1', type=float, help='BM25 k1 parameter.')
     parser.add_argument('--b', type=float, help='BM25 b parameter.')
 
@@ -223,7 +224,7 @@ if __name__ == "__main__":
     if args.qld:
         search_rankers.append('qld')
         searcher.set_qld()
-    elif args.bm25:
+    elif args.bm25 or args.bm25qs:
         search_rankers.append('bm25')
         set_bm25_parameters(searcher, args.index, args.k1, args.b)
 
@@ -247,6 +248,9 @@ if __name__ == "__main__":
     if args.dismax:
         query_generator = JDisjunctionMaxQueryGenerator(args.tiebreaker)
         print(f'Using dismax query generator with tiebreaker={args.tiebreaker}')
+    if args.bm25qs:
+        query_generator = JQuerySideBm25QueryGenerator(args.k1 or 0.9, args.b or 0.4, searcher.index_reader.reader)
+        print("Using query-side BM25 query generator")
     
     if args.pretokenized:
         analyzer = JWhiteSpaceAnalyzer()
@@ -343,6 +347,20 @@ if __name__ == "__main__":
                 else:
                     continue
 
+            # For certain splits of BRIGHT, some docids are excluded for some queries
+            bright_filter = False
+            if "bright-aops"  in args.index or "bright-leetcode" in args.index or "bright-theoremqa-questions" in args.index:
+                bright_filter = True
+                from datasets import load_dataset
+                if "aops" in args.index:
+                    split = "aops"
+                elif "leetcode" in args.index:
+                    split = "leetcode"
+                elif "theoremqa-questions" in args.index:
+                    split = "theoremqa_questions"
+                bright_queries = load_dataset("xlangai/BRIGHT", 'examples')[split]
+                bright_queries = {query["id"]: query["excluded_ids"] for query in bright_queries}
+                
             for topic, hits in results:
                 # do rerank
                 if use_prcl and len(hits) > (args.r + args.n):
@@ -367,6 +385,9 @@ if __name__ == "__main__":
                 # We want to remove the query from the results.
                 if args.remove_query:
                     hits = [hit for hit in hits if hit.docid != topic]
+
+                if bright_filter:
+                    hits = [hit for hit in hits if hit.docid.strip() not in bright_queries[str(topic)]]
 
                 # write results
                 output_writer.write(topic, hits)
