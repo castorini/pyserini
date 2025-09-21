@@ -72,11 +72,11 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-slim</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V1 document corpus ('slim' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V1 document corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-full</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V1 document corpus ('full' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V1 document corpus ('full' version)
 </dd>
 <dt></dt><b><code>msmarco-v1-doc.d2q-t5</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md">readme</a>]
@@ -84,7 +84,7 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 </dd>
 <dt></dt><b><code>msmarco-v1-doc.d2q-t5-docvectors</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index (+docvectors) of the MS MARCO V1 document corpus with doc2query-T5 expansions.
+<dd>Anserini Lucene inverted index of the MS MARCO V1 document corpus with doc2query-T5 expansions (with stored docvectors)
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
@@ -92,11 +92,11 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented-slim</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V1 segmented document corpus ('slim' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V1 segmented document corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented-full</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V1 segmented document corpus ('full' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V1 segmented document corpus ('full' version)
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented.d2q-t5</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md">readme</a>]
@@ -104,7 +104,7 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented.d2q-t5-docvectors</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index (+docvectors) of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.
+<dd>Anserini Lucene inverted index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions (with stored docvectors)
 </dd>
 <dt></dt><b><code>msmarco-v1-passage</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
@@ -112,79 +112,79 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 </dd>
 <dt></dt><b><code>msmarco-v1-passage-slim</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V1 passage corpus ('slim' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V1 passage corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v1-passage-full</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V1 passage corpus ('full' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V1 passage corpus ('full' version)
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.d2q-t5</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V1 passage corpus with doc2query-T5 expansions.
+<dd>Anserini Lucene inverted index of the MS MARCO V1 passage corpus with doc2query-T5 expansions
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.d2q-t5-docvectors</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md">readme</a>]
-<dd>Lucene index (+docvectors) of the MS MARCO V1 passage corpus with doc2query-T5 expansions.
+<dd>Anserini Lucene inverted index of the MS MARCO V1 passage corpus with doc2query-T5 expansions (with stored docvectors)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 document corpus.
+<dd>Anserini Lucene inverted index of the MS MARCO V2 document corpus
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-slim</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 document corpus ('slim' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V2 document corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-full</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 document corpus ('full' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V2 document corpus ('full' version)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc.d2q-t5</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 document corpus with doc2query-T5 expansions.
+<dd>Anserini Lucene inverted index of the MS MARCO V2 document corpus with doc2query-T5 expansions
 </dd>
 <dt></dt><b><code>msmarco-v2-doc.d2q-t5-docvectors</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index (+docvectors) of the MS MARCO V2 document corpus with doc2query-T5 expansions.
+<dd>Anserini Lucene inverted index of the MS MARCO V2 document corpus with doc2query-T5 expansions (with stored docvectors)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 segmented document corpus.
+<dd>Anserini Lucene inverted index of the MS MARCO V2 segmented document corpus
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented-slim</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 segmented document corpus ('slim' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V2 segmented document corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented-full</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 segmented document corpus ('full' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V2 segmented document corpus ('full' version)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented.d2q-t5</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions.
+<dd>Anserini Lucene inverted index of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented.d2q-t5-docvectors</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index (+docvectors) of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions.
+<dd>Anserini Lucene inverted index of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions (with stored docvectors)
 </dd>
 <dt></dt><b><code>msmarco-v2-passage</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 passage corpus.
+<dd>Anserini Lucene inverted index of the MS MARCO V2 passage corpus
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-slim</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 passage corpus ('slim' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V2 passage corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-full</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 passage corpus ('full' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V2 passage corpus ('full' version)
 </dd>
 <dt></dt><b><code>msmarco-v2-passage.d2q-t5</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 passage corpus with doc2query-T5 expansions.
+<dd>Anserini Lucene inverted index of the MS MARCO V2 passage corpus with doc2query-T5 expansions
 </dd>
 <dt></dt><b><code>msmarco-v2-passage.d2q-t5-docvectors</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index (+docvectors) of the MS MARCO V2 passage corpus with doc2query-T5 expansions.
+<dd>Anserini Lucene inverted index of the MS MARCO V2 passage corpus with doc2query-T5 expansions (with stored docvectors)
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-augmented</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md">readme</a>]
@@ -208,27 +208,27 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2.1 document corpus.
+<dd>Anserini Lucene inverted index of the MS MARCO V2.1 document corpus
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-slim</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2.1 document corpus ('slim' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V2.1 document corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-full</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2.1 document corpus ('full' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V2.1 document corpus ('full' version)
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2.1 segmented document corpus.
+<dd>Anserini Lucene inverted index of the MS MARCO V2.1 segmented document corpus
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-slim</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2.1 segmented document corpus ('slim' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V2.1 segmented document corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-full</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2.1 segmented document corpus ('full' version).
+<dd>Anserini Lucene inverted index of the MS MARCO V2.1 segmented document corpus ('full' version)
 </dd>
 </dl>
 </details>
@@ -1539,51 +1539,51 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dl>
 <dt></dt><b><code>bright-biology.bge-large-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
-<dd>Lucene flat index of BRIGHT collection 'biology' encoded by BGE-large-en-v1.5.
+<dd>Anserini Lucene flat vector index of BRIGHT collection 'biology' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-earth-science.bge-large-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
-<dd>Lucene flat index of BRIGHT collection 'earth-science' encoded by BGE-large-en-v1.5.
+<dd>Anserini Lucene flat vector index of BRIGHT collection 'earth-science' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-economics.bge-large-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
-<dd>Lucene flat index of BRIGHT collection 'economics' encoded by BGE-large-en-v1.5.
+<dd>Anserini Lucene flat vector index of BRIGHT collection 'economics' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-psychology.bge-large-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
-<dd>Lucene flat index of BRIGHT collection 'psychology' encoded by BGE-large-en-v1.5.
+<dd>Anserini Lucene flat vector index of BRIGHT collection 'psychology' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-robotics.bge-large-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
-<dd>Lucene flat index of BRIGHT collection 'robotics' encoded by BGE-large-en-v1.5.
+<dd>Anserini Lucene flat vector index of BRIGHT collection 'robotics' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-stackoverflow.bge-large-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
-<dd>Lucene flat index of BRIGHT collection 'stackoverflow' encoded by BGE-large-en-v1.5.
+<dd>Anserini Lucene flat vector index of BRIGHT collection 'stackoverflow' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-sustainable-living.bge-large-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
-<dd>Lucene flat index of BRIGHT collection 'sustainable-living' encoded by BGE-large-en-v1.5.
+<dd>Anserini Lucene flat vector index of BRIGHT collection 'sustainable-living' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-pony.bge-large-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
-<dd>Lucene flat index of BRIGHT collection 'pony' encoded by BGE-large-en-v1.5.
+<dd>Anserini Lucene flat vector index of BRIGHT collection 'pony' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-leetcode.bge-large-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
-<dd>Lucene flat index of BRIGHT collection 'leetcode' encoded by BGE-large-en-v1.5.
+<dd>Anserini Lucene flat vector index of BRIGHT collection 'leetcode' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-aops.bge-large-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
-<dd>Lucene flat index of BRIGHT collection 'aops' encoded by BGE-large-en-v1.5.
+<dd>Anserini Lucene flat vector index of BRIGHT collection 'aops' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-theoremqa-theorems.bge-large-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
-<dd>Lucene flat index of BRIGHT collection 'theoremqa-theorems' encoded by BGE-large-en-v1.5.
+<dd>Anserini Lucene flat vector index of BRIGHT collection 'theoremqa-theorems' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-theoremqa-questions.bge-large-en-v1.5.flat</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
-<dd>Lucene flat index of BRIGHT collection 'theoremqa-questions' encoded by BGE-large-en-v1.5.
+<dd>Anserini Lucene flat vector index of BRIGHT collection 'theoremqa-questions' encoded by BGE-large-en-v1.5
 </dd>
 </dl>
 </details>
