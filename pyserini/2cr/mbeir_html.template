@@ -141,7 +141,10 @@ pre[class*="prettyprint"] {
 <div class="container my-4">
 
 <p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.
-Instructions for programmatic execution are shown at the bottom of this page (scroll down).</p>
+Instructions for programmatic execution are shown at the bottom of this page (scroll down).
+
+The metrics used in the 2CR tables are R@10, R@20, R@50 for the fashion datasets, and R@1, R@5, R@10 for the others.
+</p>
 
 <div class="table-responsive">  
   <table class="table">  
@@ -219,7 +222,7 @@ $rows
 To list all the experimental conditions:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.uniir --list-conditions
+python -m pyserini.2cr.mbeir --list-conditions
 </tt></blockquote>
 
 <p>These conditions correspond to the table rows above.</p>
@@ -227,13 +230,13 @@ python -m pyserini.2cr.uniir --list-conditions
 <p>For all conditions, just show the commands in a "dry run":</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.uniir --all --display-commands --dry-run
+python -m pyserini.2cr.mbeir --all --display-commands --dry-run
 </tt></blockquote>
 
 <p>To actually run all the experimental conditions:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.uniir --all --display-commands
+python -m pyserini.2cr.mbeir --all --display-commands
 </tt></blockquote>
 
 <p>With the above command, run files will be placed in the current directory.
@@ -242,7 +245,7 @@ Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.<
 <p>To show the commands for a specific condition:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.uniir --condition clip-sf-large --display-commands --dry-run
+python -m pyserini.2cr.mbeir --condition clip-sf-large --display-commands --dry-run
 </tt></blockquote>
 
 <p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
@@ -250,7 +253,7 @@ python -m pyserini.2cr.uniir --condition clip-sf-large --display-commands --dry-
 <p>To actually run a specific condition:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.uniir --condition clip-sf-large --display-commands
+python -m pyserini.2cr.mbeir --condition clip-sf-large --display-commands
 </tt></blockquote>
 
 <p>Again, with the above command, run files will be placed in the current directory.
@@ -259,10 +262,10 @@ Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.<
 <p>Finally, to generate this page:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.uniir --generate-report --output uniir.html
+python -m pyserini.2cr.mbeir --generate-report --output mbeir.html
 </tt></blockquote>
 
-<p>The output file <tt>uniir.html</tt> should be identical to this page.</p>
+<p>The output file <tt>mbeir.html</tt> should be identical to this page.</p>
 
 <div style="padding-top: 50px"/>
 

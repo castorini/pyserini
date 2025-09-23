@@ -93,7 +93,7 @@ def fix_qrels(dataset_name):
     return fixed_qrels_file
 
 def list_conditions():  
-    with importlib.resources.files('pyserini.2cr').joinpath('uniir.yaml').open('r') as f:  
+    with importlib.resources.files('pyserini.2cr').joinpath('mbeir.yaml').open('r') as f:  
         yaml_data = yaml.safe_load(f)  
         for condition in yaml_data['conditions']:  
             print(condition['name'])
@@ -127,7 +127,7 @@ def run_conditions(args):
       
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))  
       
-    with importlib.resources.files('pyserini.2cr').joinpath('uniir.yaml').open('r') as f:  
+    with importlib.resources.files('pyserini.2cr').joinpath('mbeir.yaml').open('r') as f:  
         yaml_data = yaml.safe_load(f)  
         for condition in yaml_data['conditions']:  
             name = condition['name']  
@@ -146,7 +146,7 @@ def run_conditions(args):
                       
                 print(f'  - Dataset: {dataset}')  
                   
-                runfile = os.path.join(args.directory, f'run.uniir.{dataset}.{name}.txt')  
+                runfile = os.path.join(args.directory, f'run.mbeir.{dataset}.{name}.uniir.txt')  
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)  
                   
                 if args.display_commands:  
@@ -202,10 +202,10 @@ def generate_report(args):
     commands = defaultdict(lambda: defaultdict(lambda: ''))    
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))    
         
-    html_template = read_file('uniir_html.template')    
-    row_template = read_file('uniir_html_row.template')    
+    html_template = read_file('mbeir_html.template')    
+    row_template = read_file('mbeir_html_row.template')    
         
-    with importlib.resources.files('pyserini.2cr').joinpath('uniir.yaml').open('r') as f:    
+    with importlib.resources.files('pyserini.2cr').joinpath('mbeir.yaml').open('r') as f:    
         yaml_data = yaml.safe_load(f)    
         for condition in yaml_data['conditions']:    
             name = condition['name']    
@@ -214,7 +214,7 @@ def generate_report(args):
             for datasets in condition['datasets']:    
                 dataset = datasets['dataset']    
                     
-                runfile = os.path.join(args.directory, f'run.uniir.{dataset}.{name}.txt')    
+                runfile = os.path.join(args.directory, f'run.mbeir.{dataset}.{name}.uniir.txt')    
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)    
                 commands[dataset][name] = format_run_command(cmd)    
                     

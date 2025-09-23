@@ -1,6 +1,6 @@
 conditions:
   - name: clip-sf-large
-    command: python -m pyserini.search.faiss --encoder-class uniir --encoder clip_sf_large --index m-beir-${dataset}.clip-sf-large --topics-format mbeir --topics query/test/mbeir_${dataset}_test.jsonl --output-format trec --output $output --hits 1000 --remove-query --fp16
+    command: python -m pyserini.search.faiss --encoder-class uniir --encoder clip_sf_large --index mbeir-${dataset}.clip-sf-large --topics-format mbeir --topics query/test/mbeir_${dataset}_test.jsonl --output-format trec --output $output --hits 1000 --remove-query --fp16
     datasets:
       - dataset: cirr_task7
         scores:
@@ -83,7 +83,7 @@ conditions:
             R@5: 0.5914
             R@10: 0.6880
   - name: blip-ff-large
-    command: python -m pyserini.search.faiss --encoder-class uniir --encoder blip_ff_large --index m-beir-${dataset}.blip-ff-large --topics-format mbeir --topics query/test/mbeir_${dataset}_test.jsonl --output-format trec --output $output --hits 1000 --remove-query --fp16
+    command: python -m pyserini.search.faiss --encoder-class uniir --encoder blip_ff_large --index mbeir-${dataset}.blip-ff-large --topics-format mbeir --topics query/test/mbeir_${dataset}_test.jsonl --output-format trec --output $output --hits 1000 --remove-query --fp16
     datasets:
       - dataset: cirr_task7
         scores:

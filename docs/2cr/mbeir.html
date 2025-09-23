@@ -141,7 +141,10 @@ pre[class*="prettyprint"] {
 <div class="container my-4">
 
 <p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.
-Instructions for programmatic execution are shown at the bottom of this page (scroll down).</p>
+Instructions for programmatic execution are shown at the bottom of this page (scroll down).
+
+The metrics used in the 2CR tables are R@10, R@20, R@50 for the fashion datasets, and R@1, R@5, R@10 for the others.
+</p>
 
 <div class="table-responsive">  
   <table class="table">  
@@ -209,11 +212,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-cirr_task7.clip-sf-large \
+  --index mbeir-cirr_task7.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_cirr_task7_test.jsonl \
   --output-format trec \
-  --output run.uniir.cirr_task7.clip-sf-large.txt \
+  --output run.mbeir.cirr_task7.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -223,15 +226,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
-  run.uniir.cirr_task7.clip-sf-large.txt
+  run.mbeir.cirr_task7.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
-  run.uniir.cirr_task7.clip-sf-large.txt
+  run.mbeir.cirr_task7.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
-  run.uniir.cirr_task7.clip-sf-large.txt</code></pre>  
+  run.mbeir.cirr_task7.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -242,11 +245,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-cirr_task7.blip-ff-large \
+  --index mbeir-cirr_task7.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_cirr_task7_test.jsonl \
   --output-format trec \
-  --output run.uniir.cirr_task7.blip-ff-large.txt \
+  --output run.mbeir.cirr_task7.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -256,15 +259,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
-  run.uniir.cirr_task7.blip-ff-large.txt
+  run.mbeir.cirr_task7.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
-  run.uniir.cirr_task7.blip-ff-large.txt
+  run.mbeir.cirr_task7.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
-  run.uniir.cirr_task7.blip-ff-large.txt</code></pre>  
+  run.mbeir.cirr_task7.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -312,11 +315,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-edis_task2.clip-sf-large \
+  --index mbeir-edis_task2.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_edis_task2_test.jsonl \
   --output-format trec \
-  --output run.uniir.edis_task2.clip-sf-large.txt \
+  --output run.mbeir.edis_task2.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -326,15 +329,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
-  run.uniir.edis_task2.clip-sf-large.txt
+  run.mbeir.edis_task2.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
-  run.uniir.edis_task2.clip-sf-large.txt
+  run.mbeir.edis_task2.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
-  run.uniir.edis_task2.clip-sf-large.txt</code></pre>  
+  run.mbeir.edis_task2.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -345,11 +348,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-edis_task2.blip-ff-large \
+  --index mbeir-edis_task2.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_edis_task2_test.jsonl \
   --output-format trec \
-  --output run.uniir.edis_task2.blip-ff-large.txt \
+  --output run.mbeir.edis_task2.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -359,15 +362,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
-  run.uniir.edis_task2.blip-ff-large.txt
+  run.mbeir.edis_task2.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
-  run.uniir.edis_task2.blip-ff-large.txt
+  run.mbeir.edis_task2.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
-  run.uniir.edis_task2.blip-ff-large.txt</code></pre>  
+  run.mbeir.edis_task2.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -415,11 +418,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-fashion200k_task0.clip-sf-large \
+  --index mbeir-fashion200k_task0.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_fashion200k_task0_test.jsonl \
   --output-format trec \
-  --output run.uniir.fashion200k_task0.clip-sf-large.txt \
+  --output run.mbeir.fashion200k_task0.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -429,15 +432,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
-  run.uniir.fashion200k_task0.clip-sf-large.txt
+  run.mbeir.fashion200k_task0.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.20 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
-  run.uniir.fashion200k_task0.clip-sf-large.txt
+  run.mbeir.fashion200k_task0.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.50 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
-  run.uniir.fashion200k_task0.clip-sf-large.txt</code></pre>  
+  run.mbeir.fashion200k_task0.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -448,11 +451,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-fashion200k_task0.blip-ff-large \
+  --index mbeir-fashion200k_task0.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_fashion200k_task0_test.jsonl \
   --output-format trec \
-  --output run.uniir.fashion200k_task0.blip-ff-large.txt \
+  --output run.mbeir.fashion200k_task0.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -462,15 +465,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
-  run.uniir.fashion200k_task0.blip-ff-large.txt
+  run.mbeir.fashion200k_task0.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.20 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
-  run.uniir.fashion200k_task0.blip-ff-large.txt
+  run.mbeir.fashion200k_task0.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.50 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
-  run.uniir.fashion200k_task0.blip-ff-large.txt</code></pre>  
+  run.mbeir.fashion200k_task0.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -518,11 +521,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-fashion200k_task3.clip-sf-large \
+  --index mbeir-fashion200k_task3.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_fashion200k_task3_test.jsonl \
   --output-format trec \
-  --output run.uniir.fashion200k_task3.clip-sf-large.txt \
+  --output run.mbeir.fashion200k_task3.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -532,15 +535,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
-  run.uniir.fashion200k_task3.clip-sf-large.txt
+  run.mbeir.fashion200k_task3.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.20 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
-  run.uniir.fashion200k_task3.clip-sf-large.txt
+  run.mbeir.fashion200k_task3.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.50 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
-  run.uniir.fashion200k_task3.clip-sf-large.txt</code></pre>  
+  run.mbeir.fashion200k_task3.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -551,11 +554,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-fashion200k_task3.blip-ff-large \
+  --index mbeir-fashion200k_task3.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_fashion200k_task3_test.jsonl \
   --output-format trec \
-  --output run.uniir.fashion200k_task3.blip-ff-large.txt \
+  --output run.mbeir.fashion200k_task3.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -565,15 +568,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
-  run.uniir.fashion200k_task3.blip-ff-large.txt
+  run.mbeir.fashion200k_task3.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.20 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
-  run.uniir.fashion200k_task3.blip-ff-large.txt
+  run.mbeir.fashion200k_task3.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.50 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
-  run.uniir.fashion200k_task3.blip-ff-large.txt</code></pre>  
+  run.mbeir.fashion200k_task3.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -621,11 +624,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-fashioniq_task7.clip-sf-large \
+  --index mbeir-fashioniq_task7.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_fashioniq_task7_test.jsonl \
   --output-format trec \
-  --output run.uniir.fashioniq_task7.clip-sf-large.txt \
+  --output run.mbeir.fashioniq_task7.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -635,15 +638,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
-  run.uniir.fashioniq_task7.clip-sf-large.txt
+  run.mbeir.fashioniq_task7.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.20 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
-  run.uniir.fashioniq_task7.clip-sf-large.txt
+  run.mbeir.fashioniq_task7.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.50 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
-  run.uniir.fashioniq_task7.clip-sf-large.txt</code></pre>  
+  run.mbeir.fashioniq_task7.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -654,11 +657,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-fashioniq_task7.blip-ff-large \
+  --index mbeir-fashioniq_task7.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_fashioniq_task7_test.jsonl \
   --output-format trec \
-  --output run.uniir.fashioniq_task7.blip-ff-large.txt \
+  --output run.mbeir.fashioniq_task7.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -668,15 +671,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
-  run.uniir.fashioniq_task7.blip-ff-large.txt
+  run.mbeir.fashioniq_task7.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.20 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
-  run.uniir.fashioniq_task7.blip-ff-large.txt
+  run.mbeir.fashioniq_task7.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.50 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
-  run.uniir.fashioniq_task7.blip-ff-large.txt</code></pre>  
+  run.mbeir.fashioniq_task7.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -724,11 +727,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-infoseek_task6.clip-sf-large \
+  --index mbeir-infoseek_task6.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_infoseek_task6_test.jsonl \
   --output-format trec \
-  --output run.uniir.infoseek_task6.clip-sf-large.txt \
+  --output run.mbeir.infoseek_task6.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -738,15 +741,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
-  run.uniir.infoseek_task6.clip-sf-large.txt
+  run.mbeir.infoseek_task6.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
-  run.uniir.infoseek_task6.clip-sf-large.txt
+  run.mbeir.infoseek_task6.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
-  run.uniir.infoseek_task6.clip-sf-large.txt</code></pre>  
+  run.mbeir.infoseek_task6.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -757,11 +760,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-infoseek_task6.blip-ff-large \
+  --index mbeir-infoseek_task6.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_infoseek_task6_test.jsonl \
   --output-format trec \
-  --output run.uniir.infoseek_task6.blip-ff-large.txt \
+  --output run.mbeir.infoseek_task6.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -771,15 +774,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
-  run.uniir.infoseek_task6.blip-ff-large.txt
+  run.mbeir.infoseek_task6.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
-  run.uniir.infoseek_task6.blip-ff-large.txt
+  run.mbeir.infoseek_task6.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
-  run.uniir.infoseek_task6.blip-ff-large.txt</code></pre>  
+  run.mbeir.infoseek_task6.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -827,11 +830,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-infoseek_task8.clip-sf-large \
+  --index mbeir-infoseek_task8.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_infoseek_task8_test.jsonl \
   --output-format trec \
-  --output run.uniir.infoseek_task8.clip-sf-large.txt \
+  --output run.mbeir.infoseek_task8.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -841,15 +844,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
-  run.uniir.infoseek_task8.clip-sf-large.txt
+  run.mbeir.infoseek_task8.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
-  run.uniir.infoseek_task8.clip-sf-large.txt
+  run.mbeir.infoseek_task8.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
-  run.uniir.infoseek_task8.clip-sf-large.txt</code></pre>  
+  run.mbeir.infoseek_task8.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -860,11 +863,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-infoseek_task8.blip-ff-large \
+  --index mbeir-infoseek_task8.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_infoseek_task8_test.jsonl \
   --output-format trec \
-  --output run.uniir.infoseek_task8.blip-ff-large.txt \
+  --output run.mbeir.infoseek_task8.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -874,15 +877,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
-  run.uniir.infoseek_task8.blip-ff-large.txt
+  run.mbeir.infoseek_task8.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
-  run.uniir.infoseek_task8.blip-ff-large.txt
+  run.mbeir.infoseek_task8.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
-  run.uniir.infoseek_task8.blip-ff-large.txt</code></pre>  
+  run.mbeir.infoseek_task8.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -930,11 +933,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-mscoco_task0.clip-sf-large \
+  --index mbeir-mscoco_task0.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_mscoco_task0_test.jsonl \
   --output-format trec \
-  --output run.uniir.mscoco_task0.clip-sf-large.txt \
+  --output run.mbeir.mscoco_task0.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -944,15 +947,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
-  run.uniir.mscoco_task0.clip-sf-large.txt
+  run.mbeir.mscoco_task0.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
-  run.uniir.mscoco_task0.clip-sf-large.txt
+  run.mbeir.mscoco_task0.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
-  run.uniir.mscoco_task0.clip-sf-large.txt</code></pre>  
+  run.mbeir.mscoco_task0.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -963,11 +966,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-mscoco_task0.blip-ff-large \
+  --index mbeir-mscoco_task0.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_mscoco_task0_test.jsonl \
   --output-format trec \
-  --output run.uniir.mscoco_task0.blip-ff-large.txt \
+  --output run.mbeir.mscoco_task0.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -977,15 +980,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
-  run.uniir.mscoco_task0.blip-ff-large.txt
+  run.mbeir.mscoco_task0.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
-  run.uniir.mscoco_task0.blip-ff-large.txt
+  run.mbeir.mscoco_task0.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
-  run.uniir.mscoco_task0.blip-ff-large.txt</code></pre>  
+  run.mbeir.mscoco_task0.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1033,11 +1036,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-mscoco_task3.clip-sf-large \
+  --index mbeir-mscoco_task3.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_mscoco_task3_test.jsonl \
   --output-format trec \
-  --output run.uniir.mscoco_task3.clip-sf-large.txt \
+  --output run.mbeir.mscoco_task3.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1047,15 +1050,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
-  run.uniir.mscoco_task3.clip-sf-large.txt
+  run.mbeir.mscoco_task3.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
-  run.uniir.mscoco_task3.clip-sf-large.txt
+  run.mbeir.mscoco_task3.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
-  run.uniir.mscoco_task3.clip-sf-large.txt</code></pre>  
+  run.mbeir.mscoco_task3.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1066,11 +1069,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-mscoco_task3.blip-ff-large \
+  --index mbeir-mscoco_task3.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_mscoco_task3_test.jsonl \
   --output-format trec \
-  --output run.uniir.mscoco_task3.blip-ff-large.txt \
+  --output run.mbeir.mscoco_task3.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1080,15 +1083,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
-  run.uniir.mscoco_task3.blip-ff-large.txt
+  run.mbeir.mscoco_task3.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
-  run.uniir.mscoco_task3.blip-ff-large.txt
+  run.mbeir.mscoco_task3.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
-  run.uniir.mscoco_task3.blip-ff-large.txt</code></pre>  
+  run.mbeir.mscoco_task3.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1136,11 +1139,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-nights_task4.clip-sf-large \
+  --index mbeir-nights_task4.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_nights_task4_test.jsonl \
   --output-format trec \
-  --output run.uniir.nights_task4.clip-sf-large.txt \
+  --output run.mbeir.nights_task4.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1150,15 +1153,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
-  run.uniir.nights_task4.clip-sf-large.txt
+  run.mbeir.nights_task4.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
-  run.uniir.nights_task4.clip-sf-large.txt
+  run.mbeir.nights_task4.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
-  run.uniir.nights_task4.clip-sf-large.txt</code></pre>  
+  run.mbeir.nights_task4.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1169,11 +1172,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-nights_task4.blip-ff-large \
+  --index mbeir-nights_task4.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_nights_task4_test.jsonl \
   --output-format trec \
-  --output run.uniir.nights_task4.blip-ff-large.txt \
+  --output run.mbeir.nights_task4.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1183,15 +1186,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
-  run.uniir.nights_task4.blip-ff-large.txt
+  run.mbeir.nights_task4.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
-  run.uniir.nights_task4.blip-ff-large.txt
+  run.mbeir.nights_task4.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
-  run.uniir.nights_task4.blip-ff-large.txt</code></pre>  
+  run.mbeir.nights_task4.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1239,11 +1242,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-oven_task6.clip-sf-large \
+  --index mbeir-oven_task6.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_oven_task6_test.jsonl \
   --output-format trec \
-  --output run.uniir.oven_task6.clip-sf-large.txt \
+  --output run.mbeir.oven_task6.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1253,15 +1256,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
-  run.uniir.oven_task6.clip-sf-large.txt
+  run.mbeir.oven_task6.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
-  run.uniir.oven_task6.clip-sf-large.txt
+  run.mbeir.oven_task6.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
-  run.uniir.oven_task6.clip-sf-large.txt</code></pre>  
+  run.mbeir.oven_task6.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1272,11 +1275,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-oven_task6.blip-ff-large \
+  --index mbeir-oven_task6.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_oven_task6_test.jsonl \
   --output-format trec \
-  --output run.uniir.oven_task6.blip-ff-large.txt \
+  --output run.mbeir.oven_task6.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1286,15 +1289,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
-  run.uniir.oven_task6.blip-ff-large.txt
+  run.mbeir.oven_task6.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
-  run.uniir.oven_task6.blip-ff-large.txt
+  run.mbeir.oven_task6.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
-  run.uniir.oven_task6.blip-ff-large.txt</code></pre>  
+  run.mbeir.oven_task6.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1342,11 +1345,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-oven_task8.clip-sf-large \
+  --index mbeir-oven_task8.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_oven_task8_test.jsonl \
   --output-format trec \
-  --output run.uniir.oven_task8.clip-sf-large.txt \
+  --output run.mbeir.oven_task8.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1356,15 +1359,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
-  run.uniir.oven_task8.clip-sf-large.txt
+  run.mbeir.oven_task8.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
-  run.uniir.oven_task8.clip-sf-large.txt
+  run.mbeir.oven_task8.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
-  run.uniir.oven_task8.clip-sf-large.txt</code></pre>  
+  run.mbeir.oven_task8.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1375,11 +1378,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-oven_task8.blip-ff-large \
+  --index mbeir-oven_task8.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_oven_task8_test.jsonl \
   --output-format trec \
-  --output run.uniir.oven_task8.blip-ff-large.txt \
+  --output run.mbeir.oven_task8.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1389,15 +1392,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
-  run.uniir.oven_task8.blip-ff-large.txt
+  run.mbeir.oven_task8.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
-  run.uniir.oven_task8.blip-ff-large.txt
+  run.mbeir.oven_task8.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
-  run.uniir.oven_task8.blip-ff-large.txt</code></pre>  
+  run.mbeir.oven_task8.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1445,11 +1448,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-visualnews_task0.clip-sf-large \
+  --index mbeir-visualnews_task0.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_visualnews_task0_test.jsonl \
   --output-format trec \
-  --output run.uniir.visualnews_task0.clip-sf-large.txt \
+  --output run.mbeir.visualnews_task0.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1459,15 +1462,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
-  run.uniir.visualnews_task0.clip-sf-large.txt
+  run.mbeir.visualnews_task0.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
-  run.uniir.visualnews_task0.clip-sf-large.txt
+  run.mbeir.visualnews_task0.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
-  run.uniir.visualnews_task0.clip-sf-large.txt</code></pre>  
+  run.mbeir.visualnews_task0.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1478,11 +1481,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-visualnews_task0.blip-ff-large \
+  --index mbeir-visualnews_task0.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_visualnews_task0_test.jsonl \
   --output-format trec \
-  --output run.uniir.visualnews_task0.blip-ff-large.txt \
+  --output run.mbeir.visualnews_task0.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1492,15 +1495,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
-  run.uniir.visualnews_task0.blip-ff-large.txt
+  run.mbeir.visualnews_task0.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
-  run.uniir.visualnews_task0.blip-ff-large.txt
+  run.mbeir.visualnews_task0.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
-  run.uniir.visualnews_task0.blip-ff-large.txt</code></pre>  
+  run.mbeir.visualnews_task0.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1548,11 +1551,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-visualnews_task3.clip-sf-large \
+  --index mbeir-visualnews_task3.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_visualnews_task3_test.jsonl \
   --output-format trec \
-  --output run.uniir.visualnews_task3.clip-sf-large.txt \
+  --output run.mbeir.visualnews_task3.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1562,15 +1565,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
-  run.uniir.visualnews_task3.clip-sf-large.txt
+  run.mbeir.visualnews_task3.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
-  run.uniir.visualnews_task3.clip-sf-large.txt
+  run.mbeir.visualnews_task3.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
-  run.uniir.visualnews_task3.clip-sf-large.txt</code></pre>  
+  run.mbeir.visualnews_task3.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1581,11 +1584,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-visualnews_task3.blip-ff-large \
+  --index mbeir-visualnews_task3.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_visualnews_task3_test.jsonl \
   --output-format trec \
-  --output run.uniir.visualnews_task3.blip-ff-large.txt \
+  --output run.mbeir.visualnews_task3.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1595,15 +1598,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
-  run.uniir.visualnews_task3.blip-ff-large.txt
+  run.mbeir.visualnews_task3.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
-  run.uniir.visualnews_task3.blip-ff-large.txt
+  run.mbeir.visualnews_task3.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
-  run.uniir.visualnews_task3.blip-ff-large.txt</code></pre>  
+  run.mbeir.visualnews_task3.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1651,11 +1654,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-webqa_task1.clip-sf-large \
+  --index mbeir-webqa_task1.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_webqa_task1_test.jsonl \
   --output-format trec \
-  --output run.uniir.webqa_task1.clip-sf-large.txt \
+  --output run.mbeir.webqa_task1.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1665,15 +1668,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
-  run.uniir.webqa_task1.clip-sf-large.txt
+  run.mbeir.webqa_task1.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
-  run.uniir.webqa_task1.clip-sf-large.txt
+  run.mbeir.webqa_task1.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
-  run.uniir.webqa_task1.clip-sf-large.txt</code></pre>  
+  run.mbeir.webqa_task1.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1684,11 +1687,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-webqa_task1.blip-ff-large \
+  --index mbeir-webqa_task1.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_webqa_task1_test.jsonl \
   --output-format trec \
-  --output run.uniir.webqa_task1.blip-ff-large.txt \
+  --output run.mbeir.webqa_task1.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1698,15 +1701,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
-  run.uniir.webqa_task1.blip-ff-large.txt
+  run.mbeir.webqa_task1.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
-  run.uniir.webqa_task1.blip-ff-large.txt
+  run.mbeir.webqa_task1.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
-  run.uniir.webqa_task1.blip-ff-large.txt</code></pre>  
+  run.mbeir.webqa_task1.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1754,11 +1757,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
-  --index m-beir-webqa_task2.clip-sf-large \
+  --index mbeir-webqa_task2.clip-sf-large \
   --topics-format mbeir \
   --topics query/test/mbeir_webqa_task2_test.jsonl \
   --output-format trec \
-  --output run.uniir.webqa_task2.clip-sf-large.txt \
+  --output run.mbeir.webqa_task2.clip-sf-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1768,15 +1771,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
-  run.uniir.webqa_task2.clip-sf-large.txt
+  run.mbeir.webqa_task2.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
-  run.uniir.webqa_task2.clip-sf-large.txt
+  run.mbeir.webqa_task2.clip-sf-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
-  run.uniir.webqa_task2.clip-sf-large.txt</code></pre>  
+  run.mbeir.webqa_task2.clip-sf-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1787,11 +1790,11 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder blip_ff_large \
-  --index m-beir-webqa_task2.blip-ff-large \
+  --index mbeir-webqa_task2.blip-ff-large \
   --topics-format mbeir \
   --topics query/test/mbeir_webqa_task2_test.jsonl \
   --output-format trec \
-  --output run.uniir.webqa_task2.blip-ff-large.txt \
+  --output run.mbeir.webqa_task2.blip-ff-large.uniir.txt \
   --hits 1000 \
   --remove-query \
   --fp16  
@@ -1801,15 +1804,15 @@ Evaluation commands:
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m recall.1 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
-  run.uniir.webqa_task2.blip-ff-large.txt
+  run.mbeir.webqa_task2.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.5 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
-  run.uniir.webqa_task2.blip-ff-large.txt
+  run.mbeir.webqa_task2.blip-ff-large.uniir.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.10 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
-  run.uniir.webqa_task2.blip-ff-large.txt</code></pre>  
+  run.mbeir.webqa_task2.blip-ff-large.uniir.txt</code></pre>  
   </blockquote>  
   
   </div>  
@@ -1866,7 +1869,7 @@ python -m pyserini.eval.trec_eval \
 To list all the experimental conditions:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.uniir --list-conditions
+python -m pyserini.2cr.mbeir --list-conditions
 </tt></blockquote>
 
 <p>These conditions correspond to the table rows above.</p>
@@ -1874,13 +1877,13 @@ python -m pyserini.2cr.uniir --list-conditions
 <p>For all conditions, just show the commands in a "dry run":</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.uniir --all --display-commands --dry-run
+python -m pyserini.2cr.mbeir --all --display-commands --dry-run
 </tt></blockquote>
 
 <p>To actually run all the experimental conditions:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.uniir --all --display-commands
+python -m pyserini.2cr.mbeir --all --display-commands
 </tt></blockquote>
 
 <p>With the above command, run files will be placed in the current directory.
@@ -1889,7 +1892,7 @@ Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.<
 <p>To show the commands for a specific condition:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.uniir --condition clip-sf-large --display-commands --dry-run
+python -m pyserini.2cr.mbeir --condition clip-sf-large --display-commands --dry-run
 </tt></blockquote>
 
 <p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
@@ -1897,7 +1900,7 @@ python -m pyserini.2cr.uniir --condition clip-sf-large --display-commands --dry-
 <p>To actually run a specific condition:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.uniir --condition clip-sf-large --display-commands
+python -m pyserini.2cr.mbeir --condition clip-sf-large --display-commands
 </tt></blockquote>
 
 <p>Again, with the above command, run files will be placed in the current directory.
@@ -1906,10 +1909,10 @@ Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.<
 <p>Finally, to generate this page:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.uniir --generate-report --output m-beir.html
+python -m pyserini.2cr.mbeir --generate-report --output mbeir.html
 </tt></blockquote>
 
-<p>The output file <tt>m-beir.html</tt> should be identical to this page.</p>
+<p>The output file <tt>mbeir.html</tt> should be identical to this page.</p>
 
 <div style="padding-top: 50px"/>
 
