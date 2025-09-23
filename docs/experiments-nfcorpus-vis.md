@@ -1,9 +1,12 @@
 # NFCorpus Atlas Visualization
-We can locally create an interactive visualization of NFCorpus using Apple's Embedding Atlas Library. This guide will allow us to see how the 3,633 medical documents cluster in 2D space based on their BGE embeddings.
+
+We can locally create an interactive visualization of NFCorpus using Apple's Embedding Atlas Library. 
+This guide will allow us to see how the 3,633 medical documents cluster in 2D space based on their BGE embeddings.
 
 **Important**: Make sure to complete the [BGE-base Baseline for NFCorpus](experiments-nfcorpus.md) first to download the NFCorpus dataset and generate BGE embeddings.
 
 ## Install Dependencies
+
 To get started, we need to install dependencies:
 
 ```bash
@@ -11,6 +14,7 @@ pip install uv datasets pandas
 ```
 
 ## Data Prep
+
 Now let's do some data munging to turn our NFCorpus data to a HuggingFace dataset format:
 
 ```python
@@ -40,7 +44,9 @@ dataset.to_parquet('nfcorpus.parquet')
 If you're curious about the HuggingFace Datasets library we are using, see their [documentation](https://huggingface.co/docs/datasets/)
 
 ## Atlas Generation
+
 We can generate the atlas visualization:
+
 ```bash
 uv run https://huggingface.co/datasets/uv-scripts/build-atlas/raw/main/atlas-export.py \
     nfcorpus.parquet \
@@ -54,6 +60,7 @@ uv run https://huggingface.co/datasets/uv-scripts/build-atlas/raw/main/atlas-exp
 The `--local-only` flag creates the visualization files locally without deploying to a public HuggingFace Space.
 
 ## View the Visualization
+
 To see the visualization in your browser, start a local web server:
 
 ```bash
@@ -61,7 +68,9 @@ cd nfcorpus-atlas
 python -m http.server 8000
 ```
 
-Open `http://localhost:8000` and explore the topics and clusters! You can search for specific terms and hover over individual documents to see their content.
+Open `http://localhost:8000` and explore the topics and clusters! 
+
+You can search for specific terms and hover over individual documents to see their content.
 
 Here is an example:
 
