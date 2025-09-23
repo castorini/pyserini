@@ -36,7 +36,7 @@ python -m pyserini.encode \
   input --corpus collections/m-beir/CIRR/mbeir_cirr_task7_cand_pool.jsonl \
         --fields img_path modality txt did \
         --docid-field did \
-  output --embeddings encode/mbeir-cirr.clipsf \
+  output --embeddings encode/m-beir-cirr_task7.clip-sf-large \
   encoder --encoder clip_sf_large \
           --encoder-class uniir \
           --device cuda:1 \
@@ -49,8 +49,8 @@ To index the embeddings with FAISS, run:
 
 ```bash
 python -m pyserini.index.faiss \
-    --input encode/mbeir-cirr.clipsf \
-    --output indexes/faiss.mbeir-cirr.clipsf \
+    --input encode/m-beir-cirr_task7.clip-sf-large \
+    --output indexes/m-beir-cirr_task7.clip-sf-large \
     --metric inner
 ```
 
@@ -64,8 +64,8 @@ python -m pyserini.search.faiss \
     --encoder clip_sf_large \
     --topics-format mbeir \
     --topics collections/m-beir/CIRR/mbeir_cirr_task7_test_topics.jsonl \
-    --index indexes/faiss.mbeir-cirr.clipsf \
-    --output runs/mbeir-cirr.no-instr.clipsf.txt \
+    --index indexes/m-beir-cirr_task7.clip-sf-large \
+    --output runs/run.m-beir-cirr_task7.clip-sf-large.txt \
     --fp16 \
     --hits 1000 \
     --threads 16 # Adjust based on your hardware.
@@ -94,8 +94,8 @@ python -m pyserini.search.faiss \
     --encoder clip_sf_large \
     --topics-format mbeir \
     --topics collections/m-beir/CIRR/mbeir_cirr_task7_test_topics.jsonl \
-    --index indexes/faiss.mbeir-cirr.clipsf \
-    --output runs/mbeir-cirr.instr.clipsf.txt \
+    --index indexes/m-beir-cirr_task7.clip-sf-large \
+    --output runs/run.m-beir-cirr_task7.instr.clip-sf-large.txt \
     --instruction-config /path/to/instruction_config.yaml \
     --fp16 \
     --hits 1000 \
@@ -114,7 +114,7 @@ cut -d' ' -f1-4 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels.txt \
 _Without instructions_
 
 ```bash
-python -m pyserini.eval.trec_eval -c -m recall.5 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt runs/mbeir-cirr.no-instr.clipsf.txt
+python -m pyserini.eval.trec_eval -c -m recall.5 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt runs/run.m-beir-cirr_task7.clip-sf-large.txt
 
 Results:
 recall_5           	all	0.3879
@@ -123,7 +123,7 @@ recall_5           	all	0.3879
 _With instructions_
 
 ```bash
-python -m pyserini.eval.trec_eval -c -m recall.5 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt runs/mbeir-cirr.instr.clipsf.txt
+python -m pyserini.eval.trec_eval -c -m recall.5 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt runs/run.m-beir-cirr_task7.instr.clip-sf-large.txt
 
 Results:
 recall_5           	all	0.4519
