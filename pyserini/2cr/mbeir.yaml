@@ -1,0 +1,167 @@
+conditions:
+  - name: clip-sf-large
+    command: python -m pyserini.search.faiss --encoder-class uniir --encoder clip_sf_large --index mbeir-${dataset}.clip-sf-large --topics-format mbeir --topics query/test/mbeir_${dataset}_test.jsonl --output-format trec --output $output --hits 1000 --remove-query --fp16
+    datasets:
+      - dataset: cirr_task7
+        scores:
+          - R@1: 0.0404
+            R@5: 0.3879
+            R@10: 0.5141
+      - dataset: edis_task2
+        scores:
+          - R@1: 0.1033
+            R@5: 0.2894
+            R@10: 0.4023
+      - dataset: fashion200k_task0
+        scores:
+          - R@10: 0.0776
+            R@20: 0.1099
+            R@50: 0.1715
+      - dataset: fashion200k_task3
+        scores:
+          - R@10: 0.1548
+            R@20: 0.2195
+            R@50: 0.3273
+      - dataset: fashioniq_task7
+        scores:
+          - R@10: 0.2228
+            R@20: 0.2977
+            R@50: 0.4070
+      - dataset: infoseek_task6
+        scores:
+          - R@1: 0.0067
+            R@5: 0.0324
+            R@10: 0.0574
+      - dataset: infoseek_task8
+        scores:
+          - R@1: 0.0347
+            R@5: 0.1503
+            R@10: 0.2417
+      - dataset: mscoco_task0
+        scores:
+          - R@1: 0.3931
+            R@5: 0.6115
+            R@10: 0.6800
+      - dataset: mscoco_task3
+        scores:
+          - R@1: 0.1223
+            R@5: 0.3728
+            R@10: 0.4651
+      - dataset: nights_task4
+        scores:
+          - R@1: 0.0887
+            R@5: 0.3193
+            R@10: 0.5325
+      - dataset: oven_task6
+        scores:
+          - R@1: 0.0667
+            R@5: 0.1341
+            R@10: 0.1669
+      - dataset: oven_task8
+        scores:
+          - R@1: 0.0807
+            R@5: 0.1248
+            R@10: 0.1405
+      - dataset: visualnews_task0
+        scores:
+          - R@1: 0.1624
+            R@5: 0.3333
+            R@10: 0.4154
+      - dataset: visualnews_task3
+        scores:
+          - R@1: 0.0796
+            R@5: 0.3003
+            R@10: 0.4057
+      - dataset: webqa_task1
+        scores:
+          - R@1: 0.2070
+            R@5: 0.4613
+            R@10: 0.5600
+      - dataset: webqa_task2
+        scores:
+          - R@1: 0.3315
+            R@5: 0.5914
+            R@10: 0.6880
+  - name: blip-ff-large
+    command: python -m pyserini.search.faiss --encoder-class uniir --encoder blip_ff_large --index mbeir-${dataset}.blip-ff-large --topics-format mbeir --topics query/test/mbeir_${dataset}_test.jsonl --output-format trec --output $output --hits 1000 --remove-query --fp16
+    datasets:
+      - dataset: cirr_task7
+        scores:
+          - R@1: 0.1157
+            R@5: 0.3899
+            R@10: 0.5040
+      - dataset: edis_task2
+        scores:
+          - R@1: 0.0926
+            R@5: 0.2640
+            R@10: 0.3718
+      - dataset: fashion200k_task0
+        scores:
+          - R@10: 0.1629
+            R@20: 0.2267
+            R@50: 0.3407
+      - dataset: fashion200k_task3
+        scores:
+          - R@10: 0.2512
+            R@20: 0.3399
+            R@50: 0.4706
+      - dataset: fashioniq_task7
+        scores:
+          - R@10: 0.2650
+            R@20: 0.3448
+            R@50: 0.4513
+      - dataset: infoseek_task6
+        scores:
+          - R@1: 0.5947
+            R@5: 0.1091
+            R@10: 0.3955
+      - dataset: infoseek_task8
+        scores:
+          - R@1: 0.0182
+            R@5: 0.0725
+            R@10: 0.1197
+      - dataset: mscoco_task0
+        scores:
+          - R@1: 0.4256
+            R@5: 0.6259
+            R@10: 0.6876
+      - dataset: mscoco_task3
+        scores:
+          - R@1: 0.1329
+            R@5: 0.4206
+            R@10: 0.5178
+      - dataset: nights_task4
+        scores:
+          - R@1: 0.0887
+            R@5: 0.3222
+            R@10: 0.5255
+      - dataset: oven_task6
+        scores:
+          - R@1: 0.0953
+            R@5: 0.1708
+            R@10: 0.2012
+      - dataset: oven_task8
+        scores:
+          - R@1: 0.0420
+            R@5: 0.0785
+            R@10: 0.0953
+      - dataset: visualnews_task0
+        scores:
+          - R@1: 0.1003
+            R@5: 0.2261
+            R@10: 0.2958
+      - dataset: visualnews_task3
+        scores:
+          - R@1: 0.0815
+            R@5: 0.2021
+            R@10: 0.2708
+      - dataset: webqa_task1
+        scores:
+          - R@1: 0.1850
+            R@5: 0.3988
+            R@10: 0.4861
+      - dataset: webqa_task2
+        scores:
+          - R@1: 0.3252
+            R@5: 0.5928
+            R@10: 0.6888
