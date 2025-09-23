@@ -111,8 +111,8 @@ def download_url(url, save_dir, local_filename=None, md5=None, force=False, verb
     except HTTPError as e:
         print(f'HTTP Error {e.code}: {e.reason}')
 
-    # Don't do the size check if the size is -1, which indicates that it wasn't properly recorded in the metadata.
-    if expected_size != -1:
+    # Don't do the size check if the size is -1 or None.
+    if expected_size != -1 and expected_size is not None:
         actual_size = os.path.getsize(destination_path)
         assert actual_size == expected_size, (
             f'{destination_path} does not match expected file size! Expecting {expected_size} bytes, got {actual_size} bytes.'
