@@ -146,7 +146,7 @@ def run_conditions(args):
                       
                 print(f'  - Dataset: {dataset}')  
                   
-                runfile = os.path.join(args.directory, f'run.m-beir-{dataset}.{name}.uniir.txt')  
+                runfile = os.path.join(args.directory, f'run.m-beir-{dataset}.{name}.txt')  
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)  
                   
                 if args.display_commands:  
@@ -214,7 +214,7 @@ def generate_report(args):
             for datasets in condition['datasets']:    
                 dataset = datasets['dataset']    
                     
-                runfile = os.path.join(args.directory, f'run.m-beir-{dataset}.{name}.uniir.txt')    
+                runfile = os.path.join(args.directory, f'run.m-beir-{dataset}.{name}.txt')    
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)    
                 commands[dataset][name] = format_run_command(cmd)    
                     
