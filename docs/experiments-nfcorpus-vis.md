@@ -81,3 +81,4 @@ When opening your pull request, be sure to include a screenshot of your visualiz
 ## Reproduction Log[*](reproducibility.md)
 
 + Results reproduced by [@suraj-subrahmanyan](https://github.com/suraj-subrahmanyan) on 2025-09-17 (commit [`35a0096`](https://github.com/castorini/pyserini/commit/35a0096ba40f34f0e6da8a7d491f4ccaffbc134a))
++ Results reproduced by [@FarmersWrap](https://github.com/FarmersWrap) on 2025-09-22 (commit [`b2c2874`](https://github.com/castorini/pyserini/commit/b2c2874ce5ae9351c9a5b03779e126958816a285))
