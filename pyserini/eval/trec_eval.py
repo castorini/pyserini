@@ -121,18 +121,14 @@ def trec_eval(
         if judged_docs_only:
             if not temp_file:
                 temp_file = tempfile.NamedTemporaryFile(delete=False).name
-            judged_indexes = pd.merge(
-                run[[0, 2]].reset_index(), qrels[[0, 2]], on=[0, 2]
-            )['index']
+            judged_indexes = pd.merge(run[[0, 2]].reset_index(), qrels[[0, 2]], on=[0, 2])['index']
             run = run.loc[judged_indexes]
             run.to_csv(temp_file, sep='\t', header=None, index=None)
             args[-1] = temp_file
         # Measure judged@cutoffs
         for cutoff in cutoffs:
             run_cutoff = run.groupby(0).head(cutoff)
-            judged = len(pd.merge(run_cutoff[[0, 2]], qrels[[0, 2]], on=[0, 2])) / len(
-                run_cutoff
-            )
+            judged = len(pd.merge(run_cutoff[[0, 2]], qrels[[0, 2]], on=[0, 2])) / len(run_cutoff)
             metric_name = f'judged_{cutoff}'
             judged_result.append(f'{metric_name:22}\tall\t{judged:.4f}')
         cmd = cmd_prefix + args[1:]

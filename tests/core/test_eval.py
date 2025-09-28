@@ -55,7 +55,7 @@ class TestTrecEval(unittest.TestCase):
             self.qrels_path,
             self.run_path,
         ]
-        self.assertDictEqual(trec_eval(args, query_id="1"), 0.2201)
+        self.assertEqual(trec_eval(args, query_id="1"), 0.2201)
 
     def test_per_query_unaggeregated_scores(self):
         args = [
