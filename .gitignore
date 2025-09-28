@@ -19,7 +19,3 @@ runs/
 
 # logs should also be ignored
 logs/
-
-# Local virtualenvs
-.venv/
-.venv311/
