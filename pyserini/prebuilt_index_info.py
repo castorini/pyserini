@@ -970,7 +970,7 @@ TF_INDEX_INFO_OTHER = {
             "https://vault.cs.uwaterloo.ca/s/c37JxKYQ7Hogs72/download"
         ],
         "md5": "c883571ccc78b4c2ce05b41eb07f5405",
-        "size compressed (bytes)": 2796524,
+        "size compressed (bytes)": 2294491056,
         "total_terms": 22100404,
         "documents": 192459,
         "unique_terms": 195875,
@@ -984,7 +984,7 @@ TF_INDEX_INFO_OTHER = {
             "https://vault.cs.uwaterloo.ca/s/c7CcxRbFWfiFnFq/download"
         ],
         "md5": "23cfad89b4c206d66125f5736f60248f",
-        "size compressed (bytes)": 5351744,
+        "size compressed (bytes)": 4427535212,
         "total_terms": 275238847,
         "documents": 192460,
         "unique_terms": 1843368,
@@ -998,7 +998,7 @@ TF_INDEX_INFO_OTHER = {
             "https://vault.cs.uwaterloo.ca/s/HXigraF5KJL3xS8/download"
         ],
         "md5": "c2c6ac832f8a1fcb767d2356d2b1e1df",
-        "size compressed (bytes)": 11352968,
+        "size compressed (bytes)": 6363337237,
         "total_terms": 627083574,
         "documents": 3010497,
         "unique_terms": 1843368,
@@ -1012,7 +1012,7 @@ TF_INDEX_INFO_OTHER = {
             "https://vault.cs.uwaterloo.ca/s/fBta6sAt4MdaHQX/download"
         ],
         "md5": "029bd55daba8800fbae2be9e5fcd7b33",
-        "size compressed (bytes)": 2584264,
+        "size compressed (bytes)": 2123283935,
         "total_terms": 18724353,
         "documents": 158226,
         "unique_terms": 179937,
@@ -1026,7 +1026,7 @@ TF_INDEX_INFO_OTHER = {
             "https://vault.cs.uwaterloo.ca/s/yErSHZHD38jcDSY/download"
         ],
         "md5": "3d0eb12094a24cff9bcacd1f17c3ea1c",
-        "size compressed (bytes)": 4983900,
+        "size compressed (bytes)": 4131644421,
         "total_terms": 254810123,
         "documents": 158227,
         "unique_terms": 1783089,
@@ -1040,7 +1040,7 @@ TF_INDEX_INFO_OTHER = {
             "https://vault.cs.uwaterloo.ca/s/7md4kwNNgy3oxiH/download"
         ],
         "md5": "5cd8cd6998177bed7a3e0057ef8b3595",
-        "size compressed (bytes)": 10382704,
+        "size compressed (bytes)": 5894371476,
         "total_terms": 567579834,
         "documents": 2781172,
         "unique_terms": 1783089,
@@ -1054,7 +1054,7 @@ TF_INDEX_INFO_OTHER = {
             "https://vault.cs.uwaterloo.ca/s/Zg9p2D5tJgiTGx2/download"
         ],
         "md5": "37bb97d0c41d650ba8e135fd75ae8fd8",
-        "size compressed (bytes)": 2190328,
+        "size compressed (bytes)": 1800651127,
         "total_terms": 16278419,
         "documents": 128465,
         "unique_terms": 168291,
@@ -1068,7 +1068,7 @@ TF_INDEX_INFO_OTHER = {
             "https://vault.cs.uwaterloo.ca/s/BTzaQgZ55898dXM/download"
         ],
         "md5": "f5711915a66cd2b511e0fb8d03e4c325",
-        "size compressed (bytes)": 4233300,
+        "size compressed (bytes)": 3511868712,
         "total_terms": 215806519,
         "documents": 128465,
         "unique_terms": 1620335,
@@ -1082,7 +1082,7 @@ TF_INDEX_INFO_OTHER = {
             "https://vault.cs.uwaterloo.ca/s/nPyMYTys6NkmEdN/download"
         ],
         "md5": "012ab1f804382b2275c433a74d7d31f2",
-        "size compressed (bytes)": 9053524,
+        "size compressed (bytes)": 5247367826,
         "total_terms": 485309568,
         "documents": 2297201,
         "unique_terms": 1620335,
@@ -1096,7 +1096,7 @@ TF_INDEX_INFO_OTHER = {
             "https://vault.cs.uwaterloo.ca/s/3YZE65FSypwfnQQ/download"
         ],
         "md5": "a06e71a98a68d31148cb0e97e70a2ee1",
-        "size compressed (bytes)": 1575804,
+        "size compressed (bytes)": 1291687869,
         "total_terms": 7651125,
         "documents": 59873,
         "unique_terms": 109750,
@@ -1110,7 +1110,7 @@ TF_INDEX_INFO_OTHER = {
             "https://vault.cs.uwaterloo.ca/s/NdPEB7swXeZnq3o/download"
         ],
         "md5": "e7eca1b976cdf2cd80e908c9ac2263cb",
-        "size compressed (bytes)": 3088540,
+        "size compressed (bytes)": 2557895128,
         "total_terms": 154736295,
         "documents": 59876,
         "unique_terms": 1214374,
@@ -1124,7 +1124,7 @@ TF_INDEX_INFO_OTHER = {
             "https://vault.cs.uwaterloo.ca/s/Mz7n5FAt7rmnYCY/download"
         ],
         "md5": "8f9321757a03985ac1c1952b2fff2c7d",
-        "size compressed (bytes)": 6881696,
+        "size compressed (bytes)": 3841496174,
         "total_terms": 360119048,
         "documents": 1758168,
         "unique_terms": 1214374,
@@ -1138,7 +1138,7 @@ TF_INDEX_INFO_OTHER = {
             "https://vault.cs.uwaterloo.ca/s/Rz8AEmsFo9NWGP6/download"
         ],
         "md5": "ec239d56498c0e7b74e3b41e1ce5d42a",
-        "size compressed (bytes)": 1621440,
+        "size compressed (bytes)": 1299233544,
         "total_terms": 6672525,
         "documents": 51069,
         "unique_terms": 104595,
@@ -1152,7 +1152,7 @@ TF_INDEX_INFO_OTHER = {
             "https://vault.cs.uwaterloo.ca/s/oQzSoxrT3grGmBe/download"
         ],
         "md5": "401a6f5583b0f05340c73fbbeb3279c8",
-        "size compressed (bytes)": 4471820,
+        "size compressed (bytes)": 3555328932,
         "total_terms": 315624154,
         "documents": 51071,
         "unique_terms": 1812522,
@@ -1166,7 +1166,7 @@ TF_INDEX_INFO_OTHER = {
             "https://vault.cs.uwaterloo.ca/s/HDtb5Ys7MYBkePC/download"
         ],
         "md5": "8b87a2c55bc0a15b87f11e796860216a",
-        "size compressed (bytes)": 5994192,
+        "size compressed (bytes)": 3642128260,
         "total_terms": 330715243,
         "documents": 1412648,
         "unique_terms": 944574,

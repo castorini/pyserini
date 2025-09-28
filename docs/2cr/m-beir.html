@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Pyserini Reproductions: M-BEIR Datasets</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet" />
+
+    <style>
+tr.hide-table-padding td {
+  padding: 0;
+}
+
+.expand-button {
+  position: relative;
+}
+
+.accordion-toggle .expand-button:after {
+  position: absolute;
+  left:.75rem;
+  top: 50%;
+  transform: translate(0, -50%);
+  content: '-';
+}
+
+.accordion-toggle.collapsed .expand-button:after {
+  content: '+';
+}
+
+blockquote.mycode {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  margin-top: 15px;
+  padding-left: 15px;
+}
+
+blockquote.mycode2 {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+}
+
+tr th.headertop {
+  border-bottom: none;
+  padding-bottom: 0rem
+}
+
+tr th.headerbottom {
+  padding-top: 0rem
+}
+
+.table>:not(caption)>*>*{padding:0.75rem 0.75rem}
+
+.copy-code-button {
+	border-radius: 0;
+	min-width: 55px;
+	background: none repeat scroll 0 0 transparent;
+	background-color: grey;
+	color: #F1F2F3 !important;
+	cursor: pointer;
+	border-style: none;
+	font-family: 'HELVETICA',sans-serif;
+	font-size: 0.8em;
+	font-weight: normal;
+	text-align: center;
+	text-decoration: none;
+	text-indent: 0;
+	text-transform: uppercase;
+	font-weight: 500;
+	line-height: 1.42rem;
+	margin: 0;
+	padding: 3px 8px;
+	position: absolute !important;
+	top: 0 !important;
+	right: 0 !important;
+}
+
+.copy-code-button > span {
+	color: #F1F2F3 !important;
+}
+
+.copy-code-button, ::before, ::after {
+	box-sizing: inherit;
+}
+
+.copy-code-button::before {
+	content: '';
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 3px;
+	background-size: contain;
+	background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTVweCIgaGVpZ2h0PSIxNXB4IiB2aWV3Qm94PSIwIDAgMTUgMTUiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUwLjIgKDU1MDQ3KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5QYWdlIDE8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iRmxvdyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IkJ0dG5faHRtbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTgxOS4wMDAwMDAsIC03NTMuMDAwMDAwKSIgZmlsbD0iI0ZGRkZGRiI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0xIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMTEuMDAwMDAwLCA0MDUuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8ZyBpZD0iR3JvdXAtMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTA4LjAwMDAwMCwgMzQyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xMy45NzcyNzI3LDYgTDMuNDA5MDkwOTEsNiBDMi44NDQ1NDU0NSw2IDIuMzg2MzYzNjQsNi40NTgxODE4MiAyLjM4NjM2MzY0LDcuMDIyNzI3MjcgTDIuMzg2MzYzNjQsMTcuNTkwOTA5MSBDMi4zODYzNjM2NCwxOC4xNTU0NTQ1IDIuODQ0NTQ1NDUsMTguNjEzNjM2NCAzLjQwOTA5MDkxLDE4LjYxMzYzNjQgTDEzLjk3NzI3MjcsMTguNjEzNjM2NCBDMTQuNTQxODE4MiwxOC42MTM2MzY0IDE1LDE4LjE1NTQ1NDUgMTUsMTcuNTkwOTA5MSBMMTUsNy4wMjI3MjcyNyBDMTUsNi40NTgxODE4MiAxNC41NDE4MTgyLDYgMTMuOTc3MjcyNyw2IFogTTE0LjMxODE4MTgsMTcuNTkwOTA5MSBDMTQuMzE4MTgxOCwxNy43NzkwOTA5IDE0LjE2NTQ1NDUsMTcuOTMxODE4MiAxMy45NzcyNzI3LDE3LjkzMTgxODIgTDMuNDA5MDkwOTEsMTcuOTMxODE4MiBDMy4yMjA5MDkwOSwxNy45MzE4MTgyIDMuMDY4MTgxODIsMTcuNzc5MDkwOSAzLjA2ODE4MTgyLDE3LjU5MDkwOTEgTDMuMDY4MTgxODIsNy4wMjI3MjcyNyBDMy4wNjgxODE4Miw2LjgzNDU0NTQ1IDMuMjIwOTA5MDksNi42ODE4MTgxOCAzLjQwOTA5MDkxLDYuNjgxODE4MTggTDEzLjk3NzI3MjcsNi42ODE4MTgxOCBDMTQuMTY1NDU0NSw2LjY4MTgxODE4IDE0LjMxODE4MTgsNi44MzQ1NDU0NSAxNC4zMTgxODE4LDcuMDIyNzI3MjcgTDE0LjMxODE4MTgsMTcuNTkwOTA5MSBaIE0xMS45MzE4MTgyLDE5Ljk3NzI3MjcgQzExLjkzMTgxODIsMjAuMTY1NDU0NSAxMS43NzkwOTA5LDIwLjMxODE4MTggMTEuNTkwOTA5MSwyMC4zMTgxODE4IEwxLjAyMjcyNzI3LDIwLjMxODE4MTggQzAuODM0NTQ1NDU1LDIwLjMxODE4MTggMC42ODE4MTgxODIsMjAuMTY1NDU0NSAwLjY4MTgxODE4MiwxOS45NzcyNzI3IEwwLjY4MTgxODE4Miw5LjQwOTA5MDkxIEMwLjY4MTgxODE4Miw5LjIyMDkwOTA5IDAuODM0NTQ1NDU1LDkuMDY4MTgxODIgMS4wMjI3MjcyNyw5LjA2ODE4MTgyIEwxLjM2MzYzNjM2LDkuMDY4MTgxODIgTDEuMzYzNjM2MzYsOC4zODYzNjM2NCBMMS4wMjI3MjcyNyw4LjM4NjM2MzY0IEMwLjQ1ODE4MTgxOCw4LjM4NjM2MzY0IDAsOC44NDQ1NDU0NSAwLDkuNDA5MDkwOTEgTDAsMTkuOTc3MjcyNyBDMCwyMC41NDE4MTgyIDAuNDU4MTgxODE4LDIxIDEuMDIyNzI3MjcsMjEgTDExLjU5MDkwOTEsMjEgQzEyLjE1NTQ1NDUsMjEgMTIuNjEzNjM2NCwyMC41NDE4MTgyIDEyLjYxMzYzNjQsMTkuOTc3MjcyNyBMMTIuNjEzNjM2NCwxOS42MzYzNjM2IEwxMS45MzE4MTgyLDE5LjYzNjM2MzYgTDExLjkzMTgxODIsMTkuOTc3MjcyNyBaIiBpZD0iUGFnZS0xIj48L3BhdGg+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==");
+	background-repeat: no-repeat;
+	position: relative;
+	top: 3px;
+}
+
+.copy-code-button:focus {
+    /* Avoid an ugly focus outline on click in Chrome,
+       but darken the button for accessibility.
+       See https://stackoverflow.com/a/25298082/1481479 */
+    /* background-color: #E6E6E6; */
+	outline: 0;
+}
+
+pre[class*="prettyprint"] {
+	position: relative;
+	overflow: hidden;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Background image -->
+    <div id="intro" class="bg-image vh-100 shadow-1-strong" style="max-height: 150px">
+      <div class="mask" style="
+            background: linear-gradient(
+              45deg,
+              rgba(29, 236, 197, 0.7),
+              rgba(91, 14, 214, 0.7) 100%
+            );
+          ">
+        <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
+          <div class="text-white">
+            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> &nbsp; M-BEIR Datasets Regressions</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Background image -->
+
+<div class="container my-4">
+
+<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.
+Instructions for programmatic execution are shown at the bottom of this page (scroll down).
+
+The metrics used in the 2CR tables are R@10, R@20, R@50 for the fashion datasets, and R@1, R@5, R@10 for the others.
+</p>
+
+<div class="table-responsive">  
+  <table class="table">  
+    <thead>  
+      <tr>  
+        <th class="headertop"></th>  
+        <th class="headertop"></th>  
+        <th class="headertop"></th>  
+        <th class="headertop" colspan="3">
+          <b>CLIP-SF-Large</b>
+          [<a href="#" data-mdb-toggle="tooltip" title="Wei et al. (arXiv 2023) UniIR: Training and Benchmarking Universal Multimodal Information Retrievers.">1</a>]
+        </th>
+        <th class="headertop" colspan="3">
+          <b>BLIP-FF-Large</b>
+          [<a href="#" data-mdb-toggle="tooltip" title="Wei et al. (arXiv 2023) UniIR: Training and Benchmarking Universal Multimodal Information Retrievers.">1</a>]
+        </th>
+      </tr>  
+      <tr>  
+        <th class="headerbottom" scope="col"></th>  
+        <th class="headerbottom" scope="col"></th>  
+        <th class="headerbottom" scope="col">Metric 1</th>  
+        <th class="headerbottom" scope="col">Metric 2</th>
+        <th class="headerbottom" scope="col">Metric 3</th>
+        <th class="headerbottom" scope="col"></th>  
+        <th class="headerbottom" scope="col">Metric 1</th>
+        <th class="headerbottom" scope="col">Metric 2</th>  
+        <th class="headerbottom" scope="col">Metric 3</th>  
+      </tr>  
+    </thead>  
+    <tbody>  
+<!-- Condition: cirr_task7 -->  
+<tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">  
+<td class="expand-button"></td>  
+<td width="200">cirr_task7</td>  
+<td>0.0404</td>  
+<td>0.3879</td>  
+<td>0.5141</td>  
+<td></td>  
+<td>0.1157</td>  
+<td>0.3899</td>  
+<td>0.5040</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse1" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row1-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row1-tab1-header" data-mdb-toggle="tab" href="#row1-tab1" role="tab" aria-controls="row1-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row1-content">  
+  <div class="tab-pane fade show active" id="row1-tab1" role="tabpanel" aria-labelledby="row1-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-cirr_task7.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_cirr_task7_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-cirr_task7.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
+  run.m-beir-cirr_task7.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
+  run.m-beir-cirr_task7.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
+  run.m-beir-cirr_task7.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row1-tab2" role="tabpanel" aria-labelledby="row1-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-cirr_task7.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_cirr_task7_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-cirr_task7.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
+  run.m-beir-cirr_task7.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
+  run.m-beir-cirr_task7.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
+  run.m-beir-cirr_task7.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: edis_task2 -->  
+<tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">  
+<td class="expand-button"></td>  
+<td width="200">edis_task2</td>  
+<td>0.1033</td>  
+<td>0.2894</td>  
+<td>0.4023</td>  
+<td></td>  
+<td>0.0926</td>  
+<td>0.2640</td>  
+<td>0.3718</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse2" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row2-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row2-tab1-header" data-mdb-toggle="tab" href="#row2-tab1" role="tab" aria-controls="row2-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row2-tab2-header" data-mdb-toggle="tab" href="#row2-tab2" role="tab" aria-controls="row2-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row2-content">  
+  <div class="tab-pane fade show active" id="row2-tab1" role="tabpanel" aria-labelledby="row2-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-edis_task2.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_edis_task2_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-edis_task2.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
+  run.m-beir-edis_task2.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
+  run.m-beir-edis_task2.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
+  run.m-beir-edis_task2.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row2-tab2" role="tabpanel" aria-labelledby="row2-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-edis_task2.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_edis_task2_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-edis_task2.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
+  run.m-beir-edis_task2.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
+  run.m-beir-edis_task2.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
+  run.m-beir-edis_task2.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: fashion200k_task0 -->  
+<tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">  
+<td class="expand-button"></td>  
+<td width="200">fashion200k_task0</td>  
+<td>0.0776</td>  
+<td>0.1099</td>  
+<td>0.1715</td>  
+<td></td>  
+<td>0.1629</td>  
+<td>0.2267</td>  
+<td>0.3407</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse3" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row3-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row3-tab1-header" data-mdb-toggle="tab" href="#row3-tab1" role="tab" aria-controls="row3-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row3-content">  
+  <div class="tab-pane fade show active" id="row3-tab1" role="tabpanel" aria-labelledby="row3-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-fashion200k_task0.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_fashion200k_task0_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-fashion200k_task0.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
+  run.m-beir-fashion200k_task0.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.20 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
+  run.m-beir-fashion200k_task0.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.50 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
+  run.m-beir-fashion200k_task0.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row3-tab2" role="tabpanel" aria-labelledby="row3-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-fashion200k_task0.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_fashion200k_task0_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-fashion200k_task0.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
+  run.m-beir-fashion200k_task0.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.20 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
+  run.m-beir-fashion200k_task0.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.50 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
+  run.m-beir-fashion200k_task0.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: fashion200k_task3 -->  
+<tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">  
+<td class="expand-button"></td>  
+<td width="200">fashion200k_task3</td>  
+<td>0.1548</td>  
+<td>0.2195</td>  
+<td>0.3273</td>  
+<td></td>  
+<td>0.2512</td>  
+<td>0.3399</td>  
+<td>0.4706</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse4" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row4-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row4-tab1-header" data-mdb-toggle="tab" href="#row4-tab1" role="tab" aria-controls="row4-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row4-content">  
+  <div class="tab-pane fade show active" id="row4-tab1" role="tabpanel" aria-labelledby="row4-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-fashion200k_task3.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_fashion200k_task3_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-fashion200k_task3.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
+  run.m-beir-fashion200k_task3.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.20 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
+  run.m-beir-fashion200k_task3.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.50 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
+  run.m-beir-fashion200k_task3.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row4-tab2" role="tabpanel" aria-labelledby="row4-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-fashion200k_task3.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_fashion200k_task3_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-fashion200k_task3.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
+  run.m-beir-fashion200k_task3.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.20 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
+  run.m-beir-fashion200k_task3.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.50 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
+  run.m-beir-fashion200k_task3.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: fashioniq_task7 -->  
+<tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">  
+<td class="expand-button"></td>  
+<td width="200">fashioniq_task7</td>  
+<td>0.2228</td>  
+<td>0.2977</td>  
+<td>0.4070</td>  
+<td></td>  
+<td>0.2650</td>  
+<td>0.3448</td>  
+<td>0.4513</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse5" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row5-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row5-tab1-header" data-mdb-toggle="tab" href="#row5-tab1" role="tab" aria-controls="row5-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row5-content">  
+  <div class="tab-pane fade show active" id="row5-tab1" role="tabpanel" aria-labelledby="row5-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-fashioniq_task7.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_fashioniq_task7_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-fashioniq_task7.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
+  run.m-beir-fashioniq_task7.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.20 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
+  run.m-beir-fashioniq_task7.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.50 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
+  run.m-beir-fashioniq_task7.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row5-tab2" role="tabpanel" aria-labelledby="row5-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-fashioniq_task7.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_fashioniq_task7_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-fashioniq_task7.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
+  run.m-beir-fashioniq_task7.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.20 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
+  run.m-beir-fashioniq_task7.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.50 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
+  run.m-beir-fashioniq_task7.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: infoseek_task6 -->  
+<tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">  
+<td class="expand-button"></td>  
+<td width="200">infoseek_task6</td>  
+<td>0.0067</td>  
+<td>0.0324</td>  
+<td>0.0574</td>  
+<td></td>  
+<td>0.5947</td>  
+<td>0.1091</td>  
+<td>0.3955</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse6" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row6-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row6-tab1-header" data-mdb-toggle="tab" href="#row6-tab1" role="tab" aria-controls="row6-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row6-content">  
+  <div class="tab-pane fade show active" id="row6-tab1" role="tabpanel" aria-labelledby="row6-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-infoseek_task6.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_infoseek_task6_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-infoseek_task6.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
+  run.m-beir-infoseek_task6.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
+  run.m-beir-infoseek_task6.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
+  run.m-beir-infoseek_task6.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row6-tab2" role="tabpanel" aria-labelledby="row6-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-infoseek_task6.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_infoseek_task6_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-infoseek_task6.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
+  run.m-beir-infoseek_task6.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
+  run.m-beir-infoseek_task6.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
+  run.m-beir-infoseek_task6.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: infoseek_task8 -->  
+<tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">  
+<td class="expand-button"></td>  
+<td width="200">infoseek_task8</td>  
+<td>0.0347</td>  
+<td>0.1503</td>  
+<td>0.2417</td>  
+<td></td>  
+<td>0.0182</td>  
+<td>0.0725</td>  
+<td>0.1197</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse7" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row7-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row7-tab1-header" data-mdb-toggle="tab" href="#row7-tab1" role="tab" aria-controls="row7-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row7-content">  
+  <div class="tab-pane fade show active" id="row7-tab1" role="tabpanel" aria-labelledby="row7-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-infoseek_task8.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_infoseek_task8_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-infoseek_task8.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
+  run.m-beir-infoseek_task8.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
+  run.m-beir-infoseek_task8.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
+  run.m-beir-infoseek_task8.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row7-tab2" role="tabpanel" aria-labelledby="row7-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-infoseek_task8.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_infoseek_task8_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-infoseek_task8.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
+  run.m-beir-infoseek_task8.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
+  run.m-beir-infoseek_task8.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
+  run.m-beir-infoseek_task8.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: mscoco_task0 -->  
+<tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">  
+<td class="expand-button"></td>  
+<td width="200">mscoco_task0</td>  
+<td>0.3931</td>  
+<td>0.6115</td>  
+<td>0.6800</td>  
+<td></td>  
+<td>0.4256</td>  
+<td>0.6259</td>  
+<td>0.6876</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse8" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row8-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row8-tab1-header" data-mdb-toggle="tab" href="#row8-tab1" role="tab" aria-controls="row8-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row8-content">  
+  <div class="tab-pane fade show active" id="row8-tab1" role="tabpanel" aria-labelledby="row8-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-mscoco_task0.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_mscoco_task0_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-mscoco_task0.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
+  run.m-beir-mscoco_task0.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
+  run.m-beir-mscoco_task0.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
+  run.m-beir-mscoco_task0.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row8-tab2" role="tabpanel" aria-labelledby="row8-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-mscoco_task0.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_mscoco_task0_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-mscoco_task0.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
+  run.m-beir-mscoco_task0.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
+  run.m-beir-mscoco_task0.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
+  run.m-beir-mscoco_task0.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: mscoco_task3 -->  
+<tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">  
+<td class="expand-button"></td>  
+<td width="200">mscoco_task3</td>  
+<td>0.1223</td>  
+<td>0.3728</td>  
+<td>0.4651</td>  
+<td></td>  
+<td>0.1329</td>  
+<td>0.4206</td>  
+<td>0.5178</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse9" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row9-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row9-tab1-header" data-mdb-toggle="tab" href="#row9-tab1" role="tab" aria-controls="row9-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row9-content">  
+  <div class="tab-pane fade show active" id="row9-tab1" role="tabpanel" aria-labelledby="row9-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-mscoco_task3.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_mscoco_task3_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-mscoco_task3.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
+  run.m-beir-mscoco_task3.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
+  run.m-beir-mscoco_task3.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
+  run.m-beir-mscoco_task3.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row9-tab2" role="tabpanel" aria-labelledby="row9-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-mscoco_task3.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_mscoco_task3_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-mscoco_task3.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
+  run.m-beir-mscoco_task3.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
+  run.m-beir-mscoco_task3.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
+  run.m-beir-mscoco_task3.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: nights_task4 -->  
+<tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">  
+<td class="expand-button"></td>  
+<td width="200">nights_task4</td>  
+<td>0.0887</td>  
+<td>0.3193</td>  
+<td>0.5325</td>  
+<td></td>  
+<td>0.0887</td>  
+<td>0.3222</td>  
+<td>0.5255</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse10" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row10-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row10-tab1-header" data-mdb-toggle="tab" href="#row10-tab1" role="tab" aria-controls="row10-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row10-content">  
+  <div class="tab-pane fade show active" id="row10-tab1" role="tabpanel" aria-labelledby="row10-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-nights_task4.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_nights_task4_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-nights_task4.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
+  run.m-beir-nights_task4.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
+  run.m-beir-nights_task4.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
+  run.m-beir-nights_task4.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row10-tab2" role="tabpanel" aria-labelledby="row10-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-nights_task4.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_nights_task4_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-nights_task4.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
+  run.m-beir-nights_task4.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
+  run.m-beir-nights_task4.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
+  run.m-beir-nights_task4.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: oven_task6 -->  
+<tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">  
+<td class="expand-button"></td>  
+<td width="200">oven_task6</td>  
+<td>0.0667</td>  
+<td>0.1341</td>  
+<td>0.1669</td>  
+<td></td>  
+<td>0.0953</td>  
+<td>0.1708</td>  
+<td>0.2012</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse11" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row11-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row11-tab1-header" data-mdb-toggle="tab" href="#row11-tab1" role="tab" aria-controls="row11-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row11-tab2-header" data-mdb-toggle="tab" href="#row11-tab2" role="tab" aria-controls="row11-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row11-content">  
+  <div class="tab-pane fade show active" id="row11-tab1" role="tabpanel" aria-labelledby="row11-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-oven_task6.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_oven_task6_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-oven_task6.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
+  run.m-beir-oven_task6.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
+  run.m-beir-oven_task6.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
+  run.m-beir-oven_task6.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row11-tab2" role="tabpanel" aria-labelledby="row11-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-oven_task6.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_oven_task6_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-oven_task6.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
+  run.m-beir-oven_task6.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
+  run.m-beir-oven_task6.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
+  run.m-beir-oven_task6.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: oven_task8 -->  
+<tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">  
+<td class="expand-button"></td>  
+<td width="200">oven_task8</td>  
+<td>0.0807</td>  
+<td>0.1248</td>  
+<td>0.1405</td>  
+<td></td>  
+<td>0.0420</td>  
+<td>0.0785</td>  
+<td>0.0953</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse12" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row12-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row12-tab1-header" data-mdb-toggle="tab" href="#row12-tab1" role="tab" aria-controls="row12-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row12-tab2-header" data-mdb-toggle="tab" href="#row12-tab2" role="tab" aria-controls="row12-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row12-content">  
+  <div class="tab-pane fade show active" id="row12-tab1" role="tabpanel" aria-labelledby="row12-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-oven_task8.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_oven_task8_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-oven_task8.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
+  run.m-beir-oven_task8.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
+  run.m-beir-oven_task8.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
+  run.m-beir-oven_task8.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row12-tab2" role="tabpanel" aria-labelledby="row12-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-oven_task8.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_oven_task8_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-oven_task8.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
+  run.m-beir-oven_task8.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
+  run.m-beir-oven_task8.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
+  run.m-beir-oven_task8.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: visualnews_task0 -->  
+<tr class="accordion-toggle collapsed" id="row13" data-toggle="collapse" data-parent="#row13" href="#collapse13">  
+<td class="expand-button"></td>  
+<td width="200">visualnews_task0</td>  
+<td>0.1624</td>  
+<td>0.3333</td>  
+<td>0.4154</td>  
+<td></td>  
+<td>0.1003</td>  
+<td>0.2261</td>  
+<td>0.2958</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse13" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row13-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row13-tab1-header" data-mdb-toggle="tab" href="#row13-tab1" role="tab" aria-controls="row13-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row13-tab2-header" data-mdb-toggle="tab" href="#row13-tab2" role="tab" aria-controls="row13-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row13-content">  
+  <div class="tab-pane fade show active" id="row13-tab1" role="tabpanel" aria-labelledby="row13-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-visualnews_task0.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_visualnews_task0_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-visualnews_task0.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
+  run.m-beir-visualnews_task0.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
+  run.m-beir-visualnews_task0.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
+  run.m-beir-visualnews_task0.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row13-tab2" role="tabpanel" aria-labelledby="row13-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-visualnews_task0.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_visualnews_task0_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-visualnews_task0.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
+  run.m-beir-visualnews_task0.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
+  run.m-beir-visualnews_task0.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
+  run.m-beir-visualnews_task0.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: visualnews_task3 -->  
+<tr class="accordion-toggle collapsed" id="row14" data-toggle="collapse" data-parent="#row14" href="#collapse14">  
+<td class="expand-button"></td>  
+<td width="200">visualnews_task3</td>  
+<td>0.0796</td>  
+<td>0.3003</td>  
+<td>0.4057</td>  
+<td></td>  
+<td>0.0815</td>  
+<td>0.2021</td>  
+<td>0.2708</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse14" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row14-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row14-tab1-header" data-mdb-toggle="tab" href="#row14-tab1" role="tab" aria-controls="row14-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row14-tab2-header" data-mdb-toggle="tab" href="#row14-tab2" role="tab" aria-controls="row14-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row14-content">  
+  <div class="tab-pane fade show active" id="row14-tab1" role="tabpanel" aria-labelledby="row14-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-visualnews_task3.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_visualnews_task3_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-visualnews_task3.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
+  run.m-beir-visualnews_task3.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
+  run.m-beir-visualnews_task3.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
+  run.m-beir-visualnews_task3.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row14-tab2" role="tabpanel" aria-labelledby="row14-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-visualnews_task3.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_visualnews_task3_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-visualnews_task3.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
+  run.m-beir-visualnews_task3.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
+  run.m-beir-visualnews_task3.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
+  run.m-beir-visualnews_task3.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: webqa_task1 -->  
+<tr class="accordion-toggle collapsed" id="row15" data-toggle="collapse" data-parent="#row15" href="#collapse15">  
+<td class="expand-button"></td>  
+<td width="200">webqa_task1</td>  
+<td>0.2070</td>  
+<td>0.4613</td>  
+<td>0.5600</td>  
+<td></td>  
+<td>0.1850</td>  
+<td>0.3988</td>  
+<td>0.4861</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse15" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row15-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row15-tab1-header" data-mdb-toggle="tab" href="#row15-tab1" role="tab" aria-controls="row15-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row15-tab2-header" data-mdb-toggle="tab" href="#row15-tab2" role="tab" aria-controls="row15-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row15-content">  
+  <div class="tab-pane fade show active" id="row15-tab1" role="tabpanel" aria-labelledby="row15-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-webqa_task1.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_webqa_task1_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-webqa_task1.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
+  run.m-beir-webqa_task1.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
+  run.m-beir-webqa_task1.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
+  run.m-beir-webqa_task1.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row15-tab2" role="tabpanel" aria-labelledby="row15-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-webqa_task1.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_webqa_task1_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-webqa_task1.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
+  run.m-beir-webqa_task1.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
+  run.m-beir-webqa_task1.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
+  run.m-beir-webqa_task1.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: webqa_task2 -->  
+<tr class="accordion-toggle collapsed" id="row16" data-toggle="collapse" data-parent="#row16" href="#collapse16">  
+<td class="expand-button"></td>  
+<td width="200">webqa_task2</td>  
+<td>0.3315</td>  
+<td>0.5914</td>  
+<td>0.6880</td>  
+<td></td>  
+<td>0.3252</td>  
+<td>0.5928</td>  
+<td>0.6888</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="8">  
+<div id="collapse16" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row16-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row16-tab1-header" data-mdb-toggle="tab" href="#row16-tab1" role="tab" aria-controls="row16-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row16-tab2-header" data-mdb-toggle="tab" href="#row16-tab2" role="tab" aria-controls="row16-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row16-content">  
+  <div class="tab-pane fade show active" id="row16-tab1" role="tabpanel" aria-labelledby="row16-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-webqa_task2.clip-sf-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_webqa_task2_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-webqa_task2.clip-sf-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
+  run.m-beir-webqa_task2.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
+  run.m-beir-webqa_task2.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
+  run.m-beir-webqa_task2.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row16-tab2" role="tabpanel" aria-labelledby="row16-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-webqa_task2.blip-ff-large \
+  --topics-format mbeir \
+  --topics query/test/mbeir_webqa_task2_test.jsonl \
+  --output-format trec \
+  --output run.m-beir-webqa_task2.blip-ff-large.txt \
+  --hits 1000 \
+  --remove-query \
+  --fp16  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.1 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
+  run.m-beir-webqa_task2.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.5 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
+  run.m-beir-webqa_task2.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
+  run.m-beir-webqa_task2.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+  
+    </tbody>  
+  </table>  
+</div>
+
+<div style="padding-top: 20px"/>  
+<h4>Important Note on Score Differences</h4>  
+  
+<div class="alert alert-warning" role="alert">  
+  <h5><i class="fas fa-exclamation-triangle"></i>Recall Calculation Differences</h5>  
+  <p>Scores from Pyserini may differ from UniIR's paper as UniIR uses a binary success metric instead of the traditional proportional recall calculation.</p>  
+    
+  <p><strong>Traditional Recall@K:</strong> (# relevant docs in top-k) / (total # relevant docs)</p>  
+  <ul>  
+    <li>Returns values between 0.0 and 1.0</li>  
+    <li>Accounts for the proportion of relevant documents retrieved</li>  
+  </ul>  
+    
+  <p><strong>UniIR's Recall@K:</strong> Binary success indicator</p>  
+  <ul>  
+    <li>Returns either 1.0 (success) or 0.0 (failure)</li>  
+    <li>Only checks if any relevant document appears in top-k results</li>  
+  </ul>  
+    
+  <p>This may cause significant score differences between datasets with multiple relevant candidates per corpus.</p>  
+</div>
+
+<div style="padding-top: 20px"/>
+<h4>References</h4>
+
+<ul style="list-style-type:none; padding-top: 25px">
+
+<li><p>[1] Cong Wei, Yang Chen, Haonan Chen, Hexiang Hu, Ge Zhang, Jie Fu, Alan Ritter, and Wenhu Chen.
+<a href="https://arxiv.org/abs/2311.17136">UniIR: Training and Benchmarking Universal Multimodal Information Retrievers
+.</a>
+<i>arXiv:2311.17136</i>, November 2023.</p></li>
+
+</ul>
+
+<div style="padding-top: 20px"/>
+
+<h4>Programmatic Execution</h4>
+
+<p>All experimental runs shown in the above table can be programmatically executed based on the instructions below.
+To list all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.m-beir --list-conditions
+</tt></blockquote>
+
+<p>These conditions correspond to the table rows above.</p>
+
+<p>For all conditions, just show the commands in a "dry run":</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.m-beir --all --display-commands --dry-run
+</tt></blockquote>
+
+<p>To actually run all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.m-beir --all --display-commands
+</tt></blockquote>
+
+<p>With the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>To show the commands for a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.m-beir --condition clip-sf-large --display-commands --dry-run
+</tt></blockquote>
+
+<p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
+
+<p>To actually run a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.m-beir --condition clip-sf-large --display-commands
+</tt></blockquote>
+
+<p>Again, with the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>Finally, to generate this page:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.m-beir --generate-report --output m-beir.html
+</tt></blockquote>
+
+<p>The output file <tt>m-beir.html</tt> should be identical to this page.</p>
+
+<div style="padding-top: 50px"/>
+
+      </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+
+<script>
+document.querySelectorAll('pre').forEach(function (codeBlock) {
+    var button = document.createElement('button');
+    button.className = 'copy-code-button';
+    button.type = 'button';
+    var s = codeBlock.innerText;
+    button.setAttribute('data-clipboard-text',s);
+    button.innerText = 'Copy';
+
+    // var pre = codeBlock.parentNode;
+    codeBlock.classList.add('prettyprint');
+    // pre.parentNode.insertBefore(button, pre);
+    codeBlock.appendChild(button);
+});
+
+var clipboard = new ClipboardJS('.copy-code-button');
+
+clipboard.on('success', function(e) {
+  console.info('Action:', e.action);
+  console.info('Text:', e.text);
+  console.info('Trigger:', e.trigger);
+  e.trigger.textContent = 'Copied';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+clipboard.on('error', function(e) {
+  console.error('Action:', e.action);
+  console.error('Trigger:', e.trigger);
+  e.trigger.textContent = 'Error Copying';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+</script>
+  
+</body>  
+</html>
