@@ -42,8 +42,8 @@ import jnius_config
 import pandas as pd
 
 # Don't use the jdk.incubator.vector module.
-jar_directory = str(importlib.resources.files("pyserini.resources.jars").joinpath(""))
-jar_path = glob.glob(os.path.join(jar_directory, "*.jar"))[0]
+jar_directory = str(importlib.resources.files("pyserini.resources.jars").joinpath(''))
+jar_path = glob.glob(os.path.join(jar_directory, '*.jar'))[0]
 
 try:
     jnius_config.add_classpath(jar_path)
@@ -62,28 +62,28 @@ from pyserini.search import get_qrels_file
 def trec_eval(
     args, query_id=None, return_per_query_results=False
 ) -> float | dict[Any, float]:
-    cmd_prefix = ["java", "-cp", jar_path, "trec_eval"]
+    cmd_prefix = ['java', '-cp', jar_path, 'trec_eval']
 
-    if return_per_query_results:
-        assert "-q" in args, "The '-q' is required for returning per query results."
+    if return_per_query_results or query_id:
+        assert '-q' in args, 'The "-q" is required for returning per query results.'
 
     # Option to discard non-judged hits in run file
-    judged_docs_only = ""
+    judged_docs_only = ''
     judged_result = []
     cutoffs = []
 
-    if "-remove-unjudged" in args:
-        judged_docs_only = args.pop(args.index("-remove-unjudged"))
+    if '-remove-unjudged' in args:
+        judged_docs_only = args.pop(args.index('-remove-unjudged'))
 
-    if any([i.startswith("judged.") for i in args]):
+    if any([i.startswith('judged.') for i in args]):
         # Find what position the arg is in.
-        idx = [i.startswith("judged.") for i in args].index(True)
+        idx = [i.startswith('judged.') for i in args].index(True)
         cutoffs = args.pop(idx)
-        cutoffs = list(map(int, cutoffs[7:].split(",")))
+        cutoffs = list(map(int, cutoffs[7:].split(',')))
         # Get rid of the '-m' before the 'judged.xxx' option
         args.pop(idx - 1)
 
-    temp_file = ""
+    temp_file = ''
 
     if len(args) > 1:
         if not os.path.exists(args[-2]):
@@ -92,26 +92,26 @@ def trec_eval(
             # Convert run to trec if it's on msmarco
             with open(args[-1]) as f:
                 first_line = f.readline()
-            if "Q0" not in first_line:
+            if 'Q0' not in first_line:
                 temp_file = tempfile.NamedTemporaryFile(delete=False).name
-                print("msmarco run detected. Converting to trec...")
+                print('msmarco run detected. Converting to trec...')
                 run = pd.read_csv(
                     args[-1],
-                    sep="\s+",
+                    sep='\s+',
                     header=None,
-                    names=["query_id", "doc_id", "rank"],
+                    names=['query_id', 'doc_id', 'rank'],
                 )
-                run["score"] = 1 / run["rank"]
-                run.insert(1, "Q0", "Q0")
-                run["name"] = "TEMPRUN"
-                run.to_csv(temp_file, sep="\t", header=None, index=None)
+                run['score'] = 1 / run['rank']
+                run.insert(1, 'Q0', 'Q0')
+                run['name'] = 'TEMPRUN'
+                run.to_csv(temp_file, sep='\t', header=None, index=None)
                 args[-1] = temp_file
 
         if not os.path.exists(args[-1]):
             print(f"The run file {args[-1]} does not exist!")
             sys.exit()
-        run = pd.read_csv(args[-1], sep="\s+", engine="python", header=None)
-        qrels = pd.read_csv(args[-2], sep="\s+", engine="python", header=None)
+        run = pd.read_csv(args[-1], sep='\s+', engine='python', header=None)
+        qrels = pd.read_csv(args[-2], sep='\s+', engine='python', header=None)
 
         # cast doc_id column as string
         run[0] = run[0].astype(str)
@@ -123,9 +123,9 @@ def trec_eval(
                 temp_file = tempfile.NamedTemporaryFile(delete=False).name
             judged_indexes = pd.merge(
                 run[[0, 2]].reset_index(), qrels[[0, 2]], on=[0, 2]
-            )["index"]
+            )['index']
             run = run.loc[judged_indexes]
-            run.to_csv(temp_file, sep="\t", header=None, index=None)
+            run.to_csv(temp_file, sep='\t', header=None, index=None)
             args[-1] = temp_file
         # Measure judged@cutoffs
         for cutoff in cutoffs:
@@ -133,8 +133,8 @@ def trec_eval(
             judged = len(pd.merge(run_cutoff[[0, 2]], qrels[[0, 2]], on=[0, 2])) / len(
                 run_cutoff
             )
-            metric_name = f"judged_{cutoff}"
-            judged_result.append(f"{metric_name:22}\tall\t{judged:.4f}")
+            metric_name = f'judged_{cutoff}'
+            judged_result.append(f'{metric_name:22}\tall\t{judged:.4f}')
         cmd = cmd_prefix + args[1:]
     else:
         cmd = cmd_prefix
