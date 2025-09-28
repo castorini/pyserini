@@ -55,9 +55,11 @@ class TestIndexUtils(unittest.TestCase):
 
         # The current directory depends on if you're running inside an IDE or from command line.
         curdir = os.getcwd()
-        if curdir.endswith('tests'):
+        if curdir.endswith('core'):
+            self.collection_dir = '../../collections'
             self.emoji_corpus_path = '../resources/sample_collection_json_emoji'
         else:
+            self.collection_dir = 'collections'
             self.emoji_corpus_path = 'tests/resources/sample_collection_json_emoji'
 
     # See https://github.com/castorini/pyserini/issues/770
@@ -400,7 +402,7 @@ class TestIndexUtils(unittest.TestCase):
         JString('zoölogy')
 
     def test_dump_documents_BM25(self):
-        file_path = 'collections/cacm_documents_bm25_dump.jsonl'
+        file_path = os.path.join(self.collection_dir, 'cacm_documents_bm25_dump.jsonl')
         self.index_reader.dump_documents_BM25(file_path)
         dump_file = open(file_path, 'r')
 
@@ -446,8 +448,8 @@ class TestIndexUtils(unittest.TestCase):
         os.remove(file_path)
 
     def test_quantize_weights(self):
-        dump_file_path = 'collections/cacm_documents_bm25_dump.jsonl'
-        quantized_file_path = 'collections/cacm_documents_bm25_dump_quantized.jsonl'
+        dump_file_path = os.path.join(self.collection_dir, 'cacm_documents_bm25_dump.jsonl')
+        quantized_file_path = os.path.join(self.collection_dir, 'cacm_documents_bm25_dump_quantized.jsonl')
         self.index_reader.dump_documents_BM25(dump_file_path)
         self.index_reader.quantize_weights(dump_file_path, quantized_file_path)
 

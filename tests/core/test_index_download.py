@@ -39,3 +39,7 @@ class TestIndexDownload(unittest.TestCase):
         if os.path.exists(self.tmp_dir):
             shutil.rmtree(self.tmp_dir)
             os.environ['PYSERINI_CACHE'] = ''
+
+
+if __name__ == '__main__':
+    unittest.main()

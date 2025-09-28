@@ -51,3 +51,7 @@ class TestLoadCachedQueries(unittest.TestCase):
         self.assertIsNotNone(QueryEncoder.load_encoded_queries('msmarco-v1-passage.dev.cohere-embed-english-v3.0'))
         self.assertIsNotNone(QueryEncoder.load_encoded_queries('dl19-passage.cohere-embed-english-v3.0'))
         self.assertIsNotNone(QueryEncoder.load_encoded_queries('dl20-passage.cohere-embed-english-v3.0'))
+
+
+if __name__ == '__main__':
+    unittest.main()

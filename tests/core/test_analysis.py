@@ -116,3 +116,7 @@ class TestAnalyzers(unittest.TestCase):
         self.searcher.close()
         os.remove(self.tarball_name)
         shutil.rmtree(self.index_dir)
+
+
+if __name__ == '__main__':
+    unittest.main()

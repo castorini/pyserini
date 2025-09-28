@@ -15,12 +15,12 @@
 #
 
 import os
-import tarfile
 import tempfile
 import unittest
 
-from pyserini.util import download_url, download_and_unpack_index
 from pyserini.prebuilt_index_info import TF_INDEX_INFO
+from pyserini.util import download_url, download_and_unpack_index
+
 
 class TestIterateCollection(unittest.TestCase):
     def test_cacm_prebuilt_index_download(self):
@@ -72,6 +72,7 @@ class TestIterateCollection(unittest.TestCase):
                 expected_size=expected_size, prebuilt=False, verbose=False, force=True)
             self.assertTrue(os.path.isdir(index_path), f"Index path missing: {index_path}")
             self.assertGreater(len(os.listdir(index_path)), 0, "Extracted index directory is empty.")
+
 
 if __name__ == "__main__":
     unittest.main()

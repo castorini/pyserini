@@ -21,6 +21,16 @@ from pyserini import search
 
 
 class TestLoadTopics(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        # The current directory depends on if you're running inside an IDE or from command line.
+        curdir = os.getcwd()
+        if curdir.endswith('core'):
+            cls.tools_dir = '../../tools'
+            cls.resource_dir = '../resources'
+        else:
+            cls.tools_dir = 'tools'
+            cls.resource_dir = 'tests/resources'
 
     def test_trec1_adhoc(self):
         topics = search.get_topics('trec1-adhoc')
@@ -1610,10 +1620,7 @@ class TestLoadTopics(unittest.TestCase):
 
     # General test cases
     def test_tsv_int_topicreader(self):
-        # Running from command-line, we're in root of repo, but running in IDE, we're in tests/
-        path = 'tools/topics-and-qrels/topics.msmarco-doc.dev.txt'
-        if not os.path.exists(path):
-            path = f'../{path}'
+        path = os.path.join(self.tools_dir, 'topics-and-qrels/topics.msmarco-doc.dev.txt')
 
         self.assertTrue(os.path.exists(path))
         topics = search.get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', path)
@@ -1623,10 +1630,7 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(search.get_topics('msmarco-doc-dev'), topics)
 
     def test_trec_topicreader(self):
-        # Running from command-line, we're in root of repo, but running in IDE, we're in tests/
-        path = 'tools/topics-and-qrels/topics.robust04.txt'
-        if not os.path.exists(path):
-            path = f'../{path}'
+        path = os.path.join(self.tools_dir, 'topics-and-qrels/topics.robust04.txt')
 
         self.assertTrue(os.path.exists(path))
         topics = search.get_topics_with_reader('io.anserini.search.topicreader.TrecTopicReader', path)
@@ -1636,10 +1640,7 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(search.get_topics('robust04'), topics)
 
     def test_trec_topicreader_nonint_qid(self):
-        # Running from command-line, we're in root of repo, but running in IDE, we're in tests/
-        path = 'tests/resources/sample_queries_nonint_qid.tsv'
-        if not os.path.exists(path):
-            path = f'../{path}'
+        path = os.path.join(self.resource_dir, 'sample_queries_nonint_qid.tsv')
 
         self.assertTrue(os.path.exists(path))
         topics = search.get_topics_with_reader('io.anserini.search.topicreader.TsvStringTopicReader', path)

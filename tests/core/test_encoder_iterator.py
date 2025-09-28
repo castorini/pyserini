@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+import os
 import unittest
 
 from pyserini.encode import JsonlCollectionIterator
@@ -41,8 +42,17 @@ from pyserini.encode import JsonlCollectionIterator
 # In this case, the reader has to parse out the "title" and "text" fields from the "contents" fields. There's also
 # extra logic that handles missing fields. For example, in this case, "blah\n\n" would indicate an empty text field.
 class TestJsonlCollectionIterator(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        # The current directory depends on if you're running inside an IDE or from command line.
+        curdir = os.getcwd()
+        if curdir.endswith('core'):
+            cls.resource_dir = '../resources'
+        else:
+            cls.resource_dir = 'tests/resources'
+
     def test_missing_fields(self):
-        corpus_path = 'tests/resources/simple_scifact.jsonl'
+        corpus_path = os.path.join(self.resource_dir, 'simple_scifact.jsonl')
         all_expected_info = [
             ('e275f643c97ca1f4c7715635bb72cf02df928d06', 'From Databases to Big Data', ''),
             ('bf003bb2d52304fea114d824bc0bf7bfbc7c3106', 'Dissecting social engineering', ''),
@@ -57,7 +67,7 @@ class TestJsonlCollectionIterator(unittest.TestCase):
             self.assertEqual(expected_info[2], info['text'][0])
 
     def test_upper_lower_case(self):
-        corpus_path = 'tests/resources/simple_cacm_corpus.json'
+        corpus_path = os.path.join(self.resource_dir, 'simple_cacm_corpus.json')
         all_expected_info = [
             ('CACM-2636',
              'Generation of Random Correlated Normal Variables (Algorithm R425) CACM June, 1974 Page, R. L. CA740610 JB January 17, 1978 2:57 PM 2636 5 2636 2636 5 2636 2636 5 2636'),
@@ -74,7 +84,7 @@ class TestJsonlCollectionIterator(unittest.TestCase):
             self.assertEqual(expected_info[1], info['text'][0])
 
     def test_delimiter(self):
-        corpus_path = 'tests/resources/simple_mrtydi_corpus.json'
+        corpus_path = os.path.join(self.resource_dir, 'simple_mrtydi_corpus.json')
         all_expected_info = [
             ('arabic-7#0', 'ماء',
              'الماء مادةٌ شفافةٌ عديمة اللون والرائحة، وهو المكوّن الأساسي للجداول والبحيرات والبحار والمحيطات وكذلك للسوائل في جميع الكائنات الحيّة، وهو أكثر المركّبات الكيميائيّة انتشاراً على سطح الأرض. يتألّف جزيء الماء من ذرّة أكسجين مركزية ترتبط بها ذرّتي هيدروجين برابطة تساهميّة لتكون صيغته H2O. عند الظروف القياسية من الضغط ودرجة الحرارة يكون الماء سائلاً، ولكنّ حالاته الأخرى شائعة الوجود أيضاً؛ وهي حالة الجليد الصلبة والبخار الغازيّة.'),
@@ -107,8 +117,8 @@ class TestJsonlCollectionIterator(unittest.TestCase):
             self.assertEqual(expected_info[1], info['title'][0])
             self.assertEqual(expected_info[2], info['text'][0])
 
-    def test_loading_field_key_jsonl(self):
-        corpus_path = 'tests/resources/simple_cacm_corpus_fields_key.json'
+    def test_loading_field_key_jsonl1(self):
+        corpus_path = os.path.join(self.resource_dir, 'simple_cacm_corpus_fields_key.json')
         all_expected_info = [
             ('CACM-2636',
              'Generation of Random Correlated Normal Variables (Algorithm R425) CACM June, 1974 Page, R. L. CA740610 JB January 17, 1978 2:57 PM 2636 5 2636 2636 5 2636 2636 5 2636'),
@@ -123,10 +133,11 @@ class TestJsonlCollectionIterator(unittest.TestCase):
         for i, info in enumerate(collection_iterator):
             expected_info = all_expected_info[i]
 
-            self.assertEqual(expected_info[0], info["id"][0])
-            self.assertEqual(expected_info[1], info["text"][0])
+            self.assertEqual(expected_info[0], info['id'][0])
+            self.assertEqual(expected_info[1], info['text'][0])
 
-        corpus_path = 'tests/resources/simple_mrtydi_corpus_fields_key.json'
+    def test_loading_field_key_jsonl(self):
+        corpus_path = os.path.join(self.resource_dir, 'simple_mrtydi_corpus_fields_key.json')
         all_expected_info = [
             ('arabic-7#0', 'ماء',
              'الماء مادةٌ شفافةٌ عديمة اللون والرائحة، وهو المكوّن الأساسي للجداول والبحيرات والبحار والمحيطات وكذلك للسوائل في جميع الكائنات الحيّة، وهو أكثر المركّبات الكيميائيّة انتشاراً على سطح الأرض. يتألّف جزيء الماء من ذرّة أكسجين مركزية ترتبط بها ذرّتي هيدروجين برابطة تساهميّة لتكون صيغته H2O. عند الظروف القياسية من الضغط ودرجة الحرارة يكون الماء سائلاً، ولكنّ حالاته الأخرى شائعة الوجود أيضاً؛ وهي حالة الجليد الصلبة والبخار الغازيّة.'),
@@ -160,17 +171,17 @@ class TestJsonlCollectionIterator(unittest.TestCase):
             self.assertEqual(expected_info[2], info['text'][0])
 
     def test_path_loading(self):
-        corpus_path = 'tests/resources/simple_mixed_modality_corpus.json'
+        corpus_path = os.path.join(self.resource_dir, 'simple_mixed_modality_corpus.json')
         all_expected_info = [
-            ('tests/resources/mbeir_images/cirr_images/train/49/train-1287-0-img0.jpg', 'image', '8:1', None),
+            ('train-1287-0-img0.jpg', 'image', '8:1', None),
             (None, 'text', '8:2', "test"),
-            ('tests/resources/mbeir_images/cirr_images/train/97/train-10958-1-img1.jpg', 'image,text', '8:3', "test"),
+            ('train-10958-1-img1.jpg', 'image,text', '8:3', "test"),
         ]
         collection_iterator = JsonlCollectionIterator(corpus_path, ['img_path', 'modality', 'did', 'txt'], docid_field='did')
         for i, info in enumerate(collection_iterator):
             expected_info = all_expected_info[i]
 
-            self.assertEqual(expected_info[0], info['img_path'][0])
+            self.assertEqual(expected_info[0], info['img_path'][0].split('/')[-1] if expected_info[0] is not None else expected_info[0])
             self.assertEqual(expected_info[1], info['modality'][0])
             self.assertEqual(expected_info[2], info['did'][0])
             self.assertEqual(expected_info[3], info['txt'][0])

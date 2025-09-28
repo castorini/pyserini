@@ -27,8 +27,15 @@ from urllib.request import urlretrieve
 class TestNFCorpus(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.queries = 'tests/resources/nfcorpus-queries.tsv'
-        cls.qrels = 'tests/resources/nfcorpus-qrels.tsv'
+        # The current directory depends on if you're running inside an IDE or from command line.
+        curdir = os.getcwd()
+        if curdir.endswith('core'):
+            cls.resource_dir = '../resources'
+        else:
+            cls.resource_dir = 'tests/resources'
+
+        cls.queries = os.path.join(cls.resource_dir, 'nfcorpus-queries.tsv')
+        cls.qrels = os.path.join(cls.resource_dir, 'nfcorpus-qrels.tsv')
 
         r = randint(0, 10000000)
 
@@ -66,3 +73,7 @@ class TestNFCorpus(unittest.TestCase):
     def tearDownClass(cls):
         shutil.rmtree(cls.sparse_index_dir)
         os.remove(cls.sparse_tarball_name)
+
+
+if __name__ == '__main__':
+    unittest.main()

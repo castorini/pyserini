@@ -49,6 +49,13 @@ class TestIndexUtilsForLucene8(unittest.TestCase):
 
         self.temp_folders = []
 
+        # The current directory depends on if you're running inside an IDE or from command line.
+        curdir = os.getcwd()
+        if curdir.endswith('core'):
+            self.collection_dir = '../../collections'
+        else:
+            self.collection_dir = 'collections'
+
     def test_query_doc_score_default(self):
         queries = ['information retrieval', 'databases']
 
@@ -90,7 +97,7 @@ class TestIndexUtilsForLucene8(unittest.TestCase):
                                            hits[i].docid, query, similarity=custom_qld), places=4)
 
     def test_dump_documents_BM25(self):
-        file_path = 'collections/cacm_documents_bm25_dump.jsonl'
+        file_path = os.path.join(self.collection_dir, 'cacm_documents_bm25_dump.jsonl')
         self.index_reader.dump_documents_BM25(file_path)
         dump_file = open(file_path, 'r')
 
@@ -136,8 +143,8 @@ class TestIndexUtilsForLucene8(unittest.TestCase):
         os.remove(file_path)
 
     def test_quantize_weights(self):
-        dump_file_path = 'collections/cacm_documents_bm25_dump.jsonl'
-        quantized_file_path = 'collections/cacm_documents_bm25_dump_quantized.jsonl'
+        dump_file_path = os.path.join(self.collection_dir, 'cacm_documents_bm25_dump.jsonl')
+        quantized_file_path = os.path.join(self.collection_dir, 'cacm_documents_bm25_dump_quantized.jsonl')
         self.index_reader.dump_documents_BM25(dump_file_path)
         self.index_reader.quantize_weights(dump_file_path, quantized_file_path)
 

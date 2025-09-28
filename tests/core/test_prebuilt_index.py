@@ -308,3 +308,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
             self.assertEqual(response.status_code, 200, f'Error checking {url}')
 
         self.assertEqual(cnt, len(urls))
+
+
+if __name__ == '__main__':
+    unittest.main()

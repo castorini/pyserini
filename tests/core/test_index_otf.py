@@ -31,7 +31,7 @@ class TestIndexOTF(unittest.TestCase):
 
         # The current directory depends on if you're running inside an IDE or from command line.
         curdir = os.getcwd()
-        if curdir.endswith('tests'):
+        if curdir.endswith('core'):
             self.test_file = '../resources/simple_cacm_corpus.json'
         else:
             self.test_file = 'tests/resources/simple_cacm_corpus.json'
@@ -283,3 +283,7 @@ class TestIndexOTF(unittest.TestCase):
 
     def tearDown(self):
         shutil.rmtree(self.tmp_dir)
+
+
+if __name__ == '__main__':
+    unittest.main()

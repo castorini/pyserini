@@ -14,8 +14,9 @@
 # limitations under the License.
 #
 
-import unittest
 import tempfile
+import unittest
+
 from pyserini.query_iterator import DefaultQueryIterator
 
 
@@ -80,7 +81,10 @@ class TestEncodedQueries(unittest.TestCase):
         topic_ids, _ = zip(*list(query_iterator))
         self.assertEqual(topic_ids[0], 1998)
         self.assertEqual(topic_ids[1], "B")
-            
-            
+
     def tearDown(self):
         pass
+
+
+if __name__ == '__main__':
+    unittest.main()

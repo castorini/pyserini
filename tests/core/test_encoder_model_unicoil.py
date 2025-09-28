@@ -27,9 +27,18 @@ from pyserini.search.lucene import LuceneImpactSearcher
 
 
 class TestEncodeUniCoil(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        # The current directory depends on if you're running inside an IDE or from command line.
+        curdir = os.getcwd()
+        if curdir.endswith('core'):
+            cls.resource_dir = '../resources'
+        else:
+            cls.resource_dir = 'tests/resources'
+
     def test_unicoil_encoder(self):
         texts = []
-        with open('tests/resources/simple_cacm_corpus.json') as f:
+        with open(os.path.join(self.resource_dir, 'simple_cacm_corpus.json')) as f:
             for line in f:
                 line = json.loads(line)
                 texts.append(line['contents'])

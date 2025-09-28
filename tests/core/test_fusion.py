@@ -20,34 +20,46 @@ import unittest
 
 
 class TestSearch(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        # The current directory depends on if you're running inside an IDE or from command line.
+        curdir = os.getcwd()
+        if curdir.endswith('core'):
+            cls.resource_dir = '../resources'
+        else:
+            cls.resource_dir = 'tests/resources'
+
     def setUp(self):
         self.output_path = 'output_test_fusion.txt'
 
     def test_reciprocal_rank_fusion_simple(self):
-        input_paths = ['tests/resources/simple_trec_run_fusion_1.txt', 'tests/resources/simple_trec_run_fusion_2.txt']
-        verify_path = 'tests/resources/simple_trec_run_rrf_verify.txt'
+        input_paths = [os.path.join(self.resource_dir, 'simple_trec_run_fusion_1.txt'),
+                       os.path.join(self.resource_dir, 'simple_trec_run_fusion_2.txt')]
+        verify_path = os.path.join(self.resource_dir, 'simple_trec_run_rrf_verify.txt')
 
         qruns_str = ' '.join(input_paths)
-        os.system(
-            f'python -m pyserini.fusion --method rrf --runs {qruns_str} --output {self.output_path} --runtag test')
+        os.system(f'python -m pyserini.fusion --method rrf'
+                  f' --runs {qruns_str} --output {self.output_path} --runtag test')
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
 
     def test_interpolation_fusion_simple(self):
-        input_paths = ['tests/resources/simple_trec_run_fusion_1.txt', 'tests/resources/simple_trec_run_fusion_2.txt']
-        verify_path = 'tests/resources/simple_trec_run_interpolation_verify.txt'
+        input_paths = [os.path.join(self.resource_dir, 'simple_trec_run_fusion_1.txt'),
+                       os.path.join(self.resource_dir, 'simple_trec_run_fusion_2.txt')]
+        verify_path = os.path.join(self.resource_dir, 'simple_trec_run_interpolation_verify.txt')
 
         qruns_str = ' '.join(input_paths)
-        os.system(
-            f'python -m pyserini.fusion --method interpolation --alpha 0.4 --runs {qruns_str} --output {self.output_path} --runtag test')
+        os.system(f'python -m pyserini.fusion --method interpolation'
+                  f' --alpha 0.4 --runs {qruns_str} --output {self.output_path} --runtag test')
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
 
     def test_average_fusion_simple(self):
-        input_paths = ['tests/resources/simple_trec_run_fusion_1.txt', 'tests/resources/simple_trec_run_fusion_2.txt']
-        verify_path = 'tests/resources/simple_trec_run_average_verify.txt'
+        input_paths = [os.path.join(self.resource_dir, 'simple_trec_run_fusion_1.txt'),
+                       os.path.join(self.resource_dir, 'simple_trec_run_fusion_2.txt')]
+        verify_path = os.path.join(self.resource_dir, 'simple_trec_run_average_verify.txt')
 
         qruns_str = ' '.join(input_paths)
-        os.system(
-            f'python -m pyserini.fusion --method average --runs {qruns_str} --output {self.output_path} --runtag test')
+        os.system(f'python -m pyserini.fusion --method average'
+                  f' --runs {qruns_str} --output {self.output_path} --runtag test')
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
 
     def test_reciprocal_rank_fusion_complex(self):
@@ -58,11 +70,12 @@ class TestSearch(unittest.TestCase):
         os.system('gunzip -f anserini.covid-r2.*.txt.gz')
 
         txt_paths = ['anserini.covid-r2.abstract.qq.bm25.txt',
-                     'anserini.covid-r2.full-text.qq.bm25.txt', 'anserini.covid-r2.paragraph.qq.bm25.txt']
+                     'anserini.covid-r2.full-text.qq.bm25.txt',
+                     'anserini.covid-r2.paragraph.qq.bm25.txt']
 
         qruns_str = ' '.join(txt_paths)
-        os.system(
-            f'python -m pyserini.fusion --method rrf --runs {qruns_str} --output {self.output_path} --runtag reciprocal_rank_fusion_k=60')
+        os.system(f'python -m pyserini.fusion --method rrf'
+                  f' --runs {qruns_str} --output {self.output_path} --runtag reciprocal_rank_fusion_k=60')
         verify_path = 'anserini.covid-r2.fusion1.txt'
         self.assertTrue(filecmp.cmp(verify_path, self.output_path))
         os.system('rm anserini.covid-r2.*')

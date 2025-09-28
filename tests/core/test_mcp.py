@@ -22,7 +22,6 @@ import unittest
 
 
 class TestMCPyseriniServer(unittest.TestCase):
-    
     def setUp(self):
         try:
             self.server_process = subprocess.Popen(
@@ -154,3 +153,6 @@ class TestMCPyseriniServer(unittest.TestCase):
         })      
         self.assertTrue('result' in response and not response['result']['isError'])
 
+
+if __name__ == '__main__':
+    unittest.main()

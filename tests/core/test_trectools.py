@@ -26,8 +26,8 @@ class TestTrecTools(unittest.TestCase):
     def setUp(self):
         # The current directory depends on if you're running inside an IDE or from command line.
         curdir = os.getcwd()
-        if curdir.endswith('tests'):
-            self.root = '../'
+        if curdir.endswith('core'):
+            self.root = '../../'
         else:
             self.root = '.'
 
