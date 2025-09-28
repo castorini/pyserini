@@ -46,6 +46,7 @@ dependencies = [
     "uvicorn>=0.13.0",
     "fastmcp>=2.10.4",
     "datasets",
+    "matplotlib"
 ]
 
 [project.urls]

@@ -95,12 +95,7 @@ def trec_eval(
             if 'Q0' not in first_line:
                 temp_file = tempfile.NamedTemporaryFile(delete=False).name
                 print('msmarco run detected. Converting to trec...')
-                run = pd.read_csv(
-                    args[-1],
-                    sep='\s+',
-                    header=None,
-                    names=['query_id', 'doc_id', 'rank'],
-                )
+                run = pd.read_csv(args[-1], sep='\s+', header=None, names=['query_id', 'doc_id', 'rank'])
                 run['score'] = 1 / run['rank']
                 run.insert(1, 'Q0', 'Q0')
                 run['name'] = 'TEMPRUN'
