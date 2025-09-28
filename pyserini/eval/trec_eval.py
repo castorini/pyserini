@@ -36,6 +36,7 @@ import platform
 import subprocess
 import sys
 import tempfile
+from typing import Any
 
 import jnius_config
 import pandas as pd
@@ -57,8 +58,14 @@ import jnius
 # the JVM has already loaded.
 from pyserini.search import get_qrels_file
 
-def trec_eval(args, query_id=None) -> float: 
+
+def trec_eval(
+    args, query_id=None, return_per_query_results=False
+) -> float | dict[Any, float]:
     cmd_prefix = ['java', '-cp', jar_path, 'trec_eval']
+
+    if return_per_query_results or query_id:
+        assert '-q' in args, 'The "-q" is required for returning per query results.'
 
     # Option to discard non-judged hits in run file
     judged_docs_only = ''
@@ -74,7 +81,7 @@ def trec_eval(args, query_id=None) -> float:
         cutoffs = args.pop(idx)
         cutoffs = list(map(int, cutoffs[7:].split(',')))
         # Get rid of the '-m' before the 'judged.xxx' option
-        args.pop(idx-1)
+        args.pop(idx - 1)
 
     temp_file = ''
 
@@ -100,7 +107,7 @@ def trec_eval(args, query_id=None) -> float:
             sys.exit()
         run = pd.read_csv(args[-1], sep='\s+', engine='python', header=None)
         qrels = pd.read_csv(args[-2], sep='\s+', engine='python', header=None)
-        
+
         # cast doc_id column as string
         run[0] = run[0].astype(str)
         qrels[0] = qrels[0].astype(str)
@@ -109,14 +116,14 @@ def trec_eval(args, query_id=None) -> float:
         if judged_docs_only:
             if not temp_file:
                 temp_file = tempfile.NamedTemporaryFile(delete=False).name
-            judged_indexes = pd.merge(run[[0,2]].reset_index(), qrels[[0,2]], on = [0,2])['index']
+            judged_indexes = pd.merge(run[[0, 2]].reset_index(), qrels[[0, 2]], on=[0, 2])['index']
             run = run.loc[judged_indexes]
             run.to_csv(temp_file, sep='\t', header=None, index=None)
             args[-1] = temp_file
         # Measure judged@cutoffs
         for cutoff in cutoffs:
             run_cutoff = run.groupby(0).head(cutoff)
-            judged = len(pd.merge(run_cutoff[[0,2]], qrels[[0,2]], on = [0,2])) / len(run_cutoff)
+            judged = len(pd.merge(run_cutoff[[0, 2]], qrels[[0, 2]], on=[0, 2])) / len(run_cutoff)
             metric_name = f'judged_{cutoff}'
             judged_result.append(f'{metric_name:22}\tall\t{judged:.4f}')
         cmd = cmd_prefix + args[1:]
@@ -128,10 +135,9 @@ def trec_eval(args, query_id=None) -> float:
     # in Java (which wraps the binaries). The answer is that the Java class explicitly calls System.exit, so we wouldn't
     # be able to do cleanup here in Python.
     shell = platform.system() == "Windows"
-    process = subprocess.Popen(cmd,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE,
-                            shell=shell)
+    process = subprocess.Popen(
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=shell
+    )
     stdout, stderr = process.communicate()
     if stderr:
         print(stderr.decode("utf-8"))
@@ -144,13 +150,17 @@ def trec_eval(args, query_id=None) -> float:
 
     if temp_file:
         os.remove(temp_file)
-    
+
     output = output.split("\n")
-    lines = {line.split("\t")[1]: line.split("\t")[2] for line in output}
+    lines = {line.split("\t")[1]: float(line.split("\t")[2]) for line in output}
+    if return_per_query_results:
+        return lines
+
     if query_id:
-        return float(lines[query_id])
+        return lines[query_id]
     else:
-        return float(lines["all"])
+        return lines["all"]
+
 
 if __name__ == "__main__":
     trec_eval(sys.argv)
