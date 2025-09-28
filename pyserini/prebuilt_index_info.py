@@ -735,6 +735,9 @@ add_lucene_index_info(JIndexInfo.BRIGHT_AOPS, TF_INDEX_INFO_BRIGHT)
 add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS, TF_INDEX_INFO_BRIGHT)
 add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS, TF_INDEX_INFO_BRIGHT)
 
+# TODO: Remove after new Anserini artifact release with fix
+TF_INDEX_INFO_BRIGHT["bright-economics"]["size compressed (bytes)"] = 23991405
+
 TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-ar": {
         "description": "Lucene index for Mr.TyDi v1.1 (Arabic).",
