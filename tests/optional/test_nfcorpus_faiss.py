@@ -27,8 +27,13 @@ from urllib.request import urlretrieve
 class TestNFCorpus(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.queries = 'tests/resources/nfcorpus-queries.tsv'
-        cls.qrels = 'tests/resources/nfcorpus-qrels.tsv'
+        curdir = os.getcwd()
+        if curdir.endswith('optional'):
+            cls.queries = '../resources/nfcorpus-queries.tsv'
+            cls.qrels = '../resources/nfcorpus-qrels.tsv'
+        else:
+            cls.queries = 'tests/resources/nfcorpus-queries.tsv'
+            cls.qrels = 'tests/resources/nfcorpus-qrels.tsv'
 
         # TODO: Remove the Lucene part, just keep the Faiss part
         r = randint(0, 10000000)
@@ -100,3 +105,7 @@ class TestNFCorpus(unittest.TestCase):
 
         shutil.rmtree(cls.sparse_index_dir)
         os.remove(cls.sparse_tarball_name)
+
+
+if __name__ == '__main__':
+    unittest.main()

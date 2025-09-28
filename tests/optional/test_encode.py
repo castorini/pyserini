@@ -33,7 +33,12 @@ class TestEncode(unittest.TestCase):
     def setUpClass(cls):
         cls.docids = []
         cls.texts = []
-        cls.test_file = 'tests/resources/simple_cacm_corpus.json'
+
+        curdir = os.getcwd()
+        if curdir.endswith('optional'):
+            cls.test_file = '../resources/simple_cacm_corpus.json'
+        else:
+            cls.test_file = 'tests/resources/simple_cacm_corpus.json'
 
         with open(cls.test_file) as f:
             for line in f:
@@ -257,7 +262,13 @@ class TestEncode(unittest.TestCase):
         # special case setup for image data
         docids = []
         texts = []
-        test_file = 'tests/resources/sample_collection_jsonl_image/images.small.jsonl'
+
+        curdir = os.getcwd()
+        if curdir.endswith('optional'):
+            test_file = '../resources/sample_collection_jsonl_image/images.small.jsonl'
+        else:
+            test_file = 'tests/resources/sample_collection_jsonl_image/images.small.jsonl'
+
         image_dir = pl.Path(test_file).parent
         
         with open(test_file) as f:

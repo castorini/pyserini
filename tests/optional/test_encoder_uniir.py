@@ -35,5 +35,6 @@ class TestUniIREncoderInstantiation(unittest.TestCase):
         assert encoder.query_encoder is not None
         assert isinstance(encoder.query_encoder, QueryEncoder)
 
+
 if __name__ == "__main__":
     unittest.main()

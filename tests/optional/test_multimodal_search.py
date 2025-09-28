@@ -32,8 +32,15 @@ class TestMultimodalSearch(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.text_file = 'tests/resources/sample_collection_jsonl/documents.jsonl'
-        cls.image_file = 'tests/resources/sample_collection_jsonl_image/images.small.jsonl'
+        curdir = os.getcwd()
+        if curdir.endswith('optional'):
+            cls.resource_dir = '../resources'
+            cls.text_file = '../resources/sample_collection_jsonl/documents.jsonl'
+            cls.image_file = '../resources/sample_collection_jsonl_image/images.small.jsonl'
+        else:
+            cls.resource_dir = 'tests/resources'
+            cls.text_file = 'tests/resources/sample_collection_jsonl/documents.jsonl'
+            cls.image_file = 'tests/resources/sample_collection_jsonl_image/images.small.jsonl'
 
         pretrained_model_name = 'openai/clip-vit-base-patch32'
         dim = 512
@@ -93,7 +100,7 @@ class TestMultimodalSearch(unittest.TestCase):
     
     def test_image2image_search(self):
         searcher = FaissSearcher(f'{self.index_dir}/images', self.image_encoder)
-        hits = searcher.search('tests/resources/sample_collection_jsonl_image/images.small/00a3019b-c47c-3a97-8132-81896ab92dfc.webp')
+        hits = searcher.search(f'{self.resource_dir}/sample_collection_jsonl_image/images.small/00a3019b-c47c-3a97-8132-81896ab92dfc.webp')
         self.assertTrue(isinstance(hits, List))
         self.assertEqual(hits[0].docid, '00a3019b-c47c-3a97-8132-81896ab92dfc')
         self.assertAlmostEqual(hits[0].score, 0.9999999, places=5)

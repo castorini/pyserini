@@ -33,7 +33,13 @@ class TestIndexFaiss(unittest.TestCase):
     def setUp(self):
         self.docids = []
         self.texts = []
-        self.test_file = 'tests/resources/simple_cacm_corpus.json'
+
+        curdir = os.getcwd()
+        if curdir.endswith('optional'):
+            self.test_file = '../resources/simple_cacm_corpus.json'
+        else:
+            self.test_file = 'tests/resources/simple_cacm_corpus.json'
+
         self.tmp_dir = f'tmp_{self.__class__.__name__}_{str(random.randint(0, 1000))}'
 
         with open(self.test_file) as f:
@@ -90,3 +96,7 @@ class TestIndexFaiss(unittest.TestCase):
 
     def tearDown(self):
         shutil.rmtree(self.tmp_dir)
+
+
+if __name__ == '__main__':
+    unittest.main()

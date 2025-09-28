@@ -24,13 +24,6 @@ from pyserini.search.lucene import LuceneSearcher
 
 
 class TestHybridSearch(unittest.TestCase):
-    tarball_name = None
-    collection_url = None
-    searcher = None
-    searcher_index_dir = None
-    no_vec_searcher = None
-    no_vec_searcher_index_dir = None
-
     @classmethod
     def setUpClass(cls):
         cls.s_index_name = 'beir-v1.0.0-arguana.flat'
@@ -49,9 +42,9 @@ class TestHybridSearch(unittest.TestCase):
         self.assertAlmostEqual(hits[0].score, 1.440788245201111, places=5)
     
     def test_hybrid_searcher_batch(self):
-        hits = self.searcher.batch_search(['information retrieval', 'search'], ['q1', 'q2'], threads=2)
+        hits = self.searcher.batch_search(['information retrieval', 'search'], ['q1', 'q2'], threads=1)
         self.assertTrue(isinstance(hits, Dict))
-        
+
         self.assertTrue(isinstance(hits['q1'], List))
         self.assertEqual(hits['q1'][0].docid, 'test-digital-freedoms-aihbiahr-con03b')
         self.assertAlmostEqual(hits['q1'][0].score, 1.440788245201111, places=5)
