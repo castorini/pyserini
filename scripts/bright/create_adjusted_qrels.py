@@ -21,6 +21,8 @@ import os
 from datasets import load_dataset
 from tqdm import tqdm
 
+from tasks import TASKS
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -28,20 +30,7 @@ def main():
     parser.add_argument('--cache-dir', type=str, default='cache')
     args = parser.parse_args()
     os.makedirs(args.output_dir, exist_ok=True)
-    for task in [
-        'biology',
-        'earth_science',
-        'economics',
-        'psychology',
-        'robotics',
-        'stackoverflow',
-        'sustainable_living',
-        'leetcode',
-        'pony',
-        'aops',
-        'theoremqa_theorems',
-        'theoremqa_questions',
-    ]:
+    for task in TASKS:
         examples = load_dataset('xlangai/bright', 'examples', cache_dir=args.cache_dir)[
             task
         ]

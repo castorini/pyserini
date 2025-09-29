@@ -28,6 +28,7 @@ from datasets import load_dataset
 from tqdm import tqdm
 
 from pyserini import analysis
+from tasks import TASKS
 
 # ---------------------------------------------------------------------------
 # Helper functions
@@ -202,7 +203,7 @@ def main():
     parser.add_argument(
         '--tasks',
         nargs='+',
-        required=True,
+        default=TASKS,
         help='One or more Bright task names (space-separated).',
     )
     parser.add_argument('--cache-dir', type=str, default='stats_cache')

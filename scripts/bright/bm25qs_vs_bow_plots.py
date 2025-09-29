@@ -25,24 +25,14 @@ from tqdm import tqdm
 from pyserini import analysis
 from pyserini.eval.trec_eval import trec_eval
 
+from tasks import TASKS
+
 
 def get_aggregate_data_points(cache_dir):
     aggr_data = {}
     analyzer = analysis.Analyzer(analysis.get_lucene_analyzer())
-    for task in [
-        'earth-science',
-        'psychology',
-        'biology',
-        'economics',
-        'pony',
-        'robotics',
-        'stackoverflow',
-        'sustainable-living',
-        'aops',
-        'leetcode',
-        'theoremqa-theorems',
-        'theoremqa-questions',
-    ]:
+    for task in TASKS:
+        task = task.replace('_', '-')
         query_lens = {}
         os.makedirs(cache_dir, exist_ok=True)
         examples = load_dataset('xlangai/bright', 'examples', cache_dir=cache_dir)[
