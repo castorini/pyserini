@@ -24,7 +24,6 @@ from tqdm import tqdm
 
 from pyserini import analysis
 from pyserini.eval.trec_eval import trec_eval
-
 from tasks import TASKS
 
 

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+export PYTHONPATH="$SCRIPT_DIR:$PYTHONPATH"
+
 # Read the tasks array
 readarray -d '' -t TASKS < <(python - <<'PY' "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")"; pwd)/tasks.py"
 import sys, importlib.util as u
