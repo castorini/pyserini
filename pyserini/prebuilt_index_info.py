@@ -1233,7 +1233,7 @@ TF_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-ha-en.20240212.2154e7.tar.gz"
         ],
         "md5": "40af043730fe0fb31c32551ae615bfb0",
-        "size compressed (bytes)": 485237964,
+        "size compressed (bytes)": 485235569,
         "total_terms": 55768945,
         "documents": 715355,
         "unique_terms": 222612,
@@ -1248,7 +1248,7 @@ TF_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-so-en.20240212.2154e7.tar.gz"
         ],
         "md5": "ceff839268ebb1f41ac5398d613cbf32",
-        "size compressed (bytes)": 611464833,
+        "size compressed (bytes)": 611458708,
         "total_terms": 63835022,
         "documents": 827552,
         "unique_terms": 214501,
@@ -1263,7 +1263,7 @@ TF_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-sw-en.20240212.2154e7.tar.gz"
         ],
         "md5": "60a57a128cda8c4a1460f1e3a0df002a",
-        "size compressed (bytes)": 683277315,
+        "size compressed (bytes)": 683272685,
         "total_terms": 83817100,
         "documents": 949013,
         "unique_terms": 265867,
@@ -1278,7 +1278,7 @@ TF_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-yo-en.20240212.2154e7.tar.gz"
         ],
         "md5": "84f29864973de98f2d93fe03a2908703",
-        "size compressed (bytes)": 60936367,
+        "size compressed (bytes)": 60934470,
         "total_terms": 7245155,
         "documents": 82095,
         "unique_terms": 68394,
@@ -2093,7 +2093,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-v3/lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.tar.gz"
         ],
         "md5": "52f4b59d236547f570555715ed314311",
-        "size compressed (bytes)": 2813677036,
+        "size compressed (bytes)": 2813676432,
         "total_terms": 46922883529,
         "documents": 8841823,
         "unique_terms": 27952,
@@ -2107,7 +2107,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-v3/lucene-inverted.msmarco-v1-passage.splade-v3-docvectors.20250329.4f4c68.tar.gz",
         ],
         "md5": "28fcf13a9b22ea2b9f9e90b650a9bee9",
-        "size compressed (bytes)": 17003543129,
+        "size compressed (bytes)": 17003537833,
         "total_terms": 46922883529,
         "documents": 8841823,
         "unique_terms": 27952,
@@ -2121,7 +2121,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-v3/lucene-inverted.msmarco-v1-passage.splade-v3-text.20250329.4f4c68.tar.gz",
         ],
         "md5": "ed19483173a6ebddb257cfef5f5d54d6",
-        "size compressed (bytes)": 15479149450,
+        "size compressed (bytes)": 15479150141,
         "total_terms": 46922883529,
         "documents": 8841823,
         "unique_terms": 27952,
@@ -4368,11 +4368,10 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-arabic.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-arabic.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-arabic.20220207.5df364.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Jgj3rYjbyRrmJs8/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-arabic.20220207.5df364.tar.gz"
         ],
         "md5": "de86c1ce43854bbeea4e3af5d95d6ffb",
-        "size compressed (bytes)": 5997943791,
+        "size compressed (bytes)": 5997718937,
         "documents": 2106586,
         "downloaded": False,
         "texts": "mrtydi-v1.1-arabic"
@@ -4382,8 +4381,7 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-bengali.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-bengali.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-bengali.20220207.5df364.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/4PpkzXAQtXFFJHR/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-bengali.20220207.5df364.tar.gz"
         ],
         "md5": "e60cb6f1f7139cf0551f0ba4e4e83bf6",
         "size compressed (bytes)": 865716848,
@@ -4396,8 +4394,7 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-english.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-english.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-english.20220207.5df364.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/A7pjbwYeoT4Krnj/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-english.20220207.5df364.tar.gz"
         ],
         "md5": "a0a8cc39e8af782ec82188a18c4c97c3",
         "size compressed (bytes)": 93585951488,
@@ -4410,8 +4407,7 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-finnish.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-finnish.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-finnish.20220207.5df364.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/erNYkrYzRZxpecz/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-finnish.20220207.5df364.tar.gz"
         ],
         "md5": "3e4e18aacf07ca551b474315f267ead6",
         "size compressed (bytes)": 5435516778,
@@ -4424,11 +4420,10 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-indonesian.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-indonesian.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-indonesian.20220207.5df364.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/BpR3MzT7KJ6edx7/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-indonesian.20220207.5df364.tar.gz"
         ],
         "md5": "0bf693e4046d9a565ae18b9f5939d193",
-        "size compressed (bytes)": 865716848,
+        "size compressed (bytes)": 4179177829,
         "documents": 4179177829,
         "downloaded": False,
         "texts": "mrtydi-v1.1-indonesian"
@@ -4438,8 +4433,7 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-japanese.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-japanese.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-japanese.20220207.5df364.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/k7bptHT8GwMJpnF/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-japanese.20220207.5df364.tar.gz"
         ],
         "md5": "4ba566e27bc0158108259b18a153e2fc",
         "size compressed (bytes)": 19920816424,
@@ -4452,8 +4446,7 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-korean.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-korean.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-korean.20220207.5df364.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/TigfYMde94YWAoE/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-korean.20220207.5df364.tar.gz"
         ],
         "md5": "44212e5722632d5bcb14f0680741638c",
         "size compressed (bytes)": 4257414237,
@@ -4466,8 +4459,7 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-russian.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-russian.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-russian.20220207.5df364.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/eN7demnmnspqxjk/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-russian.20220207.5df364.tar.gz"
         ],
         "md5": "e7634093f2a3362928e9699441ce8a3b",
         "size compressed (bytes)": 27317759143,
@@ -4480,8 +4472,7 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-swahili.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-swahili.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-swahili.20220207.5df364.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/JgiX8PRftnqcPwy/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-swahili.20220207.5df364.tar.gz"
         ],
         "md5": "5061bdd1d81bc32490bbb3682096acdd",
         "size compressed (bytes)": 389658394,
@@ -4494,8 +4485,7 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-telugu.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-telugu.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-telugu.20220207.5df364.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/dkm6RGdgRbnwiX2/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-telugu.20220207.5df364.tar.gz"
         ],
         "md5": "4952dacaeae89185d3757f9f26af4e88",
         "size compressed (bytes)": 1561173721,
@@ -4508,8 +4498,7 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-thai.20220207.5df364.tar.gz",
         "readme": "faiss.mrtydi-v1.1-thai.20220207.5df364.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-thai.20220207.5df364.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/fFrRYefd3nWFR3J/download"  # Note, this is Crystina's account.
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-thai.20220207.5df364.tar.gz"
         ],
         "md5": "2458f704b277fa8ffe2509b6296892a0",
         "size compressed (bytes)": 1616059846,
@@ -4526,7 +4515,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-arabic.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "bafb6fb2c530567dec26aa4597c6ee25",
-        "size compressed (bytes)": 5997943791,
+        "size compressed (bytes)": 5997944387,
         "documents": 2106586,
         "downloaded": False,
         "texts": "mrtydi-v1.1-arabic",
@@ -4539,7 +4528,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-bengali.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "d04bb6e634fb4f7df23dbff7481a8f9b",
-        "size compressed (bytes)": 865733058,
+        "size compressed (bytes)": 865733182,
         "documents": 304059,
         "downloaded": False,
         "texts": "mrtydi-v1.1-bengali",
@@ -4552,7 +4541,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-english.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "4a93a2211199f7359cc99486a9f93d02",
-        "size compressed (bytes)": 93594561391,
+        "size compressed (bytes)": 93594560123,
         "documents": 32907100,
         "downloaded": False,
         "texts": "mrtydi-v1.1-english"
@@ -4565,7 +4554,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-finnish.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "6cbe2d52225fb15a494857b9df593113",
-        "size compressed (bytes)": 5436419399,
+        "size compressed (bytes)": 5436419128,
         "documents": 1908757,
         "downloaded": False,
         "texts": "mrtydi-v1.1-finnish"
@@ -4578,7 +4567,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-indonesian.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "26108a7ee1fc5ac15e0b7fcecf4d39ad",
-        "size compressed (bytes)": 4178791300,
+        "size compressed (bytes)": 4178791340,
         "documents": 1469399,
         "downloaded": False,
         "texts": "mrtydi-v1.1-indonesian"
@@ -4591,7 +4580,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-japanese.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "2ef2b5e3f5778d99e65aafc48450508a",
-        "size compressed (bytes)": 19918319452,
+        "size compressed (bytes)": 19918319659,
         "documents": 7000027,
         "downloaded": False,
         "texts": "mrtydi-v1.1-japanese"
@@ -4604,7 +4593,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-korean.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "26ed9be031603019304b66f985ce154c",
-        "size compressed (bytes)": 4256863335,
+        "size compressed (bytes)": 4256863020,
         "documents": 1496126,
         "downloaded": False,
         "texts": "mrtydi-v1.1-korean"
@@ -4617,7 +4606,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-russian.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "b1be7a45a702be4021f38425c0001f39",
-        "size compressed (bytes)": 27318555548,
+        "size compressed (bytes)": 27318554290,
         "documents": 9597504,
         "downloaded": False,
         "texts": "mrtydi-v1.1-russian"
@@ -4630,7 +4619,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-swahili.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "14edb5f677820b5a5a3858555e900591",
-        "size compressed (bytes)": 389600527,
+        "size compressed (bytes)": 389600489,
         "documents": 136689,
         "downloaded": False,
         "texts": "mrtydi-v1.1-swahili"
@@ -4643,7 +4632,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-telugu.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "25b37f5d7a035a17b447f1732e241b85",
-        "size compressed (bytes)": 1561419958,
+        "size compressed (bytes)": 1561420074,
         "documents": 548224,
         "downloaded": False,
         "texts": "mrtydi-v1.1-telugu"
@@ -4656,11 +4645,12 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-thai.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "0544ce677fa31b633a29a079c0cdfc82",
-        "size compressed (bytes)": 1616716166,
+        "size compressed (bytes)": 1616716171,
         "documents": 568855,
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai"
     },
+
     "mrtydi-v1.1-arabic-mdpr-tied-pft-nq": {
         "description": "Faiss index for Mr.TyDi v1.1 (Arabic) corpus encoded by mDPR passage encoder pre-fine-tuned on NQ.",
         "filename": "faiss.mrtydi-v1.1-arabic.20220523.7b099d5.tar.gz",
@@ -4810,10 +4800,10 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-arabic.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-arabic.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-arabic.20220524.7b099d5.tar.gz"
         ],
         "md5": "9ea47ae7425fd3376f015ca7c6ba5134",
-        "size compressed (bytes)": 5988743258,
+        "size compressed (bytes)": 5993958479,
         "documents": 2106586,
         "downloaded": False,
         "texts": "mrtydi-v1.1-arabic"
@@ -4823,10 +4813,10 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-bengali.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-bengali.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-bengali.20220524.7b099d5.tar.gz"
         ],
         "md5": "d1e75f4960a723b068bb778a972ffb54",
-        "size compressed (bytes)": 864358280,
+        "size compressed (bytes)": 865412932,
         "documents": 304059,
         "downloaded": False,
         "texts": "mrtydi-v1.1-bengali"
@@ -4836,10 +4826,10 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-english.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-english.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-english.20220524.7b099d5.tar.gz"
         ],
         "md5": "1fce43e549ff57bbac432a579961f34b",
-        "size compressed (bytes)": 93435965796,
+        "size compressed (bytes)": 93697654837,
         "documents": 32907100,
         "downloaded": False,
         "texts": "mrtydi-v1.1-english"
@@ -4849,10 +4839,10 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-finnish.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-finnish.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-finnish.20220524.7b099d5.tar.gz"
         ],
         "md5": "6faa7b2fe8ad4b9ca284bd7e8f69b727",
-        "size compressed (bytes)": 5427976705,
+        "size compressed (bytes)": 5433647583,
         "documents": 1908757,
         "downloaded": False,
         "texts": "mrtydi-v1.1-finnish"
@@ -4862,10 +4852,10 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-indonesian.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-indonesian.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-indonesian.20220524.7b099d5.tar.gz"
         ],
         "md5": "659b1e0a1bea46f62a842b55385085b7",
-        "size compressed (bytes)": 4172976570,
+        "size compressed (bytes)": 4177273338,
         "documents": 4179177829,
         "downloaded": False,
         "texts": "mrtydi-v1.1-indonesian"
@@ -4875,10 +4865,10 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-japanese.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-japanese.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-japanese.20220524.7b099d5.tar.gz"
         ],
         "md5": "126c82da9e0e0e1fd290cf62d7fe4dfa",
-        "size compressed (bytes)": 19890571158,
+        "size compressed (bytes)": 19917667830,
         "documents": 7000027,
         "downloaded": False,
         "texts": "mrtydi-v1.1-japanese"
@@ -4888,10 +4878,10 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-korean.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-korean.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-korean.20220524.7b099d5.tar.gz"
         ],
         "md5": "cf07b71aaefba58bbe150265f6696503",
-        "size compressed (bytes)": 4250320804,
+        "size compressed (bytes)": 4256039967,
         "documents": 1496126,
         "downloaded": False,
         "texts": "mrtydi-v1.1-korean"
@@ -4901,10 +4891,10 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-russian.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-russian.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-russian.20220524.7b099d5.tar.gz"
         ],
         "md5": "c0a53fa6428cb9b1399a90e3a9a805d5",
-        "size compressed (bytes)": 27278520787,
+        "size compressed (bytes)": 27315435288,
         "documents": 9597504,
         "downloaded": False,
         "texts": "mrtydi-v1.1-russian"
@@ -4914,10 +4904,10 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-swahili.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-swahili.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-swahili.20220524.7b099d5.tar.gz"
         ],
         "md5": "93dc3f3453815c92f3bccf4f41c5f2d4",
-        "size compressed (bytes)": 389244265,
+        "size compressed (bytes)": 389336970,
         "documents": 136689,
         "downloaded": False,
         "texts": "mrtydi-v1.1-swahili"
@@ -4927,10 +4917,10 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-telugu.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-telugu.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-telugu.20220524.7b099d5.tar.gz"
         ],
         "md5": "7aba1b7ee36e572bd982b3f62f41c380",
-        "size compressed (bytes)": 1558691592,
+        "size compressed (bytes)": 1560353621,
         "documents": 548224,
         "downloaded": False,
         "texts": "mrtydi-v1.1-telugu"
@@ -4940,10 +4930,10 @@ FAISS_INDEX_INFO_MRTYDI = {
         "filename": "faiss.mrtydi-v1.1-thai.20220524.7b099d5.tar.gz",
         "readme": "faiss.mrtydi-v1.1.20220524.7b099d5.mdpr-tied-pft-msmarco-ft-all.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-thai.20220524.7b099d5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-thai.20220524.7b099d5.tar.gz"
         ],
         "md5": "57151073a4c0d90b64242e4536a3af75",
-        "size compressed (bytes)": 1613563144,
+        "size compressed (bytes)": 1615313134,
         "documents": 568855,
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai"
@@ -5876,7 +5866,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-ha.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
         ],
         "md5": "1feb2fb70d16117bd588f7d2168758c8",
-        "size compressed (bytes)": 2023010322,
+        "size compressed (bytes)": 2023010636,
         "documents": 715355,
         "downloaded": False,
         "texts": "ciral-v1.0-ha"
@@ -5890,7 +5880,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-so.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
         ],
         "md5": "eb5a9ab2c0aea0939768980f93bd28a2",
-        "size compressed (bytes)": 2356035617,
+        "size compressed (bytes)": 2356035207,
         "documents": 827552,
         "downloaded": False,
         "texts": "ciral-v1.0-so"
@@ -5904,7 +5894,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-sw.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
         ],
         "md5": "0a0412eadf7fb8895bbc6d7090019352",
-        "size compressed (bytes)": 2689039681,
+        "size compressed (bytes)": 2689038831,
         "documents": 949013,
         "downloaded": False,
         "texts": "ciral-v1.0-sw"
@@ -5918,7 +5908,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-yo.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
         ],
         "md5": "0f84c7f8594b6352aa26970565877668",
-        "size compressed (bytes)": 233478865,
+        "size compressed (bytes)": 233478586,
         "documents": 82095,
         "downloaded": False,
         "texts": "ciral-v1.0-yo"
@@ -5932,7 +5922,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-ha.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
         ],
         "md5": "809f7c3c211c019a345e7bc8a716ff7b",
-        "size compressed (bytes)": 2023992537,
+        "size compressed (bytes)": 2023992713,
         "documents": 715355,
         "downloaded": False,
         "texts": "ciral-v1.0-ha"
@@ -5946,7 +5936,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-so.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
         ],
         "md5": "0ef7404ef10f3135f6a11addcf723504",
-        "size compressed (bytes)": 2356542056,
+        "size compressed (bytes)": 2356542027,
         "documents": 827552,
         "downloaded": False,
         "texts": "ciral-v1.0-so"
@@ -5960,7 +5950,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-sw.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
         ],
         "md5": "1951d3f61eef760407c66c426e5047c6",
-        "size compressed (bytes)": 2688836963,
+        "size compressed (bytes)": 2688836925,
         "documents": 949013,
         "downloaded": False,
         "texts": "ciral-v1.0-sw"
@@ -5974,7 +5964,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-yo.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
         ],
         "md5": "f433299809c659cfc4dede6c42d4a3fd",
-        "size compressed (bytes)": 233490972,
+        "size compressed (bytes)": 233490804,
         "documents": 82095,
         "downloaded": False,
         "texts": "ciral-v1.0-yo"
