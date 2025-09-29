@@ -918,7 +918,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz"
         ],
         "md5": "503d3b49a557222d8074ac831a2f047a",
-        "size compressed (bytes)": 1193292491,
+        "size compressed (bytes)": 1187504365,
         "total_terms": 90223450,
         "documents": 2061414,
         "unique_terms": 1246254,
@@ -932,7 +932,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-bn.20221004.2b2856.tar.gz"
         ],
         "md5": "7a20210328f0b83f44e041f0c94d30e2",
-        "size compressed (bytes)": 236113202,
+        "size compressed (bytes)": 236115752,
         "total_terms": 14963235,
         "documents": 297265,
         "unique_terms": 506812,
@@ -946,7 +946,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-en.20221004.2b2856.tar.gz"
         ],
         "md5": "4fbd652deb76bcc05daa35392d4aa9f3",
-        "size compressed (bytes)": 17823436054,
+        "size compressed (bytes)": 17702731887,
         "total_terms": 1505029955,
         "documents": 32893221,
         "unique_terms": 6152316,
@@ -960,7 +960,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-es.20221004.2b2856.tar.gz"
         ],
         "md5": "b4c9993ee3a131871d4f07dd96e80531",
-        "size compressed (bytes)": 5474245249,
+        "size compressed (bytes)": 5438142131,
         "total_terms": 389319806,
         "documents": 10373953,
         "unique_terms": 2907509,
@@ -974,7 +974,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-fa.20221004.2b2856.tar.gz"
         ],
         "md5": "bfc824aa37633e3d45bcfd5c5e0e1701",
-        "size compressed (bytes)": 1023090577,
+        "size compressed (bytes)": 1017387904,
         "total_terms": 67968038,
         "documents": 2207172,
         "unique_terms": 1208930,
@@ -988,7 +988,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-fi.20221004.2b2856.tar.gz"
         ],
         "md5": "4197c90efd781c6153acaf15452c5479",
-        "size compressed (bytes)": 925422988,
+        "size compressed (bytes)": 916687116,
         "total_terms": 68295087,
         "documents": 1883509,
         "unique_terms": 1669817,
@@ -1002,7 +1002,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-fr.20221004.2b2856.tar.gz"
         ],
         "md5": "e68b10d90be71b702888a3d00a8aa39c",
-        "size compressed (bytes)": 6747612709,
+        "size compressed (bytes)": 6684522892,
         "total_terms": 508723988,
         "documents": 14636953,
         "unique_terms": 2811342,
@@ -1016,7 +1016,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-hi.20221004.2b2856.tar.gz"
         ],
         "md5": "d81f4e2b7ec5df8f9741168c23c977e2",
-        "size compressed (bytes)": 340997734,
+        "size compressed (bytes)": 340836547,
         "total_terms": 21080143,
         "documents": 506264,
         "unique_terms": 597558,
@@ -1030,7 +1030,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-id.20221004.2b2856.tar.gz"
         ],
         "md5": "b1092e732991029fae7c542e5e129255",
-        "size compressed (bytes)": 577263718,
+        "size compressed (bytes)": 572215307,
         "total_terms": 51469219,
         "documents": 1446315,
         "unique_terms": 911944,
@@ -1044,7 +1044,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ja.20221004.2b2856.tar.gz"
         ],
         "md5": "4db9550d0af63736a0fd2b486b3b7273",
-        "size compressed (bytes)": 3745158372,
+        "size compressed (bytes)": 3734999654,
         "total_terms": 296659169,
         "documents": 6953614,
         "unique_terms": 1558643,
@@ -1058,7 +1058,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ko.20221004.2b2856.tar.gz"
         ],
         "md5": "c82f5c7641fd78b8dadfcb279a1c0340",
-        "size compressed (bytes)": 1150899287,
+        "size compressed (bytes)": 1146272936,
         "total_terms": 121464424,
         "documents": 1486752,
         "unique_terms": 1504782,
@@ -1072,7 +1072,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ru.20221004.2b2856.tar.gz"
         ],
         "md5": "c1b974e298d9e1deeccae8b84a5bcd64",
-        "size compressed (bytes)": 6003987738,
+        "size compressed (bytes)": 5955535508,
         "total_terms": 343106870,
         "documents": 9543918,
         "unique_terms": 2955627,
@@ -1086,7 +1086,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-sw.20221004.2b2856.tar.gz"
         ],
         "md5": "64b77bcc11e04575d0723ad81ac7c135",
-        "size compressed (bytes)": 45410264,
+        "size compressed (bytes)": 45406742,
         "total_terms": 4752278,
         "documents": 131924,
         "unique_terms": 361306,
@@ -1100,7 +1100,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-te.20221004.2b2856.tar.gz"
         ],
         "md5": "1f78c68678f439a3143a6fb0d25bfe27",
-        "size compressed (bytes)": 402045711,
+        "size compressed (bytes)": 401362581,
         "total_terms": 26105595,
         "documents": 518079,
         "unique_terms": 1120047,
@@ -1114,7 +1114,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-th.20221004.2b2856.tar.gz"
         ],
         "md5": "eeef93c23b76fdc66b9e1ee01576765e",
-        "size compressed (bytes)": 431498349,
+        "size compressed (bytes)": 430808790,
         "total_terms": 29922100,
         "documents": 542166,
         "unique_terms": 626084,
@@ -1128,7 +1128,7 @@ TF_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-zh.20221004.2b2856.tar.gz"
         ],
         "md5": "dc7880da333b7c56d3a4ff0bf018febd",
-        "size compressed (bytes)": 4212198217,
+        "size compressed (bytes)": 4141810894,
         "total_terms": 423635495,
         "documents": 4934368,
         "unique_terms": 6517412,
@@ -1813,7 +1813,7 @@ TF_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.text.flat.base.tar.gz"
         ],
         "md5": "fe2f0beb617f5ade4ffce6d05adfbc7a",
-        "size compressed (bytes)": 5532187295,
+        "size compressed (bytes)": 804662397,
         "total_terms": 520954965,
         "documents": 3029504,
         "unique_terms": -1,
@@ -4949,7 +4949,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "177d47e9a802c87abca52380ad1ce83b",
-        "size compressed (bytes)": 5997943791,
+        "size compressed (bytes)": 5870688114,
         "documents": 2061414,
         "downloaded": False,
         "texts": "miracl-v1.0-ar",
@@ -4962,7 +4962,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "156e8ba8cd369b1c4a606e28ea025b2e",
-        "size compressed (bytes)": 846825710,
+        "size compressed (bytes)": 846825797,
         "documents": 297265,
         "downloaded": False,
         "texts": "miracl-v1.0-bn",
@@ -4975,7 +4975,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "ce00518f54b130a157112c2a1b2d0980",
-        "size compressed (bytes)": 93554329467,
+        "size compressed (bytes)": 93554329940,
         "documents": 32893221,
         "downloaded": False,
         "texts": "miracl-v1.0-en"
@@ -4988,7 +4988,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "d7a9627bb60e901386f455ba6c9063ac",
-        "size compressed (bytes)": 29553300598,
+        "size compressed (bytes)": 29553300438,
         "documents": 10373953,
         "downloaded": False,
         "texts": "miracl-v1.0-es"
@@ -5014,7 +5014,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "a82d6e6cf964d2e4cfac99cf14cbcc35",
-        "size compressed (bytes)": 5366190875,
+        "size compressed (bytes)": 5366191108,
         "documents": 1883509,
         "downloaded": False,
         "texts": "miracl-v1.0-fi"
@@ -5027,7 +5027,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "a952d944aa63dcee604c8357f1be18db",
-        "size compressed (bytes)": 41648462587,
+        "size compressed (bytes)": 41648462352,
         "documents": 14636953,
         "downloaded": False,
         "texts": "miracl-v1.0-fr"
@@ -5040,7 +5040,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "9d1dc4b948edf3df263977d82c9fcc3f",
-        "size compressed (bytes)": 1440625097,
+        "size compressed (bytes)": 1440625237,
         "documents": 506264,
         "downloaded": False,
         "texts": "miracl-v1.0-hi"
@@ -5053,7 +5053,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "19815233f5cc3a198b88cdb990459637",
-        "size compressed (bytes)": 4115281873,
+        "size compressed (bytes)": 4115281733,
         "documents": 1446315,
         "downloaded": False,
         "texts": "miracl-v1.0-id"
@@ -5066,7 +5066,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "6e9b6e304b2b1a192a3d81e55880f971",
-        "size compressed (bytes)": 19791965448,
+        "size compressed (bytes)": 19791966022,
         "documents": 6953614,
         "downloaded": False,
         "texts": "miracl-v1.0-ja"
@@ -5079,7 +5079,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "ea1fa34341fc5d5ea88e5b633025d2d5",
-        "size compressed (bytes)": 4231563116,
+        "size compressed (bytes)": 4231563143,
         "documents": 1486752,
         "downloaded": False,
         "texts": "miracl-v1.0-korean"
@@ -5092,7 +5092,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "4325e716ee6af5ea2b73d4b25f1ad76c",
-        "size compressed (bytes)": 27173379698,
+        "size compressed (bytes)": 27173380025,
         "documents": 9543918,
         "downloaded": False,
         "texts": "miracl-v1.0-ru"
@@ -5105,7 +5105,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "2b879dac6823077ae497ba8ebfce523b",
-        "size compressed (bytes)": 376181791,
+        "size compressed (bytes)": 376181743,
         "documents": 131924,
         "downloaded": False,
         "texts": "miracl-v1.0-sw"
@@ -5118,7 +5118,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "a3dfb8ba31f316c93d1fd147f88fbbfd",
-        "size compressed (bytes)": 1476021181,
+        "size compressed (bytes)": 1476021093,
         "documents": 518079,
         "downloaded": False,
         "texts": "miracl-v1.0-te"
@@ -5131,7 +5131,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "cb0c9b84a80ff338372b32857c58368d",
-        "size compressed (bytes)": 1541590044,
+        "size compressed (bytes)": 1541590102,
         "documents": 542166,
         "downloaded": False,
         "texts": "miracl-v1.0-th"
@@ -5144,7 +5144,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "2743dfaa794b7abbef1d3c912c5cc4b5",
-        "size compressed (bytes)": 14046912361,
+        "size compressed (bytes)": 14046912278,
         "documents": 4934368,
         "downloaded": False,
         "texts": "miracl-v1.0-zh",
@@ -6579,7 +6579,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-H-14.laion2b_s32b_b79k.image.faiss.flat.tar.gz"
         ],
         "md5": "3cacbc8af251dd59177140b83de61024",
-        "size compressed (bytes)": 39192329951,
+        "size compressed (bytes)": 11892351956,
         "documents": 3803656,
         "downloaded": False,
         "texts": "atomic_image_v0.2_large"
@@ -6696,7 +6696,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/openai.clip-vit-large-patch14.text.faiss.flat.tar.gz"
         ],
         "md5": "c6303d01cac83be6902df2967782d2cb",
-        "size compressed (bytes)": 27399921354,
+        "size compressed (bytes)": 16045947302,
         "documents": 10134744,
         "downloaded": False,
         "texts": "atomic_text_v0.2.1_large"
