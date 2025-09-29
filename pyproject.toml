@@ -8,6 +8,9 @@ include = ["pyserini*"]
 exclude = ["tests*", "tests-optional", "integrations", "integrations-optional"]
 namespaces = false
 
+[tool.black]
+skip-string-normalization = true
+
 [project]
 name = "pyserini"
 version = "1.2.0"
