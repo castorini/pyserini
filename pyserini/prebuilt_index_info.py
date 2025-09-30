@@ -4988,7 +4988,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "d7a9627bb60e901386f455ba6c9063ac",
-        "size compressed (bytes)": 29553300438,
+        "size compressed (bytes)": 23649550336,
         "documents": 10373953,
         "downloaded": False,
         "texts": "miracl-v1.0-es"
@@ -5497,7 +5497,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco-ft-miracl-fr.20230329.e40d4a.tar.gz",
         ],
         "md5": "8cf28f8df0805a848cb5c54d5f5d8bfb",
-        "size compressed (bytes)": 41654288474,
+        "size compressed (bytes)": 3450699776,
         "documents": 14636953,
         "downloaded": False,
         "texts": "miracl-v1.0-fr"
