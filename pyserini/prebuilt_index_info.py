@@ -1813,7 +1813,7 @@ TF_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.text.flat.base.tar.gz"
         ],
         "md5": "fe2f0beb617f5ade4ffce6d05adfbc7a",
-        "size compressed (bytes)": 804662397,
+        "size compressed (bytes)": 5532187295,
         "total_terms": 520954965,
         "documents": 3029504,
         "unique_terms": -1,
@@ -4988,7 +4988,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "d7a9627bb60e901386f455ba6c9063ac",
-        "size compressed (bytes)": 23649550336,
+        "size compressed (bytes)": 29553300438,
         "documents": 10373953,
         "downloaded": False,
         "texts": "miracl-v1.0-es"
@@ -5497,7 +5497,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco-ft-miracl-fr.20230329.e40d4a.tar.gz",
         ],
         "md5": "8cf28f8df0805a848cb5c54d5f5d8bfb",
-        "size compressed (bytes)": 3450699776,
+        "size compressed (bytes)": 41654288474,
         "documents": 14636953,
         "downloaded": False,
         "texts": "miracl-v1.0-fr"
@@ -6579,7 +6579,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-H-14.laion2b_s32b_b79k.image.faiss.flat.tar.gz"
         ],
         "md5": "3cacbc8af251dd59177140b83de61024",
-        "size compressed (bytes)": 11892351956,
+        "size compressed (bytes)": 39192329951,
         "documents": 3803656,
         "downloaded": False,
         "texts": "atomic_image_v0.2_large"
@@ -6696,7 +6696,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/openai.clip-vit-large-patch14.text.faiss.flat.tar.gz"
         ],
         "md5": "c6303d01cac83be6902df2967782d2cb",
-        "size compressed (bytes)": 16045947302,
+        "size compressed (bytes)": 27399921354,
         "documents": 10134744,
         "downloaded": False,
         "texts": "atomic_text_v0.2.1_large"
