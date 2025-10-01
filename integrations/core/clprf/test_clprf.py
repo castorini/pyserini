@@ -19,8 +19,8 @@ import shutil
 import unittest
 from random import randint
 
-from integrations.lucenesearcher_score_checker import LuceneSearcherScoreChecker
-from integrations.utils import run_command, parse_score
+from integrations.core.lucenesearcher_score_checker import LuceneSearcherScoreChecker
+from integrations.core.utils import run_command, parse_score
 from pyserini.search.lucene import LuceneSearcher
 
 

@@ -17,7 +17,7 @@
 import os
 from typing import List
 
-from integrations.utils import run_command, parse_score
+from integrations.core.utils import run_command, parse_score
 
 
 class LuceneSearcherScoreChecker:

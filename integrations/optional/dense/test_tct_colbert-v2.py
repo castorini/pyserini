@@ -20,7 +20,7 @@ import multiprocessing
 import os
 import unittest
 
-from integrations.utils import clean_files, run_command, parse_score
+from integrations.core.utils import clean_files, run_command, parse_score
 
 
 class TestTctColBertV2(unittest.TestCase):

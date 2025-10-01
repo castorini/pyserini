@@ -20,7 +20,7 @@ import multiprocessing
 import os
 import unittest
 
-from integrations.utils import clean_files, run_command, parse_score_qa
+from integrations.core.utils import clean_files, run_command, parse_score_qa
 
 
 class TestECIR2023(unittest.TestCase):

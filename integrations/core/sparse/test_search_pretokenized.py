@@ -19,7 +19,7 @@ import shutil
 import unittest
 from random import randint
 
-from integrations.lucenesearcher_score_checker import LuceneSearcherScoreChecker
+from integrations.core.lucenesearcher_score_checker import LuceneSearcherScoreChecker
 
 
 class TestSearchIntegration(unittest.TestCase):
