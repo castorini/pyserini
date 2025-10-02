@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     cmd = f'python -m pyserini.2cr.odqa ' + \
           f'--topic {args.topics} ' + \
-          f'--all '
+          f'--all --directory runs/ '
 
     if args.dry_run:
         cmd += f'--dry-run '

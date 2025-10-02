@@ -32,7 +32,9 @@ class TestSearchIntegration(unittest.TestCase):
         LuceneSearcher.from_prebuilt_index('disk45')
         LuceneSearcher.from_prebuilt_index('aquaint')
 
-        self.tmp = f'integrations/tmp{randint(0, 10000)}'
+        # We assume running in the base directory from the command line.
+        # Testcase will *not* run from inside the IDE.
+        self.tmp = f'runs/integrations-tmp{randint(0, 10000)}'
 
         if os.path.exists(self.tmp):
             shutil.rmtree(self.tmp)

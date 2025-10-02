@@ -27,13 +27,9 @@ from pyserini.util import download_url, download_prebuilt_index
 
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
-
-        curdir = os.getcwd()
-        if curdir.endswith('clprf'):
-            self.pyserini_root = '../..'
-        else:
-            self.pyserini_root = '.'
-
+        # We assume running in the base directory from the command line.
+        # Testcase will *not* run from inside the IDE.
+        self.pyserini_root = '.'
         self.tmp = f'{self.pyserini_root}/integrations/tmp{randint(0, 10000)}'
 
         # In the rare event there's a collision
