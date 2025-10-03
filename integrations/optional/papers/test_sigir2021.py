@@ -19,7 +19,7 @@
 import os
 import unittest
 
-from integrations.core.utils import clean_files, run_command, parse_score_msmarco
+from integrations.utils import clean_files, run_command, parse_score_msmarco
 from pyserini.encode import TctColBertQueryEncoder
 from pyserini.index.lucene import LuceneIndexReader
 from pyserini.search import get_topics, get_qrels

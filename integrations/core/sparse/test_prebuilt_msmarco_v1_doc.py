@@ -18,7 +18,7 @@
 
 import unittest
 
-from integrations.core.utils import run_retrieval_and_return_scores
+from integrations.utils import run_retrieval_and_return_scores
 
 
 class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):

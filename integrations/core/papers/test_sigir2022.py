@@ -20,7 +20,7 @@ import multiprocessing
 import os
 import unittest
 
-from integrations.core.utils import clean_files, run_command, parse_score, parse_score_msmarco
+from integrations.utils import clean_files, run_command, parse_score, parse_score_msmarco
 
 
 class TestSIGIR2022(unittest.TestCase):

@@ -19,7 +19,7 @@ import shutil
 import unittest
 from random import randint
 
-from integrations.core.utils import run_command, parse_score
+from integrations.utils import run_command, parse_score
 from pyserini.util import download_url
 
 

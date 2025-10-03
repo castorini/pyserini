@@ -21,7 +21,7 @@ import os
 import re
 import unittest
 
-from integrations.core.utils import clean_files, run_command
+from integrations.utils import clean_files, run_command
 
 
 def parse_kilt_score(output, metric, digits=4):
