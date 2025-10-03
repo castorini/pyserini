@@ -16,32 +16,32 @@
 
 import unittest
 
-from integrations.lucenesearcher_anserini_checker import LuceneSearcherAnseriniMatchChecker
+from integrations.core.lucenesearcher_anserini_checker import LuceneSearcherAnseriniMatchChecker
 from pyserini.search.lucene import LuceneSearcher
 
 
-class CheckSearchResultsAgainstAnseriniForRobust05(unittest.TestCase):
+class CheckSearchResultsAgainstAnseriniForCore17(unittest.TestCase):
     def setUp(self):
         # Make sure the required index is downloaded.
-        LuceneSearcher.from_prebuilt_index('aquaint')
+        LuceneSearcher.from_prebuilt_index('nyt')
 
         self.checker = LuceneSearcherAnseriniMatchChecker(
-            index='robust05',
-            topics='tools/topics-and-qrels/topics.robust05.txt',
-            pyserini_topics='robust05',
-            qrels='tools/topics-and-qrels/qrels.robust05.txt')
+            index='nyt',
+            topics='tools/topics-and-qrels/topics.core17.txt',
+            pyserini_topics='core17',
+            qrels='tools/topics-and-qrels/qrels.core17.txt')
 
     def test_bm25(self):
-        self.assertTrue(self.checker.run('robust05_bm25', '-bm25', '--bm25'))
+        self.assertTrue(self.checker.run('core17_bm25', '-bm25', '--bm25'))
 
     def test_bm25_rm3(self):
-        self.assertTrue(self.checker.run('robust05_bm25_rm3', '-bm25 -rm3', '--bm25 --rm3'))
+        self.assertTrue(self.checker.run('core17_bm25_rm3', '-bm25 -rm3', '--bm25 --rm3'))
 
     def test_qld(self):
-        self.assertTrue(self.checker.run('robust05_qld', '-qld', '--qld'))
+        self.assertTrue(self.checker.run('core17_qld', '-qld', '--qld'))
 
     def test_qld_rm3(self):
-        self.assertTrue(self.checker.run('robust05_qld_rm3', '-qld -rm3', '--qld --rm3'))
+        self.assertTrue(self.checker.run('core17_qld_rm3', '-qld -rm3', '--qld --rm3'))
 
     def tearDown(self):
         pass

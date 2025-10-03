@@ -16,7 +16,7 @@
 
 import unittest
 
-from integrations.run_lucenesearcher import RunLuceneSearcher
+from integrations.core.run_lucenesearcher import RunLuceneSearcher
 
 
 class TestSearchIntegration(unittest.TestCase):

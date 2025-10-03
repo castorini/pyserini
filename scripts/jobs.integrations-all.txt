@@ -1,5 +1,5 @@
-python -m unittest discover -s integrations/sparse > logs/log.core-sparse 2>&1
-python -m unittest discover -s integrations/clprf > logs/log.core-clprf 2>&1
-python -m unittest discover -s integrations/papers > logs/log.core-papers 2>&1
-python -m unittest discover -s integrations-optional/dense > logs/log.optional-dense 2>&1
-python -m unittest discover -s integrations-optional/papers > logs/log.optional-papers 2>&1
+python -m unittest discover -s integrations/core/sparse > logs/log.core.sparse 2>&1
+python -m unittest discover -s integrations/core/clprf > logs/log.core.clprf 2>&1
+python -m unittest discover -s integrations/core/papers > logs/log.core.papers 2>&1
+python -m unittest discover -s integrations/optional/dense > logs/log.optional.dense 2>&1
+python -m unittest discover -s integrations/optional/papers > logs/log.optional.papers 2>&1
