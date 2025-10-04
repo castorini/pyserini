@@ -19,18 +19,14 @@ import shutil
 import unittest
 from random import randint
 
-from integrations.lucenesearcher_score_checker import LuceneSearcherScoreChecker
+from integrations.core.lucenesearcher_score_checker import LuceneSearcherScoreChecker
 
 
 class TestSearchIntegration(unittest.TestCase):
     def setUp(self):
-        # The current directory depends on if you're running inside an IDE or from command line.
-        curdir = os.getcwd()
-        if curdir.endswith('sparse'):
-            self.pyserini_root = '../..'
-        else:
-            self.pyserini_root = '.'
-
+        # We assume running in the base directory from the command line.
+        # Testcase will *not* run from inside the IDE.
+        self.pyserini_root = '.'
         self.tmp = f'{self.pyserini_root}/integrations/tmp{randint(0, 10000)}'
 
         if os.path.exists(self.tmp):
