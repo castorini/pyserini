@@ -222,7 +222,7 @@ $rows
 To list all the experimental conditions:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.m-beir --list-conditions
+python -m pyserini.2cr.m_beir --list-conditions
 </tt></blockquote>
 
 <p>These conditions correspond to the table rows above.</p>
@@ -230,13 +230,13 @@ python -m pyserini.2cr.m-beir --list-conditions
 <p>For all conditions, just show the commands in a "dry run":</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.m-beir --all --display-commands --dry-run
+python -m pyserini.2cr.m_beir --all --display-commands --dry-run
 </tt></blockquote>
 
 <p>To actually run all the experimental conditions:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.m-beir --all --display-commands
+python -m pyserini.2cr.m_beir --all --display-commands
 </tt></blockquote>
 
 <p>With the above command, run files will be placed in the current directory.
@@ -245,7 +245,7 @@ Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.<
 <p>To show the commands for a specific condition:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.m-beir --condition clip-sf-large --display-commands --dry-run
+python -m pyserini.2cr.m_beir --condition clip-sf-large --display-commands --dry-run
 </tt></blockquote>
 
 <p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
@@ -253,7 +253,7 @@ python -m pyserini.2cr.m-beir --condition clip-sf-large --display-commands --dry
 <p>To actually run a specific condition:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.m-beir --condition clip-sf-large --display-commands
+python -m pyserini.2cr.m_beir --condition clip-sf-large --display-commands
 </tt></blockquote>
 
 <p>Again, with the above command, run files will be placed in the current directory.
@@ -262,7 +262,7 @@ Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.<
 <p>Finally, to generate this page:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.m-beir --generate-report --output m-beir.html
+python -m pyserini.2cr.m_beir --generate-report --output m-beir.html
 </tt></blockquote>
 
 <p>The output file <tt>m-beir.html</tt> should be identical to this page.</p>
