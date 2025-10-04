@@ -93,7 +93,7 @@ def fix_qrels(dataset_name):
     return fixed_qrels_file
 
 def list_conditions():  
-    with importlib.resources.files('pyserini.2cr').joinpath('m-beir.yaml').open('r') as f:  
+    with importlib.resources.files('pyserini.2cr').joinpath('m_beir.yaml').open('r') as f:  
         yaml_data = yaml.safe_load(f)  
         for condition in yaml_data['conditions']:  
             print(condition['name'])
@@ -127,7 +127,7 @@ def run_conditions(args):
       
     table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))  
       
-    with importlib.resources.files('pyserini.2cr').joinpath('m-beir.yaml').open('r') as f:  
+    with importlib.resources.files('pyserini.2cr').joinpath('m_beir.yaml').open('r') as f:  
         yaml_data = yaml.safe_load(f)  
         for condition in yaml_data['conditions']:  
             name = condition['name']  
@@ -202,10 +202,10 @@ def generate_report(args):
     commands = defaultdict(lambda: defaultdict(lambda: ''))    
     eval_commands = defaultdict(lambda: defaultdict(lambda: ''))    
         
-    html_template = read_file('m-beir_html.template')    
-    row_template = read_file('m-beir_html_row.template')    
+    html_template = read_file('m_beir_html.template')    
+    row_template = read_file('m_beir_html_row.template')    
         
-    with importlib.resources.files('pyserini.2cr').joinpath('m-beir.yaml').open('r') as f:    
+    with importlib.resources.files('pyserini.2cr').joinpath('m_beir.yaml').open('r') as f:    
         yaml_data = yaml.safe_load(f)    
         for condition in yaml_data['conditions']:    
             name = condition['name']    
