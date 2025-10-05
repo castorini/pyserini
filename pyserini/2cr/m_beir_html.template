@@ -235,6 +235,10 @@ python -m pyserini.2cr.m_beir --all --display-commands --dry-run
 
 <p>To actually run all the experimental conditions:</p>
 
+First download all the datasets by running the download_all_datasets.py script in scripts/m-beir
+
+<p>Then, download the 4 parts of the image dataset from <a href="https://huggingface.co/datasets/TIGER-Lab/M-BEIR/tree/main">here</a>, merge them into 1 tar.gz file and extract it by following the specified <a href="https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/README.md#downloading-the-m-beir-dataset">instructions</a>. Make sure the extracted folder is in collections/m-beir.</p>
+
 <blockquote class="mycode2"><tt>
 python -m pyserini.2cr.m_beir --all --display-commands
 </tt></blockquote>

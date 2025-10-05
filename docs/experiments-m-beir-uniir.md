@@ -20,10 +20,15 @@ Finally, download the [topics](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/
 
 ```bash
 wget -O collections/m-beir/CIRR/mbeir_cirr_task7_test_topics.jsonl \
-    https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/query/test/mbeir_cirr_task7_test.jsonl
+    "https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/query/test/mbeir_cirr_task7_test.jsonl"
 wget -O collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels.txt \
-  "https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/qrels/test/mbeir_cirr_task7_test_qrels.txt"
+    "https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/qrels/test/mbeir_cirr_task7_test_qrels.txt"
 ```
+
+**Downloading and running the full M-BEIR dataset:**
+Run `python scripts/m-beir/download_all_datasets` and then run `./scripts/m-beir/fix_qrels`
+
+IMPORTANT: To run the script, male sure `huggingface_hub` is installed and make sure the extracted images folder is in the same directory as the rest of the datasets files.
 
 ## Passage Collection
 
