@@ -20,9 +20,91 @@ Finally, download the [topics](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/
 
 ```bash
 wget -O collections/m-beir/CIRR/mbeir_cirr_task7_test_topics.jsonl \
-    https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/query/test/mbeir_cirr_task7_test.jsonl
+    "https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/query/test/mbeir_cirr_task7_test.jsonl"
 wget -O collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels.txt \
-  "https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/qrels/test/mbeir_cirr_task7_test_qrels.txt"
+    "https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/qrels/test/mbeir_cirr_task7_test_qrels.txt"
+```
+
+**To download the full M-BEIR dataset to run full 2CR, run the following python script:**
+IMPORTANT: Make sure the extracted images folder is in the same directory as the rest of the datasets files and that `huggingface_hub` is installed.
+```python
+import os
+from huggingface_hub import snapshot_download
+import shutil
+
+output_dir = "collections/m-beir"
+os.makedirs(output_dir, exist_ok=True)
+
+repo_id = "TIGER-Lab/M-BEIR"
+
+print("Downloading M-BEIR datasets...")
+
+# Download cand_pool files
+print("Downloading corpus files...")
+snapshot_download(
+    repo_id=repo_id,
+    repo_type="dataset",
+    allow_patterns="cand_pool/local/*.jsonl",
+    local_dir=output_dir,
+    local_dir_use_symlinks=False
+)
+
+# Download query files
+print("Downloading topic files...")
+snapshot_download(
+    repo_id=repo_id,
+    repo_type="dataset",
+    allow_patterns="query/test/*.jsonl",
+    local_dir=output_dir,
+    local_dir_use_symlinks=False
+)
+
+# Download qrels files
+print("Downloading qrel files...")
+snapshot_download(
+    repo_id=repo_id,
+    repo_type="dataset",
+    allow_patterns="qrels/test/*.txt",
+    local_dir=output_dir,
+    local_dir_use_symlinks=False
+)
+
+# Move files from subdirectories to main directory
+print("🔄 Organizing files...")
+subdirs_to_clean = [
+    "cand_pool/local",
+    "query/test",
+    "qrels/test"
+]
+
+for subdir in subdirs_to_clean:
+    full_path = os.path.join(output_dir, subdir)
+    if os.path.exists(full_path):
+        for file in os.listdir(full_path):
+            src = os.path.join(full_path, file)
+            dst = os.path.join(output_dir, file)
+            shutil.move(src, dst)
+
+        os.rmdir(full_path)
+        os.rmdir(os.path.dirname(full_path))
+
+print("✅ Download complete!")
+print(f"All files are in: {output_dir}")
+```
+
+Then, run the following bash script to fix the qrels files:
+```bash
+#!/bin/bash
+
+for file in collections/m-beir/*.txt; do
+    if [[ -f "$file" ]]; then
+        base_name="${file%.txt}"
+        fixed_file="${base_name}_fixed.txt"
+        
+        echo "Processing: $file -> $fixed_file"
+        cut -d' ' -f1-4 "$file" > "$fixed_file"
+    fi
+done
 ```
 
 ## Passage Collection
