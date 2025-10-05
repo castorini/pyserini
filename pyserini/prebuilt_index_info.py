@@ -2647,7 +2647,7 @@ FAISS_INDEX_INFO_MSMARCO = {
         "size compressed (bytes)": 58514326319,
         "documents": 20544550,
         "downloaded": False,
-        "texts": "smarco-v1-doc"
+        "texts": "msmarco-v1-doc"
     },
     "msmarco-v1-doc-segmented.tct_colbert-v2-hnp": {
         "description": "Faiss flat index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP",
@@ -5082,7 +5082,7 @@ FAISS_INDEX_INFO_MIRACL = {
         "size compressed (bytes)": 4231563143,
         "documents": 1486752,
         "downloaded": False,
-        "texts": "miracl-v1.0-korean"
+        "texts": "miracl-v1.0-ko"
     },
     "miracl-v1.0-ru-mdpr-tied-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
@@ -5317,7 +5317,7 @@ FAISS_INDEX_INFO_MIRACL = {
         "size compressed (bytes)": 4230830690,
         "documents": 1486752,
         "downloaded": False,
-        "texts": "miracl-v1.0-korean"
+        "texts": "miracl-v1.0-ko"
     },
     "miracl-v1.0-ru-mdpr-tied-pft-msmarco-ft-all": {
         "description": "Faiss index for MIRACL v1.0 (Russian) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
@@ -5761,7 +5761,7 @@ FAISS_INDEX_INFO_MIRACL = {
         "size compressed (bytes)": 4229330667,
         "documents": 1486752,
         "downloaded": False,
-        "texts": "miracl-v1.0-korean"
+        "texts": "miracl-v1.0-ko"
     },
     "miracl-v1.0-ru-mcontriever-pft-msmarco": {
         "description": "Faiss index for MIRACL v1.0 (Russian) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.",
