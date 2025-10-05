@@ -25,8 +25,10 @@ wget -O collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels.txt \
     "https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/qrels/test/mbeir_cirr_task7_test_qrels.txt"
 ```
 
-**To download the full M-BEIR dataset to run full 2CR, run the following python script:**
-IMPORTANT: Make sure the extracted images folder is in the same directory as the rest of the datasets files and that `huggingface_hub` is installed.
+**Downloading and running the full M-BEIR dataset:**
+Run `python scripts/m-beir/download_all_datasets` and then run `./scripts/m-beir/fix_qrels`
+
+IMPORTANT: To run the script, male sure `huggingface_hub` is installed and make sure the extracted images folder is in the same directory as the rest of the datasets files.
 
 ## Passage Collection
 
