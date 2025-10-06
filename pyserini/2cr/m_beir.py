@@ -84,8 +84,8 @@ def get_metrics_for_dataset(dataset_name):
         return trec_eval_metric_definitions["default"]
 
 def fix_qrels(dataset_name):
-    qrels_file = f'collection/m-beir/mbeir_{dataset_name}_test_qrels.txt'
-    fixed_qrels_file = f'collection/m-beir/mbeir_{dataset_name}_test_fixed_qrels.txt'
+    qrels_file = f'collections/m-beir/mbeir_{dataset_name}_test_qrels.txt'
+    fixed_qrels_file = f'collections/m-beir/mbeir_{dataset_name}_test_fixed_qrels.txt'
     with open(qrels_file, 'r') as infile, open(fixed_qrels_file, 'w') as outfile:
         for line in infile:
             fields = line.strip().split(' ')[:4]
