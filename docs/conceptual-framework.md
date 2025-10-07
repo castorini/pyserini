@@ -106,7 +106,7 @@ This is the BM25 vector representation for that document:
 ```
 
 This requires a bit of explanation.
-As previously mentioned, BM25 is a so-called "bag-of-words" model, which means that the representation of the document is a **sparse** vector, which each dimension corresponds to a term in the vocabulary space.
+As previously mentioned, BM25 is a so-called "bag-of-words" model, which means that the representation of the document is a **sparse** vector, in which each dimension corresponds to a term in the vocabulary space.
 Usually, we say "terms" (or sometimes "tokens") instead of "words" because there's some amount of processing to tokenize the input document.
 Typically, words are converted into lower case, "stopwords" are discarded, and some form of stemming is applied (e.g., to remove suffixes).
 
