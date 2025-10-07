@@ -97,7 +97,6 @@ This is the BM25 vector representation for that document:
     "gener": 2.2932770252227783,
     "her": 2.7393782138824463,
     "hier": 8.24051284790039,
-
     "manag": 2.832794189453125,
     "paula": 6.438521862030029,
     "su": 5.404428005218506,
