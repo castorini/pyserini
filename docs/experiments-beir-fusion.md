@@ -1,6 +1,6 @@
-# Pyserini: Fusion on the BEIR Datasets with FAISS
+# Pyserini: Fusion on the BEIR Datasets
 
-This page documents the results of running fusion retrieval on the BEIR datasets using Pyserini with FAISS dense indexes.
+This page documents the results of running fusion retrieval on the BEIR datasets using Pyserini with BM25 and FAISS dense indexes.
 
 Currently, Pyserini provides support for the following fusion methods:
 
@@ -25,8 +25,6 @@ The runs of two models were fused:
 Since there were only two runs fused, the average and interpolation methods produced the same results.
 
 Three metrics were used for evaluation: nDCG@10, R@100, and R@1000.
-
-
 
 The table below reports the effectiveness of the methods with the **nDCG@10** metric and the base runs fused for reference:
 
