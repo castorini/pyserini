@@ -143,7 +143,6 @@ pre[class*="prettyprint"] {
 <p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.
 Instructions for programmatic execution are shown at the bottom of this page (scroll down).
 
-The metrics used in the 2CR tables are R@10, R@20, R@50 for the fashion datasets, and R@1, R@5, R@10 for the others.
 </p>
 
 <div class="table-responsive">  
@@ -165,13 +164,13 @@ The metrics used in the 2CR tables are R@10, R@20, R@50 for the fashion datasets
       <tr>  
         <th class="headerbottom" scope="col"></th>  
         <th class="headerbottom" scope="col"></th>  
-        <th class="headerbottom" scope="col">Metric 1</th>  
-        <th class="headerbottom" scope="col">Metric 2</th>
-        <th class="headerbottom" scope="col">Metric 3</th>
+        <th class="headerbottom" scope="col">nDCG@10</th>  
+        <th class="headerbottom" scope="col">R@20</th>
+        <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col"></th>  
-        <th class="headerbottom" scope="col">Metric 1</th>
-        <th class="headerbottom" scope="col">Metric 2</th>  
-        <th class="headerbottom" scope="col">Metric 3</th>  
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@20</th>  
+        <th class="headerbottom" scope="col">R@100</th>  
       </tr>  
     </thead>  
     <tbody>  
