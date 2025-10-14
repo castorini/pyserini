@@ -28,6 +28,9 @@ import yaml
 
 from ._base import fail_str, ok_str, okish_str, run_eval_and_return_metric
 
+dense_threads = 16
+dense_batch_size = 512
+
 trec_eval_metric_definitions = {
     # Default metrics for most datasets
     "default": {
@@ -147,7 +150,7 @@ def run_conditions(args):
                 print(f'  - Dataset: {dataset}')  
                   
                 runfile = os.path.join(args.directory, f'run.m-beir-{dataset}.{name}.txt')  
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)  
+                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)  
                   
                 if args.display_commands:  
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')  
@@ -215,7 +218,7 @@ def generate_report(args):
                 dataset = datasets['dataset']    
                     
                 runfile = os.path.join(args.directory, f'run.m-beir-{dataset}.{name}.txt')    
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)    
+                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)    
                 commands[dataset][name] = format_run_command(cmd)    
                     
                 dataset_metrics = get_metrics_for_dataset(dataset)    
