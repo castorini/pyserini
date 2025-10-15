@@ -106,7 +106,7 @@ This is the BM25 vector representation for that document:
 ```
 
 This requires a bit of explanation.
-As previously mentioned, BM25 is a so-called "bag-of-words" model, which means that the representation of the document is a **sparse** vector, which each dimension corresponds to a term in the vocabulary space.
+As previously mentioned, BM25 is a so-called "bag-of-words" model, which means that the representation of the document is a **sparse** vector, where each dimension corresponds to a term in the vocabulary space.
 Usually, we say "terms" (or sometimes "tokens") instead of "words" because there's some amount of processing to tokenize the input document.
 Typically, words are converted into lower case, "stopwords" are discarded, and some form of stemming is applied (e.g., to remove suffixes).
 
@@ -428,4 +428,5 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@rashadjn](https://github.com/rashadjn) on 2025-09-19 (commit [`9815d56`](https://github.com/castorini/pyserini/commit/9815d56eb4e41a62d59e41cbd49af25c6a907338))
 + Results reproduced by [@samin-mehdizadeh](https://github.com/samin-mehdizadeh) on 2025-09-28 (commit [`b853071`](https://github.com/castorini/pyserini/commit/b853071b2fff4ee8951e8fce455ad61ace893b57))
 + Results reproduced by [@AniruddhThakur](https://github.com/AniruddhThakur) on 2025-10-05 (commit [`5de309a`](https://github.com/castorini/pyserini/commit/5de309ad6ca5129b62d611cd33d38e4d8bf4c66d))
++ Results reproduced by [@prav0761](https://github.com/prav0761) on 2025-10-13 (commit [`322d95d`](https://github.com/castorini/pyserini/commit/322d95d67621862ff5ddee4b398155cc5b1b68fc))
 + Results reproduced by [@InanSyed](https://github.com/InanSyed) on 2025-10-15 (commit [`eca61d9`](https://github.com/castorini/pyserini/commit/eca61d948721b7a1ab4ccda55d5d3e66f419dfef))

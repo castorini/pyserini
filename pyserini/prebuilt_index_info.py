@@ -6065,7 +6065,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-cirr_task7.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-cirr_task7.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-cirr_task7.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "4af4333e424e5c8595441ad4d2b6fa08",
         "size compressed (bytes)": 38820730,
@@ -6078,7 +6078,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-edis_task2.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-edis_task2.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-edis_task2.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "2a0d71c95055c5e382fc820bee2161b8",
         "size compressed (bytes)": 1889299324,
@@ -6091,7 +6091,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-fashion200k_task0.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashion200k_task0.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashion200k_task0.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "d0e48e530b965bd65f985d06513c7062",
         "size compressed (bytes)": 275676078,
@@ -6104,7 +6104,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-fashion200k_task3.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashion200k_task3.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashion200k_task3.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "50ebf04ad3b1503b99972f25d797e77b",
         "size compressed (bytes)": 111421780,
@@ -6117,7 +6117,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-fashioniq_task7.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashioniq_task7.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashioniq_task7.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "07064083dbc49d8646e1c38892682f2d",
         "size compressed (bytes)": 134234457,
@@ -6130,7 +6130,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-infoseek_task6.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-infoseek_task6.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-infoseek_task6.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "af35375569f70efac106ac5b8b3632a5",
         "size compressed (bytes)": 1106443187,
@@ -6143,7 +6143,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-infoseek_task8.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-infoseek_task8.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-infoseek_task8.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "b85539bb06cf8e7078e489b4edc8b2e5",
         "size compressed (bytes)": 870316186,
@@ -6156,7 +6156,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-mscoco_task0.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-mscoco_task0.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-mscoco_task0.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "d065301db4e284f3dc24643926a12add",
         "size compressed (bytes)": 9018789,
@@ -6169,7 +6169,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-mscoco_task3.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-mscoco_task3.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-mscoco_task3.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "19a0adcff9de5015078bad937e6eba50",
         "size compressed (bytes)": 44894584,
@@ -6182,7 +6182,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-nights_task4.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-nights_task4.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-nights_task4.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "2e0b2494401aa40f3144cf93d69a2c59",
         "size compressed (bytes)": 72059050,
@@ -6195,7 +6195,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-oven_task6.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-oven_task6.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-oven_task6.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "84a6a3ea9df44744e3c37b8559242128",
         "size compressed (bytes)": 1224169375,
@@ -6208,7 +6208,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-oven_task8.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-oven_task8.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-oven_task8.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "c63f53ec2271d99f16c34082d4bcf0e2",
         "size compressed (bytes)": 605530489,
@@ -6221,7 +6221,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-visualnews_task0.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-visualnews_task0.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-visualnews_task0.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "ef86806c451f2efc98d56906f75df539",
         "size compressed (bytes)": 978324225,
@@ -6234,7 +6234,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-visualnews_task3.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-visualnews_task3.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-visualnews_task3.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "90455c3468ce499bd8557bf3f7b37eb0",
         "size compressed (bytes)": 972354799,
@@ -6247,7 +6247,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-webqa_task1.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-webqa_task1.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-webqa_task1.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "f970899d8ae98ac7c94af549869494cd",
         "size compressed (bytes)": 983306361,
@@ -6260,7 +6260,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-webqa_task2.clip-sf-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-webqa_task2.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-webqa_task2.clip-sf-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "476b8347b8913c28d60b6de273e39ea4",
         "size compressed (bytes)": 726339525,
@@ -6273,7 +6273,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-cirr_task7.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-cirr_task7.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-cirr_task7.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "517bdbfdb66351e42f9ce66439be07b1",
         "size compressed (bytes)": 38780136,
@@ -6286,7 +6286,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-edis_task2.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-edis_task2.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-edis_task2.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "36c698e50f9f6879e306a09cb1a3a5da",
         "size compressed (bytes)": 1882867131,
@@ -6299,7 +6299,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-fashion200k_task0.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashion200k_task0.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashion200k_task0.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "b8093bea1c071d096f92199a5a8ed2ce",
         "size compressed (bytes)": 361950478,
@@ -6312,7 +6312,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-fashion200k_task3.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashion200k_task3.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashion200k_task3.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "2466efffba9937727d48e661d1a4587c",
         "size compressed (bytes)": 111002142,
@@ -6325,7 +6325,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-fashioniq_task7.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashioniq_task7.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashioniq_task7.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "ab8c3aefade704614e1e1f847a037e88",
         "size compressed (bytes)": 133813792,
@@ -6338,7 +6338,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-infoseek_task6.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-infoseek_task6.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-infoseek_task6.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "ad9e1c09e4d3130072547a4636ae7cf9",
         "size compressed (bytes)": 1101016470,
@@ -6351,7 +6351,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-infoseek_task8.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-infoseek_task8.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-infoseek_task8.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "0bc0b96b5933727126fa47ebdeb2f1d6",
         "size compressed (bytes)": 867072949,
@@ -6364,7 +6364,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-mscoco_task0.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-mscoco_task0.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-mscoco_task0.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "d1343d630d2f992ba76495d679a70dc3",
         "size compressed (bytes)": 8997998,
@@ -6377,7 +6377,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-mscoco_task3.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-mscoco_task3.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-mscoco_task3.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "233e97ad4e6cc5632755f9d893bb7569",
         "size compressed (bytes)": 44642859,
@@ -6390,7 +6390,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-nights_task4.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-nights_task4.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-nights_task4.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "41ead8fbb5a9a748a63c7836dbeff4d5",
         "size compressed (bytes)": 72066211,
@@ -6403,7 +6403,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-oven_task6.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-oven_task6.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-oven_task6.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "8d2646395ff2998399f2b2b383855aaf",
         "size compressed (bytes)": 1217884724,
@@ -6416,7 +6416,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-oven_task8.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-oven_task8.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-oven_task8.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "e8c77b7ed36ef0a2a0465eb77aafe86f",
         "size compressed (bytes)": 603290723,
@@ -6429,7 +6429,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-visualnews_task0.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-visualnews_task0.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-visualnews_task0.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "380393ce1636c67a32dbc3f4eb014866",
         "size compressed (bytes)": 975317010,
@@ -6442,7 +6442,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-visualnews_task3.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-visualnews_task3.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-visualnews_task3.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "93b6d867560f1b31dd01f5348a4cc121",
         "size compressed (bytes)": 967518619,
@@ -6455,7 +6455,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-webqa_task1.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-webqa_task1.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-webqa_task1.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "97397c11b9be3260891bb5330ac1d2f0",
         "size compressed (bytes)": 979823093,
@@ -6468,7 +6468,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "filename": "faiss-flat.m-beir-webqa_task2.blip-ff-large.20250813.a9ec58.tar.gz",
         "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mbeir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-webqa_task2.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-webqa_task2.blip-ff-large.20250813.a9ec58.tar.gz"
         ],
         "md5": "16a5987fa48ed4db7382255577290e91",
         "size compressed (bytes)": 724733316,
