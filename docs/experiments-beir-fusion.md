@@ -1,11 +1,11 @@
 # Pyserini: Fusion on the BEIR Datasets
 
-This page documents the results of running fusion retrieval on the BEIR datasets using Pyserini with BM25 and FAISS dense indexes.
+This page documents the results of running fusion retrieval on the BEIR datasets using Pyserini with BM25 and BGE indexes.
 
 Currently, Pyserini provides support for the following fusion methods:
 
 ### **RRF** = Reciprocal Rank Fusion
-Rank-based fusion using reciprocal ranks: `RRF_score(d) = Σ(1 / (k + rank_i(d)))` where `k=60`. 
+Rank-based fusion using reciprocal ranks: `RRF_score(d) = Σ(1 / (k + rank_i(d)))` where `k=60`.  
 ### **Average** = Averaging scores on a list of runs
 Simple arithmetic mean: `Average_score(d) = (1/n) × Σ(score_i(d))`
 ### **Interpolation** = Weighted sum of two runs
@@ -20,15 +20,15 @@ For all experiments recorded here, the values k = 1000, depth = 1000, rrf_k = 60
 
 The runs of two models were fused:
 + **BM25**: Sparse retrieval using flat BM25 index
-+ **BGE-FAISS**: Dense retrieval using bge-base-en-v1.5 with FAISS index
++ **BGE**: Dense retrieval using bge-base-en-v1.5 with dense flat index
 
 Since there were only two runs fused, the average and interpolation methods produced the same results.
 
 Three metrics were used for evaluation: nDCG@10, R@100, and R@1000.
 
-The table below reports the effectiveness of the methods with the **nDCG@10** metric and the base runs fused for reference:
+The table below reports the effectiveness of the methods with the nDCG@10 metric and the base runs fused for reference:
 
-| Corpus                    |    RRF | Average | Interpolation | Normalize |   BM25 | BGE-Lucene |
+| Corpus                    |    RRF | Average | Interpolation | Normalize |   BM25 |    BGE |
 |---------------------------|-------:|--------:|--------------:|----------:|-------:|-----------:|
 | `trec-covid` | 0.8041 | 0.6567 | 0.6567 | 0.7956 | 0.5947 | 0.7815 |
 | `bioasq` | 0.5278 | 0.5315 | 0.5315 | 0.5442 | 0.5225 | 0.4148 |
@@ -61,9 +61,9 @@ The table below reports the effectiveness of the methods with the **nDCG@10** me
 | `scifact` | 0.7420 | 0.6806 | 0.6806 | 0.7472 | 0.6789 | 0.7408 |
 
 
-The table below reports the effectiveness of the methods with the **R@100** metric:
+The table below reports the effectiveness of the methods with the R@100 metric:
 
-| Corpus                    |    RRF | Average | Interpolation | Normalize |   BM25 | BGE-Lucene |
+| Corpus                    |    RRF | Average | Interpolation | Normalize |   BM25 |    BGE |
 |---------------------------|-------:|--------:|--------------:|----------:|-------:|-----------:|
 | `trec-covid` | 0.1467 | 0.1255 | 0.1255 | 0.1518 | 0.1091 | 0.1406 |
 | `bioasq` | 0.8128 | 0.7869 | 0.7869 | 0.8143 | 0.7687 | 0.6316 |
@@ -96,9 +96,9 @@ The table below reports the effectiveness of the methods with the **R@100** metr
 | `scifact` | 0.9767 | 0.9327 | 0.9327 | 0.9700 | 0.9253 | 0.9667 |
 
 
-The table below reports the effectiveness of the methods with the **R@1000** metric:
+The table below reports the effectiveness of the methods with the R@1000 metric:
 
-| Corpus                    |    RRF | Average | Interpolation | Normalize |   BM25 | BGE-Lucene |
+| Corpus                    |    RRF | Average | Interpolation | Normalize |   BM25 |    BGE |
 |---------------------------|-------:|--------:|--------------:|----------:|-------:|-----------:|
 | `trec-covid` | 0.5029 | 0.3955 | 0.3955 | 0.5010 | 0.3955 | 0.4765 |
 | `bioasq` | 0.9281 | 0.9030 | 0.9030 | 0.9281 | 0.9030 | 0.8062 |
@@ -132,10 +132,6 @@ The table below reports the effectiveness of the methods with the **R@1000** met
 
 
 ## Run and Evaluate
-
-### Running Retrieval and Fusion with Pyserini
-
-### Run and Evaluate
 
 ```bash
 CORPORA=(trec-covid bioasq nfcorpus nq hotpotqa fiqa signal1m trec-news robust04 arguana webis-touche2020 cqadupstack-android cqadupstack-english cqadupstack-gaming cqadupstack-gis cqadupstack-mathematica cqadupstack-physics cqadupstack-programmers cqadupstack-stats cqadupstack-tex cqadupstack-unix cqadupstack-webmasters cqadupstack-wordpress quora dbpedia-entity scidocs fever climate-fever scifact)
@@ -213,7 +209,7 @@ do
     python -m pyserini.eval.trec_eval -c -m recall.100 beir-v1.0.0-${c}-test runs/run.inverted.beir-v1.0.0-${c}.flat.test.bm25
     python -m pyserini.eval.trec_eval -c -m recall.1000 beir-v1.0.0-${c}-test runs/run.inverted.beir-v1.0.0-${c}.flat.test.bm25
 
-    # BGE Lucene ONNX"$EVAL_FILE"
+    # BGE Lucene ONNX"
     python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 beir-v1.0.0-${c}-test runs/run.flat.beir-v1.0.0-${c}.bge-base-en-v1.5.test.bge-flat-onnx-lucene.txt
     python -m pyserini.eval.trec_eval -c -m recall.100 beir-v1.0.0-${c}-test runs/run.flat.beir-v1.0.0-${c}.bge-base-en-v1.5.test.bge-flat-onnx-lucene.txt
     python -m pyserini.eval.trec_eval -c -m recall.1000 beir-v1.0.0-${c}-test runs/run.flat.beir-v1.0.0-${c}.bge-base-en-v1.5.test.bge-flat-onnx-lucene.txt
