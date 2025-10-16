@@ -149,7 +149,6 @@ do
         --batch-size 128
 
     # bge search using Lucene ONNX
-
     python -m pyserini.search.lucene \
         --dense \
         --flat \
