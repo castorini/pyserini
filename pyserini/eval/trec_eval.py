@@ -42,12 +42,8 @@ import jnius_config
 import pandas as pd
 
 # Don't use the jdk.incubator.vector module.
-jar_directory = str(importlib.resources.files("pyserini.resources.jars"))
-jar_path = glob.glob(os.path.join(jar_directory, '*.jar'))
-if not jar_path:
-    # Fallback: try to find the jar file directly
-    jar_path = [str(importlib.resources.files("pyserini.resources.jars").joinpath("anserini-1.3.1-SNAPSHOT-fatjar.jar"))]
-jar_path = jar_path[0]
+jar_directory = str(importlib.resources.files("pyserini.resources.jars").joinpath(''))
+jar_path = glob.glob(os.path.join(jar_directory, '*.jar'))[0]
 
 try:
     jnius_config.add_classpath(jar_path)
