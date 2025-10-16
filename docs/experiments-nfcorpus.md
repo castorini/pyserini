@@ -1,4 +1,4 @@
-g Pyserini: BGE-base Baseline for NFCorpus
+# Pyserini: BGE-base Baseline for NFCorpus
 
 This guide contains instructions for running a BGE-base baseline for NFCorpus.
 
