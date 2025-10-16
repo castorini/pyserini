@@ -24,6 +24,7 @@ class FusionMethod(Enum):
     RRF = 'rrf'
     INTERPOLATION = 'interpolation'
     AVERAGE = 'average'
+    NORMALIZE = 'normalize'
 
 
 def reciprocal_rank_fusion(runs: List[TrecRun], rrf_k: int = 60, depth: int = None, k: int = None):
@@ -110,3 +111,28 @@ def average(runs: List[TrecRun], depth: int = None, k: int = None):
 
     scaled_runs = [run.clone().rescore(method=RescoreMethod.SCALE, scale=(1/len(runs))) for run in runs]
     return TrecRun.merge(scaled_runs, AggregationMethod.SUM, depth=depth, k=k)
+
+
+def normalize(runs: List[TrecRun], depth: int = None, k: int = None):
+    """Perform fusion by normalization on a list of ``TrecRun`` objects. Scores in each run are normalized
+    to the range [0, 1] using min-max normalization before merging.
+
+    Parameters
+    ----------
+    runs : List[TrecRun]
+        List of ``TrecRun`` objects.
+    depth : int
+        Maximum number of results from each input run to consider. Set to ``None`` by default, which indicates that
+        the complete list of results is considered.
+    k : int
+        Length of final results list.  Set to ``None`` by default, which indicates that the union of all input documents
+        are ranked.
+
+    Returns
+    -------
+    TrecRun
+        Output ``TrecRun`` that combines input runs via normalization.
+    """
+
+    normalized_runs = [run.clone().rescore(method=RescoreMethod.NORMALIZE) for run in runs]
+    return TrecRun.merge(normalized_runs, AggregationMethod.SUM, depth=depth, k=k)

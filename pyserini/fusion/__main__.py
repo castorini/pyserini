@@ -16,7 +16,7 @@
 
 import argparse
 
-from pyserini.fusion import average, interpolation, reciprocal_rank_fusion
+from pyserini.fusion import average, interpolation, normalize, reciprocal_rank_fusion
 from ._base import FusionMethod
 from ..trectools import TrecRun
 
@@ -43,6 +43,8 @@ elif args.method == FusionMethod.INTERPOLATION:
     fused_run = interpolation(trec_runs, alpha=args.alpha, depth=args.depth, k=args.k)
 elif args.method == FusionMethod.AVERAGE:
     fused_run = average(trec_runs, depth=args.depth, k=args.k)
+elif args.method == FusionMethod.NORMALIZE:
+    fused_run = normalize(trec_runs, depth=args.depth, k=args.k)
 else:
     raise NotImplementedError(f'Fusion method {args.method} not implemented.')
 
