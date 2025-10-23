@@ -147,17 +147,16 @@ class TrecRun:
             assert scale is not None, 'Parameter "scale" must not be none.'
             self.run_data['score'] = self.run_data['score'].values * scale
         elif method == RescoreMethod.NORMALIZE:
-            for topic in self.topics():
-                scores = self.run_data[self.run_data['topic'] == topic]['score'].copy().values
-                low = np.min(scores)
-                high = np.max(scores)
-
+            # Vectorized min-max normalization per topic
+            def normalize_scores(group):
+                scores = group.values
+                low = scores.min()
+                high = scores.max()
                 if high - low == 0:
-                    self.run_data.loc[self.run_data['topic'] == topic, 'score'] = 1
+                    return np.ones_like(scores)
                 else:
-                    scores = (scores - low) / (high - low)
-                    scores = [float(score) for score in scores]
-                    self.run_data.loc[self.run_data['topic'] == topic, 'score'] = scores
+                    return (scores - low) / (high - low)
+            self.run_data['score'] = self.run_data.groupby('topic')['score'].transform(normalize_scores)
         else:
             raise NotImplementedError()
 
@@ -234,7 +233,6 @@ class TrecRun:
     @staticmethod
     def merge(runs, aggregation: AggregationMethod, depth: int = None, k: int = None):
         """Return a TrecRun by aggregating docid in various ways such as summing scores
-
         Parameters
         ----------
         runs : List[TrecRun]
@@ -248,39 +246,49 @@ class TrecRun:
             Length of final results list.  Set to ``None`` by default, which indicates that the union of all input documents
             are ranked.
         """
-
         if len(runs) < 2:
             raise Exception('Merge requires at least 2 runs.')
 
-        rows = []
-
         if aggregation == AggregationMethod.SUM:
-            topics = list(TrecRun.get_all_topics_from_runs(runs))
+            # Step 1: Collect all dataframes from all runs
+            all_dfs = []
+            for run in runs:
+                if depth is not None:
+                    # Apply depth limit per topic per run using vectorized groupby
+                    df = run.run_data.groupby('topic', sort=False).head(depth)[['topic', 'docid', 'score']].copy()
+                else:
+                    df = run.run_data[['topic', 'docid', 'score']].copy()
+                all_dfs.append(df)
 
-            def merge_topic(topic):
-                doc_scores = dict()
+            # Step 2: Concatenate all dataframes at once (vectorized)
+            combined_df = pd.concat(all_dfs, ignore_index=True)
 
-                for run in runs:
-                    for docid, score in run.get_docs_by_topic(topic, depth)[['docid', 'score']].values:
-                        doc_scores[docid] = doc_scores.get(docid, 0.0) + score
+            # Step 3: Group by topic and docid, sum scores (vectorized aggregation)
+            merged_df = combined_df.groupby(['topic', 'docid'], as_index=False, sort=False)['score'].sum()
 
-                sorted_doc_scores = sorted(iter(doc_scores.items()), key=lambda x: (-x[1], x[0]))
-                sorted_doc_scores = sorted_doc_scores if k is None else sorted_doc_scores[:k]
+            # Step 4: Sort by topic (ascending), score (descending), docid (ascending for tie-breaking)
+            merged_df = merged_df.sort_values(['topic', 'score', 'docid'], 
+                                             ascending=[True, False, True],
+                                             ignore_index=True)
 
-                return [
-                    (topic, 'Q0', docid, rank, score, 'merge_sum')
-                    for rank, (docid, score) in enumerate(sorted_doc_scores, start=1)
-                ]
+            # Step 5: Apply k limit per topic if specified (vectorized)
+            if k is not None:
+                merged_df = merged_df.groupby('topic', sort=False).head(k)
 
-            max_workers = max(len(topics)/10, 1)
-            with ThreadPoolExecutor(max_workers=int(max_workers)) as exec:
-                results = list(exec.map(merge_topic, topics))
+            # Step 6: Add required columns and assign ranks (vectorized)
+            merged_df.insert(1, 'q0', 'Q0')
+            merged_df['tag'] = 'merge_sum'
+            merged_df.insert(3, 'rank', merged_df.groupby('topic', sort=False).cumcount() + 1)
 
-            rows = list(itertools.chain.from_iterable(results))
+            # Reorder columns to match TrecRun format: ['topic', 'q0', 'docid', 'rank', 'score', 'tag']
+            merged_df = merged_df[['topic', 'q0', 'docid', 'rank', 'score', 'tag']]
+
+            result = TrecRun()
+            result.run_data = merged_df
+            return result
         else:
             raise NotImplementedError()
 
-        return TrecRun.from_list(rows)
 
     @staticmethod
     def from_dataframes(dfs, run=None):

@@ -14,4 +14,4 @@
 # limitations under the License.
 #
 
-from ._base import average, FusionMethod, interpolation, reciprocal_rank_fusion
+from ._base import average, FusionMethod, interpolation, normalize, reciprocal_rank_fusion

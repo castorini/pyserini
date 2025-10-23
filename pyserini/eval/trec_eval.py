@@ -95,7 +95,7 @@ def trec_eval(
             if 'Q0' not in first_line:
                 temp_file = tempfile.NamedTemporaryFile(delete=False).name
                 print('msmarco run detected. Converting to trec...')
-                run = pd.read_csv(args[-1], sep='\s+', header=None, names=['query_id', 'doc_id', 'rank'])
+                run = pd.read_csv(args[-1], sep=r'\s+', header=None, names=['query_id', 'doc_id', 'rank'])
                 run['score'] = 1 / run['rank']
                 run.insert(1, 'Q0', 'Q0')
                 run['name'] = 'TEMPRUN'
@@ -105,8 +105,8 @@ def trec_eval(
         if not os.path.exists(args[-1]):
             print(f"The run file {args[-1]} does not exist!")
             sys.exit()
-        run = pd.read_csv(args[-1], sep='\s+', engine='python', header=None)
-        qrels = pd.read_csv(args[-2], sep='\s+', engine='python', header=None)
+        run = pd.read_csv(args[-1], sep=r'\s+', engine='python', header=None)
+        qrels = pd.read_csv(args[-2], sep=r'\s+', engine='python', header=None)
 
         # cast doc_id column as string
         run[0] = run[0].astype(str)
