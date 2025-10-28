@@ -47,11 +47,11 @@ pip install torch torchvision torchaudio
 # If you want the optional dependencies, otherwise skip
 conda install -c pytorch faiss-cpu -y
 
-# Good idea to always explicitly specify the latest version, found here: https://pypi.org/project/pyserini/
-pip install pyserini==latest
+# Good idea to always explicitly specify the latest version, found here: https://pypi.org/project/pyserini/#history
+pip install pyserini==<latest>
 # If you want the optional dependencies, otherwise skip; the temperamental packages are already installed at this point
 # so should be smooth...
-pip install 'pyserini[optional]==latest'
+pip install 'pyserini[optional]==<latest>'
 ```
 
 If you're on an Intel-based Mac, adjust the recipe accordingly for `osx-64`.
