@@ -219,7 +219,7 @@ Command to generate run:
   --output run.m-beir-cirr_task7.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -252,7 +252,7 @@ Command to generate run:
   --output run.m-beir-cirr_task7.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -322,7 +322,7 @@ Command to generate run:
   --output run.m-beir-edis_task2.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -355,7 +355,7 @@ Command to generate run:
   --output run.m-beir-edis_task2.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -425,7 +425,7 @@ Command to generate run:
   --output run.m-beir-fashion200k_task0.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -458,7 +458,7 @@ Command to generate run:
   --output run.m-beir-fashion200k_task0.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -528,7 +528,7 @@ Command to generate run:
   --output run.m-beir-fashion200k_task3.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -561,7 +561,7 @@ Command to generate run:
   --output run.m-beir-fashion200k_task3.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -631,7 +631,7 @@ Command to generate run:
   --output run.m-beir-fashioniq_task7.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -664,7 +664,7 @@ Command to generate run:
   --output run.m-beir-fashioniq_task7.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -698,9 +698,9 @@ python -m pyserini.eval.trec_eval \
 <td>0.0324</td>  
 <td>0.0574</td>  
 <td></td>  
-<td>0.5947</td>  
-<td>0.1091</td>  
-<td>0.3955</td>  
+<td>0.0135</td>  
+<td>0.0580</td>  
+<td>0.0961</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -734,7 +734,7 @@ Command to generate run:
   --output run.m-beir-infoseek_task6.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -767,7 +767,7 @@ Command to generate run:
   --output run.m-beir-infoseek_task6.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -837,7 +837,7 @@ Command to generate run:
   --output run.m-beir-infoseek_task8.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -870,7 +870,7 @@ Command to generate run:
   --output run.m-beir-infoseek_task8.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -940,7 +940,7 @@ Command to generate run:
   --output run.m-beir-mscoco_task0.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -973,7 +973,7 @@ Command to generate run:
   --output run.m-beir-mscoco_task0.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1043,7 +1043,7 @@ Command to generate run:
   --output run.m-beir-mscoco_task3.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1076,7 +1076,7 @@ Command to generate run:
   --output run.m-beir-mscoco_task3.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1146,7 +1146,7 @@ Command to generate run:
   --output run.m-beir-nights_task4.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1179,7 +1179,7 @@ Command to generate run:
   --output run.m-beir-nights_task4.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1249,7 +1249,7 @@ Command to generate run:
   --output run.m-beir-oven_task6.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1282,7 +1282,7 @@ Command to generate run:
   --output run.m-beir-oven_task6.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1352,7 +1352,7 @@ Command to generate run:
   --output run.m-beir-oven_task8.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1385,7 +1385,7 @@ Command to generate run:
   --output run.m-beir-oven_task8.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1455,7 +1455,7 @@ Command to generate run:
   --output run.m-beir-visualnews_task0.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1488,7 +1488,7 @@ Command to generate run:
   --output run.m-beir-visualnews_task0.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1558,7 +1558,7 @@ Command to generate run:
   --output run.m-beir-visualnews_task3.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1591,7 +1591,7 @@ Command to generate run:
   --output run.m-beir-visualnews_task3.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1661,7 +1661,7 @@ Command to generate run:
   --output run.m-beir-webqa_task1.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1694,7 +1694,7 @@ Command to generate run:
   --output run.m-beir-webqa_task1.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1764,7 +1764,7 @@ Command to generate run:
   --output run.m-beir-webqa_task2.clip-sf-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1797,7 +1797,7 @@ Command to generate run:
   --output run.m-beir-webqa_task2.blip-ff-large.txt \
   --hits 1000 \
   --remove-query \
-  --fp16  
+  --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
