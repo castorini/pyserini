@@ -112,9 +112,9 @@ conditions:
             R@50: 0.4513
       - dataset: infoseek_task6
         scores:
-          - R@1: 0.5947
-            R@5: 0.1091
-            R@10: 0.3955
+          - R@1: 0.0135
+            R@5: 0.0580
+            R@10: 0.0961
       - dataset: infoseek_task8
         scores:
           - R@1: 0.0182
