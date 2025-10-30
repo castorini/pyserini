@@ -694,4 +694,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@Raptors65](https://github.com/Raptors65) on 2025-10-29 (commit [`8237181`](https://github.com/castorini/pyserini/commit/8237181239312494b2acaf514856598098c9923d))
 + Results reproduced by [@yektakia](https://github.com/yektakia) on 2025-10-29 (commit [`e1fd559`](https://github.com/castorini/pyserini/commit/e1fd559))  
 + Results reproduced by [@MahdiNoori2003](https://github.com/MahdiNoori2003) on 2025-10-29 (commit [`dc1ae1b`](https://github.com/castorini/pyserini/commit/dc1ae1be36dc924645a4ed03e3141ed0451b8415))
-
++ Results reproduced again by [yektakia](https://github.com/yektakia) on 2025-10-31 (commit [`6076fbe`](https://github.com/yektakia/pyserini/commit/6076fbe))
