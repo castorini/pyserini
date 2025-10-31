@@ -159,9 +159,9 @@ def run_conditions(args):
                               
             print('')  
     
-    print_results_by_metric_position(table, 0, 'Metric 1 (R@1 for most datasets, R@10 for fashion datasets)')
-    print_results_by_metric_position(table, 1, 'Metric 2 (R@5 for most datasets, R@20 for fashion datasets)')
-    print_results_by_metric_position(table, 2, 'Metric 3 (R@10 for most datasets, R@50 for fashion datasets)')
+    print_results_by_metric_position(table, 0, 'nDCG@10')
+    print_results_by_metric_position(table, 1, 'R@20')
+    print_results_by_metric_position(table, 2, 'R@100')
 
     end = time.time()  
     start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')  
