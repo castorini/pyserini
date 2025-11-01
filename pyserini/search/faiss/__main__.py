@@ -295,7 +295,7 @@ def init_query_encoder(
         if _encoder_class == "uniir":
             kwargs.update(dict(l2_norm=True, instruction_config=instruction_config))
             if encoder_class is None:
-                raise ValueError("UniIR's query encoder class is not available (as the uniir-for-pyserini package is not installed). Please run 'pip install pyserini[optional]' to install the package.")
+                raise ValueError("UniIR's query encoder class is not available (as the uniir-for-pyserini package is not installed or CLIP is not installed). Please run 'pip install pyserini[optional]' to install the uniir-for-pyserini package and run 'pip install git+https://github.com/openai/CLIP.git' to install CLIP.")
 
         return encoder_class(**kwargs)
 
