@@ -7,10 +7,12 @@
 ## Summary of Changes
 
 + Added 2CR for M-BEIR and BRIGHT (prebuilt indexes, bindings, etc.).
++ Added query-side BM25.
 + Added Pyserini fusion experiments for BEIR.
 + Added documentation for NFCorpus visualization using Atlas.
 + Added MCP functionality.
-+ Reorganized unit and integration tests into `tests/` and `integrations/`.
++ Reorganized unit and integration tests into `tests/` and `integrations/`, separating "core" from "optional".
++ Fixed various index size issues with prebuilt indexes.
 
 ## Contributors
 
