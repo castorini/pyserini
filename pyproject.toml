@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = [""]
 include = ["pyserini*"]
-exclude = ["tests*", "tests-optional", "integrations", "integrations-optional"]
+exclude = ["tests", "integrations"]
 namespaces = false
 
 [tool.black]
@@ -13,7 +13,7 @@ skip-string-normalization = true
 
 [project]
 name = "pyserini"
-version = "1.2.0"
+version = "1.3.0"
 license = "Apache-2.0"
 license-files = ["LICENSE.txt",
 ]
