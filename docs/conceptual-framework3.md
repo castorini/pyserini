@@ -1,4 +1,4 @@
-# Pyserini: A Deeper Dive into Dense and Sparse Representations
+# Pyserini: A Deeper Dive into Learned Sparse Representations
 
 In a [previous guide](conceptual-framework2.md), we introduced a conceptual framework for a representational approach to information retrieval that integrates dense and sparse representations into the same underlying (bi-encoder) architecture.
 This guide offers a deeper dive with learned sparse retrieval, where we use SPLADE-v3, a learned sparse model to encode the corpus into sparse vectors, index them into retrieval system with inverted index, and finally perform retrieval and evaluation.
