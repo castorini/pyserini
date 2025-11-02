@@ -143,7 +143,6 @@ pre[class*="prettyprint"] {
 <p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.
 Instructions for programmatic execution are shown at the bottom of this page (scroll down).
 
-The metrics used in the 2CR tables are R@10, R@20, R@50 for the fashion datasets, and R@1, R@5, R@10 for the others.
 </p>
 
 <div class="table-responsive">  
@@ -165,13 +164,13 @@ The metrics used in the 2CR tables are R@10, R@20, R@50 for the fashion datasets
       <tr>  
         <th class="headerbottom" scope="col"></th>  
         <th class="headerbottom" scope="col"></th>  
-        <th class="headerbottom" scope="col">Metric 1</th>  
-        <th class="headerbottom" scope="col">Metric 2</th>
-        <th class="headerbottom" scope="col">Metric 3</th>
+        <th class="headerbottom" scope="col">nDCG@10</th>  
+        <th class="headerbottom" scope="col">R@20</th>
+        <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col"></th>  
-        <th class="headerbottom" scope="col">Metric 1</th>
-        <th class="headerbottom" scope="col">Metric 2</th>  
-        <th class="headerbottom" scope="col">Metric 3</th>  
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@20</th>  
+        <th class="headerbottom" scope="col">R@100</th>  
       </tr>  
     </thead>  
     <tbody>  
@@ -179,13 +178,13 @@ The metrics used in the 2CR tables are R@10, R@20, R@50 for the fashion datasets
 <tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">  
 <td class="expand-button"></td>  
 <td width="200">cirr_task7</td>  
-<td>0.0404</td>  
-<td>0.3879</td>  
-<td>0.5141</td>  
+<td>0.3292</td>  
+<td>0.6975</td>  
+<td>0.8905</td>  
 <td></td>  
-<td>0.1157</td>  
-<td>0.3899</td>  
-<td>0.5040</td>  
+<td>0.4164</td>  
+<td>0.7166</td>  
+<td>0.9006</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -218,22 +217,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-cirr_task7.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/cirr_task7_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
   run.m-beir-cirr_task7.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
   run.m-beir-cirr_task7.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
   run.m-beir-cirr_task7.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -251,22 +250,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-cirr_task7.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/cirr_task7_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
   run.m-beir-cirr_task7.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
   run.m-beir-cirr_task7.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_cirr_task7_test_fixed_qrels.txt \
   run.m-beir-cirr_task7.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -282,13 +281,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">  
 <td class="expand-button"></td>  
 <td width="200">edis_task2</td>  
-<td>0.1033</td>  
-<td>0.2894</td>  
-<td>0.4023</td>  
+<td>0.3440</td>  
+<td>0.5874</td>  
+<td>0.8276</td>  
 <td></td>  
-<td>0.0926</td>  
-<td>0.2640</td>  
-<td>0.3718</td>  
+<td>0.3149</td>  
+<td>0.5282</td>  
+<td>0.7546</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -321,22 +320,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-edis_task2.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/edis_task2_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
   run.m-beir-edis_task2.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
   run.m-beir-edis_task2.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
   run.m-beir-edis_task2.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -354,22 +353,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-edis_task2.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/edis_task2_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
   run.m-beir-edis_task2.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
   run.m-beir-edis_task2.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_edis_task2_test_fixed_qrels.txt \
   run.m-beir-edis_task2.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -385,13 +384,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">  
 <td class="expand-button"></td>  
 <td width="200">fashion200k_task0</td>  
-<td>0.0776</td>  
-<td>0.1099</td>  
-<td>0.1715</td>  
+<td>0.0587</td>  
+<td>0.1198</td>  
+<td>0.2528</td>  
 <td></td>  
-<td>0.1629</td>  
-<td>0.2267</td>  
-<td>0.3407</td>  
+<td>0.1245</td>  
+<td>0.2512</td>  
+<td>0.4674</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -424,14 +423,14 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-fashion200k_task0.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/fashion200k_task0_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
   run.m-beir-fashion200k_task0.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
@@ -439,7 +438,7 @@ python -m pyserini.eval.trec_eval \
   run.m-beir-fashion200k_task0.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.50 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
   run.m-beir-fashion200k_task0.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -457,14 +456,14 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-fashion200k_task0.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/fashion200k_task0_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
   run.m-beir-fashion200k_task0.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
@@ -472,7 +471,7 @@ python -m pyserini.eval.trec_eval \
   run.m-beir-fashion200k_task0.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.50 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_fashion200k_task0_test_fixed_qrels.txt \
   run.m-beir-fashion200k_task0.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -488,13 +487,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">  
 <td class="expand-button"></td>  
 <td width="200">fashion200k_task3</td>  
-<td>0.1548</td>  
-<td>0.2195</td>  
-<td>0.3273</td>  
+<td>0.1058</td>  
+<td>0.2571</td>  
+<td>0.4964</td>  
 <td></td>  
-<td>0.2512</td>  
-<td>0.3399</td>  
-<td>0.4706</td>  
+<td>0.1707</td>  
+<td>0.3774</td>  
+<td>0.6214</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -527,14 +526,14 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-fashion200k_task3.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/fashion200k_task3_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
   run.m-beir-fashion200k_task3.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
@@ -542,7 +541,7 @@ python -m pyserini.eval.trec_eval \
   run.m-beir-fashion200k_task3.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.50 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
   run.m-beir-fashion200k_task3.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -560,14 +559,14 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-fashion200k_task3.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/fashion200k_task3_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
   run.m-beir-fashion200k_task3.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
@@ -575,7 +574,7 @@ python -m pyserini.eval.trec_eval \
   run.m-beir-fashion200k_task3.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.50 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_fashion200k_task3_test_fixed_qrels.txt \
   run.m-beir-fashion200k_task3.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -591,13 +590,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">  
 <td class="expand-button"></td>  
 <td width="200">fashioniq_task7</td>  
-<td>0.2228</td>  
-<td>0.2977</td>  
-<td>0.4070</td>  
+<td>0.1410</td>  
+<td>0.3228</td>  
+<td>0.5326</td>  
 <td></td>  
-<td>0.2650</td>  
-<td>0.3448</td>  
-<td>0.4513</td>  
+<td>0.1829</td>  
+<td>0.3691</td>  
+<td>0.5745</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -630,14 +629,14 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-fashioniq_task7.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/fashioniq_task7_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
   run.m-beir-fashioniq_task7.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
@@ -645,7 +644,7 @@ python -m pyserini.eval.trec_eval \
   run.m-beir-fashioniq_task7.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.50 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
   run.m-beir-fashioniq_task7.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -663,14 +662,14 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-fashioniq_task7.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/fashioniq_task7_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
   run.m-beir-fashioniq_task7.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
@@ -678,7 +677,7 @@ python -m pyserini.eval.trec_eval \
   run.m-beir-fashioniq_task7.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.50 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_fashioniq_task7_test_fixed_qrels.txt \
   run.m-beir-fashioniq_task7.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -694,13 +693,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">  
 <td class="expand-button"></td>  
 <td width="200">infoseek_task6</td>  
-<td>0.0067</td>  
-<td>0.0324</td>  
-<td>0.0574</td>  
+<td>0.1708</td>  
+<td>0.2791</td>  
+<td>0.4829</td>  
 <td></td>  
-<td>0.0135</td>  
-<td>0.0580</td>  
-<td>0.0961</td>  
+<td>0.1312</td>  
+<td>0.2098</td>  
+<td>0.3945</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -733,22 +732,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-infoseek_task6.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/infoseek_task6_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
   run.m-beir-infoseek_task6.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
   run.m-beir-infoseek_task6.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
   run.m-beir-infoseek_task6.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -766,22 +765,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-infoseek_task6.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/infoseek_task6_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
   run.m-beir-infoseek_task6.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
   run.m-beir-infoseek_task6.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_infoseek_task6_test_fixed_qrels.txt \
   run.m-beir-infoseek_task6.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -797,13 +796,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">  
 <td class="expand-button"></td>  
 <td width="200">infoseek_task8</td>  
-<td>0.0347</td>  
-<td>0.1503</td>  
-<td>0.2417</td>  
+<td>0.3188</td>  
+<td>0.4547</td>  
+<td>0.6707</td>  
 <td></td>  
-<td>0.0182</td>  
-<td>0.0725</td>  
-<td>0.1197</td>  
+<td>0.1794</td>  
+<td>0.2755</td>  
+<td>0.4902</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -836,22 +835,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-infoseek_task8.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/infoseek_task8_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
   run.m-beir-infoseek_task8.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
   run.m-beir-infoseek_task8.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
   run.m-beir-infoseek_task8.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -869,22 +868,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-infoseek_task8.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/infoseek_task8_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
   run.m-beir-infoseek_task8.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
   run.m-beir-infoseek_task8.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_infoseek_task8_test_fixed_qrels.txt \
   run.m-beir-infoseek_task8.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -900,13 +899,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">  
 <td class="expand-button"></td>  
 <td width="200">mscoco_task0</td>  
-<td>0.3931</td>  
-<td>0.6115</td>  
-<td>0.6800</td>  
+<td>0.7147</td>  
+<td>0.9398</td>  
+<td>0.9944</td>  
 <td></td>  
-<td>0.4256</td>  
-<td>0.6259</td>  
-<td>0.6876</td>  
+<td>0.7015</td>  
+<td>0.9304</td>  
+<td>0.9911</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -939,22 +938,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-mscoco_task0.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/mscoco_task0_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
   run.m-beir-mscoco_task0.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
   run.m-beir-mscoco_task0.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
   run.m-beir-mscoco_task0.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -972,22 +971,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-mscoco_task0.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/mscoco_task0_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
   run.m-beir-mscoco_task0.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
   run.m-beir-mscoco_task0.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_mscoco_task0_test_fixed_qrels.txt \
   run.m-beir-mscoco_task0.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -1003,13 +1002,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">  
 <td class="expand-button"></td>  
 <td width="200">mscoco_task3</td>  
-<td>0.1223</td>  
-<td>0.3728</td>  
-<td>0.4651</td>  
+<td>0.6673</td>  
+<td>0.7940</td>  
+<td>0.9526</td>  
 <td></td>  
-<td>0.1329</td>  
-<td>0.4206</td>  
-<td>0.5178</td>  
+<td>0.6452</td>  
+<td>0.7744</td>  
+<td>0.9399</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -1042,22 +1041,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-mscoco_task3.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/mscoco_task3_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
   run.m-beir-mscoco_task3.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
   run.m-beir-mscoco_task3.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
   run.m-beir-mscoco_task3.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -1075,22 +1074,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-mscoco_task3.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/mscoco_task3_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
   run.m-beir-mscoco_task3.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
   run.m-beir-mscoco_task3.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_mscoco_task3_test_fixed_qrels.txt \
   run.m-beir-mscoco_task3.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -1106,13 +1105,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">  
 <td class="expand-button"></td>  
 <td width="200">nights_task4</td>  
-<td>0.0887</td>  
-<td>0.3193</td>  
-<td>0.5325</td>  
+<td>0.2613</td>  
+<td>0.7769</td>  
+<td>0.9792</td>  
 <td></td>  
-<td>0.0887</td>  
-<td>0.3222</td>  
-<td>0.5255</td>  
+<td>0.2724</td>  
+<td>0.7840</td>  
+<td>0.9792</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -1145,22 +1144,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-nights_task4.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/nights_task4_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
   run.m-beir-nights_task4.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
   run.m-beir-nights_task4.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
   run.m-beir-nights_task4.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -1178,22 +1177,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-nights_task4.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/nights_task4_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
   run.m-beir-nights_task4.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
   run.m-beir-nights_task4.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_nights_task4_test_fixed_qrels.txt \
   run.m-beir-nights_task4.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -1209,13 +1208,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">  
 <td class="expand-button"></td>  
 <td width="200">oven_task6</td>  
-<td>0.0667</td>  
-<td>0.1341</td>  
-<td>0.1669</td>  
+<td>0.2135</td>  
+<td>0.2629</td>  
+<td>0.3212</td>  
 <td></td>  
-<td>0.0953</td>  
-<td>0.1708</td>  
-<td>0.2012</td>  
+<td>0.2041</td>  
+<td>0.2543</td>  
+<td>0.3084</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -1248,22 +1247,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-oven_task6.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/oven_task6_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
   run.m-beir-oven_task6.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
   run.m-beir-oven_task6.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
   run.m-beir-oven_task6.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -1281,22 +1280,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-oven_task6.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/oven_task6_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
   run.m-beir-oven_task6.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
   run.m-beir-oven_task6.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_oven_task6_test_fixed_qrels.txt \
   run.m-beir-oven_task6.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -1312,13 +1311,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">  
 <td class="expand-button"></td>  
 <td width="200">oven_task8</td>  
-<td>0.0807</td>  
-<td>0.1248</td>  
-<td>0.1405</td>  
+<td>0.2121</td>  
+<td>0.1658</td>  
+<td>0.1859</td>  
 <td></td>  
-<td>0.0420</td>  
-<td>0.0785</td>  
-<td>0.0953</td>  
+<td>0.1784</td>  
+<td>0.1492</td>  
+<td>0.1723</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -1351,22 +1350,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-oven_task8.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/oven_task8_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
   run.m-beir-oven_task8.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
   run.m-beir-oven_task8.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
   run.m-beir-oven_task8.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -1384,22 +1383,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-oven_task8.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/oven_task8_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
   run.m-beir-oven_task8.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
   run.m-beir-oven_task8.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_oven_task8_test_fixed_qrels.txt \
   run.m-beir-oven_task8.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -1415,13 +1414,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row13" data-toggle="collapse" data-parent="#row13" href="#collapse13">  
 <td class="expand-button"></td>  
 <td width="200">visualnews_task0</td>  
-<td>0.1624</td>  
-<td>0.3333</td>  
-<td>0.4154</td>  
+<td>0.3606</td>  
+<td>0.6016</td>  
+<td>0.7630</td>  
 <td></td>  
-<td>0.1003</td>  
-<td>0.2261</td>  
-<td>0.2958</td>  
+<td>0.1911</td>  
+<td>0.3757</td>  
+<td>0.5624</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -1454,22 +1453,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-visualnews_task0.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/visualnews_task0_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
   run.m-beir-visualnews_task0.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
   run.m-beir-visualnews_task0.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
   run.m-beir-visualnews_task0.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -1487,22 +1486,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-visualnews_task0.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/visualnews_task0_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
   run.m-beir-visualnews_task0.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
   run.m-beir-visualnews_task0.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_visualnews_task0_test_fixed_qrels.txt \
   run.m-beir-visualnews_task0.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -1518,13 +1517,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row14" data-toggle="collapse" data-parent="#row14" href="#collapse14">  
 <td class="expand-button"></td>  
 <td width="200">visualnews_task3</td>  
-<td>0.0796</td>  
-<td>0.3003</td>  
-<td>0.4057</td>  
+<td>0.3578</td>  
+<td>0.6035</td>  
+<td>0.7682</td>  
 <td></td>  
-<td>0.0815</td>  
-<td>0.2021</td>  
-<td>0.2708</td>  
+<td>0.1900</td>  
+<td>0.3788</td>  
+<td>0.5698</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -1557,22 +1556,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-visualnews_task3.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/visualnews_task3_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
   run.m-beir-visualnews_task3.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
   run.m-beir-visualnews_task3.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
   run.m-beir-visualnews_task3.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -1590,22 +1589,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-visualnews_task3.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/visualnews_task3_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
   run.m-beir-visualnews_task3.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
   run.m-beir-visualnews_task3.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_visualnews_task3_test_fixed_qrels.txt \
   run.m-beir-visualnews_task3.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -1621,13 +1620,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row15" data-toggle="collapse" data-parent="#row15" href="#collapse15">  
 <td class="expand-button"></td>  
 <td width="200">webqa_task1</td>  
-<td>0.2070</td>  
-<td>0.4613</td>  
-<td>0.5600</td>  
+<td>0.5926</td>  
+<td>0.7613</td>  
+<td>0.8829</td>  
 <td></td>  
-<td>0.1850</td>  
-<td>0.3988</td>  
-<td>0.4861</td>  
+<td>0.5303</td>  
+<td>0.6949</td>  
+<td>0.8288</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -1660,22 +1659,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-webqa_task1.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/webqa_task1_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
   run.m-beir-webqa_task1.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
   run.m-beir-webqa_task1.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
   run.m-beir-webqa_task1.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -1693,22 +1692,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-webqa_task1.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/webqa_task1_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
   run.m-beir-webqa_task1.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
   run.m-beir-webqa_task1.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_webqa_task1_test_fixed_qrels.txt \
   run.m-beir-webqa_task1.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -1724,13 +1723,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row16" data-toggle="collapse" data-parent="#row16" href="#collapse16">  
 <td class="expand-button"></td>  
 <td width="200">webqa_task2</td>  
-<td>0.3315</td>  
-<td>0.5914</td>  
-<td>0.6880</td>  
+<td>0.6316</td>  
+<td>0.8586</td>  
+<td>0.9504</td>  
 <td></td>  
-<td>0.3252</td>  
-<td>0.5928</td>  
-<td>0.6888</td>  
+<td>0.6321</td>  
+<td>0.8642</td>  
+<td>0.9492</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -1763,22 +1762,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-webqa_task2.clip-sf-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/webqa_task2_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
   run.m-beir-webqa_task2.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
   run.m-beir-webqa_task2.clip-sf-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
   run.m-beir-webqa_task2.clip-sf-large.txt</code></pre>  
   </blockquote>  
   
@@ -1796,22 +1795,22 @@ Command to generate run:
   --output-format trec \
   --output run.m-beir-webqa_task2.blip-ff-large.txt \
   --hits 1000 \
-  --remove-query \
+  --instruction-config collections/m-beir/query_instructions/webqa_task2_instr.yaml \
   --fp16 --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.1 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
+  -c -m ndcg_cut.10 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
   run.m-beir-webqa_task2.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.5 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
+  -c -m recall.20 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
   run.m-beir-webqa_task2.blip-ff-large.txt
 
 python -m pyserini.eval.trec_eval \
-  -c -m recall.10 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
+  -c -m recall.100 qrels/test/mbeir_webqa_task2_test_fixed_qrels.txt \
   run.m-beir-webqa_task2.blip-ff-large.txt</code></pre>  
   </blockquote>  
   
@@ -1882,7 +1881,7 @@ python -m pyserini.2cr.m_beir --all --display-commands --dry-run
 
 <p>To actually run all the experimental conditions: First download all the datasets by running the <code>download_all_datasets.py</code> script in <code>scripts/m-beir</code></p>
 
-<p>If you are using the prebuilt indexes and only want to run search on them, download the <code>query_images.tar.gz</code> from <a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/tree/main">here</a>. Then, run <code>tar -xzf query_images.tar.gz</code> and move the extracted folder (<code>mbeir_images</code>) to <code>collections/m-beir</code>.</p>
+<p>If you are using the prebuilt indexes and only want to run search on them, download the <code>mbeir_query_images_and_instructions.tar.gz</code> from <a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/tree/main">here</a>. Then, run <code>tar -xzf mbeir_query_images_and_instructions.tar.gz</code> and move the extracted folder (<code>mbeir_images</code> and <code>query_instructions</code>) to <code>collections/m-beir</code>.</p>
 
 <p>If you want to run the complete regression (i.e., encode the indexes from scratch), download the 4 parts of the image dataset from <a href="https://huggingface.co/datasets/TIGER-Lab/M-BEIR/tree/main">here</a>, merge them into 1 tar.gz file and extract it by following the specified <a href="https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/README.md#downloading-the-m-beir-dataset">instructions</a>. Make sure the extracted folder is in <code>collections/m-beir</code>.</p>
 
