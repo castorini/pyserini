@@ -45,10 +45,8 @@ def format_run_command(raw):
         .replace("--index", "\\\n  --index")
         .replace("--output-format", "\\\n  --output-format")
         .replace("--output ", "\\\n  --output ")
-        .replace("--hits ", "\\\n  --hits ")
         .replace("--instruction-config", "\\\n  --instruction-config")
-        .replace("--fp16", "\\\n  --fp16")
-        .replace("--device", "\\\n  --device")
+        .replace("--hits", "\\\n  --hits")
     )
 
 def format_eval_command(raw):
