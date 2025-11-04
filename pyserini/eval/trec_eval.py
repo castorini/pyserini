@@ -157,7 +157,7 @@ def trec_eval(
     for line in results:
         try:
             lines[line.split("\t")[1]] = float(line.split("\t")[2])
-        except ValueError as e:
+        except ValueError:
             # When no metrics are specified in args, all metrics are returned with the following header that must be excluded.
             # "runid\tall\t<tag>"
             if line.split("\t")[0].strip() == "runid":
