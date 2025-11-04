@@ -152,7 +152,28 @@ def trec_eval(
         os.remove(temp_file)
 
     output = output.split("\n")
-    lines = {line.split("\t")[1]: float(line.split("\t")[2]) for line in output}
+    lines = {}
+    for line in output:
+        key = line.split("\t")[1]
+        try:
+            value = float(line.split("\t")[2])
+        except ValueError:
+            value = None
+        if value is not None:
+            lines[key] = value
+
+    # The above logic is janky, see https://github.com/castorini/pyserini/issues/2329
+    # If multiple metrics are requested, they override each other and only the value for the last metric gets returned.
+    # This is because we're only keeping track of array position 1 and array position 2:
+    #
+    # map                   	all	0.0933
+    # recall_100            	all	0.4895
+    # ndcg_cut_10           	all	0.1265
+    #
+    # This is probably not the desired behavior, but fixing requires more knowledge of what the upstream caller is
+    # intending to do, which requires more work to go through the code base to find the callers.
+    # TODO: FIXME
+
     if return_per_query_results:
         return lines
 
