@@ -82,6 +82,8 @@ def trec_eval(
         cutoffs = list(map(int, cutoffs[7:].split(',')))
         # Get rid of the '-m' before the 'judged.xxx' option
         args.pop(idx - 1)
+    # Non judge.k metrics are requested if any -m is left after popping the -m judged.k1,k2,... from args.
+    non_judge_k_metrics = '-m' in args
 
     temp_file = ''
 
@@ -121,6 +123,7 @@ def trec_eval(
             run.to_csv(temp_file, sep='\t', header=None, index=None)
             args[-1] = temp_file
         # Measure judged@cutoffs
+        # judged@k = (# of top-k pairs that appear in qrels) / (total # of pairs in those top-k slices)
         for cutoff in cutoffs:
             run_cutoff = run.groupby(0).head(cutoff)
             judged = len(pd.merge(run_cutoff[[0, 2]], qrels[[0, 2]], on=[0, 2])) / len(run_cutoff)
@@ -143,7 +146,21 @@ def trec_eval(
         print(stderr.decode("utf-8"))
 
     output = stdout.decode("utf-8").rstrip()
-    print(output)
+    # Print trec_eval's stdout only when it contains metrics the user actually asked for.
+    # Notes:
+    # - 'judged.k' is a pseudo-metric computed in Python. We strip it (and its '-m') before
+    #   calling trec_eval, so if it's the *only* metric requested, trec_eval receives no '-m'
+    #   flags and dumps its full default metric set (noise we don't want to print).
+    # - Therefore, we print stdout only if:
+    #     (a) no judged.k was requested (judged_result is empty), OR
+    #     (b) at least one real trec_eval metric was also requested (non_judge_k_metrics is True).
+    # Examples:
+    #   args: [-c qrels run]                              -> call: [-c qrels run]                 -> print (all default metrics will be printed when none is specified)
+    #   args: [-c -m judged.20 qrels run]                 -> call: [-c qrels run]                 -> suppress print
+    #   args: [-c -m judged.20 -m ndcg_cut.10 qrels run]  -> call: [-c -m ndcg_cut.10 qrels run]  -> print ndcg_cut.10
+    #   args: [-c -m ndcg_cut.10 qrels run]               -> call: [-c -m ndcg_cut.10 qrels run]  -> print ndcg_cut.10
+    if not judged_result or non_judge_k_metrics:
+        print(output)
 
     for judged in judged_result:
         print(judged)
@@ -151,16 +168,20 @@ def trec_eval(
     if temp_file:
         os.remove(temp_file)
 
-    output = output.split("\n")
+    if judged_result:
+        results = output.split("\n") + judged_result if non_judge_k_metrics else judged_result
+    else:
+        results = output.split("\n")
     lines = {}
-    for line in output:
-        key = line.split("\t")[1]
+    for line in results:
         try:
-            value = float(line.split("\t")[2])
+            lines[line.split("\t")[1]] = float(line.split("\t")[2])
         except ValueError:
-            value = None
-        if value is not None:
-            lines[key] = value
+            # When no metrics are specified in args, all metrics are returned with the following header that must be excluded.
+            # "runid\tall\t<tag>"
+            if line.split("\t")[0].strip() == "runid":
+                continue
+            raise ValueError(f"Expected line in `<metric>\\t<qid>\\t<value>` format, got: {line}")
 
     # The above logic is janky, see https://github.com/castorini/pyserini/issues/2329
     # If multiple metrics are requested, they override each other and only the value for the last metric gets returned.
@@ -172,6 +193,11 @@ def trec_eval(
     #
     # This is probably not the desired behavior, but fixing requires more knowledge of what the upstream caller is
     # intending to do, which requires more work to go through the code base to find the callers.
+    # The same issue exists when multiple judged.k (e.g., -m judged.20,50,100) are requested with only the last one getting returned.
+    # judged_20             	all	0.1350
+    # judged_50             	all	0.1000
+    # judged_100            	all	0.0762
+    #
     # TODO: FIXME
 
     if return_per_query_results:
@@ -180,6 +206,7 @@ def trec_eval(
     if query_id:
         return lines[query_id]
     else:
+        print(f"returning: {lines['all']}")
         return lines["all"]
 
 

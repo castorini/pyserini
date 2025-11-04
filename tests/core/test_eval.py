@@ -69,6 +69,16 @@ class TestTrecEval(unittest.TestCase):
         expected = {"1": 0.2201, "2": 0.0, "3": 0.0, "4": 0.0, "all": 0.055}
         self.assertDictEqual(trec_eval(args, return_per_query_results=True), expected)
 
+    def test_judged_at_k_scores(self):
+        args = [
+            "-c",
+            "-q",
+            "-m",
+            "judged.20",
+            self.qrels_path,
+            self.run_path,
+        ]
+        self.assertEqual(trec_eval(args), 0.5)
 
 if __name__ == "__main__":
     unittest.main()
