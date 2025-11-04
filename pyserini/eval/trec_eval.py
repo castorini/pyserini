@@ -152,7 +152,16 @@ def trec_eval(
         os.remove(temp_file)
 
     output = output.split("\n")
-    lines = {line.split("\t")[1]: float(line.split("\t")[2]) for line in output}
+    lines = {}
+    for line in output:
+        key = line.split("\t")[1]
+        try:
+            value = float(line.split("\t")[2])
+        except ValueError:
+            value = None
+        if value is not None:
+            lines[key] = value
+
     if return_per_query_results:
         return lines
 
