@@ -82,6 +82,8 @@ def trec_eval(
         cutoffs = list(map(int, cutoffs[7:].split(',')))
         # Get rid of the '-m' before the 'judged.xxx' option
         args.pop(idx - 1)
+    # Non judge.k metrics are requested if any -m is left after popping the -m judged.k1,k2,... from args.
+    non_judge_k_metrics = '-m' in args
 
     temp_file = ''
 
@@ -144,7 +146,21 @@ def trec_eval(
         print(stderr.decode("utf-8"))
 
     output = stdout.decode("utf-8").rstrip()
-    print(output)
+    # Print trec_eval's stdout only when it contains metrics the user actually asked for.
+    # Notes:
+    # - 'judged.k' is a pseudo-metric computed in Python. We strip it (and its '-m') before
+    #   calling trec_eval, so if it's the *only* metric requested, trec_eval receives no '-m'
+    #   flags and dumps its full default metric set (noise we don't want to print).
+    # - Therefore, we print stdout only if:
+    #     (a) no judged.k was requested (judged_result is empty), OR
+    #     (b) at least one real trec_eval metric was also requested (non_judge_k_metrics is True).
+    # Examples:
+    #   args: [-c qrels run]                              -> call: [-c qrels run]                 -> print (all default metrics will be printed when none is specified)
+    #   args: [-c -m judged.20 qrels run]                 -> call: [-c qrels run]                 -> suppress print
+    #   args: [-c -m judged.20 -m ndcg_cut.10 qrels run]  -> call: [-c -m ndcg_cut.10 qrels run]  -> print ndcg_cut.10
+    #   args: [-c -m ndcg_cut.10 qrels run]               -> call: [-c -m ndcg_cut.10 qrels run]  -> print ndcg_cut.10
+    if not judged_result or non_judge_k_metrics:
+        print(output)
 
     for judged in judged_result:
         print(judged)
@@ -152,7 +168,10 @@ def trec_eval(
     if temp_file:
         os.remove(temp_file)
 
-    results = output.split("\n") + judged_result
+    if judged_result:
+        results = output.split("\n") + judged_result if non_judge_k_metrics else judged_result
+    else:
+        results = output.split("\n")
     lines = {}
     for line in results:
         try:
@@ -187,6 +206,7 @@ def trec_eval(
     if query_id:
         return lines[query_id]
     else:
+        print(f"returning: {lines['all']}")
         return lines["all"]
 
 
