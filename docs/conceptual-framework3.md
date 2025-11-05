@@ -217,4 +217,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@mindlesstruffle](https://github.com/mindlesstruffle) on 2025-07-15 (commit [`b5d4838`](https://github.com/castorini/pyserini/commit/b5d48381c171e0ac36cd0c2523fe77b7bfe45435))
 + Results reproduced by [@FarmersWrap](https://github.com/FarmersWrap) on 2025-11-02 (commit [`80395dc`](https://github.com/castorini/pyserini/commit/80395dc7b6e0d5c045f4dcf4ef8e61958ec636ca))
 + Results reproduced by [@minj22](https://github.com/minj22) on 2025-11-05
-  (commit [`0fc0b62`](https://github.com/castorini/anserini/commit/0fc0b62246d863dedaa35d0dd4832276aa7fd08b))
+  (commit [`0fc0b62`](https://github.com/castorini/pyserini/commit/0fc0b62246d863dedaa35d0dd4832276aa7fd08b))
