@@ -143,7 +143,7 @@ def trec_eval(
     )
     stdout, stderr = process.communicate()
     if stderr:
-        print(stderr.decode("utf-8"))
+        print(stderr.decode("utf-8"), file=sys.stderr)
 
     output = stdout.decode("utf-8").rstrip()
     # Print trec_eval's stdout only when it contains metrics the user actually asked for.
@@ -206,7 +206,6 @@ def trec_eval(
     if query_id:
         return lines[query_id]
     else:
-        print(f"returning: {lines['all']}")
         return lines["all"]
 
 
