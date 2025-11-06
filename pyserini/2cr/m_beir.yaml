@@ -4,7 +4,7 @@ conditions:
     datasets:
       - dataset: cirr_task7
         scores:
-          - nDCG@10: 0.3292
+          - nDCG@10: 0.3293
             R@20: 0.6975
             R@100: 0.8905
       - dataset: edis_task2
@@ -39,14 +39,14 @@ conditions:
             R@100: 0.6707
       - dataset: mscoco_task0
         scores:
-          - nDCG@10: 0.7147
-            R@20: 0.9398
-            R@100: 0.9944
+          - nDCG@10: 0.5753
+            R@20: 0.7530
+            R@100: 0.7949
       - dataset: mscoco_task3
         scores:
-          - nDCG@10: 0.6673
-            R@20: 0.7940
-            R@100: 0.9526
+          - nDCG@10: 0.5664
+            R@20: 0.6373
+            R@100: 0.7610
       - dataset: nights_task4
         scores:
           - nDCG@10: 0.2613
@@ -60,7 +60,7 @@ conditions:
       - dataset: oven_task8
         scores:
           - nDCG@10: 0.2121
-            R@20: 0.1658
+            R@20: 0.1657
             R@100: 0.1859
       - dataset: visualnews_task0
         scores:
@@ -122,19 +122,19 @@ conditions:
             R@100: 0.4902
       - dataset: mscoco_task0
         scores:
-          - nDCG@10: 0.7015
-            R@20: 0.9304
-            R@100: 0.9911
+          - nDCG@10: 0.5637
+            R@20: 0.7438
+            R@100: 0.7923
       - dataset: mscoco_task3
         scores:
-          - nDCG@10: 0.6452
-            R@20: 0.7744
-            R@100: 0.9399
+          - nDCG@10: 0.5474
+            R@20: 0.6215
+            R@100: 0.7513
       - dataset: nights_task4
         scores:
-          - nDCG@10: 0.2724
-            R@20: 0.7840
-            R@100: 0.9792
+          - nDCG@10: 0.1978
+            R@20: 0.5618
+            R@100: 0.7094
       - dataset: oven_task6
         scores:
           - nDCG@10: 0.2041
