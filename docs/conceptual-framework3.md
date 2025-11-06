@@ -45,6 +45,7 @@ Start by creating the directories where we will store the encoded documents:
 mkdir encode
 cd encode
 mkdir nfcorpus.splade
+cd ..
 ```
 
 We can then setup to use SPLADE-v3:
