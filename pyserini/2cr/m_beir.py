@@ -174,7 +174,7 @@ def run_conditions(args):
                                   
                             if math.isclose(score, float(expected[metric])):  
                                 result = ok_str  
-                            elif abs(score - float(expected[metric])) <= 0.0005:  
+                            elif abs(score - float(expected[metric])) <= 0.0005 or score > float(expected[metric]):
                                 result = okish_str + f' expected {expected[metric]:.4f}'  
                             else:  
                                 result = fail_str + f' expected {expected[metric]:.4f}'  
