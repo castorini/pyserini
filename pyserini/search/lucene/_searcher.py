@@ -82,11 +82,7 @@ class LuceneSearcher:
         # to obtain the underlying reader of a SimpleSearcher; see https://github.com/castorini/anserini/issues/2013
         index_reader = LuceneIndexReader(index_dir)
         # This is janky as we're created a separate LuceneIndexReader for the sole purpose of validating index stats.
-        if 'splade-v3' in prebuilt_index_name and ('beir' in prebuilt_index_name or 'bright' in prebuilt_index_name):
-            # More jank, see https://github.com/castorini/pyserini/issues/2291
-            print('Temporary janky fix for https://github.com/castorini/pyserini/issues/2291 - FIXME.')
-        else:
-            index_reader.validate(prebuilt_index_name, verbose=verbose)
+        index_reader.validate(prebuilt_index_name, verbose=verbose)
 
         if verbose:
             print(f'Initializing {prebuilt_index_name}...')
