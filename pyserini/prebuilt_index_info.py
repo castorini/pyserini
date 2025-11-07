@@ -19,85 +19,83 @@ from pyserini.pyclass import autoclass
 JIndexInfo = autoclass('io.anserini.index.IndexInfo')
 
 
-def add_lucene_index_info(enum, info, name=None, readme=None):
-    # Allow ability to override what's stored in the enum.
-    indexName = enum.indexName if not name else name
-
-    info[indexName] = {
-        "description": enum.description,
-        "filename": enum.filename,
-        "readme": enum.readme if not readme else readme,
-        "urls": [
+def import_from_lucene(enum):
+    info = {
+        'description': enum.description,
+        'filename': enum.filename,
+        'readme': enum.readme,
+        'urls': [
             enum.urls[0]
         ],
-        "md5": enum.md5,
-        "size compressed (bytes)": enum.size,
-        "total_terms": enum.totalTerms,
-        "documents": enum.documents,
-        "unique_terms": enum.uniqueTerms,
-        "downloaded": False,
-        "texts": enum.invertedIndex
+        'md5': enum.md5,
+        'size compressed (bytes)': enum.size,
+        'total_terms': enum.totalTerms,
+        'documents': enum.documents,
+        'unique_terms': enum.uniqueTerms,
+        'texts': enum.invertedIndex
     }
 
-    if info[indexName]["readme"].startswith('https'):
-        info[indexName]["readme"] = info[indexName]["readme"].split('/')[-1]
+    if info['readme'].startswith('https'):
+        info['readme'] = info['readme'].split('/')[-1]
+
+    return info
 
 
 # Bindings for Lucene (standard) inverted indexes
 TF_INDEX_INFO_MSMARCO = {
     # MS MARCO V1 document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v1-doc": {},
-    "msmarco-v1-doc-slim": {},
-    "msmarco-v1-doc-full": {},
+    "msmarco-v1-doc": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC),
+    "msmarco-v1-doc-slim": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SLIM),
+    "msmarco-v1-doc-full": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_FULL),
 
     # MS MARCO V1 document corpus, doc2query-T5 expansions;  defined in Anserini.
-    "msmarco-v1-doc.d2q-t5": {},
-    "msmarco-v1-doc.d2q-t5-docvectors": {},
+    "msmarco-v1-doc.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_D2Q_T5),
+    "msmarco-v1-doc.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_D2Q_T5_DOCVECTORS),
 
     # MS MARCO V1 segmented document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v1-doc-segmented": {},
-    "msmarco-v1-doc-segmented-slim": {},
-    "msmarco-v1-doc-segmented-full": {},
+    "msmarco-v1-doc-segmented": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED),
+    "msmarco-v1-doc-segmented-slim": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_SLIM),
+    "msmarco-v1-doc-segmented-full": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_FULL),
 
     # MS MARCO V1 segmented document corpus, doc2query-T5 expansions; defined in Anserini.
-    "msmarco-v1-doc-segmented.d2q-t5": {},
-    "msmarco-v1-doc-segmented.d2q-t5-docvectors": {},
+    "msmarco-v1-doc-segmented.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_D2Q_T5),
+    "msmarco-v1-doc-segmented.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_D2Q_T5_DOCVECTORS),
 
     # MS MARCO V1 passage corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v1-passage": {},
-    "msmarco-v1-passage-slim": {},
-    "msmarco-v1-passage-full": {},
+    "msmarco-v1-passage": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE),
+    "msmarco-v1-passage-slim": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_SLIM),
+    "msmarco-v1-passage-full": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_FULL),
 
     # MS MARCO V1 passage corpus, doc2query-T5 expansions; defined in Anserini.
-    "msmarco-v1-passage.d2q-t5": {},
-    "msmarco-v1-passage.d2q-t5-docvectors": {},
+    "msmarco-v1-passage.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_D2Q_T5),
+    "msmarco-v1-passage.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_D2Q_T5_DOCVECTORS),
 
     # MS MARCO V2 document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v2-doc": {},
-    "msmarco-v2-doc-slim": {},
-    "msmarco-v2-doc-full": {},
+    "msmarco-v2-doc": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC),
+    "msmarco-v2-doc-slim": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SLIM),
+    "msmarco-v2-doc-full": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_FULL),
 
     # MS MARCO V2 document corpus, doc2query-T5 expansions; defined in Anserini.
-    "msmarco-v2-doc.d2q-t5": {},
-    "msmarco-v2-doc.d2q-t5-docvectors": {},
+    "msmarco-v2-doc.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_D2Q_T5),
+    "msmarco-v2-doc.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_D2Q_T5_DOCVECTORS),
 
     # MS MARCO V2 segmented document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v2-doc-segmented": {},
-    "msmarco-v2-doc-segmented-slim": {},
-    "msmarco-v2-doc-segmented-full": {},
+    "msmarco-v2-doc-segmented": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED),
+    "msmarco-v2-doc-segmented-slim": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_SLIM),
+    "msmarco-v2-doc-segmented-full": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_FULL),
 
     # MS MARCO V2 segmented document corpus, doc2query-T5 expansions; defined in Anserini.
-    "msmarco-v2-doc-segmented.d2q-t5": {},
-    "msmarco-v2-doc-segmented.d2q-t5-docvectors": {},
+    "msmarco-v2-doc-segmented.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_D2Q_T5),
+    "msmarco-v2-doc-segmented.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_D2Q_T5_DOCVECTORS),
 
     # MS MARCO V2 passage corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v2-passage": {},
-    "msmarco-v2-passage-slim": {},
-    "msmarco-v2-passage-full": {},
+    "msmarco-v2-passage": import_from_lucene(JIndexInfo.MSMARCO_V2_PASSAGE),
+    "msmarco-v2-passage-slim": import_from_lucene(JIndexInfo.MSMARCO_V2_PASSAGE_SLIM),
+    "msmarco-v2-passage-full": import_from_lucene(JIndexInfo.MSMARCO_V2_PASSAGE_FULL),
 
     # MS MARCO V2 passage corpus, doc2query-T5 expansions; defined in Anserini.
-    "msmarco-v2-passage.d2q-t5": {},
-    "msmarco-v2-passage.d2q-t5-docvectors": {},
+    "msmarco-v2-passage.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V2_PASSAGE_D2Q_T5),
+    "msmarco-v2-passage.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V2_PASSAGE_D2Q_T5_DOCVECTORS),
 
     # MS MARCO V2 augmented passage corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-passage-augmented": {
@@ -174,66 +172,15 @@ TF_INDEX_INFO_MSMARCO = {
     },
 
     # MS MARCO V2.1 document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v2.1-doc": {},
-    "msmarco-v2.1-doc-slim": {},
-    "msmarco-v2.1-doc-full": {},
+    "msmarco-v2.1-doc": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC),
+    "msmarco-v2.1-doc-slim": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SLIM),
+    "msmarco-v2.1-doc-full": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_FULL),
 
     # MS MARCO V2.1 segmented document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v2.1-doc-segmented": {},
-    "msmarco-v2.1-doc-segmented-slim": {},
-    "msmarco-v2.1-doc-segmented-full": {}
+    "msmarco-v2.1-doc-segmented": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED),
+    "msmarco-v2.1-doc-segmented-slim": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SLIM),
+    "msmarco-v2.1-doc-segmented-full": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_FULL)
 }
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_DOC, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_DOC_SLIM, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_DOC_FULL, TF_INDEX_INFO_MSMARCO)
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_DOC_D2Q_T5, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_DOC_D2Q_T5_DOCVECTORS, TF_INDEX_INFO_MSMARCO)
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_SLIM, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_FULL, TF_INDEX_INFO_MSMARCO)
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_D2Q_T5, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_D2Q_T5_DOCVECTORS, TF_INDEX_INFO_MSMARCO)
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_SLIM, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_FULL, TF_INDEX_INFO_MSMARCO)
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_D2Q_T5, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_D2Q_T5_DOCVECTORS, TF_INDEX_INFO_MSMARCO)
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V2_DOC, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V2_DOC_SLIM, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V2_DOC_FULL, TF_INDEX_INFO_MSMARCO)
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V2_DOC_D2Q_T5, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V2_DOC_D2Q_T5_DOCVECTORS, TF_INDEX_INFO_MSMARCO)
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_SLIM, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_FULL, TF_INDEX_INFO_MSMARCO)
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_D2Q_T5, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_D2Q_T5_DOCVECTORS, TF_INDEX_INFO_MSMARCO)
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V2_PASSAGE, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V2_PASSAGE_SLIM, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V2_PASSAGE_FULL, TF_INDEX_INFO_MSMARCO)
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V2_PASSAGE_D2Q_T5, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V2_PASSAGE_D2Q_T5_DOCVECTORS, TF_INDEX_INFO_MSMARCO)
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SLIM, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_FULL, TF_INDEX_INFO_MSMARCO)
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SLIM, TF_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_FULL, TF_INDEX_INFO_MSMARCO)
-
 
 TF_INDEX_INFO_MSMARCO_ALIASES = {
     # To preserve working commands in published papers: integrations/papers/test_sigir2021.py testcase test_section3_3
@@ -242,84 +189,84 @@ TF_INDEX_INFO_MSMARCO_ALIASES = {
     "msmarco-v1-passage-d2q-t5": TF_INDEX_INFO_MSMARCO["msmarco-v1-passage.d2q-t5"],
 }
 
-TF_INDEX_INFO_BEIR = {}
-# BEIR: flat
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_FLAT, TF_INDEX_INFO_BEIR)
-# BEIR: multifield
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_MULTIFIELD, TF_INDEX_INFO_BEIR)
+TF_INDEX_INFO_BEIR = {
+    # BEIR: flat
+    "beir-v1.0.0-trec-covid.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_FLAT),
+    "beir-v1.0.0-bioasq.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_FLAT),
+    "beir-v1.0.0-nfcorpus.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_FLAT),
+    "beir-v1.0.0-nq.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_FLAT),
+    "beir-v1.0.0-hotpotqa.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_FLAT),
+    "beir-v1.0.0-fiqa.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_FLAT),
+    "beir-v1.0.0-signal1m.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_FLAT),
+    "beir-v1.0.0-trec-news.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_FLAT),
+    "beir-v1.0.0-robust04.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_FLAT),
+    "beir-v1.0.0-arguana.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_FLAT),
+    "beir-v1.0.0-webis-touche2020.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_FLAT),
+    "beir-v1.0.0-cqadupstack-android.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_FLAT),
+    "beir-v1.0.0-cqadupstack-english.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_FLAT),
+    "beir-v1.0.0-cqadupstack-gaming.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_FLAT),
+    "beir-v1.0.0-cqadupstack-gis.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_FLAT),
+    "beir-v1.0.0-cqadupstack-mathematica.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_FLAT),
+    "beir-v1.0.0-cqadupstack-physics.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_FLAT),
+    "beir-v1.0.0-cqadupstack-programmers.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_FLAT),
+    "beir-v1.0.0-cqadupstack-stats.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_FLAT),
+    "beir-v1.0.0-cqadupstack-tex.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_FLAT),
+    "beir-v1.0.0-cqadupstack-unix.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_FLAT),
+    "beir-v1.0.0-cqadupstack-webmasters.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_FLAT),
+    "beir-v1.0.0-cqadupstack-wordpress.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_FLAT),
+    "beir-v1.0.0-quora.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_FLAT),
+    "beir-v1.0.0-dbpedia-entity.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_FLAT),
+    "beir-v1.0.0-scidocs.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_FLAT),
+    "beir-v1.0.0-fever.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_FLAT),
+    "beir-v1.0.0-climate-fever.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_FLAT),
+    "beir-v1.0.0-scifact.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_FLAT),
 
-TF_INDEX_INFO_BRIGHT = {}
-add_lucene_index_info(JIndexInfo.BRIGHT_BIOLOGY, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_EARTH_SCIENCE, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_ECONOMICS, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_PSYCHOLOGY, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_ROBOTICS, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_STACKOVERFLOW, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_PONY, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_LEETCODE, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_AOPS, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS, TF_INDEX_INFO_BRIGHT)
+    # BEIR: multifield
+    "beir-v1.0.0-trec-covid.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_MULTIFIELD),
+    "beir-v1.0.0-bioasq.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_MULTIFIELD),
+    "beir-v1.0.0-nfcorpus.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_MULTIFIELD),
+    "beir-v1.0.0-nq.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_MULTIFIELD),
+    "beir-v1.0.0-hotpotqa.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_MULTIFIELD),
+    "beir-v1.0.0-fiqa.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_MULTIFIELD),
+    "beir-v1.0.0-signal1m.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_MULTIFIELD),
+    "beir-v1.0.0-trec-news.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_MULTIFIELD),
+    "beir-v1.0.0-robust04.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_MULTIFIELD),
+    "beir-v1.0.0-arguana.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_MULTIFIELD),
+    "beir-v1.0.0-webis-touche2020.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-android.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-english.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-gaming.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-gis.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-mathematica.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-physics.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-programmers.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-stats.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-tex.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-unix.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-webmasters.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-wordpress.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_MULTIFIELD),
+    "beir-v1.0.0-quora.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_MULTIFIELD),
+    "beir-v1.0.0-dbpedia-entity.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_MULTIFIELD),
+    "beir-v1.0.0-scidocs.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_MULTIFIELD),
+    "beir-v1.0.0-fever.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_MULTIFIELD),
+    "beir-v1.0.0-climate-fever.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_MULTIFIELD),
+    "beir-v1.0.0-scifact.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_MULTIFIELD),
+}
 
-# TODO: Remove after new Anserini artifact release with fix
-TF_INDEX_INFO_BRIGHT["bright-economics"]["size compressed (bytes)"] = 23991405
+TF_INDEX_INFO_BRIGHT = {
+    "bright-biology": import_from_lucene(JIndexInfo.BRIGHT_BIOLOGY),
+    "bright-earth-science": import_from_lucene(JIndexInfo.BRIGHT_EARTH_SCIENCE),
+    "bright-economics": import_from_lucene(JIndexInfo.BRIGHT_ECONOMICS),
+    "bright-psychology": import_from_lucene(JIndexInfo.BRIGHT_PSYCHOLOGY),
+    "bright-robotics": import_from_lucene(JIndexInfo.BRIGHT_ROBOTICS),
+    "bright-stackoverflow": import_from_lucene(JIndexInfo.BRIGHT_STACKOVERFLOW),
+    "bright-sustainable-living": import_from_lucene(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING),
+    "bright-pony": import_from_lucene(JIndexInfo.BRIGHT_PONY),
+    "bright-leetcode": import_from_lucene(JIndexInfo.BRIGHT_LEETCODE),
+    "bright-aops": import_from_lucene(JIndexInfo.BRIGHT_AOPS),
+    "bright-theoremqa-theorems": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS),
+    "bright-theoremqa-questions": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS),
+}
 
 TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-ar": {
@@ -1819,81 +1766,84 @@ IMPACT_INDEX_INFO_MSMARCO_ALIASES = {
     "msmarco-v2-passage-unicoil-0shot": IMPACT_INDEX_INFO_MSMARCO["msmarco-v2-passage.unicoil-0shot"]
 }
 
-IMPACT_INDEX_INFO_BEIR = {}
-# BEIR: SPLADE++ ED
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-# BEIR: SPLADEv3
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+IMPACT_INDEX_INFO_BEIR = {
+    # BEIR: SPLADE++ ED
+    "beir-v1.0.0-trec-covid.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_SPLADE_PP_ED),
+    "beir-v1.0.0-bioasq.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_SPLADE_PP_ED),
+    "beir-v1.0.0-nfcorpus.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_SPLADE_PP_ED),
+    "beir-v1.0.0-nq.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_SPLADE_PP_ED),
+    "beir-v1.0.0-hotpotqa.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_SPLADE_PP_ED),
+    "beir-v1.0.0-fiqa.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_SPLADE_PP_ED),
+    "beir-v1.0.0-signal1m.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_SPLADE_PP_ED),
+    "beir-v1.0.0-trec-news.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_SPLADE_PP_ED),
+    "beir-v1.0.0-robust04.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_SPLADE_PP_ED),
+    "beir-v1.0.0-arguana.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_SPLADE_PP_ED),
+    "beir-v1.0.0-webis-touche2020.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-android.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-english.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-gaming.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-gis.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-physics.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-programmers.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-stats.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-tex.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-unix.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_SPLADE_PP_ED),
+    "beir-v1.0.0-quora.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_SPLADE_PP_ED),
+    "beir-v1.0.0-dbpedia-entity.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_SPLADE_PP_ED),
+    "beir-v1.0.0-scidocs.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_SPLADE_PP_ED),
+    "beir-v1.0.0-fever.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_SPLADE_PP_ED),
+    "beir-v1.0.0-climate-fever.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_SPLADE_PP_ED),
+    "beir-v1.0.0-scifact.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_SPLADE_PP_ED),
 
-IMPACT_INDEX_INFO_BRIGHT = {}
-add_lucene_index_info(JIndexInfo.BRIGHT_BIOLOGY_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_EARTH_SCIENCE_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_ECONOMICS_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_PSYCHOLOGY_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_ROBOTICS_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_STACKOVERFLOW_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_PONY_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_LEETCODE_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_AOPS_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
+    # BEIR: SPLADEv3
+    "beir-v1.0.0-trec-covid.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_SPLADE_V3),
+    "beir-v1.0.0-bioasq.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_SPLADE_V3),
+    "beir-v1.0.0-nfcorpus.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_SPLADE_V3),
+    "beir-v1.0.0-nq.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_SPLADE_V3),
+    "beir-v1.0.0-hotpotqa.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_SPLADE_V3),
+    "beir-v1.0.0-fiqa.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_SPLADE_V3),
+    "beir-v1.0.0-signal1m.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_SPLADE_V3),
+    "beir-v1.0.0-trec-news.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_SPLADE_V3),
+    "beir-v1.0.0-robust04.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_SPLADE_V3),
+    "beir-v1.0.0-arguana.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_SPLADE_V3),
+    "beir-v1.0.0-webis-touche2020.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-android.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-english.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-gaming.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-gis.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-mathematica.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-physics.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-programmers.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-stats.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-tex.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-unix.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-webmasters.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-wordpress.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_SPLADE_V3),
+    "beir-v1.0.0-quora.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_SPLADE_V3),
+    "beir-v1.0.0-dbpedia-entity.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_SPLADE_V3),
+    "beir-v1.0.0-scidocs.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_SPLADE_V3),
+    "beir-v1.0.0-fever.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_SPLADE_V3),
+    "beir-v1.0.0-climate-fever.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_SPLADE_V3),
+    "beir-v1.0.0-scifact.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_SPLADE_V3),
+}
+
+IMPACT_INDEX_INFO_BRIGHT = {
+    "bright-biology.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_BIOLOGY_SPLADE_V3),
+    "bright-earth-science.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_EARTH_SCIENCE_SPLADE_V3),
+    "bright-economics.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_ECONOMICS_SPLADE_V3),
+    "bright-psychology.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_PSYCHOLOGY_SPLADE_V3),
+    "bright-robotics.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_ROBOTICS_SPLADE_V3),
+    "bright-stackoverflow.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_STACKOVERFLOW_SPLADE_V3),
+    "bright-sustainable-living.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING_SPLADE_V3),
+    "bright-pony.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_PONY_SPLADE_V3),
+    "bright-leetcode.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_LEETCODE_SPLADE_V3),
+    "bright-aops.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_AOPS_SPLADE_V3),
+    "bright-theoremqa-theorems.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS_SPLADE_V3),
+    "bright-theoremqa-questions.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS_SPLADE_V3),
+}
 
 IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_MSMARCO,
                      **IMPACT_INDEX_INFO_MSMARCO_ALIASES,
@@ -1902,111 +1852,110 @@ IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_MSMARCO,
 
 
 # Bindings for Lucene HNSW MSMARCO indexes
-LUCENE_HNSW_INDEX_INFO_MSMARCO = {}
+LUCENE_HNSW_INDEX_INFO_MSMARCO = {
+    "msmarco-v1-passage.cosdpr-distil.hnsw": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_COS_DPR_DISTIL_HNSW),
+    "msmarco-v1-passage.cosdpr-distil.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_COS_DPR_DISTIL_HNSW_INT8),
+    "msmarco-v1-passage.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_BGE_BASE_EN_15_HNSW),
+    "msmarco-v1-passage.bge-base-en-v1.5.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_BGE_BASE_EN_15_HNSW_INT8),
+    "msmarco-v1-passage.cohere-embed-english-v3.0.hnsw": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_COHERE_EMBED_ENGLISH_30_HNSW),
+    "msmarco-v1-passage.cohere-embed-english-v3.0.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_COHERE_EMBED_ENGLISH_30_HNSW_INT8),
 
-# Metadata have already been defined in Anserini, just copy over into Pyserini.
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_BGE_BASE_EN_15_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_COS_DPR_DISTIL_HNSW, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_COS_DPR_DISTIL_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD00_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD01_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD02_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD03_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD04_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD05_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD06_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD07_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD08_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD09_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-
+    "msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD00_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD01_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD02_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD03_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD04_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD05_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD06_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD07_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD08_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD09_ARCTIC_EMBED_L_HNSW_INT8),
+}
 
 # Bindings for Lucene HNSW BEIR indexes
-LUCENE_HNSW_INDEX_INFO_BEIR = {}
-
-# Metadata have already been defined in Anserini, just copy over into Pyserini.
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
+LUCENE_HNSW_INDEX_INFO_BEIR = {
+    "beir-v1.0.0-trec-covid.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-bioasq.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-nfcorpus.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-nq.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-hotpotqa.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-fiqa.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-signal1m.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-trec-news.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-robust04.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-arguana.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-quora.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-scidocs.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-fever.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-climate-fever.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-scifact.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_BGE_BASE_EN_15_HNSW),
+}
 
 LUCENE_HNSW_INDEX_INFO = {**LUCENE_HNSW_INDEX_INFO_MSMARCO,
                           **LUCENE_HNSW_INDEX_INFO_BEIR}
 
 
 # Bindings for Lucene flat indexes
-LUCENE_FLAT_INDEX_INFO_BEIR = {}
+LUCENE_FLAT_INDEX_INFO_BEIR = {
+    "beir-v1.0.0-trec-covid.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-bioasq.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-nfcorpus.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-nq.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-hotpotqa.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-fiqa.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-signal1m.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-trec-news.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-robust04.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-arguana.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-quora.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-scidocs.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-fever.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-climate-fever.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-scifact.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_BGE_BASE_EN_15_FLAT),
+}
 
-# Metadata have already been defined in Anserini, just copy over into Pyserini.
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-
-LUCENE_FLAT_INDEX_INFO_BRIGHT = {}
-add_lucene_index_info(JIndexInfo.BRIGHT_BIOLOGY_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_EARTH_SCIENCE_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_ECONOMICS_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_PSYCHOLOGY_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_ROBOTICS_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_STACKOVERFLOW_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_PONY_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_LEETCODE_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_AOPS_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
+LUCENE_FLAT_INDEX_INFO_BRIGHT = {
+    "bright-biology.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_BIOLOGY_BGE_LARGE_EN_15_FLAT),
+    "bright-earth-science.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_EARTH_SCIENCE_BGE_LARGE_EN_15_FLAT),
+    "bright-economics.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_ECONOMICS_BGE_LARGE_EN_15_FLAT),
+    "bright-psychology.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_PSYCHOLOGY_BGE_LARGE_EN_15_FLAT),
+    "bright-robotics.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_ROBOTICS_BGE_LARGE_EN_15_FLAT),
+    "bright-stackoverflow.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_STACKOVERFLOW_BGE_LARGE_EN_15_FLAT),
+    "bright-sustainable-living.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING_BGE_LARGE_EN_15_FLAT),
+    "bright-pony.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_PONY_BGE_LARGE_EN_15_FLAT),
+    "bright-leetcode.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_LEETCODE_BGE_LARGE_EN_15_FLAT),
+    "bright-aops.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_AOPS_BGE_LARGE_EN_15_FLAT),
+    "bright-theoremqa-theorems.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS_BGE_LARGE_EN_15_FLAT),
+    "bright-theoremqa-questions.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS_BGE_LARGE_EN_15_FLAT),
+}
 
 LUCENE_FLAT_INDEX_INFO = {**LUCENE_FLAT_INDEX_INFO_BEIR, **LUCENE_FLAT_INDEX_INFO_BRIGHT}
 
