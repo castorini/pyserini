@@ -45,6 +45,7 @@ Start by creating the directories where we will store the encoded documents:
 mkdir encode
 cd encode
 mkdir nfcorpus.splade
+cd ..
 ```
 
 We can then setup to use SPLADE-v3:
@@ -217,3 +218,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@mindlesstruffle](https://github.com/mindlesstruffle) on 2025-07-15 (commit [`b5d4838`](https://github.com/castorini/pyserini/commit/b5d48381c171e0ac36cd0c2523fe77b7bfe45435))
 + Results reproduced by [@FarmersWrap](https://github.com/FarmersWrap) on 2025-11-02 (commit [`80395dc`](https://github.com/castorini/pyserini/commit/80395dc7b6e0d5c045f4dcf4ef8e61958ec636ca))
 + Results reproduced by [@minj22](https://github.com/minj22) on 2025-11-05 (commit [`0fc0b62`](https://github.com/castorini/pyserini/commit/0fc0b62246d863dedaa35d0dd4832276aa7fd08b))
++ Results reproduced by [@ipouyall](https://github.com/ipouyall) on 2025-11-05 (commit [`7e54c0e7`](https://github.com/castorini/pyserini/commit/7e54c0e745b073b49fc169ccdda9875cdaa7af85))
