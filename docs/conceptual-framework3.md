@@ -74,7 +74,7 @@ You’ll be prompted to enter your Hugging Face API token. You can generate a to
 
 We are now all set to use SPLADE-v3 model!
 
-Start by running the following pyserini command to encode the corpus into sparse vector representations.
+Start by running the following command to encode the corpus into sparse vector representations.
 
 ```bash
 python -m pyserini.encode \
