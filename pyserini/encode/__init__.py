@@ -30,7 +30,7 @@ from ._dkrr import DkrrDprQueryEncoder
 from ._dpr import DprDocumentEncoder, DprQueryEncoder
 from ._openai import OpenAiDocumentEncoder, OpenAiQueryEncoder, OPENAI_API_RETRY_DELAY
 from ._slim import SlimQueryEncoder
-from ._splade import SpladeQueryEncoder
+from ._splade import SpladeDocumentEncoder, SpladeQueryEncoder
 from ._tct_colbert import TctColBertDocumentEncoder, TctColBertQueryEncoder
 from ._tok_freq import TokFreqQueryEncoder
 from ._unicoil import UniCoilEncoder, UniCoilDocumentEncoder, UniCoilQueryEncoder
@@ -55,6 +55,7 @@ document_encoder_class_map = {
     "contriever": AutoDocumentEncoder,
     "arctic": ArcticDocumentEncoder,
     "uniir": UniIRCorpusEncoder,
+    "splade": SpladeDocumentEncoder,
 }
 
 query_encoder_class_map = {
