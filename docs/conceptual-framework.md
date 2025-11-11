@@ -248,7 +248,7 @@ BM25 was derived from a probabilistic model of retrieval and has evolved over ma
 Alternatively, document and query representations can be _learned_ from large amounts of data.
 So, we have a contrast between unsupervised (or heuristic) representations and supervised (or learned) representations.
 
-Indeed, dense retrieval models usually refer to encoders that _learn_ to produce dense semantic representations using, you guessed it, transformers models!
+Indeed, dense retrieval models usually refer to encoders that _learn_ to produce dense semantic representations using, you guessed it, transformer models!
 Where do the training data come from?
 Again, you got it: datasets such as MS MARCO.
 
