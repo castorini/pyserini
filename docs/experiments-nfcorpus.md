@@ -230,7 +230,7 @@ The `FaissSearcher` provides search capabilities using Faiss as its underlying i
 The `AutoQueryEncoder` allows us to initialize an encoder using a HuggingFace model.
 
 ```
- 1 MED-4555 0.791378
+ 1 MED-4555 0.791379
  2 MED-4560 0.710725
  3 MED-4421 0.688938
  4 MED-4993 0.686238
