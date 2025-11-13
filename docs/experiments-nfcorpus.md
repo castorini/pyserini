@@ -25,7 +25,7 @@ How to actually train such models will be covered later.
 
 **Learning outcomes** for this guide, building on previous steps in the onboarding path:
 
-+ Be able to use Pyserini to encode documents in NFCorpus with an existing dense retrieval model (BGE-base) and to build a Faiss index on the vector representations..
++ Be able to use Pyserini to encode documents in NFCorpus with an existing dense retrieval model (BGE-base) and to build a Faiss index on the vector representations.
 + Be able to use Pyserini to perform a batch retrieval run on queries from NFCorpus.
 + Be able to evaluate the retrieved results above.
 + Be able to generate the retrieved results above _interactively_ by directly manipulating Pyserini Python classes.
@@ -483,4 +483,5 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@MahdiNoori2003](https://github.com/MahdiNoori2003) on 2025-10-29 (commit [`dc1ae1b`](https://github.com/castorini/pyserini/commit/dc1ae1be36dc924645a4ed03e3141ed0451b8415))
 + Results reproduced by [@minj22](https://github.com/minj22) on 2025-11-05 (commit [`0fc0b62`](https://github.com/castorini/pyserini/commit/0fc0b62246d863dedaa35d0dd4832276aa7fd08b))
 + Results reproduced by [@ipouyall](https://github.com/ipouyall) on 2025-11-05 (commit [`7e54c0e7`](https://github.com/castorini/pyserini/commit/7e54c0e745b073b49fc169ccdda9875cdaa7af85))
++ Results reproduced by [@Amirhosseinpoor](https://github.com/Amirhosseinpoor) on 2025-11-12 (commit [`f4a8d0e`](https://github.com/castorini/pyserini/commit/f4a8d0ebfd233d703f1196ba3c679d92ceff51e6))
 + Results reproduced by [@AdrianGri](https://github.com/adriangri) on 2025-11-12 (commit [`f4a8d0e`](https://github.com/castorini/pyserini/commit/f4a8d0ebfd233d703f1196ba3c679d92ceff51e6))
