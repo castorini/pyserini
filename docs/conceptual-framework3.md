@@ -15,7 +15,7 @@ Informally, we're "peeling back the covers".
 
 **Learning outcomes** for this guide, building on previous steps in the onboarding path, are divided into three parts.
 1. Be able to encode a corpus into its sparse vector representations with SPLADE-v3.
-2. Be able to index them into a retrieval systme using Lucene inverted index.
+2. Be able to index them into a retrieval system using Lucene inverted index.
 3. Be able to compute query-document scores (i.e., retrieval scores) with pyserini for SPLADE retrieval.
 4. Be able to perform retrieval with pyserini given a query.
 
@@ -180,3 +180,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@FarmersWrap](https://github.com/FarmersWrap) on 2025-11-02 (commit [`80395dc`](https://github.com/castorini/pyserini/commit/80395dc7b6e0d5c045f4dcf4ef8e61958ec636ca))
 + Results reproduced by [@minj22](https://github.com/minj22) on 2025-11-05 (commit [`0fc0b62`](https://github.com/castorini/pyserini/commit/0fc0b62246d863dedaa35d0dd4832276aa7fd08b))
 + Results reproduced by [@ipouyall](https://github.com/ipouyall) on 2025-11-05 (commit [`7e54c0e7`](https://github.com/castorini/pyserini/commit/7e54c0e745b073b49fc169ccdda9875cdaa7af85))
++ Results reproduced by [@Amirhosseinpoor](https://github.com/Amirhosseinpoor) on 2025-11-13 (commit [`f4a8d0e`](https://github.com/castorini/pyserini/commit/f4a8d0ebfd233d703f1196ba3c679d92ceff51e6))
