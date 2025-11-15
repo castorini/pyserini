@@ -104,6 +104,27 @@ class FaissSearcher:
         """Display information about available prebuilt indexes."""
         get_dense_indexes_info()
 
+    def _normalize_to_unit_interval(self, distances: np.ndarray) -> np.ndarray:
+        """Apply Lucene-style score normalization: (1 + cosine) / 2.
+        
+        This maps cosine similarity from [-1, 1] to [0, 1].
+        Only applies if using INNER_PRODUCT metric (cosine similarity).
+        
+        Parameters
+        ----------
+        distances : np.ndarray
+            Raw distance/similarity scores from FAISS search.
+            
+        Returns
+        -------
+        np.ndarray
+            Normalized scores if INNER_PRODUCT metric is used, otherwise original scores.
+        """
+        if hasattr(self.index, 'metric_type') and self.index.metric_type == 0:  # INNER_PRODUCT
+            distances = np.array(distances)  # Ensure it's a numpy array
+            distances = (1.0 + distances) / 2.0
+        return distances
+
     def search(self, query: Union[str, np.ndarray, Dict], k: int = 10, threads: int = 1, remove_dups: bool = False, return_vector: bool = False) \
             -> Union[List[DenseSearchResult], Tuple[np.ndarray, List[PrfDenseSearchResult]]]:
         """Search the collection.
@@ -141,12 +162,14 @@ class FaissSearcher:
             vectors = vectors[0]
             distances = distances.flat
             indexes = indexes.flat
+            distances = self._normalize_to_unit_interval(distances)
             return emb_q, [PrfDenseSearchResult(self.docids[idx], score, vector)
                            for score, idx, vector in zip(distances, indexes, vectors) if idx != -1]
         else:
             distances, indexes = self.index.search(emb_q, k)
             distances = distances.flat
             indexes = indexes.flat
+            distances = self._normalize_to_unit_interval(distances)
             if remove_dups:
                 unique_docs = set()
                 results = list()
@@ -203,11 +226,13 @@ class FaissSearcher:
         faiss.omp_set_num_threads(threads)
         if return_vector:
             D, I, V = self.index.search_and_reconstruct(q_embs, k)
+            D = self._normalize_to_unit_interval(D)
             return q_embs, {key: [PrfDenseSearchResult(self.docids[idx], score, vector)
                                   for score, idx, vector in zip(distances, indexes, vectors) if idx != -1]
                             for key, distances, indexes, vectors in zip(q_ids, D, I, V)}
         else:
             D, I = self.index.search(q_embs, k)
+            D = self._normalize_to_unit_interval(D)
             return {key: [DenseSearchResult(self.docids[idx], score)
                           for score, idx in zip(distances, indexes) if idx != -1]
                     for key, distances, indexes in zip(q_ids, D, I)}
