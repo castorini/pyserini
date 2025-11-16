@@ -130,13 +130,13 @@ if __name__ == '__main__':
                                        args.dense.pooling,
                                        args.dense.l2_norm,
                                        args.dense.query_prefix)
-
+    normalize_distances = getattr(args.dense, 'normalize_distances', False)
     if os.path.exists(args.dense.index):
         # create searcher from index directory
-        dsearcher = FaissSearcher(args.dense.index, query_encoder)
+        dsearcher = FaissSearcher(args.dense.index, query_encoder, normalize_distances=normalize_distances)
     else:
         # create searcher from prebuilt index name
-        dsearcher = FaissSearcher.from_prebuilt_index(args.dense.index, query_encoder)
+        dsearcher = FaissSearcher.from_prebuilt_index(args.dense.index, query_encoder, normalize_distances=normalize_distances)
 
     if not dsearcher:
         exit()
