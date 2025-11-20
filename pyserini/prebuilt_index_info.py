@@ -1443,9 +1443,9 @@ TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
                  **TF_INDEX_INFO_MRTYDI_ALIASES,
                  **TF_INDEX_INFO_MIRACL,
                  **TF_INDEX_INFO_CIRAL,
+                 **TF_INDEX_INFO_BROWSECOMP_PLUS,
                  **TF_INDEX_INFO_OTHER,
-                 **TF_INDEX_INFO_OTHER_ALIASES,
-                 **TF_INDEX_INFO_BROWSECOMP_PLUS}
+                 **TF_INDEX_INFO_OTHER_ALIASES}
 
 
 # Bindings for Lucene impact indexes
