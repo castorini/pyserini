@@ -1418,6 +1418,23 @@ TF_INDEX_INFO_OTHER_ALIASES = {
     "core18": TF_INDEX_INFO_OTHER["wapo.v2"],
 }
 
+TF_INDEX_INFO_BROWSECOMP_PLUS = {
+    "browsecomp-plus.bm25": {
+        "description": "Lucene index of the BrowseComp-Plus corpus. See https://texttron.github.io/BrowseComp-Plus/",
+        "filename": "lucene-inverted.browsecomp-plus.bm25.20250810.tar.gz",
+        "readme": "lucene-inverted.browsecomp-plus.bm25.20250810.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-browsecomp-plus/resolve/main/lucene-inverted/lucene-inverted.browsecomp-plus.bm25.20250810.tar.gz"
+        ],
+        "md5": "c9c3a69fe2725016f35e8c8523bdf828",
+        "size compressed (bytes)": 1783466040,
+        "total_terms": 373478034,
+        "documents": 100195,
+        "unique_terms": 4152345,
+        "downloaded": False
+    },
+}
+
 TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
                  **TF_INDEX_INFO_MSMARCO_ALIASES,
                  **TF_INDEX_INFO_BEIR,
@@ -1427,7 +1444,8 @@ TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
                  **TF_INDEX_INFO_MIRACL,
                  **TF_INDEX_INFO_CIRAL,
                  **TF_INDEX_INFO_OTHER,
-                 **TF_INDEX_INFO_OTHER_ALIASES}
+                 **TF_INDEX_INFO_OTHER_ALIASES,
+                 **TF_INDEX_INFO_BROWSECOMP_PLUS}
 
 
 # Bindings for Lucene impact indexes

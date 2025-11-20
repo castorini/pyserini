@@ -125,6 +125,7 @@ if __name__ == '__main__':
 
     print('<details>')
     print('<summary>Other</summary>')
+    generate_prebuilt(TF_INDEX_INFO_BROWSECOMP_PLUS)
     generate_prebuilt(TF_INDEX_INFO_CIRAL)
     generate_prebuilt(TF_INDEX_INFO_OTHER)
     print('</details>')
