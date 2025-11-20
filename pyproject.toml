@@ -62,5 +62,5 @@ optional = [
     "spacy>=3.2.1",
     "pyarrow>=15.0.0",
     "pybind11>=2.11.0",
-    "uniir-for-pyserini>=0.1.0"
+    "uniir-for-pyserini>=0.1.2"
 ]
