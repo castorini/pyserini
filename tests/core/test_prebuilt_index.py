@@ -249,6 +249,18 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(cnt, 12)
         self._test_urls(urls)
 
+    def test_faiss_browsecomp_plus(self):
+        urls = []
+        cnt = 0
+        for key in FAISS_INDEX_INFO:
+            if 'browsecomp-plus' in key:
+                cnt += 1
+                for url in FAISS_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        self.assertEqual(cnt, 1)
+        self._test_urls(urls)
+
     def test_faiss_mrtydi(self):
         urls = []
         cnt = 0

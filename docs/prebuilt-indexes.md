@@ -651,6 +651,12 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <details>
 <summary>Other</summary>
 <dl>
+<dt></dt><b><code>browsecomp-plus.bm25</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.browsecomp-plus.bm25.20250810.README.md">readme</a>]
+<dd>Lucene index of the BrowseComp-Plus corpus. See https://texttron.github.io/BrowseComp-Plus/
+</dd>
+</dl>
+<dl>
 <dt></dt><b><code>ciral-v1.0-ha</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.ciral-v1.0.20230721.e850ea.README.md">readme</a>]
 <dd>Lucene index for CIRAL v1.0 (Hausa).
@@ -2159,6 +2165,15 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dt></dt><b><code>bright-theoremqa-questions.bge-large-en-v1.5</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
 <dd>Faiss flat index for BRIGHT: theoremqa-questions corpus encoded by BGE-large-en-v1.5.
+</dd>
+</dl>
+</details>
+<details>
+<summary>BrowseComp-Plus</summary>
+<dl>
+<dt></dt><b><code>browsecomp-plus.qwen3-embedding-8b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.browsecomp-plus.qwen3-embedding-8b.20250810.README.md">readme</a>]
+<dd>Faiss flat index of the BrowseComp-Plus corpus encoded by Qwen3-Embedding-8B. See https://texttron.github.io/BrowseComp-Plus/
 </dd>
 </dl>
 </details>

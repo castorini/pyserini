@@ -189,6 +189,11 @@ if __name__ == '__main__':
     print('</details>')
 
     print('<details>')
+    print('<summary>BrowseComp-Plus</summary>')
+    generate_prebuilt(FAISS_INDEX_INFO_BROWSECOMP_PLUS)
+    print('</details>')
+
+    print('<details>')
     print('<summary>Mr.TyDi</summary>')
     generate_prebuilt(FAISS_INDEX_INFO_MRTYDI)
     print('</details>')

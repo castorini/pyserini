@@ -6028,6 +6028,22 @@ FAISS_INDEX_INFO_M_BEIR = {
     }
 }
 
+FAISS_INDEX_INFO_BROWSECOMP_PLUS = {
+    "browsecomp-plus.qwen3-embedding-8b": {
+        "description": "Faiss flat index of the BrowseComp-Plus corpus encoded by Qwen3-Embedding-8B. See https://texttron.github.io/BrowseComp-Plus/",
+        "filename": "faiss-flat.browsecomp-plus.qwen3-embedding-8b.20250810.tar.gz",
+        "readme": "faiss-flat.browsecomp-plus.qwen3-embedding-8b.20250810.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-browsecomp-plus/resolve/main/faiss-flat/faiss-flat.browsecomp-plus.qwen3-embedding-8b.20250810.tar.gz"
+        ],
+        "md5": "2b3faad654414787c2438c9dfcd5500c",
+        "size compressed (bytes)": 1521405052,
+        "documents": 100195,
+        "downloaded": False,
+        "texts": "browsecomp-plus.bm25"
+    },
+}
+
 FAISS_INDEX_INFO_OTHER = {
     "cast2019-tct_colbert-v2.hnsw": {
         "description": "Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder",
@@ -6365,4 +6381,5 @@ FAISS_INDEX_INFO = {**FAISS_INDEX_INFO_MSMARCO,
                     **FAISS_INDEX_INFO_WIKIPEDIA,
                     **FAISS_INDEX_INFO_CIRAL,
                     **FAISS_INDEX_INFO_M_BEIR,
+                    **FAISS_INDEX_INFO_BROWSECOMP_PLUS,
                     **FAISS_INDEX_INFO_OTHER}
