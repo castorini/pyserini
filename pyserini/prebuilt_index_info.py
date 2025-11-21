@@ -1418,6 +1418,23 @@ TF_INDEX_INFO_OTHER_ALIASES = {
     "core18": TF_INDEX_INFO_OTHER["wapo.v2"],
 }
 
+TF_INDEX_INFO_BROWSECOMP_PLUS = {
+    "browsecomp-plus.bm25": {
+        "description": "Lucene index of the BrowseComp-Plus corpus. See https://texttron.github.io/BrowseComp-Plus/",
+        "filename": "lucene-inverted.browsecomp-plus.bm25.20250810.tar.gz",
+        "readme": "lucene-inverted.browsecomp-plus.bm25.20250810.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-browsecomp-plus/resolve/main/lucene-inverted/lucene-inverted.browsecomp-plus.bm25.20250810.tar.gz"
+        ],
+        "md5": "c9c3a69fe2725016f35e8c8523bdf828",
+        "size compressed (bytes)": 1783466040,
+        "total_terms": 373478034,
+        "documents": 100195,
+        "unique_terms": 4152345,
+        "downloaded": False
+    },
+}
+
 TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
                  **TF_INDEX_INFO_MSMARCO_ALIASES,
                  **TF_INDEX_INFO_BEIR,
@@ -1426,6 +1443,7 @@ TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
                  **TF_INDEX_INFO_MRTYDI_ALIASES,
                  **TF_INDEX_INFO_MIRACL,
                  **TF_INDEX_INFO_CIRAL,
+                 **TF_INDEX_INFO_BROWSECOMP_PLUS,
                  **TF_INDEX_INFO_OTHER,
                  **TF_INDEX_INFO_OTHER_ALIASES}
 
@@ -6010,6 +6028,22 @@ FAISS_INDEX_INFO_M_BEIR = {
     }
 }
 
+FAISS_INDEX_INFO_BROWSECOMP_PLUS = {
+    "browsecomp-plus.qwen3-embedding-8b": {
+        "description": "Faiss flat index of the BrowseComp-Plus corpus encoded by Qwen3-Embedding-8B. See https://texttron.github.io/BrowseComp-Plus/",
+        "filename": "faiss-flat.browsecomp-plus.qwen3-embedding-8b.20250810.tar.gz",
+        "readme": "faiss-flat.browsecomp-plus.qwen3-embedding-8b.20250810.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-browsecomp-plus/resolve/main/faiss-flat/faiss-flat.browsecomp-plus.qwen3-embedding-8b.20250810.tar.gz"
+        ],
+        "md5": "2b3faad654414787c2438c9dfcd5500c",
+        "size compressed (bytes)": 1521405052,
+        "documents": 100195,
+        "downloaded": False,
+        "texts": "browsecomp-plus.bm25"
+    },
+}
+
 FAISS_INDEX_INFO_OTHER = {
     "cast2019-tct_colbert-v2.hnsw": {
         "description": "Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder",
@@ -6347,4 +6381,5 @@ FAISS_INDEX_INFO = {**FAISS_INDEX_INFO_MSMARCO,
                     **FAISS_INDEX_INFO_WIKIPEDIA,
                     **FAISS_INDEX_INFO_CIRAL,
                     **FAISS_INDEX_INFO_M_BEIR,
+                    **FAISS_INDEX_INFO_BROWSECOMP_PLUS,
                     **FAISS_INDEX_INFO_OTHER}
