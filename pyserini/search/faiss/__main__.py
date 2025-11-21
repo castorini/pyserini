@@ -89,7 +89,7 @@ def define_dsearch_args(parser):
         metavar="pooling strategy",
         required=False,
         default="cls",
-        choices=["cls", "mean"],
+        choices=["cls", "mean", "eos"],
         help="Pooling strategy for query encoder",
     )
     parser.add_argument(
@@ -226,6 +226,15 @@ def define_dsearch_args(parser):
         default=None,
         help="Set efSearch for HNSW index",
     )
+    parser.add_argument(
+        "--padding-side",
+        type=str,
+        metavar="left or right",
+        required=False,
+        default="right",
+        choices=["left", "right"],
+        help="Padding side for the tokenizer",
+    )
 
 
 def init_query_encoder(
@@ -242,6 +251,7 @@ def init_query_encoder(
     multimodal=False,
     instruction_config=None,
     fp16=False,
+    padding_side='right',
 ):
     encoded_queries_map = {
         "msmarco-passage-dev-subset": "tct_colbert-msmarco-passage-dev-subset",
@@ -289,7 +299,7 @@ def init_query_encoder(
         if _encoder_class == "openai-api" or "openai" in encoder:
             kwargs.update(dict(max_length=max_length))
         if _encoder_class == "auto":
-            kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix))
+            kwargs.update(dict(pooling=pooling, l2_norm=l2_norm, prefix=prefix, padding_side=padding_side))
         if _encoder_class == "clip" or "clip" in encoder:
             kwargs.update(dict(l2_norm=True, prefix=prefix, multimodal=multimodal))
         if _encoder_class == "uniir":
@@ -434,7 +444,8 @@ if __name__ == "__main__":
         args.query_prefix,
         args.multimodal,
         args.instruction_config,
-        args.fp16
+        args.fp16,
+        args.padding_side
     )
     if args.pca_model:
         query_encoder = PcaEncoder(query_encoder, args.pca_model)

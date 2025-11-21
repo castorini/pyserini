@@ -24,7 +24,7 @@ from pyserini.query_iterator import DefaultQueryIterator
 from tqdm import tqdm
 
 
-def init_encoder(encoder, device, pooling, l2_norm, prefix):
+def init_encoder(encoder, device, pooling, l2_norm, prefix, fp16=False, padding_side='right'):
     if 'dpr' in encoder.lower():
         return DprQueryEncoder(encoder, device=device)
     elif 'tct' in encoder.lower():
@@ -44,7 +44,7 @@ def init_encoder(encoder, device, pooling, l2_norm, prefix):
     elif 'arctic' in encoder.lower():
         return ArcticQueryEncoder(encoder, device=device)
     else:
-        return AutoQueryEncoder(encoder, device=device, pooling=pooling, l2_norm=l2_norm, prefix=prefix)
+        return AutoQueryEncoder(encoder, device=device, pooling=pooling, l2_norm=l2_norm, prefix=prefix, fp16=fp16, padding_side=padding_side)
 
 
 if __name__ == '__main__':
@@ -56,12 +56,14 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=str, help='path to stored encoded queries', required=True)
     parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]', default='cpu', required=False)
     parser.add_argument('--max-length', type=int, help='max length', default=256, required=False)
-    parser.add_argument('--pooling', type=str, help='pooling strategy', default='cls', choices=['cls', 'mean'], required=False)
+    parser.add_argument('--pooling', type=str, help='pooling strategy', default='cls', choices=['cls', 'mean', 'eos'], required=False)
     parser.add_argument('--l2-norm', action='store_true', help='whether to normalize embedding', default=False, required=False)
     parser.add_argument('--prefx', type=str, help='prefix query input', default=None, required=False)
+    parser.add_argument('--fp16', action='store_true', help='use fp16 for query embeddings', default=False, required=False)
+    parser.add_argument('--padding-side', type=str, default='right', choices=['left', 'right'], help='padding side for the tokenizer', required=False)
     args = parser.parse_args()
 
-    encoder = init_encoder(args.encoder, device=args.device, pooling=args.pooling, l2_norm=args.l2_norm, prefix=args.prefx)
+    encoder = init_encoder(args.encoder, device=args.device, pooling=args.pooling, l2_norm=args.l2_norm, prefix=args.prefx, fp16=args.fp16, padding_side=args.padding_side)
     query_iterator = DefaultQueryIterator.from_topics(args.topics)
 
     is_sparse = False
