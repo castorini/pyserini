@@ -130,6 +130,7 @@ if __name__ == '__main__':
                                        args.dense.pooling,
                                        args.dense.l2_norm,
                                        args.dense.query_prefix)
+
     if os.path.exists(args.dense.index):
         # create searcher from index directory
         dsearcher = FaissSearcher(args.dense.index, query_encoder)
