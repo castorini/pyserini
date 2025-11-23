@@ -98,6 +98,51 @@ class TestNFCorpus(unittest.TestCase):
 
         os.remove(run_file)
 
+    def test_faiss_flat_dense_with_normalized_distances(self):
+        expected_top10 = [
+            "PLAIN-1008 Q0 MED-2036 1 0.776563 Faiss",
+            "PLAIN-1008 Q0 MED-5135 2 0.775253 Faiss",
+            "PLAIN-1008 Q0 MED-4694 3 0.774549 Faiss",
+            "PLAIN-1008 Q0 MED-3865 4 0.773869 Faiss",
+            "PLAIN-1008 Q0 MED-3316 5 0.771661 Faiss",
+            "PLAIN-1008 Q0 MED-901 6 0.766057 Faiss",
+            "PLAIN-1008 Q0 MED-4668 7 0.765507 Faiss",
+            "PLAIN-1008 Q0 MED-3317 8 0.764854 Faiss",
+            "PLAIN-1008 Q0 MED-5211 9 0.764642 Faiss",
+            "PLAIN-1008 Q0 MED-2476 10 0.763486 Faiss",
+        ]
+        r = randint(0, 10000000)
+        faiss_run_file = f'run.faiss.beir-v1.0.0-nfcorpus.bge-base-en-v1.5.test.{r}.txt'
+        self.__class__.faiss_run_file = faiss_run_file
+        
+        # Run Faiss search
+        faiss_cmd = f'python -m pyserini.search.faiss \
+            --encoder-class auto \
+            --encoder BAAI/bge-base-en-v1.5 \
+            --l2-norm \
+            --pooling cls \
+            --index beir-v1.0.0-nfcorpus.bge-base-en-v1.5 \
+            --topics beir-v1.0.0-nfcorpus-test \
+            --output {faiss_run_file} \
+            --batch 128 \
+            --threads 16 \
+            --query-prefix "Represent this sentence for searching relevant passages: " \
+            --hits 10 \
+            --remove-query \
+            --normalize-distances'
+        
+        faiss_result = os.system(faiss_cmd)
+        self.assertEqual(faiss_result, 0, "Faiss search failed")
+        self.assertTrue(os.path.exists(faiss_run_file), "Faiss run file was not created")
+        
+        # Compare top-10 results for PLAIN-1008
+        with open(faiss_run_file, 'r') as f:
+            faiss_results = [line.strip() for line in f if line.startswith('PLAIN-1008')][:10]
+        
+        self.assertEqual(len(faiss_results), 10, "Faiss results should have 10 lines for PLAIN-1008")
+        for i, line in enumerate(faiss_results):
+            self.assertEqual(line, expected_top10[i], f"Faiss result {i+1} should match expected")
+
     @classmethod
     def tearDownClass(cls):
         shutil.rmtree(cls.dense_index_dir)
@@ -105,6 +150,9 @@ class TestNFCorpus(unittest.TestCase):
 
         shutil.rmtree(cls.sparse_index_dir)
         os.remove(cls.sparse_tarball_name)
+        
+        if hasattr(cls, 'faiss_run_file') and os.path.exists(cls.faiss_run_file):
+            os.remove(cls.faiss_run_file)
 
 
 if __name__ == '__main__':
