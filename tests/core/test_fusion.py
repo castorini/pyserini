@@ -55,16 +55,12 @@ def compare_trec_files_with_tolerance(file1_path, file2_path, tolerance=1e-4):
                 return False
     return True
 
-def retrieve_and_save_runs(self, searcher, topics_name, searcher_type='bm25', qids=None, test_name=None):
+def retrieve_and_save_runs(self, searcher, topics_name, searcher_type='bm25', qids=None):
     """Retrieve search results and save to file."""
     topics = get_topics(topics_name)
     if qids is None:
         qids = list(topics.keys())[:5]
-    
-    if test_name is None:
-        test_name = self._testMethodName if hasattr(self, '_testMethodName') else 'unknown_test'
-    run_path = f'{test_name}_{searcher_type}.txt'
-    
+    run_path = f'{searcher_type}_{searcher_type}.txt'
     with open(run_path, 'w') as run_file:
         for qid in qids:
             query = topics[qid]['title']
@@ -75,7 +71,6 @@ def retrieve_and_save_runs(self, searcher, topics_name, searcher_type='bm25', qi
                 hits = [h for h in raw_hits if h.docid != qid][:10]
             for rank, hit in enumerate(hits, start=1):
                 run_file.write(f"{qid} Q0 {hit.docid} {rank} {hit.score:.6f} {searcher_type}_search\n")
-
     self.assertTrue(os.path.exists(run_path), f"{searcher_type} run file not created: {run_path}")
     return run_path
 
@@ -167,9 +162,9 @@ class TestFusion(unittest.TestCase):
         self.lucene_dense_searcher = LuceneFlatDenseSearcher.from_prebuilt_index('beir-v1.0.0-arguana.bge-base-en-v1.5.flat', encoder='BgeBaseEn15')
         self.faiss_dense_searcher_normalized = FaissSearcher.from_prebuilt_index('beir-v1.0.0-arguana.bge-base-en-v1.5', encoder, True)
         self.qids = ['test-culture-ahrtsdlgra-con01a', 'test-culture-ahrtsdlgra-con02a']
-        self.bm25_path = retrieve_and_save_runs(self, self.bm25_searcher, 'beir-v1.0.0-arguana-test', 'bm25', self.qids, "bm25")
-        self.lucene_flat_dense_path = retrieve_and_save_runs(self, self.lucene_dense_searcher, 'beir-v1.0.0-arguana-test', 'lucene_flat_dense', self.qids, "lucene_flat_dense")
-        self.faiss_flat_dense_normalized_path = retrieve_and_save_runs(self, self.faiss_dense_searcher_normalized, 'beir-v1.0.0-arguana-test', 'faiss_flat_dense_normalized', self.qids, "faiss_flat_dense")
+        self.bm25_path = retrieve_and_save_runs(self, self.bm25_searcher, 'beir-v1.0.0-arguana-test', 'bm25', self.qids)
+        self.lucene_flat_dense_path = retrieve_and_save_runs(self, self.lucene_dense_searcher, 'beir-v1.0.0-arguana-test', 'lucene_flat_dense', self.qids)
+        self.faiss_flat_dense_normalized_path = retrieve_and_save_runs(self, self.faiss_dense_searcher_normalized, 'beir-v1.0.0-arguana-test', 'faiss_flat_dense_normalized', self.qids)
 
     def test_reciprocal_rank_fusion_simple(self):
         input_paths = [os.path.join(self.resource_dir, 'simple_trec_run_fusion_1.txt'),
