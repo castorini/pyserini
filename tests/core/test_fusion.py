@@ -15,6 +15,7 @@
 #
 
 import os
+import random
 import unittest
 
 from pyserini.search import get_topics
@@ -58,9 +59,10 @@ def compare_trec_files_with_tolerance(file1_path, file2_path, tolerance=1e-4):
 def retrieve_and_save_runs(self, searcher, topics_name, searcher_type='bm25', qids=None):
     """Retrieve search results and save to file."""
     topics = get_topics(topics_name)
+    random_number = random.randint(0, 1000000)
     if qids is None:
         qids = list(topics.keys())[:5]
-    run_path = f'{searcher_type}_{searcher_type}.txt'
+    run_path = f'{searcher_type}_{searcher_type}_{random_number}.txt'
     with open(run_path, 'w') as run_file:
         for qid in qids:
             query = topics[qid]['title']
@@ -74,7 +76,7 @@ def retrieve_and_save_runs(self, searcher, topics_name, searcher_type='bm25', qi
     self.assertTrue(os.path.exists(run_path), f"{searcher_type} run file not created: {run_path}")
     return run_path
 
-def run_fusion_on_saved_runs(self, bm25_path, dense_path, method, expected_results, runtag, extra_args='', output_path=None, qids=None):
+def run_fusion_on_saved_runs(self, bm25_path, dense_path, method, expected_results, runtag, extra_args='', output_path=None):
     """Run fusion on saved run files and validate results."""
     if output_path is None:
         output_path = self.output_path
@@ -155,6 +157,57 @@ class TestFusion(unittest.TestCase):
             ]
         }
 
+        cls.expected_results_long = {
+            'rrf': [
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro03a', 1, 0.03177805800756621),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con01b', 2, 0.031754032258064516),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro02a', 3, 0.03125763125763126),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro03b', 4, 0.031054405392392875),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con04a', 5, 0.031024531024531024),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con04b', 6, 0.030117753623188408),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro02b', 7, 0.028991596638655463),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con01a', 8, 0.01639344262295082),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro01b', 9, 0.015151515151515152),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con03b', 10, 0.014925373134328358),
+            ],
+            'interpolation': [
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con01a', 1, 313.293762),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con01b', 2, 123.4811905),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro02a', 3, 115.9562525),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con04b', 4, 100.3106235),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro03a', 5, 96.617538),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con04a', 6, 90.22844),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro03b', 7, 89.52266449999999),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro04a', 8, 88.4228975),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro02b', 9, 76.0090455),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro01a', 10, 75.683502),
+            ],
+            'average': [
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con01a', 1, 313.293762),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con01b', 2, 123.4811905),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro02a', 3, 115.9562525),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con04b', 4, 100.3106235),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro03a', 5, 96.617538),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con04a', 6, 90.22844),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro03b', 7, 89.52266449999999),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro04a', 8, 88.4228975),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro02b', 9, 76.0090455),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro01a', 10, 75.683502),
+            ],
+            'normalize': [
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro03a', 1, 1.086607319504881),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con01a', 2, 1.0),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro03b', 3, 0.9586720309553366),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con01b', 4, 0.8569299856864847),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro02a', 5, 0.7658100119231028),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con04a', 6, 0.7480911577762183),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro01b', 7, 0.5282379673621154),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con03b', 8, 0.24125180747779343),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-pro02b', 9, 0.1595744680851058),
+                ('test-sport-tshbmlbscac-con01a', 'test-sport-tshbmlbscac-con04b', 10, 0.1576201723584239),
+            ]
+        }
+
     def setUp(self):
         self.output_path = 'output_test_fusion.txt'
         encoder = AutoQueryEncoder('BAAI/bge-base-en-v1.5', pooling='cls', l2_norm=True, prefix='Represent this sentence for searching relevant passages:')
@@ -162,9 +215,15 @@ class TestFusion(unittest.TestCase):
         self.lucene_dense_searcher = LuceneFlatDenseSearcher.from_prebuilt_index('beir-v1.0.0-arguana.bge-base-en-v1.5.flat', encoder='BgeBaseEn15')
         self.faiss_dense_searcher_normalized = FaissSearcher.from_prebuilt_index('beir-v1.0.0-arguana.bge-base-en-v1.5', encoder, True)
         self.qids = ['test-culture-ahrtsdlgra-con01a', 'test-culture-ahrtsdlgra-con02a']
+        self.long_qids = ['test-sport-tshbmlbscac-con01a']
         self.bm25_path = retrieve_and_save_runs(self, self.bm25_searcher, 'beir-v1.0.0-arguana-test', 'bm25', self.qids)
         self.lucene_flat_dense_path = retrieve_and_save_runs(self, self.lucene_dense_searcher, 'beir-v1.0.0-arguana-test', 'lucene_flat_dense', self.qids)
         self.faiss_flat_dense_normalized_path = retrieve_and_save_runs(self, self.faiss_dense_searcher_normalized, 'beir-v1.0.0-arguana-test', 'faiss_flat_dense_normalized', self.qids)
+
+        self.bm25_path_long = retrieve_and_save_runs(self, self.bm25_searcher, 'beir-v1.0.0-arguana-test', 'bm25', self.long_qids)
+        self.lucene_flat_dense_path_long = retrieve_and_save_runs(self, self.lucene_dense_searcher, 'beir-v1.0.0-arguana-test', 'lucene_flat_dense', self.long_qids)
+        self.faiss_flat_dense_normalized_path_long = retrieve_and_save_runs(self, self.faiss_dense_searcher_normalized, 'beir-v1.0.0-arguana-test', 'faiss_flat_dense_normalized', self.long_qids)
+
 
     def test_reciprocal_rank_fusion_simple(self):
         input_paths = [os.path.join(self.resource_dir, 'simple_trec_run_fusion_1.txt'),
@@ -242,6 +301,30 @@ class TestFusion(unittest.TestCase):
     def test_faiss_flat_dense_normalize_fusion_normalize_distances(self):
         run_fusion_on_saved_runs(self, self.bm25_path, self.faiss_flat_dense_normalized_path, 'normalize', self.expected_results['normalize'], 'fusion_normalize')
 
+    def test_lucene_flat_dense_rrf_fusion_long_queries(self):
+        run_fusion_on_saved_runs(self, self.bm25_path_long, self.lucene_flat_dense_path_long, 'rrf', self.expected_results_long['rrf'], 'fusion_rrf', '--rrf.k 60')
+
+    def test_lucene_flat_dense_interpolation_fusion_long_queries(self):
+        run_fusion_on_saved_runs(self, self.bm25_path_long, self.lucene_flat_dense_path_long, 'interpolation', self.expected_results_long['interpolation'], 'fusion_interpolation', '--alpha 0.5')
+
+    def test_lucene_flat_dense_average_fusion_long_queries(self):
+        run_fusion_on_saved_runs(self, self.bm25_path_long, self.lucene_flat_dense_path_long, 'average', self.expected_results_long['average'], 'fusion_average')
+
+    def test_lucene_flat_dense_normalize_fusion_long_queries(self):
+        run_fusion_on_saved_runs(self, self.bm25_path_long, self.lucene_flat_dense_path_long, 'normalize', self.expected_results_long['normalize'], 'fusion_normalize')
+
+    def test_faiss_flat_dense_rrf_fusion_normalize_distances_long_queries(self):
+        run_fusion_on_saved_runs(self, self.bm25_path_long, self.faiss_flat_dense_normalized_path_long, 'rrf', self.expected_results_long['rrf'], 'fusion_rrf', '--rrf.k 60')
+
+    def test_faiss_flat_dense_interpolation_fusion_normalize_distances_long_queries(self):
+        run_fusion_on_saved_runs(self, self.bm25_path_long, self.faiss_flat_dense_normalized_path_long, 'interpolation', self.expected_results_long['interpolation'], 'fusion_interpolation', '--alpha 0.5')
+
+    def test_faiss_flat_dense_average_fusion_normalize_distances_long_queries(self):
+        run_fusion_on_saved_runs(self, self.bm25_path_long, self.faiss_flat_dense_normalized_path_long, 'average', self.expected_results_long['average'], 'fusion_average')
+
+    def test_faiss_flat_dense_normalize_fusion_normalize_distances_long_queries(self):
+        run_fusion_on_saved_runs(self, self.bm25_path_long, self.faiss_flat_dense_normalized_path_long, 'normalize', self.expected_results_long['normalize'], 'fusion_normalize')
+
     def tearDown(self):
         if os.path.exists(self.output_path):
             os.unlink(self.output_path)
@@ -251,6 +334,12 @@ class TestFusion(unittest.TestCase):
             os.unlink(self.lucene_flat_dense_path)
         if hasattr(self, 'faiss_flat_dense_normalized_path') and os.path.exists(self.faiss_flat_dense_normalized_path):
             os.unlink(self.faiss_flat_dense_normalized_path)
+        if hasattr(self, 'bm25_path_long') and os.path.exists(self.bm25_path_long):
+            os.unlink(self.bm25_path_long)
+        if hasattr(self, 'lucene_flat_dense_path_long') and os.path.exists(self.lucene_flat_dense_path_long):
+            os.unlink(self.lucene_flat_dense_path_long)
+        if hasattr(self, 'faiss_flat_dense_normalized_path_long') and os.path.exists(self.faiss_flat_dense_normalized_path_long):
+            os.unlink(self.faiss_flat_dense_normalized_path_long)
 
 if __name__ == '__main__':
     unittest.main()
