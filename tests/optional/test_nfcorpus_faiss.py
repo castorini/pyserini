@@ -20,7 +20,6 @@ import subprocess
 import tarfile
 import unittest
 
-import numpy as np
 from random import randint
 from urllib.request import urlretrieve
 
