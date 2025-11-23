@@ -20,6 +20,7 @@ import subprocess
 import tarfile
 import unittest
 
+import numpy as np
 from random import randint
 from urllib.request import urlretrieve
 
@@ -98,7 +99,7 @@ class TestNFCorpus(unittest.TestCase):
 
         os.remove(run_file)
 
-    def test_faiss_with_normalized_distances(self):
+    def test_faiss_flat_dense_with_normalized_distances(self):
         expected_top10 = [
             "PLAIN-1008 Q0 MED-2036 1 0.776563 Faiss",
             "PLAIN-1008 Q0 MED-5135 2 0.775253 Faiss",

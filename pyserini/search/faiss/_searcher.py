@@ -166,8 +166,6 @@ class FaissSearcher:
             vectors = vectors[0]
             distances = distances.flat
             indexes = indexes.flat
-            if self.normalize_distances:
-                distances = self._normalize_to_unit_interval(distances)
             return emb_q, [PrfDenseSearchResult(self.docids[idx], score, vector)
                            for score, idx, vector in zip(distances, indexes, vectors) if idx != -1]
         else:
@@ -232,8 +230,6 @@ class FaissSearcher:
         faiss.omp_set_num_threads(threads)
         if return_vector:
             D, I, V = self.index.search_and_reconstruct(q_embs, k)
-            if self.normalize_distances:
-                D = self._normalize_to_unit_interval(D)
             return q_embs, {key: [PrfDenseSearchResult(self.docids[idx], score, vector)
                                   for score, idx, vector in zip(distances, indexes, vectors) if idx != -1]
                             for key, distances, indexes, vectors in zip(q_ids, D, I, V)}
