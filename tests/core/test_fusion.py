@@ -22,41 +22,9 @@ from pyserini.search import get_topics
 from pyserini.search.lucene import LuceneSearcher, LuceneFlatDenseSearcher
 from pyserini.search.faiss import FaissSearcher
 from pyserini.encode import AutoQueryEncoder
+from pyserini.util import compare_trec_files_with_tolerance
 
-def compare_trec_files_with_tolerance(file1_path, file2_path, tolerance=1e-4):
-    """Compare two TREC files with tolerance for floating-point precision differences."""
-    try:
-        with open(file1_path, 'r') as f1, open(file2_path, 'r') as f2:
-            lines1 = f1.readlines()
-            lines2 = f2.readlines()
-    except FileNotFoundError:
-        return False
-    if len(lines1) != len(lines2):
-        return False
-    # Compare each line between the two files
-    for i, (line1, line2) in enumerate(zip(lines1, lines2)):
-        if line1.strip() != line2.strip():
-            parts1 = line1.strip().split()
-            parts2 = line2.strip().split()
-            if len(parts1) != len(parts2):
-                return False
-            # parts[0]=qid, parts[1]=Q0, parts[2]=docid, parts[3]=rank, parts[4]=score, parts[5]=runtag
-            if (parts1[0] == parts2[0] and parts1[1] == parts2[1] and
-                parts1[2] == parts2[2] and parts1[3] == parts2[3] and
-                parts1[5] == parts2[5]):
-                try:
-                    score1 = float(parts1[4])
-                    score2 = float(parts2[4])
-                    diff = abs(score1 - score2)
-                    if diff > tolerance:
-                        return False
-                except ValueError:
-                    return False
-            else:
-                return False
-    return True
-
-def retrieve_and_save_runs(self, searcher, topics_name, searcher_type='bm25', qids=None):
+def retrieve_and_save_runs(test_obj, searcher, topics_name, searcher_type='bm25', qids=None):
     """Retrieve search results and save to file."""
     topics = get_topics(topics_name)
     random_number = random.randint(0, 1000000)
@@ -73,7 +41,13 @@ def retrieve_and_save_runs(self, searcher, topics_name, searcher_type='bm25', qi
                 hits = [h for h in raw_hits if h.docid != qid][:10]
             for rank, hit in enumerate(hits, start=1):
                 run_file.write(f"{qid} Q0 {hit.docid} {rank} {hit.score:.6f} {searcher_type}_search\n")
-    self.assertTrue(os.path.exists(run_path), f"{searcher_type} run file not created: {run_path}")
+    # Only assert if test_obj is an instance (has assertTrue method), not a class
+    if hasattr(test_obj, 'assertTrue'):
+        test_obj.assertTrue(os.path.exists(run_path), f"{searcher_type} run file not created: {run_path}")
+    else:
+        # For class-level calls, just check and raise if file doesn't exist
+        if not os.path.exists(run_path):
+            raise FileNotFoundError(f"{searcher_type} run file not created: {run_path}")
     return run_path
 
 def run_fusion_on_saved_runs(self, bm25_path, dense_path, method, expected_results, runtag, extra_args='', output_path=None):
@@ -106,6 +80,24 @@ class TestFusion(unittest.TestCase):
     def setUpClass(cls):
         test_file_dir = os.path.dirname(__file__)
         cls.resource_dir = os.path.join(os.path.dirname(test_file_dir), 'resources')
+
+        # Initialize searchers and encoder at class level (shared across all tests)
+        cls.encoder = AutoQueryEncoder('BAAI/bge-base-en-v1.5', pooling='cls', l2_norm=True, prefix='Represent this sentence for searching relevant passages:')
+        cls.bm25_searcher = LuceneSearcher.from_prebuilt_index('beir-v1.0.0-arguana.flat')
+        cls.lucene_dense_searcher = LuceneFlatDenseSearcher.from_prebuilt_index('beir-v1.0.0-arguana.bge-base-en-v1.5.flat', encoder='BgeBaseEn15')
+        cls.faiss_dense_searcher_normalized = FaissSearcher.from_prebuilt_index('beir-v1.0.0-arguana.bge-base-en-v1.5', cls.encoder, True)
+        cls.qids = ['test-culture-ahrtsdlgra-con01a', 'test-culture-ahrtsdlgra-con02a']
+        cls.long_qids = ['test-sport-tshbmlbscac-con01a']
+        
+        # Generate run files at class level (shared across all tests)
+        cls.bm25_path = retrieve_and_save_runs(cls, cls.bm25_searcher, 'beir-v1.0.0-arguana-test', 'bm25', cls.qids)
+        cls.lucene_flat_dense_path = retrieve_and_save_runs(cls, cls.lucene_dense_searcher, 'beir-v1.0.0-arguana-test', 'lucene_flat_dense', cls.qids)
+        cls.faiss_flat_dense_normalized_path = retrieve_and_save_runs(cls, cls.faiss_dense_searcher_normalized, 'beir-v1.0.0-arguana-test', 'faiss_flat_dense_normalized', cls.qids)
+
+        cls.bm25_path_long = retrieve_and_save_runs(cls, cls.bm25_searcher, 'beir-v1.0.0-arguana-test', 'bm25', cls.long_qids)
+        cls.lucene_flat_dense_path_long = retrieve_and_save_runs(cls, cls.lucene_dense_searcher, 'beir-v1.0.0-arguana-test', 'lucene_flat_dense', cls.long_qids)
+        cls.faiss_flat_dense_normalized_path_long = retrieve_and_save_runs(cls, cls.faiss_dense_searcher_normalized, 'beir-v1.0.0-arguana-test', 'faiss_flat_dense_normalized', cls.long_qids)
+
         cls.expected_results = {
             'rrf': [
                 ('test-culture-ahrtsdlgra-con01a', 'test-culture-ahrtsdlgra-con03a', 1, 0.03252247488101534),
@@ -210,19 +202,6 @@ class TestFusion(unittest.TestCase):
 
     def setUp(self):
         self.output_path = 'output_test_fusion.txt'
-        encoder = AutoQueryEncoder('BAAI/bge-base-en-v1.5', pooling='cls', l2_norm=True, prefix='Represent this sentence for searching relevant passages:')
-        self.bm25_searcher = LuceneSearcher.from_prebuilt_index('beir-v1.0.0-arguana.flat')
-        self.lucene_dense_searcher = LuceneFlatDenseSearcher.from_prebuilt_index('beir-v1.0.0-arguana.bge-base-en-v1.5.flat', encoder='BgeBaseEn15')
-        self.faiss_dense_searcher_normalized = FaissSearcher.from_prebuilt_index('beir-v1.0.0-arguana.bge-base-en-v1.5', encoder, True)
-        self.qids = ['test-culture-ahrtsdlgra-con01a', 'test-culture-ahrtsdlgra-con02a']
-        self.long_qids = ['test-sport-tshbmlbscac-con01a']
-        self.bm25_path = retrieve_and_save_runs(self, self.bm25_searcher, 'beir-v1.0.0-arguana-test', 'bm25', self.qids)
-        self.lucene_flat_dense_path = retrieve_and_save_runs(self, self.lucene_dense_searcher, 'beir-v1.0.0-arguana-test', 'lucene_flat_dense', self.qids)
-        self.faiss_flat_dense_normalized_path = retrieve_and_save_runs(self, self.faiss_dense_searcher_normalized, 'beir-v1.0.0-arguana-test', 'faiss_flat_dense_normalized', self.qids)
-
-        self.bm25_path_long = retrieve_and_save_runs(self, self.bm25_searcher, 'beir-v1.0.0-arguana-test', 'bm25', self.long_qids)
-        self.lucene_flat_dense_path_long = retrieve_and_save_runs(self, self.lucene_dense_searcher, 'beir-v1.0.0-arguana-test', 'lucene_flat_dense', self.long_qids)
-        self.faiss_flat_dense_normalized_path_long = retrieve_and_save_runs(self, self.faiss_dense_searcher_normalized, 'beir-v1.0.0-arguana-test', 'faiss_flat_dense_normalized', self.long_qids)
 
 
     def test_reciprocal_rank_fusion_simple(self):
@@ -326,20 +305,25 @@ class TestFusion(unittest.TestCase):
         run_fusion_on_saved_runs(self, self.bm25_path_long, self.faiss_flat_dense_normalized_path_long, 'normalize', self.expected_results_long['normalize'], 'fusion_normalize')
 
     def tearDown(self):
+        # Only clean up test-specific output file
         if os.path.exists(self.output_path):
             os.unlink(self.output_path)
-        if hasattr(self, 'bm25_path') and os.path.exists(self.bm25_path):
-            os.unlink(self.bm25_path)
-        if hasattr(self, 'lucene_flat_dense_path') and os.path.exists(self.lucene_flat_dense_path):
-            os.unlink(self.lucene_flat_dense_path)
-        if hasattr(self, 'faiss_flat_dense_normalized_path') and os.path.exists(self.faiss_flat_dense_normalized_path):
-            os.unlink(self.faiss_flat_dense_normalized_path)
-        if hasattr(self, 'bm25_path_long') and os.path.exists(self.bm25_path_long):
-            os.unlink(self.bm25_path_long)
-        if hasattr(self, 'lucene_flat_dense_path_long') and os.path.exists(self.lucene_flat_dense_path_long):
-            os.unlink(self.lucene_flat_dense_path_long)
-        if hasattr(self, 'faiss_flat_dense_normalized_path_long') and os.path.exists(self.faiss_flat_dense_normalized_path_long):
-            os.unlink(self.faiss_flat_dense_normalized_path_long)
+
+    @classmethod
+    def tearDownClass(cls):
+        # Clean up shared run files created at class level
+        if hasattr(cls, 'bm25_path') and os.path.exists(cls.bm25_path):
+            os.unlink(cls.bm25_path)
+        if hasattr(cls, 'lucene_flat_dense_path') and os.path.exists(cls.lucene_flat_dense_path):
+            os.unlink(cls.lucene_flat_dense_path)
+        if hasattr(cls, 'faiss_flat_dense_normalized_path') and os.path.exists(cls.faiss_flat_dense_normalized_path):
+            os.unlink(cls.faiss_flat_dense_normalized_path)
+        if hasattr(cls, 'bm25_path_long') and os.path.exists(cls.bm25_path_long):
+            os.unlink(cls.bm25_path_long)
+        if hasattr(cls, 'lucene_flat_dense_path_long') and os.path.exists(cls.lucene_flat_dense_path_long):
+            os.unlink(cls.lucene_flat_dense_path_long)
+        if hasattr(cls, 'faiss_flat_dense_normalized_path_long') and os.path.exists(cls.faiss_flat_dense_normalized_path_long):
+            os.unlink(cls.faiss_flat_dense_normalized_path_long)
 
 if __name__ == '__main__':
     unittest.main()

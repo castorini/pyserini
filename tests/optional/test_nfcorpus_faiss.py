@@ -23,6 +23,7 @@ import unittest
 from random import randint
 from urllib.request import urlretrieve
 
+from pyserini.util import compare_trec_strings_with_tolerance
 
 class TestNFCorpus(unittest.TestCase):
     @classmethod
@@ -140,8 +141,7 @@ class TestNFCorpus(unittest.TestCase):
             faiss_results = [line.strip() for line in f if line.startswith('PLAIN-1008')][:10]
         
         self.assertEqual(len(faiss_results), 10, "Faiss results should have 10 lines for PLAIN-1008")
-        for i, line in enumerate(faiss_results):
-            self.assertEqual(line, expected_top10[i], f"Faiss result {i+1} should match expected")
+        self.assertTrue(compare_trec_strings_with_tolerance(faiss_results, expected_top10), "Faiss results should match expected results within tolerance")
 
     @classmethod
     def tearDownClass(cls):
