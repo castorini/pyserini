@@ -64,6 +64,65 @@ def compute_md5(file, block_size=2**20):
     return m.hexdigest()
 
 
+def compare_trec_strings_with_tolerance(trec_strings1, trec_strings2, tolerance=1e-4):
+    """
+    Compare two lists of TREC strings with tolerance for floating-point precision differences.
+    
+    Args:
+        trec_strings1: List of TREC format strings (format: qid Q0 docid rank score runtag)
+        trec_strings2: List of TREC format strings (format: qid Q0 docid rank score runtag)
+        tolerance: Tolerance for floating-point score comparison (default: 1e-4)
+    
+    Returns:
+        bool: True if the lists match within tolerance, False otherwise
+    """
+    if len(trec_strings1) != len(trec_strings2):
+        return False
+    # Compare each TREC string between the two lists
+    for str1, str2 in zip(trec_strings1, trec_strings2):
+        str1 = str1.strip()
+        str2 = str2.strip()
+        if str1 != str2:
+            parts1 = str1.split()
+            parts2 = str2.split()
+            if len(parts1) != len(parts2):
+                return False
+            # TREC format: parts[0]=qid, parts[1]=Q0, parts[2]=docid, parts[3]=rank, parts[4]=score, parts[5]=runtag
+            if (parts1[0] == parts2[0] and parts1[1] == parts2[1] and parts1[2] == parts2[2] and parts1[3] == parts2[3] and parts1[5] == parts2[5]):
+                try:
+                    score1 = float(parts1[4])
+                    score2 = float(parts2[4])
+                    diff = abs(score1 - score2)
+                    if diff > tolerance:
+                        return False
+                except ValueError:
+                    return False
+            else:
+                return False
+    return True
+
+
+def compare_trec_files_with_tolerance(file1_path, file2_path, tolerance=1e-4):
+    """
+    Compare two TREC files with tolerance for floating-point precision differences.
+    
+    Args:
+        file1_path: Path to first TREC format file
+        file2_path: Path to second TREC format file
+        tolerance: Tolerance for floating-point score comparison (default: 1e-4)
+    
+    Returns:
+        bool: True if the files match within tolerance, False otherwise
+    """
+    try:
+        with open(file1_path, 'r') as f1, open(file2_path, 'r') as f2:
+            lines1 = [line.strip() for line in f1.readlines()]
+            lines2 = [line.strip() for line in f2.readlines()]
+    except FileNotFoundError:
+        return False
+    return compare_trec_strings_with_tolerance(lines1, lines2, tolerance)
+
+
 def download_url(url, save_dir, local_filename=None, md5=None, force=False, verbose=True, expected_size=None):
     # If caller does not specify local filename, figure it out from the download URL:
     if not local_filename:
