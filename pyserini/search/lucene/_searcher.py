@@ -28,6 +28,8 @@ from pyserini.pyclass import autoclass, JFloat, JArrayList, JHashMap
 from pyserini.search.lucene import JQuery, JQueryGenerator, JScoredDoc
 from pyserini.trectools import TrecRun
 from pyserini.util import download_prebuilt_index, get_sparse_indexes_info
+from pyserini.search.lucene.rerank.rm3_reranker import RM3Reranker
+from pyserini.search.lucene.rerank.rocchio_reranker import RocchioReranker
 
 logger = logging.getLogger(__name__)
 
@@ -52,6 +54,8 @@ class LuceneSearcher:
         # Keep track if self is a known prebuilt index.
         self.prebuilt_index_name = prebuilt_index_name
         self.index_reader = index_reader if index_reader else LuceneIndexReader(index_dir)
+        self.rm3 = None
+        self.rocchio = None
 
     @classmethod
     def from_prebuilt_index(cls, prebuilt_index_name: str, verbose=False):
@@ -96,6 +100,111 @@ class LuceneSearcher:
 
     def search(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None,
                fields=dict(), strip_segment_id=False, remove_dups=False) -> List[JScoredDoc]:
+        """Two-stage search with optional RM3 or Rocchio relevance feedback.
+
+        Parameters
+        ----------
+        q : Union[str, JQuery]
+            Query string or the ``JQuery`` object.
+        k : int
+            Number of hits to return.
+        query_generator : JQueryGenerator
+            Generator to build queries. Set to ``None`` by default to use Anserini default.
+        fields : dict
+            Optional map of fields to search with associated boosts.
+        strip_segment_id : bool
+            Remove the .XXXXX suffix used to denote different segments from a document.
+        remove_dups : bool
+            Remove duplicate docids when writing final run output.
+
+        Returns
+        -------
+        List[JScoredDoc]
+            List of search results.
+        """
+        if self.rm3:
+            # First pass: retrieve feedback docs
+            hits = self.search_raw(
+                q,
+                self.rm3.fb_docs,
+                query_generator,
+                fields,
+                strip_segment_id,
+                remove_dups
+            )
+
+            relevant_docids = [hit.docid for hit in hits]
+            scores = [hit.score for hit in hits]
+
+            # Extract document vectors
+            rel_feedback_vectors = [
+                self.rm3.get_document_vector(docid, self.index_reader, filter_terms=True)
+                for docid in relevant_docids
+            ]
+
+            rm3_query = self.rm3(
+                query=q,
+                document_scores=scores,
+                rel_vectors=rel_feedback_vectors
+            )
+
+            # Second pass: final retrieval with expanded query
+            return self.search_raw(
+                rm3_query,
+                k,
+                query_generator,
+                fields,
+                strip_segment_id,
+                remove_dups
+            )
+        elif self.rocchio:
+            hits = self.search_raw(
+                q,
+                k,
+                query_generator,
+                fields,
+                strip_segment_id,
+                remove_dups
+            )
+
+            # Top-N relevant docs
+            top_hits = hits[:self.rocchio.top_fb_docs]
+            top_docids = [hit.docid for hit in top_hits]
+
+            # Bottom-N docs (optional)
+            bottom_hits = hits[-self.rocchio.bottom_fb_docs:]
+            bottom_docids = [hit.docid for hit in bottom_hits]
+
+            # Extract feedback vectors
+            top_feedback_vectors = [
+                self.rocchio.get_document_vector(docid, self.index_reader)
+                for docid in top_docids
+            ]
+            bottom_feedback_vectors = [
+                self.rocchio.get_document_vector(docid, self.index_reader)
+                for docid in bottom_docids
+            ]
+
+            rocchio_query = self.rocchio(
+                query=q,
+                rel_vectors=top_feedback_vectors,
+                nrel_vectors=bottom_feedback_vectors
+            )
+
+            # Final retrieval on expanded query
+            return self.search_raw(
+                rocchio_query,
+                k,
+                query_generator,
+                fields,
+                strip_segment_id,
+                remove_dups
+            )
+        else:
+            return self.search_raw(q, k, query_generator, fields, strip_segment_id, remove_dups)
+
+    def search_raw(self, q: Union[str, JQuery], k: int = 10, query_generator: JQueryGenerator = None,
+               fields=dict(), strip_segment_id=False, remove_dups=False) -> List[JScoredDoc]:
         """Search the collection.
 
         Parameters
@@ -135,7 +244,7 @@ class LuceneSearcher:
             # all the query terms from the Lucene query, although this might yield unexpected behavior from the user's
             # perspective. Until we think through what exactly is the "right thing to do", we'll raise an exception
             # here explicitly.
-            if self.is_using_rm3():
+            if self.is_using_rm3() and not self.rm3:
                 raise NotImplementedError('RM3 incompatible with search using a Lucene query.')
             if fields:
                 raise NotImplementedError('Cannot specify fields to search when using a Lucene query.')
@@ -162,8 +271,120 @@ class LuceneSearcher:
                 docids.add(hit.docid)
 
         return filtered_hits
-
+    
     def batch_search(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1,
+                     query_generator: JQueryGenerator = None, fields = dict()) -> Dict[str, List[JScoredDoc]]:
+        """Batch search with optional RM3 or Rocchio relevance feedback.
+
+        Parameters
+        ----------
+        queries : List[str]
+            List of query strings.
+        qids : List[str]
+            List of corresponding query ids.
+        k : int
+            Number of hits to return.
+        threads : int
+            Maximum number of threads to use.
+        query_generator : JQueryGenerator
+            Generator to build queries. Set to ``None`` by default to use Anserini default.
+        fields : dict
+            Optional map of fields to search with associated boosts.
+
+        Returns
+        -------
+        Dict[str, List[JScoredDoc]]
+            Dictionary holding the search results, with the query ids as keys and the corresponding lists of search
+            results as the values.
+        """
+        if self.rm3:
+            topic_id_to_query = dict(zip(qids, queries))
+
+            # First pass: retrieve top M feedback docs for each query
+            results = self.batch_search_raw(
+                queries,
+                qids,
+                self.rm3.fb_docs,
+                threads,
+                query_generator,
+                fields
+            )
+
+            final_results = {}
+
+            for tid, hits in results.items():
+                original_query = topic_id_to_query[tid]
+
+                # Feedback documents (docids + scores)
+                relevant_docids = [hit.docid for hit in hits]
+                scores = [hit.score for hit in hits]
+
+                # Extract term vectors
+                rel_feedback_vectors = [
+                    self.rm3.get_document_vector(docid, self.index_reader, filter_terms=True)
+                    for docid in relevant_docids
+                ]
+
+                # Build RM3-expanded query
+                rm3_query = self.rm3(
+                    query=original_query,
+                    document_scores=scores,
+                    rel_vectors=rel_feedback_vectors
+                )
+
+                # Second pass: final retrieval using expanded query
+                final_results[tid] = self.search_raw(rm3_query, k)
+
+            return final_results
+        elif self.rocchio:
+            topic_id_to_query = dict(zip(qids, queries))
+
+            results = self.batch_search_raw(
+                queries,
+                qids,
+                k,
+                threads,
+                query_generator,
+                fields
+            )
+
+            final_results = {}
+
+            for tid, hits in results.items():
+                original_query = topic_id_to_query[tid]
+
+                # Positive (top) and negative (bottom) feedback docs
+                top_hits = hits[:self.rocchio.top_fb_docs]
+                bottom_hits = hits[-self.rocchio.bottom_fb_docs:]
+
+                top_docids = [hit.docid for hit in top_hits]
+                bottom_docids = [hit.docid for hit in bottom_hits]
+
+                # Term vectors
+                top_feedback_vectors = [
+                    self.rocchio.get_document_vector(docid, self.index_reader)
+                    for docid in top_docids
+                ]
+                bottom_feedback_vectors = [
+                    self.rocchio.get_document_vector(docid, self.index_reader)
+                    for docid in bottom_docids
+                ]
+
+                # Build Rocchio-expanded query
+                rocchio_query = self.rocchio(
+                    query=original_query,
+                    rel_vectors=top_feedback_vectors,
+                    nrel_vectors=bottom_feedback_vectors
+                )
+
+                # Final retrieval
+                final_results[tid] = self.search_raw(rocchio_query, k)
+
+            return final_results
+        else:
+            return self.batch_search_raw(queries, qids, k, threads, query_generator, fields)
+        
+    def batch_search_raw(self, queries: List[str], qids: List[str], k: int = 10, threads: int = 1,
                      query_generator: JQueryGenerator = None, fields = dict()) -> Dict[str, List[JScoredDoc]]:
         """Search the collection concurrently for multiple queries, using multiple threads.
 
@@ -246,7 +467,7 @@ class LuceneSearcher:
         """Set language of LuceneSearcher"""
         self.object.set_language(language)
 
-    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), debug=False, filter_terms=True):
+    def set_rm3(self, fb_terms=10, fb_docs=10, original_query_weight=float(0.5), debug=False, filter_terms=True, use_python=False):
         """Configure RM3 pseudo-relevance feedback.
 
         Parameters
@@ -262,6 +483,13 @@ class LuceneSearcher:
         filter_terms: bool
             Whether to remove non-English terms.
         """
+        if use_python:
+            if not self.object.reader.getTermVectors(0):
+                raise TypeError("RM3 is not supported for indexes without document vectors (Python mode).")
+
+            self.rm3 = RM3Reranker(fb_terms=fb_terms, fb_docs=fb_docs, original_query_weight=original_query_weight)
+            return
+        
         if self.object.reader.getTermVectors(0):
             self.object.set_rm3(None, fb_terms, fb_docs, original_query_weight, debug, filter_terms)
         elif self.prebuilt_index_name in ['msmarco-v1-passage', 'msmarco-v1-doc', 'msmarco-v1-doc-segmented']:
@@ -275,14 +503,15 @@ class LuceneSearcher:
 
     def unset_rm3(self):
         """Disable RM3 pseudo-relevance feedback."""
+        self.rm3 = None
         self.object.unset_rm3()
 
     def is_using_rm3(self) -> bool:
         """Check if RM3 pseudo-relevance feedback is being performed."""
-        return self.object.use_rm3()
+        return self.object.use_rm3() or self.rm3
     
     def set_rocchio(self, top_fb_terms=10, top_fb_docs=10, bottom_fb_terms=10, bottom_fb_docs=10,
-                    alpha=1, beta=0.75, gamma=0, debug=False, use_negative=False):
+                    alpha=1, beta=0.75, gamma=0, debug=False, use_negative=False, use_python=False):
         """Configure Rocchio pseudo-relevance feedback.
 
         Parameters
@@ -306,6 +535,15 @@ class LuceneSearcher:
         use_negative : bool
             Rocchio parameter to use negative labels.
         """
+
+        if use_python:
+            if not self.object.reader.getTermVectors(0):
+                raise TypeError("Rocchio is not supported for indexes without document vectors (Python mode).")
+            
+            self.rocchio = RocchioReranker(top_fb_docs, top_fb_terms, bottom_fb_docs, bottom_fb_terms, 
+                                    alpha, beta, gamma)
+            return
+        
         if self.object.reader.getTermVectors(0):
             self.object.set_rocchio(None, top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
                                     alpha, beta, gamma, debug, use_negative)
@@ -319,11 +557,12 @@ class LuceneSearcher:
 
     def unset_rocchio(self):
         """Disable Rocchio pseudo-relevance feedback."""
+        self.rocchio = None
         self.object.unset_rocchio()
 
     def is_using_rocchio(self) -> bool:
         """Check if Rocchio pseudo-relevance feedback is being performed."""
-        return self.object.use_rocchio()
+        return self.object.use_rocchio() or self.rocchio
 
     def set_qld(self, mu=float(1000)):
         """Configure query likelihood with Dirichlet smoothing as the scoring function.
