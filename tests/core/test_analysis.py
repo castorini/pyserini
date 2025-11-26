@@ -60,47 +60,80 @@ class TestAnalyzers(unittest.TestCase):
         self.assertEqual(token_list, ['information', 'retrieval'])
 
     def test_analysis(self):
+        text = 'City buses are running on time.'
+
         # Default is Porter stemmer
         analyzer = Analyzer(get_lucene_analyzer())
         self.assertTrue(isinstance(analyzer, Analyzer))
-        tokens = analyzer.analyze('City buses are running on time.')
+        tokens = analyzer.analyze(text)
         self.assertEqual(tokens, ['citi', 'buse', 'run', 'time'])
 
         # Specify Porter stemmer explicitly
         analyzer = Analyzer(get_lucene_analyzer(stemmer='porter'))
         self.assertTrue(isinstance(analyzer, Analyzer))
-        tokens = analyzer.analyze('City buses are running on time.')
+        tokens = analyzer.analyze(text)
         self.assertEqual(tokens, ['citi', 'buse', 'run', 'time'])
 
         # Specify Krovetz stemmer explicitly
         analyzer = Analyzer(get_lucene_analyzer(stemmer='krovetz'))
         self.assertTrue(isinstance(analyzer, Analyzer))
-        tokens = analyzer.analyze('City buses are running on time.')
+        tokens = analyzer.analyze(text)
         self.assertEqual(tokens, ['city', 'bus', 'running', 'time'])
 
         # No stemming
         analyzer = Analyzer(get_lucene_analyzer(stemming=False))
         self.assertTrue(isinstance(analyzer, Analyzer))
-        tokens = analyzer.analyze('City buses are running on time.')
+        tokens = analyzer.analyze(text)
         self.assertEqual(tokens, ['city', 'buses', 'running', 'time'])
 
         # No stopword filter, no stemming
         analyzer = Analyzer(get_lucene_analyzer(stemming=False, stopwords=False))
         self.assertTrue(isinstance(analyzer, Analyzer))
-        tokens = analyzer.analyze('City buses are running on time.')
+        tokens = analyzer.analyze(text)
         self.assertEqual(tokens, ['city', 'buses', 'are', 'running', 'on', 'time'])
 
         # No stopword filter, with stemming
         analyzer = Analyzer(get_lucene_analyzer(stemming=True, stopwords=False))
         self.assertTrue(isinstance(analyzer, Analyzer))
-        tokens = analyzer.analyze('City buses are running on time.')
+        tokens = analyzer.analyze(text)
         self.assertEqual(tokens, ['citi', 'buse', 'ar', 'run', 'on', 'time'])
 
         # HuggingFace analyzer, with bert wordpiece tokenizer
-        analyzer = Analyzer(get_lucene_analyzer(language="hgf_tokenizer", huggingFaceTokenizer="bert-base-uncased"))
+        analyzer = Analyzer(get_lucene_analyzer(language='hgf_tokenizer', huggingFaceTokenizer='bert-base-uncased'))
         self.assertTrue(isinstance(analyzer, Analyzer))
         tokens = analyzer.analyze('This tokenizer generates wordpiece tokens')
         self.assertEqual(tokens, ['this', 'token', '##izer', 'generates', 'word', '##piece', 'token', '##s'])
+
+    def test_compute_document_vector(self):
+        text1 = 'City buses are running on time.'
+
+        analyzer = Analyzer(get_lucene_analyzer())
+        self.assertEqual(analyzer.compute_document_vector(text1), {'citi': 1, 'buse': 1, 'run': 1, 'time': 1})
+
+        analyzer = Analyzer(get_lucene_analyzer(stemmer='porter'))
+        self.assertEqual(analyzer.compute_document_vector(text1), {'citi': 1, 'buse': 1, 'run': 1, 'time': 1})
+
+        analyzer = Analyzer(get_lucene_analyzer(stemmer='krovetz'))
+        self.assertEqual(analyzer.compute_document_vector(text1), {'city': 1, 'bus': 1, 'running': 1, 'time': 1})
+
+        analyzer = Analyzer(get_lucene_analyzer(stemming=False))
+        self.assertEqual(analyzer.compute_document_vector(text1), {'city': 1, 'buses': 1, 'running': 1, 'time': 1})
+
+        analyzer = Analyzer(get_lucene_analyzer(stemming=False, stopwords=False))
+        self.assertEqual(analyzer.compute_document_vector(text1), {'city': 1, 'buses': 1, 'are': 1, 'running': 1, 'on': 1, 'time': 1})
+
+        analyzer = Analyzer(get_lucene_analyzer(stemming=True, stopwords=False))
+        self.assertEqual(analyzer.compute_document_vector(text1), {'citi': 1, 'buse': 1, 'ar': 1, 'run': 1, 'on': 1, 'time': 1})
+
+        text2 = 'one plus one plus one is equal to two plus one'
+
+        analyzer = Analyzer(get_lucene_analyzer())
+        self.assertEqual(analyzer.compute_document_vector(text2), {'equal': 1, 'on': 4, 'plu': 3, 'two': 1})
+
+        hgf_text = 'This tokenizer generates wordpiece tokens'
+
+        analyzer = Analyzer(get_lucene_analyzer(language="hgf_tokenizer", huggingFaceTokenizer="bert-base-uncased"))
+        self.assertEqual(analyzer.compute_document_vector(hgf_text), {'this': 1, 'token': 1, '##izer': 1, 'generates': 1, 'word': 1, '##piece': 1, 'token': 1, '##s': 1})
 
     def test_invalid_analyzer_wrapper(self):
         # Invalid JAnalyzer, make sure we get an exception.
