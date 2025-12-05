@@ -206,7 +206,7 @@ The `contents` can also only have one fields, as in the `tests/resources/simple_
 }
 ```
 
-With the collection in the correct foramt, we can now encode documents with Dense encoders:
+With the collection in the correct format, we can now encode documents with Dense encoders:
 ```bash
 python -m pyserini.encode \
   input   --corpus tests/resources/simple_cacm_corpus.json \
