@@ -132,9 +132,9 @@ conditions:
             R@100: 0.7513
       - dataset: nights_task4
         scores:
-          - nDCG@10: 0.1978
-            R@20: 0.5618
-            R@100: 0.7094
+          - nDCG@10: 0.2724
+            R@20: 0.7840
+            R@100: 0.9792
       - dataset: oven_task6
         scores:
           - nDCG@10: 0.2041
