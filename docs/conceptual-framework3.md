@@ -85,7 +85,9 @@ python -m pyserini.encode \
           --encoder-class splade \
           --fields title text \
           --max-length 512
+          --batch 32
 ```
+If you encounter a CUDA out-of-memory error, reduce the batch size by decreasing the value of the `batch` parameter.
 
 Next, we will index the encoded corpus using inverted index into a retrieval system.
 
