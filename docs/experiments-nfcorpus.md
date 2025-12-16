@@ -487,6 +487,8 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@AdrianGri](https://github.com/adriangri) on 2025-11-12 (commit [`f4a8d0e`](https://github.com/castorini/pyserini/commit/f4a8d0ebfd233d703f1196ba3c679d92ceff51e6))
 + Results reproduced by [@jianxyou](https://github.com/jianxyou) on 2025-11-19 (commit [`7fd6115`](https://github.com/castorini/pyserini/commit/7fd6115779a575729c55dc35bf6101f17e8a6597))
 + Results reproduced by [@xincanfeng](https://github.com/xincanfeng) on 2025-11-19 (commit [`7fd6115`](https://github.com/castorini/pyserini/commit/7fd6115779a575729c55dc35bf6101f17e8a6597))
++ Results reproduced by [@ball2004244](https://github.com/ball2004244) on 2025-11-23 (commit [`cadcbd9`](https://github.com/castorini/pyserini/commit/cadcbd9107633017f25fb72ec16ecb6ad2336bcf))
 + Results reproduced by [@RudraMantri123](https://github.com/RudraMantri123) on 2025-11-28 (commit [`566243c`](https://github.com/castorini/pyserini/commit/566243c80a2d4e3defac98d38c4d07a3b10341f9))
 + Results reproduced by [@Kushion32](https://github.com/Kushion32) on 2025-12-09 (commit [`301db78`](https://github.com/castorini/pyserini/commit/301db7838b13e229fdbe8027d972cefd2122dfdf))
++ Results reproduced by [@Hasebul21](https://github.com/Hasebul21) on 2025-12-10 (commit [`d26c2fd`](https://github.com/castorini/pyserini/commit/d26c2fd224439ca564fe9d2b9e2be580391f1275))
 + Results reproduced by [@MehdiJmlkh](https://github.com/MehdiJmlkh) on 2025-12-10 (commit [`d26c2fd`](https://github.com/castorini/pyserini/commit/d26c2fd224439ca564fe9d2b9e2be580391f1275))
