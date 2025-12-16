@@ -94,7 +94,9 @@ def define_search_args(parser):
     parser.add_argument('--b', type=float, help='BM25 b parameter.')
 
     parser.add_argument('--rm3', action='store_true', help="Use RM3")
+    parser.add_argument('--rm3-py', action='store_true', help="Use the python RM3 implementation")
     parser.add_argument('--rocchio', action='store_true', help="Use Rocchio")
+    parser.add_argument('--rocchio-py', action='store_true', help="Use the python Rocchio implementation")
     parser.add_argument('--rocchio-use-negative', action='store_true', help="Use nonrelevant labels in Rocchio")
     parser.add_argument('--qld', action='store_true', help="Use QLD")
 
@@ -231,13 +233,25 @@ if __name__ == "__main__":
     if args.rm3:
         search_rankers.append('rm3')
         searcher.set_rm3()
-    
+
+    if args.rm3_py:
+        search_rankers.append('rm3')
+        searcher.set_rm3(use_python=True)
+        
     if args.rocchio:
         search_rankers.append('rocchio')
         if args.rocchio_use_negative:
             searcher.set_rocchio(gamma=0.15, use_negative=True)
         else:
             searcher.set_rocchio()
+
+    if args.rocchio_py:
+        search_rankers.append('rocchio')
+        if args.rocchio_use_negative:
+            searcher.set_rocchio(gamma=0.15, use_negative=True, use_python=True)
+        else:
+            searcher.set_rocchio(use_python=True)
+
 
     fields = dict()
     if args.fields:
