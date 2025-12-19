@@ -1847,8 +1847,6 @@ python -m pyserini.2cr.m_beir --list-conditions
 python -m pyserini.2cr.m_beir --all --display-commands --dry-run
 </tt></blockquote>
 
-<p>To actually run all the experimental conditions: First download all the datasets by running the <code>download_all_datasets.py</code> script in <code>scripts/m-beir</code></p>
-
 <p>If you are using the prebuilt indexes and only want to run search on them, download the <code>mbeir_query_images_and_instructions.tar.gz</code> from <a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/tree/main">here</a>. Then, run <code>tar -xzf mbeir_query_images_and_instructions.tar.gz</code> and move the extracted folder (<code>mbeir_images</code> and <code>query_instructions</code>) to <code>collections/m-beir</code>.</p>
 
 <p>If you want to run the complete regression (i.e., encode the indexes from scratch), download the 4 parts of the image dataset from <a href="https://huggingface.co/datasets/TIGER-Lab/M-BEIR/tree/main">here</a>, merge them into 1 tar.gz file and extract it by following the specified <a href="https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/README.md#downloading-the-m-beir-dataset">instructions</a>. Make sure the extracted folder is in <code>collections/m-beir</code>.</p>
