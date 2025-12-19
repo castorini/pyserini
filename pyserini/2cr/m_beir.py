@@ -58,15 +58,6 @@ def read_file(f):
     fin.close()
     return text
 
-def fix_qrels(dataset_name):
-    qrels_file = f'collections/m-beir/mbeir_{dataset_name}_test_qrels.txt'
-    fixed_qrels_file = f'collections/m-beir/mbeir_{dataset_name}_test_fixed_qrels.txt'
-    with open(qrels_file, 'r') as infile, open(fixed_qrels_file, 'w') as outfile:
-        for line in infile:
-            fields = line.strip().split(' ')[:4]
-            outfile.write(' '.join(fields) + '\n')
-    return fixed_qrels_file
-
 def list_conditions():  
     with importlib.resources.files('pyserini.2cr').joinpath('m_beir.yaml').open('r') as f:  
         yaml_data = yaml.safe_load(f)  
@@ -131,8 +122,6 @@ def run_conditions(args):
                     if not args.dry_run:  
                         os.system(cmd)  
                           
-                fixed_qrels = fix_qrels(dataset)
-                  
                 for expected in datasets['scores']:  
                     for metric in expected:  
                         if not args.skip_eval and not args.dry_run:
@@ -140,7 +129,7 @@ def run_conditions(args):
                                 continue  
                                   
                             score = float(run_eval_and_return_metric(  
-                                metric, fixed_qrels,
+                                metric, "m-beir-" + dataset.replace('_', '-'),
                                 trec_eval_metric_definitions[metric], runfile))  
                                   
                             if math.isclose(score, float(expected[metric])):  
@@ -193,11 +182,9 @@ def generate_report(args):
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, instruction_config=instruction_config, dense_threads=dense_threads, dense_batch_size=dense_batch_size)    
                 commands[dataset][name] = format_run_command(cmd)    
                     
-                fixed_qrels = f'qrels/test/mbeir_{dataset}_test_fixed_qrels.txt' 
-
                 for expected in datasets['scores']:    
                     for metric in expected:    
-                        eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[metric]} {fixed_qrels} {runfile}'  
+                        eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[metric]} {"m-beir-" + dataset.replace("_", "-")} {runfile}'  
                         eval_commands[dataset][name] += format_eval_command(eval_cmd) + '\n\n'    
                             
                         table[dataset][name][metric] = expected[metric]    
