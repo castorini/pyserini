@@ -42,7 +42,8 @@ class MMEmbedDocumentEncoder:
         
         passages = []
         for txt, img_path, modality in zip(txts, img_paths, modalitys):
-            passage = {'txt': txt if txt else ""}
+            formatted_txt = f"\n{txt}" if (img_path and txt) else txt
+            passage = {'txt': formatted_txt if formatted_txt else ""}
             
             if img_path and modality in ['image', 'image,text']:
                 try:
@@ -117,8 +118,9 @@ class MMEmbedQueryEncoder:
         **kwargs: Any
     ):
         instruction = self._load_instruction(int(qid.split(":")[0]), query_modality)
+        formatted_query_txt = f"\nQuery: {query_txt}" if query_txt else ""
         
-        query_dict = {'txt': query_txt if query_txt else ""}
+        query_dict = {'txt': formatted_query_txt}
         
         if query_img_path and query_modality in ['image', 'image-text']:
             try:
