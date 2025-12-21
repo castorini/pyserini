@@ -90,7 +90,6 @@ class MMEmbedQueryEncoder:
         dataset_name = dataset_id_to_name.get(dataset_id, None)
         if dataset_name is None:
             raise ValueError(f"Unknown dataset ID: {dataset_id}")
-        print(f"Loading instruction for dataset: {dataset_name}, modality: {query_modality}")
 
         if not os.path.exists(self.instruction_config):
             raise FileNotFoundError(f"Instruction config file not found: {self.instruction_config}, please download it from here https://huggingface.co/nvidia/MM-Embed/blob/main/instructions.json")
