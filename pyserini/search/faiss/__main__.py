@@ -310,7 +310,7 @@ def init_query_encoder(
         if _encoder_class == "dse" or (encoder and "dse" in encoder.lower()):
             kwargs.update(dict(l2_norm=True, pooling=pooling, multimodal=multimodal))
         if _encoder_class == "mm-embed":
-            kwargs.update(dict(l2_norm=False))
+            kwargs.update(dict(l2_norm=False, inbstruction_config=instruction_config))
 
         return encoder_class(**kwargs)
 
