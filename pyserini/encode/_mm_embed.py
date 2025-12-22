@@ -15,9 +15,8 @@
 #
 
 from typing import List, Any
-import os
 import torch
-import json
+import yaml
 from PIL import Image
 from transformers import AutoModel
 
@@ -42,8 +41,7 @@ class MMEmbedDocumentEncoder:
         
         passages = []
         for txt, img_path, modality in zip(txts, img_paths, modalitys):
-            formatted_txt = f"\n{txt}" if (img_path and txt) else txt
-            passage = {'txt': formatted_txt if formatted_txt else ""}
+            passage = {'txt': txt if txt else ""}
             
             if img_path and modality in ['image', 'image,text']:
                 try:
@@ -73,41 +71,45 @@ class MMEmbedQueryEncoder:
         self.max_length = 4096
         self.instruction_config = instruction_config
       
-    def _load_instruction(self, dataset_id: int, query_modality) -> str:
+    def _load_instruction(self) -> str:
         """Load dataset-specific instruction from instructions file"""
-        dataset_id_to_name = {
-            0: "VisualNews",
-            1: "Fashion200K",
-            2: "WebQA",
-            3: "EDIS",
-            4: "NIGHTS",
-            5: "OVEN",
-            6: "INFOSEEK",
-            7: "FashionIQ",
-            8: "CIRR",
-            9: "MSCOCO"
+        default_instructions = {
+            (0, "text"): "Find a caption for the news in the given photo.",
+            (0, "image"): "Identify the news-related image in line with the described event.",
+            (1, "text"): "Find a product description for the fashion item in the image.",
+            (1, "image"): "Based on the following fashion description, retrieve the best matching image.",
+            (2, "text"): "Retrieve passages from Wikipedia that provide answers to the following question.",
+            (2, "image,text"): "Find a Wikipedia image that answers this question.",
+            (3, "image,text"): "Find a news image that matches the provided caption.",
+            (4, "image"): "Find a day-to-day image that looks similar to the provided image.",
+            (5, "text"): "Retrieve a Wikipedia paragraph that provides an answer to the given query about the image.",
+            (5, "image,text"): "Retrieve a Wikipedia image-description pair that provides evidence for the question of this image.",
+            (6, "text"): "Retrieve a Wikipedia paragraph that provides an answer to the given query about the image.",
+            (6, "image,text"): "Retrieve a Wikipedia image-description pair that provides evidence for the question of this image.",
+            (7, "image"): "Find a fashion image that aligns with the reference image and style note.",
+            (8, "image"): "Retrieve a day-to-day image that aligns with the modification instructions of the provided image.",
+            (9, "image"): "Find me an everyday image that matches the given caption.",
+            (9, "text"): "Find an image caption describing the following everyday image."
         }
 
-        dataset_name = dataset_id_to_name.get(dataset_id, None)
-        if dataset_name is None:
-            raise ValueError(f"Unknown dataset ID: {dataset_id}")
+        try:
+            with open(self.instruction_config, "r") as f:
+                config = yaml.safe_load(f)
+            instruction_file = config.get("instruction_file", None)
+            candidate_modality = config.get("candidate_modality", None)
+            dataset_id = config.get("dataset_id", None)
+            randomize_instructions = config.get("randomize_instructions", False)
+            if candidate_modality is None or dataset_id is None:
+                raise ValueError(
+                    "Missing candidate_modality or dataset_id in the config."
+                )
+        except Exception as e:
+            raise ValueError(f"Error loading instruction config: {e}")
 
-        if not os.path.exists(self.instruction_config):
-            raise FileNotFoundError(f"Instruction config file not found: {self.instruction_config}, please download it from here https://huggingface.co/nvidia/MM-Embed/blob/main/instructions.json")
+        # TODO: define a instructions file type that will be used across all multi-modal encoders
+        # TODO: abstract this function so both UniIR, MM-Embed, and any future multi-modal encoders can use it
 
-        instructions_data = []
-        with open(self.instruction_config, 'r') as f:
-            for line in f:
-                line = line.strip()
-                if line:
-                    entry = json.loads(line)
-                    instructions_data.append(entry)
-
-        for entry in instructions_data:
-            if dataset_name in entry:
-                config = entry[dataset_name]
-                if config.get("query_modality") == query_modality:
-                    return config.get("query_instruction")[0]
+        return default_instructions.get((dataset_id, candidate_modality), "")
     
     def encode(
         self,
@@ -117,12 +119,11 @@ class MMEmbedQueryEncoder:
         query_modality: str,
         **kwargs: Any
     ):
-        instruction = self._load_instruction(int(qid.split(":")[0]), query_modality)
-        formatted_query_txt = f"\n{query_txt}" if query_txt else ""
+        instruction = self._load_instruction()
         
-        query_dict = {'txt': formatted_query_txt}
+        query_dict = {'txt': query_txt if query_txt else ""}
         
-        if query_img_path and query_modality in ['image', 'image-text']:
+        if query_img_path and query_modality in ['image', 'image,text']:
             try:
                 img = Image.open(query_img_path)
                 query_dict['img'] = img
