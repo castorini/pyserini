@@ -118,7 +118,7 @@ class MMEmbedQueryEncoder:
         **kwargs: Any
     ):
         instruction = self._load_instruction(int(qid.split(":")[0]), query_modality)
-        formatted_query_txt = f"\nQuery: {query_txt}" if query_txt else ""
+        formatted_query_txt = f"\n{query_txt}" if query_txt else ""
         
         query_dict = {'txt': formatted_query_txt}
         
