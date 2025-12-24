@@ -798,7 +798,7 @@ TF_INDEX_INFO_CIRAL = {
         "documents": 949013,
         "unique_terms": 265867,
         "downloaded": False
-    },
+},
 
     "ciral-v1.0-yo-en": {
         "description": "Lucene index for CIRAL v1.0 English Translations (Yoruba).",
@@ -815,6 +815,233 @@ TF_INDEX_INFO_CIRAL = {
         "downloaded": False
     }
 
+}
+
+TF_INDEX_INFO_M_BEIR = {
+    "m-beir-cirr_task7": {
+        "description": "Lucene index for M-BEIR CIRR task 7 corpus.",
+        "filename": "lucene-inverted.m-beir-cirr_task7.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-cirr_task7.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "39bf0069ab04c810bd489b127c90aeb7",
+        "size compressed (bytes)": 933866,
+        "total_terms": 210898,
+        "documents": 21551,
+        "unique_terms": 8925,
+        "downloaded": False
+    },
+    "m-beir-edis_task2": {
+        "description": "Lucene index for M-BEIR EDIS task 2 corpus.",
+        "filename": "lucene-inverted.m-beir-edis_task2.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-edis_task2.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "489e9a8c1f87c10deef26d4c00140d06",
+        "size compressed (bytes)": 158545911,
+        "total_terms": 16177515,
+        "documents": 1047067,
+        "unique_terms": 1161533,
+        "downloaded": False
+    },
+    "m-beir-fashion200k_task0": {
+        "description": "Lucene index for M-BEIR Fashion200K task 0 corpus.",
+        "filename": "lucene-inverted.m-beir-fashion200k_task0.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-fashion200k_task0.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "8888359d2bf735a00d8993a6ae92d039",
+        "size compressed (bytes)": 5823634,
+        "total_terms": 1631717,
+        "documents": 201824,
+        "unique_terms": 274211,
+        "downloaded": False
+    },
+    "m-beir-fashion200k_task3": {
+        "description": "Lucene index for M-BEIR Fashion200K task 3 corpus.",
+        "filename": "lucene-inverted.m-beir-fashion200k_task3.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-fashion200k_task3.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "9b541963cb3adf672aab32783918916e",
+        "size compressed (bytes)": 3726089,
+        "total_terms": 382499,
+        "documents": 61707,
+        "unique_terms": 4675,
+        "downloaded": False
+    },
+    "m-beir-fashioniq_task7": {
+        "description": "Lucene index for M-BEIR FashionIQ task 7 corpus.",
+        "filename": "lucene-inverted.m-beir-fashioniq_task7.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-fashioniq_task7.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "2531b63e57e63aa7f77894ca6f603ac7",
+        "size compressed (bytes)": 2289729,
+        "total_terms": 318103,
+        "documents": 74381,
+        "unique_terms": 74385,
+        "downloaded": False
+    },
+    "m-beir-infoseek_task6": {
+        "description": "Lucene index for M-BEIR InfoSeek task 6 corpus.",
+        "filename": "lucene-inverted.m-beir-infoseek_task6.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-infoseek_task6.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "5f51966d072517673eda4367dc626826",
+        "size compressed (bytes)": 491060482,
+        "total_terms": 41165166,
+        "documents": 611651,
+        "unique_terms": 1459470,
+        "downloaded": False
+    },
+    "m-beir-infoseek_task8": {
+        "description": "Lucene index for M-BEIR InfoSeek task 8 corpus.",
+        "filename": "lucene-inverted.m-beir-infoseek_task8.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-infoseek_task8.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "5334aa84835a1a31a12b20dd7f848cde",
+        "size compressed (bytes)": 429063745,
+        "total_terms": 36181638,
+        "documents": 481782,
+        "unique_terms": 1394234,
+        "downloaded": False
+    },
+    "m-beir-mscoco_task0": {
+        "description": "Lucene index for M-BEIR MSCOCO task 0 corpus.",
+        "filename": "lucene-inverted.m-beir-mscoco_task0.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-mscoco_task0.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "7d6e974bcead266e7931e1382dfe5de8",
+        "size compressed (bytes)": 142015,
+        "total_terms": 30000,
+        "documents": 5000,
+        "unique_terms": 5005,
+        "downloaded": False
+    },
+    "m-beir-mscoco_task3": {
+        "description": "Lucene index for M-BEIR MSCOCO task 3 corpus.",
+        "filename": "lucene-inverted.m-beir-mscoco_task3.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-mscoco_task3.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "a02e51901a16d4365cdf9bc1a653ccc4",
+        "size compressed (bytes)": 2003923,
+        "total_terms": 178755,
+        "documents": 24809,
+        "unique_terms": 5092,
+        "downloaded": False
+    },
+    "m-beir-nights_task4": {
+        "description": "Lucene index for M-BEIR NIGHTS task 4 corpus.",
+        "filename": "lucene-inverted.m-beir-nights_task4.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-nights_task4.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "1c6ba02feb31a123b1b8df9d53624195",
+        "size compressed (bytes)": 885520,
+        "total_terms": 280266,
+        "documents": 40038,
+        "unique_terms": 2105,
+        "downloaded": False
+    },
+    "m-beir-oven_task6": {
+        "description": "Lucene index for M-BEIR OVEN task 6 corpus.",
+        "filename": "lucene-inverted.m-beir-oven_task6.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-oven_task6.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "917abc87a7c186063e9e178c52cd360e",
+        "size compressed (bytes)": 475486263,
+        "total_terms": 40552451,
+        "documents": 676667,
+        "unique_terms": 1440500,
+        "downloaded": False
+    },
+    "m-beir-oven_task8": {
+        "description": "Lucene index for M-BEIR OVEN task 8 corpus.",
+        "filename": "lucene-inverted.m-beir-oven_task8.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-oven_task8.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "95cf113242b48b818bc19be2043173aa",
+        "size compressed (bytes)": 286725857,
+        "total_terms": 24569147,
+        "documents": 335135,
+        "unique_terms": 1132348,
+        "downloaded": False
+    },
+    "m-beir-visualnews_task0": {
+        "description": "Lucene index for M-BEIR VisualNews task 0 corpus.",
+        "filename": "lucene-inverted.m-beir-visualnews_task0.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-visualnews_task0.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "3c8ba7d346deb0e8929d195bb0134859",
+        "size compressed (bytes)": 17419260,
+        "total_terms": 4337968,
+        "documents": 542246,
+        "unique_terms": 1861,
+        "downloaded": False
+    },
+    "m-beir-visualnews_task3": {
+        "description": "Lucene index for M-BEIR VisualNews task 3 corpus.",
+        "filename": "lucene-inverted.m-beir-visualnews_task3.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-visualnews_task3.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "e36c957ccaf033d09257a22b524f7f63",
+        "size compressed (bytes)": 100997921,
+        "total_terms": 7788087,
+        "documents": 537568,
+        "unique_terms": 191930,
+        "downloaded": False
+    },
+    "m-beir-webqa_task1": {
+        "description": "Lucene index for M-BEIR WebQA task 1 corpus.",
+        "filename": "lucene-inverted.m-beir-webqa_task1.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-webqa_task1.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "95a952130b8b1c1677d520a4df6136db",
+        "size compressed (bytes)": 169377980,
+        "total_terms": 14498423,
+        "documents": 544457,
+        "unique_terms": 316791,
+        "downloaded": False
+    },
+    "m-beir-webqa_task2": {
+        "description": "Lucene index for M-BEIR WebQA task 2 corpus.",
+        "filename": "lucene-inverted.m-beir-webqa_task2.20251224.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251224.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-webqa_task2.20251224.1c5cd3.tar.gz"
+        ],
+        "md5": "b61d2ea7d37844d03cae7be87eb77981",
+        "size compressed (bytes)": 72496627,
+        "total_terms": 5893552,
+        "documents": 403196,
+        "unique_terms": 731242,
+        "downloaded": False
+    }
 }
 
 TF_INDEX_INFO_OTHER = {
@@ -1426,6 +1653,7 @@ TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
                  **TF_INDEX_INFO_MRTYDI_ALIASES,
                  **TF_INDEX_INFO_MIRACL,
                  **TF_INDEX_INFO_CIRAL,
+                 **TF_INDEX_INFO_M_BEIR,
                  **TF_INDEX_INFO_OTHER,
                  **TF_INDEX_INFO_OTHER_ALIASES}
 
@@ -5603,7 +5831,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 38820730,
         "documents": 21551,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-cirr_task7"
     },
     "m-beir-edis_task2.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's clip-sf-large model",
@@ -5616,7 +5844,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 1889299324,
         "documents": 1047067,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-edis_task2"
     },
     "m-beir-fashion200k_task0.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's clip-sf-large model",
@@ -5629,7 +5857,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 275676078,
         "documents": 153472,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-fashion200k_task0"
     },
     "m-beir-fashion200k_task3.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's clip-sf-large model",
@@ -5642,7 +5870,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 111421780,
         "documents": 61707,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-fashion200k_task3"
     },
     "m-beir-fashioniq_task7.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's clip-sf-large model",
@@ -5655,7 +5883,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 134234457,
         "documents": 74381,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-fashioniq_task7"
     },
     "m-beir-infoseek_task6.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's clip-sf-large model",
@@ -5668,7 +5896,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 1106443187,
         "documents": 611651,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-infoseek_task6"
     },
     "m-beir-infoseek_task8.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's clip-sf-large model",
@@ -5681,7 +5909,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 870316186,
         "documents": 481782,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-infoseek_task8"
     },
     "m-beir-mscoco_task0.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's clip-sf-large model",
@@ -5694,7 +5922,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 9018789,
         "documents": 5000,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-mscoco_task0"
     },
     "m-beir-mscoco_task3.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's clip-sf-large model",
@@ -5707,7 +5935,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 44894584,
         "documents": 24809,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-mscoco_task3"
     },
     "m-beir-nights_task4.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's clip-sf-large model",
@@ -5720,7 +5948,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 72059050,
         "documents": 40038,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-nights_task4"
     },
     "m-beir-oven_task6.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's clip-sf-large model",
@@ -5733,7 +5961,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 1224169375,
         "documents": 676667,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-oven_task6"
     },
     "m-beir-oven_task8.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's clip-sf-large model",
@@ -5746,7 +5974,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 605530489,
         "documents": 335135,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-oven_task8"
     },
     "m-beir-visualnews_task0.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's clip-sf-large model",
@@ -5759,7 +5987,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 978324225,
         "documents": 542246,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-visualnews_task0"
     },
     "m-beir-visualnews_task3.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's clip-sf-large model",
@@ -5772,7 +6000,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 972354799,
         "documents": 537568,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-visualnews_task3"
     },
     "m-beir-webqa_task1.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's clip-sf-large model",
@@ -5785,7 +6013,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 983306361,
         "documents": 544457,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-webqa_task1"
     },
     "m-beir-webqa_task2.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's clip-sf-large model",
@@ -5798,7 +6026,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 726339525,
         "documents": 403196,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-webqa_task2"
     },
     "m-beir-cirr_task7.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR CIRR task 7 corpus encoded by UniIR's blip-ff-large model",
@@ -5811,7 +6039,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 38780136,
         "documents": 21551,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-cirr_task7"
     },
     "m-beir-edis_task2.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's blip-ff-large model",
@@ -5824,7 +6052,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 1882867131,
         "documents": 1047067,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-edis_task2"
     },
     "m-beir-fashion200k_task0.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's blip-ff-large model",
@@ -5837,7 +6065,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 361950478,
         "documents": 153472,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-fashion200k_task0"
     },
     "m-beir-fashion200k_task3.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's blip-ff-large model",
@@ -5850,7 +6078,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 111002142,
         "documents": 61707,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-fashion200k_task3"
     },
     "m-beir-fashioniq_task7.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's blip-ff-large model",
@@ -5863,7 +6091,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 133813792,
         "documents": 74381,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-fashioniq_task7"
     },
     "m-beir-infoseek_task6.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's blip-ff-large model",
@@ -5876,7 +6104,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 1101016470,
         "documents": 611651,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-infoseek_task6"
     },
     "m-beir-infoseek_task8.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's blip-ff-large model",
@@ -5889,7 +6117,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 867072949,
         "documents": 481782,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-infoseek_task8"
     },
     "m-beir-mscoco_task0.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's blip-ff-large model",
@@ -5902,7 +6130,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 8997998,
         "documents": 5000,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-mscoco_task0"
     },
     "m-beir-mscoco_task3.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's blip-ff-large model",
@@ -5915,7 +6143,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 44642859,
         "documents": 24809,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-mscoco_task3"
     },
     "m-beir-nights_task4.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's blip-ff-large model",
@@ -5928,7 +6156,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 72066211,
         "documents": 40038,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-nights_task4"
     },
     "m-beir-oven_task6.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's blip-ff-large model",
@@ -5941,7 +6169,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 1217884724,
         "documents": 676667,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-oven_task6"
     },
     "m-beir-oven_task8.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's blip-ff-large model",
@@ -5954,7 +6182,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 603290723,
         "documents": 335135,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-oven_task8"
     },
     "m-beir-visualnews_task0.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's blip-ff-large model",
@@ -5967,7 +6195,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 975317010,
         "documents": 542246,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-visualnews_task0"
     },
     "m-beir-visualnews_task3.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's blip-ff-large model",
@@ -5980,7 +6208,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 967518619,
         "documents": 537568,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-visualnews_task3"
     },
     "m-beir-webqa_task1.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's blip-ff-large model",
@@ -5993,7 +6221,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 979823093,
         "documents": 544457,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-webqa_task1"
     },
     "m-beir-webqa_task2.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's blip-ff-large model",
@@ -6006,7 +6234,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 724733316,
         "documents": 403196,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-webqa_task2"
     }
 }
 
