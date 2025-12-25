@@ -485,4 +485,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@Hasebul21](https://github.com/Hasebul21) on 2025-12-10 (commit [`eca88c4`](https://github.com/castorini/pyserini/commit/eca88c460b3920f263f58c84660024b54a9adbd2))
 + Results reproduced by [@MehdiJmlkh](https://github.com/MehdiJmlkh) on 2025-12-10 (commit [`d26c2fd`](https://github.com/castorini/pyserini/commit/d26c2fd224439ca564fe9d2b9e2be580391f1275))
 + Results reproduced by [@MuhammadAli13562](https://github.com/MuhammadAli13562) on 2025-12-18 (commit [`e4bf66e`](https://github.com/castorini/pyserini/commit/e4bf66e77eadcfff29637fd10b31fc4b236a9be7))
-+ Results reproduced by [@Hossein-Molaeian](https://github.com/Hossein-Molaeian) on 2025-12-19 (commit [`fee9962`](https://github.com/castorini/pyserini/commit/fee9962f97ba4b2f362c0f4c84908f15f61424e6))
++ Results reproduced by [@mhmmdmostafavi](https://github.com/mhmmdmostafavi) on 2025-12-25 (commit [`d12db6a`](https://github.com/castorini/pyserini/commit/d12db6a90fab6f0d3cf4e1ff9d45c4cd79c8a5b6))
