@@ -20,8 +20,9 @@ Register tools for the MCP server.
 """
 
 from typing import Any
+from fastmcp.utilities.types import Image
 
-from fastmcp import FastMCP, Image
+from fastmcp import FastMCP
 from pyserini.server.search_controller import SearchController, DenseSearchResult
 from pyserini.server.models import INDEX_TYPE, EVAL_METRICS
 
@@ -54,9 +55,8 @@ def register_tools(mcp: FastMCP, controller: SearchController):
     @mcp.tool(
         name='get_document',
         description='Retrieve a full document (text and image) by its document ID from a given index.',
-        use_output_schema=False,
     )
-    def get_document(docid: str, index_name: str) -> list:
+    def get_document(docid: str, index_name: str):
         """
         Retrieve the full text and image (if available) of a document by its ID.
 
