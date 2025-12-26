@@ -237,24 +237,42 @@ class SearchController:
         doc = json.loads(doc.raw())
 
         # Image handling for multimodal datasets
-        if doc.get("img_path", None) is not None:
+        if doc.get("img_path"):
+            from huggingface_hub import hf_hub_download
+
             for key in MULTIMODAL_DATASETS.keys():
                 if key in doc["img_path"]:
                     repo_id = "clides/" + MULTIMODAL_DATASETS[key]
+                    filename = os.path.basename(doc["img_path"])
+                    dir_name = os.path.dirname(doc["img_path"])
+                    
+                    # List of paths to try: [Original, Shard 0, Shard 1, ... Shard 9]
+                    # Needed since hgf have limit of 10000 files per directory so we shard
+                    paths_to_try = [doc["img_path"]] + [
+                        os.path.join(dir_name, str(i), filename) for i in range(20) 
+                        # TODO: how to generalize number of shards (since dataset may have different number of shards)
+                    ]
 
-                    from huggingface_hub import hf_hub_download
-
-                    try:
-                        path = hf_hub_download(
-                            repo_id = repo_id,
-                            repo_type = "dataset",
-                            filename = doc["img_path"]
-                        )
-                        doc["img_path"] = path
-                    except Exception as e:
+                    downloaded_path = None
+                    for candidate_path in paths_to_try:
+                        try:
+                            downloaded_path = hf_hub_download(
+                                repo_id=repo_id,
+                                repo_type="dataset",
+                                filename=candidate_path
+                            )
+                            break
+                        except Exception:
+                            continue
+                    
+                    if downloaded_path:
+                        doc["img_path"] = downloaded_path
+                    else:
+                        print(f"File {filename} not found in root or shards 0-9")
                         del doc["img_path"]
-                        print(f"Failed to download images: {e}")
+                    
                     break
+        
         return doc
 
     def get_status(self, index_name: str) -> dict[str, Any]:
