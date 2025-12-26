@@ -85,7 +85,10 @@ python -m pyserini.encode \
           --encoder-class splade \
           --fields title text \
           --max-length 512
+          --device cpu
 ```
+
+Use `--device cuda` for a faster computation if you have a CUDA-enabled GPU.
 
 Next, we will index the encoded corpus using inverted index into a retrieval system.
 
