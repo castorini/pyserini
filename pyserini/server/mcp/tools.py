@@ -54,6 +54,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
     @mcp.tool(
         name='get_document',
         description='Retrieve a full document (text and image) by its document ID from a given index.',
+        use_output_schema=False,
     )
     def get_document(docid: str, index_name: str) -> list:
         """
