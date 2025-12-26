@@ -28,7 +28,7 @@ from typing import Any
 
 from pyserini.eval.trec_eval import trec_eval
 from pyserini.encode import AutoQueryEncoder
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO, FAISS_INDEX_INFO_M_BEIR
 from pyserini.search import get_qrels, get_qrels_file
 from pyserini.search.faiss import FaissSearcher, DenseSearchResult
 from pyserini.search.hybrid import HybridSearcher
@@ -37,6 +37,18 @@ from pyserini.server.models import IndexConfig, INDEX_TYPE, SHARDS, EVAL_METRICS
 from pyserini.util import check_downloaded
 
 DEFAULT_INDEX = 'msmarco-v1-passage'
+
+MULTIMODAL_DATASETS = {
+    "cirr": "M-BEIR-CIRR-Images",
+    "edis": "M-BEIR-EDIS-Images",
+    "fashion200k": "M-BEIR-Fashion200K-Images",
+    "fashioniq": "M-BEIR-FashionIQ-Images",
+    "mscoco": "M-BEIR-MSCOCO-Images",
+    "nights": "M-BEIR-NIGHTS-Images",
+    "oven": "M-BEIR-OVEN-Images",
+    "visualnews": "M-BEIR-VisualNews-Images",
+    "webqa": "M-BEIR-WebQA-Images"
+}
 
 class SearchController:
     """Core functionality controller."""
@@ -73,6 +85,10 @@ class SearchController:
             config.searcher = LuceneImpactSearcher.from_prebuilt_index(config.name, config.encoder)
             config.base_index = IMPACT_INDEX_INFO.get(config.name).get("texts")
             config.index_type = "impact"
+        elif config.name in FAISS_INDEX_INFO_M_BEIR.keys():
+            config.searcher = FaissSearcher.from_prebuilt_index(config.name, query_encoder=AutoQueryEncoder(encoder_dir=config.encoder))
+            config.base_index = FAISS_INDEX_INFO_M_BEIR.get(config.name).get("texts")
+            config.index_type = "faiss-multimodal"
         elif config.name in FAISS_INDEX_INFO.keys():
             config.searcher = FaissSearcher.from_prebuilt_index(config.name, query_encoder=AutoQueryEncoder(encoder_dir=config.encoder))
             config.base_index = FAISS_INDEX_INFO.get(config.name).get("texts")
@@ -219,6 +235,26 @@ class SearchController:
             raise ValueError(f'Document {docid} not found in index {index_name}')
 
         doc = json.loads(doc.raw())
+
+        # Image handling for multimodal datasets
+        if doc.get("img_path", None) is not None:
+            for key in MULTIMODAL_DATASETS.keys():
+                if key in doc["img_path"]:
+                    repo_id = "clides/" + MULTIMODAL_DATASETS[key]
+
+                    from huggingface_hub import hf_hub_download
+
+                    try:
+                        path = hf_hub_download(
+                            repo_id = repo_id,
+                            repo_type = "dataset",
+                            filename = doc["img_path"]
+                        )
+                        doc["img_path"] = path
+                    except Exception as e:
+                        del doc["img_path"]
+                        print(f"Failed to download images: {e}")
+                    break
         return doc
 
     def get_status(self, index_name: str) -> dict[str, Any]:

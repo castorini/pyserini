@@ -21,7 +21,7 @@ Register tools for the MCP server.
 
 from typing import Any
 
-from fastmcp import FastMCP
+from fastmcp import FastMCP, Image
 from pyserini.server.search_controller import SearchController, DenseSearchResult
 from pyserini.server.models import INDEX_TYPE, EVAL_METRICS
 
@@ -53,20 +53,27 @@ def register_tools(mcp: FastMCP, controller: SearchController):
 
     @mcp.tool(
         name='get_document',
-        description='Retrieve a full document by its document ID from a given index.',
+        description='Retrieve a full document (text and image) by its document ID from a given index.',
     )
-    def get_document(docid: str, index_name: str) -> dict[str, Any]:
+    def get_document(docid: str, index_name: str) -> list:
         """
-        Retrieve the full text of a document by its ID.
+        Retrieve the full text and image (if available) of a document by its ID.
 
         Args:
             docid: Document ID to retrieve
             index_name: Name of index to search (default: use default index)
 
         Returns:
-            Document with full text, or ValueError if not found
+            Document with full text and image (if available), or ValueError if not found
         """
-        return controller.get_document(docid, index_name)
+        doc_data = controller.get_document(docid, index_name)
+        results = []
+        results.append(doc_data.get('contents', ''))
+
+        if 'img_path' in doc_data:
+            results.append(Image(path=doc_data['img_path']))
+
+        return results
     
     @mcp.tool(
         name='list_all_indexes',
