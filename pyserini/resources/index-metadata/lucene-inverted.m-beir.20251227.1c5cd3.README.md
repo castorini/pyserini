@@ -25,6 +25,7 @@ Documents were generated with the following Python script:
 import os
 import glob
 import base64
+import json
 
 input_dir = 'collections/m-beir'
 output_root = 'collections/m-beir/lucene-format'
