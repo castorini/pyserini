@@ -53,7 +53,10 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         """
         return controller.search(query, index_name, k, ef_search=ef_search, encoder=encoder, query_generator=query_generator)
 
-    @mcp.tool()
+    @mcp.tool(
+        name='get_document',
+        description='Retrieve a full document by its document ID from a given index.',
+    )
     def get_document(docid: str, index_name: str):
         """
         Retrieve the full text and image (if available) of a document by its ID.
