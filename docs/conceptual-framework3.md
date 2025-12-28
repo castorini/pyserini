@@ -88,7 +88,7 @@ python -m pyserini.encode \
           --device cpu
 ```
 
-Use `--device cuda` for a faster computation if you have a CUDA-enabled GPU.
+Use `--device cuda` for faster encoding if you have a CUDA-enabled GPU.
 
 Next, we will index the encoded corpus using inverted index into a retrieval system.
 
