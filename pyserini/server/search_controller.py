@@ -28,7 +28,7 @@ from typing import Any
 
 from pyserini.eval.trec_eval import trec_eval
 from pyserini.encode import AutoQueryEncoder
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO, FAISS_INDEX_INFO_M_BEIR
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
 from pyserini.search import get_qrels, get_qrels_file
 from pyserini.search.faiss import FaissSearcher, DenseSearchResult
 from pyserini.search.hybrid import HybridSearcher
@@ -73,10 +73,6 @@ class SearchController:
             config.searcher = LuceneImpactSearcher.from_prebuilt_index(config.name, config.encoder)
             config.base_index = IMPACT_INDEX_INFO.get(config.name).get("texts")
             config.index_type = "impact"
-        elif config.name in FAISS_INDEX_INFO_M_BEIR.keys():
-            config.searcher = FaissSearcher.from_prebuilt_index(config.name, query_encoder=AutoQueryEncoder(encoder_dir=config.encoder))
-            config.base_index = FAISS_INDEX_INFO_M_BEIR.get(config.name).get("texts")
-            config.index_type = "faiss-multimodal"
         elif config.name in FAISS_INDEX_INFO.keys():
             config.searcher = FaissSearcher.from_prebuilt_index(config.name, query_encoder=AutoQueryEncoder(encoder_dir=config.encoder))
             config.base_index = FAISS_INDEX_INFO.get(config.name).get("texts")
