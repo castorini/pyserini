@@ -798,7 +798,7 @@ TF_INDEX_INFO_CIRAL = {
         "documents": 949013,
         "unique_terms": 265867,
         "downloaded": False
-},
+    },
 
     "ciral-v1.0-yo-en": {
         "description": "Lucene index for CIRAL v1.0 English Translations (Yoruba).",

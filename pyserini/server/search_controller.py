@@ -219,7 +219,6 @@ class SearchController:
             raise ValueError(f'Document {docid} not found in index {index_name}')
 
         doc = json.loads(doc.raw())
-        
         return doc
 
     def get_status(self, index_name: str) -> dict[str, Any]:
