@@ -923,11 +923,11 @@ TF_INDEX_INFO_M_BEIR = {
         "urls": [
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-mscoco_task0.20251227.1c5cd3.tar.gz"
         ],
-        "md5": "295faf9b6df87113c021ca701c46b26c",
-        "size compressed (bytes)": 142019,
-        "total_terms": 30000,
+        "md5": "a4550dc70ee06f8f254d97b88868ad7a",
+        "size compressed (bytes)": 84945141,
+        "total_terms": 5000,
         "documents": 5000,
-        "unique_terms": 5005,
+        "unique_terms": 1,
         "downloaded": False
     },
     "m-beir-mscoco_task3": {
