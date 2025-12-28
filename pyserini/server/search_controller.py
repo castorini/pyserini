@@ -38,18 +38,6 @@ from pyserini.util import check_downloaded
 
 DEFAULT_INDEX = 'msmarco-v1-passage'
 
-MULTIMODAL_DATASETS = {
-    "cirr": "M-BEIR-CIRR-Images",
-    "edis": "M-BEIR-EDIS-Images",
-    "fashion200k": "M-BEIR-Fashion200K-Images",
-    "fashioniq": "M-BEIR-FashionIQ-Images",
-    "mscoco": "M-BEIR-MSCOCO-Images",
-    "nights": "M-BEIR-NIGHTS-Images",
-    "oven": "M-BEIR-OVEN-Images",
-    "visualnews": "M-BEIR-VisualNews-Images",
-    "webqa": "M-BEIR-WebQA-Images"
-}
-
 class SearchController:
     """Core functionality controller."""
 
@@ -235,43 +223,6 @@ class SearchController:
             raise ValueError(f'Document {docid} not found in index {index_name}')
 
         doc = json.loads(doc.raw())
-
-        # Image handling for multimodal datasets
-        if doc.get("img_path"):
-            from huggingface_hub import hf_hub_download
-
-            for key in MULTIMODAL_DATASETS.keys():
-                if key in doc["img_path"]:
-                    repo_id = "clides/" + MULTIMODAL_DATASETS[key]
-                    filename = os.path.basename(doc["img_path"])
-                    dir_name = os.path.dirname(doc["img_path"])
-                    
-                    # List of paths to try: [Original, Shard 0, Shard 1, ... Shard 9]
-                    # Needed since hgf have limit of 10000 files per directory so we shard
-                    paths_to_try = [doc["img_path"]] + [
-                        os.path.join(dir_name, str(i), filename) for i in range(20) 
-                        # TODO: how to generalize number of shards (since dataset may have different number of shards)
-                    ]
-
-                    downloaded_path = None
-                    for candidate_path in paths_to_try:
-                        try:
-                            downloaded_path = hf_hub_download(
-                                repo_id=repo_id,
-                                repo_type="dataset",
-                                filename=candidate_path
-                            )
-                            break
-                        except Exception:
-                            continue
-                    
-                    if downloaded_path:
-                        doc["img_path"] = downloaded_path
-                    else:
-                        print(f"File {filename} not found in root or shards 0-9")
-                        del doc["img_path"]
-                    
-                    break
         
         return doc
 

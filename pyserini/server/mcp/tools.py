@@ -19,6 +19,7 @@
 Register tools for the MCP server.
 """
 
+import base64
 from typing import Any
 from fastmcp.utilities.types import Image
 
@@ -52,10 +53,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         """
         return controller.search(query, index_name, k, ef_search=ef_search, encoder=encoder, query_generator=query_generator)
 
-    @mcp.tool(
-        name='get_document',
-        description='Retrieve a full document (text and image) by its document ID from a given index.',
-    )
+    @mcp.tool()
     def get_document(docid: str, index_name: str):
         """
         Retrieve the full text and image (if available) of a document by its ID.
@@ -69,13 +67,21 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         """
         doc_data = controller.get_document(docid, index_name)
         results = []
+
         results.append(doc_data.get('contents', ''))
 
-        if 'img_path' in doc_data:
-            results.append(Image(path=doc_data['img_path']))
+        if doc_data.get('encoded_img'):
+            img_bytes = base64.b64decode(doc_data['encoded_img'])
+            results.append(
+                Image(
+                    data=img_bytes,
+                    format="jpeg"
+                )
+            )
+            # TODO: support other image formats (currently jpeg is fine since M-BEIR only uses jpeg)
 
-        return results
-    
+        return results 
+
     @mcp.tool(
         name='list_all_indexes',
         description='List available indexes of a given type in the Pyserini server.',
