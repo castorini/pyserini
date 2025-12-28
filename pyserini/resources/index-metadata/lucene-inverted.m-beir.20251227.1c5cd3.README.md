@@ -22,7 +22,6 @@ done
 Documents were generated with the following Python script:
 
 ```python
-``import json
 import os
 import glob
 import base64
@@ -63,4 +62,5 @@ for input_file in glob.glob(os.path.join(input_dir, 'mbeir_*_cand_pool.jsonl')):
                 "modality": doc["modality"],
             }
 
-            outfile.write(json.dumps(combined) + '\n')`
+            outfile.write(json.dumps(combined) + '\n')
+```
