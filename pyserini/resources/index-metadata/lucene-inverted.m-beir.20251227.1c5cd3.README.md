@@ -8,7 +8,7 @@ The Lucene inverted indexes for M-BEIR were generated on 2025/12/27 at Anserini 
 for c in cirr_task7 fashioniq_task7 oven_task6 webqa_task1 edis_task2 infoseek_task6 mscoco_task3 oven_task8 webqa_task2 fashion200k_task0 infoseek_task8 visualnews_task0 fashion200k_task3 mscoco_task0 nights_task4 visualnews_task3
 do
 
-bin/run.sh  io.anserini.index.IndexCollection \
+bin/run.sh io.anserini.index.IndexCollection \
   -threads 16 \
   -collection JsonCollection \
   -input collections/m-beir/${c} /  \
