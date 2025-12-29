@@ -21,6 +21,7 @@ Register tools for the MCP server.
 
 import base64
 from typing import Any
+from pathlib import Path
 from fastmcp.utilities.types import Image
 
 from fastmcp import FastMCP
@@ -73,15 +74,20 @@ def register_tools(mcp: FastMCP, controller: SearchController):
 
         results.append(doc_data.get('contents', ''))
 
-        if doc_data.get('encoded_img'):
+        if doc_data.get('img_path'):
+            extension = Path(doc_data['img_path']).suffix
+            if extension.lower() in ['.jpeg', '.jpg']:
+                img_format = "jpeg"
+            else:
+                img_format = extension.lower().replace(".", "") or "png"
+
             img_bytes = base64.b64decode(doc_data['encoded_img'])
             results.append(
                 Image(
                     data=img_bytes,
-                    format="jpeg"
+                    format=img_format
                 )
             )
-            # TODO: support other image formats (currently jpeg is fine since M-BEIR only uses jpeg)
 
         return results 
 
