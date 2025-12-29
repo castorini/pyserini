@@ -19,3 +19,10 @@ runs/
 
 # logs should also be ignored
 logs/
+
+
+.venv/
+pyserini/collections/
+pyserini/indexes/
+pyserini/indexes/
+pyserini/indexes/
