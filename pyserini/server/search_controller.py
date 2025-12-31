@@ -129,22 +129,21 @@ class SearchController:
                 )
             
                 if index_config.name in FAISS_INDEX_INFO_M_BEIR.keys():
-                    query['qid'] = "1:1" # dummy qid for uniir encoder
+                    query = {"qid": "1:1", **query} # dummy qid for UniIRQueryEncoder
                     query["fp16"] = True
             hits = index_config.searcher.search(query, k)
 
         if isinstance(query, str) or query.get("query_img_path") is None: # text-only query
             results = {'query': {'qid': qid, 'text': query}}
         else: # multimodal query
-            full_path = os.path.join(os.getcwd(), query["query_img_path"])
-            with open(full_path, "rb") as f:
+            with open(query["query_img_path"], "rb") as f:
                 img_bytes = f.read()
 
-            ext = os.path.splitext(full_path)[1].lower().replace(".", "")
-            if ext.lower() in ['.jpeg', '.jpg']:
+            extension = Path(query['query_img_path']).suffix
+            if extension.lower() in ['.jpeg', '.jpg']:
                 img_format = "jpeg"
             else:
-                img_format = ext.lower().replace(".", "") or "png"
+                img_format = extension.lower().replace(".", "") or "png"
 
             results = {
                 'query': {
