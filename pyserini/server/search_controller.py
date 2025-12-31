@@ -24,7 +24,7 @@ Initialized with prebuilt index msmarco-v1-passage.
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 import os
-from typing import Any
+from typing import Any, Dict, Union
 
 from pyserini.eval.trec_eval import trec_eval
 from pyserini.encode import AutoQueryEncoder
@@ -93,7 +93,7 @@ class SearchController:
 
     def search(
         self,
-        query: str,
+        query: Union[str, Dict], # String for normal text query, Dict for multimodal query
         index_name: str,
         k: int = 10,
         qid: str = "",

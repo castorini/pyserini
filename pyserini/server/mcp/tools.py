@@ -54,6 +54,29 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         """
         return controller.search(query, index_name, k, ef_search=ef_search, encoder=encoder, query_generator=query_generator)
 
+    @mcp.tool()
+    def save_image(base64_data: str) -> str:
+        """
+        Saves a base64 encoded image to the local server path.
+        :param filename: The name to save the file as (e.g., 'photo.png')
+        :param base64_data: The base64 encoded string of the image
+        """
+        try:
+            # Decode the base64 string
+            image_bytes = base64.b64decode(base64_data)
+            
+            # Construct full file path
+            import os
+            file_path = os.path.join("~/", "test_image.jpg")
+            
+            # Save the file
+            with open(file_path, "wb") as f:
+                f.write(image_bytes)
+                
+            return f"Successfully saved image to: {file_path}"
+        except Exception as e:
+            return f"Error saving image: {str(e)}"
+
     @mcp.tool(
         name='get_document',
         description='Retrieve a full document by its document ID from a given index.',
