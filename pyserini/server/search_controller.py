@@ -24,7 +24,6 @@ Initialized with prebuilt index msmarco-v1-passage.
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 import os
-import re
 import base64
 from pathlib import Path
 from typing import Any, Dict, Union
