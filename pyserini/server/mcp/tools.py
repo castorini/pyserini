@@ -86,7 +86,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         
             final_output.append("---")
 
-    return final_output
+        return final_output
 
     @mcp.tool(
         name='get_document',
