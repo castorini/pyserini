@@ -44,7 +44,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         ef_search: int = 100,
         encoder: str = None,
         query_generator: str = None
-    ) -> dict[str, Any]:
+    ):
         """
         Search the Pyserini index with BM25 and return top-k hits
         Args:
