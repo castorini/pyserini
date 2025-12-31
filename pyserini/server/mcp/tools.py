@@ -57,7 +57,36 @@ def register_tools(mcp: FastMCP, controller: SearchController):
 
         if query_img_path:
             query = {'query_txt': query_txt, 'query_img_path': query_img_path, 'query_modality': 'placeholder'}
-        return controller.search(query, index_name, k, ef_search=ef_search, encoder=encoder, query_generator=query_generator)
+        else:
+            query = query_txt
+
+        # Turn dict to list since MCP cannot render images in dicts
+        raw_results = controller.search(
+            query, index_name, k,
+            ef_search=ef_search,
+            encoder=encoder,
+            query_generator=query_generator
+        )
+
+        final_output = []
+        query_info = raw_results.get('query', {})
+        final_output.append(f"### Query Results for: {query_info.get('query_text', 'Visual Query')}")
+        if 'query_image' in query_info:
+            final_output.append(query_info['query_image'])
+
+        final_output.append("---")
+        for cand in raw_results.get('candidates', []):
+            final_output.append(f"**DocID:** {cand['docid']} | **Score:** {cand['score']:.4f}")
+        
+            if cand.get('document_text') and cand['document_text'] != "None":
+                final_output.append(cand['document_text'])
+        
+            if 'document_image' in cand:
+                final_output.append(cand['document_image'])
+        
+            final_output.append("---")
+
+    return final_output
 
     @mcp.tool(
         name='get_document',

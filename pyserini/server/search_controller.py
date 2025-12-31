@@ -149,9 +149,9 @@ class SearchController:
             results = {
                 'query': {
                     'qid': qid, 
-                    'text': query.get('query_txt', ''), 
+                    'query_text': query.get('query_txt', ''), 
                     'img_path': query.get('query_img_path', ''),
-                    'image': Image(data=img_bytes, format=img_format)
+                    'query_image': Image(data=img_bytes, format=img_format)
                 }
             }
         candidates: list[dict[str, Any]] = []
