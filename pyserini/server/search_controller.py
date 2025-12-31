@@ -24,17 +24,22 @@ Initialized with prebuilt index msmarco-v1-passage.
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 import os
+import re
+import base64
+from pathlib import Path
 from typing import Any, Dict, Union
 
 from pyserini.eval.trec_eval import trec_eval
 from pyserini.encode import AutoQueryEncoder
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
+from pyserini.encode.optional._uniir import UniIRQueryEncoder
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO, FAISS_INDEX_INFO_M_BEIR
 from pyserini.search import get_qrels, get_qrels_file
 from pyserini.search.faiss import FaissSearcher, DenseSearchResult
 from pyserini.search.hybrid import HybridSearcher
 from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher, LuceneImpactSearcher
 from pyserini.server.models import IndexConfig, INDEX_TYPE, SHARDS, EVAL_METRICS
 from pyserini.util import check_downloaded
+from fastmcp.utilities.types import Image
 
 DEFAULT_INDEX = 'msmarco-v1-passage'
 
@@ -73,6 +78,10 @@ class SearchController:
             config.searcher = LuceneImpactSearcher.from_prebuilt_index(config.name, config.encoder)
             config.base_index = IMPACT_INDEX_INFO.get(config.name).get("texts")
             config.index_type = "impact"
+        elif config.name in FAISS_INDEX_INFO_M_BEIR.keys():
+            config.searcher = FaissSearcher.from_prebuilt_index(config.name, query_encoder=UniIRQueryEncoder(encoder_dir=config.encoder, instruction_config=config.instruction_config))
+            config.base_index = IMPACT_INDEX_INFO.get(config.name).get("texts")
+            config.index_type = "impact"
         elif config.name in FAISS_INDEX_INFO.keys():
             config.searcher = FaissSearcher.from_prebuilt_index(config.name, query_encoder=AutoQueryEncoder(encoder_dir=config.encoder))
             config.base_index = FAISS_INDEX_INFO.get(config.name).get("texts")
@@ -93,13 +102,14 @@ class SearchController:
 
     def search(
         self,
-        query: Union[str, Dict], # String for normal text query, Dict for multimodal query
+        query: Union[str, Dict[str, Any]], # String for normal text query, Dict for multimodal query
         index_name: str,
         k: int = 10,
         qid: str = "",
         ef_search: int | None = None,
         encoder: str | None = None,
         query_generator: str | None = None,
+        instruction_config: str | None = None,
     ) -> dict[str, Any]:
         """Perform search on specified index."""
         hits = []
@@ -113,13 +123,36 @@ class SearchController:
                         name=index_name,
                         ef_search=ef_search,
                         encoder=encoder,
-                        query_generator=query_generator
+                        query_generator=query_generator,
+                        instruction_config=instruction_config,
                     )
                 )
-
+            
+                if index_config.name in FAISS_INDEX_INFO_M_BEIR.keys():
+                    query["fp16"] = True
             hits = index_config.searcher.search(query, k)
 
-        results: dict[str, Any] = {'query': {'qid': qid, 'text': query}}
+        if isinstance(query, str) or query.get("query_img_path") is None: # text-only query
+            results = {'query': {'qid': qid, 'text': query}}
+        else: # multimodal query
+            full_path = os.path.join(os.getcwd(), query["query_img_path"])
+            with open(full_path, "rb") as f:
+                img_bytes = f.read()
+
+            ext = os.path.splitext(full_path)[1].lower().replace(".", "")
+            if ext.lower() in ['.jpeg', '.jpg']:
+                img_format = "jpeg"
+            else:
+                img_format = ext.lower().replace(".", "") or "png"
+
+            results = {
+                'query': {
+                    'qid': qid, 
+                    'text': query.get('query_txt', ''), 
+                    'img_path': query.get('query_img_path', ''),
+                    'image': Image(data=img_bytes, format=img_format)
+                }
+            }
         candidates: list[dict[str, Any]] = []
 
         for hit in hits:
@@ -127,16 +160,27 @@ class SearchController:
                 doc = json.loads(hit.lucene_document.get('raw'))
             elif index_config.base_index:
                 doc = self.get_document(hit.docid, index_config.base_index)
-            raw = doc.get('contents') or doc.get('text') or doc.get('segment') or ""
-            candidates.append(
-                {
-                    'docid': hit.docid,
-                    'score': float(hit.score),
-                    'doc': raw,
-                }
-            )
-        results['candidates'] = candidates
 
+            raw = doc.get('contents') or doc.get('text') or doc.get('segment') or ""
+            encoded_img = doc.get('encoded_img')
+            cand_data = {
+                'docid': hit.docid,
+                'score': float(hit.score),
+                'document_text': raw,
+            }
+            if encoded_img:
+                extension = Path(doc['img_path']).suffix
+                if extension.lower() in ['.jpeg', '.jpg']:
+                    img_format = "jpeg"
+                else:
+                    img_format = extension.lower().replace(".", "") or "png"
+
+                img_bytes = base64.b64decode(encoded_img)
+                cand_data['document_image'] = Image(data=img_bytes, format=img_format)
+
+            candidates.append(cand_data)
+
+        results['candidates'] = candidates
         return results
     
     def fuse(

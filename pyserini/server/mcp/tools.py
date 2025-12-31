@@ -36,8 +36,10 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         description='Perform search on a given index. Returns top‑k hits with docid, score, and snippet.',
     )
     def search(
-        query: str,
         index_name: str,
+        query_txt: str = None,
+        query_img_path: str = None,
+        intruction_config: str = None,
         k: int = 10,
         ef_search: int = 100,
         encoder: str = None,
@@ -52,30 +54,10 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         Returns:
             List of search results with docid, score, and raw contents
         """
-        return controller.search(query, index_name, k, ef_search=ef_search, encoder=encoder, query_generator=query_generator)
 
-    @mcp.tool()
-    def save_image(base64_data: str) -> str:
-        """
-        Saves a base64 encoded image to the local server path.
-        :param filename: The name to save the file as (e.g., 'photo.png')
-        :param base64_data: The base64 encoded string of the image
-        """
-        try:
-            # Decode the base64 string
-            image_bytes = base64.b64decode(base64_data)
-            
-            # Construct full file path
-            import os
-            file_path = os.path.join("~/", "test_image.jpg")
-            
-            # Save the file
-            with open(file_path, "wb") as f:
-                f.write(image_bytes)
-                
-            return f"Successfully saved image to: {file_path}"
-        except Exception as e:
-            return f"Error saving image: {str(e)}"
+        if query_img_path:
+            query = {'qid': 0, 'query_txt': query_txt, 'query_img_path': query_img_path, 'query_modality': 'placeholder'}
+        return controller.search(query, index_name, k, ef_search=ef_search, encoder=encoder, query_generator=query_generator)
 
     @mcp.tool(
         name='get_document',
