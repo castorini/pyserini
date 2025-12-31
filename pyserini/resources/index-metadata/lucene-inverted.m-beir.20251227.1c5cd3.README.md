@@ -2,6 +2,8 @@
 
 The Lucene inverted indexes for M-BEIR were generated on 2025/12/27 at Anserini commit [`1c5cd3`](https://github.com/castorini/anserini/commit/1c5cd32b48f03f63eb5752834600ad7c17e5fe7d) on `basilisk` with the following commands:
 
+**Important:** This index is intended for accessing raw document content. It is not designed for embedding-based retrieval, as images are converted to text, which compromises their usefulness for visual similarity searches.
+
 ```bash
 #!/bin/bash
 
