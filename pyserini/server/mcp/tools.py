@@ -56,7 +56,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         """
 
         if query_img_path:
-            query = {'qid': 0, 'query_txt': query_txt, 'query_img_path': query_img_path, 'query_modality': 'placeholder'}
+            query = {'query_txt': query_txt, 'query_img_path': query_img_path, 'query_modality': 'placeholder'}
         return controller.search(query, index_name, k, ef_search=ef_search, encoder=encoder, query_generator=query_generator)
 
     @mcp.tool(
