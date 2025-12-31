@@ -55,8 +55,14 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             List of search results with docid, score, and raw contents
         """
 
-        if query_img_path:
-            query = {'query_txt': query_txt, 'query_img_path': query_img_path, 'query_modality': 'placeholder'}
+        if "m-beir" in index_name:
+            if query_txt and query_img_path:
+                query_modality = "image,text"
+            elif query_img_path:
+                query_modality = "image"
+            else:
+                query_modality = "text"
+            query = {'query_txt': query_txt, 'query_img_path': query_img_path, 'query_modality': query_modality}
         else:
             query = query_txt
 
@@ -70,21 +76,19 @@ def register_tools(mcp: FastMCP, controller: SearchController):
 
         final_output = []
         query_info = raw_results.get('query', {})
-        final_output.append(f"### Query Results for: {query_info.get('query_text', 'Visual Query')}")
+        final_output.append(f"Query Results for: {query_info.get('query_text', 'Visual Query')}")
+
         if 'query_image' in query_info:
             final_output.append(query_info['query_image'])
 
-        final_output.append("---")
         for cand in raw_results.get('candidates', []):
-            final_output.append(f"**DocID:** {cand['docid']} | **Score:** {cand['score']:.4f}")
+            final_output.append(f"DocID: {cand['docid']} | Score: {cand['score']}")
         
             if cand.get('document_text') and cand['document_text'] != "None":
                 final_output.append(cand['document_text'])
         
             if 'document_image' in cand:
                 final_output.append(cand['document_image'])
-        
-            final_output.append("---")
 
         return final_output
 
