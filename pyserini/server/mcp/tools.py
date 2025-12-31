@@ -71,7 +71,8 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             query, index_name, k,
             ef_search=ef_search,
             encoder=encoder,
-            query_generator=query_generator
+            query_generator=query_generator,
+            instruction_config=intruction_config
         )
 
         final_output = []
