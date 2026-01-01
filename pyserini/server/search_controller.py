@@ -93,6 +93,21 @@ class SearchController:
         self.indexes[config.name] = config
         return config
 
+    def _get_img_bytes(self, img_path: str) -> bytes:
+        '''Return image bytes from a local image path'''
+
+        with open(img_path, "rb") as f:
+            return f.read()
+
+    def _get_extension(self, img_path: str) -> str:
+        '''Return FastMCP Image type from a local image path'''
+
+        extension = Path(img_path).suffix
+        if extension.lower() in ['.jpeg', '.jpg']:
+            return "jpeg"
+        else:
+            return extension.lower().replace(".", "") or "png"
+
     def get_indexes(self, index_type: str) -> list[str]:
         """Get indexes available for retrieval (only prebuilt for now)"""
         indexes = INDEX_TYPE.get(index_type)
@@ -134,26 +149,20 @@ class SearchController:
                     query["fp16"] = True
             hits = index_config.searcher.search(query, k)
 
-        if isinstance(query, str) or query.get("query_img_path") is None: # text-only query
+        if isinstance(query, str): # text-only query
             results = {'query': {'qid': qid, 'text': query}}
         else: # multimodal query
-            with open(query["query_img_path"], "rb") as f:
-                img_bytes = f.read()
+            assert isinstance(query, dict)
 
-            extension = Path(query['query_img_path']).suffix
-            if extension.lower() in ['.jpeg', '.jpg']:
-                img_format = "jpeg"
-            else:
-                img_format = extension.lower().replace(".", "") or "png"
+            results = {'query': query}
+            
+            query_img_path = query.get("query_img_path", "")
+            if query_img_path:
+                results['query']['query_image'] = Image(
+                    data=self._get_img_bytes(query_img_path), 
+                    format=self._get_extension(query_img_path)
+                )
 
-            results = {
-                'query': {
-                    'qid': qid, 
-                    'query_text': query.get('query_txt', ''), 
-                    'img_path': query.get('query_img_path', ''),
-                    'query_image': Image(data=img_bytes, format=img_format)
-                }
-            }
         candidates: list[dict[str, Any]] = []
 
         for hit in hits:
@@ -170,12 +179,7 @@ class SearchController:
                 'document_text': raw,
             }
             if encoded_img:
-                extension = Path(doc['img_path']).suffix
-                if extension.lower() in ['.jpeg', '.jpg']:
-                    img_format = "jpeg"
-                else:
-                    img_format = extension.lower().replace(".", "") or "png"
-
+                img_format = self._get_extension(doc['img_path'])
                 img_bytes = base64.b64decode(encoded_img)
                 cand_data['document_image'] = Image(data=img_bytes, format=img_format)
 

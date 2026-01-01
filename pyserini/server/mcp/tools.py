@@ -20,7 +20,7 @@ Register tools for the MCP server.
 """
 
 import base64
-from typing import Any
+from typing import Any, Dict, Union
 from pathlib import Path
 from fastmcp.utilities.types import Image
 
@@ -33,12 +33,15 @@ def register_tools(mcp: FastMCP, controller: SearchController):
 
     @mcp.tool(
         name='search',
-        description='Perform search on a given index. Returns top‑k hits with docid, score, and snippet.',
+        description='''Perform search on a given index. Returns top‑k hits with docid, score, and snippet.
+        The "query" argument can be:
+        1. A simple string for text search.
+        2. A dictionary for multimodal search: {"query_txt": "...", "query_img_path": "...", "query_modality": "..."}.
+        ''' # Use query_modality for MM datasets since its needed for getting instructions
     )
     def search(
+        query: Union[str, Dict[str, Any]],
         index_name: str,
-        query_txt: str = None,
-        query_img_path: str = None,
         intruction_config: str = None,
         k: int = 10,
         ef_search: int = 100,
@@ -54,18 +57,6 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         Returns:
             List of search results with docid, score, and raw contents
         """
-
-        if "m-beir" in index_name:
-            if query_txt and query_img_path:
-                query_modality = "image,text"
-            elif query_img_path:
-                query_modality = "image"
-            else:
-                query_modality = "text"
-            query = {'query_txt': query_txt, 'query_img_path': query_img_path, 'query_modality': query_modality}
-        else:
-            query = query_txt
-
         # Turn dict to list since MCP cannot render images in dicts
         raw_results = controller.search(
             query, index_name, k,
