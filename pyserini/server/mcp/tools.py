@@ -61,10 +61,8 @@ def register_tools(mcp: FastMCP, controller: SearchController):
                 query['query_modality'] = "image,text"
             elif query.get('query_img_path'):
                 query['query_modality'] = "image"
-                query['query_txt'] = ""
             else:
                 query['query_modality'] = "text"
-                query['query_img_path'] = ""
         else:
             if not query.get('query_txt'):
                 raise ValueError("Missing query text for single modality dataset! Please provide a query text for this index!")
