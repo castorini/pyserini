@@ -144,9 +144,6 @@ class SearchController:
                     )
                 )
             
-                if index_config.name in FAISS_INDEX_INFO_M_BEIR.keys():
-                    query['qid'] = "1:1" # dummy qid for UniIRQueryEncoder
-                    query['fp16'] = True
             hits = index_config.searcher.search(query, k)
 
         if isinstance(query, str): # text-only query

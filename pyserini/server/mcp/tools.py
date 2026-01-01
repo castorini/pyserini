@@ -57,6 +57,8 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         """
 
         if "m-beir" in index_name:
+            query['qid'] = "1:1" # dummy qid for m-beir format
+            query['fp16'] = True # use fp16 for m-beir format
             if query.get('query_txt') and query.get('query_img_path'):
                 query['query_modality'] = "image,text"
             elif query.get('query_img_path'):
