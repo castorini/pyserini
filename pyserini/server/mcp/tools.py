@@ -34,13 +34,11 @@ def register_tools(mcp: FastMCP, controller: SearchController):
     @mcp.tool(
         name='search',
         description='''Perform search on a given index. Returns top‑k hits with docid, score, and snippet.
-        The "query" argument can be:
-        1. A simple string for text search.
-        2. A dictionary for multimodal search: {"query_txt": "...", "query_img_path": "...", "query_modality": "..."}.
-        ''' # Use query_modality for MM datasets since its needed for getting instructions
+        The "query" argument is a dictionary {"query_txt": "...", "query_img_path": "..."}.
+        '''
     )
     def search(
-        query: Union[str, Dict[str, Any]],
+        query: Dict[str, Any],
         index_name: str,
         intruction_config: str = None,
         k: int = 10,
@@ -51,12 +49,25 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         """
         Search the Pyserini index with BM25 and return top-k hits
         Args:
-            query: Search query string
+            query: Search query dictionary with optional text and image paths
             index_name: Name of index to search (default: use default index)
             k: Number of results to return (default: 10)
         Returns:
             List of search results with docid, score, and raw contents
         """
+
+        if "m-beir" in index_name:
+            if query.get('query_txt') and query.get('query_img_path'):
+                query['query_modality'] = "image,text"
+            elif query.get('query_img_path'):
+                query['query_modality'] = "image"
+            else:
+                query['query_modality'] = "text"
+        else:
+            if not query.get('query_txt'):
+                raise ValueError("Missing query text for single modality dataset! Please provide a query text for this index!")
+            query = query.get('query_txt')
+
         # Turn dict to list since MCP cannot render images in dicts
         raw_results = controller.search(
             query, index_name, k,
