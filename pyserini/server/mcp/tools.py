@@ -57,8 +57,10 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         """
 
         if "m-beir" in index_name:
-            query['qid'] = "1:1" # dummy qid for m-beir format
+            if not query.get('qid'):
+                query['qid'] = "1:1" # dummy qid for m-beir format
             query['fp16'] = True # use fp16 for m-beir format
+
             if query.get('query_txt') and query.get('query_img_path'):
                 query['query_modality'] = "image,text"
             elif query.get('query_img_path'):
@@ -68,7 +70,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         else:
             if not query.get('query_txt'):
                 raise ValueError("Missing query text for single modality dataset! Please provide a query text for this index!")
-            query = query.get('query_txt')
+            query = query['query_txt']
 
         # Turn dict to list since MCP cannot render images in dicts
         raw_results = controller.search(
