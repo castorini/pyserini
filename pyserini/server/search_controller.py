@@ -126,7 +126,7 @@ class SearchController:
         encoder: str | None = None,
         query_generator: str | None = None,
         instruction_config: str | None = None,
-    ) -> dict[str, Any]:
+    ) -> Dict[str, Any]:
         """Perform search on specified index."""
         hits = []
         if "shard" in index_name and "msmarco" in index_name:
@@ -145,8 +145,8 @@ class SearchController:
                 )
             
                 if index_config.name in FAISS_INDEX_INFO_M_BEIR.keys():
-                    query = {"qid": "1:1", **query} # dummy qid for UniIRQueryEncoder
-                    query["fp16"] = True
+                    query['qid'] = "1:1" # dummy qid for UniIRQueryEncoder
+                    query['fp16'] = True
             hits = index_config.searcher.search(query, k)
 
         if isinstance(query, str): # text-only query
