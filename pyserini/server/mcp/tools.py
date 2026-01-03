@@ -83,7 +83,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
 
         final_output = []
         query_info = raw_results.get('query', {})
-        final_output.append(f"Query Results for: {query_info.get('query_text', 'Visual Query')}")
+        final_output.append(f"Query Results for: {query_info.get('query_txt', 'Visual Query')}")
 
         if 'query_image' in query_info:
             final_output.append(query_info['query_image'])
