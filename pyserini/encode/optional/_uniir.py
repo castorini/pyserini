@@ -74,9 +74,9 @@ class UniIRQueryEncoder:
     def encode(
         self,
         qid: int,
-        query_txt: str,
-        query_img_path: str,
         query_modality: str,
+        query_txt: str = "",
+        query_img_path: str = "",
         **kwargs: Any,
     ):
         fp16 = kwargs.get("fp16", False)

@@ -184,7 +184,7 @@ class PyseriniToolsBridge:
                 response = self.session.post('http://localhost:8000/mcp/',
                                            json=tool_request,
                                            headers=headers,
-                                           timeout=30)
+                                           timeout=300)
                 
                 # Parse streaming response
                 for line in response.text.split('\n'):
