@@ -36,6 +36,7 @@ class IndexConfig:
     query_generator: str | None = None
     base_index: str | None = None
     index_type: str | None = ""
+    instruction_config: str | None = None
 
 SHARDS = {
     f'msmarco-v2.1-doc-segmented-shard0{i}.arctic-embed-l.hnsw-int8': ""
