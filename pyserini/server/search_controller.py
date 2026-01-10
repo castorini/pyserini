@@ -110,7 +110,7 @@ class SearchController:
 
     def search(
         self,
-        query: Dict[str, Any],
+        query: str | Dict[str, Any],
         index_name: str,
         k: int = 10,
         qid: str = "",
