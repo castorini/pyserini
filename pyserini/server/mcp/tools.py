@@ -83,7 +83,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
                 final_output.append(cand['document_txt'])
         
             if cand.get('encoded_img'):
-                img_format = controller._get_extension(cand['img_path'])
+                img_format = controller._get_extension(cand['document_img_path'])
                 img_bytes = base64.b64decode(cand['encoded_img'])
                 final_output.append(Image(data=img_bytes, format=img_format))
 
