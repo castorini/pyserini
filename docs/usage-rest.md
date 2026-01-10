@@ -34,7 +34,12 @@ Perform a search query on the specified index.
 **Example Request:**
 
 ```bash
-curl "http://localhost:8081/v1/indexes/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=1"
+curl -X POST "http://localhost:8081/v1/indexes/msmarco-v1-passage/search" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "what is a lobster roll",
+    "hits": 1
+  }'
 ```
 
 **Example Response:**
