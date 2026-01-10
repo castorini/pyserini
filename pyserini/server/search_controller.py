@@ -121,14 +121,20 @@ class SearchController:
     ) -> Dict[str, Any]:
         """Perform search on specified index."""
 
+        # Handle string query input from REST API for simple text queries
+        if isinstance(query, str):
+            query = {"query_txt": query}
+
         if "m-beir" in index_name:
             if not query.get('qid'):
                 query['qid'] = "1:1" # dummy qid for m-beir format
             query['fp16'] = True # use fp16 for m-beir format
 
-            if query.get('query_txt') and query.get('query_img_path'):
+            has_text = bool(query.get('query_txt'))
+            has_image = bool(query.get('query_img_path'))
+            if has_text and has_image:
                 query['query_modality'] = "image,text"
-            elif query.get('query_img_path'):
+            elif has_image:
                 query['query_modality'] = "image"
             else:
                 query['query_modality'] = "text"
