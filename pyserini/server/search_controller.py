@@ -181,6 +181,7 @@ class SearchController:
                 'docid': hit.docid,
                 'score': float(hit.score),
                 'document_txt': raw,
+                'document_img_path': doc.get('img_path'),
                 'encoded_img': doc.get('encoded_img'),
             }
 

@@ -80,6 +80,7 @@ class Candidate(BaseModel):
     docid: str
     score: float
     document_txt: str
+    document_img_path: str | None = None
     encoded_img: str | None = None
 
 class Hits(BaseModel): 
