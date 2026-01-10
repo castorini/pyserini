@@ -85,17 +85,25 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         query_info = raw_results.get('query', {})
         final_output.append(f"Query Results for: {query_info.get('query_txt', 'Visual Query')}")
 
-        if 'query_image' in query_info:
-            final_output.append(query_info['query_image'])
+        if query_info.get('query_img_path'):
+            from pyserini.server.search_controller import _get_extension
+            img_format = _get_extension(query_info['query_img_path'])
+            with open(query_info['query_img_path'], "rb") as f:
+                img_bytes = f.read()
+
+            final_output.append(Image(data=img_bytes, format=img_format))
 
         for cand in raw_results.get('candidates', []):
             final_output.append(f"DocID: {cand['docid']} | Score: {cand['score']}")
         
-            if cand.get('document_text') and cand['document_text'] != "None":
-                final_output.append(cand['document_text'])
+            if cand.get('document_txt') and cand['document_txt'] != "None":
+                final_output.append(cand['document_txt'])
         
-            if 'document_image' in cand:
-                final_output.append(cand['document_image'])
+            if cand.get('encoded_img'):
+                from pyserini.server.search_controller import _get_extension
+                img_format = _get_extension(cand['img_path'])
+                img_bytes = base64.b64decode(cand['encoded_img'])
+                final_output.append(Image(data=img_bytes, format=img_format))
 
         return final_output
 

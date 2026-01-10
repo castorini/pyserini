@@ -35,7 +35,8 @@ async def search_index(
     try:
         return get_controller().search(
             params.query, index, params.hits, params.qid,
-            params.ef_search, params.encoder, params.query_generator
+            params.ef_search, params.encoder, params.query_generator,
+            params.instruction_config
         )
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))

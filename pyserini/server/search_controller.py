@@ -24,9 +24,8 @@ Initialized with prebuilt index msmarco-v1-passage.
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 import os
-import base64
 from pathlib import Path
-from typing import Any, Dict, Union
+from typing import Any, Dict
 
 from pyserini.eval.trec_eval import trec_eval
 from pyserini.encode import AutoQueryEncoder
@@ -38,7 +37,6 @@ from pyserini.search.hybrid import HybridSearcher
 from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher, LuceneImpactSearcher
 from pyserini.server.models import IndexConfig, INDEX_TYPE, SHARDS, EVAL_METRICS
 from pyserini.util import check_downloaded
-from fastmcp.utilities.types import Image
 
 DEFAULT_INDEX = 'msmarco-v1-passage'
 
@@ -93,12 +91,6 @@ class SearchController:
         self.indexes[config.name] = config
         return config
 
-    def _get_img_bytes(self, img_path: str) -> bytes:
-        '''Return image bytes from a local image path'''
-
-        with open(img_path, "rb") as f:
-            return f.read()
-
     def _get_extension(self, img_path: str) -> str:
         '''Return FastMCP Image type from a local image path'''
 
@@ -118,7 +110,7 @@ class SearchController:
 
     def search(
         self,
-        query: Union[str, Dict[str, Any]], # String for normal text query, Dict for multimodal query
+        query: str | Dict[str, Any], # String for normal text query, Dict for multimodal query
         index_name: str,
         k: int = 10,
         qid: str = "",
@@ -147,18 +139,11 @@ class SearchController:
             hits = index_config.searcher.search(query, k)
 
         if isinstance(query, str): # text-only query
-            results = {'query': {'qid': qid, 'text': query}}
+            results = {'query': {'qid': qid, 'query_txt': query}}
         else: # multimodal query
             assert isinstance(query, dict)
 
             results = {'query': query}
-            
-            query_img_path = query.get("query_img_path", "")
-            if query_img_path:
-                results['query']['query_image'] = Image(
-                    data=self._get_img_bytes(query_img_path), 
-                    format=self._get_extension(query_img_path)
-                )
 
         candidates: list[dict[str, Any]] = []
 
@@ -169,16 +154,12 @@ class SearchController:
                 doc = self.get_document(hit.docid, index_config.base_index)
 
             raw = doc.get('contents') or doc.get('text') or doc.get('segment') or ""
-            encoded_img = doc.get('encoded_img')
             cand_data = {
                 'docid': hit.docid,
                 'score': float(hit.score),
-                'document_text': raw,
+                'document_txt': raw,
+                'encoded_img': doc.get('encoded_img'),
             }
-            if encoded_img:
-                img_format = self._get_extension(doc['img_path'])
-                img_bytes = base64.b64decode(encoded_img)
-                cand_data['document_image'] = Image(data=img_bytes, format=img_format)
 
             candidates.append(cand_data)
 
