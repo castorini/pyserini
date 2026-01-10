@@ -48,13 +48,16 @@ curl -X POST "http://localhost:8081/v1/indexes/msmarco-v1-passage/search" \
 {
   "query": {
     "qid": "",
-    "text": "what is a lobster roll"
+    "query_txt": "what is a lobster roll",
+    "query_img_path": null,
+    "query_modality": "text"
   },
   "candidates": [
     {
       "docid": "7157707",
-      "score": 11.0082998275757,
-      "document_text": "Cookbook: Lobster roll Media: Lobster roll A lobster-salad style roll from The Lobster Roll in Amagansett, New York on the Eastern End of Long Island A lobster roll is a fast-food sandwich native to New England made of lobster meat served on a grilled hot dog-style bun with the opening on the top rather than the side. The filling may also contain butter, lemon juice, salt and black pepper, with variants made in other parts of New England replacing the butter with mayonnaise. Others contain diced celery or scallion. Potato chips or french fries are the typical sides."
+      "score": 11.008299827575684,
+      "document_txt": "Cookbook: Lobster roll Media: Lobster roll A lobster-salad style roll from The Lobster Roll in Amagansett, New York on the Eastern End of Long Island A lobster roll is a fast-food sandwich native to New England made of lobster meat served on a grilled hot dog-style bun with the opening on the top rather than the side. The filling may also contain butter, lemon juice, salt and black pepper, with variants made in other parts of New England replacing the butter with mayonnaise. Others contain diced celery or scallion. Potato chips or french fries are the typical sides.",
+      "encoded_img": null
     }
   ]
 }

@@ -110,7 +110,7 @@ class SearchController:
 
     def search(
         self,
-        query: str | Dict[str, Any], # String for normal text query, Dict for multimodal query
+        query: Dict[str, Any],
         index_name: str,
         k: int = 10,
         qid: str = "",
@@ -120,6 +120,23 @@ class SearchController:
         instruction_config: str | None = None,
     ) -> Dict[str, Any]:
         """Perform search on specified index."""
+
+        if "m-beir" in index_name:
+            if not query.get('qid'):
+                query['qid'] = "1:1" # dummy qid for m-beir format
+            query['fp16'] = True # use fp16 for m-beir format
+
+            if query.get('query_txt') and query.get('query_img_path'):
+                query['query_modality'] = "image,text"
+            elif query.get('query_img_path'):
+                query['query_modality'] = "image"
+            else:
+                query['query_modality'] = "text"
+        else:
+            if not query.get('query_txt'):
+                raise ValueError("Missing query text for single modality dataset! Please provide a query text for this index!")
+            query = query['query_txt']
+
         hits = []
         if "shard" in index_name and "msmarco" in index_name:
             hits = self.sharded_search(query, k, ef_search)

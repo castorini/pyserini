@@ -74,6 +74,7 @@ class QueryInfo(BaseModel):
     query_txt: str
     query_img_path: str | None = None
     query_modality: str | None = "text"
+    fp16: bool | None = False
 
 class Candidate(BaseModel):
     docid: str
