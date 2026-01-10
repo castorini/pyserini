@@ -60,7 +60,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
                     urls.append(url)
 
         # 29 each for flat and multifield
-        self.assertEqual(cnt, 58)
+        self.assertEqual(cnt, 74)
         self._test_urls(urls)
 
     def test_lucene_tf_bright(self):
