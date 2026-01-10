@@ -34,7 +34,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
     @mcp.tool(
         name='search',
         description='''Perform search on a given index. Returns top‑k hits with docid, score, and snippet.
-        The "query" argument is a dictionary with format {"query_txt": "...", "query_img_path": "..."}.
+        The "query" argument is a dictionary with format {"qid": "...", "query_txt": "...", "query_img_path": "..."}.
         '''
     )
     def search(
