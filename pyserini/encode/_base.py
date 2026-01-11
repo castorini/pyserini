@@ -47,12 +47,12 @@ class QueryEncoder:
             self.text_embedding, self.qid_embedding = self._load_embeddings(encoded_query_dir)
             self.has_encoded_query = True
 
-    def encode(self, query: str | Dict[str, Any]):
-        if isinstance(query, str): # simple text only query
+    def encode(self, query: str = None, **kwargs):
+        if query is not None and isinstance(query, str): # simple text only query
             return self.text_embedding[query]
-        else: # multimodal query with multiple fields
-            assert(isinstance(query, dict))
-            return self.qid_embedding[query['qid']]
+        else: # multimodal query with multiple fields (in kwargs)
+            assert 'qid' in kwargs
+            return self.qid_embedding[kwargs['qid']]
 
     @classmethod
     def load_encoded_queries(cls, encoded_query_name: str):
