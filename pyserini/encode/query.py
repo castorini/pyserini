@@ -88,7 +88,7 @@ if __name__ == '__main__':
     query_texts = []
     query_embeddings = []
 
-    for query_data in tqdm(query_iterator):
+    for qid, query_data in tqdm(query_iterator):
         if isinstance(query_data, dict): # M-BEIR format
             embedding = encoder.encode(
                 qid=query_data['qid'],
