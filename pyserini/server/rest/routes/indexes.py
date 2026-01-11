@@ -27,15 +27,16 @@ from pyserini.server.models import INDEX_TYPE, Hits, SearchParams, IndexStatus, 
 
 router = APIRouter(prefix='/indexes', tags=['indexes'])
     
-@router.get('/{index}/search', response_model=Hits)
+@router.post('/{index}/search', response_model=Hits)
 async def search_index(
     index: str = Path(..., description='Index name'),
-    params: SearchParams = Depends()
+    params: SearchParams = Body(...)
 ) -> Hits:
     try:
         return get_controller().search(
             params.query, index, params.hits, params.qid,
-            params.ef_search, params.encoder, params.query_generator
+            params.ef_search, params.encoder, params.query_generator,
+            params.instruction_config
         )
     except ValueError as ve:
         raise HTTPException(status_code=404, detail=str(ve))

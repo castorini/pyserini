@@ -34,7 +34,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
     @mcp.tool(
         name='search',
         description='''Perform search on a given index. Returns top‑k hits with docid, score, and snippet.
-        The "query" argument is a dictionary with format {"query_txt": "...", "query_img_path": "..."}.
+        The "query" argument is a dictionary with format {"qid": "...", "query_txt": "...", "query_img_path": "..."}.
         '''
     )
     def search(
@@ -56,23 +56,6 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             List of search results with docid, score, and raw contents
         """
 
-        if "m-beir" in index_name:
-            if not query.get('qid'):
-                query['qid'] = "1:1" # dummy qid for m-beir format
-            query['fp16'] = True # use fp16 for m-beir format
-
-            if query.get('query_txt') and query.get('query_img_path'):
-                query['query_modality'] = "image,text"
-            elif query.get('query_img_path'):
-                query['query_modality'] = "image"
-            else:
-                query['query_modality'] = "text"
-        else:
-            if not query.get('query_txt'):
-                raise ValueError("Missing query text for single modality dataset! Please provide a query text for this index!")
-            query = query['query_txt']
-
-        # Turn dict to list since MCP cannot render images in dicts
         raw_results = controller.search(
             query, index_name, k,
             ef_search=ef_search,
@@ -81,21 +64,28 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             instruction_config=intruction_config
         )
 
+        # Turn dict to list since MCP cannot render images in dicts
         final_output = []
         query_info = raw_results.get('query', {})
         final_output.append(f"Query Results for: {query_info.get('query_txt', 'Visual Query')}")
 
-        if 'query_image' in query_info:
-            final_output.append(query_info['query_image'])
+        if query_info.get('query_img_path'):
+            img_format = controller._get_extension(query_info['query_img_path'])
+            with open(query_info['query_img_path'], "rb") as f:
+                img_bytes = f.read()
+
+            final_output.append(Image(data=img_bytes, format=img_format))
 
         for cand in raw_results.get('candidates', []):
             final_output.append(f"DocID: {cand['docid']} | Score: {cand['score']}")
         
-            if cand.get('document_text') and cand['document_text'] != "None":
-                final_output.append(cand['document_text'])
+            if cand.get('document_txt') and cand['document_txt'] != "None":
+                final_output.append(cand['document_txt'])
         
-            if 'document_image' in cand:
-                final_output.append(cand['document_image'])
+            if cand.get('encoded_img'):
+                img_format = controller._get_extension(cand['document_img_path'])
+                img_bytes = base64.b64decode(cand['encoded_img'])
+                final_output.append(Image(data=img_bytes, format=img_format))
 
         return final_output
 
