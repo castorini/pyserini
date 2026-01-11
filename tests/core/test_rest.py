@@ -30,7 +30,10 @@ class TestRestServer(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
     
     def test_search(self):
-        response = self.client.get(f"/{VERSION}/indexes/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=1")
+        response = self.client.post(
+            f"/{VERSION}/indexes/msmarco-v1-passage/search",
+            json={"query": "what is a lobster roll", "hits": 1}
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTrue("query" in list(response.json().keys()))
         self.assertTrue("candidates" in list(response.json().keys()))
