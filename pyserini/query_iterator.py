@@ -16,6 +16,7 @@
 
 import json
 import os
+import tarfile
 from abc import ABC, abstractmethod
 from enum import Enum, unique
 from pathlib import Path
@@ -209,8 +210,31 @@ class MBEIRQueryIterator(QueryIterator):
     @classmethod
     def from_topics(cls, topics_path: str):
         """Load M-BEIR topics from JSONL file"""
-        if not os.path.exists(topics_path):
-            raise FileNotFoundError(f'Topic {topics_path} Not Found')
+        if not os.path.exists(topics_path): # try to get topics from topics_mapping registry
+            try:
+                topics = get_topics(topics_path)
+                if not topics:
+                    raise FileNotFoundError(f'Topic {topics_path} Not Found')
+
+                cache_dir = get_cache_home()
+                images_dir = os.path.join(cache_dir, 'mbeir_images')
+
+                if not os.path.exists(images_dir):
+                    image_url = "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/mbeir_query_images_and_instructions.tar.gz"
+                    tar_path = os.path.join(cache_dir, 'mbeir_query_images_and_instructions.tar.gz')
+
+                    try:  
+                        download_url(image_url, cache_dir, force=False)
+                        with tarfile.open(tar_path, 'r:gz') as tar:
+                            tar.extractall(cache_dir)
+                    except Exception as e:
+                        raise Exception(f"Could not download query images: {e}")
+
+                order = list(topics.keys())
+                return cls(topics, order, images_dir)
+
+            except (ValueError, FileNotFoundError):
+                raise FileNotFoundError(f'Topic {topics_path} Not Found')
 
         topics = {}
         order = []
