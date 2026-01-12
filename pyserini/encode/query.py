@@ -99,7 +99,7 @@ if __name__ == '__main__':
                 fp16=args.fp16
             )
             query_ids.append(query_data['qid'])
-            query_texts.append("Query Text: " + query_data.get('query_txt') + ", Query Image Path: " + query_data.get('query_img_path'))
+            query_texts.append("Query Text: " + query_data.get('query_txt', 'None') + ", Query Image Path: " + query_data.get('query_img_path', 'None'))
         else: # Standard text only format
             topic_id, text = query_data
             embedding = encoder.encode(text, max_length=args.max_length)
