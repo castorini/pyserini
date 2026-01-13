@@ -217,9 +217,8 @@ class MBEIRQueryIterator(QueryIterator):
                     raise FileNotFoundError(f'Topic {topics_path} Not Found')
 
                 cache_dir = get_cache_home()
-                images_dir = os.path.join(cache_dir, 'mbeir_images')
 
-                if not os.path.exists(images_dir):
+                if not os.path.exists(cache_dir):
                     image_url = "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/mbeir_query_images_and_instructions.tar.gz"
                     tar_path = os.path.join(cache_dir, 'mbeir_query_images_and_instructions.tar.gz')
 
@@ -231,7 +230,7 @@ class MBEIRQueryIterator(QueryIterator):
                         raise Exception(f"Could not download query images: {e}")
 
                 order = list(topics.keys())
-                return cls(topics, order, images_dir)
+                return cls(topics, order, cache_dir)
 
             except (ValueError, FileNotFoundError):
                 raise FileNotFoundError(f'Topic {topics_path} Not Found')
