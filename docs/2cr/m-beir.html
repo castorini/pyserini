@@ -180,10 +180,10 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 <td width="200">cirr_task7</td>  
 <td>0.3293</td>  
 <td>0.6975</td>  
-<td>0.8905</td>  
+<td>0.8903</td>  
 <td></td>  
-<td>0.4164</td>  
-<td>0.7166</td>  
+<td>0.4163</td>  
+<td>0.7165</td>  
 <td>0.9006</td>  
 </tr>  
 <tr class="hide-table-padding">  
@@ -209,14 +209,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-cirr_task7.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_cirr_task7_test.jsonl \
+  --topics m-beir-cirr_task7-test \
+  --encoded-queries clip-sf-large-m-beir-cirr_task7-test \
   --output-format trec \
   --output run.m-beir-cirr_task7.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/cirr_task7_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -241,14 +239,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-cirr_task7.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_cirr_task7_test.jsonl \
+  --topics m-beir-cirr_task7-test \
+  --encoded-queries blip-ff-large-m-beir-cirr_task7-test \
   --output-format trec \
   --output run.m-beir-cirr_task7.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/cirr_task7_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -279,13 +275,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">  
 <td class="expand-button"></td>  
 <td width="200">edis_task2</td>  
-<td>0.3440</td>  
+<td>0.3439</td>  
 <td>0.5874</td>  
 <td>0.8276</td>  
 <td></td>  
 <td>0.3149</td>  
-<td>0.5282</td>  
-<td>0.7546</td>  
+<td>0.5283</td>  
+<td>0.7544</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -310,14 +306,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-edis_task2.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_edis_task2_test.jsonl \
+  --topics m-beir-edis_task2-test \
+  --encoded-queries clip-sf-large-m-beir-edis_task2-test \
   --output-format trec \
   --output run.m-beir-edis_task2.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/edis_task2_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -342,14 +336,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-edis_task2.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_edis_task2_test.jsonl \
+  --topics m-beir-edis_task2-test \
+  --encoded-queries blip-ff-large-m-beir-edis_task2-test \
   --output-format trec \
   --output run.m-beir-edis_task2.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/edis_task2_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -380,7 +372,7 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">  
 <td class="expand-button"></td>  
 <td width="200">fashion200k_task0</td>  
-<td>0.0587</td>  
+<td>0.0588</td>  
 <td>0.1198</td>  
 <td>0.2528</td>  
 <td></td>  
@@ -411,14 +403,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-fashion200k_task0.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_fashion200k_task0_test.jsonl \
+  --topics m-beir-fashion200k_task0-test \
+  --encoded-queries clip-sf-large-m-beir-fashion200k_task0-test \
   --output-format trec \
   --output run.m-beir-fashion200k_task0.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/fashion200k_task0_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -443,14 +433,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-fashion200k_task0.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_fashion200k_task0_test.jsonl \
+  --topics m-beir-fashion200k_task0-test \
+  --encoded-queries blip-ff-large-m-beir-fashion200k_task0-test \
   --output-format trec \
   --output run.m-beir-fashion200k_task0.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/fashion200k_task0_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -481,13 +469,13 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">  
 <td class="expand-button"></td>  
 <td width="200">fashion200k_task3</td>  
-<td>0.1058</td>  
-<td>0.2571</td>  
+<td>0.1057</td>  
+<td>0.2567</td>  
 <td>0.4964</td>  
 <td></td>  
 <td>0.1707</td>  
-<td>0.3774</td>  
-<td>0.6214</td>  
+<td>0.3768</td>  
+<td>0.6208</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -512,14 +500,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-fashion200k_task3.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_fashion200k_task3_test.jsonl \
+  --topics m-beir-fashion200k_task3-test \
+  --encoded-queries clip-sf-large-m-beir-fashion200k_task3-test \
   --output-format trec \
   --output run.m-beir-fashion200k_task3.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/fashion200k_task3_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -544,14 +530,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-fashion200k_task3.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_fashion200k_task3_test.jsonl \
+  --topics m-beir-fashion200k_task3-test \
+  --encoded-queries blip-ff-large-m-beir-fashion200k_task3-test \
   --output-format trec \
   --output run.m-beir-fashion200k_task3.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/fashion200k_task3_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -583,12 +567,12 @@ python -m pyserini.eval.trec_eval \
 <td class="expand-button"></td>  
 <td width="200">fashioniq_task7</td>  
 <td>0.1410</td>  
-<td>0.3228</td>  
-<td>0.5326</td>  
+<td>0.3227</td>  
+<td>0.5329</td>  
 <td></td>  
-<td>0.1829</td>  
+<td>0.1828</td>  
 <td>0.3691</td>  
-<td>0.5745</td>  
+<td>0.5742</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -613,14 +597,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-fashioniq_task7.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_fashioniq_task7_test.jsonl \
+  --topics m-beir-fashioniq_task7-test \
+  --encoded-queries clip-sf-large-m-beir-fashioniq_task7-test \
   --output-format trec \
   --output run.m-beir-fashioniq_task7.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/fashioniq_task7_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -645,14 +627,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-fashioniq_task7.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_fashioniq_task7_test.jsonl \
+  --topics m-beir-fashioniq_task7-test \
+  --encoded-queries blip-ff-large-m-beir-fashioniq_task7-test \
   --output-format trec \
   --output run.m-beir-fashioniq_task7.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/fashioniq_task7_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -685,11 +665,11 @@ python -m pyserini.eval.trec_eval \
 <td width="200">infoseek_task6</td>  
 <td>0.1708</td>  
 <td>0.2791</td>  
-<td>0.4829</td>  
+<td>0.4830</td>  
 <td></td>  
 <td>0.1312</td>  
 <td>0.2098</td>  
-<td>0.3945</td>  
+<td>0.3947</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -714,14 +694,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-infoseek_task6.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_infoseek_task6_test.jsonl \
+  --topics m-beir-infoseek_task6-test \
+  --encoded-queries clip-sf-large-m-beir-infoseek_task6-test \
   --output-format trec \
   --output run.m-beir-infoseek_task6.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/infoseek_task6_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -746,14 +724,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-infoseek_task6.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_infoseek_task6_test.jsonl \
+  --topics m-beir-infoseek_task6-test \
+  --encoded-queries blip-ff-large-m-beir-infoseek_task6-test \
   --output-format trec \
   --output run.m-beir-infoseek_task6.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/infoseek_task6_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -789,8 +765,8 @@ python -m pyserini.eval.trec_eval \
 <td>0.6707</td>  
 <td></td>  
 <td>0.1794</td>  
-<td>0.2755</td>  
-<td>0.4902</td>  
+<td>0.2757</td>  
+<td>0.4903</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -815,14 +791,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-infoseek_task8.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_infoseek_task8_test.jsonl \
+  --topics m-beir-infoseek_task8-test \
+  --encoded-queries clip-sf-large-m-beir-infoseek_task8-test \
   --output-format trec \
   --output run.m-beir-infoseek_task8.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/infoseek_task8_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -847,14 +821,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-infoseek_task8.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_infoseek_task8_test.jsonl \
+  --topics m-beir-infoseek_task8-test \
+  --encoded-queries blip-ff-large-m-beir-infoseek_task8-test \
   --output-format trec \
   --output run.m-beir-infoseek_task8.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/infoseek_task8_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -886,7 +858,7 @@ python -m pyserini.eval.trec_eval \
 <td class="expand-button"></td>  
 <td width="200">mscoco_task0</td>  
 <td>0.5753</td>  
-<td>0.7530</td>  
+<td>0.7529</td>  
 <td>0.7949</td>  
 <td></td>  
 <td>0.5637</td>  
@@ -916,14 +888,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-mscoco_task0.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_mscoco_task0_test.jsonl \
+  --topics m-beir-mscoco_task0-test \
+  --encoded-queries clip-sf-large-m-beir-mscoco_task0-test \
   --output-format trec \
   --output run.m-beir-mscoco_task0.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/mscoco_task0_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -948,14 +918,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-mscoco_task0.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_mscoco_task0_test.jsonl \
+  --topics m-beir-mscoco_task0-test \
+  --encoded-queries blip-ff-large-m-beir-mscoco_task0-test \
   --output-format trec \
   --output run.m-beir-mscoco_task0.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/mscoco_task0_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -987,12 +955,12 @@ python -m pyserini.eval.trec_eval \
 <td class="expand-button"></td>  
 <td width="200">mscoco_task3</td>  
 <td>0.5664</td>  
-<td>0.6373</td>  
-<td>0.7610</td>  
+<td>0.6371</td>  
+<td>0.7611</td>  
 <td></td>  
-<td>0.5474</td>  
+<td>0.5475</td>  
 <td>0.6215</td>  
-<td>0.7513</td>  
+<td>0.7514</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -1017,14 +985,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-mscoco_task3.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_mscoco_task3_test.jsonl \
+  --topics m-beir-mscoco_task3-test \
+  --encoded-queries clip-sf-large-m-beir-mscoco_task3-test \
   --output-format trec \
   --output run.m-beir-mscoco_task3.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/mscoco_task3_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -1049,14 +1015,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-mscoco_task3.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_mscoco_task3_test.jsonl \
+  --topics m-beir-mscoco_task3-test \
+  --encoded-queries blip-ff-large-m-beir-mscoco_task3-test \
   --output-format trec \
   --output run.m-beir-mscoco_task3.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/mscoco_task3_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -1087,12 +1051,12 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">  
 <td class="expand-button"></td>  
 <td width="200">nights_task4</td>  
-<td>0.2613</td>  
-<td>0.7769</td>  
+<td>0.2615</td>  
+<td>0.7764</td>  
 <td>0.9792</td>  
 <td></td>  
-<td>0.2724</td>  
-<td>0.7840</td>  
+<td>0.2725</td>  
+<td>0.7844</td>  
 <td>0.9792</td>  
 </tr>  
 <tr class="hide-table-padding">  
@@ -1118,14 +1082,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-nights_task4.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_nights_task4_test.jsonl \
+  --topics m-beir-nights_task4-test \
+  --encoded-queries clip-sf-large-m-beir-nights_task4-test \
   --output-format trec \
   --output run.m-beir-nights_task4.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/nights_task4_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -1150,14 +1112,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-nights_task4.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_nights_task4_test.jsonl \
+  --topics m-beir-nights_task4-test \
+  --encoded-queries blip-ff-large-m-beir-nights_task4-test \
   --output-format trec \
   --output run.m-beir-nights_task4.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/nights_task4_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -1189,12 +1149,12 @@ python -m pyserini.eval.trec_eval \
 <td class="expand-button"></td>  
 <td width="200">oven_task6</td>  
 <td>0.2135</td>  
-<td>0.2629</td>  
+<td>0.2630</td>  
 <td>0.3212</td>  
 <td></td>  
 <td>0.2041</td>  
 <td>0.2543</td>  
-<td>0.3084</td>  
+<td>0.3085</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -1219,14 +1179,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-oven_task6.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_oven_task6_test.jsonl \
+  --topics m-beir-oven_task6-test \
+  --encoded-queries clip-sf-large-m-beir-oven_task6-test \
   --output-format trec \
   --output run.m-beir-oven_task6.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/oven_task6_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -1251,14 +1209,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-oven_task6.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_oven_task6_test.jsonl \
+  --topics m-beir-oven_task6-test \
+  --encoded-queries blip-ff-large-m-beir-oven_task6-test \
   --output-format trec \
   --output run.m-beir-oven_task6.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/oven_task6_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -1289,8 +1245,8 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">  
 <td class="expand-button"></td>  
 <td width="200">oven_task8</td>  
-<td>0.2121</td>  
-<td>0.1657</td>  
+<td>0.2122</td>  
+<td>0.1658</td>  
 <td>0.1859</td>  
 <td></td>  
 <td>0.1784</td>  
@@ -1320,14 +1276,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-oven_task8.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_oven_task8_test.jsonl \
+  --topics m-beir-oven_task8-test \
+  --encoded-queries clip-sf-large-m-beir-oven_task8-test \
   --output-format trec \
   --output run.m-beir-oven_task8.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/oven_task8_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -1352,14 +1306,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-oven_task8.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_oven_task8_test.jsonl \
+  --topics m-beir-oven_task8-test \
+  --encoded-queries blip-ff-large-m-beir-oven_task8-test \
   --output-format trec \
   --output run.m-beir-oven_task8.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/oven_task8_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -1391,12 +1343,12 @@ python -m pyserini.eval.trec_eval \
 <td class="expand-button"></td>  
 <td width="200">visualnews_task0</td>  
 <td>0.3606</td>  
-<td>0.6016</td>  
-<td>0.7630</td>  
+<td>0.6015</td>  
+<td>0.7629</td>  
 <td></td>  
 <td>0.1911</td>  
-<td>0.3757</td>  
-<td>0.5624</td>  
+<td>0.3756</td>  
+<td>0.5623</td>  
 </tr>  
 <tr class="hide-table-padding">  
 <td></td>  
@@ -1421,14 +1373,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-visualnews_task0.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_visualnews_task0_test.jsonl \
+  --topics m-beir-visualnews_task0-test \
+  --encoded-queries clip-sf-large-m-beir-visualnews_task0-test \
   --output-format trec \
   --output run.m-beir-visualnews_task0.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/visualnews_task0_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -1453,14 +1403,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-visualnews_task0.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_visualnews_task0_test.jsonl \
+  --topics m-beir-visualnews_task0-test \
+  --encoded-queries blip-ff-large-m-beir-visualnews_task0-test \
   --output-format trec \
   --output run.m-beir-visualnews_task0.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/visualnews_task0_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -1491,12 +1439,12 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row14" data-toggle="collapse" data-parent="#row14" href="#collapse14">  
 <td class="expand-button"></td>  
 <td width="200">visualnews_task3</td>  
-<td>0.3578</td>  
-<td>0.6035</td>  
+<td>0.3579</td>  
+<td>0.6032</td>  
 <td>0.7682</td>  
 <td></td>  
-<td>0.1900</td>  
-<td>0.3788</td>  
+<td>0.1899</td>  
+<td>0.3787</td>  
 <td>0.5698</td>  
 </tr>  
 <tr class="hide-table-padding">  
@@ -1522,14 +1470,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-visualnews_task3.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_visualnews_task3_test.jsonl \
+  --topics m-beir-visualnews_task3-test \
+  --encoded-queries clip-sf-large-m-beir-visualnews_task3-test \
   --output-format trec \
   --output run.m-beir-visualnews_task3.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/visualnews_task3_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -1554,14 +1500,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-visualnews_task3.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_visualnews_task3_test.jsonl \
+  --topics m-beir-visualnews_task3-test \
+  --encoded-queries blip-ff-large-m-beir-visualnews_task3-test \
   --output-format trec \
   --output run.m-beir-visualnews_task3.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/visualnews_task3_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -1623,14 +1567,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-webqa_task1.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_webqa_task1_test.jsonl \
+  --topics m-beir-webqa_task1-test \
+  --encoded-queries clip-sf-large-m-beir-webqa_task1-test \
   --output-format trec \
   --output run.m-beir-webqa_task1.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/webqa_task1_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -1655,14 +1597,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-webqa_task1.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_webqa_task1_test.jsonl \
+  --topics m-beir-webqa_task1-test \
+  --encoded-queries blip-ff-large-m-beir-webqa_task1-test \
   --output-format trec \
   --output run.m-beir-webqa_task1.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/webqa_task1_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -1693,7 +1633,7 @@ python -m pyserini.eval.trec_eval \
 <tr class="accordion-toggle collapsed" id="row16" data-toggle="collapse" data-parent="#row16" href="#collapse16">  
 <td class="expand-button"></td>  
 <td width="200">webqa_task2</td>  
-<td>0.6316</td>  
+<td>0.6315</td>  
 <td>0.8586</td>  
 <td>0.9504</td>  
 <td></td>  
@@ -1724,14 +1664,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
   --index m-beir-webqa_task2.clip-sf-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_webqa_task2_test.jsonl \
+  --topics m-beir-webqa_task2-test \
+  --encoded-queries clip-sf-large-m-beir-webqa_task2-test \
   --output-format trec \
   --output run.m-beir-webqa_task2.clip-sf-large.txt \
-  --instruction-config collections/m-beir/query_instructions/webqa_task2_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
@@ -1756,14 +1694,12 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
   --index m-beir-webqa_task2.blip-ff-large \
   --topics-format mbeir \
-  --topics collections/m-beir/mbeir_webqa_task2_test.jsonl \
+  --topics m-beir-webqa_task2-test \
+  --encoded-queries blip-ff-large-m-beir-webqa_task2-test \
   --output-format trec \
   --output run.m-beir-webqa_task2.blip-ff-large.txt \
-  --instruction-config collections/m-beir/query_instructions/webqa_task2_instr.yaml \
   --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
 </code></pre></blockquote>  
 Evaluation commands:  
