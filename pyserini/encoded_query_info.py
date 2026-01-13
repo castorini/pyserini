@@ -1040,7 +1040,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-cirr_task7-test": {
         "description": "M-BEIR CIRR Task7 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-cirr_task7-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-cirr_task7-test-20260112-694053f.tar.gz"
         ],
         "md5": "826e277099c1884cab092b34d4c30ad0",
         "size (bytes)": 6032588,
@@ -1050,7 +1050,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-edis_task2-test": {
         "description": "M-BEIR EDIS Task2 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-edis_task2-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-edis_task2-test-20260112-694053f.tar.gz"
         ],
         "md5": "277fc28c241f9b1b74a7b45cd49dc502",
         "size (bytes)": 4793355,
@@ -1060,7 +1060,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-fashion200k_task0-test": {
         "description": "M-BEIR Fashion200K Task0 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-fashion200k_task0-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-fashion200k_task0-test-20260112-694053f.tar.gz"
         ],
         "md5": "8408b87d68ada19a998a917be3696de5",
         "size (bytes)": 2467162,
@@ -1070,7 +1070,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-fashion200k_task3-test": {
         "description": "M-BEIR Fashion200K Task3 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-fashion200k_task3-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-fashion200k_task3-test-20260112-694053f.tar.gz"
         ],
         "md5": "252c369e42237bc423ecbe0aed8e1895",
         "size (bytes)": 7003136,
@@ -1080,7 +1080,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-fashioniq_task7-test": {
         "description": "M-BEIR FashionIQ Task7 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-fashioniq_task7-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-fashioniq_task7-test-20260112-694053f.tar.gz"
         ],
         "md5": "3e80dc4214a53056d5f6aaf467bbd451",
         "size (bytes)": 8677217,
@@ -1090,7 +1090,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-infoseek_task6-test": {
         "description": "M-BEIR InfoSeek Task6 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-infoseek_task6-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-infoseek_task6-test-20260112-694053f.tar.gz"
         ],
         "md5": "ab1115c185f5e76d258b8af933518371",
         "size (bytes)": 16223270,
@@ -1100,7 +1100,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-infoseek_task8-test": {
         "description": "M-BEIR InfoSeek Task8 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-infoseek_task8-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-infoseek_task8-test-20260112-694053f.tar.gz"
         ],
         "md5": "702164ed364b59a72cfa5470e1a770a0",
         "size (bytes)": 25201896,
@@ -1110,7 +1110,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-mscoco_task0-test": {
         "description": "M-BEIR MSCOCO Task0 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-mscoco_task0-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-mscoco_task0-test-20260112-694053f.tar.gz"
         ],
         "md5": "be4ea1db42482286e6108a0e34b6842d",
         "size (bytes)": 35771421,
@@ -1120,7 +1120,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-mscoco_task3-test": {
         "description": "M-BEIR MSCOCO Task3 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-mscoco_task3-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-mscoco_task3-test-20260112-694053f.tar.gz"
         ],
         "md5": "67a7a0943b459d7aada41a097f6be186",
         "size (bytes)": 7134926,
@@ -1130,7 +1130,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-nights_task4-test": {
         "description": "M-BEIR NIGHTS Task4 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-nights_task4-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-nights_task4-test-20260112-694053f.tar.gz"
         ],
         "md5": "02718df8f703fea84bfa145ad7c5a838",
         "size (bytes)": 3021708,
@@ -1140,7 +1140,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-oven_task6-test": {
         "description": "M-BEIR OVEN Task6 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-oven_task6-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-oven_task6-test-20260112-694053f.tar.gz"
         ],
         "md5": "179a99a3b37003d4ea6206f02cad6a4e",
         "size (bytes)": 71505758,
@@ -1150,7 +1150,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-oven_task8-test": {
         "description": "M-BEIR OVEN Task8 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-oven_task8-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-oven_task8-test-20260112-694053f.tar.gz"
         ],
         "md5": "bbe9eea19fd3aabc4b89bacc54b7963a",
         "size (bytes)": 21082427,
@@ -1160,7 +1160,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-visualnews_task0-test": {
         "description": "M-BEIR VisualNews Task0 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-visualnews_task0-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-visualnews_task0-test-20260112-694053f.tar.gz"
         ],
         "md5": "e4dd6e0f30019d5741bc130214844414",
         "size (bytes)": 29503358,
@@ -1170,7 +1170,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-visualnews_task3-test": {
         "description": "M-BEIR VisualNews Task3 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-visualnews_task3-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-visualnews_task3-test-20260112-694053f.tar.gz"
         ],
         "md5": "e4fb151e3be476a19a225c50f7439cf5",
         "size (bytes)": 28546084,
@@ -1180,7 +1180,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-webqa_task1-test": {
         "description": "M-BEIR WebQA Task1 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-webqa_task1-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-webqa_task1-test-20260112-694053f.tar.gz"
         ],
         "md5": "957fba79500620da313ae86355d4a46a",
         "size (bytes)": 3613413,
@@ -1190,7 +1190,7 @@ QUERY_INFO_BASE = {
     "clip-sf-large-m-beir-webqa_task2-test": {
         "description": "M-BEIR WebQA Task2 test queries encoded by CLIP-SF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-webqa_task2-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/clip-sf-large-m-beir-webqa_task2-test-20260112-694053f.tar.gz"
         ],
         "md5": "bb05c63c01fee84e005eae1de42a3c25",
         "size (bytes)": 3674835,
@@ -1200,7 +1200,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-cirr_task7-test": {
         "description": "M-BEIR CIRR Task7 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-cirr_task7-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-cirr_task7-test-20260112-694053f.tar.gz"
         ],
         "md5": "88a79bd3ecf4189f45b8192664644555",
         "size (bytes)": 6026809,
@@ -1210,7 +1210,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-edis_task2-test": {
         "description": "M-BEIR EDIS Task2 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-edis_task2-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-edis_task2-test-20260112-694053f.tar.gz"
         ],
         "md5": "dabda2b0b07c0348a32c145201028e71",
         "size (bytes)": 4783360,
@@ -1220,7 +1220,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-fashion200k_task0-test": {
         "description": "M-BEIR Fashion200K Task0 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-fashion200k_task0-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-fashion200k_task0-test-20260112-694053f.tar.gz"
         ],
         "md5": "9c23747f942de3bf4fc14eec4ba2af2f",
         "size (bytes)": 2465259,
@@ -1230,7 +1230,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-fashion200k_task3-test": {
         "description": "M-BEIR Fashion200K Task3 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-fashion200k_task3-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-fashion200k_task3-test-20260112-694053f.tar.gz"
         ],
         "md5": "43b20e18dcd813ce4c38e433bb12fc64",
         "size (bytes)": 6987712,
@@ -1240,7 +1240,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-fashioniq_task7-test": {
         "description": "M-BEIR FashionIQ Task7 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-fashioniq_task7-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-fashioniq_task7-test-20260112-694053f.tar.gz"
         ],
         "md5": "7aebd8ed58d357e9d9b7f1e567e58547",
         "size (bytes)": 8669632,
@@ -1250,7 +1250,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-infoseek_task6-test": {
         "description": "M-BEIR InfoSeek Task6 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-infoseek_task6-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-infoseek_task6-test-20260112-694053f.tar.gz"
         ],
         "md5": "29728d97017b383f7eb9c33bcd6eb8a5",
         "size (bytes)": 16201331,
@@ -1260,7 +1260,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-infoseek_task8-test": {
         "description": "M-BEIR InfoSeek Task8 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-infoseek_task8-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-infoseek_task8-test-20260112-694053f.tar.gz"
         ],
         "md5": "b8b738c13497e0e0a6e96509a8732621",
         "size (bytes)": 25167208,
@@ -1270,7 +1270,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-mscoco_task0-test": {
         "description": "M-BEIR MSCOCO Task0 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-mscoco_task0-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-mscoco_task0-test-20260112-694053f.tar.gz"
         ],
         "md5": "155bc02bacebbc42347c3bc3381c3630",
         "size (bytes)": 35691477,
@@ -1280,7 +1280,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-mscoco_task3-test": {
         "description": "M-BEIR MSCOCO Task3 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-mscoco_task3-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-mscoco_task3-test-20260112-694053f.tar.gz"
         ],
         "md5": "80f6c73f180382b560c714f7b6463686",
         "size (bytes)": 7120503,
@@ -1290,7 +1290,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-nights_task4-test": {
         "description": "M-BEIR NIGHTS Task4 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-nights_task4-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-nights_task4-test-20260112-694053f.tar.gz"
         ],
         "md5": "2e33094543499714309ca9b9c22153eb",
         "size (bytes)": 3018522,
@@ -1300,7 +1300,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-oven_task6-test": {
         "description": "M-BEIR OVEN Task6 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-oven_task6-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-oven_task6-test-20260112-694053f.tar.gz"
         ],
         "md5": "0fb2f3140c194ec415225fffc699812e",
         "size (bytes)": 71392666,
@@ -1310,7 +1310,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-oven_task8-test": {
         "description": "M-BEIR OVEN Task8 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-oven_task8-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-oven_task8-test-20260112-694053f.tar.gz"
         ],
         "md5": "0824b294c36f642f24d2d765374f96c9",
         "size (bytes)": 21041825,
@@ -1320,7 +1320,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-visualnews_task0-test": {
         "description": "M-BEIR VisualNews Task0 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-visualnews_task0-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-visualnews_task0-test-20260112-694053f.tar.gz"
         ],
         "md5": "fcfd43e7c6ddcf6e3e08fe3925337085",
         "size (bytes)": 29439274,
@@ -1330,7 +1330,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-visualnews_task3-test": {
         "description": "M-BEIR VisualNews Task3 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-visualnews_task3-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-visualnews_task3-test-20260112-694053f.tar.gz"
         ],
         "md5": "df28123b7d9fedf59ca43bc820c5adaf",
         "size (bytes)": 28482833,
@@ -1340,7 +1340,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-webqa_task1-test": {
         "description": "M-BEIR WebQA Task1 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-webqa_task1-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-webqa_task1-test-20260112-694053f.tar.gz"
         ],
         "md5": "68dd316d3eb0f2193b1fbb3a062f8fab",
         "size (bytes)": 3609458,
@@ -1350,7 +1350,7 @@ QUERY_INFO_BASE = {
     "blip-ff-large-m-beir-webqa_task2-test": {
         "description": "M-BEIR WebQA Task2 test queries encoded by BLIP-FF Large.",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-webqa_task2-20260112-694053f.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/encoded-queries/blip-ff-large-m-beir-webqa_task2-test-20260112-694053f.tar.gz"
         ],
         "md5": "d26e5d63d678a1a5c43beaa526f237d7",
         "size (bytes)": 3668336,
