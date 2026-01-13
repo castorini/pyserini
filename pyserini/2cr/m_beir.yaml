@@ -1,37 +1,37 @@
 conditions:
   - name: clip-sf-large
-    command: python -m pyserini.search.faiss --encoder-class uniir --encoder clip_sf_large --index m-beir-${dataset}.clip-sf-large --topics-format mbeir --topics m-beir-${dataset}-test.jsonl --output-format trec --output $output --instruction-config collections/m-beir/query_instructions/${instruction_config} --hits 1000 --fp16 --remove-query --threads ${dense_threads} --batch-size ${dense_batch_size}
+    command: python -m pyserini.search.faiss --index m-beir-${dataset}.clip-sf-large --topics-format mbeir --topics m-beir-${dataset}-test --encoded-queries clip-sf-large-m-beir-${dataset}-test --output-format trec --output $output --hits 1000 --fp16 --remove-query --threads ${dense_threads} --batch-size ${dense_batch_size}
     datasets:
       - dataset: cirr_task7
         scores:
           - nDCG@10: 0.3293
             R@20: 0.6975
-            R@100: 0.8905
+            R@100: 0.8903
       - dataset: edis_task2
         scores:
-          - nDCG@10: 0.3440
+          - nDCG@10: 0.3439
             R@20: 0.5874
             R@100: 0.8276
       - dataset: fashion200k_task0
         scores:
-          - nDCG@10: 0.0587
+          - nDCG@10: 0.0588
             R@20: 0.1198
             R@100: 0.2528
       - dataset: fashion200k_task3
         scores:
-          - nDCG@10: 0.1058
-            R@20: 0.2571
+          - nDCG@10: 0.1057
+            R@20: 0.2567
             R@100: 0.4964
       - dataset: fashioniq_task7
         scores:
           - nDCG@10: 0.1410
-            R@20: 0.3228
-            R@100: 0.5326
+            R@20: 0.3227
+            R@100: 0.5329
       - dataset: infoseek_task6
         scores:
           - nDCG@10: 0.1708
             R@20: 0.2791
-            R@100: 0.4829
+            R@100: 0.4830
       - dataset: infoseek_task8
         scores:
           - nDCG@10: 0.3188
@@ -40,37 +40,37 @@ conditions:
       - dataset: mscoco_task0
         scores:
           - nDCG@10: 0.5753
-            R@20: 0.7530
+            R@20: 0.7529
             R@100: 0.7949
       - dataset: mscoco_task3
         scores:
           - nDCG@10: 0.5664
-            R@20: 0.6373
-            R@100: 0.7610
+            R@20: 0.6371
+            R@100: 0.7611
       - dataset: nights_task4
         scores:
-          - nDCG@10: 0.2613
-            R@20: 0.7769
+          - nDCG@10: 0.2615
+            R@20: 0.7764
             R@100: 0.9792
       - dataset: oven_task6
         scores:
           - nDCG@10: 0.2135
-            R@20: 0.2629
+            R@20: 0.2630
             R@100: 0.3212
       - dataset: oven_task8
         scores:
-          - nDCG@10: 0.2121
-            R@20: 0.1657
+          - nDCG@10: 0.2122
+            R@20: 0.1658
             R@100: 0.1859
       - dataset: visualnews_task0
         scores:
           - nDCG@10: 0.3606
-            R@20: 0.6016
-            R@100: 0.7630
+            R@20: 0.6015
+            R@100: 0.7629
       - dataset: visualnews_task3
         scores:
-          - nDCG@10: 0.3578
-            R@20: 0.6035
+          - nDCG@10: 0.3579
+            R@20: 0.6032
             R@100: 0.7682
       - dataset: webqa_task1
         scores:
@@ -79,22 +79,22 @@ conditions:
             R@100: 0.8829
       - dataset: webqa_task2
         scores:
-          - nDCG@10: 0.6316
+          - nDCG@10: 0.6315
             R@20: 0.8586
             R@100: 0.9504
   - name: blip-ff-large
-    command: python -m pyserini.search.faiss --encoder-class uniir --encoder blip_ff_large --index m-beir-${dataset}.blip-ff-large --topics-format mbeir --topics m-beir-${dataset}-test.jsonl --output-format trec --output $output --instruction-config collections/m-beir/query_instructions/${instruction_config} --hits 1000 --fp16 --remove-query --threads ${dense_threads} --batch-size ${dense_batch_size}
+    command: python -m pyserini.search.faiss --index m-beir-${dataset}.blip-ff-large --topics-format mbeir --topics m-beir-${dataset}-test --encoded-queries blip-ff-large-m-beir-${dataset}-test --output-format trec --output $output --hits 1000 --fp16 --remove-query --threads ${dense_threads} --batch-size ${dense_batch_size}
     datasets:
       - dataset: cirr_task7
         scores:
-          - nDCG@10: 0.4164
-            R@20: 0.7166
+          - nDCG@10: 0.4163
+            R@20: 0.7165
             R@100: 0.9006
       - dataset: edis_task2
         scores:
           - nDCG@10: 0.3149
-            R@20: 0.5282
-            R@100: 0.7546
+            R@20: 0.5283
+            R@100: 0.7544
       - dataset: fashion200k_task0
         scores:
           - nDCG@10: 0.1245
@@ -103,23 +103,23 @@ conditions:
       - dataset: fashion200k_task3
         scores:
           - nDCG@10: 0.1707
-            R@20: 0.3774
-            R@100: 0.6214
+            R@20: 0.3768
+            R@100: 0.6208
       - dataset: fashioniq_task7
         scores:
-          - nDCG@10: 0.1829
+          - nDCG@10: 0.1828
             R@20: 0.3691
-            R@100: 0.5745
+            R@100: 0.5742
       - dataset: infoseek_task6
         scores:
           - nDCG@10: 0.1312
             R@20: 0.2098
-            R@100: 0.3945
+            R@100: 0.3947
       - dataset: infoseek_task8
         scores:
           - nDCG@10: 0.1794
-            R@20: 0.2755
-            R@100: 0.4902
+            R@20: 0.2757
+            R@100: 0.4903
       - dataset: mscoco_task0
         scores:
           - nDCG@10: 0.5637
@@ -127,19 +127,19 @@ conditions:
             R@100: 0.7923
       - dataset: mscoco_task3
         scores:
-          - nDCG@10: 0.5474
+          - nDCG@10: 0.5475
             R@20: 0.6215
-            R@100: 0.7513
+            R@100: 0.7514
       - dataset: nights_task4
         scores:
-          - nDCG@10: 0.2724
-            R@20: 0.7840
+          - nDCG@10: 0.2725
+            R@20: 0.7844
             R@100: 0.9792
       - dataset: oven_task6
         scores:
           - nDCG@10: 0.2041
             R@20: 0.2543
-            R@100: 0.3084
+            R@100: 0.3085
       - dataset: oven_task8
         scores:
           - nDCG@10: 0.1784
@@ -148,12 +148,12 @@ conditions:
       - dataset: visualnews_task0
         scores:
           - nDCG@10: 0.1911
-            R@20: 0.3757
-            R@100: 0.5624
+            R@20: 0.3756
+            R@100: 0.5623
       - dataset: visualnews_task3
         scores:
-          - nDCG@10: 0.1900
-            R@20: 0.3788
+          - nDCG@10: 0.1899
+            R@20: 0.3787
             R@100: 0.5698
       - dataset: webqa_task1
         scores:
