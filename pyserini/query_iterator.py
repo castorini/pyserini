@@ -199,6 +199,7 @@ class MBEIRQueryIterator(QueryIterator):
         topic = self.topics[id_]
 
         query_data = {
+            'topics_path': topic['topics_path'],
             'qid': topic.get('qid', id_),
             'query_txt': topic.get('query_txt', ''),
             'query_img_path': os.path.join(self.topic_dir, topic.get('query_img_path', '')) if topic.get('query_img_path') else None,
@@ -215,15 +216,18 @@ class MBEIRQueryIterator(QueryIterator):
                 topics = get_topics(topics_path)
                 if not topics:
                     raise FileNotFoundError(f'Topic {topics_path} Not Found')
+                for topic_id in topics:
+                    topics[topic_id]["topic_path"] = topics_path
 
                 cache_dir = get_cache_home()
+                images_dir = os.path.join(cache_dir, 'mbeir_images')
 
-                if not os.path.exists(cache_dir):
-                    image_url = "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/mbeir_query_images_and_instructions.tar.gz"
+                if not os.path.exists(images_dir):
+                    download_url = "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/mbeir_query_images_and_instructions.tar.gz"
                     tar_path = os.path.join(cache_dir, 'mbeir_query_images_and_instructions.tar.gz')
 
                     try:  
-                        download_url(image_url, cache_dir, force=False)
+                        download_url(download_url, cache_dir, force=False)
                         with tarfile.open(tar_path, 'r:gz') as tar:
                             tar.extractall(cache_dir)
                     except Exception as e:
@@ -242,6 +246,7 @@ class MBEIRQueryIterator(QueryIterator):
                 data = json.loads(line)
                 try:
                     topic_id = data['qid']
+                    data['topic_path'] = topics_path
                     topics[topic_id] = data
                     order.append(topic_id)
                 except Exception as e:
