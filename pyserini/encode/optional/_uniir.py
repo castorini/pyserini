@@ -117,11 +117,11 @@ class UniIRQueryEncoder:
         instructions_dir = os.path.join(cache_dir, 'query_instructions')
 
         if not os.path.exists(instructions_dir):
-            download_url = "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/mbeir_query_images_and_instructions.tar.gz"
+            query_images_and_instructions_url = "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/mbeir_query_images_and_instructions.tar.gz"
             tar_path = os.path.join(cache_dir, 'mbeir_query_images_and_instructions.tar.gz')
 
             try:  
-                download_url(download_url, cache_dir, force=False)
+                download_url(query_images_and_instructions_url, cache_dir, force=False)
                 with tarfile.open(tar_path, 'r:gz') as tar:
                     tar.extractall(cache_dir)
             except Exception as e:
