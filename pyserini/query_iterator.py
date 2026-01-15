@@ -217,7 +217,7 @@ class MBEIRQueryIterator(QueryIterator):
                 if not topics:
                     raise FileNotFoundError(f'Topic {topics_path} Not Found')
                 for topic_id in topics:
-                    topics[topic_id]["topic_path"] = topics_path
+                    topics[topic_id]["topics_path"] = topics_path
 
                 cache_dir = get_cache_home()
                 images_dir = os.path.join(cache_dir, 'mbeir_images')
