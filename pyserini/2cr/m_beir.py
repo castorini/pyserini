@@ -45,7 +45,6 @@ def format_run_command(raw):
         .replace("--index", "\\\n  --index")
         .replace("--output-format", "\\\n  --output-format")
         .replace("--output ", "\\\n  --output ")
-        .replace("--instruction-config", "\\\n  --instruction-config")
         .replace("--hits", "\\\n  --hits")
     )
 
@@ -105,7 +104,6 @@ def run_conditions(args):
                   
             for datasets in condition['datasets']:  
                 dataset = datasets['dataset']  
-                instruction_config = f"{dataset}_instr.yaml"
                   
                 if args.dataset and args.dataset != dataset:  
                     continue  
@@ -113,7 +111,7 @@ def run_conditions(args):
                 print(f'  - Dataset: {dataset}')  
                   
                 runfile = os.path.join(args.directory, f'run.m-beir-{dataset}.{name}.txt')  
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, instruction_config=instruction_config, dense_threads=dense_threads, dense_batch_size=dense_batch_size)  
+                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)  
                   
                 if args.display_commands:  
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')  
@@ -176,10 +174,9 @@ def generate_report(args):
                 
             for datasets in condition['datasets']:    
                 dataset = datasets['dataset']    
-                instruction_config = f"{dataset}_instr.yaml"
                     
                 runfile = os.path.join(args.directory, f'run.m-beir-{dataset}.{name}.txt')    
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, instruction_config=instruction_config, dense_threads=dense_threads, dense_batch_size=dense_batch_size)    
+                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)    
                 commands[dataset][name] = format_run_command(cmd)    
                     
                 for expected in datasets['scores']:    
