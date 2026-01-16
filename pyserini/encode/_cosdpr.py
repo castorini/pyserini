@@ -101,15 +101,17 @@ class CosDprQueryEncoder(QueryEncoder):
         self.model.to(self.device)
         self.tokenizer = BertTokenizer.from_pretrained(encoder_dir or tokenizer_name,
                                                        clean_up_tokenization_spaces=True)
+        self.max_length = self.tokenizer.model_max_length
 
-    def encode(self, query: str, **kwargs):
+    def encode(self, query: str, max_length: int = None, **kwargs):
         inputs = self.tokenizer(
             query,
             add_special_tokens=True,
             return_tensors='pt',
-            truncation='only_first',
             padding='longest',
             return_token_type_ids=False,
+            truncation=True,
+            max_length=max_length or self.max_length,
         )
         inputs.to(self.device)
         embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
