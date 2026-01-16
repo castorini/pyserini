@@ -71,7 +71,7 @@ class UniIRQueryEncoder:
         self.instruction_config = instruction_config
         self.query_encoder = QueryEncoder(model_name=encoder_dir, device=device)
 
-    def _get_instruction_config(self):
+    def _get_instruction_config(self, instr_file: str = None):
         """This functions downloads all the instruction config files if not already present."""
 
         import os
@@ -91,6 +91,11 @@ class UniIRQueryEncoder:
                     tar.extractall(cache_dir)
             except Exception as e:
                 raise Exception(f"Could not download query images: {e}")
+
+        if instr_file:
+            return os.path.join(instructions_dir, instr_file)
+        else:
+            return None
 
     def encode(
         self,
