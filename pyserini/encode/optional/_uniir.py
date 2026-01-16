@@ -108,8 +108,7 @@ class UniIRQueryEncoder:
         fp16 = kwargs.get("fp16", False)
 
         if self.instruction_config is None:
-            self.instruction_config = kwargs.get("instr_file", None)
-            self._get_instruction_config()
+            self.instruction_config = self._get_instruction_config(kwargs.get("instr_file", None))
 
         query_embeddings = self.query_encoder.encode(
             qid=qid, 
