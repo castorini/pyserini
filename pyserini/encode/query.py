@@ -19,13 +19,12 @@ import argparse
 import numpy as np
 import pandas as pd
 from pyserini.encode import AnceQueryEncoder, ArcticQueryEncoder, AutoQueryEncoder, CosDprQueryEncoder, \
-    DprQueryEncoder, OpenAiQueryEncoder, SpladeQueryEncoder, TctColBertQueryEncoder, UniCoilQueryEncoder, \
-    UniIRQueryEncoder
-from pyserini.query_iterator import TopicsFormat, get_query_iterator
+    DprQueryEncoder, OpenAIQueryEncoder, SpladeQueryEncoder, TctColBertQueryEncoder, UniCoilQueryEncoder
+from pyserini.query_iterator import DefaultQueryIterator
 from tqdm import tqdm
 
 
-def init_encoder(encoder, device, pooling, l2_norm, prefix, instruction_config):
+def init_encoder(encoder, device, pooling, l2_norm, prefix):
     if 'dpr' in encoder.lower():
         return DprQueryEncoder(encoder, device=device)
     elif 'tct' in encoder.lower():
@@ -39,13 +38,11 @@ def init_encoder(encoder, device, pooling, l2_norm, prefix, instruction_config):
     elif 'splade' in encoder.lower():
         return SpladeQueryEncoder(encoder, device=device)
     elif 'openai-api' in encoder.lower():
-        return OpenAiQueryEncoder()
+        return OpenAIQueryEncoder()
     elif 'cosdpr' in encoder.lower():
         return CosDprQueryEncoder(encoder, device=device)
     elif 'arctic' in encoder.lower():
         return ArcticQueryEncoder(encoder, device=device)
-    elif 'clip' in encoder.lower() or 'blip' in encoder.lower():
-        return UniIRQueryEncoder(encoder, l2_norm=True, device=device, instruction_config=instruction_config)
     else:
         return AutoQueryEncoder(encoder, device=device, pooling=pooling, l2_norm=l2_norm, prefix=prefix)
 
@@ -61,60 +58,28 @@ if __name__ == '__main__':
     parser.add_argument('--max-length', type=int, help='max length', default=256, required=False)
     parser.add_argument('--pooling', type=str, help='pooling strategy', default='cls', choices=['cls', 'mean'], required=False)
     parser.add_argument('--l2-norm', action='store_true', help='whether to normalize embedding', default=False, required=False)
-    parser.add_argument('--fp16', action='store_true', help='whether to use fp16 precision', default=False, required=False)
     parser.add_argument('--prefx', type=str, help='prefix query input', default=None, required=False)
-    parser.add_argument('--instruction-config', type=str, help='instruction config file for multimodal encoders', default=None, required=False)
-    parser.add_argument(
-        "--topics-format",
-        type=str,
-        metavar="format",
-        default=TopicsFormat.DEFAULT.value,
-        help=f"Format of topics. Available: {[x.value for x in list(TopicsFormat)]}",
-    )
     args = parser.parse_args()
 
-    encoder = init_encoder(
-        args.encoder, 
-        device=args.device, 
-        pooling=args.pooling, 
-        l2_norm=args.l2_norm, 
-        prefix=args.prefx,
-        instruction_config=args.instruction_config
-    )
-    query_iterator = get_query_iterator(args.topics, TopicsFormat(args.topics_format))
+    encoder = init_encoder(args.encoder, device=args.device, pooling=args.pooling, l2_norm=args.l2_norm, prefix=args.prefx)
+    query_iterator = DefaultQueryIterator.from_topics(args.topics)
 
     is_sparse = False
     query_ids = []
     query_texts = []
     query_embeddings = []
-
-    for qid, query_data in tqdm(query_iterator):
-        if isinstance(query_data, dict): # M-BEIR format
-            embedding = encoder.encode(
-                qid=query_data['qid'],
-                query_modality=query_data['query_modality'],
-                query_txt=query_data.get('query_txt', ''),
-                query_img_path=query_data.get('query_img_path', ''),
-                max_length=args.max_length,
-                fp16=args.fp16
-            )
-            query_ids.append(query_data['qid'])
-            query_img_path = query_data.get('query_img_path') or 'None'
-            query_txt = query_data.get('query_txt') or 'None'
-            query_texts.append(f"Query Text: {query_txt}, Query Image Path: {query_img_path}")
-        else: # Standard text only format
-            topic_id, text = query_data
-            embedding = encoder.encode(text, max_length=args.max_length)
-            if isinstance(embedding, dict):
-                is_sparse = True
-                pseudo_str = []
-                for tok, weight in embedding.items():
-                    weight_quanted = int(np.round(weight/args.weight_range*args.quant_range))
-                    pseudo_str += [tok] * weight_quanted
-                pseudo_str = " ".join(pseudo_str)
-                embedding = pseudo_str
-            query_ids.append(topic_id)
-            query_texts.append(text)
+    for topic_id, text in tqdm(query_iterator):
+        embedding = encoder.encode(text, max_length=args.max_length)
+        if isinstance(embedding, dict):
+            is_sparse = True
+            pseudo_str = []
+            for tok, weight in embedding.items():
+                weight_quanted = int(np.round(weight/args.weight_range*args.quant_range))
+                pseudo_str += [tok] * weight_quanted
+            pseudo_str = " ".join(pseudo_str)
+            embedding = pseudo_str
+        query_ids.append(topic_id)
+        query_texts.append(text)
         query_embeddings.append(embedding)
 
     if is_sparse:
@@ -122,6 +87,6 @@ if __name__ == '__main__':
             for i in range(len(query_ids)):
                 f.write(f"{query_ids[i]}\t{query_embeddings[i]}\n")
     else:
-        embeddings = {'qid': query_ids, 'text': query_texts, 'embedding': query_embeddings}
+        embeddings = {'id': query_ids, 'text': query_texts, 'embedding': query_embeddings}
         embeddings = pd.DataFrame(embeddings)
         embeddings.to_pickle(args.output)

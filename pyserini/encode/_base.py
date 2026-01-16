@@ -21,7 +21,6 @@ import numpy as np
 import pandas as pd
 import torch
 from tqdm import tqdm
-from typing import Any, Dict
 
 from pyserini.util import download_encoded_queries
 
@@ -44,15 +43,11 @@ class QueryEncoder:
         self.has_model = False
         self.has_encoded_query = False
         if encoded_query_dir:
-            self.text_embedding, self.qid_embedding = self._load_embeddings(encoded_query_dir)
+            self.embedding = self._load_embeddings(encoded_query_dir)
             self.has_encoded_query = True
 
-    def encode(self, query: str = None, **kwargs):
-        if query is not None and isinstance(query, str): # simple text only query
-            return self.text_embedding[query]
-        else: # multimodal query with multiple fields (in kwargs)
-            assert 'qid' in kwargs
-            return self.qid_embedding[kwargs['qid']]
+    def encode(self, query: str):
+        return self.embedding[query]
 
     @classmethod
     def load_encoded_queries(cls, encoded_query_name: str):
@@ -81,12 +76,7 @@ class QueryEncoder:
     @staticmethod
     def _load_embeddings(encoded_query_dir):
         df = pd.read_pickle(os.path.join(encoded_query_dir, 'embedding.pkl'))
-        # Create text-to-embedding mapping (for backward compatibility with text-only queries)
-        text_embedding = dict(zip(df['text'].tolist(), df['embedding'].tolist()))
-          
-        # Create qid-to-embedding mapping (for multimodal support)
-        qid_embedding = dict(zip(df['qid'].tolist(), df['embedding'].tolist()))
-        return text_embedding, qid_embedding
+        return dict(zip(df['text'].tolist(), df['embedding'].tolist()))
 
 
 class JsonlCollectionIterator:
