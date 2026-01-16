@@ -231,7 +231,7 @@ class MBEIRQueryIterator(QueryIterator):
                         with tarfile.open(tar_path, 'r:gz') as tar:
                             tar.extractall(cache_dir)
                     except Exception as e:
-                        raise Exception(f"Could not download query images: {e}")
+                        raise Exception(f"Could not download default instructions: {e}")
 
                 order = list(topics.keys())
                 return cls(topics, order, cache_dir)
