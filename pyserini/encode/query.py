@@ -19,7 +19,7 @@ import argparse
 import numpy as np
 import pandas as pd
 from pyserini.encode import AnceQueryEncoder, ArcticQueryEncoder, AutoQueryEncoder, CosDprQueryEncoder, \
-    DprQueryEncoder, OpenAIQueryEncoder, SpladeQueryEncoder, TctColBertQueryEncoder, UniCoilQueryEncoder
+    DprQueryEncoder, OpenAiQueryEncoder, SpladeQueryEncoder, TctColBertQueryEncoder, UniCoilQueryEncoder
 from pyserini.query_iterator import DefaultQueryIterator
 from tqdm import tqdm
 
