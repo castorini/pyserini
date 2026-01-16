@@ -71,31 +71,12 @@ class UniIRQueryEncoder:
         self.instruction_config = instruction_config
         self.query_encoder = QueryEncoder(model_name=encoder_dir, device=device)
 
-    def _get_instruction_config(self, topics_path: str) -> str:
-        """This functions downloads the instruction config file if not present and returns the path"""
+    def _get_instruction_config(self):
+        """This functions downloads all the instruction config files if not already present."""
 
         import os
         import tarfile
         from pyserini.util import download_url, get_cache_home
-
-        name_to_instr_file = {
-            'cirr_task7': 'cirr_task7_instr.yaml',
-            'edis_task2': 'edis_task2_instr.yaml',
-            'fashion200k_task0': 'fashion200k_task0_instr.yaml',
-            'fashion200k_task3': 'fashion200k_task3_instr.yaml',
-            'fashioniq_task7': 'fashioniq_task7_instr.yaml',
-            'infoseek_task6': 'infoseek_task6_instr.yaml',
-            'infoseek_task8': 'infoseek_task8_instr.yaml',
-            'mscoco_task0': 'mscoco_task0_instr.yaml',
-            'mscoco_task3': 'mscoco_task3_instr.yaml',
-            'nights_task4': 'nights_task4_instr.yaml',
-            'oven_task6': 'oven_task6_instr.yaml',
-            'oven_task8': 'oven_task8_instr.yaml',
-            'visualnews_task0': 'visualnews_task0_instr.yaml',
-            'visualnews_task3': 'visualnews_task3_instr.yaml',
-            'webqa_task1': 'webqa_task1_instr.yaml',
-            'webqa_task2': 'webqa_task2_instr.yaml',
-        }
 
         cache_dir = get_cache_home()
         instructions_dir = os.path.join(cache_dir, 'query_instructions')
@@ -111,13 +92,6 @@ class UniIRQueryEncoder:
             except Exception as e:
                 raise Exception(f"Could not download query images: {e}")
 
-        instr_file = None
-        for name in name_to_instr_file:
-            if name in topics_path:
-                instr_file = os.path.join(instructions_dir, name_to_instr_file[name])
-
-        return instr_file
-
     def encode(
         self,
         qid: int,
@@ -128,8 +102,9 @@ class UniIRQueryEncoder:
     ):
         fp16 = kwargs.get("fp16", False)
 
-        if self.instruction_config is None and kwargs.get("topics_path") is not None:
-            self.instruction_config = self._get_instruction_config(kwargs["topics_path"])
+        if self.instruction_config is None:
+            self.instruction_config = kwargs.get("instr_file", None)
+            self._get_instruction_config()
 
         query_embeddings = self.query_encoder.encode(
             qid=qid, 
