@@ -41,6 +41,7 @@ trec_eval_metric_definitions = {
 def format_run_command(raw):
     return (
         raw.replace("--topics", "\\\n  --topics")
+        .replace('--encoder', '\\\n  --encoder')
         .replace("--index", "\\\n  --index")
         .replace("--output-format", "\\\n  --output-format")
         .replace("--output ", "\\\n  --output ")
