@@ -490,3 +490,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@nli33](https://github.com/nli33) on 2025-12-25 (commit [`d12db6a`](https://github.com/castorini/pyserini/commit/d12db6abed1cc9e7a20f8d5685d2e133005aa0a9))
 + Results reproduced by [@VarnitOS](https://github.com/VarnitOS) on 2025-12-29 (commit [`4106eed`](https://github.com/castorini/pyserini/commit/4106eed08a62f9c2631a267eb4863649ee2b748e)) 
 + Results reproduced by [@zizimind](https://github.com/zizimind) on 2026-01-06 (commit [`74d7182`](https://github.com/castorini/pyserini/commit/74d7182004e4380e3cf0caf993375a25c1bcc5dc))
++ Results reproduced by [@izzat5233](https://github.com/izzat5233) on 2026-01-17 (commit [`4bfbb9e`](https://github.com/castorini/pyserini/commit/4bfbb9e144872b9223359ee6bac0bc595c0734d6))
