@@ -19,7 +19,7 @@ import argparse
 import numpy as np
 import pandas as pd
 from pyserini.encode import AnceQueryEncoder, ArcticQueryEncoder, AutoQueryEncoder, CosDprQueryEncoder, \
-    DprQueryEncoder, OpenAiQueryEncoder, SpladeQueryEncoder, TctColBertQueryEncoder, UniCoilQueryEncoder
+    DprQueryEncoder, DseQueryEncoder, OpenAiQueryEncoder, SpladeQueryEncoder, TctColBertQueryEncoder, UniCoilQueryEncoder
 from pyserini.query_iterator import DefaultQueryIterator
 from tqdm import tqdm
 
@@ -38,11 +38,13 @@ def init_encoder(encoder, device, pooling, l2_norm, prefix):
     elif 'splade' in encoder.lower():
         return SpladeQueryEncoder(encoder, device=device)
     elif 'openai-api' in encoder.lower():
-        return OpenAIQueryEncoder()
+        return OpenAiQueryEncoder(encoder, device=device)
     elif 'cosdpr' in encoder.lower():
         return CosDprQueryEncoder(encoder, device=device)
     elif 'arctic' in encoder.lower():
         return ArcticQueryEncoder(encoder, device=device)
+    elif 'dse' in encoder.lower():
+        return DseQueryEncoder(encoder_dir=encoder, device=device, pooling=pooling, l2_norm=l2_norm)
     else:
         return AutoQueryEncoder(encoder, device=device, pooling=pooling, l2_norm=l2_norm, prefix=prefix)
 

@@ -71,6 +71,7 @@ def define_dsearch_args(parser):
             "cosdpr",
             "arctic",
             "uniir",
+            "dse",
         ],
         default=None,
         help="which query encoder class to use. `default` would infer from the args.encoder",
@@ -305,6 +306,8 @@ def init_query_encoder(
             kwargs.update(dict(l2_norm=True, instruction_config=instruction_config))
             if encoder_class is None:
                 raise ValueError("UniIR's query encoder class is not available (as the uniir-for-pyserini package is not installed or CLIP is not installed). Please run 'pip install pyserini[optional]' to install the uniir-for-pyserini package and run 'pip install git+https://github.com/openai/CLIP.git' to install CLIP.")
+        if _encoder_class == "dse" or (encoder and "dse" in encoder.lower()):
+            kwargs.update(dict(l2_norm=True, pooling=pooling, multimodal=multimodal))
 
         return encoder_class(**kwargs)
 

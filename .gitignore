@@ -19,3 +19,14 @@ runs/
 
 # logs should also be ignored
 logs/
+
+encode/
+
+collections/*
+
+indexes/*
+
+.venv/
+.pytest_cache
+
+runs
