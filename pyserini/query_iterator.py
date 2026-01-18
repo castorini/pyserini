@@ -211,7 +211,6 @@ class MBEIRQueryIterator(QueryIterator):
             'query_img_path': query_img_path,
             'query_modality': topic.get('query_modality', 'text'),
         }
-        print(f"DEBUG: {query_data.get('query_img_path')}")
 
         return query_data
 
