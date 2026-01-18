@@ -198,11 +198,17 @@ class MBEIRQueryIterator(QueryIterator):
         """Extract qid, query_txt, query_img_path, query_modality, pos_cand_list from M-BEIR query format"""
         topic = self.topics[id_]
 
+        query_img_path = topic.get('query_img_path')
+        if query_img_path is None or query_img_path == 'null':
+            query_img_path = None
+        else:
+            query_img_path = os.path.join(self.topic_dir, query_img_path)
+
         query_data = {
             'instr_file': topic['instr_file'],
             'qid': topic.get('qid', id_),
             'query_txt': topic.get('query_txt', ''),
-            'query_img_path': os.path.join(self.topic_dir, topic.get('query_img_path', '')) if topic.get('query_img_path') else None,
+            'query_img_path': query_img_path,
             'query_modality': topic.get('query_modality', 'text'),
         }
 
