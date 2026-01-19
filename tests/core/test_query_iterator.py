@@ -65,15 +65,11 @@ class TestQueryIterators(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp_dir:
             images_dir = os.path.join(temp_dir, "images")
             os.makedirs(images_dir)
-
-            valid_image_path = os.path.join(images_dir, "test.jpg")
-            only_image_path = os.path.join(images_dir, "only_image.jpg")
-            only_image2_path = os.path.join(images_dir, "only_image2.jpg")
-            with open(valid_image_path, 'w') as f:
+            with open(os.path.join(images_dir, "test.jpg"), 'w') as f:
                 f.write("dummy image content")
-            with open(only_image_path, 'w') as f:
+            with open(os.path.join(images_dir, "only_image.jpg"), 'w') as f:
                 f.write("dummy image content")
-            with open(only_image2_path, 'w') as f:
+            with open(os.path.join(images_dir, "only_image2.jpg"), 'w') as f:
                 f.write("dummy image content")
 
             iterator = MBEIRQueryIterator(test_topics, topic_dir=temp_dir)
