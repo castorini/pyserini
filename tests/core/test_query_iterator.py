@@ -40,6 +40,13 @@ class TestQueryIterators(unittest.TestCase):
                 "query_modality": "text",
                 "instr_file": "sample_instructions.txt"
             },
+            "invalid_image": {  
+                "qid": "invalid_img",
+                "query_txt": "Query with invalid image path",
+                "query_img_path": "images/invalid.jpg",
+                "query_modality": "image,text",
+                "instr_file": "sample_instructions.txt"
+            },
             "empty_text_string": {
                 "qid": "image_only",
                 "query_txt": "",
@@ -56,6 +63,19 @@ class TestQueryIterators(unittest.TestCase):
         }
 
         with tempfile.TemporaryDirectory() as temp_dir:
+            images_dir = os.path.join(temp_dir, "images")
+            os.makedirs(images_dir)
+
+            valid_image_path = os.path.join(images_dir, "test.jpg")
+            only_image_path = os.path.join(images_dir, "only_image.jpg")
+            only_image2_path = os.path.join(images_dir, "only_image2.jpg")
+            with open(valid_image_path, 'w') as f:
+                f.write("dummy image content")
+            with open(only_image_path, 'w') as f:
+                f.write("dummy image content")
+            with open(only_image2_path, 'w') as f:
+                f.write("dummy image content")
+
             iterator = MBEIRQueryIterator(test_topics, topic_dir=temp_dir)
             
             result = iterator.get_query("text_only")
@@ -78,6 +98,9 @@ class TestQueryIterators(unittest.TestCase):
             result = iterator.get_query("missing_field")
             self.assertIsNone(result['query_img_path'])
             self.assertEqual(result['query_modality'], 'text')
+
+            with self.assertRaises(FileNotFoundError):
+                iterator.get_query("invalid_img")
 
             result = iterator.get_query("empty_text_string")
             self.assertEqual(result['query_txt'], '')
