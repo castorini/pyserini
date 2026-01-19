@@ -199,10 +199,12 @@ class MBEIRQueryIterator(QueryIterator):
         topic = self.topics[id_]
 
         query_img_path = topic.get('query_img_path')
-        if query_img_path is None or query_img_path == 'null':
+        if query_img_path is None or query_img_path == 'null' or query_img_path == '':
             query_img_path = None
         else:
             query_img_path = os.path.join(self.topic_dir, query_img_path)
+            if not os.path.exists(query_img_path):
+                raise FileNotFoundError(f"Query image for ID {id_} not found at {query_img_path}")
 
         query_data = {
             'instr_file': topic['instr_file'],
