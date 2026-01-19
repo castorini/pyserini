@@ -39,6 +39,19 @@ class TestQueryIterators(unittest.TestCase):
                 "query_txt": "Query with missing image path field",
                 "query_modality": "text",
                 "instr_file": "sample_instructions.txt"
+            },
+            "empty_text_string": {
+                "qid": "image_only",
+                "query_txt": "",
+                "query_img_path": "images/only_image.jpg",
+                "query_modality": "image",
+                "instr_file": "sample_instructions.txt"
+            },
+            "missing_text_field": {
+                "qid": "missing_text",
+                "query_img_path": "images/only_image2.jpg",
+                "query_modality": "image",
+                "instr_file": "sample_instructions.txt"
             }
         }
 
@@ -50,8 +63,7 @@ class TestQueryIterators(unittest.TestCase):
             self.assertEqual(result['query_modality'], 'text')
             
             result = iterator.get_query("null_string")
-            expected_path1 = os.path.join(temp_dir, "null")
-            self.assertEqual(result['query_img_path'], expected_path1)
+            self.assertIsNone(result['query_img_path'])
             self.assertEqual(result['query_modality'], 'text')
             
             result = iterator.get_query("empty_string")
@@ -66,6 +78,14 @@ class TestQueryIterators(unittest.TestCase):
             result = iterator.get_query("missing_field")
             self.assertIsNone(result['query_img_path'])
             self.assertEqual(result['query_modality'], 'text')
+
+            result = iterator.get_query("empty_text_string")
+            self.assertEqual(result['query_txt'], '')
+            self.assertEqual(result['query_modality'], 'image')
+
+            result = iterator.get_query("missing_text_field")
+            self.assertEqual(result['query_txt'], '')
+            self.assertEqual(result['query_modality'], 'image')
 
     def test_default_query_iterator(self):
         topics = {
