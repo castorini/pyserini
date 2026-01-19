@@ -96,7 +96,7 @@ class TestQueryIterators(unittest.TestCase):
             self.assertEqual(result['query_modality'], 'text')
 
             with self.assertRaises(FileNotFoundError):
-                iterator.get_query("invalid_img")
+                iterator.get_query("invalid_image")
 
             result = iterator.get_query("empty_text_string")
             self.assertEqual(result['query_txt'], '')
