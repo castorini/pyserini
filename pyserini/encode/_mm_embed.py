@@ -70,46 +70,69 @@ class MMEmbedQueryEncoder:
         self.model.eval()
         self.max_length = 4096
         self.instruction_config = instruction_config
-      
-    def _load_instruction(self) -> str:
-        """Load dataset-specific instruction from instructions file"""
-        default_instructions = {
-            (0, "text"): "Find a caption for the news in the given photo.",
-            (0, "image"): "Identify the news-related image in line with the described event.",
-            (1, "text"): "Find a product description for the fashion item in the image.",
-            (1, "image"): "Based on the following fashion description, retrieve the best matching image.",
-            (2, "text"): "Retrieve passages from Wikipedia that provide answers to the following question.",
-            (2, "image,text"): "Find a Wikipedia image that answers this question.",
-            (3, "image,text"): "Find a news image that matches the provided caption.",
-            (4, "image"): "Find a day-to-day image that looks similar to the provided image.",
-            (5, "text"): "Retrieve a Wikipedia paragraph that provides an answer to the given query about the image.",
-            (5, "image,text"): "Retrieve a Wikipedia image-description pair that provides evidence for the question of this image.",
-            (6, "text"): "Retrieve a Wikipedia paragraph that provides an answer to the given query about the image.",
-            (6, "image,text"): "Retrieve a Wikipedia image-description pair that provides evidence for the question of this image.",
-            (7, "image"): "Find a fashion image that aligns with the reference image and style note.",
-            (8, "image"): "Retrieve a day-to-day image that aligns with the modification instructions of the provided image.",
-            (9, "image"): "Find me an everyday image that matches the given caption.",
-            (9, "text"): "Find an image caption describing the following everyday image."
-        }
 
+    def _get_instruction_config(self, instr_file: str = None):
+        """This functions downloads all the instruction config files if not already present."""
+
+        import os
+        import tarfile
+        from pyserini.util import download_url, get_cache_home
+
+        cache_dir = get_cache_home()
+        instructions_dir = os.path.join(cache_dir, 'query_instructions')
+
+        if not os.path.exists(instructions_dir):
+            query_images_and_instructions_url = "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/mbeir_query_images_and_instructions.tar.gz"
+            tar_path = os.path.join(cache_dir, 'mbeir_query_images_and_instructions.tar.gz')
+
+            try:  
+                download_url(query_images_and_instructions_url, cache_dir, force=False)
+                with tarfile.open(tar_path, 'r:gz') as tar:
+                    tar.extractall(cache_dir)
+            except Exception as e:
+                raise Exception(f"Could not download query images: {e}")
+
+        if instr_file:
+            return os.path.join(instructions_dir, instr_file)
+        else:
+            return None
+
+    def _load_instruction_config(self, instruction_config):
         try:
-            with open(self.instruction_config, "r") as f:
+            with open(instruction_config, "r") as f:
                 config = yaml.safe_load(f)
             instruction_file = config.get("instruction_file", None)
             candidate_modality = config.get("candidate_modality", None)
             dataset_id = config.get("dataset_id", None)
             randomize_instructions = config.get("randomize_instructions", False)
-            if candidate_modality is None or dataset_id is None:
+            if instruction_file is None or candidate_modality is None or dataset_id is None:
                 raise ValueError(
-                    "Missing candidate_modality or dataset_id in the config."
+                    "Instruction file, candidate_modality, or dataset_id is missing in the config. Please download the instruction file from https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv"
                 )
         except Exception as e:
             raise ValueError(f"Error loading instruction config: {e}")
 
-        # TODO: define a instructions file type that will be used across all multi-modal encoders
-        # TODO: abstract this function so both UniIR, MM-Embed, and any future multi-modal encoders can use it
+        try:
+            import pandas as pd
+            df = pd.read_csv(instruction_file, sep="\t")
+            filtered = df[df["dataset_id"].astype(int) == int(dataset_id)]
+            instructions = filtered.to_dict(orient="records")
 
-        return default_instructions.get((dataset_id, candidate_modality), "")
+            return instructions, candidate_modality, randomize_instructions
+        except Exception as e:
+            raise ValueError(
+                f"Error reading instruction or corpus file: {e}. Please download the instruction file from https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv"
+            )
+
+    def _get_instruction_prompt(self, instructions, c_modality, q_modality, randomize_instructions) -> str | None:
+        import random
+        for instruction in instructions:
+            if instruction["query_modality"] == q_modality and instruction["cand_modality"] == c_modality:
+                if randomize_instructions:
+                    prompts = [instruction[k] for k in instruction if k.startswith("prompt_")]
+                    return random.choice(prompts) if prompts else None
+                else:
+                    return instruction["prompt_1"]
     
     def encode(
         self,
@@ -119,7 +142,18 @@ class MMEmbedQueryEncoder:
         query_modality: str,
         **kwargs: Any
     ):
-        instruction = self._load_instruction()
+        if self.instruction_config is None:
+            self.instruction_config = self._get_instruction_config(kwargs.get("instr_file", None))
+
+        instruction = None
+        if self.instruction_config:
+            instructions, candidate_modality, randomize_instructions = self._load_instruction_config(self.instruction_config)
+            instruction = self._get_instruction_prompt(
+                instructions=instructions,
+                c_modality=candidate_modality,
+                q_modality=query_modality,
+                randomize_instructions=randomize_instructions,
+            )
         
         query_dict = {'txt': query_txt if query_txt else ""}
         
