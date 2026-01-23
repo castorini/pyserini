@@ -90,7 +90,7 @@ def define_dsearch_args(parser):
         metavar="pooling strategy",
         required=False,
         default="cls",
-        choices=["cls", "mean"],
+        choices=["cls", "mean", "last"],
         help="Pooling strategy for query encoder",
     )
     parser.add_argument(

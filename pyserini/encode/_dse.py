@@ -16,6 +16,7 @@
 
 import logging
 import os
+import re
 from io import BytesIO
 from typing import List, Tuple, Optional, Dict
 
@@ -53,6 +54,81 @@ def load_pil_image(image, format='RGB'):
     return image
 
 
+def patch_processor_for_batching(processor):
+    """
+    Monkey patch the processor's _convert_images_texts_to_inputs method to handle lists.
+    This ensures proper batching when processing multiple images with text prompts.
+    """
+    original_method = processor._convert_images_texts_to_inputs
+    
+    def patched_convert_images_texts_to_inputs(self, images, texts, padding=False, truncation=None, max_length=None, return_tensors=None):
+        """Patched version that handles both string and list inputs for texts."""
+        if not len(images):
+            model_inputs = self.tokenizer(texts, return_tensors=return_tensors, padding=padding, truncation=truncation, max_length=max_length)
+            from transformers.feature_extraction_utils import BatchFeature
+            return BatchFeature(data={**model_inputs})
+
+        pattern = r"<\|image_\d+\|>"
+        if isinstance(texts, str):
+           texts = [texts]
+
+        prompt_chunks = []
+        image_tags = []
+        for text in texts:
+            prompt_chunks.append([self.tokenizer(chunk).input_ids for chunk in re.split(pattern, text)])
+            image_tags.append(re.findall(pattern, text))
+        
+        if 'num_img_tokens' in images:
+            num_img_tokens = images['num_img_tokens']
+            # Convert tensor to list if needed (fixes tensor indexing error)
+            if isinstance(num_img_tokens, torch.Tensor):
+                num_img_tokens = num_img_tokens.tolist()
+        else:
+            assert 'num_crops' in images, 'num_crops must be provided in images if num_img_tokens is not provided'
+            num_crops = images['num_crops']
+            # Convert tensor to list if needed (fixes tensor indexing error)
+            if isinstance(num_crops, torch.Tensor):
+                num_crops = num_crops.tolist()
+            num_img_tokens = [_num_crops * self.num_img_tokens for _num_crops in num_crops] 
+
+        images, image_sizes = images['pixel_values'], images['image_sizes']
+
+        image_ids = [[int(s.split("|")[1].split("_")[-1]) for s in tags] for tags in image_tags]
+        unique_image_ids = sorted(list(set([iid for ids in image_ids for iid in ids])))
+        assert unique_image_ids == list(range(1, len(unique_image_ids)+1)), f"image_ids must start from 1, and must be continuous int, e.g. [1, 2, 3], cannot be {unique_image_ids}"
+        assert len(unique_image_ids) == len(images), f"total images must be the same as the number of image tags, got {len(unique_image_ids)} image tags and {len(images)} images"
+
+        image_ids_pad = [[[-iid]*num_img_tokens[iid-1] for iid in ids] for ids in image_ids]
+
+        def insert_separator(X, sep_list):
+            if len(X) > len(sep_list):
+                sep_list.append([])
+            return [ele for sublist in zip(X, sep_list) for ele in sublist]
+        input_ids = []
+        for sub_prompt_chunks, sub_image_ids_pad in zip(prompt_chunks, image_ids_pad):
+            input_ids.append([])
+            offset = 0
+            for x in insert_separator(sub_prompt_chunks, sub_image_ids_pad):
+                input_ids[-1].extend(x[offset:])
+
+        max_length = max(len(ids) for ids in input_ids)
+        for i in range(len(input_ids)):
+            while len(input_ids[i]) < max_length:
+                input_ids[i] = [self.tokenizer.pad_token_id]+input_ids[i]
+
+        input_ids = torch.tensor(input_ids, dtype=torch.long)
+        attention_mask = (input_ids > -1000000).to(torch.long)
+        attention_mask[input_ids == self.tokenizer.pad_token_id] = 0
+
+        from transformers.feature_extraction_utils import BatchFeature
+        return BatchFeature(data={"input_ids": input_ids,
+                                  "attention_mask": attention_mask,
+                                  "pixel_values": images, 
+                                  "image_sizes": image_sizes})
+    
+    # Bind the patched method to the processor instance
+    import types
+    processor._convert_images_texts_to_inputs = types.MethodType(patched_convert_images_texts_to_inputs, processor)
 
 
 class DSEModel(torch.nn.Module):
@@ -166,6 +242,9 @@ class DseDocumentEncoder(DocumentEncoder):
         )
         self.processor.tokenizer.padding_side = "right"
         
+        # Patch processor to handle batch processing
+        patch_processor_for_batching(self.processor)
+        
         # Load model (pre-merged checkpoint, no LoRA needed)
         self.model = DSEModel.load(
             model_name,
@@ -225,13 +304,6 @@ class DseDocumentEncoder(DocumentEncoder):
             truncation=True
         )
         
-        # Remove the first dimension of size 1 if present (for single batch)
-        if batch['input_ids'].dim() > 2 and batch['input_ids'].shape[0] == 1:
-            batch['input_ids'] = batch['input_ids'].squeeze(0)
-            batch['attention_mask'] = batch['attention_mask'].squeeze(0)
-            if 'image_sizes' in batch:
-                batch['image_sizes'] = batch['image_sizes'].squeeze(0)
-        
         # Move to device
         for k, v in batch.items():
             if isinstance(v, torch.Tensor):
@@ -280,6 +352,9 @@ class DseQueryEncoder(QueryEncoder):
                 trust_remote_code=True
             )
             self.processor.tokenizer.padding_side = "right"
+            
+            # Patch processor to handle batch processing
+            patch_processor_for_batching(self.processor)
             
             # Load model (pre-merged checkpoint, no LoRA needed)
             self.model = DSEModel.load(

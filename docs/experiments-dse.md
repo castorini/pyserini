@@ -45,10 +45,11 @@ python -m pyserini.encode \
   input   --corpus collections/wiki-ss/corpus.jsonl \
           --fields contents \
   output  --embeddings encode/wiki-ss.dse \
-  encoder --encoder Tevatron/dse-phi3-docmatix-v2 \
+  encoder --encoder Tevatron/dse-phi3-v1.0 \
           --encoder-class dse \
           --fields contents \
           --multimodal \
+          --pooling last \
           --batch-size 16 \
           --device cuda:0
 ```
@@ -71,23 +72,22 @@ Run retrieval on NQ test questions:
 ```bash
 python -m pyserini.search.faiss \
   --encoder-class dse \
-  --encoder Tevatron/dse-phi3-docmatix-v2 \
+  --encoder Tevatron/dse-phi3-v1.0 \
   --topics collections/wiki-ss/wiki-ss-nq-test-queries.tsv \
+  --pooling last \
   --index indexes/wiki-ss.dse \
   --output runs/run.wiki-ss.dse.txt \
-  --hits 100 \
-  --device cuda:0
+  --hits 20 \
+  --device cuda:0 \
+  --batch-size 1
 ```
 
 ### Evaluation
 
-Evaluate retrieval accuracy:
+Evaluate retrieval accuracy with the built-in script (Top-k answer match):
 
 ```bash
-python -m pyserini.eval.trec_eval \
-  -c -m recall.1 -m recall.5 -m recall.20 -m recall.100 \
-  collections/wiki-ss/nq-test-qrels.txt \
-  runs/run.wiki-ss.dse.txt
+python evaluate_wiki_ss_run.py --run_file runs/run.wiki-ss.dse.txt --k 1
 ```
 
 Expected results (from the paper):
@@ -101,62 +101,69 @@ Expected results (from the paper):
 
 ## SlideVQA: Slide Retrieval
 
-DSE is particularly effective for slide retrieval where visual layout matters.
+DSE is particularly effective for slide retrieval where visual layout matters. The SlideVQA dataset contains ~50k slide images for open-domain retrieval.
 
 ### Data Preparation
 
-1. **Download SlideVQA dataset**:
+1. **Download SlideVQA dataset and generate qrels/queries**:
 
 ```bash
-mkdir -p collections/slidevqa
-# Download from the SlideVQA repository
+python scripts/dse/download_slidevqa_qrels.py --out-dir collections/slidevqa
 ```
 
-2. **Prepare corpus** (slide images in JSONL format):
+### Encoding the Corpus
 
-```json
-{"id": "slide_001", "contents": "slides/slide_001.png"}
-```
-
-### Encoding and Indexing
+Encode slide images into dense vectors:
 
 ```bash
-# Encode slides
 python -m pyserini.encode \
   input   --corpus collections/slidevqa/corpus.jsonl \
           --fields contents \
   output  --embeddings encode/slidevqa.dse \
-  encoder --encoder Tevatron/dse-phi3-docmatix-v2 \
+  encoder --encoder Tevatron/dse-phi3-v1.0 \
           --encoder-class dse \
           --fields contents \
           --multimodal \
+          --pooling last \
           --batch-size 1 \
           --device cuda:0
+```
 
-# Build index
+### Building the Index
+
+Build a Faiss index from the embeddings:
+
+```bash
 python -m pyserini.index.faiss \
   --input encode/slidevqa.dse \
   --output indexes/slidevqa.dse \
   --dim 3072
 ```
 
-### Retrieval and Evaluation
+### Retrieval
+
+Run retrieval on test questions:
 
 ```bash
-# Search
 python -m pyserini.search.faiss \
   --encoder-class dse \
-  --encoder Tevatron/dse-phi3-docmatix-v2 \
-  --topics collections/slidevqa/test-queries.tsv \
+  --encoder Tevatron/dse-phi3-v1.0 \
+  --topics collections/slidevqa/queries.slidevqa.test.tsv \
+  --pooling last \
   --index indexes/slidevqa.dse \
   --output runs/run.slidevqa.dse.txt \
-  --hits 100 \
+  --hits 20 \
   --device cuda:0
+```
 
-# Evaluate
+### Evaluation
+
+Evaluate retrieval accuracy with trec_eval:
+
+```bash
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 -m recall.10 \
-  collections/slidevqa/qrels.txt \
+  collections/slidevqa/qrels.slidevqa.test.txt \
   runs/run.slidevqa.dse.txt
 ```
 
@@ -166,91 +173,6 @@ Expected results (from the paper):
 |-------------|---------|-----------|
 | **DSE**     | **75.3**| **84.6**  |
 
-## Custom Document Screenshots
-
-To use DSE with your own documents:
-
-### 1. Generate Screenshots
-
-For web pages, use a headless browser:
-
-```python
-from playwright.sync_api import sync_playwright
-
-def capture_screenshot(url, output_path, width=1344, height=1344):
-    with sync_playwright() as p:
-        browser = p.chromium.launch()
-        page = browser.new_page(viewport={'width': width, 'height': height})
-        page.goto(url)
-        page.screenshot(path=output_path, full_page=False)
-        browser.close()
-```
-
-For PDFs, use pdf2image:
-
-```python
-from pdf2image import convert_from_path
-
-def pdf_to_screenshots(pdf_path, output_dir):
-    images = convert_from_path(pdf_path, dpi=150)
-    for i, img in enumerate(images):
-        img = img.resize((1344, 1344))  # Resize for DSE
-        img.save(f'{output_dir}/page_{i}.png', 'PNG')
-```
-
-### 2. Prepare Corpus File
-
-Create a JSONL file with document IDs and screenshot paths:
-
-```python
-import json
-
-documents = [
-    {"id": "doc1", "contents": "screenshots/doc1.png"},
-    {"id": "doc2", "contents": "screenshots/doc2.png"},
-]
-
-with open('corpus.jsonl', 'w') as f:
-    for doc in documents:
-        f.write(json.dumps(doc) + '\n')
-```
-
-### 3. Run Standard Pipeline
-
-Follow the encoding, indexing, and retrieval steps above with your corpus.
-
-## Tips and Troubleshooting
-
-### Memory Management
-
-DSE uses the Phi-3-vision model (~4B parameters). For limited GPU memory:
-
-- Reduce batch size: `--batch-size 1` (required for Phi-3)
-- Use CPU (much slower): `--device cpu`
-- Enable fp16: Model uses bfloat16 by default on CUDA
-
-### Screenshot Quality
-
-- **Resolution**: Phi-3-vision handles dynamic resolutions up to 1344×1344. No need to resize images.
-- **Format**: PNG recommended for lossless quality
-- **Content**: Ensure important content is visible in the viewport
-
-### Flash Attention
-
-For faster inference, install flash attention:
-
-```bash
-pip install flash-attn --no-build-isolation
-```
-
-This can provide 2-3x speedup for encoding.
-
-### Model Information
-
-- **Model**: [Tevatron/dse-phi3-docmatix-v2](https://huggingface.co/Tevatron/dse-phi3-docmatix-v2)
-- **Embedding dimension**: 3072
-- **Base model**: Phi-3-vision
-- **Training data**: Docmatix-IR dataset
 
 ## References
 

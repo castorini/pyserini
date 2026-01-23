@@ -59,7 +59,7 @@ def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multi
         if encoder_class is None: # check if the uniir-for-pyserini package is installed
             raise ValueError("UniIR's corpus encoder class is not available (as the uniir-for-pyserini package is not installed or CLIP is not installed). Please run 'pip install pyserini[optional]' to install the uniir-for-pyserini package and run 'pip install git+https://github.com/openai/CLIP.git' to install CLIP.")
     if _encoder_class == 'dse' or 'dse' in encoder.lower():
-        kwargs.update(dict(l2_norm=True, multimodal=multimodal))
+        kwargs.update(dict(l2_norm=True, multimodal=multimodal, pooling=pooling))
     return encoder_class(**kwargs)
 
 
@@ -118,7 +118,7 @@ if __name__ == '__main__':
                                 default='cuda:0', required=False)
     encoder_parser.add_argument('--fp16', action='store_true', default=False)
     encoder_parser.add_argument('--add-sep', action='store_true', default=False)
-    encoder_parser.add_argument('--pooling', type=str, default='cls', help='for auto classes, allow the ability to dictate pooling strategy', choices=['cls', 'mean'], required=False)
+    encoder_parser.add_argument('--pooling', type=str, default='cls', help='for auto classes, allow the ability to dictate pooling strategy', choices=['cls', 'mean', 'last'], required=False)
     encoder_parser.add_argument('--l2-norm', action='store_true', help='whether to normalize embedding', default=False, required=False)
     encoder_parser.add_argument('--prefix', type=str, help='prefix of document input', default=None, required=False)
     encoder_parser.add_argument('--use-openai', help='use OpenAI text-embedding-ada-002 to retreive embeddings', action='store_true', default=False)
