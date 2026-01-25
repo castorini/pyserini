@@ -87,17 +87,17 @@ python -m pyserini.search.faiss \
 Evaluate retrieval accuracy with the built-in script (Top-k answer match):
 
 ```bash
-python evaluate_wiki_ss_run.py --run_file runs/run.wiki-ss.dse.txt --k 1
+python scripts/dse/evaluate_wiki_ss_run.py --run_file runs/run.wiki-ss.dse.txt --k 1
 ```
 
-Expected results (from the paper):
+Expected results:
 
-| Metric      | DSE    | BM25   | E5     |
-|-------------|--------|--------|--------|
-| Top-1 Acc   | 46.2   | 29.5   | 47.6   |
-| Top-5 Acc   | 68.5   | 50.4   | 68.6   |
-| Top-10 Acc  | 73.7   | 57.5   | 73.1   |
-| Top-20 Acc  | 77.6   | 63.7   | 76.5   |
+| Metric      | DSE    |
+|-------------|--------|
+| Top-1 Acc   | 43.0   |
+| Top-5 Acc   | 65.5   |
+| Top-10 Acc  | 71.3   |
+| Top-20 Acc  | 76.0   |
 
 ## SlideVQA: Slide Retrieval
 
@@ -167,11 +167,11 @@ python -m pyserini.eval.trec_eval \
   runs/run.slidevqa.dse.txt
 ```
 
-Expected results (from the paper):
+Expected results:
 
 | Method      | nDCG@10 | Recall@10 |
 |-------------|---------|-----------|
-| **DSE**     | **75.3**| **84.6**  |
+| **DSE**     | **73.1**| **83.2**  |
 
 
 ## References
