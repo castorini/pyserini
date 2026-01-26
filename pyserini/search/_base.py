@@ -480,6 +480,10 @@ topics_mapping = {
     'bright-aops': 'BRIGHT_AOPS',
     'bright-theoremqa-theorems': 'BRIGHT_THEOREMQA_THEOREMS',
     'bright-theoremqa-questions': 'BRIGHT_THEOREMQA_QUESTIONS',
+
+    # DSE topics
+    'slidevqa': 'SLIDEVQA_TEST',
+    'wiki-ss-nq': 'WIKI_SS_NQ_TEST',
 }
 
 qrels_mapping = {
@@ -702,6 +706,9 @@ qrels_mapping = {
     'bright-aops': 'BRIGHT_AOPS',
     'bright-theoremqa-theorems': 'BRIGHT_THEOREMQA_THEOREMS',
     'bright-theoremqa-questions': 'BRIGHT_THEOREMQA_QUESTIONS',
+
+    # DSE qrels
+    'slidevqa': 'SLIDEVQA_TEST',
 
     # M-BEIR qrels (test qrels)
     'm-beir-cirr-task7': 'M_BEIR_CIRR_TASK7_TEST',
