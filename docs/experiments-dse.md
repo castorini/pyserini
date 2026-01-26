@@ -18,16 +18,10 @@ The Wiki-SS dataset contains ~1.2M Wikipedia page screenshots for answering Natu
 
 ### Data Preparation
 
-1. **Download the Wiki-SS corpus** from HuggingFace:
+Download the Wiki-SS corpus from HuggingFace:
 
 ```bash
 python scripts/dse/download_wiki_ss_corpus.py --output-dir collections/wiki-ss
-```
-
-2. **Download NQ test queries**:
-
-```bash
-python scripts/dse/download_wiki_ss_nq_queries.py --output-dir collections/wiki-ss
 ```
 
 ### Encoding the Corpus
@@ -67,7 +61,7 @@ Run retrieval on NQ test questions:
 python -m pyserini.search.faiss \
   --encoder-class dse \
   --encoder Tevatron/dse-phi3-v1.0 \
-  --topics collections/wiki-ss/wiki-ss-nq-test-queries.tsv \
+  --topics tools/topics-and-qrels/topics.wiki-ss-nq.test.tsv \
   --pooling last \
   --index indexes/wiki-ss.dse \
   --output runs/run.wiki-ss.dse.txt \
@@ -99,10 +93,10 @@ DSE is particularly effective for slide retrieval where visual layout matters. T
 
 ### Data Preparation
 
-1. **Download SlideVQA dataset and generate qrels/queries**:
+Download the SlideVQA corpus (images + corpus.jsonl):
 
 ```bash
-python scripts/dse/download_slidevqa_qrels.py --out-dir collections/slidevqa
+python scripts/dse/download_slidevqa_corpus.py --output-dir collections/slidevqa
 ```
 
 ### Encoding the Corpus
@@ -142,7 +136,7 @@ Run retrieval on test questions:
 python -m pyserini.search.faiss \
   --encoder-class dse \
   --encoder Tevatron/dse-phi3-v1.0 \
-  --topics collections/slidevqa/queries.slidevqa.test.tsv \
+  --topics tools/topics-and-qrels/topics.slidevqa.test.tsv \
   --pooling last \
   --index indexes/slidevqa.dse \
   --output runs/run.slidevqa.dse.txt \
@@ -157,7 +151,7 @@ Evaluate retrieval accuracy with trec_eval:
 ```bash
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 -m recall.10 \
-  collections/slidevqa/qrels.slidevqa.test.txt \
+  tools/topics-and-qrels/qrels.slidevqa.test.txt \
   runs/run.slidevqa.dse.txt
 ```
 
@@ -182,4 +176,3 @@ If you use DSE in your research, please cite:
 ```
 
 ## Reproduction Log[*](reproducibility.md)
-
