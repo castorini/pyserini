@@ -8,12 +8,6 @@ DSE (Document Screenshot Embedding) is a novel retrieval paradigm that directly 
 
 ## Setup
 
-First, ensure you have Pyserini installed with optional dependencies:
-
-```bash
-pip install pyserini[optional]
-```
-
 DSE requires a vision-language model. We use the Phi-3 based DSE model from the paper:
 
 The model will be downloaded automatically on first use when specified via `--encoder`.
