@@ -481,6 +481,9 @@ topics_mapping = {
     'bright-theoremqa-theorems': 'BRIGHT_THEOREMQA_THEOREMS',
     'bright-theoremqa-questions': 'BRIGHT_THEOREMQA_QUESTIONS',
 
+    # DSE topics
+    'slidevqa': 'SLIDEVQA_TEST',
+    'wiki-ss-nq': 'WIKI_SS_NQ_TEST',
     # M-BEIR original test queries
     'm-beir-cirr_task7-test': 'M_BEIR_CIRR_TASK7_TEST',
     'm-beir-fashioniq_task7-test': 'M_BEIR_FASHIONIQ_TASK7_TEST',
@@ -720,6 +723,9 @@ qrels_mapping = {
     'bright-aops': 'BRIGHT_AOPS',
     'bright-theoremqa-theorems': 'BRIGHT_THEOREMQA_THEOREMS',
     'bright-theoremqa-questions': 'BRIGHT_THEOREMQA_QUESTIONS',
+
+    # DSE qrels
+    'slidevqa': 'SLIDEVQA_TEST',
 
     # M-BEIR qrels (test qrels)
     'm-beir-cirr-task7': 'M_BEIR_CIRR_TASK7_TEST',

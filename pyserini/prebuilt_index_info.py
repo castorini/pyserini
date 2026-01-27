@@ -6238,6 +6238,33 @@ FAISS_INDEX_INFO_M_BEIR = {
     }
 }
 
+FAISS_INDEX_INFO_DSE = {
+    "slidevqa.dse": {
+        "description": "Faiss index of the SlideVQA corpus encoded by DSE (Tevatron/dse-phi3-v1.0)",
+        "filename": "slidevqa.dse.tar.gz",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-dse/resolve/main/slidevqa/slidevqa.dse.tar.gz"
+        ],
+        "md5": "920bcdbae5cd2730dbf961c7d72778e6",
+        "size compressed (bytes)": 340388515,
+        "documents": 52480,
+        "downloaded": False,
+        "texts": None
+    },
+    "wiki-ss.dse": {
+        "description": "Faiss index of the Wiki-SS corpus encoded by DSE (Tevatron/dse-phi3-v1.0)",
+        "filename": "wiki-ss.dse.tar.gz",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-dse/resolve/main/wiki-ss/wiki-ss.dse.tar.gz"
+        ],
+        "md5": "b80f7a05049d76be18497e3489e91066",
+        "size compressed (bytes)": 8231110478,
+        "documents": 1267874,
+        "downloaded": False,
+        "texts": None
+    },
+}
+
 FAISS_INDEX_INFO_OTHER = {
     "cast2019-tct_colbert-v2.hnsw": {
         "description": "Faiss HNSW index of the CAsT2019 passage corpus encoded by the tct_colbert-v2 passage encoder",
@@ -6575,4 +6602,5 @@ FAISS_INDEX_INFO = {**FAISS_INDEX_INFO_MSMARCO,
                     **FAISS_INDEX_INFO_WIKIPEDIA,
                     **FAISS_INDEX_INFO_CIRAL,
                     **FAISS_INDEX_INFO_M_BEIR,
+                    **FAISS_INDEX_INFO_DSE,
                     **FAISS_INDEX_INFO_OTHER}
