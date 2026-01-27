@@ -17,6 +17,7 @@
 from typing import List, Any
 import torch
 import yaml
+from importlib import metadata
 from PIL import Image
 from transformers import AutoModel
 from pyserini.encode.utils import get_mbeir_instructions
@@ -24,6 +25,11 @@ from pyserini.encode.utils import get_mbeir_instructions
 class MMEmbedDocumentEncoder:
     def __init__(self, model_name: str = "nvidia/MM-Embed", device="cuda:0", **kwargs):
         """Initialize MM-Embed document encoder"""
+        torch_version = metadata.version("torch")
+        transformers_version = metadata.version("transformers")
+        if torch_version != "2.2.0" or transformers_version != "4.42.4":
+            raise ImportError(f"MM-Embed requires torch==2.2.0 and transformers==4.42.4, but found torch=={torch_version} and transformers=={transformers_version}. Please install the correct versions to use MM-Embed. Refer to the required packages for MM-Embed here: https://huggingface.co/nvidia/MM-Embed#1-required-packages.")
+
         self.device = device
         self.model = AutoModel.from_pretrained(model_name, trust_remote_code=True)
         self.model.to(self.device)
@@ -65,6 +71,11 @@ class MMEmbedQueryEncoder:
         instruction_config: str = None,
         **kwargs
     ):
+        torch_version = metadata.version("torch")
+        transformers_version = metadata.version("transformers")
+        if torch_version != "2.2.0" or transformers_version != "4.42.4":
+            raise ImportError(f"MM-Embed requires torch==2.2.0 and transformers==4.42.4, but found torch=={torch_version} and transformers=={transformers_version}. Please install the correct versions to use MM-Embed. Refer to the required packages for MM-Embed here: https://huggingface.co/nvidia/MM-Embed#1-required-packages.")
+
         self.device = device
         self.model = AutoModel.from_pretrained(encoder_dir, trust_remote_code=True)
         self.model.to(self.device)
