@@ -64,3 +64,12 @@ optional = [
     "pybind11>=2.11.0",
     "uniir-for-pyserini>=0.1.2"
 ]
+mm-embed = [
+    "torch==2.2.0",
+    "transformers==4.42.4",
+    "peft==0.10.0",
+    "numpy>=1.21.0",
+    "scipy>=1.10.0",
+    "einops>=0.7.0",
+    "datasets>=2.14.0"
+]

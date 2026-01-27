@@ -60,6 +60,8 @@ def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multi
             raise ValueError("UniIR's corpus encoder class is not available (as the uniir-for-pyserini package is not installed or CLIP is not installed). Please run 'pip install pyserini[optional]' to install the uniir-for-pyserini package and run 'pip install git+https://github.com/openai/CLIP.git' to install CLIP.")
     if _encoder_class == 'dse' or 'dse' in encoder.lower():
         kwargs.update(dict(l2_norm=True, multimodal=multimodal, pooling=pooling))
+    if _encoder_class == 'mm-embed':
+        kwargs.update(dict(l2_norm=False))
     return encoder_class(**kwargs)
 
 
@@ -107,7 +109,7 @@ if __name__ == '__main__':
     encoder_parser = commands.add_parser('encoder')
     encoder_parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
     encoder_parser.add_argument('--encoder-class', type=str, required=False, default=None,
-                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto", "contriever", "arctic", "splade", "uniir", "dse"],
+                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto", "contriever", "arctic", "splade", "uniir", "dse", "mm-embed"],
                                 help='which query encoder class to use. `default` would infer from the args.encoder')
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
     encoder_parser.add_argument('--multimodal', action='store_true', default=False)
