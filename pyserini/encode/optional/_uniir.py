@@ -71,6 +71,32 @@ class UniIRQueryEncoder:
         self.instruction_config = instruction_config
         self.query_encoder = QueryEncoder(model_name=encoder_dir, device=device)
 
+    def _get_instruction_config(self, instr_file: str = None):
+        """This functions downloads all the instruction config files if not already present."""
+
+        import os
+        import tarfile
+        from pyserini.util import download_url, get_cache_home
+
+        cache_dir = get_cache_home()
+        instructions_dir = os.path.join(cache_dir, 'query_instructions')
+
+        if not os.path.exists(instructions_dir):
+            query_images_and_instructions_url = "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/mbeir_query_images_and_instructions.tar.gz"
+            tar_path = os.path.join(cache_dir, 'mbeir_query_images_and_instructions.tar.gz')
+
+            try:  
+                download_url(query_images_and_instructions_url, cache_dir, force=False)
+                with tarfile.open(tar_path, 'r:gz') as tar:
+                    tar.extractall(cache_dir)
+            except Exception as e:
+                raise Exception(f"Could not download query images: {e}")
+
+        if instr_file:
+            return os.path.join(instructions_dir, instr_file)
+        else:
+            return None
+
     def encode(
         self,
         qid: int,
@@ -80,6 +106,9 @@ class UniIRQueryEncoder:
         **kwargs: Any,
     ):
         fp16 = kwargs.get("fp16", False)
+
+        if self.instruction_config is None:
+            self.instruction_config = self._get_instruction_config(kwargs.get("instr_file", None))
 
         query_embeddings = self.query_encoder.encode(
             qid=qid, 

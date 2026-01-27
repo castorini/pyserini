@@ -20,6 +20,7 @@ Models and configuration classes for Pyserini FastAPI and MCP server.
 
 """
 
+from typing import Any, Dict
 from dataclasses import dataclass
 from pydantic import BaseModel, Field
 from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher, LuceneImpactSearcher
@@ -60,21 +61,27 @@ EVAL_METRICS = {
 
 # Pydantic models for FastAPI
 class SearchParams(BaseModel):
-    query: str
+    query: str | Dict[str, Any]
     hits: int = 10
     qid: str = ''
     ef_search: int | None = None
     encoder: str | None = None
     query_generator: str | None = None
+    instruction_config: str | None = None
 
 class QueryInfo(BaseModel):
     qid: str
-    text: str
+    query_txt: str
+    query_img_path: str | None = None
+    query_modality: str | None = "text"
+    fp16: bool | None = False
 
 class Candidate(BaseModel):
     docid: str
     score: float
-    doc: str
+    document_txt: str
+    document_img_path: str | None = None
+    encoded_img: str | None = None
 
 class Hits(BaseModel): 
     query: QueryInfo

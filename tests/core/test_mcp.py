@@ -136,7 +136,7 @@ class TestMCPyseriniServer(unittest.TestCase):
         response = self.send_mcp_request('tools/call', {
             'name': 'search',
             'arguments': {
-                'query': 'what is a lobster roll',
+                'query': {'query_txt': 'what is a lobster roll'},
                 'index_name': 'msmarco-v1-passage',
                 'k': 3
             }
