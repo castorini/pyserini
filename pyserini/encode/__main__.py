@@ -61,6 +61,12 @@ def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multi
     if _encoder_class == 'dse' or 'dse' in encoder.lower():
         kwargs.update(dict(l2_norm=True, multimodal=multimodal, pooling=pooling))
     if _encoder_class == 'mm-embed':
+        from importlib import metadata
+        torch_version = metadata.version("torch")
+        transformers_version = metadata.version("transformers")
+        if torch_version != "2.2.0" or transformers_version != "4.42.4":
+            raise ImportError(f"MM-Embed requires torch==2.2.0 and transformers==4.42.4, but found torch=={torch_version} and transformers=={transformers_version}. Please install the correct versions to use MM-Embed. Refer to the required packages for MM-Embed here: https://huggingface.co/nvidia/MM-Embed#1-required-packages.")
+
         kwargs.update(dict(l2_norm=False))
     return encoder_class(**kwargs)
 
