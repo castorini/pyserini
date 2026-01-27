@@ -16,7 +16,6 @@
 
 from typing import List, Any
 import torch
-import yaml
 from importlib import metadata
 from PIL import Image
 from transformers import AutoModel

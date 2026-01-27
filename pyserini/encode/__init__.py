@@ -16,6 +16,7 @@
 
 # This has to be first, otherwise we'll get circular import errors
 from ._base import QueryEncoder, DocumentEncoder, JsonlCollectionIterator, JsonlRepresentationWriter
+from .utils import get_mbeir_instructions
 
 # Then import these...
 from ._aggretriever import AggretrieverDocumentEncoder, AggretrieverQueryEncoder
