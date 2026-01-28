@@ -51,7 +51,7 @@ class FaissSearcher:
     """
 
     def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str],
-                 prebuilt_index_name: Optional[str] = None):
+                 prebuilt_index_name: Optional[str] = None, normalize_distances: bool = False):
         requires_backends(self, "faiss")
         if not isinstance(query_encoder, str):
             self.query_encoder = query_encoder
@@ -60,6 +60,7 @@ class FaissSearcher:
         self.index, self.docids = self.load_index(index_dir)
         self.dimension = self.index.d
         self.num_docs = self.index.ntotal
+        self.normalize_distances = normalize_distances
 
         assert self.docids is None or self.num_docs == len(self.docids)
         if prebuilt_index_name:
@@ -67,7 +68,7 @@ class FaissSearcher:
             self.ssearcher = LuceneSearcher.from_prebuilt_index(sparse_index)
 
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: QueryEncoder):
+    def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: QueryEncoder, normalize_distances: bool = False):
         """Build a searcher from a prebuilt index; download the index if necessary.
 
         Parameters
@@ -76,6 +77,8 @@ class FaissSearcher:
             the query encoder, which has `encode` method that convert query text to embedding
         prebuilt_index_name : str
             Prebuilt index name.
+        normalize_distances : bool
+            Whether to normalize distances to unit interval [0, 1]. Default is False.
 
         Returns
         -------
@@ -97,12 +100,34 @@ class FaissSearcher:
             return None
 
         print(f'Initializing {prebuilt_index_name}...')
-        return cls(index_dir, query_encoder, prebuilt_index_name)
+        return cls(index_dir, query_encoder, prebuilt_index_name, normalize_distances)
 
     @staticmethod
     def list_prebuilt_indexes():
         """Display information about available prebuilt indexes."""
         get_dense_indexes_info()
+
+    def _normalize_to_unit_interval(self, distances: np.ndarray) -> np.ndarray:
+        """
+        # This is a function to match the behavior of Lucene's dense search.
+
+        Apply Lucene-style score normalization: (1 + cosine) / 2.
+        This maps cosine similarity from [-1, 1] to [0, 1].
+        Only applies if using INNER_PRODUCT metric (cosine similarity).
+
+        Parameters
+        ----------
+        distances : np.ndarray
+            Raw distance/similarity scores from FAISS search.
+        Returns
+        -------
+        np.ndarray
+            Normalized scores if INNER_PRODUCT metric is used
+        """
+        if hasattr(self.index, 'metric_type') and self.index.metric_type == 0:  # INNER_PRODUCT
+            distances = np.array(distances)  # Ensure it's a numpy array
+            distances = (1.0 + distances) / 2.0
+        return distances
 
     def search(self, query: Union[str, np.ndarray, Dict], k: int = 10, threads: int = 1, remove_dups: bool = False, return_vector: bool = False) \
             -> Union[List[DenseSearchResult], Tuple[np.ndarray, List[PrfDenseSearchResult]]]:
@@ -150,6 +175,8 @@ class FaissSearcher:
             distances, indexes = self.index.search(emb_q, k)
             distances = distances.flat
             indexes = indexes.flat
+            if self.normalize_distances:
+                distances = self._normalize_to_unit_interval(distances)
             if remove_dups:
                 unique_docs = set()
                 results = list()
@@ -211,6 +238,8 @@ class FaissSearcher:
                             for key, distances, indexes, vectors in zip(q_ids, D, I, V)}
         else:
             D, I = self.index.search(q_embs, k)
+            if self.normalize_distances:
+                D = self._normalize_to_unit_interval(D)
             return {key: [DenseSearchResult(self.docids[idx], score)
                           for score, idx in zip(distances, indexes) if idx != -1]
                     for key, distances, indexes in zip(q_ids, D, I)}

@@ -16,6 +16,7 @@
 
 import json
 import os
+import tarfile
 from abc import ABC, abstractmethod
 from enum import Enum, unique
 from pathlib import Path
@@ -198,10 +199,23 @@ class MBEIRQueryIterator(QueryIterator):
         """Extract qid, query_txt, query_img_path, query_modality, pos_cand_list from M-BEIR query format"""
         topic = self.topics[id_]
 
+        query_txt = topic.get('query_txt', '')
+        if query_txt is None or query_txt == 'null':
+            query_txt = ''
+
+        query_img_path = topic.get('query_img_path')
+        if query_img_path is None or query_img_path == 'null' or query_img_path == '':
+            query_img_path = None
+        else:
+            query_img_path = os.path.join(self.topic_dir, query_img_path)
+            if not os.path.exists(query_img_path):
+                raise FileNotFoundError(f"Query image for ID {id_} not found at {query_img_path}")
+
         query_data = {
+            'instr_file': topic['instr_file'],
             'qid': topic.get('qid', id_),
-            'query_txt': topic.get('query_txt', ''),
-            'query_img_path': os.path.join(self.topic_dir, topic.get('query_img_path', '')) if topic.get('query_img_path') else None,
+            'query_txt': query_txt,
+            'query_img_path': query_img_path,
             'query_modality': topic.get('query_modality', 'text'),
         }
 
@@ -210,8 +224,60 @@ class MBEIRQueryIterator(QueryIterator):
     @classmethod
     def from_topics(cls, topics_path: str):
         """Load M-BEIR topics from JSONL file"""
-        if not os.path.exists(topics_path):
-            raise FileNotFoundError(f'Topic {topics_path} Not Found')
+
+        name_to_instr_file = {
+            'cirr_task7': 'cirr_task7_instr.yaml',
+            'edis_task2': 'edis_task2_instr.yaml',
+            'fashion200k_task0': 'fashion200k_task0_instr.yaml',
+            'fashion200k_task3': 'fashion200k_task3_instr.yaml',
+            'fashioniq_task7': 'fashioniq_task7_instr.yaml',
+            'infoseek_task6': 'infoseek_task6_instr.yaml',
+            'infoseek_task8': 'infoseek_task8_instr.yaml',
+            'mscoco_task0': 'mscoco_task0_instr.yaml',
+            'mscoco_task3': 'mscoco_task3_instr.yaml',
+            'nights_task4': 'nights_task4_instr.yaml',
+            'oven_task6': 'oven_task6_instr.yaml',
+            'oven_task8': 'oven_task8_instr.yaml',
+            'visualnews_task0': 'visualnews_task0_instr.yaml',
+            'visualnews_task3': 'visualnews_task3_instr.yaml',
+            'webqa_task1': 'webqa_task1_instr.yaml',
+            'webqa_task2': 'webqa_task2_instr.yaml',
+        }
+        instr_file = None
+        for name in name_to_instr_file:
+            if name in topics_path:
+                instr_file = name_to_instr_file[name]
+                break
+
+
+        if not os.path.exists(topics_path): # try to get topics from topics_mapping registry
+            try:
+                topics = get_topics(topics_path)
+                if not topics:
+                    raise FileNotFoundError(f'Topic {topics_path} Not Found')
+
+                for topic_id in topics:
+                    topics[topic_id]["instr_file"] = instr_file
+
+                cache_dir = get_cache_home()
+                images_dir = os.path.join(cache_dir, 'mbeir_images')
+
+                if not os.path.exists(images_dir):
+                    query_images_and_instructions_url = "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/mbeir_query_images_and_instructions.tar.gz"
+                    tar_path = os.path.join(cache_dir, 'mbeir_query_images_and_instructions.tar.gz')
+
+                    try:  
+                        download_url(query_images_and_instructions_url, cache_dir, force=False)
+                        with tarfile.open(tar_path, 'r:gz') as tar:
+                            tar.extractall(cache_dir)
+                    except Exception as e:
+                        raise Exception(f"Could not download default instructions: {e}")
+
+                order = list(topics.keys())
+                return cls(topics, order, cache_dir)
+
+            except (ValueError, FileNotFoundError):
+                raise FileNotFoundError(f'Topic {topics_path} Not Found')
 
         topics = {}
         order = []
@@ -220,6 +286,7 @@ class MBEIRQueryIterator(QueryIterator):
                 data = json.loads(line)
                 try:
                     topic_id = data['qid']
+                    data['instr_file'] = instr_file
                     topics[topic_id] = data
                     order.append(topic_id)
                 except Exception as e:

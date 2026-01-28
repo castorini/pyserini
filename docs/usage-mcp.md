@@ -120,14 +120,17 @@ The Pyserini MCP server provides two main tools for information retrieval:
 **Description:** Perform a BM25 search on a given index and return top-k hits with document ID, score, and text snippet.
 
 **Parameters:**
-- `query` (string, required): Search query string
+- `query` (dict, required): Search query string
 - `index_name` (string, required): Name of the index to search
 - `k` (integer, optional): Number of results to return (default: 10)
+- `instruction_config` (string, optional): Local path to the instruction config file for UniIR or other MM encoders
+- `encoder` (string, optional): Name of the encoder model
 
 **Returns:** List of search results, each containing:
 - `docid`: Document identifier
 - `score`: BM25 relevance score
-- `contents`: Text snippet from the document
+- `query_text`: Text snippet from the document
+- `query_image`: Image snippet from the document (if applicable)
 - `index_name`: Name of the index searched
 
 **Example Usage in MCP Client:**

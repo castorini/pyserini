@@ -71,6 +71,7 @@ def define_dsearch_args(parser):
             "cosdpr",
             "arctic",
             "uniir",
+            "dse",
         ],
         default=None,
         help="which query encoder class to use. `default` would infer from the args.encoder",
@@ -89,7 +90,7 @@ def define_dsearch_args(parser):
         metavar="pooling strategy",
         required=False,
         default="cls",
-        choices=["cls", "mean"],
+        choices=["cls", "mean", "last"],
         help="Pooling strategy for query encoder",
     )
     parser.add_argument(
@@ -226,6 +227,15 @@ def define_dsearch_args(parser):
         default=None,
         help="Set efSearch for HNSW index",
     )
+    parser.add_argument(
+        "--normalize-distances",
+        dest="normalize_distances",
+        action="store_true",
+        default=False,
+        help="Normalize distances to unit interval [0, 1] for INNER_PRODUCT \
+            metric (default: normalization is disabled). This is used to match \
+            the behavior of Lucene's dense search.",
+    )
 
 
 def init_query_encoder(
@@ -295,7 +305,9 @@ def init_query_encoder(
         if _encoder_class == "uniir":
             kwargs.update(dict(l2_norm=True, instruction_config=instruction_config))
             if encoder_class is None:
-                raise ValueError("UniIR's query encoder class is not available (as the uniir-for-pyserini package is not installed). Please run 'pip install pyserini[optional]' to install the package.")
+                raise ValueError("UniIR's query encoder class is not available (as the uniir-for-pyserini package is not installed or CLIP is not installed). Please run 'pip install pyserini[optional]' to install the uniir-for-pyserini package and run 'pip install git+https://github.com/openai/CLIP.git' to install CLIP.")
+        if _encoder_class == "dse" or (encoder and "dse" in encoder.lower()):
+            kwargs.update(dict(l2_norm=True, pooling=pooling, multimodal=multimodal))
 
         return encoder_class(**kwargs)
 
@@ -445,7 +457,7 @@ if __name__ == "__main__":
             kwargs = dict(binary_k=args.binary_hits, rerank=args.rerank)
             searcher = BinaryDenseFaissSearcher(args.index, query_encoder)
         else:
-            searcher = FaissSearcher(args.index, query_encoder)
+            searcher = FaissSearcher(args.index, query_encoder, normalize_distances=args.normalize_distances)
     else:
         # create searcher from prebuilt index name
         if args.searcher.lower() == "bpr":
@@ -454,7 +466,7 @@ if __name__ == "__main__":
                 args.index, query_encoder
             )
         else:
-            searcher = FaissSearcher.from_prebuilt_index(args.index, query_encoder)
+            searcher = FaissSearcher.from_prebuilt_index(args.index, query_encoder, normalize_distances=args.normalize_distances)
 
     if args.ef_search:
         searcher.set_hnsw_ef_search(args.ef_search)

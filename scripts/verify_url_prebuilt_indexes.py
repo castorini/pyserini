@@ -15,6 +15,8 @@
 #
 
 import os
+import time
+from datetime import datetime, timezone
 
 from pyserini.util import download_url
 from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, FAISS_INDEX_INFO
@@ -33,8 +35,19 @@ def check(index):
 
 
 if __name__ == '__main__':
+    start = time.time()
+
     check(TF_INDEX_INFO)
     check(IMPACT_INDEX_INFO)
     check(LUCENE_HNSW_INDEX_INFO)
     check(LUCENE_FLAT_INDEX_INFO)
     check(FAISS_INDEX_INFO)
+
+    end = time.time()
+    start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.fromtimestamp(end, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+
+    print('\n')
+    print(f'Start time: {start_str}')
+    print(f'End time: {end_str}')
+    print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')

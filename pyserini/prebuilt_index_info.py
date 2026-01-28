@@ -19,475 +19,83 @@ from pyserini.pyclass import autoclass
 JIndexInfo = autoclass('io.anserini.index.IndexInfo')
 
 
-def add_lucene_index_info(enum, info, name=None, readme=None):
-    # Allow ability to override what's stored in the enum.
-    indexName = enum.indexName if not name else name
-
-    info[indexName] = {
-        "description": enum.description,
-        "filename": enum.filename,
-        "readme": enum.readme if not readme else readme,
-        "urls": [
+def import_from_lucene(enum):
+    info = {
+        'description': enum.description,
+        'filename': enum.filename,
+        'readme': enum.readme,
+        'urls': [
             enum.urls[0]
         ],
-        "md5": enum.md5,
-        "size compressed (bytes)": enum.size,
-        "total_terms": enum.totalTerms,
-        "documents": enum.documents,
-        "unique_terms": enum.uniqueTerms,
-        "downloaded": False,
-        "texts": enum.invertedIndex
+        'md5': enum.md5,
+        'size compressed (bytes)': enum.size,
+        'total_terms': enum.totalTerms,
+        'documents': enum.documents,
+        'unique_terms': enum.uniqueTerms,
+        'texts': enum.invertedIndex
     }
 
-    if info[indexName]["readme"].startswith('https'):
-        info[indexName]["readme"] = info[indexName]["readme"].split('/')[-1]
+    if info['readme'].startswith('https'):
+        info['readme'] = info['readme'].split('/')[-1]
+
+    return info
 
 
 # Bindings for Lucene (standard) inverted indexes
 TF_INDEX_INFO_MSMARCO = {
-    # MS MARCO V1 document corpus, three indexes with different amounts of information (and sizes).
-    "msmarco-v1-doc": {
-        "description": "Lucene index of the MS MARCO V1 document corpus.",
-        "filename": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc.20221004.252b5e.tar.gz",
-        ],
-        "md5": "f66020a923df6430007bd5718e53de86",
-        "size compressed (bytes)": 13736982339,
-        "total_terms": 2742219865,
-        "documents": 3213835,
-        "unique_terms": 29823777,
-        "downloaded": False
-    },
-    "msmarco-v1-doc-slim": {
-        "description": "Lucene index of the MS MARCO V1 document corpus ('slim' version).",
-        "filename": "lucene-inverted.msmarco-v1-doc-slim.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-slim.20221004.252b5e.tar.gz",
-        ],
-        "md5": "1ac67c1150d5e6c9ec2b70b3ce1fb5e0",
-        "size compressed (bytes)": 1791498091,
-        "total_terms": 2742219865,
-        "documents": 3213835,
-        "unique_terms": 29823777,
-        "downloaded": False
-    },
-    "msmarco-v1-doc-full": {
-        "description": "Lucene index of the MS MARCO V1 document corpus ('full' version).",
-        "filename": "lucene-inverted.msmarco-v1-doc-full.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-full.20221004.252b5e.tar.gz",
-        ],
-        "md5": "4975ca1b175343705b899c1e609234f9",
-        "size compressed (bytes)": 25525613395,
-        "total_terms": 2742219865,
-        "documents": 3213835,
-        "unique_terms": 29823777,
-        "downloaded": False
-    },
+    # MS MARCO V1 document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
+    "msmarco-v1-doc": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC),
+    "msmarco-v1-doc-slim": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SLIM),
+    "msmarco-v1-doc-full": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_FULL),
 
-    # MS MARCO V1 document corpus, doc2query-T5 expansions.
-    "msmarco-v1-doc.d2q-t5": {
-        "description": "Lucene index of the MS MARCO V1 document corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.tar.gz",
-        ],
-        "md5": "c0b0a25c329c1bdd7df3189400ec2f38",
-        "size compressed (bytes)": 1885596445,
-        "total_terms": 3748343494,
-        "documents": 3213835,
-        "unique_terms": 30631009,
-        "downloaded": False
-    },
-    "msmarco-v1-doc.d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V1 document corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v1-doc.d2q-t5-docvectors.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc.d2q-t5-docvectors.20221004.252b5e.tar.gz",
-        ],
-        "md5": "3c7c47c5cb718081da91d36b81d0d820",
-        "size compressed (bytes)": 11152231392,
-        "total_terms": 3748343494,
-        "documents": 3213835,
-        "unique_terms": 30631009,
-        "downloaded": False
-    },
+    # MS MARCO V1 document corpus, doc2query-T5 expansions;  defined in Anserini.
+    "msmarco-v1-doc.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_D2Q_T5),
+    "msmarco-v1-doc.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_D2Q_T5_DOCVECTORS),
 
-    # MS MARCO V1 segmented document corpus, three indexes with different amounts of information (and sizes).
-    "msmarco-v1-doc-segmented": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus.",
-        "filename": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.tar.gz",
-        ],
-        "md5": "dbf968dbf6e9d64119b4e320334524aa",
-        "size compressed (bytes)": 15924437950,
-        "total_terms": 3200522554,
-        "documents": 20545677,
-        "unique_terms": 21191748,
-        "downloaded": False
-    },
-    "msmarco-v1-doc-segmented-slim": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('slim' version).",
-        "filename": "lucene-inverted.msmarco-v1-doc-segmented-slim.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented-slim.20221004.252b5e.tar.gz",
-        ],
-        "md5": "8ab6f2a49e8a6f3157615c2f0d746e3a",
-        "size compressed (bytes)": 3306727065,
-        "total_terms": 3200522554,
-        "documents": 20545677,
-        "unique_terms": 21191748,
-        "downloaded": False
-    },
-    "msmarco-v1-doc-segmented-full": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus ('full' version).",
-        "filename": "lucene-inverted.msmarco-v1-doc-segmented-full.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented-full.20221004.252b5e.tar.gz",
-        ],
-        "md5": "3571ca047669b1e6dee5bcd8a640ef18",
-        "size compressed (bytes)": 29470600225,
-        "total_terms": 3200522554,
-        "documents": 20545677,
-        "unique_terms": 21191748,
-        "downloaded": False
-    },
+    # MS MARCO V1 segmented document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
+    "msmarco-v1-doc-segmented": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED),
+    "msmarco-v1-doc-segmented-slim": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_SLIM),
+    "msmarco-v1-doc-segmented-full": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_FULL),
 
-    # MS MARCO V1 segmented document corpus, doc2query-T5 expansions.
-    "msmarco-v1-doc-segmented.d2q-t5": {
-        "description": "Lucene index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented-d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.tar.gz",
-        ],
-        "md5": "c76e514df930721401c215b90f9f5d14",
-        "size compressed (bytes)": 3554554591,
-        "total_terms": 4206646183,
-        "documents": 20545677,
-        "unique_terms": 22055268,
-        "downloaded": False
-    },
-    "msmarco-v1-doc-segmented.d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5-docvectors.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented-d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5-docvectors.20221004.252b5e.tar.gz",
-        ],
-        "md5": "38e364692cd9c892ebb6f05b3255f0fb",
-        "size compressed (bytes)": 16349673467,
-        "total_terms": 4206646183,
-        "documents": 20545677,
-        "unique_terms": 22055268,
-        "downloaded": False
-    },
+    # MS MARCO V1 segmented document corpus, doc2query-T5 expansions; defined in Anserini.
+    "msmarco-v1-doc-segmented.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_D2Q_T5),
+    "msmarco-v1-doc-segmented.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_D2Q_T5_DOCVECTORS),
 
-    # MS MARCO V1 passage corpus, three indexes with different amounts of information (and sizes).
-    "msmarco-v1-passage": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus.",
-        "filename": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage.20221004.252b5e.tar.gz",
-        ],
-        "md5": "678876e8c99a89933d553609a0fd8793",
-        "size compressed (bytes)": 2170758745,
-        "total_terms": 352316036,
-        "documents": 8841823,
-        "unique_terms": 2660824,
-        "downloaded": False
-    },
-    "msmarco-v1-passage-slim": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus ('slim' version).",
-        "filename": "lucene-inverted.msmarco-v1-passage-slim.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage-slim.20221004.252b5e.tar.gz",
-        ],
-        "md5": "229c750cc39eaa25f0c37bf69c2c708f",
-        "size compressed (bytes)": 491451223,
-        "total_terms": 352316036,
-        "documents": 8841823,
-        "unique_terms": 2660824,
-        "downloaded": False
-    },
-    "msmarco-v1-passage-full": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus ('full' version).",
-        "filename": "lucene-inverted.msmarco-v1-passage-full.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage-full.20221004.252b5e.tar.gz",
-        ],
-        "md5": "4d2e2e1fdb7ffc7c9758c4c2234261a1",
-        "size compressed (bytes)": 3720616156,
-        "total_terms": 352316036,
-        "documents": 8841823,
-        "unique_terms": 2660824,
-        "downloaded": False
-    },
+    # MS MARCO V1 passage corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
+    "msmarco-v1-passage": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE),
+    "msmarco-v1-passage-slim": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_SLIM),
+    "msmarco-v1-passage-full": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_FULL),
 
-    # MS MARCO V1 passage corpus, doc2query-T5 expansions.
-    "msmarco-v1-passage.d2q-t5": {
-        "description": "Lucene index of the MS MARCO V1 passage corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.tar.gz",
-        ],
-        "md5": "cfd6acef0912647603457b1e98ca5bc0",
-        "size compressed (bytes)": 807866520,
-        "total_terms": 1986612263,
-        "documents": 8841823,
-        "unique_terms": 3929111,
-        "downloaded": False
-    },
-    "msmarco-v1-passage.d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V1 passage corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v1-passage.d2q-t5-docvectors.20221004.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage.d2q-t5-docvectors.20221004.252b5e.tar.gz",
-        ],
-        "md5": "3be8131464c2d1db23c8d6151c55740e",
-        "size compressed (bytes)": 4409861674,
-        "total_terms": 1986612263,
-        "documents": 8841823,
-        "unique_terms": 3929111,
-        "downloaded": False
-    },
+    # MS MARCO V1 passage corpus, doc2query-T5 expansions; defined in Anserini.
+    "msmarco-v1-passage.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_D2Q_T5),
+    "msmarco-v1-passage.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_D2Q_T5_DOCVECTORS),
 
-    # MS MARCO V2 document corpus, three indexes with different amounts of information (and sizes).
-    "msmarco-v2-doc": {
-        "description": "Lucene index of the MS MARCO V2 document corpus.",
-        "filename": "lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.tar.gz",
-        ],
-        "md5": "11017a76d2927294977c360a174ba1be",
-        "size compressed (bytes)": 63431305265,
-        "total_terms": 14165667143,
-        "documents": 11959635,
-        "unique_terms": 44860768,
-        "downloaded": False
-    },
-    "msmarco-v2-doc-slim": {
-        "description": "Lucene index of the MS MARCO V2 document corpus ('slim' version).",
-        "filename": "lucene-inverted.msmarco-v2-doc-slim.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc-slim.20220808.4d6d2a.tar.gz",
-        ],
-        "md5": "39272218094950979303f17e7202d636",
-        "size compressed (bytes)": 7172182321,
-        "total_terms": 14165667143,
-        "documents": 11959635,
-        "unique_terms": 44860768,
-        "downloaded": False
-    },
-    "msmarco-v2-doc-full": {
-        "description": "Lucene index of the MS MARCO V2 document corpus ('full' version).",
-        "filename": "lucene-inverted.msmarco-v2-doc-full.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc-full.20220808.4d6d2a.tar.gz",
-        ],
-        "md5": "66a9da92766dc7ee6eec168adf242a66",
-        "size compressed (bytes)": 119537262576,
-        "total_terms": 14165667143,
-        "documents": 11959635,
-        "unique_terms": 44860768,
-        "downloaded": False
-    },
+    # MS MARCO V2 document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
+    "msmarco-v2-doc": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC),
+    "msmarco-v2-doc-slim": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SLIM),
+    "msmarco-v2-doc-full": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_FULL),
 
-    # MS MARCO V2 document corpus, doc2query-T5 expansions.
-    "msmarco-v2-doc.d2q-t5": {
-        "description": "Lucene index of the MS MARCO V2 document corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v2-doc.d2q-t5.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-doc.d2q-t5.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc.d2q-t5.20220808.4d6d2a.tar.gz",
-        ],
-        "md5": "e1279d6a569c622778852d5f0c97fa78",
-        "size compressed (bytes)": 8155219655,
-        "total_terms": 19760783236,
-        "documents": 11959635,
-        "unique_terms": 54148271,
-        "downloaded": False
-    },
-    "msmarco-v2-doc.d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V2 document corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v2-doc.d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-doc.d2q-t5.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc.d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
-        ],
-        "md5": "e6fa0dcf7d0bf1ae6e236c3c102db4be",
-        "size compressed (bytes)": 54415613417,
-        "total_terms": 19760783236,
-        "documents": 11959635,
-        "unique_terms": 54148271,
-        "downloaded": False
-    },
+    # MS MARCO V2 document corpus, doc2query-T5 expansions; defined in Anserini.
+    "msmarco-v2-doc.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_D2Q_T5),
+    "msmarco-v2-doc.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_D2Q_T5_DOCVECTORS),
 
-    # MS MARCO V2 segmented document corpus, three indexes with different amounts of information (and sizes).
-    "msmarco-v2-doc-segmented": {
-        "description": "Lucene index of the MS MARCO V2 segmented document corpus.",
-        "filename": "lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.tar.gz"
-        ],
-        "md5": "42a0d23366e3dbdfecba1df2eb163ab2",
-        "size compressed (bytes)": 109269075564,
-        "total_terms": 24780918039,
-        "documents": 124131414,
-        "unique_terms": 29265408,
-        "downloaded": False
-    },
-    "msmarco-v2-doc-segmented-slim": {
-        "description": "Lucene index of the MS MARCO V2 segmented document corpus ('slim' version).",
-        "filename": "lucene-inverted.msmarco-v2-doc-segmented-slim.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc-segmented-slim.20220808.4d6d2a.tar.gz"
-        ],
-        "md5": "b7ffdf1577a6b2001d84893c630e6a92",
-        "size compressed (bytes)": 20852485602,
-        "total_terms": 24780918039,
-        "documents": 124131414,
-        "unique_terms": 29265408,
-        "downloaded": False
-    },
-    "msmarco-v2-doc-segmented-full": {
-        "description": "Lucene index of the MS MARCO V2 segmented document corpus ('full' version).",
-        "filename": "lucene-inverted.msmarco-v2-doc-segmented-full.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc-segmented-full.20220808.4d6d2a.tar.gz"
-        ],
-        "md5": "f2839a7208823ed98ea268404621bf3c",
-        "size compressed (bytes)": 201358945369,
-        "total_terms": 24780918039,
-        "documents": 124131414,
-        "unique_terms": 29265408,
-        "downloaded": False
-    },
+    # MS MARCO V2 segmented document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
+    "msmarco-v2-doc-segmented": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED),
+    "msmarco-v2-doc-segmented-slim": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_SLIM),
+    "msmarco-v2-doc-segmented-full": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_FULL),
 
-    # MS MARCO V2 segmented document corpus, doc2query-T5 expansions.
-    "msmarco-v2-doc-segmented.d2q-t5": {
-        "description": "Lucene index of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v2-doc-segmented.d2q-t5.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-doc-segmented.d2q-t5.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc-segmented.d2q-t5.20220808.4d6d2a.tar.gz"
-        ],
-        "md5": "a2c47e1af47e3a31b130c53f495ab4b4",
-        "size compressed (bytes)": 24242748026,
-        "total_terms": 30376034132,
-        "documents": 124131414,
-        "unique_terms": 38932296,
-        "downloaded": False
-    },
-    "msmarco-v2-doc-segmented.d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v2-doc-segmented.d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-doc-segmented.d2q-t5.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc-segmented.d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
-        ],
-        "md5": "6ce4c42ba5aab988f543ef960bae7639",
-        "size compressed (bytes)": 114315191005,
-        "total_terms": 30376034132,
-        "documents": 124131414,
-        "unique_terms": 38932296,
-        "downloaded": False
-    },
+    # MS MARCO V2 segmented document corpus, doc2query-T5 expansions; defined in Anserini.
+    "msmarco-v2-doc-segmented.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_D2Q_T5),
+    "msmarco-v2-doc-segmented.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_D2Q_T5_DOCVECTORS),
 
-    # MS MARCO V2 passage corpus, three indexes with different amounts of information (and sizes).
-    "msmarco-v2-passage": {
-        "description": "Lucene index of the MS MARCO V2 passage corpus.",
-        "filename": "lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.tar.gz"
-        ],
-        "md5": "433f65ee0091a0690632e3ef624c7994",
-        "size compressed (bytes)": 38808093637,
-        "total_terms": 4673266800,
-        "documents": 138364198,
-        "unique_terms": 11885838,
-        "downloaded": False
-    },
-    "msmarco-v2-passage-slim": {
-        "description": "Lucene index of the MS MARCO V2 passage corpus ('slim' version).",
-        "filename": "lucene-inverted.msmarco-v2-passage-slim.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage-slim.20220808.4d6d2a.tar.gz"
-        ],
-        "md5": "e896ee15ffec1c7487a089d345343417",
-        "size compressed (bytes)": 8170344033,
-        "total_terms": 4673266800,
-        "documents": 138364198,
-        "unique_terms": 11885838,
-        "downloaded": False
-    },
-    "msmarco-v2-passage-full": {
-        "description": "Lucene index of the MS MARCO V2 passage corpus ('full' version).",
-        "filename": "lucene-inverted.msmarco-v2-passage-full.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage-full.20220808.4d6d2a.tar.gz"
-        ],
-        "md5": "5d517259e639b2d34682231d5fc8a534",
-        "size compressed (bytes)": 60413586666,
-        "total_terms": 4673266800,
-        "documents": 138364198,
-        "unique_terms": 11885838,
-        "downloaded": False
-    },
+    # MS MARCO V2 passage corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
+    "msmarco-v2-passage": import_from_lucene(JIndexInfo.MSMARCO_V2_PASSAGE),
+    "msmarco-v2-passage-slim": import_from_lucene(JIndexInfo.MSMARCO_V2_PASSAGE_SLIM),
+    "msmarco-v2-passage-full": import_from_lucene(JIndexInfo.MSMARCO_V2_PASSAGE_FULL),
 
-    # MS MARCO V2 passage corpus, doc2query-T5 expansions.
-    "msmarco-v2-passage.d2q-t5": {
-        "description": "Lucene index of the MS MARCO V2 passage corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v2-passage.d2q-t5.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-passage.d2q-t5.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage.d2q-t5.20220808.4d6d2a.tar.gz",
-        ],
-        "md5": "3764a6cc79cf8c4ac824aee8859223ad",
-        "size compressed (bytes)": 14404904837,
-        "total_terms": 16961479264,
-        "documents": 138364198,
-        "unique_terms": 36651533,
-        "downloaded": False
-    },
-    "msmarco-v2-passage.d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V2 passage corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v2-passage.d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-passage.d2q-t5.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage.d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
-        ],
-        "md5": "ef7d7991cd82bc9aa6b063ab71b01e80",
-        "size compressed (bytes)": 59206476857,
-        "total_terms": 16961479264,
-        "documents": 138364198,
-        "unique_terms": 36651533,
-        "downloaded": False
-    },
+    # MS MARCO V2 passage corpus, doc2query-T5 expansions; defined in Anserini.
+    "msmarco-v2-passage.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V2_PASSAGE_D2Q_T5),
+    "msmarco-v2-passage.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V2_PASSAGE_D2Q_T5_DOCVECTORS),
 
     # MS MARCO V2 augmented passage corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-passage-augmented": {
@@ -563,93 +171,15 @@ TF_INDEX_INFO_MSMARCO = {
         "downloaded": False
     },
 
-    # MS MARCO V2.1 document corpus, three indexes with different amounts of information (and sizes).
-    "msmarco-v2.1-doc": {
-        "description": "Lucene index of the MS MARCO V2.1 document corpus.",
-        "filename": "lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.tar.gz",
-        ],
-        "md5": "cecd55856c34afa82f1a499705c9df02",
-        "size compressed (bytes)": 54190811494,
-        "total_terms": 12710796540,
-        "documents": 10960555,
-        "unique_terms": 44599151,
-        "downloaded": False
-    },
-    "msmarco-v2.1-doc-slim": {
-        "description": "Lucene index of the MS MARCO V2.1 document corpus ('slim' version).",
-        "filename": "lucene-inverted.msmarco-v2.1-doc-slim.20240418.4f9675.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2.1-doc-slim.20240418.4f9675.tar.gz",
-        ],
-        "md5": "2c31a8c0a7133eb6ea04c91ceffa7e08",
-        "size compressed (bytes)": 6191736133,
-        "total_terms": 12710796540,
-        "documents": 10960555,
-        "unique_terms": 44599151,
-        "downloaded": False
-    },
-    "msmarco-v2.1-doc-full": {
-        "description": "Lucene index of the MS MARCO V2.1 document corpus ('full' version).",
-        "filename": "lucene-inverted.msmarco-v2.1-doc-full.20240418.4f9675.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2.1-doc-full.20240418.4f9675.tar.gz",
-        ],
-        "md5": "794708c9cf8fc6eafff07c5485e934b9",
-        "size compressed (bytes)": 102997532522,
-        "total_terms": 12710796540,
-        "documents": 10960555,
-        "unique_terms": 44599151,
-        "downloaded": False
-    },
+    # MS MARCO V2.1 document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
+    "msmarco-v2.1-doc": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC),
+    "msmarco-v2.1-doc-slim": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SLIM),
+    "msmarco-v2.1-doc-full": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_FULL),
 
-    # MS MARCO V2.1 segmented document corpus, three indexes with different amounts of information (and sizes).
-    "msmarco-v2.1-doc-segmented": {
-        "description": "Lucene index of the MS MARCO V2.1 segmented document corpus.",
-        "filename": "lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.tar.gz"
-        ],
-        "md5": "6ec4cd595c9fe1ad91b43eabb39a637c",
-        "size compressed (bytes)": 60071133069,
-        "total_terms": 22707699649,
-        "documents": 113520750,
-        "unique_terms": 29040364,
-        "downloaded": False
-    },
-    "msmarco-v2.1-doc-segmented-slim": {
-        "description": "Lucene index of the MS MARCO V2.1 segmented document corpus ('slim' version).",
-        "filename": "lucene-inverted.msmarco-v2.1-doc-segmented-slim.20240418.4f9675.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2.1-doc-segmented-slim.20240418.4f9675.tar.gz"
-        ],
-        "md5": "3c6c946c722a201b65903a92f082ea4f",
-        "size compressed (bytes)": 15374492909,
-        "total_terms": 22707699649,
-        "documents": 113520750,
-        "unique_terms": 29040364,
-        "downloaded": False
-    },
-    "msmarco-v2.1-doc-segmented-full": {
-        "description": "Lucene index of the MS MARCO V2.1 segmented document corpus ('full' version).",
-        "filename": "lucene-inverted.msmarco-v2.1-doc-segmented-full.20240418.4f9675.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2.1-doc-segmented-full.20240418.4f9675.tar.gz"
-        ],
-        "md5": "a43d09d31ae4e5dac81f5cfde1a810a7",
-        "size compressed (bytes)": 146130406504,
-        "total_terms": 22707699649,
-        "documents": 113520750,
-        "unique_terms": 29040364,
-        "downloaded": False
-    }
+    # MS MARCO V2.1 segmented document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
+    "msmarco-v2.1-doc-segmented": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED),
+    "msmarco-v2.1-doc-segmented-slim": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SLIM),
+    "msmarco-v2.1-doc-segmented-full": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_FULL)
 }
 
 TF_INDEX_INFO_MSMARCO_ALIASES = {
@@ -659,84 +189,84 @@ TF_INDEX_INFO_MSMARCO_ALIASES = {
     "msmarco-v1-passage-d2q-t5": TF_INDEX_INFO_MSMARCO["msmarco-v1-passage.d2q-t5"],
 }
 
-TF_INDEX_INFO_BEIR = {}
-# BEIR: flat
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_FLAT, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_FLAT, TF_INDEX_INFO_BEIR)
-# BEIR: multifield
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_MULTIFIELD, TF_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_MULTIFIELD, TF_INDEX_INFO_BEIR)
+TF_INDEX_INFO_BEIR = {
+    # BEIR: flat
+    "beir-v1.0.0-trec-covid.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_FLAT),
+    "beir-v1.0.0-bioasq.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_FLAT),
+    "beir-v1.0.0-nfcorpus.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_FLAT),
+    "beir-v1.0.0-nq.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_FLAT),
+    "beir-v1.0.0-hotpotqa.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_FLAT),
+    "beir-v1.0.0-fiqa.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_FLAT),
+    "beir-v1.0.0-signal1m.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_FLAT),
+    "beir-v1.0.0-trec-news.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_FLAT),
+    "beir-v1.0.0-robust04.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_FLAT),
+    "beir-v1.0.0-arguana.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_FLAT),
+    "beir-v1.0.0-webis-touche2020.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_FLAT),
+    "beir-v1.0.0-cqadupstack-android.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_FLAT),
+    "beir-v1.0.0-cqadupstack-english.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_FLAT),
+    "beir-v1.0.0-cqadupstack-gaming.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_FLAT),
+    "beir-v1.0.0-cqadupstack-gis.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_FLAT),
+    "beir-v1.0.0-cqadupstack-mathematica.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_FLAT),
+    "beir-v1.0.0-cqadupstack-physics.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_FLAT),
+    "beir-v1.0.0-cqadupstack-programmers.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_FLAT),
+    "beir-v1.0.0-cqadupstack-stats.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_FLAT),
+    "beir-v1.0.0-cqadupstack-tex.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_FLAT),
+    "beir-v1.0.0-cqadupstack-unix.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_FLAT),
+    "beir-v1.0.0-cqadupstack-webmasters.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_FLAT),
+    "beir-v1.0.0-cqadupstack-wordpress.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_FLAT),
+    "beir-v1.0.0-quora.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_FLAT),
+    "beir-v1.0.0-dbpedia-entity.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_FLAT),
+    "beir-v1.0.0-scidocs.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_FLAT),
+    "beir-v1.0.0-fever.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_FLAT),
+    "beir-v1.0.0-climate-fever.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_FLAT),
+    "beir-v1.0.0-scifact.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_FLAT),
 
-TF_INDEX_INFO_BRIGHT = {}
-add_lucene_index_info(JIndexInfo.BRIGHT_BIOLOGY, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_EARTH_SCIENCE, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_ECONOMICS, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_PSYCHOLOGY, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_ROBOTICS, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_STACKOVERFLOW, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_PONY, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_LEETCODE, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_AOPS, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS, TF_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS, TF_INDEX_INFO_BRIGHT)
+    # BEIR: multifield
+    "beir-v1.0.0-trec-covid.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_MULTIFIELD),
+    "beir-v1.0.0-bioasq.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_MULTIFIELD),
+    "beir-v1.0.0-nfcorpus.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_MULTIFIELD),
+    "beir-v1.0.0-nq.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_MULTIFIELD),
+    "beir-v1.0.0-hotpotqa.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_MULTIFIELD),
+    "beir-v1.0.0-fiqa.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_MULTIFIELD),
+    "beir-v1.0.0-signal1m.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_MULTIFIELD),
+    "beir-v1.0.0-trec-news.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_MULTIFIELD),
+    "beir-v1.0.0-robust04.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_MULTIFIELD),
+    "beir-v1.0.0-arguana.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_MULTIFIELD),
+    "beir-v1.0.0-webis-touche2020.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-android.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-english.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-gaming.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-gis.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-mathematica.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-physics.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-programmers.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-stats.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-tex.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-unix.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-webmasters.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_MULTIFIELD),
+    "beir-v1.0.0-cqadupstack-wordpress.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_MULTIFIELD),
+    "beir-v1.0.0-quora.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_MULTIFIELD),
+    "beir-v1.0.0-dbpedia-entity.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_MULTIFIELD),
+    "beir-v1.0.0-scidocs.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_MULTIFIELD),
+    "beir-v1.0.0-fever.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_MULTIFIELD),
+    "beir-v1.0.0-climate-fever.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_MULTIFIELD),
+    "beir-v1.0.0-scifact.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_MULTIFIELD),
+}
 
-# TODO: Remove after new Anserini artifact release with fix
-TF_INDEX_INFO_BRIGHT["bright-economics"]["size compressed (bytes)"] = 23991405
+TF_INDEX_INFO_BRIGHT = {
+    "bright-biology": import_from_lucene(JIndexInfo.BRIGHT_BIOLOGY),
+    "bright-earth-science": import_from_lucene(JIndexInfo.BRIGHT_EARTH_SCIENCE),
+    "bright-economics": import_from_lucene(JIndexInfo.BRIGHT_ECONOMICS),
+    "bright-psychology": import_from_lucene(JIndexInfo.BRIGHT_PSYCHOLOGY),
+    "bright-robotics": import_from_lucene(JIndexInfo.BRIGHT_ROBOTICS),
+    "bright-stackoverflow": import_from_lucene(JIndexInfo.BRIGHT_STACKOVERFLOW),
+    "bright-sustainable-living": import_from_lucene(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING),
+    "bright-pony": import_from_lucene(JIndexInfo.BRIGHT_PONY),
+    "bright-leetcode": import_from_lucene(JIndexInfo.BRIGHT_LEETCODE),
+    "bright-aops": import_from_lucene(JIndexInfo.BRIGHT_AOPS),
+    "bright-theoremqa-theorems": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS),
+    "bright-theoremqa-questions": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS),
+}
 
 TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-ar": {
@@ -1285,6 +815,233 @@ TF_INDEX_INFO_CIRAL = {
         "downloaded": False
     }
 
+}
+
+TF_INDEX_INFO_M_BEIR = {
+    "m-beir-cirr_task7": {
+        "description": "Lucene index for M-BEIR CIRR task 7 corpus.",
+        "filename": "lucene-inverted.m-beir-cirr_task7.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-cirr_task7.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "2dd562ce0695fc036d453b0767ca3a18",
+        "size compressed (bytes)": 347187400,
+        "total_terms": 21551,
+        "documents": 21551,
+        "unique_terms": 1,
+        "downloaded": False
+    },
+    "m-beir-edis_task2": {
+        "description": "Lucene index for M-BEIR EDIS task 2 corpus.",
+        "filename": "lucene-inverted.m-beir-edis_task2.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-edis_task2.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "e74359b8c696c9ac8f56a0281b7d8f33",
+        "size compressed (bytes)": 20182418990,
+        "total_terms": 11989247,
+        "documents": 1047067,
+        "unique_terms": 120620,
+        "downloaded": False
+    },
+    "m-beir-fashion200k_task0": {
+        "description": "Lucene index for M-BEIR Fashion200K task 0 corpus.",
+        "filename": "lucene-inverted.m-beir-fashion200k_task0.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-fashion200k_task0.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "92dbd3c7469377901386db86f5c134c4",
+        "size compressed (bytes)": 3094742537,
+        "total_terms": 201824,
+        "documents": 201824,
+        "unique_terms": 1,
+        "downloaded": False
+    },
+    "m-beir-fashion200k_task3": {
+        "description": "Lucene index for M-BEIR Fashion200K task 3 corpus.",
+        "filename": "lucene-inverted.m-beir-fashion200k_task3.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-fashion200k_task3.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "dea550a91e559ecc20744d64853794d7",
+        "size compressed (bytes)": 3517056,
+        "total_terms": 320792,
+        "documents": 61707,
+        "unique_terms": 4674,
+        "downloaded": False
+    },
+    "m-beir-fashioniq_task7": {
+        "description": "Lucene index for M-BEIR FashionIQ task 7 corpus.",
+        "filename": "lucene-inverted.m-beir-fashioniq_task7.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-fashioniq_task7.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "eec3fcca46d581f6c03386f1746f63d0",
+        "size compressed (bytes)": 704801276,
+        "total_terms": 74381,
+        "documents": 74381,
+        "unique_terms": 1,
+        "downloaded": False
+    },
+    "m-beir-infoseek_task6": {
+        "description": "Lucene index for M-BEIR InfoSeek task 6 corpus.",
+        "filename": "lucene-inverted.m-beir-infoseek_task6.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-infoseek_task6.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "b116fd37ec8ab6244f03f8896ad2e1d1",
+        "size compressed (bytes)": 487769698,
+        "total_terms": 40553515,
+        "documents": 611651,
+        "unique_terms": 1459469,
+        "downloaded": False
+    },
+    "m-beir-infoseek_task8": {
+        "description": "Lucene index for M-BEIR InfoSeek task 8 corpus.",
+        "filename": "lucene-inverted.m-beir-infoseek_task8.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-infoseek_task8.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "3bfaf443fee8834cfa76161fce6d6cb7",
+        "size compressed (bytes)": 8010635169,
+        "total_terms": 33290946,
+        "documents": 481782,
+        "unique_terms": 1046942,
+        "downloaded": False
+    },
+    "m-beir-mscoco_task0": {
+        "description": "Lucene index for M-BEIR MSCOCO task 0 corpus.",
+        "filename": "lucene-inverted.m-beir-mscoco_task0.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-mscoco_task0.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "a4550dc70ee06f8f254d97b88868ad7a",
+        "size compressed (bytes)": 84945141,
+        "total_terms": 5000,
+        "documents": 5000,
+        "unique_terms": 1,
+        "downloaded": False
+    },
+    "m-beir-mscoco_task3": {
+        "description": "Lucene index for M-BEIR MSCOCO task 3 corpus.",
+        "filename": "lucene-inverted.m-beir-mscoco_task3.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-mscoco_task3.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "15779922e7d7fb8f75a11a1b9ef5d617",
+        "size compressed (bytes)": 2003920,
+        "total_terms": 178755,
+        "documents": 24809,
+        "unique_terms": 5092,
+        "downloaded": False
+    },
+    "m-beir-nights_task4": {
+        "description": "Lucene index for M-BEIR NIGHTS task 4 corpus.",
+        "filename": "lucene-inverted.m-beir-nights_task4.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-nights_task4.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "56e6d23a479e6ec03cf16b37ca669b4f",
+        "size compressed (bytes)": 597481018,
+        "total_terms": 40038,
+        "documents": 40038,
+        "unique_terms": 1,
+        "downloaded": False
+    },
+    "m-beir-oven_task6": {
+        "description": "Lucene index for M-BEIR OVEN task 6 corpus.",
+        "filename": "lucene-inverted.m-beir-oven_task6.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-oven_task6.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "a82538c3eb5b65eb49fb659909335b2a",
+        "size compressed (bytes)": 471799398,
+        "total_terms": 39875784,
+        "documents": 676667,
+        "unique_terms": 1440499,
+        "downloaded": False
+    },
+    "m-beir-oven_task8": {
+        "description": "Lucene index for M-BEIR OVEN task 8 corpus.",
+        "filename": "lucene-inverted.m-beir-oven_task8.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-oven_task8.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "bfb09a394aa2cb426d46b6f917b2c2c8",
+        "size compressed (bytes)": 5843069128,
+        "total_terms": 22558337,
+        "documents": 335135,
+        "unique_terms": 796486,
+        "downloaded": False
+    },
+    "m-beir-visualnews_task0": {
+        "description": "Lucene index for M-BEIR VisualNews task 0 corpus.",
+        "filename": "lucene-inverted.m-beir-visualnews_task0.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-visualnews_task0.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "6aca88e8c05233f1c66b950e600fc4eb",
+        "size compressed (bytes)": 10567618253,
+        "total_terms": 542246,
+        "documents": 542246,
+        "unique_terms": 1,
+        "downloaded": False
+    },
+    "m-beir-visualnews_task3": {
+        "description": "Lucene index for M-BEIR VisualNews task 3 corpus.",
+        "filename": "lucene-inverted.m-beir-visualnews_task3.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-visualnews_task3.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "f905e307463ed8691d802c512d2382df",
+        "size compressed (bytes)": 98417621,
+        "total_terms": 7250519,
+        "documents": 537568,
+        "unique_terms": 191929,
+        "downloaded": False
+    },
+    "m-beir-webqa_task1": {
+        "description": "Lucene index for M-BEIR WebQA task 1 corpus.",
+        "filename": "lucene-inverted.m-beir-webqa_task1.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-webqa_task1.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "0fc780b057dacc9a6f9b13b1996b8cf4",
+        "size compressed (bytes)": 166842728,
+        "total_terms": 13953966,
+        "documents": 544457,
+        "unique_terms": 316790,
+        "downloaded": False
+    },
+    "m-beir-webqa_task2": {
+        "description": "Lucene index for M-BEIR WebQA task 2 corpus.",
+        "filename": "lucene-inverted.m-beir-webqa_task2.20251227.1c5cd3.tar.gz",
+        "readme": "lucene-inverted.m-beir.20251227.1c5cd3.README.md",
+        "urls": [
+        "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-webqa_task2.20251227.1c5cd3.tar.gz"
+        ],
+        "md5": "fca613bc84599f9a46601badd47ee7ff",
+        "size compressed (bytes)": 7467023312,
+        "total_terms": 4280768,
+        "documents": 403196,
+        "unique_terms": 341510,
+        "downloaded": False
+    }
 }
 
 TF_INDEX_INFO_OTHER = {
@@ -1896,6 +1653,7 @@ TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
                  **TF_INDEX_INFO_MRTYDI_ALIASES,
                  **TF_INDEX_INFO_MIRACL,
                  **TF_INDEX_INFO_CIRAL,
+                 **TF_INDEX_INFO_M_BEIR,
                  **TF_INDEX_INFO_OTHER,
                  **TF_INDEX_INFO_OTHER_ALIASES}
 
@@ -2236,81 +1994,84 @@ IMPACT_INDEX_INFO_MSMARCO_ALIASES = {
     "msmarco-v2-passage-unicoil-0shot": IMPACT_INDEX_INFO_MSMARCO["msmarco-v2-passage.unicoil-0shot"]
 }
 
-IMPACT_INDEX_INFO_BEIR = {}
-# BEIR: SPLADE++ ED
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_SPLADE_PP_ED, IMPACT_INDEX_INFO_BEIR)
-# BEIR: SPLADEv3
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_SPLADE_V3, IMPACT_INDEX_INFO_BEIR)
+IMPACT_INDEX_INFO_BEIR = {
+    # BEIR: SPLADE++ ED
+    "beir-v1.0.0-trec-covid.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_SPLADE_PP_ED),
+    "beir-v1.0.0-bioasq.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_SPLADE_PP_ED),
+    "beir-v1.0.0-nfcorpus.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_SPLADE_PP_ED),
+    "beir-v1.0.0-nq.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_SPLADE_PP_ED),
+    "beir-v1.0.0-hotpotqa.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_SPLADE_PP_ED),
+    "beir-v1.0.0-fiqa.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_SPLADE_PP_ED),
+    "beir-v1.0.0-signal1m.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_SPLADE_PP_ED),
+    "beir-v1.0.0-trec-news.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_SPLADE_PP_ED),
+    "beir-v1.0.0-robust04.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_SPLADE_PP_ED),
+    "beir-v1.0.0-arguana.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_SPLADE_PP_ED),
+    "beir-v1.0.0-webis-touche2020.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-android.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-english.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-gaming.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-gis.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-physics.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-programmers.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-stats.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-tex.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-unix.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_SPLADE_PP_ED),
+    "beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_SPLADE_PP_ED),
+    "beir-v1.0.0-quora.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_SPLADE_PP_ED),
+    "beir-v1.0.0-dbpedia-entity.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_SPLADE_PP_ED),
+    "beir-v1.0.0-scidocs.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_SPLADE_PP_ED),
+    "beir-v1.0.0-fever.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_SPLADE_PP_ED),
+    "beir-v1.0.0-climate-fever.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_SPLADE_PP_ED),
+    "beir-v1.0.0-scifact.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_SPLADE_PP_ED),
 
-IMPACT_INDEX_INFO_BRIGHT = {}
-add_lucene_index_info(JIndexInfo.BRIGHT_BIOLOGY_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_EARTH_SCIENCE_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_ECONOMICS_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_PSYCHOLOGY_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_ROBOTICS_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_STACKOVERFLOW_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_PONY_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_LEETCODE_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_AOPS_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS_SPLADE_V3, IMPACT_INDEX_INFO_BRIGHT)
+    # BEIR: SPLADEv3
+    "beir-v1.0.0-trec-covid.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_SPLADE_V3),
+    "beir-v1.0.0-bioasq.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_SPLADE_V3),
+    "beir-v1.0.0-nfcorpus.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_SPLADE_V3),
+    "beir-v1.0.0-nq.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_SPLADE_V3),
+    "beir-v1.0.0-hotpotqa.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_SPLADE_V3),
+    "beir-v1.0.0-fiqa.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_SPLADE_V3),
+    "beir-v1.0.0-signal1m.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_SPLADE_V3),
+    "beir-v1.0.0-trec-news.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_SPLADE_V3),
+    "beir-v1.0.0-robust04.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_SPLADE_V3),
+    "beir-v1.0.0-arguana.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_SPLADE_V3),
+    "beir-v1.0.0-webis-touche2020.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-android.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-english.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-gaming.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-gis.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-mathematica.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-physics.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-programmers.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-stats.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-tex.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-unix.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-webmasters.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_SPLADE_V3),
+    "beir-v1.0.0-cqadupstack-wordpress.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_SPLADE_V3),
+    "beir-v1.0.0-quora.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_SPLADE_V3),
+    "beir-v1.0.0-dbpedia-entity.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_SPLADE_V3),
+    "beir-v1.0.0-scidocs.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_SPLADE_V3),
+    "beir-v1.0.0-fever.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_SPLADE_V3),
+    "beir-v1.0.0-climate-fever.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_SPLADE_V3),
+    "beir-v1.0.0-scifact.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_SPLADE_V3),
+}
+
+IMPACT_INDEX_INFO_BRIGHT = {
+    "bright-biology.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_BIOLOGY_SPLADE_V3),
+    "bright-earth-science.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_EARTH_SCIENCE_SPLADE_V3),
+    "bright-economics.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_ECONOMICS_SPLADE_V3),
+    "bright-psychology.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_PSYCHOLOGY_SPLADE_V3),
+    "bright-robotics.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_ROBOTICS_SPLADE_V3),
+    "bright-stackoverflow.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_STACKOVERFLOW_SPLADE_V3),
+    "bright-sustainable-living.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING_SPLADE_V3),
+    "bright-pony.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_PONY_SPLADE_V3),
+    "bright-leetcode.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_LEETCODE_SPLADE_V3),
+    "bright-aops.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_AOPS_SPLADE_V3),
+    "bright-theoremqa-theorems.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS_SPLADE_V3),
+    "bright-theoremqa-questions.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS_SPLADE_V3),
+}
 
 IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_MSMARCO,
                      **IMPACT_INDEX_INFO_MSMARCO_ALIASES,
@@ -2319,111 +2080,110 @@ IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_MSMARCO,
 
 
 # Bindings for Lucene HNSW MSMARCO indexes
-LUCENE_HNSW_INDEX_INFO_MSMARCO = {}
+LUCENE_HNSW_INDEX_INFO_MSMARCO = {
+    "msmarco-v1-passage.cosdpr-distil.hnsw": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_COS_DPR_DISTIL_HNSW),
+    "msmarco-v1-passage.cosdpr-distil.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_COS_DPR_DISTIL_HNSW_INT8),
+    "msmarco-v1-passage.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_BGE_BASE_EN_15_HNSW),
+    "msmarco-v1-passage.bge-base-en-v1.5.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_BGE_BASE_EN_15_HNSW_INT8),
+    "msmarco-v1-passage.cohere-embed-english-v3.0.hnsw": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_COHERE_EMBED_ENGLISH_30_HNSW),
+    "msmarco-v1-passage.cohere-embed-english-v3.0.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_COHERE_EMBED_ENGLISH_30_HNSW_INT8),
 
-# Metadata have already been defined in Anserini, just copy over into Pyserini.
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_BGE_BASE_EN_15_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_COS_DPR_DISTIL_HNSW, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V1_PASSAGE_COS_DPR_DISTIL_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD00_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD01_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD02_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD03_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD04_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD05_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD06_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD07_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD08_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-add_lucene_index_info(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD09_ARCTIC_EMBED_L_HNSW_INT8, LUCENE_HNSW_INDEX_INFO_MSMARCO)
-
+    "msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD00_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD01_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD02_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD03_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD04_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD05_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD06_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD07_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD08_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD09_ARCTIC_EMBED_L_HNSW_INT8),
+}
 
 # Bindings for Lucene HNSW BEIR indexes
-LUCENE_HNSW_INDEX_INFO_BEIR = {}
-
-# Metadata have already been defined in Anserini, just copy over into Pyserini.
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_BGE_BASE_EN_15_HNSW, LUCENE_HNSW_INDEX_INFO_BEIR)
+LUCENE_HNSW_INDEX_INFO_BEIR = {
+    "beir-v1.0.0-trec-covid.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-bioasq.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-nfcorpus.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-nq.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-hotpotqa.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-fiqa.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-signal1m.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-trec-news.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-robust04.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-arguana.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-quora.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-scidocs.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-fever.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-climate-fever.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-scifact.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_BGE_BASE_EN_15_HNSW),
+}
 
 LUCENE_HNSW_INDEX_INFO = {**LUCENE_HNSW_INDEX_INFO_MSMARCO,
                           **LUCENE_HNSW_INDEX_INFO_BEIR}
 
 
 # Bindings for Lucene flat indexes
-LUCENE_FLAT_INDEX_INFO_BEIR = {}
+LUCENE_FLAT_INDEX_INFO_BEIR = {
+    "beir-v1.0.0-trec-covid.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-bioasq.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-nfcorpus.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-nq.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-hotpotqa.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-fiqa.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-signal1m.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-trec-news.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-robust04.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-arguana.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-quora.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-scidocs.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-fever.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-climate-fever.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-scifact.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_BGE_BASE_EN_15_FLAT),
+}
 
-# Metadata have already been defined in Anserini, just copy over into Pyserini.
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_COVID_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_BIOASQ_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NFCORPUS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_NQ_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FIQA_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ROBUST04_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_QUORA_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIDOCS_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_FEVER_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-add_lucene_index_info(JIndexInfo.BEIR_V1_0_0_SCIFACT_BGE_BASE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BEIR)
-
-LUCENE_FLAT_INDEX_INFO_BRIGHT = {}
-add_lucene_index_info(JIndexInfo.BRIGHT_BIOLOGY_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_EARTH_SCIENCE_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_ECONOMICS_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_PSYCHOLOGY_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_ROBOTICS_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_STACKOVERFLOW_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_PONY_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_LEETCODE_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_AOPS_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
-add_lucene_index_info(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS_BGE_LARGE_EN_15_FLAT, LUCENE_FLAT_INDEX_INFO_BRIGHT)
+LUCENE_FLAT_INDEX_INFO_BRIGHT = {
+    "bright-biology.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_BIOLOGY_BGE_LARGE_EN_15_FLAT),
+    "bright-earth-science.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_EARTH_SCIENCE_BGE_LARGE_EN_15_FLAT),
+    "bright-economics.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_ECONOMICS_BGE_LARGE_EN_15_FLAT),
+    "bright-psychology.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_PSYCHOLOGY_BGE_LARGE_EN_15_FLAT),
+    "bright-robotics.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_ROBOTICS_BGE_LARGE_EN_15_FLAT),
+    "bright-stackoverflow.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_STACKOVERFLOW_BGE_LARGE_EN_15_FLAT),
+    "bright-sustainable-living.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING_BGE_LARGE_EN_15_FLAT),
+    "bright-pony.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_PONY_BGE_LARGE_EN_15_FLAT),
+    "bright-leetcode.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_LEETCODE_BGE_LARGE_EN_15_FLAT),
+    "bright-aops.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_AOPS_BGE_LARGE_EN_15_FLAT),
+    "bright-theoremqa-theorems.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS_BGE_LARGE_EN_15_FLAT),
+    "bright-theoremqa-questions.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS_BGE_LARGE_EN_15_FLAT),
+}
 
 LUCENE_FLAT_INDEX_INFO = {**LUCENE_FLAT_INDEX_INFO_BEIR, **LUCENE_FLAT_INDEX_INFO_BRIGHT}
 
@@ -6071,7 +5831,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 38820730,
         "documents": 21551,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-cirr_task7"
     },
     "m-beir-edis_task2.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's clip-sf-large model",
@@ -6084,7 +5844,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 1889299324,
         "documents": 1047067,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-edis_task2"
     },
     "m-beir-fashion200k_task0.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's clip-sf-large model",
@@ -6097,7 +5857,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 275676078,
         "documents": 153472,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-fashion200k_task0"
     },
     "m-beir-fashion200k_task3.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's clip-sf-large model",
@@ -6110,7 +5870,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 111421780,
         "documents": 61707,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-fashion200k_task3"
     },
     "m-beir-fashioniq_task7.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's clip-sf-large model",
@@ -6123,7 +5883,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 134234457,
         "documents": 74381,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-fashioniq_task7"
     },
     "m-beir-infoseek_task6.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's clip-sf-large model",
@@ -6136,7 +5896,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 1106443187,
         "documents": 611651,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-infoseek_task6"
     },
     "m-beir-infoseek_task8.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's clip-sf-large model",
@@ -6149,7 +5909,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 870316186,
         "documents": 481782,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-infoseek_task8"
     },
     "m-beir-mscoco_task0.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's clip-sf-large model",
@@ -6162,7 +5922,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 9018789,
         "documents": 5000,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-mscoco_task0"
     },
     "m-beir-mscoco_task3.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's clip-sf-large model",
@@ -6175,7 +5935,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 44894584,
         "documents": 24809,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-mscoco_task3"
     },
     "m-beir-nights_task4.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's clip-sf-large model",
@@ -6188,7 +5948,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 72059050,
         "documents": 40038,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-nights_task4"
     },
     "m-beir-oven_task6.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's clip-sf-large model",
@@ -6201,7 +5961,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 1224169375,
         "documents": 676667,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-oven_task6"
     },
     "m-beir-oven_task8.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's clip-sf-large model",
@@ -6214,7 +5974,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 605530489,
         "documents": 335135,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-oven_task8"
     },
     "m-beir-visualnews_task0.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's clip-sf-large model",
@@ -6227,7 +5987,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 978324225,
         "documents": 542246,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-visualnews_task0"
     },
     "m-beir-visualnews_task3.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's clip-sf-large model",
@@ -6240,7 +6000,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 972354799,
         "documents": 537568,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-visualnews_task3"
     },
     "m-beir-webqa_task1.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's clip-sf-large model",
@@ -6253,7 +6013,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 983306361,
         "documents": 544457,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-webqa_task1"
     },
     "m-beir-webqa_task2.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's clip-sf-large model",
@@ -6266,7 +6026,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 726339525,
         "documents": 403196,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-webqa_task2"
     },
     "m-beir-cirr_task7.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR CIRR task 7 corpus encoded by UniIR's blip-ff-large model",
@@ -6279,7 +6039,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 38780136,
         "documents": 21551,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-cirr_task7"
     },
     "m-beir-edis_task2.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's blip-ff-large model",
@@ -6292,7 +6052,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 1882867131,
         "documents": 1047067,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-edis_task2"
     },
     "m-beir-fashion200k_task0.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's blip-ff-large model",
@@ -6305,7 +6065,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 361950478,
         "documents": 153472,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-fashion200k_task0"
     },
     "m-beir-fashion200k_task3.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's blip-ff-large model",
@@ -6318,7 +6078,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 111002142,
         "documents": 61707,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-fashion200k_task3"
     },
     "m-beir-fashioniq_task7.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's blip-ff-large model",
@@ -6331,7 +6091,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 133813792,
         "documents": 74381,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-fashioniq_task7"
     },
     "m-beir-infoseek_task6.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's blip-ff-large model",
@@ -6344,7 +6104,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 1101016470,
         "documents": 611651,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-infoseek_task6"
     },
     "m-beir-infoseek_task8.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's blip-ff-large model",
@@ -6357,7 +6117,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 867072949,
         "documents": 481782,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-infoseek_task8"
     },
     "m-beir-mscoco_task0.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's blip-ff-large model",
@@ -6370,7 +6130,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 8997998,
         "documents": 5000,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-mscoco_task0"
     },
     "m-beir-mscoco_task3.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's blip-ff-large model",
@@ -6383,7 +6143,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 44642859,
         "documents": 24809,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-mscoco_task3"
     },
     "m-beir-nights_task4.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's blip-ff-large model",
@@ -6396,7 +6156,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 72066211,
         "documents": 40038,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-nights_task4"
     },
     "m-beir-oven_task6.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's blip-ff-large model",
@@ -6409,7 +6169,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 1217884724,
         "documents": 676667,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-oven_task6"
     },
     "m-beir-oven_task8.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's blip-ff-large model",
@@ -6422,7 +6182,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 603290723,
         "documents": 335135,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-oven_task8"
     },
     "m-beir-visualnews_task0.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's blip-ff-large model",
@@ -6435,7 +6195,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 975317010,
         "documents": 542246,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-visualnews_task0"
     },
     "m-beir-visualnews_task3.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's blip-ff-large model",
@@ -6448,7 +6208,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 967518619,
         "documents": 537568,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-visualnews_task3"
     },
     "m-beir-webqa_task1.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's blip-ff-large model",
@@ -6461,7 +6221,7 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 979823093,
         "documents": 544457,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-webqa_task1"
     },
     "m-beir-webqa_task2.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's blip-ff-large model",
@@ -6474,8 +6234,35 @@ FAISS_INDEX_INFO_M_BEIR = {
         "size compressed (bytes)": 724733316,
         "documents": 403196,
         "downloaded": False,
-        "texts": None
+        "texts": "m-beir-webqa_task2"
     }
+}
+
+FAISS_INDEX_INFO_DSE = {
+    "slidevqa.dse": {
+        "description": "Faiss index of the SlideVQA corpus encoded by DSE (Tevatron/dse-phi3-v1.0)",
+        "filename": "slidevqa.dse.tar.gz",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-dse/resolve/main/slidevqa/slidevqa.dse.tar.gz"
+        ],
+        "md5": "920bcdbae5cd2730dbf961c7d72778e6",
+        "size compressed (bytes)": 340388515,
+        "documents": 52480,
+        "downloaded": False,
+        "texts": None
+    },
+    "wiki-ss.dse": {
+        "description": "Faiss index of the Wiki-SS corpus encoded by DSE (Tevatron/dse-phi3-v1.0)",
+        "filename": "wiki-ss.dse.tar.gz",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-dse/resolve/main/wiki-ss/wiki-ss.dse.tar.gz"
+        ],
+        "md5": "b80f7a05049d76be18497e3489e91066",
+        "size compressed (bytes)": 8231110478,
+        "documents": 1267874,
+        "downloaded": False,
+        "texts": None
+    },
 }
 
 FAISS_INDEX_INFO_OTHER = {
@@ -6815,4 +6602,5 @@ FAISS_INDEX_INFO = {**FAISS_INDEX_INFO_MSMARCO,
                     **FAISS_INDEX_INFO_WIKIPEDIA,
                     **FAISS_INDEX_INFO_CIRAL,
                     **FAISS_INDEX_INFO_M_BEIR,
+                    **FAISS_INDEX_INFO_DSE,
                     **FAISS_INDEX_INFO_OTHER}

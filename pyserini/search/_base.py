@@ -480,6 +480,27 @@ topics_mapping = {
     'bright-aops': 'BRIGHT_AOPS',
     'bright-theoremqa-theorems': 'BRIGHT_THEOREMQA_THEOREMS',
     'bright-theoremqa-questions': 'BRIGHT_THEOREMQA_QUESTIONS',
+
+    # DSE topics
+    'slidevqa': 'SLIDEVQA_TEST',
+    'wiki-ss-nq': 'WIKI_SS_NQ_TEST',
+    # M-BEIR original test queries
+    'm-beir-cirr_task7-test': 'M_BEIR_CIRR_TASK7_TEST',
+    'm-beir-fashioniq_task7-test': 'M_BEIR_FASHIONIQ_TASK7_TEST',
+    'm-beir-mscoco_task0-test': 'M_BEIR_MSCOCO_TASK0_TEST',
+    'm-beir-mscoco_task3-test': 'M_BEIR_MSCOCO_TASK3_TEST',
+    'm-beir-visualnews_task0-test': 'M_BEIR_VISUALNEWS_TASK0_TEST',
+    'm-beir-visualnews_task3-test': 'M_BEIR_VISUALNEWS_TASK3_TEST',
+    'm-beir-edis_task2-test': 'M_BEIR_EDIS_TASK2_TEST',
+    'm-beir-infoseek_task6-test': 'M_BEIR_INFOSEEK_TASK6_TEST',
+    'm-beir-infoseek_task8-test': 'M_BEIR_INFOSEEK_TASK8_TEST',
+    'm-beir-nights_task4-test': 'M_BEIR_NIGHTS_TASK4_TEST',
+    'm-beir-oven_task6-test': 'M_BEIR_OVEN_TASK6_TEST',
+    'm-beir-oven_task8-test': 'M_BEIR_OVEN_TASK8_TEST',
+    'm-beir-webqa_task1-test': 'M_BEIR_WEBQA_TASK1_TEST',
+    'm-beir-webqa_task2-test': 'M_BEIR_WEBQA_TASK2_TEST',
+    'm-beir-fashion200k_task0-test': 'M_BEIR_FASHION200K_TASK0_TEST',
+    'm-beir-fashion200k_task3-test': 'M_BEIR_FASHION200K_TASK3_TEST',
 }
 
 qrels_mapping = {
@@ -702,6 +723,27 @@ qrels_mapping = {
     'bright-aops': 'BRIGHT_AOPS',
     'bright-theoremqa-theorems': 'BRIGHT_THEOREMQA_THEOREMS',
     'bright-theoremqa-questions': 'BRIGHT_THEOREMQA_QUESTIONS',
+
+    # DSE qrels
+    'slidevqa': 'SLIDEVQA_TEST',
+
+    # M-BEIR qrels (test qrels)
+    'm-beir-cirr-task7': 'M_BEIR_CIRR_TASK7_TEST',
+    'm-beir-fashioniq-task7': 'M_BEIR_FASHIONIQ_TASK7_TEST',
+    'm-beir-mscoco-task0': 'M_BEIR_MSCOCO_TASK0_TEST',
+    'm-beir-mscoco-task3': 'M_BEIR_MSCOCO_TASK3_TEST',
+    'm-beir-visualnews-task0': 'M_BEIR_VISUALNEWS_TASK0_TEST',
+    'm-beir-visualnews-task3': 'M_BEIR_VISUALNEWS_TASK3_TEST',
+    'm-beir-edis-task2': 'M_BEIR_EDIS_TASK2_TEST',
+    'm-beir-infoseek-task6': 'M_BEIR_INFOSEEK_TASK6_TEST',
+    'm-beir-infoseek-task8': 'M_BEIR_INFOSEEK_TASK8_TEST',
+    'm-beir-nights-task4': 'M_BEIR_NIGHTS_TASK4_TEST',
+    'm-beir-oven-task6': 'M_BEIR_OVEN_TASK6_TEST',
+    'm-beir-oven-task8': 'M_BEIR_OVEN_TASK8_TEST',
+    'm-beir-webqa-task1': 'M_BEIR_WEBQA_TASK1_TEST',
+    'm-beir-webqa-task2': 'M_BEIR_WEBQA_TASK2_TEST',
+    'm-beir-fashion200k-task0': 'M_BEIR_FASHION200K_TASK0_TEST',
+    'm-beir-fashion200k-task3': 'M_BEIR_FASHION200K_TASK3_TEST',
 }
 
 # Log warnings for missing mappings

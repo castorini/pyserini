@@ -1214,6 +1214,101 @@ class TestLoadQrels(unittest.TestCase):
         self.assertEqual(len(qrels), 60)
         self.assertTrue(isinstance(next(iter(qrels.keys())), int))
 
+    def test_mbeir_cirr_task7(self):
+        qrels = search.get_qrels('m-beir-cirr-task7')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 4170)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_mbeir_fashioniq_task7(self):
+        qrels = search.get_qrels('m-beir-fashioniq-task7')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 6003)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_mbeir_mscoco_task0(self):
+        qrels = search.get_qrels('m-beir-mscoco-task0')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 24809)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_mbeir_mscoco_task3(self):
+        qrels = search.get_qrels('m-beir-mscoco-task3')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 5000)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_mbeir_visualnews_task0(self):
+        qrels = search.get_qrels('m-beir-visualnews-task0')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 19995)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_mbeir_visualnews_task3(self):
+        qrels = search.get_qrels('m-beir-visualnews-task3')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 20000)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_mbeir_edis_task2(self):
+        qrels = search.get_qrels('m-beir-edis-task2')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 3241)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_mbeir_infoseek_task6(self):
+        qrels = search.get_qrels('m-beir-infoseek-task6')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 11323)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_mbeir_infoseek_task8(self):
+        qrels = search.get_qrels('m-beir-infoseek-task8')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 17593)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_mbeir_nights_task4(self):
+        qrels = search.get_qrels('m-beir-nights-task4')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 2120)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_mbeir_oven_task6(self):
+        qrels = search.get_qrels('m-beir-oven-task6')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 50004)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_mbeir_oven_task8(self):
+        qrels = search.get_qrels('m-beir-oven-task8')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 14741)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_mbeir_webqa_task1(self):
+        qrels = search.get_qrels('m-beir-webqa-task1')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 2455)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_mbeir_webqa_task2(self):
+        qrels = search.get_qrels('m-beir-webqa-task2')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 2511)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_mbeir_fashion200k_task0(self):
+        qrels = search.get_qrels('m-beir-fashion200k-task0')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 1719)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_mbeir_fashion200k_task3(self):
+        qrels = search.get_qrels('m-beir-fashion200k-task3')
+        self.assertIsNotNone(qrels)
+        self.assertEqual(len(qrels), 4889)
+        self.assertTrue(isinstance(next(iter(qrels.keys())), str))
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,4 +1,4 @@
-# Pyserini: A Deeper Dive into Dense and Sparse Representations
+# Pyserini: A Deeper Dive into Learned Sparse Representations
 
 In a [previous guide](conceptual-framework2.md), we introduced a conceptual framework for a representational approach to information retrieval that integrates dense and sparse representations into the same underlying (bi-encoder) architecture.
 This guide offers a deeper dive with learned sparse retrieval, where we use SPLADE-v3, a learned sparse model to encode the corpus into sparse vectors, index them into retrieval system with inverted index, and finally perform retrieval and evaluation.
@@ -15,7 +15,7 @@ Informally, we're "peeling back the covers".
 
 **Learning outcomes** for this guide, building on previous steps in the onboarding path, are divided into three parts.
 1. Be able to encode a corpus into its sparse vector representations with SPLADE-v3.
-2. Be able to index them into a retrieval systme using Lucene inverted index.
+2. Be able to index them into a retrieval system using Lucene inverted index.
 3. Be able to compute query-document scores (i.e., retrieval scores) with pyserini for SPLADE retrieval.
 4. Be able to perform retrieval with pyserini given a query.
 
@@ -44,7 +44,7 @@ Start by creating the directories where we will store the encoded documents:
 ```bash
 mkdir encode
 cd encode
-mkdir nfcorpus.splade
+mkdir nfcorpus.splade-v3
 ```
 
 We can then setup to use SPLADE-v3:
@@ -74,64 +74,29 @@ You’ll be prompted to enter your Hugging Face API token. You can generate a to
 
 We are now all set to use SPLADE-v3 model!
 
-Start by running the following script to encode the corpus into sparse vector representations.
-(we are using this custom script instead of pyserini.encode as pyserini.encode only encodes corpus into dense vectors)
+Start by running the following command to encode the corpus into sparse vector representations.
 
-```python
-import json
-import torch
-from pyserini.encode import SpladeQueryEncoder
-
-# Debugging: Print start message
-print("Starting SPLADE document encoding process...")
-
-# Initialize the SPLADE document encoder
-encoder = SpladeQueryEncoder(
-    model_name_or_path="naver/splade-v3",  # Pre-trained SPLADE model
-    device='cuda' if torch.cuda.is_available() else 'cpu'  # Use GPU if available
-)
-
-# Load the corpus
-corpus_file = "collections/nfcorpus/corpus.jsonl"  # Path to your corpus file
-output_file = "encode/nfcorpus.splade/embeddings.jsonl"  # Path to save encoded documents
-
-# Debugging: Print corpus and output file paths
-print(f"Reading corpus from: {corpus_file}")
-print(f"Writing sparse vectors to: {output_file}")
-
-# Encode the corpus
-with open(corpus_file, "r") as infile, open(output_file, "w") as outfile:
-    for line_num, line in enumerate(infile, start=1):
-        # Debugging: Print progress
-        if line_num % 100 == 0:
-            print(f"Processing line {line_num}...")
-        
-        try:
-            # Load the document
-            data = json.loads(line)
-            doc_id = data["_id"]
-            text = data["title"] + " " + data["text"]  # Combine title and text
-            
-            # Encode the truncated text into a sparse vector
-            sparse_vector = encoder.encode(text, max_length=512)
-            
-            # Write the sparse vector to the output file
-            outfile.write(json.dumps({"id": doc_id, "content": text, "vector": sparse_vector}) + "\n")
-        except Exception as e:
-            print(f"Error processing line {line_num}: {e}")
-            continue
-
-# Debugging: Print completion message
-print("SPLADE document encoding process completed successfully.")
+```bash
+python -m pyserini.encode \
+  input --corpus collections/nfcorpus/corpus.jsonl \
+        --fields title text \
+  output --embeddings encode/nfcorpus.splade-v3 \
+  encoder --encoder naver/splade-v3 \
+          --encoder-class splade \
+          --fields title text \
+          --max-length 512 \
+          --device cpu
 ```
+
+Use `--device cuda` for faster encoding if you have a CUDA-enabled GPU.
 
 Next, we will index the encoded corpus using inverted index into a retrieval system.
 
 ```bash
 python -m pyserini.index.lucene \
   --collection JsonVectorCollection \
-  --input encode/nfcorpus.splade \
-  --index index/nfcorpus.splade \
+  --input encode/nfcorpus.splade-v3 \
+  --index index/nfcorpus.splade-v3 \
   --generator DefaultLuceneDocumentGenerator \
   --threads 4 \
   --impact \
@@ -143,7 +108,7 @@ Perform retrieval:
 
 ```bash
 python -m pyserini.search.lucene \
-  --index index/nfcorpus.splade \
+  --index index/nfcorpus.splade-v3 \
   --topics collections/nfcorpus/queries.tsv \
   --output runs/run.splade.txt \
   --hits 1000 \
@@ -177,7 +142,7 @@ from pyserini.search.lucene import LuceneImpactSearcher
 from pyserini.encode import SpladeQueryEncoder
 
 encoder = SpladeQueryEncoder(model_name_or_path="naver/splade-v3", device='cuda' if torch.cuda.is_available() else 'cpu')
-searcher = LuceneImpactSearcher('index/nfcorpus.splade', query_encoder=encoder)
+searcher = LuceneImpactSearcher('index/nfcorpus.splade-v3', query_encoder=encoder)
 hits = searcher.search('How to Help Prevent Abdominal Aortic Aneurysms')
 
 for i in range(0, 10):
@@ -215,3 +180,22 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@ricky42613](https://github.com/ricky42613) on 2025-04-25 (commit [`ea70638`](https://github.com/castorini/pyserini/commit/ea70638d56e4346ab8ae9ec205b1e278bcc5afe2))
 + Results reproduced by [@lzguan](https://github.com/lzguan) on 2025-05-02 (commit [`252ee06`](https://github.com/castorini/pyserini/commit/252ee0695c0a533153cd4e769380bbef0edaae7f))
 + Results reproduced by [@mindlesstruffle](https://github.com/mindlesstruffle) on 2025-07-15 (commit [`b5d4838`](https://github.com/castorini/pyserini/commit/b5d48381c171e0ac36cd0c2523fe77b7bfe45435))
++ Results reproduced by [@FarmersWrap](https://github.com/FarmersWrap) on 2025-11-02 (commit [`80395dc`](https://github.com/castorini/pyserini/commit/80395dc7b6e0d5c045f4dcf4ef8e61958ec636ca))
++ Results reproduced by [@minj22](https://github.com/minj22) on 2025-11-05 (commit [`0fc0b62`](https://github.com/castorini/pyserini/commit/0fc0b62246d863dedaa35d0dd4832276aa7fd08b))
++ Results reproduced by [@ipouyall](https://github.com/ipouyall) on 2025-11-05 (commit [`7e54c0e7`](https://github.com/castorini/pyserini/commit/7e54c0e745b073b49fc169ccdda9875cdaa7af85))
++ Results reproduced by [@AdrianGri](https://github.com/adriangri) on 2025-11-12 (commit [`f4a8d0e`](https://github.com/castorini/pyserini/commit/f4a8d0ebfd233d703f1196ba3c679d92ceff51e6))
++ Results reproduced by [@Amirhosseinpoor](https://github.com/Amirhosseinpoor) on 2025-11-13 (commit [`f4a8d0e`](https://github.com/castorini/pyserini/commit/f4a8d0ebfd233d703f1196ba3c679d92ceff51e6))
++ Results reproduced by [@jianxyou](https://github.com/jianxyou) on 2025-11-19 (commit [`7fd6115`](https://github.com/castorini/pyserini/commit/7fd6115779a575729c55dc35bf6101f17e8a6597))
++ Results reproduced by [@xincanfeng](https://github.com/xincanfeng) on 2025-11-19 (commit [`7fd6115`](https://github.com/castorini/pyserini/commit/7fd6115779a575729c55dc35bf6101f17e8a6597))
++ Results reproduced by [@ball2004244](https://github.com/ball2004244) on 2025-11-23 (commit [`cadcbd9`](https://github.com/castorini/pyserini/commit/cadcbd9107633017f25fb72ec16ecb6ad2336bcf))
++ Results reproduced by [@RudraMantri123](https://github.com/RudraMantri123) on 2025-11-28 (commit [`566243c`](https://github.com/castorini/pyserini/commit/566243c80a2d4e3defac98d38c4d07a3b10341f9))
++ Results reproduced by [@Kushion32](https://github.com/Kushion32) on 2025-12-09 (commit [`301db78`](https://github.com/castorini/pyserini/commit/301db7838b13e229fdbe8027d972cefd2122dfdf))
++ Results reproduced by [@Hasebul21](https://github.com/Hasebul21) on 2025-12-10 (commit [`d26c2fd`](https://github.com/castorini/pyserini/commit/d26c2fd224439ca564fe9d2b9e2be580391f1275))
++ Results reproduced by [@MehdiJmlkh](https://github.com/MehdiJmlkh) on 2025-12-10 (commit [`d26c2fd`](https://github.com/castorini/pyserini/commit/d26c2fd224439ca564fe9d2b9e2be580391f1275))
++ Results reproduced by [@MuhammadAli13562](https://github.com/MuhammadAli13562) on 2025-12-18 (commit [`e4bf66e`](https://github.com/castorini/pyserini/commit/e4bf66e77eadcfff29637fd10b31fc4b236a9be7))
++ Results reproduced by [@Hossein-Molaeian](https://github.com/Hossein-Molaeian) on 2025-12-19 (commit [`fee9962`](https://github.com/castorini/pyserini/commit/fee9962f97ba4b2f362c0f4c84908f15f61424e6))
++ Results reproduced by [@anjanpa](https://github.com/anjanpa) on 2025-12-22 (commit [`d12db6a`](https://github.com/castorini/pyserini/commit/d12db6abed1cc9e7a20f8d5685d2e133005aa0a9))
++ Results reproduced by [@nli33](https://github.com/nli33) on 2025-12-26 (commit [`d12db6a`](https://github.com/castorini/pyserini/commit/d12db6abed1cc9e7a20f8d5685d2e133005aa0a9))
++ Results reproduced by [@VarnitOS](https://github.com/VarnitOS) on 2025-12-29 (commit [`4106eed`](https://github.com/castorini/pyserini/commit/4106eed08a62f9c2631a267eb4863649ee2b748e))
++ Results reproduced by [@zizimind](https://github.com/zizimind) on 2026-01-07 (commit [`74d7182`](https://github.com/castorini/pyserini/commit/74d7182004e4380e3cf0caf993375a25c1bcc5dc))
++ Results reproduced by [@izzat5233](https://github.com/izzat5233) on 2026-01-17 (commit [`4bfbb9e`](https://github.com/castorini/pyserini/commit/4bfbb9e144872b9223359ee6bac0bc595c0734d6))

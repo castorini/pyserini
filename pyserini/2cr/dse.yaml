@@ -1,0 +1,18 @@
+conditions:
+  - name: dse
+    command: python -m pyserini.search.faiss --encoder-class dse --encoder Tevatron/dse-phi3-v1.0 --pooling last --index ${index} --topics ${topics} --output $output --hits 20 --device cuda:0 --batch-size 128
+    datasets:
+      - dataset: wiki-ss-nq
+        index: wiki-ss.dse
+        topics: wiki-ss-nq
+        scores:
+          - Top-1: 43.0
+            Top-5: 65.5
+            Top-10: 71.3
+            Top-20: 76.0
+      - dataset: slidevqa
+        index: slidevqa.dse
+        topics: slidevqa
+        scores:
+          - nDCG@10: 73.1
+            Recall@10: 83.2

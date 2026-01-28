@@ -19,7 +19,10 @@
 Register tools for the MCP server.
 """
 
-from typing import Any
+import base64
+from typing import Any, Dict
+from pathlib import Path
+from fastmcp.utilities.types import Image
 
 from fastmcp import FastMCP
 from pyserini.server.search_controller import SearchController, DenseSearchResult
@@ -30,44 +33,99 @@ def register_tools(mcp: FastMCP, controller: SearchController):
 
     @mcp.tool(
         name='search',
-        description='Perform search on a given index. Returns top‑k hits with docid, score, and snippet.',
+        description='''Perform search on a given index. Returns top‑k hits with docid, score, and snippet.
+        The "query" argument is a dictionary with format {"qid": "...", "query_txt": "...", "query_img_path": "..."}.
+        '''
     )
     def search(
-        query: str,
+        query: Dict[str, Any],
         index_name: str,
+        intruction_config: str = None,
         k: int = 10,
         ef_search: int = 100,
         encoder: str = None,
         query_generator: str = None
-    ) -> dict[str, Any]:
+    ):
         """
         Search the Pyserini index with BM25 and return top-k hits
         Args:
-            query: Search query string
+            query: Search query dictionary with optional text and image paths
             index_name: Name of index to search (default: use default index)
             k: Number of results to return (default: 10)
         Returns:
             List of search results with docid, score, and raw contents
         """
-        return controller.search(query, index_name, k, ef_search=ef_search, encoder=encoder, query_generator=query_generator)
+
+        raw_results = controller.search(
+            query, index_name, k,
+            ef_search=ef_search,
+            encoder=encoder,
+            query_generator=query_generator,
+            instruction_config=intruction_config
+        )
+
+        # Turn dict to list since MCP cannot render images in dicts
+        final_output = []
+        query_info = raw_results.get('query', {})
+        final_output.append(f"Query Results for: {query_info.get('query_txt', 'Visual Query')}")
+
+        if query_info.get('query_img_path'):
+            img_format = controller._get_extension(query_info['query_img_path'])
+            with open(query_info['query_img_path'], "rb") as f:
+                img_bytes = f.read()
+
+            final_output.append(Image(data=img_bytes, format=img_format))
+
+        for cand in raw_results.get('candidates', []):
+            final_output.append(f"DocID: {cand['docid']} | Score: {cand['score']}")
+        
+            if cand.get('document_txt') and cand['document_txt'] != "None":
+                final_output.append(cand['document_txt'])
+        
+            if cand.get('encoded_img'):
+                img_format = controller._get_extension(cand['document_img_path'])
+                img_bytes = base64.b64decode(cand['encoded_img'])
+                final_output.append(Image(data=img_bytes, format=img_format))
+
+        return final_output
 
     @mcp.tool(
         name='get_document',
         description='Retrieve a full document by its document ID from a given index.',
     )
-    def get_document(docid: str, index_name: str) -> dict[str, Any]:
+    def get_document(docid: str, index_name: str):
         """
-        Retrieve the full text of a document by its ID.
+        Retrieve the full text and image (if available) of a document by its ID.
 
         Args:
             docid: Document ID to retrieve
             index_name: Name of index to search (default: use default index)
 
         Returns:
-            Document with full text, or ValueError if not found
+            Document with full text and image (if available), or ValueError if not found
         """
-        return controller.get_document(docid, index_name)
-    
+        doc_data = controller.get_document(docid, index_name)
+        results = []
+
+        results.append(doc_data.get('contents', ''))
+
+        if doc_data.get('img_path'):
+            extension = Path(doc_data['img_path']).suffix
+            if extension.lower() in ['.jpeg', '.jpg']:
+                img_format = "jpeg"
+            else:
+                img_format = extension.lower().replace(".", "") or "png"
+
+            img_bytes = base64.b64decode(doc_data['encoded_img'])
+            results.append(
+                Image(
+                    data=img_bytes,
+                    format=img_format
+                )
+            )
+
+        return results 
+
     @mcp.tool(
         name='list_all_indexes',
         description='List available indexes of a given type in the Pyserini server.',

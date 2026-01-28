@@ -24,11 +24,13 @@ Initialized with prebuilt index msmarco-v1-passage.
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 import os
-from typing import Any
+from pathlib import Path
+from typing import Any, Dict
 
 from pyserini.eval.trec_eval import trec_eval
 from pyserini.encode import AutoQueryEncoder
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO
+from pyserini.encode.optional._uniir import UniIRQueryEncoder
+from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, IMPACT_INDEX_INFO, FAISS_INDEX_INFO, FAISS_INDEX_INFO_M_BEIR
 from pyserini.search import get_qrels, get_qrels_file
 from pyserini.search.faiss import FaissSearcher, DenseSearchResult
 from pyserini.search.hybrid import HybridSearcher
@@ -73,6 +75,12 @@ class SearchController:
             config.searcher = LuceneImpactSearcher.from_prebuilt_index(config.name, config.encoder)
             config.base_index = IMPACT_INDEX_INFO.get(config.name).get("texts")
             config.index_type = "impact"
+        elif config.name in FAISS_INDEX_INFO_M_BEIR.keys():
+            if config.encoder not in ["clip_sf_large", "blip_ff_large"]:
+                raise ValueError(f'Invalid encoder for index {config.name}. For M-BEIR Faiss indexes, encoder must be one of ["clip_sf_large", "blip_ff_large"].')
+            config.searcher = FaissSearcher.from_prebuilt_index(config.name, query_encoder=UniIRQueryEncoder(encoder_dir=config.encoder, instruction_config=config.instruction_config))
+            config.base_index = FAISS_INDEX_INFO.get(config.name).get("texts")
+            config.index_type = "faiss"
         elif config.name in FAISS_INDEX_INFO.keys():
             config.searcher = FaissSearcher.from_prebuilt_index(config.name, query_encoder=AutoQueryEncoder(encoder_dir=config.encoder))
             config.base_index = FAISS_INDEX_INFO.get(config.name).get("texts")
@@ -82,6 +90,15 @@ class SearchController:
         
         self.indexes[config.name] = config
         return config
+
+    def _get_extension(self, img_path: str) -> str:
+        '''Return FastMCP Image type from a local image path'''
+
+        extension = Path(img_path).suffix
+        if extension.lower() in ['.jpeg', '.jpg']:
+            return "jpeg"
+        else:
+            return extension.lower().replace(".", "") or "png"
 
     def get_indexes(self, index_type: str) -> list[str]:
         """Get indexes available for retrieval (only prebuilt for now)"""
@@ -93,15 +110,39 @@ class SearchController:
 
     def search(
         self,
-        query: str,
+        query: str | Dict[str, Any],
         index_name: str,
         k: int = 10,
         qid: str = "",
         ef_search: int | None = None,
         encoder: str | None = None,
         query_generator: str | None = None,
-    ) -> dict[str, Any]:
+        instruction_config: str | None = None,
+    ) -> Dict[str, Any]:
         """Perform search on specified index."""
+
+        # Handle string query input from REST API for simple text queries
+        if isinstance(query, str):
+            query = {"query_txt": query}
+
+        if "m-beir" in index_name:
+            if not query.get('qid'):
+                query['qid'] = "1:1" # dummy qid for m-beir format
+            query['fp16'] = True # use fp16 for m-beir format
+
+            has_text = bool(query.get('query_txt'))
+            has_image = bool(query.get('query_img_path'))
+            if has_text and has_image:
+                query['query_modality'] = "image,text"
+            elif has_image:
+                query['query_modality'] = "image"
+            else:
+                query['query_modality'] = "text"
+        else:
+            if not query.get('query_txt'):
+                raise ValueError("Missing query text for single modality dataset! Please provide a query text for this index!")
+            query = query['query_txt']
+
         hits = []
         if "shard" in index_name and "msmarco" in index_name:
             hits = self.sharded_search(query, k, ef_search)
@@ -113,13 +154,20 @@ class SearchController:
                         name=index_name,
                         ef_search=ef_search,
                         encoder=encoder,
-                        query_generator=query_generator
+                        query_generator=query_generator,
+                        instruction_config=instruction_config,
                     )
                 )
-
+            
             hits = index_config.searcher.search(query, k)
 
-        results: dict[str, Any] = {'query': {'qid': qid, 'text': query}}
+        if isinstance(query, str): # text-only query
+            results = {'query': {'qid': qid, 'query_txt': query}}
+        else: # multimodal query
+            assert isinstance(query, dict)
+
+            results = {'query': query}
+
         candidates: list[dict[str, Any]] = []
 
         for hit in hits:
@@ -127,16 +175,19 @@ class SearchController:
                 doc = json.loads(hit.lucene_document.get('raw'))
             elif index_config.base_index:
                 doc = self.get_document(hit.docid, index_config.base_index)
-            raw = doc.get('contents') or doc.get('text') or doc.get('segment') or ""
-            candidates.append(
-                {
-                    'docid': hit.docid,
-                    'score': float(hit.score),
-                    'doc': raw,
-                }
-            )
-        results['candidates'] = candidates
 
+            raw = doc.get('contents') or doc.get('text') or doc.get('segment') or ""
+            cand_data = {
+                'docid': hit.docid,
+                'score': float(hit.score),
+                'document_txt': raw,
+                'document_img_path': doc.get('img_path'),
+                'encoded_img': doc.get('encoded_img'),
+            }
+
+            candidates.append(cand_data)
+
+        results['candidates'] = candidates
         return results
     
     def fuse(

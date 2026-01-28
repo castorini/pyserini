@@ -83,7 +83,7 @@ class TestRRF(unittest.TestCase):
 
         with open(f'{self.tmp}/anserini.covid-r3.fusion1.txt', 'rb') as f:
             md5 = hashlib.md5(f.read()).hexdigest()
-        self.assertEqual('61cbd73c6e60ba44f18ce967b5b0e5b3', md5)
+        self.assertEqual('353eb335acff30cfe74f14b1b87671c9', md5)
 
         os.system(f'python -m pyserini.fusion --method rrf --runs ' +
                   f'{self.tmp}/anserini.covid-r3.abstract.qdel.bm25.txt ' +
@@ -94,7 +94,7 @@ class TestRRF(unittest.TestCase):
 
         with open(f'{self.tmp}/anserini.covid-r3.fusion2.txt', 'rb') as f:
             md5 = hashlib.md5(f.read()).hexdigest()
-        self.assertEqual('d7eabf3dab840104c88de925e918fdab', md5)
+        self.assertEqual('604bfb165d24559d104f475486ac461b', md5)
 
     def test_round4_fusion_runs(self):
         os.system(f'python -m pyserini.fusion --method rrf --runs ' +
@@ -106,7 +106,7 @@ class TestRRF(unittest.TestCase):
 
         with open(f'{self.tmp}/anserini.covid-r4.fusion1.txt', 'rb') as f:
             md5 = hashlib.md5(f.read()).hexdigest()
-        self.assertEqual('8ae9d1fca05bd1d9bfe7b24d1bdbe270', md5)
+        self.assertEqual('0dfced296c0c2c44067796b384a038a2', md5)
 
         os.system(f'python -m pyserini.fusion --method rrf --runs ' +
                   f'{self.tmp}/anserini.covid-r4.abstract.qdel.bm25.txt ' +
@@ -117,7 +117,7 @@ class TestRRF(unittest.TestCase):
 
         with open(f'{self.tmp}/anserini.covid-r4.fusion2.txt', 'rb') as f:
             md5 = hashlib.md5(f.read()).hexdigest()
-        self.assertEqual('e1894209c815c96c6ddd4cacb578261a', md5)
+        self.assertEqual('468830f80ba5e86f3f98699e77a4cfd6', md5)
 
     def tearDown(self):
         shutil.rmtree(self.tmp)

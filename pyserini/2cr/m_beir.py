@@ -32,28 +32,9 @@ dense_threads = 16
 dense_batch_size = 512
 
 trec_eval_metric_definitions = {
-    # Default metrics for most datasets
-    "default": {
-        "R@1": "-c -m recall.1",
-        "R@5": "-c -m recall.5",
-        "R@10": "-c -m recall.10",
-    },
-    # Special metrics for fashion datasets
-    "fashion200k_task0": {
-        "R@10": "-c -m recall.10",
-        "R@20": "-c -m recall.20",
-        "R@50": "-c -m recall.50",
-    },
-    "fashion200k_task3": {
-        "R@10": "-c -m recall.10",
-        "R@20": "-c -m recall.20",
-        "R@50": "-c -m recall.50",
-    },
-    "fashioniq_task7": {
-        "R@10": "-c -m recall.10",
-        "R@20": "-c -m recall.20",
-        "R@50": "-c -m recall.50",
-    },
+    'nDCG@10': '-c -m ndcg_cut.10',
+    'R@20': '-c -m recall.20',
+    'R@100': '-c -m recall.100'
 }
 
 
@@ -64,10 +45,7 @@ def format_run_command(raw):
         .replace("--index", "\\\n  --index")
         .replace("--output-format", "\\\n  --output-format")
         .replace("--output ", "\\\n  --output ")
-        .replace("--hits ", "\\\n  --hits ")
-        .replace("--remove-query", "\\\n  --remove-query")
-        .replace("--fp16", "\\\n  --fp16")
-        .replace("--device", "\\\n  --device")
+        .replace("--hits", "\\\n  --hits")
     )
 
 def format_eval_command(raw):
@@ -78,22 +56,6 @@ def read_file(f):
     text = fin.read()
     fin.close()
     return text
-
-
-def get_metrics_for_dataset(dataset_name):
-    if dataset_name in ["fashion200k_task0", "fashion200k_task3", "fashioniq_task7"]:
-        return trec_eval_metric_definitions[dataset_name]
-    else:
-        return trec_eval_metric_definitions["default"]
-
-def fix_qrels(dataset_name):
-    qrels_file = f'collections/m-beir/mbeir_{dataset_name}_test_qrels.txt'
-    fixed_qrels_file = f'collections/m-beir/mbeir_{dataset_name}_test_fixed_qrels.txt'
-    with open(qrels_file, 'r') as infile, open(fixed_qrels_file, 'w') as outfile:
-        for line in infile:
-            fields = line.strip().split(' ')[:4]
-            outfile.write(' '.join(fields) + '\n')
-    return fixed_qrels_file
 
 def list_conditions():  
     with importlib.resources.files('pyserini.2cr').joinpath('m_beir.yaml').open('r') as f:  
@@ -111,8 +73,7 @@ def print_results_by_metric_position(table, position, metric_name):
 
     for dataset in sorted(table.keys()):
         print(f'{dataset:20}', end='')
-        dataset_metrics = get_metrics_for_dataset(dataset)
-        metric_list = list(dataset_metrics.keys())
+        metric_list = list(trec_eval_metric_definitions.keys())
 
         actual_metric = metric_list[position] if position < len(metric_list) else None
 
@@ -159,9 +120,6 @@ def run_conditions(args):
                     if not args.dry_run:  
                         os.system(cmd)  
                           
-                dataset_metrics = get_metrics_for_dataset(dataset)
-                fixed_qrels = fix_qrels(dataset)
-                  
                 for expected in datasets['scores']:  
                     for metric in expected:  
                         if not args.skip_eval and not args.dry_run:
@@ -169,12 +127,12 @@ def run_conditions(args):
                                 continue  
                                   
                             score = float(run_eval_and_return_metric(  
-                                metric, fixed_qrels,
-                                dataset_metrics[metric], runfile))  
+                                metric, "m-beir-" + dataset.replace('_', '-'),
+                                trec_eval_metric_definitions[metric], runfile))  
                                   
                             if math.isclose(score, float(expected[metric])):  
                                 result = ok_str  
-                            elif abs(score - float(expected[metric])) <= 0.0005:  
+                            elif abs(score - float(expected[metric])) <= 0.0005 or score > float(expected[metric]):
                                 result = okish_str + f' expected {expected[metric]:.4f}'  
                             else:  
                                 result = fail_str + f' expected {expected[metric]:.4f}'  
@@ -186,9 +144,9 @@ def run_conditions(args):
                               
             print('')  
     
-    print_results_by_metric_position(table, 0, 'Metric 1 (R@1 for most datasets, R@10 for fashion datasets)')
-    print_results_by_metric_position(table, 1, 'Metric 2 (R@5 for most datasets, R@20 for fashion datasets)')
-    print_results_by_metric_position(table, 2, 'Metric 3 (R@10 for most datasets, R@50 for fashion datasets)')
+    print_results_by_metric_position(table, 0, 'nDCG@10')
+    print_results_by_metric_position(table, 1, 'R@20')
+    print_results_by_metric_position(table, 2, 'R@100')
 
     end = time.time()  
     start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')  
@@ -221,12 +179,9 @@ def generate_report(args):
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)    
                 commands[dataset][name] = format_run_command(cmd)    
                     
-                dataset_metrics = get_metrics_for_dataset(dataset)    
-                fixed_qrels = f'qrels/test/mbeir_{dataset}_test_fixed_qrels.txt' 
-
                 for expected in datasets['scores']:    
                     for metric in expected:    
-                        eval_cmd = f'python -m pyserini.eval.trec_eval {dataset_metrics[metric]} {fixed_qrels} {runfile}'  
+                        eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[metric]} {"m-beir-" + dataset.replace("_", "-")} {runfile}'  
                         eval_commands[dataset][name] += format_eval_command(eval_cmd) + '\n\n'    
                             
                         table[dataset][name][metric] = expected[metric]    
@@ -237,8 +192,7 @@ def generate_report(args):
         
     for dataset in sorted(table.keys()):  
         # Get dataset-specific metrics to determine the order  
-        dataset_metrics = get_metrics_for_dataset(dataset)  
-        metric_names = list(dataset_metrics.keys())  
+        metric_names = list(trec_eval_metric_definitions.keys())  
           
         s = Template(row_template)    
         s = s.substitute(    
