@@ -28,10 +28,19 @@ import numpy as np
 from transformers.file_utils import requires_backends
 
 from pyserini.encode import QueryEncoder, AutoQueryEncoder
-from pyserini.encode import AnceQueryEncoder, BprQueryEncoder, DprQueryEncoder, TctColBertQueryEncoder
+from pyserini.encode import (
+    AnceQueryEncoder,
+    BprQueryEncoder,
+    DprQueryEncoder,
+    TctColBertQueryEncoder,
+)
 from pyserini.index import Document
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.util import download_prebuilt_index, get_dense_indexes_info, get_sparse_index
+from pyserini.util import (
+    download_prebuilt_index,
+    get_dense_indexes_info,
+    get_sparse_index,
+)
 from ._prf import PrfDenseSearchResult
 
 
@@ -50,8 +59,13 @@ class FaissSearcher:
         Path to faiss index directory.
     """
 
-    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str],
-                 prebuilt_index_name: Optional[str] = None, normalize_distances: bool = False):
+    def __init__(
+        self,
+        index_dir: str,
+        query_encoder: Union[QueryEncoder, str],
+        prebuilt_index_name: Optional[str] = None,
+        normalize_distances: bool = False,
+    ):
         requires_backends(self, "faiss")
         if not isinstance(query_encoder, str):
             self.query_encoder = query_encoder
@@ -68,7 +82,12 @@ class FaissSearcher:
             self.ssearcher = LuceneSearcher.from_prebuilt_index(sparse_index)
 
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: QueryEncoder, normalize_distances: bool = False):
+    def from_prebuilt_index(
+        cls,
+        prebuilt_index_name: str,
+        query_encoder: QueryEncoder,
+        normalize_distances: bool = False,
+    ):
         """Build a searcher from a prebuilt index; download the index if necessary.
 
         Parameters
@@ -124,13 +143,21 @@ class FaissSearcher:
         np.ndarray
             Normalized scores if INNER_PRODUCT metric is used
         """
-        if hasattr(self.index, 'metric_type') and self.index.metric_type == 0:  # INNER_PRODUCT
+        if (
+            hasattr(self.index, 'metric_type') and self.index.metric_type == 0
+        ):  # INNER_PRODUCT
             distances = np.array(distances)  # Ensure it's a numpy array
             distances = (1.0 + distances) / 2.0
         return distances
 
-    def search(self, query: Union[str, np.ndarray, Dict], k: int = 10, threads: int = 1, remove_dups: bool = False, return_vector: bool = False) \
-            -> Union[List[DenseSearchResult], Tuple[np.ndarray, List[PrfDenseSearchResult]]]:
+    def search(
+        self,
+        query: Union[str, np.ndarray, Dict],
+        k: int = 10,
+        threads: int = 1,
+        remove_dups: bool = False,
+        return_vector: bool = False,
+    ) -> Union[List[DenseSearchResult], Tuple[np.ndarray, List[PrfDenseSearchResult]]]:
         """Search the collection.
 
         Parameters
@@ -142,7 +169,7 @@ class FaissSearcher:
         threads : int
             Maximum number of threads to use for intra-query search.
         remove_dups : bool
-            Remove duplicate docids when writing final run output.    
+            Remove duplicate docids when writing final run output.
         return_vector : bool
             Return the results with vectors
         Returns
@@ -169,8 +196,11 @@ class FaissSearcher:
             vectors = vectors[0]
             distances = distances.flat
             indexes = indexes.flat
-            return emb_q, [PrfDenseSearchResult(self.docids[idx], score, vector)
-                           for score, idx, vector in zip(distances, indexes, vectors) if idx != -1]
+            return emb_q, [
+                PrfDenseSearchResult(self.docids[idx], score, vector)
+                for score, idx, vector in zip(distances, indexes, vectors)
+                if idx != -1
+            ]
         else:
             distances, indexes = self.index.search(emb_q, k)
             distances = distances.flat
@@ -183,14 +213,25 @@ class FaissSearcher:
                 for score, idx in zip(distances, indexes):
                     if idx not in unique_docs:
                         unique_docs.add(idx)
-                        results.append(DenseSearchResult(self.docids[idx],score))
+                        results.append(DenseSearchResult(self.docids[idx], score))
                 return results
-            return [DenseSearchResult(self.docids[idx], score)
-                    for score, idx in zip(distances, indexes) if idx != -1]
+            return [
+                DenseSearchResult(self.docids[idx], score)
+                for score, idx in zip(distances, indexes)
+                if idx != -1
+            ]
 
-    def batch_search(self, queries: Union[List[str], np.ndarray, List[Dict]], q_ids: List[str], k: int = 10,
-                     threads: int = 1, return_vector: bool = False) \
-            -> Union[Dict[str, List[DenseSearchResult]], Tuple[np.ndarray, Dict[str, List[PrfDenseSearchResult]]]]:
+    def batch_search(
+        self,
+        queries: Union[List[str], np.ndarray, List[Dict]],
+        q_ids: List[str],
+        k: int = 10,
+        threads: int = 1,
+        return_vector: bool = False,
+    ) -> Union[
+        Dict[str, List[DenseSearchResult]],
+        Tuple[np.ndarray, Dict[str, List[PrfDenseSearchResult]]],
+    ]:
         """
 
         Parameters
@@ -216,33 +257,45 @@ class FaissSearcher:
         if isinstance(queries, np.ndarray):
             q_embs = queries
         else:
+
             def _enc(q):
                 if isinstance(q, dict):
                     return self.query_encoder.encode(**q)
                 assert isinstance(q, str)
                 return self.query_encoder.encode(q)
+
             q_embs = [_enc(q) for q in queries]
             if len(q_embs[0]) == self.dimension:
                 q_embs = np.array(q_embs)
             else:
                 assert isinstance(q_embs[0], np.ndarray)
-                q_embs =[q_emb.reshape((1, self.dimension)) for q_emb in q_embs]
+                q_embs = [q_emb.reshape((1, self.dimension)) for q_emb in q_embs]
                 q_embs = np.vstack(q_embs)
             n, m = q_embs.shape
             assert m == self.dimension
         faiss.omp_set_num_threads(threads)
         if return_vector:
             D, I, V = self.index.search_and_reconstruct(q_embs, k)
-            return q_embs, {key: [PrfDenseSearchResult(self.docids[idx], score, vector)
-                                  for score, idx, vector in zip(distances, indexes, vectors) if idx != -1]
-                            for key, distances, indexes, vectors in zip(q_ids, D, I, V)}
+            return q_embs, {
+                key: [
+                    PrfDenseSearchResult(self.docids[idx], score, vector)
+                    for score, idx, vector in zip(distances, indexes, vectors)
+                    if idx != -1
+                ]
+                for key, distances, indexes, vectors in zip(q_ids, D, I, V)
+            }
         else:
             D, I = self.index.search(q_embs, k)
             if self.normalize_distances:
                 D = self._normalize_to_unit_interval(D)
-            return {key: [DenseSearchResult(self.docids[idx], score)
-                          for score, idx in zip(distances, indexes) if idx != -1]
-                    for key, distances, indexes in zip(q_ids, D, I)}
+            return {
+                key: [
+                    DenseSearchResult(self.docids[idx], score)
+                    for score, idx in zip(distances, indexes)
+                    if idx != -1
+                ]
+                for key, distances, indexes in zip(q_ids, D, I)
+            }
 
     def load_index(self, index_dir: str):
         index_path = os.path.join(index_dir, 'index')
@@ -254,7 +307,7 @@ class FaissSearcher:
     def doc(self, docid: Union[str, int]) -> Optional[Document]:
         """Return the :class:`Document` corresponding to ``docid``. Since dense indexes don't store documents
         but sparse indexes do, route over to corresponding sparse index (according to prebuilt_index_info.py)
-        and use its doc API 
+        and use its doc API
 
         Parameters
         ----------
@@ -289,7 +342,7 @@ class FaissSearcher:
         docids = [line.rstrip() for line in id_f.readlines()]
         id_f.close()
         return docids
-    
+
     def set_hnsw_ef_search(self, ef_search: int):
         self.index.hnsw.efSearch = ef_search
 
@@ -303,12 +356,22 @@ class BinaryDenseFaissSearcher(FaissSearcher):
         Path to faiss index directory.
     """
 
-    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str],
-                 prebuilt_index_name: Optional[str] = None):
+    def __init__(
+        self,
+        index_dir: str,
+        query_encoder: Union[QueryEncoder, str],
+        prebuilt_index_name: Optional[str] = None,
+    ):
         super().__init__(index_dir, query_encoder, prebuilt_index_name)
 
-    def search(self, query: str, k: int = 10, binary_k: int = 100, rerank: bool = True, threads: int = 1) \
-            -> List[DenseSearchResult]:
+    def search(
+        self,
+        query: str,
+        k: int = 10,
+        binary_k: int = 100,
+        rerank: bool = True,
+        threads: int = 1,
+    ) -> List[DenseSearchResult]:
         """Search the collection.
 
         Parameters
@@ -337,14 +400,26 @@ class BinaryDenseFaissSearcher(FaissSearcher):
         dense_emb_q = dense_emb_q.reshape((1, len(dense_emb_q)))
         sparse_emb_q = sparse_emb_q.reshape((1, len(sparse_emb_q)))
         faiss.omp_set_num_threads(threads)
-        distances, indexes = self.binary_dense_search(k, binary_k, rerank, dense_emb_q, sparse_emb_q)
+        distances, indexes = self.binary_dense_search(
+            k, binary_k, rerank, dense_emb_q, sparse_emb_q
+        )
         distances = distances.flat
         indexes = indexes.flat
-        return [DenseSearchResult(str(idx), score)
-                for score, idx in zip(distances, indexes) if idx != -1]
+        return [
+            DenseSearchResult(str(idx), score)
+            for score, idx in zip(distances, indexes)
+            if idx != -1
+        ]
 
-    def batch_search(self, queries: List[str], q_ids: List[str], k: int = 10, binary_k: int = 100,
-                     rerank: bool = True, threads: int = 1) -> Dict[str, List[DenseSearchResult]]:
+    def batch_search(
+        self,
+        queries: List[str],
+        q_ids: List[str],
+        k: int = 10,
+        binary_k: int = 100,
+        rerank: bool = True,
+        threads: int = 1,
+    ) -> Dict[str, List[DenseSearchResult]]:
         """
 
         Parameters
@@ -379,14 +454,23 @@ class BinaryDenseFaissSearcher(FaissSearcher):
         n, m = dense_q_embs.shape
         assert m == self.dimension
         faiss.omp_set_num_threads(threads)
-        D, I = self.binary_dense_search(k, binary_k, rerank, dense_q_embs, sparse_q_embs)
-        return {key: [DenseSearchResult(str(idx), score)
-                      for score, idx in zip(distances, indexes) if idx != -1]
-                for key, distances, indexes in zip(q_ids, D, I)}
+        D, I = self.binary_dense_search(
+            k, binary_k, rerank, dense_q_embs, sparse_q_embs
+        )
+        return {
+            key: [
+                DenseSearchResult(str(idx), score)
+                for score, idx in zip(distances, indexes)
+                if idx != -1
+            ]
+            for key, distances, indexes in zip(q_ids, D, I)
+        }
 
     def binary_dense_search(self, k, binary_k, rerank, dense_emb_q, sparse_emb_q):
         num_queries = dense_emb_q.shape[0]
-        sparse_emb_q = np.packbits(np.where(sparse_emb_q > 0, 1, 0)).reshape(num_queries, -1)
+        sparse_emb_q = np.packbits(np.where(sparse_emb_q > 0, 1, 0)).reshape(
+            num_queries, -1
+        )
 
         if not rerank:
             distances, indexes = self.index.search(sparse_emb_q, k)
@@ -394,7 +478,10 @@ class BinaryDenseFaissSearcher(FaissSearcher):
             raw_index = self.index.index
             _, indexes = raw_index.search(sparse_emb_q, binary_k)
             sparse_emb_p = np.vstack(
-                [np.unpackbits(raw_index.reconstruct(int(id_))) for id_ in indexes.reshape(-1)]
+                [
+                    np.unpackbits(raw_index.reconstruct(int(id_)))
+                    for id_ in indexes.reshape(-1)
+                ]
             )
             sparse_emb_p = sparse_emb_p.reshape(
                 dense_emb_q.shape[0], binary_k, dense_emb_q.shape[1]
@@ -405,9 +492,14 @@ class BinaryDenseFaissSearcher(FaissSearcher):
             sorted_indices = np.argsort(-distances, axis=1)
 
             indexes = indexes[np.arange(num_queries)[:, None], sorted_indices]
-            indexes = np.array([self.index.id_map.at(int(id_)) for id_ in indexes.reshape(-1)], dtype=np.int32)
+            indexes = np.array(
+                [self.index.id_map.at(int(id_)) for id_ in indexes.reshape(-1)],
+                dtype=np.int32,
+            )
             indexes = indexes.reshape(num_queries, -1)[:, :k]
-            distances = distances[np.arange(num_queries)[:, None], sorted_indices][:, :k]
+            distances = distances[np.arange(num_queries)[:, None], sorted_indices][
+                :, :k
+            ]
         return distances, indexes
 
     def load_index(self, index_dir: str):

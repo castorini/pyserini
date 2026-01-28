@@ -468,6 +468,7 @@ topics_mapping = {
     'ciral-v1.0-sw-dev-native': 'CIRAL_V10_SW_DEV_MONO',
     'ciral-v1.0-yo-dev-native': 'CIRAL_V10_YO_DEV_MONO',
 
+    # Bright topics
     'bright-biology': 'BRIGHT_BIOLOGY',
     'bright-earth-science': 'BRIGHT_EARTH_SCIENCE',
     'bright-economics': 'BRIGHT_ECONOMICS',
@@ -484,6 +485,7 @@ topics_mapping = {
     # DSE topics
     'slidevqa': 'SLIDEVQA_TEST',
     'wiki-ss-nq': 'WIKI_SS_NQ_TEST',
+
     # M-BEIR original test queries
     'm-beir-cirr_task7-test': 'M_BEIR_CIRR_TASK7_TEST',
     'm-beir-fashioniq_task7-test': 'M_BEIR_FASHIONIQ_TASK7_TEST',
@@ -501,6 +503,35 @@ topics_mapping = {
     'm-beir-webqa_task2-test': 'M_BEIR_WEBQA_TASK2_TEST',
     'm-beir-fashion200k_task0-test': 'M_BEIR_FASHION200K_TASK0_TEST',
     'm-beir-fashion200k_task3-test': 'M_BEIR_FASHION200K_TASK3_TEST',
+
+    # MMEB topics
+    'mmeb-visdoc-ViDoRe_arxivqa-test': 'MMEB_VISDOC_VIDORE_ARXIVQA_TEST',
+    'mmeb-visdoc-ViDoRe_docvqa-test': 'MMEB_VISDOC_VIDORE_DOCVQA_TEST',
+    'mmeb-visdoc-ViDoRe_infovqa-test': 'MMEB_VISDOC_VIDORE_INFOVQA_TEST',
+    'mmeb-visdoc-ViDoRe_shiftproject-test': 'MMEB_VISDOC_VIDORE_SHIFTPROJECT_TEST',
+    'mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence-test': 'MMEB_VISDOC_VIDORE_SYNTHETIC_DOCQA_ARTIFICIAL_INTELLIGENCE_TEST',
+    'mmeb-visdoc-ViDoRe_syntheticDocQA-energy-test': 'MMEB_VISDOC_VIDORE_SYNTHETIC_DOCQA_ENERGY_TEST',
+    'mmeb-visdoc-ViDoRe_syntheticDocQA-government-reports-test': 'MMEB_VISDOC_VIDORE_SYNTHETIC_DOCQA_GOVERNMENT_REPORTS_TEST',
+    'mmeb-visdoc-ViDoRe_syntheticDocQA-healthcare-industry-test': 'MMEB_VISDOC_VIDORE_SYNTHETIC_DOCQA_HEALTHCARE_INDUSTRY_TEST',
+    'mmeb-visdoc-ViDoRe_tabfquad-test': 'MMEB_VISDOC_VIDORE_TABFQUAD_TEST',
+    'mmeb-visdoc-ViDoRe_tatdqa-test': 'MMEB_VISDOC_VIDORE_TATDQA_TEST',
+    'mmeb-visdoc-ViDoRe_biomedical-lectures-v2-test': 'MMEB_VISDOC_VIDORE_BIOMEDICAL_LECTURES_V2_TEST',
+    'mmeb-visdoc-ViDoRe_biomedical-lectures-v2-multilingual-test': 'MMEB_VISDOC_VIDORE_BIOMEDICAL_LECTURES_V2_MULTILINGUAL_TEST',
+    'mmeb-visdoc-ViDoRe_economics-reports-v2-test': 'MMEB_VISDOC_VIDORE_ECONOMICS_REPORTS_V2_TEST',
+    'mmeb-visdoc-ViDoRe_economics-reports-v2-multilingual-test': 'MMEB_VISDOC_VIDORE_ECONOMICS_REPORTS_V2_MULTILINGUAL_TEST',
+    'mmeb-visdoc-ViDoRe_esg-reports-human-labeled-v2-test': 'MMEB_VISDOC_VIDORE_ESG_REPORTS_HUMAN_LABELED_V2_TEST',
+    'mmeb-visdoc-ViDoRe_esg-reports-v2-test': 'MMEB_VISDOC_VIDORE_ESG_REPORTS_V2_TEST',
+    'mmeb-visdoc-ViDoRe_esg-reports-v2-multilingual-test': 'MMEB_VISDOC_VIDORE_ESG_REPORTS_V2_MULTILINGUAL_TEST',
+    'mmeb-visdoc-VisRAG_ArxivQA-train': 'MMEB_VISDOC_VISRAG_ARXIVQA_TRAIN',
+    'mmeb-visdoc-VisRAG_ChartQA-train': 'MMEB_VISDOC_VISRAG_CHARTQA_TRAIN',
+    'mmeb-visdoc-VisRAG_InfoVQA-train': 'MMEB_VISDOC_VISRAG_INFOVQA_TRAIN',
+    'mmeb-visdoc-VisRAG_MP-DocVQA-train': 'MMEB_VISDOC_VISRAG_MP_DOCVQA_TRAIN',
+    'mmeb-visdoc-VisRAG_PlotQA-train': 'MMEB_VISDOC_VISRAG_PLOTQA_TRAIN',
+    'mmeb-visdoc-VisRAG_SlideVQA-train': 'MMEB_VISDOC_VISRAG_SLIDEVQA_TRAIN',
+    'mmeb-visdoc-ViDoSeek-doc-test': 'MMEB_VISDOC_VIDOSEEK_DOC_TEST',
+    'mmeb-visdoc-ViDoSeek-page-test': 'MMEB_VISDOC_VIDOSEEK_PAGE_TEST',
+    'mmeb-visdoc-MMLongBench-doc-test': 'MMEB_VISDOC_MMLONGBENCH_DOC_TEST',
+    'mmeb-visdoc-MMLongBench-page-test': 'MMEB_VISDOC_MMLONGBENCH_PAGE_TEST',
 }
 
 qrels_mapping = {
@@ -744,6 +775,35 @@ qrels_mapping = {
     'm-beir-webqa-task2': 'M_BEIR_WEBQA_TASK2_TEST',
     'm-beir-fashion200k-task0': 'M_BEIR_FASHION200K_TASK0_TEST',
     'm-beir-fashion200k-task3': 'M_BEIR_FASHION200K_TASK3_TEST',
+
+    # MMEB topics
+    'mmeb-visdoc-ViDoRe_arxivqa-test': 'MMEB_VISDOC_VIDORE_ARXIVQA_TEST',
+    'mmeb-visdoc-ViDoRe_docvqa-test': 'MMEB_VISDOC_VIDORE_DOCVQA_TEST',
+    'mmeb-visdoc-ViDoRe_infovqa-test': 'MMEB_VISDOC_VIDORE_INFOVQA_TEST',
+    'mmeb-visdoc-ViDoRe_shiftproject-test': 'MMEB_VISDOC_VIDORE_SHIFTPROJECT_TEST',
+    'mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence-test': 'MMEB_VISDOC_VIDORE_SYNTHETIC_DOCQA_ARTIFICIAL_INTELLIGENCE_TEST',
+    'mmeb-visdoc-ViDoRe_syntheticDocQA-energy-test': 'MMEB_VISDOC_VIDORE_SYNTHETIC_DOCQA_ENERGY_TEST',
+    'mmeb-visdoc-ViDoRe_syntheticDocQA-government-reports-test': 'MMEB_VISDOC_VIDORE_SYNTHETIC_DOCQA_GOVERNMENT_REPORTS_TEST',
+    'mmeb-visdoc-ViDoRe_syntheticDocQA-healthcare-industry-test': 'MMEB_VISDOC_VIDORE_SYNTHETIC_DOCQA_HEALTHCARE_INDUSTRY_TEST',
+    'mmeb-visdoc-ViDoRe_tabfquad-test': 'MMEB_VISDOC_VIDORE_TABFQUAD_TEST',
+    'mmeb-visdoc-ViDoRe_tatdqa-test': 'MMEB_VISDOC_VIDORE_TATDQA_TEST',
+    'mmeb-visdoc-ViDoRe_biomedical-lectures-v2-test': 'MMEB_VISDOC_VIDORE_BIOMEDICAL_LECTURES_V2_TEST',
+    'mmeb-visdoc-ViDoRe_biomedical-lectures-v2-multilingual-test': 'MMEB_VISDOC_VIDORE_BIOMEDICAL_LECTURES_V2_MULTILINGUAL_TEST',
+    'mmeb-visdoc-ViDoRe_economics-reports-v2-test': 'MMEB_VISDOC_VIDORE_ECONOMICS_REPORTS_V2_TEST',
+    'mmeb-visdoc-ViDoRe_economics-reports-v2-multilingual-test': 'MMEB_VISDOC_VIDORE_ECONOMICS_REPORTS_V2_MULTILINGUAL_TEST',
+    'mmeb-visdoc-ViDoRe_esg-reports-human-labeled-v2-test': 'MMEB_VISDOC_VIDORE_ESG_REPORTS_HUMAN_LABELED_V2_TEST',
+    'mmeb-visdoc-ViDoRe_esg-reports-v2-test': 'MMEB_VISDOC_VIDORE_ESG_REPORTS_V2_TEST',
+    'mmeb-visdoc-ViDoRe_esg-reports-v2-multilingual-test': 'MMEB_VISDOC_VIDORE_ESG_REPORTS_V2_MULTILINGUAL_TEST',
+    'mmeb-visdoc-VisRAG_ArxivQA-train': 'MMEB_VISDOC_VISRAG_ARXIVQA_TRAIN',
+    'mmeb-visdoc-VisRAG_ChartQA-train': 'MMEB_VISDOC_VISRAG_CHARTQA_TRAIN',
+    'mmeb-visdoc-VisRAG_InfoVQA-train': 'MMEB_VISDOC_VISRAG_INFOVQA_TRAIN',
+    'mmeb-visdoc-VisRAG_MP-DocVQA-train': 'MMEB_VISDOC_VISRAG_MP_DOCVQA_TRAIN',
+    'mmeb-visdoc-VisRAG_PlotQA-train': 'MMEB_VISDOC_VISRAG_PLOTQA_TRAIN',
+    'mmeb-visdoc-VisRAG_SlideVQA-train': 'MMEB_VISDOC_VISRAG_SLIDEVQA_TRAIN',
+    'mmeb-visdoc-ViDoSeek-doc-test': 'MMEB_VISDOC_VIDOSEEK_DOC_TEST',
+    'mmeb-visdoc-ViDoSeek-page-test': 'MMEB_VISDOC_VIDOSEEK_PAGE_TEST',
+    'mmeb-visdoc-MMLongBench-doc-test': 'MMEB_VISDOC_MMLONGBENCH_DOC_TEST',
+    'mmeb-visdoc-MMLongBench-page-test': 'MMEB_VISDOC_MMLONGBENCH_PAGE_TEST',
 }
 
 # Log warnings for missing mappings

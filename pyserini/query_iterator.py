@@ -38,10 +38,12 @@ class TopicsFormat(Enum):
 
 class QueryIterator(ABC):
 
-    PREDEFINED_ORDER = {'msmarco-doc-dev',
-                        'msmarco-doc-test',
-                        'msmarco-passage-dev-subset',
-                        'msmarco-passage-test-subset'}
+    PREDEFINED_ORDER = {
+        'msmarco-doc-dev',
+        'msmarco-doc-test',
+        'msmarco-passage-dev-subset',
+        'msmarco-passage-test-subset',
+    }
 
     def __init__(self, topics: dict, order: list = None):
         if order:
@@ -53,7 +55,7 @@ class QueryIterator(ABC):
                 # if not all topic ids are integers neither are all string,
                 # sort them by string representation
                 self.order = sorted(topics.keys(), key=str)
-       
+
         self.topics = topics
 
     @abstractmethod
@@ -82,6 +84,7 @@ class QueryIterator(ABC):
             print(f'Using pre-defined topic order for {normalized_path}')
             # Lazy import:
             from pyserini.query_iterator_order_info import QUERY_IDS
+
             order = QUERY_IDS[topics_path]
         return order
 
@@ -98,21 +101,41 @@ class DefaultQueryIterator(QueryIterator):
                 with open(topics_path, 'r') as f:
                     topics = json.load(f)
             elif 'beir' in topics_path:
-                topics = get_topics_with_reader('io.anserini.search.topicreader.TsvStringTopicReader', topics_path)
+                topics = get_topics_with_reader(
+                    'io.anserini.search.topicreader.TsvStringTopicReader', topics_path
+                )
             elif 'cacm' in topics_path:
-                topics = get_topics_with_reader('io.anserini.search.topicreader.CacmTopicReader', topics_path)
+                topics = get_topics_with_reader(
+                    'io.anserini.search.topicreader.CacmTopicReader', topics_path
+                )
             # If extension is tsv or txt we just assume file contains (qid, query) pairs.
-            elif topics_path.endswith('.tsv') or topics_path.endswith('.tsv.gz') or topics_path.endswith('.txt') or topics_path.endswith('.txt.gz'):
+            elif (
+                topics_path.endswith('.tsv')
+                or topics_path.endswith('.tsv.gz')
+                or topics_path.endswith('.txt')
+                or topics_path.endswith('.txt.gz')
+            ):
                 try:
-                    topics = get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', topics_path)
+                    topics = get_topics_with_reader(
+                        'io.anserini.search.topicreader.TsvIntTopicReader', topics_path
+                    )
                 except ValueError as e:
-                    topics = get_topics_with_reader('io.anserini.search.topicreader.TsvStringTopicReader', topics_path)
+                    topics = get_topics_with_reader(
+                        'io.anserini.search.topicreader.TsvStringTopicReader',
+                        topics_path,
+                    )
             elif topics_path.endswith('.trec'):
-                topics = get_topics_with_reader('io.anserini.search.topicreader.TrecTopicReader', topics_path)
+                topics = get_topics_with_reader(
+                    'io.anserini.search.topicreader.TrecTopicReader', topics_path
+                )
             elif topics_path.endswith('.jsonl'):
-                topics = get_topics_with_reader('io.anserini.search.topicreader.JsonStringTopicReader', topics_path)
+                topics = get_topics_with_reader(
+                    'io.anserini.search.topicreader.JsonStringTopicReader', topics_path
+                )
             else:
-                raise NotImplementedError(f"Not sure how to parse {topics_path}. Please specify the file extension.")
+                raise NotImplementedError(
+                    f"Not sure how to parse {topics_path}. Please specify the file extension."
+                )
         else:
             topics = get_topics(topics_path)
         if not topics:
@@ -172,16 +195,22 @@ class MultimodalQueryIterator(QueryIterator):
         """Prepare multimodal query, assume the file is placed near by the topic file."""
         query_path = os.path.join(self.topic_dir, self.topics[id_].get('path', ''))
         if not os.path.exists(query_path):
-            raise FileNotFoundError(f"Query file for ID {id_} not found at {query_path}")
+            raise FileNotFoundError(
+                f"Query file for ID {id_} not found at {query_path}"
+            )
         return query_path
 
     @classmethod
     def from_topics(cls, topics_path: str):
         if os.path.exists(topics_path):
             if topics_path.endswith('.jsonl'):
-                topics = get_topics_with_reader('io.anserini.search.topicreader.JsonStringTopicReader', topics_path)
+                topics = get_topics_with_reader(
+                    'io.anserini.search.topicreader.JsonStringTopicReader', topics_path
+                )
             else:
-                raise NotImplementedError(f"Not sure how to parse {topics_path}. Please specify the file extension.")
+                raise NotImplementedError(
+                    f"Not sure how to parse {topics_path}. Please specify the file extension."
+                )
         else:
             topics = get_topics(topics_path)
         if not topics:
@@ -189,6 +218,7 @@ class MultimodalQueryIterator(QueryIterator):
         order = QueryIterator.get_predefined_order(topics_path)
         cls.topic_dir = os.path.dirname(topics_path)
         return cls(topics, order)
+
 
 class MBEIRQueryIterator(QueryIterator):
     def __init__(self, topics: dict, order: list = None, topic_dir: str = None):
@@ -209,7 +239,9 @@ class MBEIRQueryIterator(QueryIterator):
         else:
             query_img_path = os.path.join(self.topic_dir, query_img_path)
             if not os.path.exists(query_img_path):
-                raise FileNotFoundError(f"Query image for ID {id_} not found at {query_img_path}")
+                raise FileNotFoundError(
+                    f"Query image for ID {id_} not found at {query_img_path}"
+                )
 
         query_data = {
             'instr_file': topic['instr_file'],
@@ -249,8 +281,9 @@ class MBEIRQueryIterator(QueryIterator):
                 instr_file = name_to_instr_file[name]
                 break
 
-
-        if not os.path.exists(topics_path): # try to get topics from topics_mapping registry
+        if not os.path.exists(
+            topics_path
+        ):  # try to get topics from topics_mapping registry
             try:
                 topics = get_topics(topics_path)
                 if not topics:
@@ -264,10 +297,14 @@ class MBEIRQueryIterator(QueryIterator):
 
                 if not os.path.exists(images_dir):
                     query_images_and_instructions_url = "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/mbeir_query_images_and_instructions.tar.gz"
-                    tar_path = os.path.join(cache_dir, 'mbeir_query_images_and_instructions.tar.gz')
+                    tar_path = os.path.join(
+                        cache_dir, 'mbeir_query_images_and_instructions.tar.gz'
+                    )
 
-                    try:  
-                        download_url(query_images_and_instructions_url, cache_dir, force=False)
+                    try:
+                        download_url(
+                            query_images_and_instructions_url, cache_dir, force=False
+                        )
                         with tarfile.open(tar_path, 'r:gz') as tar:
                             tar.extractall(cache_dir)
                     except Exception as e:
@@ -298,6 +335,7 @@ class MBEIRQueryIterator(QueryIterator):
         topic_dir = os.path.dirname(topics_path)
         return cls(topics, order, topic_dir)
 
+
 class MMEBQueryIterator(QueryIterator):
     def get_query(self, id_):
         topic = self.topics[id_]
@@ -313,6 +351,7 @@ class MMEBQueryIterator(QueryIterator):
                 topics[data['qid']] = data
                 order.append(data['qid'])
         return cls(topics, order)
+
 
 def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
     mapping = {
