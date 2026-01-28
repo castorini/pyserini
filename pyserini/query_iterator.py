@@ -32,6 +32,7 @@ class TopicsFormat(Enum):
     KILT = 'kilt'
     Multimodal = 'multimodal'
     MBEIR = 'mbeir'
+    MMEB = 'mmeb'
 
 
 class QueryIterator(ABC):
@@ -230,11 +231,28 @@ class MBEIRQueryIterator(QueryIterator):
         topic_dir = os.path.dirname(topics_path)
         return cls(topics, order, topic_dir)
 
+class MMEBQueryIterator(QueryIterator):
+    def get_query(self, id_):
+        topic = self.topics[id_]
+        return {"qid": id_, "query": topic["query"]}
+
+    @classmethod
+    def from_topics(cls, topics_path: str):
+        topics = {}
+        order = []
+        with open(topics_path, 'r') as f:
+            for line in f:
+                data = json.loads(line)
+                topics[data['qid']] = data
+                order.append(data['qid'])
+        return cls(topics, order)
+
 def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
     mapping = {
         TopicsFormat.DEFAULT: DefaultQueryIterator,
         TopicsFormat.KILT: KiltQueryIterator,
         TopicsFormat.Multimodal: MultimodalQueryIterator,
         TopicsFormat.MBEIR: MBEIRQueryIterator,
+        TopicsFormat.MMEB: MMEBQueryIterator,
     }
     return mapping[topics_format].from_topics(topics_path)
