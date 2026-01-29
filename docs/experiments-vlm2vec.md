@@ -13,7 +13,7 @@ Its requirements.txt have `torch`, and `flash-attn` pinned so that they are comp
 The `transformers` version is also pinned since the codebase doesn't work with versions >=5.0.0
 and some of the models used here require even older versions. 
 
-## Data Prepration
+## Data Preparation
 1. Download the visdoc datasets
 ```bash
 LOCAL_DIR="./MMEB-V2" # <--- change this to the desired local directory
@@ -21,13 +21,13 @@ PYSERINI_DATA_DIR="$LOCAL_DIR/visdoc-tasks/pyserini"
 python -m vlm2vec_for_pyserini.pyserini_integration.download_visdoc --local-dir $LOCAL_DIR
 ```
 
-2. Exctract them
+2. Extract them
 ```bash
 tar -zxf $LOCAL_DIR/visdoc-tasks/visdoc-tasks.data.tar.gz -C $LOCAL_DIR/visdoc-tasks
 tar -zxf $LOCAL_DIR/visdoc-tasks/visdoc-tasks.images.tar.gz -C $LOCAL_DIR/visdoc-tasks
 ```
 
-3. Process parquet files and store topics and qrels in pyserini compatible formats. For images
+3. Process parquet files and store topics and qrels in Pyserini compatible formats. For images
 `save_pyserini_data` will store them locally and save their path in the corpus.
 ```bash
 VLM2VEC_PKG_DIR=$(python - <<'EOF'
@@ -180,6 +180,6 @@ done
 
 Expected output:
 ```
-TODO: 
+TODO: add results
 ```
 ## Reproduction Log[*](reproducibility.md)

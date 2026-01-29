@@ -776,7 +776,7 @@ qrels_mapping = {
     'm-beir-fashion200k-task0': 'M_BEIR_FASHION200K_TASK0_TEST',
     'm-beir-fashion200k-task3': 'M_BEIR_FASHION200K_TASK3_TEST',
 
-    # MMEB topics
+    # MMEB qrels
     'mmeb-visdoc-ViDoRe_arxivqa-test': 'MMEB_VISDOC_VIDORE_ARXIVQA_TEST',
     'mmeb-visdoc-ViDoRe_docvqa-test': 'MMEB_VISDOC_VIDORE_DOCVQA_TEST',
     'mmeb-visdoc-ViDoRe_infovqa-test': 'MMEB_VISDOC_VIDORE_INFOVQA_TEST',

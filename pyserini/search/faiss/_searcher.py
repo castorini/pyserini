@@ -178,9 +178,6 @@ class FaissSearcher:
             Either returns a list of search results.
             Or returns the query vector with the list of PRF dense search results with vectors.
         """
-        print("hhhheeeyyy in searcher's search function")
-        print(f"query: {query}")
-        print(f"encoder type: {type(self.query_encoder)}")
         if isinstance(query, str):
             emb_q = self.query_encoder.encode(query)
             assert len(emb_q) == self.dimension
