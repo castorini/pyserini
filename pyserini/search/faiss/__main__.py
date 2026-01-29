@@ -22,7 +22,7 @@ from tqdm import tqdm
 
 from pyserini.encode import (AnceQueryEncoder, AutoQueryEncoder,
                              BprQueryEncoder, QueryEncoder,
-                             query_encoder_class_map)
+                             query_encoder_class_map, MMEB_IMPORT_ERROR)
 from pyserini.encode.optional import PcaEncoder
 from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.query_iterator import TopicsFormat, get_query_iterator
@@ -72,6 +72,7 @@ def define_dsearch_args(parser):
             "arctic",
             "uniir",
             "dse",
+            "mmeb",
         ],
         default=None,
         help="which query encoder class to use. `default` would infer from the args.encoder",
@@ -90,7 +91,7 @@ def define_dsearch_args(parser):
         metavar="pooling strategy",
         required=False,
         default="cls",
-        choices=["cls", "mean", "last"],
+        choices=["cls", "mean", "last", "eos"],
         help="Pooling strategy for query encoder",
     )
     parser.add_argument(
@@ -308,6 +309,11 @@ def init_query_encoder(
                 raise ValueError("UniIR's query encoder class is not available (as the uniir-for-pyserini package is not installed or CLIP is not installed). Please run 'pip install pyserini[optional]' to install the uniir-for-pyserini package and run 'pip install git+https://github.com/openai/CLIP.git' to install CLIP.")
         if _encoder_class == "dse" or (encoder and "dse" in encoder.lower()):
             kwargs.update(dict(l2_norm=True, pooling=pooling, multimodal=multimodal))
+        if _encoder_class == "mmeb":
+            kwargs.update(dict(l2_norm=l2_norm, pooling=pooling))
+            if encoder_class is None:
+                raise ValueError(f"MMEB's query encoder class is not available. Have you installed the vlm2vec-for-pyserini package? Detailed error: {MMEB_IMPORT_ERROR}")
+
 
         return encoder_class(**kwargs)
 
