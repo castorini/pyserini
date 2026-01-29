@@ -72,8 +72,8 @@ datasets=(
     "VisRAG_PlotQA"
     "ViDoSeek-page"
     "ViDoSeek-doc"
-    "MMLongBench-doc"
     "MMLongBench-page"
+    "MMLongBench-doc"
 )
 
 declare -A models
@@ -159,22 +159,27 @@ done
 ```bash
 for model_name in "${!models[@]}"; do
     model_path=${models[$model_name]}
+    echo "Results for model: $model_name"
+    printf "%-50s | %-10s\n" "Dataset" "nDCG@5"
+    echo "-------------------------------------------------------------------"
     for dataset_name in "${datasets[@]}"; do
-        echo "Evaluating dataset: $dataset_name with model: $model_name"
         split=test
         if [[ "$dataset_name" == *"VisRAG"* ]]; then
             split=train
         fi
-        python -m pyserini.eval.trec_eval \
+        score=$(python -m pyserini.eval.trec_eval \
             -c -m ndcg_cut.5 \
             "tools/topics-and-qrels/qrels.mmeb-visdoc-${dataset_name}.${split}.txt" \
-            "runs/run.mmeb-visdoc-${dataset_name}.${model_name}.txt"
+            "runs_v1/run.mmeb-visdoc-${dataset_name}.${model_name}.txt" | grep 'ndcg_cut_5' | awk '{print $3}')
+        printf "%-50s | %-10s\n" "$dataset_name" "$score"
     done
+    echo "-------------------------------------------------------------------"
+    echo ""
 done
 ```
 
 Expected output:
 ```
-
+TODO: 
 ```
 ## Reproduction Log[*](reproducibility.md)
