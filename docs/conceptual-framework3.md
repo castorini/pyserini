@@ -63,7 +63,7 @@ pip install huggingface_hub
 Run the following command to log in to your Hugging Face account:
 
 ```bash
-huggingface-cli login
+hf auth login
 ```
 
 You’ll be prompted to enter your Hugging Face API token. You can generate a token from your Hugging Face account settings:
