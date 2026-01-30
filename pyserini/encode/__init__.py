@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+import traceback
+
 # This has to be first, otherwise we'll get circular import errors
 from ._base import QueryEncoder, DocumentEncoder, JsonlCollectionIterator, JsonlRepresentationWriter
 
@@ -40,6 +42,13 @@ try:
 except ImportError:
     UniIRCorpusEncoder = None
     UniIRQueryEncoder = None
+try:
+    from pyserini.encode.optional._mmeb import MMEBCorpusEncoder, MMEBQueryEncoder
+    MMEB_IMPORT_ERROR = None
+except ImportError:
+    MMEBCorpusEncoder = None
+    MMEBQueryEncoder = None
+    MMEB_IMPORT_ERROR = traceback.format_exc()
 
 
 document_encoder_class_map = {
@@ -58,6 +67,7 @@ document_encoder_class_map = {
     "uniir": UniIRCorpusEncoder,
     "splade": SpladeDocumentEncoder,
     "dse": DseDocumentEncoder,
+    "mmeb": MMEBCorpusEncoder,
 }
 
 query_encoder_class_map = {
@@ -76,4 +86,5 @@ query_encoder_class_map = {
     "arctic": ArcticQueryEncoder,
     "uniir": UniIRQueryEncoder,
     "dse": DseQueryEncoder,
+    "mmeb": MMEBQueryEncoder,
 }

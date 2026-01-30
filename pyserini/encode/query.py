@@ -19,7 +19,7 @@ import argparse
 import numpy as np
 import pandas as pd
 from pyserini.encode import AnceQueryEncoder, ArcticQueryEncoder, AutoQueryEncoder, CosDprQueryEncoder, \
-    DprQueryEncoder, DseQueryEncoder, OpenAiQueryEncoder, SpladeQueryEncoder, TctColBertQueryEncoder, UniCoilQueryEncoder
+    DprQueryEncoder, DseQueryEncoder, MMEBQueryEncoder, OpenAiQueryEncoder, SpladeQueryEncoder, TctColBertQueryEncoder, UniCoilQueryEncoder, MMEB_IMPORT_ERROR
 from pyserini.query_iterator import DefaultQueryIterator
 from tqdm import tqdm
 
@@ -45,6 +45,10 @@ def init_encoder(encoder, device, pooling, l2_norm, prefix):
         return ArcticQueryEncoder(encoder, device=device)
     elif 'dse' in encoder.lower():
         return DseQueryEncoder(encoder_dir=encoder, device=device, pooling=pooling, l2_norm=l2_norm)
+    elif 'mmeb' in encoder.lower():
+        if MMEBQueryEncoder is None:
+            raise ValueError(f"MMEB's query encoder class is not available. Have you installed the vlm2vec-for-pyserini package? Detailed stack trace:\n {MMEB_IMPORT_ERROR}")
+        return MMEBQueryEncoder(encoder_dir=encoder, device=device, pooling=pooling, l2_norm=l2_norm)
     else:
         return AutoQueryEncoder(encoder, device=device, pooling=pooling, l2_norm=l2_norm, prefix=prefix)
 

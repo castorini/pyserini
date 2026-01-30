@@ -18,7 +18,7 @@ import argparse
 import sys
 
 from pyserini.encode import AutoDocumentEncoder
-from pyserini.encode import document_encoder_class_map
+from pyserini.encode import document_encoder_class_map, MMEB_IMPORT_ERROR
 from pyserini.encode import OPENAI_API_RETRY_DELAY
 from pyserini.encode import JsonlRepresentationWriter, JsonlCollectionIterator
 from pyserini.encode.optional import FaissRepresentationWriter
@@ -60,6 +60,10 @@ def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multi
             raise ValueError("UniIR's corpus encoder class is not available (as the uniir-for-pyserini package is not installed or CLIP is not installed). Please run 'pip install pyserini[optional]' to install the uniir-for-pyserini package and run 'pip install git+https://github.com/openai/CLIP.git' to install CLIP.")
     if _encoder_class == 'dse' or 'dse' in encoder.lower():
         kwargs.update(dict(l2_norm=True, multimodal=multimodal, pooling=pooling))
+    if _encoder_class == 'mmeb':
+        kwargs.update(dict(l2_norm=l2_norm, pooling=pooling))
+        if encoder_class is None:
+            raise ValueError(f"MMEB's corpus encoder class is not available. Have you installed the vlm2vec-for-pyserini package? Detailed stack trace:\n {MMEB_IMPORT_ERROR}")
     return encoder_class(**kwargs)
 
 
@@ -107,7 +111,7 @@ if __name__ == '__main__':
     encoder_parser = commands.add_parser('encoder')
     encoder_parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
     encoder_parser.add_argument('--encoder-class', type=str, required=False, default=None,
-                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto", "contriever", "arctic", "splade", "uniir", "dse"],
+                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto", "contriever", "arctic", "splade", "uniir", "dse", "mmeb"],
                                 help='which query encoder class to use. `default` would infer from the args.encoder')
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
     encoder_parser.add_argument('--multimodal', action='store_true', default=False)
@@ -118,7 +122,7 @@ if __name__ == '__main__':
                                 default='cuda:0', required=False)
     encoder_parser.add_argument('--fp16', action='store_true', default=False)
     encoder_parser.add_argument('--add-sep', action='store_true', default=False)
-    encoder_parser.add_argument('--pooling', type=str, default='cls', help='for auto classes, allow the ability to dictate pooling strategy', choices=['cls', 'mean', 'last'], required=False)
+    encoder_parser.add_argument('--pooling', type=str, default='cls', help='for auto classes, allow the ability to dictate pooling strategy', choices=['cls', 'mean', 'last', 'eos'], required=False)
     encoder_parser.add_argument('--l2-norm', action='store_true', help='whether to normalize embedding', default=False, required=False)
     encoder_parser.add_argument('--prefix', type=str, help='prefix of document input', default=None, required=False)
     encoder_parser.add_argument('--use-openai', help='use OpenAI text-embedding-ada-002 to retreive embeddings', action='store_true', default=False)
