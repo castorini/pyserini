@@ -155,7 +155,7 @@ done
 ```
 
 ## Evaluation
-`ndcg@5` is the metric used in the MMEB leaderboard and is what we use here for easior comparison.
+`nDCG@5` is the metric used in the MMEB leaderboard and is what we use here for easior comparison.
 ```bash
 for model_name in "${!models[@]}"; do
     model_path=${models[$model_name]}
@@ -179,7 +179,93 @@ done
 ```
 
 Expected output:
+Note: nDCG@5 differences of up to 0.15 are acceptable.
 ```
-TODO: add results
+Results for model: LamRA-Ret
+Dataset                                            | nDCG@5    
+-------------------------------------------------------------------
+ViDoRe_arxivqa                                     | 0.1029    
+ViDoRe_docvqa                                      | 0.1874    
+ViDoRe_infovqa                                     | 0.4657    
+ViDoRe_tabfquad                                    | 0.4170    
+ViDoRe_tatdqa                                      | 0.1170    
+ViDoRe_shiftproject                                | 0.1143    
+ViDoRe_syntheticDocQA_artificial_intelligence      | 0.1099    
+ViDoRe_syntheticDocQA_energy                       | 0.2543    
+ViDoRe_syntheticDocQA_government_reports           | 0.1583    
+ViDoRe_syntheticDocQA_healthcare_industry          | 0.2679   
+ViDoRe_esg_reports_human_labeled_v2                | 0.1437   
+ViDoRe_biomedical_lectures_v2_multilingual         | 0.0693    
+ViDoRe_economics_reports_v2_multilingual           | 0.0956    
+ViDoRe_esg_reports_v2_multilingual                 | 0.1192    
+VisRAG_ArxivQA                                     | 0.0225    
+VisRAG_ChartQA                                     | 0.4164    
+VisRAG_MP-DocVQA                                   | 0.3366    
+VisRAG_SlideVQA                                    | 0.4757    
+VisRAG_InfoVQA                                     | 0.5577    
+VisRAG_PlotQA                                      | 0.3393    
+ViDoSeek-page                                      | 0.1097    
+ViDoSeek-doc                                       | 0.3713
+MMLongBench-page                                   | 0.0763   
+MMLongBench-doc                                    | 0.2739   
+-------------------------------------------------------------------
+
+Results for model: gme-Qwen2-VL-2B-Instruct
+Dataset                                            | nDCG@5    
+-------------------------------------------------------------------
+ViDoRe_arxivqa                                     | 0.8256    
+ViDoRe_docvqa                                      | 0.5245    
+ViDoRe_infovqa                                     | 0.9016    
+ViDoRe_tabfquad                                    | 0.9374    
+ViDoRe_tatdqa                                      | 0.6988    
+ViDoRe_shiftproject                                | 0.8930    
+ViDoRe_syntheticDocQA_artificial_intelligence      | 0.9715    
+ViDoRe_syntheticDocQA_energy                       | 0.9191    
+ViDoRe_syntheticDocQA_government_reports           | 0.9425    
+ViDoRe_syntheticDocQA_healthcare_industry          | 0.9906    
+ViDoRe_esg_reports_human_labeled_v2                | 0.5109    
+ViDoRe_biomedical_lectures_v2_multilingual         | 0.5313    
+ViDoRe_economics_reports_v2_multilingual           | 0.5193    
+ViDoRe_esg_reports_v2_multilingual                 | 0.4818    
+VisRAG_ArxivQA                                     | 0.8190    
+VisRAG_ChartQA                                     | 0.8044    
+VisRAG_MP-DocVQA                                   | 0.8473    
+VisRAG_SlideVQA                                    | 0.9303    
+VisRAG_InfoVQA                                     | 0.9134    
+VisRAG_PlotQA                                      | 0.6430   
+ViDoSeek-page                                      | 0.2184    
+ViDoSeek-doc                                       | 0.8372
+MMLongBench-page                                   | 0.1575    
+MMLongBench-doc                                    | 0.5166    
+-------------------------------------------------------------------
+
+Results for model: VLM2Vec-V2.0
+Dataset                                            | nDCG@5    
+-------------------------------------------------------------------
+ViDoRe_arxivqa                                     | 0.8005    
+ViDoRe_docvqa                                      | 0.4494    
+ViDoRe_infovqa                                     | 0.8409    
+ViDoRe_tabfquad                                    | 0.8857    
+ViDoRe_tatdqa                                      | 0.4394    
+ViDoRe_shiftproject                                | 0.6014    
+ViDoRe_syntheticDocQA_artificial_intelligence      | 0.8839    
+ViDoRe_syntheticDocQA_energy                       | 0.8578    
+ViDoRe_syntheticDocQA_government_reports           | 0.8493    
+ViDoRe_syntheticDocQA_healthcare_industry          | 0.9200    
+ViDoRe_esg_reports_human_labeled_v2                | 0.5326    
+ViDoRe_biomedical_lectures_v2_multilingual         | 0.4721    
+ViDoRe_economics_reports_v2_multilingual           | 0.4925    
+ViDoRe_esg_reports_v2_multilingual                 | 0.3922    
+VisRAG_ArxivQA                                     | 0.7654    
+VisRAG_ChartQA                                     | 0.8430    
+VisRAG_MP-DocVQA                                   | 0.7121    
+VisRAG_SlideVQA                                    | 0.9172    
+VisRAG_InfoVQA                                     | 0.8533    
+VisRAG_PlotQA                                      | 0.6621    
+ViDoSeek-page                                      | 0.2203    
+ViDoSeek-doc                                       | 0.8031
+MMLongBench-page                                   | 0.1198    
+MMLongBench-doc                                    | 0.4408   
+-------------------------------------------------------------------
 ```
 ## Reproduction Log[*](reproducibility.md)
