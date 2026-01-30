@@ -198,6 +198,16 @@ if __name__ == '__main__':
     print('</details>')
 
     print('<details>')
+    print('<summary>M-BEIR</summary>')
+    generate_prebuilt(FAISS_INDEX_INFO_M_BEIR)
+    print('</details>')
+
+    print('<details>')
+    print('<summary>MMEB</summary>')
+    generate_prebuilt(FAISS_INDEX_INFO_MMEB)
+    print('</details>')
+
+    print('<details>')
     print('<summary>Other</summary>')
     generate_prebuilt(FAISS_INDEX_INFO_CIRAL)
     generate_prebuilt(FAISS_INDEX_INFO_WIKIPEDIA)
