@@ -30,7 +30,7 @@ def last_token_pool(last_hidden_states: Tensor, attention_mask: Tensor) -> Tenso
         batch_size = last_hidden_states.shape[0]
         return last_hidden_states[torch.arange(batch_size, device=last_hidden_states.device), sequence_lengths]
 
-class DiverDocumentEncoder(DocumentEncoder):
+class Qwen3DocumentEncoder(DocumentEncoder):
     def __init__(self, model_name, tokenizer_name=None, device='cuda:0', l2_norm=True, prefix=None, **kwargs):
         self.device = device
         self.l2_norm = l2_norm
@@ -40,7 +40,8 @@ class DiverDocumentEncoder(DocumentEncoder):
         self.model = AutoModel.from_pretrained(model_name, trust_remote_code=True)
         self.model.to(self.device).eval()
 
-    def encode(self, texts, titles=None, max_length=8192, **kwargs):
+    def encode(self, texts, titles=None, **kwargs):
+        max_length = 16384
         if isinstance(texts, str):
             texts = [texts]
         if titles is not None:
@@ -57,7 +58,7 @@ class DiverDocumentEncoder(DocumentEncoder):
                 embeddings = F.normalize(embeddings, p=2, dim=1)
         return embeddings.cpu().numpy()
 
-class DiverQueryEncoder(QueryEncoder):
+class Qwen3QueryEncoder(QueryEncoder):
     def __init__(self, encoder_dir, tokenizer_name=None, encoded_query_dir=None,
                  device='cuda:0', l2_norm=True, prefix=None, **kwargs):
         super().__init__(encoded_query_dir)
@@ -73,8 +74,9 @@ class DiverQueryEncoder(QueryEncoder):
         if (not self.has_model) and (not self.has_encoded_query):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one.')
 
-    def encode(self, query: str, max_length=8192, **kwargs):
+    def encode(self, query: str, **kwargs):
         if self.has_model:
+            max_length = 16384
             text = f"{self.prefix}{query}" if self.prefix else query
             batch_dict = self.tokenizer([text], padding=True, truncation=True, max_length=max_length, return_tensors="pt")
             batch_dict = {k: v.to(self.device) for k, v in batch_dict.items()}
