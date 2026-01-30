@@ -66,7 +66,7 @@ def list_conditions():
 def print_results_by_metric_position(table, position, metric_name):
     print(f'Metric = {metric_name}')
     print(' ' * 20, end='')
-    conditions = ['clip-sf-large', 'blip-ff-large']
+    conditions = ['clip-sf-large', 'blip-ff-large', 'mm-embed']
     for condition in conditions:
         print(f'{condition:15}', end='')
     print('')
@@ -206,11 +206,17 @@ def generate_report(args):
             s4=f'{table[dataset]["blip-ff-large"].get(metric_names[0], 0.0):.4f}',  
             s5=f'{table[dataset]["blip-ff-large"].get(metric_names[1], 0.0):.4f}',  
             s6=f'{table[dataset]["blip-ff-large"].get(metric_names[2], 0.0):.4f}',  
+            # MM-Embed metrics (s7, s8, s9)
+            s7=f'{table[dataset]["mm-embed"].get(metric_names[0], 0.0):.4f}',  
+            s8=f'{table[dataset]["mm-embed"].get(metric_names[1], 0.0):.4f}',  
+            s9=f'{table[dataset]["mm-embed"].get(metric_names[2], 0.0):.4f}',  
             # Commands for tabbed display  
             cmd1=commands[dataset].get('clip-sf-large', ''),    
             cmd2=commands[dataset].get('blip-ff-large', ''),    
+            cmd3=commands[dataset].get('mm-embed', ''),
             eval_cmd1=eval_commands[dataset].get('clip-sf-large', '').rstrip(),    
-            eval_cmd2=eval_commands[dataset].get('blip-ff-large', '').rstrip()    
+            eval_cmd2=eval_commands[dataset].get('blip-ff-large', '').rstrip(),
+            eval_cmd3=eval_commands[dataset].get('mm-embed', '').rstrip()
         )    
         html_rows.append(s)    
         row_cnt += 1    

@@ -50,12 +50,21 @@ blockquote.mycode2 {
 
 tr th.headertop {
   border-bottom: none;
-  padding-bottom: 0rem
+  padding-bottom: 0rem;
+  text-align: center;
 }
 
 tr th.headerbottom {
-  padding-top: 0rem
+  padding-top: 0rem;
+  text-align: center;
 }
+
+.table thead th:nth-child(n+3) {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
 
 .table>:not(caption)>*>*{padding:0.75rem 0.75rem}
 
@@ -149,29 +158,36 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
   <table class="table">  
     <thead>  
       <tr>  
-        <th class="headertop"></th>  
-        <th class="headertop"></th>  
-        <th class="headertop"></th>  
-        <th class="headertop" colspan="3">
+        <th class="headertop" width="30"></th>  
+        <th class="headertop" width="200"></th>  
+        <th class="headertop" colspan="4">
           <b>CLIP-SF-Large</b>
           [<a href="#" data-mdb-toggle="tooltip" title="Wei et al. (arXiv 2023) UniIR: Training and Benchmarking Universal Multimodal Information Retrievers.">1</a>]
         </th>
-        <th class="headertop" colspan="3">
+        <th class="headertop" colspan="4">
           <b>BLIP-FF-Large</b>
           [<a href="#" data-mdb-toggle="tooltip" title="Wei et al. (arXiv 2023) UniIR: Training and Benchmarking Universal Multimodal Information Retrievers.">1</a>]
         </th>
+        <th class="headertop" colspan="3">    
+          <b>MM-Embed</b>    
+          [<a href="#" data-mdb-toggle="tooltip" title="Lin et al. (arXiv 2024) MM-Embed: Universal Multimodal Retrieval with Multimodal LLMs.">2</a>]    
+        </th>
       </tr>  
-      <tr>  
-        <th class="headerbottom" scope="col"></th>  
-        <th class="headerbottom" scope="col"></th>  
+<tr>  
+        <th class="headerbottom" scope="col" width="30"></th>  
+        <th class="headerbottom" scope="col" width="200"></th>  
         <th class="headerbottom" scope="col">nDCG@10</th>  
         <th class="headerbottom" scope="col">R@20</th>
         <th class="headerbottom" scope="col">R@100</th>
-        <th class="headerbottom" scope="col"></th>  
+        <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@20</th>  
-        <th class="headerbottom" scope="col">R@100</th>  
-      </tr>  
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>  
+        <th class="headerbottom" scope="col">R@20</th>  
+        <th class="headerbottom" scope="col">R@100</th>
+      </tr>
     </thead>  
     <tbody>  
 $rows  
@@ -180,25 +196,40 @@ $rows
 </div>
 
 <div style="padding-top: 20px"/>  
-<h4>Important Note on Score Differences</h4>  
+<h4>Important Notes for Using MM-Embed Model in 2CR</h4>  
   
-<div class="alert alert-warning" role="alert">  
-  <h5><i class="fas fa-exclamation-triangle"></i>Recall Calculation Differences</h5>  
-  <p>Scores from Pyserini may differ from UniIR's paper as UniIR uses a binary success metric instead of the traditional proportional recall calculation.</p>  
+<div class="alert alert-warning" role="alert">    
+  <h5><i class="fas fa-exclamation-triangle"></i>MM-Embed Model Requirements</h5>    
+  <p><strong>Required Package Versions:</strong> To use the MM-Embed model, you must install specific versions of torch and transformers:</p>  
     
-  <p><strong>Traditional Recall@K:</strong> (# relevant docs in top-k) / (total # relevant docs)</p>  
-  <ul>  
-    <li>Returns values between 0.0 and 1.0</li>  
-    <li>Accounts for the proportion of relevant documents retrieved</li>  
-  </ul>  
+  <blockquote class="mycode2">  
+<pre><code>pip install torch==2.2.0  
+pip install transformers==4.42.4</code></pre>  
+  </blockquote>  
     
-  <p><strong>UniIR's Recall@K:</strong> Binary success indicator</p>  
-  <ul>  
-    <li>Returns either 1.0 (success) or 0.0 (failure)</li>  
-    <li>Only checks if any relevant document appears in top-k results</li>  
-  </ul>  
-    
-  <p>On datasets with multiple relevant candidates per query, this may lead to substantial score discrepancies between our 2CR runs and the results reported in the original paper.</p>  
+  <p>For the complete list of required packages and installation instructions, see the <a href="https://huggingface.co/nvidia/MM-Embed#1-required-packages" target="_blank">MM-Embed Hugging Face page</a>.</p>  
+</div>
+
+<div style="padding-top: 20px"/>    
+<h4>Important Note on Score Differences</h4>
+
+<div class="alert alert-warning" role="alert">    
+  <h5><i class="fas fa-exclamation-triangle"></i>Recall Calculation Differences</h5>    
+  <p>Scores from Pyserini may differ from UniIR's paper as UniIR uses a binary success metric instead of the traditional proportional recall calculation.</p>    
+      
+  <p><strong>Traditional Recall@K:</strong> (# relevant docs in top-k) / (total # relevant docs)</p>    
+  <ul>    
+    <li>Returns values between 0.0 and 1.0</li>    
+    <li>Accounts for the proportion of relevant documents retrieved</li>    
+  </ul>    
+      
+  <p><strong>UniIR's Recall@K:</strong> Binary success indicator</p>    
+  <ul>    
+    <li>Returns either 1.0 (success) or 0.0 (failure)</li>    
+    <li>Only checks if any relevant document appears in top-k results</li>    
+  </ul>    
+      
+  <p>On datasets with multiple relevant candidates per query, this may lead to substantial score discrepancies between our 2CR runs and the results reported in the original paper.</p>    
 </div>
 
 <div style="padding-top: 20px"/>
@@ -210,6 +241,9 @@ $rows
 <a href="https://arxiv.org/abs/2311.17136">UniIR: Training and Benchmarking Universal Multimodal Information Retrievers
 .</a>
 <i>arXiv:2311.17136</i>, November 2023.</p></li>
+<li><p>[2] Sheng-Chieh Lin, Chankyu Lee, Mohammad Shoeybi, Jimmy Lin, Bryan Catanzaro, and Wei Ping.  
+<a href="https://arxiv.org/abs/2411.02571">MM-Embed: Universal Multimodal Retrieval with Multimodal LLMs.</a>  
+<i>arXiv:2411.02571</i>, November 2024.</p></li>
 
 </ul>
 
@@ -277,45 +311,43 @@ python -m pyserini.2cr.m_beir --generate-report --output m-beir.html
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
 
-<script>
-document.querySelectorAll('pre').forEach(function (codeBlock) {
-    var button = document.createElement('button');
-    button.className = 'copy-code-button';
-    button.type = 'button';
-    var s = codeBlock.innerText;
-    button.setAttribute('data-clipboard-text',s);
-    button.innerText = 'Copy';
-
-    // var pre = codeBlock.parentNode;
-    codeBlock.classList.add('prettyprint');
-    // pre.parentNode.insertBefore(button, pre);
-    codeBlock.appendChild(button);
-});
-
-var clipboard = new ClipboardJS('.copy-code-button');
-
-clipboard.on('success', function(e) {
-  console.info('Action:', e.action);
-  console.info('Text:', e.text);
-  console.info('Trigger:', e.trigger);
-  e.trigger.textContent = 'Copied';
-  window.setTimeout(function() {
-    e.trigger.textContent = 'Copy';
-  }, 2000);
-  e.clearSelection();
-});
-
-clipboard.on('error', function(e) {
-  console.error('Action:', e.action);
-  console.error('Trigger:', e.trigger);
-  e.trigger.textContent = 'Error Copying';
-  window.setTimeout(function() {
-    e.trigger.textContent = 'Copy';
-  }, 2000);
-  e.clearSelection();
-});
-
-</script>
+ <script>  
+document.querySelectorAll('.tab-content pre').forEach(function (codeBlock) {  
+    var button = document.createElement('button');  
+    button.className = 'copy-code-button';  
+    button.type = 'button';  
+    var s = codeBlock.innerText;  
+    button.setAttribute('data-clipboard-text',s);  
+    button.innerText = 'Copy';  
   
+    codeBlock.classList.add('prettyprint');  
+    codeBlock.appendChild(button);  
+});  
+  
+var clipboard = new ClipboardJS('.copy-code-button');  
+  
+clipboard.on('success', function(e) {  
+  console.info('Action:', e.action);  
+  console.info('Text:', e.text);  
+  console.info('Trigger:', e.trigger);  
+  e.trigger.textContent = 'Copied';  
+  window.setTimeout(function() {  
+    e.trigger.textContent = 'Copy';  
+  }, 2000);  
+  e.clearSelection();  
+});  
+  
+clipboard.on('error', function(e) {  
+  console.error('Action:', e.action);  
+  console.error('Trigger:', e.trigger);  
+  e.trigger.textContent = 'Error Copying';  
+  window.setTimeout(function() {  
+    e.trigger.textContent = 'Copy';  
+  }, 2000);  
+  e.clearSelection();  
+});  
+</script> 
+
 </body>  
 </html>
+

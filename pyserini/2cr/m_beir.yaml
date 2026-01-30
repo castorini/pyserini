@@ -165,3 +165,87 @@ conditions:
           - nDCG@10: 0.6321
             R@20: 0.8642
             R@100: 0.9492
+  - name: mm-embed
+    command: python -m pyserini.search.faiss --encoder-class mm-embed --encoder nvidia/MM-Embed --index m-beir-${dataset}.mm-embed --topics-format mbeir --topics m-beir-${dataset}-test --output-format trec --output $output --hits 1000 --remove-query --threads ${dense_threads} --batch-size ${dense_batch_size}
+    datasets:
+      - dataset: cirr_task7
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+      - dataset: edis_task2
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+      - dataset: fashion200k_task0
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+      - dataset: fashion200k_task3
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+      - dataset: fashioniq_task7
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+      - dataset: infoseek_task6
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+      - dataset: infoseek_task8
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+      - dataset: mscoco_task0
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+      - dataset: mscoco_task3
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+      - dataset: nights_task4
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+      - dataset: oven_task6
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+      - dataset: oven_task8
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+      - dataset: visualnews_task0
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+      - dataset: visualnews_task3
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+      - dataset: webqa_task1
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+      - dataset: webqa_task2
+        scores:
+          - nDCG@10: 0.0000
+            R@20: 0.0000
+            R@100: 0.0000
+
