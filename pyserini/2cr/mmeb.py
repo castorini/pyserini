@@ -46,6 +46,7 @@ def format_run_command(raw):
         .replace("--index", "\\\n  --index")
         .replace("--output-format", "\\\n  --output-format")
         .replace("--output ", "\\\n  --output ")
+        .replace("--fp16 ", "\\\n  --fp16 ")
         .replace("--hits", "\\\n  --hits")
     )
 
@@ -66,24 +67,26 @@ def list_conditions():
 
 def print_results_by_metric_position(table, position, metric_name):
     print(f'Metric = {metric_name}')
-    print(' ' * 20, end='')
+    
+    dataset_width = 50
+    condition_width = 30
+    
+    print(' ' * dataset_width, end='')
     conditions = ['gme-qwen2-vl-2b-instruct', 'lamra-ret', 'vlm2vec-v2.0']
     for condition in conditions:
-        print(f'{condition:15}', end='')
+        print(f'{condition:<{condition_width}}', end='')
     print('')
-
+    
     for dataset in sorted(table.keys()):
-        print(f'{dataset:20}', end='')
+        print(f'{dataset:<{dataset_width}}', end='')
         metric_list = list(trec_eval_metric_definitions.keys())
-
         actual_metric = metric_list[position] if position < len(metric_list) else None
-
         for condition in conditions:
             if actual_metric and actual_metric in table[dataset][condition]:
                 score = table[dataset][condition][actual_metric]
             else:
                 score = 0.0
-            print(f'{score:8.4f}' + ' ' * 7, end='')
+            print(f'{score:<{condition_width}.4f}', end='')
         print('')
     print('')
 
