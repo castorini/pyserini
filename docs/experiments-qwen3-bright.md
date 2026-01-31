@@ -67,10 +67,24 @@ python -m pyserini.search.faiss \
 ## Evaluation
 `nDCG@10` is the metric used in the Bright leaderboard and is what we use here for easior comparison.
 ```
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.100 \
-  bright-${dataset_name} \
-  runs/run.bright-${dataset_name}.${model_name}.txt
+  echo "Results for model: $model_name"
+  printf "%-50s | %-10s\n" "Dataset" "nDCG@10"
+  echo "-------------------------------------------------------------------"
+  score=$(python -m pyserini.eval.trec_eval \
+      -c -m ndcg_cut.10 \
+      bright-${dataset_name} \
+      "runs/run.bright-${dataset_name}.${model_name}.txt" | grep 'ndcg_cut_10' | awk '{print $3}')
+  printf "%-50s | %-10s\n" "$dataset_name" "$score"
+  echo "-------------------------------------------------------------------"
+  echo ""
 ```
-
+Expected output:
+```
+Results for model: Diver-Retriever-4B
+Dataset                                            | nDCG@5    
+-------------------------------------------------------------------
+pony                                               | 0.1401    
+-------------------------------------------------------------------
+```
 
 ## Reproduction Log[*](reproducibility.md)
