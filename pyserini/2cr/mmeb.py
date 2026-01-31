@@ -65,6 +65,12 @@ def list_conditions():
         for condition in yaml_data['conditions']:  
             print(condition['name'])
 
+def get_qrels_suffix(dataset):  
+    if dataset.startswith('VisRAG_'):  
+        return '-train'  
+    else:  
+        return '-test' 
+
 def print_results_by_metric_position(table, position, metric_name):
     print(f'Metric = {metric_name}')
     
@@ -130,8 +136,9 @@ def run_conditions(args):
                             if not os.path.exists(runfile):  
                                 continue  
                                   
+                            qrels_name = f"mmeb-visdoc-{dataset}{get_qrels_suffix(dataset)}"
                             score = float(run_eval_and_return_metric(  
-                                metric, "mmeb-visdoc-" + dataset.replace('_', '-'),
+                                metric, qrels_name,
                                 trec_eval_metric_definitions[metric], runfile))  
                                   
                             if math.isclose(score, float(expected[metric])):  
@@ -184,9 +191,10 @@ def generate_report(args):
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)    
                 commands[dataset][name] = format_run_command(cmd)    
                     
-                for expected in datasets['scores']:    
+                qrels_name = f"mmeb-visdoc-{dataset}{get_qrels_suffix(dataset)}"
+                for expected in datasets['scores']:
                     for metric in expected:    
-                        eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[metric]} {"mmeb-visdoc-" + dataset.replace("_", "-")} {runfile}'  
+                        eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[metric]} {qrels_name} {runfile}'  
                         eval_commands[dataset][name] += format_eval_command(eval_cmd) + '\n\n'    
                             
                         table[dataset][name][metric] = expected[metric]    
