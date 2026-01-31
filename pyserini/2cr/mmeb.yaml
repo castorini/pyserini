@@ -1,0 +1,442 @@
+conditions:
+  - name: gme-qwen2-vl-2b-instruct
+    command: python -m pyserini.search.faiss --encoder-class mmeb --encoder Alibaba-NLP/gme-Qwen2-VL-2B-Instruct --index m-beir-${dataset}.clip-sf-large --topics-format mbeir --topics mmeb-visdoc-${dataset}-test --output-format trec --output $output --fp16 --pooling eos --l2-norm --hits 1000 --threads ${dense_threads} --batch-size ${dense_batch_size}
+    datasets:
+      - dataset: MMLongBench-doc
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: MMLongBench-page
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_arxivqa
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_biomedical_lectures_v2_multilingual
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_docvqa
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_economics_reports_v2_multilingual
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_esg_reports_human_labeled_v2
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_esg_reports_v2_multilingual
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_infovqa
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_shiftproject
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_syntheticDocQA_artificial_intelligence
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_syntheticDocQA_energy
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_syntheticDocQA_government_reports
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_syntheticDocQA_healthcare_industry
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_tabfquad
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_tatdqa
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoSeek-doc
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoSeek-page
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_ArxivQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_ChartQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_InfoVQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_MP-DocVQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_PlotQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_SlideVQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+  - name: lamra-ret
+    command: python -m pyserini.search.faiss --encoder-class mmeb --encoder code-kunkun/LamRA-Ret --index mmeb-visdoc-${dataset}.LamRA-Ret --topics-format mmeb --topics mmeb-visdoc-${dataset}-test --output-format trec --output $output --fp16 --pooling eos --l2-norm --hits 1000 --threads ${dense_threads} --batch-size ${dense_batch_size}
+    datasets:
+      - dataset: MMLongBench-doc
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: MMLongBench-page
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_arxivqa
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_biomedical_lectures_v2_multilingual
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_docvqa
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_economics_reports_v2_multilingual
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_esg_reports_human_labeled_v2
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_esg_reports_v2_multilingual
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_infovqa
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_shiftproject
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_syntheticDocQA_artificial_intelligence
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_syntheticDocQA_energy
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_syntheticDocQA_government_reports
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_syntheticDocQA_healthcare_industry
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_tabfquad
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_tatdqa
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoSeek-doc
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoSeek-page
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_ArxivQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_ChartQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_InfoVQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_MP-DocVQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_PlotQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_SlideVQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+  - name: vlm2vec-v2.0
+    command: python -m pyserini.search.faiss --encoder-class mmeb --encoder VLM2Vec/VLM2Vec-V2.0 --index mmeb-visdoc-${dataset}.VLM2Vec-V2.0 --topics-format mmeb --topics mmeb-visdoc-${dataset}-test --output-format trec --output $output --fp16 --pooling eos --l2-norm --hits 1000 --threads ${dense_threads} --batch-size ${dense_batch_size}
+    datasets:
+      - dataset: MMLongBench-doc
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: MMLongBench-page
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_arxivqa
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_biomedical_lectures_v2_multilingual
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_docvqa
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_economics_reports_v2_multilingual
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_esg_reports_human_labeled_v2
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_esg_reports_v2_multilingual
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_infovqa
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_shiftproject
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_syntheticDocQA_artificial_intelligence
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_syntheticDocQA_energy
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_syntheticDocQA_government_reports
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_syntheticDocQA_healthcare_industry
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_tabfquad
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoRe_tatdqa
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoSeek-doc
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: ViDoSeek-page
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_ArxivQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_ChartQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_InfoVQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_MP-DocVQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_PlotQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
+      - dataset: VisRAG_SlideVQA
+        scores:
+          - nDCG@5: 0.0000
+            nDCG@10: 0.0000
+            R@5: 0.0000
+            R@10: 0.0000
