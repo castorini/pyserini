@@ -1231,6 +1231,14 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <details>
 <summary>MS MARCO</summary>
 <dl>
+<dt></dt><b><code>msmarco-v1-passage.cosdpr-distil.hnsw</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.cosdpr-distil.20240108.825148.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of the MS MARCO V1 passage corpus encoded by cos-DPR Distil
+</dd>
+<dt></dt><b><code>msmarco-v1-passage.cosdpr-distil.hnsw-int8</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.cosdpr-distil.20240108.825148.README.md">readme</a>]
+<dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V1 passage corpus encoded by cos-DPR Distil
+</dd>
 <dt></dt><b><code>msmarco-v1-passage.bge-base-en-v1.5.hnsw</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.bge-base-en-v1.5.20240117.53514b.README.md">readme</a>]
 <dd>Anserini Lucene HNSW index of the MS MARCO V1 passage corpus encoded by BGE-base-en-v1.5
@@ -1239,13 +1247,13 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 [<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.bge-base-en-v1.5.20240117.53514b.README.md">readme</a>]
 <dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V1 passage corpus encoded by BGE-base-en-v1.5
 </dd>
-<dt></dt><b><code>msmarco-v1-passage.cosdpr-distil.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.cosdpr-distil.20240108.825148.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of the MS MARCO V1 passage corpus encoded by cos-DPR Distil
+<dt></dt><b><code>msmarco-v1-passage.cohere-embed-english-v3.0.hnsw</code></b>
+[<a href="../pyserini/resources/index-metadata/">readme</a>]
+<dd>Anserini Lucene HNSW index of the MS MARCO V1 passage corpus encoded by Cohere embed-english-v3.0
 </dd>
-<dt></dt><b><code>msmarco-v1-passage.cosdpr-distil.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.cosdpr-distil.20240108.825148.README.md">readme</a>]
-<dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V1 passage corpus encoded by cos-DPR Distil
+<dt></dt><b><code>msmarco-v1-passage.cohere-embed-english-v3.0.hnsw-int8</code></b>
+[<a href="../pyserini/resources/index-metadata/">readme</a>]
+<dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V1 passage corpus encoded by Cohere embed-english-v3.0
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
@@ -2625,6 +2633,443 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dt></dt><b><code>miracl-v1.0-yo-mcontriever-pft-msmarco</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss.miracl-v1.0.20230313.e40d4a.mcontriever-tied-pft-msmarco.README.md">readme</a>]
 <dd>Faiss index for MIRACL v1.0 (Yoruba) corpus encoded by mContriever passage encoder pre-fine-tuned on MS MARCO.
+</dd>
+</dl>
+</details>
+<details>
+<summary>M-BEIR</summary>
+<dl>
+<dt></dt><b><code>m-beir-cirr_task7.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR CIRR task 7 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-edis_task2.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-fashion200k_task0.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-fashion200k_task3.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-fashioniq_task7.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-infoseek_task6.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-infoseek_task8.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-mscoco_task0.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-mscoco_task3.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-nights_task4.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-oven_task6.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-oven_task8.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-visualnews_task0.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-visualnews_task3.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-webqa_task1.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-webqa_task2.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's clip-sf-large model
+</dd>
+<dt></dt><b><code>m-beir-cirr_task7.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR CIRR task 7 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-edis_task2.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-fashion200k_task0.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-fashion200k_task3.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-fashioniq_task7.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-infoseek_task6.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-infoseek_task8.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-mscoco_task0.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-mscoco_task3.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-nights_task4.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-oven_task6.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-oven_task8.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-visualnews_task0.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-visualnews_task3.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-webqa_task1.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-webqa_task2.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's blip-ff-large model
+</dd>
+</dl>
+</details>
+<details>
+<summary>DSE</summary>
+<dl>
+<dt></dt><b><code>slidevqa.dse</code></b>
+<dd>Faiss index of the SlideVQA corpus encoded by DSE (Tevatron/dse-phi3-v1.0)
+</dd>
+<dt></dt><b><code>wiki-ss.dse</code></b>
+<dd>Faiss index of the Wiki-SS corpus encoded by DSE (Tevatron/dse-phi3-v1.0)
+</dd>
+</dl>
+</details>
+<details>
+<summary>MMEB</summary>
+<dl>
+<dt></dt><b><code>mmeb-visdoc-MMLongBench-doc.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the MMLongBench-doc corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-MMLongBench-page.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the MMLongBench-page corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_arxivqa.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_arxivqa corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_biomedical_lectures_v2_multilingual corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_docvqa.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_docvqa corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_economics_reports_v2_multilingual corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_esg_reports_human_labeled_v2 corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_esg_reports_v2_multilingual corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_infovqa.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_infovqa corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_shiftproject.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_shiftproject corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_syntheticDocQA_artificial_intelligence corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_energy.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_syntheticDocQA_energy corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_syntheticDocQA_government_reports corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_syntheticDocQA_healthcare_industry corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_tabfquad.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_tabfquad corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_tatdqa.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_tatdqa corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoSeek-doc.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoSeek-doc corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoSeek-page.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoSeek-page corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_ArxivQA.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_ArxivQA corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_ChartQA.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_ChartQA corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_InfoVQA.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_InfoVQA corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_MP-DocVQA.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_MP-DocVQA corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_PlotQA.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_PlotQA corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_SlideVQA.gme-Qwen2-VL-2B-Instruct</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_SlideVQA corpus encoded by gme-Qwen2-VL-2B-Instruct
+</dd>
+<dt></dt><b><code>mmeb-visdoc-MMLongBench-doc.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the MMLongBench-doc corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-MMLongBench-page.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the MMLongBench-page corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_arxivqa.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_arxivqa corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_biomedical_lectures_v2_multilingual corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_docvqa.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_docvqa corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_economics_reports_v2_multilingual corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_esg_reports_human_labeled_v2 corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_esg_reports_v2_multilingual corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_infovqa.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_infovqa corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_shiftproject.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_shiftproject corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_syntheticDocQA_artificial_intelligence corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_energy.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_syntheticDocQA_energy corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_syntheticDocQA_government_reports corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_syntheticDocQA_healthcare_industry corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_tabfquad.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_tabfquad corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_tatdqa.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_tatdqa corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoSeek-doc.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoSeek-doc corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoSeek-page.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoSeek-page corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_ArxivQA.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_ArxivQA corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_ChartQA.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_ChartQA corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_InfoVQA.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_InfoVQA corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_MP-DocVQA.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_MP-DocVQA corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_PlotQA.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_PlotQA corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_SlideVQA.LamRA-Ret</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_SlideVQA corpus encoded by LamRA-Ret
+</dd>
+<dt></dt><b><code>mmeb-visdoc-MMLongBench-doc.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the MMLongBench-doc corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-MMLongBench-page.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the MMLongBench-page corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_arxivqa.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_arxivqa corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_biomedical_lectures_v2_multilingual corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_docvqa.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_docvqa corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_economics_reports_v2_multilingual corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_esg_reports_human_labeled_v2 corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_esg_reports_v2_multilingual corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_infovqa.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_infovqa corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_shiftproject.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_shiftproject corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_syntheticDocQA_artificial_intelligence corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_energy.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_syntheticDocQA_energy corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_syntheticDocQA_government_reports corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_syntheticDocQA_healthcare_industry corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_tabfquad.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_tabfquad corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoRe_tatdqa.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoRe_tatdqa corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoSeek-doc.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoSeek-doc corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-ViDoSeek-page.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the ViDoSeek-page corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_ArxivQA.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_ArxivQA corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_ChartQA.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_ChartQA corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_InfoVQA.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_InfoVQA corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_MP-DocVQA.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_MP-DocVQA corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_PlotQA.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_PlotQA corpus encoded by VLM2Vec-V2.0
+</dd>
+<dt></dt><b><code>mmeb-visdoc-VisRAG_SlideVQA.VLM2Vec-V2.0</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+<dd>Faiss index of the VisRAG_SlideVQA corpus encoded by VLM2Vec-V2.0
 </dd>
 </dl>
 </details>

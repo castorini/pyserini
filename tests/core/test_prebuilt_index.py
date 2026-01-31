@@ -292,12 +292,46 @@ class TestPrebuiltIndexes(unittest.TestCase):
         urls = []
         cnt = 0
         for key in FAISS_INDEX_INFO:
-            if 'wiki' in key:
+            if 'wikipedia' in key or 'wiki-all' in key:
                 cnt += 1
                 for url in FAISS_INDEX_INFO[key]['urls']:
                     urls.append(url)
 
         self.assertEqual(cnt, 7)
+        self._test_urls(urls)
+
+    def test_faiss_mmeb(self):
+        urls = set()
+        cnt = 0
+        for key in FAISS_INDEX_INFO:
+            if 'mmeb' in key:
+                cnt += 1
+                for url in FAISS_INDEX_INFO[key]['urls']:
+                    urls.add(url)
+        self.assertEqual(cnt, 72)
+        self._test_urls(urls)
+
+    def test_faiss_m_beir(self):
+        urls = set()
+        cnt = 0
+        for key in FAISS_INDEX_INFO:
+            if 'm-beir' in key:
+                cnt += 1
+                for url in FAISS_INDEX_INFO[key]['urls']:
+                    urls.add(url)
+        self.assertEqual(cnt, 32)
+        self._test_urls(urls)
+
+    def test_faiss_dse(self):
+        urls = []
+        cnt = 0
+        for key in FAISS_INDEX_INFO:
+            if 'dse' in key:
+                cnt += 1
+                for url in FAISS_INDEX_INFO[key]['urls']:
+                    urls.append(url)
+
+        self.assertEqual(cnt, 2)
         self._test_urls(urls)
 
     def _test_urls(self, urls):
