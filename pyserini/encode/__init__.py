@@ -28,7 +28,7 @@ from ._bpr import BprQueryEncoder
 from ._cached_data import CachedDataQueryEncoder
 from ._clip import ClipDocumentEncoder, ClipTextEncoder, ClipImageEncoder, ClipQueryEncoder
 from ._cosdpr import CosDprEncoder, CosDprDocumentEncoder, CosDprQueryEncoder
-from ._diver import Qwen3DocumentEncoder, Qwen3QueryEncoder
+from ._qwen3 import Qwen3DocumentEncoder, Qwen3QueryEncoder
 from ._dse import DseDocumentEncoder, DseQueryEncoder
 from ._dkrr import DkrrDprQueryEncoder
 from ._dpr import DprDocumentEncoder, DprQueryEncoder
