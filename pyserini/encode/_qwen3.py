@@ -17,12 +17,9 @@
 import torch
 import torch.nn.functional as F
 from torch import Tensor
-from transformers import AutoTokenizer, AutoModel
-import os
-import numpy as np
+from transformers import AutoModel, AutoTokenizer
+
 from pyserini.encode import DocumentEncoder, QueryEncoder
-import torch
-from importlib.util import find_spec
 
 
 def last_token_pool(last_hidden_states: Tensor, attention_mask: Tensor) -> Tensor:
@@ -35,20 +32,6 @@ def last_token_pool(last_hidden_states: Tensor, attention_mask: Tensor) -> Tenso
         return last_hidden_states[
             torch.arange(batch_size, device=last_hidden_states.device), sequence_lengths
         ]
-
-
-def is_flash_attention_available():
-    # 1. Check if the package is even installed
-    if find_spec("flash_attn") is None:
-        return False
-
-    # 2. Check if GPU is compatible
-    if torch.cuda.is_available():
-        major, _ = torch.cuda.get_device_capability()
-        if major >= 8:
-            return True
-
-    return False
 
 
 class Qwen3DocumentEncoder(DocumentEncoder):
