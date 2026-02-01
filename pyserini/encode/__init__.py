@@ -28,6 +28,7 @@ from ._bpr import BprQueryEncoder
 from ._cached_data import CachedDataQueryEncoder
 from ._clip import ClipDocumentEncoder, ClipTextEncoder, ClipImageEncoder, ClipQueryEncoder
 from ._cosdpr import CosDprEncoder, CosDprDocumentEncoder, CosDprQueryEncoder
+from ._qwen3 import Qwen3DocumentEncoder, Qwen3QueryEncoder
 from ._dse import DseDocumentEncoder, DseQueryEncoder
 from ._dkrr import DkrrDprQueryEncoder
 from ._dpr import DprDocumentEncoder, DprQueryEncoder
@@ -66,6 +67,7 @@ document_encoder_class_map = {
     "arctic": ArcticDocumentEncoder,
     "uniir": UniIRCorpusEncoder,
     "splade": SpladeDocumentEncoder,
+    "qwen3": Qwen3DocumentEncoder,
     "dse": DseDocumentEncoder,
     "mmeb": MMEBCorpusEncoder,
 }
@@ -85,6 +87,7 @@ query_encoder_class_map = {
     "clip": ClipQueryEncoder,
     "arctic": ArcticQueryEncoder,
     "uniir": UniIRQueryEncoder,
+    "qwen3": Qwen3QueryEncoder,
     "dse": DseQueryEncoder,
     "mmeb": MMEBQueryEncoder,
 }
