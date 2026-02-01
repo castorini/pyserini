@@ -343,15 +343,20 @@ class MMEBQueryIterator(QueryIterator):
 
     @classmethod
     def from_topics(cls, topics_path: str):
-        topics = {}
-        order = []
-        with open(topics_path, 'r') as f:
-            for line in f:
-                data = json.loads(line)
-                topics[data['qid']] = data
-                order.append(data['qid'])
+        if os.path.exists(topics_path):
+            topics = {}
+            order = []
+            with open(topics_path, 'r') as f:
+                for line in f:
+                    data = json.loads(line)
+                    topics[data['qid']] = data
+                    order.append(data['qid'])
+        else:
+            topics = get_topics(topics_path)
+            if not topics:
+                raise FileNotFoundError(f'Topic path or alias {topics_path} not found')
+            order = list(topics.keys())
         return cls(topics, order)
-
 
 def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
     mapping = {
