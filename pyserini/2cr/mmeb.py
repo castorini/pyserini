@@ -66,7 +66,7 @@ def list_conditions():
             print(condition['name'])
 
 def get_qrels_suffix(dataset):  
-    if dataset.startswith('VisRAG_'):  
+    if 'VisRAG' in dataset:
         return '-train'  
     else:  
         return '-test' 
