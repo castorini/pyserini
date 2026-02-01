@@ -46,3 +46,24 @@ python -m pyserini.index.faiss \
     --metric inner
 ```
 
+MM-Embed model:
+```bash
+python -m pyserini.encode \
+  input --corpus M-BEIR/cand_pool/local/mbeir_{dataset}_cand_pool.jsonl \
+        --fields img_path modality txt did \
+        --docid-field did \
+  output --embeddings encode/m-beir-{dataset}.mm-embed \
+  encoder --encoder nvidia/MM-Embed \
+          --encoder-class mm-embed \
+          --device cuda:0 \
+          --multimodal \
+          --fields img_path modality txt did \
+          --batch-size 16 --max-length 4096
+
+python -m pyserini.index.faiss \
+    --input encode/m-beir-{dataset}.mm-embed \
+    --output indexes/faiss-flat.m-beir-{dataset}.mm-embed.20260127.c2e204 \
+    --metric inner \
+    --dim 4096
+```
+
