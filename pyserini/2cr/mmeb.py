@@ -65,11 +65,11 @@ def list_conditions():
         for condition in yaml_data['conditions']:  
             print(condition['name'])
 
-def get_qrels_suffix(dataset):  
+def get_split(dataset):  
     if 'VisRAG' in dataset:
-        return '-train'  
+        return 'train'  
     else:  
-        return '-test' 
+        return 'test' 
 
 def print_results_by_metric_position(table, position, metric_name):
     print(f'Metric = {metric_name}')
@@ -114,6 +114,7 @@ def run_conditions(args):
                   
             for datasets in condition['datasets']:  
                 dataset = datasets['dataset']  
+                split = get_split(dataset)
                   
                 if args.dataset and args.dataset != dataset:  
                     continue  
@@ -121,7 +122,7 @@ def run_conditions(args):
                 print(f'  - Dataset: {dataset}')  
                   
                 runfile = os.path.join(args.directory, f'run.mmeb-visdoc-{dataset}.{name}.txt')  
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)  
+                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size, split=split)  
                   
                 if args.display_commands:  
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')  
@@ -136,7 +137,7 @@ def run_conditions(args):
                             if not os.path.exists(runfile):  
                                 continue  
                                   
-                            qrels_name = f"mmeb-visdoc-{dataset}{get_qrels_suffix(dataset)}"
+                            qrels_name = f"mmeb-visdoc-{dataset}-{get_split(dataset)}"
                             score = float(run_eval_and_return_metric(  
                                 metric, qrels_name,
                                 trec_eval_metric_definitions[metric], runfile))  
@@ -186,12 +187,13 @@ def generate_report(args):
                 
             for datasets in condition['datasets']:    
                 dataset = datasets['dataset']    
+                split = get_split(dataset)
                     
                 runfile = os.path.join(args.directory, f'run.mmeb-visdoc-{dataset}.{name}.txt')    
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)    
+                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size, split=split)
                 commands[dataset][name] = format_run_command(cmd)    
                     
-                qrels_name = f"mmeb-visdoc-{dataset}{get_qrels_suffix(dataset)}"
+                qrels_name = f"mmeb-visdoc-{dataset}-{get_split(dataset)}"
                 for expected in datasets['scores']:
                     for metric in expected:    
                         eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[metric]} {qrels_name} {runfile}'  
