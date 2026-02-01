@@ -1,6 +1,6 @@
 conditions:
   - name: gme-qwen2-vl-2b-instruct
-    command: python -m pyserini.search.faiss --encoder-class mmeb --encoder Alibaba-NLP/gme-Qwen2-VL-2B-Instruct --index m-beir-${dataset}.gme-Qwen2-VL-2B-Instruct --topics-format mbeir --topics mmeb-visdoc-${dataset}-test --output-format trec --output $output --fp16 --pooling eos --l2-norm --hits 1000 --threads ${dense_threads} --batch-size ${dense_batch_size}
+    command: python -m pyserini.search.faiss --encoder-class mmeb --encoder Alibaba-NLP/gme-Qwen2-VL-2B-Instruct --index mmeb-visdoc-${dataset}.gme-Qwen2-VL-2B-Instruct --topics-format mbeir --topics mmeb-visdoc-${dataset}-test --output-format trec --output $output --fp16 --pooling eos --l2-norm --hits 1000 --threads ${dense_threads} --batch-size ${dense_batch_size}
     datasets:
       - dataset: MMLongBench-doc
         scores:
