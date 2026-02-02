@@ -38,9 +38,9 @@ class TestNFCorpus(unittest.TestCase):
 
         # TODO: Remove the Lucene part, just keep the Faiss part
         r = randint(0, 10000000)
-        cls.dense_index_url = 'https://github.com/castorini/anserini-data/raw/master/NFCorpus/faiss.nfcorpus.contriever-msmacro.tar.gz'
-        cls.dense_tarball_name = f'faiss.nfcorpus.contriever-msmacro-{r}.tar.gz'
-        cls.dense_index_dir = f'faiss.nfcorpus.contriever-msmacro-{r}/'
+        cls.dense_index_url = 'https://github.com/castorini/anserini-data/raw/master/NFCorpus/faiss.nfcorpus.contriever-msmarco.tar.gz'
+        cls.dense_tarball_name = f'faiss.nfcorpus.contriever-msmarco-{r}.tar.gz'
+        cls.dense_index_dir = f'faiss.nfcorpus.contriever-msmarco-{r}/'
 
         urlretrieve(cls.dense_index_url, cls.dense_tarball_name)
 
@@ -63,7 +63,7 @@ class TestNFCorpus(unittest.TestCase):
         run_file = f'run.{r}.txt'
         cmd = f'python -m pyserini.search.faiss \
                   --encoder-class contriever --encoder facebook/contriever-msmarco \
-                  --index {self.dense_index_dir}/faiss.nfcorpus.contriever-msmacro \
+                  --index {self.dense_index_dir}/faiss.nfcorpus.contriever-msmarco \
                   --topics {self.queries} \
                   --output {run_file} \
                   --batch 32 --threads 4 \
