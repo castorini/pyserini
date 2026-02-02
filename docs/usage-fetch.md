@@ -27,9 +27,9 @@ Thus:
 
 ```python
 # Document contents: what's actually indexed.
-# Note, this is not stored in the prebuilt msmacro-v1-passage index.
+# Note, this is not stored in the prebuilt msmarco-v1-passage index.
 doc.contents()
-                                                                                                   
+
 # Raw document
 doc.raw()
 ```
