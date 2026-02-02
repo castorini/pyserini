@@ -66,7 +66,7 @@ num_vectors = index.ntotal
 ```python
 import faiss
 
-index_c = faiss.read_index('indexes/faiss.nfcorpus.contriever-msmacro/index')
+index_c = faiss.read_index('indexes/faiss.nfcorpus.contriever-msmarco/index')
 num_vectors_c = index_c.ntotal
 ```
 
@@ -114,7 +114,7 @@ v1 = index.reconstruct(docids.index('MED-4555'))
 
 ```python
 docids_c = []
-with open('indexes/faiss.nfcorpus.contriever-msmacro/docid', 'r') as fin:
+with open('indexes/faiss.nfcorpus.contriever-msmarco/docid', 'r') as fin:
     docids_c = [line.rstrip() for line in fin.readlines()]
 
 v1_c = index_c.reconstruct(docids_c.index('MED-4555'))
@@ -214,7 +214,7 @@ from pyserini.search.faiss import FaissSearcher
 from pyserini.encode import AutoQueryEncoder
 
 encoder_c = AutoQueryEncoder('facebook/contriever-msmarco', device='cpu', pooling='mean')
-searcher_c = FaissSearcher('indexes/faiss.nfcorpus.contriever-msmacro', encoder_c)
+searcher_c = FaissSearcher('indexes/faiss.nfcorpus.contriever-msmarco', encoder_c)
 hits_c = searcher_c.search('How to Help Prevent Abdominal Aortic Aneurysms')
 
 for i in range(0, 10):

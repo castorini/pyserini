@@ -55,7 +55,7 @@ def parse_score(output, metric, digits=4):
 
 def parse_score_qa(output, metric, digits=4):
     """Function for parsing the output from `pyserini.eval.evaluate_dpr_retrieval`. Currently, the implementation is
-       the same as `parse_score_msmacro`, but we're keeping separate in case they diverge in the future."""
+       the same as `parse_score_msmarco`, but we're keeping separate in case they diverge in the future."""
     for line in output.split('\n'):
         if metric in line:
             score = float(line.split()[-1])

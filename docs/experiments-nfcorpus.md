@@ -100,7 +100,7 @@ Use `--device cuda` for a faster computation if you have a CUDA-enabled GPU.
 python -m pyserini.encode \
   input   --corpus collections/nfcorpus/corpus.jsonl \
           --fields title text \
-  output  --embeddings indexes/faiss.nfcorpus.contriever-msmacro \
+  output  --embeddings indexes/faiss.nfcorpus.contriever-msmarco \
           --to-faiss \
   encoder --encoder facebook/contriever-msmarco \
           --device cpu \
@@ -149,7 +149,7 @@ The queries are in `collections/nfcorpus/queries.tsv`.
 ```bash
 python -m pyserini.search.faiss \
   --encoder-class contriever --encoder facebook/contriever-msmarco \
-  --index indexes/faiss.nfcorpus.contriever-msmacro \
+  --index indexes/faiss.nfcorpus.contriever-msmarco \
   --topics collections/nfcorpus/queries.tsv \
   --output runs/run.beir-contriever-msmarco.nfcorpus.txt \
   --batch 128 --threads 8 \
@@ -269,7 +269,7 @@ from pyserini.search.faiss import FaissSearcher
 from pyserini.encode import AutoQueryEncoder
 
 encoder = AutoQueryEncoder('facebook/contriever-msmarco', device='cpu', pooling='mean')
-searcher = FaissSearcher('indexes/faiss.nfcorpus.contriever-msmacro', encoder)
+searcher = FaissSearcher('indexes/faiss.nfcorpus.contriever-msmarco', encoder)
 hits = searcher.search('How to Help Prevent Abdominal Aortic Aneurysms')
 
 for i in range(0, 10):
