@@ -78,7 +78,7 @@ def print_results_by_metric_position(table, position, metric_name):
     condition_width = 30
     
     print(' ' * dataset_width, end='')
-    conditions = ['gme-qwen2-vl-2b-instruct', 'lamra-ret', 'vlm2vec-v2.0']
+    conditions = ['gme-qwen2-vl-2b-instruct', 'vlm2vec-v2.0']
     for condition in conditions:
         print(f'{condition:<{condition_width}}', end='')
     print('')
@@ -213,28 +213,21 @@ def generate_report(args):
         s = s.substitute(    
             row_cnt=row_cnt,    
             dataset=dataset,  
-            # gme-Qwen2-VL-2B-Instruct metrics (s1, s2, s3, s4)  
-            s1=f'{table[dataset]["gme-qwen2-vl-2b-instruct"].get(metric_names[0], 0.0):.4f}',  
-            s2=f'{table[dataset]["gme-qwen2-vl-2b-instruct"].get(metric_names[1], 0.0):.4f}',  
-            s3=f'{table[dataset]["gme-qwen2-vl-2b-instruct"].get(metric_names[2], 0.0):.4f}',  
-            s4=f'{table[dataset]["gme-qwen2-vl-2b-instruct"].get(metric_names[3], 0.0):.4f}',  
-            # LamRA-Ret metrics (s5, s6, s7, s8)  
-            s5=f'{table[dataset]["lamra-ret"].get(metric_names[0], 0.0):.4f}',  
-            s6=f'{table[dataset]["lamra-ret"].get(metric_names[1], 0.0):.4f}',  
-            s7=f'{table[dataset]["lamra-ret"].get(metric_names[2], 0.0):.4f}',  
-            s8=f'{table[dataset]["lamra-ret"].get(metric_names[3], 0.0):.4f}',  
-            # VLM2Vec-V2.0 metrics (s9, s10, s11, s12)  
-            s9=f'{table[dataset]["vlm2vec-v2.0"].get(metric_names[0], 0.0):.4f}',  
-            s10=f'{table[dataset]["vlm2vec-v2.0"].get(metric_names[1], 0.0):.4f}',  
-            s11=f'{table[dataset]["vlm2vec-v2.0"].get(metric_names[2], 0.0):.4f}',  
-            s12=f'{table[dataset]["vlm2vec-v2.0"].get(metric_names[3], 0.0):.4f}',  
+            # VLM2Vec-V2.0 metrics (s1, s2, s3, s4)  
+            s1=f'{table[dataset]["vlm2vec-v2.0"].get(metric_names[0], 0.0):.4f}',  
+            s2=f'{table[dataset]["vlm2vec-v2.0"].get(metric_names[1], 0.0):.4f}',  
+            s3=f'{table[dataset]["vlm2vec-v2.0"].get(metric_names[2], 0.0):.4f}',  
+            s4=f'{table[dataset]["vlm2vec-v2.0"].get(metric_names[3], 0.0):.4f}',  
+            # gme-Qwen2-VL-2B-Instruct metrics (s5, s6, s7, s8)  
+            s5=f'{table[dataset]["gme-qwen2-vl-2b-instruct"].get(metric_names[0], 0.0):.4f}',  
+            s6=f'{table[dataset]["gme-qwen2-vl-2b-instruct"].get(metric_names[1], 0.0):.4f}',  
+            s7=f'{table[dataset]["gme-qwen2-vl-2b-instruct"].get(metric_names[2], 0.0):.4f}',  
+            s8=f'{table[dataset]["gme-qwen2-vl-2b-instruct"].get(metric_names[3], 0.0):.4f}',
             # Commands for tabbed display  
-            cmd1=commands[dataset].get('gme-qwen2-vl-2b-instruct', ''),    
-            cmd2=commands[dataset].get('lamra-ret', ''),    
-            cmd3=commands[dataset].get('vlm2vec-v2.0', ''),    
-            eval_cmd1=eval_commands[dataset].get('gme-qwen2-vl-2b-instruct', '').rstrip(),    
-            eval_cmd2=eval_commands[dataset].get('lamra-ret', '').rstrip(),    
-            eval_cmd3=eval_commands[dataset].get('vlm2vec-v2.0', '').rstrip()
+            cmd1=commands[dataset].get('vlm2vec-v2.0', ''),    
+            cmd2=commands[dataset].get('gme-qwen2-vl-2b-instruct', ''),    
+            eval_cmd1=eval_commands[dataset].get('vlm2vec-v2.0', '').rstrip(),
+            eval_cmd2=eval_commands[dataset].get('gme-qwen2-vl-2b-instruct', '').rstrip()
         )    
         html_rows.append(s)    
         row_cnt += 1    
