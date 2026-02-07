@@ -66,7 +66,7 @@ num_vectors = index.ntotal
 ```python
 import faiss
 
-index_c = faiss.read_index('indexes/faiss.nfcorpus.contriever-msmacro/index')
+index_c = faiss.read_index('indexes/faiss.nfcorpus.contriever-msmarco/index')
 num_vectors_c = index_c.ntotal
 ```
 
@@ -114,7 +114,7 @@ v1 = index.reconstruct(docids.index('MED-4555'))
 
 ```python
 docids_c = []
-with open('indexes/faiss.nfcorpus.contriever-msmacro/docid', 'r') as fin:
+with open('indexes/faiss.nfcorpus.contriever-msmarco/docid', 'r') as fin:
     docids_c = [line.rstrip() for line in fin.readlines()]
 
 v1_c = index_c.reconstruct(docids_c.index('MED-4555'))
@@ -214,7 +214,7 @@ from pyserini.search.faiss import FaissSearcher
 from pyserini.encode import AutoQueryEncoder
 
 encoder_c = AutoQueryEncoder('facebook/contriever-msmarco', device='cpu', pooling='mean')
-searcher_c = FaissSearcher('indexes/faiss.nfcorpus.contriever-msmacro', encoder_c)
+searcher_c = FaissSearcher('indexes/faiss.nfcorpus.contriever-msmarco', encoder_c)
 hits_c = searcher_c.search('How to Help Prevent Abdominal Aortic Aneurysms')
 
 for i in range(0, 10):
@@ -714,3 +714,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@zizimind](https://github.com/zizimind) on 2026-01-06 (commit [`74d7182`](https://github.com/castorini/pyserini/commit/74d7182004e4380e3cf0caf993375a25c1bcc5dc))
 + Results reproduced by [@izzat5233](https://github.com/izzat5233) on 2026-01-17 (commit [`4bfbb9e`](https://github.com/castorini/pyserini/commit/4bfbb9e144872b9223359ee6bac0bc595c0734d6))
 + Results reproduced by [@aaryanshroff](https://github.com/aaryanshroff) on 2026-01-27 (commit [`9e92b42`](https://github.com/castorini/pyserini/commit/9e92b4291fd30faad4b64bdd0ddba2d106694ed5))
++ Results reproduced by [@maherapp](https://github.com/maherapp) on 2026-02-01 (commit [`e9b559c`](https://github.com/castorini/pyserini/commit/e9b559c32c10893ae61c12a0c1e9ee2b264a2e41))
