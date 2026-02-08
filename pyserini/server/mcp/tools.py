@@ -54,7 +54,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             query_generator: For sparse (tf) indexes only: how to build the Lucene query. One of: BagOfWords, DisjunctionMax (dismax), QuerySideBm25 (bm25qs), Covid19. Omit or None for default.
 
         Returns:
-            List of search results with docid, score, and raw contents in text or image
+            List of search results with docid, score, and raw contents in text or image form
         """
 
         raw_results = controller.search(
@@ -90,20 +90,17 @@ def register_tools(mcp: FastMCP, controller: SearchController):
 
         return final_output
 
-    @mcp.tool(
-        name='get_document',
-        description='Retrieve a full document by its document ID from a given index.',
-    )
-    def get_document(docid: str, index_name: str):
+    @mcp.tool()
+    def get_document(docid: str, index_name: str) -> list:
         """
-        Retrieve the full text and image (if available) of a document by its ID.
+        Retrieve the full text and image (if available) of a document by its ID from a given index.
 
         Args:
             docid: Document ID to retrieve
-            index_name: Name of index to search (default: use default index)
+            index_name: Name of index to search 
 
         Returns:
-            Document with full text and image (if available), or ValueError if not found
+            Document with full text and image (if available)
         """
         doc_data = controller.get_document(docid, index_name)
         results = []
@@ -127,74 +124,64 @@ def register_tools(mcp: FastMCP, controller: SearchController):
 
         return results 
 
-    @mcp.tool(
-        name='list_all_indexes',
-        description='List available indexes of a given type in the Pyserini server.',
-    )
-    def list_indexes(index_type: str) -> dict[str, Any]:
+    @mcp.tool()
+    def list_indexes(index_type: str) -> list[str]:
         f"""
-        List indexes available for search of a given type from Pyserini.
+        List all indexes available for search of a given type from Pyserini.
 
         Args:
             index_type: Type of index out of {INDEX_TYPE.keys()}'
 
         Returns:
-            Dictionary of index names to their metadata.
+            List of available index names in Pyserini of the given type.
         """
-        return {"tf": controller.get_indexes(index_type)}
+        return controller.get_indexes(index_type)
     
-    @mcp.tool(
-        name='get_index_status',
-        description='Check if the index is downloaded and what size it is.',
-    )
-    def get_index_status(index_name: str) -> dict[str, Any]:
+    @mcp.tool()
+    def get_index(index_name: str) -> dict[str, Any]:
         """
-        Check if the index is downloaded and what size it is.
+        Gets the metadata and download status of a given index.
 
         Args:
-            index_name: Name of the index to check
+            index_name: Name of the index to check, must be a valid index name in Pyserini. Use the list_indexes tool to see available indexes
 
         Returns:
             Dictionary with index information.
         """
         return controller.get_status(index_name)  
     
-    @mcp.tool(
-        name="fuse_search_results",
-        description="Performs normalization fusion on search results to improve ranking."
-    )
+    @mcp.tool()
     def fuse_search_results(
         hits1: list[DenseSearchResult], 
         hits2: list[DenseSearchResult], 
         k: int = 10
     ) -> list[DenseSearchResult]:
         """
-        Performs normalization fusion on search results to improve ranking.
+        Performs normalization average fusion on two lists of search results to improve ranking.
 
         Args:
-            hits1: First list of search results to merge with docid and score
-            hits2: Second list of search results to merge with docid and score
-            k: Number of results to return (default: 10)
-
+            hits1: First list of search results to merge with docid and score in the format of [{docid: score}]
+            hits2: Second list of search results to merge with docid and score in the format of [{docid: score}]
+            k: Number of top results to return (default: 10)
         Returns:
-            Dictionary with index information.
+            List of search results with docid and score in the format of [{docid: score}]
         """
         return controller.fuse(hits1, hits2, k)
     
-    @mcp.tool(
-        name="get_qrels",
-        description="Returns relevant judgements for a given index and query."
-    )
+    @mcp.tool()
     def get_qrels(
         index_name: str,
         query_id: str
     ) -> dict[str, str]:
         """
-        Returns relevant judgements for a given index and query.
+        Returns relevant judgements for a given index and query id.
 
         Args:
-            index_name: Name of the index to get relevant judgements for
-            query_id: Query ID to to get relevant judgements for
+            index_name: Name of the index to get relevant judgements for, must be a valid index name in Pyserini. Use the list_indexes tool to see available indexes
+            query_id: Query ID to to get relevant judgements for, must be a valid query id for the index
+
+        Returns:
+            Dictionary with docid and relevance judgement in the format of {docid: relevance}
         """
         return controller.get_query_qrels(index_name, query_id)
     
@@ -218,6 +205,9 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             query_id: Query ID to evaluate search results for
             hits: Search results to evaluate in the format of {{docid: score}}
             cutoff: Number of top results to evaluate (default: 10)
+
+        Returns:
+            Evaluation score for the given hits and evaluation arguments
         """
         if not metric in EVAL_METRICS.keys():
             raise ValueError(f"{metric} is not a valid evaluation metric! Must be one of {EVAL_METRICS.keys()}")

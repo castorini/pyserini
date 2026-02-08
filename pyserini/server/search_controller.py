@@ -254,7 +254,7 @@ class SearchController:
             args.insert(3, f"{cutoff}")
         args.append(get_qrels_file(index_name))
         args.append(temp_file)
-        res = trec_eval(args)
+        res = trec_eval(args, query_id=query_id)
         os.remove(temp_file)
         return res
     
@@ -313,10 +313,8 @@ class SearchController:
         status['downloaded'] = check_downloaded(index_name)
         for index_type in INDEX_TYPE:
             if INDEX_TYPE[index_type].get(index_name):
-                status['size_bytes'] = str(INDEX_TYPE[index_type].get(index_name).get('size compressed (bytes)'))
+                status.update(INDEX_TYPE[index_type].get(index_name))
                 break
-        if status.get('size_bytes') is None:
-            status['size_bytes'] = "Not available"
         return status
     
     def get_query_qrels(self, index_name: str, query_id: str) -> dict[str, str]:
