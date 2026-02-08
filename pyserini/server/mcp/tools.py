@@ -31,12 +31,7 @@ from pyserini.server.models import INDEX_TYPE, EVAL_METRICS
 def register_tools(mcp: FastMCP, controller: SearchController):
     """Register all tools with the MCP server."""
 
-    @mcp.tool(
-        name='search',
-        description='''Perform search on a given index. Returns top‑k hits with docid, score, and snippet.
-        The "query" argument is a dictionary with format {"qid": "...", "query_txt": "...", "query_img_path": "..."}.
-        '''
-    )
+    @mcp.tool()
     def search(
         query: Dict[str, Any],
         index_name: str,
@@ -45,15 +40,21 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         ef_search: int = 100,
         encoder: str = None,
         query_generator: str = None
-    ):
+    ) -> list:
         """
-        Search the Pyserini index with BM25 and return top-k hits
+        Search the Pyserini index with the appropriate method for the type of the index provided and return top-k hits.
+
         Args:
-            query: Search query dictionary with optional text and image paths
-            index_name: Name of index to search (default: use default index)
+            query: Search query dictionary with format {"qid": "...", "query_txt": "...", "query_img_path": "..."} where query_txt and query_img_path are optional but at least one must be provided
+            index_name: Name of index to search, use the list_indexes tool to see available indexes
+            instruction_config: for instruction guided search for multimodal embedding models
             k: Number of results to return (default: 10)
+            ef_search: ef_search parameter for HNSW indexes (default: 100)
+            encoder: Encoder to use for encoding the query
+            query_generator: For sparse (tf) indexes only: how to build the Lucene query. One of: BagOfWords, DisjunctionMax (dismax), QuerySideBm25 (bm25qs), Covid19. Omit or None for default.
+
         Returns:
-            List of search results with docid, score, and raw contents
+            List of search results with docid, score, and raw contents in text or image
         """
 
         raw_results = controller.search(
