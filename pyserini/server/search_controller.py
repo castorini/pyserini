@@ -34,7 +34,16 @@ from pyserini.prebuilt_index_info import TF_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, 
 from pyserini.search import get_qrels, get_qrels_file
 from pyserini.search.faiss import FaissSearcher, DenseSearchResult
 from pyserini.search.hybrid import HybridSearcher
-from pyserini.search.lucene import LuceneSearcher, LuceneHnswDenseSearcher, LuceneFlatDenseSearcher, LuceneImpactSearcher
+from pyserini.search.lucene import (
+    LuceneSearcher,
+    LuceneHnswDenseSearcher,
+    LuceneFlatDenseSearcher,
+    LuceneImpactSearcher,
+    JBagOfWordsQueryGenerator,
+    JDisjunctionMaxQueryGenerator,
+    JQuerySideBm25QueryGenerator,
+    JCovid19QueryGenerator,
+)
 from pyserini.server.models import IndexConfig, INDEX_TYPE, SHARDS, EVAL_METRICS
 from pyserini.util import check_downloaded
 
@@ -100,6 +109,28 @@ class SearchController:
         else:
             return extension.lower().replace(".", "") or "png"
 
+    def _resolve_query_generator(
+        self, query_generator_str: str | None, searcher: LuceneSearcher
+    ):
+        """Resolve a query generator name to a JQueryGenerator for Lucene (tf) search.
+
+        Supported names (case-insensitive): BagOfWords, DisjunctionMax (dismax),
+        QuerySideBm25 (bm25qs), Covid19. Returns None if query_generator_str is None/empty
+        or not recognized.
+        """
+        if not query_generator_str or not query_generator_str.strip():
+            return None
+        name = query_generator_str.strip().lower()
+        if name in ("bagofwords", "bag_of_words"):
+            return JBagOfWordsQueryGenerator()
+        if name in ("disjunctionmax", "dismax"):
+            return JDisjunctionMaxQueryGenerator(0.0)
+        if name in ("querysidebm25", "bm25qs"):
+            return JQuerySideBm25QueryGenerator(0.9, 0.4, searcher.index_reader.reader)
+        if name == "covid19":
+            return JCovid19QueryGenerator()
+        return None
+
     def get_indexes(self, index_type: str) -> list[str]:
         """Get indexes available for retrieval (only prebuilt for now)"""
         indexes = INDEX_TYPE.get(index_type)
@@ -158,8 +189,13 @@ class SearchController:
                         instruction_config=instruction_config,
                     )
                 )
-            
-            hits = index_config.searcher.search(query, k)
+            # Use per-call query_generator if provided, else index-level setting (tf indexes only)
+            qgen = query_generator or index_config.query_generator
+            if index_config.index_type == "tf" and isinstance(index_config.searcher, LuceneSearcher):
+                jquery_gen = self._resolve_query_generator(qgen, index_config.searcher)
+                hits = index_config.searcher.search(query, k, query_generator=jquery_gen)
+            else:
+                hits = index_config.searcher.search(query, k)
 
         if isinstance(query, str): # text-only query
             results = {'query': {'qid': qid, 'query_txt': query}}
@@ -218,7 +254,7 @@ class SearchController:
             args.insert(3, f"{cutoff}")
         args.append(get_qrels_file(index_name))
         args.append(temp_file)
-        res = trec_eval(args)
+        res = trec_eval(args, query_id=query_id)
         os.remove(temp_file)
         return res
     
@@ -277,10 +313,8 @@ class SearchController:
         status['downloaded'] = check_downloaded(index_name)
         for index_type in INDEX_TYPE:
             if INDEX_TYPE[index_type].get(index_name):
-                status['size_bytes'] = str(INDEX_TYPE[index_type].get(index_name).get('size compressed (bytes)'))
+                status.update(INDEX_TYPE[index_type].get(index_name))
                 break
-        if status.get('size_bytes') is None:
-            status['size_bytes'] = "Not available"
         return status
     
     def get_query_qrels(self, index_name: str, query_id: str) -> dict[str, str]:
