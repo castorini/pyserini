@@ -40,7 +40,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         ef_search: int = 100,
         encoder: str = None,
         query_generator: str = None
-    ) -> list:
+    ):
         """
         Search the Pyserini index with the appropriate method for the type of the index provided and return top-k hits.
 
@@ -91,7 +91,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         return final_output
 
     @mcp.tool()
-    def get_document(docid: str, index_name: str) -> list:
+    def get_document(docid: str, index_name: str):
         """
         Retrieve the full text and image (if available) of a document by its ID from a given index.
 
