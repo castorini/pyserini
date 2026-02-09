@@ -25,6 +25,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 import os
 from pathlib import Path
+from re import S
 from typing import Any, Dict
 
 from pyserini.eval.trec_eval import trec_eval
@@ -169,6 +170,32 @@ class SearchController:
                 query['query_modality'] = "image"
             else:
                 query['query_modality'] = "text"
+
+            if has_image and not os.path.exists(query['query_img_path']):
+                url = query['query_img_path']
+                from pyserini.util import get_cache_home
+                import requests
+                try:
+                    save_dir = os.path.join(get_cache_home(), 'mcp_query_images')
+                    os.makedirs(save_dir, exist_ok=True)
+
+                    response = requests.get(url)
+                    content_type = response.headers.get('content-type', '')
+                    extension = ''
+                    if 'jpeg' in content_type or 'jpg' in content_type:
+                        extension = '.jpg'
+                    elif 'png' in content_type:
+                        extension = '.png'
+                    else:
+                        raise ValueError("URL does not point to a valid image format (JPEG or PNG). Got content type: {content_type}")
+                    save_path = os.path.join(save_dir, f"{abs(hash(url))}{extension}")
+
+                    with open(save_path, 'wb') as file:
+                        file.write(response.content)
+                    query['query_img_path'] = save_path
+                    print(f"Downloaded query image from {url} to {save_path}")
+                except Exception as e:
+                    raise ValueError(f"Provided query_img_path does not exist and is not a valid URL. {e}")
         else:
             if not query.get('query_txt'):
                 raise ValueError("Missing query text for single modality dataset! Please provide a query text for this index!")

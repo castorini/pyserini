@@ -45,7 +45,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         Search the Pyserini index with the appropriate method for the type of the index provided and return top-k hits.
 
         Args:
-            query: Search query dictionary with format {"qid": "...", "query_txt": "...", "query_img_path": "..."} where query_txt and query_img_path are optional but at least one must be provided
+            query: Search query dictionary with format {"qid": "...", "query_txt": "...", "query_img_path": "..."} where query_txt and query_img_path are optional but at least one must be provided (query_img_path can either be a local path of an image or an url to an image)
             index_name: Name of index to search, use the list_indexes tool to see available indexes
             instruction_config: for instruction guided search for multimodal embedding models
             k: Number of results to return (default: 10)
