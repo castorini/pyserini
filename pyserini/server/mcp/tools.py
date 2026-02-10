@@ -124,9 +124,8 @@ def register_tools(mcp: FastMCP, controller: SearchController):
 
         return results 
 
-    @mcp.tool()
-    def list_indexes(index_type: str) -> list[str]:
-        f"""
+    @mcp.tool(
+        description=f"""
         List all indexes available for search of a given type from Pyserini.
 
         Args:
@@ -135,6 +134,8 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         Returns:
             List of available index names in Pyserini of the given type.
         """
+    )
+    def list_indexes(index_type: str) -> list[str]:
         return controller.get_indexes(index_type)
     
     @mcp.tool()
@@ -187,16 +188,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
     
     @mcp.tool(
         name="eval_hits",
-        description="Evaluates search results with given metric and cutoff."
-    )
-    def eval_hits(
-        index_name: str,
-        metric: str,
-        query_id: str,
-        hits: dict[str, float],
-        cutoff: int = 10
-    ) -> float:
-        f"""
+        description=f"""
         Evaluates search results with given metric and cutoff.
 
         Args:
@@ -209,6 +201,14 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         Returns:
             Evaluation score for the given hits and evaluation arguments
         """
+    )
+    def eval_hits(
+        index_name: str,
+        metric: str,
+        query_id: str,
+        hits: dict[str, float],
+        cutoff: int = 10
+    ) -> float:
         if not metric in EVAL_METRICS.keys():
             raise ValueError(f"{metric} is not a valid evaluation metric! Must be one of {EVAL_METRICS.keys()}")
         return controller.eval_hits(index_name, metric, query_id, hits, cutoff)
