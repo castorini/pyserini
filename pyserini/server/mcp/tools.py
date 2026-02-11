@@ -34,12 +34,12 @@ def register_tools(mcp: FastMCP, controller: SearchController):
     @mcp.tool()
     def search(
         query: Dict[str, Any],
-        index_name: str,
-        intruction_config: str = None,
+        index_name: str = "msmarco-v2.1-doc-segmented",
+        intruction_config: str = "",
         k: int = 10,
         ef_search: int = 100,
-        encoder: str = None,
-        query_generator: str = None
+        encoder: str = "",
+        query_generator: str = ""
     ):
         """
         Search the Pyserini index with the appropriate method for the type of the index provided and return top-k hits.
@@ -56,13 +56,14 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         Returns:
             List of search results with docid, score, and raw contents in text or image form
         """
+        print(f"Searching {index_name} for query: {query}")
 
         raw_results = controller.search(
             query, index_name, k,
             ef_search=ef_search,
-            encoder=encoder,
-            query_generator=query_generator,
-            instruction_config=intruction_config
+            encoder=encoder if encoder else None,
+            query_generator=query_generator if query_generator else None,
+            instruction_config=intruction_config if intruction_config else None
         )
 
         # Turn dict to list since MCP cannot render images in dicts
@@ -102,6 +103,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         Returns:
             Document with full text and image (if available)
         """
+        print(f"Retrieving document {docid} from index {index_name}")
         doc_data = controller.get_document(docid, index_name)
         results = []
 
@@ -136,6 +138,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         """
     )
     def list_indexes(index_type: str) -> list[str]:
+        print(f"Listing indexes of type {index_type}")
         return controller.get_indexes(index_type)
     
     @mcp.tool()
@@ -149,6 +152,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         Returns:
             Dictionary with index information.
         """
+        print(f"Getting index information for {index_name}")
         return controller.get_status(index_name)  
     
     @mcp.tool()
@@ -167,6 +171,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         Returns:
             List of search results with docid and score in the format of [{docid: score}]
         """
+        print(f"Fusing search results with {len(hits1)} hits in hits1 and {len(hits2)} hits in hits2")
         return controller.fuse(hits1, hits2, k)
     
     @mcp.tool()
@@ -184,6 +189,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         Returns:
             Dictionary with docid and relevance judgement in the format of {docid: relevance}
         """
+        print(f"Getting qrels for index {index_name} and query id {query_id}")
         return controller.get_query_qrels(index_name, query_id)
     
     @mcp.tool(
@@ -209,6 +215,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         hits: dict[str, float],
         cutoff: int = 10
     ) -> float:
+        print(f"Evaluating hits for index {index_name}, query id {query_id}, metric {metric}, and cutoff {cutoff}")
         if not metric in EVAL_METRICS.keys():
             raise ValueError(f"{metric} is not a valid evaluation metric! Must be one of {EVAL_METRICS.keys()}")
         return controller.eval_hits(index_name, metric, query_id, hits, cutoff)
