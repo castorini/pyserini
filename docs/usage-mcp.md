@@ -52,7 +52,7 @@ For more details on configuring Claude Desktop, refer to the [Claude Desktop doc
 To use the Pyserini MCP server remotely, first start the server on your remote machine:
 
 ```bash
-python -m pyserini.server.mcp --transport streamable-http
+python -m pyserini.server.mcp --transport http
 ```
 
 Run the following on your local machine to forward the port from your remote machine:

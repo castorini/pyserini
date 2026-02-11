@@ -158,6 +158,7 @@ class SearchController:
             query = {"query_txt": query}
 
         if "m-beir" in index_name:
+            from pyserini.util import get_cache_home
             if not query.get('qid'):
                 query['qid'] = "1:1" # dummy qid for m-beir format
             query['fp16'] = True # use fp16 for m-beir format
@@ -173,7 +174,6 @@ class SearchController:
 
             if has_image and not os.path.exists(query['query_img_path']):
                 url = query['query_img_path']
-                from pyserini.util import get_cache_home
                 import requests
                 try:
                     save_dir = os.path.join(get_cache_home(), 'mcp_query_images')
@@ -196,6 +196,48 @@ class SearchController:
                     print(f"Downloaded query image from {url} to {save_path}")
                 except Exception as e:
                     raise ValueError(f"Provided query_img_path does not exist and is not a valid URL. {e}")
+
+            if instruction_config is None or not instruction_config.strip():
+                name_to_instr_file = {
+                    'cirr_task7': 'cirr_task7_instr.yaml',
+                    'edis_task2': 'edis_task2_instr.yaml',
+                    'fashion200k_task0': 'fashion200k_task0_instr.yaml',
+                    'fashion200k_task3': 'fashion200k_task3_instr.yaml',
+                    'fashioniq_task7': 'fashioniq_task7_instr.yaml',
+                    'infoseek_task6': 'infoseek_task6_instr.yaml',
+                    'infoseek_task8': 'infoseek_task8_instr.yaml',
+                    'mscoco_task0': 'mscoco_task0_instr.yaml',
+                    'mscoco_task3': 'mscoco_task3_instr.yaml',
+                    'nights_task4': 'nights_task4_instr.yaml',
+                    'oven_task6': 'oven_task6_instr.yaml',
+                    'oven_task8': 'oven_task8_instr.yaml',
+                    'visualnews_task0': 'visualnews_task0_instr.yaml',
+                    'visualnews_task3': 'visualnews_task3_instr.yaml',
+                    'webqa_task1': 'webqa_task1_instr.yaml',
+                    'webqa_task2': 'webqa_task2_instr.yaml',
+                }
+                instr_file = None
+                for name in name_to_instr_file:
+                    if name in index_name:
+                        instr_file = name_to_instr_file[name]
+                        break
+
+                cache_dir = get_cache_home()
+                instr_dir = os.path.join(cache_dir, 'query_instructions')
+                if not os.path.exists(instr_dir):
+                    from pyserini.util import download_url
+                    import tarfile
+                    query_images_and_instructions_url = "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/mbeir_query_images_and_instructions.tar.gz"
+                    tar_path = os.path.join(cache_dir, 'mbeir_query_images_and_instructions.tar.gz')
+
+                    try:
+                        download_url(query_images_and_instructions_url, cache_dir, force=False)
+                        with tarfile.open(tar_path, 'r:gz') as tar:
+                            tar.extractall(cache_dir)
+                    except Exception as e:
+                        raise Exception(f"Could not download default instructions: {e}")
+
+                instruction_config = str(os.path.join(instr_dir, instr_file)) if instr_file else None
         else:
             if not query.get('query_txt'):
                 raise ValueError("Missing query text for single modality dataset! Please provide a query text for this index!")
