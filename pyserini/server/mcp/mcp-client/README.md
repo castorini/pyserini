@@ -2,6 +2,7 @@
 # MCP Client for RAG
 
 This guide goes through setting up and running a lightweight, custom MCP client for RAG.
+This client can be used with any MCP server, not just that of Pyserini's. 
 
 # MCP Server
 
