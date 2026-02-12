@@ -87,7 +87,12 @@ class SearchController:
             config.index_type = "impact"
         elif config.name in FAISS_INDEX_INFO_M_BEIR.keys():
             if config.encoder not in ["clip_sf_large", "blip_ff_large"]:
-                raise ValueError(f'Invalid encoder for index {config.name}. For M-BEIR Faiss indexes, encoder must be one of ["clip_sf_large", "blip_ff_large"].')
+                if "blip-ff-large" in config.name:
+                    config.encoder = "blip_ff_large"
+                elif "clip-sf-large" in config.name:
+                    config.encoder = "clip_sf_large"
+                else:
+                    raise ValueError(f'Invalid encoder for index {config.name}. For M-BEIR Faiss indexes, encoder must be one of ["clip_sf_large", "blip_ff_large"].')
             config.searcher = FaissSearcher.from_prebuilt_index(config.name, query_encoder=UniIRQueryEncoder(encoder_dir=config.encoder, instruction_config=config.instruction_config))
             config.base_index = FAISS_INDEX_INFO.get(config.name).get("texts")
             config.index_type = "faiss"

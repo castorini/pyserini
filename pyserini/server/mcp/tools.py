@@ -43,10 +43,16 @@ def register_tools(mcp: FastMCP, controller: SearchController):
     ):
         """
         Search the Pyserini index with the appropriate method for the type of the index provided and return top-k hits.
+        Image results are returned as FastMCP.Image in the list. It is up to the client, not the LLM, to render them properly, so the LLM should not worry about displaying the images.
+        If the LLM can see the images, assume that they are displayed to the user as well. 
 
         Args:
-            query: Search query dictionary with format {"qid": "...", "query_txt": "...", "query_img_path": "..."} where query_txt and query_img_path are optional but at least one must be provided (query_img_path can either be a local path of an image or an url to an image)
-            index_name: Name of index to search, use the list_indexes tool to see available indexes
+            query: Search query dictionary with format {"qid": "...", "query_txt": "...", "query_img_path": "..."} 
+                where query_txt and query_img_path are optional but at least one must be provided 
+                (query_img_path can either be a local path of an image or an url to an image).
+                "qid" is also optional but must be a specific format for image search, no need to supply unless given by user.
+            index_name: Name of index to search, use the list_indexes tool to see available indexes. 
+                Default is msmarco-v2.1-doc-segmented which is good for retrieval augmented generation for LLMs.
             instruction_config: for instruction guided search for multimodal embedding models
             k: Number of results to return (default: 10)
             ef_search: ef_search parameter for HNSW indexes (default: 100)
