@@ -51,8 +51,10 @@ def main():
 
         register_tools(mcp, get_controller())
 
-        mcp.run(transport=args.transport, port=args.port)
-
+        if args.transport == "http":
+            mcp.run(transport=args.transport, port=args.port)
+        else:
+            mcp.run(transport=args.transport)
 
     except Exception as e:
         print('Error', e)
