@@ -231,3 +231,4 @@ Because of slightly different parameter settings, the results here do not exactl
 + Results reproduced by [@apokali](https://github.com/apokali) on 2021-09-23 (commit [`82f8422`](https://github.com/castorini/pyserini/commit/82f842218f8c5c7c451b2e463774d7bdf6bc0653))
 + Results reproduced by [@yuki617](https://github.com/yuki617) on 2022-02-08 (commit [`e03e068`](https://github.com/castorini/pyserini/commit/e03e06880ad4f6d67a1666c1dd45ce4250adc95d))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2022-06-01 (commit [`b7bcf51`](https://github.com/castorini/pyserini/commit/b7bcf517ecc021985ab052b20fcb6beeb63a303b))
++ Results reproduced by [@HusamIsied](https://github.com/HusamIsied) on 2026-02-13 (commit [`2cecfb0`](https://github.com/castorini/pyserini/commit/2cecfb02eeb68cac2603cd2959ac3519bb4296cd))
