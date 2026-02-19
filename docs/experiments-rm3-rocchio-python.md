@@ -8,8 +8,8 @@ For example, to run RM3 in Python over TREC DL21,
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-passage \
-  --topics <topics_name> \
-  --output run.msmarco-v2-passage.bm25-rm3-default.<dataset_name>.txt \
+  --topics dl21 \
+  --output run.msmarco-v2-passage.bm25-rm3-default.dl21.txt \
   --bm25 --rm3-py
 ```
 
@@ -19,8 +19,8 @@ Rocchio follows similar style:
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index msmarco-v2-passage \
-  --topics <topics_name> \
-  --output run.msmarco-v2-passage.bm25-rm3-default.<dataset_name>.txt \
+  --topics dl21 \
+  --output run.msmarco-v2-passage.bm25-rm3-default.dl21.txt \
   --bm25 --rocchio-py
 ```
 
