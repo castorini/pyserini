@@ -33,9 +33,16 @@ def last_token_pool(last_hidden_states: Tensor, attention_mask: Tensor) -> Tenso
             torch.arange(batch_size, device=last_hidden_states.device), sequence_lengths
         ]
 
+def truncate_text(tokenizer, text, max_length):
+    text_ids = tokenizer.encode(text, add_special_tokens=False)
+    if len(text_ids) > max_length:
+        text_ids = text_ids[:max_length]
+        text = tokenizer.decode(text_ids)
+    return text
 
 class Qwen3DocumentEncoder(DocumentEncoder):
     def __init__(self, model_name, device='cuda:0', **kwargs):
+        self.explicit_truncate = kwargs.get('explicit_truncate', False)
         self.device = device
         self.l2_norm = kwargs.get('l2_norm', False)
         self.prefix = kwargs.get('prefix', '')
@@ -47,16 +54,17 @@ class Qwen3DocumentEncoder(DocumentEncoder):
 
     def encode(self, texts, **kwargs):
         max_length = kwargs.get('max_length', 8192)
-        # For document encoders, fp16 is passed at encode time.
         self.dtype = torch.bfloat16 if kwargs.get('fp16', False) else torch.float32
         self.model.to(device=self.device, dtype=self.dtype).eval()
         if isinstance(texts, str):
             texts = [texts]
         texts = [f"{self.prefix}{t}" for t in texts]
+        if self.explicit_truncate:
+            texts = [truncate_text(self.tokenizer, t, max_length) for t in texts]
         batch_dict = self.tokenizer(
             texts,
             padding=True,
-            truncation=True,
+            truncation=False if self.explicit_truncate else True,
             max_length=max_length,
             return_tensors="pt",
         )
@@ -75,11 +83,13 @@ class Qwen3DocumentEncoder(DocumentEncoder):
 
 class Qwen3QueryEncoder(QueryEncoder):
     def __init__(self, encoder_dir, device='cuda:0', **kwargs):
+        self.explicit_truncate = kwargs.get('explicit_truncate', False)
         self.prefix = kwargs.get('prefix', '')
         self.device = device
         self.l2_norm = kwargs.get('l2_norm', False)
         # For query encoders, fp16 is passed at initialization time.
         self.dtype = torch.bfloat16 if kwargs.get('fp16', False) else torch.float32
+        self.max_length = kwargs.get('max_length', 8192)
         self.tokenizer = AutoTokenizer.from_pretrained(
             encoder_dir, padding_side='left', trust_remote_code=True
         )
@@ -89,13 +99,14 @@ class Qwen3QueryEncoder(QueryEncoder):
         self.model.to(device=self.device, dtype=self.dtype).eval()
 
     def encode(self, query: str, **kwargs):
-        max_length = kwargs.get('max_length', 8192)
         text = f"{self.prefix}{query}" if self.prefix else query
+        if self.explicit_truncate:
+            text = truncate_text(self.tokenizer, text, self.max_length)
         batch_dict = self.tokenizer(
             [text],
             padding=True,
-            truncation=True,
-            max_length=max_length,
+            truncation=False if self.explicit_truncate else True,
+            max_length=self.max_length,
             return_tensors="pt",
         )
         batch_dict = {k: v.to(device=self.device) for k, v in batch_dict.items()}

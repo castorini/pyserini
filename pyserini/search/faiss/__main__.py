@@ -254,6 +254,7 @@ def init_query_encoder(
     multimodal=False,
     instruction_config=None,
     fp16=False,
+    explicit_truncate=False,
 ):
     encoded_queries_map = {
         "msmarco-passage-dev-subset": "tct_colbert-msmarco-passage-dev-subset",
@@ -309,7 +310,7 @@ def init_query_encoder(
             if encoder_class is None:
                 raise ValueError("UniIR's query encoder class is not available (as the uniir-for-pyserini package is not installed or CLIP is not installed). Please run 'pip install pyserini[optional]' to install the uniir-for-pyserini package and run 'pip install git+https://github.com/openai/CLIP.git' to install CLIP.")
         if _encoder_class == "qwen3":
-            kwargs.update(dict(l2_norm=l2_norm, prefix=prefix))
+            kwargs.update(dict(l2_norm=l2_norm, prefix=prefix, max_length=max_length, explicit_truncate=explicit_truncate))
         if _encoder_class == "dse" or (encoder and "dse" in encoder.lower()):
             kwargs.update(dict(l2_norm=True, pooling=pooling, multimodal=multimodal))
         if _encoder_class == "mmeb":
@@ -436,6 +437,12 @@ if __name__ == "__main__":
         default=False,
         help="Remove query from results list.",
     )
+    parser.add_argument(
+        "--explicit-truncate",
+        action="store_true",
+        default=False,
+        help="Explicitly truncate the query.",
+    )
     define_dsearch_args(parser)
     args = parser.parse_args()
 
@@ -455,7 +462,8 @@ if __name__ == "__main__":
         args.query_prefix,
         args.multimodal,
         args.instruction_config,
-        args.fp16
+        args.fp16,
+        args.explicit_truncate
     )
     if args.pca_model:
         query_encoder = PcaEncoder(query_encoder, args.pca_model)

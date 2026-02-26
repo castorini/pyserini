@@ -117,7 +117,7 @@ class JsonlCollectionIterator:
                 to_yield[key] = self.all_info[key][idx: min(idx + self.batch_size, end_idx)]
             yield to_yield
 
-    def _parse_fields_from_info(self, info, strict=True):
+    def _parse_fields_from_info(self, info, strict=True, strip_trailing_space=True):
         """
         :params info: dict, containing all fields as speicifed in self.fields either under 
         the key of the field name or under the key of 'contents'.  If under `contents`, this 
@@ -144,7 +144,10 @@ class JsonlCollectionIterator:
             if contents.endswith(self.delimiter):
                 # not using .rstrip() as there might be more than one delimiters at the end
                 contents = contents[:-len(self.delimiter)]
-        return [field.strip(" ") for field in contents.split(self.delimiter)]
+        if strip_trailing_space:
+            return [field.strip(" ") for field in contents.split(self.delimiter)]
+        else:
+            return [field for field in contents.split(self.delimiter)]
 
     def _load(self, collection_path):
         filenames = []
@@ -159,6 +162,12 @@ class JsonlCollectionIterator:
         if any("mbeir" in filename for filename in filenames):
             strict = False
 
+        # In Bright datasets, stripping trailing spaces drops the cosine similarity score of Pyserini's embeddings vs Diver embeddings to 0.87;
+        # we keep the trailing spaces in Bright datasets to maintain the original document contents.
+        strip_trailing_space = True
+        if any("bright" in filename for filename in filenames):
+            strip_trailing_space = False
+
         all_info = {field: [] for field in self.fields}
         all_info['id'] = []
         for filename in filenames:
@@ -172,7 +181,7 @@ class JsonlCollectionIterator:
                     if _id is None:
                         raise ValueError(f"Cannot find f'`{self.docid_field if self.docid_field else '`id` or `_id` or `docid'}`' from {filename}.")
                     all_info['id'].append(str(_id))
-                    fields_info = self._parse_fields_from_info(info, strict=strict)
+                    fields_info = self._parse_fields_from_info(info, strict=strict, strip_trailing_space=strip_trailing_space)
                     if len(fields_info) != len(self.fields):
                         raise ValueError(
                             f"{len(fields_info)} fields are found at Line#{line_i} in file {filename}." \
