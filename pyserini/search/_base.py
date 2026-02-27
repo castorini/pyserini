@@ -468,7 +468,7 @@ topics_mapping = {
     'ciral-v1.0-sw-dev-native': 'CIRAL_V10_SW_DEV_MONO',
     'ciral-v1.0-yo-dev-native': 'CIRAL_V10_YO_DEV_MONO',
 
-    # Bright topics
+    # Bright topics, tsv format
     'bright-biology': 'BRIGHT_BIOLOGY',
     'bright-earth-science': 'BRIGHT_EARTH_SCIENCE',
     'bright-economics': 'BRIGHT_ECONOMICS',
@@ -481,6 +481,20 @@ topics_mapping = {
     'bright-aops': 'BRIGHT_AOPS',
     'bright-theoremqa-theorems': 'BRIGHT_THEOREMQA_THEOREMS',
     'bright-theoremqa-questions': 'BRIGHT_THEOREMQA_QUESTIONS',
+
+    # Bright topics, original format
+    'bright-biology-original': 'BRIGHT_BIOLOGY_ORIGINAL',
+    'bright-earth-science-original': 'BRIGHT_EARTH_SCIENCE_ORIGINAL',
+    'bright-economics-original': 'BRIGHT_ECONOMICS_ORIGINAL',
+    'bright-psychology-original': 'BRIGHT_PSYCHOLOGY_ORIGINAL',
+    'bright-robotics-original': 'BRIGHT_ROBOTICS_ORIGINAL',
+    'bright-stackoverflow-original': 'BRIGHT_STACKOVERFLOW_ORIGINAL',
+    'bright-sustainable-living-original': 'BRIGHT_SUSTAINABLE_LIVING_ORIGINAL',
+    'bright-pony-original': 'BRIGHT_PONY_ORIGINAL',
+    'bright-leetcode-original': 'BRIGHT_LEETCODE_ORIGINAL',
+    'bright-aops-original': 'BRIGHT_AOPS_ORIGINAL',
+    'bright-theoremqa-theorems-original': 'BRIGHT_THEOREMQA_THEOREMS_ORIGINAL',
+    'bright-theoremqa-questions-original': 'BRIGHT_THEOREMQA_QUESTIONS_ORIGINAL',
 
     # DSE topics
     'slidevqa': 'SLIDEVQA_TEST',

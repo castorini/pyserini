@@ -2168,6 +2168,102 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 [<a href="../pyserini/resources/index-metadata/faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
 <dd>Faiss flat index for BRIGHT: theoremqa-questions corpus encoded by BGE-large-en-v1.5.
 </dd>
+<dt></dt><b><code>bright-aops.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the aops corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-biology.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the biology corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-earth-science.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the earth-science corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-economics.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the economics corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-leetcode.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the leetcode corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-pony.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the pony corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-psychology.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the psychology corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-robotics.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the robotics corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-stackoverflow.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the stackoverflow corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-sustainable-living.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the sustainable-living corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-theoremqa-questions.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the theoremqa-questions corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-theoremqa-theorems.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the theoremqa-theorems corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-aops.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the aops corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-biology.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the biology corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-earth-science.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the earth-science corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-economics.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the economics corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-leetcode.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the leetcode corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-pony.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the pony corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-psychology.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the psychology corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-robotics.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the robotics corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-stackoverflow.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the stackoverflow corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-sustainable-living.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the sustainable-living corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-theoremqa-questions.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the theoremqa-questions corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-theoremqa-theorems.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the theoremqa-theorems corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
 </dl>
 </details>
 <details>
@@ -2766,17 +2862,6 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dt></dt><b><code>m-beir-webqa_task2.blip-ff-large</code></b>
 [<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's blip-ff-large model
-</dd>
-</dl>
-</details>
-<details>
-<summary>DSE</summary>
-<dl>
-<dt></dt><b><code>slidevqa.dse</code></b>
-<dd>Faiss index of the SlideVQA corpus encoded by DSE (Tevatron/dse-phi3-v1.0)
-</dd>
-<dt></dt><b><code>wiki-ss.dse</code></b>
-<dd>Faiss index of the Wiki-SS corpus encoded by DSE (Tevatron/dse-phi3-v1.0)
 </dd>
 </dl>
 </details>
