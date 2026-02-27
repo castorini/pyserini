@@ -26,15 +26,15 @@ from pyserini.pyclass import autoclass
 class TestPrebuiltIndexes(unittest.TestCase):
     def test_index_inf(self):
         # Test the accessibility of IndexInfo on the Anserini end to make sure everything is "connected together"
-        JIndexInfo = autoclass('io.anserini.index.IndexInfo')
+        JPrebuiltFlatIndex = autoclass('io.anserini.index.prebuilt.PrebuiltFlatIndex')
 
-        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.indexName,
+        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').name,
                          'beir-v1.0.0-arguana.bge-base-en-v1.5.flat')
-        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.filename,
+        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').filename,
                          'lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
-        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.readme,
+        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').readme,
                          'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md')
-        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.urls[0],
+        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').urls[0],
                          'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/resolve/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
 
     def test_lucene_tf_msmarco_v1(self):
