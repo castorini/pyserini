@@ -40,7 +40,7 @@ class TestNFCorpus(unittest.TestCase):
         r = randint(0, 10000000)
         cls.dense_index_url = 'https://github.com/castorini/anserini-data/raw/master/NFCorpus/faiss.nfcorpus.contriever-msmarco.tar.gz'
         cls.dense_tarball_name = f'faiss.nfcorpus.contriever-msmarco-{r}.tar.gz'
-        cls.dense_index_dir = f'faiss.nfcorpus.contriever-msmarco-{r}/'
+        cls.dense_index_dir = f'faiss.nfcorpus.contriever-msmarco-{r}'
 
         urlretrieve(cls.dense_index_url, cls.dense_tarball_name)
 
@@ -50,7 +50,7 @@ class TestNFCorpus(unittest.TestCase):
 
         cls.sparse_index_url = 'https://github.com/castorini/anserini-data/raw/master/NFCorpus/lucene.nfcorpus.tar.gz'
         cls.sparse_tarball_name = f'lucene.nfcorpus-{r}.tar.gz'
-        cls.sparse_index_dir = f'lucene.nfcorpus-{r}/'
+        cls.sparse_index_dir = f'lucene.nfcorpus-{r}'
 
         urlretrieve(cls.sparse_index_url, cls.sparse_tarball_name)
 
@@ -61,17 +61,18 @@ class TestNFCorpus(unittest.TestCase):
     def test_dense_retrieval(self):
         r = randint(0, 10000000)
         run_file = f'run.{r}.txt'
+        subdir = os.listdir(self.dense_index_dir)[0]
+
         cmd = f'python -m pyserini.search.faiss \
                   --encoder-class contriever --encoder facebook/contriever-msmarco \
-                  --index {self.dense_index_dir}/faiss.nfcorpus.contriever-msmarco \
+                  --index {self.dense_index_dir}/{subdir} \
                   --topics {self.queries} \
                   --output {run_file} \
                   --batch 32 --threads 4 \
                   --hits 10'
 
         os.system(cmd)
-        results = subprocess.check_output(
-            f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 {self.qrels} {run_file}', shell=True)
+        results = subprocess.check_output(f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 {self.qrels} {run_file}', shell=True)
         results = results.decode('utf-8').split('\n')
         ndcg_line = results[-2]
         ndcg_score = float(ndcg_line.split('\t')[-1])
@@ -82,16 +83,17 @@ class TestNFCorpus(unittest.TestCase):
     def test_sparse_retrieval(self):
         r = randint(0, 10000000)
         run_file = f'run.{r}.txt'
+        subdir = os.listdir(self.sparse_index_dir)[0]
+
         cmd = f'python -m pyserini.search.lucene \
-                  --index {self.sparse_index_dir}/lucene.nfcorpus \
+                  --index {self.sparse_index_dir}/{subdir} \
                   --topics {self.queries} \
                   --output {run_file} \
                   --batch 32 --threads 4 \
                   --hits 10 --bm25'
 
         os.system(cmd)
-        results = subprocess.check_output(
-            f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 {self.qrels} {run_file}', shell=True)
+        results = subprocess.check_output(f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 {self.qrels} {run_file}', shell=True)
         results = results.decode('utf-8').split('\n')
         ndcg_line = results[-2]
         ndcg_score = float(ndcg_line.split('\t')[-1])
