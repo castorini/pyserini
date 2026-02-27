@@ -36,7 +36,6 @@ if __name__ == '__main__':
     parser.add_argument('--pq-nbits', type=int, default=8, required=False)
     parser.add_argument('--threads', type=int, default=12, required=False)
     parser.add_argument('--metric', type=str, default="inner", required=False)
-    parser.add_argument('--use-gpu', action="store_true", required=False)
     args = parser.parse_args()
 
     faiss.omp_set_num_threads(args.threads)
@@ -78,17 +77,9 @@ if __name__ == '__main__':
         index = faiss.IndexFlatL2(args.dim)
     index.verbose = True
 
-    if args.use_gpu:
-        res = faiss.StandardGpuResources()
-        index = faiss.index_cpu_to_gpu(res, 0, index)
-
     if args.pq:
         index.train(vectors)
 
     index.add(vectors)
     print(f"Number of indexed vectors: {index.ntotal}")
-
-    if args.use_gpu:
-        index = faiss.index_gpu_to_cpu(index)
-
     faiss.write_index(index, os.path.join(args.output, 'index'))

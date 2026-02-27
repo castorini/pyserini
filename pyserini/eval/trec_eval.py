@@ -103,24 +103,6 @@ def trec_eval(
                 run['name'] = 'TEMPRUN'
                 run.to_csv(temp_file, sep='\t', header=None, index=None)
                 args[-1] = temp_file
-            # Pop document ids of excluded documents from the run file
-            if 'bright' in args[-2]:
-                temp_file = tempfile.NamedTemporaryFile(delete=False).name
-                print('bright run detected. Popping document ids of excluded documents from the run file...')
-                with open(args[-1], "r") as f:
-                    lines = f.readlines()
-                fixed_rank = 1
-                qid = -1
-                with open(temp_file, "w") as f:
-                    for line in lines:
-                        query_id, _, doc_id, rank, score, tag = line.split()
-                        if query_id != qid:
-                            qid = query_id
-                            cur_rank = 1
-                        if doc_id not in excluded_ids[query_id]:
-                            f.write("\t".join([query_id, "Q0", doc_id, str(cur_rank), score, tag]) + "\n")
-                            fixed_rank += 1
-                            cur_rank += 1
 
         if not os.path.exists(args[-1]):
             print(f"The run file {args[-1]} does not exist!")

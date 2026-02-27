@@ -65,13 +65,8 @@ class FaissSearcher:
         query_encoder: Union[QueryEncoder, str],
         prebuilt_index_name: Optional[str] = None,
         normalize_distances: bool = False,
-        faiss_device: str = "cpu",
     ):
-        # The tranformers utils only checks for faiss, need to add faiss_gpu to the backend mapping before using it.
-        if faiss_device == "cpu":
-            requires_backends(self, "faiss")
-        else:
-            print(f"Using GPU for FAISS search on device {faiss_device}")
+        requires_backends(self, "faiss")
         if not isinstance(query_encoder, str):
             self.query_encoder = query_encoder
         else:
@@ -92,7 +87,6 @@ class FaissSearcher:
         prebuilt_index_name: str,
         query_encoder: QueryEncoder,
         normalize_distances: bool = False,
-        faiss_device: str = "cpu",
     ):
         """Build a searcher from a prebuilt index; download the index if necessary.
 
@@ -104,8 +98,6 @@ class FaissSearcher:
             Prebuilt index name.
         normalize_distances : bool
             Whether to normalize distances to unit interval [0, 1]. Default is False.
-        faiss_device: str
-            Device to run faiss, cpu or [cuda:0, cuda:1, ...]. Default is cpu.
 
         Returns
         -------
@@ -127,7 +119,7 @@ class FaissSearcher:
             return None
 
         print(f'Initializing {prebuilt_index_name}...')
-        return cls(index_dir, query_encoder, prebuilt_index_name, normalize_distances, faiss_device)
+        return cls(index_dir, query_encoder, prebuilt_index_name, normalize_distances)
 
     @staticmethod
     def list_prebuilt_indexes():
@@ -195,10 +187,9 @@ class FaissSearcher:
             emb_q = emb_q.reshape((1, self.dimension))
         else:
             emb_q = query
-        emb_q_32 = emb_q.astype('float32')
         faiss.omp_set_num_threads(threads)
         if return_vector:
-            distances, indexes, vectors = self.index.search_and_reconstruct(emb_q_32, k)
+            distances, indexes, vectors = self.index.search_and_reconstruct(emb_q, k)
             vectors = vectors[0]
             distances = distances.flat
             indexes = indexes.flat
@@ -208,7 +199,7 @@ class FaissSearcher:
                 if idx != -1
             ]
         else:
-            distances, indexes = self.index.search(emb_q_32, k)
+            distances, indexes = self.index.search(emb_q, k)
             distances = distances.flat
             indexes = indexes.flat
             if self.normalize_distances:
@@ -270,11 +261,7 @@ class FaissSearcher:
                 assert isinstance(q, str)
                 return self.query_encoder.encode(q)
 
-            # if query_encoder has encode_batch method, use it
-            if hasattr(self.query_encoder, 'encode_batch'):
-                q_embs = self.query_encoder.encode_batch(queries)
-            else:
-                q_embs = [_enc(q) for q in queries]
+            q_embs = [_enc(q) for q in queries]
             if len(q_embs[0]) == self.dimension:
                 q_embs = np.array(q_embs)
             else:
@@ -283,10 +270,9 @@ class FaissSearcher:
                 q_embs = np.vstack(q_embs)
             n, m = q_embs.shape
             assert m == self.dimension
-        q_embs_32 = q_embs.astype('float32')
         faiss.omp_set_num_threads(threads)
         if return_vector:
-            D, I, V = self.index.search_and_reconstruct(q_embs_32, k)
+            D, I, V = self.index.search_and_reconstruct(q_embs, k)
             return q_embs, {
                 key: [
                     PrfDenseSearchResult(self.docids[idx], score, vector)
@@ -296,7 +282,7 @@ class FaissSearcher:
                 for key, distances, indexes, vectors in zip(q_ids, D, I, V)
             }
         else:
-            D, I = self.index.search(q_embs_32, k)
+            D, I = self.index.search(q_embs, k)
             if self.normalize_distances:
                 D = self._normalize_to_unit_interval(D)
             return {

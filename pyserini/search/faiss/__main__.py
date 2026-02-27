@@ -238,14 +238,6 @@ def define_dsearch_args(parser):
             metric (default: normalization is disabled). This is used to match \
             the behavior of Lucene's dense search.",
     )
-    parser.add_argument(
-        "--faiss-device",
-        type=str,
-        metavar="device to run faiss",
-        required=False,
-        default="cpu",
-        help="Device to run faiss, cpu or [cuda:0, cuda:1, ...]",
-    )
 
 
 def init_query_encoder(
@@ -482,7 +474,7 @@ if __name__ == "__main__":
             kwargs = dict(binary_k=args.binary_hits, rerank=args.rerank)
             searcher = BinaryDenseFaissSearcher(args.index, query_encoder)
         else:
-            searcher = FaissSearcher(args.index, query_encoder, normalize_distances=args.normalize_distances, faiss_device=args.faiss_device)
+            searcher = FaissSearcher(args.index, query_encoder, normalize_distances=args.normalize_distances)
     else:
         # create searcher from prebuilt index name
         if args.searcher.lower() == "bpr":
@@ -491,7 +483,7 @@ if __name__ == "__main__":
                 args.index, query_encoder
             )
         else:
-            searcher = FaissSearcher.from_prebuilt_index(args.index, query_encoder, normalize_distances=args.normalize_distances, faiss_device=args.faiss_device)
+            searcher = FaissSearcher.from_prebuilt_index(args.index, query_encoder, normalize_distances=args.normalize_distances)
 
     if args.ef_search:
         searcher.set_hnsw_ef_search(args.ef_search)
