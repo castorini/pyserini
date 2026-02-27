@@ -70,11 +70,9 @@ class TestNFCorpus(unittest.TestCase):
                   --output {run_file} \
                   --batch 32 --threads 4 \
                   --hits 10'
-        #print(cmd)
 
         os.system(cmd)
-        results = subprocess.check_output(
-            f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 {self.qrels} {run_file}', shell=True)
+        results = subprocess.check_output(f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 {self.qrels} {run_file}', shell=True)
         results = results.decode('utf-8').split('\n')
         ndcg_line = results[-2]
         ndcg_score = float(ndcg_line.split('\t')[-1])
@@ -95,8 +93,7 @@ class TestNFCorpus(unittest.TestCase):
                   --hits 10 --bm25'
 
         os.system(cmd)
-        results = subprocess.check_output(
-            f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 {self.qrels} {run_file}', shell=True)
+        results = subprocess.check_output(f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 {self.qrels} {run_file}', shell=True)
         results = results.decode('utf-8').split('\n')
         ndcg_line = results[-2]
         ndcg_score = float(ndcg_line.split('\t')[-1])
