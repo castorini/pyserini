@@ -1,8 +1,11 @@
-# Pyserini: Reproducing Bright leaderboard with Diver Model - Finetuned from Qwen3
-This guide contains steps to reproduce retrieval results for BRIGHT using the Diver Model introduced in the following paper:
+# Pyserini: Reproducing Bright leaderboard with Models Finetuned from Qwen3
+This guide contains steps to reproduce retrieval results for BRIGHT using the Diver and Reason-Embed Models introduced in the following papers:
 
 Meixiu Long and Duolin Sun and Dan Yang and Junjie Wang and Yue Shen and Jian Wang and Peng Wei and Jinjie Gu and Jiahai Wang.
 [DIVER: A Multi-Stage Approach for Reasoning-intensive Information Retrieval](https://arxiv.org/abs/2508.07995) _arXiv:2508.07995_
+
+
+
 
 ## Data Preparation
 You need to obtain the relevant corpra from [Bright Corpus](https://huggingface.co/datasets/castorini/collections-bright/tree/main/corpus).
@@ -18,54 +21,120 @@ gunzip pony.jsonl.gz
 
 ## Encoding and indexing the Corpus
 For all the following commands, ensure to update the directory paths accordingly.
-Encode document screenshots into dense vectors:
+Encode documents into dense vectors and create faiss flat index:
+
+### Diver
 
 ```bash
 model="AQ-MedAI/Diver-Retriever-4B"
 model_name="Diver-Retriever-4B"
+model_name="${model_name,,}"
 dataset_name="pony"
 python -m pyserini.encode \
-  input   --corpus ../${dataset_name}.jsonl \
+  input   --corpus collections/bright/corpus/${dataset_name}.jsonl \
           --fields text \
           --delimiter "|||~~~|||||~~~~~" \
-  output  --embeddings ./embeddings/${dataset_name}.${model_name} \
+  output  --embeddings ./indexes/bright/faiss-flat.bright-${dataset_name}.${model_name} \
+           --to-faiss \
   encoder --encoder $model \
           --encoder-class qwen3 \
           --fields text \
-          --batch-size 32 \
-          --fp16 \
+          --batch-size 16 \
           --max-length 16384 \
+          --explicit-truncate \
+          --fp16 \
           --l2-norm \
-          --prefix 'Represent this text: '
+          --dim 2560 \
+          --device cuda:0 \
+          --prefix 'Represent this text:'
 ```
 
-Now you can index them, the index dimension must match the models' hidden sizes.
-
+### Reason-Embed
 ```bash
-python -m pyserini.index.faiss \
-  --input ./embeddings/${dataset_name}.${model_name} \
-  --output ./indexes/${dataset_name}.${model_name} \
-  --metric inner \
-  --dim 2560
+model="hanhainebula/reason-embed-qwen3-4b-0928"
+model_name="reason-embed-qwen3-4b-0928"
+model_name="${model_name,,}"
+dataset_name="pony"
+python -m pyserini.encode \
+  input   --corpus collections/bright/corpus/${dataset_name}.jsonl \
+          --fields text \
+          --delimiter "|||~~~|||||~~~~~" \
+  output  --embeddings ./indexes/bright/faiss-flat.bright-${dataset_name}.${model_name} \
+           --to-faiss \
+  encoder --encoder $model \
+          --encoder-class qwen3 \
+          --fields text \
+          --batch-size 16 \
+          --fp16 \
+          --max-length 8192 \
+          --l2-norm \
+          --dimension 2560 \
+          --device cuda:0
 ```
 
 ## Search
 
+### Diver
+
 ```bash
+dataset_name="pony"
+model="AQ-MedAI/Diver-Retriever-4B"
+model_name="Diver-Retriever-4B"
+model_name="${model_name,,}"
 python -m pyserini.search.faiss \
-  --encoder $model \
-  --encoder-class qwen3 \
-  --index ./indexes/${dataset_name}.${model_name} \
-  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query.\nQuery: ' \
-  --topics bright-${dataset_name} \
-  --output ./runs/run.bright-${dataset_name}.${model_name}.txt \
-  --hits 1000 \
-  --remove-query \
-  --l2-norm \
-  --fp16 \
-  --max-length 16384 \
-  --device cuda:0
+        --encoder $model \
+        --encoder-class qwen3 \
+        --index ./indexes/bright/faiss-flat.bright-${dataset_name}.${model_name} \
+        --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+        --topics bright-${dataset_name}-original \
+        --output .runs/run.bright-${dataset_name}.${model_name}.txt \
+        --hits 1000 \
+        --remove-query \
+        --topics-format raw_jsonl \
+        --explicit-truncate \
+        --fp16 \
+        --l2-norm \
+        --max-length 16384 \
+        --device cuda:0
 ```
+
+### Reason-Embed
+```bash
+declare -A INSTRUCTIONS
+INSTRUCTIONS["biology"]="Given a Biology post, retrieve relevant passages that help answer the post."
+INSTRUCTIONS["earth_science"]="Given an Earth Science post, retrieve relevant passages that help answer the post."
+INSTRUCTIONS["economics"]="Given an Economics post, retrieve relevant passages that help answer the post."
+INSTRUCTIONS["psychology"]="Given a Psychology post, retrieve relevant passages that help answer the post."
+INSTRUCTIONS["robotics"]="Given a Robotics post, retrieve relevant passages that help answer the post."
+INSTRUCTIONS["stackoverflow"]="Given a Stack Overflow post, retrieve relevant passages that help answer the post."
+INSTRUCTIONS["sustainable_living"]="Given a Sustainable Living post, retrieve relevant passages that help answer the post."
+INSTRUCTIONS["leetcode"]="Given a Coding problem, retrieve relevant examples that help answer the problem."
+INSTRUCTIONS["pony"]="Given a Pony question, retrieve relevant passages that help answer the question."
+INSTRUCTIONS["aops"]="Given a Math problem, retrieve relevant examples that help answer the problem."
+INSTRUCTIONS["theoremqa_questions"]="Given a Math problem, retrieve relevant examples that help answer the problem."
+INSTRUCTIONS["theoremqa_theorems"]="Given a Math problem, retrieve relevant theorems that help answer the problem."
+
+dataset_name="pony"
+model="hanhainebula/reason-embed-qwen3-4b-0928"
+model_name="reason-embed-qwen3-4b-0928"
+instruction="${INSTRUCTIONS[$dataset_name]}"
+python -m pyserini.search.faiss \
+--encoder $model \
+--encoder-class qwen3 \
+--index ./indexes/bright/faiss-flat.bright-${dataset_name}.${model_name} \
+--query-prefix "Instruct: ${instruction}."$'\n'"Query: " \
+--topics bright-${dataset_name}-original \
+--output ./runs/bright/run.bright-${dataset_name}.${model_name}.txt \
+--hits 1000 \
+--remove-query \
+--l2-norm \
+--fp16 \
+--topics-format raw_jsonl \
+--max-length 8192 \
+--device cuda:0
+```
+
+Alternatively, you can use our prebuilt indexes by passing `--index bright-${dataset_name}.${model_name}`.
 
 ## Evaluation
 `nDCG@10` is the metric used in the Bright leaderboard and is what we use here for easior comparison.
@@ -83,7 +152,7 @@ python -m pyserini.search.faiss \
 ```
 Expected output:
 ```
-Results for model: Diver-Retriever-4B
+Results for model: diver-retriever-4b
 Dataset                                            | nDCG@5    
 -------------------------------------------------------------------
 pony                                               | 0.1401    

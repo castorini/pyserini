@@ -67,6 +67,8 @@ class UniIRQueryEncoder:
         instruction_config=None,
         **kwargs: Any,
     ):
+        # Unlike the corpus encoder, fp16 is passed at init time for the query encoder.
+        self.fp16 = kwargs.get("fp16", False)
         self.l2_norm = l2_norm
         self.instruction_config = instruction_config
         self.query_encoder = QueryEncoder(model_name=encoder_dir, device=device)
@@ -97,6 +99,38 @@ class UniIRQueryEncoder:
         else:
             return None
 
+    
+    def encode_batch(
+        self,
+        queries: List[dict],
+        **kwargs: Any,
+    ):
+        qids = [query["qid"] for query in queries]
+        query_modalitys = [query["query_modality"] for query in queries]
+        query_txts = [query["query_txt"] for query in queries]
+        query_img_paths = [query["query_img_path"] for query in queries]
+    
+        file_name = set([query["instr_file"] for query in queries])
+        assert len(file_name) == 1, "All queries in a batch should use the same instruction config"
+        file_name = file_name.pop()
+        if self.instruction_config is None:
+            self.instruction_config = self._get_instruction_config(file_name)
+
+        query_embeddings = self.query_encoder.encode_batch(
+            qids=qids,
+            query_txts=query_txts,
+            query_img_paths=query_img_paths,
+            query_modalitys=query_modalitys,
+            instruction_config=self.instruction_config,
+            fp16=self.fp16,
+        )
+        if self.l2_norm:
+            query_embeddings = query_embeddings.astype('float32')
+            faiss.normalize_L2(query_embeddings)
+            query_embeddings = query_embeddings.astype('float16') if self.fp16 else query_embeddings
+
+        return query_embeddings
+    
     def encode(
         self,
         qid: int,
@@ -105,8 +139,6 @@ class UniIRQueryEncoder:
         query_img_path: str = "",
         **kwargs: Any,
     ):
-        fp16 = kwargs.get("fp16", False)
-
         if self.instruction_config is None:
             self.instruction_config = self._get_instruction_config(kwargs.get("instr_file", None))
 
@@ -116,12 +148,12 @@ class UniIRQueryEncoder:
             query_img_path=query_img_path, 
             query_modality=query_modality, 
             instruction_config=self.instruction_config,
-            fp16=fp16,
+            fp16=self.fp16,
         )
 
         if self.l2_norm:
             query_embeddings = query_embeddings.astype('float32')
             faiss.normalize_L2(query_embeddings)
-            query_embeddings = query_embeddings.astype('float16') if fp16 else query_embeddings
+            query_embeddings = query_embeddings.astype('float16') if self.fp16 else query_embeddings
 
         return query_embeddings
