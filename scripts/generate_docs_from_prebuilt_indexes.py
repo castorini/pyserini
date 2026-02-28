@@ -203,11 +203,6 @@ if __name__ == '__main__':
     print('</details>')
 
     print('<details>')
-    print('<summary>DSE</summary>')
-    generate_prebuilt(FAISS_INDEX_INFO_DSE)
-    print('</details>')
-
-    print('<details>')
     print('<summary>MMEB</summary>')
     generate_prebuilt(FAISS_INDEX_INFO_MMEB)
     print('</details>')
