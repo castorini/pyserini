@@ -458,3 +458,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@aaryanshroff](https://github.com/aaryanshroff) on 2026-01-27 (commit [`9e92b42`](https://github.com/castorini/pyserini/commit/9e92b4291fd30faad4b64bdd0ddba2d106694ed5))
 + Results reproduced by [@maherapp](https://github.com/maherapp) on 2026-02-01 (commit [`e9b559c`](https://github.com/castorini/pyserini/commit/e9b559c32c10893ae61c12a0c1e9ee2b264a2e41))
 + Results reproduced by [@Karrrthik](https://github.com/Karrrthik) on 2026-02-20 (commit [`2cecfb0`](https://github.com/castorini/pyserini/commit/2cecfb02eeb68cac2603cd2959ac3519bb4296cd))
++ Results reproduced by [@aaliyan1230](https://github.com/aaliyan1230) on 2026-03-01 (commit [`bcae91d`](https://github.com/castorini/pyserini/commit/bcae91d0e284e5650e99ce1125d98397503a295d))
