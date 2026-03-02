@@ -4171,6 +4171,318 @@ FAISS_INDEX_INFO_BRIGHT = {
         "downloaded": False,
         "texts": "bright-theoremqa-questions"
     },
+    "bright-aops.diver-retriever-4b": {
+        "description": "Faiss index of the aops corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-aops.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-aops.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "f24a104cc686e87c037b5557381d12e4",
+        "size compressed (bytes)": 896829813,
+        "documents": 188002,
+        "downloaded": False,
+        "texts": "bright-aops"
+    },
+    "bright-biology.diver-retriever-4b": {
+        "description": "Faiss index of the biology corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-biology.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-biology.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "e71949be07d506da8e626aaa6b0b446b",
+        "size compressed (bytes)": 273798661,
+        "documents": 57359,
+        "downloaded": False,
+        "texts": "bright-biology"
+    },
+    "bright-earth-science.diver-retriever-4b": {
+        "description": "Faiss index of the earth-science corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-earth-science.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-earth-science.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "81e0507d98bce70f9d2458aaf6593199",
+        "size compressed (bytes)": 579532629,
+        "documents": 121249,
+        "downloaded": False,
+        "texts": "bright-earth-science"
+    },
+    "bright-economics.diver-retriever-4b": {
+        "description": "Faiss index of the economics corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-economics.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-economics.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "d77ba223e474a426a0bda26d2e941c08",
+        "size compressed (bytes)": 239278385,
+        "documents": 50220,
+        "downloaded": False,
+        "texts": "bright-economics"
+    },
+    "bright-leetcode.diver-retriever-4b": {
+        "description": "Faiss index of the leetcode corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-leetcode.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-leetcode.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "4b4ba409add65925c4486979d1a9123c",
+        "size compressed (bytes)": 1976072736,
+        "documents": 413932,
+        "downloaded": False,
+        "texts": "bright-leetcode"
+    },
+    "bright-pony.diver-retriever-4b": {
+        "description": "Faiss index of the pony corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-pony.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-pony.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "16976eb2bc8a7837d04e421c057049cd",
+        "size compressed (bytes)": 37595406,
+        "documents": 7894,
+        "downloaded": False,
+        "texts": "bright-pony"
+    },
+    "bright-psychology.diver-retriever-4b": {
+        "description": "Faiss index of the psychology corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-psychology.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-psychology.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "30c7ffc975ee9197d8521edfa71ea55f",
+        "size compressed (bytes)": 252033353,
+        "documents": 52835,
+        "downloaded": False,
+        "texts": "bright-psychology"
+    },
+    "bright-robotics.diver-retriever-4b": {
+        "description": "Faiss index of the robotics corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-robotics.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-robotics.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "21338a1542c6efc2bac358cd105cf3f1",
+        "size compressed (bytes)": 292835573,
+        "documents": 61961,
+        "downloaded": False,
+        "texts": "bright-robotics"
+    },
+    "bright-stackoverflow.diver-retriever-4b": {
+        "description": "Faiss index of the stackoverflow corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-stackoverflow.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-stackoverflow.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "159dbb15ef3954e9915b0019789258f5",
+        "size compressed (bytes)": 506187162,
+        "documents": 107081,
+        "downloaded": False,
+        "texts": "bright-stackoverflow"
+    },
+    "bright-sustainable-living.diver-retriever-4b": {
+        "description": "Faiss index of the sustainable-living corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-sustainable-living.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-sustainable-living.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "fa13ea9c83956c6305033fa0ccb11711",
+        "size compressed (bytes)": 289525259,
+        "documents": 60792,
+        "downloaded": False,
+        "texts": "bright-sustainable-living"
+    },
+    "bright-theoremqa-questions.diver-retriever-4b": {
+        "description": "Faiss index of the theoremqa-questions corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-theoremqa-questions.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-theoremqa-questions.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "919193a41b11f39fd33a6b7bd26774e6",
+        "size compressed (bytes)": 896822922,
+        "documents": 188002,
+        "downloaded": False,
+        "texts": "bright-theoremqa-questions"
+    },
+    "bright-theoremqa-theorems.diver-retriever-4b": {
+        "description": "Faiss index of the theoremqa-theorems corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-theoremqa-theorems.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-theoremqa-theorems.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "14c4a0c3aa6f4325688ecfc4f40efaf8",
+        "size compressed (bytes)": 113670945,
+        "documents": 23839,
+        "downloaded": False,
+        "texts": "bright-theoremqa-theorems"
+    },
+    "bright-aops.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the aops corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-aops.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-aops.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "76989f371ea044ea2df2336ec3b310a1",
+        "size compressed (bytes)": 897863808,
+        "documents": 188002,
+        "downloaded": False,
+        "texts": "bright-aops"
+    },
+    "bright-biology.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the biology corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-biology.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-biology.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "141ee65ed539013096a9ba07a8a19365",
+        "size compressed (bytes)": 273894699,
+        "documents": 57359,
+        "downloaded": False,
+        "texts": "bright-biology"
+    },
+    "bright-earth-science.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the earth-science corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-earth-science.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-earth-science.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "c0176d3d7bd68aaba44b13b31cc339d6",
+        "size compressed (bytes)": 579701998,
+        "documents": 121249,
+        "downloaded": False,
+        "texts": "bright-earth-science"
+    },
+    "bright-economics.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the economics corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-economics.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-economics.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "b818160492813c7822be5303d506def8",
+        "size compressed (bytes)": 239426214,
+        "documents": 50220,
+        "downloaded": False,
+        "texts": "bright-economics"
+    },
+    "bright-leetcode.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the leetcode corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-leetcode.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-leetcode.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "71c835683b84cf764bb4c7b0780e40a9",
+        "size compressed (bytes)": 1978373681,
+        "documents": 413932,
+        "downloaded": False,
+        "texts": "bright-leetcode"
+    },
+    "bright-pony.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the pony corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-pony.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-pony.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "9ba31e11ba4b87b0685e11453d00ad16",
+        "size compressed (bytes)": 37605121,
+        "documents": 7894,
+        "downloaded": False,
+        "texts": "bright-pony"
+    },
+    "bright-psychology.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the psychology corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-psychology.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-psychology.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "801632d677dd725c115959a3dc4f4a89",
+        "size compressed (bytes)": 252124461,
+        "documents": 52835,
+        "downloaded": False,
+        "texts": "bright-psychology"
+    },
+    "bright-robotics.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the robotics corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-robotics.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-robotics.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "6c0b2ffc294ab44c68718c45e7ca06eb",
+        "size compressed (bytes)": 293018660,
+        "documents": 61961,
+        "downloaded": False,
+        "texts": "bright-robotics"
+    },
+    "bright-stackoverflow.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the stackoverflow corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-stackoverflow.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-stackoverflow.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "c1bef66533ee8df89bf145f2bf94b820",
+        "size compressed (bytes)": 506544282,
+        "documents": 107081,
+        "downloaded": False,
+        "texts": "bright-stackoverflow"
+    },
+    "bright-sustainable-living.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the sustainable-living corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-sustainable-living.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-sustainable-living.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "8eb33615cad468c79dfbd05ff305e96b",
+        "size compressed (bytes)": 289587208,
+        "documents": 60792,
+        "downloaded": False,
+        "texts": "bright-sustainable-living"
+    },
+    "bright-theoremqa-questions.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the theoremqa-questions corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-theoremqa-questions.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-theoremqa-questions.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "5e68ee39688e13e484c3118657513489",
+        "size compressed (bytes)": 897852243,
+        "documents": 188002,
+        "downloaded": False,
+        "texts": "bright-theoremqa-questions"
+    },
+    "bright-theoremqa-theorems.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the theoremqa-theorems corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-theoremqa-theorems.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-theoremqa-theorems.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "090cf3019dc98a09141a49da8b5f48fd",
+        "size compressed (bytes)": 113826179,
+        "documents": 23839,
+        "downloaded": False,
+        "texts": "bright-theoremqa-theorems"
+    }
 }
 
 FAISS_INDEX_INFO_MRTYDI = {
