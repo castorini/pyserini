@@ -35,7 +35,7 @@ python -m pyserini.encode \
           --fields text \
           --delimiter "|||~~~|||||~~~~~" \
   output  --embeddings ./indexes/bright/faiss-flat.bright-${dataset_name}.${model_name} \
-           --to-faiss \
+          --to-faiss \
   encoder --encoder $model \
           --encoder-class qwen3 \
           --fields text \
@@ -60,7 +60,7 @@ python -m pyserini.encode \
           --fields text \
           --delimiter "|||~~~|||||~~~~~" \
   output  --embeddings ./indexes/bright/faiss-flat.bright-${dataset_name}.${model_name} \
-           --to-faiss \
+          --to-faiss \
   encoder --encoder $model \
           --encoder-class qwen3 \
           --fields text \
@@ -135,27 +135,40 @@ python -m pyserini.search.faiss \
 ```
 
 Alternatively, you can use our prebuilt indexes by passing `--index bright-${dataset_name}.${model_name}`.
+To use faiss-gpu for search specify the faiss device by passing `--faiss-device cuda:<gpu-index>`.
 
 ## Evaluation
 `nDCG@10` is the metric used in the Bright leaderboard and is what we use here for easior comparison.
 ```
+model_names=(
+  "diver-retriever-4b"
+  "reason-embed-qwen3-4b-0928"
+)
+for model_name in "${model_names[@]}"; do
   echo "Results for model: $model_name"
   printf "%-50s | %-10s\n" "Dataset" "nDCG@10"
   echo "-------------------------------------------------------------------"
   score=$(python -m pyserini.eval.trec_eval \
       -c -m ndcg_cut.10 \
       bright-${dataset_name} \
-      "runs/run.bright-${dataset_name}.${model_name}.txt" | grep 'ndcg_cut_10' | awk '{print $3}')
+      "./runs/bright/run.bright-${dataset_name}.${model_name}.txt" | grep 'ndcg_cut_10' | awk '{print $3}')
   printf "%-50s | %-10s\n" "$dataset_name" "$score"
   echo "-------------------------------------------------------------------"
   echo ""
+done
 ```
 Expected output:
 ```
 Results for model: diver-retriever-4b
-Dataset                                            | nDCG@5    
+Dataset                                            | nDCG@10
 -------------------------------------------------------------------
-pony                                               | 0.1401    
+pony                                               | 0.1292
+-------------------------------------------------------------------
+
+Results for model: reason-embed-qwen3-4b-0928
+Dataset                                            | nDCG@10
+-------------------------------------------------------------------
+pony                                               | 0.1216
 -------------------------------------------------------------------
 ```
 

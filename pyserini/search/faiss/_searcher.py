@@ -70,8 +70,7 @@ class FaissSearcher:
         # The tranformers utils only checks for faiss, need to add faiss_gpu to the backend mapping before using it.
         if faiss_device == "cpu":
             requires_backends(self, "faiss")
-        else:
-            print(f"Using GPU for FAISS search on device {faiss_device}")
+
         if not isinstance(query_encoder, str):
             self.query_encoder = query_encoder
         else:
