@@ -4,7 +4,8 @@ This guide contains steps to reproduce retrieval results for BRIGHT using the Di
 Meixiu Long and Duolin Sun and Dan Yang and Junjie Wang and Yue Shen and Jian Wang and Peng Wei and Jinjie Gu and Jiahai Wang.
 [DIVER: A Multi-Stage Approach for Reasoning-intensive Information Retrieval](https://arxiv.org/abs/2508.07995) _arXiv:2508.07995_
 
-
+Jianlyu Chen and Junwei Lan and Chaofan Li and Defu Lian and Zheng Liu.
+[ReasonEmbed: Enhanced Text Embeddings for Reasoning-Intensive Document Retrieval](https://arxiv.org/abs/2510.08252) _arXiv:2510.08252_
 
 
 ## Data Preparation
