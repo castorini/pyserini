@@ -78,6 +78,10 @@ conda install -c conda-forge openjdk=21 maven -y
 # from https://pytorch.org/get-started/locally/
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
+# If you have a CUDA-enabled GPU and want to use it (e.g., with --device cuda), install the CUDA version of PyTorch instead
+# Find the right command for your CUDA version at https://pytorch.org/get-started/locally/, for example, for CUDA 12.6:
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+
 # If you want the optional dependencies, otherwise skip
 conda install -c pytorch faiss-cpu -y
 
