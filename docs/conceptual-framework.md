@@ -173,7 +173,9 @@ This is also known as a "multi-hot vector".
 We represent the query vector as a Python dictionary in `multihot_query_weights`.
 
 As described above, the top-_k_ retrieval problem is to find the _k_ documents from the collection that have the highest inner product (between a document vector and the query vector).
-Without getting into details, the inverted index allows this top-_k_ to be computed efficiently.
+The inverted index makes this efficient by exploiting the sparsity of BM25 vectors: the query vector has only a handful of non-zero entries — one per query term — so any document that shares none of those terms will score exactly zero and is better discarded beforehand.
+Unlike a standard index that maps a document to a list of terms it contains, an inverted index maps each term to the list of documents that contain it.
+At query time, we look up the inverted index using the query's terms, take the union of the resulting document lists, and score only those — skipping the vast majority of the document collection entirely.
 
 Here, we can manually compute the inner product between the query vector and the document vector:
 
