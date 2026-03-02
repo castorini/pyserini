@@ -15,9 +15,11 @@
 #
 
 from typing import Any, List
+import faiss
 
 from vlm2vec_for_pyserini.pyserini_integration.mmeb_corpus_encoder import CorpusEncoder
 from vlm2vec_for_pyserini.pyserini_integration.mmeb_query_encoder import QueryEncoder
+
 
 def get_model_type(model_name: str) -> str:
     if "gme" in model_name.lower():
@@ -28,6 +30,7 @@ def get_model_type(model_name: str) -> str:
         # The model_type from config.json will be used.
         return None
 
+
 class MMEBCorpusEncoder:
     def __init__(
         self,
@@ -36,9 +39,13 @@ class MMEBCorpusEncoder:
         **kwargs: Any,
     ):
         pooling = kwargs.get("pooling", "eos")
-        l2_norm = kwargs.get("l2_norm", True)
+        self.l2_norm = kwargs.get("l2_norm", True)
         self.corpus_encoder = CorpusEncoder(
-            model_name=model_name, model_type=get_model_type(model_name), device=device, pooling=pooling, l2_norm=l2_norm
+            model_name=model_name,
+            model_type=get_model_type(model_name),
+            device=device,
+            pooling=pooling,
+            l2_norm=False,
         )
 
     def encode(
@@ -53,6 +60,13 @@ class MMEBCorpusEncoder:
             corpus_ids=corpus_ids, image_paths=image_paths, fp16=fp16
         )
 
+        if self.l2_norm:
+            corpus_embeddings = corpus_embeddings.astype('float32')
+            faiss.normalize_L2(corpus_embeddings)
+            corpus_embeddings = (
+                corpus_embeddings.astype('float16') if fp16 else corpus_embeddings
+            )
+
         return corpus_embeddings
 
 
@@ -64,12 +78,32 @@ class MMEBQueryEncoder:
         **kwargs: Any,
     ):
         pooling = kwargs.get("pooling", "eos")
-        l2_norm = kwargs.get("l2_norm", True)
-        #Unlike the corpus encoder, here fp16 is only passed during the initialization.
+        self.l2_norm = kwargs.get("l2_norm", True)
+        # Unlike the corpus encoder, here fp16 is only passed during the initialization.
         self.fp16 = kwargs.get("fp16", False)
         self.query_encoder = QueryEncoder(
-            model_name=encoder_dir, model_type=get_model_type(encoder_dir), device=device, pooling=pooling, l2_norm=l2_norm
+            model_name=encoder_dir,
+            model_type=get_model_type(encoder_dir),
+            device=device,
+            pooling=pooling,
+            l2_norm=False,
         )
+
+    def _encode(self, qids: int, queries: str):
+        query_embeddings = self.query_encoder.encode(
+            qid=qids,
+            query=queries,
+            fp16=self.fp16,
+        )
+
+        if self.l2_norm:
+            query_embeddings = query_embeddings.astype('float32')
+            faiss.normalize_L2(query_embeddings)
+            query_embeddings = (
+                query_embeddings.astype('float16') if self.fp16 else query_embeddings
+            )
+
+        return query_embeddings
 
     def encode(
         self,
@@ -77,10 +111,9 @@ class MMEBQueryEncoder:
         query: str,
         **kwargs: Any,
     ):
-        query_embeddings = self.query_encoder.encode(
-            qid=qid,
-            query=query,
-            fp16=self.fp16,
-        )
+        return self._encode(qid, query)
 
-        return query_embeddings
+    def encode_batch(self, queries: List[dict], **kwargs: Any):
+        qids = [q['qid'] for q in queries]
+        queries = [q['query'] for q in queries]
+        return self._encode(qids, queries)
