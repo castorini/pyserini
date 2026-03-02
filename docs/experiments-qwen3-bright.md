@@ -88,7 +88,7 @@ python -m pyserini.search.faiss \
         --index ./indexes/bright/faiss-flat.bright-${dataset_name}.${model_name} \
         --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
         --topics bright-${dataset_name}-original \
-        --output .runs/run.bright-${dataset_name}.${model_name}.txt \
+        --output ./runs/bright/run.bright-${dataset_name}.${model_name}.txt \
         --hits 1000 \
         --remove-query \
         --topics-format raw_jsonl \
