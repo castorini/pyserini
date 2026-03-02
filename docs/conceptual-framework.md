@@ -173,9 +173,7 @@ This is also known as a "multi-hot vector".
 We represent the query vector as a Python dictionary in `multihot_query_weights`.
 
 As described above, the top-_k_ retrieval problem is to find the _k_ documents from the collection that have the highest inner product (between a document vector and the query vector).
-The inverted index makes this efficient by exploiting the sparsity of BM25 vectors: the query vector has only a handful of non-zero entries — one per query term — so any document that shares none of those terms will score exactly zero and is better discarded beforehand.
-Unlike a standard index that maps a document to a list of terms it contains, an inverted index maps each term to the list of documents that contain it.
-At query time, we look up the inverted index using the query's terms, take the union of the resulting document lists, and score only those — skipping the vast majority of the document collection entirely.
+Without getting into details, the inverted index allows this top-_k_ to be computed efficiently.
 
 Here, we can manually compute the inner product between the query vector and the document vector:
 
@@ -460,5 +458,3 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@aaryanshroff](https://github.com/aaryanshroff) on 2026-01-27 (commit [`9e92b42`](https://github.com/castorini/pyserini/commit/9e92b4291fd30faad4b64bdd0ddba2d106694ed5))
 + Results reproduced by [@maherapp](https://github.com/maherapp) on 2026-02-01 (commit [`e9b559c`](https://github.com/castorini/pyserini/commit/e9b559c32c10893ae61c12a0c1e9ee2b264a2e41))
 + Results reproduced by [@Karrrthik](https://github.com/Karrrthik) on 2026-02-20 (commit [`2cecfb0`](https://github.com/castorini/pyserini/commit/2cecfb02eeb68cac2603cd2959ac3519bb4296cd))
-+ Results reproduced by [@aaliyan1230](https://github.com/aaliyan1230) on 2026-03-01 (commit [`bcae91d`](https://github.com/castorini/pyserini/commit/bcae91d0e284e5650e99ce1125d98397503a295d))
-+ Results reproduced by [@VCY019](https://github.com/VCY019) on 2026-03-01 (commit [`bcae91d`](https://github.com/castorini/pyserini/commit/bcae91d0e284e5650e99ce1125d98397503a295d))
