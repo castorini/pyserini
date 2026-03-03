@@ -119,7 +119,7 @@ python -m pyserini.search.faiss \
 ```bash
 python -m pyserini.search.faiss \
     --encoder-class uniir \
-    --encoder $model_name_underscore \
+    --encoder clip_sf_large \
     --index  indexes/m-beir-union_test.clip-sf-large.full \
     --topics-format mbeir \
     --topics collections/m-beir/CIRR/mbeir_cirr_task7_test_topics.jsonl \
