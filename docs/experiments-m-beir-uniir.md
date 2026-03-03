@@ -82,20 +82,6 @@ python -m pyserini.index.merge_faiss_indexes \
 ```
 
 ## Search
-To use UniIR with M-BEIR query instructions, download it from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv)
-Then, create a yaml file like this:
-
-```bash
-wget -O collections/m-beir/query_instructions.tsv \
-"https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/instructions/query_instructions.tsv"
-```
-
-```yaml
-instruction_file: collections/m-beir/query_instructions.tsv
-candidate_modality: image
-dataset_id: 8 # the id for CIRR is 8
-randomize_instructions: False # When False, always gets the first available instruction for each query. Set it to true if you want to use instructions at the random indexes.
-```
 
 ### Local Candidates
 ```bash
@@ -132,6 +118,24 @@ python -m pyserini.search.faiss \
     --faiss-device cuda:0 \
     --threads 16 # Adjust based on your hardware.
 ```
+
+The default M-BEIR query instructions will be used for search which is downloadable from [here](https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/blob/main/mbeir_query_images_and_instructions.tar.gz)
+For custom queries you can download the tar file, extract the query instructions in tsv format, and modify it as needed and create a yaml file like this:
+
+```bash
+wget -O collections/m-beir/mbeir_query_images_and_instructions.tar.gz \
+"https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/blob/main/mbeir_query_images_and_instructions.tar.gz"
+
+tar -xzvf collections/m-beir/mbeir_query_images_and_instructions.tar.gz
+```
+
+```yaml
+instruction_file: collections/m-beir/query_instructions.tsv
+candidate_modality: image
+dataset_id: 8 # the id for CIRR is 8
+randomize_instructions: False # When False, always gets the first available instruction for each query. Set it to true if you want to use instructions at the random indexes.
+```
+Finally you need to pass the yaml file as `--instruction-config`
 
 ## Evaluation
 
