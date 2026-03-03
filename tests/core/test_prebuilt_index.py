@@ -319,7 +319,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
                 cnt += 1
                 for url in FAISS_INDEX_INFO[key]['urls']:
                     urls.add(url)
-        self.assertEqual(cnt, 32)
+        self.assertEqual(cnt, 34)
         self._test_urls(urls)
 
     def test_faiss_dse(self):

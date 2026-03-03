@@ -34,54 +34,99 @@ IMPORTANT: To run the script, male sure `huggingface_hub` is installed and make 
 
 To run UniIR models, you must first make sure you have properly set up pyserini, follow the installation guide's optional section if you haven't.
 
-To encode the corpus, use the following command:
+To encode the corpus, use the following commands for local and global (union) candidates:
 
+### Local
 ```bash
 python -m pyserini.encode \
-  input --corpus collections/m-beir/CIRR/mbeir_cirr_task7_cand_pool.jsonl \
-        --fields img_path modality txt did \
-        --docid-field did \
-  output --embeddings encode/m-beir-cirr_task7.clip-sf-large \
-  encoder --encoder clip_sf_large \
-          --encoder-class uniir \
-          --device cuda:1 \
-          --fp16 \
-          --multimodal \
-          --fields img_path modality txt did
+    input --corpus collections/m-beir/CIRR/mbeir_cirr_task7_cand_pool.jsonl \
+            --fields img_path modality txt did \
+            --docid-field did \
+    output --embeddings ./indexes/m-beir-cirr_task7.clip-sf-large \
+            --to-faiss \
+    encoder --encoder clip_sf_large \
+            --encoder-class uniir \
+            --device cuda:0 \
+            --fp16 \
+            --multimodal \
+            --batch-size 512 \
+            --l2-norm \
+            --fields img_path modality txt did
+
 ```
 
-To index the embeddings with FAISS, run:
-
+### Global
 ```bash
-python -m pyserini.index.faiss \
-    --input encode/m-beir-cirr_task7.clip-sf-large \
-    --output indexes/m-beir-cirr_task7.clip-sf-large \
-    --metric inner
+for i in {0..49}; do
+    python -m pyserini.encode \
+        input --corpus collections/m-beir/mbeir_union_test_cand_pool.jsonl \
+                --fields img_path modality txt did \
+                --docid-field did \
+                --shard-id $i \
+                --shard-num 50 \
+        output  --embeddings ./indexes/m-beir-union_test.clip-sf-large.${i} \
+                --to-faiss \
+        encoder --encoder clip_sf_large \
+                --encoder-class uniir \
+                --device cuda:0 \
+                --fp16 \
+                --multimodal \
+                --batch-size 512 \
+                --l2-norm \
+                --fields img_path modality txt did
+done
+
+python -m pyserini.index.merge_faiss_indexes \
+    --prefix indexes/m-beir-union_test.clip-sf-large. \
+    --shard-num 50
 ```
 
-The above index should be ~64 MB.
+## Search
 
-Perform a run on the test queries without instructions:
-
+### Local Candidates
 ```bash
 python -m pyserini.search.faiss \
     --encoder-class uniir \
     --encoder clip_sf_large \
+    --index  indexes/m-beir-cirr_task7.clip-sf-large \
     --topics-format mbeir \
     --topics collections/m-beir/CIRR/mbeir_cirr_task7_test_topics.jsonl \
-    --index indexes/m-beir-cirr_task7.clip-sf-large \
-    --output runs/run.m-beir-cirr_task7.clip-sf-large.txt \
+    --output-format trec \
+    --output runs/run.m-beir-cirr_task7.local.clip-sf-large.txt \
+    --hits 100 \
     --fp16 \
-    --hits 1000 \
+    --batch-size 128 \
+    --device cuda:0 \
+    --faiss-device cuda:0 \
     --threads 16 # Adjust based on your hardware.
 ```
 
-If you want to use UniIR with M-BEIR query instructions, download it from [here](https://huggingface.co/datasets/TIGER-Lab/M-BEIR/blob/main/instructions/query_instructions.tsv)
-Then, create a yaml file like this:
+### Global Candidates
+```bash
+python -m pyserini.search.faiss \
+    --encoder-class uniir \
+    --encoder clip_sf_large \
+    --index  indexes/m-beir-union_test.clip-sf-large.full \
+    --topics-format mbeir \
+    --topics collections/m-beir/CIRR/mbeir_cirr_task7_test_topics.jsonl \
+    --output-format trec \
+    --output runs/run.m-beir-cirr_task7.global.clip-sf-large.txt \
+    --hits 100 \
+    --fp16 \
+    --batch-size 128 \
+    --device cuda:0 \
+    --faiss-device cuda:0 \
+    --threads 16 # Adjust based on your hardware.
+```
+
+The default M-BEIR query instructions will be used for search which is downloadable from [here](https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/blob/main/mbeir_query_images_and_instructions.tar.gz)
+For custom queries you can download the tar file, extract the query instructions in tsv format, and modify it as needed and create a yaml file like this:
 
 ```bash
-wget -O collections/m-beir/query_instructions.tsv \
-"https://huggingface.co/datasets/TIGER-Lab/M-BEIR/resolve/main/instructions/query_instructions.tsv"
+wget -O collections/m-beir/mbeir_query_images_and_instructions.tar.gz \
+"https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/blob/main/mbeir_query_images_and_instructions.tar.gz"
+
+tar -xzvf collections/m-beir/mbeir_query_images_and_instructions.tar.gz
 ```
 
 ```yaml
@@ -90,24 +135,9 @@ candidate_modality: image
 dataset_id: 8 # the id for CIRR is 8
 randomize_instructions: False # When False, always gets the first available instruction for each query. Set it to true if you want to use instructions at the random indexes.
 ```
+Finally you need to pass the yaml file as `--instruction-config`
 
-Then, run the following command:
-
-```bash
-python -m pyserini.search.faiss \
-    --encoder-class uniir \
-    --encoder clip_sf_large \
-    --topics-format mbeir \
-    --topics collections/m-beir/CIRR/mbeir_cirr_task7_test_topics.jsonl \
-    --index indexes/m-beir-cirr_task7.clip-sf-large \
-    --output runs/run.m-beir-cirr_task7.instr.clip-sf-large.txt \
-    --instruction-config /path/to/instruction_config.yaml \
-    --fp16 \
-    --hits 1000 \
-    --threads 16 # Adjust based on your hardware.
-```
-
-Evaluation:
+## Evaluation
 
 First we will need to fix the qrels file to proper TREC format so it is compatible with pyserini's trec_eval:
 
@@ -115,23 +145,22 @@ First we will need to fix the qrels file to proper TREC format so it is compatib
 cut -d' ' -f1-4 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels.txt \
     > collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt
 ```
-
-_Without instructions_
-
+Use Pyserini's trec_eval for evaluation
+_Local_ 
 ```bash
-python -m pyserini.eval.trec_eval -c -m recall.5 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt runs/run.m-beir-cirr_task7.clip-sf-large.txt
-
-Results:
-recall_5           	all	0.3879
+python -m pyserini.eval.trec_eval -c -m recall.5 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt runs/run.m-beir-cirr_task7.local.clip-sf-large.txt
 ```
 
-_With instructions_
+Results:
+recall_5           	all	0.4536
+
+_Global_
 
 ```bash
-python -m pyserini.eval.trec_eval -c -m recall.5 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt runs/run.m-beir-cirr_task7.instr.clip-sf-large.txt
+python -m pyserini.eval.trec_eval -c -m recall.5 collections/m-beir/CIRR/mbeir_cirr_task7_test_qrels_fixed.txt runs/run.m-beir-cirr_task7.global.clip-sf-large.txt
 
 Results:
-recall_5           	all	0.4519
+recall_5           	all	0.4387
 ```
 
 
