@@ -215,14 +215,13 @@ class TestPrebuiltIndexes(unittest.TestCase):
         urls = []
         cnt = 0
         for key in FAISS_INDEX_INFO:
-            if 'beir' in key:
+            if 'beir' in key and 'm-beir' not in key:
                 cnt += 1
                 for url in FAISS_INDEX_INFO[key]['urls']:
                     urls.append(url)
 
         # each 29: contriever, contriever-msmarco, bge, cohere-embed-english-v3.0
-        # 32 for m-beir
-        self.assertEqual(cnt, 148)
+        self.assertEqual(cnt, 116)
         self._test_urls(urls)
 
     def test_faiss_bright(self):
@@ -308,7 +307,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
                 cnt += 1
                 for url in FAISS_INDEX_INFO[key]['urls']:
                     urls.add(url)
-        self.assertEqual(cnt, 72)
+        self.assertEqual(cnt, 44)
         self._test_urls(urls)
 
     def test_faiss_m_beir(self):

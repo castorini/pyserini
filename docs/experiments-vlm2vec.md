@@ -1,5 +1,5 @@
 # Pyserini: Reproducing MMEB leaderboard with Visual Document Retrieval tasks
-This guide contains steps to run 24 visdoc tasks from the MMEB benchmark with `Alibaba-NLP/gme-Qwen2-VL-2B-Instruct`, `VLM2Vec/VLM2Vec-V2.0`, and `code-kunkun/LamRA-Ret` multimodal VLMs.
+This guide contains steps to run 22 visdoc tasks from the MMEB benchmark with `Alibaba-NLP/gme-Qwen2-VL-2B-Instruct` and `VLM2Vec/VLM2Vec-V2.0` multimodal VLMs.
 The benchmark along with `VLM2Vec-V2.0` are introduced in the following paper:
 
 Rui Meng and Ziyan Jiang and Ye Liu and Mingyi Su and Xinyi Yang and Yuepeng Fu and Can Qin and Zeyuan Chen and Ran Xu and Caiming Xiong and Yingbo Zhou and Wenhu Chen and Semih Yavuz. [VLM2Vec-V2: Advancing Multimodal Embedding for Videos, Images, and Visual Documents](https://arxiv.org/abs/2507.04590) _arXiv:2507.04590_
@@ -71,16 +71,19 @@ datasets=(
     "VisRAG_InfoVQA"
     "VisRAG_PlotQA"
     "ViDoSeek-page"
-    "ViDoSeek-doc"
     "MMLongBench-page"
-    "MMLongBench-doc"
 )
 
 declare -A models
 models=(
     ["gme-Qwen2-VL-2B-Instruct"]="Alibaba-NLP/gme-Qwen2-VL-2B-Instruct"
     ["VLM2Vec-V2.0"]="VLM2Vec/VLM2Vec-V2.0"
-    ["LamRA-Ret"]="code-kunkun/LamRA-Ret"
+)
+
+declare -A dimensions
+dimensions=(
+    ["gme-Qwen2-VL-2B-Instruct"]=1536
+    ["VLM2Vec-V2.0"]=1536
 )
 
 for model_name in "${!models[@]}"; do
@@ -92,7 +95,8 @@ for model_name in "${!models[@]}"; do
           input   --corpus "$PYSERINI_DATA_DIR/corpus/mmeb_visdoc_${dataset_name}.jsonl" \
                   --fields corpus_id image_path \
                   --docid-field corpus_id \
-          output  --embeddings "encode/mmeb-visdoc-${dataset_name}.${model_name}" \
+          output  --embeddings "indexes/mmeb-visdoc-${dataset_name}.${model_name}" \
+                  --to-faiss \
           encoder --encoder $model_path \
                   --encoder-class mmeb \
                   --fields corpus_id image_path \
@@ -101,29 +105,11 @@ for model_name in "${!models[@]}"; do
                   --batch-size 16 \
                   --l2-norm \
                   --fp16 \
-                  --device cuda:0
+                  --device cuda:0 \
+                  --dimension ${dimensions[$model_name]}
     done
 done
-```
-Now you can index them, the index dimension must match the models' hidden sizes.
 
-```bash
-dimensions=(
-    ["gme-Qwen2-VL-2B-Instruct"]=1536
-    ["VLM2Vec-V2.0"]=1536
-    ["LamRA-Ret"]=3584
-)
-for model_name in "${!dimensions[@]}"; do
-    dimension=${dimensions[$model_name]}
-    for dataset_name in "${datasets[@]}"; do
-        echo "Processing embeddings of dataset: $dataset_name with model: $model_name"
-        python -m pyserini.index.faiss \
-            --input  "encode/mmeb-visdoc-${dataset_name}.${model_name}" \
-            --output "indexes/mmeb-visdoc-${dataset_name}.${model_name}" \
-            --metric inner \
-            --dim dimension
-    done
-done
 ```
 
 ## Search
@@ -181,34 +167,6 @@ done
 Expected output:
 Note: nDCG@5 differences of up to 0.15 are acceptable.
 ```
-Results for model: LamRA-Ret
-Dataset                                            | nDCG@5    
--------------------------------------------------------------------
-ViDoRe_arxivqa                                     | 0.1029    
-ViDoRe_docvqa                                      | 0.1874    
-ViDoRe_infovqa                                     | 0.4657    
-ViDoRe_tabfquad                                    | 0.4170    
-ViDoRe_tatdqa                                      | 0.1170    
-ViDoRe_shiftproject                                | 0.1143    
-ViDoRe_syntheticDocQA_artificial_intelligence      | 0.1099    
-ViDoRe_syntheticDocQA_energy                       | 0.2543    
-ViDoRe_syntheticDocQA_government_reports           | 0.1583    
-ViDoRe_syntheticDocQA_healthcare_industry          | 0.2679   
-ViDoRe_esg_reports_human_labeled_v2                | 0.1437   
-ViDoRe_biomedical_lectures_v2_multilingual         | 0.0693    
-ViDoRe_economics_reports_v2_multilingual           | 0.0956    
-ViDoRe_esg_reports_v2_multilingual                 | 0.1192    
-VisRAG_ArxivQA                                     | 0.0225    
-VisRAG_ChartQA                                     | 0.4164    
-VisRAG_MP-DocVQA                                   | 0.3366    
-VisRAG_SlideVQA                                    | 0.4757    
-VisRAG_InfoVQA                                     | 0.5577    
-VisRAG_PlotQA                                      | 0.3393    
-ViDoSeek-page                                      | 0.1097    
-ViDoSeek-doc                                       | 0.3713
-MMLongBench-page                                   | 0.0763   
-MMLongBench-doc                                    | 0.2739   
--------------------------------------------------------------------
 
 Results for model: gme-Qwen2-VL-2B-Instruct
 Dataset                                            | nDCG@5    
@@ -233,10 +191,8 @@ VisRAG_MP-DocVQA                                   | 0.8473
 VisRAG_SlideVQA                                    | 0.9303    
 VisRAG_InfoVQA                                     | 0.9134    
 VisRAG_PlotQA                                      | 0.6430   
-ViDoSeek-page                                      | 0.2184    
-ViDoSeek-doc                                       | 0.8372
-MMLongBench-page                                   | 0.1575    
-MMLongBench-doc                                    | 0.5166    
+ViDoSeek-page                                      | 0.7939
+MMLongBench-page                                   | 0.5143
 -------------------------------------------------------------------
 
 Results for model: VLM2Vec-V2.0
@@ -262,10 +218,8 @@ VisRAG_MP-DocVQA                                   | 0.7121
 VisRAG_SlideVQA                                    | 0.9172    
 VisRAG_InfoVQA                                     | 0.8533    
 VisRAG_PlotQA                                      | 0.6621    
-ViDoSeek-page                                      | 0.2203    
-ViDoSeek-doc                                       | 0.8031
-MMLongBench-page                                   | 0.1198    
-MMLongBench-doc                                    | 0.4408   
+ViDoSeek-page                                      | 0.8013
+MMLongBench-page                                   | 0.4427
 -------------------------------------------------------------------
 ```
 ## Reproduction Log[*](reproducibility.md)
