@@ -2,7 +2,7 @@
 
 Faiss flat indexes of MMEB-visdoc corpora using gme-Qwen2-VL-2B-Instruct.
 
-These indexes were built on 2026/01/30 on `watgpu508` [NVIDIA H200 NVL] at Pyserini commit [ad8e050](https://github.com/castorini/pyserini/commit/ad8e050980a0b71ced425997570dcbc9940e633e).
+These indexes were built on 2026/03/03 on watgpu at Pyserini commit [fa77cbd](https://github.com/castorini/pyserini/commit/fa77cbd0a1162284573b1ba57d9d6cb661650c5e).
 
 ## Note on Reproducibility
 The use of Flash Attention introduces minor variations in the generated embedding vectors across different hardware configurations.
@@ -38,8 +38,6 @@ datasets=(
     "VisRAG_InfoVQA"
     "VisRAG_PlotQA"
     "ViDoSeek-page"
-    "ViDoSeek-doc"
-    "MMLongBench-doc"
     "MMLongBench-page"
 )
 
@@ -47,7 +45,12 @@ declare -A models
 models=(
     ["gme-Qwen2-VL-2B-Instruct"]="Alibaba-NLP/gme-Qwen2-VL-2B-Instruct"
     # ["VLM2Vec-V2.0"]="VLM2Vec/VLM2Vec-V2.0"
-    # ["LamRA-Ret"]="code-kunkun/LamRA-Ret"
+)
+
+declare -A dimensions
+dimensions=(
+    ["gme-Qwen2-VL-2B-Instruct"]=1536
+    ["VLM2Vec-V2.0"]=1536
 )
 
 for model_name in "${!models[@]}"; do
@@ -56,10 +59,11 @@ for model_name in "${!models[@]}"; do
     for dataset_name in "${datasets[@]}"; do
         echo "Processing dataset: $dataset_name with model: $model_name"
         python -m pyserini.encode \
-          input   --corpus "$PYSERINI_DATA_DIR/corpus/mmeb_visdoc_${dataset_name}.jsonl" \
+          input   --corpus "corpus/mmeb_visdoc_${dataset_name}.jsonl" \
                   --fields corpus_id image_path \
                   --docid-field corpus_id \
-          output  --embeddings "encode/mmeb-visdoc-${dataset_name}.${model_name}" \
+          output  --embeddings "indexes/mmeb-visdoc-${dataset_name}.${model_name}" \
+                  --to-faiss \
           encoder --encoder $model_path \
                   --encoder-class mmeb \
                   --fields corpus_id image_path \
@@ -68,49 +72,8 @@ for model_name in "${!models[@]}"; do
                   --batch-size 16 \
                   --l2-norm \
                   --fp16 \
-                  --device cuda:0
-    done
-done
-
-declare -A dimensions
-dimensions=(
-    ["gme-Qwen2-VL-2B-Instruct"]=1536
-    # ["VLM2Vec-V2.0"]=1536
-    # ["LamRA-Ret"]=3584
-)
-for model_name in "${!dimensions[@]}"; do
-    dimension=${dimensions[$model_name]}
-    for dataset_name in "${datasets[@]}"; do
-        echo "Processing embeddings of dataset: $dataset_name with model: $model_name"
-        python -m pyserini.index.faiss \
-            --input  "encode/mmeb-visdoc-${dataset_name}.${model_name}" \
-            --output "indexes/mmeb-visdoc-${dataset_name}.${model_name}" \
-            --metric inner \
-            --dim $dimension
-    done
-done
-
-for model_name in "${!models[@]}"; do
-    model_path=${models[$model_name]}
-    echo "Searching with model: $model_name"
-    for dataset_name in "${datasets[@]}"; do
-        echo "Searching queries of dataset: $dataset_name with model: $model_name"
-        split=test
-        if [[ "$dataset_name" == *"VisRAG"* ]]; then
-            split=train
-        fi
-        python -m pyserini.search.faiss \
-            --encoder-class mmeb \
-            --encoder $model_path \
-            --topics-format mmeb \
-            --topics "tools/topics-and-qrels/topics.mmeb-visdoc-${dataset_name}.${split}.jsonl" \
-            --index  "indexes/mmeb-visdoc-${dataset_name}.${model_name}" \
-            --output "runs/run.mmeb-visdoc-${dataset_name}.${model_name}.txt" \
-            --pooling eos \
-            --fp16 \
-            --l2-norm \
-            --hits 1000 \
-            --device cuda:0
+                  --device cuda:0 \
+                  --dimension ${dimensions[$model_name]}
     done
 done
 ```
