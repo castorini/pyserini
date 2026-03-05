@@ -26,6 +26,7 @@ from pyserini.encode import (AnceQueryEncoder, AutoQueryEncoder,
 from pyserini.encode.optional import PcaEncoder
 from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.query_iterator import TopicsFormat, get_query_iterator
+from pyserini.search._base import get_bright_excluded_ids
 from pyserini.search.lucene import LuceneSearcher
 
 from ._prf import (DenseVectorAncePrf, DenseVectorAveragePrf,
@@ -549,6 +550,8 @@ if __name__ == "__main__":
         max_passage_hits=args.max_passage_hits,
     )
 
+    bright_filter, bright_queries = get_bright_excluded_ids(args.index)
+
     with output_writer:
         batch_topics = list()
         batch_topic_ids = list()
@@ -620,6 +623,10 @@ if __name__ == "__main__":
                 # We want to remove the query from the results.
                 if args.remove_query:
                     hits = [hit for hit in hits if hit.docid != topic]
+
+                if bright_filter:
+                    excluded = bright_queries.get(str(topic), ())
+                    hits = [hit for hit in hits if hit.docid.strip() not in excluded]
 
                 output_writer.write(topic, hits)
 

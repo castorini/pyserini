@@ -42,6 +42,31 @@ def safe_getattr(cls, attr):
     return getattr(cls, attr, None)
 
 
+def get_bright_excluded_ids(index_path):
+    """
+    For BRIGHT splits that exclude certain docids per query (aops, leetcode, theoremqa-questions),
+    load the mapping from Hugging Face once. Call this once before the search loop to avoid rate limits.
+
+    Returns:
+        tuple: (apply_filter: bool, query_id_to_excluded_ids: dict). Use apply_filter to decide
+        whether to filter hits; for each topic, exclude hits whose docid is in query_id_to_excluded_ids[topic].
+    """
+    if "bright-aops" not in index_path and "bright-leetcode" not in index_path and "bright-theoremqa-questions" not in index_path:
+        return False, {}
+    if "aops" in index_path:
+        split = "aops"
+    elif "leetcode" in index_path:
+        split = "leetcode"
+    elif "theoremqa-questions" in index_path:
+        split = "theoremqa_questions"
+    else:
+        return False, {}
+    from datasets import load_dataset
+    ds = load_dataset("xlangai/BRIGHT", "examples")[split]
+    query_id_to_excluded = {q["id"]: q["excluded_ids"] for q in ds}
+    return True, query_id_to_excluded
+
+
 topics_mapping = {
     'trec1-adhoc': 'TREC1_ADHOC',
     'trec2-adhoc': 'TREC2_ADHOC',
@@ -496,6 +521,32 @@ topics_mapping = {
     'bright-theoremqa-theorems-original': 'BRIGHT_THEOREMQA_THEOREMS_ORIGINAL',
     'bright-theoremqa-questions-original': 'BRIGHT_THEOREMQA_QUESTIONS_ORIGINAL',
 
+    'bright-biology.splade-v3': 'BRIGHT_BIOLOGY_SPLADE_V3',
+    'bright-earth-science.splade-v3': 'BRIGHT_EARTH_SCIENCE_SPLADE_V3',
+    'bright-economics.splade-v3': 'BRIGHT_ECONOMICS_SPLADE_V3',
+    'bright-psychology.splade-v3': 'BRIGHT_PSYCHOLOGY_SPLADE_V3',
+    'bright-robotics.splade-v3': 'BRIGHT_ROBOTICS_SPLADE_V3',
+    'bright-stackoverflow.splade-v3': 'BRIGHT_STACKOVERFLOW_SPLADE_V3',
+    'bright-sustainable-living.splade-v3': 'BRIGHT_SUSTAINABLE_LIVING_SPLADE_V3',
+    'bright-pony.splade-v3': 'BRIGHT_PONY_SPLADE_V3',
+    'bright-leetcode.splade-v3': 'BRIGHT_LEETCODE_SPLADE_V3',
+    'bright-aops.splade-v3': 'BRIGHT_AOPS_SPLADE_V3',
+    'bright-theoremqa-theorems.splade-v3': 'BRIGHT_THEOREMQA_THEOREMS_SPLADE_V3',
+    'bright-theoremqa-questions.splade-v3': 'BRIGHT_THEOREMQA_QUESTIONS_SPLADE_V3',
+
+    'bright-biology.bge-large-en-v1.5.flat': 'BRIGHT_BIOLOGY_BGE_LARGE_EN_15',
+    'bright-earth-science.bge-large-en-v1.5.flat': 'BRIGHT_EARTH_SCIENCE_BGE_LARGE_EN_15',
+    'bright-economics.bge-large-en-v1.5.flat': 'BRIGHT_ECONOMICS_BGE_LARGE_EN_15',
+    'bright-psychology.bge-large-en-v1.5.flat': 'BRIGHT_PSYCHOLOGY_BGE_LARGE_EN_15',
+    'bright-robotics.bge-large-en-v1.5.flat': 'BRIGHT_ROBOTICS_BGE_LARGE_EN_15',
+    'bright-stackoverflow.bge-large-en-v1.5.flat': 'BRIGHT_STACKOVERFLOW_BGE_LARGE_EN_15',
+    'bright-sustainable-living.bge-large-en-v1.5.flat': 'BRIGHT_SUSTAINABLE_LIVING_BGE_LARGE_EN_15',
+    'bright-pony.bge-large-en-v1.5.flat': 'BRIGHT_PONY_BGE_LARGE_EN_15',
+    'bright-leetcode.bge-large-en-v1.5.flat': 'BRIGHT_LEETCODE_BGE_LARGE_EN_15',
+    'bright-aops.bge-large-en-v1.5.flat': 'BRIGHT_AOPS_BGE_LARGE_EN_15',
+    'bright-theoremqa-theorems.bge-large-en-v1.5.flat': 'BRIGHT_THEOREMQA_THEOREMS_BGE_LARGE_EN_15',
+    'bright-theoremqa-questions.bge-large-en-v1.5.flat': 'BRIGHT_THEOREMQA_QUESTIONS_BGE_LARGE_EN_15',
+
     # DSE topics
     'slidevqa': 'SLIDEVQA_TEST',
     'wiki-ss-nq': 'WIKI_SS_NQ_TEST',
@@ -755,19 +806,6 @@ qrels_mapping = {
     'ciral-v1.0-so-test-b': 'CIRAL_V10_SO_TEST_B',
     'ciral-v1.0-sw-test-b': 'CIRAL_V10_SW_TEST_B',
     'ciral-v1.0-yo-test-b': 'CIRAL_V10_YO_TEST_B',
-
-    'bright-biology': 'BRIGHT_BIOLOGY',
-    'bright-earth-science': 'BRIGHT_EARTH_SCIENCE',
-    'bright-economics': 'BRIGHT_ECONOMICS',
-    'bright-psychology': 'BRIGHT_PSYCHOLOGY',
-    'bright-robotics': 'BRIGHT_ROBOTICS',
-    'bright-stackoverflow': 'BRIGHT_STACKOVERFLOW',
-    'bright-sustainable-living': 'BRIGHT_SUSTAINABLE_LIVING',
-    'bright-pony': 'BRIGHT_PONY',
-    'bright-leetcode': 'BRIGHT_LEETCODE',
-    'bright-aops': 'BRIGHT_AOPS',
-    'bright-theoremqa-theorems': 'BRIGHT_THEOREMQA_THEOREMS',
-    'bright-theoremqa-questions': 'BRIGHT_THEOREMQA_QUESTIONS',
 
     # DSE qrels
     'slidevqa': 'SLIDEVQA_TEST',

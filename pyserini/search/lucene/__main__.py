@@ -23,6 +23,7 @@ from transformers import AutoTokenizer
 from pyserini.analysis import JDefaultEnglishAnalyzer, JWhiteSpaceAnalyzer
 from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
+from pyserini.search._base import get_bright_excluded_ids
 from pyserini.search.lucene import JDisjunctionMaxQueryGenerator, JQuerySideBm25QueryGenerator
 from ._hnsw_searcher import LuceneHnswDenseSearcher, LuceneFlatDenseSearcher
 from ._impact_searcher import LuceneImpactSearcher, SlimSearcher
@@ -308,6 +309,8 @@ if __name__ == "__main__":
                                       max_passage_delimiter=args.max_passage_delimiter,
                                       max_passage_hits=args.max_passage_hits)
 
+    bright_filter, bright_queries = get_bright_excluded_ids(args.index)
+
     with output_writer:
         batch_topics = list()
         batch_topic_ids = list()
@@ -347,20 +350,6 @@ if __name__ == "__main__":
                 else:
                     continue
 
-            # For certain splits of BRIGHT, some docids are excluded for some queries
-            bright_filter = False
-            if "bright-aops"  in args.index or "bright-leetcode" in args.index or "bright-theoremqa-questions" in args.index:
-                bright_filter = True
-                from datasets import load_dataset
-                if "aops" in args.index:
-                    split = "aops"
-                elif "leetcode" in args.index:
-                    split = "leetcode"
-                elif "theoremqa-questions" in args.index:
-                    split = "theoremqa_questions"
-                bright_queries = load_dataset("xlangai/BRIGHT", 'examples')[split]
-                bright_queries = {query["id"]: query["excluded_ids"] for query in bright_queries}
-                
             for topic, hits in results:
                 # do rerank
                 if use_prcl and len(hits) > (args.r + args.n):
@@ -387,7 +376,8 @@ if __name__ == "__main__":
                     hits = [hit for hit in hits if hit.docid != topic]
 
                 if bright_filter:
-                    hits = [hit for hit in hits if hit.docid.strip() not in bright_queries[str(topic)]]
+                    excluded = bright_queries.get(str(topic), ())
+                    hits = [hit for hit in hits if hit.docid.strip() not in excluded]
 
                 # write results
                 output_writer.write(topic, hits)
