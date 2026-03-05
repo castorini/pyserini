@@ -807,6 +807,19 @@ qrels_mapping = {
     'ciral-v1.0-sw-test-b': 'CIRAL_V10_SW_TEST_B',
     'ciral-v1.0-yo-test-b': 'CIRAL_V10_YO_TEST_B',
 
+    'bright-biology': 'BRIGHT_BIOLOGY',
+    'bright-earth-science': 'BRIGHT_EARTH_SCIENCE',
+    'bright-economics': 'BRIGHT_ECONOMICS',
+    'bright-psychology': 'BRIGHT_PSYCHOLOGY',
+    'bright-robotics': 'BRIGHT_ROBOTICS',
+    'bright-stackoverflow': 'BRIGHT_STACKOVERFLOW',
+    'bright-sustainable-living': 'BRIGHT_SUSTAINABLE_LIVING',
+    'bright-pony': 'BRIGHT_PONY',
+    'bright-leetcode': 'BRIGHT_LEETCODE',
+    'bright-aops': 'BRIGHT_AOPS',
+    'bright-theoremqa-theorems': 'BRIGHT_THEOREMQA_THEOREMS',
+    'bright-theoremqa-questions': 'BRIGHT_THEOREMQA_QUESTIONS',
+
     # DSE qrels
     'slidevqa': 'SLIDEVQA_TEST',
 
