@@ -259,3 +259,99 @@ conditions:
           - nDCG@10: 0.1411
             R@100: 0.2818
             R@1000: 0.4862
+  - name: diver-retriever-4b
+    display: "Diver-Retriever-4B"
+    display_html: "Diver-Retriever-4B"
+    display_row: ""
+    command: "python -m pyserini.search.faiss --encoder AQ-MedAI/Diver-Retriever-4B --encoder-class qwen3 --index bright-${dataset}.diver-retriever-4b --query-prefix $$'Instruct: Given a web search query, retrieve relevant passages that answer the query\\nQuery:' --topics bright-${dataset}-original --output $output --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0"
+    datasets:
+      - dataset: biology
+        scores:
+          - nDCG@10: 0.4210
+      - dataset: earth-science
+        scores:
+          - nDCG@10: 0.4680
+      - dataset: economics
+        scores:
+          - nDCG@10: 0.2240
+      - dataset: psychology
+        scores:
+          - nDCG@10: 0.3440
+      - dataset: robotics
+        scores:
+          - nDCG@10: 0.2150
+      - dataset: stackoverflow
+        scores:
+          - nDCG@10: 0.2090
+      - dataset: sustainable-living
+        scores:
+          - nDCG@10: 0.2510
+      - dataset: leetcode
+        scores:
+          - nDCG@10: 0.3780
+      - dataset: pony
+        scores:
+          - nDCG@10: 0.1290
+      - dataset: aops
+        scores:
+          - nDCG@10: 0.1030
+      - dataset: theoremqa-theorems
+        scores:
+          - nDCG@10: 0.3800
+      - dataset: theoremqa-questions
+        scores:
+          - nDCG@10: 0.3770
+  - name: reason-embed-qwen3-4b-0928
+    display: "reason-embed-qwen3-4b-0928"
+    display_html: "reason-embed-qwen3-4b-0928"
+    display_row: ""
+    command: "python -m pyserini.search.faiss --encoder hanhainebula/reason-embed-qwen3-4b-0928 --encoder-class qwen3 --index bright-${dataset}.reason-embed-qwen3-4b-0928 --query-prefix $$'Instruct: ${query_prefix}.\\nQuery: ' --topics bright-${dataset}-original --output $output --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0"
+    datasets:
+      - dataset: biology
+        query_prefix: "Given a Biology post, retrieve relevant passages that help answer the post."
+        scores:
+          - nDCG@10: 0.5450
+      - dataset: earth-science
+        query_prefix: "Given an Earth Science post, retrieve relevant passages that help answer the post."
+        scores:
+          - nDCG@10: 0.5400
+      - dataset: economics
+        query_prefix: "Given an Economics post, retrieve relevant passages that help answer the post."
+        scores:
+          - nDCG@10: 0.3440
+      - dataset: psychology
+        query_prefix: "Given a Psychology post, retrieve relevant passages that help answer the post."
+        scores:
+          - nDCG@10: 0.4610
+      - dataset: robotics
+        query_prefix: "Given a Robotics post, retrieve relevant passages that help answer the post."
+        scores:
+          - nDCG@10: 0.3460
+      - dataset: stackoverflow
+        query_prefix: "Given a Stack Overflow post, retrieve relevant passages that help answer the post."
+        scores:
+          - nDCG@10: 0.3590
+      - dataset: sustainable-living
+        query_prefix: "Given a Sustainable Living post, retrieve relevant passages that help answer the post."
+        scores:
+          - nDCG@10: 0.3700
+      - dataset: leetcode
+        query_prefix: "Given a Coding problem, retrieve relevant examples that help answer the problem."
+        scores:
+          - nDCG@10: 0.3710
+      - dataset: pony
+        query_prefix: "Given a Pony question, retrieve relevant passages that help answer the question."
+        scores:
+          - nDCG@10: 0.1200
+      - dataset: aops
+        query_prefix: "Given a Math problem, retrieve relevant examples that help answer the problem."
+        scores:
+          - nDCG@10: 0.1130
+      - dataset: theoremqa-theorems
+        query_prefix: "Given a Math problem, retrieve relevant theorems that help answer the problem."
+        scores:
+          - nDCG@10: 0.4550
+      - dataset: theoremqa-questions
+        query_prefix: "Given a Math problem, retrieve relevant examples that help answer the problem."
+        scores:
+          - nDCG@10: 0.4070
