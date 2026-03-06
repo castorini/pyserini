@@ -550,7 +550,7 @@ if __name__ == "__main__":
         max_passage_hits=args.max_passage_hits,
     )
 
-    bright_filter, bright_queries = get_bright_excluded_ids(args.index)
+    bright_queries = get_bright_excluded_ids(args.index)
 
     with output_writer:
         batch_topics = list()
@@ -624,7 +624,7 @@ if __name__ == "__main__":
                 if args.remove_query:
                     hits = [hit for hit in hits if hit.docid != topic]
 
-                if bright_filter:
+                if bright_queries:
                     excluded = bright_queries.get(str(topic), ())
                     hits = [hit for hit in hits if hit.docid.strip() not in excluded]
 

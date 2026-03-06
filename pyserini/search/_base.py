@@ -48,11 +48,11 @@ def get_bright_excluded_ids(index_path):
     load the mapping from Hugging Face once. Call this once before the search loop to avoid rate limits.
 
     Returns:
-        tuple: (apply_filter: bool, query_id_to_excluded_ids: dict). Use apply_filter to decide
-        whether to filter hits; for each topic, exclude hits whose docid is in query_id_to_excluded_ids[topic].
+        dict: query_id -> excluded_ids. Empty dict means no filtering. For each topic, exclude hits
+        whose docid is in the list for that topic.
     """
     if "bright-aops" not in index_path and "bright-leetcode" not in index_path and "bright-theoremqa-questions" not in index_path:
-        return False, {}
+        return {}
     if "aops" in index_path:
         split = "aops"
     elif "leetcode" in index_path:
@@ -60,11 +60,10 @@ def get_bright_excluded_ids(index_path):
     elif "theoremqa-questions" in index_path:
         split = "theoremqa_questions"
     else:
-        return False, {}
+        return {}
     from datasets import load_dataset
     ds = load_dataset("xlangai/BRIGHT", "examples")[split]
-    query_id_to_excluded = {q["id"]: q["excluded_ids"] for q in ds}
-    return True, query_id_to_excluded
+    return {q["id"]: q["excluded_ids"] for q in ds}
 
 
 topics_mapping = {
