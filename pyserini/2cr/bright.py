@@ -141,6 +141,8 @@ def generate_report(args):
                              s8=f'{table[dataset]["bge-large-en-v1.5.flat"]["R@100"]:8.3f}',
                              s9=f'{table[dataset]["diver-retriever-4b"]["nDCG@10"]:8.3f}',
                              s10=f'{table[dataset]["reason-embed-qwen3-4b-0928"]["nDCG@10"]:8.3f}',
+                             s11=f'{table[dataset]["diver-retriever-4b"]["R@100"]:8.3f}',
+                             s12=f'{table[dataset]["reason-embed-qwen3-4b-0928"]["R@100"]:8.3f}',
                              cmd1=commands[dataset]["bm25"],
                              cmd2=commands[dataset]["bm25qs"],
                              cmd3=commands[dataset]["splade-v3"],
@@ -239,23 +241,23 @@ def run_conditions(args):
             final_scores[model][metric] = final_score
 
     print(' ' * 33 + 'BM25' + ' ' * 14 + 'BM25QS' + ' ' * 12 + 'SPLADE' + ' ' * 15 + 'BGE' + ' ' * 14 + 'Diver' + ' ' * 10 + 'R-Embed')
-    print(' ' * 28 + 'nDCG    R@100      ' * 4 + 'nDCG         nDCG   ')
-    print(' ' * 28 + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 8 + '      ' + '-' * 8 + '      ')
+    print(' ' * 28 + 'nDCG    R@100      ' * 6)
+    print(' ' * 28 + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ')
     for dataset in bright_keys:
         print(f'{dataset:25}' +
               f'{table[dataset]["bm25"]["nDCG@10"]:8.3f}{table[dataset]["bm25"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["bm25qs"]["nDCG@10"]:8.3f}{table[dataset]["bm25qs"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["splade-v3"]["nDCG@10"]:8.3f}{table[dataset]["splade-v3"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["bge-large-en-v1.5.flat"]["nDCG@10"]:8.3f}{table[dataset]["bge-large-en-v1.5.flat"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["diver-retriever-4b"]["nDCG@10"]:8.3f}   ' +
-              f'{table[dataset]["reason-embed-qwen3-4b-0928"]["nDCG@10"]:8.3f}   ')
-    print(' ' * 28 + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 8 + '      ' + '-' * 8 + '      ')
+              f'{table[dataset]["diver-retriever-4b"]["nDCG@10"]:8.3f}{table[dataset]["diver-retriever-4b"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["reason-embed-qwen3-4b-0928"]["nDCG@10"]:8.3f}{table[dataset]["reason-embed-qwen3-4b-0928"]["R@100"]:8.3f}   ')
+    print(' ' * 28 + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ')
     print('avg' + ' ' * 22 + f'{final_scores["bm25"]["nDCG@10"]:8.3f}{final_scores["bm25"]["R@100"]:8.3f}   ' +
           f'{final_scores["bm25qs"]["nDCG@10"]:8.3f}{final_scores["bm25qs"]["R@100"]:8.3f}   ' +
           f'{final_scores["splade-v3"]["nDCG@10"]:8.3f}{final_scores["splade-v3"]["R@100"]:8.3f}   ' +
           f'{final_scores["bge-large-en-v1.5.flat"]["nDCG@10"]:8.3f}{final_scores["bge-large-en-v1.5.flat"]["R@100"]:8.3f}   ' +
-          f'{final_scores["diver-retriever-4b"]["nDCG@10"]:8.3f}   ' +
-          f'{final_scores["reason-embed-qwen3-4b-0928"]["nDCG@10"]:8.3f}   ')
+          f'{final_scores["diver-retriever-4b"]["nDCG@10"]:8.3f}{final_scores["diver-retriever-4b"]["R@100"]:8.3f}   ' +
+          f'{final_scores["reason-embed-qwen3-4b-0928"]["nDCG@10"]:8.3f}{final_scores["reason-embed-qwen3-4b-0928"]["R@100"]:8.3f}   ')
 
     print('\n')
 

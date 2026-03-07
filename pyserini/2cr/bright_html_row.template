@@ -15,12 +15,14 @@
 <td>$s8</td>
 <td></td>
 <td>$s9</td>
+<td>$s11</td>
 <td></td>
 <td>$s10</td>
+<td>$s12</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="20">
+<td colspan="22">
 <div id="collapse${row_cnt}" class="collapse in p-3">
 
 <!-- Tabs navs -->
