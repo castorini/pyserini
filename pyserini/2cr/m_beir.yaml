@@ -3,11 +3,103 @@ conditions:
     command: python -m pyserini.search.faiss --encoder-class uniir --encoder clip_sf_large --index m-beir-${dataset}.clip-sf-large --topics-format mbeir --topics m-beir-${dataset}-test --output-format trec --output $output --hits 1000 --fp16 --remove-query --threads ${dense_threads} --batch-size ${dense_batch_size}
     datasets:
       - dataset: union
-        scores:
-          - R@5: 0.0000
-            R@10: 0.0000
-            S@5: 0.0000
-            S@10: 0.0000
+        sub_datasets:
+          - dataset: cirr_task7
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: edis_task2
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: fashion200k_task0
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: fashion200k_task3
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: fashioniq_task7
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: infoseek_task6
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: infoseek_task8
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: mscoco_task0
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: mscoco_task3
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: nights_task4
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: oven_task6
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: oven_task8
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: visualnews_task0
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: visualnews_task3
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: webqa_task1
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: webqa_task2
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
       - dataset: cirr_task7
         scores:
           - R@5: 0.0000
@@ -108,11 +200,103 @@ conditions:
     command: python -m pyserini.search.faiss --encoder-class uniir --encoder blip_ff_large --index m-beir-${dataset}.blip-ff-large --topics-format mbeir --topics m-beir-${dataset}-test --output-format trec --output $output --hits 1000 --fp16 --remove-query --threads ${dense_threads} --batch-size ${dense_batch_size}
     datasets:
       - dataset: union
-        scores:
-          - R@5: 0.0000
-            R@10: 0.0000
-            S@5: 0.0000
-            S@10: 0.0000
+        sub_datasets:
+          - dataset: cirr_task7
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: edis_task2
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: fashion200k_task0
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: fashion200k_task3
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: fashioniq_task7
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: infoseek_task6
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: infoseek_task8
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: mscoco_task0
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: mscoco_task3
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: nights_task4
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: oven_task6
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: oven_task8
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: visualnews_task0
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: visualnews_task3
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: webqa_task1
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
+          - dataset: webqa_task2
+            scores:
+              - R@5: 0.0000
+                R@10: 0.0000
+                S@5: 0.0000
+                S@10: 0.0000
       - dataset: cirr_task7
         scores:
           - R@5: 0.0000

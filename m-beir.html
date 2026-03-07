@@ -180,10 +180,10 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
       </tr>  
     </thead>  
     <tbody>  
-<!-- Condition: cirr_task7 -->  
+<!-- Condition: union_cirr_task7 -->  
 <tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">  
 <td class="expand-button"></td>  
-<td width="200">cirr_task7</td>  
+<td width="200">union_cirr_task7</td>  
 <td>0.0000</td>  
 <td>0.0000</td>  
 <td>0.0000</td>  
@@ -219,6 +219,1750 @@ Command to generate run:
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class uniir \
   --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-cirr_task7-test \
+  --output-format trec \
+  --output run.m-beir-cirr_task7.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-cirr-task7 \
+  run.m-beir-cirr_task7.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-cirr-task7 \
+  run.m-beir-cirr_task7.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-cirr-task7 \
+  run.m-beir-cirr_task7.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-cirr-task7 \
+  run.m-beir-cirr_task7.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row1-tab2" role="tabpanel" aria-labelledby="row1-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-cirr_task7-test \
+  --output-format trec \
+  --output run.m-beir-cirr_task7.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-cirr-task7 \
+  run.m-beir-cirr_task7.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-cirr-task7 \
+  run.m-beir-cirr_task7.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-cirr-task7 \
+  run.m-beir-cirr_task7.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-cirr-task7 \
+  run.m-beir-cirr_task7.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: union_edis_task2 -->  
+<tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">  
+<td class="expand-button"></td>  
+<td width="200">union_edis_task2</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse2" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row2-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row2-tab1-header" data-mdb-toggle="tab" href="#row2-tab1" role="tab" aria-controls="row2-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row2-tab2-header" data-mdb-toggle="tab" href="#row2-tab2" role="tab" aria-controls="row2-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row2-content">  
+  <div class="tab-pane fade show active" id="row2-tab1" role="tabpanel" aria-labelledby="row2-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-edis_task2-test \
+  --output-format trec \
+  --output run.m-beir-edis_task2.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-edis-task2 \
+  run.m-beir-edis_task2.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-edis-task2 \
+  run.m-beir-edis_task2.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-edis-task2 \
+  run.m-beir-edis_task2.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-edis-task2 \
+  run.m-beir-edis_task2.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row2-tab2" role="tabpanel" aria-labelledby="row2-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-edis_task2-test \
+  --output-format trec \
+  --output run.m-beir-edis_task2.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-edis-task2 \
+  run.m-beir-edis_task2.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-edis-task2 \
+  run.m-beir-edis_task2.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-edis-task2 \
+  run.m-beir-edis_task2.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-edis-task2 \
+  run.m-beir-edis_task2.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: union_fashion200k_task0 -->  
+<tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">  
+<td class="expand-button"></td>  
+<td width="200">union_fashion200k_task0</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse3" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row3-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row3-tab1-header" data-mdb-toggle="tab" href="#row3-tab1" role="tab" aria-controls="row3-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row3-content">  
+  <div class="tab-pane fade show active" id="row3-tab1" role="tabpanel" aria-labelledby="row3-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-fashion200k_task0-test \
+  --output-format trec \
+  --output run.m-beir-fashion200k_task0.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-fashion200k-task0 \
+  run.m-beir-fashion200k_task0.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-fashion200k-task0 \
+  run.m-beir-fashion200k_task0.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-fashion200k-task0 \
+  run.m-beir-fashion200k_task0.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-fashion200k-task0 \
+  run.m-beir-fashion200k_task0.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row3-tab2" role="tabpanel" aria-labelledby="row3-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-fashion200k_task0-test \
+  --output-format trec \
+  --output run.m-beir-fashion200k_task0.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-fashion200k-task0 \
+  run.m-beir-fashion200k_task0.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-fashion200k-task0 \
+  run.m-beir-fashion200k_task0.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-fashion200k-task0 \
+  run.m-beir-fashion200k_task0.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-fashion200k-task0 \
+  run.m-beir-fashion200k_task0.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: union_fashion200k_task3 -->  
+<tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">  
+<td class="expand-button"></td>  
+<td width="200">union_fashion200k_task3</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse4" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row4-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row4-tab1-header" data-mdb-toggle="tab" href="#row4-tab1" role="tab" aria-controls="row4-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row4-content">  
+  <div class="tab-pane fade show active" id="row4-tab1" role="tabpanel" aria-labelledby="row4-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-fashion200k_task3-test \
+  --output-format trec \
+  --output run.m-beir-fashion200k_task3.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-fashion200k-task3 \
+  run.m-beir-fashion200k_task3.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-fashion200k-task3 \
+  run.m-beir-fashion200k_task3.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-fashion200k-task3 \
+  run.m-beir-fashion200k_task3.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-fashion200k-task3 \
+  run.m-beir-fashion200k_task3.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row4-tab2" role="tabpanel" aria-labelledby="row4-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-fashion200k_task3-test \
+  --output-format trec \
+  --output run.m-beir-fashion200k_task3.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-fashion200k-task3 \
+  run.m-beir-fashion200k_task3.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-fashion200k-task3 \
+  run.m-beir-fashion200k_task3.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-fashion200k-task3 \
+  run.m-beir-fashion200k_task3.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-fashion200k-task3 \
+  run.m-beir-fashion200k_task3.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: union_fashioniq_task7 -->  
+<tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">  
+<td class="expand-button"></td>  
+<td width="200">union_fashioniq_task7</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse5" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row5-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row5-tab1-header" data-mdb-toggle="tab" href="#row5-tab1" role="tab" aria-controls="row5-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row5-content">  
+  <div class="tab-pane fade show active" id="row5-tab1" role="tabpanel" aria-labelledby="row5-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-fashioniq_task7-test \
+  --output-format trec \
+  --output run.m-beir-fashioniq_task7.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-fashioniq-task7 \
+  run.m-beir-fashioniq_task7.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-fashioniq-task7 \
+  run.m-beir-fashioniq_task7.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-fashioniq-task7 \
+  run.m-beir-fashioniq_task7.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-fashioniq-task7 \
+  run.m-beir-fashioniq_task7.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row5-tab2" role="tabpanel" aria-labelledby="row5-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-fashioniq_task7-test \
+  --output-format trec \
+  --output run.m-beir-fashioniq_task7.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-fashioniq-task7 \
+  run.m-beir-fashioniq_task7.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-fashioniq-task7 \
+  run.m-beir-fashioniq_task7.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-fashioniq-task7 \
+  run.m-beir-fashioniq_task7.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-fashioniq-task7 \
+  run.m-beir-fashioniq_task7.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: union_infoseek_task6 -->  
+<tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">  
+<td class="expand-button"></td>  
+<td width="200">union_infoseek_task6</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse6" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row6-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row6-tab1-header" data-mdb-toggle="tab" href="#row6-tab1" role="tab" aria-controls="row6-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row6-content">  
+  <div class="tab-pane fade show active" id="row6-tab1" role="tabpanel" aria-labelledby="row6-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-infoseek_task6-test \
+  --output-format trec \
+  --output run.m-beir-infoseek_task6.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-infoseek-task6 \
+  run.m-beir-infoseek_task6.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-infoseek-task6 \
+  run.m-beir-infoseek_task6.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-infoseek-task6 \
+  run.m-beir-infoseek_task6.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-infoseek-task6 \
+  run.m-beir-infoseek_task6.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row6-tab2" role="tabpanel" aria-labelledby="row6-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-infoseek_task6-test \
+  --output-format trec \
+  --output run.m-beir-infoseek_task6.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-infoseek-task6 \
+  run.m-beir-infoseek_task6.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-infoseek-task6 \
+  run.m-beir-infoseek_task6.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-infoseek-task6 \
+  run.m-beir-infoseek_task6.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-infoseek-task6 \
+  run.m-beir-infoseek_task6.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: union_infoseek_task8 -->  
+<tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">  
+<td class="expand-button"></td>  
+<td width="200">union_infoseek_task8</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse7" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row7-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row7-tab1-header" data-mdb-toggle="tab" href="#row7-tab1" role="tab" aria-controls="row7-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row7-content">  
+  <div class="tab-pane fade show active" id="row7-tab1" role="tabpanel" aria-labelledby="row7-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-infoseek_task8-test \
+  --output-format trec \
+  --output run.m-beir-infoseek_task8.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-infoseek-task8 \
+  run.m-beir-infoseek_task8.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-infoseek-task8 \
+  run.m-beir-infoseek_task8.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-infoseek-task8 \
+  run.m-beir-infoseek_task8.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-infoseek-task8 \
+  run.m-beir-infoseek_task8.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row7-tab2" role="tabpanel" aria-labelledby="row7-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-infoseek_task8-test \
+  --output-format trec \
+  --output run.m-beir-infoseek_task8.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-infoseek-task8 \
+  run.m-beir-infoseek_task8.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-infoseek-task8 \
+  run.m-beir-infoseek_task8.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-infoseek-task8 \
+  run.m-beir-infoseek_task8.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-infoseek-task8 \
+  run.m-beir-infoseek_task8.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: union_mscoco_task0 -->  
+<tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">  
+<td class="expand-button"></td>  
+<td width="200">union_mscoco_task0</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse8" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row8-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row8-tab1-header" data-mdb-toggle="tab" href="#row8-tab1" role="tab" aria-controls="row8-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row8-content">  
+  <div class="tab-pane fade show active" id="row8-tab1" role="tabpanel" aria-labelledby="row8-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-mscoco_task0-test \
+  --output-format trec \
+  --output run.m-beir-mscoco_task0.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-mscoco-task0 \
+  run.m-beir-mscoco_task0.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-mscoco-task0 \
+  run.m-beir-mscoco_task0.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-mscoco-task0 \
+  run.m-beir-mscoco_task0.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-mscoco-task0 \
+  run.m-beir-mscoco_task0.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row8-tab2" role="tabpanel" aria-labelledby="row8-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-mscoco_task0-test \
+  --output-format trec \
+  --output run.m-beir-mscoco_task0.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-mscoco-task0 \
+  run.m-beir-mscoco_task0.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-mscoco-task0 \
+  run.m-beir-mscoco_task0.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-mscoco-task0 \
+  run.m-beir-mscoco_task0.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-mscoco-task0 \
+  run.m-beir-mscoco_task0.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: union_mscoco_task3 -->  
+<tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">  
+<td class="expand-button"></td>  
+<td width="200">union_mscoco_task3</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse9" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row9-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row9-tab1-header" data-mdb-toggle="tab" href="#row9-tab1" role="tab" aria-controls="row9-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row9-content">  
+  <div class="tab-pane fade show active" id="row9-tab1" role="tabpanel" aria-labelledby="row9-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-mscoco_task3-test \
+  --output-format trec \
+  --output run.m-beir-mscoco_task3.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-mscoco-task3 \
+  run.m-beir-mscoco_task3.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-mscoco-task3 \
+  run.m-beir-mscoco_task3.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-mscoco-task3 \
+  run.m-beir-mscoco_task3.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-mscoco-task3 \
+  run.m-beir-mscoco_task3.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row9-tab2" role="tabpanel" aria-labelledby="row9-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-mscoco_task3-test \
+  --output-format trec \
+  --output run.m-beir-mscoco_task3.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-mscoco-task3 \
+  run.m-beir-mscoco_task3.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-mscoco-task3 \
+  run.m-beir-mscoco_task3.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-mscoco-task3 \
+  run.m-beir-mscoco_task3.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-mscoco-task3 \
+  run.m-beir-mscoco_task3.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: union_nights_task4 -->  
+<tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">  
+<td class="expand-button"></td>  
+<td width="200">union_nights_task4</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse10" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row10-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row10-tab1-header" data-mdb-toggle="tab" href="#row10-tab1" role="tab" aria-controls="row10-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row10-content">  
+  <div class="tab-pane fade show active" id="row10-tab1" role="tabpanel" aria-labelledby="row10-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-nights_task4-test \
+  --output-format trec \
+  --output run.m-beir-nights_task4.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-nights-task4 \
+  run.m-beir-nights_task4.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-nights-task4 \
+  run.m-beir-nights_task4.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-nights-task4 \
+  run.m-beir-nights_task4.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-nights-task4 \
+  run.m-beir-nights_task4.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row10-tab2" role="tabpanel" aria-labelledby="row10-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-nights_task4-test \
+  --output-format trec \
+  --output run.m-beir-nights_task4.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-nights-task4 \
+  run.m-beir-nights_task4.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-nights-task4 \
+  run.m-beir-nights_task4.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-nights-task4 \
+  run.m-beir-nights_task4.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-nights-task4 \
+  run.m-beir-nights_task4.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: union_oven_task6 -->  
+<tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">  
+<td class="expand-button"></td>  
+<td width="200">union_oven_task6</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse11" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row11-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row11-tab1-header" data-mdb-toggle="tab" href="#row11-tab1" role="tab" aria-controls="row11-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row11-tab2-header" data-mdb-toggle="tab" href="#row11-tab2" role="tab" aria-controls="row11-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row11-content">  
+  <div class="tab-pane fade show active" id="row11-tab1" role="tabpanel" aria-labelledby="row11-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-oven_task6-test \
+  --output-format trec \
+  --output run.m-beir-oven_task6.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-oven-task6 \
+  run.m-beir-oven_task6.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-oven-task6 \
+  run.m-beir-oven_task6.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-oven-task6 \
+  run.m-beir-oven_task6.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-oven-task6 \
+  run.m-beir-oven_task6.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row11-tab2" role="tabpanel" aria-labelledby="row11-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-oven_task6-test \
+  --output-format trec \
+  --output run.m-beir-oven_task6.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-oven-task6 \
+  run.m-beir-oven_task6.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-oven-task6 \
+  run.m-beir-oven_task6.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-oven-task6 \
+  run.m-beir-oven_task6.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-oven-task6 \
+  run.m-beir-oven_task6.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: union_oven_task8 -->  
+<tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">  
+<td class="expand-button"></td>  
+<td width="200">union_oven_task8</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse12" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row12-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row12-tab1-header" data-mdb-toggle="tab" href="#row12-tab1" role="tab" aria-controls="row12-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row12-tab2-header" data-mdb-toggle="tab" href="#row12-tab2" role="tab" aria-controls="row12-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row12-content">  
+  <div class="tab-pane fade show active" id="row12-tab1" role="tabpanel" aria-labelledby="row12-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-oven_task8-test \
+  --output-format trec \
+  --output run.m-beir-oven_task8.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-oven-task8 \
+  run.m-beir-oven_task8.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-oven-task8 \
+  run.m-beir-oven_task8.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-oven-task8 \
+  run.m-beir-oven_task8.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-oven-task8 \
+  run.m-beir-oven_task8.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row12-tab2" role="tabpanel" aria-labelledby="row12-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-oven_task8-test \
+  --output-format trec \
+  --output run.m-beir-oven_task8.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-oven-task8 \
+  run.m-beir-oven_task8.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-oven-task8 \
+  run.m-beir-oven_task8.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-oven-task8 \
+  run.m-beir-oven_task8.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-oven-task8 \
+  run.m-beir-oven_task8.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: union_visualnews_task0 -->  
+<tr class="accordion-toggle collapsed" id="row13" data-toggle="collapse" data-parent="#row13" href="#collapse13">  
+<td class="expand-button"></td>  
+<td width="200">union_visualnews_task0</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse13" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row13-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row13-tab1-header" data-mdb-toggle="tab" href="#row13-tab1" role="tab" aria-controls="row13-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row13-tab2-header" data-mdb-toggle="tab" href="#row13-tab2" role="tab" aria-controls="row13-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row13-content">  
+  <div class="tab-pane fade show active" id="row13-tab1" role="tabpanel" aria-labelledby="row13-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-visualnews_task0-test \
+  --output-format trec \
+  --output run.m-beir-visualnews_task0.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-visualnews-task0 \
+  run.m-beir-visualnews_task0.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-visualnews-task0 \
+  run.m-beir-visualnews_task0.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-visualnews-task0 \
+  run.m-beir-visualnews_task0.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-visualnews-task0 \
+  run.m-beir-visualnews_task0.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row13-tab2" role="tabpanel" aria-labelledby="row13-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-visualnews_task0-test \
+  --output-format trec \
+  --output run.m-beir-visualnews_task0.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-visualnews-task0 \
+  run.m-beir-visualnews_task0.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-visualnews-task0 \
+  run.m-beir-visualnews_task0.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-visualnews-task0 \
+  run.m-beir-visualnews_task0.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-visualnews-task0 \
+  run.m-beir-visualnews_task0.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: union_visualnews_task3 -->  
+<tr class="accordion-toggle collapsed" id="row14" data-toggle="collapse" data-parent="#row14" href="#collapse14">  
+<td class="expand-button"></td>  
+<td width="200">union_visualnews_task3</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse14" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row14-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row14-tab1-header" data-mdb-toggle="tab" href="#row14-tab1" role="tab" aria-controls="row14-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row14-tab2-header" data-mdb-toggle="tab" href="#row14-tab2" role="tab" aria-controls="row14-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row14-content">  
+  <div class="tab-pane fade show active" id="row14-tab1" role="tabpanel" aria-labelledby="row14-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-visualnews_task3-test \
+  --output-format trec \
+  --output run.m-beir-visualnews_task3.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-visualnews-task3 \
+  run.m-beir-visualnews_task3.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-visualnews-task3 \
+  run.m-beir-visualnews_task3.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-visualnews-task3 \
+  run.m-beir-visualnews_task3.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-visualnews-task3 \
+  run.m-beir-visualnews_task3.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row14-tab2" role="tabpanel" aria-labelledby="row14-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-visualnews_task3-test \
+  --output-format trec \
+  --output run.m-beir-visualnews_task3.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-visualnews-task3 \
+  run.m-beir-visualnews_task3.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-visualnews-task3 \
+  run.m-beir-visualnews_task3.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-visualnews-task3 \
+  run.m-beir-visualnews_task3.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-visualnews-task3 \
+  run.m-beir-visualnews_task3.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: union_webqa_task1 -->  
+<tr class="accordion-toggle collapsed" id="row15" data-toggle="collapse" data-parent="#row15" href="#collapse15">  
+<td class="expand-button"></td>  
+<td width="200">union_webqa_task1</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse15" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row15-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row15-tab1-header" data-mdb-toggle="tab" href="#row15-tab1" role="tab" aria-controls="row15-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row15-tab2-header" data-mdb-toggle="tab" href="#row15-tab2" role="tab" aria-controls="row15-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row15-content">  
+  <div class="tab-pane fade show active" id="row15-tab1" role="tabpanel" aria-labelledby="row15-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-webqa_task1-test \
+  --output-format trec \
+  --output run.m-beir-webqa_task1.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-webqa-task1 \
+  run.m-beir-webqa_task1.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-webqa-task1 \
+  run.m-beir-webqa_task1.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-webqa-task1 \
+  run.m-beir-webqa_task1.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-webqa-task1 \
+  run.m-beir-webqa_task1.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row15-tab2" role="tabpanel" aria-labelledby="row15-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-webqa_task1-test \
+  --output-format trec \
+  --output run.m-beir-webqa_task1.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-webqa-task1 \
+  run.m-beir-webqa_task1.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-webqa-task1 \
+  run.m-beir-webqa_task1.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-webqa-task1 \
+  run.m-beir-webqa_task1.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-webqa-task1 \
+  run.m-beir-webqa_task1.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: union_webqa_task2 -->  
+<tr class="accordion-toggle collapsed" id="row16" data-toggle="collapse" data-parent="#row16" href="#collapse16">  
+<td class="expand-button"></td>  
+<td width="200">union_webqa_task2</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse16" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row16-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row16-tab1-header" data-mdb-toggle="tab" href="#row16-tab1" role="tab" aria-controls="row16-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row16-tab2-header" data-mdb-toggle="tab" href="#row16-tab2" role="tab" aria-controls="row16-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row16-content">  
+  <div class="tab-pane fade show active" id="row16-tab1" role="tabpanel" aria-labelledby="row16-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
+  --index m-beir-union.clip-sf-large \
+  --topics-format mbeir \
+  --topics m-beir-webqa_task2-test \
+  --output-format trec \
+  --output run.m-beir-webqa_task2.global.clip-sf-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-webqa-task2 \
+  run.m-beir-webqa_task2.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-webqa-task2 \
+  run.m-beir-webqa_task2.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-webqa-task2 \
+  run.m-beir-webqa_task2.global.clip-sf-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-webqa-task2 \
+  run.m-beir-webqa_task2.global.clip-sf-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+  <div class="tab-pane fade" id="row16-tab2" role="tabpanel" aria-labelledby="row16-tab2">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder blip_ff_large \
+  --index m-beir-union.blip-ff-large \
+  --topics-format mbeir \
+  --topics m-beir-webqa_task2-test \
+  --output-format trec \
+  --output run.m-beir-webqa_task2.global.blip-ff-large.txt \
+  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
+</code></pre></blockquote>  
+Evaluation commands:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m recall.5 m-beir-webqa-task2 \
+  run.m-beir-webqa_task2.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.10 m-beir-webqa-task2 \
+  run.m-beir-webqa_task2.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.5 m-beir-webqa-task2 \
+  run.m-beir-webqa_task2.global.blip-ff-large.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m success.10 m-beir-webqa-task2 \
+  run.m-beir-webqa_task2.global.blip-ff-large.txt</code></pre>  
+  </blockquote>  
+  
+  </div>  
+</div>  
+<!-- Tabs content -->  
+  
+</div>  
+</td>  
+</tr>
+
+<!-- Condition: cirr_task7 -->  
+<tr class="accordion-toggle collapsed" id="row17" data-toggle="collapse" data-parent="#row17" href="#collapse17">  
+<td class="expand-button"></td>  
+<td width="200">cirr_task7</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td></td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+<td>0.0000</td>  
+</tr>  
+<tr class="hide-table-padding">  
+<td></td>  
+<td colspan="10">  
+<div id="collapse17" class="collapse in p-3">  
+  
+<!-- Tabs navs -->  
+<ul class="nav nav-tabs mb-3" id="row17-tabs" role="tablist">  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link active" id="row17-tab1-header" data-mdb-toggle="tab" href="#row17-tab1" role="tab" aria-controls="row17-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+  </li>  
+  <li class="nav-item" role="presentation">  
+    <a class="nav-link" id="row17-tab2-header" data-mdb-toggle="tab" href="#row17-tab2" role="tab" aria-controls="row17-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+  </li>  
+</ul>  
+<!-- Tabs navs -->  
+  
+<!-- Tabs content -->  
+<div class="tab-content" id="row17-content">  
+  <div class="tab-pane fade show active" id="row17-tab1" role="tabpanel" aria-labelledby="row17-tab1">  
+Command to generate run:  
+  
+  <blockquote class="mycode">  
+<pre><code>python -m pyserini.search.faiss \
+  --encoder-class uniir \
+  --encoder clip_sf_large \
   --index m-beir-cirr_task7.clip-sf-large \
   --topics-format mbeir \
   --topics m-beir-cirr_task7-test \
@@ -247,7 +1991,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row1-tab2" role="tabpanel" aria-labelledby="row1-tab2">  
+  <div class="tab-pane fade" id="row17-tab2" role="tabpanel" aria-labelledby="row17-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -290,7 +2034,7 @@ python -m pyserini.eval.trec_eval \
 </tr>
 
 <!-- Condition: edis_task2 -->  
-<tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">  
+<tr class="accordion-toggle collapsed" id="row18" data-toggle="collapse" data-parent="#row18" href="#collapse18">  
 <td class="expand-button"></td>  
 <td width="200">edis_task2</td>  
 <td>0.0000</td>  
@@ -306,22 +2050,22 @@ python -m pyserini.eval.trec_eval \
 <tr class="hide-table-padding">  
 <td></td>  
 <td colspan="10">  
-<div id="collapse2" class="collapse in p-3">  
+<div id="collapse18" class="collapse in p-3">  
   
 <!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row2-tabs" role="tablist">  
+<ul class="nav nav-tabs mb-3" id="row18-tabs" role="tablist">  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row2-tab1-header" data-mdb-toggle="tab" href="#row2-tab1" role="tab" aria-controls="row2-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+    <a class="nav-link active" id="row18-tab1-header" data-mdb-toggle="tab" href="#row18-tab1" role="tab" aria-controls="row18-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
   </li>  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row2-tab2-header" data-mdb-toggle="tab" href="#row2-tab2" role="tab" aria-controls="row2-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+    <a class="nav-link" id="row18-tab2-header" data-mdb-toggle="tab" href="#row18-tab2" role="tab" aria-controls="row18-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
   </li>  
 </ul>  
 <!-- Tabs navs -->  
   
 <!-- Tabs content -->  
-<div class="tab-content" id="row2-content">  
-  <div class="tab-pane fade show active" id="row2-tab1" role="tabpanel" aria-labelledby="row2-tab1">  
+<div class="tab-content" id="row18-content">  
+  <div class="tab-pane fade show active" id="row18-tab1" role="tabpanel" aria-labelledby="row18-tab1">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -356,7 +2100,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row2-tab2" role="tabpanel" aria-labelledby="row2-tab2">  
+  <div class="tab-pane fade" id="row18-tab2" role="tabpanel" aria-labelledby="row18-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -399,7 +2143,7 @@ python -m pyserini.eval.trec_eval \
 </tr>
 
 <!-- Condition: fashion200k_task0 -->  
-<tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">  
+<tr class="accordion-toggle collapsed" id="row19" data-toggle="collapse" data-parent="#row19" href="#collapse19">  
 <td class="expand-button"></td>  
 <td width="200">fashion200k_task0</td>  
 <td>0.0000</td>  
@@ -415,22 +2159,22 @@ python -m pyserini.eval.trec_eval \
 <tr class="hide-table-padding">  
 <td></td>  
 <td colspan="10">  
-<div id="collapse3" class="collapse in p-3">  
+<div id="collapse19" class="collapse in p-3">  
   
 <!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row3-tabs" role="tablist">  
+<ul class="nav nav-tabs mb-3" id="row19-tabs" role="tablist">  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row3-tab1-header" data-mdb-toggle="tab" href="#row3-tab1" role="tab" aria-controls="row3-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+    <a class="nav-link active" id="row19-tab1-header" data-mdb-toggle="tab" href="#row19-tab1" role="tab" aria-controls="row19-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
   </li>  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+    <a class="nav-link" id="row19-tab2-header" data-mdb-toggle="tab" href="#row19-tab2" role="tab" aria-controls="row19-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
   </li>  
 </ul>  
 <!-- Tabs navs -->  
   
 <!-- Tabs content -->  
-<div class="tab-content" id="row3-content">  
-  <div class="tab-pane fade show active" id="row3-tab1" role="tabpanel" aria-labelledby="row3-tab1">  
+<div class="tab-content" id="row19-content">  
+  <div class="tab-pane fade show active" id="row19-tab1" role="tabpanel" aria-labelledby="row19-tab1">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -465,7 +2209,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row3-tab2" role="tabpanel" aria-labelledby="row3-tab2">  
+  <div class="tab-pane fade" id="row19-tab2" role="tabpanel" aria-labelledby="row19-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -508,7 +2252,7 @@ python -m pyserini.eval.trec_eval \
 </tr>
 
 <!-- Condition: fashion200k_task3 -->  
-<tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">  
+<tr class="accordion-toggle collapsed" id="row20" data-toggle="collapse" data-parent="#row20" href="#collapse20">  
 <td class="expand-button"></td>  
 <td width="200">fashion200k_task3</td>  
 <td>0.0000</td>  
@@ -524,22 +2268,22 @@ python -m pyserini.eval.trec_eval \
 <tr class="hide-table-padding">  
 <td></td>  
 <td colspan="10">  
-<div id="collapse4" class="collapse in p-3">  
+<div id="collapse20" class="collapse in p-3">  
   
 <!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row4-tabs" role="tablist">  
+<ul class="nav nav-tabs mb-3" id="row20-tabs" role="tablist">  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row4-tab1-header" data-mdb-toggle="tab" href="#row4-tab1" role="tab" aria-controls="row4-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+    <a class="nav-link active" id="row20-tab1-header" data-mdb-toggle="tab" href="#row20-tab1" role="tab" aria-controls="row20-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
   </li>  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+    <a class="nav-link" id="row20-tab2-header" data-mdb-toggle="tab" href="#row20-tab2" role="tab" aria-controls="row20-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
   </li>  
 </ul>  
 <!-- Tabs navs -->  
   
 <!-- Tabs content -->  
-<div class="tab-content" id="row4-content">  
-  <div class="tab-pane fade show active" id="row4-tab1" role="tabpanel" aria-labelledby="row4-tab1">  
+<div class="tab-content" id="row20-content">  
+  <div class="tab-pane fade show active" id="row20-tab1" role="tabpanel" aria-labelledby="row20-tab1">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -574,7 +2318,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row4-tab2" role="tabpanel" aria-labelledby="row4-tab2">  
+  <div class="tab-pane fade" id="row20-tab2" role="tabpanel" aria-labelledby="row20-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -617,7 +2361,7 @@ python -m pyserini.eval.trec_eval \
 </tr>
 
 <!-- Condition: fashioniq_task7 -->  
-<tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">  
+<tr class="accordion-toggle collapsed" id="row21" data-toggle="collapse" data-parent="#row21" href="#collapse21">  
 <td class="expand-button"></td>  
 <td width="200">fashioniq_task7</td>  
 <td>0.0000</td>  
@@ -633,22 +2377,22 @@ python -m pyserini.eval.trec_eval \
 <tr class="hide-table-padding">  
 <td></td>  
 <td colspan="10">  
-<div id="collapse5" class="collapse in p-3">  
+<div id="collapse21" class="collapse in p-3">  
   
 <!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row5-tabs" role="tablist">  
+<ul class="nav nav-tabs mb-3" id="row21-tabs" role="tablist">  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row5-tab1-header" data-mdb-toggle="tab" href="#row5-tab1" role="tab" aria-controls="row5-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+    <a class="nav-link active" id="row21-tab1-header" data-mdb-toggle="tab" href="#row21-tab1" role="tab" aria-controls="row21-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
   </li>  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+    <a class="nav-link" id="row21-tab2-header" data-mdb-toggle="tab" href="#row21-tab2" role="tab" aria-controls="row21-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
   </li>  
 </ul>  
 <!-- Tabs navs -->  
   
 <!-- Tabs content -->  
-<div class="tab-content" id="row5-content">  
-  <div class="tab-pane fade show active" id="row5-tab1" role="tabpanel" aria-labelledby="row5-tab1">  
+<div class="tab-content" id="row21-content">  
+  <div class="tab-pane fade show active" id="row21-tab1" role="tabpanel" aria-labelledby="row21-tab1">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -683,7 +2427,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row5-tab2" role="tabpanel" aria-labelledby="row5-tab2">  
+  <div class="tab-pane fade" id="row21-tab2" role="tabpanel" aria-labelledby="row21-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -726,7 +2470,7 @@ python -m pyserini.eval.trec_eval \
 </tr>
 
 <!-- Condition: infoseek_task6 -->  
-<tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">  
+<tr class="accordion-toggle collapsed" id="row22" data-toggle="collapse" data-parent="#row22" href="#collapse22">  
 <td class="expand-button"></td>  
 <td width="200">infoseek_task6</td>  
 <td>0.0000</td>  
@@ -742,22 +2486,22 @@ python -m pyserini.eval.trec_eval \
 <tr class="hide-table-padding">  
 <td></td>  
 <td colspan="10">  
-<div id="collapse6" class="collapse in p-3">  
+<div id="collapse22" class="collapse in p-3">  
   
 <!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row6-tabs" role="tablist">  
+<ul class="nav nav-tabs mb-3" id="row22-tabs" role="tablist">  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row6-tab1-header" data-mdb-toggle="tab" href="#row6-tab1" role="tab" aria-controls="row6-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+    <a class="nav-link active" id="row22-tab1-header" data-mdb-toggle="tab" href="#row22-tab1" role="tab" aria-controls="row22-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
   </li>  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+    <a class="nav-link" id="row22-tab2-header" data-mdb-toggle="tab" href="#row22-tab2" role="tab" aria-controls="row22-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
   </li>  
 </ul>  
 <!-- Tabs navs -->  
   
 <!-- Tabs content -->  
-<div class="tab-content" id="row6-content">  
-  <div class="tab-pane fade show active" id="row6-tab1" role="tabpanel" aria-labelledby="row6-tab1">  
+<div class="tab-content" id="row22-content">  
+  <div class="tab-pane fade show active" id="row22-tab1" role="tabpanel" aria-labelledby="row22-tab1">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -792,7 +2536,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row6-tab2" role="tabpanel" aria-labelledby="row6-tab2">  
+  <div class="tab-pane fade" id="row22-tab2" role="tabpanel" aria-labelledby="row22-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -835,7 +2579,7 @@ python -m pyserini.eval.trec_eval \
 </tr>
 
 <!-- Condition: infoseek_task8 -->  
-<tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">  
+<tr class="accordion-toggle collapsed" id="row23" data-toggle="collapse" data-parent="#row23" href="#collapse23">  
 <td class="expand-button"></td>  
 <td width="200">infoseek_task8</td>  
 <td>0.0000</td>  
@@ -851,22 +2595,22 @@ python -m pyserini.eval.trec_eval \
 <tr class="hide-table-padding">  
 <td></td>  
 <td colspan="10">  
-<div id="collapse7" class="collapse in p-3">  
+<div id="collapse23" class="collapse in p-3">  
   
 <!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row7-tabs" role="tablist">  
+<ul class="nav nav-tabs mb-3" id="row23-tabs" role="tablist">  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row7-tab1-header" data-mdb-toggle="tab" href="#row7-tab1" role="tab" aria-controls="row7-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+    <a class="nav-link active" id="row23-tab1-header" data-mdb-toggle="tab" href="#row23-tab1" role="tab" aria-controls="row23-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
   </li>  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+    <a class="nav-link" id="row23-tab2-header" data-mdb-toggle="tab" href="#row23-tab2" role="tab" aria-controls="row23-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
   </li>  
 </ul>  
 <!-- Tabs navs -->  
   
 <!-- Tabs content -->  
-<div class="tab-content" id="row7-content">  
-  <div class="tab-pane fade show active" id="row7-tab1" role="tabpanel" aria-labelledby="row7-tab1">  
+<div class="tab-content" id="row23-content">  
+  <div class="tab-pane fade show active" id="row23-tab1" role="tabpanel" aria-labelledby="row23-tab1">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -901,7 +2645,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row7-tab2" role="tabpanel" aria-labelledby="row7-tab2">  
+  <div class="tab-pane fade" id="row23-tab2" role="tabpanel" aria-labelledby="row23-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -944,7 +2688,7 @@ python -m pyserini.eval.trec_eval \
 </tr>
 
 <!-- Condition: mscoco_task0 -->  
-<tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">  
+<tr class="accordion-toggle collapsed" id="row24" data-toggle="collapse" data-parent="#row24" href="#collapse24">  
 <td class="expand-button"></td>  
 <td width="200">mscoco_task0</td>  
 <td>0.0000</td>  
@@ -960,22 +2704,22 @@ python -m pyserini.eval.trec_eval \
 <tr class="hide-table-padding">  
 <td></td>  
 <td colspan="10">  
-<div id="collapse8" class="collapse in p-3">  
+<div id="collapse24" class="collapse in p-3">  
   
 <!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row8-tabs" role="tablist">  
+<ul class="nav nav-tabs mb-3" id="row24-tabs" role="tablist">  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row8-tab1-header" data-mdb-toggle="tab" href="#row8-tab1" role="tab" aria-controls="row8-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+    <a class="nav-link active" id="row24-tab1-header" data-mdb-toggle="tab" href="#row24-tab1" role="tab" aria-controls="row24-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
   </li>  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+    <a class="nav-link" id="row24-tab2-header" data-mdb-toggle="tab" href="#row24-tab2" role="tab" aria-controls="row24-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
   </li>  
 </ul>  
 <!-- Tabs navs -->  
   
 <!-- Tabs content -->  
-<div class="tab-content" id="row8-content">  
-  <div class="tab-pane fade show active" id="row8-tab1" role="tabpanel" aria-labelledby="row8-tab1">  
+<div class="tab-content" id="row24-content">  
+  <div class="tab-pane fade show active" id="row24-tab1" role="tabpanel" aria-labelledby="row24-tab1">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1010,7 +2754,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row8-tab2" role="tabpanel" aria-labelledby="row8-tab2">  
+  <div class="tab-pane fade" id="row24-tab2" role="tabpanel" aria-labelledby="row24-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1053,7 +2797,7 @@ python -m pyserini.eval.trec_eval \
 </tr>
 
 <!-- Condition: mscoco_task3 -->  
-<tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">  
+<tr class="accordion-toggle collapsed" id="row25" data-toggle="collapse" data-parent="#row25" href="#collapse25">  
 <td class="expand-button"></td>  
 <td width="200">mscoco_task3</td>  
 <td>0.0000</td>  
@@ -1069,22 +2813,22 @@ python -m pyserini.eval.trec_eval \
 <tr class="hide-table-padding">  
 <td></td>  
 <td colspan="10">  
-<div id="collapse9" class="collapse in p-3">  
+<div id="collapse25" class="collapse in p-3">  
   
 <!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row9-tabs" role="tablist">  
+<ul class="nav nav-tabs mb-3" id="row25-tabs" role="tablist">  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row9-tab1-header" data-mdb-toggle="tab" href="#row9-tab1" role="tab" aria-controls="row9-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+    <a class="nav-link active" id="row25-tab1-header" data-mdb-toggle="tab" href="#row25-tab1" role="tab" aria-controls="row25-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
   </li>  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+    <a class="nav-link" id="row25-tab2-header" data-mdb-toggle="tab" href="#row25-tab2" role="tab" aria-controls="row25-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
   </li>  
 </ul>  
 <!-- Tabs navs -->  
   
 <!-- Tabs content -->  
-<div class="tab-content" id="row9-content">  
-  <div class="tab-pane fade show active" id="row9-tab1" role="tabpanel" aria-labelledby="row9-tab1">  
+<div class="tab-content" id="row25-content">  
+  <div class="tab-pane fade show active" id="row25-tab1" role="tabpanel" aria-labelledby="row25-tab1">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1119,7 +2863,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row9-tab2" role="tabpanel" aria-labelledby="row9-tab2">  
+  <div class="tab-pane fade" id="row25-tab2" role="tabpanel" aria-labelledby="row25-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1162,7 +2906,7 @@ python -m pyserini.eval.trec_eval \
 </tr>
 
 <!-- Condition: nights_task4 -->  
-<tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">  
+<tr class="accordion-toggle collapsed" id="row26" data-toggle="collapse" data-parent="#row26" href="#collapse26">  
 <td class="expand-button"></td>  
 <td width="200">nights_task4</td>  
 <td>0.0000</td>  
@@ -1178,22 +2922,22 @@ python -m pyserini.eval.trec_eval \
 <tr class="hide-table-padding">  
 <td></td>  
 <td colspan="10">  
-<div id="collapse10" class="collapse in p-3">  
+<div id="collapse26" class="collapse in p-3">  
   
 <!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row10-tabs" role="tablist">  
+<ul class="nav nav-tabs mb-3" id="row26-tabs" role="tablist">  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row10-tab1-header" data-mdb-toggle="tab" href="#row10-tab1" role="tab" aria-controls="row10-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+    <a class="nav-link active" id="row26-tab1-header" data-mdb-toggle="tab" href="#row26-tab1" role="tab" aria-controls="row26-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
   </li>  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+    <a class="nav-link" id="row26-tab2-header" data-mdb-toggle="tab" href="#row26-tab2" role="tab" aria-controls="row26-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
   </li>  
 </ul>  
 <!-- Tabs navs -->  
   
 <!-- Tabs content -->  
-<div class="tab-content" id="row10-content">  
-  <div class="tab-pane fade show active" id="row10-tab1" role="tabpanel" aria-labelledby="row10-tab1">  
+<div class="tab-content" id="row26-content">  
+  <div class="tab-pane fade show active" id="row26-tab1" role="tabpanel" aria-labelledby="row26-tab1">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1228,7 +2972,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row10-tab2" role="tabpanel" aria-labelledby="row10-tab2">  
+  <div class="tab-pane fade" id="row26-tab2" role="tabpanel" aria-labelledby="row26-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1271,7 +3015,7 @@ python -m pyserini.eval.trec_eval \
 </tr>
 
 <!-- Condition: oven_task6 -->  
-<tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">  
+<tr class="accordion-toggle collapsed" id="row27" data-toggle="collapse" data-parent="#row27" href="#collapse27">  
 <td class="expand-button"></td>  
 <td width="200">oven_task6</td>  
 <td>0.0000</td>  
@@ -1287,22 +3031,22 @@ python -m pyserini.eval.trec_eval \
 <tr class="hide-table-padding">  
 <td></td>  
 <td colspan="10">  
-<div id="collapse11" class="collapse in p-3">  
+<div id="collapse27" class="collapse in p-3">  
   
 <!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row11-tabs" role="tablist">  
+<ul class="nav nav-tabs mb-3" id="row27-tabs" role="tablist">  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row11-tab1-header" data-mdb-toggle="tab" href="#row11-tab1" role="tab" aria-controls="row11-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+    <a class="nav-link active" id="row27-tab1-header" data-mdb-toggle="tab" href="#row27-tab1" role="tab" aria-controls="row27-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
   </li>  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row11-tab2-header" data-mdb-toggle="tab" href="#row11-tab2" role="tab" aria-controls="row11-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+    <a class="nav-link" id="row27-tab2-header" data-mdb-toggle="tab" href="#row27-tab2" role="tab" aria-controls="row27-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
   </li>  
 </ul>  
 <!-- Tabs navs -->  
   
 <!-- Tabs content -->  
-<div class="tab-content" id="row11-content">  
-  <div class="tab-pane fade show active" id="row11-tab1" role="tabpanel" aria-labelledby="row11-tab1">  
+<div class="tab-content" id="row27-content">  
+  <div class="tab-pane fade show active" id="row27-tab1" role="tabpanel" aria-labelledby="row27-tab1">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1337,7 +3081,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row11-tab2" role="tabpanel" aria-labelledby="row11-tab2">  
+  <div class="tab-pane fade" id="row27-tab2" role="tabpanel" aria-labelledby="row27-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1380,7 +3124,7 @@ python -m pyserini.eval.trec_eval \
 </tr>
 
 <!-- Condition: oven_task8 -->  
-<tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">  
+<tr class="accordion-toggle collapsed" id="row28" data-toggle="collapse" data-parent="#row28" href="#collapse28">  
 <td class="expand-button"></td>  
 <td width="200">oven_task8</td>  
 <td>0.0000</td>  
@@ -1396,22 +3140,22 @@ python -m pyserini.eval.trec_eval \
 <tr class="hide-table-padding">  
 <td></td>  
 <td colspan="10">  
-<div id="collapse12" class="collapse in p-3">  
+<div id="collapse28" class="collapse in p-3">  
   
 <!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row12-tabs" role="tablist">  
+<ul class="nav nav-tabs mb-3" id="row28-tabs" role="tablist">  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row12-tab1-header" data-mdb-toggle="tab" href="#row12-tab1" role="tab" aria-controls="row12-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+    <a class="nav-link active" id="row28-tab1-header" data-mdb-toggle="tab" href="#row28-tab1" role="tab" aria-controls="row28-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
   </li>  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row12-tab2-header" data-mdb-toggle="tab" href="#row12-tab2" role="tab" aria-controls="row12-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+    <a class="nav-link" id="row28-tab2-header" data-mdb-toggle="tab" href="#row28-tab2" role="tab" aria-controls="row28-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
   </li>  
 </ul>  
 <!-- Tabs navs -->  
   
 <!-- Tabs content -->  
-<div class="tab-content" id="row12-content">  
-  <div class="tab-pane fade show active" id="row12-tab1" role="tabpanel" aria-labelledby="row12-tab1">  
+<div class="tab-content" id="row28-content">  
+  <div class="tab-pane fade show active" id="row28-tab1" role="tabpanel" aria-labelledby="row28-tab1">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1446,7 +3190,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row12-tab2" role="tabpanel" aria-labelledby="row12-tab2">  
+  <div class="tab-pane fade" id="row28-tab2" role="tabpanel" aria-labelledby="row28-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1488,117 +3232,8 @@ python -m pyserini.eval.trec_eval \
 </td>  
 </tr>
 
-<!-- Condition: union -->  
-<tr class="accordion-toggle collapsed" id="row13" data-toggle="collapse" data-parent="#row13" href="#collapse13">  
-<td class="expand-button"></td>  
-<td width="200">union</td>  
-<td>0.0000</td>  
-<td>0.0000</td>  
-<td>0.0000</td>  
-<td>0.0000</td>  
-<td></td>  
-<td>0.0000</td>  
-<td>0.0000</td>  
-<td>0.0000</td>  
-<td>0.0000</td>  
-</tr>  
-<tr class="hide-table-padding">  
-<td></td>  
-<td colspan="10">  
-<div id="collapse13" class="collapse in p-3">  
-  
-<!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row13-tabs" role="tablist">  
-  <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row13-tab1-header" data-mdb-toggle="tab" href="#row13-tab1" role="tab" aria-controls="row13-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
-  </li>  
-  <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row13-tab2-header" data-mdb-toggle="tab" href="#row13-tab2" role="tab" aria-controls="row13-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
-  </li>  
-</ul>  
-<!-- Tabs navs -->  
-  
-<!-- Tabs content -->  
-<div class="tab-content" id="row13-content">  
-  <div class="tab-pane fade show active" id="row13-tab1" role="tabpanel" aria-labelledby="row13-tab1">  
-Command to generate run:  
-  
-  <blockquote class="mycode">  
-<pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder clip_sf_large \
-  --index m-beir-union.clip-sf-large \
-  --topics-format mbeir \
-  --topics m-beir-union-test \
-  --output-format trec \
-  --output run.m-beir-union.clip-sf-large.txt \
-  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
-</code></pre></blockquote>  
-Evaluation commands:  
-  
-  <blockquote class="mycode">  
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.5 m-beir-union \
-  run.m-beir-union.clip-sf-large.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.10 m-beir-union \
-  run.m-beir-union.clip-sf-large.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m success.5 m-beir-union \
-  run.m-beir-union.clip-sf-large.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m success.10 m-beir-union \
-  run.m-beir-union.clip-sf-large.txt</code></pre>  
-  </blockquote>  
-  
-  </div>  
-  <div class="tab-pane fade" id="row13-tab2" role="tabpanel" aria-labelledby="row13-tab2">  
-Command to generate run:  
-  
-  <blockquote class="mycode">  
-<pre><code>python -m pyserini.search.faiss \
-  --encoder-class uniir \
-  --encoder blip_ff_large \
-  --index m-beir-union.blip-ff-large \
-  --topics-format mbeir \
-  --topics m-beir-union-test \
-  --output-format trec \
-  --output run.m-beir-union.blip-ff-large.txt \
-  --hits 1000 --fp16 --remove-query --threads 16 --batch-size 512  
-</code></pre></blockquote>  
-Evaluation commands:  
-  
-  <blockquote class="mycode">  
-<pre><code>python -m pyserini.eval.trec_eval \
-  -c -m recall.5 m-beir-union \
-  run.m-beir-union.blip-ff-large.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m recall.10 m-beir-union \
-  run.m-beir-union.blip-ff-large.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m success.5 m-beir-union \
-  run.m-beir-union.blip-ff-large.txt
-
-python -m pyserini.eval.trec_eval \
-  -c -m success.10 m-beir-union \
-  run.m-beir-union.blip-ff-large.txt</code></pre>  
-  </blockquote>  
-  
-  </div>  
-</div>  
-<!-- Tabs content -->  
-  
-</div>  
-</td>  
-</tr>
-
 <!-- Condition: visualnews_task0 -->  
-<tr class="accordion-toggle collapsed" id="row14" data-toggle="collapse" data-parent="#row14" href="#collapse14">  
+<tr class="accordion-toggle collapsed" id="row29" data-toggle="collapse" data-parent="#row29" href="#collapse29">  
 <td class="expand-button"></td>  
 <td width="200">visualnews_task0</td>  
 <td>0.0000</td>  
@@ -1614,22 +3249,22 @@ python -m pyserini.eval.trec_eval \
 <tr class="hide-table-padding">  
 <td></td>  
 <td colspan="10">  
-<div id="collapse14" class="collapse in p-3">  
+<div id="collapse29" class="collapse in p-3">  
   
 <!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row14-tabs" role="tablist">  
+<ul class="nav nav-tabs mb-3" id="row29-tabs" role="tablist">  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row14-tab1-header" data-mdb-toggle="tab" href="#row14-tab1" role="tab" aria-controls="row14-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+    <a class="nav-link active" id="row29-tab1-header" data-mdb-toggle="tab" href="#row29-tab1" role="tab" aria-controls="row29-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
   </li>  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row14-tab2-header" data-mdb-toggle="tab" href="#row14-tab2" role="tab" aria-controls="row14-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+    <a class="nav-link" id="row29-tab2-header" data-mdb-toggle="tab" href="#row29-tab2" role="tab" aria-controls="row29-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
   </li>  
 </ul>  
 <!-- Tabs navs -->  
   
 <!-- Tabs content -->  
-<div class="tab-content" id="row14-content">  
-  <div class="tab-pane fade show active" id="row14-tab1" role="tabpanel" aria-labelledby="row14-tab1">  
+<div class="tab-content" id="row29-content">  
+  <div class="tab-pane fade show active" id="row29-tab1" role="tabpanel" aria-labelledby="row29-tab1">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1664,7 +3299,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row14-tab2" role="tabpanel" aria-labelledby="row14-tab2">  
+  <div class="tab-pane fade" id="row29-tab2" role="tabpanel" aria-labelledby="row29-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1707,7 +3342,7 @@ python -m pyserini.eval.trec_eval \
 </tr>
 
 <!-- Condition: visualnews_task3 -->  
-<tr class="accordion-toggle collapsed" id="row15" data-toggle="collapse" data-parent="#row15" href="#collapse15">  
+<tr class="accordion-toggle collapsed" id="row30" data-toggle="collapse" data-parent="#row30" href="#collapse30">  
 <td class="expand-button"></td>  
 <td width="200">visualnews_task3</td>  
 <td>0.0000</td>  
@@ -1723,22 +3358,22 @@ python -m pyserini.eval.trec_eval \
 <tr class="hide-table-padding">  
 <td></td>  
 <td colspan="10">  
-<div id="collapse15" class="collapse in p-3">  
+<div id="collapse30" class="collapse in p-3">  
   
 <!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row15-tabs" role="tablist">  
+<ul class="nav nav-tabs mb-3" id="row30-tabs" role="tablist">  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row15-tab1-header" data-mdb-toggle="tab" href="#row15-tab1" role="tab" aria-controls="row15-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+    <a class="nav-link active" id="row30-tab1-header" data-mdb-toggle="tab" href="#row30-tab1" role="tab" aria-controls="row30-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
   </li>  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row15-tab2-header" data-mdb-toggle="tab" href="#row15-tab2" role="tab" aria-controls="row15-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+    <a class="nav-link" id="row30-tab2-header" data-mdb-toggle="tab" href="#row30-tab2" role="tab" aria-controls="row30-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
   </li>  
 </ul>  
 <!-- Tabs navs -->  
   
 <!-- Tabs content -->  
-<div class="tab-content" id="row15-content">  
-  <div class="tab-pane fade show active" id="row15-tab1" role="tabpanel" aria-labelledby="row15-tab1">  
+<div class="tab-content" id="row30-content">  
+  <div class="tab-pane fade show active" id="row30-tab1" role="tabpanel" aria-labelledby="row30-tab1">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1773,7 +3408,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row15-tab2" role="tabpanel" aria-labelledby="row15-tab2">  
+  <div class="tab-pane fade" id="row30-tab2" role="tabpanel" aria-labelledby="row30-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1816,7 +3451,7 @@ python -m pyserini.eval.trec_eval \
 </tr>
 
 <!-- Condition: webqa_task1 -->  
-<tr class="accordion-toggle collapsed" id="row16" data-toggle="collapse" data-parent="#row16" href="#collapse16">  
+<tr class="accordion-toggle collapsed" id="row31" data-toggle="collapse" data-parent="#row31" href="#collapse31">  
 <td class="expand-button"></td>  
 <td width="200">webqa_task1</td>  
 <td>0.0000</td>  
@@ -1832,22 +3467,22 @@ python -m pyserini.eval.trec_eval \
 <tr class="hide-table-padding">  
 <td></td>  
 <td colspan="10">  
-<div id="collapse16" class="collapse in p-3">  
+<div id="collapse31" class="collapse in p-3">  
   
 <!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row16-tabs" role="tablist">  
+<ul class="nav nav-tabs mb-3" id="row31-tabs" role="tablist">  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row16-tab1-header" data-mdb-toggle="tab" href="#row16-tab1" role="tab" aria-controls="row16-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+    <a class="nav-link active" id="row31-tab1-header" data-mdb-toggle="tab" href="#row31-tab1" role="tab" aria-controls="row31-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
   </li>  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row16-tab2-header" data-mdb-toggle="tab" href="#row16-tab2" role="tab" aria-controls="row16-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+    <a class="nav-link" id="row31-tab2-header" data-mdb-toggle="tab" href="#row31-tab2" role="tab" aria-controls="row31-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
   </li>  
 </ul>  
 <!-- Tabs navs -->  
   
 <!-- Tabs content -->  
-<div class="tab-content" id="row16-content">  
-  <div class="tab-pane fade show active" id="row16-tab1" role="tabpanel" aria-labelledby="row16-tab1">  
+<div class="tab-content" id="row31-content">  
+  <div class="tab-pane fade show active" id="row31-tab1" role="tabpanel" aria-labelledby="row31-tab1">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1882,7 +3517,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row16-tab2" role="tabpanel" aria-labelledby="row16-tab2">  
+  <div class="tab-pane fade" id="row31-tab2" role="tabpanel" aria-labelledby="row31-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1925,7 +3560,7 @@ python -m pyserini.eval.trec_eval \
 </tr>
 
 <!-- Condition: webqa_task2 -->  
-<tr class="accordion-toggle collapsed" id="row17" data-toggle="collapse" data-parent="#row17" href="#collapse17">  
+<tr class="accordion-toggle collapsed" id="row32" data-toggle="collapse" data-parent="#row32" href="#collapse32">  
 <td class="expand-button"></td>  
 <td width="200">webqa_task2</td>  
 <td>0.0000</td>  
@@ -1941,22 +3576,22 @@ python -m pyserini.eval.trec_eval \
 <tr class="hide-table-padding">  
 <td></td>  
 <td colspan="10">  
-<div id="collapse17" class="collapse in p-3">  
+<div id="collapse32" class="collapse in p-3">  
   
 <!-- Tabs navs -->  
-<ul class="nav nav-tabs mb-3" id="row17-tabs" role="tablist">  
+<ul class="nav nav-tabs mb-3" id="row32-tabs" role="tablist">  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link active" id="row17-tab1-header" data-mdb-toggle="tab" href="#row17-tab1" role="tab" aria-controls="row17-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
+    <a class="nav-link active" id="row32-tab1-header" data-mdb-toggle="tab" href="#row32-tab1" role="tab" aria-controls="row32-tab1" aria-selected="true" style="text-transform:none">CLIP-SF-Large</a>  
   </li>  
   <li class="nav-item" role="presentation">  
-    <a class="nav-link" id="row17-tab2-header" data-mdb-toggle="tab" href="#row17-tab2" role="tab" aria-controls="row17-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
+    <a class="nav-link" id="row32-tab2-header" data-mdb-toggle="tab" href="#row32-tab2" role="tab" aria-controls="row32-tab2" aria-selected="false" style="text-transform:none">BLIP-FF-Large</a>  
   </li>  
 </ul>  
 <!-- Tabs navs -->  
   
 <!-- Tabs content -->  
-<div class="tab-content" id="row17-content">  
-  <div class="tab-pane fade show active" id="row17-tab1" role="tabpanel" aria-labelledby="row17-tab1">  
+<div class="tab-content" id="row32-content">  
+  <div class="tab-pane fade show active" id="row32-tab1" role="tabpanel" aria-labelledby="row32-tab1">  
 Command to generate run:  
   
   <blockquote class="mycode">  
@@ -1991,7 +3626,7 @@ python -m pyserini.eval.trec_eval \
   </blockquote>  
   
   </div>  
-  <div class="tab-pane fade" id="row17-tab2" role="tabpanel" aria-labelledby="row17-tab2">  
+  <div class="tab-pane fade" id="row32-tab2" role="tabpanel" aria-labelledby="row32-tab2">  
 Command to generate run:  
   
   <blockquote class="mycode">  
