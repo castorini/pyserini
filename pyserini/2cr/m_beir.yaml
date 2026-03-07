@@ -1,6 +1,6 @@
 conditions:
   - name: clip-sf-large
-    command: python -m pyserini.search.faiss --encoder-class uniir --encoder clip_sf_large --index m-beir-${dataset}.clip-sf-large --topics-format mbeir --topics m-beir-${dataset}-test --output-format trec --output $output --hits 1000 --fp16 --remove-query --threads ${dense_threads} --batch-size ${dense_batch_size}
+    command: python -m pyserini.search.faiss --encoder-class uniir --encoder clip_sf_large --index m-beir-${dataset}.clip-sf-large --topics-format mbeir --topics m-beir-${dataset}-test --output-format trec --output $output --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --remove-query --threads ${dense_threads} --batch-size ${dense_batch_size}
     datasets:
       - dataset: union
         sub_datasets:
@@ -197,7 +197,7 @@ conditions:
             S@5: 0.0000
             S@10: 0.0000
   - name: blip-ff-large
-    command: python -m pyserini.search.faiss --encoder-class uniir --encoder blip_ff_large --index m-beir-${dataset}.blip-ff-large --topics-format mbeir --topics m-beir-${dataset}-test --output-format trec --output $output --hits 1000 --fp16 --remove-query --threads ${dense_threads} --batch-size ${dense_batch_size}
+    command: python -m pyserini.search.faiss --encoder-class uniir --encoder blip_ff_large --index m-beir-${dataset}.blip-ff-large --topics-format mbeir --topics m-beir-${dataset}-test --output-format trec --output $output --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --remove-query --threads ${dense_threads} --batch-size ${dense_batch_size}
     datasets:
       - dataset: union
         sub_datasets:
