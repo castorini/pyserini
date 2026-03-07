@@ -32,9 +32,10 @@ dense_threads = 16
 dense_batch_size = 512
 
 trec_eval_metric_definitions = {
-    'nDCG@10': '-c -m ndcg_cut.10',
-    'R@20': '-c -m recall.20',
-    'R@100': '-c -m recall.100'
+    'R@5': '-c -m recall.5',
+    'R@10': '-c -m recall.10',
+    'S@5': '-c -m success.5',
+    'S@10': '-c -m success.10',
 }
 
 
@@ -144,9 +145,10 @@ def run_conditions(args):
                               
             print('')  
     
-    print_results_by_metric_position(table, 0, 'nDCG@10')
-    print_results_by_metric_position(table, 1, 'R@20')
-    print_results_by_metric_position(table, 2, 'R@100')
+    print_results_by_metric_position(table, 0, 'R@5')
+    print_results_by_metric_position(table, 1, 'R@10')
+    print_results_by_metric_position(table, 2, 'S@5')
+    print_results_by_metric_position(table, 3, 'S@10')
 
     end = time.time()  
     start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')  
@@ -198,14 +200,16 @@ def generate_report(args):
         s = s.substitute(    
             row_cnt=row_cnt,    
             dataset=dataset,  
-            # CLIP-SF-Large metrics (s1, s2, s3)  
+            # CLIP-SF-Large metrics (s1-s4)  
             s1=f'{table[dataset]["clip-sf-large"].get(metric_names[0], 0.0):.4f}',  
             s2=f'{table[dataset]["clip-sf-large"].get(metric_names[1], 0.0):.4f}',  
             s3=f'{table[dataset]["clip-sf-large"].get(metric_names[2], 0.0):.4f}',  
-            # BLIP-FF-Large metrics (s4, s5, s6)  
-            s4=f'{table[dataset]["blip-ff-large"].get(metric_names[0], 0.0):.4f}',  
-            s5=f'{table[dataset]["blip-ff-large"].get(metric_names[1], 0.0):.4f}',  
-            s6=f'{table[dataset]["blip-ff-large"].get(metric_names[2], 0.0):.4f}',  
+            s4=f'{table[dataset]["clip-sf-large"].get(metric_names[3], 0.0):.4f}',  
+            # BLIP-FF-Large metrics (s5-s8)  
+            s5=f'{table[dataset]["blip-ff-large"].get(metric_names[0], 0.0):.4f}',  
+            s6=f'{table[dataset]["blip-ff-large"].get(metric_names[1], 0.0):.4f}',  
+            s7=f'{table[dataset]["blip-ff-large"].get(metric_names[2], 0.0):.4f}',  
+            s8=f'{table[dataset]["blip-ff-large"].get(metric_names[3], 0.0):.4f}',  
             # Commands for tabbed display  
             cmd1=commands[dataset].get('clip-sf-large', ''),    
             cmd2=commands[dataset].get('blip-ff-large', ''),    
