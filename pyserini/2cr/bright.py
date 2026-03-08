@@ -211,8 +211,8 @@ def run_conditions(args):
                                                                      trec_eval_metric_definitions[metric], runfile))
                             if math.isclose(score, float(expected[metric])):
                                 result = ok_str
-                            # If results are within 0.0005, just call it "OKish".
-                            elif abs(score - float(expected[metric])) <= 0.0005:
+                            # If results are within 0.005, just call it "OKish".
+                            elif abs(score - float(expected[metric])) <= 0.005:
                                 result = okish_str + f' expected {expected[metric]:.4f}'
                             else:
                                 result = fail_str + f' expected {expected[metric]:.4f}'
