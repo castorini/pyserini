@@ -259,3 +259,123 @@ conditions:
           - nDCG@10: 0.1411
             R@100: 0.2818
             R@1000: 0.4862
+  - name: diver-retriever-4b
+    display: "Diver-Retriever-4B"
+    display_html: "Diver-Retriever-4B"
+    display_row: ""
+    command: "python -m pyserini.search.faiss --encoder AQ-MedAI/Diver-Retriever-4B --encoder-class qwen3 --index bright-${dataset}.diver-retriever-4b --query-prefix $$'Instruct: Given a web search query, retrieve relevant passages that answer the query\\nQuery:' --topics bright-${dataset}-original --output $output --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0"
+    datasets:
+      - dataset: biology
+        scores:
+          - nDCG@10: 0.4247
+            R@100: 0.7984
+      - dataset: earth-science
+        scores:
+          - nDCG@10: 0.4639
+            R@100: 0.7908
+      - dataset: economics
+        scores:
+          - nDCG@10: 0.2216
+            R@100: 0.5734
+      - dataset: psychology
+        scores:
+          - nDCG@10: 0.3366
+            R@100: 0.7467
+      - dataset: robotics
+        scores:
+          - nDCG@10: 0.2090
+            R@100: 0.5154
+      - dataset: stackoverflow
+        scores:
+          - nDCG@10: 0.2113
+            R@100: 0.6716
+      - dataset: sustainable-living
+        scores:
+          - nDCG@10: 0.2428
+            R@100: 0.6816
+      - dataset: leetcode
+        scores:
+          - nDCG@10: 0.3708
+            R@100: 0.7019
+      - dataset: pony
+        scores:
+          - nDCG@10: 0.1279
+            R@100: 0.2484
+      - dataset: aops
+        scores:
+          - nDCG@10: 0.1076
+            R@100: 0.3435
+      - dataset: theoremqa-theorems
+        scores:
+          - nDCG@10: 0.3742
+            R@100: 0.7948
+      - dataset: theoremqa-questions
+        scores:
+          - nDCG@10: 0.3807
+            R@100: 0.5846
+  - name: reason-embed-qwen3-4b-0928
+    display: "reason-embed-qwen3-4b-0928"
+    display_html: "reason-embed-qwen3-4b-0928"
+    display_row: ""
+    command: "python -m pyserini.search.faiss --encoder hanhainebula/reason-embed-qwen3-4b-0928 --encoder-class qwen3 --index bright-${dataset}.reason-embed-qwen3-4b-0928 --query-prefix $$'Instruct: ${query_prefix}\\nQuery: ' --topics bright-${dataset}-original --output $output --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0"
+    datasets:
+      - dataset: biology
+        query_prefix: "Given a Biology post, retrieve relevant passages that help answer the post."
+        scores:
+          - nDCG@10: 0.5410
+            R@100: 0.9245
+      - dataset: earth-science
+        query_prefix: "Given an Earth Science post, retrieve relevant passages that help answer the post."
+        scores:
+          - nDCG@10: 0.5375
+            R@100: 0.8541
+      - dataset: economics
+        query_prefix: "Given an Economics post, retrieve relevant passages that help answer the post."
+        scores:
+          - nDCG@10: 0.3393
+            R@100: 0.7163
+      - dataset: psychology
+        query_prefix: "Given a Psychology post, retrieve relevant passages that help answer the post."
+        scores:
+          - nDCG@10: 0.4592
+            R@100: 0.8161
+      - dataset: robotics
+        query_prefix: "Given a Robotics post, retrieve relevant passages that help answer the post."
+        scores:
+          - nDCG@10: 0.3450
+            R@100: 0.7059
+      - dataset: stackoverflow
+        query_prefix: "Given a Stack Overflow post, retrieve relevant passages that help answer the post."
+        scores:
+          - nDCG@10: 0.3584
+            R@100: 0.8080
+      - dataset: sustainable-living
+        query_prefix: "Given a Sustainable Living post, retrieve relevant passages that help answer the post."
+        scores:
+          - nDCG@10: 0.3716
+            R@100: 0.8045
+      - dataset: leetcode
+        query_prefix: "Given a Coding problem, retrieve relevant examples that help answer the problem."
+        scores:
+          - nDCG@10: 0.3706
+            R@100: 0.7445
+      - dataset: pony
+        query_prefix: "Given a Pony question, retrieve relevant passages that help answer the question."
+        scores:
+          - nDCG@10: 0.1184
+            R@100: 0.2680
+      - dataset: aops
+        query_prefix: "Given a Math problem, retrieve relevant examples that help answer the problem."
+        scores:
+          - nDCG@10: 0.1150
+            R@100: 0.3727
+      - dataset: theoremqa-theorems
+        query_prefix: "Given a Math problem, retrieve relevant theorems that help answer the problem."
+        scores:
+          - nDCG@10: 0.4516
+            R@100: 0.9167
+      - dataset: theoremqa-questions
+        query_prefix: "Given a Math problem, retrieve relevant examples that help answer the problem."
+        scores:
+          - nDCG@10: 0.4090
+            R@100: 0.6374

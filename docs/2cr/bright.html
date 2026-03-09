@@ -153,6 +153,8 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
   <li><b>Query-side BM25</b>: Query-side BM25 BM25 baseline (<tt><small>bm25qs</small></tt>) [1]</li>
   <li><b>SPLADE</b>: SPLADE-v3  (<tt><small>splade-v3</small></tt>) [1]</li>
   <li><b>BGE</b>: BGE-large-en-v1.5 (Lucene flat index) (<tt><small>bge-large-en-v1.5.flat</small></tt>) [1]</li>
+  <li><b>Diver</b>: Diver-Retriever-4B (Faiss flat index) (<tt><small>diver-retriever-4b</small></tt>) [2]</li>
+  <li><b>Reason-Embed</b>: reason-embed-qwen3-4b-0928 (Faiss flat index) (<tt><small>reason-embed-qwen3-4b-0928</small></tt>) [3]</li>
 </ul>
 
 <div style="padding-top: 20px"/>
@@ -167,9 +169,17 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
         <th class="headertop" colspan="3"><b>Query-side BM25</b></th>
         <th class="headertop" colspan="3"><b>SPLADE</b></th>
         <th class="headertop" colspan="3"><b>BGE</b></th>
+        <th class="headertop" colspan="3"><b>Diver</b></th>
+        <th class="headertop" colspan="2"><b>Reason-Embed</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@100</th>
@@ -201,10 +211,16 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 <td></td>
 <td>   0.124</td>
 <td>   0.408</td>
+<td></td>
+<td>   0.425</td>
+<td>   0.798</td>
+<td></td>
+<td>   0.541</td>
+<td>   0.924</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="15">
+<td colspan="22">
 <div id="collapse1" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -220,6 +236,12 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab5-header" data-mdb-toggle="tab" href="#row1-tab5" role="tab" aria-controls="row1-tab5" aria-selected="false" style="text-transform:none">Diver</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row1-tab6-header" data-mdb-toggle="tab" href="#row1-tab6" role="tab" aria-controls="row1-tab6" aria-selected="false" style="text-transform:none">Reason-Embed</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -340,6 +362,60 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row1-tab5" role="tabpanel" aria-labelledby="row1-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder AQ-MedAI/Diver-Retriever-4B \
+  --encoder-class qwen3 \
+  --index bright-biology.diver-retriever-4b \
+  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --topics bright-biology-original \
+  --output run.bright.diver-retriever-4b.biology.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-biology \
+  run.bright.diver-retriever-4b.biology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-biology \
+  run.bright.diver-retriever-4b.biology.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row1-tab6" role="tabpanel" aria-labelledby="row1-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
+  --encoder-class qwen3 \
+  --index bright-biology.reason-embed-qwen3-4b-0928 \
+  --query-prefix $'Instruct: Given a Biology post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --topics bright-biology-original \
+  --output run.bright.reason-embed-qwen3-4b-0928.biology.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-biology \
+  run.bright.reason-embed-qwen3-4b-0928.biology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-biology \
+  run.bright.reason-embed-qwen3-4b-0928.biology.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -360,10 +436,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>   0.255</td>
 <td>   0.540</td>
+<td></td>
+<td>   0.464</td>
+<td>   0.791</td>
+<td></td>
+<td>   0.537</td>
+<td>   0.854</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="15">
+<td colspan="22">
 <div id="collapse2" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -379,6 +461,12 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab5-header" data-mdb-toggle="tab" href="#row2-tab5" role="tab" aria-controls="row2-tab5" aria-selected="false" style="text-transform:none">Diver</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row2-tab6-header" data-mdb-toggle="tab" href="#row2-tab6" role="tab" aria-controls="row2-tab6" aria-selected="false" style="text-transform:none">Reason-Embed</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -499,6 +587,60 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row2-tab5" role="tabpanel" aria-labelledby="row2-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder AQ-MedAI/Diver-Retriever-4B \
+  --encoder-class qwen3 \
+  --index bright-earth-science.diver-retriever-4b \
+  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --topics bright-earth-science-original \
+  --output run.bright.diver-retriever-4b.earth-science.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-earth-science \
+  run.bright.diver-retriever-4b.earth-science.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-earth-science \
+  run.bright.diver-retriever-4b.earth-science.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row2-tab6" role="tabpanel" aria-labelledby="row2-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
+  --encoder-class qwen3 \
+  --index bright-earth-science.reason-embed-qwen3-4b-0928 \
+  --query-prefix $'Instruct: Given an Earth Science post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --topics bright-earth-science-original \
+  --output run.bright.reason-embed-qwen3-4b-0928.earth-science.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-earth-science \
+  run.bright.reason-embed-qwen3-4b-0928.earth-science.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-earth-science \
+  run.bright.reason-embed-qwen3-4b-0928.earth-science.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -519,10 +661,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>   0.166</td>
 <td>   0.487</td>
+<td></td>
+<td>   0.222</td>
+<td>   0.573</td>
+<td></td>
+<td>   0.339</td>
+<td>   0.716</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="15">
+<td colspan="22">
 <div id="collapse3" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -538,6 +686,12 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab5-header" data-mdb-toggle="tab" href="#row3-tab5" role="tab" aria-controls="row3-tab5" aria-selected="false" style="text-transform:none">Diver</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row3-tab6-header" data-mdb-toggle="tab" href="#row3-tab6" role="tab" aria-controls="row3-tab6" aria-selected="false" style="text-transform:none">Reason-Embed</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -658,6 +812,60 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row3-tab5" role="tabpanel" aria-labelledby="row3-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder AQ-MedAI/Diver-Retriever-4B \
+  --encoder-class qwen3 \
+  --index bright-economics.diver-retriever-4b \
+  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --topics bright-economics-original \
+  --output run.bright.diver-retriever-4b.economics.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-economics \
+  run.bright.diver-retriever-4b.economics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-economics \
+  run.bright.diver-retriever-4b.economics.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row3-tab6" role="tabpanel" aria-labelledby="row3-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
+  --encoder-class qwen3 \
+  --index bright-economics.reason-embed-qwen3-4b-0928 \
+  --query-prefix $'Instruct: Given an Economics post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --topics bright-economics-original \
+  --output run.bright.reason-embed-qwen3-4b-0928.economics.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-economics \
+  run.bright.reason-embed-qwen3-4b-0928.economics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-economics \
+  run.bright.reason-embed-qwen3-4b-0928.economics.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -678,10 +886,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>   0.180</td>
 <td>   0.465</td>
+<td></td>
+<td>   0.337</td>
+<td>   0.747</td>
+<td></td>
+<td>   0.459</td>
+<td>   0.816</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="15">
+<td colspan="22">
 <div id="collapse4" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -697,6 +911,12 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab5-header" data-mdb-toggle="tab" href="#row4-tab5" role="tab" aria-controls="row4-tab5" aria-selected="false" style="text-transform:none">Diver</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row4-tab6-header" data-mdb-toggle="tab" href="#row4-tab6" role="tab" aria-controls="row4-tab6" aria-selected="false" style="text-transform:none">Reason-Embed</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -817,6 +1037,60 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row4-tab5" role="tabpanel" aria-labelledby="row4-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder AQ-MedAI/Diver-Retriever-4B \
+  --encoder-class qwen3 \
+  --index bright-psychology.diver-retriever-4b \
+  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --topics bright-psychology-original \
+  --output run.bright.diver-retriever-4b.psychology.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-psychology \
+  run.bright.diver-retriever-4b.psychology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-psychology \
+  run.bright.diver-retriever-4b.psychology.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row4-tab6" role="tabpanel" aria-labelledby="row4-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
+  --encoder-class qwen3 \
+  --index bright-psychology.reason-embed-qwen3-4b-0928 \
+  --query-prefix $'Instruct: Given a Psychology post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --topics bright-psychology-original \
+  --output run.bright.reason-embed-qwen3-4b-0928.psychology.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-psychology \
+  run.bright.reason-embed-qwen3-4b-0928.psychology.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-psychology \
+  run.bright.reason-embed-qwen3-4b-0928.psychology.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -837,10 +1111,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>   0.123</td>
 <td>   0.344</td>
+<td></td>
+<td>   0.209</td>
+<td>   0.515</td>
+<td></td>
+<td>   0.345</td>
+<td>   0.706</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="15">
+<td colspan="22">
 <div id="collapse5" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -856,6 +1136,12 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab5-header" data-mdb-toggle="tab" href="#row5-tab5" role="tab" aria-controls="row5-tab5" aria-selected="false" style="text-transform:none">Diver</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row5-tab6-header" data-mdb-toggle="tab" href="#row5-tab6" role="tab" aria-controls="row5-tab6" aria-selected="false" style="text-transform:none">Reason-Embed</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -976,6 +1262,60 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row5-tab5" role="tabpanel" aria-labelledby="row5-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder AQ-MedAI/Diver-Retriever-4B \
+  --encoder-class qwen3 \
+  --index bright-robotics.diver-retriever-4b \
+  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --topics bright-robotics-original \
+  --output run.bright.diver-retriever-4b.robotics.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-robotics \
+  run.bright.diver-retriever-4b.robotics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-robotics \
+  run.bright.diver-retriever-4b.robotics.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row5-tab6" role="tabpanel" aria-labelledby="row5-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
+  --encoder-class qwen3 \
+  --index bright-robotics.reason-embed-qwen3-4b-0928 \
+  --query-prefix $'Instruct: Given a Robotics post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --topics bright-robotics-original \
+  --output run.bright.reason-embed-qwen3-4b-0928.robotics.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-robotics \
+  run.bright.reason-embed-qwen3-4b-0928.robotics.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-robotics \
+  run.bright.reason-embed-qwen3-4b-0928.robotics.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -996,10 +1336,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>   0.110</td>
 <td>   0.532</td>
+<td></td>
+<td>   0.211</td>
+<td>   0.672</td>
+<td></td>
+<td>   0.358</td>
+<td>   0.808</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="15">
+<td colspan="22">
 <div id="collapse6" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1015,6 +1361,12 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab5-header" data-mdb-toggle="tab" href="#row6-tab5" role="tab" aria-controls="row6-tab5" aria-selected="false" style="text-transform:none">Diver</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row6-tab6-header" data-mdb-toggle="tab" href="#row6-tab6" role="tab" aria-controls="row6-tab6" aria-selected="false" style="text-transform:none">Reason-Embed</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1135,6 +1487,60 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row6-tab5" role="tabpanel" aria-labelledby="row6-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder AQ-MedAI/Diver-Retriever-4B \
+  --encoder-class qwen3 \
+  --index bright-stackoverflow.diver-retriever-4b \
+  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --topics bright-stackoverflow-original \
+  --output run.bright.diver-retriever-4b.stackoverflow.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-stackoverflow \
+  run.bright.diver-retriever-4b.stackoverflow.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-stackoverflow \
+  run.bright.diver-retriever-4b.stackoverflow.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row6-tab6" role="tabpanel" aria-labelledby="row6-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
+  --encoder-class qwen3 \
+  --index bright-stackoverflow.reason-embed-qwen3-4b-0928 \
+  --query-prefix $'Instruct: Given a Stack Overflow post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --topics bright-stackoverflow-original \
+  --output run.bright.reason-embed-qwen3-4b-0928.stackoverflow.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-stackoverflow \
+  run.bright.reason-embed-qwen3-4b-0928.stackoverflow.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-stackoverflow \
+  run.bright.reason-embed-qwen3-4b-0928.stackoverflow.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1155,10 +1561,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>   0.144</td>
 <td>   0.516</td>
+<td></td>
+<td>   0.243</td>
+<td>   0.682</td>
+<td></td>
+<td>   0.372</td>
+<td>   0.804</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="15">
+<td colspan="22">
 <div id="collapse7" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1174,6 +1586,12 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab5-header" data-mdb-toggle="tab" href="#row7-tab5" role="tab" aria-controls="row7-tab5" aria-selected="false" style="text-transform:none">Diver</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row7-tab6-header" data-mdb-toggle="tab" href="#row7-tab6" role="tab" aria-controls="row7-tab6" aria-selected="false" style="text-transform:none">Reason-Embed</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1294,6 +1712,60 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row7-tab5" role="tabpanel" aria-labelledby="row7-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder AQ-MedAI/Diver-Retriever-4B \
+  --encoder-class qwen3 \
+  --index bright-sustainable-living.diver-retriever-4b \
+  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --topics bright-sustainable-living-original \
+  --output run.bright.diver-retriever-4b.sustainable-living.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-sustainable-living \
+  run.bright.diver-retriever-4b.sustainable-living.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-sustainable-living \
+  run.bright.diver-retriever-4b.sustainable-living.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row7-tab6" role="tabpanel" aria-labelledby="row7-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
+  --encoder-class qwen3 \
+  --index bright-sustainable-living.reason-embed-qwen3-4b-0928 \
+  --query-prefix $'Instruct: Given a Sustainable Living post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --topics bright-sustainable-living-original \
+  --output run.bright.reason-embed-qwen3-4b-0928.sustainable-living.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-sustainable-living \
+  run.bright.reason-embed-qwen3-4b-0928.sustainable-living.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-sustainable-living \
+  run.bright.reason-embed-qwen3-4b-0928.sustainable-living.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1314,10 +1786,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>   0.034</td>
 <td>   0.180</td>
+<td></td>
+<td>   0.128</td>
+<td>   0.248</td>
+<td></td>
+<td>   0.118</td>
+<td>   0.268</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="15">
+<td colspan="22">
 <div id="collapse8" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1333,6 +1811,12 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab5-header" data-mdb-toggle="tab" href="#row8-tab5" role="tab" aria-controls="row8-tab5" aria-selected="false" style="text-transform:none">Diver</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row8-tab6-header" data-mdb-toggle="tab" href="#row8-tab6" role="tab" aria-controls="row8-tab6" aria-selected="false" style="text-transform:none">Reason-Embed</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1453,6 +1937,60 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row8-tab5" role="tabpanel" aria-labelledby="row8-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder AQ-MedAI/Diver-Retriever-4B \
+  --encoder-class qwen3 \
+  --index bright-pony.diver-retriever-4b \
+  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --topics bright-pony-original \
+  --output run.bright.diver-retriever-4b.pony.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-pony \
+  run.bright.diver-retriever-4b.pony.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-pony \
+  run.bright.diver-retriever-4b.pony.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row8-tab6" role="tabpanel" aria-labelledby="row8-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
+  --encoder-class qwen3 \
+  --index bright-pony.reason-embed-qwen3-4b-0928 \
+  --query-prefix $'Instruct: Given a Pony question, retrieve relevant passages that help answer the question.\nQuery: ' \
+  --topics bright-pony-original \
+  --output run.bright.reason-embed-qwen3-4b-0928.pony.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-pony \
+  run.bright.reason-embed-qwen3-4b-0928.pony.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-pony \
+  run.bright.reason-embed-qwen3-4b-0928.pony.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1473,10 +2011,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>   0.267</td>
 <td>   0.529</td>
+<td></td>
+<td>   0.371</td>
+<td>   0.702</td>
+<td></td>
+<td>   0.371</td>
+<td>   0.745</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="15">
+<td colspan="22">
 <div id="collapse9" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1492,6 +2036,12 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab5-header" data-mdb-toggle="tab" href="#row9-tab5" role="tab" aria-controls="row9-tab5" aria-selected="false" style="text-transform:none">Diver</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row9-tab6-header" data-mdb-toggle="tab" href="#row9-tab6" role="tab" aria-controls="row9-tab6" aria-selected="false" style="text-transform:none">Reason-Embed</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1612,6 +2162,60 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row9-tab5" role="tabpanel" aria-labelledby="row9-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder AQ-MedAI/Diver-Retriever-4B \
+  --encoder-class qwen3 \
+  --index bright-leetcode.diver-retriever-4b \
+  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --topics bright-leetcode-original \
+  --output run.bright.diver-retriever-4b.leetcode.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-leetcode \
+  run.bright.diver-retriever-4b.leetcode.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-leetcode \
+  run.bright.diver-retriever-4b.leetcode.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row9-tab6" role="tabpanel" aria-labelledby="row9-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
+  --encoder-class qwen3 \
+  --index bright-leetcode.reason-embed-qwen3-4b-0928 \
+  --query-prefix $'Instruct: Given a Coding problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
+  --topics bright-leetcode-original \
+  --output run.bright.reason-embed-qwen3-4b-0928.leetcode.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-leetcode \
+  run.bright.reason-embed-qwen3-4b-0928.leetcode.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-leetcode \
+  run.bright.reason-embed-qwen3-4b-0928.leetcode.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1632,10 +2236,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>   0.064</td>
 <td>   0.240</td>
+<td></td>
+<td>   0.108</td>
+<td>   0.344</td>
+<td></td>
+<td>   0.115</td>
+<td>   0.373</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="15">
+<td colspan="22">
 <div id="collapse10" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1651,6 +2261,12 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab5-header" data-mdb-toggle="tab" href="#row10-tab5" role="tab" aria-controls="row10-tab5" aria-selected="false" style="text-transform:none">Diver</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row10-tab6-header" data-mdb-toggle="tab" href="#row10-tab6" role="tab" aria-controls="row10-tab6" aria-selected="false" style="text-transform:none">Reason-Embed</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1771,6 +2387,60 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row10-tab5" role="tabpanel" aria-labelledby="row10-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder AQ-MedAI/Diver-Retriever-4B \
+  --encoder-class qwen3 \
+  --index bright-aops.diver-retriever-4b \
+  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --topics bright-aops-original \
+  --output run.bright.diver-retriever-4b.aops.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-aops \
+  run.bright.diver-retriever-4b.aops.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-aops \
+  run.bright.diver-retriever-4b.aops.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row10-tab6" role="tabpanel" aria-labelledby="row10-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
+  --encoder-class qwen3 \
+  --index bright-aops.reason-embed-qwen3-4b-0928 \
+  --query-prefix $'Instruct: Given a Math problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
+  --topics bright-aops-original \
+  --output run.bright.reason-embed-qwen3-4b-0928.aops.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-aops \
+  run.bright.reason-embed-qwen3-4b-0928.aops.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-aops \
+  run.bright.reason-embed-qwen3-4b-0928.aops.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1791,10 +2461,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>   0.053</td>
 <td>   0.259</td>
+<td></td>
+<td>   0.374</td>
+<td>   0.795</td>
+<td></td>
+<td>   0.452</td>
+<td>   0.917</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="15">
+<td colspan="22">
 <div id="collapse11" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1810,6 +2486,12 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row11-tab4-header" data-mdb-toggle="tab" href="#row11-tab4" role="tab" aria-controls="row11-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab5-header" data-mdb-toggle="tab" href="#row11-tab5" role="tab" aria-controls="row11-tab5" aria-selected="false" style="text-transform:none">Diver</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row11-tab6-header" data-mdb-toggle="tab" href="#row11-tab6" role="tab" aria-controls="row11-tab6" aria-selected="false" style="text-transform:none">Reason-Embed</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -1930,6 +2612,60 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row11-tab5" role="tabpanel" aria-labelledby="row11-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder AQ-MedAI/Diver-Retriever-4B \
+  --encoder-class qwen3 \
+  --index bright-theoremqa-theorems.diver-retriever-4b \
+  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --topics bright-theoremqa-theorems-original \
+  --output run.bright.diver-retriever-4b.theoremqa-theorems.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-theoremqa-theorems \
+  run.bright.diver-retriever-4b.theoremqa-theorems.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-theoremqa-theorems \
+  run.bright.diver-retriever-4b.theoremqa-theorems.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row11-tab6" role="tabpanel" aria-labelledby="row11-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
+  --encoder-class qwen3 \
+  --index bright-theoremqa-theorems.reason-embed-qwen3-4b-0928 \
+  --query-prefix $'Instruct: Given a Math problem, retrieve relevant theorems that help answer the problem.\nQuery: ' \
+  --topics bright-theoremqa-theorems-original \
+  --output run.bright.reason-embed-qwen3-4b-0928.theoremqa-theorems.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-theoremqa-theorems \
+  run.bright.reason-embed-qwen3-4b-0928.theoremqa-theorems.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-theoremqa-theorems \
+  run.bright.reason-embed-qwen3-4b-0928.theoremqa-theorems.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -1950,10 +2686,16 @@ python -m pyserini.eval.trec_eval \
 <td></td>
 <td>   0.141</td>
 <td>   0.282</td>
+<td></td>
+<td>   0.381</td>
+<td>   0.585</td>
+<td></td>
+<td>   0.409</td>
+<td>   0.637</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="15">
+<td colspan="22">
 <div id="collapse12" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -1969,6 +2711,12 @@ python -m pyserini.eval.trec_eval \
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row12-tab4-header" data-mdb-toggle="tab" href="#row12-tab4" role="tab" aria-controls="row12-tab4" aria-selected="false" style="text-transform:none">BGE</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab5-header" data-mdb-toggle="tab" href="#row12-tab5" role="tab" aria-controls="row12-tab5" aria-selected="false" style="text-transform:none">Diver</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="row12-tab6-header" data-mdb-toggle="tab" href="#row12-tab6" role="tab" aria-controls="row12-tab6" aria-selected="false" style="text-transform:none">Reason-Embed</a>
   </li>
 </ul>
 <!-- Tabs navs -->
@@ -2089,6 +2837,60 @@ python -m pyserini.eval.trec_eval \
   </blockquote>
 
   </div>
+  <div class="tab-pane fade" id="row12-tab5" role="tabpanel" aria-labelledby="row12-tab5">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder AQ-MedAI/Diver-Retriever-4B \
+  --encoder-class qwen3 \
+  --index bright-theoremqa-questions.diver-retriever-4b \
+  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --topics bright-theoremqa-questions-original \
+  --output run.bright.diver-retriever-4b.theoremqa-questions.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-theoremqa-questions \
+  run.bright.diver-retriever-4b.theoremqa-questions.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-theoremqa-questions \
+  run.bright.diver-retriever-4b.theoremqa-questions.txt</code></pre>
+  </blockquote>
+
+  </div>
+  <div class="tab-pane fade" id="row12-tab6" role="tabpanel" aria-labelledby="row12-tab6">
+Command to generate run:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.search.faiss \
+  --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
+  --encoder-class qwen3 \
+  --index bright-theoremqa-questions.reason-embed-qwen3-4b-0928 \
+  --query-prefix $'Instruct: Given a Math problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
+  --topics bright-theoremqa-questions-original \
+  --output run.bright.reason-embed-qwen3-4b-0928.theoremqa-questions.txt \
+  --hits 1000 --remove-query \
+  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+</code></pre></blockquote>
+Evaluation commands:
+
+  <blockquote class="mycode">
+<pre><code>python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 bright-theoremqa-questions \
+  run.bright.reason-embed-qwen3-4b-0928.theoremqa-questions.txt
+
+python -m pyserini.eval.trec_eval \
+  -c -m recall.100 bright-theoremqa-questions \
+  run.bright.reason-embed-qwen3-4b-0928.theoremqa-questions.txt</code></pre>
+  </blockquote>
+
+  </div>
 </div>
 <!-- Tabs content -->
 
@@ -2107,6 +2909,14 @@ python -m pyserini.eval.trec_eval \
 <li><p>[1] Yijun Ge, Sahel Sharifymoghaddam, and Jimmy Lin.
 <a href="https://arxiv.org/abs/2509.02558">Lighting the Way for BRIGHT: Reproducible Baselines with Anserini, Pyserini, and RankLLM.</a>
 <i>arXiv:2509.02558</i>, September 2025.</p></li>
+
+<li><p>[2] Meixiu Long, Duolin Sun, Dan Yang, Junjie Wang, Yue Shen, Jian Wang, Peng Wei, Jinjie Gu, and Jiahai Wang.
+<a href="https://arxiv.org/abs/2508.07995">DIVER: A Multi-Stage Approach for Reasoning-intensive Information Retrieval.</a>
+<i>arXiv:2508.07995</i>, August 2025.</p></li>
+
+<li><p>[3] Jianlyu Chen, Junwei Lan, Chaofan Li, Defu Lian, and Zheng Liu.
+<a href="https://arxiv.org/abs/2510.08252">ReasonEmbed: Enhanced Text Embeddings for Reasoning-Intensive Document Retrieval.</a>
+<i>arXiv:2510.08252</i>, October 2025.</p></li>
 
 </ul>
 

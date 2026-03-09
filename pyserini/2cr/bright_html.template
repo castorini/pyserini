@@ -153,6 +153,8 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
   <li><b>Query-side BM25</b>: Query-side BM25 BM25 baseline (<tt><small>bm25qs</small></tt>) [1]</li>
   <li><b>SPLADE</b>: SPLADE-v3  (<tt><small>splade-v3</small></tt>) [1]</li>
   <li><b>BGE</b>: BGE-large-en-v1.5 (Lucene flat index) (<tt><small>bge-large-en-v1.5.flat</small></tt>) [1]</li>
+  <li><b>Diver</b>: Diver-Retriever-4B (Faiss flat index) (<tt><small>diver-retriever-4b</small></tt>) [2]</li>
+  <li><b>Reason-Embed</b>: reason-embed-qwen3-4b-0928 (Faiss flat index) (<tt><small>reason-embed-qwen3-4b-0928</small></tt>) [3]</li>
 </ul>
 
 <div style="padding-top: 20px"/>
@@ -167,9 +169,17 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
         <th class="headertop" colspan="3"><b>Query-side BM25</b></th>
         <th class="headertop" colspan="3"><b>SPLADE</b></th>
         <th class="headertop" colspan="3"><b>BGE</b></th>
+        <th class="headertop" colspan="3"><b>Diver</b></th>
+        <th class="headertop" colspan="2"><b>Reason-Embed</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col"></th>
+        <th class="headerbottom" scope="col">nDCG@10</th>
+        <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@100</th>
@@ -200,6 +210,14 @@ $main_rows
 <li><p>[1] Yijun Ge, Sahel Sharifymoghaddam, and Jimmy Lin.
 <a href="https://arxiv.org/abs/2509.02558">Lighting the Way for BRIGHT: Reproducible Baselines with Anserini, Pyserini, and RankLLM.</a>
 <i>arXiv:2509.02558</i>, September 2025.</p></li>
+
+<li><p>[2] Meixiu Long, Duolin Sun, Dan Yang, Junjie Wang, Yue Shen, Jian Wang, Peng Wei, Jinjie Gu, and Jiahai Wang.
+<a href="https://arxiv.org/abs/2508.07995">DIVER: A Multi-Stage Approach for Reasoning-intensive Information Retrieval.</a>
+<i>arXiv:2508.07995</i>, August 2025.</p></li>
+
+<li><p>[3] Jianlyu Chen, Junwei Lan, Chaofan Li, Defu Lian, and Zheng Liu.
+<a href="https://arxiv.org/abs/2510.08252">ReasonEmbed: Enhanced Text Embeddings for Reasoning-Intensive Document Retrieval.</a>
+<i>arXiv:2510.08252</i>, October 2025.</p></li>
 
 </ul>
 
