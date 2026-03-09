@@ -5,17 +5,13 @@ from pyserini.pyclass import autoclass
 # Java Lucene classes
 
 class RelevanceFeedback:
-    def get_query_vector(self, query: str) -> dict:
-        analyzer = Analyzer(
+    def __init__(self):
+        self.analyzer = Analyzer(
             get_lucene_analyzer(stemmer='porter', stopwords=True)
         )
-        tokens = analyzer.analyze(query)
 
-        term_weights = {}
-        for tok in tokens:
-            term_weights[tok] = term_weights.get(tok, 0) + 1
-
-        return term_weights
+    def get_query_vector(self, query: str) -> dict:
+        return self.analyzer.compute_document_vector(query)
 
     def prune_top_k(self, vec: dict, k: int | None) -> dict:
         if k is None or len(vec) <= k:

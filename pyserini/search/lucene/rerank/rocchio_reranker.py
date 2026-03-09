@@ -13,12 +13,13 @@ class RocchioReranker(RelevanceFeedback):
         self,
         top_fb_docs=10,
         top_fb_terms=10,
-        bottom_fb_terms=10,
         bottom_fb_docs=10,
+        bottom_fb_terms=10,
         alpha=1.0,
         beta=0.75,
         gamma=0.0,
 ):
+        super().__init__()
         self.top_fb_docs=top_fb_docs
         self.top_fb_terms=top_fb_terms
         self.bottom_fb_docs=bottom_fb_docs
@@ -56,15 +57,13 @@ class RocchioReranker(RelevanceFeedback):
 
         # prune to fb_terms and normalize
         if fb_terms is not None:
-            mean_vec = super().prune_top_k(mean_vec, fb_terms)
+            mean_vec = self.prune_top_k(mean_vec, fb_terms)
 
-        return super().l2_normalize(mean_vec)
+        return self.l2_normalize(mean_vec)
 
     def __call__(self, query, rel_vectors, nrel_vectors=None):
         # Normalize query vector
-        query_vec = super().l2_normalize(
-            super().get_query_vector(query)
-        )
+        query_vec = self.l2_normalize(self.get_query_vector(query))
 
         # Truncate feedback doc sets
         if self.top_fb_docs is not None:

@@ -297,20 +297,21 @@ class LuceneSearcher:
             Dictionary holding the search results, with the query ids as keys and the corresponding lists of search
             results as the values.
         """
-        if self.rm3:
-            topic_id_to_query = dict(zip(qids, queries))
+        topic_id_to_query = dict(zip(qids, queries))
+        final_results = {}
 
-            # First pass: retrieve top M feedback docs for each query
-            results = self.batch_search_raw(
-                queries,
-                qids,
-                self.rm3.fb_docs,
-                threads,
-                query_generator,
-                fields
+        def second_pass_search(tid: str, expanded_query):
+            final_results[tid] = self.search_raw(
+                expanded_query, k,
+                query_generator=query_generator,
+                fields=fields
             )
 
-            final_results = {}
+        if self.rm3:
+            # First pass: retrieve top M feedback docs for each query
+            results = self.batch_search_raw(
+                queries, qids, self.rm3.fb_docs, threads, query_generator, fields
+            )
 
             for tid, hits in results.items():
                 original_query = topic_id_to_query[tid]
@@ -332,23 +333,13 @@ class LuceneSearcher:
                     rel_vectors=rel_feedback_vectors
                 )
 
-                # Second pass: final retrieval using expanded query
-                final_results[tid] = self.search_raw(rm3_query, k)
+                second_pass_search(tid, rm3_query)
 
             return final_results
         elif self.rocchio:
-            topic_id_to_query = dict(zip(qids, queries))
-
             results = self.batch_search_raw(
-                queries,
-                qids,
-                k,
-                threads,
-                query_generator,
-                fields
+                queries, qids, k, threads, query_generator, fields
             )
-
-            final_results = {}
 
             for tid, hits in results.items():
                 original_query = topic_id_to_query[tid]
@@ -377,8 +368,7 @@ class LuceneSearcher:
                     nrel_vectors=bottom_feedback_vectors
                 )
 
-                # Final retrieval
-                final_results[tid] = self.search_raw(rocchio_query, k)
+                second_pass_search(tid, rocchio_query)
 
             return final_results
         else:
@@ -484,6 +474,8 @@ class LuceneSearcher:
             Whether to remove non-English terms.
         """
         if use_python:
+            self.object.unset_rm3()
+            
             if not self.object.reader.getTermVectors(0):
                 raise TypeError("RM3 is not supported for indexes without document vectors (Python mode).")
 
@@ -537,6 +529,8 @@ class LuceneSearcher:
         """
 
         if use_python:
+            self.object.unset_rocchio()
+
             if not self.object.reader.getTermVectors(0):
                 raise TypeError("Rocchio is not supported for indexes without document vectors (Python mode).")
             

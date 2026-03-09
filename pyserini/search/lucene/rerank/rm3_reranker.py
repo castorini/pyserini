@@ -15,6 +15,7 @@ class RM3Reranker(RelevanceFeedback):
         fb_terms=10,
         original_query_weight=0.5,
 ):
+        super().__init__()
         self.fb_docs=fb_docs
         self.fb_terms=fb_terms
         self.original_query_weight=original_query_weight
@@ -30,7 +31,7 @@ class RM3Reranker(RelevanceFeedback):
         # Preprocess and filter document vectors
         for idx, vec in enumerate(vectors):
             if fb_terms is not None:
-                vec = super().prune_top_k(vec, fb_terms)
+                vec = self.prune_top_k(vec, fb_terms)
 
             norm = sum(abs(v) for v in vec.values())
             if norm > 0.001:
@@ -78,9 +79,7 @@ class RM3Reranker(RelevanceFeedback):
         document_scores,
     ):
         # Build normalized query vector
-        query_vector = super().l1_normalize(
-            super().get_query_vector(query)
-        )
+        query_vector = self.l1_normalize(self.get_query_vector(query))
 
         # Select top N feedback documents
         if self.fb_docs is not None:
