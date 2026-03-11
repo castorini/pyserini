@@ -174,6 +174,7 @@ def run_conditions(args):
                                 table[dataset][name][metric] = score  
                             else:  
                                 table[dataset][name][metric] = expected[metric]  
+                print('')  
                               
             print('')  
     

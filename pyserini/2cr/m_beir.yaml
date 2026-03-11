@@ -1,6 +1,6 @@
 conditions:
   - name: clip-sf-large
-    command: python -m pyserini.search.faiss --encoder-class uniir --encoder clip_sf_large --index m-beir-${dataset}.clip-sf-large --topics-format mbeir --topics m-beir-${dataset}-test --output-format trec --output $output --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --remove-query --threads ${dense_threads} --batch-size ${dense_batch_size}
+    command: python -m pyserini.search.faiss --encoder-class uniir --encoder clip_sf_large --index m-beir-${dataset}.clip-sf-large --topics-format mbeir --topics m-beir-${dataset}-test --output-format trec --output $output --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads ${dense_threads} --batch-size ${dense_batch_size}
     datasets:
       - dataset: union
         sub_datasets:
@@ -24,10 +24,10 @@ conditions:
                 S@10: 0.1786
           - dataset: fashion200k_task3
             scores:
-              - R@5: 0.0393
-                R@10: 0.0554
-                S@5: 0.1250
-                S@10: 0.1764
+              - R@5: 0.1264
+                R@10: 0.1804
+                S@5: 0.1264
+                S@10: 0.1804
           - dataset: fashioniq_task7
             scores:
               - R@5: 0.1757
@@ -42,10 +42,10 @@ conditions:
                 S@10: 0.2921
           - dataset: infoseek_task8
             scores:
-              - R@5: 0.0812
-                R@10: 0.1166
-                S@5: 0.4582
-                S@10: 0.5463
+              - R@5: 0.2669
+                R@10: 0.3873
+                S@5: 0.4435
+                S@10: 0.5334
           - dataset: mscoco_task0
             scores:
               - R@5: 0.5769
@@ -66,10 +66,10 @@ conditions:
                 S@10: 0.5222
           - dataset: oven_task6
             scores:
-              - R@5: 0.0029
-                R@10: 0.0039
-                S@5: 0.4355
-                S@10: 0.4824
+              - R@5: 0.2626
+                R@10: 0.3490
+                S@5: 0.3959
+                S@10: 0.4562
           - dataset: oven_task8
             scores:
               - R@5: 0.2945
@@ -102,9 +102,9 @@ conditions:
                 S@10: 0.8538
       - dataset: cirr_task7
         scores:
-          - R@5: 0.4526
+          - R@5: 0.4522
             R@10: 0.5817
-            S@5: 0.4532
+            S@5: 0.4528
             S@10: 0.5820
       - dataset: edis_task2
         scores:
@@ -197,7 +197,7 @@ conditions:
             S@5: 0.7841
             S@10: 0.8610
   - name: blip-ff-large
-    command: python -m pyserini.search.faiss --encoder-class uniir --encoder blip_ff_large --index m-beir-${dataset}.blip-ff-large --topics-format mbeir --topics m-beir-${dataset}-test --output-format trec --output $output --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --remove-query --threads ${dense_threads} --batch-size ${dense_batch_size}
+    command: python -m pyserini.search.faiss --encoder-class uniir --encoder blip_ff_large --index m-beir-${dataset}.blip-ff-large --topics-format mbeir --topics m-beir-${dataset}-test --output-format trec --output $output --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads ${dense_threads} --batch-size ${dense_batch_size}
     datasets:
       - dataset: union
         sub_datasets:
@@ -239,10 +239,10 @@ conditions:
                 S@10: 0.2678
           - dataset: infoseek_task8
             scores:
-              - R@5: 0.0338
-                R@10: 0.0504
-                S@5: 0.2896
-                S@10: 0.3643
+              - R@5: 0.1271
+                R@10: 0.1961
+                S@5: 0.2625
+                S@10: 0.3371
           - dataset: mscoco_task0
             scores:
               - R@5: 0.5376
@@ -269,16 +269,16 @@ conditions:
                 S@10: 0.4542
           - dataset: oven_task8
             scores:
-              - R@5: 0.2386
+              - R@5: 0.2388
                 R@10: 0.3513
-                S@5: 0.5603
+                S@5: 0.5605
                 S@10: 0.6116
           - dataset: visualnews_task0
             scores:
-              - R@5: 0.1218
-                R@10: 0.1575
-                S@5: 0.2377
-                S@10: 0.3065
+              - R@5: 0.2265
+                R@10: 0.2960
+                S@5: 0.2264
+                S@10: 0.2960
           - dataset: visualnews_task3
             scores:
               - R@5: 0.2094
@@ -299,10 +299,10 @@ conditions:
                 S@10: 0.8538
       - dataset: cirr_task7
         scores:
-          - R@5: 0.1264
-            R@10: 0.1480
-            S@5: 0.5146
-            S@10: 0.6035
+          - R@5: 0.5025
+            R@10: 0.6133
+            S@5: 0.5024
+            S@10: 0.6137
       - dataset: edis_task2
         scores:
           - R@5: 0.3055
