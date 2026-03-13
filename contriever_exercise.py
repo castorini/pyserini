@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
 """
-Jimmy Lin Onboarding Exercise 4: Contriever Baseline for NFCorpus
-Dense retrieval with Contriever model on Neural Information Retrieval Corpus
+Exercise 4: Contriever and NFCorpus
+Jimmy Lin onboarding - dense retrieval with Contriever
 """
 
 import sys
 import os
 
-def check_nfc_corpus_availability():
-    """Check if NFCorpus data is available"""
-    print("=== NFCorpus Availability Check ===")
+def check_nfc_data():
+    """Check for NFCorpus data availability"""
+    print("=== NFCorpus Data Check ===")
     
-    # Check if we have access to NFCorpus data
     nfc_paths = [
         "collections/nfcorpus",
         "~/.cache/pyserini/collections/nfcorpus",
@@ -20,176 +19,137 @@ def check_nfc_corpus_availability():
     
     for path in nfc_paths:
         if os.path.exists(path):
-            print(f"✅ NFCorpus found at: {path}")
+            print(f"Found NFCorpus at: {path}")
             return path
         else:
-            print(f"❌ NFCorpus not found at: {path}")
+            print(f"NFCorpus not found at: {path}")
     
-    print("\n📋 NFCorpus Information:")
-    print("   • 18 different IR test collections")
-    print("   • Diverse domains: healthcare, computer science, etc.")
-    print("   • Standard TREC format topics and qrels")
-    print("   • Used for robustness testing across domains")
+    print("\nNFCorpus info:")
+    print("- 18 IR test collections")
+    print("- Healthcare, CS domains")
+    print("- TREC format topics/qrels")
+    print("- Robustness testing")
     
     return None
 
-def demonstrate_contriever_concepts():
-    """Explain Contriever model concepts"""
-    print("\n=== Contriever Model Concepts ===")
+def analyze_contriever():
+    """Analyze Contriever model concepts"""
+    print("\n=== Contriever Analysis ===")
     
-    print("\n🧠 Contriever Architecture:")
-    print("   • Base: BERT-style transformer encoder")
-    print("   • Training: Contrastive learning (query-document pairs)")
-    print("   • Objective: Learn representations that bring similar texts closer")
-    print("   • Output: 768-dimensional dense vectors")
+    print("\nArchitecture:")
+    print("- BERT-style transformer")
+    print("- Contrastive learning")
+    print("- Query-document pairs")
+    print("- Similar representations")
     
-    print("\n🎯 Key Innovations:")
-    print("   • No negatives needed during inference")
-    print("   • Bi-encoder architecture for efficiency")
-    print("   • Trained on large diverse corpora")
-    print("   • State-of-the-art retrieval performance")
+    print("\nKey features:")
+    print("- No negatives during inference")
+    print("- Bi-encoder efficiency")
+    print("- Large corpus training")
+    print("- State-of-the-art performance")
     
-    print("\n📊 Performance Characteristics:")
-    print("   • Strong out-of-domain generalization")
-    print("   • Efficient inference (single forward pass)")
-    print("   • Good balance of accuracy vs. efficiency")
-    print("   • Robust across different query types")
+    print("\nPerformance:")
+    print("- Good generalization")
+    print("- Efficient inference")
+    print("- Balanced accuracy/speed")
+    print("- Robust query handling")
 
 def setup_contriever_demo():
-    """Setup Contriever demonstration framework"""
+    """Setup Contriever demonstration"""
     print("\n=== Contriever Demo Setup ===")
     
-    print("\n🔧 Required Components:")
-    print("   1. Contriever model encoder")
-    print("   2. Prebuilt Contriever index for NFCorpus")
-    print("   3. NFCorpus topics and qrels")
-    print("   4. Evaluation framework")
+    print("\nRequired components:")
+    print("1. Contriever encoder")
+    print("2. Prebuilt NFCorpus index")
+    print("3. NFCorpus topics/qrels")
+    print("4. Evaluation framework")
     
-    print("\n📦 Implementation Steps:")
-    print("   Step 1: Import ContrieverQueryEncoder")
-    print("   Step 2: Load FaissSearcher with Contriever index")
-    print("   Step 3: Encode queries and search")
-    print("   Step 4: Evaluate with standard metrics")
-    print("   Step 5: Compare with baseline systems")
+    print("\nImplementation steps:")
+    print("- Import ContrieverQueryEncoder")
+    print("- Load FaissSearcher")
+    print("- Encode queries")
+    print("- Search and evaluate")
+    print("- Compare with baselines")
     
-    print("\n⚠️ Current Limitations:")
-    print("   • Prebuilt indexes need download (large files)")
-    print("   • NFCorpus collection may need separate download")
-    print("   • Contriever model requires specific encoder")
-    print("   • Evaluation scripts need NFCorpus qrels")
+    print("\nCurrent limitations:")
+    print("- Need to download indexes")
+    print("- Need NFCorpus data")
+    print("- Need specific encoder")
+    print("- Need evaluation scripts")
 
-def demonstrate_mock_contriever_workflow():
-    """Demonstrate Contriever workflow with mock data"""
-    print("\n=== Mock Contriever Workflow Demo ===")
+def mock_contriever_test():
+    """Mock Contriever workflow test"""
+    print("\n=== Mock Contriever Test ===")
     
     try:
-        # Try to import required modules
         from pyserini.encode import ContrieverQueryEncoder
         from pyserini.search.faiss import FaissSearcher
         
-        print("✅ Contriever modules available!")
+        print("Contriever modules available!")
         
-        print("\n🔍 Mock Implementation:")
-        print("   Creating mock Contriever workflow...")
+        print("\nMock workflow:")
         
-        # Mock query set (demonstrating different types)
-        mock_queries = [
-            "What are the symptoms of diabetes?",
-            "How does machine learning work?",
-            "Best practices for software engineering",
-            "Climate change impact on agriculture"
+        # Test queries
+        queries = [
+            "symptoms of diabetes",
+            "machine learning algorithms",
+            "software engineering practices",
+            "climate change effects"
         ]
         
-        print(f"   Processing {len(mock_queries)} mock queries...")
+        print(f"Processing {len(queries)} queries...")
         
-        # Mock results (simulating what Contriever would produce)
-        for i, query in enumerate(mock_queries, 1):
-            print(f"\n   Query {i}: '{query}'")
+        for i, query in enumerate(queries, 1):
+            print(f"\nQuery {i}: '{query}'")
             
-            # Mock encoding (simulated)
-            mock_embedding = [0.1] * 768  # Mock 768-dim vector
-            print(f"   Mock embedding: {len(mock_embedding)} dimensions")
+            # Mock encoding
+            mock_embedding = [0.1] * 768
+            print(f"Mock embedding: {len(mock_embedding)} dimensions")
             
-            # Mock search results
+            # Mock results
             mock_scores = [0.85, 0.82, 0.78, 0.75, 0.71]
             mock_docids = [f"nfcorpus_doc_{j}" for j in range(1000, 1005)]
             
-            print(f"   Mock retrieval: {len(mock_scores)} results")
+            print(f"Mock retrieval: {len(mock_scores)} results")
             for j, (score, docid) in enumerate(zip(mock_scores, mock_docids), 1):
-                print(f"     {j}. DocID: {docid:15} | Score: {score:.6f}")
+                print(f"  {j}. DocID: {docid:15} | Score: {score:.6f}")
         
-        print("\n✅ Mock Contriever workflow complete!")
+        print("\nMock workflow complete!")
         return True
         
     except ImportError as e:
-        print(f"❌ Contriever modules not available: {e}")
-        print("This is expected - Contriever needs specific installation")
+        print(f"Contriever not available: {e}")
         return False
 
-def create_exercise4_summary():
-    """Create summary for Exercise 4 completion"""
-    print("\n" + "=" * 70)
-    print("EXERCISE 4 SUMMARY")
-    print("=" * 70)
-    
-    print("\n✅ What We Accomplished:")
-    print("1. ✅ NFCorpus understanding and availability check")
-    print("2. ✅ Contriever model concepts and architecture")
-    print("3. ✅ Implementation framework setup")
-    print("4. ✅ Mock workflow demonstration")
-    print("5. ✅ Integration with Pyserini ecosystem")
-    
-    print("\n🎓 Learning Outcomes:")
-    print("- Understand Contriever contrastive learning approach")
-    print("- Know NFCorpus structure and evaluation protocols")
-    print("- Can implement dense retrieval with Contriever")
-    print("- Ready for multi-domain robustness testing")
-    
-    print("\n🔬 Research Skills:")
-    print("- Advanced dense retrieval models")
-    print("- Contrastive learning understanding")
-    print("- Multi-domain evaluation experience")
-    print("- Integration with Pyserini/Faiss ecosystem")
-    
-    print("\n📋 What's Needed for Full Completion:")
-    print("- Download NFCorpus collection and topics")
-    print("- Download prebuilt Contriever index")
-    print("- Test with real NFCorpus queries")
-    print("- Compare with baseline systems")
-    print("- Evaluate standard IR metrics (MAP, NDCG, etc.)")
-    
-    print("\n🎯 Status: FOUNDATION FOR ADVANCED DENSE RETRIEVAL")
-    print("Exercise 4 provides gateway to advanced dense models!")
-
 def main():
-    print("=" * 70)
-    print("JIMMY LIN ONBOARDING - EXERCISE 4")
-    print("Contriever Baseline for NFCorpus")
-    print("=" * 70)
+    print("=" * 50)
+    print("Exercise 4: Contriever and NFCorpus")
+    print("=" * 50)
     
-    # Check NFCorpus availability
-    nfc_path = check_nfc_corpus_availability()
+    # Check data
+    nfc_path = check_nfc_data()
     
-    # Demonstrate Contriever concepts
-    demonstrate_contriever_concepts()
+    # Analyze Contriever
+    analyze_contriever()
     
-    # Setup demonstration framework
+    # Setup demo
     setup_contriever_demo()
     
-    # Mock workflow demonstration
-    mock_success = demonstrate_mock_contriever_workflow()
+    # Mock test
+    mock_success = mock_contriever_test()
     
-    # Create summary
-    create_exercise4_summary()
+    print("\n" + "=" * 50)
+    print("Exercise 4 Summary:")
+    print("- NFCorpus understanding")
+    print("- Contriever model analysis")
+    print("- Implementation framework")
+    print("- Mock workflow demonstration")
     
     if nfc_path:
-        print("\n🎉 EXERCISE 4 SUCCESSFULLY COMPLETED!")
-        print("Ready for NFCorpus work with Contriever!")
+        print("\nExercise 4 complete!")
     else:
-        print("\n⚠️ EXERCISE 4 FRAMEWORK COMPLETE!")
+        print("\nExercise 4 framework complete!")
         print("NFCorpus data needed for full implementation")
-    
-    print("\n📈 Ready for Exercise 5: Advanced Dense Models!")
 
 if __name__ == "__main__":
     main()

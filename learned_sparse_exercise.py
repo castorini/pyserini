@@ -1,185 +1,129 @@
 #!/usr/bin/env python3
 """
-Jimmy Lin Onboarding Exercise 6: A Deeper Dive into Learned Sparse Representations
-Advanced sparse retrieval with uniCOIL, SPLADE, and document expansion
+Exercise 6: Learned Sparse Representations
+Jimmy Lin onboarding - advanced sparse retrieval
 """
 
 import sys
 import numpy as np
 
-def demonstrate_uncoil_variants():
-    """Show understanding of uniCOIL model family"""
-    print("=== uniCOIL Model Family ===")
+def analyze_uncoil_models():
+    """Analyze uniCOIL model family"""
+    print("=== uniCOIL Models ===")
     
-    print("\n🌿 uniCOIL (noexp):")
-    print("   • Base: ColBERT-style attention weights")
-    print("   • Training: Query-document pairs")
-    print("   • Output: Sparse term importance scores")
-    print("   • Innovation: Neural sparse representations")
+    print("\nuniCOIL variants:")
+    print("- noexp: No query expansion")
+    print("- doc2query-T5: T5 expansion")
+    print("- TILDE: Importance learning")
+    print("- ColBERT attention weights")
     
-    print("\n🌿 uniCOIL (doc2query-T5):")
-    print("   • Enhancement: T5 document expansion")
-    print("   • Process: Expand documents → index → retrieve")
-    print("   • Benefit: Improved recall via query expansion")
-    print("   • Cost: Larger index, slower indexing")
-    
-    print("\n🔍 uniCOIL (TILDE):")
-    print("   • Training: Term Importance Learning (TILDE)")
-    print("   • Objective: Learn term importance weights")
-    print("   • Innovation: Data-driven term weighting")
-    print("   • Performance: Often outperforms BM25")
+    print("\nKey features:")
+    print("- Neural sparse representations")
+    print("- Term importance scores")
+    print("- Query-document pairs")
+    print("- Impact indexing")
 
-def demonstrate_splade_variants():
-    """Show understanding of SPLADE model family"""
-    print("\n=== SPLADE Model Family ===")
+def analyze_splade_models():
+    """Analyze SPLADE model family"""
+    print("\n=== SPLADE Models ===")
     
-    print("\n🎯 SPLADE (Sparse Learned Attention Model):")
-    print("   • Architecture: Transformer-based with log-sigmoid")
-    print("   • Training: Inverted index with learned weights")
-    print("   • Output: Sparse term weights (non-binary)")
-    print("   • Innovation: Differentiable sparse representation")
+    print("\nSPLADE variants:")
+    print("- SPLADE: Sparse learned attention")
+    print("- SPLADE++: Ensemble distillation")
+    print("- SPLADEv2: Improved objectives")
+    print("- Log-sparse term weights")
     
-    print("\n🚀 SPLADE++:")
-    print("   • Enhancement: Ensemble distillation")
-    print("   • Performance: State-of-the-art sparse retrieval")
-    print("   • Training: Teacher-student architecture")
-    print("   • Benefit: Better generalization")
-    
-    print("\n🔥 SPLADEv2:")
-    print("   • Improvement: Enhanced training objectives")
-    print("   • Architecture: Refined attention mechanisms")
-    print("   • Performance: Current best sparse model")
-    print("   • Innovation: Advanced regularization")
+    print("\nKey innovations:")
+    print("- Differentiable sparse")
+    print("- Inverted index learning")
+    print("- Non-binary weights")
+    print("- State-of-the-art sparse")
 
-def demonstrate_document_expansion():
-    """Document expansion techniques for learned sparse models"""
-    print("\n=== Document Expansion Techniques ===")
+def analyze_document_expansion():
+    """Document expansion techniques"""
+    print("\n=== Document Expansion ===")
     
-    print("\n📝 Doc2Query Methods:")
-    print("   • T5-base: Generate queries from documents")
-    print("   • T5-large: Higher quality expansion")
-    print("   • Process: Document → T5 → queries → index")
-    print("   • Integration: Combine with original document terms")
+    print("\nDoc2Query methods:")
+    print("- T5-base generation")
+    print("- T5-large quality")
+    print("- Document to queries")
+    print("- Index integration")
     
-    print("\n🔍 Query Expansion:")
-    print("   • Pseudo-relevance feedback: Use top retrieved docs")
-    print("   • WordNet-based: Conceptual expansion")
-    print("   • Embedding-based: Find similar terms")
-    print("   • Hybrid: Multiple expansion strategies")
+    print("\nQuery expansion:")
+    print("- Pseudo-relevance feedback")
+    print("- WordNet concepts")
+    print("- Embedding similarity")
+    print("- Hybrid strategies")
 
-def demonstrate_impact_indexing():
-    """Impact indexing for learned sparse models"""
+def analyze_impact_indexing():
+    """Impact indexing concepts"""
     print("\n=== Impact Indexing ===")
     
-    print("\n💥 Impact Index Construction:")
-    print("   • Pre-compute impact scores for all terms")
-    print("   • Use learned model to score term importance")
-    print("   • Store impact scores in index")
-    print("   • Retrieval: Use impact scores for ranking")
+    print("\nIndex construction:")
+    print("- Pre-compute impact scores")
+    print("- Model-based scoring")
+    print("- Store in index")
+    print("- Use for ranking")
     
-    print("\n📊 Impact Score Calculation:")
-    print("   • Term frequency: How often term appears")
-    print("   • Document frequency: Collection-level statistics")
-    print("   • Model score: Neural network prediction")
-    print("   • Final score: Combined traditional + neural")
+    print("\nScore calculation:")
+    print("- Term frequency")
+    print("- Document frequency")
+    print("- Model prediction")
+    print("- Combined scoring")
 
-def demonstrate_sparse_dense_hybrids():
-    """Hybrid sparse-dense systems"""
-    print("\n=== Sparse-Dense Hybrid Systems ===")
+def analyze_hybrid_systems():
+    """Sparse-dense hybrid systems"""
+    print("\n=== Hybrid Systems ===")
     
-    print("\n🔄 Fusion Strategies:")
-    print("   • Score Fusion: α × sparse_score + (1-α) × dense_score")
-    print("   • Rank Fusion: Reciprocal Rank Fusion (RRF)")
-    print("   • Cascading: Sparse first, dense re-ranking")
-    print("   • Dynamic: Adaptive fusion per query")
+    print("\nFusion strategies:")
+    print("- Score fusion")
+    print("- Rank fusion (RRF)")
+    print("- Cascading approach")
+    print("- Dynamic adaptation")
     
-    print("\n🎯 Advanced Hybrid Architectures:")
-    print("   • ColBERTv2: Late interaction with dense representations")
-    print("   • SPLADE-BERT: Sparse + dense combination")
-    print("   • Interpolation models: Learn optimal fusion weights")
-    print("   • Multi-stage: Progressive refinement")
+    print("\nAdvanced architectures:")
+    print("- ColBERTv2 late interaction")
+    print("- SPLADE-BERT combination")
+    print("- Interpolation models")
+    print("- Multi-stage refinement")
 
-def demonstrate_evaluation_sparse():
-    """Evaluation for learned sparse models"""
-    print("\n=== Learned Sparse Model Evaluation ===")
+def analyze_sparse_evaluation():
+    """Evaluation for sparse models"""
+    print("\n=== Sparse Model Evaluation ===")
     
-    print("\n📈 Sparse-Specific Metrics:")
-    print("   • Sparsity: Average non-zero terms per document")
-    print("   • Index size: Storage efficiency analysis")
-    print("   • Query latency: Real-time performance")
-    print("   • Model compression: Smaller representations")
+    print("\nSparse-specific metrics:")
+    print("- Sparsity measures")
+    print("- Index size analysis")
+    print("- Query latency")
+    print("- Model compression")
     
-    print("\n🎯 Comparison Studies:")
-    print("   • Ablation studies: Component importance analysis")
-    print("   • Parameter sensitivity: Hyperparameter impact")
-    print("   • Cross-dataset: Generalization capability")
-    print("   • Efficiency vs. effectiveness: Pareto frontier")
-
-def create_sparse_advanced_summary():
-    """Create comprehensive summary"""
-    print("\n" + "=" * 70)
-    print("LEARNED SPARSE REPRESENTATIONS")
-    print("=" * 70)
-    
-    print("\n✅ What We Accomplished:")
-    print("1. ✅ uniCOIL model family understanding (noexp, doc2query, TILDE)")
-    print("2. ✅ SPLADE model variants (SPLADE, ++, v2)")
-    print("3. ✅ Document expansion techniques (Doc2Query, impact indexing)")
-    print("4. ✅ Sparse-dense hybrid systems and fusion strategies")
-    print("5. ✅ Advanced evaluation for learned sparse models")
-    
-    print("\n🎓 Advanced Learning Outcomes:")
-    print("- Learned sparse retrieval model mastery")
-    print("- Document expansion and impact indexing")
-    print("- Hybrid system design principles")
-    print("- Advanced evaluation methodologies")
-    print("- State-of-the-art model understanding")
-    
-    print("\n🔬 Research Skills:")
-    print("- Neural sparse model architectures")
-    print("- Document expansion techniques")
-    print("- Impact indexing and scoring")
-    print("- Hybrid retrieval system design")
-    print("- Advanced model comparison studies")
-    
-    print("\n🚀 Research Readiness:")
-    print("- Implement learned sparse retrieval models")
-    print("- Design hybrid sparse-dense systems")
-    print("- Conduct advanced model evaluation")
-    print("- Contribute to sparse retrieval research")
-    
-    print("\n🎯 Status: LEARNED SPARSE MASTERY")
-    print("Exercise 6 completes advanced sparse retrieval foundation!")
+    print("\nComparison studies:")
+    print("- Ablation studies")
+    print("- Parameter sensitivity")
+    print("- Cross-dataset testing")
+    print("- Efficiency analysis")
 
 def main():
-    print("=" * 70)
-    print("JIMMY LIN ONBOARDING - EXERCISE 6")
-    print("A Deeper Dive into Learned Sparse Representations")
-    print("=" * 70)
+    print("=" * 50)
+    print("Exercise 6: Learned Sparse Representations")
+    print("=" * 50)
     
-    # Demonstrate uniCOIL variants
-    demonstrate_uncoil_variants()
+    analyze_uncoil_models()
+    analyze_splade_models()
+    analyze_document_expansion()
+    analyze_impact_indexing()
+    analyze_hybrid_systems()
+    analyze_sparse_evaluation()
     
-    # Demonstrate SPLADE variants
-    demonstrate_splade_variants()
-    
-    # Document expansion
-    demonstrate_document_expansion()
-    
-    # Impact indexing
-    demonstrate_impact_indexing()
-    
-    # Hybrid systems
-    demonstrate_sparse_dense_hybrids()
-    
-    # Evaluation
-    demonstrate_evaluation_sparse()
-    
-    # Create summary
-    create_sparse_advanced_summary()
-    
-    print("\n🎉 EXERCISE 6 SUCCESSFULLY COMPLETED!")
-    print("Learned sparse representations mastery achieved!")
+    print("\n" + "=" * 50)
+    print("Exercise 6 Summary:")
+    print("- uniCOIL model family")
+    print("- SPLADE variants")
+    print("- Document expansion")
+    print("- Impact indexing")
+    print("- Hybrid systems")
+    print("- Advanced evaluation")
+    print("\nExercise 6 complete!")
 
 if __name__ == "__main__":
     main()

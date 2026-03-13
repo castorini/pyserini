@@ -1,49 +1,50 @@
 #!/usr/bin/env python3
 """
-Jimmy Lin Onboarding Exercise 5: A Deeper Dive into Dense and Sparse Representations
-Advanced dense retrieval techniques and state-of-the-art models
+Exercise 5: Advanced Dense and Sparse Models
+Jimmy Lin onboarding - advanced retrieval techniques
 """
 
 import sys
 import numpy as np
 
-def demonstrate_advanced_dense_models():
-    """Show understanding of advanced dense retrieval models"""
-    print("=== Advanced Dense Retrieval Models ===")
+def analyze_dense_models():
+    """Analyze advanced dense retrieval models"""
+    print("=== Advanced Dense Models ===")
     
-    print("\n🧠 TCT-ColBERT Variants:")
-    print("   • TCT-ColBERT v1: Original contextualized embeddings")
-    print("   • TCT-ColBERT v2: Improved training and architecture")
-    print("   • Key innovation: Late interaction (ColBERT-style)")
-    print("   • Performance: State-of-the-art on MS MARCO")
+    print("\nTCT-ColBERT:")
+    print("- Contextualized embeddings")
+    print("- Late interaction approach")
+    print("- State-of-the-art performance")
+    print("- MS MARCO leaderboards")
     
-    print("\n🎯 ANCE (Approximate Nearest Neighbor Negative Contrastive Estimation):")
-    print("   • Training: Hard negative mining during training")
-    print("   • Inference: Single query encoding, no negatives needed")
-    print("   • Advantage: More efficient than vanilla DPR")
-    print("   • Performance: Competitive with TCT-ColBERT")
+    print("\nANCE:")
+    print("- Hard negative mining")
+    print("- Single query encoding")
+    print("- More efficient than DPR")
+    print("- Competitive performance")
     
-    print("\n🔄 SBERT Variants:")
-    print("   • SBERT: Sentence-BERT fine-tuned for retrieval")
-    print("   • SBERT-Multi: Multi-lingual version")
-    print("   • SBERT-QA: Question-answering specialization")
-    print("   • Training: Contrastive learning on sentence pairs")
+    print("\nSBERT variants:")
+    print("- Sentence-BERT fine-tuning")
+    print("- Multi-lingual support")
+    print("- QA specialization")
+    print("- Contrastive learning")
     
-    print("\n⚡ Dense Retrieval Optimizations:")
-    print("   • Product Quantization: Reduce memory usage")
-    print("   • IVF (Inverted File Index): Faster search")
-    print("   • HNSW (Hierarchical Navigable Small World): Approximate search")
-    print("   • GPU Acceleration: CUDA kernels for vector operations")
-    print("   • Batching: Process multiple queries simultaneously")
+    print("\nDense optimizations:")
+    print("- Product quantization")
+    print("- IVF indexing")
+    print("- HNSW search")
+    print("- GPU acceleration")
+    print("- Batch processing")
 
-def demonstrate_advanced_sparse_models():
-    """Show understanding of advanced sparse models"""
-    print("\n=== Advanced Sparse Retrieval Models ===")
+def analyze_sparse_models():
+    """Analyze advanced sparse retrieval models"""
+    print("\n=== Advanced Sparse Models ===")
     
-    print("\n🌿 uniCOIL Variants:")
-    print("   • uniCOIL (noexp): No query expansion")
-    print("   • uniCOIL (doc2query-T5): With document expansion")
-    print("   • uniCOIL (TILDE): Term importance learning")
+    print("\nuniCOIL variants:")
+    print("- No expansion version")
+    print("- Doc2Query expansion")
+    print("- TILDE importance learning")
+    print("- ColBERT attention weights")
     print("   • Architecture: ColBERT-style attention weights")
     print("   • Impact: Transforms sparse to neural sparse")
     
