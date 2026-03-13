@@ -48,16 +48,16 @@ conditions:
                 S@10: 0.5334
           - dataset: mscoco_task0
             scores:
-              - R@5: 0.5769
-                R@10: 0.6431
-                S@5: 0.5778
-                S@10: 0.6445
+              - R@5: 0.7161
+                R@10: 0.8010
+                S@5: 0.7173
+                S@10: 0.8023
           - dataset: mscoco_task3
             scores:
-              - R@5: 0.4371
-                R@10: 0.5448
-                S@5: 0.8886
-                S@10: 0.9386
+              - R@5: 0.5226
+                R@10: 0.6718
+                S@5: 0.9160
+                S@10: 0.9576
           - dataset: nights_task4
             scores:
               - R@5: 0.3165
@@ -144,16 +144,16 @@ conditions:
             S@10: 0.5840
       - dataset: mscoco_task0
         scores:
-          - R@5: 0.6491
-            R@10: 0.7083
-            S@5: 0.6500
-            S@10: 0.7097
+          - R@5: 0.8073
+            R@10: 0.8833
+            S@5: 0.8084
+            S@10: 0.8846
       - dataset: mscoco_task3
         scores:
-          - R@5: 0.4493
-            R@10: 0.5539
-            S@5: 0.8934
-            S@10: 0.9412
+          - R@5: 0.5383
+            R@10: 0.6850
+            S@5: 0.9206
+            S@10: 0.9594
       - dataset: nights_task4
         scores:
           - R@5: 0.3170
@@ -245,21 +245,21 @@ conditions:
                 S@10: 0.3371
           - dataset: mscoco_task0
             scores:
-              - R@5: 0.5376
-                R@10: 0.6107
-                S@5: 0.5385
-                S@10: 0.6120
+              - R@5: 0.6683
+                R@10: 0.7619
+                S@5: 0.6694
+                S@10: 0.7632
           - dataset: mscoco_task3
             scores:
-              - R@5: 0.4095
-                R@10: 0.5237
-                S@5: 0.8686
-                S@10: 0.9314
+              - R@5: 0.4803
+                R@10: 0.6464
+                S@5: 0.8968
+                S@10: 0.9498
           - dataset: nights_task4
             scores:
-              - R@5: 0.3198
+              - R@5: 0.3193
                 R@10: 0.5467
-                S@5: 0.3198
+                S@5: 0.3193
                 S@10: 0.5467
           - dataset: oven_task6
             scores:
@@ -341,21 +341,21 @@ conditions:
             S@10: 0.3890
       - dataset: mscoco_task0
         scores:
-          - R@5: 0.6378
-            R@10: 0.6992
-            S@5: 0.6390
-            S@10: 0.7006
+          - R@5: 0.7943
+            R@10: 0.8724
+            S@5: 0.7956
+            S@10: 0.8736
       - dataset: mscoco_task3
         scores:
-          - R@5: 0.4337
-            R@10: 0.5375
-            S@5: 0.8818
-            S@10: 0.9362
+          - R@5: 0.5208
+            R@10: 0.6630
+            S@5: 0.9080
+            S@10: 0.9546
       - dataset: nights_task4
         scores:
-          - R@5: 0.3198
+          - R@5: 0.3193
             R@10: 0.5472
-            S@5: 0.3198
+            S@5: 0.3193
             S@10: 0.5472
       - dataset: oven_task6
         scores:
