@@ -32,9 +32,10 @@ dense_threads = 16
 dense_batch_size = 512
 
 trec_eval_metric_definitions = {
-    'nDCG@10': '-c -m ndcg_cut.10',
-    'R@20': '-c -m recall.20',
-    'R@100': '-c -m recall.100'
+    'R@5': '-c -m recall.5',
+    'R@10': '-c -m recall.10',
+    'S@5': '-c -m success.5',
+    'S@10': '-c -m success.10',
 }
 
 
@@ -65,14 +66,14 @@ def list_conditions():
 
 def print_results_by_metric_position(table, position, metric_name):
     print(f'Metric = {metric_name}')
-    print(' ' * 20, end='')
+    print(' ' * 30, end='')
     conditions = ['clip-sf-large', 'blip-ff-large']
     for condition in conditions:
         print(f'{condition:15}', end='')
     print('')
 
-    for dataset in sorted(table.keys()):
-        print(f'{dataset:20}', end='')
+    for dataset in table.keys():
+        print(f'{dataset:30}', end='')
         metric_list = list(trec_eval_metric_definitions.keys())
 
         actual_metric = metric_list[position] if position < len(metric_list) else None
@@ -110,43 +111,77 @@ def run_conditions(args):
                       
                 print(f'  - Dataset: {dataset}')  
                   
-                runfile = os.path.join(args.directory, f'run.m-beir-{dataset}.{name}.txt')  
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)  
-                  
-                if args.display_commands:  
-                    print(f'\n```bash\n{format_run_command(cmd)}\n```\n')  
-                      
-                if not os.path.exists(runfile):  
-                    if not args.dry_run:  
-                        os.system(cmd)  
+                if dataset == 'union' and 'sub_datasets' in datasets:  
+                    for sub in datasets['sub_datasets']:  
+                        sub_dataset = sub['dataset']  
+                        print(f'    - Sub-dataset: {sub_dataset}')  
                           
-                for expected in datasets['scores']:  
-                    for metric in expected:  
-                        if not args.skip_eval and not args.dry_run:
-                            if not os.path.exists(runfile):  
-                                continue  
-                                  
-                            score = float(run_eval_and_return_metric(  
-                                metric, "m-beir-" + dataset.replace('_', '-'),
-                                trec_eval_metric_definitions[metric], runfile))  
-                                  
-                            if math.isclose(score, float(expected[metric])):  
-                                result = ok_str  
-                            elif abs(score - float(expected[metric])) <= 0.0005 or score > float(expected[metric]):
-                                result = okish_str + f' expected {expected[metric]:.4f}'  
-                            else:  
-                                result = fail_str + f' expected {expected[metric]:.4f}'  
-                            print(f'      {metric:7}: {score:.4f} {result}')  
+                        runfile = os.path.join(args.directory, f'run.m-beir-{sub_dataset}.global.{name}.txt')  
+                        cmd = Template(cmd_template).substitute(dataset='union', output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)  
+                        cmd = cmd.replace(f'--topics m-beir-union-test', f'--topics m-beir-{sub_dataset}-test')  
+                          
+                        if args.display_commands:  
+                            print(f'\n```bash\n{format_run_command(cmd)}\n```\n')  
+                          
+                        if not os.path.exists(runfile):  
+                            if not args.dry_run:  
+                                os.system(cmd)  
+                          
+                        for expected in sub['scores']:  
+                            for metric in expected:  
+                                if not args.skip_eval and not args.dry_run:  
+                                    if not os.path.exists(runfile):  
+                                        continue  
+                                    score = float(run_eval_and_return_metric(  
+                                        metric, "m-beir-" + sub_dataset.replace('_', '-'),  
+                                        trec_eval_metric_definitions[metric], runfile))  
+                                    if math.isclose(score, float(expected[metric])):  
+                                        result = ok_str  
+                                    elif abs(score - float(expected[metric])) <= 0.0005 or score > float(expected[metric]):  
+                                        result = okish_str + f' expected {expected[metric]:.4f}'  
+                                    else:  
+                                        result = fail_str + f' expected {expected[metric]:.4f}'  
+                                    print(f'        {metric:7}: {score:.4f} {result}')  
+                                    table[f'union_{sub_dataset}'][name][metric] = score  
+                                else:  
+                                    table[f'union_{sub_dataset}'][name][metric] = expected[metric]  
+                else:  
+                    runfile = os.path.join(args.directory, f'run.m-beir-{dataset}.{name}.txt')  
+                    cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)  
+                      
+                    if args.display_commands:  
+                        print(f'\n```bash\n{format_run_command(cmd)}\n```\n')  
+                          
+                    if not os.path.exists(runfile):  
+                        if not args.dry_run:  
+                            os.system(cmd)  
                               
-                            table[dataset][name][metric] = score  
-                        else:  
-                            table[dataset][name][metric] = expected[metric]  
+                    for expected in datasets['scores']:  
+                        for metric in expected:  
+                            if not args.skip_eval and not args.dry_run:  
+                                if not os.path.exists(runfile):  
+                                    continue  
+                                score = float(run_eval_and_return_metric(  
+                                    metric, "m-beir-" + dataset.replace('_', '-'),  
+                                    trec_eval_metric_definitions[metric], runfile))  
+                                if math.isclose(score, float(expected[metric])):  
+                                    result = ok_str  
+                                elif abs(score - float(expected[metric])) <= 0.0005 or score > float(expected[metric]):  
+                                    result = okish_str + f' expected {expected[metric]:.4f}'  
+                                else:  
+                                    result = fail_str + f' expected {expected[metric]:.4f}'  
+                                print(f'      {metric:7}: {score:.4f} {result}')  
+                                table[dataset][name][metric] = score  
+                            else:  
+                                table[dataset][name][metric] = expected[metric]  
+                print('')  
                               
             print('')  
     
-    print_results_by_metric_position(table, 0, 'nDCG@10')
-    print_results_by_metric_position(table, 1, 'R@20')
-    print_results_by_metric_position(table, 2, 'R@100')
+    print_results_by_metric_position(table, 0, 'R@5')
+    print_results_by_metric_position(table, 1, 'R@10')
+    print_results_by_metric_position(table, 2, 'S@5')
+    print_results_by_metric_position(table, 3, 'S@10')
 
     end = time.time()  
     start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')  
@@ -175,22 +210,37 @@ def generate_report(args):
             for datasets in condition['datasets']:    
                 dataset = datasets['dataset']    
                     
-                runfile = os.path.join(args.directory, f'run.m-beir-{dataset}.{name}.txt')    
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)    
-                commands[dataset][name] = format_run_command(cmd)    
-                    
-                for expected in datasets['scores']:    
-                    for metric in expected:    
-                        eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[metric]} {"m-beir-" + dataset.replace("_", "-")} {runfile}'  
-                        eval_commands[dataset][name] += format_eval_command(eval_cmd) + '\n\n'    
+                if dataset == 'union' and 'sub_datasets' in datasets:    
+                    for sub in datasets['sub_datasets']:    
+                        sub_dataset = sub['dataset']    
+                        table_key = f'union_{sub_dataset}'    
                             
-                        table[dataset][name][metric] = expected[metric]    
+                        runfile = os.path.join(args.directory, f'run.m-beir-{sub_dataset}.global.{name}.txt')    
+                        cmd = Template(cmd_template).substitute(dataset='union', output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)    
+                        cmd = cmd.replace(f'--topics m-beir-union-test', f'--topics m-beir-{sub_dataset}-test')    
+                        commands[table_key][name] = format_run_command(cmd)    
+                            
+                        for expected in sub['scores']:    
+                            for metric in expected:    
+                                eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[metric]} {"m-beir-" + sub_dataset.replace("_", "-")} {runfile}'    
+                                eval_commands[table_key][name] += format_eval_command(eval_cmd) + '\n\n'    
+                                table[table_key][name][metric] = expected[metric]    
+                else:    
+                    runfile = os.path.join(args.directory, f'run.m-beir-{dataset}.{name}.txt')    
+                    cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)    
+                    commands[dataset][name] = format_run_command(cmd)    
+                        
+                    for expected in datasets['scores']:    
+                        for metric in expected:    
+                            eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[metric]} {"m-beir-" + dataset.replace("_", "-")} {runfile}'    
+                            eval_commands[dataset][name] += format_eval_command(eval_cmd) + '\n\n'    
+                            table[dataset][name][metric] = expected[metric]    
         
     # Generate HTML rows based on your datasets    
     html_rows = []    
     row_cnt = 1    
         
-    for dataset in sorted(table.keys()):  
+    for dataset in table.keys():  
         # Get dataset-specific metrics to determine the order  
         metric_names = list(trec_eval_metric_definitions.keys())  
           
@@ -198,14 +248,16 @@ def generate_report(args):
         s = s.substitute(    
             row_cnt=row_cnt,    
             dataset=dataset,  
-            # CLIP-SF-Large metrics (s1, s2, s3)  
+            # CLIP-SF-Large metrics (s1-s4)  
             s1=f'{table[dataset]["clip-sf-large"].get(metric_names[0], 0.0):.4f}',  
             s2=f'{table[dataset]["clip-sf-large"].get(metric_names[1], 0.0):.4f}',  
             s3=f'{table[dataset]["clip-sf-large"].get(metric_names[2], 0.0):.4f}',  
-            # BLIP-FF-Large metrics (s4, s5, s6)  
-            s4=f'{table[dataset]["blip-ff-large"].get(metric_names[0], 0.0):.4f}',  
-            s5=f'{table[dataset]["blip-ff-large"].get(metric_names[1], 0.0):.4f}',  
-            s6=f'{table[dataset]["blip-ff-large"].get(metric_names[2], 0.0):.4f}',  
+            s4=f'{table[dataset]["clip-sf-large"].get(metric_names[3], 0.0):.4f}',  
+            # BLIP-FF-Large metrics (s5-s8)  
+            s5=f'{table[dataset]["blip-ff-large"].get(metric_names[0], 0.0):.4f}',  
+            s6=f'{table[dataset]["blip-ff-large"].get(metric_names[1], 0.0):.4f}',  
+            s7=f'{table[dataset]["blip-ff-large"].get(metric_names[2], 0.0):.4f}',  
+            s8=f'{table[dataset]["blip-ff-large"].get(metric_names[3], 0.0):.4f}',  
             # Commands for tabbed display  
             cmd1=commands[dataset].get('clip-sf-large', ''),    
             cmd2=commands[dataset].get('blip-ff-large', ''),    

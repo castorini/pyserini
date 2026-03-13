@@ -72,6 +72,9 @@ def trec_eval(
     judged_result = []
     cutoffs = []
 
+    success_result = []
+    success_cutoffs = []
+
     if '-remove-unjudged' in args:
         judged_docs_only = args.pop(args.index('-remove-unjudged'))
 
@@ -82,7 +85,15 @@ def trec_eval(
         cutoffs = list(map(int, cutoffs[7:].split(',')))
         # Get rid of the '-m' before the 'judged.xxx' option
         args.pop(idx - 1)
-    # Non judge.k metrics are requested if any -m is left after popping the -m judged.k1,k2,... from args.
+
+    if any([i.startswith('success.') for i in args]):
+        idx = [i.startswith('success.') for i in args].index(True)
+        success_cutoffs = args.pop(idx)
+        success_cutoffs = list(map(int, success_cutoffs[8:].split(',')))
+        # Get rid of the '-m' before the 'success.xxx' option
+        args.pop(idx - 1)
+
+    # Non pseudo-metrics are requested if any -m is left after popping pseudo-metric args.
     non_judge_k_metrics = '-m' in args
 
     temp_file = ''
@@ -129,6 +140,18 @@ def trec_eval(
             judged = len(pd.merge(run_cutoff[[0, 2]], qrels[[0, 2]], on=[0, 2])) / len(run_cutoff)
             metric_name = f'judged_{cutoff}'
             judged_result.append(f'{metric_name:22}\tall\t{judged:.4f}')
+        # Measure success@cutoffs
+        # success@k = 1.0 if at least one relevant doc in top-k for a query, 0.0 otherwise; averaged over queries.
+        # Relevance is determined by the qrels: a document is relevant if it appears in qrels with a grade > 0.
+        for cutoff in success_cutoffs:
+            relevant_qrels = qrels[qrels[3] > 0]
+            run_cutoff = run.groupby(0).head(cutoff)
+            hits = pd.merge(run_cutoff[[0, 2]], relevant_qrels[[0, 2]], on=[0, 2])
+            queries_with_hit = hits[0].nunique()
+            total_queries = run[0].nunique()
+            success = queries_with_hit / total_queries if total_queries > 0 else 0.0
+            metric_name = f'success_{cutoff}'
+            success_result.append(f'{metric_name:22}\tall\t{success:.4f}')
         cmd = cmd_prefix + args[1:]
     else:
         cmd = cmd_prefix
@@ -159,17 +182,20 @@ def trec_eval(
     #   args: [-c -m judged.20 qrels run]                 -> call: [-c qrels run]                 -> suppress print
     #   args: [-c -m judged.20 -m ndcg_cut.10 qrels run]  -> call: [-c -m ndcg_cut.10 qrels run]  -> print ndcg_cut.10
     #   args: [-c -m ndcg_cut.10 qrels run]               -> call: [-c -m ndcg_cut.10 qrels run]  -> print ndcg_cut.10
-    if not judged_result or non_judge_k_metrics:
+    if (not judged_result and not success_result) or non_judge_k_metrics:
         print(output)
 
     for judged in judged_result:
         print(judged)
+    for success in success_result:
+        print(success)
 
     if temp_file:
         os.remove(temp_file)
 
-    if judged_result:
-        results = output.split("\n") + judged_result if non_judge_k_metrics else judged_result
+    pseudo_results = judged_result + success_result
+    if pseudo_results:
+        results = output.split("\n") + pseudo_results if non_judge_k_metrics else pseudo_results
     else:
         results = output.split("\n")
     lines = {}
