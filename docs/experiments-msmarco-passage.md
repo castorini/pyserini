@@ -497,3 +497,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@aaliyan1230](https://github.com/aaliyan1230) on 2026-03-01 (commit [`bcae91d`](https://github.com/castorini/pyserini/commit/bcae91d0e284e5650e99ce1125d98397503a295d))
 + Results reproduced by [@VCY019](https://github.com/VCY019) on 2026-03-01 (commit [`bcae91d`](https://github.com/castorini/pyserini/commit/bcae91d0e284e5650e99ce1125d98397503a295d))
 + Results reproduced by [@raghav-ai](https://github.com/raghav-ai) on 2026-03-03 (commit [`99e2810`](https://github.com/castorini/pyserini/commit/99e28100860ac226a9e04cb4d65090d2d101d894))
++ Results reproduced by [@namatvir](https://github.com/namatvir) on 2026-03-15 (commit [`76c95a4`](https://github.com/castorini/pyserini/commit/76c95a455c4750e373ed2a9feb2528ffe8e5d3ba))
