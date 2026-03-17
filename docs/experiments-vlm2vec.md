@@ -127,7 +127,7 @@ for model_name in "${!models[@]}"; do
         python -m pyserini.search.faiss \
             --encoder-class mmeb \
             --encoder $model_path \
-            --topics-format mmeb \
+            --topics-format raw_jsonl \
             --topics "tools/topics-and-qrels/topics.mmeb-visdoc-${dataset_name}.${split}.jsonl" \
             --index  "indexes/mmeb-visdoc-${dataset_name}.${model_name}" \
             --output "runs/run.mmeb-visdoc-${dataset_name}.${model_name}.txt" \
