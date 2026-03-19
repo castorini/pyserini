@@ -2,12 +2,6 @@ conditions:
   - name: vlm2vec-v2.0
     command: python -m pyserini.search.faiss --encoder-class mmeb --encoder VLM2Vec/VLM2Vec-V2.0 --index mmeb-visdoc-${dataset}.VLM2Vec-V2.0 --topics-format raw_jsonl --topics mmeb-visdoc-${dataset}-${split} --output-format trec --output $output --fp16 --pooling eos --l2-norm --hits 1000 --threads ${dense_threads} --batch-size ${dense_batch_size} --device cuda:0
     datasets:
-      - dataset: MMLongBench-doc
-        scores:
-          - nDCG@5: 0.4404
-            nDCG@10: 0.4150
-            R@5: 0.0755
-            R@10: 0.1248
       - dataset: MMLongBench-page
         scores:
           - nDCG@5: 0.1197
@@ -98,12 +92,6 @@ conditions:
             nDCG@10: 0.4669
             R@5: 0.5541
             R@10: 0.6416
-      - dataset: ViDoSeek-doc
-        scores:
-          - nDCG@5: 0.8031
-            nDCG@10: 0.7681
-            R@5: 0.2561
-            R@10: 0.4382
       - dataset: ViDoSeek-page
         scores:
           - nDCG@5: 0.2190
@@ -149,12 +137,6 @@ conditions:
   - name: gme-qwen2-vl-2b-instruct
     command: python -m pyserini.search.faiss --encoder-class mmeb --encoder Alibaba-NLP/gme-Qwen2-VL-2B-Instruct --index mmeb-visdoc-${dataset}.gme-Qwen2-VL-2B-Instruct --topics-format raw_jsonl --topics mmeb-visdoc-${dataset}-${split} --output-format trec --output $output --fp16 --pooling eos --l2-norm --hits 1000 --threads ${dense_threads} --batch-size ${dense_batch_size} --device cuda:0
     datasets:
-      - dataset: MMLongBench-doc
-        scores:
-          - nDCG@5: 0.5170
-            nDCG@10: 0.4935
-            R@5: 0.0893
-            R@10: 0.1528
       - dataset: MMLongBench-page
         scores:
           - nDCG@5: 0.1569
@@ -245,12 +227,6 @@ conditions:
             nDCG@10: 0.7205
             R@5: 0.8224
             R@10: 0.8855
-      - dataset: ViDoSeek-doc
-        scores:
-          - nDCG@5: 0.8370
-            nDCG@10: 0.8174
-            R@5: 0.2723
-            R@10: 0.4768
       - dataset: ViDoSeek-page
         scores:
           - nDCG@5: 0.2198
