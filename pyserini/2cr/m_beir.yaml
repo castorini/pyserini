@@ -14,13 +14,13 @@ conditions:
             scores:
               - R@5: 0.3209
                 R@10: 0.4539
-                S@5: 0.5258
-                S@10: 0.6390
+                S@5: 0.5251
+                S@10: 0.6387
           - dataset: fashion200k_task0
             scores:
               - R@5: 0.0731
                 R@10: 0.1128
-                S@5: 0.1251
+                S@5: 0.1239
                 S@10: 0.1786
           - dataset: fashion200k_task3
             scores:
@@ -32,7 +32,7 @@ conditions:
             scores:
               - R@5: 0.1757
                 R@10: 0.2425
-                S@5: 0.1761
+                S@5: 0.1757
                 S@10: 0.2425
           - dataset: infoseek_task6
             scores:
@@ -98,8 +98,8 @@ conditions:
             scores:
               - R@5: 0.6802
                 R@10: 0.7744
-                S@5: 0.7754
-                S@10: 0.8538
+                S@5: 0.7758
+                S@10: 0.8534
       - dataset: cirr_task7
         scores:
           - R@5: 0.4522
@@ -110,13 +110,13 @@ conditions:
         scores:
           - R@5: 0.3292
             R@10: 0.4624
-            S@5: 0.5329
-            S@10: 0.6461
+            S@5: 0.5319
+            S@10: 0.6458
       - dataset: fashion200k_task0
         scores:
           - R@5: 0.0734
             R@10: 0.1143
-            S@5: 0.1257
+            S@5: 0.1245
             S@10: 0.1798
       - dataset: fashion200k_task3
         scores:
@@ -128,7 +128,7 @@ conditions:
         scores:
           - R@5: 0.1773
             R@10: 0.2453
-            S@5: 0.1777
+            S@5: 0.1774
             S@10: 0.2454
       - dataset: infoseek_task6
         scores:
@@ -140,7 +140,7 @@ conditions:
         scores:
           - R@5: 0.2414
             R@10: 0.3445
-            S@5: 0.4906
+            S@5: 0.4908
             S@10: 0.5840
       - dataset: mscoco_task0
         scores:
@@ -189,13 +189,13 @@ conditions:
           - R@5: 0.5893
             R@10: 0.6870
             S@5: 0.8387
-            S@10: 0.9014
+            S@10: 0.9010
       - dataset: webqa_task2
         scores:
           - R@5: 0.6890
             R@10: 0.7820
-            S@5: 0.7841
-            S@10: 0.8610
+            S@5: 0.7853
+            S@10: 0.8606
   - name: blip-ff-large
     command: python -m pyserini.search.faiss --encoder-class uniir --encoder blip_ff_large --index m-beir-${dataset}.blip-ff-large --topics-format mbeir --topics m-beir-${dataset}-test --output-format trec --output $output --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads ${dense_threads} --batch-size ${dense_batch_size}
     datasets:
@@ -205,7 +205,7 @@ conditions:
             scores:
               - R@5: 0.4821
                 R@10: 0.5883
-                S@5: 0.4820
+                S@5: 0.4825
                 S@10: 0.5887
           - dataset: edis_task2
             scores:
@@ -217,7 +217,7 @@ conditions:
             scores:
               - R@5: 0.1194
                 R@10: 0.1758
-                S@5: 0.1920
+                S@5: 0.1914
                 S@10: 0.2600
           - dataset: fashion200k_task3
             scores:
@@ -230,7 +230,7 @@ conditions:
               - R@5: 0.2192
                 R@10: 0.2899
                 S@5: 0.2194
-                S@10: 0.2905
+                S@10: 0.2900
           - dataset: infoseek_task6
             scores:
               - R@5: 0.1051
@@ -296,24 +296,24 @@ conditions:
               - R@5: 0.6808
                 R@10: 0.7752
                 S@5: 0.7718
-                S@10: 0.8538
+                S@10: 0.8542
       - dataset: cirr_task7
         scores:
           - R@5: 0.5025
             R@10: 0.6133
-            S@5: 0.5024
+            S@5: 0.5029
             S@10: 0.6137
       - dataset: edis_task2
         scores:
           - R@5: 0.3055
             R@10: 0.4166
-            S@5: 0.5057
+            S@5: 0.5051
             S@10: 0.6069
       - dataset: fashion200k_task0
         scores:
           - R@5: 0.1211
             R@10: 0.1770
-            S@5: 0.1937
+            S@5: 0.1931
             S@10: 0.2612
       - dataset: fashion200k_task3
         scores:
