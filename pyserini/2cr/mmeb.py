@@ -35,7 +35,7 @@ trec_eval_metric_definitions = {
     'nDCG@5': '-c -m ndcg_cut.5',
     'nDCG@10': '-c -m ndcg_cut.10',
     'R@5': '-c -m recall.5',
-    'R@10': '-c -m recall.10'
+    'R@10': '-c -m recall.10',
 }
 
 
@@ -52,6 +52,13 @@ def format_run_command(raw):
 
 def format_eval_command(raw):
     return raw.replace("-c ", "\\\n  -c ").replace("run.", "\\\n  run.")
+
+
+def print_command_block(cmd):
+    print('```bash')
+    print(format_run_command(cmd))
+    print('```')
+    print()
 
 def read_file(f):
     fin = open(importlib.resources.files("pyserini.2cr") / f, "r")
@@ -81,7 +88,7 @@ def print_results_by_metric_position(table, position, metric_name):
     conditions = ['gme-qwen2-vl-2b-instruct', 'vlm2vec-v2.0']
     for condition in conditions:
         print(f'{condition:<{condition_width}}', end='')
-    print('')
+    print()
     
     for dataset in sorted(table.keys()):
         print(f'{dataset:<{dataset_width}}', end='')
@@ -93,8 +100,8 @@ def print_results_by_metric_position(table, position, metric_name):
             else:
                 score = 0.0
             print(f'{score:<{condition_width}.4f}', end='')
-        print('')
-    print('')
+        print()
+    print()
 
 def run_conditions(args):  
     start = time.time()  
@@ -124,8 +131,8 @@ def run_conditions(args):
                 runfile = os.path.join(args.directory, f'run.mmeb-visdoc-{dataset}.{name}.txt')  
                 cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size, split=split)  
                   
-                if args.display_commands:  
-                    print(f'\n```bash\n{format_run_command(cmd)}\n```\n')  
+                if args.display_commands:
+                    print_command_block(cmd)
                       
                 if not os.path.exists(runfile):  
                     if not args.dry_run:  
@@ -154,7 +161,7 @@ def run_conditions(args):
                         else:  
                             table[dataset][name][metric] = expected[metric]  
                               
-            print('')  
+            print()
     
     print_results_by_metric_position(table, 0, 'nDCG@5')
     print_results_by_metric_position(table, 1, 'nDCG@10')
@@ -165,7 +172,7 @@ def run_conditions(args):
     start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')  
     end_str = datetime.fromtimestamp(end, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')  
       
-    print('\n')  
+    print()
     print(f'Start time: {start_str}')  
     print(f'End time: {end_str}')  
     print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
