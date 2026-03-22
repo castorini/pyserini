@@ -1,0 +1,6 @@
+1 Q0 doc1 1 2.4 extract
+1 Q0 doc2 2 1.3 extract
+2 Q0 doc3 1 4.1 extract
+2 Q0 doc1 2 3.3 extract
+3 Q0 doc3 1 123 extract
+4 Q0 doc2 1 561 extract
