@@ -111,14 +111,14 @@ def run_conditions(args):
                       
                 print(f'  - Dataset: {dataset}')  
                   
-                if dataset == 'union' and 'sub_datasets' in datasets:  
+                if 'sub_datasets' in datasets:  
                     for sub in datasets['sub_datasets']:  
                         sub_dataset = sub['dataset']  
                         print(f'    - Sub-dataset: {sub_dataset}')  
                           
-                        runfile = os.path.join(args.directory, f'run.m-beir-{sub_dataset}.global.{name}.txt')  
-                        cmd = Template(cmd_template).substitute(dataset='union', output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)  
-                        cmd = cmd.replace(f'--topics m-beir-union-test', f'--topics m-beir-{sub_dataset}-test')  
+                        runfile = os.path.join(args.directory, f'run.m-beir-{sub_dataset}.{dataset}.{name}.txt')  
+                        cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)  
+                        cmd = cmd.replace(f'--topics m-beir-{dataset}-test', f'--topics m-beir-{sub_dataset}-test')  
                           
                         if args.display_commands:  
                             print(f'\n```bash\n{format_run_command(cmd)}\n```\n')  
@@ -142,9 +142,9 @@ def run_conditions(args):
                                     else:  
                                         result = fail_str + f' expected {expected[metric]:.4f}'  
                                     print(f'        {metric:7}: {score:.4f} {result}')  
-                                    table[f'union_{sub_dataset}'][name][metric] = score  
+                                    table[f'{dataset}_{sub_dataset}'][name][metric] = score  
                                 else:  
-                                    table[f'union_{sub_dataset}'][name][metric] = expected[metric]  
+                                    table[f'{dataset}_{sub_dataset}'][name][metric] = expected[metric]  
                 else:  
                     runfile = os.path.join(args.directory, f'run.m-beir-{dataset}.{name}.txt')  
                     cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)  
@@ -210,14 +210,14 @@ def generate_report(args):
             for datasets in condition['datasets']:    
                 dataset = datasets['dataset']    
                     
-                if dataset == 'union' and 'sub_datasets' in datasets:    
+                if 'sub_datasets' in datasets:    
                     for sub in datasets['sub_datasets']:    
                         sub_dataset = sub['dataset']    
-                        table_key = f'union_{sub_dataset}'    
+                        table_key = f'{dataset}_{sub_dataset}'    
                             
-                        runfile = os.path.join(args.directory, f'run.m-beir-{sub_dataset}.global.{name}.txt')    
-                        cmd = Template(cmd_template).substitute(dataset='union', output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)    
-                        cmd = cmd.replace(f'--topics m-beir-union-test', f'--topics m-beir-{sub_dataset}-test')    
+                        runfile = os.path.join(args.directory, f'run.m-beir-{sub_dataset}.{dataset}.{name}.txt')    
+                        cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)    
+                        cmd = cmd.replace(f'--topics m-beir-{dataset}-test', f'--topics m-beir-{sub_dataset}-test')    
                         commands[table_key][name] = format_run_command(cmd)    
                             
                         for expected in sub['scores']:    

@@ -100,102 +100,104 @@ conditions:
                 R@10: 0.7744
                 S@5: 0.7758
                 S@10: 0.8534
-      - dataset: cirr_task7
-        scores:
-          - R@5: 0.4522
-            R@10: 0.5817
-            S@5: 0.4528
-            S@10: 0.5820
-      - dataset: edis_task2
-        scores:
-          - R@5: 0.3292
-            R@10: 0.4624
-            S@5: 0.5319
-            S@10: 0.6458
-      - dataset: fashion200k_task0
-        scores:
-          - R@5: 0.0734
-            R@10: 0.1143
-            S@5: 0.1245
-            S@10: 0.1798
-      - dataset: fashion200k_task3
-        scores:
-          - R@5: 0.1262
-            R@10: 0.1806
-            S@5: 0.1262
-            S@10: 0.1806
-      - dataset: fashioniq_task7
-        scores:
-          - R@5: 0.1773
-            R@10: 0.2453
-            S@5: 0.1774
-            S@10: 0.2454
-      - dataset: infoseek_task6
-        scores:
-          - R@5: 0.1312
-            R@10: 0.1990
-            S@5: 0.2725
-            S@10: 0.3483
-      - dataset: infoseek_task8
-        scores:
-          - R@5: 0.2414
-            R@10: 0.3445
-            S@5: 0.4908
-            S@10: 0.5840
-      - dataset: mscoco_task0
-        scores:
-          - R@5: 0.8073
-            R@10: 0.8833
-            S@5: 0.8084
-            S@10: 0.8846
-      - dataset: mscoco_task3
-        scores:
-          - R@5: 0.5383
-            R@10: 0.6850
-            S@5: 0.9206
-            S@10: 0.9594
-      - dataset: nights_task4
-        scores:
-          - R@5: 0.3170
-            R@10: 0.5222
-            S@5: 0.3170
-            S@10: 0.5222
-      - dataset: oven_task6
-        scores:
-          - R@5: 0.2017
-            R@10: 0.2334
-            S@5: 0.4599
-            S@10: 0.5348
-      - dataset: oven_task8
-        scores:
-          - R@5: 0.1406
-            R@10: 0.1538
-            S@5: 0.6884
-            S@10: 0.7473
-      - dataset: visualnews_task0
-        scores:
-          - R@5: 0.4286
-            R@10: 0.5189
-            S@5: 0.4286
-            S@10: 0.5189
-      - dataset: visualnews_task3
-        scores:
-          - R@5: 0.4262
-            R@10: 0.5184
-            S@5: 0.4261
-            S@10: 0.5184
-      - dataset: webqa_task1
-        scores:
-          - R@5: 0.5893
-            R@10: 0.6870
-            S@5: 0.8387
-            S@10: 0.9010
-      - dataset: webqa_task2
-        scores:
-          - R@5: 0.6890
-            R@10: 0.7820
-            S@5: 0.7853
-            S@10: 0.8606
+      - dataset: local
+        sub_datasets:
+          - dataset: cirr_task7
+            scores:
+              - R@5: 0.4522
+                R@10: 0.5817
+                S@5: 0.4528
+                S@10: 0.5820
+          - dataset: edis_task2
+            scores:
+              - R@5: 0.3292
+                R@10: 0.4624
+                S@5: 0.5319
+                S@10: 0.6458
+          - dataset: fashion200k_task0
+            scores:
+              - R@5: 0.0734
+                R@10: 0.1143
+                S@5: 0.1245
+                S@10: 0.1798
+          - dataset: fashion200k_task3
+            scores:
+              - R@5: 0.1262
+                R@10: 0.1806
+                S@5: 0.1262
+                S@10: 0.1806
+          - dataset: fashioniq_task7
+            scores:
+              - R@5: 0.1773
+                R@10: 0.2453
+                S@5: 0.1774
+                S@10: 0.2454
+          - dataset: infoseek_task6
+            scores:
+              - R@5: 0.1312
+                R@10: 0.1990
+                S@5: 0.2725
+                S@10: 0.3483
+          - dataset: infoseek_task8
+            scores:
+              - R@5: 0.2414
+                R@10: 0.3445
+                S@5: 0.4908
+                S@10: 0.5840
+          - dataset: mscoco_task0
+            scores:
+              - R@5: 0.8073
+                R@10: 0.8833
+                S@5: 0.8084
+                S@10: 0.8846
+          - dataset: mscoco_task3
+            scores:
+              - R@5: 0.5383
+                R@10: 0.6850
+                S@5: 0.9206
+                S@10: 0.9594
+          - dataset: nights_task4
+            scores:
+              - R@5: 0.3170
+                R@10: 0.5222
+                S@5: 0.3170
+                S@10: 0.5222
+          - dataset: oven_task6
+            scores:
+              - R@5: 0.2017
+                R@10: 0.2334
+                S@5: 0.4599
+                S@10: 0.5348
+          - dataset: oven_task8
+            scores:
+              - R@5: 0.1406
+                R@10: 0.1538
+                S@5: 0.6884
+                S@10: 0.7473
+          - dataset: visualnews_task0
+            scores:
+              - R@5: 0.4286
+                R@10: 0.5189
+                S@5: 0.4286
+                S@10: 0.5189
+          - dataset: visualnews_task3
+            scores:
+              - R@5: 0.4262
+                R@10: 0.5184
+                S@5: 0.4261
+                S@10: 0.5184
+          - dataset: webqa_task1
+            scores:
+              - R@5: 0.5893
+                R@10: 0.6870
+                S@5: 0.8387
+                S@10: 0.9010
+          - dataset: webqa_task2
+            scores:
+              - R@5: 0.6890
+                R@10: 0.7820
+                S@5: 0.7853
+                S@10: 0.8606
   - name: blip-ff-large
     command: python -m pyserini.search.faiss --encoder-class uniir --encoder blip_ff_large --index m-beir-${dataset}.blip-ff-large --topics-format mbeir --topics m-beir-${dataset}-test --output-format trec --output $output --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads ${dense_threads} --batch-size ${dense_batch_size}
     datasets:
@@ -297,99 +299,101 @@ conditions:
                 R@10: 0.7752
                 S@5: 0.7718
                 S@10: 0.8542
-      - dataset: cirr_task7
-        scores:
-          - R@5: 0.5025
-            R@10: 0.6133
-            S@5: 0.5029
-            S@10: 0.6137
-      - dataset: edis_task2
-        scores:
-          - R@5: 0.3055
-            R@10: 0.4166
-            S@5: 0.5051
-            S@10: 0.6069
-      - dataset: fashion200k_task0
-        scores:
-          - R@5: 0.1211
-            R@10: 0.1770
-            S@5: 0.1931
-            S@10: 0.2612
-      - dataset: fashion200k_task3
-        scores:
-          - R@5: 0.2084
-            R@10: 0.2853
-            S@5: 0.2084
-            S@10: 0.2853
-      - dataset: fashioniq_task7
-        scores:
-          - R@5: 0.2222
-            R@10: 0.2939
-            S@5: 0.2224
-            S@10: 0.2947
-      - dataset: infoseek_task6
-        scores:
-          - R@5: 0.1028
-            R@10: 0.1479
-            S@5: 0.2352
-            S@10: 0.3027
-      - dataset: infoseek_task8
-        scores:
-          - R@5: 0.1255
-            R@10: 0.1914
-            S@5: 0.3057
-            S@10: 0.3890
-      - dataset: mscoco_task0
-        scores:
-          - R@5: 0.7943
-            R@10: 0.8724
-            S@5: 0.7956
-            S@10: 0.8736
-      - dataset: mscoco_task3
-        scores:
-          - R@5: 0.5208
-            R@10: 0.6630
-            S@5: 0.9080
-            S@10: 0.9546
-      - dataset: nights_task4
-        scores:
-          - R@5: 0.3193
-            R@10: 0.5472
-            S@5: 0.3193
-            S@10: 0.5472
-      - dataset: oven_task6
-        scores:
-          - R@5: 0.1955
-            R@10: 0.2268
-            S@5: 0.4262
-            S@10: 0.5040
-      - dataset: oven_task8
-        scores:
-          - R@5: 0.1257
-            R@10: 0.1382
-            S@5: 0.5626
-            S@10: 0.6322
-      - dataset: visualnews_task0
-        scores:
-          - R@5: 0.2305
-            R@10: 0.2996
-            S@5: 0.2304
-            S@10: 0.2996
-      - dataset: visualnews_task3
-        scores:
-          - R@5: 0.2289
-            R@10: 0.3015
-            S@5: 0.2289
-            S@10: 0.3015
-      - dataset: webqa_task1
-        scores:
-          - R@5: 0.5228
-            R@10: 0.6160
-            S@5: 0.7866
-            S@10: 0.8481
-      - dataset: webqa_task2
-        scores:
-          - R@5: 0.6945
-            R@10: 0.7905
-            S@5: 0.7845
-            S@10: 0.8646
+      - dataset: local
+        sub_datasets:
+          - dataset: cirr_task7
+            scores:
+              - R@5: 0.5025
+                R@10: 0.6133
+                S@5: 0.5029
+                S@10: 0.6137
+          - dataset: edis_task2
+            scores:
+              - R@5: 0.3055
+                R@10: 0.4166
+                S@5: 0.5051
+                S@10: 0.6069
+          - dataset: fashion200k_task0
+            scores:
+              - R@5: 0.1211
+                R@10: 0.1770
+                S@5: 0.1931
+                S@10: 0.2612
+          - dataset: fashion200k_task3
+            scores:
+              - R@5: 0.2084
+                R@10: 0.2853
+                S@5: 0.2084
+                S@10: 0.2853
+          - dataset: fashioniq_task7
+            scores:
+              - R@5: 0.2222
+                R@10: 0.2939
+                S@5: 0.2224
+                S@10: 0.2947
+          - dataset: infoseek_task6
+            scores:
+              - R@5: 0.1028
+                R@10: 0.1479
+                S@5: 0.2352
+                S@10: 0.3027
+          - dataset: infoseek_task8
+            scores:
+              - R@5: 0.1255
+                R@10: 0.1914
+                S@5: 0.3057
+                S@10: 0.3890
+          - dataset: mscoco_task0
+            scores:
+              - R@5: 0.7943
+                R@10: 0.8724
+                S@5: 0.7956
+                S@10: 0.8736
+          - dataset: mscoco_task3
+            scores:
+              - R@5: 0.5208
+                R@10: 0.6630
+                S@5: 0.9080
+                S@10: 0.9546
+          - dataset: nights_task4
+            scores:
+              - R@5: 0.3193
+                R@10: 0.5472
+                S@5: 0.3193
+                S@10: 0.5472
+          - dataset: oven_task6
+            scores:
+              - R@5: 0.1955
+                R@10: 0.2268
+                S@5: 0.4262
+                S@10: 0.5040
+          - dataset: oven_task8
+            scores:
+              - R@5: 0.1257
+                R@10: 0.1382
+                S@5: 0.5626
+                S@10: 0.6322
+          - dataset: visualnews_task0
+            scores:
+              - R@5: 0.2305
+                R@10: 0.2996
+                S@5: 0.2304
+                S@10: 0.2996
+          - dataset: visualnews_task3
+            scores:
+              - R@5: 0.2289
+                R@10: 0.3015
+                S@5: 0.2289
+                S@10: 0.3015
+          - dataset: webqa_task1
+            scores:
+              - R@5: 0.5228
+                R@10: 0.6160
+                S@5: 0.7866
+                S@10: 0.8481
+          - dataset: webqa_task2
+            scores:
+              - R@5: 0.6945
+                R@10: 0.7905
+                S@5: 0.7845
+                S@10: 0.8646
