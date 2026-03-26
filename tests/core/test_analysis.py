@@ -133,7 +133,7 @@ class TestAnalyzers(unittest.TestCase):
         hgf_text = 'This tokenizer generates wordpiece tokens'
 
         analyzer = Analyzer(get_lucene_analyzer(language="hgf_tokenizer", huggingFaceTokenizer="bert-base-uncased"))
-        self.assertEqual(analyzer.compute_document_vector(hgf_text), {'this': 1, 'token': 1, '##izer': 1, 'generates': 1, 'word': 1, '##piece': 1, 'token': 1, '##s': 1})
+        self.assertEqual(analyzer.compute_document_vector(hgf_text), {'this': 1, 'token': 2, '##izer': 1, 'generates': 1, 'word': 1, '##piece': 1, '##s': 1})
 
     def test_invalid_analyzer_wrapper(self):
         # Invalid JAnalyzer, make sure we get an exception.
