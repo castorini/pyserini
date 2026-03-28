@@ -118,6 +118,8 @@ def run_conditions(args):
                           
                         runfile = os.path.join(args.directory, f'run.m-beir-{sub_dataset}.{dataset}.{name}.txt')  
                         cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)  
+                        if dataset != 'union':
+                            cmd = cmd.replace(f'--index m-beir-{dataset}.', f'--index m-beir-{sub_dataset}.')
                         cmd = cmd.replace(f'--topics m-beir-{dataset}-test', f'--topics m-beir-{sub_dataset}-test')  
                           
                         if args.display_commands:  
@@ -217,6 +219,8 @@ def generate_report(args):
                             
                         runfile = os.path.join(args.directory, f'run.m-beir-{sub_dataset}.{dataset}.{name}.txt')    
                         cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)    
+                        if dataset != 'union':
+                            cmd = cmd.replace(f'--index m-beir-{dataset}.', f'--index m-beir-{sub_dataset}.')
                         cmd = cmd.replace(f'--topics m-beir-{dataset}-test', f'--topics m-beir-{sub_dataset}-test')    
                         commands[table_key][name] = format_run_command(cmd)    
                             
