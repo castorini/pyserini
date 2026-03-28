@@ -114,7 +114,7 @@ def run_conditions(args):
                 if 'sub_datasets' in datasets:  
                     for sub in datasets['sub_datasets']:  
                         sub_dataset = sub['dataset']  
-                        print(f'    - Sub-dataset: {sub_dataset}')  
+                        print(f'    - {sub_dataset} on {dataset}')  
                           
                         runfile = os.path.join(args.directory, f'run.m-beir-{sub_dataset}.{dataset}.{name}.txt')  
                         cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, dense_threads=dense_threads, dense_batch_size=dense_batch_size)  
