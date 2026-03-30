@@ -82,7 +82,7 @@ class Qwen3DocumentEncoder(DocumentEncoder):
 
 
 class Qwen3QueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir, device='cuda:0', **kwargs):
+    def __init__(self, encoder_dir, device='cpu', **kwargs):
         self.explicit_truncate = kwargs.get('explicit_truncate', False)
         self.prefix = kwargs.get('prefix', '')
         self.device = device

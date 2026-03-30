@@ -74,7 +74,7 @@ class MMEBQueryEncoder:
     def __init__(
         self,
         encoder_dir: str,
-        device="cuda:0",
+        device="cpu",
         **kwargs: Any,
     ):
         pooling = kwargs.get("pooling", "eos")

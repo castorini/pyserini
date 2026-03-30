@@ -54,7 +54,7 @@ class UniIRQueryEncoder:
     def __init__(
         self,
         encoder_dir: str,
-        device="cuda:0",
+        device="cpu",
         l2_norm=False,
         instruction_config=None,
         **kwargs: Any,
