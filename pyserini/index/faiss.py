@@ -22,6 +22,7 @@ import shutil
 import faiss
 import numpy as np
 from tqdm import tqdm
+from pyserini.util import resolve_device
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -38,6 +39,7 @@ if __name__ == '__main__':
     parser.add_argument('--metric', type=str, default="inner", required=False)
     parser.add_argument('--device', type=str, default='cpu', required=False, help='Device to run faiss, cpu or cuda:0, cuda:1, ...')
     args = parser.parse_args()
+    faiss_device = resolve_device(args.device, backend='faiss')
 
     faiss.omp_set_num_threads(args.threads)
 
@@ -78,11 +80,8 @@ if __name__ == '__main__':
         index = faiss.IndexFlatL2(args.dim)
     index.verbose = True
 
-    if args.device.startswith('cuda'):
-        try:
-            device_id = int(args.device.split(':')[1])
-        except:
-            raise ValueError(f"Invalid device: {args.device}, expected cuda:0, cuda:1, ...")
+    if faiss_device.startswith('cuda'):
+        device_id = int(faiss_device.split(':', 1)[1])
         res = faiss.StandardGpuResources()
         index = faiss.index_cpu_to_gpu(res, device_id, index)
 
@@ -92,7 +91,7 @@ if __name__ == '__main__':
     index.add(vectors)
     print(f"Number of indexed vectors: {index.ntotal}")
 
-    if args.device.startswith('cuda'):
+    if faiss_device.startswith('cuda'):
         index = faiss.index_gpu_to_cpu(index)
 
     faiss.write_index(index, os.path.join(args.output, 'index'))
