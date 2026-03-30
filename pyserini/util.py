@@ -41,17 +41,13 @@ def resolve_device(device: str, backend: str = 'torch') -> str:
     if normalized == 'cpu':
         return 'cpu'
 
-    if not normalized.startswith('cuda'):
-        logger.warning("Unsupported device '%s' for backend '%s', falling back to cpu.", device, backend)
+    if normalized == 'cuda':
+        gpu_id = 0
+    elif re.fullmatch(r'cuda:\d+', normalized):
+        gpu_id = int(normalized.split(':', 1)[1])
+    else:
+        logger.warning("Invalid device '%s' for backend '%s', falling back to cpu.", device, backend)
         return 'cpu'
-
-    gpu_id = 0
-    if ':' in normalized:
-        try:
-            gpu_id = int(normalized.split(':', 1)[1])
-        except ValueError:
-            logger.warning("Invalid cuda device '%s' for backend '%s', falling back to cpu.", device, backend)
-            return 'cpu'
 
     if backend == 'torch':
         try:
