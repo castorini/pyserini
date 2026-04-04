@@ -28,6 +28,7 @@ from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.query_iterator import TopicsFormat, get_query_iterator
 from pyserini.search._base import get_bright_excluded_ids
 from pyserini.search.lucene import LuceneSearcher
+from pyserini.util import resolve_device
 
 from ._prf import (DenseVectorAncePrf, DenseVectorAveragePrf,
                    DenseVectorRocchioPrf)
@@ -265,6 +266,7 @@ def init_query_encoder(
     fp16=False,
     explicit_truncate=False,
 ):
+    device = resolve_device(device, backend='torch')
     encoded_queries_map = {
         "msmarco-passage-dev-subset": "tct_colbert-msmarco-passage-dev-subset",
         "dpr-nq-dev": "dpr_multi-nq-dev",

@@ -19,13 +19,13 @@ This module provides Pyserini's dense search interface to FAISS index.
 The main entry point is the ``FaissSearcher`` class.
 """
 
+import logging
 import os
 from dataclasses import dataclass
 from typing import Dict, List, Union, Optional, Tuple
 
 import faiss
 import numpy as np
-from transformers.file_utils import requires_backends
 
 from pyserini.encode import QueryEncoder, AutoQueryEncoder
 from pyserini.encode import (
@@ -40,8 +40,11 @@ from pyserini.util import (
     download_prebuilt_index,
     get_dense_indexes_info,
     get_sparse_index,
+    resolve_device,
 )
 from ._prf import PrfDenseSearchResult
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -67,9 +70,8 @@ class FaissSearcher:
         normalize_distances: bool = False,
         faiss_device: str = "cpu",
     ):
-        # The tranformers utils only checks for faiss, need to add faiss_gpu to the backend mapping before using it.
-        if faiss_device == "cpu":
-            requires_backends(self, "faiss")
+        self.faiss_device = resolve_device(faiss_device, backend='faiss')
+        self._faiss_gpu_resources = None
 
         if not isinstance(query_encoder, str):
             self.query_encoder = query_encoder
@@ -311,6 +313,18 @@ class FaissSearcher:
         index_path = os.path.join(index_dir, 'index')
         docid_path = os.path.join(index_dir, 'docid')
         index = faiss.read_index(index_path)
+        if self.faiss_device != 'cpu':
+            try:
+                self._faiss_gpu_resources = faiss.StandardGpuResources()
+                gpu_id = int(self.faiss_device.split(':', 1)[1])
+                index = faiss.index_cpu_to_gpu(self._faiss_gpu_resources, gpu_id, index)
+            except Exception as e:
+                logger.warning(
+                    "Failed to initialize FAISS on %s (%s); falling back to cpu.",
+                    self.faiss_device,
+                    e,
+                )
+                self.faiss_device = 'cpu'
         docids = self.load_docids(docid_path)
         return index, docids
 

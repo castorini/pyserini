@@ -22,9 +22,11 @@ from pyserini.encode import document_encoder_class_map, MMEB_IMPORT_ERROR
 from pyserini.encode import OPENAI_API_RETRY_DELAY
 from pyserini.encode import JsonlRepresentationWriter, JsonlCollectionIterator
 from pyserini.encode.optional import FaissRepresentationWriter
+from pyserini.util import resolve_device
 
 
 def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multimodal, explicit_truncate):
+    device = resolve_device(device, backend='torch')
     _encoder_class = encoder_class
 
     # determine encoder_class

@@ -15,6 +15,7 @@
 #
 
 import hashlib
+import importlib
 import logging
 import os
 import re
@@ -33,6 +34,66 @@ from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, \
     LUCENE_HNSW_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, FAISS_INDEX_INFO
 
 logger = logging.getLogger(__name__)
+
+
+def resolve_device(device: str, backend: str = 'torch') -> str:
+    normalized = (device or 'cpu').strip().lower()
+    if normalized == 'cpu':
+        return 'cpu'
+
+    if normalized == 'cuda':
+        gpu_id = 0
+    elif re.fullmatch(r'cuda:\d+', normalized):
+        gpu_id = int(normalized.split(':', 1)[1])
+    else:
+        logger.warning("Invalid device '%s' for backend '%s', falling back to cpu.", device, backend)
+        return 'cpu'
+
+    if backend == 'torch':
+        try:
+            torch = importlib.import_module('torch')
+        except ImportError:
+            logger.warning("PyTorch is not installed; falling back to cpu.")
+            return 'cpu'
+
+        if not torch.cuda.is_available():
+            logger.warning("CUDA is not available in PyTorch; falling back to cpu.")
+            return 'cpu'
+
+        num_gpus = torch.cuda.device_count()
+    elif backend == 'faiss':
+        try:
+            faiss = importlib.import_module('faiss')
+        except ImportError:
+            logger.warning("FAISS is not installed; falling back to cpu.")
+            return 'cpu'
+
+        if not hasattr(faiss, 'get_num_gpus'):
+            logger.warning("Installed faiss package does not expose GPU support; falling back to cpu.")
+            return 'cpu'
+
+        try:
+            num_gpus = faiss.get_num_gpus()
+        except Exception as e:
+            logger.warning("Unable to query FAISS GPU devices (%s); falling back to cpu.", e)
+            return 'cpu'
+    else:
+        raise ValueError(f"Unknown backend '{backend}', expected one of: torch, faiss.")
+
+    if num_gpus < 1:
+        logger.warning("No GPUs available for backend '%s'; falling back to cpu.", backend)
+        return 'cpu'
+
+    if gpu_id < 0 or gpu_id >= num_gpus:
+        logger.warning(
+            "Requested GPU %s is not available for backend '%s' (detected %s); falling back to cpu.",
+            gpu_id,
+            backend,
+            num_gpus,
+        )
+        return 'cpu'
+
+    return f'cuda:{gpu_id}'
 
 
 # https://gist.github.com/leimao/37ff6e990b3226c2c9670a2cd1e4a6f5
