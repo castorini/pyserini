@@ -135,3 +135,80 @@ Documents are represented as sparse BM25 vectors.
 Relevance is computed via the inner product of query and document vectors.
 Dense retrieval models use learned dense vectors via transformers (not covered in this stage).
 This completes the conceptual framework stage before moving on to dense retrieval experiments.
+
+**## BGE-base Baseline for NFCorpus**
+
+Environment:
+- Linux / Ubuntu
+- Python 3.10+
+- Pyserini installed in local environment
+- CPU-only (for encoding); Faiss used for indexing and retrieval
+- HuggingFace model: BAAI/bge-base-en-v1.5
+
+Data:
+- Dataset: NFCorpus (BEIR)
+- Corpus size: 3,633 documents
+- Queries munged to TSV; qrels munged to TREC format
+
+Indexing:
+```bash
+python -m pyserini.encode \
+  input   --corpus collections/nfcorpus/corpus.jsonl \
+          --fields title text \
+  output  --embeddings indexes/nfcorpus.bge-base-en-v1.5 \
+          --to-faiss \
+  encoder --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+          --device cpu \
+          --pooling mean \
+          --fields title text \
+          --batch 32
+
+Retrieval:
+python -m pyserini.search.faiss \
+  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --pooling mean \
+  --index indexes/nfcorpus.bge-base-en-v1.5 \
+  --topics collections/nfcorpus/queries.tsv \
+  --output runs/run.beir.bge-base-en-v1.5.nfcorpus.txt \
+  --batch 128 --threads 8 \
+  --hits 1000
+
+Evaluation:
+python -m pyserini.eval.trec_eval \
+  -c -m ndcg_cut.10 collections/nfcorpus/qrels/test.qrels \
+  runs/run.beir.bge-base-en-v1.5.nfcorpus.txt
+
+Results:
+ndcg_cut_10    all   0.3682
+
+Interactive Retrieval:
+from pyserini.search.faiss import FaissSearcher
+from pyserini.encode import AutoQueryEncoder
+
+encoder = AutoQueryEncoder('BAAI/bge-base-en-v1.5', device='cpu', pooling='mean', l2_norm=True)
+searcher = FaissSearcher('indexes/nfcorpus.bge-base-en-v1.5', encoder)
+hits = searcher.search('How to Help Prevent Abdominal Aortic Aneurysms')
+
+for i in range(0, 10):
+    print(f'{i+1:2} {hits[i].docid:7} {hits[i].score:.6f}')
+
+Sample output:
+ 1 MED-4555 0.764650
+ 2 MED-4424 0.683133
+ 3 MED-4421 0.680794
+ 4 MED-4560 0.679586
+ 5 MED-2750 0.666892
+ 6 MED-2939 0.665468
+ 7 MED-2946 0.662942
+ 8 MED-1663 0.661462
+ 9 MED-3436 0.656931
+10 MED-4993 0.656215
+
+Confirms that interactive retrieval matches batch retrieval results
+
+Notes:
+
+Used CPU for encoding; batch size adjusted for performance
+Retrieval uses exact dot-product similarity (Faiss flat index)
+HuggingFace model requires authentication token if exceeding rate limits
+Workflow can also be performed with Contriever as an alternative dense retriever
