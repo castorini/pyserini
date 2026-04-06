@@ -105,7 +105,7 @@ class AnceQueryEncoder(QueryEncoder):
                                                               clean_up_tokenization_spaces=True)
             self.has_model = True
             self.tokenizer.do_lower_case = True
-        if (not self.has_model) and (not self.has_encoded_query):
+        if (not self.has_model) and (not self.has_encoded_queries):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
     def encode(self, query: str):

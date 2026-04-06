@@ -22,7 +22,7 @@ from pyserini.search import get_topics
 
 class TestEncodeSBert(unittest.TestCase):
     def test_msmarco_passage_sbert_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('sbert-msmarco-passage-dev-subset')
+        encoded = QueryEncoder.load_cached_queries('sbert-msmarco-passage-dev-subset', verbose=False)
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoded.embedding)

@@ -62,7 +62,7 @@ class TestAnce(unittest.TestCase):
         self.assertAlmostEqual(score, 0.3796, delta=0.0002)
 
     def test_msmarco_doc_ance_bf_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('ance_maxp-msmarco-doc-dev')
+        encoder = QueryEncoder.load_cached_queries('ance_maxp-msmarco-doc-dev', quiet=True)
         topics = get_topics('msmarco-doc-dev')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoder.embedding)
@@ -90,7 +90,7 @@ class TestAnce(unittest.TestCase):
         self.assertAlmostEqual(score, 0.8224, places=4)
 
     def test_nq_test_ance_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('dpr_multi-nq-test')
+        encoder = QueryEncoder.load_cached_queries('dpr_multi-nq-test', quiet=True)
         topics = get_topics('dpr-nq-test')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoder.embedding)
@@ -118,7 +118,7 @@ class TestAnce(unittest.TestCase):
         self.assertAlmostEqual(score, 0.8010, places=4)
 
     def test_trivia_test_ance_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('dpr_multi-trivia-test')
+        encoder = QueryEncoder.load_cached_queries('dpr_multi-trivia-test', quiet=True)
         topics = get_topics('dpr-trivia-test')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoder.embedding)

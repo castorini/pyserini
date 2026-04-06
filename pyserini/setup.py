@@ -37,5 +37,10 @@ def configure_classpath(anserini_root="."):
         raise Exception('No matching jar file found in {}'.format(os.path.abspath(anserini_root)))
 
     latest = max(paths, key=os.path.getctime)
+    logging_config = os.path.join(os.path.dirname(__file__), 'resources', 'logging.properties')
     jnius_config.add_classpath(latest)
     jnius_config.add_options('--add-modules=jdk.incubator.vector')
+    jnius_config.add_options('-Dslf4j.internal.verbosity=WARN')
+    # This gets rid of the following logging: org.apache.lucene.store.MemorySegmentIndexInputProvider <init>
+    # INFO: Using MemorySegmentIndexInput with Java 21; to disable start with -Dorg.apache.lucene.store.MMapDirectory.enableMemorySegments=false
+    jnius_config.add_options(f'-Djava.util.logging.config.file={logging_config}')

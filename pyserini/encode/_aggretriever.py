@@ -174,7 +174,7 @@ class AggretrieverQueryEncoder(QueryEncoder):
             self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir,
                                                            clean_up_tokenization_spaces=True)
             self.has_model = True
-        if (not self.has_model) and (not self.has_encoded_query):
+        if (not self.has_model) and (not self.has_encoded_queries):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
     def encode(self, query: str,  max_length: int=32):

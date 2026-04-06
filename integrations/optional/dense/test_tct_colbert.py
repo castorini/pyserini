@@ -108,7 +108,7 @@ class TestTctColBert(unittest.TestCase):
         self.assertAlmostEqual(score, 0.3647, delta=0.0002)
 
     def test_msmarco_passage_tct_colbert_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('tct_colbert-msmarco-passage-dev-subset')
+        encoded = QueryEncoder.load_cached_queries('tct_colbert-msmarco-passage-dev-subset')
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoded.embedding)

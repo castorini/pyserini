@@ -25,17 +25,17 @@ from pyserini.search import get_topics
 
 class TestEncodeAnce(unittest.TestCase):
     def test_ance_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('ance-msmarco-passage-dev-subset')
+        encoded = QueryEncoder.load_cached_queries('ance-msmarco-passage-dev-subset', verbose=False)
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoded.embedding)
 
-        encoded = QueryEncoder.load_encoded_queries('ance-dl19-passage')
+        encoded = QueryEncoder.load_cached_queries('ance-dl19-passage', verbose=False)
         topics = get_topics('dl19-passage')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoded.embedding)
 
-        encoded = QueryEncoder.load_encoded_queries('ance-dl20')
+        encoded = QueryEncoder.load_cached_queries('ance-dl20', verbose=False)
         topics = get_topics('dl20')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoded.embedding)
@@ -43,7 +43,7 @@ class TestEncodeAnce(unittest.TestCase):
     def test_ance_encoder(self):
         encoder = AnceQueryEncoder('castorini/ance-msmarco-passage')
 
-        cached_encoder = QueryEncoder.load_encoded_queries('ance-dl20')
+        cached_encoder = QueryEncoder.load_cached_queries('ance-dl20', verbose=False)
         topics = get_topics('dl20')
         # Just test the first 10 topics
         for t in dict(islice(topics.items(), 10)):

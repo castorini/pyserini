@@ -25,25 +25,25 @@ from pyserini.search import get_topics
 
 class TestEncodeDistilBertKd(unittest.TestCase):
     def test_distilbert_kd_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('distilbert_kd-msmarco-passage-dev-subset')
+        encoded = QueryEncoder.load_cached_queries('distilbert_kd-msmarco-passage-dev-subset', verbose=False)
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoded.embedding)
 
-        encoded = QueryEncoder.load_encoded_queries('distilbert_kd-dl19-passage')
+        encoded = QueryEncoder.load_cached_queries('distilbert_kd-dl19-passage', verbose=False)
         topics = get_topics('dl19-passage')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoded.embedding)
 
-        encoded = QueryEncoder.load_encoded_queries('distilbert_kd-dl20')
+        encoded = QueryEncoder.load_cached_queries('distilbert_kd-dl20', verbose=False)
         topics = get_topics('dl20')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoded.embedding)
 
     def test_distilbert_kd_encoder(self):
-        encoder = AutoQueryEncoder('sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco')
+        encoder = AutoQueryEncoder('sebastian-hofstaetter/distilbert-dot-margin_mse-T2-msmarco', verbose=False)
 
-        cached_encoder = QueryEncoder.load_encoded_queries('distilbert_kd-dl20')
+        cached_encoder = QueryEncoder.load_cached_queries('distilbert_kd-dl20', verbose=False)
         topics = get_topics('dl20')
         # Just test the first 10 topics
         for t in dict(islice(topics.items(), 10)):

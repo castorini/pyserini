@@ -397,13 +397,13 @@ def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
     raise ValueError(f'Unable to download prebuilt index at any known URLs.')
 
 
-def download_encoded_queries(query_name, force=False, verbose=True, mirror=None):
+def download_cached_queries(query_name, force=False, verbose=True, mirror=None):
     if query_name not in QUERY_INFO:
         raise ValueError(f'Unrecognized query name {query_name}')
     query_md5 = QUERY_INFO[query_name]['md5']
     for url in QUERY_INFO[query_name]['urls']:
         try:
-            return download_and_unpack_index(url, index_directory='queries', prebuilt=True, md5=query_md5)
+            return download_and_unpack_index(url, index_directory='queries', prebuilt=True, md5=query_md5, verbose=verbose)
         except (HTTPError, URLError) as e:
             print(f'Unable to download encoded query at {url}, trying next URL...')
     raise ValueError(f'Unable to download encoded query at any known URLs.')

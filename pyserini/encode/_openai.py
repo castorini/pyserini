@@ -77,7 +77,7 @@ class OpenAiQueryEncoder(QueryEncoder):
             self.tokenizer = tiktoken.get_encoding(tokenizer_name)
             self.max_length = max_length
             self.has_model = True
-        if (not self.has_model) and (not self.has_encoded_query):
+        if (not self.has_model) and (not self.has_encoded_queries):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
     @retry_with_delay

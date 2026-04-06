@@ -22,7 +22,7 @@ import pandas as pd
 import torch
 from tqdm import tqdm
 
-from pyserini.util import download_encoded_queries
+from pyserini.util import download_cached_queries
 
 
 class DocumentEncoder:
@@ -39,48 +39,53 @@ class DocumentEncoder:
 
 
 class QueryEncoder:
-    def __init__(self, encoded_query_dir: str = None):
+    def __init__(self, cache_dir: str = None):
         self.has_model = False
-        self.has_encoded_query = False
-        if encoded_query_dir:
-            self.embedding = self._load_embeddings(encoded_query_dir)
-            self.has_encoded_query = True
+        self.has_encoded_queries = False
+        if cache_dir:
+            self.embedding = self._load_embeddings(cache_dir)
+            self.has_encoded_queries = True
 
     def encode(self, query: str):
         return self.embedding[query]
 
     @classmethod
-    def load_encoded_queries(cls, encoded_query_name: str):
-        """Build a query encoder from a pre-encoded query; download the encoded queries if necessary.
+    def load_cached_queries(cls, name: str, verbose=True):
+        """Build a QueryEncoder from cached queries; download the cached queries if necessary.
 
         Parameters
         ----------
-        encoded_query_name : str
-            pre encoded query name.
+        name : str
+            Name of the cached queries.
 
         Returns
         -------
         QueryEncoder
-            Encoder built from the pre encoded queries.
+            QueryEncoder built from the cached queries.
         """
-        print(f'Attempting to initialize pre-encoded queries {encoded_query_name}.')
+        if verbose:
+            print(f'Attempting to initialize cached queries: {name}')
+
         try:
-            query_dir = download_encoded_queries(encoded_query_name)
+            dir = download_cached_queries(name, verbose=verbose)
         except ValueError as e:
             print(str(e))
             return None
 
-        print(f'Initializing {encoded_query_name}...')
-        return cls(encoded_query_dir=query_dir)
+        if verbose:
+            print(f'Initializing {name}...')
+        return cls(cache_dir=dir)
 
     @staticmethod
-    def _load_embeddings(encoded_query_dir):
-        df = pd.read_pickle(os.path.join(encoded_query_dir, 'embedding.pkl'))
+    def _load_embeddings(dir):
+        df = pd.read_pickle(os.path.join(dir, 'embedding.pkl'))
         return dict(zip(df['text'].tolist(), df['embedding'].tolist()))
 
 
 class JsonlCollectionIterator:
-    def __init__(self, collection_path: str, fields=None, docid_field=None, delimiter="\n"):
+    def __init__(self, collection_path: str, fields=None, docid_field=None, delimiter="\n", quiet=False):
+        self.quiet = quiet
+
         # Assume multimodal input files are located in the same directory as the collection file
         if os.path.isdir(collection_path):
             self.collection_dir = collection_path
@@ -112,15 +117,15 @@ class JsonlCollectionIterator:
         if self.shard_id == self.shard_num - 1:
             end_idx = total_len
         to_yield = {}
-        for idx in tqdm(range(start_idx, end_idx, self.batch_size)):
+        for idx in tqdm(range(start_idx, end_idx, self.batch_size), disable=self.quiet):
             for key in self.all_info:
                 to_yield[key] = self.all_info[key][idx: min(idx + self.batch_size, end_idx)]
             yield to_yield
 
     def _parse_fields_from_info(self, info, strict=True, strip_trailing_space=True):
         """
-        :params info: dict, containing all fields as speicifed in self.fields either under 
-        the key of the field name or under the key of 'contents'.  If under `contents`, this 
+        :params info: dict, containing all fields as specified in self.fields either under
+        the key of the field name or under the key of 'contents'.  If under `contents`, this
         function will parse the input contents into each fields based the self.delimiter
         return: List, each corresponds to the value of self.fields
         """
@@ -172,7 +177,7 @@ class JsonlCollectionIterator:
         all_info['id'] = []
         for filename in filenames:
             with open(filename) as f:
-                for line_i, line in tqdm(enumerate(f)):
+                for line_i, line in tqdm(enumerate(f), disable=self.quiet):
                     info = json.loads(line)
                     if self.docid_field:
                         _id = info.get(self.docid_field, None)

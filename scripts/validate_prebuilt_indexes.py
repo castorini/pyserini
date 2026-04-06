@@ -47,7 +47,7 @@ def check_lucene_dense_flat(index):
 def check_faiss(index):
     # dummy queries; there is no explicit validation...
     # we just try to initialize the index and make sure there are no exceptions
-    dummy_queries = QueryEncoder.load_encoded_queries('tct_colbert-msmarco-passage-dev-subset')
+    dummy_queries = QueryEncoder.load_cached_queries('tct_colbert-msmarco-passage-dev-subset')
     print('\n')
     for entry in index:
         print(f'# Validating "{entry}"...')
