@@ -53,7 +53,14 @@ class LuceneImpactSearcher:
         QueryEncoder to encode query text
     """
 
-    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], min_idf=0, encoder_type: str = 'pytorch', prebuilt_index_name=None):
+    def __init__(
+        self,
+        index_dir: str,
+        query_encoder: Union[QueryEncoder, str],
+        min_idf=0,
+        encoder_type: str = 'pytorch',
+        prebuilt_index_name=None
+    ):
         self.index_dir = index_dir
         self.idf = self._compute_idf(index_dir)
         self.min_idf = min_idf
@@ -76,7 +83,14 @@ class LuceneImpactSearcher:
             raise ValueError(f'Invalid encoder type: {encoder_type}')
 
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str], min_idf=0, encoder_type: str = 'pytorch'):
+    def from_prebuilt_index(
+        cls,
+        prebuilt_index_name: str,
+        query_encoder: Union[QueryEncoder, str],
+        min_idf=0,
+        encoder_type: str = 'pytorch',
+        verbose=True
+    ):
         """Build a searcher from a prebuilt index; download the index if necessary.
 
         Parameters
@@ -95,15 +109,18 @@ class LuceneImpactSearcher:
         LuceneImpactSearcher
             Searcher built from the prebuilt index.
         """
-        print(f'Attempting to initialize prebuilt index {prebuilt_index_name}.')
+        if verbose:
+            print(f'Attempting to initialize prebuilt index: {prebuilt_index_name}')
 
         try:
-            index_dir = download_prebuilt_index(prebuilt_index_name)
+            index_dir = download_prebuilt_index(prebuilt_index_name, verbose=verbose)
         except ValueError as e:
             print(str(e))
             return None
 
-        print(f'Initializing {prebuilt_index_name}...')
+        if verbose:
+            print(f'Initializing {prebuilt_index_name}...')
+
         return cls(index_dir, query_encoder, min_idf, encoder_type, prebuilt_index_name=prebuilt_index_name)
 
     def encode(self, query):
@@ -414,16 +431,27 @@ class SlimSearcher(LuceneImpactSearcher):
         self.sparse_vecs = [sparse_vecs[start:end] for start, end in tqdm(self.sparse_ranges)]
     
     @classmethod
-    def from_prebuilt_index(cls, encoded_corpus:str, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str], min_idf=0):
-        print(f'Attempting to initialize prebuilt index {prebuilt_index_name}.')
+    def from_prebuilt_index(
+        cls,
+        encoded_corpus: str,
+        prebuilt_index_name: str,
+        query_encoder: Union[QueryEncoder, str],
+        min_idf=0,
+        verbose=True
+    ):
+        if verbose:
+            print(f'Attempting to initialize prebuilt index: {prebuilt_index_name}')
+
         try:
-            index_dir = download_prebuilt_index(prebuilt_index_name)
-            encoded_corpus = download_encoded_corpus(encoded_corpus)
+            index_dir = download_prebuilt_index(prebuilt_index_name, verbose=verbose)
+            encoded_corpus = download_encoded_corpus(encoded_corpus, verbose=verbose)
         except ValueError as e:
             print(str(e))
             return None
 
-        print(f'Initializing {prebuilt_index_name}...')
+        if verbose:
+            print(f'Initializing {prebuilt_index_name}...')
+
         return cls(encoded_corpus, index_dir, query_encoder, min_idf)
 
     def search(self, q: str, k: int = 10, fields=dict()) -> List[JScoredDoc]:

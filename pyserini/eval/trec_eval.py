@@ -60,7 +60,10 @@ from pyserini.search import get_qrels_file
 
 
 def trec_eval(
-    args, query_id=None, return_per_query_results=False
+    args,
+    query_id=None,
+    return_per_query_results=False,
+    verbose=True
 ) -> float | dict[Any, float]:
     cmd_prefix = ['java', '-cp', jar_path, 'trec_eval']
 
@@ -160,10 +163,12 @@ def trec_eval(
     #   args: [-c -m judged.20 -m ndcg_cut.10 qrels run]  -> call: [-c -m ndcg_cut.10 qrels run]  -> print ndcg_cut.10
     #   args: [-c -m ndcg_cut.10 qrels run]               -> call: [-c -m ndcg_cut.10 qrels run]  -> print ndcg_cut.10
     if not judged_result or non_judge_k_metrics:
-        print(output)
+        if verbose:
+            print(output)
 
     for judged in judged_result:
-        print(judged)
+        if verbose:
+            print(judged)
 
     if temp_file:
         os.remove(temp_file)

@@ -41,7 +41,7 @@ class LuceneHnswDenseSearcher:
         Path to Lucene index directory.
     """
 
-    def __init__(self, index_dir: str, ef_search=100, encoder=None, prebuilt_index_name=None, verbose=False):
+    def __init__(self, index_dir: str, ef_search=100, encoder=None, prebuilt_index_name=None, verbose=True):
         self.index_dir = index_dir
 
         args = JHnswDenseSearcherArgs()
@@ -56,7 +56,7 @@ class LuceneHnswDenseSearcher:
         self.prebuilt_index_name = prebuilt_index_name
 
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str, ef_search=100, encoder=None, verbose=False):
+    def from_prebuilt_index(cls, prebuilt_index_name: str, ef_search=100, encoder=None, verbose=True):
         """Build a searcher from a prebuilt index; download the index if necessary.
 
         Parameters
@@ -74,7 +74,7 @@ class LuceneHnswDenseSearcher:
             Searcher initialized from the prebuilt index.
         """
         if verbose:
-            print(f'Attempting to initialize prebuilt index {prebuilt_index_name}.')
+            print(f'Attempting to initialize prebuilt index: {prebuilt_index_name}')
 
         try:
             index_dir = download_prebuilt_index(prebuilt_index_name, verbose=verbose)
@@ -166,7 +166,7 @@ class LuceneFlatDenseSearcher:
         self.prebuilt_index_name = prebuilt_index_name
 
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str, encoder=None, verbose=False):
+    def from_prebuilt_index(cls, prebuilt_index_name: str, encoder=None, verbose=True):
         """Build a searcher from a prebuilt index; download the index if necessary.
 
         Parameters
@@ -184,7 +184,8 @@ class LuceneFlatDenseSearcher:
             Searcher initialized from the prebuilt index.
         """
         if verbose:
-            print(f'Attempting to initialize prebuilt index {prebuilt_index_name}.')
+            print(f'Attempting to initialize prebuilt index: {prebuilt_index_name}')
+
         try:
             index_dir = download_prebuilt_index(prebuilt_index_name, verbose=verbose)
         except ValueError as e:

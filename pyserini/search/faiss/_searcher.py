@@ -85,7 +85,9 @@ class FaissSearcher:
         assert self.docids is None or self.num_docs == len(self.docids)
         if prebuilt_index_name:
             sparse_index = get_sparse_index(prebuilt_index_name)
-            self.ssearcher = LuceneSearcher.from_prebuilt_index(sparse_index)
+            # This searcher is for fetching the raw docs.
+            # When initializing, explicitly suppress logging output.
+            self.ssearcher = LuceneSearcher.from_prebuilt_index(sparse_index, verbose=False)
 
     @classmethod
     def from_prebuilt_index(
@@ -94,6 +96,7 @@ class FaissSearcher:
         query_encoder: QueryEncoder,
         normalize_distances: bool = False,
         faiss_device: str = "cpu",
+        verbose=True
     ):
         """Build a searcher from a prebuilt index; download the index if necessary.
 
@@ -113,7 +116,9 @@ class FaissSearcher:
         FaissSearcher
             Searcher built from the prebuilt faiss index.
         """
-        print(f'Attempting to initialize prebuilt index {prebuilt_index_name}.')
+        if verbose:
+            print(f'Attempting to initialize prebuilt index: {prebuilt_index_name}')
+
         # see integrations/papers/test_sigir2021.py - preserve working commands published in papers
         if prebuilt_index_name == 'msmarco-passage-tct_colbert-hnsw':
             prebuilt_index_name = 'msmarco-v1-passage.tct_colbert.hnsw'
@@ -122,12 +127,14 @@ class FaissSearcher:
             prebuilt_index_name = 'wikipedia-dpr-100w.dkrr-nq'
 
         try:
-            index_dir = download_prebuilt_index(prebuilt_index_name)
+            index_dir = download_prebuilt_index(prebuilt_index_name, verbose=verbose)
         except ValueError as e:
             print(str(e))
             return None
 
-        print(f'Initializing {prebuilt_index_name}...')
+        if verbose:
+            print(f'Initializing {prebuilt_index_name}...')
+
         return cls(index_dir, query_encoder, prebuilt_index_name, normalize_distances, faiss_device)
 
     @staticmethod

@@ -52,7 +52,7 @@ class BaseClipEncoder:
     def __init__(self, model_name, device='cuda:0', l2_norm=True):
         self.device = device
         self.model = CLIPModel.from_pretrained(model_name).to(device)
-        self.processor = CLIPProcessor.from_pretrained(model_name, clean_up_tokenization_spaces=True)
+        self.processor = CLIPProcessor.from_pretrained(model_name, clean_up_tokenization_spaces=True, use_fast=True)
         self.l2_norm = l2_norm
 
     def normalize_embeddings(self, embeddings):
