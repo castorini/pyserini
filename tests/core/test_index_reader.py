@@ -20,6 +20,7 @@ import os
 import shutil
 import tarfile
 import unittest
+import warnings
 from random import randint
 from urllib.request import urlretrieve
 
@@ -113,7 +114,18 @@ class TestIndexUtils(unittest.TestCase):
         train_vectors = vectorizer.get_vectors(train_docs)
         test_vectors = vectorizer.get_vectors(test_docs)
         clf = LogisticRegression()
-        clf.fit(train_vectors, train_labels)
+        # Catch and ignore warnings in _linear_loss.py:
+        # > RuntimeWarning: divide by zero encountered in matmul
+        # > RuntimeWarning: overflow encountered in matmul
+        # > RuntimeWarning: invalid value encountered in matmul
+        # Does not appear to effect test case.
+        with warnings.catch_warnings():
+            warnings.filterwarnings(
+                'ignore',
+                category=RuntimeWarning,
+                module='sklearn.linear_model._linear_loss'
+            )
+            clf.fit(train_vectors, train_labels)
         pred = clf.predict_proba(test_vectors)
         self.assertAlmostEqual(0.4630, pred[0][0], places=4)
         self.assertAlmostEqual(0.5370, pred[0][1], places=4)

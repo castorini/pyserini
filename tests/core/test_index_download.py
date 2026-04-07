@@ -27,12 +27,12 @@ class TestIndexDownload(unittest.TestCase):
         self.tmp_dir = f'tmp_{self.__class__.__name__}_{str(random.randint(0, 1000))}'
 
     def test_default_cache(self):
-        LuceneSearcher.from_prebuilt_index('cacm')
+        LuceneSearcher.from_prebuilt_index('cacm', verbose=False)
         self.assertTrue(os.path.exists(os.path.expanduser('~/.cache/pyserini/indexes')))
 
     def test_custom_cache(self):
         os.environ['PYSERINI_CACHE'] = self.tmp_dir
-        LuceneSearcher.from_prebuilt_index('cacm')
+        LuceneSearcher.from_prebuilt_index('cacm', verbose=False)
         self.assertTrue(os.path.exists(os.path.join(self.tmp_dir, 'indexes')))
 
     def tearDown(self):

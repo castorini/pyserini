@@ -289,7 +289,9 @@ def download_and_unpack_index(url, index_directory='indexes', local_filename=Fal
             print(f'{index_path} already exists, but force=True, removing {index_path} and fetching fresh copy...')
         shutil.rmtree(index_path)
 
-    print(f'Downloading index at {url}...')
+    if verbose:
+        print(f'Downloading index at {url}...')
+
     download_url(url, index_directory, local_filename=local_filename, verbose=False, md5=md5, expected_size=expected_size)
 
     if verbose:

@@ -26,7 +26,10 @@ from pyserini.util import get_cache_home
 class TestLuceneDenseSearch(unittest.TestCase):
     def test_lucene_hnsw_dense_searcher(self):
         searcher = LuceneHnswDenseSearcher.from_prebuilt_index(
-            'beir-v1.0.0-arguana.bge-base-en-v1.5.hnsw', encoder='BgeBaseEn15')
+            'beir-v1.0.0-arguana.bge-base-en-v1.5.hnsw',
+            encoder='BgeBaseEn15',
+            verbose=False
+        )
         topics = get_topics('beir-v1.0.0-arguana-test')
         qid = 'test-culture-ahrtsdlgra-con01a'
         q = topics[qid]['title']
@@ -75,7 +78,10 @@ class TestLuceneDenseSearch(unittest.TestCase):
 
     def test_lucene_hnsw_dense_searcher_batch(self):
         searcher = LuceneHnswDenseSearcher.from_prebuilt_index(
-            'beir-v1.0.0-arguana.bge-base-en-v1.5.hnsw', encoder='BgeBaseEn15')
+            'beir-v1.0.0-arguana.bge-base-en-v1.5.hnsw',
+            encoder='BgeBaseEn15',
+            verbose=False
+        )
         topics = get_topics('beir-v1.0.0-arguana-test')
         qids = ['test-culture-ahrtsdlgra-con01a', 'test-culture-ahrtsdlgra-con02a']
         queries = [topics[qids[0]]['title'], topics[qids[1]]['title']]
@@ -121,7 +127,10 @@ class TestLuceneDenseSearch(unittest.TestCase):
 
     def test_lucene_flat_dense_searcher(self):
         searcher = LuceneFlatDenseSearcher.from_prebuilt_index(
-            'beir-v1.0.0-arguana.bge-base-en-v1.5.flat', encoder='BgeBaseEn15')
+            'beir-v1.0.0-arguana.bge-base-en-v1.5.flat',
+            encoder='BgeBaseEn15',
+            verbose=False
+        )
         topics = get_topics('beir-v1.0.0-arguana-test')
         qid = 'test-culture-ahrtsdlgra-con01a'
         q = topics[qid]['title']
@@ -170,7 +179,10 @@ class TestLuceneDenseSearch(unittest.TestCase):
 
     def test_lucene_flat_dense_searcher_batch(self):
         searcher = LuceneFlatDenseSearcher.from_prebuilt_index(
-            'beir-v1.0.0-arguana.bge-base-en-v1.5.flat', encoder='BgeBaseEn15')
+            'beir-v1.0.0-arguana.bge-base-en-v1.5.flat',
+            encoder='BgeBaseEn15',
+            verbose=False
+        )
         topics = get_topics('beir-v1.0.0-arguana-test')
         qids = ['test-culture-ahrtsdlgra-con01a', 'test-culture-ahrtsdlgra-con02a']
         queries = [topics[qids[0]]['title'], topics[qids[1]]['title']]
