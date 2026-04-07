@@ -25,6 +25,10 @@ class TestRestServer(unittest.TestCase):
     def setUpClass(cls):
         cls.client = TestClient(app)
 
+    @classmethod
+    def tearDownClass(cls):
+        cls.client.close()
+
     def test_docs_available(self):
         response = self.client.get('/docs')
         self.assertEqual(response.status_code, 200)
