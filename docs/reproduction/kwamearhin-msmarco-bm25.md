@@ -212,3 +212,52 @@ Used CPU for encoding; batch size adjusted for performance
 Retrieval uses exact dot-product similarity (Faiss flat index)
 HuggingFace model requires authentication token if exceeding rate limits
 Workflow can also be performed with Contriever as an alternative dense retriever
+
+- 2026-04-07: Verified dense and sparse retrieval on NFCorpus using Pyserini (commit 218da76).
+
+  ### Dense Retrieval (Faiss / Bi-encoder)
+  - Used Pyserini dense retrieval pipeline with a pretrained encoder.
+  - Successfully encoded query into dense vector representation.
+  - Performed retrieval over dense index.
+  - Query:
+        "How to Help Prevent Abdominal Aortic Aneurysms"
+  - Retrieved top-k semantically similar documents.
+  - Verified that results are relevant even without exact keyword matches.
+  - Confirms understanding:
+        Dense retrieval = similarity (dot product) in embedding space.
+
+  ### Sparse Retrieval (BM25 / Lucene)
+  - Indexed NFCorpus using Pyserini:
+        Total documents indexed: 3,633
+  - Encountered missing Anserini JAR → resolved by building from source.
+  - Built fat jar:
+        anserini-1.7.2-SNAPSHOT-fatjar.jar
+  - Placed jar in:
+        pyserini/resources/jars/
+  - Fixed Java-Lucene compatibility issue (MemorySegmentIndexInputProvider).
+  - Initialized LuceneSearcher with index:
+        ~/research/pyserini/indexes/lucene.nfcorpus
+
+  - Query:
+        "How to Help Prevent Abdominal Aortic Aneurysms"
+
+  - Top 10 BM25 results:
+        1 MED-4555 11.9305
+        2 MED-4423  8.4771
+        3 MED-3180  7.1896
+        4 MED-2718  6.0102
+        5 MED-1309  5.8181
+        6 MED-4424  5.7448
+        7 MED-1705  5.6101
+        8 MED-4902  5.3639
+        9 MED-1009  5.2533
+       10 MED-1512  5.2068
+
+  - Verified BM25 retrieval works correctly.
+
+  ### Key Takeaways
+  - Dense and sparse retrieval follow the same conceptual framework:
+        query representation vs document representation
+  - Dense retrieval uses learned embeddings.
+  - Sparse retrieval uses term-based weighting (BM25).
+  - In both cases, ranking is based on similarity scoring.
