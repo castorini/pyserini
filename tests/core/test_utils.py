@@ -32,7 +32,7 @@ class TestIterateCollection(unittest.TestCase):
         expected_md5 = info.get("md5", None)
 
         with tempfile.TemporaryDirectory(prefix="prebuilt-index-") as directory:
-            tarball_path = download_url(url, directory, md5=expected_md5, expected_size=expected_size)
+            tarball_path = download_url(url, directory, md5=expected_md5, expected_size=expected_size, verbose=False)
             self.assertTrue(os.path.exists(tarball_path), "Downloaded tarball not found on disk.")
 
     def test_prebuilt_index_download_size_mismatch_raises(self):
@@ -43,7 +43,7 @@ class TestIterateCollection(unittest.TestCase):
 
         with tempfile.TemporaryDirectory(prefix="prebuilt-index-") as directory:
             with self.assertRaises((AssertionError, ValueError)):
-                download_url(url, directory, expected_size=1, force=True)
+                download_url(url, directory, expected_size=1, force=True, verbose=False)
 
     def test_prebuilt_index_download_md5_mismatch_raises(self):
         """Negative case: wrong md5 should raise."""
@@ -55,7 +55,7 @@ class TestIterateCollection(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="prebuilt-index-") as directory:
             bad_md5 = "0" * 32
             with self.assertRaises((AssertionError, ValueError)):
-                download_url(url, directory, md5=bad_md5, expected_size=expected_size, force=True)
+                download_url(url, directory, md5=bad_md5, expected_size=expected_size, force=True, verbose=False)
 
     def test_download_and_unpack_index_sanity(self):
         """
