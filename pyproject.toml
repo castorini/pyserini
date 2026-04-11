@@ -26,31 +26,29 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = [
-    "tqdm",
-    "pyyaml",
-    "requests",
-    "Cython",
+    "datasets",
+    "fastapi>=0.124",
+    "fastmcp>=2.14",
+    "flask",
+    "matplotlib",
     "numpy>=2",
-    "pandas",
-    "pyjnius>=1.7.0",
-    "scikit-learn",
-    "scipy",
-    "transformers>=4.57",
-    "torch>=2.9",
     "onnxruntime>=1.23",
     "openai>=2.12.0",
+    "pandas",
+    "pillow>=12",
+    "pyjnius>=1.7.0",
+    "pyyaml",
+    "requests",
+    "scikit-learn",
+    "scipy",
     "sentencepiece>=0.2",
     "tiktoken>=0.12",
-    "flask",
-    "pillow>=12",
-    "fastapi>=0.124",
-    "uvicorn>=0.38",
-    "fastmcp>=2.14",
-    "datasets",
-    "matplotlib",
-    "pytest"
+    "torch>=2.9",
+    "tqdm",
+    "transformers>=4.57",
+    "uvicorn>=0.38"
 ]
 
 [project.urls]
@@ -59,10 +57,6 @@ Issues = "https://github.com/castorini/pyserini/issues"
 
 [project.optional-dependencies]
 optional = [
-    "faiss>1.7.0",
-    "spacy>=3.2.1",
-    "pyarrow>=15.0.0",
-    "pybind11>=2.11.0",
     "uniir-for-pyserini>=0.1.3",
     "vlm2vec-for-pyserini>=0.2.0"
 ]
