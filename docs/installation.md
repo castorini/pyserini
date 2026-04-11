@@ -1,6 +1,6 @@
 # Pyserini: Detailed Installation Guide
 
-Pyserini is built on Python 3.11 (other versions might work, but YMMV).
+Pyserini is built on Python 3.12 (other versions might work, but YMMV).
 See [`pyproject.toml`](../pyproject.toml) for a detailed list of dependencies.
 At a high level:
 
@@ -10,13 +10,13 @@ At a high level:
 
 A `pip` installation will automatically pull in major dependencies without any major issues 🤞:
 
-```
+```bash
 pip install pyserini
 ```
 
 The toolkit also has a number of optional dependencies:
 
-```
+```bash
 pip install 'pyserini[optional]'
 ```
 
@@ -25,16 +25,16 @@ It might be a good idea to install it yourself separately.
 
 ## PyPI Installation Walkthrough
 
-Below is a step-by-step Pyserini installation guide based on Python 3.11.
+Below is a step-by-step Pyserini installation guide based on Python 3.12.
 We recommend using [Anaconda](https://www.anaconda.com/) and assume you have already installed it.
-The following instructions are up to date as of June 2025 and _should_ work.
+The following instructions are up to date as of April 2026 and _should_ work.
 
 ### Mac
 
 If you're on a Mac with an M-series (i.e., ARM) processor:
 
 ```bash
-conda create -n pyserini python=3.11 -y
+conda create -n pyserini python=3.12 -y
 conda activate pyserini
 
 # Inside the new environment...
@@ -54,22 +54,12 @@ pip install pyserini==latest
 pip install 'pyserini[optional]==latest'
 ```
 
-If you're on an Intel-based Mac, adjust the recipe accordingly for `osx-64`.
-
-❗ If you get `numpy` v2 vs. v1 issues, you might need to explicitly downgrade `numpy`:
-
-```
-pip install numpy==1.26.4
-```
-
-For more details, see https://github.com/facebookresearch/faiss/issues/3526
-
 ### Linux
 
 Follow the recipe below:
 
 ```bash
-conda create -n pyserini python=3.11 -y
+conda create -n pyserini python=3.12 -y
 conda activate pyserini
 
 # Inside the new environment...
@@ -90,20 +80,6 @@ pip install pyserini==latest
 # If you want the optional dependencies, otherwise skip; the temperamental packages are already installed at this point
 # so should be smooth...
 pip install 'pyserini[optional]==latest'
-```
-
-❗ If you get `numpy` v2 vs. v1 issues, you might need to explicitly downgrade `numpy`:
-
-```
-pip install numpy==1.26.4
-```
-
-For more details, see https://github.com/facebookresearch/faiss/issues/3526
-
-If you want to use UniIR models, it is also included in pyserini[optional].
-However, you will need to make sure you also install the CLIP model with:
-```bash
-pip install git+https://github.com/openai/CLIP.git
 ```
 
 ### Verifying the Installation
@@ -127,7 +103,7 @@ python -m pyserini.eval.msmarco_passage_eval \
 
 Expected Results:
 
-```
+```text
 MRR @10: 0.18741227770955546
 ```
 
@@ -152,10 +128,10 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage \
 
 Expected Results:
 
-```
-map                   	all	0.4486
-ndcg_cut_10           	all	0.7016
-recall_1000           	all	0.8441
+```text
+map                       all    0.4486
+ndcg_cut_10               all    0.7016
+recall_1000               all    0.8441
 ```
 
 To confirm that dense retrieval is working correctly with Faiss, run our TCT-ColBERT (v2) model on the MS MARCO passage ranking task:
@@ -175,7 +151,7 @@ python -m pyserini.eval.msmarco_passage_eval \
 
 Expected Results:
 
-```
+```text
 #####################
 MRR @10: 0.3584
 QueriesRanked: 6980
@@ -238,7 +214,7 @@ At the University of Waterloo, we have two (CPU) development servers, `tuna` and
 Note that on these two servers, the root disk (where your home directory is mounted) doesn't have much space.
 So, you need to set pyserini cache path to scratch space.
 
-- For tuna, create the dir `/tuna1/scratch/{username}`
-- For orca, create the dir `/store/scratch/{username}`
++ For tuna, create the dir `/tuna1/scratch/{username}`
++ For orca, create the dir `/store/scratch/{username}`
 
 Set the `PYSERINI_CACHE` environment variable to point to the directory you created above.

@@ -21,21 +21,20 @@ For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.34632
 
 ✨ Guide to working with the [MS MARCO 2.1 Document Corpus](docs/experiments-msmarco-v2.1.md) for TREC 2024 RAG Track.
 
-
 ## 🎬 Installation
 
 Install via PyPI:
 
-```
+```bash
 pip install pyserini
 ```
 
-Pyserini is built on Python 3.11 (other versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
+Pyserini is built on Python 3.12 (other versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
 A `pip` installation will automatically pull in major dependencies such as [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/).
 
 The toolkit also has a number of optional dependencies:
 
-```
+```bash
 pip install 'pyserini[optional]'
 ```
 
@@ -43,7 +42,7 @@ Notably, `faiss-cpu` is included as an optional dependency; the package can be t
 It might be a good idea to install it yourself separately.
 
 The software ecosystem is rapidly evolving and a potential source of frustration is incompatibility among different versions of underlying dependencies.
-We provide additional detailed installation instructions [here](./docs/installation.md).
+We provide additional detailed installation instructions in [a separate page](./docs/installation.md).
 
 If you're planning on just _using_ Pyserini, then the `pip` instruction (without the optional dependencies) should be fine.
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
