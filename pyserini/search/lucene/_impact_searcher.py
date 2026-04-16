@@ -42,6 +42,10 @@ logger = logging.getLogger(__name__)
 JSimpleImpactSearcher = autoclass('io.anserini.search.SimpleImpactSearcher')
 
 
+def _reader_has_term_vectors(reader) -> bool:
+    return reader.termVectors().get(0) is not None
+
+
 class LuceneImpactSearcher:
     """Wrapper class for ``ImpactSearcher`` in Anserini.
 
@@ -264,7 +268,7 @@ class LuceneImpactSearcher:
         filter_terms: bool
             Whether to remove non-English terms.
         """
-        if self.object.reader.getTermVectors(0):
+        if _reader_has_term_vectors(self.object.reader):
             self.object.set_rm3(None, fb_terms, fb_docs, original_query_weight, debug, filter_terms)
         elif self.object.reader.document(0).getField('raw'):
             self.object.set_rm3('JsonVectorCollection', fb_terms, fb_docs, original_query_weight, debug, filter_terms)
@@ -313,7 +317,7 @@ class LuceneImpactSearcher:
         use_negative : bool
             Rocchio parameter to use negative labels.
         """
-        if self.object.reader.getTermVectors(0):
+        if _reader_has_term_vectors(self.object.reader):
             self.object.set_rocchio(None, top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
                                     alpha, beta, gamma, debug, use_negative)
         elif self.object.reader.document(0).getField('raw'):
