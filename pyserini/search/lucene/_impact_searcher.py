@@ -46,6 +46,10 @@ def _reader_has_term_vectors(reader) -> bool:
     return reader.termVectors().get(0) is not None
 
 
+def _reader_has_stored_raw_field(reader) -> bool:
+    return reader.storedFields().document(0).getField('raw') is not None
+
+
 class LuceneImpactSearcher:
     """Wrapper class for ``ImpactSearcher`` in Anserini.
 
@@ -270,7 +274,7 @@ class LuceneImpactSearcher:
         """
         if _reader_has_term_vectors(self.object.reader):
             self.object.set_rm3(None, fb_terms, fb_docs, original_query_weight, debug, filter_terms)
-        elif self.object.reader.document(0).getField('raw'):
+        elif _reader_has_stored_raw_field(self.object.reader):
             self.object.set_rm3('JsonVectorCollection', fb_terms, fb_docs, original_query_weight, debug, filter_terms)
         elif self.prebuilt_index_name in ['msmarco-v1-passage', 'msmarco-v1-doc', 'msmarco-v1-doc-segmented']:
             self.object.set_rm3('JsonCollection', fb_terms, fb_docs, original_query_weight, debug, filter_terms)
@@ -320,7 +324,7 @@ class LuceneImpactSearcher:
         if _reader_has_term_vectors(self.object.reader):
             self.object.set_rocchio(None, top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
                                     alpha, beta, gamma, debug, use_negative)
-        elif self.object.reader.document(0).getField('raw'):
+        elif _reader_has_stored_raw_field(self.object.reader):
             self.object.set_rocchio('JsonVectorCollection', top_fb_terms, top_fb_docs, bottom_fb_terms, bottom_fb_docs,
                                     alpha, beta, gamma, debug, use_negative)
         elif self.prebuilt_index_name in ['msmarco-v1-passage', 'msmarco-v1-doc', 'msmarco-v1-doc-segmented']:
