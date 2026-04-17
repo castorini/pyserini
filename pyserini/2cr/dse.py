@@ -119,7 +119,8 @@ def run_conditions(args):
                                 elif metric == 'Recall@10':
                                     trec_eval_metric = '-c -m recall.10'
                                 
-                                score = float(run_eval_and_return_metric(metric, dataset, trec_eval_metric, runfile)) * 100
+                                score = float(run_eval_and_return_metric(metric, dataset,
+                                    trec_eval_metric, runfile, display_command=args.display_commands)) * 100
 
 
                             if math.isclose(score, float(expected[metric]), abs_tol=0.1): 

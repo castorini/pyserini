@@ -208,7 +208,8 @@ def run_conditions(args):
                                 continue
 
                             score = float(run_eval_and_return_metric(metric, f'bright-{dataset}',
-                                                                     trec_eval_metric_definitions[metric], runfile))
+                                trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
+
                             if math.isclose(score, float(expected[metric])):
                                 result = ok_str
                             # If results are within 0.005, just call it "OKish".

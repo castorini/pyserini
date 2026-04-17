@@ -387,7 +387,7 @@ def run_conditions(args):
                                 qrels = f'{eval_key}-{split}'
 
                             score = float(run_eval_and_return_metric(metric, qrels,
-                                                                     trec_eval_metric_definitions[metric], runfile))
+                                trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
 
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
