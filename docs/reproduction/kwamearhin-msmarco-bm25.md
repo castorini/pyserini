@@ -53,7 +53,7 @@ No issues encountered. Results are consistent with the reported Pyserini BM25 ba
 No major issues observed.
 
 
-### A Conceptual Framework for Retrieval
+# A Conceptual Framework for Retrieval
 
 This section reproduces the “A Conceptual Framework for Retrieval” stage in the Pyserini onboarding.
 
