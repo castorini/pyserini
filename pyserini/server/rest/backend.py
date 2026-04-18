@@ -30,7 +30,7 @@ from pyserini.server.rest.index_config import load_index_aliases
 from pyserini.util import download_prebuilt_index
 
 
-class LuceneRestBackend:
+class LuceneSearcherRestBackend:
     """Resolve indexes, cache ``LuceneSearcher`` instances, run search and doc lookup."""
 
     def __init__(self, index_config_path: str | None = None):

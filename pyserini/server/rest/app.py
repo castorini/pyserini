@@ -20,9 +20,6 @@ FastAPI server exposing the same REST surface as Anserini (``openapi.yaml``).
 Usage:
     python -m pyserini.server.rest [--host HOST] [--port PORT] [--index-config PATH]
 
-Environment:
-    PYSERINI_INDEX_CONFIG: optional path to YAML index aliases (same as Anserini ``--index-config``).
-
 Endpoints:
     GET /openapi.yaml     : OpenAPI specification (same document as Anserini).
     GET /v1/{index}/search?query=...&hits=10&parse=true
@@ -33,7 +30,6 @@ Endpoints:
 from __future__ import annotations
 
 import json
-import os
 from contextlib import asynccontextmanager
 from importlib import resources
 
@@ -42,7 +38,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, PlainTextResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from pyserini.server.rest.backend import LuceneRestBackend
+from pyserini.server.rest.backend import LuceneSearcherRestBackend
 from pyserini.server.rest.routes import v1
 
 SERVER_NAME = 'Pyserini API'
@@ -67,13 +63,9 @@ def _load_openapi_text() -> str:
 
 
 def create_app(index_config_path: str | None = None) -> FastAPI:
-    effective_config = index_config_path
-    if effective_config is None:
-        effective_config = os.environ.get('PYSERINI_INDEX_CONFIG')
-
     @asynccontextmanager
     async def lifespan(app: FastAPI):
-        app.state.lucene_rest = LuceneRestBackend(effective_config)
+        app.state.lucene_rest = LuceneSearcherRestBackend(index_config_path)
         yield
         app.state.lucene_rest.close_all()
 
@@ -134,12 +126,7 @@ def main():
     parser = argparse.ArgumentParser(description='Run the Pyserini REST API server (Anserini-compatible).')
     parser.add_argument('--host', type=str, default='0.0.0.0', help='Bind address (default: 0.0.0.0)')
     parser.add_argument('--port', type=int, default=8081, help='Port (default: 8081)')
-    parser.add_argument(
-        '--index-config',
-        type=str,
-        default=None,
-        help='YAML file mapping index aliases to paths (Anserini --index-config)',
-    )
+    parser.add_argument('--index-config', type=str, default=None, help='YAML file mapping index aliases to paths (Anserini --index-config)')
     args = parser.parse_args()
 
     if args.port <= 0 or args.port > 65535:

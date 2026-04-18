@@ -141,6 +141,35 @@ class TestRestServer(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn('Unable to open index', response.json().get('error', ''))
 
+    def test_index_path_with_slashes_reaches_handler(self):
+        """Multi-segment {index:path} must not 404 before backend (see routes/v1.py)."""
+        token = 'nested/index/__not_openable__'
+        response = self.client.get(
+            f'/{API_VERSION}/{token}/search',
+            params={'query': 'text', 'hits': 1},
+        )
+        self.assertEqual(response.status_code, 400, msg=response.text)
+        err = response.json().get('error', '')
+        self.assertIn('Unable to open index', err)
+        self.assertIn(token, err)
+
+    def test_index_absolute_path_via_double_slash(self):
+        """Absolute paths need an empty segment after /v1/ so {index} includes a leading slash."""
+        response = self.client.get(
+            f'/{API_VERSION}//__no_such_root_index__/search',
+            params={'query': 'text', 'hits': 1},
+        )
+        self.assertEqual(response.status_code, 400, msg=response.text)
+        err = response.json().get('error', '')
+        self.assertIn('Unable to open index', err)
+        self.assertIn('/__no_such_root_index__', err)
+
+    def test_doc_route_multi_segment_index_reaches_handler(self):
+        response = self.client.get(f'/{API_VERSION}/nested/idx/doc/1')
+        self.assertEqual(response.status_code, 400, msg=response.text)
+        self.assertIn('Unable to open index', response.json().get('error', ''))
+        self.assertIn('nested/idx', response.json().get('error', ''))
+
     def test_search_parse_false_doc_is_string(self):
         response = self.client.get(
             f'/{API_VERSION}/msmarco-v1-passage/search',

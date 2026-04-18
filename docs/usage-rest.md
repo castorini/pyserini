@@ -32,8 +32,6 @@ indexes:
 python -m pyserini.server.rest --index-config /path/to/indexes.yaml
 ```
 
-You can also set **`PYSERINI_INDEX_CONFIG`** to that path instead of passing `--index-config`.
-
 ## Discovery and documentation
 
 | URL | Purpose |
@@ -48,9 +46,13 @@ All search and document routes use the **`GET`** method only. Errors return JSON
 
 ### Index parameter `{index}`
 
-The path segment `{index}` is interpreted in order:
+The `{index}` path parameter may contain **slashes**, so a relative filesystem path can appear directly under `/v1/` (for example `GET /v1/project/indexes/msmarco/search`).
 
-1. **Alias** from `--index-config` / `PYSERINI_INDEX_CONFIG`, if defined.
+For an **absolute** filesystem path (leading `/`), use an **extra slash** after `/v1/` so the first URL segment is empty and the index value keeps its leading slash—for example `GET /v1//data/indexes/msmarco/search` for index `/data/indexes/msmarco`.
+
+That value is interpreted in order:
+
+1. **Alias** from `--index-config`, if that option was passed when starting the server.
 2. **Local directory** that exists (path to a Lucene index on disk).
 3. **Prebuilt index name** known to Pyserini (e.g. `msmarco-v1-passage`); the index is downloaded if needed.
 

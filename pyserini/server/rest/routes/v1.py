@@ -14,7 +14,12 @@
 # limitations under the License.
 #
 
-"""Anserini OpenAPI v1 routes: ``GET /v1/{index}/search`` and ``GET /v1/{index}/doc/{docid}``."""
+"""Anserini OpenAPI v1 routes: ``GET /v1/{index}/search`` and ``GET /v1/{index}/doc/{docid}``.
+
+``{index}`` uses a path-style converter so filesystem paths may contain ``/`` (e.g.
+``/v1/project/indexes/msmarco/search``). For an absolute index path, use a URL with an
+empty segment after the API prefix, e.g. ``/v1//data/indexes/msmarco/search``.
+"""
 
 from __future__ import annotations
 
@@ -23,7 +28,7 @@ import asyncio
 from fastapi import APIRouter, Query, Request
 from fastapi.responses import JSONResponse
 
-from pyserini.server.rest.backend import LuceneRestBackend
+from pyserini.server.rest.backend import LuceneSearcherRestBackend
 
 router = APIRouter(tags=['v1'])
 
@@ -45,11 +50,11 @@ def _parse_bool(raw: str | None, default: bool, name: str) -> tuple[bool | None,
     return None, _error(400, f"Parameter '{name}' must be 'true' or 'false'")
 
 
-def _backend(request: Request) -> LuceneRestBackend:
+def _backend(request: Request) -> LuceneSearcherRestBackend:
     return request.app.state.lucene_rest
 
 
-@router.get('/{index}/search')
+@router.get('/{index:path}/search')
 async def search_v1(
     request: Request,
     index: str,
@@ -83,7 +88,7 @@ async def search_v1(
     return payload
 
 
-@router.get('/{index}/doc/{docid}')
+@router.get('/{index:path}/doc/{docid}')
 async def get_document_v1(
     request: Request,
     index: str,
