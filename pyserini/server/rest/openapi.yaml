@@ -1,0 +1,198 @@
+openapi: 3.0.3
+info:
+  title: Pyserini REST API
+  version: v1
+  description: Lightweight REST API for searching Pyserini indexes.
+servers:
+  - url: /v1
+    description: Local development server
+paths:
+  /{index}/search:
+    get:
+      summary: Search an index
+      operationId: searchV1
+      parameters:
+        - name: index
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Index path or prebuilt index name.
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Query.
+        - name: hits
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 10
+          description: Number of hits to return.
+        - name: parse
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
+          description: If true, try to return parsed document contents; if false, return the raw stored document string.
+      responses:
+        "200":
+          description: Search results.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResponse"
+        "400":
+          description: Invalid request parameters.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Route not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed. Only GET is supported.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /{index}/doc/{docid}:
+    get:
+      summary: Fetch a document by docid
+      operationId: getDocumentV1
+      parameters:
+        - name: index
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Index path or prebuilt index name.
+        - name: docid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Document id in the index.
+        - name: parse
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
+          description: If true, try to return parsed document contents; if false, return the raw stored document string.
+      responses:
+        "200":
+          description: Document found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DocumentResponse"
+        "404":
+          description: Document not found, or route not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "400":
+          description: Invalid request parameters.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed. Only GET is supported.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    Query:
+      type: object
+      properties:
+        text:
+          type: string
+      required: [text]
+    Candidate:
+      type: object
+      properties:
+        docid:
+          type: string
+        score:
+          type: number
+          format: float
+        rank:
+          type: integer
+          minimum: 1
+        doc:
+          allOf:
+            - $ref: "#/components/schemas/DocumentPayload"
+          description: Document in JSON or as a string, depending on the "parse" parameter.
+      required: [docid, score, rank, doc]
+    SearchResponse:
+      type: object
+      properties:
+        api:
+          type: string
+          example: v1
+        index:
+          type: string
+        query:
+          $ref: "#/components/schemas/Query"
+        candidates:
+          type: array
+          items:
+            $ref: "#/components/schemas/Candidate"
+      required: [api, index, query, candidates]
+    DocumentResponse:
+      type: object
+      properties:
+        api:
+          type: string
+          example: v1
+        index:
+          type: string
+        docid:
+          type: string
+        doc:
+          allOf:
+            - $ref: "#/components/schemas/DocumentPayload"
+          description: Document in JSON or as a string, depending on the "parse" parameter.
+      required: [api, index, docid, doc]
+    DocumentPayload:
+      description: May be null, a string, or a JSON object depending on index contents and setting of "parse" parameter.
+      nullable: true
+      oneOf:
+        - type: string
+        - type: object
+          additionalProperties: true
+        - type: array
+          items: {}
+        - type: number
+        - type: boolean
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required: [error]

@@ -8,6 +8,9 @@ include = ["pyserini*"]
 exclude = ["tests", "integrations"]
 namespaces = false
 
+[tool.setuptools.package-data]
+"pyserini.server.rest" = ["openapi.yaml"]
+
 [tool.black]
 skip-string-normalization = true
 
