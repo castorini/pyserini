@@ -85,7 +85,7 @@ class LuceneSearcherRestBackend:
                 doc = searcher.doc(hit.docid)
                 candidates.append({
                     'docid': hit.docid,
-                    'score': float(hit.score),
+                    'score': round(float(hit.score), 6),
                     'rank': rank,
                     'doc': format_lucene_document(doc, parse),
                 })
