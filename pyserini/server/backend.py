@@ -54,6 +54,10 @@ class DocumentNotFoundError(BackendError):
     """Requested document id is not in the index."""
 
 
+def _norm_opt_str(value: str | None) -> str:
+    return (value or '').strip()
+
+
 class SharedSearchBackend:
     """Shared backend for REST and MCP search/doc retrieval."""
 
@@ -97,6 +101,35 @@ class SharedSearchBackend:
         except (ValueError, OSError):
             return None
 
+    @staticmethod
+    def _params_require_searcher_rebuild(
+        config: IndexConfig,
+        *,
+        ef_search: int | None,
+        encoder: str | None,
+        instruction_config: str | None,
+    ) -> bool:
+        """Whether the open searcher must be recreated because encoding / HNSW / UniIR settings changed."""
+        idx = config.index_type or ''
+        if not idx or config.searcher is None or idx == 'tf':
+            return False
+
+        enc_changed = encoder is not None and _norm_opt_str(encoder) != _norm_opt_str(config.encoder)
+
+        if idx == 'lucene_flat' or idx == 'impact':
+            return enc_changed
+        if idx == 'lucene_hnsw':
+            ef_changed = ef_search is not None and ef_search != config.ef_search
+            return enc_changed or ef_changed
+        if idx == 'faiss':
+            if config.name in FAISS_INDEX_INFO_M_BEIR:
+                instr_changed = instruction_config is not None and _norm_opt_str(instruction_config) != _norm_opt_str(
+                    config.instruction_config
+                )
+                return enc_changed or instr_changed
+            return enc_changed
+        return False
+
     def _ensure_index(
         self,
         index_name: str,
@@ -104,27 +137,34 @@ class SharedSearchBackend:
         allow_local: bool = False,
         ef_search: int | None = None,
         encoder: str | None = None,
-        query_generator: str | None = None,
         instruction_config: str | None = None,
     ) -> IndexConfig:
         with self._lock_for_index_name(index_name):
             config = self.indexes.get(index_name)
             if config and config.searcher is not None:
-                if ef_search is not None:
-                    config.ef_search = ef_search
-                if encoder:
-                    config.encoder = encoder
-                if query_generator:
-                    config.query_generator = query_generator
-                if instruction_config:
-                    config.instruction_config = instruction_config
-                return config
+                need_rebuild = config.index_type != 'tf' and self._params_require_searcher_rebuild(
+                    config, ef_search=ef_search, encoder=encoder, instruction_config=instruction_config
+                )
+                if need_rebuild:
+                    try:
+                        config.searcher.close()
+                    except Exception:
+                        pass
+                    del self.indexes[index_name]
+                    config = None
+                else:
+                    if ef_search is not None:
+                        config.ef_search = ef_search
+                    if encoder:
+                        config.encoder = encoder
+                    if instruction_config:
+                        config.instruction_config = instruction_config
+                    return config
 
             config = config or IndexConfig(
                 name=index_name,
                 ef_search=ef_search,
                 encoder=encoder,
-                query_generator=query_generator,
                 instruction_config=instruction_config,
             )
             searcher: LuceneSearcher | LuceneFlatDenseSearcher | LuceneHnswDenseSearcher | LuceneImpactSearcher | FaissSearcher | None = None
@@ -371,7 +411,6 @@ class SharedSearchBackend:
             allow_local=allow_local_index,
             ef_search=ef_search,
             encoder=encoder,
-            query_generator=query_generator,
             instruction_config=instruction_config,
         )
 

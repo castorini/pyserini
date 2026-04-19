@@ -81,7 +81,7 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
         )
 
     @mcp.tool()
-    def get_document(docid: str, index: str = "", index_name: str | None = None, parse: bool = True):
+    def get_document(docid: str, index: str, parse: bool = True):
         """
         Retrieve the full text and image (if available) of a document by its ID from a given index.
 
@@ -93,16 +93,15 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
         Returns:
             Document with full text and image (if available)
         """
-        resolved_index = index_name or index
-        logger.debug('Retrieving document %s from index %s (parse=%s)', docid, resolved_index, parse)
-        return extension.document_and_render(docid, resolved_index, parse=parse)
+        logger.debug('Retrieving document %s from index %s (parse=%s)', docid, index, parse)
+        return extension.document_and_render(docid, index, parse=parse)
 
     @mcp.tool(
         description=f"""
         List all indexes available for search of a given type from Pyserini.
 
         Args:
-            index_type: Type of index out of {INDEX_TYPE.keys()}'
+            index_type: Type of index out of {INDEX_TYPE.keys()}
 
         Returns:
             List of available index names in Pyserini of the given type.

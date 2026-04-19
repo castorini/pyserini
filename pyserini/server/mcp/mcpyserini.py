@@ -51,11 +51,12 @@ def main():
     )
     
     args = parser.parse_args()
-    
-    try:
-        mcp = FastMCP('mcpyserini')
 
-        register_tools(mcp, get_backend(args.index_config))
+    backend = None
+    try:
+        backend = get_backend(args.index_config)
+        mcp = FastMCP('mcpyserini')
+        register_tools(mcp, backend)
 
         if args.transport == "http":
             mcp.run(transport=args.transport, port=args.port)
@@ -65,3 +66,6 @@ def main():
     except Exception as e:
         print('Error', e)
         raise
+    finally:
+        if backend is not None:
+            backend.close_all()

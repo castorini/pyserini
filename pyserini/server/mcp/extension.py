@@ -28,7 +28,7 @@ from pyserini.eval.trec_eval import trec_eval
 from pyserini.search import get_qrels, get_qrels_file
 from pyserini.search.faiss import DenseSearchResult
 from pyserini.search.hybrid import HybridSearcher
-from pyserini.server.backend import SharedSearchBackend
+from pyserini.server.backend import BadSearchRequestError, SharedSearchBackend
 from pyserini.server.config import EVAL_METRICS
 
 
@@ -52,8 +52,13 @@ class McpSearchExtension:
         if isinstance(query_info, dict):
             final_output.append(f"Query Results for: {query_info.get('query_txt', 'Visual Query')}")
             if query_info.get('query_img_path'):
-                with open(query_info['query_img_path'], 'rb') as f:
-                    final_output.append(Image(data=f.read(), format=self.get_extension(query_info['query_img_path'])))
+                path = query_info['query_img_path']
+                try:
+                    with open(path, 'rb') as f:
+                        data = f.read()
+                except OSError as e:
+                    raise BadSearchRequestError(f'Could not read query image at {path!r}: {e}') from e
+                final_output.append(Image(data=data, format=self.get_extension(path)))
         else:
             final_output.append(f'Query Results for: {query_info}')
 
@@ -85,7 +90,8 @@ class McpSearchExtension:
 
     def get_qrels(self, index: str, query_id: str) -> dict[str, str]:
         qrels = get_qrels(index)
-        return qrels.get(query_id)
+        rels = qrels.get(query_id)
+        return rels if rels is not None else {}
 
     def eval_hits(self, index: str, metric: str, query_id: str, hits: dict[str, float], cutoff: int = 10) -> float:
         if metric not in EVAL_METRICS:

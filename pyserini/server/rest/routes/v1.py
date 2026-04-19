@@ -131,7 +131,7 @@ async def get_document_v1(
     index_token = backend.decode_path_segment(index)
     docid_token = backend.decode_path_segment(docid)
 
-    if docid_token is None or not str(docid_token).strip():
+    if not str(docid_token).strip():
         return _error(400, "Path parameter 'docid' is required")
 
     parse_flag, bad_parse = _parse_bool(parse, True, 'parse')

@@ -40,7 +40,6 @@ class IndexConfig:
     searcher: LuceneSearcher | LuceneHnswDenseSearcher | LuceneFlatDenseSearcher | LuceneImpactSearcher | FaissSearcher | None = None
     ef_search: int | None = 100
     encoder: str | None = ''
-    query_generator: str | None = None
     base_index: str | None = None
     index_type: str | None = ''
     instruction_config: str | None = None
