@@ -1,8 +1,10 @@
 # Pyserini: REST API server (FastAPI)
 
-The Pyserini REST server exposes an **HTTP interface aligned with [Anserini’s REST API](https://github.com/castorini/anserini)**. It serves **GET-only** routes backed by **Lucene** (`LuceneSearcher` / Java `SimpleSearcher`): prebuilt sparse index names, filesystem paths to Lucene indexes, or optional **YAML aliases**.
+The Pyserini REST server exposes an **HTTP interface aligned with [Anserini’s REST API](https://github.com/castorini/anserini)** and ships the same **`openapi.yaml`** document (served at **`/openapi.yaml`**). Routes are **GET-only** for search and document fetch.
 
-For multimodal / dense / FAISS workflows and tooling, use the **MCP server** and `SearchController` APIs elsewhere in Pyserini; they are not the same as this REST surface.
+Implementation uses **`SharedSearchBackend`** (`pyserini/server/backend.py`)—the same process-wide search stack as the MCP server. A request may use a **prebuilt index name** (sparse, dense, impact, FAISS, etc., when Pyserini can open it), a **filesystem path** to an index, or an optional **YAML alias** from `--index-config`.
+
+**v1 limitations:** The public GET API accepts only a **string** `query` parameter. It does **not** expose multimodal payloads, `encoder`, `ef_search`, or sparse `query_generator` options (those exist on the Python API and MCP). For full control over those knobs, use **MCP** or Pyserini directly.
 
 ## Starting the server
 
@@ -53,7 +55,7 @@ For an **absolute** filesystem path (leading `/`), use an **extra slash** after 
 That value is interpreted in order:
 
 1. **Alias** from `--index-config`, if that option was passed when starting the server.
-2. **Local directory** that exists (path to a Lucene index on disk).
+2. **Local directory** that exists (path to an index on disk).
 3. **Prebuilt index name** known to Pyserini (e.g. `msmarco-v1-passage`); the index is downloaded if needed.
 
 If the index cannot be opened, the API responds with **400** and a message such as `Unable to open index: ...`.
@@ -68,15 +70,18 @@ If the index cannot be opened, the API responds with **400** and a message such 
 |------|----------|---------|-------------|
 | `query` | yes | — | Search query string. |
 | `hits` | no | `10` | Number of hits (integer ≥ 1). |
-| `parse` | no | `true` | If `true`, format the stored `raw` field as JSON (see Anserini `CliUtils.formatDocument`); if `false`, return the raw stored string. |
+| `parse` | no | `true` | If `true`, parse the stored `raw` field when it is JSON (see `format_lucene_document` / Anserini-style formatting); if `false`, return the raw stored string. |
+
 
 **Example**
 
 ```bash
-curl -X GET "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=1"
+curl "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=1"
 ```
 
 **Example response (shape)**
+
+Scores are **rounded to six decimal places** in JSON.
 
 ```json
 {
@@ -88,7 +93,7 @@ curl -X GET "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%
   "candidates": [
     {
       "docid": "7157707",
-      "score": 11.008299827575684,
+      "score": 11.0083,
       "rank": 1,
       "doc": {
         "contents": "..."
@@ -113,7 +118,7 @@ The `doc` field may be `null`, a string, or a JSON value depending on the index 
 **Example**
 
 ```bash
-curl -X GET "http://localhost:8081/v1/msmarco-v1-passage/doc/7157707"
+curl "http://localhost:8081/v1/msmarco-v1-passage/doc/7157707"
 ```
 
 **Example response (shape)**

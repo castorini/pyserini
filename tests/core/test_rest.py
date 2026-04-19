@@ -26,7 +26,7 @@ from pyserini.server.rest.app import API_VERSION, ROUTE_ERROR, app, create_app
 class TestRestServer(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        # Lifespan (initializes app.state.lucene_rest) runs on context enter.
+        # Lifespan (initializes app.state.search_backend) runs on context enter.
         cls._test_client = TestClient(app)
         cls._test_client.__enter__()
         cls.client = cls._test_client
@@ -45,6 +45,14 @@ class TestRestServer(unittest.TestCase):
     def test_docs_available(self):
         response = self.client.get('/docs')
         self.assertEqual(response.status_code, 200)
+
+    def test_root(self):
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200, msg=response.text)
+        data = response.json()
+        self.assertIn('openapi', data)
+        self.assertEqual(data.get('openapi'), '/openapi.yaml')
+        self.assertEqual(data.get('version'), API_VERSION)
 
     def test_search_anonymous_shape(self):
         response = self.client.get(
@@ -68,6 +76,24 @@ class TestRestServer(unittest.TestCase):
         response = self.client.get(f'/{API_VERSION}/msmarco-v1-passage/search')
         self.assertEqual(response.status_code, 400)
         self.assertIn('query', response.json().get('error', ''))
+
+    def test_get_doc_parse_false_doc_is_string(self):
+        response = self.client.get(
+            f'/{API_VERSION}/msmarco-v1-passage/doc/7157707',
+            params={'parse': 'false'},
+        )
+        self.assertEqual(response.status_code, 200, msg=response.text)
+        doc = response.json().get('doc')
+        self.assertIsInstance(doc, str)
+        self.assertIn('contents', doc)
+
+    def test_get_doc_parse_invalid_400(self):
+        response = self.client.get(
+            f'/{API_VERSION}/msmarco-v1-passage/doc/7157707',
+            params={'parse': 'maybe'},
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('parse', response.json().get('error', ''))
 
     def test_get_doc(self):
         response = self.client.get(f'/{API_VERSION}/msmarco-v1-passage/doc/7157707')

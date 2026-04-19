@@ -91,6 +91,8 @@ class McpSearchExtension:
     def get_qrels(self, index: str, query_id: str) -> dict[str, str]:
         qrels = get_qrels(index)
         rels = qrels.get(query_id)
+        if rels is None and query_id.isdigit():
+            rels = qrels.get(int(query_id))
         return rels if rels is not None else {}
 
     def eval_hits(self, index: str, metric: str, query_id: str, hits: dict[str, float], cutoff: int = 10) -> float:

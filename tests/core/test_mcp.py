@@ -29,7 +29,10 @@ import unittest
 
 from fastmcp import FastMCP, Client
 from fastmcp.client.transports import StreamableHttpTransport
+from fastmcp.exceptions import ToolError
 from fastmcp.utilities.tests import run_server_async
+
+from pyserini.search.faiss import DenseSearchResult
 
 
 def _make_mcp_server():
@@ -89,6 +92,51 @@ class TestMCPyseriniServer(unittest.TestCase):
     def test_list_indexes_tool(self):
         result = self._run_async(self._call_tool('list_indexes', {
             'index_type': 'tf',
+        }))
+        self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
+        self.assertIsNotNone(result.content)
+
+    def test_list_indexes_invalid_type_raises_tool_error(self):
+        async def call_invalid():
+            mcp = _make_mcp_server()
+            async with run_server_async(mcp, transport='streamable-http') as url:
+                async with Client(StreamableHttpTransport(url)) as client:
+                    await client.call_tool('list_indexes', {'index_type': 'not_a_valid_index_type'})
+
+        with self.assertRaises(ToolError) as ctx:
+            self._run_async(call_invalid())
+        self.assertIn('Index type must be one of', str(ctx.exception))
+
+    def test_get_document_tool(self):
+        result = self._run_async(self._call_tool('get_document', {
+            'docid': '7157707',
+            'index': 'msmarco-v1-passage',
+        }))
+        self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
+        self.assertIsNotNone(result.content)
+
+    def test_fuse_search_results_tool(self):
+        hits1 = [
+            DenseSearchResult('doc_a', 0.9),
+            DenseSearchResult('doc_b', 0.5),
+        ]
+        hits2 = [
+            DenseSearchResult('doc_a', 0.4),
+            DenseSearchResult('doc_c', 0.8),
+        ]
+        result = self._run_async(self._call_tool('fuse_search_results', {
+            'hits1': hits1,
+            'hits2': hits2,
+            'k': 2,
+        }))
+        self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
+        self.assertIsNotNone(result.content)
+
+    def test_get_qrels_tool(self):
+        # Collection id for qrels (not the Lucene index name). Tool schema requires query_id as str.
+        result = self._run_async(self._call_tool('get_qrels', {
+            'index_name': 'msmarco-v1-passage-dev',
+            'query_id': '1048585',
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
         self.assertIsNotNone(result.content)

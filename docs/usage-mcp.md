@@ -1,13 +1,14 @@
 # Pyserini: Model Context Protocol (MCP) Server
 
-The Pyserini MCP server provides search and document retrieval capabilities through the Model Context Protocol, enabling AI assistants and other MCP clients to access Pyserini's information retrieval features.
+The Pyserini MCP server exposes search, document retrieval, and evaluation helpers through the [Model Context Protocol](https://modelcontextprotocol.io/), so AI assistants and other MCP clients can use Pyserini’s indexes (sparse, dense, impact, FAISS, etc.).
 
-This guide features Claude Desktop and Cursor as clients for our MCP server, but there exists many other clients that could work as well. 
+The server uses the same `SharedSearchBackend` (`pyserini/server/backend.py`) as the REST API: index names, prebuilt indexes, and optional `--index-config` aliases behave the same way.
+
+This guide uses Claude Desktop and Cursor as examples; other MCP clients work too.
 
 ## Local Server
 
-To use the Pyserini MCP server locally with Claude Desktop, go to "Claude" -> "Settings" -> "Developer" and click edit config.
-This takes you to the Claude config file `claude_desktop_config.json`, where you can add the Pyserini MCP server configuration under the `mcpServers` section:
+To use the Pyserini MCP server locally with Claude Desktop, go to **Claude → Settings → Developer** and edit the config. That opens `claude_desktop_config.json`. Add Pyserini under `mcpServers`:
 
 ```json
 {
@@ -22,11 +23,15 @@ This takes you to the Claude config file `claude_desktop_config.json`, where you
 }
 ```
 
-Restart Claude Desktop to apply the changes.
-You should be able to see `mcpyserini` as an available tool in Claude.
-To use mcpyserini, simply prompt Claude to use mcpyserini with a specific index and query.
+Default transport is **stdio** (no HTTP port). Optional arguments:
 
-If you run into Java version issues, one possible solution is to explicitly specify `JAVA_HOME`:
+| Argument | Description |
+|----------|-------------|
+| `--transport` | `stdio` (default) or `http` for remote/streamable access |
+| `--port PORT` | HTTP port when using `--transport http` (default: 8000) |
+| `--index-config PATH` | YAML file mapping index aliases to local directories (same idea as Anserini `--index-config`) |
+
+Example with a Java path and index aliases:
 
 ```json
 {
@@ -34,34 +39,37 @@ If you run into Java version issues, one possible solution is to explicitly spec
     "mcpyserini": {
       "command": "/path/to/your/conda/env/bin/python",
       "args": [
-        "-m", "pyserini.server.mcp"
+        "-m", "pyserini.server.mcp",
       ],
       "env": {
-        "JAVA_HOME": "/path/to/your/conda/env/"
+        "JAVA_HOME": "/path/to/your/java/home"
       }
     }
   }
 }
 ```
 
-For more details on configuring Claude Desktop, refer to the [Claude Desktop documentation](https://modelcontextprotocol.io/quickstart/user).
+Restart Claude Desktop after changes. You should see **`mcpyserini`** among the available MCP servers. Prompt the model to use it with a concrete index name and query.
 
+If you hit Java version issues, set **`JAVA_HOME`** explicitly (see above).
+
+More detail: [Claude Desktop MCP quickstart](https://modelcontextprotocol.io/quickstart/user).
 
 ## Remote Server
 
-To use the Pyserini MCP server remotely, first start the server on your remote machine:
+On the machine that runs Pyserini, start HTTP transport (pick a port if needed):
 
 ```bash
-python -m pyserini.server.mcp --transport http
+python -m pyserini.server.mcp --transport http --port 8000
 ```
 
-Run the following on your local machine to forward the port from your remote machine:
+From your laptop, forward the port:
 
 ```bash
 ssh -L 8000:localhost:8000 username@hostname
 ```
 
-To use it with Cursor, create `mcp.json` with the following and place it in your `.cursor` directory:
+For **Cursor**, add something like this to your MCP config (e.g. under `.cursor`):
 
 ```json
 {
@@ -73,24 +81,25 @@ To use it with Cursor, create `mcp.json` with the following and place it in your
 }
 ```
 
-For more details on configuring Cursor with MCP, refer to the [documentation](https://docs.cursor.com/context/model-context-protocol). 
+Adjust host/port if you use a different bind address or forwarded port.
 
-As of time of writing (July 2025), Claude Desktop does not natively support remote MCP servers with the free plan. 
-However, it is probably a more conventional client than Cursor, so we include the following 'hack' for using Claude Desktop with a remote MCP server.
+See [Cursor MCP documentation](https://docs.cursor.com/context/model-context-protocol).
+
+Claude Desktop’s support for remote MCP servers varies by plan and version; if you need a desktop-only workflow against a remote server, you can use a small local bridge (see below).
 
 <details>
-<summary>Claude Desktop with remote MCP server hack</summary>
+<summary>Claude Desktop with a remote MCP server (bridge script)</summary>
 <br/>
 
-Start the MCP server on your remote machine with the same instructions as above.
+Start the server on the remote host as above.
 
-Download our bridging script on your local machine with the following command:
+On your local machine, download the bridge script:
 
 ```bash
 wget https://raw.githubusercontent.com/castorini/pyserini/refs/heads/master/pyserini/server/mcp/pyserini_bridge.py -O pyserini_bridge.py
 ```
 
-Modify your Claude Desktop configuration file `claude_desktop_config.json` with the following to point to the script you just downloaded: 
+Point Claude at the script:
 
 ```json
 {
@@ -105,59 +114,60 @@ Modify your Claude Desktop configuration file `claude_desktop_config.json` with 
 }
 ```
 
-Restart Claude Desktop and you should be good to go.
+Restart Claude Desktop.
 </details>
 <br/>
 
 ## Available Tools
 
-The Pyserini MCP server provides two main tools for information retrieval:
+Tools are registered in `pyserini/server/mcp/tools.py`. The MCP client can list them with full schemas (`tools/list`). Summary:
 
-### 1. Search Tool
+### `search`
 
-**Tool Name:** `search`
+Runs retrieval against a Pyserini index (BM25 for standard sparse indexes; dense / impact / FAISS as appropriate for the index type). Results are returned as a **rich list** (human-readable lines plus optional **`Image`** parts for multimodal indexes), not as a single JSON table.
 
-**Description:** Perform a BM25 search on a given index and return top-k hits with document ID, score, and text snippet.
+| Parameter | Notes |
+|-----------|--------|
+| `query` | String, or for multimodal / m-BEIR-style indexes a dict such as `{"query_txt": "...", "query_img_path": "..."}` (local path or image URL where supported). |
+| `index` | Prebuilt index name or alias (default: `msmarco-v2.1-doc-segmented`). Use `list_indexes` to discover names by type. |
+| `hits` | Top‑k (default: 10). |
+| `parse` | Kept for parity with the REST API; MCP output is still rendered as rich content. |
+| `ef_search` | HNSW / dense Lucene HNSW indexes (default: 100). |
+| `encoder` | Encoder id when the index requires one (dense / FAISS / etc.). |
+| `instruction_config` | Path to instruction YAML for UniIR / similar multimodal encoders. |
+| `query_generator` | **Sparse (TF) indexes only:** e.g. `BagOfWords`, `DisjunctionMax` / `dismax`, `QuerySideBm25` / `bm25qs`, `Covid19`. Omit for default Lucene query parsing. |
 
-**Parameters:**
-- `query` (dict, required): Search query string
-- `index_name` (string, required): Name of the index to search
-- `k` (integer, optional): Number of results to return (default: 10)
-- `instruction_config` (string, optional): Local path to the instruction config file for UniIR or other MM encoders
-- `encoder` (string, optional): Name of the encoder model
+**Example prompt:** *Search “what is a lobster roll” on `msmarco-v1-passage` with 5 hits.*
 
-**Returns:** List of search results, each containing:
-- `docid`: Document identifier
-- `score`: BM25 relevance score
-- `query_text`: Text snippet from the document
-- `query_image`: Image snippet from the document (if applicable)
-- `index_name`: Name of the index searched
+### `get_document`
 
-**Example Usage in MCP Client:**
+Fetch one stored document by id. Parameters: `docid`, `index`, optional `parse`. Returns rich content (text and optional **`Image`** when the document includes an image field).
 
-```
-Search for "what is a lobster roll" in the msmarco-v1-passage index, returning 5 results.
-```
+**Example prompt:** *Get document `7157707` from `msmarco-v1-passage`.*
 
-### 2. Get Document Tool
+### `list_indexes`
 
-**Tool Name:** `get_document`
+Parameters: `index_type` — one of `tf`, `lucene_flat`, `lucene_hnsw`, `impact`, `faiss`. Returns the list of known prebuilt index names for that family.
 
-**Description:** Retrieve the full text of a document by its document ID from a specified index.
+### `get_index`
 
-**Parameters:**
-- `docid` (string, required): Document ID to retrieve
-- `index_name` (string, required): Name of the index containing the document
+Parameters: `index_name`. Returns metadata and download status for that prebuilt index (same idea as checking an index in Pyserini).
 
-**Returns:** Document object containing the raw document representation.
+### `fuse_search_results`
 
-**Example Usage in MCP Client:**
+Fuses two ranked lists of `DenseSearchResult` (`pyserini/search/faiss/_searcher.py`, docid + score). Parameters: `hits1`, `hits2`, optional `k` (default 10).
 
-```
-Retrieve the full text of document "7157715" from the msmarco-v1-passage index.
-```
+### `get_qrels`
 
-You can ask your MCP client for a full, detailed list of capabilities. 
+Parameters: `index_name`, `query_id` (string). Looks up relevance judgments for a **Pyserini qrels collection id** (e.g. `msmarco-v1-passage-dev`), not necessarily the Lucene index name used for search. Numeric topic ids can be passed as strings (e.g. `"1048585"`).
+
+### `eval_hits` (tool name: `eval_hits`)
+
+Evaluates a run using **`trec_eval`** (Java on the classpath). Parameters: `index_name` (collection with qrels), `metric` (`ndcg`, `recall`, `map`, `recip_rank`), `query_id`, `hits` as `{docid: score}`, optional `cutoff` (default 10).
+
+---
+
+Ask your client for the live tool list and parameter schemas; they stay in sync with the code above.
 
 ## Reproduction Log[*](reproducibility.md)
 
