@@ -43,13 +43,19 @@ def main():
         default=8000, 
         help="Port number for HTTP transport (default: 8000)"
     )
+    parser.add_argument(
+        "--index-config",
+        type=str,
+        default=None,
+        help="YAML file mapping index aliases to paths (Anserini --index-config)",
+    )
     
     args = parser.parse_args()
     
     try:
         mcp = FastMCP('mcpyserini')
 
-        register_tools(mcp, get_backend())
+        register_tools(mcp, get_backend(args.index_config))
 
         if args.transport == "http":
             mcp.run(transport=args.transport, port=args.port)

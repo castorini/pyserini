@@ -73,8 +73,8 @@ class TestMCPyseriniServer(unittest.TestCase):
     def test_search_tool(self):
         result = self._run_async(self._call_tool('search', {
             'query': {'query_txt': 'what is a lobster roll'},
-            'index_name': 'msmarco-v1-passage',
-            'k': 3,
+            'index': 'msmarco-v1-passage',
+            'hits': 3,
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
         self.assertIsNotNone(result.content)

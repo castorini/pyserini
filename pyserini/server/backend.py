@@ -29,8 +29,8 @@ from pyserini.prebuilt_index_info import FAISS_INDEX_INFO, FAISS_INDEX_INFO_M_BE
 from pyserini.search.faiss import FaissSearcher
 from pyserini.search.lucene import JBagOfWordsQueryGenerator, JCovid19QueryGenerator, JDisjunctionMaxQueryGenerator, JQuerySideBm25QueryGenerator, LuceneFlatDenseSearcher, LuceneHnswDenseSearcher, LuceneImpactSearcher, LuceneSearcher
 from pyserini.server.config import INDEX_TYPE, SHARDS, IndexConfig
+from pyserini.server.index_config import load_index_aliases
 from pyserini.server.rest.document_format import format_lucene_document
-from pyserini.server.rest.index_config import load_index_aliases
 from pyserini.util import check_downloaded, download_prebuilt_index, download_url, get_cache_home
 
 
@@ -338,9 +338,14 @@ class SharedSearchBackend:
         return results
 
 
-_backend = SharedSearchBackend()
+_backend: SharedSearchBackend | None = None
+_backend_index_config_path: str | None = None
 
 
-def get_backend() -> SharedSearchBackend:
+def get_backend(index_config_path: str | None = None) -> SharedSearchBackend:
     """Return process-wide shared backend instance."""
+    global _backend, _backend_index_config_path
+    if _backend is None or index_config_path != _backend_index_config_path:
+        _backend = SharedSearchBackend(index_config_path=index_config_path)
+        _backend_index_config_path = index_config_path
     return _backend
