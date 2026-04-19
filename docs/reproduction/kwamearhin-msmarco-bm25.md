@@ -1,33 +1,23 @@
-# MS MARCO BM25 Reproduction Log (Pyserini)
-Successfully reproduced the Pyserini BM25 baseline for MS MARCO Passage Ranking.
+Reproduced BM25 baseline for MS MARCO passage ranking using Pyserini.
 
-Environment:
-- Windows 11 with WSL2 (Ubuntu 22.04)
-- Python 3.11
-- Pyserini installed via pip
-- OpenJDK installed
-- Maven installed
-Installation:
-pip install pyserini
+Environment and Set-up:
 
-sudo apt update
-sudo apt install -y openjdk-11-jdk maven
+OS: Windows 11 (WSL2 Ubuntu 22.04)
+Python: 3.11
+Java: OpenJDK 11/21
+Pyserini: 1.2.0
+Hardware: CPU-only
 
-Verify installation:
+Issues and Results:
 
-java -version
-mvn -version
+MRR@10 = 0.199 (msmarco-passage-dev-subset)
 
-Retrieval
+Used prebuilt msmarco-v1-passage index and executed BM25 retrieval with hits=1000.
+Evaluation performed using msmarco_passage_eval.
 
-Multi-line command:
+Results are consistent with the expected Pyserini BM25 baseline (~0.19–0.20).
 
-python -m pyserini.search.lucene \
-  --index msmarco-v1-passage \
-  --topics msmarco-passage-dev-subset \
-  --output run.msmarco-pyserini.bm25.txt \
-  --bm25 \
-  --hits 1000
+No issues encountered.
 
 Single-line command:
 
