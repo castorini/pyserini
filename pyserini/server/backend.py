@@ -18,10 +18,11 @@ from __future__ import annotations
 
 import os
 import threading
-from collections import defaultdict
 from pathlib import Path
 from typing import Any
 from urllib.parse import unquote
+
+import requests
 
 from pyserini.encode import AutoQueryEncoder
 from pyserini.encode.optional._uniir import UniIRQueryEncoder
@@ -33,14 +34,43 @@ from pyserini.server.index_config import load_index_aliases
 from pyserini.server.document_format import format_lucene_document
 from pyserini.util import check_downloaded, download_prebuilt_index, download_url, get_cache_home
 
+# Cap for m-beir query images fetched from user-supplied URLs (DoS mitigation: bounded RAM and disk).
+_MAX_M_BEIR_QUERY_IMAGE_BYTES = 50 * 1024 * 1024
+
+
+class BackendError(Exception):
+    """Base class for recoverable backend errors (mapped to API responses)."""
+
+
+class BadSearchRequestError(BackendError):
+    """Invalid query parameters or request payload."""
+
+
+class IndexNotAvailableError(BackendError):
+    """Index name unknown, not supported, or path could not be opened."""
+
+
+class DocumentNotFoundError(BackendError):
+    """Requested document id is not in the index."""
+
 
 class SharedSearchBackend:
     """Shared backend for REST and MCP search/doc retrieval."""
 
     def __init__(self, index_config_path: str | None = None):
         self._aliases = dict(load_index_aliases(index_config_path))
-        self._locks: dict[str, threading.Lock] = defaultdict(threading.Lock)
         self.indexes: dict[str, IndexConfig] = {}
+        # Serialize get-or-create per logical index name so different indexes can open in parallel.
+        self._index_lock_registry = threading.Lock()
+        self._index_locks: dict[str, threading.Lock] = {}
+
+    def _lock_for_index_name(self, index_name: str) -> threading.Lock:
+        with self._index_lock_registry:
+            lock = self._index_locks.get(index_name)
+            if lock is None:
+                lock = threading.Lock()
+                self._index_locks[index_name] = lock
+            return lock
 
     def close_all(self) -> None:
         for config in self.indexes.values():
@@ -77,70 +107,84 @@ class SharedSearchBackend:
         query_generator: str | None = None,
         instruction_config: str | None = None,
     ) -> IndexConfig:
-        config = self.indexes.get(index_name)
-        if config and config.searcher is not None:
-            if ef_search is not None:
-                config.ef_search = ef_search
-            if encoder:
-                config.encoder = encoder
-            if query_generator:
-                config.query_generator = query_generator
-            if instruction_config:
-                config.instruction_config = instruction_config
-            return config
+        with self._lock_for_index_name(index_name):
+            config = self.indexes.get(index_name)
+            if config and config.searcher is not None:
+                if ef_search is not None:
+                    config.ef_search = ef_search
+                if encoder:
+                    config.encoder = encoder
+                if query_generator:
+                    config.query_generator = query_generator
+                if instruction_config:
+                    config.instruction_config = instruction_config
+                return config
 
-        config = config or IndexConfig(name=index_name, ef_search=ef_search, encoder=encoder, query_generator=query_generator, instruction_config=instruction_config)
-        if config.name in TF_INDEX_INFO:
-            config.searcher = LuceneSearcher.from_prebuilt_index(config.name)
-            config.base_index = config.name
-            config.index_type = 'tf'
-        elif config.name in LUCENE_FLAT_INDEX_INFO:
-            config.searcher = LuceneFlatDenseSearcher.from_prebuilt_index(config.name, encoder=config.encoder)
-            config.base_index = LUCENE_FLAT_INDEX_INFO[config.name].get('texts')
-            config.index_type = 'lucene_flat'
-        elif config.name in LUCENE_HNSW_INDEX_INFO:
-            config.searcher = LuceneHnswDenseSearcher.from_prebuilt_index(config.name, ef_search=config.ef_search, encoder=config.encoder, verbose=True)
-            config.base_index = LUCENE_HNSW_INDEX_INFO[config.name].get('texts')
-            config.index_type = 'lucene_hnsw'
-        elif config.name in IMPACT_INDEX_INFO:
-            config.searcher = LuceneImpactSearcher.from_prebuilt_index(config.name, config.encoder)
-            config.base_index = IMPACT_INDEX_INFO[config.name].get('texts')
-            config.index_type = 'impact'
-        elif config.name in FAISS_INDEX_INFO_M_BEIR:
-            if config.encoder not in ['clip_sf_large', 'blip_ff_large']:
-                if 'blip-ff-large' in config.name:
-                    config.encoder = 'blip_ff_large'
-                elif 'clip-sf-large' in config.name:
-                    config.encoder = 'clip_sf_large'
-                else:
-                    raise ValueError('Invalid encoder for m-beir FAISS index.')
-            config.searcher = FaissSearcher.from_prebuilt_index(
-                config.name,
-                query_encoder=UniIRQueryEncoder(encoder_dir=config.encoder, instruction_config=config.instruction_config),
+            config = config or IndexConfig(
+                name=index_name,
+                ef_search=ef_search,
+                encoder=encoder,
+                query_generator=query_generator,
+                instruction_config=instruction_config,
             )
-            config.base_index = FAISS_INDEX_INFO.get(config.name, {}).get('texts')
-            config.index_type = 'faiss'
-        elif config.name in FAISS_INDEX_INFO:
-            config.searcher = FaissSearcher.from_prebuilt_index(config.name, query_encoder=AutoQueryEncoder(encoder_dir=config.encoder))
-            config.base_index = FAISS_INDEX_INFO[config.name].get('texts')
-            config.index_type = 'faiss'
-        elif allow_local:
-            index_dir = self.resolve_index_dir(config.name)
-            if index_dir is None:
-                raise ValueError(f'Unable to open index: {config.name}')
-            config.searcher = LuceneSearcher(index_dir)
-            config.base_index = config.name
-            config.index_type = 'tf'
-        else:
-            raise ValueError(f'Index {config.name} not currently supported in prebuilt indexes.')
+            searcher: LuceneSearcher | LuceneFlatDenseSearcher | LuceneHnswDenseSearcher | LuceneImpactSearcher | FaissSearcher | None = None
+            if config.name in TF_INDEX_INFO:
+                searcher = LuceneSearcher.from_prebuilt_index(config.name)
+                config.base_index = config.name
+                config.index_type = 'tf'
+            elif config.name in LUCENE_FLAT_INDEX_INFO:
+                searcher = LuceneFlatDenseSearcher.from_prebuilt_index(config.name, encoder=config.encoder)
+                config.base_index = LUCENE_FLAT_INDEX_INFO[config.name].get('texts')
+                config.index_type = 'lucene_flat'
+            elif config.name in LUCENE_HNSW_INDEX_INFO:
+                searcher = LuceneHnswDenseSearcher.from_prebuilt_index(
+                    config.name, ef_search=config.ef_search, encoder=config.encoder, verbose=True
+                )
+                config.base_index = LUCENE_HNSW_INDEX_INFO[config.name].get('texts')
+                config.index_type = 'lucene_hnsw'
+            elif config.name in IMPACT_INDEX_INFO:
+                searcher = LuceneImpactSearcher.from_prebuilt_index(config.name, config.encoder)
+                config.base_index = IMPACT_INDEX_INFO[config.name].get('texts')
+                config.index_type = 'impact'
+            elif config.name in FAISS_INDEX_INFO_M_BEIR:
+                if config.encoder not in ['clip_sf_large', 'blip_ff_large']:
+                    if 'blip-ff-large' in config.name:
+                        config.encoder = 'blip_ff_large'
+                    elif 'clip-sf-large' in config.name:
+                        config.encoder = 'clip_sf_large'
+                    else:
+                        raise BadSearchRequestError('Invalid encoder for m-beir FAISS index.')
+                searcher = FaissSearcher.from_prebuilt_index(
+                    config.name,
+                    query_encoder=UniIRQueryEncoder(encoder_dir=config.encoder, instruction_config=config.instruction_config),
+                )
+                config.base_index = FAISS_INDEX_INFO.get(config.name, {}).get('texts')
+                config.index_type = 'faiss'
+            elif config.name in FAISS_INDEX_INFO:
+                searcher = FaissSearcher.from_prebuilt_index(
+                    config.name, query_encoder=AutoQueryEncoder(encoder_dir=config.encoder)
+                )
+                config.base_index = FAISS_INDEX_INFO[config.name].get('texts')
+                config.index_type = 'faiss'
+            elif allow_local:
+                index_dir = self.resolve_index_dir(config.name)
+                if index_dir is not None:
+                    searcher = LuceneSearcher(index_dir)
+                    config.base_index = config.name
+                    config.index_type = 'tf'
+            else:
+                raise IndexNotAvailableError(f'Unable to open index: {config.name}')
 
-        self.indexes[index_name] = config
-        return config
+            if searcher is None:
+                raise IndexNotAvailableError(f'Unable to open index: {config.name}')
+            config.searcher = searcher
+            self.indexes[index_name] = config
+            return config
 
     def get_indexes(self, index_type: str) -> list[str]:
         indexes = INDEX_TYPE.get(index_type)
         if indexes is None:
-            raise ValueError(f'Index type must be one of {list(INDEX_TYPE.keys())}')
+            raise BadSearchRequestError(f'Index type must be one of {list(INDEX_TYPE.keys())}')
         return list(indexes.keys())
 
     def get_status(self, index_name: str) -> dict[str, Any]:
@@ -150,6 +194,40 @@ class SharedSearchBackend:
                 status.update(INDEX_TYPE[index_type].get(index_name))
                 break
         return status
+
+    def _doc_store_lucene_searcher(self, start_index_name: str, *, allow_local_index: bool) -> LuceneSearcher:
+        """Resolve the Lucene TF searcher that holds stored documents for ``start_index_name``."""
+        index_config = self._ensure_index(start_index_name, allow_local=allow_local_index)
+        doc_search_index = (
+            index_config.base_index if index_config.index_type != 'tf' and index_config.base_index else start_index_name
+        )
+        doc_config = self._ensure_index(doc_search_index, allow_local=True)
+        raw = doc_config.searcher
+        if isinstance(raw, LuceneSearcher):
+            return raw
+        raise IndexNotAvailableError(
+            f'Document retrieval requires a Lucene sparse index; got {type(raw).__name__!r} '
+            f'(doc index key {doc_search_index!r}).'
+        )
+
+    def _bulk_format_documents(
+        self,
+        docids: list[str],
+        start_index_name: str,
+        *,
+        parse: bool,
+        allow_local_index: bool,
+    ) -> dict[str, Any]:
+        """Fetch and format documents for many docids using ``LuceneSearcher.batch_doc``."""
+        if not docids:
+            return {}
+        searcher = self._doc_store_lucene_searcher(start_index_name, allow_local_index=allow_local_index)
+        threads = min(16, max(1, len(docids)))
+        batch = searcher.batch_doc(docids, threads)
+        missing = [d for d in docids if d not in batch]
+        if missing:
+            raise DocumentNotFoundError(f'Document {missing[0]} not found in index {start_index_name}')
+        return {d: format_lucene_document(batch[d], parse) for d in docids}
 
     def _resolve_query_generator(self, query_generator_str: str | None, searcher: LuceneSearcher):
         if not query_generator_str or not query_generator_str.strip():
@@ -183,20 +261,25 @@ class SharedSearchBackend:
                 query['query_modality'] = 'text'
 
             if has_image and not os.path.exists(query['query_img_path']):
-                import requests
-
                 url = query['query_img_path']
                 save_dir = os.path.join(get_cache_home(), 'mcp_query_images')
                 os.makedirs(save_dir, exist_ok=True)
-                response = requests.get(url)
-                response.raise_for_status()
+                try:
+                    response = requests.get(url, timeout=(10, 120))
+                    response.raise_for_status()
+                except requests.RequestException as e:
+                    raise BadSearchRequestError(f'Could not download query image from URL: {e}') from e
+                if len(response.content) > _MAX_M_BEIR_QUERY_IMAGE_BYTES:
+                    raise BadSearchRequestError(
+                        f'Downloaded image exceeds maximum size ({_MAX_M_BEIR_QUERY_IMAGE_BYTES // (1024 * 1024)} MiB).'
+                    )
                 content_type = response.headers.get('content-type', '')
                 if 'jpeg' in content_type or 'jpg' in content_type:
                     extension = '.jpg'
                 elif 'png' in content_type:
                     extension = '.png'
                 else:
-                    raise ValueError(f'URL does not point to a valid image format: {content_type}')
+                    raise BadSearchRequestError(f'URL does not point to a valid image format: {content_type}')
                 save_path = os.path.join(save_dir, f'{abs(hash(url))}{extension}')
                 with open(save_path, 'wb') as file:
                     file.write(response.content)
@@ -237,7 +320,9 @@ class SharedSearchBackend:
                     instruction_config = str(os.path.join(instr_dir, instr_file))
         else:
             if not query.get('query_txt'):
-                raise ValueError('Missing query text for single modality dataset! Please provide a query text for this index!')
+                raise BadSearchRequestError(
+                    'Missing query text for single modality dataset! Please provide a query text for this index!'
+                )
             query = query['query_txt']
         return query, instruction_config
 
@@ -264,13 +349,7 @@ class SharedSearchBackend:
         parse: bool = True,
         allow_local_index: bool = True,
     ) -> dict[str, Any] | str:
-        index_config = self._ensure_index(index_name, allow_local=allow_local_index)
-        doc_search_index = index_config.base_index if index_config.index_type != 'tf' and index_config.base_index else index_name
-        doc_config = self._ensure_index(doc_search_index, allow_local=True)
-        doc = doc_config.searcher.doc(docid)
-        if doc is None:
-            raise ValueError(f'Document {docid} not found in index {index_name}')
-        return format_lucene_document(doc, parse)
+        return self._bulk_format_documents([docid], index_name, parse=parse, allow_local_index=allow_local_index)[docid]
 
     def search(
         self,
@@ -310,6 +389,17 @@ class SharedSearchBackend:
         else:
             query_payload = query
         results: dict[str, Any] = {'query': query_payload}
+        doc_index_key = index_config.base_index or index_name
+        ordered_docids: list[str] = []
+        for hit in hits:
+            if isinstance(hit, dict):
+                ordered_docids.append(hit['docid'])
+            else:
+                ordered_docids.append(hit.docid)
+        unique_docids = list(dict.fromkeys(ordered_docids))
+        docs_by_id = self._bulk_format_documents(
+            unique_docids, doc_index_key, parse=parse, allow_local_index=True
+        )
         candidates = []
         for rank, hit in enumerate(hits, start=1):
             if isinstance(hit, dict):
@@ -318,7 +408,7 @@ class SharedSearchBackend:
             else:
                 docid = hit.docid
                 score = float(hit.score)
-            doc = self.get_document(docid, index_config.base_index or index_name, parse=parse, allow_local_index=True)
+            doc = docs_by_id[docid]
             image_path = None
             encoded_img = None
             if isinstance(doc, dict):
@@ -345,7 +435,10 @@ _backend_index_config_path: str | None = None
 def get_backend(index_config_path: str | None = None) -> SharedSearchBackend:
     """Return process-wide shared backend instance."""
     global _backend, _backend_index_config_path
-    if _backend is None or index_config_path != _backend_index_config_path:
+    if _backend is not None and index_config_path != _backend_index_config_path:
+        _backend.close_all()
+        _backend = None
+    if _backend is None:
         _backend = SharedSearchBackend(index_config_path=index_config_path)
         _backend_index_config_path = index_config_path
     return _backend

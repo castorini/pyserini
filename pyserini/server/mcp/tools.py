@@ -19,6 +19,7 @@
 Register tools for the MCP server.
 """
 
+import logging
 from typing import Any, Dict
 
 from fastmcp import FastMCP
@@ -26,6 +27,9 @@ from pyserini.search.faiss import DenseSearchResult
 from pyserini.server.backend import SharedSearchBackend
 from pyserini.server.config import EVAL_METRICS, INDEX_TYPE
 from pyserini.server.mcp.extension import McpSearchExtension
+
+logger = logging.getLogger(__name__)
+
 
 def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
     """Register all tools with the MCP server."""
@@ -64,7 +68,7 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
         Returns:
             List of search results with docid, score, and raw contents in text or image form
         """
-        print(f"Searching {index} for query: {query} (parse={parse})")
+        logger.debug('Searching %s for query: %s (parse=%s)', index, query, parse)
         return extension.search_and_render(
             query=query,
             index_name=index,
@@ -90,7 +94,7 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
             Document with full text and image (if available)
         """
         resolved_index = index_name or index
-        print(f"Retrieving document {docid} from index {resolved_index} (parse={parse})")
+        logger.debug('Retrieving document %s from index %s (parse=%s)', docid, resolved_index, parse)
         return extension.document_and_render(docid, resolved_index, parse=parse)
 
     @mcp.tool(
@@ -105,7 +109,7 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
         """
     )
     def list_indexes(index_type: str) -> list[str]:
-        print(f"Listing indexes of type {index_type}")
+        logger.debug('Listing indexes of type %s', index_type)
         return controller.get_indexes(index_type)
     
     @mcp.tool()
@@ -119,7 +123,7 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
         Returns:
             Dictionary with index information.
         """
-        print(f"Getting index information for {index_name}")
+        logger.debug('Getting index information for %s', index_name)
         return controller.get_status(index_name)  
     
     @mcp.tool()
@@ -138,7 +142,7 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
         Returns:
             List of search results with docid and score in the format of [{docid: score}]
         """
-        print(f"Fusing search results with {len(hits1)} hits in hits1 and {len(hits2)} hits in hits2")
+        logger.debug('Fusing search results with %s hits in hits1 and %s hits in hits2', len(hits1), len(hits2))
         return extension.fuse_search_results(hits1, hits2, k)
     
     @mcp.tool()
@@ -156,7 +160,7 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
         Returns:
             Dictionary with docid and relevance judgement in the format of {docid: relevance}
         """
-        print(f"Getting qrels for index {index_name} and query id {query_id}")
+        logger.debug('Getting qrels for index %s and query id %s', index_name, query_id)
         return extension.get_qrels(index_name, query_id)
     
     @mcp.tool(
@@ -182,5 +186,11 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
         hits: dict[str, float],
         cutoff: int = 10
     ) -> float:
-        print(f"Evaluating hits for index {index_name}, query id {query_id}, metric {metric}, and cutoff {cutoff}")
+        logger.debug(
+            'Evaluating hits for index %s, query id %s, metric %s, and cutoff %s',
+            index_name,
+            query_id,
+            metric,
+            cutoff,
+        )
         return extension.eval_hits(index_name, metric, query_id, hits, cutoff)

@@ -28,7 +28,12 @@ import asyncio
 from fastapi import APIRouter, Query, Request
 from fastapi.responses import JSONResponse
 
-from pyserini.server.backend import SharedSearchBackend
+from pyserini.server.backend import (
+    BadSearchRequestError,
+    DocumentNotFoundError,
+    IndexNotAvailableError,
+    SharedSearchBackend,
+)
 
 router = APIRouter(tags=['v1'])
 
@@ -92,8 +97,12 @@ async def search_v1(
             parse_flag,
             True,
         )
-    except ValueError:
-        return _error(400, f'Unable to open index: {index_token}')
+    except IndexNotAvailableError as e:
+        return _error(400, str(e))
+    except BadSearchRequestError as e:
+        return _error(400, str(e))
+    except DocumentNotFoundError as e:
+        return _error(404, str(e))
     candidates = [
         {
             'docid': cand['docid'],
@@ -138,7 +147,7 @@ async def get_document_v1(
             'docid': docid_token,
             'doc': doc,
         }
-    except ValueError as e:
-        if 'Unable to open index' in str(e):
-            return _error(400, f'Unable to open index: {index_token}')
+    except IndexNotAvailableError as e:
+        return _error(400, str(e))
+    except DocumentNotFoundError:
         return _error(404, f'Document not found: {docid_token}')

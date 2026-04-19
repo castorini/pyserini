@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import base64
 import os
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -61,16 +62,20 @@ class McpSearchExtension:
             doc = cand.get('doc')
             if doc not in (None, 'None'):
                 final_output.append(doc)
-            if cand.get('encoded_img'):
-                img_bytes = base64.b64decode(cand['encoded_img'])
+            enc = cand.get('encoded_img')
+            if enc and cand.get('document_img_path'):
+                img_bytes = base64.b64decode(enc)
                 final_output.append(Image(data=img_bytes, format=self.get_extension(cand['document_img_path'])))
         return final_output
 
     def document_and_render(self, docid: str, index: str, parse: bool = True) -> list[Any]:
         doc_data = self.controller.get_document(docid, index, parse=parse)
         output: list[Any] = [doc_data]
-        if isinstance(doc_data, dict) and doc_data.get('img_path'):
-            output.append(Image(data=base64.b64decode(doc_data['encoded_img']), format=self.get_extension(doc_data['img_path'])))
+        encoded = doc_data.get('encoded_img') if isinstance(doc_data, dict) else None
+        if isinstance(doc_data, dict) and doc_data.get('img_path') and encoded:
+            output.append(
+                Image(data=base64.b64decode(encoded), format=self.get_extension(doc_data['img_path']))
+            )
         return output
 
     def fuse_search_results(
@@ -86,19 +91,21 @@ class McpSearchExtension:
         if metric not in EVAL_METRICS:
             raise ValueError(f'{metric} is not a valid evaluation metric! Must be one of {EVAL_METRICS.keys()}')
         sorted_hits = sorted(hits.items(), key=lambda item: item[1], reverse=True)
-        temp_file = f'{index}-{metric}-{cutoff}-{query_id}.txt'
-        with open(temp_file, 'w') as f:
-            for rank, doc in enumerate(sorted_hits, start=1):
-                f.write(f'{query_id} Q0 {doc[0]} {rank} {doc[1]} mcp\n')
-        args = list(EVAL_METRICS[metric])
-        if metric in ('ndcg', 'recall'):
-            args[-1] += f'.{cutoff}'
-        else:
-            args.insert(3, f'{cutoff}')
-        args.append(get_qrels_file(index))
-        args.append(temp_file)
+        fd, temp_path = tempfile.mkstemp(prefix='pyserini-eval-', suffix='.txt', text=True)
         try:
+            with os.fdopen(fd, 'w', encoding='utf-8') as f:
+                for rank, doc in enumerate(sorted_hits, start=1):
+                    f.write(f'{query_id} Q0 {doc[0]} {rank} {doc[1]} mcp\n')
+            args = list(EVAL_METRICS[metric])
+            if metric in ('ndcg', 'recall'):
+                args[-1] += f'.{cutoff}'
+            else:
+                args.insert(3, f'{cutoff}')
+            args.append(get_qrels_file(index))
+            args.append(temp_path)
             return trec_eval(args, query_id=query_id)
         finally:
-            if os.path.exists(temp_file):
-                os.remove(temp_file)
+            try:
+                os.remove(temp_path)
+            except OSError:
+                pass
