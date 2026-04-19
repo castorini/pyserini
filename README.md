@@ -4,7 +4,7 @@
 [![PyPI Downloads](https://static.pepy.tech/badge/pyserini)](https://pepy.tech/projects/pyserini)
 [![PyPI Downloads](https://static.pepy.tech/badge/pyserini/week)](https://pepy.tech/projects/pyserini)
 [![Maven Central](https://img.shields.io/maven-central/v/io.anserini/anserini?color=brightgreen)](https://search.maven.org/search?q=a:anserini)
-[![Generic badge](https://img.shields.io/badge/Lucene-v9.9.1-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/9.9.1/)
+[![Generic badge](https://img.shields.io/badge/Lucene-v10.4.0-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/10.4.0/)
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
 Pyserini is a Python toolkit for reproducible information retrieval research with sparse and dense representations.
@@ -17,9 +17,9 @@ With Pyserini, it's easy to reproduce runs on a number of standard IR test colle
 
 For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.3463238) in SIGIR 2021 provides a nice overview.
 
-✨ **New!** Pyserini provides a [REST API](docs/usage-rest.md) as well as an [MCP server](docs/usage-mcp.md)!
+✨ Pyserini provides a [REST API](docs/usage-rest.md) as well as an [MCP server](docs/usage-mcp.md)!
 
-✨ Guide to working with the [MS MARCO 2.1 Document Corpus](docs/experiments-msmarco-v2.1.md) for TREC 2024 RAG Track.
+✨ Guide to working with the [MS MARCO 2.1 Document Corpus](docs/experiments-msmarco-v2.1.md) for TREC RAG Tracks.
 
 ## 🎬 Installation
 
@@ -196,6 +196,7 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 
 ## 📜️ Release History
 
++ v2.0.0 (w/ Anserini v2.0.0): April 19, 2026 [[Release Notes](docs/release-notes/release-notes-v2.0.0.md)] [[Known Issues](docs/release-notes/known-issues-v2.0.0.md)]
 + v1.6.0 (w/ Anserini v1.7.1): April 6, 2026 [[Release Notes](docs/release-notes/release-notes-v1.6.0.md)]
 + v1.5.0 (w/ Anserini v1.5.0): January 14, 2026 [[Release Notes](docs/release-notes/release-notes-v1.5.0.md)]
 + v1.4.0 (w/ Anserini v1.4.0): December 16, 2025 [[Release Notes](docs/release-notes/release-notes-v1.4.0.md)]
