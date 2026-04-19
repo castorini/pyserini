@@ -34,10 +34,10 @@ from fastmcp.utilities.tests import run_server_async
 
 def _make_mcp_server():
     """Build the same MCP server as mcpyserini (FastMCP + tools + controller)."""
+    from pyserini.server.backend import get_backend
     from pyserini.server.mcp.tools import register_tools
-    from pyserini.server.search_controller import get_controller
     mcp = FastMCP('mcpyserini')
-    register_tools(mcp, get_controller())
+    register_tools(mcp, get_backend())
     return mcp
 
 

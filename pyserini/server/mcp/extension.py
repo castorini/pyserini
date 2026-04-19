@@ -1,0 +1,104 @@
+#
+# Pyserini: Reproducible IR research with sparse and dense representations
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+from __future__ import annotations
+
+import base64
+import os
+from pathlib import Path
+from typing import Any
+
+from fastmcp.utilities.types import Image
+
+from pyserini.eval.trec_eval import trec_eval
+from pyserini.search import get_qrels, get_qrels_file
+from pyserini.search.faiss import DenseSearchResult
+from pyserini.search.hybrid import HybridSearcher
+from pyserini.server.backend import SharedSearchBackend
+from pyserini.server.config import EVAL_METRICS
+
+
+class McpSearchExtension:
+    """MCP-only features layered on top of the core search controller."""
+
+    def __init__(self, controller: SharedSearchBackend):
+        self.controller = controller
+
+    @staticmethod
+    def get_extension(img_path: str) -> str:
+        extension = Path(img_path).suffix
+        if extension.lower() in ['.jpeg', '.jpg']:
+            return 'jpeg'
+        return extension.lower().replace('.', '') or 'png'
+
+    def search_and_render(self, parse: bool = True, **kwargs: Any) -> list[Any]:
+        raw_results = self.controller.search(parse=parse, **kwargs)
+        final_output: list[Any] = []
+        query_info = raw_results.get('query', {})
+        if isinstance(query_info, dict):
+            final_output.append(f"Query Results for: {query_info.get('query_txt', 'Visual Query')}")
+            if query_info.get('query_img_path'):
+                with open(query_info['query_img_path'], 'rb') as f:
+                    final_output.append(Image(data=f.read(), format=self.get_extension(query_info['query_img_path'])))
+        else:
+            final_output.append(f'Query Results for: {query_info}')
+
+        for cand in raw_results.get('candidates', []):
+            final_output.append(f"DocID: {cand['docid']} | Score: {cand['score']}")
+            doc = cand.get('doc')
+            if doc not in (None, 'None'):
+                final_output.append(doc)
+            if cand.get('encoded_img'):
+                img_bytes = base64.b64decode(cand['encoded_img'])
+                final_output.append(Image(data=img_bytes, format=self.get_extension(cand['document_img_path'])))
+        return final_output
+
+    def document_and_render(self, docid: str, index: str, parse: bool = True) -> list[Any]:
+        doc_data = self.controller.get_document(docid, index, parse=parse)
+        output: list[Any] = [doc_data]
+        if isinstance(doc_data, dict) and doc_data.get('img_path'):
+            output.append(Image(data=base64.b64decode(doc_data['encoded_img']), format=self.get_extension(doc_data['img_path'])))
+        return output
+
+    def fuse_search_results(
+        self, hits1: list[DenseSearchResult], hits2: list[DenseSearchResult], k: int = 10
+    ) -> list[DenseSearchResult]:
+        return HybridSearcher._hybrid_results(hits1, hits2, 1, k, True)
+
+    def get_qrels(self, index: str, query_id: str) -> dict[str, str]:
+        qrels = get_qrels(index)
+        return qrels.get(query_id)
+
+    def eval_hits(self, index: str, metric: str, query_id: str, hits: dict[str, float], cutoff: int = 10) -> float:
+        if metric not in EVAL_METRICS:
+            raise ValueError(f'{metric} is not a valid evaluation metric! Must be one of {EVAL_METRICS.keys()}')
+        sorted_hits = sorted(hits.items(), key=lambda item: item[1], reverse=True)
+        temp_file = f'{index}-{metric}-{cutoff}-{query_id}.txt'
+        with open(temp_file, 'w') as f:
+            for rank, doc in enumerate(sorted_hits, start=1):
+                f.write(f'{query_id} Q0 {doc[0]} {rank} {doc[1]} mcp\n')
+        args = list(EVAL_METRICS[metric])
+        if metric in ('ndcg', 'recall'):
+            args[-1] += f'.{cutoff}'
+        else:
+            args.insert(3, f'{cutoff}')
+        args.append(get_qrels_file(index))
+        args.append(temp_file)
+        try:
+            return trec_eval(args, query_id=query_id)
+        finally:
+            if os.path.exists(temp_file):
+                os.remove(temp_file)

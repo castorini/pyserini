@@ -38,7 +38,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, PlainTextResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from pyserini.server.rest.backend import LuceneSearcherRestBackend
+from pyserini.server.backend import SharedSearchBackend
 from pyserini.server.rest.routes import v1
 
 SERVER_NAME = 'Pyserini API'
@@ -65,9 +65,9 @@ def _load_openapi_text() -> str:
 def create_app(index_config_path: str | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(app: FastAPI):
-        app.state.lucene_rest = LuceneSearcherRestBackend(index_config_path)
+        app.state.search_backend = SharedSearchBackend(index_config_path)
         yield
-        app.state.lucene_rest.close_all()
+        app.state.search_backend.close_all()
 
     app = FastAPI(
         title=SERVER_NAME,

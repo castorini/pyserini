@@ -19,24 +19,25 @@
 Register tools for the MCP server.
 """
 
-import base64
 from typing import Any, Dict
-from pathlib import Path
-from fastmcp.utilities.types import Image
 
 from fastmcp import FastMCP
-from pyserini.server.search_controller import SearchController, DenseSearchResult
-from pyserini.server.models import INDEX_TYPE, EVAL_METRICS
+from pyserini.search.faiss import DenseSearchResult
+from pyserini.server.backend import SharedSearchBackend
+from pyserini.server.config import EVAL_METRICS, INDEX_TYPE
+from pyserini.server.mcp.extension import McpSearchExtension
 
-def register_tools(mcp: FastMCP, controller: SearchController):
+def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
     """Register all tools with the MCP server."""
+    extension = McpSearchExtension(controller)
 
     @mcp.tool()
     def search(
-        query: Dict[str, Any],
-        index_name: str = "msmarco-v2.1-doc-segmented",
-        intruction_config: str = "",
-        k: int = 10,
+        query: str | Dict[str, Any],
+        index: str = "msmarco-v2.1-doc-segmented",
+        instruction_config: str = "",
+        hits: int = 10,
+        parse: bool = True,
         ef_search: int = 100,
         encoder: str = "",
         query_generator: str = ""
@@ -51,10 +52,11 @@ def register_tools(mcp: FastMCP, controller: SearchController):
                 where query_txt and query_img_path are optional but at least one must be provided 
                 (query_img_path can either be a local path of an image or an url to an image).
                 "qid" is also optional but must be a specific format for image search, no need to supply unless given by user.
-            index_name: Name of index to search, use the list_indexes tool to see available indexes. 
+            index: Name of index to search, use the list_indexes tool to see available indexes. 
                 Default is msmarco-v2.1-doc-segmented which is good for retrieval augmented generation for LLMs.
             instruction_config: for instruction guided search for multimodal embedding models
-            k: Number of results to return (default: 10)
+            hits: Number of results to return (default: 10)
+            parse: Included for OpenAPI alignment; MCP rich output always returns parsed rich content.
             ef_search: ef_search parameter for HNSW indexes (default: 100)
             encoder: Encoder to use for encoding the query
             query_generator: For sparse (tf) indexes only: how to build the Lucene query. One of: BagOfWords, DisjunctionMax (dismax), QuerySideBm25 (bm25qs), Covid19. Omit or None for default.
@@ -62,75 +64,34 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         Returns:
             List of search results with docid, score, and raw contents in text or image form
         """
-        print(f"Searching {index_name} for query: {query}")
-
-        raw_results = controller.search(
-            query, index_name, k,
+        print(f"Searching {index} for query: {query} (parse={parse})")
+        return extension.search_and_render(
+            query=query,
+            index_name=index,
+            k=hits,
+            parse=parse,
             ef_search=ef_search,
             encoder=encoder if encoder else None,
             query_generator=query_generator if query_generator else None,
-            instruction_config=intruction_config if intruction_config else None
+            instruction_config=instruction_config if instruction_config else None
         )
 
-        # Turn dict to list since MCP cannot render images in dicts
-        final_output = []
-        query_info = raw_results.get('query', {})
-        final_output.append(f"Query Results for: {query_info.get('query_txt', 'Visual Query')}")
-
-        if query_info.get('query_img_path'):
-            img_format = controller._get_extension(query_info['query_img_path'])
-            with open(query_info['query_img_path'], "rb") as f:
-                img_bytes = f.read()
-
-            final_output.append(Image(data=img_bytes, format=img_format))
-
-        for cand in raw_results.get('candidates', []):
-            final_output.append(f"DocID: {cand['docid']} | Score: {cand['score']}")
-        
-            if cand.get('document_txt') and cand['document_txt'] != "None":
-                final_output.append(cand['document_txt'])
-        
-            if cand.get('encoded_img'):
-                img_format = controller._get_extension(cand['document_img_path'])
-                img_bytes = base64.b64decode(cand['encoded_img'])
-                final_output.append(Image(data=img_bytes, format=img_format))
-
-        return final_output
-
     @mcp.tool()
-    def get_document(docid: str, index_name: str):
+    def get_document(docid: str, index: str = "", index_name: str | None = None, parse: bool = True):
         """
         Retrieve the full text and image (if available) of a document by its ID from a given index.
 
         Args:
             docid: Document ID to retrieve
-            index_name: Name of index to search 
+            index: Name of index to search
+            parse: Included for OpenAPI alignment; MCP rich output always returns parsed rich content.
 
         Returns:
             Document with full text and image (if available)
         """
-        print(f"Retrieving document {docid} from index {index_name}")
-        doc_data = controller.get_document(docid, index_name)
-        results = []
-
-        results.append(doc_data.get('contents', ''))
-
-        if doc_data.get('img_path'):
-            extension = Path(doc_data['img_path']).suffix
-            if extension.lower() in ['.jpeg', '.jpg']:
-                img_format = "jpeg"
-            else:
-                img_format = extension.lower().replace(".", "") or "png"
-
-            img_bytes = base64.b64decode(doc_data['encoded_img'])
-            results.append(
-                Image(
-                    data=img_bytes,
-                    format=img_format
-                )
-            )
-
-        return results 
+        resolved_index = index_name or index
+        print(f"Retrieving document {docid} from index {resolved_index} (parse={parse})")
+        return extension.document_and_render(docid, resolved_index, parse=parse)
 
     @mcp.tool(
         description=f"""
@@ -178,7 +139,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             List of search results with docid and score in the format of [{docid: score}]
         """
         print(f"Fusing search results with {len(hits1)} hits in hits1 and {len(hits2)} hits in hits2")
-        return controller.fuse(hits1, hits2, k)
+        return extension.fuse_search_results(hits1, hits2, k)
     
     @mcp.tool()
     def get_qrels(
@@ -196,7 +157,7 @@ def register_tools(mcp: FastMCP, controller: SearchController):
             Dictionary with docid and relevance judgement in the format of {docid: relevance}
         """
         print(f"Getting qrels for index {index_name} and query id {query_id}")
-        return controller.get_query_qrels(index_name, query_id)
+        return extension.get_qrels(index_name, query_id)
     
     @mcp.tool(
         name="eval_hits",
@@ -222,6 +183,4 @@ def register_tools(mcp: FastMCP, controller: SearchController):
         cutoff: int = 10
     ) -> float:
         print(f"Evaluating hits for index {index_name}, query id {query_id}, metric {metric}, and cutoff {cutoff}")
-        if not metric in EVAL_METRICS.keys():
-            raise ValueError(f"{metric} is not a valid evaluation metric! Must be one of {EVAL_METRICS.keys()}")
-        return controller.eval_hits(index_name, metric, query_id, hits, cutoff)
+        return extension.eval_hits(index_name, metric, query_id, hits, cutoff)
