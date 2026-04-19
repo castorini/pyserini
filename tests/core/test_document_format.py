@@ -17,7 +17,7 @@
 import json
 import unittest
 
-from pyserini.server.rest.document_format import (
+from pyserini.server.document_format import (
     _convert_json_value,
     _normalize_parsed_object,
     format_lucene_document,

@@ -15,7 +15,7 @@
 #
 
 """
-Format stored Lucene ``raw`` fields for REST responses.
+Format stored Lucene ``raw`` fields for API responses.
 
 Mirrors ``io.anserini.cli.CliUtils.formatDocument`` used by Anserini's REST server.
 """

@@ -30,7 +30,7 @@ from pyserini.search.faiss import FaissSearcher
 from pyserini.search.lucene import JBagOfWordsQueryGenerator, JCovid19QueryGenerator, JDisjunctionMaxQueryGenerator, JQuerySideBm25QueryGenerator, LuceneFlatDenseSearcher, LuceneHnswDenseSearcher, LuceneImpactSearcher, LuceneSearcher
 from pyserini.server.config import INDEX_TYPE, SHARDS, IndexConfig
 from pyserini.server.index_config import load_index_aliases
-from pyserini.server.rest.document_format import format_lucene_document
+from pyserini.server.document_format import format_lucene_document
 from pyserini.util import check_downloaded, download_prebuilt_index, download_url, get_cache_home
 
 
