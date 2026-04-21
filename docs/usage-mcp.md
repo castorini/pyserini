@@ -193,9 +193,9 @@ Fuses two ranked lists of hits.
 
 | Name | Type | Required | Default | Description |
 |------|------|----------|---------|-------------|
-| `hits1` | `list[dict[str, float]]` | yes | — | First ranked list to fuse, in the form `[{docid: score}, ...]`. |
-| `hits2` | `list[dict[str, float]]` | yes | — | Second ranked list to fuse, in the form `[{docid: score}, ...]`. |
-| `k` | `int` | no | `10` | Number of fused results to return. |
+| `results1` | `list[dict[str, float]]` | yes | — | First ranked list to fuse, in the form `[{docid: score}, ...]`. |
+| `results2` | `list[dict[str, float]]` | yes | — | Second ranked list to fuse, in the form `[{docid: score}, ...]`. |
+| `hits` | `int` | no | `10` | Number of fused results to return. |
 
 **Returns:** `list[dict[str, float]]` fused ranked results, in the form `[{docid: score}, ...]`.
 

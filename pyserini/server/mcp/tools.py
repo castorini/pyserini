@@ -70,7 +70,7 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
         return extension.search_and_render(
             query=query,
             index_name=index,
-            k=hits,
+            hits=hits,
             parse=parse,
             ef_search=ef_search,
             encoder=encoder if encoder else None,
@@ -124,22 +124,26 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
     
     @mcp.tool()
     def fuse_search_results(
-        hits1: list[DenseSearchResult], 
-        hits2: list[DenseSearchResult], 
-        k: int = 10
+        results1: list[DenseSearchResult], 
+        results2: list[DenseSearchResult], 
+        hits: int = 10
     ) -> list[DenseSearchResult]:
         """
         Performs normalization average fusion on two lists of search results to improve ranking.
 
         Args:
-            hits1: First list of search results to merge with docid and score in the format of [{docid: score}]
-            hits2: Second list of search results to merge with docid and score in the format of [{docid: score}]
-            k: Number of top results to return (default: 10)
+            results1: First list of search results to merge with docid and score in the format of [{docid: score}]
+            results2: Second list of search results to merge with docid and score in the format of [{docid: score}]
+            hits: Number of top results to return (default: 10)
         Returns:
             List of search results with docid and score in the format of [{docid: score}]
         """
-        logger.debug('Fusing search results with %s hits in hits1 and %s hits in hits2', len(hits1), len(hits2))
-        return extension.fuse_search_results(hits1, hits2, k)
+        logger.debug(
+            'Fusing search results with %s hits in results1 and %s hits in results2',
+            len(results1),
+            len(results2),
+        )
+        return extension.fuse_search_results(results1, results2, hits)
     
     @mcp.tool()
     def get_qrels(

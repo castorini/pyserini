@@ -84,9 +84,9 @@ class McpSearchExtension:
         return output
 
     def fuse_search_results(
-        self, hits1: list[DenseSearchResult], hits2: list[DenseSearchResult], k: int = 10
+        self, results1: list[DenseSearchResult], results2: list[DenseSearchResult], hits: int = 10
     ) -> list[DenseSearchResult]:
-        return HybridSearcher._hybrid_results(hits1, hits2, 1, k, True)
+        return HybridSearcher._hybrid_results(results1, results2, 1, hits, True)
 
     def get_qrels(self, index: str, query_id: str) -> dict[str, str]:
         qrels = get_qrels(index)

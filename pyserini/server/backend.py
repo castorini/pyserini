@@ -361,21 +361,23 @@ class SharedSearchBackend:
             query = query['query_txt']
         return query
 
-    def _search_single_shard(self, shard_name: str, query: str, k: int, ef_search: int, encoder: str) -> list[dict[str, float]]:
+    def _search_single_shard(self, shard_name: str, query: str, hits: int, ef_search: int, encoder: str) -> list[dict[str, float]]:
         index_config = self._ensure_index(shard_name, ef_search=ef_search, encoder=encoder)
-        hits = index_config.searcher.search(query, k)
-        return [{'docid': hit.docid, 'score': float(hit.score)} for hit in hits]
+        results = index_config.searcher.search(query, hits)
+        return [{'docid': result.docid, 'score': float(result.score)} for result in results]
 
-    def sharded_search(self, query: str, k: int, ef_search: int, encoder: str = 'ArcticEmbedL') -> list[dict[str, float]]:
+    def sharded_search(self, query: str, hits: int, ef_search: int, encoder: str = 'ArcticEmbedL') -> list[dict[str, float]]:
         from concurrent.futures import ThreadPoolExecutor, as_completed
 
         with ThreadPoolExecutor(max_workers=len(SHARDS)) as executor:
-            futures = [executor.submit(self._search_single_shard, shard_name, query, k, ef_search, encoder) for shard_name in SHARDS]
+            futures = [
+                executor.submit(self._search_single_shard, shard_name, query, hits, ef_search, encoder) for shard_name in SHARDS
+            ]
             all_results: list[dict[str, float]] = []
             for future in as_completed(futures):
                 all_results.extend(future.result())
         all_results.sort(key=lambda x: x['score'], reverse=True)
-        return all_results[:k]
+        return all_results[:hits]
 
     def get_document(
         self,
@@ -390,7 +392,7 @@ class SharedSearchBackend:
         self,
         query: str | dict[str, Any],
         index_name: str,
-        k: int = 10,
+        hits: int = 10,
         qid: str = '',
         parse: bool = True,
         allow_local_index: bool = True,
@@ -399,7 +401,7 @@ class SharedSearchBackend:
         query_generator: str | None = None,
     ) -> dict[str, Any]:
         query = self._prepare_query(query, index_name)
-        hits: list[Any]
+        results: list[Any]
         index_config = self._ensure_index(
             index_name,
             allow_local=allow_local_index,
@@ -408,38 +410,38 @@ class SharedSearchBackend:
         )
 
         if 'shard' in index_name and 'msmarco' in index_name and isinstance(query, str):
-            hits = self.sharded_search(query, k, ef_search or 100, encoder or 'ArcticEmbedL')
+            results = self.sharded_search(query, hits, ef_search or 100, encoder or 'ArcticEmbedL')
         else:
             if query_generator and index_config.index_type == 'tf' and isinstance(index_config.searcher, LuceneSearcher):
                 jquery_gen = self._resolve_query_generator(query_generator, index_config.searcher)
-                hits = index_config.searcher.search(query, k, query_generator=jquery_gen)
+                results = index_config.searcher.search(query, hits, query_generator=jquery_gen)
             else:
-                hits = index_config.searcher.search(query, k)
+                results = index_config.searcher.search(query, hits)
 
         if isinstance(query, str):
             query_payload: dict[str, Any] = {'qid': qid, 'query_txt': query}
         else:
             query_payload = query
-        results: dict[str, Any] = {'query': query_payload}
+        response_payload: dict[str, Any] = {'query': query_payload}
         doc_index_key = index_config.base_index or index_name
         ordered_docids: list[str] = []
-        for hit in hits:
-            if isinstance(hit, dict):
-                ordered_docids.append(hit['docid'])
+        for result in results:
+            if isinstance(result, dict):
+                ordered_docids.append(result['docid'])
             else:
-                ordered_docids.append(hit.docid)
+                ordered_docids.append(result.docid)
         unique_docids = list(dict.fromkeys(ordered_docids))
         docs_by_id = self._bulk_format_documents(
             unique_docids, doc_index_key, parse=parse, allow_local_index=True
         )
         candidates = []
-        for rank, hit in enumerate(hits, start=1):
-            if isinstance(hit, dict):
-                docid = hit['docid']
-                score = float(hit['score'])
+        for rank, result in enumerate(results, start=1):
+            if isinstance(result, dict):
+                docid = result['docid']
+                score = float(result['score'])
             else:
-                docid = hit.docid
-                score = float(hit.score)
+                docid = result.docid
+                score = float(result.score)
             doc = docs_by_id[docid]
             image_path = None
             encoded_img = None
@@ -456,8 +458,8 @@ class SharedSearchBackend:
                     'encoded_img': encoded_img,
                 }
             )
-        results['candidates'] = candidates
-        return results
+        response_payload['candidates'] = candidates
+        return response_payload
 
 
 _backend: SharedSearchBackend | None = None

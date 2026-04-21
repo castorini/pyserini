@@ -117,18 +117,18 @@ class TestMCPyseriniServer(unittest.TestCase):
         self.assertIsNotNone(result.content)
 
     def test_fuse_search_results_tool(self):
-        hits1 = [
+        results1 = [
             DenseSearchResult('doc_a', 0.9),
             DenseSearchResult('doc_b', 0.5),
         ]
-        hits2 = [
+        results2 = [
             DenseSearchResult('doc_a', 0.4),
             DenseSearchResult('doc_c', 0.8),
         ]
         result = self._run_async(self._call_tool('fuse_search_results', {
-            'hits1': hits1,
-            'hits2': hits2,
-            'k': 2,
+            'results1': results1,
+            'results2': results2,
+            'hits': 2,
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
         self.assertIsNotNone(result.content)
