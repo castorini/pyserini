@@ -126,48 +126,112 @@ Tools are registered in `pyserini/server/mcp/tools.py`. The MCP client can list 
 
 Runs retrieval against a Pyserini index (BM25 for standard sparse indexes; dense / impact / FAISS as appropriate for the index type). Results are returned as a **rich list** (human-readable lines plus optional **`Image`** parts for multimodal indexes), not as a single JSON table.
 
-| Parameter | Notes |
-|-----------|--------|
-| `query` | String, or for multimodal / m-BEIR-style indexes a dict such as `{"query_txt": "...", "query_img_path": "..."}` (local path or image URL where supported). |
-| `index` | Prebuilt index name or alias (default: `msmarco-v2.1-doc-segmented`). Use `list_indexes` to discover names by type. |
-| `hits` | Top‑k (default: 10). |
-| `parse` | Same semantics as REST (default: `true`): when `true`, parse JSON stored `raw` fields into structured content; when `false`, return raw stored strings. |
-| `ef_search` | HNSW / dense Lucene HNSW indexes (default: 100). |
-| `encoder` | Encoder id when the index requires one (dense / FAISS / etc.). |
-| `instruction_config` | Path to instruction YAML for UniIR / similar multimodal encoders. |
-| `query_generator` | **Sparse (TF) indexes only:** e.g. `BagOfWords`, `DisjunctionMax` / `dismax`, `QuerySideBm25` / `bm25qs`, `Covid19`. Omit for default Lucene query parsing. |
+**Parameters**
+
+| Name | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `query` | `str \| dict[str, Any]` | yes | — | Text query, or multimodal payload such as `{"query_txt": "...", "query_img_path": "..."}` (path or URL where supported). |
+| `index` | `str` | no | `msmarco-v2.1-doc-segmented` | Prebuilt index name or alias. Use `list_indexes` to discover names by type. |
+| `instruction_config` | `str` | no | `""` | Path to instruction YAML for UniIR / similar multimodal encoders. |
+| `hits` | `int` | no | `10` | Number of results to return. |
+| `parse` | `bool` | no | `true` | Same semantics as REST: when `true`, parse JSON stored `raw` fields; when `false`, return raw stored strings. |
+| `ef_search` | `int` | no | `100` | HNSW / dense Lucene HNSW search parameter. |
+| `encoder` | `str` | no | `""` | Encoder id when the index requires one (dense / FAISS / etc.). |
+| `query_generator` | `str` | no | `""` | Sparse (TF) indexes only: `BagOfWords`, `DisjunctionMax` / `dismax`, `QuerySideBm25` / `bm25qs`, `Covid19`. Omit for downstream default (`BagOfWords`). |
+
+**Returns:** `list[Any]` rich content parts, intentionally returned as a list so MCP clients can render mixed text + images correctly.
+Typical layout is:
+- query header string: `"Query Results for: ..."` (and optional query `Image` part)
+- per hit: descriptor string `"DocID: <docid> | Score: <score>"`, followed by optional document content part, followed by optional document `Image` part
 
 **Example prompt:** *Search “what is a lobster roll” on `msmarco-v1-passage` with 5 hits.*
 
 ### `get_document`
 
-Fetch one stored document by id. Parameters: `docid`, `index`, optional `parse`. Returns rich content (text and optional **`Image`** when the document includes an image field).
+Fetch one stored document by id. Returns rich content (text and optional **`Image`** when the document includes an image field).
+
+**Parameters**
+
+| Name | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `docid` | `str` | yes | — | Document id to retrieve. |
+| `index` | `str` | yes | — | Index name or alias to read from. |
+| `parse` | `bool` | no | `true` | Same semantics as `search`: parse JSON-backed `raw` fields when `true`; return raw strings when `false`. |
+
+**Returns:** `list[Any]` containing document content and optional `Image` parts.
 
 **Example prompt:** *Get document `7157707` from `msmarco-v1-passage`.*
 
 ### `list_indexes`
 
-Parameters: `index_type` — one of `tf`, `lucene_flat`, `lucene_hnsw`, `impact`, `faiss`. Returns the list of known prebuilt index names for that family.
+Returns the list of known prebuilt index names for an index family.
+
+**Parameters**
+
+| Name | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `index_type` | `str` | yes | — | One of `tf`, `lucene_flat`, `lucene_hnsw`, `impact`, `faiss`. |
+
+**Returns:** `list[str]` of known prebuilt index names for that family.
 
 ### `get_index`
 
-Parameters: `index_name`. Returns metadata and download status for that prebuilt index (same idea as checking an index in Pyserini).
+Returns metadata and download status for that prebuilt index.
+
+**Parameters**
+
+| Name | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `index_name` | `str` | yes | — | Prebuilt index name to inspect. |
+
+**Returns:** `dict[str, Any]` index metadata and download status.
 
 ### `fuse_search_results`
 
-Fuses two ranked lists of `DenseSearchResult` (`pyserini/search/faiss/_searcher.py`, docid + score). Parameters: `hits1`, `hits2`, optional `k` (default 10).
+Fuses two ranked lists of hits.
+
+**Parameters**
+
+| Name | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `hits1` | `list[dict[str, float]]` | yes | — | First ranked list to fuse, in the form `[{docid: score}, ...]`. |
+| `hits2` | `list[dict[str, float]]` | yes | — | Second ranked list to fuse, in the form `[{docid: score}, ...]`. |
+| `k` | `int` | no | `10` | Number of fused results to return. |
+
+**Returns:** `list[dict[str, float]]` fused ranked results, in the form `[{docid: score}, ...]`.
 
 ### `get_qrels`
 
-Parameters: `index_name`, `query_id` (string). Looks up relevance judgments for a **Pyserini qrels collection id** (e.g. `msmarco-v1-passage-dev`), not necessarily the Lucene index name used for search. Numeric topic ids can be passed as strings (e.g. `"1048585"`).
+Looks up relevance judgments for a **Pyserini qrels collection id** (e.g. `msmarco-v1-passage-dev`), not necessarily the Lucene index name used for search. Numeric topic ids can be passed as strings (e.g. `"1048585"`).
+
+**Parameters**
+
+| Name | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `index_name` | `str` | yes | — | Pyserini qrels collection id. |
+| `query_id` | `str` | yes | — | Query/topic id. |
+
+**Returns:** `dict[str, str]` mapping `docid -> relevance`.
 
 ### `eval_hits` (tool name: `eval_hits`)
 
-Evaluates a run using **`trec_eval`** (Java on the classpath). Parameters: `index_name` (collection with qrels), `metric` (`ndcg`, `recall`, `map`, `recip_rank`), `query_id`, `hits` as `{docid: score}`, optional `cutoff` (default 10).
+Evaluates a run using **`trec_eval`** (Java on the classpath).
+
+**Parameters**
+
+| Name | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `index_name` | `str` | yes | — | Collection id with qrels. |
+| `metric` | `str` | yes | — | One of `ndcg`, `recall`, `map`, `recip_rank`. |
+| `query_id` | `str` | yes | — | Query/topic id to evaluate. |
+| `hits` | `dict[str, float]` | yes | — | Run entries as `docid -> score`. |
+| `cutoff` | `int` | no | `10` | Cutoff for metric computation. |
+
+**Returns:** `float` evaluation score.
 
 ---
 
-Ask your client for the live tool list and parameter schemas; they stay in sync with the code above.
+Ask your LLM client for the live tool list and parameter schemas!
 
 ## Reproduction Log[*](reproducibility.md)
 

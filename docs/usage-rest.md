@@ -81,7 +81,7 @@ curl "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%20a%20l
 
 **Example response (shape)**
 
-Scores are **rounded to six decimal places** in JSON.
+Scores are **rounded to six decimal places** internally.
 
 ```json
 {
