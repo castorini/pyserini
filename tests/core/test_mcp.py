@@ -23,6 +23,7 @@ All server output (uvicorn, FastMCP, CancelledError, etc.) is suppressed during 
 """
 
 import asyncio
+import json
 import os
 import sys
 import unittest
@@ -140,6 +141,29 @@ class TestMCPyseriniServer(unittest.TestCase):
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
         self.assertIsNotNone(result.content)
+
+    def test_get_qrels_unknown_query_id_returns_empty(self):
+        result = self._run_async(self._call_tool('get_qrels', {
+            'index_name': 'msmarco-v1-passage-dev',
+            'query_id': 'definitely-not-a-real-qid',
+        }))
+        self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
+        self.assertEqual(len(result.content), 1)
+        self.assertEqual(json.loads(result.content[0].text), {})
+
+    def test_get_qrels_invalid_collection_raises_tool_error(self):
+        async def call_invalid():
+            mcp = _make_mcp_server()
+            async with run_server_async(mcp, transport='streamable-http') as url:
+                async with Client(StreamableHttpTransport(url)) as client:
+                    await client.call_tool('get_qrels', {
+                        'index_name': 'not-a-real-qrels-collection',
+                        'query_id': '1048585',
+                    })
+
+        with self.assertRaises(ToolError) as ctx:
+            self._run_async(call_invalid())
+        self.assertIn('no qrels file', str(ctx.exception))
 
 if __name__ == '__main__':
     unittest.main()
