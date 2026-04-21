@@ -60,7 +60,7 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
                 Default is msmarco-v2.1-doc-segmented which is good for retrieval augmented generation for LLMs.
             instruction_config: for instruction guided search for multimodal embedding models
             hits: Number of results to return (default: 10)
-            parse: Included for OpenAPI alignment; MCP rich output always returns parsed rich content.
+            parse: Same semantics as REST: when true, parse JSON-backed Lucene raw fields; when false, return raw stored strings.
             ef_search: ef_search parameter for HNSW indexes (default: 100)
             encoder: Encoder to use for encoding the query
             query_generator: For sparse (tf) indexes only: how to build the Lucene query. One of: BagOfWords, DisjunctionMax (dismax), QuerySideBm25 (bm25qs), Covid19. Omit or None for default.
@@ -88,7 +88,7 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
         Args:
             docid: Document ID to retrieve
             index: Name of index to search
-            parse: Included for OpenAPI alignment; MCP rich output always returns parsed rich content.
+            parse: Same semantics as REST: when true, parse JSON-backed Lucene raw fields; when false, return raw stored strings.
 
         Returns:
             Document with full text and image (if available)

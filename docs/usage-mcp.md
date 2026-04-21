@@ -131,7 +131,7 @@ Runs retrieval against a Pyserini index (BM25 for standard sparse indexes; dense
 | `query` | String, or for multimodal / m-BEIR-style indexes a dict such as `{"query_txt": "...", "query_img_path": "..."}` (local path or image URL where supported). |
 | `index` | Prebuilt index name or alias (default: `msmarco-v2.1-doc-segmented`). Use `list_indexes` to discover names by type. |
 | `hits` | Top‑k (default: 10). |
-| `parse` | Kept for parity with the REST API; MCP output is still rendered as rich content. |
+| `parse` | Same semantics as REST (default: `true`): when `true`, parse JSON stored `raw` fields into structured content; when `false`, return raw stored strings. |
 | `ef_search` | HNSW / dense Lucene HNSW indexes (default: 100). |
 | `encoder` | Encoder id when the index requires one (dense / FAISS / etc.). |
 | `instruction_config` | Path to instruction YAML for UniIR / similar multimodal encoders. |
