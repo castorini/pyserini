@@ -90,8 +90,11 @@ class SharedSearchBackend:
             searcher = config.searcher
             if searcher is None:
                 continue
+            close_fn = getattr(searcher, 'close', None)
+            if not callable(close_fn):
+                continue
             try:
-                searcher.close()
+                close_fn()
             except Exception:
                 logger.warning('Failed to close searcher for index %s during backend shutdown.', config.name, exc_info=True)
         self.indexes.clear()
@@ -146,8 +149,10 @@ class SharedSearchBackend:
                     config, ef_search=ef_search, encoder=encoder
                 )
                 if need_rebuild:
+                    close_fn = getattr(config.searcher, 'close', None)
                     try:
-                        config.searcher.close()
+                        if callable(close_fn):
+                            close_fn()
                     except Exception:
                         logger.warning('Failed to close existing searcher for index %s before rebuild.', index_name, exc_info=True)
                     del self.indexes[index_name]
@@ -426,19 +431,12 @@ class SharedSearchBackend:
                 docid = result.docid
                 score = float(result.score)
             doc = docs_by_id[docid]
-            image_path = None
-            encoded_img = None
-            if isinstance(doc, dict):
-                image_path = doc.get('img_path')
-                encoded_img = doc.get('encoded_img')
             candidates.append(
                 {
                     'docid': docid,
                     'score': round(score, _RESULT_SCORE_DECIMALS),
                     'rank': rank,
                     'doc': doc,
-                    'document_img_path': image_path,
-                    'encoded_img': encoded_img,
                 }
             )
         response_payload['candidates'] = candidates

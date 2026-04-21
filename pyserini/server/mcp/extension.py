@@ -49,6 +49,26 @@ class McpSearchExtension:
             return 'jpeg'
         return extension.lower().replace('.', '') or 'png'
 
+    def _handle_payload(self, doc: Any) -> tuple[Any | None, Image | None]:
+        """Split multimodal doc payload for MCP.
+
+        When both ``img_path`` and ``encoded_img`` are set, omit ``encoded_img`` from the
+        dict and return a separate ``Image`` (raw bytes + format for clients). When only
+        one exists, return the document dict unchanged so the base64 field or the image
+        path still reach the model textually.
+        """
+        if doc in (None, 'None'):
+            return None, None
+        if isinstance(doc, dict):
+            enc = doc.get('encoded_img')
+            path = doc.get('img_path')
+            if enc and path:
+                return (
+                    {k: v for k, v in doc.items() if k != 'encoded_img'},
+                    Image(data=base64.b64decode(enc), format=self.get_extension(path)),
+                )
+        return doc, None
+
     def search_and_render(self, parse: bool = True, **kwargs: Any) -> list[Any]:
         raw_results = self.controller.search(parse=parse, **kwargs)
         final_output: list[Any] = []
@@ -68,23 +88,21 @@ class McpSearchExtension:
 
         for cand in raw_results.get('candidates', []):
             final_output.append(f"DocID: {cand['docid']} | Score: {cand['score']}")
-            doc = cand.get('doc')
-            if doc not in (None, 'None'):
+            doc, image = self._handle_payload(cand.get('doc'))
+            if doc is not None:
                 final_output.append(doc)
-            enc = cand.get('encoded_img')
-            if enc and cand.get('document_img_path'):
-                img_bytes = base64.b64decode(enc)
-                final_output.append(Image(data=img_bytes, format=self.get_extension(cand['document_img_path'])))
+            if image:
+                final_output.append(image)
         return final_output
 
     def document_and_render(self, docid: str, index: str, parse: bool = True) -> list[Any]:
         doc_data = self.controller.get_document(docid, index, parse=parse)
-        output: list[Any] = [doc_data]
-        encoded = doc_data.get('encoded_img') if isinstance(doc_data, dict) else None
-        if isinstance(doc_data, dict) and doc_data.get('img_path') and encoded:
-            output.append(
-                Image(data=base64.b64decode(encoded), format=self.get_extension(doc_data['img_path']))
-            )
+        doc, image = self._handle_payload(doc_data)
+        output: list[Any] = []
+        if doc is not None:
+            output.append(doc)
+        if image:
+            output.append(image)
         return output
 
     def fuse_search_results(
