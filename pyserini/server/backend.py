@@ -32,27 +32,29 @@ from pyserini.search.lucene import JBagOfWordsQueryGenerator, JCovid19QueryGener
 from pyserini.server.config import INDEX_TYPE, SHARDS, IndexConfig
 from pyserini.server.index_config import load_index_aliases
 from pyserini.server.document_format import format_lucene_document
+from pyserini.server.errors import BadSearchRequestError, DocumentNotFoundError, IndexNotAvailableError
 from pyserini.util import check_downloaded, download_prebuilt_index, download_url, get_cache_home
 
 # Cap for m-beir query images fetched from user-supplied URLs (DoS mitigation: bounded RAM and disk).
 _MAX_M_BEIR_QUERY_IMAGE_BYTES = 50 * 1024 * 1024
-
-
-class BackendError(Exception):
-    """Base class for recoverable backend errors (mapped to API responses)."""
-
-
-class BadSearchRequestError(BackendError):
-    """Invalid query parameters or request payload."""
-
-
-class IndexNotAvailableError(BackendError):
-    """Index name unknown, not supported, or path could not be opened."""
-
-
-class DocumentNotFoundError(BackendError):
-    """Requested document id is not in the index."""
-
+_MBEIR_NAME_TO_INSTR_FILE = {
+    'cirr_task7': 'cirr_task7_instr.yaml',
+    'edis_task2': 'edis_task2_instr.yaml',
+    'fashion200k_task0': 'fashion200k_task0_instr.yaml',
+    'fashion200k_task3': 'fashion200k_task3_instr.yaml',
+    'fashioniq_task7': 'fashioniq_task7_instr.yaml',
+    'infoseek_task6': 'infoseek_task6_instr.yaml',
+    'infoseek_task8': 'infoseek_task8_instr.yaml',
+    'mscoco_task0': 'mscoco_task0_instr.yaml',
+    'mscoco_task3': 'mscoco_task3_instr.yaml',
+    'nights_task4': 'nights_task4_instr.yaml',
+    'oven_task6': 'oven_task6_instr.yaml',
+    'oven_task8': 'oven_task8_instr.yaml',
+    'visualnews_task0': 'visualnews_task0_instr.yaml',
+    'visualnews_task3': 'visualnews_task3_instr.yaml',
+    'webqa_task1': 'webqa_task1_instr.yaml',
+    'webqa_task2': 'webqa_task2_instr.yaml',
+}
 
 def _norm_opt_str(value: str | None) -> str:
     return (value or '').strip()
@@ -275,25 +277,7 @@ class SharedSearchBackend:
         return None
 
     def _resolve_mbeir_instruction_config(self, index_name: str) -> str | None:
-        name_to_instr_file = {
-            'cirr_task7': 'cirr_task7_instr.yaml',
-            'edis_task2': 'edis_task2_instr.yaml',
-            'fashion200k_task0': 'fashion200k_task0_instr.yaml',
-            'fashion200k_task3': 'fashion200k_task3_instr.yaml',
-            'fashioniq_task7': 'fashioniq_task7_instr.yaml',
-            'infoseek_task6': 'infoseek_task6_instr.yaml',
-            'infoseek_task8': 'infoseek_task8_instr.yaml',
-            'mscoco_task0': 'mscoco_task0_instr.yaml',
-            'mscoco_task3': 'mscoco_task3_instr.yaml',
-            'nights_task4': 'nights_task4_instr.yaml',
-            'oven_task6': 'oven_task6_instr.yaml',
-            'oven_task8': 'oven_task8_instr.yaml',
-            'visualnews_task0': 'visualnews_task0_instr.yaml',
-            'visualnews_task3': 'visualnews_task3_instr.yaml',
-            'webqa_task1': 'webqa_task1_instr.yaml',
-            'webqa_task2': 'webqa_task2_instr.yaml',
-        }
-        instr_file = next((v for k, v in name_to_instr_file.items() if k in index_name), None)
+        instr_file = next((v for k, v in _MBEIR_NAME_TO_INSTR_FILE.items() if k in index_name), None)
         if not instr_file:
             return None
 

@@ -28,12 +28,8 @@ import asyncio
 from fastapi import APIRouter, Query, Request
 from fastapi.responses import JSONResponse
 
-from pyserini.server.backend import (
-    BadSearchRequestError,
-    DocumentNotFoundError,
-    IndexNotAvailableError,
-    SharedSearchBackend,
-)
+from pyserini.server.backend import SharedSearchBackend
+from pyserini.server.errors import BadSearchRequestError, DocumentNotFoundError, IndexNotAvailableError
 
 router = APIRouter(tags=['v1'])
 
