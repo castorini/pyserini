@@ -132,7 +132,6 @@ Runs retrieval against a Pyserini index (BM25 for standard sparse indexes; dense
 |------|------|----------|---------|-------------|
 | `query` | `str \| dict[str, Any]` | yes | — | Text query, or multimodal payload such as `{"query_txt": "...", "query_img_path": "..."}` (path or URL where supported). |
 | `index` | `str` | no | `msmarco-v2.1-doc-segmented` | Prebuilt index name or alias. Use `list_indexes` to discover names by type. |
-| `instruction_config` | `str` | no | `""` | Path to instruction YAML for UniIR / similar multimodal encoders. |
 | `hits` | `int` | no | `10` | Number of results to return. |
 | `parse` | `bool` | no | `true` | Same semantics as REST: when `true`, parse JSON stored `raw` fields; when `false`, return raw stored strings. |
 | `ef_search` | `int` | no | `100` | HNSW / dense Lucene HNSW search parameter. |

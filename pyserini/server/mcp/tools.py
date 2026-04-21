@@ -39,7 +39,6 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
     def search(
         query: str | Dict[str, Any],
         index: str = "msmarco-v2.1-doc-segmented",
-        instruction_config: str = "",
         hits: int = 10,
         parse: bool = True,
         ef_search: int = 100,
@@ -58,7 +57,6 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
                 "qid" is also optional but must be a specific format for image search, no need to supply unless given by user.
             index: Name of index to search, use the list_indexes tool to see available indexes. 
                 Default is msmarco-v2.1-doc-segmented which is good for retrieval augmented generation for LLMs.
-            instruction_config: for instruction guided search for multimodal embedding models
             hits: Number of results to return (default: 10)
             parse: Same semantics as REST: when true, parse JSON-backed Lucene raw fields; when false, return raw stored strings.
             ef_search: ef_search parameter for HNSW indexes (default: 100)
@@ -77,7 +75,6 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
             ef_search=ef_search,
             encoder=encoder if encoder else None,
             query_generator=query_generator if query_generator else None,
-            instruction_config=instruction_config if instruction_config else None
         )
 
     @mcp.tool()

@@ -42,7 +42,6 @@ class IndexConfig:
     encoder: str | None = ''
     base_index: str | None = None
     index_type: str | None = ''
-    instruction_config: str | None = None
 
 
 SHARDS = {

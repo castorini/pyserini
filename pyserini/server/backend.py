@@ -107,7 +107,6 @@ class SharedSearchBackend:
         *,
         ef_search: int | None,
         encoder: str | None,
-        instruction_config: str | None,
     ) -> bool:
         """Whether the open searcher must be recreated because encoding / HNSW / UniIR settings changed."""
         idx = config.index_type or ''
@@ -116,18 +115,11 @@ class SharedSearchBackend:
 
         enc_changed = encoder is not None and _norm_opt_str(encoder) != _norm_opt_str(config.encoder)
 
-        if idx == 'lucene_flat' or idx == 'impact':
+        if idx == 'lucene_flat' or idx == 'impact' or idx == 'faiss':
             return enc_changed
         if idx == 'lucene_hnsw':
             ef_changed = ef_search is not None and ef_search != config.ef_search
             return enc_changed or ef_changed
-        if idx == 'faiss':
-            if config.name in FAISS_INDEX_INFO_M_BEIR:
-                instr_changed = instruction_config is not None and _norm_opt_str(instruction_config) != _norm_opt_str(
-                    config.instruction_config
-                )
-                return enc_changed or instr_changed
-            return enc_changed
         return False
 
     def _ensure_index(
@@ -137,13 +129,12 @@ class SharedSearchBackend:
         allow_local: bool = False,
         ef_search: int | None = None,
         encoder: str | None = None,
-        instruction_config: str | None = None,
     ) -> IndexConfig:
         with self._lock_for_index_name(index_name):
             config = self.indexes.get(index_name)
             if config and config.searcher is not None:
                 need_rebuild = config.index_type != 'tf' and self._params_require_searcher_rebuild(
-                    config, ef_search=ef_search, encoder=encoder, instruction_config=instruction_config
+                    config, ef_search=ef_search, encoder=encoder
                 )
                 if need_rebuild:
                     try:
@@ -157,15 +148,12 @@ class SharedSearchBackend:
                         config.ef_search = ef_search
                     if encoder:
                         config.encoder = encoder
-                    if instruction_config:
-                        config.instruction_config = instruction_config
                     return config
 
             config = config or IndexConfig(
                 name=index_name,
                 ef_search=ef_search,
                 encoder=encoder,
-                instruction_config=instruction_config,
             )
             searcher: LuceneSearcher | LuceneFlatDenseSearcher | LuceneHnswDenseSearcher | LuceneImpactSearcher | FaissSearcher | None = None
             if config.name in TF_INDEX_INFO:
@@ -196,7 +184,10 @@ class SharedSearchBackend:
                         raise BadSearchRequestError('Invalid encoder for m-beir FAISS index.')
                 searcher = FaissSearcher.from_prebuilt_index(
                     config.name,
-                    query_encoder=UniIRQueryEncoder(encoder_dir=config.encoder, instruction_config=config.instruction_config),
+                    query_encoder=UniIRQueryEncoder(
+                        encoder_dir=config.encoder,
+                        instruction_config=self._resolve_mbeir_instruction_config(config.name),
+                    ),
                 )
                 config.base_index = FAISS_INDEX_INFO.get(config.name, {}).get('texts')
                 config.index_type = 'faiss'
@@ -283,7 +274,43 @@ class SharedSearchBackend:
             return JCovid19QueryGenerator()
         return None
 
-    def _prepare_query(self, query: str | dict[str, Any], index_name: str, instruction_config: str | None) -> tuple[str | dict[str, Any], str | None]:
+    def _resolve_mbeir_instruction_config(self, index_name: str) -> str | None:
+        name_to_instr_file = {
+            'cirr_task7': 'cirr_task7_instr.yaml',
+            'edis_task2': 'edis_task2_instr.yaml',
+            'fashion200k_task0': 'fashion200k_task0_instr.yaml',
+            'fashion200k_task3': 'fashion200k_task3_instr.yaml',
+            'fashioniq_task7': 'fashioniq_task7_instr.yaml',
+            'infoseek_task6': 'infoseek_task6_instr.yaml',
+            'infoseek_task8': 'infoseek_task8_instr.yaml',
+            'mscoco_task0': 'mscoco_task0_instr.yaml',
+            'mscoco_task3': 'mscoco_task3_instr.yaml',
+            'nights_task4': 'nights_task4_instr.yaml',
+            'oven_task6': 'oven_task6_instr.yaml',
+            'oven_task8': 'oven_task8_instr.yaml',
+            'visualnews_task0': 'visualnews_task0_instr.yaml',
+            'visualnews_task3': 'visualnews_task3_instr.yaml',
+            'webqa_task1': 'webqa_task1_instr.yaml',
+            'webqa_task2': 'webqa_task2_instr.yaml',
+        }
+        instr_file = next((v for k, v in name_to_instr_file.items() if k in index_name), None)
+        if not instr_file:
+            return None
+
+        cache_dir = get_cache_home()
+        instr_dir = os.path.join(cache_dir, 'query_instructions')
+        if not os.path.exists(instr_dir):
+            query_images_and_instructions_url = (
+                'https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/mbeir_query_images_and_instructions.tar.gz'
+            )
+            download_url(query_images_and_instructions_url, cache_dir, force=False)
+            import tarfile
+
+            with tarfile.open(os.path.join(cache_dir, 'mbeir_query_images_and_instructions.tar.gz'), 'r:gz') as tar:
+                tar.extractall(cache_dir)
+        return str(os.path.join(instr_dir, instr_file))
+
+    def _prepare_query(self, query: str | dict[str, Any], index_name: str) -> str | dict[str, Any]:
         if isinstance(query, str):
             query = {'query_txt': query}
 
@@ -325,46 +352,14 @@ class SharedSearchBackend:
                     file.write(response.content)
                 query['query_img_path'] = save_path
 
-            if instruction_config is None or not instruction_config.strip():
-                name_to_instr_file = {
-                    'cirr_task7': 'cirr_task7_instr.yaml',
-                    'edis_task2': 'edis_task2_instr.yaml',
-                    'fashion200k_task0': 'fashion200k_task0_instr.yaml',
-                    'fashion200k_task3': 'fashion200k_task3_instr.yaml',
-                    'fashioniq_task7': 'fashioniq_task7_instr.yaml',
-                    'infoseek_task6': 'infoseek_task6_instr.yaml',
-                    'infoseek_task8': 'infoseek_task8_instr.yaml',
-                    'mscoco_task0': 'mscoco_task0_instr.yaml',
-                    'mscoco_task3': 'mscoco_task3_instr.yaml',
-                    'nights_task4': 'nights_task4_instr.yaml',
-                    'oven_task6': 'oven_task6_instr.yaml',
-                    'oven_task8': 'oven_task8_instr.yaml',
-                    'visualnews_task0': 'visualnews_task0_instr.yaml',
-                    'visualnews_task3': 'visualnews_task3_instr.yaml',
-                    'webqa_task1': 'webqa_task1_instr.yaml',
-                    'webqa_task2': 'webqa_task2_instr.yaml',
-                }
-                instr_file = next((v for k, v in name_to_instr_file.items() if k in index_name), None)
-                if instr_file:
-                    cache_dir = get_cache_home()
-                    instr_dir = os.path.join(cache_dir, 'query_instructions')
-                    if not os.path.exists(instr_dir):
-                        query_images_and_instructions_url = (
-                            'https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/mbeir_query_images_and_instructions.tar.gz'
-                        )
-                        download_url(query_images_and_instructions_url, cache_dir, force=False)
-                        import tarfile
-
-                        with tarfile.open(os.path.join(cache_dir, 'mbeir_query_images_and_instructions.tar.gz'), 'r:gz') as tar:
-                            tar.extractall(cache_dir)
-                    instruction_config = str(os.path.join(instr_dir, instr_file))
+            self._resolve_mbeir_instruction_config(index_name)
         else:
             if not query.get('query_txt'):
                 raise BadSearchRequestError(
                     'Missing query text for single modality dataset! Please provide a query text for this index!'
                 )
             query = query['query_txt']
-        return query, instruction_config
+        return query
 
     def _search_single_shard(self, shard_name: str, query: str, k: int, ef_search: int, encoder: str) -> list[dict[str, float]]:
         index_config = self._ensure_index(shard_name, ef_search=ef_search, encoder=encoder)
@@ -402,16 +397,14 @@ class SharedSearchBackend:
         ef_search: int | None = None,
         encoder: str | None = None,
         query_generator: str | None = None,
-        instruction_config: str | None = None,
     ) -> dict[str, Any]:
-        query, instruction_config = self._prepare_query(query, index_name, instruction_config)
+        query = self._prepare_query(query, index_name)
         hits: list[Any]
         index_config = self._ensure_index(
             index_name,
             allow_local=allow_local_index,
             ef_search=ef_search,
             encoder=encoder,
-            instruction_config=instruction_config,
         )
 
         if 'shard' in index_name and 'msmarco' in index_name and isinstance(query, str):
