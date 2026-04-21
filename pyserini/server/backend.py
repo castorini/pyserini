@@ -38,6 +38,10 @@ from pyserini.util import check_downloaded, download_prebuilt_index, download_ur
 
 logger = logging.getLogger(__name__)
 
+# Keep REST/MCP score rendering stable and compact; see Anserini tie-breaking rationale:
+# https://github.com/castorini/anserini/blob/master/src/main/java/io/anserini/rerank/lib/ScoreTiesAdjusterReranker.java
+_RESULT_SCORE_DECIMALS = 6
+
 # Cap for m-beir query images fetched from user-supplied URLs (DoS mitigation: bounded RAM and disk).
 _MAX_M_BEIR_QUERY_IMAGE_BYTES = 50 * 1024 * 1024
 _MBEIR_NAME_TO_INSTR_FILE = {
@@ -238,7 +242,7 @@ class SharedSearchBackend:
             f'(doc index key {doc_search_index!r}).'
         )
 
-    def _bulk_format_documents(
+    def _bulk_fetch_and_format_documents(
         self,
         docids: list[str],
         start_index_name: str,
@@ -365,7 +369,7 @@ class SharedSearchBackend:
         parse: bool = True,
         allow_local_index: bool = True,
     ) -> dict[str, Any] | str:
-        return self._bulk_format_documents([docid], index_name, parse=parse, allow_local_index=allow_local_index)[docid]
+        return self._bulk_fetch_and_format_documents([docid], index_name, parse=parse, allow_local_index=allow_local_index)[docid]
 
     def search(
         self,
@@ -410,7 +414,7 @@ class SharedSearchBackend:
             else:
                 ordered_docids.append(result.docid)
         unique_docids = list(dict.fromkeys(ordered_docids))
-        docs_by_id = self._bulk_format_documents(
+        docs_by_id = self._bulk_fetch_and_format_documents(
             unique_docids, doc_index_key, parse=parse, allow_local_index=True
         )
         candidates = []
@@ -430,7 +434,7 @@ class SharedSearchBackend:
             candidates.append(
                 {
                     'docid': docid,
-                    'score': round(score, 6),
+                    'score': round(score, _RESULT_SCORE_DECIMALS),
                     'rank': rank,
                     'doc': doc,
                     'document_img_path': image_path,
