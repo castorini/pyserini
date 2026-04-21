@@ -64,6 +64,15 @@ class TestMCPyseriniServer(unittest.TestCase):
     def _run_async(self, coro):
         return asyncio.run(coro)
 
+    @staticmethod
+    def _content_texts(result):
+        return [part.text for part in result.content if hasattr(part, 'text')]
+
+    def _single_json_content(self, result):
+        texts = self._content_texts(result)
+        self.assertGreaterEqual(len(texts), 1, 'Expected at least one text content part')
+        return json.loads(texts[0])
+
     async def _call_tool(self, name, arguments):
         # Create server inside this event loop so server._started is bound to it
         mcp = _make_mcp_server()
@@ -81,21 +90,29 @@ class TestMCPyseriniServer(unittest.TestCase):
             'hits': 3,
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
-        self.assertIsNotNone(result.content)
+        payload = self._single_json_content(result)
+        self.assertIsInstance(payload, list)
+        self.assertTrue(any(isinstance(t, str) and t.startswith('Query Results for:') for t in payload))
+        doc_lines = [t for t in payload if isinstance(t, str) and t.startswith('DocID: ')]
+        self.assertEqual(len(doc_lines), 3)
 
     def test_get_index_tool(self):
         result = self._run_async(self._call_tool('get_index', {
             'index_name': 'msmarco-v1-passage',
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
-        self.assertIsNotNone(result.content)
+        payload = self._single_json_content(result)
+        self.assertIsInstance(payload, dict)
+        self.assertIn('downloaded', payload)
 
     def test_list_indexes_tool(self):
         result = self._run_async(self._call_tool('list_indexes', {
             'index_type': 'tf',
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
-        self.assertIsNotNone(result.content)
+        payload = self._single_json_content(result)
+        self.assertIsInstance(payload, list)
+        self.assertIn('msmarco-v1-passage', payload)
 
     def test_list_indexes_invalid_type_raises_tool_error(self):
         async def call_invalid():
@@ -114,7 +131,25 @@ class TestMCPyseriniServer(unittest.TestCase):
             'index': 'msmarco-v1-passage',
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
-        self.assertIsNotNone(result.content)
+        payload = self._single_json_content(result)
+        self.assertIsInstance(payload, list)
+        self.assertGreaterEqual(len(payload), 1)
+        self.assertIsInstance(payload[0], str)
+        self.assertGreater(len(payload[0]), 0)
+
+    def test_get_document_not_found_raises_tool_error(self):
+        async def call_missing():
+            mcp = _make_mcp_server()
+            async with run_server_async(mcp, transport='streamable-http') as url:
+                async with Client(StreamableHttpTransport(url)) as client:
+                    await client.call_tool('get_document', {
+                        'docid': 'this-docid-does-not-exist',
+                        'index': 'msmarco-v1-passage',
+                    })
+
+        with self.assertRaises(ToolError) as ctx:
+            self._run_async(call_missing())
+        self.assertIn('not found', str(ctx.exception).lower())
 
     def test_fuse_search_results_tool(self):
         results1 = [
@@ -131,7 +166,11 @@ class TestMCPyseriniServer(unittest.TestCase):
             'hits': 2,
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
-        self.assertIsNotNone(result.content)
+        payload = self._single_json_content(result)
+        self.assertIsInstance(payload, list)
+        self.assertEqual(len(payload), 2)
+        self.assertTrue(all(isinstance(x, dict) for x in payload))
+        self.assertTrue(all('docid' in x and 'score' in x for x in payload))
 
     def test_get_qrels_tool(self):
         # Collection id for qrels (not the Lucene index name). Tool schema requires query_id as str.
@@ -140,7 +179,9 @@ class TestMCPyseriniServer(unittest.TestCase):
             'query_id': '1048585',
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
-        self.assertIsNotNone(result.content)
+        payload = self._single_json_content(result)
+        self.assertIsInstance(payload, dict)
+        self.assertGreater(len(payload), 0)
 
     def test_get_qrels_unknown_query_id_returns_empty(self):
         result = self._run_async(self._call_tool('get_qrels', {
@@ -148,8 +189,8 @@ class TestMCPyseriniServer(unittest.TestCase):
             'query_id': 'definitely-not-a-real-qid',
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
-        self.assertEqual(len(result.content), 1)
-        self.assertEqual(json.loads(result.content[0].text), {})
+        payload = self._single_json_content(result)
+        self.assertEqual(payload, {})
 
     def test_get_qrels_invalid_collection_raises_tool_error(self):
         async def call_invalid():
