@@ -16,6 +16,7 @@
 
 from __future__ import annotations
 
+import logging
 import os
 import threading
 from pathlib import Path
@@ -26,14 +27,16 @@ import requests
 
 from pyserini.encode import AutoQueryEncoder
 from pyserini.encode.optional._uniir import UniIRQueryEncoder
-from pyserini.prebuilt_index_info import FAISS_INDEX_INFO, FAISS_INDEX_INFO_M_BEIR, IMPACT_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, LUCENE_HNSW_INDEX_INFO, TF_INDEX_INFO
+from pyserini.prebuilt_index_info import FAISS_INDEX_INFO_M_BEIR
 from pyserini.search.faiss import FaissSearcher
 from pyserini.search.lucene import JBagOfWordsQueryGenerator, JCovid19QueryGenerator, JDisjunctionMaxQueryGenerator, JQuerySideBm25QueryGenerator, LuceneFlatDenseSearcher, LuceneHnswDenseSearcher, LuceneImpactSearcher, LuceneSearcher
-from pyserini.server.config import INDEX_TYPE, SHARDS, IndexConfig
+from pyserini.server.config import INDEX_TYPE, SHARDS, IndexConfig, lookup_index_type
 from pyserini.server.index_config import load_index_aliases
 from pyserini.server.document_format import format_lucene_document
 from pyserini.server.errors import BadSearchRequestError, DocumentNotFoundError, IndexNotAvailableError
 from pyserini.util import check_downloaded, download_prebuilt_index, download_url, get_cache_home
+
+logger = logging.getLogger(__name__)
 
 # Cap for m-beir query images fetched from user-supplied URLs (DoS mitigation: bounded RAM and disk).
 _MAX_M_BEIR_QUERY_IMAGE_BYTES = 50 * 1024 * 1024
@@ -86,7 +89,7 @@ class SharedSearchBackend:
             try:
                 searcher.close()
             except Exception:
-                pass
+                logger.warning('Failed to close searcher for index %s during backend shutdown.', config.name, exc_info=True)
         self.indexes.clear()
 
     def decode_path_segment(self, value: str) -> str:
@@ -142,7 +145,7 @@ class SharedSearchBackend:
                     try:
                         config.searcher.close()
                     except Exception:
-                        pass
+                        logger.warning('Failed to close existing searcher for index %s before rebuild.', index_name, exc_info=True)
                     del self.indexes[index_name]
                     config = None
                 else:
@@ -158,25 +161,20 @@ class SharedSearchBackend:
                 encoder=encoder,
             )
             searcher: LuceneSearcher | LuceneFlatDenseSearcher | LuceneHnswDenseSearcher | LuceneImpactSearcher | FaissSearcher | None = None
-            if config.name in TF_INDEX_INFO:
+            resolved_index_type = lookup_index_type(config.name)
+            config.index_type = resolved_index_type
+            if resolved_index_type == 'tf':
                 searcher = LuceneSearcher.from_prebuilt_index(config.name)
                 config.base_index = config.name
-                config.index_type = 'tf'
-            elif config.name in LUCENE_FLAT_INDEX_INFO:
+            elif resolved_index_type == 'lucene_flat':
                 searcher = LuceneFlatDenseSearcher.from_prebuilt_index(config.name, encoder=config.encoder)
-                config.base_index = LUCENE_FLAT_INDEX_INFO[config.name].get('texts')
-                config.index_type = 'lucene_flat'
-            elif config.name in LUCENE_HNSW_INDEX_INFO:
+            elif resolved_index_type == 'lucene_hnsw':
                 searcher = LuceneHnswDenseSearcher.from_prebuilt_index(
                     config.name, ef_search=config.ef_search, encoder=config.encoder, verbose=True
                 )
-                config.base_index = LUCENE_HNSW_INDEX_INFO[config.name].get('texts')
-                config.index_type = 'lucene_hnsw'
-            elif config.name in IMPACT_INDEX_INFO:
+            elif resolved_index_type == 'impact':
                 searcher = LuceneImpactSearcher.from_prebuilt_index(config.name, config.encoder)
-                config.base_index = IMPACT_INDEX_INFO[config.name].get('texts')
-                config.index_type = 'impact'
-            elif config.name in FAISS_INDEX_INFO_M_BEIR:
+            elif resolved_index_type == 'faiss' and config.name in FAISS_INDEX_INFO_M_BEIR:
                 if config.encoder not in ['clip_sf_large', 'blip_ff_large']:
                     if 'blip-ff-large' in config.name:
                         config.encoder = 'blip_ff_large'
@@ -191,14 +189,10 @@ class SharedSearchBackend:
                         instruction_config=self._resolve_mbeir_instruction_config(config.name),
                     ),
                 )
-                config.base_index = FAISS_INDEX_INFO.get(config.name, {}).get('texts')
-                config.index_type = 'faiss'
-            elif config.name in FAISS_INDEX_INFO:
+            elif resolved_index_type == 'faiss':
                 searcher = FaissSearcher.from_prebuilt_index(
                     config.name, query_encoder=AutoQueryEncoder(encoder_dir=config.encoder)
                 )
-                config.base_index = FAISS_INDEX_INFO[config.name].get('texts')
-                config.index_type = 'faiss'
             elif allow_local:
                 index_dir = self.resolve_index_dir(config.name)
                 if index_dir is not None:
@@ -210,6 +204,8 @@ class SharedSearchBackend:
 
             if searcher is None:
                 raise IndexNotAvailableError(f'Unable to open index: {config.name}')
+            if config.index_type and config.index_type != 'tf':
+                config.base_index = INDEX_TYPE[config.index_type][config.name].get('texts')
             config.searcher = searcher
             self.indexes[index_name] = config
             return config
@@ -222,10 +218,9 @@ class SharedSearchBackend:
 
     def get_status(self, index_name: str) -> dict[str, Any]:
         status = {'downloaded': check_downloaded(index_name)}
-        for index_type in INDEX_TYPE:
-            if INDEX_TYPE[index_type].get(index_name):
-                status.update(INDEX_TYPE[index_type].get(index_name))
-                break
+        index_type = lookup_index_type(index_name)
+        if index_type is not None:
+            status.update(INDEX_TYPE[index_type].get(index_name, {}))
         return status
 
     def _doc_store_lucene_searcher(self, start_index_name: str, *, allow_local_index: bool) -> LuceneSearcher:

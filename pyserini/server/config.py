@@ -57,6 +57,15 @@ INDEX_TYPE = {
     'faiss': FAISS_INDEX_INFO,
 }
 
+
+def lookup_index_type(index_name: str) -> str | None:
+    """Return index type key from ``INDEX_TYPE`` for a prebuilt index name."""
+    for index_type, index_group in INDEX_TYPE.items():
+        if index_name in index_group:
+            return index_type
+    return None
+
+
 EVAL_METRICS = {
     'ndcg': ['-c', '-q', '-m', 'ndcg_cut'],
     'recall': ['-c', '-q', '-m', 'recall'],

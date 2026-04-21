@@ -17,6 +17,7 @@
 from __future__ import annotations
 
 import base64
+import logging
 import os
 import tempfile
 from pathlib import Path
@@ -31,6 +32,8 @@ from pyserini.search.hybrid import HybridSearcher
 from pyserini.server.backend import SharedSearchBackend
 from pyserini.server.config import EVAL_METRICS
 from pyserini.server.errors import BadSearchRequestError
+
+logger = logging.getLogger(__name__)
 
 
 class McpSearchExtension:
@@ -117,4 +120,4 @@ class McpSearchExtension:
             try:
                 os.remove(temp_path)
             except OSError:
-                pass
+                logger.warning('Failed to remove temporary eval file: %s', temp_path, exc_info=True)
