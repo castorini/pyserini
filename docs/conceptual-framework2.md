@@ -532,7 +532,6 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 
 ## Reproduction Log[*](reproducibility.md)
 
-+ Results reproduced by [@Zixi-Sam-Tang](https://github.com/Zixi-Sam-Tang) on 2026-04-22 (commit [`b823fb0`](https://github.com/castorini/pyserini/commit/b823fb0af8c48e5a5163949dd499271336fe8f63))
 + Results reproduced by [@sahel-sh](https://github.com/sahel-sh) on 2023-08-07 (commit [`9dab30f`](https://github.com/castorini/pyserini/commit/9dab30f1ac2b7672ffc65477f0d4279d30e97ad4))
 + Results reproduced by [@Andrwyl](https://github.com/Andrwyl) on 2023-08-26 (commit [`d9da49e`](https://github.com/castorini/pyserini/commit/d9da49eb3a23fb9daa26399a2e27a5efc73beb71))
 + Results reproduced by [@yilinjz](https://github.com/yilinjz) on 2023-08-30 (commit [`42b3549`](https://github.com/castorini/pyserini/commit/42b354914b230880c91b2e4e70605b472441a9a1))
@@ -725,4 +724,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@egekaya1](https://github.com/egekaya1) on 2026-03-29 (commit [`59dfd0e`](https://github.com/castorini/pyserini/commit/59dfd0e363681691efad161fac8cc734c2ebebb8))
 + Results reproduced by [@ShanaxWorld](https://github.com/ShanaxWorld) on 2026-04-05 (commit [`eba5ad0`](https://github.com/castorini/pyserini/commit/eba5ad0c6417d8c1e51c870789dcfa968de31776))
 + Results reproduced by [@h79yan](https://github.com/h79yan) on 2026-04-12 (commit [`b973a40`](https://github.com/castorini/pyserini/commit/b973a40904cde63a23257b9342a6b786ea43d52e))
-
++ Results reproduced by [@Zixi-Sam-Tang](https://github.com/Zixi-Sam-Tang) on 2026-04-22 (commit [`b823fb0`](https://github.com/castorini/pyserini/commit/b823fb0af8c48e5a5163949dd499271336fe8f63))
