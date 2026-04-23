@@ -318,6 +318,7 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 
 ## Reproduction Log[*](reproducibility.md)
 
++ Results reproduced by [@Zixi-Sam-Tang](https://github.com/Zixi-Sam-Tang) on 2026-04-22 (commit [`b823fb0`](https://github.com/castorini/pyserini/commit/b823fb0af8c48e5a5163949dd499271336fe8f63))
 + Results reproduced by [@sahel-sh](https://github.com/sahel-sh) on 2023-08-04 (commit [`19da81c`](https://github.com/castorini/pyserini/commit/19da81c04bd4e8d3de3516ae51615f7d52e9cd33))
 + Results reproduced by [@Mofetoluwa](https://github.com/Mofetoluwa) on 2023-08-05 (commit [`6a2088b`](https://github.com/castorini/pyserini/commit/6a2088bae75f87c19d889293a00da87b33cc0ffd))
 + Results reproduced by [@Andrwyl](https://github.com/Andrwyl) on 2023-08-26 (commit [`d9da49e`](https://github.com/castorini/pyserini/commit/d9da49eb3a23fb9daa26399a2e27a5efc73beb71))
