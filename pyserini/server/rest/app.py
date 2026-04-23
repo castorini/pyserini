@@ -82,15 +82,25 @@ def create_app(
     *,
     deploy: bool = False,
 ) -> FastAPI:
-    accepted_api_tokens: AcceptedApiTokens | None = None
-    if deploy:
-        if not config_path:
-            raise ValueError('Deploy mode requires a config file path')
+    if deploy and not config_path:
+        raise ValueError('Deploy mode requires a config file path')
+
+    aliases, token_strings = {}, None
+    if config_path:
         aliases, token_strings = load_server_config(config_path)
+
+    if deploy:
         if not aliases:
             raise ValueError('Deploy mode requires at least one entry under indexes: in the config file')
         if not token_strings:
-            raise ValueError('Deploy mode requires a non-empty api_keys: list in the config file')
+            logger.warning(
+                'REST deploy is enabled but ``api_keys`` in %s is missing or empty; '
+                '/v1/ is not authenticated. Add non-empty ``api_keys`` unless this host is intentionally public.',
+                config_path,
+            )
+
+    accepted_api_tokens: AcceptedApiTokens | None = None
+    if token_strings:
         accepted_api_tokens = AcceptedApiTokens.from_strings(token_strings)
 
     @asynccontextmanager
@@ -111,7 +121,6 @@ def create_app(
     async def rest_api_key_and_access_log(request: Request, call_next):
         prefix = f'/{API_VERSION}/'
         tokens: AcceptedApiTokens | None = getattr(request.app.state, 'accepted_api_tokens', None)
-        # Non-deploy: ``accepted_api_tokens`` is unset (None) — middleware still runs but skips auth.
         if tokens is None or not request.url.path.startswith(prefix):
             return await call_next(request)
 
@@ -195,12 +204,12 @@ def main():
         '--config',
         type=str,
         default=None,
-        help='YAML server config: indexes: alias -> path; with --deploy, api_keys: list of secrets (required)',
+        help='YAML server config: indexes: alias -> path; optional non-empty api_keys: enables /v1/ Bearer or X-API-Key auth',
     )
     parser.add_argument(
         '--deploy',
         action='store_true',
-        help='Production mode: only configured indexes, requires api_keys: in --config, and enforces API auth on /v1/.',
+        help='Production mode: only indexes from --config (no prebuilt names, no arbitrary paths).',
     )
     args = parser.parse_args()
 
@@ -210,11 +219,9 @@ def main():
     if args.deploy:
         if not args.config:
             raise SystemExit('Error: --deploy requires --config')
-        aliases, token_strings = load_server_config(args.config)
+        aliases, _token_strings = load_server_config(args.config)
         if not aliases:
             raise SystemExit('Error: --deploy requires at least one entry under indexes: in the config file')
-        if not token_strings:
-            raise SystemExit('Error: --deploy requires a non-empty api_keys: list in the config file')
 
     uvicorn.run(
         create_app(

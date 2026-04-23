@@ -238,32 +238,19 @@ class TestRestServer(unittest.TestCase):
         finally:
             os.unlink(path)
 
-    def test_api_keys_in_yaml_ignored_without_deploy(self):
-        with tempfile.NamedTemporaryFile(
-            mode='w', suffix='.yaml', delete=False, encoding='utf-8'
-        ) as f:
-            f.write('api_keys:\n  - "secret-token-for-test"\n')
-            path = f.name
-        try:
-            with TestClient(create_app(path)) as client:
-                r = client.get(
-                    f'/{API_VERSION}/{_REST_INDEX}/search',
-                    params={'query': _REST_QUERY, 'hits': 1},
-                )
-                self.assertEqual(r.status_code, 200, msg=r.text)
-        finally:
-            os.unlink(path)
-
-    def test_deploy_requires_non_empty_api_keys(self):
+    def test_deploy_without_api_keys_logs_warning(self):
         with tempfile.NamedTemporaryFile(
             mode='w', suffix='.yaml', delete=False, encoding='utf-8'
         ) as f:
             f.write('indexes:\n  local: /tmp\n')
             path = f.name
         try:
-            with self.assertRaises(ValueError) as ctx:
+            with self.assertLogs('pyserini.server.rest.app', level='WARNING') as cm:
                 create_app(path, deploy=True)
-            self.assertIn('api_keys', str(ctx.exception).lower())
+            self.assertTrue(
+                any('api_keys' in line and 'not authenticated' in line for line in cm.output),
+                msg='\n'.join(cm.output),
+            )
         finally:
             os.unlink(path)
 
@@ -271,10 +258,7 @@ class TestRestServer(unittest.TestCase):
         with tempfile.NamedTemporaryFile(
             mode='w', suffix='.yaml', delete=False, encoding='utf-8'
         ) as f:
-            f.write(
-                'indexes:\n  local: /tmp\n'
-                'api_keys:\n  - "deploy-test-token"\n'
-            )
+            f.write('indexes:\n  local: /tmp\n')
             path = f.name
         try:
             with TestClient(create_app(path, deploy=True)) as client:
@@ -282,14 +266,8 @@ class TestRestServer(unittest.TestCase):
                     f'/{API_VERSION}/msmarco-v1-passage/search',
                     params={'query': 'x', 'hits': 1},
                 )
-                self.assertEqual(r.status_code, 401, msg=r.text)
-                r2 = client.get(
-                    f'/{API_VERSION}/msmarco-v1-passage/search',
-                    params={'query': 'x', 'hits': 1},
-                    headers={'Authorization': 'Bearer deploy-test-token'},
-                )
-                self.assertEqual(r2.status_code, 400, msg=r2.text)
-                self.assertIn('not configured', r2.json().get('error', ''))
+                self.assertEqual(r.status_code, 400, msg=r.text)
+                self.assertIn('not configured', r.json().get('error', ''))
         finally:
             os.unlink(path)
 
