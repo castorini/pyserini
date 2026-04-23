@@ -30,7 +30,7 @@ from pyserini.search import get_qrels, get_qrels_file
 from pyserini.search.faiss import DenseSearchResult
 from pyserini.search.hybrid import HybridSearcher
 from pyserini.server.backend import SharedSearchBackend
-from pyserini.server.config import EVAL_METRICS
+from pyserini.server.utils import EVAL_METRICS
 from pyserini.server.errors import BadSearchRequestError
 
 logger = logging.getLogger(__name__)

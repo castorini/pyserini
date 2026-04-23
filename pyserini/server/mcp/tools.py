@@ -25,7 +25,7 @@ from typing import Any, Dict
 from fastmcp import FastMCP
 from pyserini.search.faiss import DenseSearchResult
 from pyserini.server.backend import SharedSearchBackend
-from pyserini.server.config import EVAL_METRICS, INDEX_TYPE
+from pyserini.server.utils import EVAL_METRICS, INDEX_TYPE
 from pyserini.server.mcp.extension import McpSearchExtension
 
 logger = logging.getLogger(__name__)

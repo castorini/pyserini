@@ -44,17 +44,17 @@ def main():
         help="Port number for HTTP transport (default: 8000)"
     )
     parser.add_argument(
-        "--index-config",
+        "--config",
         type=str,
         default=None,
-        help="YAML file mapping index aliases to paths (Anserini --index-config)",
+        help="YAML server config: indexes: alias -> path (same idea as Anserini --index-config)",
     )
-    
+
     args = parser.parse_args()
 
     backend = None
     try:
-        backend = get_backend(args.index_config)
+        backend = get_backend(args.config)
         mcp = FastMCP('mcpyserini')
         register_tools(mcp, backend)
 

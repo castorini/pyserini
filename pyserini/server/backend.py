@@ -30,8 +30,8 @@ from pyserini.encode.optional._uniir import UniIRQueryEncoder
 from pyserini.prebuilt_index_info import FAISS_INDEX_INFO_M_BEIR
 from pyserini.search.faiss import FaissSearcher
 from pyserini.search.lucene import JBagOfWordsQueryGenerator, JCovid19QueryGenerator, JDisjunctionMaxQueryGenerator, JQuerySideBm25QueryGenerator, LuceneFlatDenseSearcher, LuceneHnswDenseSearcher, LuceneImpactSearcher, LuceneSearcher
-from pyserini.server.config import INDEX_TYPE, SHARDS, IndexConfig, lookup_index_type
-from pyserini.server.index_config import load_index_aliases
+from pyserini.server.config import load_index_aliases
+from pyserini.server.utils import INDEX_TYPE, SHARDS, IndexConfig, lookup_index_type
 from pyserini.server.document_format import format_lucene_document
 from pyserini.server.errors import BadSearchRequestError, DocumentNotFoundError, IndexNotAvailableError
 from pyserini.util import check_downloaded, download_prebuilt_index, download_url, get_cache_home
@@ -70,8 +70,11 @@ def _norm_opt_str(value: str | None) -> str:
 class SharedSearchBackend:
     """Shared backend for REST and MCP search/doc retrieval."""
 
-    def __init__(self, index_config_path: str | None = None):
-        self._aliases = dict(load_index_aliases(index_config_path))
+    def __init__(self, config_path: str | None = None, *, deploy: bool = False):
+        self._deploy = deploy
+        self._aliases = dict(load_index_aliases(config_path))
+        if self._deploy and not self._aliases:
+            raise ValueError('Deploy mode requires a non-empty index config (indexes: ...)')
         self.indexes: dict[str, IndexConfig] = {}
         # Serialize get-or-create per logical index name so different indexes can open in parallel.
         self._index_lock_registry = threading.Lock()
@@ -105,6 +108,8 @@ class SharedSearchBackend:
     def resolve_index_dir(self, index_key: str) -> str | None:
         if index_key in self._aliases:
             return self._aliases[index_key]
+        if self._deploy:
+            return None
         p = Path(index_key).expanduser()
         if p.is_dir():
             return str(p.resolve())
@@ -170,6 +175,20 @@ class SharedSearchBackend:
                 encoder=encoder,
             )
             searcher: LuceneSearcher | LuceneFlatDenseSearcher | LuceneHnswDenseSearcher | LuceneImpactSearcher | FaissSearcher | None = None
+            if self._deploy:
+                if index_name not in self._aliases:
+                    raise IndexNotAvailableError(f'Index not configured for this server: {index_name}')
+                index_dir = self._aliases[index_name]
+                try:
+                    searcher = LuceneSearcher(index_dir)
+                except Exception as e:
+                    raise IndexNotAvailableError(f'Unable to open index: {index_name}') from e
+                config.index_type = 'tf'
+                config.base_index = index_name
+                config.searcher = searcher
+                self.indexes[index_name] = config
+                return config
+
             resolved_index_type = lookup_index_type(config.name)
             config.index_type = resolved_index_type
             if resolved_index_type == 'tf':
@@ -220,12 +239,20 @@ class SharedSearchBackend:
             return config
 
     def get_indexes(self, index_type: str) -> list[str]:
+        if self._deploy:
+            if index_type != 'tf':
+                raise BadSearchRequestError(f'Index type must be TF for deployment')
+            return list(self._aliases.keys())
         indexes = INDEX_TYPE.get(index_type)
         if indexes is None:
             raise BadSearchRequestError(f'Index type must be one of {list(INDEX_TYPE.keys())}')
         return list(indexes.keys())
 
     def get_status(self, index_name: str) -> dict[str, Any]:
+        if self._deploy:
+            if index_name not in self._aliases:
+                raise BadSearchRequestError(f'Unknown index: {index_name}')
+            return {'local_path': self._aliases[index_name], 'deploy': True}
         status = {'downloaded': check_downloaded(index_name)}
         index_type = lookup_index_type(index_name)
         if index_type is not None:
@@ -444,16 +471,18 @@ class SharedSearchBackend:
 
 
 _backend: SharedSearchBackend | None = None
-_backend_index_config_path: str | None = None
+_backend_config_path: str | None = None
+_backend_deploy: bool = False
 
 
-def get_backend(index_config_path: str | None = None) -> SharedSearchBackend:
+def get_backend(config_path: str | None = None, *, deploy: bool = False) -> SharedSearchBackend:
     """Return process-wide shared backend instance."""
-    global _backend, _backend_index_config_path
-    if _backend is not None and index_config_path != _backend_index_config_path:
+    global _backend, _backend_config_path, _backend_deploy
+    if _backend is not None and (config_path != _backend_config_path or deploy != _backend_deploy):
         _backend.close_all()
         _backend = None
     if _backend is None:
-        _backend = SharedSearchBackend(index_config_path=index_config_path)
-        _backend_index_config_path = index_config_path
+        _backend = SharedSearchBackend(config_path=config_path, deploy=deploy)
+        _backend_config_path = config_path
+        _backend_deploy = deploy
     return _backend
