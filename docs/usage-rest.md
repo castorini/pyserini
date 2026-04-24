@@ -27,7 +27,12 @@ Use `--config` to provide index aliases and optional API keys:
 
 ```yaml
 indexes:
-  my_alias: /path/to/lucene/index
+  my_tf_alias: /path/to/lucene/index
+  my_dense_alias:
+    path: /path/to/dense/index
+    index_type: faiss
+    base_index: my_tf_alias
+    encoder: BAAI/bge-base-en-v1.5
 api_keys:
   - replace-with-long-random-secret-1
   - replace-with-long-random-secret-2
@@ -41,7 +46,13 @@ python -m pyserini.server.rest --config /path/to/server.yaml
 
 With `--config` enabled:
 
-- `indexes` maps alias names to local Lucene index directories.
+- `indexes` maps alias names to local index configs:
+  - short form: `alias: /path/to/index` (defaults to `index_type: tf`)
+  - object form: `alias: {path, index_type, ...}`
+  - supported `index_type`: `tf`, `lucene_flat`, `lucene_hnsw`, `impact`, `faiss`
+  - `encoder` is required for `impact`, `faiss`, `lucene_flat`, `lucene_hnsw` local indexes.
+  - optional `base_index` links dense/impact/faiss aliases to the sparse Lucene alias used for stored document fetch.
+  - optional `encoder` and `ef_search` provide per-index defaults (request-level values still override them).
 - `api_keys` (optional) enables auth on all `/v1/*` routes.
 - Client auth supports either `Authorization: Bearer <token>` or `X-API-Key: <token>`.
 

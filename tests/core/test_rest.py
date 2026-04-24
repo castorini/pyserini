@@ -282,6 +282,35 @@ class TestRestServer(unittest.TestCase):
         finally:
             os.unlink(path)
 
+    def test_no_prebuilt_indexes_accepts_object_index_config(self):
+        with tempfile.NamedTemporaryFile(
+            mode='w', suffix='.yaml', delete=False, encoding='utf-8'
+        ) as f:
+            f.write('indexes:\n  local:\n    path: /tmp\n    index_type: tf\n')
+            path = f.name
+        try:
+            with TestClient(create_app(path, no_prebuilt_indexes=True)) as client:
+                r = client.get(
+                    f'/{API_VERSION}/local/search',
+                    params={'query': 'x', 'hits': 1},
+                )
+                self.assertEqual(r.status_code, 400, msg=r.text)
+                self.assertIn('Unable to open index', r.json().get('error', ''))
+        finally:
+            os.unlink(path)
+
+    def test_no_prebuilt_indexes_rejects_invalid_index_type(self):
+        with tempfile.NamedTemporaryFile(
+            mode='w', suffix='.yaml', delete=False, encoding='utf-8'
+        ) as f:
+            f.write('indexes:\n  local:\n    path: /tmp\n    index_type: unknown\n')
+            path = f.name
+        try:
+            with self.assertRaises(ValueError):
+                create_app(path, no_prebuilt_indexes=True)
+        finally:
+            os.unlink(path)
+
 
 class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
     """``--no-prebuilt-indexes`` success path (temp YAML). See ``tests/resources/deploy_auth_test.yaml`` for manual runs."""

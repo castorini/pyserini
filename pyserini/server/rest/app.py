@@ -171,14 +171,13 @@ def create_app(
     if no_prebuilt_indexes and not config_path:
         raise ValueError('--no-prebuilt-indexes requires a config file path')
 
-    aliases, token_strings = {}, None
+    token_strings = None
     if config_path:
-        aliases, token_strings = load_server_config(config_path)
-
-    if no_prebuilt_indexes:
-        if not aliases:
+        _configured_indexes, token_strings = load_server_config(config_path)
+        if no_prebuilt_indexes and not _configured_indexes:
             raise ValueError('--no-prebuilt-indexes requires at least one entry under indexes: in the config file')
-        if not token_strings:
+
+    if no_prebuilt_indexes and not token_strings:
             logger.warning(
                 'REST --no-prebuilt-indexes is enabled but ``api_keys`` in %s is missing or empty; '
                 '/v1/ is not authenticated. Add non-empty ``api_keys`` unless this host is intentionally public.',
@@ -294,7 +293,7 @@ def main():
         '--config',
         type=str,
         default=None,
-        help='YAML server config: indexes: alias -> path; optional non-empty api_keys: enables /v1/ Bearer or X-API-Key auth',
+        help='YAML server config: indexes: alias -> path or object {path,index_type,...}; optional non-empty api_keys: enables /v1/ Bearer or X-API-Key auth',
     )
     parser.add_argument(
         '--no-prebuilt-indexes',
@@ -326,9 +325,6 @@ def main():
     if args.no_prebuilt_indexes:
         if not args.config:
             raise SystemExit('Error: --no-prebuilt-indexes requires --config')
-        aliases, _token_strings = load_server_config(args.config)
-        if not aliases:
-            raise SystemExit('Error: --no-prebuilt-indexes requires at least one entry under indexes: in the config file')
 
     uvicorn.run(
         create_app(

@@ -17,6 +17,7 @@
 """Shared helpers for the search server (prebuilt index catalogs and per-connection index types)."""
 
 from dataclasses import dataclass
+from typing import Any
 
 from pyserini.prebuilt_index_info import (
     FAISS_INDEX_INFO,
@@ -39,6 +40,7 @@ class IndexConfig:
     """Configuration for a managed search index."""
 
     name: str
+    path: str | None = None
     searcher: LuceneSearcher | LuceneHnswDenseSearcher | LuceneFlatDenseSearcher | LuceneImpactSearcher | FaissSearcher | None = None
     ef_search: int | None = 100
     encoder: str | None = ''
@@ -58,6 +60,46 @@ INDEX_TYPE = {
     'impact': IMPACT_INDEX_INFO,
     'faiss': FAISS_INDEX_INFO,
 }
+
+
+SEARCHER_FACTORIES: dict[str, tuple[Any, Any, Any]] = {
+    'tf': (
+        LuceneSearcher,
+        LuceneSearcher.from_prebuilt_index,
+        lambda _cfg: {},
+    ),
+    'lucene_flat': (
+        LuceneFlatDenseSearcher,
+        LuceneFlatDenseSearcher.from_prebuilt_index,
+        lambda cfg: {'encoder': cfg.encoder},
+    ),
+    'lucene_hnsw': (
+        LuceneHnswDenseSearcher,
+        LuceneHnswDenseSearcher.from_prebuilt_index,
+        lambda cfg: {'ef_search': cfg.ef_search, 'encoder': cfg.encoder, 'verbose': True},
+    ),
+    'impact': (
+        LuceneImpactSearcher,
+        LuceneImpactSearcher.from_prebuilt_index,
+        lambda cfg: {'query_encoder': cfg.encoder},
+    ),
+    'faiss': (
+        FaissSearcher,
+        FaissSearcher.from_prebuilt_index,
+        lambda cfg: {'query_encoder': cfg.encoder},
+    ),
+}
+
+
+def create_searcher(index_type: str, config: IndexConfig, *, local_path: str | None = None):
+    factory_triplet = SEARCHER_FACTORIES.get(index_type)
+    if factory_triplet is None:
+        raise ValueError(f'Unsupported index type: {index_type}')
+    local_ctor, prebuilt_ctor, kwargs_builder = factory_triplet
+    kwargs = kwargs_builder(config)
+    if local_path:
+        return local_ctor(local_path, **kwargs)
+    return prebuilt_ctor(config.name, **kwargs)
 
 
 def lookup_index_type(index_name: str) -> str | None:

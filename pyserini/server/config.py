@@ -26,9 +26,96 @@ from typing import Mapping
 
 import yaml
 
+from pyserini.server.utils import INDEX_TYPE, IndexConfig
 
-def load_server_config(config_path: str | None) -> tuple[Mapping[str, str], list[str] | None]:
-    """Load ``indexes`` path aliases and optional ``api_keys`` (list of secret strings)."""
+
+def _parse_indexes(raw_indexes: object, config_parent: Path) -> OrderedDict[str, IndexConfig]:
+    if not isinstance(raw_indexes, dict) or not raw_indexes:
+        return OrderedDict()
+
+    parsed_indexes: OrderedDict[str, IndexConfig] = OrderedDict()
+    valid_index_types = set(INDEX_TYPE.keys())
+
+    for alias, configured in raw_indexes.items():
+        alias_str = str(alias).strip() if alias is not None else ''
+        if not alias_str:
+            raise ValueError('Index aliases in config must be non-empty')
+
+        if isinstance(configured, str):
+            configured_path = configured
+            index_type = 'tf'
+            base_index = None
+            encoder = None
+            ef_search = None
+        elif isinstance(configured, dict):
+            configured_path = configured.get('path')
+            index_type = configured.get('index_type', 'tf')
+            base_index = configured.get('base_index')
+            encoder = configured.get('encoder')
+            ef_search = configured.get('ef_search')
+        else:
+            raise ValueError(
+                f'Index alias "{alias_str}" must map to a path string or object with path/index_type fields'
+            )
+
+        if configured_path is None or str(configured_path).strip() == '':
+            raise ValueError(f'Index alias "{alias_str}" must map to a non-empty path')
+
+        if not isinstance(index_type, str) or not index_type.strip():
+            raise ValueError(f'Index alias "{alias_str}" has invalid "index_type" (must be a non-empty string)')
+        index_type = index_type.strip()
+        if index_type not in valid_index_types:
+            raise ValueError(
+                f'Index alias "{alias_str}" has unsupported index_type "{index_type}" '
+                f'(must be one of {sorted(valid_index_types)})'
+            )
+
+        if base_index is not None:
+            if not isinstance(base_index, str) or not base_index.strip():
+                raise ValueError(
+                    f'Index alias "{alias_str}" has invalid "base_index" (must be a non-empty string when set)'
+                )
+            base_index = base_index.strip()
+
+        if encoder is not None:
+            if not isinstance(encoder, str) or not encoder.strip():
+                raise ValueError(
+                    f'Index alias "{alias_str}" has invalid "encoder" (must be a non-empty string when set)'
+                )
+            encoder = encoder.strip()
+        if index_type in ('impact', 'faiss', 'lucene_flat', 'lucene_hnsw') and not encoder:
+            raise ValueError(f'Index alias "{alias_str}" requires "encoder" when index_type is "{index_type}"')
+
+        if ef_search is not None and (not isinstance(ef_search, int) or ef_search <= 0):
+            raise ValueError(f'Index alias "{alias_str}" has invalid "ef_search" (must be a positive integer when set)')
+
+        resolved = Path(configured_path)
+        if not resolved.is_absolute():
+            resolved = (config_parent / resolved).resolve()
+
+        if not resolved.is_dir():
+            raise ValueError(f'Index alias "{alias_str}" points to missing path: {resolved}')
+
+        parsed_indexes[alias_str] = IndexConfig(
+            name=alias_str,
+            path=str(resolved),
+            index_type=index_type,
+            base_index=base_index,
+            encoder=encoder,
+            ef_search=ef_search,
+        )
+    for alias, local_cfg in parsed_indexes.items():
+        if local_cfg.base_index is None:
+            continue
+        if local_cfg.base_index not in parsed_indexes:
+            raise ValueError(f'Index alias "{alias}" references unknown base_index "{local_cfg.base_index}"')
+        if parsed_indexes[local_cfg.base_index].index_type != 'tf':
+            raise ValueError(f'Index alias "{alias}" must reference a TF base_index, got "{local_cfg.base_index}"')
+    return parsed_indexes
+
+
+def load_server_config(config_path: str | None) -> tuple[Mapping[str, IndexConfig], list[str] | None]:
+    """Load ``indexes`` and optional ``api_keys`` (list of secret strings)."""
     if not config_path or not str(config_path).strip():
         return {}, None
     path = Path(config_path)
@@ -56,32 +143,8 @@ def load_server_config(config_path: str | None) -> tuple[Mapping[str, str], list
     if 'indexes' not in payload:
         return {}, api_keys_out
 
-    raw_indexes = payload['indexes']
-    if not isinstance(raw_indexes, dict) or not raw_indexes:
-        return {}, api_keys_out
-
-    config_parent = path.resolve().parent
-    aliases: OrderedDict[str, str] = OrderedDict()
-    for alias, configured_path in raw_indexes.items():
-        if alias is None or str(alias).strip() == '':
-            raise ValueError('Index aliases in config must be non-empty')
-        if configured_path is None or str(configured_path).strip() == '':
-            raise ValueError(f'Index alias "{alias}" must map to a non-empty path')
-
-        resolved = Path(configured_path)
-        if not resolved.is_absolute():
-            resolved = (config_parent / resolved).resolve()
-
-        if not resolved.is_dir():
-            raise ValueError(f'Index alias "{alias}" points to missing path: {resolved}')
-
-        aliases[str(alias)] = str(resolved)
-    return aliases, api_keys_out
-
-
-def load_index_aliases(config_path: str | None) -> Mapping[str, str]:
-    aliases, _ = load_server_config(config_path)
-    return aliases
+    parsed_indexes = _parse_indexes(payload['indexes'], path.resolve().parent)
+    return parsed_indexes, api_keys_out
 
 
 def _normalize_token_strings(raw: Iterable[str]) -> frozenset[str]:
