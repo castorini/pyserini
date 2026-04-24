@@ -110,12 +110,10 @@ class AcceptedApiTokens:
         if token is None or not str(token).strip():
             return False
         t = str(token).strip()
+        t_bytes = t.encode('utf-8')
         for stored in self._tokens:
             if len(stored) != len(t):
                 continue
-            try:
-                if hmac.compare_digest(stored.encode('utf-8'), t.encode('utf-8')):
-                    return True
-            except Exception:
-                continue
+            if hmac.compare_digest(stored.encode('utf-8'), t_bytes):
+                return True
         return False

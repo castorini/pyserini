@@ -17,6 +17,7 @@
 import os
 import tempfile
 import unittest
+import hashlib
 
 import yaml
 from fastapi.testclient import TestClient
@@ -48,6 +49,16 @@ class TestRestServer(unittest.TestCase):
         self.assertIn('Pyserini REST API', response.text)
         self.assertIn('/{index}/search', response.text)
         self.assertIn(f'url: /{API_VERSION}', response.text)
+
+    def test_openapi_json_reflects_bundled_schema(self):
+        response = self.client.get('/openapi.json')
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn('components', data)
+        self.assertIn('securitySchemes', data['components'])
+        self.assertIn('ApiKeyAuth', data['components']['securitySchemes'])
+        search_responses = data['paths']['/{index}/search']['get']['responses']
+        self.assertIn('401', search_responses)
 
     def test_docs_available(self):
         response = self.client.get('/docs')
@@ -305,6 +316,52 @@ class TestRestServerDeployAuthenticated(unittest.TestCase):
                 self.assertEqual(data.get('query'), {'text': _REST_QUERY})
                 self.assertEqual(len(data.get('candidates', [])), 1)
                 self.assertEqual(data['candidates'][0].get('docid'), _REST_TOP_DOCID)
+        finally:
+            os.unlink(path)
+
+    def test_deploy_x_api_key_search_returns_200(self):
+        token = 'deploy-integration-test-token-xak'
+        cfg = {'indexes': {'cacm_alias': self._index_path}, 'api_keys': [token]}
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            yaml.safe_dump(cfg, f, default_flow_style=False)
+            path = f.name
+        try:
+            with TestClient(create_app(path, deploy=True)) as client:
+                denied = client.get(
+                    f'/{API_VERSION}/cacm_alias/search',
+                    params={'query': _REST_QUERY, 'hits': 1},
+                )
+                self.assertEqual(denied.status_code, 401, msg=denied.text)
+                ok = client.get(
+                    f'/{API_VERSION}/cacm_alias/search',
+                    params={'query': _REST_QUERY, 'hits': 1},
+                    headers={'X-API-Key': token},
+                )
+                self.assertEqual(ok.status_code, 200, msg=ok.text)
+                self.assertEqual(ok.json().get('index'), 'cacm_alias')
+        finally:
+            os.unlink(path)
+
+    def test_deploy_logs_key_fingerprint_for_authenticated_requests(self):
+        token = 'deploy-integration-test-token-log'
+        expected_key_id = hashlib.sha256(token.encode('utf-8')).hexdigest()[:12]
+        cfg = {'indexes': {'cacm_alias': self._index_path}, 'api_keys': [token]}
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            yaml.safe_dump(cfg, f, default_flow_style=False)
+            path = f.name
+        try:
+            with TestClient(create_app(path, deploy=True)) as client:
+                with self.assertLogs('pyserini.server.rest.auth', level='INFO') as cm:
+                    ok = client.get(
+                        f'/{API_VERSION}/cacm_alias/search',
+                        params={'query': _REST_QUERY, 'hits': 1},
+                        headers={'X-API-Key': token},
+                    )
+                self.assertEqual(ok.status_code, 200, msg=ok.text)
+                self.assertTrue(
+                    any(f'auth_request' in line and f'key_id={expected_key_id}' in line for line in cm.output),
+                    msg='\n'.join(cm.output),
+                )
         finally:
             os.unlink(path)
 

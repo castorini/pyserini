@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
   title: Pyserini REST API
   version: v1
@@ -6,6 +6,11 @@ info:
 servers:
   - url: /v1
     description: Local development server
+# Optional auth: {} means no credentials; otherwise supply one of the schemes.
+security:
+  - {}
+  - ApiKeyAuth: []
+  - BearerAuth: []
 paths:
   /{index}/search:
     get:
@@ -48,6 +53,12 @@ paths:
                 $ref: "#/components/schemas/SearchResponse"
         "400":
           description: Invalid request parameters.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Missing or invalid API credentials (only when the server is configured with api_keys).
           content:
             application/json:
               schema:
@@ -113,6 +124,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Missing or invalid API credentials (only when the server is configured with api_keys).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
         "405":
           description: Method not allowed. Only GET is supported.
           content:
@@ -126,6 +143,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Shared secret issued for this deployment (same value as Bearer token).
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API token
+      description: >-
+        Same secret as X-API-Key; send header Authorization with scheme bearer
+        and the token value.
   schemas:
     Query:
       type: object

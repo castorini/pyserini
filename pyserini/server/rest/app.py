@@ -29,28 +29,32 @@ Endpoints:
 
 from __future__ import annotations
 
+import copy
 import json
 import logging
+import hashlib
+import os
 from contextlib import asynccontextmanager
+from functools import lru_cache
 from importlib import resources
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, PlainTextResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
+import yaml
 
 from pyserini.server.backend import SharedSearchBackend
 from pyserini.server.config import AcceptedApiTokens, load_server_config
 from pyserini.server.rest.routes import v1
 
 logger = logging.getLogger(__name__)
+auth_logger = logging.getLogger('pyserini.server.rest.auth')
 
 SERVER_NAME = 'Pyserini API'
 API_VERSION = 'v1'
 DESCRIPTION = 'REST API aligned with Anserini (Lucene indexes via Pyserini).'
 ROUTE_ERROR = 'Expected route /v1/{index}/search or /v1/{index}/doc/{docid}'
-_AUTH_LOG_IDENTITY = 'authorized'
-
 
 def _error_message(detail: object) -> str:
     """Coerce exception detail to a single string (``ErrorResponse.error`` is ``type: string``)."""
@@ -67,6 +71,14 @@ def _load_openapi_text() -> str:
     return resources.files('pyserini.server.rest').joinpath('openapi.yaml').read_text(encoding='utf-8')
 
 
+@lru_cache(maxsize=1)
+def _load_openapi_schema() -> dict[str, object]:
+    payload = yaml.safe_load(_load_openapi_text())
+    if not isinstance(payload, dict):
+        raise ValueError('Bundled openapi.yaml must decode to an object')
+    return payload
+
+
 def _extract_api_token(request: Request) -> str | None:
     raw = request.headers.get('x-api-key') or request.headers.get('X-API-Key')
     if raw is not None and str(raw).strip():
@@ -75,6 +87,80 @@ def _extract_api_token(request: Request) -> str | None:
     if auth and str(auth).lower().startswith('bearer '):
         return str(auth[7:]).strip()
     return None
+
+
+def _token_fingerprint(token: str | None) -> str:
+    """Stable, non-reversible short identifier for request attribution logs."""
+    if token is None:
+        return 'missing'
+    t = str(token).strip()
+    if not t:
+        return 'missing'
+    return hashlib.sha256(t.encode('utf-8')).hexdigest()[:12]
+
+
+def _request_query(request: Request) -> str:
+    raw = request.url.query
+    if not raw:
+        return '-'
+    if len(raw) <= 256:
+        return raw
+    return f'{raw[:256]}...'
+
+
+def _build_uvicorn_log_config(server_log_file: str | None, auth_log_file: str | None) -> dict[str, object]:
+    from uvicorn.config import LOGGING_CONFIG
+
+    config = copy.deepcopy(LOGGING_CONFIG)
+    formatters = config.setdefault('formatters', {})
+    handlers = config.setdefault('handlers', {})
+    loggers = config.setdefault('loggers', {})
+
+    formatters['auth'] = {
+        'format': '%(asctime)s %(levelname)s %(name)s %(message)s',
+        'datefmt': '%Y-%m-%d %H:%M:%S',
+    }
+
+    if server_log_file:
+        handlers['server_default_file'] = {
+            'class': 'logging.FileHandler',
+            'formatter': 'default',
+            'filename': server_log_file,
+            'encoding': 'utf-8',
+        }
+        handlers['server_access_file'] = {
+            'class': 'logging.FileHandler',
+            'formatter': 'access',
+            'filename': server_log_file,
+            'encoding': 'utf-8',
+        }
+        if 'uvicorn.error' in loggers:
+            loggers['uvicorn.error']['handlers'] = ['server_default_file']
+        if 'uvicorn.access' in loggers:
+            loggers['uvicorn.access']['handlers'] = ['server_access_file']
+
+    if auth_log_file:
+        handlers['auth_file'] = {
+            'class': 'logging.FileHandler',
+            'formatter': 'auth',
+            'filename': auth_log_file,
+            'encoding': 'utf-8',
+        }
+        auth_handlers = ['auth_file']
+    else:
+        handlers['auth_console'] = {
+            'class': 'logging.StreamHandler',
+            'formatter': 'auth',
+            'stream': 'ext://sys.stderr',
+        }
+        auth_handlers = ['auth_console']
+
+    loggers['pyserini.server.rest.auth'] = {
+        'handlers': auth_handlers,
+        'level': 'INFO',
+        'propagate': False,
+    }
+    return config
 
 
 def create_app(
@@ -116,6 +202,7 @@ def create_app(
         lifespan=lifespan,
     )
     app.state.accepted_api_tokens = accepted_api_tokens  # type: ignore[attr-defined]
+    app.openapi = lambda: _load_openapi_schema()
 
     @app.middleware('http')
     async def rest_api_key_and_access_log(request: Request, call_next):
@@ -125,26 +212,29 @@ def create_app(
             return await call_next(request)
 
         credential = _extract_api_token(request)
+        key_id = _token_fingerprint(credential)
+        query = _request_query(request)
         if not tokens.is_valid(credential):
             client = request.client.host if request.client else '-'
-            logger.info(
-                'rest_request client=%s method=%s path=%s identity=%s status=401',
+            auth_logger.info(
+                'auth_failed client=%s method=%s path=%s query=%s key_id=%s status=401',
                 client,
                 request.method,
                 request.url.path,
-                'unauthorized',
+                query,
+                key_id,
             )
             return JSONResponse(status_code=401, content={'error': 'Unauthorized'})
 
-        request.state.api_identity = _AUTH_LOG_IDENTITY  # type: ignore[attr-defined]
         response = await call_next(request)
         client = request.client.host if request.client else '-'
-        logger.info(
-            'rest_request client=%s method=%s path=%s identity=%s status=%s',
+        auth_logger.info(
+            'auth_request client=%s method=%s path=%s query=%s key_id=%s status=%s',
             client,
             request.method,
             request.url.path,
-            _AUTH_LOG_IDENTITY,
+            query,
+            key_id,
             response.status_code,
         )
         return response
@@ -211,6 +301,23 @@ def main():
         action='store_true',
         help='Production mode: only indexes from --config (no prebuilt names, no arbitrary paths).',
     )
+    parser.add_argument(
+        '--server-log-file',
+        type=str,
+        default=None,
+        help='Optional file path for uvicorn server logs (error/access).',
+    )
+    parser.add_argument(
+        '--auth-log-file',
+        type=str,
+        default=None,
+        help='Optional file path for timestamped auth attribution logs.',
+    )
+    parser.add_argument(
+        '--no-access-log',
+        action='store_true',
+        help='Disable uvicorn default request access logs.',
+    )
     args = parser.parse_args()
 
     if args.port <= 0 or args.port > 65535:
@@ -230,6 +337,8 @@ def main():
         ),
         host=args.host,
         port=args.port,
+        access_log=not args.no_access_log,
+        log_config=_build_uvicorn_log_config(args.server_log_file, args.auth_log_file),
     )
 
 
