@@ -127,6 +127,8 @@ def load_server_config(config_path: str | None) -> tuple[Mapping[str, IndexConfi
 
     if not payload:
         return {}, None
+    if not isinstance(payload, dict):
+        raise ValueError('Config root must be a mapping/object')
 
     api_keys_out: list[str] | None = None
     api_keys_raw = payload.get('api_keys')

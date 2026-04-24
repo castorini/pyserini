@@ -24,6 +24,22 @@ from pyserini.server.config import load_server_config
 
 
 class TestServerConfigParsing(unittest.TestCase):
+    def test_rejects_non_mapping_yaml_root_list(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            cfg_path = root / 'server.yaml'
+            cfg_path.write_text('- just\n- a\n- list\n', encoding='utf-8')
+            with self.assertRaises(ValueError):
+                load_server_config(str(cfg_path))
+
+    def test_rejects_non_mapping_yaml_root_scalar(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            cfg_path = root / 'server.yaml'
+            cfg_path.write_text('hello\n', encoding='utf-8')
+            with self.assertRaises(ValueError):
+                load_server_config(str(cfg_path))
+
     def test_parses_string_and_object_index_entries(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
