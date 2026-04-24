@@ -371,6 +371,24 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
         finally:
             os.unlink(path)
 
+    def test_no_prebuilt_indexes_bearer_still_works_with_invalid_x_api_key(self):
+        token = 'no-prebuilt-indexes-integration-test-token-both'
+        cfg = {'indexes': {'cacm_alias': self._index_path}, 'api_keys': [token]}
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            yaml.safe_dump(cfg, f, default_flow_style=False)
+            path = f.name
+        try:
+            with TestClient(create_app(path, no_prebuilt_indexes=True)) as client:
+                ok = client.get(
+                    f'/{API_VERSION}/cacm_alias/search',
+                    params={'query': _REST_QUERY, 'hits': 1},
+                    headers={'X-API-Key': 'stale-invalid-key', 'Authorization': f'Bearer {token}'},
+                )
+                self.assertEqual(ok.status_code, 200, msg=ok.text)
+                self.assertEqual(ok.json().get('index'), 'cacm_alias')
+        finally:
+            os.unlink(path)
+
     def test_no_prebuilt_indexes_logs_key_fingerprint_for_authenticated_requests(self):
         token = 'no-prebuilt-indexes-integration-test-token-log'
         expected_key_id = hashlib.sha256(token.encode('utf-8')).hexdigest()[:12]

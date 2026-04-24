@@ -79,14 +79,19 @@ def _load_openapi_schema() -> dict[str, object]:
     return payload
 
 
-def _extract_api_token(request: Request) -> str | None:
+def _extract_api_tokens(request: Request) -> list[str]:
+    candidates: list[str] = []
     raw = request.headers.get('x-api-key') or request.headers.get('X-API-Key')
-    if raw is not None and str(raw).strip():
-        return str(raw).strip()
+    if raw is not None:
+        token = str(raw).strip()
+        if token:
+            candidates.append(token)
     auth = request.headers.get('authorization') or request.headers.get('Authorization')
     if auth and str(auth).lower().startswith('bearer '):
-        return str(auth[7:]).strip()
-    return None
+        token = str(auth[7:]).strip()
+        if token and token not in candidates:
+            candidates.append(token)
+    return candidates
 
 
 def _compute_token_fingerprint(token: str | None) -> str:
@@ -210,10 +215,11 @@ def create_app(
         if tokens is None or not request.url.path.startswith(prefix):
             return await call_next(request)
 
-        credential = _extract_api_token(request)
-        key_id = _compute_token_fingerprint(credential)
+        credentials = _extract_api_tokens(request)
+        matched_token = next((token for token in credentials if tokens.is_valid(token)), None)
+        key_id = _compute_token_fingerprint(matched_token or (credentials[0] if credentials else None))
         query = _truncate_request_query(request)
-        if not tokens.is_valid(credential):
+        if matched_token is None:
             client = request.client.host if request.client else '-'
             auth_logger.info(
                 'auth_failed client=%s method=%s path=%s query=%s key_id=%s status=401',
