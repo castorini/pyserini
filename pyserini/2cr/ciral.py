@@ -287,8 +287,10 @@ def run_conditions(args):
                         if not args.skip_eval:
                             if not os.path.exists(runfile):
                                 continue
+
                             score = float(run_eval_and_return_metric(metric, f'{eval_key}-{split}',
-                                                                     trec_eval_metric_definitions[metric], runfile))
+                                trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
+
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
                             else:

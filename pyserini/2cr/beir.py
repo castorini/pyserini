@@ -293,7 +293,8 @@ def run_conditions(args):
                                 continue
 
                             score = float(run_eval_and_return_metric(metric, f'beir-v1.0.0-{dataset}-test',
-                                                                     trec_eval_metric_definitions[metric], runfile))
+                                trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
+
                             if math.isclose(score, float(expected[metric])):
                                 result = ok_str
                             # If results are within 0.0005, just call it "OKish".

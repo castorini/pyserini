@@ -23,8 +23,8 @@ A Model Context Protocol server that provides search functionality using Pyserin
 import argparse
 from fastmcp import FastMCP
 
+from pyserini.server.backend import get_backend
 from pyserini.server.mcp.tools import register_tools
-from pyserini.server.search_controller import get_controller
 
 
 def main():
@@ -43,13 +43,20 @@ def main():
         default=8000, 
         help="Port number for HTTP transport (default: 8000)"
     )
+    parser.add_argument(
+        "--index-config",
+        type=str,
+        default=None,
+        help="YAML file mapping index aliases to paths (Anserini --index-config)",
+    )
     
     args = parser.parse_args()
-    
-    try:
-        mcp = FastMCP('mcpyserini')
 
-        register_tools(mcp, get_controller())
+    backend = None
+    try:
+        backend = get_backend(args.index_config)
+        mcp = FastMCP('mcpyserini')
+        register_tools(mcp, backend)
 
         if args.transport == "http":
             mcp.run(transport=args.transport, port=args.port)
@@ -59,3 +66,6 @@ def main():
     except Exception as e:
         print('Error', e)
         raise
+    finally:
+        if backend is not None:
+            backend.close_all()

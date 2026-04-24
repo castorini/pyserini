@@ -1,87 +1,147 @@
-# Pyserini: REST API Server with FastAPI
+# Pyserini: REST API server (FastAPI)
 
-The Pyserini FastAPI server provides a RESTful HTTP interface to Pyserini's search capabilities. 
+The Pyserini REST server exposes an **HTTP interface aligned with [Anserini’s REST API](https://github.com/castorini/anserini)** and ships the same **`openapi.yaml`** document (served at **`/openapi.yaml`**). Routes are **GET-only** for search and document fetch.
 
-## Starting the Server
+Implementation uses **`SharedSearchBackend`** (`pyserini/server/backend.py`)—the same process-wide search stack as the MCP server. A request may use a **prebuilt index name** (sparse, dense, impact, FAISS, etc., when Pyserini can open it), a **filesystem path** to an index, or an optional **YAML alias** from `--index-config`.
 
-You can start the FastAPI server by running the command:
+**v1 limitations:** The public GET API accepts only a **string** `query` parameter. It does **not** expose multimodal payloads, `encoder`, `ef_search`, or sparse `query_generator` options (those exist on the Python API and MCP). For full control over those knobs, use **MCP** or Pyserini directly.
+
+## Starting the server
 
 ```bash
 python -m pyserini.server.rest
 ```
 
-The server will start on [`http://localhost:8081/`](http://localhost:8081/) by default. You can specify a different port using the `--port` argument:
+Defaults:
+
+- **Host:** `0.0.0.0`
+- **Port:** `8081` (base URL [`http://localhost:8081/`](http://localhost:8081/))
 
 ```bash
-python -m pyserini.server.rest --port 8080
+python -m pyserini.server.rest --host 127.0.0.1 --port 8080
 ```
 
-### Interactive API Documentation
+### Index aliases (optional)
 
-Once the server is running, you can access the interactive API documentation with Swagger UI at `/docs`. 
-For example, if you're running the rest server on port 8081, then go to [`http://localhost:8081/docs`](http://localhost:8081/docs).
+Same idea as Anserini’s `--index-config`: a YAML file mapping short names to absolute or config-relative paths:
 
-## API Endpoints
-
-The FastAPI server provides several endpoints for interacting with Pyserini indexes, some of which are shown below:
-
-### 1. Search Index
-
-**Endpoint:** `GET v1/indexes/{index}/search`
-
-Perform a search query on the specified index.
-
-**Example Request:**
+```yaml
+indexes:
+  my_alias: /path/to/lucene/index
+```
 
 ```bash
-curl -X POST "http://localhost:8081/v1/indexes/msmarco-v1-passage/search" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "what is a lobster roll",
-    "hits": 1
-  }'
+python -m pyserini.server.rest --index-config /path/to/indexes.yaml
 ```
 
-**Example Response:**
+## Discovery and documentation
+
+| URL | Purpose |
+|-----|---------|
+| [`/`](http://localhost:8081/) | Short JSON metadata (name, version, links) |
+| [`/openapi.yaml`](http://localhost:8081/openapi.yaml) | OpenAPI 3.0 specification (bundled with the package) |
+| [`/docs`](http://localhost:8081/docs) | Swagger UI (FastAPI; may differ slightly from `/openapi.yaml`) |
+
+## API overview (`/v1`)
+
+All search and document routes use the **`GET`** method only. Errors return JSON `{"error": "<message>"}` with a 4xx/5xx status where applicable.
+
+### Index parameter `{index}`
+
+The `{index}` path parameter may contain **slashes**, so a relative filesystem path can appear directly under `/v1/` (for example `GET /v1/project/indexes/msmarco/search`).
+
+For an **absolute** filesystem path (leading `/`), use an **extra slash** after `/v1/` so the first URL segment is empty and the index value keeps its leading slash—for example `GET /v1//data/indexes/msmarco/search` for index `/data/indexes/msmarco`.
+
+That value is interpreted in order:
+
+1. **Alias** from `--index-config`, if that option was passed when starting the server.
+2. **Local directory** that exists (path to an index on disk).
+3. **Prebuilt index name** known to Pyserini (e.g. `msmarco-v1-passage`); the index is downloaded if needed.
+
+If the index cannot be opened, the API responds with **400** and a message such as `Unable to open index: ...`.
+
+### 1. Search
+
+**Endpoint:** `GET /v1/{index}/search`
+
+**Query parameters**
+
+| Name | Required | Default | Description |
+|------|----------|---------|-------------|
+| `query` | yes | — | Search query string. |
+| `hits` | no | `10` | Number of hits (integer ≥ 1). |
+| `parse` | no | `true` | If `true`, parse the stored `raw` field when it is JSON (see `format_lucene_document` / Anserini-style formatting); if `false`, return the raw stored string. |
+
+
+**Example**
+
+```bash
+curl "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=1"
+```
+
+**Example response (shape)**
+
+Scores are **rounded to six decimal places** internally.
 
 ```json
 {
+  "api": "v1",
+  "index": "msmarco-v1-passage",
   "query": {
-    "qid": "",
-    "query_txt": "what is a lobster roll",
-    "query_img_path": null,
-    "query_modality": "text"
+    "text": "what is a lobster roll"
   },
   "candidates": [
     {
       "docid": "7157707",
-      "score": 11.008299827575684,
-      "document_txt": "Cookbook: Lobster roll Media: Lobster roll A lobster-salad style roll from The Lobster Roll in Amagansett, New York on the Eastern End of Long Island A lobster roll is a fast-food sandwich native to New England made of lobster meat served on a grilled hot dog-style bun with the opening on the top rather than the side. The filling may also contain butter, lemon juice, salt and black pepper, with variants made in other parts of New England replacing the butter with mayonnaise. Others contain diced celery or scallion. Potato chips or french fries are the typical sides.",
-      "encoded_img": null
+      "score": 11.0083,
+      "rank": 1,
+      "doc": {
+        "contents": "..."
+      }
     }
   ]
 }
 ```
 
-### 2. Get Document
+The `doc` field may be `null`, a string, or a JSON value depending on the index and `parse` (see `DocumentPayload` in `/openapi.yaml`).
 
-**Endpoint:** `GET v1/indexes/{index}/documents/{docid}`
+### 2. Get document by id
 
-Retrieve a specific document by its document ID.
+**Endpoint:** `GET /v1/{index}/doc/{docid}`
 
-**Example Request:**
+**Query parameters**
+
+| Name | Required | Default | Description |
+|------|----------|---------|-------------|
+| `parse` | no | `true` | Same meaning as for search. |
+
+**Example**
 
 ```bash
-curl "http://localhost:8081/v1/indexes/msmarco-v1-passage/documents/7157715"
+curl "http://localhost:8081/v1/msmarco-v1-passage/doc/7157707"
 ```
 
-**Example Response:**
+**Example response (shape)**
 
 ```json
 {
-  "id": "7157715",
-  "contents": "A Lobster Roll is a bread roll filled with bite-sized chunks of lobster meat. Lobster Rolls are made on the Atlantic coast of North America, from the New England area of the United States on up into the Maritimes areas of Canada."
+  "api": "v1",
+  "index": "msmarco-v1-passage",
+  "docid": "7157707",
+  "doc": {
+    "contents": "..."
+  }
 }
 ```
 
-For all endpoints see the Swagger UI documentation.
+### 3. Typical HTTP status codes
+
+| Code | Meaning |
+|------|---------|
+| 200 | Success |
+| 400 | Invalid parameters (e.g. missing `query`, invalid `hits` or `parse`), or cannot open index |
+| 404 | Unknown route, or document not found for `GET .../doc/{docid}` |
+| 405 | Method not allowed (only **GET** is supported on these routes) |
+| 500 | Unhandled server error |
+
+The full list of operations, parameters, and response schemas is in **`/openapi.yaml`**.

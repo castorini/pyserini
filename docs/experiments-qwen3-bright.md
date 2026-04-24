@@ -174,3 +174,4 @@ pony                                               | 0.1216
 ```
 
 ## Reproduction Log[*](reproducibility.md)
++ Results reproduced by [@h79yan](https://github.com/h79yan) on 2026-04-15 (commit [`a8ec37d`](https://github.com/castorini/pyserini/commit/a8ec37db726ef7ba094627f1fe778ab881495015))

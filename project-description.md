@@ -5,7 +5,8 @@ Our focus is on first-stage retrieval:
 + Retrieval with sparse representations (e.g., BM25 and the SPLADE family) using inverted indexes.
 + Retrieval with dense representations (i.e., embeddings) using flat or HNSW indexes.
 
-Additional support for dense retrieval is provided via integration with Facebook's [Faiss](https://github.com/facebookresearch/faiss) library, available as part of the optional dependencies, but not installed by default.
+[Lucene](https://lucene.apache.org/) provides support for both sparse indexes (i.e., inverted) as well as dense indexes (i.e., flat, HNSW).
+Additional support for dense indexes is provided via integration with [Faiss](https://github.com/facebookresearch/faiss) library.
 
 Pyserini is primarily designed to provide effective, reproducible, and easy-to-use first-stage retrieval in a multi-stage ranking architecture.
 The toolkit is self-contained as a standard Python package and comes with queries, relevance judgments, prebuilt indexes, and evaluation scripts for many commonly used IR test collections
@@ -14,21 +15,24 @@ The toolkit is self-contained as a standard Python package and comes with querie
 
 Install via PyPI:
 
-```
+```bash
 pip install pyserini
 ```
 
-Pyserini is built on Python 3.11 (other versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
-A `pip` installation will automatically pull in major dependencies such as [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/).
+Pyserini is built on Python 3.12 (other versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
 
-The toolkit also has a number of optional dependencies:
+❗ A `pip` installation will automatically pull in major dependencies such as [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/).
+Sometimes `pip` has issues pulling in the "right" versions; if this is the case, it might make sense to install these dependencies first (selecting the right version by hand, perhaps via `conda`).
 
-```
+❗ Parts of Pyserini depend on [Faiss](https://github.com/facebookresearch/faiss).
+It's not included in the dependencies list because there is a proliferation of variants (`faiss-cpu`, `faiss-gpu`, etc.), so it's easier if you install the right variant yourself.
+
+Multimodal support (e.g., image search) has been pushed into an `optional` package.
+If you need it:
+
+```bash
 pip install 'pyserini[optional]'
 ```
-
-Notably, `faiss-cpu` is included as an optional dependency; the package can be tricky to install, which is why it is not included in the core dependencies.
-It might be a good idea to install it yourself separately.
 
 Refer to documentation in [our repository](https://github.com/castorini/pyserini/) for additional details.
 

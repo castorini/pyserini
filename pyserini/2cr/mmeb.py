@@ -144,10 +144,9 @@ def run_conditions(args):
                             if not os.path.exists(runfile):  
                                 continue  
                                   
-                            qrels_name = f"mmeb-visdoc-{dataset}-{get_split(dataset)}"
-                            score = float(run_eval_and_return_metric(  
-                                metric, qrels_name,
-                                trec_eval_metric_definitions[metric], runfile))  
+                            qrels_name = f'mmeb-visdoc-{dataset}-{get_split(dataset)}'
+                            score = float(run_eval_and_return_metric(metric, qrels_name,
+                                trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
                                   
                             if math.isclose(score, float(expected[metric])):  
                                 result = ok_str  

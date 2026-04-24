@@ -31,8 +31,12 @@ def run_command(cmd):
     return stdout, stderr
 
 
-def run_eval_and_return_metric(metric, eval_key, defs, runfile):
+def run_eval_and_return_metric(metric, eval_key, defs, runfile, display_command=False):
     eval_cmd = f'python -m pyserini.eval.trec_eval {defs} {eval_key} {runfile}'
+
+    if display_command:
+        print(f'\n```bash\n{eval_cmd}\n```\n')
+
     eval_stdout, eval_stderr = run_command(eval_cmd)
 
     for line in eval_stdout.split('\n'):

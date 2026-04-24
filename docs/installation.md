@@ -7,21 +7,27 @@ At a high level:
 + Pyserini depends on [Anserini](http://anserini.io/), which is built on Lucene.
 [PyJNIus](https://github.com/kivy/pyjnius) is used to interact with the JVM. We depend on Java 21.
 + We need [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/) for "neural stuff".
++ We need [Faiss](https://github.com/facebookresearch/faiss) for searching dense vectors. (Although we can search dense vectors with Lucene also.)
 
-A `pip` installation will automatically pull in major dependencies without any major issues 🤞:
+A `pip` installation _should_ automatically pull in major dependencies without any major issues:
 
 ```bash
 pip install pyserini
 ```
 
-The toolkit also has a number of optional dependencies:
+❗ For [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/): sometimes `pip` has issues pulling in the "right" versions.
+If this is the case, it might make sense to install these dependencies first (selecting the right version by hand, perhaps via `conda`).
+
+❗ [Faiss](https://github.com/facebookresearch/faiss) is _not_ included in the dependencies list because there is a proliferation of variants (`faiss-cpu`, `faiss-gpu`, etc.), so it's easier if you install the right variant yourself.
+
+Multimodal support (e.g., image search) has been pushed into an `optional` package.
+If you need it, install `'pyserini[optional]'`:
 
 ```bash
 pip install 'pyserini[optional]'
 ```
 
-Notably, `faiss-cpu` is included as an optional dependency; the package can be tricky to install, which is why it is not included in the core dependencies.
-It might be a good idea to install it yourself separately.
+tl;dr &mdash; 🤞
 
 ## PyPI Installation Walkthrough
 
@@ -51,7 +57,7 @@ conda install -c pytorch faiss-cpu -y
 pip install pyserini==latest
 # If you want the optional dependencies, otherwise skip; the temperamental packages are already installed at this point
 # so should be smooth...
-pip install 'pyserini[optional]==latest'
+pip install 'pyserini==latest'
 ```
 
 ### Linux
@@ -79,7 +85,7 @@ conda install -c pytorch faiss-cpu -y
 pip install pyserini==latest
 # If you want the optional dependencies, otherwise skip; the temperamental packages are already installed at this point
 # so should be smooth...
-pip install 'pyserini[optional]==latest'
+pip install 'pyserini==latest'
 ```
 
 ### Verifying the Installation
@@ -195,18 +201,17 @@ As with the `pip` installation, a potential source of frustration is incompatibi
 You can confirm everything is working by running the unit tests:
 
 ```bash
-python -m unittest
+python -m unittest discover -s tests
 ```
 
 Assuming all tests pass, you should be ready to go!
 
 ## Troubleshooting Tips
 
-+ The above guide handles JVM installation via conda. If you are using your own Java environment and get an error about Java version mismatch, it's likely an issue with your `JAVA_HOME` environmental variable.
+The above guide handles JVM installation via Conda. If you are using your own Java environment and get an error about Java version mismatch, it's likely an issue with your `JAVA_HOME` environmental variable.
 In `bash`, use `echo $JAVA_HOME` to find out what the environmental variable is currently set to, and use `export JAVA_HOME=/path/to/java/home` to change it to the correct path.
 On a Linux system, the correct path might look something like `/usr/lib/jvm/java-21`.
 Unfortunately, we are unable to offer more concrete advice since the actual path depends on your OS, which JDK you're using, and a host of other factors.
-+ On Apple's M-series processors, make sure you've installed the ARM-based release of Conda instead of the Intel-based release.
 
 ## Internal Notes
 

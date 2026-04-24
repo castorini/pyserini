@@ -583,12 +583,9 @@ def run_conditions(args):
                             if not os.path.exists(runfile):
                                 continue
 
-                            score = float(
-                                run_eval_and_return_metric(
-                                    metric,
-                                    eval_key,
-                                    trec_eval_metric_definitions[args.collection][eval_key][metric],
-                                    runfile))
+                            score = float(run_eval_and_return_metric(metric, eval_key,
+                                    trec_eval_metric_definitions[args.collection][eval_key][metric], runfile, display_command=args.display_commands))
+
                             if math.isclose(score, float(expected[metric])):
                                 result_str = ok_str
                             # If results are within 0.0005, just call it "OKish".

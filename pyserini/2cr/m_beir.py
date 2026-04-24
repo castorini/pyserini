@@ -134,9 +134,10 @@ def run_conditions(args):
                                 if not args.skip_eval and not args.dry_run:  
                                     if not os.path.exists(runfile):  
                                         continue  
-                                    score = float(run_eval_and_return_metric(  
-                                        metric, "m-beir-" + sub_dataset.replace('_', '-'),  
-                                        trec_eval_metric_definitions[metric], runfile))  
+
+                                    score = float(run_eval_and_return_metric(metric, 'm-beir-' + sub_dataset.replace('_', '-'),
+                                        trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
+
                                     if math.isclose(score, float(expected[metric])):  
                                         result = ok_str  
                                     elif abs(score - float(expected[metric])) <= 0.0005 or score > float(expected[metric]):  
@@ -163,9 +164,10 @@ def run_conditions(args):
                             if not args.skip_eval and not args.dry_run:  
                                 if not os.path.exists(runfile):  
                                     continue  
-                                score = float(run_eval_and_return_metric(  
-                                    metric, "m-beir-" + dataset.replace('_', '-'),  
-                                    trec_eval_metric_definitions[metric], runfile))  
+
+                                score = float(run_eval_and_return_metric(metric, 'm-beir-' + dataset.replace('_', '-'),
+                                    trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
+
                                 if math.isclose(score, float(expected[metric])):  
                                     result = ok_str  
                                 elif abs(score - float(expected[metric])) <= 0.0005 or score > float(expected[metric]):  

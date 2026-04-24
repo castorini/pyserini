@@ -8,12 +8,15 @@ include = ["pyserini*"]
 exclude = ["tests", "integrations"]
 namespaces = false
 
+[tool.setuptools.package-data]
+"pyserini.server.rest" = ["openapi.yaml"]
+
 [tool.black]
 skip-string-normalization = true
 
 [project]
 name = "pyserini"
-version = "1.6.0"
+version = "2.0.0"
 license = "Apache-2.0"
 license-files = ["LICENSE.txt",
 ]

@@ -225,8 +225,9 @@ def run_conditions(args):
                             if not os.path.exists(runfile):
                                 continue
                             
-                            score = float(run_eval_and_return_metric(metric, f'atomic.validation.{retrieval_type}',
-                                                                     trec_eval_metric_definitions[metric], runfile))
+                            score = float(run_eval_and_return_metric(metric,f'atomic.validation.{retrieval_type}',
+                                trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
+
                             if math.isclose(score, float(expected[metric])):
                                 result = ok_str
                             # If results are within 0.0005, just call it "OKish".
