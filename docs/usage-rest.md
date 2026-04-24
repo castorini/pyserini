@@ -83,6 +83,9 @@ python -m pyserini.server.rest \
 
 All search and document routes use the **`GET`** method only. Errors return JSON `{"error": "<message>"}` with a 4xx/5xx status where applicable.
 
+When `api_keys` is configured, every `/v1/*` route requires authentication; you can use either
+`Authorization: Bearer <token>` or `X-API-Key: <token>` on any endpoint.
+
 ### Index parameter `{index}`
 
 The `{index}` path parameter may contain **slashes**, so a relative filesystem path can appear directly under `/v1/` (for example `GET /v1/project/indexes/msmarco/search`).
@@ -114,6 +117,13 @@ If the index cannot be opened, the API responds with **400** and a message such 
 
 ```bash
 curl "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=1"
+```
+
+With API key auth enabled (`api_keys` in `--config`), for example:
+
+```bash
+curl -H "Authorization: Bearer replace-with-long-random-secret-1" \
+  "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=1"
 ```
 
 **Example response (shape)**
@@ -154,6 +164,13 @@ The `doc` field may be `null`, a string, or a JSON value depending on the index 
 
 ```bash
 curl "http://localhost:8081/v1/msmarco-v1-passage/doc/7157707"
+```
+
+With API key auth enabled (`api_keys` in `--config`), for example:
+
+```bash
+curl -H "X-API-Key: replace-with-long-random-secret-1" \
+  "http://localhost:8081/v1/msmarco-v1-passage/doc/7157707"
 ```
 
 **Example response (shape)**
