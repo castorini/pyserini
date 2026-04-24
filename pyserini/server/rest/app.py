@@ -33,7 +33,6 @@ import copy
 import json
 import logging
 import hashlib
-import os
 from contextlib import asynccontextmanager
 from functools import lru_cache
 from importlib import resources
@@ -183,11 +182,11 @@ def create_app(
             raise ValueError('--no-prebuilt-indexes requires at least one entry under indexes: in the config file')
 
     if no_prebuilt_indexes and not token_strings:
-            logger.warning(
-                'REST --no-prebuilt-indexes is enabled but ``api_keys`` in %s is missing or empty; '
-                '/v1/ is not authenticated. Add non-empty ``api_keys`` unless this host is intentionally public.',
-                config_path,
-            )
+        logger.warning(
+            'REST --no-prebuilt-indexes is enabled but ``api_keys`` in %s is missing or empty; '
+            '/v1/ is not authenticated. Add non-empty ``api_keys`` unless this host is intentionally public.',
+            config_path,
+        )
 
     accepted_api_tokens: AcceptedApiTokens | None = None
     if token_strings:
