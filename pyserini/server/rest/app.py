@@ -89,7 +89,7 @@ def _extract_api_token(request: Request) -> str | None:
     return None
 
 
-def _token_fingerprint(token: str | None) -> str:
+def _compute_token_fingerprint(token: str | None) -> str:
     """Stable, non-reversible short identifier for request attribution logs."""
     if token is None:
         return 'missing'
@@ -99,7 +99,7 @@ def _token_fingerprint(token: str | None) -> str:
     return hashlib.sha256(t.encode('utf-8')).hexdigest()[:12]
 
 
-def _request_query(request: Request) -> str:
+def _truncate_request_query(request: Request) -> str:
     raw = request.url.query
     if not raw:
         return '-'
@@ -211,8 +211,8 @@ def create_app(
             return await call_next(request)
 
         credential = _extract_api_token(request)
-        key_id = _token_fingerprint(credential)
-        query = _request_query(request)
+        key_id = _compute_token_fingerprint(credential)
+        query = _truncate_request_query(request)
         if not tokens.is_valid(credential):
             client = request.client.host if request.client else '-'
             auth_logger.info(
