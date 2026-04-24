@@ -47,7 +47,7 @@ def main():
         "--config",
         type=str,
         default=None,
-        help="YAML server config: indexes: alias -> path (same idea as Anserini --index-config)",
+        help="YAML server config with API tokens and index mappings",
     )
 
     args = parser.parse_args()
