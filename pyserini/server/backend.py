@@ -70,11 +70,11 @@ def _norm_opt_str(value: str | None) -> str:
 class SharedSearchBackend:
     """Shared backend for REST and MCP search/doc retrieval."""
 
-    def __init__(self, config_path: str | None = None, *, deploy: bool = False):
-        self._deploy = deploy
+    def __init__(self, config_path: str | None = None, *, no_prebuilt_indexes: bool = False):
+        self._no_prebuilt_indexes = no_prebuilt_indexes
         self._aliases = dict(load_index_aliases(config_path))
-        if self._deploy and not self._aliases:
-            raise ValueError('Deploy mode requires a non-empty index config (indexes: ...)')
+        if self._no_prebuilt_indexes and not self._aliases:
+            raise ValueError('--no-prebuilt-indexes requires a non-empty index config (indexes: ...)')
         self.indexes: dict[str, IndexConfig] = {}
         # Serialize get-or-create per logical index name so different indexes can open in parallel.
         self._index_lock_registry = threading.Lock()
@@ -108,7 +108,7 @@ class SharedSearchBackend:
     def resolve_index_dir(self, index_key: str) -> str | None:
         if index_key in self._aliases:
             return self._aliases[index_key]
-        if self._deploy:
+        if self._no_prebuilt_indexes:
             return None
         p = Path(index_key).expanduser()
         if p.is_dir():
@@ -175,7 +175,7 @@ class SharedSearchBackend:
                 encoder=encoder,
             )
             searcher: LuceneSearcher | LuceneFlatDenseSearcher | LuceneHnswDenseSearcher | LuceneImpactSearcher | FaissSearcher | None = None
-            if self._deploy:
+            if self._no_prebuilt_indexes:
                 if index_name not in self._aliases:
                     raise IndexNotAvailableError(f'Index not configured for this server: {index_name}')
                 index_dir = self._aliases[index_name]
@@ -239,9 +239,9 @@ class SharedSearchBackend:
             return config
 
     def get_indexes(self, index_type: str) -> list[str]:
-        if self._deploy:
+        if self._no_prebuilt_indexes:
             if index_type != 'tf':
-                raise BadSearchRequestError(f'Index type must be TF for deployment')
+                raise BadSearchRequestError('Index type must be TF when --no-prebuilt-indexes is enabled')
             return list(self._aliases.keys())
         indexes = INDEX_TYPE.get(index_type)
         if indexes is None:
@@ -249,10 +249,10 @@ class SharedSearchBackend:
         return list(indexes.keys())
 
     def get_status(self, index_name: str) -> dict[str, Any]:
-        if self._deploy:
+        if self._no_prebuilt_indexes:
             if index_name not in self._aliases:
                 raise BadSearchRequestError(f'Unknown index: {index_name}')
-            return {'local_path': self._aliases[index_name], 'deploy': True}
+            return {'local_path': self._aliases[index_name], 'no_prebuilt_indexes': True}
         status = {'downloaded': check_downloaded(index_name)}
         index_type = lookup_index_type(index_name)
         if index_type is not None:
@@ -472,17 +472,19 @@ class SharedSearchBackend:
 
 _backend: SharedSearchBackend | None = None
 _backend_config_path: str | None = None
-_backend_deploy: bool = False
+_backend_no_prebuilt_indexes: bool = False
 
 
-def get_backend(config_path: str | None = None, *, deploy: bool = False) -> SharedSearchBackend:
+def get_backend(config_path: str | None = None, *, no_prebuilt_indexes: bool = False) -> SharedSearchBackend:
     """Return process-wide shared backend instance."""
-    global _backend, _backend_config_path, _backend_deploy
-    if _backend is not None and (config_path != _backend_config_path or deploy != _backend_deploy):
+    global _backend, _backend_config_path, _backend_no_prebuilt_indexes
+    if _backend is not None and (
+        config_path != _backend_config_path or no_prebuilt_indexes != _backend_no_prebuilt_indexes
+    ):
         _backend.close_all()
         _backend = None
     if _backend is None:
-        _backend = SharedSearchBackend(config_path=config_path, deploy=deploy)
+        _backend = SharedSearchBackend(config_path=config_path, no_prebuilt_indexes=no_prebuilt_indexes)
         _backend_config_path = config_path
-        _backend_deploy = deploy
+        _backend_no_prebuilt_indexes = no_prebuilt_indexes
     return _backend

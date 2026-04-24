@@ -2,7 +2,7 @@
 
 The Pyserini REST server exposes an **HTTP interface aligned with [Anserini’s REST API](https://github.com/castorini/anserini)** and ships the same **`openapi.yaml`** document (served at **`/openapi.yaml`**). Routes are **GET-only** for search and document fetch.
 
-Implementation uses **`SharedSearchBackend`** (`pyserini/server/backend.py`)—the same process-wide search stack as the MCP server. A request may use a **prebuilt index name** (sparse, dense, impact, FAISS, etc., when Pyserini can open it), a **filesystem path** to an index, or an optional **YAML alias** from `--index-config`.
+Implementation uses **`SharedSearchBackend`** (`pyserini/server/backend.py`)—the same process-wide search stack as the MCP server. A request may use a **prebuilt index name** (sparse, dense, impact, FAISS, etc., when Pyserini can open it), a **filesystem path** to an index, or an optional **YAML alias** from `--config`.
 
 **v1 limitations:** The public GET API accepts only a **string** `query` parameter. It does **not** expose multimodal payloads, `encoder`, `ef_search`, or sparse `query_generator` options (those exist on the Python API and MCP). For full control over those knobs, use **MCP** or Pyserini directly.
 
@@ -21,17 +21,54 @@ Defaults:
 python -m pyserini.server.rest --host 127.0.0.1 --port 8080
 ```
 
-### Index aliases (optional)
+## Config and deployment options
 
-Same idea as Anserini’s `--index-config`: a YAML file mapping short names to absolute or config-relative paths:
+Use `--config` to provide index aliases and optional API keys:
 
 ```yaml
 indexes:
   my_alias: /path/to/lucene/index
+api_keys:
+  - replace-with-long-random-secret-1
+  - replace-with-long-random-secret-2
 ```
 
+Start the server with that config:
+
 ```bash
-python -m pyserini.server.rest --index-config /path/to/indexes.yaml
+python -m pyserini.server.rest --config /path/to/server.yaml
+```
+
+With `--config` enabled:
+
+- `indexes` maps alias names to local Lucene index directories.
+- `api_keys` (optional) enables auth on all `/v1/*` routes.
+- Client auth supports either `Authorization: Bearer <token>` or `X-API-Key: <token>`.
+
+Disable prebuilt indexes and arbitrary index paths with `--no-prebuilt-indexes`:
+
+```bash
+python -m pyserini.server.rest --config /path/to/server.yaml --no-prebuilt-indexes
+```
+
+When `--no-prebuilt-indexes` is set, the server only accepts index names declared under `indexes:` in `--config`.
+
+### Logging
+
+REST server logging options:
+
+- `--server-log-file <path>` writes uvicorn error + access logs to a file.
+- `--auth-log-file <path>` writes auth request attribution logs (client, route, status, key fingerprint) to a file.
+- `--no-access-log` disables uvicorn request access logging.
+
+Example:
+
+```bash
+python -m pyserini.server.rest \
+  --config /path/to/server.yaml \
+  --no-prebuilt-indexes \
+  --server-log-file logs/rest.server.log \
+  --auth-log-file logs/rest.auth.log
 ```
 
 ## Discovery and documentation
@@ -54,9 +91,9 @@ For an **absolute** filesystem path (leading `/`), use an **extra slash** after 
 
 That value is interpreted in order:
 
-1. **Alias** from `--index-config`, if that option was passed when starting the server.
-2. **Local directory** that exists (path to an index on disk).
-3. **Prebuilt index name** known to Pyserini (e.g. `msmarco-v1-passage`); the index is downloaded if needed.
+1. **Alias** from `--config`, if that option was passed when starting the server.
+2. **Local directory** that exists (path to an index on disk), unless `--no-prebuilt-indexes` is set.
+3. **Prebuilt index name** known to Pyserini (e.g. `msmarco-v1-passage`), unless `--no-prebuilt-indexes` is set.
 
 If the index cannot be opened, the API responds with **400** and a message such as `Unable to open index: ...`.
 
@@ -95,9 +132,7 @@ Scores are **rounded to six decimal places** internally.
       "docid": "7157707",
       "score": 11.0083,
       "rank": 1,
-      "doc": {
-        "contents": "..."
-      }
+      "doc": "..."
     }
   ]
 }
@@ -128,9 +163,7 @@ curl "http://localhost:8081/v1/msmarco-v1-passage/doc/7157707"
   "api": "v1",
   "index": "msmarco-v1-passage",
   "docid": "7157707",
-  "doc": {
-    "contents": "..."
-  }
+  "doc": "..."
 }
 ```
 
@@ -140,6 +173,7 @@ curl "http://localhost:8081/v1/msmarco-v1-passage/doc/7157707"
 |------|---------|
 | 200 | Success |
 | 400 | Invalid parameters (e.g. missing `query`, invalid `hits` or `parse`), or cannot open index |
+| 401 | Missing or invalid API credentials (when `api_keys` is configured) |
 | 404 | Unknown route, or document not found for `GET .../doc/{docid}` |
 | 405 | Method not allowed (only **GET** is supported on these routes) |
 | 500 | Unhandled server error |

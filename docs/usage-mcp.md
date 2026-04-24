@@ -2,7 +2,7 @@
 
 The Pyserini MCP server exposes search, document retrieval, and evaluation helpers through the [Model Context Protocol](https://modelcontextprotocol.io/), so AI assistants and other MCP clients can use Pyserini’s indexes (sparse, dense, impact, FAISS, etc.).
 
-The server uses the same `SharedSearchBackend` (`pyserini/server/backend.py`) as the REST API: index names, prebuilt indexes, and optional `--index-config` aliases behave the same way.
+The server uses the same `SharedSearchBackend` (`pyserini/server/backend.py`) as the REST API: index names, prebuilt indexes, and optional **`--config`** YAML aliases behave the same way.
 
 This guide uses Claude Desktop and Cursor as examples; other MCP clients work too.
 
@@ -29,7 +29,7 @@ Default transport is **stdio** (no HTTP port). Optional arguments:
 |----------|-------------|
 | `--transport` | `stdio` (default) or `http` for remote/streamable access |
 | `--port PORT` | HTTP port when using `--transport http` (default: 8000) |
-| `--index-config PATH` | YAML file mapping index aliases to local directories (same idea as Anserini `--index-config`) |
+| `--config PATH` | YAML server config: `indexes:` alias → local directory (same idea as Anserini `--index-config`) |
 
 Example with a Java path and index aliases:
 

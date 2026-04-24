@@ -249,7 +249,7 @@ class TestRestServer(unittest.TestCase):
         finally:
             os.unlink(path)
 
-    def test_deploy_without_api_keys_logs_warning(self):
+    def test_no_prebuilt_indexes_without_api_keys_logs_warning(self):
         with tempfile.NamedTemporaryFile(
             mode='w', suffix='.yaml', delete=False, encoding='utf-8'
         ) as f:
@@ -257,7 +257,7 @@ class TestRestServer(unittest.TestCase):
             path = f.name
         try:
             with self.assertLogs('pyserini.server.rest.app', level='WARNING') as cm:
-                create_app(path, deploy=True)
+                create_app(path, no_prebuilt_indexes=True)
             self.assertTrue(
                 any('api_keys' in line and 'not authenticated' in line for line in cm.output),
                 msg='\n'.join(cm.output),
@@ -265,14 +265,14 @@ class TestRestServer(unittest.TestCase):
         finally:
             os.unlink(path)
 
-    def test_deploy_mode_rejects_unconfigured_prebuilt_index(self):
+    def test_no_prebuilt_indexes_rejects_unconfigured_prebuilt_index(self):
         with tempfile.NamedTemporaryFile(
             mode='w', suffix='.yaml', delete=False, encoding='utf-8'
         ) as f:
             f.write('indexes:\n  local: /tmp\n')
             path = f.name
         try:
-            with TestClient(create_app(path, deploy=True)) as client:
+            with TestClient(create_app(path, no_prebuilt_indexes=True)) as client:
                 r = client.get(
                     f'/{API_VERSION}/msmarco-v1-passage/search',
                     params={'query': 'x', 'hits': 1},
@@ -283,8 +283,8 @@ class TestRestServer(unittest.TestCase):
             os.unlink(path)
 
 
-class TestRestServerDeployAuthenticated(unittest.TestCase):
-    """``--deploy`` success path (temp YAML). See ``tests/resources/deploy_auth_test.yaml`` for manual runs."""
+class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
+    """``--no-prebuilt-indexes`` success path (temp YAML). See ``tests/resources/deploy_auth_test.yaml`` for manual runs."""
 
     @classmethod
     def setUpClass(cls):
@@ -292,14 +292,14 @@ class TestRestServerDeployAuthenticated(unittest.TestCase):
 
         cls._index_path = download_prebuilt_index(_REST_INDEX, verbose=False)
 
-    def test_deploy_bearer_search_returns_200(self):
-        token = 'deploy-integration-test-token'
+    def test_no_prebuilt_indexes_bearer_search_returns_200(self):
+        token = 'no-prebuilt-indexes-integration-test-token'
         cfg = {'indexes': {'cacm_alias': self._index_path}, 'api_keys': [token]}
         with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
             yaml.safe_dump(cfg, f, default_flow_style=False)
             path = f.name
         try:
-            with TestClient(create_app(path, deploy=True)) as client:
+            with TestClient(create_app(path, no_prebuilt_indexes=True)) as client:
                 denied = client.get(
                     f'/{API_VERSION}/cacm_alias/search',
                     params={'query': _REST_QUERY, 'hits': 1},
@@ -319,14 +319,14 @@ class TestRestServerDeployAuthenticated(unittest.TestCase):
         finally:
             os.unlink(path)
 
-    def test_deploy_x_api_key_search_returns_200(self):
-        token = 'deploy-integration-test-token-xak'
+    def test_no_prebuilt_indexes_x_api_key_search_returns_200(self):
+        token = 'no-prebuilt-indexes-integration-test-token-xak'
         cfg = {'indexes': {'cacm_alias': self._index_path}, 'api_keys': [token]}
         with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
             yaml.safe_dump(cfg, f, default_flow_style=False)
             path = f.name
         try:
-            with TestClient(create_app(path, deploy=True)) as client:
+            with TestClient(create_app(path, no_prebuilt_indexes=True)) as client:
                 denied = client.get(
                     f'/{API_VERSION}/cacm_alias/search',
                     params={'query': _REST_QUERY, 'hits': 1},
@@ -342,15 +342,15 @@ class TestRestServerDeployAuthenticated(unittest.TestCase):
         finally:
             os.unlink(path)
 
-    def test_deploy_logs_key_fingerprint_for_authenticated_requests(self):
-        token = 'deploy-integration-test-token-log'
+    def test_no_prebuilt_indexes_logs_key_fingerprint_for_authenticated_requests(self):
+        token = 'no-prebuilt-indexes-integration-test-token-log'
         expected_key_id = hashlib.sha256(token.encode('utf-8')).hexdigest()[:12]
         cfg = {'indexes': {'cacm_alias': self._index_path}, 'api_keys': [token]}
         with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
             yaml.safe_dump(cfg, f, default_flow_style=False)
             path = f.name
         try:
-            with TestClient(create_app(path, deploy=True)) as client:
+            with TestClient(create_app(path, no_prebuilt_indexes=True)) as client:
                 with self.assertLogs('pyserini.server.rest.auth', level='INFO') as cm:
                     ok = client.get(
                         f'/{API_VERSION}/cacm_alias/search',

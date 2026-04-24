@@ -18,7 +18,7 @@
 FastAPI server exposing the same REST surface as Anserini (``openapi.yaml``).
 
 Usage:
-    python -m pyserini.server.rest [--host HOST] [--port PORT] [--config PATH] [--deploy]
+    python -m pyserini.server.rest [--host HOST] [--port PORT] [--config PATH] [--no-prebuilt-indexes]
 
 Endpoints:
     GET /openapi.yaml     : OpenAPI specification (same document as Anserini).
@@ -166,21 +166,21 @@ def _build_uvicorn_log_config(server_log_file: str | None, auth_log_file: str | 
 def create_app(
     config_path: str | None = None,
     *,
-    deploy: bool = False,
+    no_prebuilt_indexes: bool = False,
 ) -> FastAPI:
-    if deploy and not config_path:
-        raise ValueError('Deploy mode requires a config file path')
+    if no_prebuilt_indexes and not config_path:
+        raise ValueError('--no-prebuilt-indexes requires a config file path')
 
     aliases, token_strings = {}, None
     if config_path:
         aliases, token_strings = load_server_config(config_path)
 
-    if deploy:
+    if no_prebuilt_indexes:
         if not aliases:
-            raise ValueError('Deploy mode requires at least one entry under indexes: in the config file')
+            raise ValueError('--no-prebuilt-indexes requires at least one entry under indexes: in the config file')
         if not token_strings:
             logger.warning(
-                'REST deploy is enabled but ``api_keys`` in %s is missing or empty; '
+                'REST --no-prebuilt-indexes is enabled but ``api_keys`` in %s is missing or empty; '
                 '/v1/ is not authenticated. Add non-empty ``api_keys`` unless this host is intentionally public.',
                 config_path,
             )
@@ -191,7 +191,7 @@ def create_app(
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
-        app.state.search_backend = SharedSearchBackend(config_path, deploy=deploy)
+        app.state.search_backend = SharedSearchBackend(config_path, no_prebuilt_indexes=no_prebuilt_indexes)
         yield
         app.state.search_backend.close_all()
 
@@ -297,9 +297,9 @@ def main():
         help='YAML server config: indexes: alias -> path; optional non-empty api_keys: enables /v1/ Bearer or X-API-Key auth',
     )
     parser.add_argument(
-        '--deploy',
+        '--no-prebuilt-indexes',
         action='store_true',
-        help='Production mode: only indexes from --config (no prebuilt names, no arbitrary paths).',
+        help='Only allow indexes declared in --config (disable prebuilt names and arbitrary filesystem paths).',
     )
     parser.add_argument(
         '--server-log-file',
@@ -323,17 +323,17 @@ def main():
     if args.port <= 0 or args.port > 65535:
         raise SystemExit('Error: --port must be in [1, 65535]')
 
-    if args.deploy:
+    if args.no_prebuilt_indexes:
         if not args.config:
-            raise SystemExit('Error: --deploy requires --config')
+            raise SystemExit('Error: --no-prebuilt-indexes requires --config')
         aliases, _token_strings = load_server_config(args.config)
         if not aliases:
-            raise SystemExit('Error: --deploy requires at least one entry under indexes: in the config file')
+            raise SystemExit('Error: --no-prebuilt-indexes requires at least one entry under indexes: in the config file')
 
     uvicorn.run(
         create_app(
             args.config,
-            deploy=args.deploy,
+            no_prebuilt_indexes=args.no_prebuilt_indexes,
         ),
         host=args.host,
         port=args.port,
