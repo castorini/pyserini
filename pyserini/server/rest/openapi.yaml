@@ -153,9 +153,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: API token
-      description: >-
-        Same secret as X-API-Key; send header Authorization with scheme bearer
-        and the token value.
+      description: Same secret as X-API-Key; send header Authorization with scheme bearer and token value.
   schemas:
     Query:
       type: object

@@ -34,8 +34,8 @@ indexes:
     base_index: my_tf_alias
     encoder: BAAI/bge-base-en-v1.5
 api_keys:
-  - replace-with-long-random-secret-1
-  - replace-with-long-random-secret-2
+  - {api-key}
+  - {api-key-2}
 ```
 
 Start the server with that config:
@@ -133,7 +133,7 @@ curl "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%20a%20l
 With API key auth enabled (`api_keys` in `--config`), for example:
 
 ```bash
-curl -H "Authorization: Bearer replace-with-long-random-secret-1" \
+curl -H "Authorization: Bearer {api-key}" \
   "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=1"
 ```
 
@@ -180,7 +180,7 @@ curl "http://localhost:8081/v1/msmarco-v1-passage/doc/7157707"
 With API key auth enabled (`api_keys` in `--config`), for example:
 
 ```bash
-curl -H "X-API-Key: replace-with-long-random-secret-1" \
+curl -H "X-API-Key: {api-key}" \
   "http://localhost:8081/v1/msmarco-v1-passage/doc/7157707"
 ```
 
