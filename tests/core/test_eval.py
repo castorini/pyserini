@@ -80,5 +80,10 @@ class TestTrecEval(unittest.TestCase):
         ]
         self.assertEqual(trec_eval(args), 0.5)
 
+    def test_jar_directory_exists(self):
+        import importlib.resources
+        jar_directory = str(importlib.resources.files("pyserini") / "resources" / "jars")
+        self.assertTrue(os.path.isdir(jar_directory))
+
 if __name__ == "__main__":
     unittest.main()

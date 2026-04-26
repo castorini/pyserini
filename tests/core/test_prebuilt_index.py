@@ -26,15 +26,15 @@ from pyserini.pyclass import autoclass
 class TestPrebuiltIndexes(unittest.TestCase):
     def test_index_inf(self):
         # Test the accessibility of IndexInfo on the Anserini end to make sure everything is "connected together"
-        JIndexInfo = autoclass('io.anserini.index.IndexInfo')
+        JPrebuiltFlatIndex = autoclass('io.anserini.index.prebuilt.PrebuiltFlatIndex')
 
-        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.indexName,
+        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').name,
                          'beir-v1.0.0-arguana.bge-base-en-v1.5.flat')
-        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.filename,
+        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').filename,
                          'lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
-        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.readme,
+        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').readme,
                          'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md')
-        self.assertEqual(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT.urls[0],
+        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').urls[0],
                          'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/resolve/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
 
     def test_lucene_tf_msmarco_v1(self):
@@ -215,14 +215,13 @@ class TestPrebuiltIndexes(unittest.TestCase):
         urls = []
         cnt = 0
         for key in FAISS_INDEX_INFO:
-            if 'beir' in key:
+            if 'beir' in key and 'm-beir' not in key:
                 cnt += 1
                 for url in FAISS_INDEX_INFO[key]['urls']:
                     urls.append(url)
 
         # each 29: contriever, contriever-msmarco, bge, cohere-embed-english-v3.0
-        # 32 for m-beir
-        self.assertEqual(cnt, 148)
+        self.assertEqual(cnt, 116)
         self._test_urls(urls)
 
     def test_faiss_bright(self):
@@ -234,7 +233,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
                 for url in FAISS_INDEX_INFO[key]['urls']:
                     urls.append(url)
 
-        self.assertEqual(cnt, 12)
+        self.assertEqual(cnt, 36)
         self._test_urls(urls)
 
     def test_faiss_mrtydi(self):
@@ -308,7 +307,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
                 cnt += 1
                 for url in FAISS_INDEX_INFO[key]['urls']:
                     urls.add(url)
-        self.assertEqual(cnt, 72)
+        self.assertEqual(cnt, 44)
         self._test_urls(urls)
 
     def test_faiss_m_beir(self):
@@ -319,7 +318,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
                 cnt += 1
                 for url in FAISS_INDEX_INFO[key]['urls']:
                     urls.add(url)
-        self.assertEqual(cnt, 32)
+        self.assertEqual(cnt, 34)
         self._test_urls(urls)
 
     def test_faiss_dse(self):

@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-from typing import List
+from typing import Dict, List
 
 from pyserini.pyclass import autoclass
 
@@ -162,4 +162,11 @@ class Analyzer:
         tokens = []
         for token in results.toArray():
             tokens.append(token)
+
         return tokens
+
+    def compute_document_vector(self, text: str) -> Dict[str, int]:
+        java_tf_vector = JAnalyzerUtils.computeDocumentVector(self.analyzer, text)
+        tf_vector = {key: java_tf_vector[key] for key in java_tf_vector}
+
+        return tf_vector

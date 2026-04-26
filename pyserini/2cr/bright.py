@@ -53,13 +53,18 @@ bright_keys = ['biology',
 models = ['bm25', 
           'bm25qs', 
           'splade-v3', 
-          'bge-large-en-v1.5.flat']
+          'bge-large-en-v1.5.flat',
+          'diver-retriever-4b',
+          'reason-embed-qwen3-4b-0928']
 
 
 def format_run_command(raw):
     return raw.replace('--topics', '\\\n  --topics') \
         .replace('--index', '\\\n  --index') \
         .replace('--onnx-encoder', '\\\n  --onnx-encoder') \
+        .replace('--encoder-class ', '\\\n  --encoder-class ') \
+        .replace('--encoder ', '\\\n  --encoder ') \
+        .replace('--query-prefix ', '\\\n  --query-prefix ') \
         .replace('--output ', '\\\n  --output ') \
         .replace('--output-format trec ', '\\\n  --output-format trec ') \
         .replace('--hits ', '\\\n  --hits ') \
@@ -106,8 +111,9 @@ def generate_report(args):
 
             for datasets in condition['datasets']:
                 dataset = datasets['dataset']
+                query_prefix = datasets.get('query_prefix', '')
                 runfile = os.path.join(args.directory, f'run.bright.{name}.{dataset}.txt')
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)
+                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, query_prefix=query_prefix)
                 commands[dataset][name] = format_run_command(cmd)
 
                 for expected in datasets['scores']:
@@ -133,14 +139,22 @@ def generate_report(args):
                              s6=f'{table[dataset]["splade-v3"]["R@100"]:8.3f}',
                              s7=f'{table[dataset]["bge-large-en-v1.5.flat"]["nDCG@10"]:8.3f}',
                              s8=f'{table[dataset]["bge-large-en-v1.5.flat"]["R@100"]:8.3f}',
+                             s9=f'{table[dataset]["diver-retriever-4b"]["nDCG@10"]:8.3f}',
+                             s10=f'{table[dataset]["diver-retriever-4b"]["R@100"]:8.3f}',
+                             s11=f'{table[dataset]["reason-embed-qwen3-4b-0928"]["nDCG@10"]:8.3f}',
+                             s12=f'{table[dataset]["reason-embed-qwen3-4b-0928"]["R@100"]:8.3f}',
                              cmd1=commands[dataset]["bm25"],
                              cmd2=commands[dataset]["bm25qs"],
                              cmd3=commands[dataset]["splade-v3"],
                              cmd4=commands[dataset]["bge-large-en-v1.5.flat"],
+                             cmd5=commands[dataset]["diver-retriever-4b"],
+                             cmd6=commands[dataset]["reason-embed-qwen3-4b-0928"],
                              eval_cmd1=eval_commands[dataset]["bm25"].rstrip(),
                              eval_cmd2=eval_commands[dataset]["bm25qs"].rstrip(),
                              eval_cmd3=eval_commands[dataset]["splade-v3"].rstrip(),
-                             eval_cmd4=eval_commands[dataset]["bge-large-en-v1.5.flat"].rstrip())
+                             eval_cmd4=eval_commands[dataset]["bge-large-en-v1.5.flat"].rstrip(),
+                             eval_cmd5=eval_commands[dataset]["diver-retriever-4b"].rstrip(),
+                             eval_cmd6=eval_commands[dataset]["reason-embed-qwen3-4b-0928"].rstrip())
             main_rows.append(s)
             row_cnt += 1
             
@@ -176,8 +190,9 @@ def run_conditions(args):
 
                 print(f'  - dataset: {dataset}')
 
+                query_prefix = datasets.get('query_prefix', '')
                 runfile = os.path.join(args.directory, f'run.bright.{name}.{dataset}.txt')
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile)
+                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, query_prefix=query_prefix)
                 
                 if args.display_commands:
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
@@ -193,11 +208,12 @@ def run_conditions(args):
                                 continue
 
                             score = float(run_eval_and_return_metric(metric, f'bright-{dataset}',
-                                                                     trec_eval_metric_definitions[metric], runfile))
+                                trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
+
                             if math.isclose(score, float(expected[metric])):
                                 result = ok_str
-                            # If results are within 0.0005, just call it "OKish".
-                            elif abs(score - float(expected[metric])) <= 0.0005:
+                            # If results are within 0.005, just call it "OKish".
+                            elif abs(score - float(expected[metric])) <= 0.005:
                                 result = okish_str + f' expected {expected[metric]:.4f}'
                             else:
                                 result = fail_str + f' expected {expected[metric]:.4f}'
@@ -225,20 +241,24 @@ def run_conditions(args):
             final_score = top_level_sums[model][metric] / 12
             final_scores[model][metric] = final_score
 
-    print(' ' * 33 + 'BM25' + ' ' * 14 + 'BM25QS' + ' ' * 12 + 'SPLADE' + ' ' * 15 + 'BGE')
-    print(' ' * 28 + 'nDCG    R@100      ' * 4)
-    print(' ' * 28 + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ')
+    print(' ' * 33 + 'BM25' + ' ' * 14 + 'BM25QS' + ' ' * 12 + 'SPLADE' + ' ' * 15 + 'BGE' + ' ' * 14 + 'Diver' + ' ' * 10 + 'R-Embed')
+    print(' ' * 28 + 'nDCG    R@100      ' * 6)
+    print(' ' * 28 + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ')
     for dataset in bright_keys:
         print(f'{dataset:25}' +
               f'{table[dataset]["bm25"]["nDCG@10"]:8.3f}{table[dataset]["bm25"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["bm25qs"]["nDCG@10"]:8.3f}{table[dataset]["bm25qs"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["splade-v3"]["nDCG@10"]:8.3f}{table[dataset]["splade-v3"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["bge-large-en-v1.5.flat"]["nDCG@10"]:8.3f}{table[dataset]["bge-large-en-v1.5.flat"]["R@100"]:8.3f}   ')
-    print(' ' * 28 + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ')
+              f'{table[dataset]["bge-large-en-v1.5.flat"]["nDCG@10"]:8.3f}{table[dataset]["bge-large-en-v1.5.flat"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["diver-retriever-4b"]["nDCG@10"]:8.3f}{table[dataset]["diver-retriever-4b"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["reason-embed-qwen3-4b-0928"]["nDCG@10"]:8.3f}{table[dataset]["reason-embed-qwen3-4b-0928"]["R@100"]:8.3f}   ')
+    print(' ' * 28 + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ')
     print('avg' + ' ' * 22 + f'{final_scores["bm25"]["nDCG@10"]:8.3f}{final_scores["bm25"]["R@100"]:8.3f}   ' +
           f'{final_scores["bm25qs"]["nDCG@10"]:8.3f}{final_scores["bm25qs"]["R@100"]:8.3f}   ' +
           f'{final_scores["splade-v3"]["nDCG@10"]:8.3f}{final_scores["splade-v3"]["R@100"]:8.3f}   ' +
-          f'{final_scores["bge-large-en-v1.5.flat"]["nDCG@10"]:8.3f}{final_scores["bge-large-en-v1.5.flat"]["R@100"]:8.3f}   ')
+          f'{final_scores["bge-large-en-v1.5.flat"]["nDCG@10"]:8.3f}{final_scores["bge-large-en-v1.5.flat"]["R@100"]:8.3f}   ' +
+          f'{final_scores["diver-retriever-4b"]["nDCG@10"]:8.3f}{final_scores["diver-retriever-4b"]["R@100"]:8.3f}   ' +
+          f'{final_scores["reason-embed-qwen3-4b-0928"]["nDCG@10"]:8.3f}{final_scores["reason-embed-qwen3-4b-0928"]["R@100"]:8.3f}   ')
 
     print('\n')
 

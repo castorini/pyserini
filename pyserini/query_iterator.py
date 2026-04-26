@@ -33,7 +33,7 @@ class TopicsFormat(Enum):
     KILT = 'kilt'
     Multimodal = 'multimodal'
     MBEIR = 'mbeir'
-    MMEB = 'mmeb'
+    RAW_JSONL = 'raw_jsonl'
 
 
 class QueryIterator(ABC):
@@ -336,7 +336,7 @@ class MBEIRQueryIterator(QueryIterator):
         return cls(topics, order, topic_dir)
 
 
-class MMEBQueryIterator(QueryIterator):
+class RawJSONLQueryIterator(QueryIterator):
     def get_query(self, id_):
         topic = self.topics[id_]
         return {"qid": id_, "query": topic["query"]}
@@ -349,8 +349,14 @@ class MMEBQueryIterator(QueryIterator):
             with open(topics_path, 'r') as f:
                 for line in f:
                     data = json.loads(line)
-                    topics[data['qid']] = data
-                    order.append(data['qid'])
+                    for key in ['id', 'qid', 'query_id', "_id"]:
+                        if key in data:
+                            id_key = key
+                            break
+                    else:
+                        raise ValueError(f"No valid key found in {topics_path} to identify the query id")
+                    topics[data[id_key]] = data
+                    order.append(data[id_key])
         else:
             topics = get_topics(topics_path)
             if not topics:
@@ -364,6 +370,6 @@ def get_query_iterator(topics_path: str, topics_format: TopicsFormat):
         TopicsFormat.KILT: KiltQueryIterator,
         TopicsFormat.Multimodal: MultimodalQueryIterator,
         TopicsFormat.MBEIR: MBEIRQueryIterator,
-        TopicsFormat.MMEB: MMEBQueryIterator,
+        TopicsFormat.RAW_JSONL: RawJSONLQueryIterator,
     }
     return mapping[topics_format].from_topics(topics_path)

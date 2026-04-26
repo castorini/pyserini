@@ -46,7 +46,7 @@ except ImportError:
 try:
     from pyserini.encode.optional._mmeb import MMEBCorpusEncoder, MMEBQueryEncoder
     MMEB_IMPORT_ERROR = None
-except ImportError:
+except Exception as e:
     MMEBCorpusEncoder = None
     MMEBQueryEncoder = None
     MMEB_IMPORT_ERROR = traceback.format_exc()

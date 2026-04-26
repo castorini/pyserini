@@ -26,7 +26,9 @@ from pyserini.encode import (AnceQueryEncoder, AutoQueryEncoder,
 from pyserini.encode.optional import PcaEncoder
 from pyserini.output_writer import OutputFormat, get_output_writer
 from pyserini.query_iterator import TopicsFormat, get_query_iterator
+from pyserini.search._base import get_bright_excluded_ids
 from pyserini.search.lucene import LuceneSearcher
+from pyserini.util import resolve_device
 
 from ._prf import (DenseVectorAncePrf, DenseVectorAveragePrf,
                    DenseVectorRocchioPrf)
@@ -238,6 +240,14 @@ def define_dsearch_args(parser):
             metric (default: normalization is disabled). This is used to match \
             the behavior of Lucene's dense search.",
     )
+    parser.add_argument(
+        "--faiss-device",
+        type=str,
+        metavar="device to run faiss",
+        required=False,
+        default="cpu",
+        help="Device to run faiss, cpu or [cuda:0, cuda:1, ...]",
+    )
 
 
 def init_query_encoder(
@@ -254,7 +264,9 @@ def init_query_encoder(
     multimodal=False,
     instruction_config=None,
     fp16=False,
+    explicit_truncate=False,
 ):
+    device = resolve_device(device, backend='torch')
     encoded_queries_map = {
         "msmarco-passage-dev-subset": "tct_colbert-msmarco-passage-dev-subset",
         "dpr-nq-dev": "dpr_multi-nq-dev",
@@ -309,7 +321,7 @@ def init_query_encoder(
             if encoder_class is None:
                 raise ValueError("UniIR's query encoder class is not available (as the uniir-for-pyserini package is not installed or CLIP is not installed). Please run 'pip install pyserini[optional]' to install the uniir-for-pyserini package and run 'pip install git+https://github.com/openai/CLIP.git' to install CLIP.")
         if _encoder_class == "qwen3":
-            kwargs.update(dict(l2_norm=l2_norm, prefix=prefix))
+            kwargs.update(dict(l2_norm=l2_norm, prefix=prefix, max_length=max_length, explicit_truncate=explicit_truncate))
         if _encoder_class == "dse" or (encoder and "dse" in encoder.lower()):
             kwargs.update(dict(l2_norm=True, pooling=pooling, multimodal=multimodal))
         if _encoder_class == "mmeb":
@@ -436,6 +448,12 @@ if __name__ == "__main__":
         default=False,
         help="Remove query from results list.",
     )
+    parser.add_argument(
+        "--explicit-truncate",
+        action="store_true",
+        default=False,
+        help="Explicitly truncate the query.",
+    )
     define_dsearch_args(parser)
     args = parser.parse_args()
 
@@ -455,7 +473,8 @@ if __name__ == "__main__":
         args.query_prefix,
         args.multimodal,
         args.instruction_config,
-        args.fp16
+        args.fp16,
+        args.explicit_truncate
     )
     if args.pca_model:
         query_encoder = PcaEncoder(query_encoder, args.pca_model)
@@ -466,7 +485,7 @@ if __name__ == "__main__":
             kwargs = dict(binary_k=args.binary_hits, rerank=args.rerank)
             searcher = BinaryDenseFaissSearcher(args.index, query_encoder)
         else:
-            searcher = FaissSearcher(args.index, query_encoder, normalize_distances=args.normalize_distances)
+            searcher = FaissSearcher(args.index, query_encoder, normalize_distances=args.normalize_distances, faiss_device=args.faiss_device)
     else:
         # create searcher from prebuilt index name
         if args.searcher.lower() == "bpr":
@@ -475,7 +494,7 @@ if __name__ == "__main__":
                 args.index, query_encoder
             )
         else:
-            searcher = FaissSearcher.from_prebuilt_index(args.index, query_encoder, normalize_distances=args.normalize_distances)
+            searcher = FaissSearcher.from_prebuilt_index(args.index, query_encoder, normalize_distances=args.normalize_distances, faiss_device=args.faiss_device)
 
     if args.ef_search:
         searcher.set_hnsw_ef_search(args.ef_search)
@@ -532,6 +551,8 @@ if __name__ == "__main__":
         max_passage_delimiter=args.max_passage_delimiter,
         max_passage_hits=args.max_passage_hits,
     )
+
+    bright_queries = get_bright_excluded_ids(args.index)
 
     with output_writer:
         batch_topics = list()
@@ -604,6 +625,10 @@ if __name__ == "__main__":
                 # We want to remove the query from the results.
                 if args.remove_query:
                     hits = [hit for hit in hits if hit.docid != topic]
+
+                if bright_queries:
+                    excluded = bright_queries.get(str(topic), ())
+                    hits = [hit for hit in hits if hit.docid.strip() not in excluded]
 
                 output_writer.write(topic, hits)
 

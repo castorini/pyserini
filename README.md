@@ -4,7 +4,7 @@
 [![PyPI Downloads](https://static.pepy.tech/badge/pyserini)](https://pepy.tech/projects/pyserini)
 [![PyPI Downloads](https://static.pepy.tech/badge/pyserini/week)](https://pepy.tech/projects/pyserini)
 [![Maven Central](https://img.shields.io/maven-central/v/io.anserini/anserini?color=brightgreen)](https://search.maven.org/search?q=a:anserini)
-[![Generic badge](https://img.shields.io/badge/Lucene-v9.9.1-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/9.9.1/)
+[![Generic badge](https://img.shields.io/badge/Lucene-v10.4.0-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/10.4.0/)
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
 Pyserini is a Python toolkit for reproducible information retrieval research with sparse and dense representations.
@@ -17,37 +17,35 @@ With Pyserini, it's easy to reproduce runs on a number of standard IR test colle
 
 For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.3463238) in SIGIR 2021 provides a nice overview.
 
-✨ **New!** Pyserini provides a [REST API](docs/usage-rest.md) as well as an [MCP server](docs/usage-mcp.md)! 
+✨ Pyserini provides a [REST API](docs/usage-rest.md) as well as an [MCP server](docs/usage-mcp.md)!
 
-✨ Guide to working with the [MS MARCO 2.1 Document Corpus](docs/experiments-msmarco-v2.1.md) for TREC 2024 RAG Track.
-
+✨ Guide to working with the [MS MARCO 2.1 Document Corpus](docs/experiments-msmarco-v2.1.md) for TREC RAG Tracks.
 
 ## 🎬 Installation
 
 Install via PyPI:
 
-```
+```bash
 pip install pyserini
 ```
 
-Pyserini is built on Python 3.11 (other versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
-A `pip` installation will automatically pull in major dependencies such as [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/).
+Pyserini is built on Python 3.12 (other versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
 
-The toolkit also has a number of optional dependencies:
+❗ A `pip` installation will automatically pull in major dependencies such as [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/).
+Sometimes `pip` has issues pulling in the "right" versions; if this is the case, it might make sense to install these dependencies first (selecting the right version by hand, perhaps via `conda`).
 
-```
-pip install 'pyserini[optional]'
-```
+❗ Parts of Pyserini depend on [Faiss](https://github.com/facebookresearch/faiss).
+It's not included in the dependencies list because there is a proliferation of variants (`faiss-cpu`, `faiss-gpu`, etc.), so it's easier if you install the right variant yourself.
 
-Notably, `faiss-cpu` is included as an optional dependency; the package can be tricky to install, which is why it is not included in the core dependencies.
-It might be a good idea to install it yourself separately.
+Multimodal support (e.g., image search) has been pushed into an `optional` package.
+If you need it, install `'pyserini[optional]'`
 
 The software ecosystem is rapidly evolving and a potential source of frustration is incompatibility among different versions of underlying dependencies.
-We provide additional detailed installation instructions [here](./docs/installation.md).
+We provide additional detailed installation instructions in [our detailed installation guide](./docs/installation.md).
 
 If you're planning on just _using_ Pyserini, then the `pip` instruction (without the optional dependencies) should be fine.
 However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
-Instructions are provided [here](./docs/installation.md#development-installation).
+Instructions are provided in [our detailed installation guide](./docs/installation.md#development-installation).
 
 ## 🙋 How do I search?
 
@@ -198,6 +196,8 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 
 ## 📜️ Release History
 
++ v2.0.0 (w/ Anserini v2.0.0): April 19, 2026 [[Release Notes](docs/release-notes/release-notes-v2.0.0.md)] [[Known Issues](docs/release-notes/known-issues-v2.0.0.md)]
++ v1.6.0 (w/ Anserini v1.7.1): April 6, 2026 [[Release Notes](docs/release-notes/release-notes-v1.6.0.md)]
 + v1.5.0 (w/ Anserini v1.5.0): January 14, 2026 [[Release Notes](docs/release-notes/release-notes-v1.5.0.md)]
 + v1.4.0 (w/ Anserini v1.4.0): December 16, 2025 [[Release Notes](docs/release-notes/release-notes-v1.4.0.md)]
 + v1.3.0 (w/ Anserini v1.3.0): November 1, 2025 [[Release Notes](docs/release-notes/release-notes-v1.3.0.md)]

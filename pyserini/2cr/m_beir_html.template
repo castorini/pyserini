@@ -152,53 +152,37 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
         <th class="headertop"></th>  
         <th class="headertop"></th>  
         <th class="headertop"></th>  
-        <th class="headertop" colspan="3">
+        <th class="headertop" colspan="2" style="text-align: center">
           <b>CLIP-SF-Large</b>
           [<a href="#" data-mdb-toggle="tooltip" title="Wei et al. (arXiv 2023) UniIR: Training and Benchmarking Universal Multimodal Information Retrievers.">1</a>]
         </th>
-        <th class="headertop" colspan="3">
+        <th class="headertop"></th>  
+        <th class="headertop"></th>  
+        <th class="headertop"></th>  
+        <th class="headertop" colspan="2" style="text-align: center">
           <b>BLIP-FF-Large</b>
           [<a href="#" data-mdb-toggle="tooltip" title="Wei et al. (arXiv 2023) UniIR: Training and Benchmarking Universal Multimodal Information Retrievers.">1</a>]
         </th>
+        <th class="headertop"></th>  
       </tr>  
       <tr>  
         <th class="headerbottom" scope="col"></th>  
         <th class="headerbottom" scope="col"></th>  
-        <th class="headerbottom" scope="col">nDCG@10</th>  
-        <th class="headerbottom" scope="col">R@20</th>
-        <th class="headerbottom" scope="col">R@100</th>
+        <th class="headerbottom" scope="col">R@5</th>  
+        <th class="headerbottom" scope="col">R@10</th>
+        <th class="headerbottom" scope="col">S@5</th>
+        <th class="headerbottom" scope="col">S@10</th>
         <th class="headerbottom" scope="col"></th>  
-        <th class="headerbottom" scope="col">nDCG@10</th>
-        <th class="headerbottom" scope="col">R@20</th>  
-        <th class="headerbottom" scope="col">R@100</th>  
+        <th class="headerbottom" scope="col">R@5</th>
+        <th class="headerbottom" scope="col">R@10</th>  
+        <th class="headerbottom" scope="col">S@5</th>
+        <th class="headerbottom" scope="col">S@10</th>  
       </tr>  
     </thead>  
     <tbody>  
 $rows  
     </tbody>  
   </table>  
-</div>
-
-<div style="padding-top: 20px"/>  
-<h4>Important Note on Score Differences</h4>  
-  
-<div class="alert alert-warning" role="alert">  
-  <h5><i class="fas fa-exclamation-triangle"></i>Recall Calculation Differences</h5>  
-  <p>Scores from Pyserini may differ from UniIR's paper as UniIR uses a binary success metric instead of the traditional proportional recall calculation.</p>  
-    
-  <p><strong>Traditional Recall@K:</strong> (# relevant docs in top-k) / (total # relevant docs)</p>  
-  <ul>  
-    <li>Returns values between 0.0 and 1.0</li>  
-    <li>Accounts for the proportion of relevant documents retrieved</li>  
-  </ul>  
-    
-  <p><strong>UniIR's Recall@K:</strong> Binary success indicator</p>  
-  <ul>  
-    <li>Returns either 1.0 (success) or 0.0 (failure)</li>  
-    <li>Only checks if any relevant document appears in top-k results</li>  
-  </ul>  
-    
-  <p>On datasets with multiple relevant candidates per query, this may lead to substantial score discrepancies between our 2CR runs and the results reported in the original paper.</p>  
 </div>
 
 <div style="padding-top: 20px"/>

@@ -16,27 +16,25 @@
 
 from pyserini.pyclass import autoclass
 
-JIndexInfo = autoclass('io.anserini.index.IndexInfo')
+JPrebuiltInvertedIndex = autoclass('io.anserini.index.prebuilt.PrebuiltInvertedIndex')
 
-
-def import_from_lucene(enum):
+def import_from_inverted_lucene(index_metadata):
     info = {
-        'description': enum.description,
-        'filename': enum.filename,
-        'readme': enum.readme,
+        'description': index_metadata.description,
+        'filename': index_metadata.filename,
+        'readme': index_metadata.readme,
         'urls': [
-            enum.urls[0]
+            index_metadata.urls[0]
         ],
-        'md5': enum.md5,
-        'size compressed (bytes)': enum.size,
-        'total_terms': enum.totalTerms,
-        'documents': enum.documents,
-        'unique_terms': enum.uniqueTerms,
-        'texts': enum.invertedIndex
+        'md5': index_metadata.md5,
+        'size compressed (bytes)': index_metadata.compressedSize,
+        # FIXME: this is needed to make tests/core/test_rest.py pass, test case 'test_index_status'
+        'size_bytes': str(index_metadata.compressedSize),
+        'total_terms': index_metadata.totalTerms,
+        'documents': index_metadata.documents,
+        'unique_terms': index_metadata.uniqueTerms,
+        'texts': index_metadata.corpusIndex
     }
-
-    if info['readme'].startswith('https'):
-        info['readme'] = info['readme'].split('/')[-1]
 
     return info
 
@@ -44,58 +42,58 @@ def import_from_lucene(enum):
 # Bindings for Lucene (standard) inverted indexes
 TF_INDEX_INFO_MSMARCO = {
     # MS MARCO V1 document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v1-doc": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC),
-    "msmarco-v1-doc-slim": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SLIM),
-    "msmarco-v1-doc-full": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_FULL),
+    "msmarco-v1-doc": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc')),
+    "msmarco-v1-doc-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc-slim')),
+    "msmarco-v1-doc-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc-full')),
 
     # MS MARCO V1 document corpus, doc2query-T5 expansions;  defined in Anserini.
-    "msmarco-v1-doc.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_D2Q_T5),
-    "msmarco-v1-doc.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_D2Q_T5_DOCVECTORS),
+    "msmarco-v1-doc.d2q-t5": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc.d2q-t5')),
+    "msmarco-v1-doc.d2q-t5-docvectors": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc.d2q-t5-docvectors')),
 
     # MS MARCO V1 segmented document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v1-doc-segmented": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED),
-    "msmarco-v1-doc-segmented-slim": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_SLIM),
-    "msmarco-v1-doc-segmented-full": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_FULL),
+    "msmarco-v1-doc-segmented": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc-segmented')),
+    "msmarco-v1-doc-segmented-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc-segmented-slim')),
+    "msmarco-v1-doc-segmented-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc-segmented-full')),
 
     # MS MARCO V1 segmented document corpus, doc2query-T5 expansions; defined in Anserini.
-    "msmarco-v1-doc-segmented.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_D2Q_T5),
-    "msmarco-v1-doc-segmented.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V1_DOC_SEGMENTED_D2Q_T5_DOCVECTORS),
+    "msmarco-v1-doc-segmented.d2q-t5": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc-segmented.d2q-t5')),
+    "msmarco-v1-doc-segmented.d2q-t5-docvectors": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc-segmented.d2q-t5-docvectors')),
 
     # MS MARCO V1 passage corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v1-passage": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE),
-    "msmarco-v1-passage-slim": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_SLIM),
-    "msmarco-v1-passage-full": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_FULL),
+    "msmarco-v1-passage": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-passage')),
+    "msmarco-v1-passage-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-passage-slim')),
+    "msmarco-v1-passage-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-passage-full')),
 
     # MS MARCO V1 passage corpus, doc2query-T5 expansions; defined in Anserini.
-    "msmarco-v1-passage.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_D2Q_T5),
-    "msmarco-v1-passage.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_D2Q_T5_DOCVECTORS),
+    "msmarco-v1-passage.d2q-t5": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-passage.d2q-t5')),
+    "msmarco-v1-passage.d2q-t5-docvectors": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-passage.d2q-t5-docvectors')),
 
     # MS MARCO V2 document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v2-doc": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC),
-    "msmarco-v2-doc-slim": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SLIM),
-    "msmarco-v2-doc-full": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_FULL),
+    "msmarco-v2-doc": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc')),
+    "msmarco-v2-doc-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc-slim')),
+    "msmarco-v2-doc-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc-full')),
 
     # MS MARCO V2 document corpus, doc2query-T5 expansions; defined in Anserini.
-    "msmarco-v2-doc.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_D2Q_T5),
-    "msmarco-v2-doc.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_D2Q_T5_DOCVECTORS),
+    "msmarco-v2-doc.d2q-t5": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc.d2q-t5')),
+    "msmarco-v2-doc.d2q-t5-docvectors": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc.d2q-t5-docvectors')),
 
     # MS MARCO V2 segmented document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v2-doc-segmented": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED),
-    "msmarco-v2-doc-segmented-slim": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_SLIM),
-    "msmarco-v2-doc-segmented-full": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_FULL),
+    "msmarco-v2-doc-segmented": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc-segmented')),
+    "msmarco-v2-doc-segmented-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc-segmented-slim')),
+    "msmarco-v2-doc-segmented-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc-segmented-full')),
 
     # MS MARCO V2 segmented document corpus, doc2query-T5 expansions; defined in Anserini.
-    "msmarco-v2-doc-segmented.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_D2Q_T5),
-    "msmarco-v2-doc-segmented.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V2_DOC_SEGMENTED_D2Q_T5_DOCVECTORS),
+    "msmarco-v2-doc-segmented.d2q-t5": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc-segmented.d2q-t5')),
+    "msmarco-v2-doc-segmented.d2q-t5-docvectors": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc-segmented.d2q-t5-docvectors')),
 
     # MS MARCO V2 passage corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v2-passage": import_from_lucene(JIndexInfo.MSMARCO_V2_PASSAGE),
-    "msmarco-v2-passage-slim": import_from_lucene(JIndexInfo.MSMARCO_V2_PASSAGE_SLIM),
-    "msmarco-v2-passage-full": import_from_lucene(JIndexInfo.MSMARCO_V2_PASSAGE_FULL),
+    "msmarco-v2-passage": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-passage')),
+    "msmarco-v2-passage-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-passage-slim')),
+    "msmarco-v2-passage-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-passage-full')),
 
     # MS MARCO V2 passage corpus, doc2query-T5 expansions; defined in Anserini.
-    "msmarco-v2-passage.d2q-t5": import_from_lucene(JIndexInfo.MSMARCO_V2_PASSAGE_D2Q_T5),
-    "msmarco-v2-passage.d2q-t5-docvectors": import_from_lucene(JIndexInfo.MSMARCO_V2_PASSAGE_D2Q_T5_DOCVECTORS),
+    "msmarco-v2-passage.d2q-t5": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-passage.d2q-t5')),
+    "msmarco-v2-passage.d2q-t5-docvectors": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-passage.d2q-t5-docvectors')),
 
     # MS MARCO V2 augmented passage corpus, three indexes with different amounts of information (and sizes).
     "msmarco-v2-passage-augmented": {
@@ -172,14 +170,14 @@ TF_INDEX_INFO_MSMARCO = {
     },
 
     # MS MARCO V2.1 document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v2.1-doc": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC),
-    "msmarco-v2.1-doc-slim": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SLIM),
-    "msmarco-v2.1-doc-full": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_FULL),
+    "msmarco-v2.1-doc": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2.1-doc')),
+    "msmarco-v2.1-doc-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2.1-doc-slim')),
+    "msmarco-v2.1-doc-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2.1-doc-full')),
 
     # MS MARCO V2.1 segmented document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v2.1-doc-segmented": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED),
-    "msmarco-v2.1-doc-segmented-slim": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SLIM),
-    "msmarco-v2.1-doc-segmented-full": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_FULL)
+    "msmarco-v2.1-doc-segmented": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2.1-doc-segmented')),
+    "msmarco-v2.1-doc-segmented-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2.1-doc-segmented-slim')),
+    "msmarco-v2.1-doc-segmented-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2.1-doc-segmented-full'))
 }
 
 TF_INDEX_INFO_MSMARCO_ALIASES = {
@@ -191,81 +189,81 @@ TF_INDEX_INFO_MSMARCO_ALIASES = {
 
 TF_INDEX_INFO_BEIR = {
     # BEIR: flat
-    "beir-v1.0.0-trec-covid.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_FLAT),
-    "beir-v1.0.0-bioasq.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_FLAT),
-    "beir-v1.0.0-nfcorpus.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_FLAT),
-    "beir-v1.0.0-nq.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_FLAT),
-    "beir-v1.0.0-hotpotqa.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_FLAT),
-    "beir-v1.0.0-fiqa.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_FLAT),
-    "beir-v1.0.0-signal1m.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_FLAT),
-    "beir-v1.0.0-trec-news.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_FLAT),
-    "beir-v1.0.0-robust04.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_FLAT),
-    "beir-v1.0.0-arguana.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_FLAT),
-    "beir-v1.0.0-webis-touche2020.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_FLAT),
-    "beir-v1.0.0-cqadupstack-android.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_FLAT),
-    "beir-v1.0.0-cqadupstack-english.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_FLAT),
-    "beir-v1.0.0-cqadupstack-gaming.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_FLAT),
-    "beir-v1.0.0-cqadupstack-gis.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_FLAT),
-    "beir-v1.0.0-cqadupstack-mathematica.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_FLAT),
-    "beir-v1.0.0-cqadupstack-physics.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_FLAT),
-    "beir-v1.0.0-cqadupstack-programmers.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_FLAT),
-    "beir-v1.0.0-cqadupstack-stats.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_FLAT),
-    "beir-v1.0.0-cqadupstack-tex.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_FLAT),
-    "beir-v1.0.0-cqadupstack-unix.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_FLAT),
-    "beir-v1.0.0-cqadupstack-webmasters.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_FLAT),
-    "beir-v1.0.0-cqadupstack-wordpress.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_FLAT),
-    "beir-v1.0.0-quora.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_FLAT),
-    "beir-v1.0.0-dbpedia-entity.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_FLAT),
-    "beir-v1.0.0-scidocs.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_FLAT),
-    "beir-v1.0.0-fever.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_FLAT),
-    "beir-v1.0.0-climate-fever.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_FLAT),
-    "beir-v1.0.0-scifact.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_FLAT),
+    "beir-v1.0.0-trec-covid.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-trec-covid.flat')),
+    "beir-v1.0.0-bioasq.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-bioasq.flat')),
+    "beir-v1.0.0-nfcorpus.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-nfcorpus.flat')),
+    "beir-v1.0.0-nq.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-nq.flat')),
+    "beir-v1.0.0-hotpotqa.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-hotpotqa.flat')),
+    "beir-v1.0.0-fiqa.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-fiqa.flat')),
+    "beir-v1.0.0-signal1m.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-signal1m.flat')),
+    "beir-v1.0.0-trec-news.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-trec-news.flat')),
+    "beir-v1.0.0-robust04.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-robust04.flat')),
+    "beir-v1.0.0-arguana.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-arguana.flat')),
+    "beir-v1.0.0-webis-touche2020.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-webis-touche2020.flat')),
+    "beir-v1.0.0-cqadupstack-android.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-android.flat')),
+    "beir-v1.0.0-cqadupstack-english.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-english.flat')),
+    "beir-v1.0.0-cqadupstack-gaming.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-gaming.flat')),
+    "beir-v1.0.0-cqadupstack-gis.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-gis.flat')),
+    "beir-v1.0.0-cqadupstack-mathematica.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-mathematica.flat')),
+    "beir-v1.0.0-cqadupstack-physics.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-physics.flat')),
+    "beir-v1.0.0-cqadupstack-programmers.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-programmers.flat')),
+    "beir-v1.0.0-cqadupstack-stats.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-stats.flat')),
+    "beir-v1.0.0-cqadupstack-tex.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-tex.flat')),
+    "beir-v1.0.0-cqadupstack-unix.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-unix.flat')),
+    "beir-v1.0.0-cqadupstack-webmasters.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-webmasters.flat')),
+    "beir-v1.0.0-cqadupstack-wordpress.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-wordpress.flat')),
+    "beir-v1.0.0-quora.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-quora.flat')),
+    "beir-v1.0.0-dbpedia-entity.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-dbpedia-entity.flat')),
+    "beir-v1.0.0-scidocs.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-scidocs.flat')),
+    "beir-v1.0.0-fever.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-fever.flat')),
+    "beir-v1.0.0-climate-fever.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-climate-fever.flat')),
+    "beir-v1.0.0-scifact.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-scifact.flat')),
 
     # BEIR: multifield
-    "beir-v1.0.0-trec-covid.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_MULTIFIELD),
-    "beir-v1.0.0-bioasq.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_MULTIFIELD),
-    "beir-v1.0.0-nfcorpus.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_MULTIFIELD),
-    "beir-v1.0.0-nq.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_MULTIFIELD),
-    "beir-v1.0.0-hotpotqa.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_MULTIFIELD),
-    "beir-v1.0.0-fiqa.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_MULTIFIELD),
-    "beir-v1.0.0-signal1m.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_MULTIFIELD),
-    "beir-v1.0.0-trec-news.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_MULTIFIELD),
-    "beir-v1.0.0-robust04.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_MULTIFIELD),
-    "beir-v1.0.0-arguana.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_MULTIFIELD),
-    "beir-v1.0.0-webis-touche2020.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_MULTIFIELD),
-    "beir-v1.0.0-cqadupstack-android.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_MULTIFIELD),
-    "beir-v1.0.0-cqadupstack-english.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_MULTIFIELD),
-    "beir-v1.0.0-cqadupstack-gaming.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_MULTIFIELD),
-    "beir-v1.0.0-cqadupstack-gis.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_MULTIFIELD),
-    "beir-v1.0.0-cqadupstack-mathematica.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_MULTIFIELD),
-    "beir-v1.0.0-cqadupstack-physics.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_MULTIFIELD),
-    "beir-v1.0.0-cqadupstack-programmers.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_MULTIFIELD),
-    "beir-v1.0.0-cqadupstack-stats.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_MULTIFIELD),
-    "beir-v1.0.0-cqadupstack-tex.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_MULTIFIELD),
-    "beir-v1.0.0-cqadupstack-unix.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_MULTIFIELD),
-    "beir-v1.0.0-cqadupstack-webmasters.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_MULTIFIELD),
-    "beir-v1.0.0-cqadupstack-wordpress.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_MULTIFIELD),
-    "beir-v1.0.0-quora.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_MULTIFIELD),
-    "beir-v1.0.0-dbpedia-entity.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_MULTIFIELD),
-    "beir-v1.0.0-scidocs.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_MULTIFIELD),
-    "beir-v1.0.0-fever.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_MULTIFIELD),
-    "beir-v1.0.0-climate-fever.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_MULTIFIELD),
-    "beir-v1.0.0-scifact.multifield": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_MULTIFIELD),
+    "beir-v1.0.0-trec-covid.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-trec-covid.multifield')),
+    "beir-v1.0.0-bioasq.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-bioasq.multifield')),
+    "beir-v1.0.0-nfcorpus.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-nfcorpus.multifield')),
+    "beir-v1.0.0-nq.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-nq.multifield')),
+    "beir-v1.0.0-hotpotqa.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-hotpotqa.multifield')),
+    "beir-v1.0.0-fiqa.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-fiqa.multifield')),
+    "beir-v1.0.0-signal1m.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-signal1m.multifield')),
+    "beir-v1.0.0-trec-news.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-trec-news.multifield')),
+    "beir-v1.0.0-robust04.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-robust04.multifield')),
+    "beir-v1.0.0-arguana.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-arguana.multifield')),
+    "beir-v1.0.0-webis-touche2020.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-webis-touche2020.multifield')),
+    "beir-v1.0.0-cqadupstack-android.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-android.multifield')),
+    "beir-v1.0.0-cqadupstack-english.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-english.multifield')),
+    "beir-v1.0.0-cqadupstack-gaming.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-gaming.multifield')),
+    "beir-v1.0.0-cqadupstack-gis.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-gis.multifield')),
+    "beir-v1.0.0-cqadupstack-mathematica.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-mathematica.multifield')),
+    "beir-v1.0.0-cqadupstack-physics.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-physics.multifield')),
+    "beir-v1.0.0-cqadupstack-programmers.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-programmers.multifield')),
+    "beir-v1.0.0-cqadupstack-stats.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-stats.multifield')),
+    "beir-v1.0.0-cqadupstack-tex.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-tex.multifield')),
+    "beir-v1.0.0-cqadupstack-unix.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-unix.multifield')),
+    "beir-v1.0.0-cqadupstack-webmasters.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-webmasters.multifield')),
+    "beir-v1.0.0-cqadupstack-wordpress.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-wordpress.multifield')),
+    "beir-v1.0.0-quora.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-quora.multifield')),
+    "beir-v1.0.0-dbpedia-entity.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-dbpedia-entity.multifield')),
+    "beir-v1.0.0-scidocs.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-scidocs.multifield')),
+    "beir-v1.0.0-fever.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-fever.multifield')),
+    "beir-v1.0.0-climate-fever.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-climate-fever.multifield')),
+    "beir-v1.0.0-scifact.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-scifact.multifield'))
 }
 
 TF_INDEX_INFO_BRIGHT = {
-    "bright-biology": import_from_lucene(JIndexInfo.BRIGHT_BIOLOGY),
-    "bright-earth-science": import_from_lucene(JIndexInfo.BRIGHT_EARTH_SCIENCE),
-    "bright-economics": import_from_lucene(JIndexInfo.BRIGHT_ECONOMICS),
-    "bright-psychology": import_from_lucene(JIndexInfo.BRIGHT_PSYCHOLOGY),
-    "bright-robotics": import_from_lucene(JIndexInfo.BRIGHT_ROBOTICS),
-    "bright-stackoverflow": import_from_lucene(JIndexInfo.BRIGHT_STACKOVERFLOW),
-    "bright-sustainable-living": import_from_lucene(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING),
-    "bright-pony": import_from_lucene(JIndexInfo.BRIGHT_PONY),
-    "bright-leetcode": import_from_lucene(JIndexInfo.BRIGHT_LEETCODE),
-    "bright-aops": import_from_lucene(JIndexInfo.BRIGHT_AOPS),
-    "bright-theoremqa-theorems": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS),
-    "bright-theoremqa-questions": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS),
+    "bright-biology": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-biology')),
+    "bright-earth-science": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-earth-science')),
+    "bright-economics": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-economics')),
+    "bright-psychology": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-psychology')),
+    "bright-robotics": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-robotics')),
+    "bright-stackoverflow": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-stackoverflow')),
+    "bright-sustainable-living": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-sustainable-living')),
+    "bright-pony": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-pony')),
+    "bright-leetcode": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-leetcode')),
+    "bright-aops": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-aops')),
+    "bright-theoremqa-theorems": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-theoremqa-theorems')),
+    "bright-theoremqa-questions": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-theoremqa-questions'))
 }
 
 TF_INDEX_INFO_MRTYDI = {
@@ -1658,6 +1656,26 @@ TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
                  **TF_INDEX_INFO_OTHER_ALIASES}
 
 
+JPrebuiltImpactIndex = autoclass('io.anserini.index.prebuilt.PrebuiltImpactIndex')
+
+def import_from_impact_lucene(index_metadata):
+    info = {
+        'description': index_metadata.description,
+        'filename': index_metadata.filename,
+        'readme': index_metadata.readme,
+        'urls': [
+            index_metadata.urls[0]
+        ],
+        'md5': index_metadata.md5,
+        'size compressed (bytes)': index_metadata.compressedSize,
+        'total_terms': index_metadata.totalTerms,
+        'documents': index_metadata.documents,
+        'unique_terms': index_metadata.uniqueTerms,
+        'texts': index_metadata.corpusIndex
+    }
+
+    return info
+
 # Bindings for Lucene impact indexes
 IMPACT_INDEX_INFO_MSMARCO = {
     "msmarco-v1-passage.slimr": {
@@ -1996,81 +2014,81 @@ IMPACT_INDEX_INFO_MSMARCO_ALIASES = {
 
 IMPACT_INDEX_INFO_BEIR = {
     # BEIR: SPLADE++ ED
-    "beir-v1.0.0-trec-covid.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_SPLADE_PP_ED),
-    "beir-v1.0.0-bioasq.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_SPLADE_PP_ED),
-    "beir-v1.0.0-nfcorpus.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_SPLADE_PP_ED),
-    "beir-v1.0.0-nq.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_SPLADE_PP_ED),
-    "beir-v1.0.0-hotpotqa.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_SPLADE_PP_ED),
-    "beir-v1.0.0-fiqa.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_SPLADE_PP_ED),
-    "beir-v1.0.0-signal1m.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_SPLADE_PP_ED),
-    "beir-v1.0.0-trec-news.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_SPLADE_PP_ED),
-    "beir-v1.0.0-robust04.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_SPLADE_PP_ED),
-    "beir-v1.0.0-arguana.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_SPLADE_PP_ED),
-    "beir-v1.0.0-webis-touche2020.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_SPLADE_PP_ED),
-    "beir-v1.0.0-cqadupstack-android.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_SPLADE_PP_ED),
-    "beir-v1.0.0-cqadupstack-english.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_SPLADE_PP_ED),
-    "beir-v1.0.0-cqadupstack-gaming.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_SPLADE_PP_ED),
-    "beir-v1.0.0-cqadupstack-gis.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_SPLADE_PP_ED),
-    "beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_SPLADE_PP_ED),
-    "beir-v1.0.0-cqadupstack-physics.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_SPLADE_PP_ED),
-    "beir-v1.0.0-cqadupstack-programmers.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_SPLADE_PP_ED),
-    "beir-v1.0.0-cqadupstack-stats.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_SPLADE_PP_ED),
-    "beir-v1.0.0-cqadupstack-tex.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_SPLADE_PP_ED),
-    "beir-v1.0.0-cqadupstack-unix.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_SPLADE_PP_ED),
-    "beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_SPLADE_PP_ED),
-    "beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_SPLADE_PP_ED),
-    "beir-v1.0.0-quora.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_SPLADE_PP_ED),
-    "beir-v1.0.0-dbpedia-entity.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_SPLADE_PP_ED),
-    "beir-v1.0.0-scidocs.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_SPLADE_PP_ED),
-    "beir-v1.0.0-fever.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_SPLADE_PP_ED),
-    "beir-v1.0.0-climate-fever.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_SPLADE_PP_ED),
-    "beir-v1.0.0-scifact.splade-pp-ed": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_SPLADE_PP_ED),
+    "beir-v1.0.0-trec-covid.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-trec-covid.splade-pp-ed')),
+    "beir-v1.0.0-bioasq.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-bioasq.splade-pp-ed')),
+    "beir-v1.0.0-nfcorpus.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-nfcorpus.splade-pp-ed')),
+    "beir-v1.0.0-nq.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-nq.splade-pp-ed')),
+    "beir-v1.0.0-hotpotqa.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-hotpotqa.splade-pp-ed')),
+    "beir-v1.0.0-fiqa.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-fiqa.splade-pp-ed')),
+    "beir-v1.0.0-signal1m.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-signal1m.splade-pp-ed')),
+    "beir-v1.0.0-trec-news.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-trec-news.splade-pp-ed')),
+    "beir-v1.0.0-robust04.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-robust04.splade-pp-ed')),
+    "beir-v1.0.0-arguana.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-arguana.splade-pp-ed')),
+    "beir-v1.0.0-webis-touche2020.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-webis-touche2020.splade-pp-ed')),
+    "beir-v1.0.0-cqadupstack-android.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-android.splade-pp-ed')),
+    "beir-v1.0.0-cqadupstack-english.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-english.splade-pp-ed')),
+    "beir-v1.0.0-cqadupstack-gaming.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-gaming.splade-pp-ed')),
+    "beir-v1.0.0-cqadupstack-gis.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-gis.splade-pp-ed')),
+    "beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed')),
+    "beir-v1.0.0-cqadupstack-physics.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-physics.splade-pp-ed')),
+    "beir-v1.0.0-cqadupstack-programmers.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-programmers.splade-pp-ed')),
+    "beir-v1.0.0-cqadupstack-stats.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-stats.splade-pp-ed')),
+    "beir-v1.0.0-cqadupstack-tex.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-tex.splade-pp-ed')),
+    "beir-v1.0.0-cqadupstack-unix.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-unix.splade-pp-ed')),
+    "beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed')),
+    "beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed')),
+    "beir-v1.0.0-quora.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-quora.splade-pp-ed')),
+    "beir-v1.0.0-dbpedia-entity.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-dbpedia-entity.splade-pp-ed')),
+    "beir-v1.0.0-scidocs.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-scidocs.splade-pp-ed')),
+    "beir-v1.0.0-fever.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-fever.splade-pp-ed')),
+    "beir-v1.0.0-climate-fever.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-climate-fever.splade-pp-ed')),
+    "beir-v1.0.0-scifact.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-scifact.splade-pp-ed')),
 
     # BEIR: SPLADEv3
-    "beir-v1.0.0-trec-covid.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_SPLADE_V3),
-    "beir-v1.0.0-bioasq.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_SPLADE_V3),
-    "beir-v1.0.0-nfcorpus.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_SPLADE_V3),
-    "beir-v1.0.0-nq.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_SPLADE_V3),
-    "beir-v1.0.0-hotpotqa.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_SPLADE_V3),
-    "beir-v1.0.0-fiqa.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_SPLADE_V3),
-    "beir-v1.0.0-signal1m.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_SPLADE_V3),
-    "beir-v1.0.0-trec-news.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_SPLADE_V3),
-    "beir-v1.0.0-robust04.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_SPLADE_V3),
-    "beir-v1.0.0-arguana.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_SPLADE_V3),
-    "beir-v1.0.0-webis-touche2020.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_SPLADE_V3),
-    "beir-v1.0.0-cqadupstack-android.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_SPLADE_V3),
-    "beir-v1.0.0-cqadupstack-english.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_SPLADE_V3),
-    "beir-v1.0.0-cqadupstack-gaming.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_SPLADE_V3),
-    "beir-v1.0.0-cqadupstack-gis.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_SPLADE_V3),
-    "beir-v1.0.0-cqadupstack-mathematica.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_SPLADE_V3),
-    "beir-v1.0.0-cqadupstack-physics.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_SPLADE_V3),
-    "beir-v1.0.0-cqadupstack-programmers.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_SPLADE_V3),
-    "beir-v1.0.0-cqadupstack-stats.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_SPLADE_V3),
-    "beir-v1.0.0-cqadupstack-tex.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_SPLADE_V3),
-    "beir-v1.0.0-cqadupstack-unix.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_SPLADE_V3),
-    "beir-v1.0.0-cqadupstack-webmasters.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_SPLADE_V3),
-    "beir-v1.0.0-cqadupstack-wordpress.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_SPLADE_V3),
-    "beir-v1.0.0-quora.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_SPLADE_V3),
-    "beir-v1.0.0-dbpedia-entity.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_SPLADE_V3),
-    "beir-v1.0.0-scidocs.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_SPLADE_V3),
-    "beir-v1.0.0-fever.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_SPLADE_V3),
-    "beir-v1.0.0-climate-fever.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_SPLADE_V3),
-    "beir-v1.0.0-scifact.splade-v3": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_SPLADE_V3),
+    "beir-v1.0.0-trec-covid.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-trec-covid.splade-v3')),
+    "beir-v1.0.0-bioasq.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-bioasq.splade-v3')),
+    "beir-v1.0.0-nfcorpus.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-nfcorpus.splade-v3')),
+    "beir-v1.0.0-nq.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-nq.splade-v3')),
+    "beir-v1.0.0-hotpotqa.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-hotpotqa.splade-v3')),
+    "beir-v1.0.0-fiqa.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-fiqa.splade-v3')),
+    "beir-v1.0.0-signal1m.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-signal1m.splade-v3')),
+    "beir-v1.0.0-trec-news.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-trec-news.splade-v3')),
+    "beir-v1.0.0-robust04.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-robust04.splade-v3')),
+    "beir-v1.0.0-arguana.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-arguana.splade-v3')),
+    "beir-v1.0.0-webis-touche2020.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-webis-touche2020.splade-v3')),
+    "beir-v1.0.0-cqadupstack-android.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-android.splade-v3')),
+    "beir-v1.0.0-cqadupstack-english.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-english.splade-v3')),
+    "beir-v1.0.0-cqadupstack-gaming.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-gaming.splade-v3')),
+    "beir-v1.0.0-cqadupstack-gis.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-gis.splade-v3')),
+    "beir-v1.0.0-cqadupstack-mathematica.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-mathematica.splade-v3')),
+    "beir-v1.0.0-cqadupstack-physics.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-physics.splade-v3')),
+    "beir-v1.0.0-cqadupstack-programmers.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-programmers.splade-v3')),
+    "beir-v1.0.0-cqadupstack-stats.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-stats.splade-v3')),
+    "beir-v1.0.0-cqadupstack-tex.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-tex.splade-v3')),
+    "beir-v1.0.0-cqadupstack-unix.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-unix.splade-v3')),
+    "beir-v1.0.0-cqadupstack-webmasters.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-webmasters.splade-v3')),
+    "beir-v1.0.0-cqadupstack-wordpress.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-wordpress.splade-v3')),
+    "beir-v1.0.0-quora.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-quora.splade-v3')),
+    "beir-v1.0.0-dbpedia-entity.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-dbpedia-entity.splade-v3')),
+    "beir-v1.0.0-scidocs.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-scidocs.splade-v3')),
+    "beir-v1.0.0-fever.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-fever.splade-v3')),
+    "beir-v1.0.0-climate-fever.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-climate-fever.splade-v3')),
+    "beir-v1.0.0-scifact.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-scifact.splade-v3')),
 }
 
 IMPACT_INDEX_INFO_BRIGHT = {
-    "bright-biology.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_BIOLOGY_SPLADE_V3),
-    "bright-earth-science.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_EARTH_SCIENCE_SPLADE_V3),
-    "bright-economics.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_ECONOMICS_SPLADE_V3),
-    "bright-psychology.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_PSYCHOLOGY_SPLADE_V3),
-    "bright-robotics.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_ROBOTICS_SPLADE_V3),
-    "bright-stackoverflow.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_STACKOVERFLOW_SPLADE_V3),
-    "bright-sustainable-living.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING_SPLADE_V3),
-    "bright-pony.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_PONY_SPLADE_V3),
-    "bright-leetcode.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_LEETCODE_SPLADE_V3),
-    "bright-aops.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_AOPS_SPLADE_V3),
-    "bright-theoremqa-theorems.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS_SPLADE_V3),
-    "bright-theoremqa-questions.splade-v3": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS_SPLADE_V3),
+    "bright-biology.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-biology.splade-v3')),
+    "bright-earth-science.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-earth-science.splade-v3')),
+    "bright-economics.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-economics.splade-v3')),
+    "bright-psychology.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-psychology.splade-v3')),
+    "bright-robotics.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-robotics.splade-v3')),
+    "bright-stackoverflow.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-stackoverflow.splade-v3')),
+    "bright-sustainable-living.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-sustainable-living.splade-v3')),
+    "bright-pony.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-pony.splade-v3')),
+    "bright-leetcode.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-leetcode.splade-v3')),
+    "bright-aops.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-aops.splade-v3')),
+    "bright-theoremqa-theorems.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-theoremqa-theorems.splade-v3')),
+    "bright-theoremqa-questions.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-theoremqa-questions.splade-v3')),
 }
 
 IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_MSMARCO,
@@ -2078,111 +2096,144 @@ IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_MSMARCO,
                      **IMPACT_INDEX_INFO_BEIR,
                      **IMPACT_INDEX_INFO_BRIGHT}
 
+JPrebuiltHnswIndex = autoclass('io.anserini.index.prebuilt.PrebuiltHnswIndex')
+
+def import_from_hnsw_lucene(index_metadata):
+    info = {
+        'description': index_metadata.description,
+        'filename': index_metadata.filename,
+        'readme': index_metadata.readme,
+        'urls': [
+            index_metadata.urls[0]
+        ],
+        'md5': index_metadata.md5,
+        'size compressed (bytes)': index_metadata.compressedSize,
+        'texts': index_metadata.corpusIndex
+    }
+
+    return info
 
 # Bindings for Lucene HNSW MSMARCO indexes
 LUCENE_HNSW_INDEX_INFO_MSMARCO = {
-    "msmarco-v1-passage.cosdpr-distil.hnsw": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_COS_DPR_DISTIL_HNSW),
-    "msmarco-v1-passage.cosdpr-distil.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_COS_DPR_DISTIL_HNSW_INT8),
-    "msmarco-v1-passage.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_BGE_BASE_EN_15_HNSW),
-    "msmarco-v1-passage.bge-base-en-v1.5.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_BGE_BASE_EN_15_HNSW_INT8),
-    "msmarco-v1-passage.cohere-embed-english-v3.0.hnsw": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_COHERE_EMBED_ENGLISH_30_HNSW),
-    "msmarco-v1-passage.cohere-embed-english-v3.0.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V1_PASSAGE_COHERE_EMBED_ENGLISH_30_HNSW_INT8),
+    "msmarco-v1-passage.cosdpr-distil.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v1-passage.cosdpr-distil.hnsw')),
+    "msmarco-v1-passage.cosdpr-distil.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v1-passage.cosdpr-distil.hnsw-int8')),
+    "msmarco-v1-passage.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v1-passage.bge-base-en-v1.5.hnsw')),
+    "msmarco-v1-passage.bge-base-en-v1.5.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v1-passage.bge-base-en-v1.5.hnsw-int8')),
+    "msmarco-v1-passage.cohere-embed-english-v3.0.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v1-passage.cohere-embed-english-v3.0.hnsw')),
+    "msmarco-v1-passage.cohere-embed-english-v3.0.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v1-passage.cohere-embed-english-v3.0.hnsw-int8')),
 
-    "msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD00_ARCTIC_EMBED_L_HNSW_INT8),
-    "msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD01_ARCTIC_EMBED_L_HNSW_INT8),
-    "msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD02_ARCTIC_EMBED_L_HNSW_INT8),
-    "msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD03_ARCTIC_EMBED_L_HNSW_INT8),
-    "msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD04_ARCTIC_EMBED_L_HNSW_INT8),
-    "msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD05_ARCTIC_EMBED_L_HNSW_INT8),
-    "msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD06_ARCTIC_EMBED_L_HNSW_INT8),
-    "msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD07_ARCTIC_EMBED_L_HNSW_INT8),
-    "msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD08_ARCTIC_EMBED_L_HNSW_INT8),
-    "msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.hnsw-int8": import_from_lucene(JIndexInfo.MSMARCO_V21_DOC_SEGMENTED_SHARD09_ARCTIC_EMBED_L_HNSW_INT8),
+    "msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8')),
+    "msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.hnsw-int8')),
+    "msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.hnsw-int8')),
+    "msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.hnsw-int8')),
+    "msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.hnsw-int8')),
+    "msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.hnsw-int8')),
+    "msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.hnsw-int8')),
+    "msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.hnsw-int8')),
+    "msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.hnsw-int8')),
+    "msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.hnsw-int8')),
 }
 
 # Bindings for Lucene HNSW BEIR indexes
 LUCENE_HNSW_INDEX_INFO_BEIR = {
-    "beir-v1.0.0-trec-covid.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-bioasq.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-nfcorpus.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-nq.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-hotpotqa.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-fiqa.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-signal1m.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-trec-news.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-robust04.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-arguana.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-quora.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-scidocs.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-fever.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-climate-fever.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_BGE_BASE_EN_15_HNSW),
-    "beir-v1.0.0-scifact.bge-base-en-v1.5.hnsw": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_BGE_BASE_EN_15_HNSW),
+    "beir-v1.0.0-trec-covid.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-trec-covid.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-bioasq.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-bioasq.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-nfcorpus.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-nfcorpus.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-nq.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-nq.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-hotpotqa.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-hotpotqa.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-fiqa.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-fiqa.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-signal1m.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-signal1m.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-trec-news.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-trec-news.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-robust04.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-robust04.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-arguana.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-quora.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-quora.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-scidocs.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-scidocs.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-fever.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-fever.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-climate-fever.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-climate-fever.bge-base-en-v1.5.hnsw')),
+    "beir-v1.0.0-scifact.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-scifact.bge-base-en-v1.5.hnsw')),
 }
 
 LUCENE_HNSW_INDEX_INFO = {**LUCENE_HNSW_INDEX_INFO_MSMARCO,
                           **LUCENE_HNSW_INDEX_INFO_BEIR}
 
 
+JPrebuiltFlatIndex = autoclass('io.anserini.index.prebuilt.PrebuiltFlatIndex')
+
+def import_from_flat_lucene(index_metadata):
+    info = {
+        'description': index_metadata.description,
+        'filename': index_metadata.filename,
+        'readme': index_metadata.readme,
+        'urls': [
+            index_metadata.urls[0]
+        ],
+        'md5': index_metadata.md5,
+        'size compressed (bytes)': index_metadata.compressedSize,
+        'texts': index_metadata.corpusIndex
+    }
+
+    return info
+
 # Bindings for Lucene flat indexes
 LUCENE_FLAT_INDEX_INFO_BEIR = {
-    "beir-v1.0.0-trec-covid.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_COVID_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-bioasq.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_BIOASQ_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-nfcorpus.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NFCORPUS_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-nq.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_NQ_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-hotpotqa.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_HOTPOTQA_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-fiqa.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FIQA_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-signal1m.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SIGNAL1M_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-trec-news.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_TREC_NEWS_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-robust04.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ROBUST04_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-arguana.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_ARGUANA_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_WEBIS_TOUCHE2020_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ANDROID_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_ENGLISH_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GAMING_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_GIS_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_MATHEMATICA_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PHYSICS_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_PROGRAMMERS_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_STATS_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_TEX_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_UNIX_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WEBMASTERS_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CQADUPSTACK_WORDPRESS_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-quora.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_QUORA_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_DBPEDIA_ENTITY_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-scidocs.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIDOCS_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-fever.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_FEVER_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-climate-fever.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_CLIMATE_FEVER_BGE_BASE_EN_15_FLAT),
-    "beir-v1.0.0-scifact.bge-base-en-v1.5.flat": import_from_lucene(JIndexInfo.BEIR_V1_0_0_SCIFACT_BGE_BASE_EN_15_FLAT),
+    "beir-v1.0.0-trec-covid.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-trec-covid.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-bioasq.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-bioasq.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-nfcorpus.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-nfcorpus.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-nq.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-nq.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-hotpotqa.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-hotpotqa.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-fiqa.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-fiqa.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-signal1m.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-signal1m.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-trec-news.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-trec-news.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-robust04.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-robust04.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-arguana.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-quora.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-quora.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-scidocs.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-scidocs.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-fever.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-fever.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-climate-fever.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-climate-fever.bge-base-en-v1.5.flat')),
+    "beir-v1.0.0-scifact.bge-base-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('beir-v1.0.0-scifact.bge-base-en-v1.5.flat')),
 }
 
 LUCENE_FLAT_INDEX_INFO_BRIGHT = {
-    "bright-biology.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_BIOLOGY_BGE_LARGE_EN_15_FLAT),
-    "bright-earth-science.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_EARTH_SCIENCE_BGE_LARGE_EN_15_FLAT),
-    "bright-economics.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_ECONOMICS_BGE_LARGE_EN_15_FLAT),
-    "bright-psychology.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_PSYCHOLOGY_BGE_LARGE_EN_15_FLAT),
-    "bright-robotics.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_ROBOTICS_BGE_LARGE_EN_15_FLAT),
-    "bright-stackoverflow.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_STACKOVERFLOW_BGE_LARGE_EN_15_FLAT),
-    "bright-sustainable-living.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_SUSTAINABLE_LIVING_BGE_LARGE_EN_15_FLAT),
-    "bright-pony.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_PONY_BGE_LARGE_EN_15_FLAT),
-    "bright-leetcode.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_LEETCODE_BGE_LARGE_EN_15_FLAT),
-    "bright-aops.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_AOPS_BGE_LARGE_EN_15_FLAT),
-    "bright-theoremqa-theorems.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_THEOREMS_BGE_LARGE_EN_15_FLAT),
-    "bright-theoremqa-questions.bge-large-en-v1.5.flat": import_from_lucene(JIndexInfo.BRIGHT_THEOREMQA_QUESTIONS_BGE_LARGE_EN_15_FLAT),
+    "bright-biology.bge-large-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('bright-biology.bge-large-en-v1.5.flat')),
+    "bright-earth-science.bge-large-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('bright-earth-science.bge-large-en-v1.5.flat')),
+    "bright-economics.bge-large-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('bright-economics.bge-large-en-v1.5.flat')),
+    "bright-psychology.bge-large-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('bright-psychology.bge-large-en-v1.5.flat')),
+    "bright-robotics.bge-large-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('bright-robotics.bge-large-en-v1.5.flat')),
+    "bright-stackoverflow.bge-large-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('bright-stackoverflow.bge-large-en-v1.5.flat')),
+    "bright-sustainable-living.bge-large-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('bright-sustainable-living.bge-large-en-v1.5.flat')),
+    "bright-pony.bge-large-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('bright-pony.bge-large-en-v1.5.flat')),
+    "bright-leetcode.bge-large-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('bright-leetcode.bge-large-en-v1.5.flat')),
+    "bright-aops.bge-large-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('bright-aops.bge-large-en-v1.5.flat')),
+    "bright-theoremqa-theorems.bge-large-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('bright-theoremqa-theorems.bge-large-en-v1.5.flat')),
+    "bright-theoremqa-questions.bge-large-en-v1.5.flat": import_from_flat_lucene(JPrebuiltFlatIndex.get('bright-theoremqa-questions.bge-large-en-v1.5.flat'))
 }
 
 LUCENE_FLAT_INDEX_INFO = {**LUCENE_FLAT_INDEX_INFO_BEIR, **LUCENE_FLAT_INDEX_INFO_BRIGHT}
@@ -4120,6 +4171,318 @@ FAISS_INDEX_INFO_BRIGHT = {
         "downloaded": False,
         "texts": "bright-theoremqa-questions"
     },
+    "bright-aops.diver-retriever-4b": {
+        "description": "Faiss index of the aops corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-aops.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-aops.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "f24a104cc686e87c037b5557381d12e4",
+        "size compressed (bytes)": 896829813,
+        "documents": 188002,
+        "downloaded": False,
+        "texts": "bright-aops"
+    },
+    "bright-biology.diver-retriever-4b": {
+        "description": "Faiss index of the biology corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-biology.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-biology.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "e71949be07d506da8e626aaa6b0b446b",
+        "size compressed (bytes)": 273798661,
+        "documents": 57359,
+        "downloaded": False,
+        "texts": "bright-biology"
+    },
+    "bright-earth-science.diver-retriever-4b": {
+        "description": "Faiss index of the earth-science corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-earth-science.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-earth-science.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "81e0507d98bce70f9d2458aaf6593199",
+        "size compressed (bytes)": 579532629,
+        "documents": 121249,
+        "downloaded": False,
+        "texts": "bright-earth-science"
+    },
+    "bright-economics.diver-retriever-4b": {
+        "description": "Faiss index of the economics corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-economics.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-economics.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "d77ba223e474a426a0bda26d2e941c08",
+        "size compressed (bytes)": 239278385,
+        "documents": 50220,
+        "downloaded": False,
+        "texts": "bright-economics"
+    },
+    "bright-leetcode.diver-retriever-4b": {
+        "description": "Faiss index of the leetcode corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-leetcode.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-leetcode.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "4b4ba409add65925c4486979d1a9123c",
+        "size compressed (bytes)": 1976072736,
+        "documents": 413932,
+        "downloaded": False,
+        "texts": "bright-leetcode"
+    },
+    "bright-pony.diver-retriever-4b": {
+        "description": "Faiss index of the pony corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-pony.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-pony.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "16976eb2bc8a7837d04e421c057049cd",
+        "size compressed (bytes)": 37595406,
+        "documents": 7894,
+        "downloaded": False,
+        "texts": "bright-pony"
+    },
+    "bright-psychology.diver-retriever-4b": {
+        "description": "Faiss index of the psychology corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-psychology.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-psychology.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "30c7ffc975ee9197d8521edfa71ea55f",
+        "size compressed (bytes)": 252033353,
+        "documents": 52835,
+        "downloaded": False,
+        "texts": "bright-psychology"
+    },
+    "bright-robotics.diver-retriever-4b": {
+        "description": "Faiss index of the robotics corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-robotics.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-robotics.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "21338a1542c6efc2bac358cd105cf3f1",
+        "size compressed (bytes)": 292835573,
+        "documents": 61961,
+        "downloaded": False,
+        "texts": "bright-robotics"
+    },
+    "bright-stackoverflow.diver-retriever-4b": {
+        "description": "Faiss index of the stackoverflow corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-stackoverflow.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-stackoverflow.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "159dbb15ef3954e9915b0019789258f5",
+        "size compressed (bytes)": 506187162,
+        "documents": 107081,
+        "downloaded": False,
+        "texts": "bright-stackoverflow"
+    },
+    "bright-sustainable-living.diver-retriever-4b": {
+        "description": "Faiss index of the sustainable-living corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-sustainable-living.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-sustainable-living.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "fa13ea9c83956c6305033fa0ccb11711",
+        "size compressed (bytes)": 289525259,
+        "documents": 60792,
+        "downloaded": False,
+        "texts": "bright-sustainable-living"
+    },
+    "bright-theoremqa-questions.diver-retriever-4b": {
+        "description": "Faiss index of the theoremqa-questions corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-theoremqa-questions.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-theoremqa-questions.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "919193a41b11f39fd33a6b7bd26774e6",
+        "size compressed (bytes)": 896822922,
+        "documents": 188002,
+        "downloaded": False,
+        "texts": "bright-theoremqa-questions"
+    },
+    "bright-theoremqa-theorems.diver-retriever-4b": {
+        "description": "Faiss index of the theoremqa-theorems corpus encoded by diver-retriever-4b",
+        "filename": "faiss-flat.bright-theoremqa-theorems.diver-retriever-4b.20260227.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-theoremqa-theorems.diver-retriever-4b.20260227.2f9328f.tar.gz"
+        ],
+        "md5": "14c4a0c3aa6f4325688ecfc4f40efaf8",
+        "size compressed (bytes)": 113670945,
+        "documents": 23839,
+        "downloaded": False,
+        "texts": "bright-theoremqa-theorems"
+    },
+    "bright-aops.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the aops corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-aops.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-aops.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "76989f371ea044ea2df2336ec3b310a1",
+        "size compressed (bytes)": 897863808,
+        "documents": 188002,
+        "downloaded": False,
+        "texts": "bright-aops"
+    },
+    "bright-biology.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the biology corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-biology.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-biology.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "141ee65ed539013096a9ba07a8a19365",
+        "size compressed (bytes)": 273894699,
+        "documents": 57359,
+        "downloaded": False,
+        "texts": "bright-biology"
+    },
+    "bright-earth-science.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the earth-science corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-earth-science.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-earth-science.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "c0176d3d7bd68aaba44b13b31cc339d6",
+        "size compressed (bytes)": 579701998,
+        "documents": 121249,
+        "downloaded": False,
+        "texts": "bright-earth-science"
+    },
+    "bright-economics.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the economics corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-economics.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-economics.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "b818160492813c7822be5303d506def8",
+        "size compressed (bytes)": 239426214,
+        "documents": 50220,
+        "downloaded": False,
+        "texts": "bright-economics"
+    },
+    "bright-leetcode.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the leetcode corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-leetcode.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-leetcode.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "71c835683b84cf764bb4c7b0780e40a9",
+        "size compressed (bytes)": 1978373681,
+        "documents": 413932,
+        "downloaded": False,
+        "texts": "bright-leetcode"
+    },
+    "bright-pony.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the pony corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-pony.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-pony.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "9ba31e11ba4b87b0685e11453d00ad16",
+        "size compressed (bytes)": 37605121,
+        "documents": 7894,
+        "downloaded": False,
+        "texts": "bright-pony"
+    },
+    "bright-psychology.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the psychology corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-psychology.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-psychology.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "801632d677dd725c115959a3dc4f4a89",
+        "size compressed (bytes)": 252124461,
+        "documents": 52835,
+        "downloaded": False,
+        "texts": "bright-psychology"
+    },
+    "bright-robotics.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the robotics corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-robotics.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-robotics.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "6c0b2ffc294ab44c68718c45e7ca06eb",
+        "size compressed (bytes)": 293018660,
+        "documents": 61961,
+        "downloaded": False,
+        "texts": "bright-robotics"
+    },
+    "bright-stackoverflow.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the stackoverflow corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-stackoverflow.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-stackoverflow.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "c1bef66533ee8df89bf145f2bf94b820",
+        "size compressed (bytes)": 506544282,
+        "documents": 107081,
+        "downloaded": False,
+        "texts": "bright-stackoverflow"
+    },
+    "bright-sustainable-living.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the sustainable-living corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-sustainable-living.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-sustainable-living.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "8eb33615cad468c79dfbd05ff305e96b",
+        "size compressed (bytes)": 289587208,
+        "documents": 60792,
+        "downloaded": False,
+        "texts": "bright-sustainable-living"
+    },
+    "bright-theoremqa-questions.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the theoremqa-questions corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-theoremqa-questions.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-theoremqa-questions.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "5e68ee39688e13e484c3118657513489",
+        "size compressed (bytes)": 897852243,
+        "documents": 188002,
+        "downloaded": False,
+        "texts": "bright-theoremqa-questions"
+    },
+    "bright-theoremqa-theorems.reason-embed-qwen3-4b-0928": {
+        "description": "Faiss index of the theoremqa-theorems corpus encoded by reason-embed-qwen3-4b-0928",
+        "filename": "faiss-flat.bright-theoremqa-theorems.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz",
+        "readme": "faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-theoremqa-theorems.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
+        ],
+        "md5": "090cf3019dc98a09141a49da8b5f48fd",
+        "size compressed (bytes)": 113826179,
+        "documents": 23839,
+        "downloaded": False,
+        "texts": "bright-theoremqa-theorems"
+    }
 }
 
 FAISS_INDEX_INFO_MRTYDI = {
@@ -5822,419 +6185,445 @@ FAISS_INDEX_INFO_WIKIPEDIA = {
 FAISS_INDEX_INFO_M_BEIR = {
     "m-beir-cirr_task7.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR CIRR task 7 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-cirr_task7.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-cirr-task7.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-cirr_task7.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-cirr-task7.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "4af4333e424e5c8595441ad4d2b6fa08",
-        "size compressed (bytes)": 38820730,
+        "md5": "2df0ed1aa8d405148977a74218748db6",
+        "size compressed (bytes)": 38817422,
         "documents": 21551,
         "downloaded": False,
         "texts": "m-beir-cirr_task7"
     },
     "m-beir-edis_task2.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-edis_task2.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-edis-task2.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-edis_task2.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-edis-task2.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "2a0d71c95055c5e382fc820bee2161b8",
-        "size compressed (bytes)": 1889299324,
+        "md5": "f507b70f48facec1de962fd7b2ce617d",
+        "size compressed (bytes)": 1889309291,
         "documents": 1047067,
         "downloaded": False,
         "texts": "m-beir-edis_task2"
     },
     "m-beir-fashion200k_task0.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-fashion200k_task0.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-fashion200k-task0.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashion200k_task0.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashion200k-task0.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "d0e48e530b965bd65f985d06513c7062",
-        "size compressed (bytes)": 275676078,
-        "documents": 153472,
+        "md5": "e5fe87d779545ef493ee5740e2b075c8",
+        "size compressed (bytes)": 362431088,
+        "documents": 201824,
         "downloaded": False,
         "texts": "m-beir-fashion200k_task0"
     },
     "m-beir-fashion200k_task3.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-fashion200k_task3.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-fashion200k-task3.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashion200k_task3.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashion200k-task3.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "50ebf04ad3b1503b99972f25d797e77b",
-        "size compressed (bytes)": 111421780,
+        "md5": "f1d419f3b711b3614300e136e391e63e",
+        "size compressed (bytes)": 111419375,
         "documents": 61707,
         "downloaded": False,
         "texts": "m-beir-fashion200k_task3"
     },
     "m-beir-fashioniq_task7.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-fashioniq_task7.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-fashioniq-task7.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashioniq_task7.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashioniq-task7.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "07064083dbc49d8646e1c38892682f2d",
-        "size compressed (bytes)": 134234457,
+        "md5": "77504ab31f03bcf397a5ec3c20864eaf",
+        "size compressed (bytes)": 134235025,
         "documents": 74381,
         "downloaded": False,
         "texts": "m-beir-fashioniq_task7"
     },
     "m-beir-infoseek_task6.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-infoseek_task6.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-infoseek-task6.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-infoseek_task6.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-infoseek-task6.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "af35375569f70efac106ac5b8b3632a5",
-        "size compressed (bytes)": 1106443187,
+        "md5": "e471f7cf13c3ba4cdf0233d9e74f9ee8",
+        "size compressed (bytes)": 1106428847,
         "documents": 611651,
         "downloaded": False,
         "texts": "m-beir-infoseek_task6"
     },
     "m-beir-infoseek_task8.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-infoseek_task8.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-infoseek-task8.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-infoseek_task8.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-infoseek-task8.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "b85539bb06cf8e7078e489b4edc8b2e5",
-        "size compressed (bytes)": 870316186,
+        "md5": "ba5b02f2e97086ddced32d9af730d841",
+        "size compressed (bytes)": 870321158,
         "documents": 481782,
         "downloaded": False,
         "texts": "m-beir-infoseek_task8"
     },
     "m-beir-mscoco_task0.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-mscoco_task0.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-mscoco-task0.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-mscoco_task0.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-mscoco-task0.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "d065301db4e284f3dc24643926a12add",
-        "size compressed (bytes)": 9018789,
+        "md5": "d015ea6b4b2014722e81bd500999b12b",
+        "size compressed (bytes)": 9018762,
         "documents": 5000,
         "downloaded": False,
         "texts": "m-beir-mscoco_task0"
     },
     "m-beir-mscoco_task3.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-mscoco_task3.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-mscoco-task3.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-mscoco_task3.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-mscoco-task3.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "19a0adcff9de5015078bad937e6eba50",
-        "size compressed (bytes)": 44894584,
+        "md5": "ba172cbbca9903561a4fe522d2349fb5",
+        "size compressed (bytes)": 44898554,
         "documents": 24809,
         "downloaded": False,
         "texts": "m-beir-mscoco_task3"
     },
     "m-beir-nights_task4.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-nights_task4.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-nights-task4.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-nights_task4.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-nights-task4.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "2e0b2494401aa40f3144cf93d69a2c59",
-        "size compressed (bytes)": 72059050,
+        "md5": "f4dbd632d15efd7eb5abfb0ffc5484af",
+        "size compressed (bytes)": 72057798,
         "documents": 40038,
         "downloaded": False,
         "texts": "m-beir-nights_task4"
     },
     "m-beir-oven_task6.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-oven_task6.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-oven-task6.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-oven_task6.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-oven-task6.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "84a6a3ea9df44744e3c37b8559242128",
-        "size compressed (bytes)": 1224169375,
+        "md5": "589ebd6326ab1de2329d70840470e5ab",
+        "size compressed (bytes)": 1224166256,
         "documents": 676667,
         "downloaded": False,
         "texts": "m-beir-oven_task6"
     },
     "m-beir-oven_task8.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-oven_task8.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-oven-task8.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-oven_task8.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-oven-task8.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "c63f53ec2271d99f16c34082d4bcf0e2",
-        "size compressed (bytes)": 605530489,
+        "md5": "ecf91e65de23aa90971a7c2c395cc485",
+        "size compressed (bytes)": 605524879,
         "documents": 335135,
         "downloaded": False,
         "texts": "m-beir-oven_task8"
     },
     "m-beir-visualnews_task0.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-visualnews_task0.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-visualnews-task0.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-visualnews_task0.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-visualnews-task0.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "ef86806c451f2efc98d56906f75df539",
-        "size compressed (bytes)": 978324225,
+        "md5": "73742e95859b11ac1d3d8692d06e73b2",
+        "size compressed (bytes)": 978318460,
         "documents": 542246,
         "downloaded": False,
         "texts": "m-beir-visualnews_task0"
     },
     "m-beir-visualnews_task3.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-visualnews_task3.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-visualnews-task3.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-visualnews_task3.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-visualnews-task3.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "90455c3468ce499bd8557bf3f7b37eb0",
-        "size compressed (bytes)": 972354799,
+        "md5": "73f3245e40c1684bb4d74c532a65cb45",
+        "size compressed (bytes)": 972353309,
         "documents": 537568,
         "downloaded": False,
         "texts": "m-beir-visualnews_task3"
     },
     "m-beir-webqa_task1.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-webqa_task1.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-webqa-task1.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-webqa_task1.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-webqa-task1.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "f970899d8ae98ac7c94af549869494cd",
-        "size compressed (bytes)": 983306361,
+        "md5": "0cda2d38ce2218607c31a129997a79f1",
+        "size compressed (bytes)": 983308425,
         "documents": 544457,
         "downloaded": False,
         "texts": "m-beir-webqa_task1"
     },
     "m-beir-webqa_task2.clip-sf-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's clip-sf-large model",
-        "filename": "faiss-flat.m-beir-webqa_task2.clip-sf-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-webqa-task2.clip-sf-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-webqa_task2.clip-sf-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-webqa-task2.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "476b8347b8913c28d60b6de273e39ea4",
-        "size compressed (bytes)": 726339525,
+        "md5": "1b138a7749e4f1272f39eb9c2ae0f18a",
+        "size compressed (bytes)": 726335240,
         "documents": 403196,
         "downloaded": False,
         "texts": "m-beir-webqa_task2"
     },
+    "m-beir-union.clip-sf-large": {
+        "description": "Faiss FlatIP index of the MBEIR global (union) corpus encoded by UniIR's clip-sf-large model",
+        "filename": "faiss-flat.m-beir-union.clip-sf-large.20260302.tar.gz",
+        "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-union.clip-sf-large.20260302.tar.gz"
+        ],
+        "md5": "2bbd6bf0bb3f08c95542b46b26a43612",
+        "size compressed (bytes)": 10131881426,
+        "documents": 5609079,
+        "downloaded": False,
+        "texts": "m-beir-union"
+    },
     "m-beir-cirr_task7.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR CIRR task 7 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-cirr_task7.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-cirr-task7.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-cirr_task7.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-cirr-task7.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "517bdbfdb66351e42f9ce66439be07b1",
-        "size compressed (bytes)": 38780136,
+        "md5": "9cc2cbc853ed3f40faeb1625883dd787",
+        "size compressed (bytes)": 38778158,
         "documents": 21551,
         "downloaded": False,
         "texts": "m-beir-cirr_task7"
     },
     "m-beir-edis_task2.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-edis_task2.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-edis-task2.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-edis_task2.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-edis-task2.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "36c698e50f9f6879e306a09cb1a3a5da",
-        "size compressed (bytes)": 1882867131,
+        "md5": "8e6c689bd963c3ba98a12bb09722e6ff",
+        "size compressed (bytes)": 1882886595,
         "documents": 1047067,
         "downloaded": False,
         "texts": "m-beir-edis_task2"
     },
     "m-beir-fashion200k_task0.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-fashion200k_task0.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-fashion200k-task0.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashion200k_task0.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashion200k-task0.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "b8093bea1c071d096f92199a5a8ed2ce",
-        "size compressed (bytes)": 361950478,
-        "documents": 153472,
+        "md5": "9a994c44fd9cde8950975bae85dc8ce4",
+        "size compressed (bytes)": 361951451,
+        "documents": 201824,
         "downloaded": False,
         "texts": "m-beir-fashion200k_task0"
     },
     "m-beir-fashion200k_task3.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-fashion200k_task3.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-fashion200k-task3.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashion200k_task3.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashion200k-task3.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "2466efffba9937727d48e661d1a4587c",
-        "size compressed (bytes)": 111002142,
+        "md5": "49a93245fc3dc254e93db4ef55d88e93",
+        "size compressed (bytes)": 111000347,
         "documents": 61707,
         "downloaded": False,
         "texts": "m-beir-fashion200k_task3"
     },
     "m-beir-fashioniq_task7.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-fashioniq_task7.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-fashioniq-task7.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashioniq_task7.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashioniq-task7.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "ab8c3aefade704614e1e1f847a037e88",
-        "size compressed (bytes)": 133813792,
+        "md5": "afc68db8916ddfeef0ab4b7c4fcd7c9a",
+        "size compressed (bytes)": 133814528,
         "documents": 74381,
         "downloaded": False,
         "texts": "m-beir-fashioniq_task7"
     },
     "m-beir-infoseek_task6.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-infoseek_task6.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-infoseek-task6.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-infoseek_task6.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-infoseek-task6.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "ad9e1c09e4d3130072547a4636ae7cf9",
-        "size compressed (bytes)": 1101016470,
+        "md5": "81a3d728a0e2d73e5fba7bc1c6c04c8d",
+        "size compressed (bytes)": 1101028282,
         "documents": 611651,
         "downloaded": False,
         "texts": "m-beir-infoseek_task6"
     },
     "m-beir-infoseek_task8.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-infoseek_task8.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-infoseek-task8.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-infoseek_task8.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-infoseek-task8.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "0bc0b96b5933727126fa47ebdeb2f1d6",
-        "size compressed (bytes)": 867072949,
+        "md5": "c1b1e9f3301acfc8da19797d2f805a3e",
+        "size compressed (bytes)": 867079294,
         "documents": 481782,
         "downloaded": False,
         "texts": "m-beir-infoseek_task8"
     },
     "m-beir-mscoco_task0.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-mscoco_task0.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-mscoco-task0.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-mscoco_task0.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-mscoco-task0.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "d1343d630d2f992ba76495d679a70dc3",
-        "size compressed (bytes)": 8997998,
+        "md5": "423c4994b238cdcc38c9516606207236",
+        "size compressed (bytes)": 8997191,
         "documents": 5000,
         "downloaded": False,
         "texts": "m-beir-mscoco_task0"
     },
     "m-beir-mscoco_task3.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-mscoco_task3.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-mscoco-task3.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-mscoco_task3.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-mscoco-task3.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "233e97ad4e6cc5632755f9d893bb7569",
-        "size compressed (bytes)": 44642859,
+        "md5": "2b7ec1d919a579b9d8c1f40c875a6897",
+        "size compressed (bytes)": 44642915,
         "documents": 24809,
         "downloaded": False,
         "texts": "m-beir-mscoco_task3"
     },
     "m-beir-nights_task4.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-nights_task4.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-nights-task4.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-nights_task4.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-nights-task4.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "41ead8fbb5a9a748a63c7836dbeff4d5",
-        "size compressed (bytes)": 72066211,
+        "md5": "f356bb29294510bdace4523fa888d8ba",
+        "size compressed (bytes)": 72063162,
         "documents": 40038,
         "downloaded": False,
         "texts": "m-beir-nights_task4"
     },
     "m-beir-oven_task6.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-oven_task6.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-oven-task6.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-oven_task6.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-oven-task6.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "8d2646395ff2998399f2b2b383855aaf",
-        "size compressed (bytes)": 1217884724,
+        "md5": "42c11b37cb51fc3b3358fa887702d61b",
+        "size compressed (bytes)": 1217888354,
         "documents": 676667,
         "downloaded": False,
         "texts": "m-beir-oven_task6"
     },
     "m-beir-oven_task8.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-oven_task8.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-oven-task8.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-oven_task8.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-oven-task8.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "e8c77b7ed36ef0a2a0465eb77aafe86f",
-        "size compressed (bytes)": 603290723,
+        "md5": "35ab385ac5e83d829b2d40d048e9c576",
+        "size compressed (bytes)": 603292386,
         "documents": 335135,
         "downloaded": False,
         "texts": "m-beir-oven_task8"
     },
     "m-beir-visualnews_task0.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-visualnews_task0.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-visualnews-task0.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-visualnews_task0.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-visualnews-task0.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "380393ce1636c67a32dbc3f4eb014866",
-        "size compressed (bytes)": 975317010,
+        "md5": "17945848e8425f2c83c671b6f5ab8f8b",
+        "size compressed (bytes)": 975312678,
         "documents": 542246,
         "downloaded": False,
         "texts": "m-beir-visualnews_task0"
     },
     "m-beir-visualnews_task3.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-visualnews_task3.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-visualnews-task3.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-visualnews_task3.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-visualnews-task3.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "93b6d867560f1b31dd01f5348a4cc121",
-        "size compressed (bytes)": 967518619,
+        "md5": "75eeedee852dcbeed968e45a3bb585f7",
+        "size compressed (bytes)": 967522065,
         "documents": 537568,
         "downloaded": False,
         "texts": "m-beir-visualnews_task3"
     },
     "m-beir-webqa_task1.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-webqa_task1.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-webqa-task1.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-webqa_task1.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-webqa-task1.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "97397c11b9be3260891bb5330ac1d2f0",
-        "size compressed (bytes)": 979823093,
+        "md5": "b861ea5754d2e6a3c7194818a6521ad9",
+        "size compressed (bytes)": 979823458,
         "documents": 544457,
         "downloaded": False,
         "texts": "m-beir-webqa_task1"
     },
     "m-beir-webqa_task2.blip-ff-large": {
         "description": "Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's blip-ff-large model",
-        "filename": "faiss-flat.m-beir-webqa_task2.blip-ff-large.20250813.a9ec58.tar.gz",
-        "readme": "faiss-flat.m_beir.20250813.a9ec58.README.md",
+        "filename": "faiss-flat.m-beir-webqa-task2.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-webqa_task2.blip-ff-large.20250813.a9ec58.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-webqa-task2.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
-        "md5": "16a5987fa48ed4db7382255577290e91",
-        "size compressed (bytes)": 724733316,
+        "md5": "2e37ddecd2cd7175056cfb7a743f251c",
+        "size compressed (bytes)": 724742262,
         "documents": 403196,
         "downloaded": False,
         "texts": "m-beir-webqa_task2"
+    },
+    "m-beir-union.blip-ff-large": {
+        "description": "Faiss FlatIP index of the MBEIR global (union) corpus encoded by UniIR's blip-ff-large model",
+        "filename": "faiss-flat.m-beir-union.blip-ff-large.20260302.fa77cbd.tar.gz",
+        "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-union.blip-ff-large.20260302.fa77cbd.tar.gz"
+        ],
+        "md5": "76c614a504333ea6b3e28e11ef6656a2",
+        "size compressed (bytes)": 10090371795,
+        "documents": 5609079,
+        "downloaded": False,
+        "texts": "m-beir-union"
     }
 }
 
@@ -6266,938 +6655,574 @@ FAISS_INDEX_INFO_DSE = {
 }
 
 FAISS_INDEX_INFO_MMEB = {
-    "mmeb-visdoc-MMLongBench-doc.gme-Qwen2-VL-2B-Instruct": {
-        "description": "Faiss index of the MMLongBench-doc corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-MMLongBench-doc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-MMLongBench-doc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "c6118ee4148dd8b19256080598c461c8",
-        "size compressed (bytes)": 23704668,
-        "documents": 6492,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-MMLongBench-doc"
-    },
     "mmeb-visdoc-MMLongBench-page.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the MMLongBench-page corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-MMLongBench-page.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-MMLongBench-page.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-MMLongBench-page.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-MMLongBench-page.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "93fbb55654e344d35c2e4bb041a1f29d",
-        "size compressed (bytes)": 23704667,
+        "md5": "bc76564734166016e1b3b91b50cb6c4f",
+        "size compressed (bytes)": 22231867,
         "documents": 6492,
         "downloaded": False,
         "texts": "mmeb-visdoc-MMLongBench-page"
     },
     "mmeb-visdoc-ViDoRe_arxivqa.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the ViDoRe_arxivqa corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_arxivqa.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_arxivqa.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_arxivqa.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_arxivqa.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "43b3ef1a238c5fd0146dd2d499a35b7c",
-        "size compressed (bytes)": 1826041,
+        "md5": "3e990bb6d563b1221d31fc770cb3585a",
+        "size compressed (bytes)": 1712816,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_arxivqa"
     },
     "mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the ViDoRe_biomedical_lectures_v2_multilingual corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "7276f0e8f99042c5bf57b8e36bf577cb",
-        "size compressed (bytes)": 3705730,
+        "md5": "bba14aa67334ea0885c440d13ad15710",
+        "size compressed (bytes)": 3476911,
         "documents": 1016,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual"
     },
     "mmeb-visdoc-ViDoRe_docvqa.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the ViDoRe_docvqa corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_docvqa.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_docvqa.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_docvqa.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_docvqa.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "49ee15f992072a75506c0ee30fbd0912",
-        "size compressed (bytes)": 1825800,
+        "md5": "9c95c4e2df355eedcfaf0047851b6eb9",
+        "size compressed (bytes)": 1711921,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_docvqa"
     },
     "mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the ViDoRe_economics_reports_v2_multilingual corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "455801c93b6d9073b13284dd1edaa4c3",
-        "size compressed (bytes)": 1616740,
+        "md5": "5d2f01361a4709d7d2581513c1788271",
+        "size compressed (bytes)": 1515827,
         "documents": 452,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual"
     },
     "mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the ViDoRe_esg_reports_human_labeled_v2 corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "de12b41f5a01894a6623e3ea6b947dd3",
-        "size compressed (bytes)": 5619420,
+        "md5": "8b1b83e5591c1857164ad29b2ed6cae8",
+        "size compressed (bytes)": 5272565,
         "documents": 1538,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2"
     },
     "mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the ViDoRe_esg_reports_v2_multilingual corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "2edf3b8bbc390b6568fef0124837c5e2",
-        "size compressed (bytes)": 5619919,
+        "md5": "32bf50e35bc8a766eeda75f5fd06ae5a",
+        "size compressed (bytes)": 5271794,
         "documents": 1538,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual"
     },
     "mmeb-visdoc-ViDoRe_infovqa.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the ViDoRe_infovqa corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_infovqa.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_infovqa.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_infovqa.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_infovqa.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "dafa734e1f4ad3c3eeca7547b0dba27b",
-        "size compressed (bytes)": 1827835,
+        "md5": "ac393b43b7375f174e30db6ea3cfbaa7",
+        "size compressed (bytes)": 1715092,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_infovqa"
     },
     "mmeb-visdoc-ViDoRe_shiftproject.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the ViDoRe_shiftproject corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_shiftproject.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_shiftproject.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_shiftproject.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_shiftproject.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "1801a9161fc140bfe58097ca502bea7f",
-        "size compressed (bytes)": 3651326,
+        "md5": "e08f1292ddc85461d25996243a3b68cc",
+        "size compressed (bytes)": 3425058,
         "documents": 999,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_shiftproject"
     },
     "mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the ViDoRe_syntheticDocQA_artificial_intelligence corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "9cc719caabb7a58d91fa04cebcb9d5aa",
-        "size compressed (bytes)": 3534702,
+        "md5": "02f75b35beec881ed7e7b2d3b6bc3565",
+        "size compressed (bytes)": 3316096,
         "documents": 968,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence"
     },
     "mmeb-visdoc-ViDoRe_syntheticDocQA_energy.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the ViDoRe_syntheticDocQA_energy corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_energy.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_energy.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_energy.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_energy.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "de1aa3cf48d9dec46c3d7129e309e98c",
-        "size compressed (bytes)": 3559567,
+        "md5": "df05dcebb29719324411e95ab45e3094",
+        "size compressed (bytes)": 3338175,
         "documents": 975,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_energy"
     },
     "mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the ViDoRe_syntheticDocQA_government_reports corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "bb7393ece760a82cde84bc48aa63e5a0",
-        "size compressed (bytes)": 3548894,
+        "md5": "426b717c4c36dc45b3d6ea9483805fbc",
+        "size compressed (bytes)": 3329254,
         "documents": 972,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports"
     },
     "mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the ViDoRe_syntheticDocQA_healthcare_industry corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "7122bc976f9b31ceb1a82e2468750522",
-        "size compressed (bytes)": 3517374,
+        "md5": "4b8a8f7718430f09d2e5903faeeabd04",
+        "size compressed (bytes)": 3297932,
         "documents": 963,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry"
     },
     "mmeb-visdoc-ViDoRe_tabfquad.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the ViDoRe_tabfquad corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_tabfquad.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_tabfquad.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_tabfquad.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_tabfquad.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "eed9a61a87bd0c0cf90411ac87e47239",
-        "size compressed (bytes)": 256624,
+        "md5": "1446fe9b9a9bb2d09285fe939a394357",
+        "size compressed (bytes)": 241172,
         "documents": 70,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_tabfquad"
     },
     "mmeb-visdoc-ViDoRe_tatdqa.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the ViDoRe_tatdqa corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_tatdqa.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_tatdqa.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_tatdqa.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_tatdqa.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "bb8a5075a50c0e341d7330d8912c2596",
-        "size compressed (bytes)": 989277,
+        "md5": "39977e4f476ef04036452951a6dd3aee",
+        "size compressed (bytes)": 926788,
         "documents": 271,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_tatdqa"
     },
-    "mmeb-visdoc-ViDoSeek-doc.gme-Qwen2-VL-2B-Instruct": {
-        "description": "Faiss index of the ViDoSeek-doc corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoSeek-doc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoSeek-doc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "01102abbc38a9f6957e5929068ec5522",
-        "size compressed (bytes)": 19537407,
-        "documents": 5349,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoSeek-doc"
-    },
     "mmeb-visdoc-ViDoSeek-page.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the ViDoSeek-page corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoSeek-page.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoSeek-page.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoSeek-page.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoSeek-page.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "854ef2930ac5b88cee39959fdf3f9933",
-        "size compressed (bytes)": 19537863,
+        "md5": "134ee2bb9c9bff84f798c3a42709c191",
+        "size compressed (bytes)": 18332388,
         "documents": 5349,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoSeek-page"
     },
     "mmeb-visdoc-VisRAG_ArxivQA.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the VisRAG_ArxivQA corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_ArxivQA.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-VisRAG_ArxivQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_ArxivQA.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_ArxivQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "04c660940c247c7fa020633f2bbef25a",
-        "size compressed (bytes)": 29472806,
+        "md5": "d44fe8b4eed3fabb4e17b4519d1f94a7",
+        "size compressed (bytes)": 27623153,
         "documents": 8066,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_ArxivQA"
     },
     "mmeb-visdoc-VisRAG_ChartQA.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the VisRAG_ChartQA corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_ChartQA.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-VisRAG_ChartQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_ChartQA.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_ChartQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "6b689233387aa3f22a6b6e6ec657f150",
-        "size compressed (bytes)": 1830593,
+        "md5": "a8a69bb167fec98e62bc6c96fa11754b",
+        "size compressed (bytes)": 1715864,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_ChartQA"
     },
     "mmeb-visdoc-VisRAG_InfoVQA.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the VisRAG_InfoVQA corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_InfoVQA.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-VisRAG_InfoVQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_InfoVQA.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_InfoVQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "08199f0928e8191943f9d19a3743c8d6",
-        "size compressed (bytes)": 1678247,
+        "md5": "9826a0c798bc364afd3c1e45389ce620",
+        "size compressed (bytes)": 1575019,
         "documents": 459,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_InfoVQA"
     },
     "mmeb-visdoc-VisRAG_MP-DocVQA.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the VisRAG_MP-DocVQA corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_MP-DocVQA.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-VisRAG_MP-DocVQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_MP-DocVQA.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_MP-DocVQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "ad6b0126661873f12a042fb57f918857",
-        "size compressed (bytes)": 2707677,
+        "md5": "55a44170e9677ea9e293818cb79c12bb",
+        "size compressed (bytes)": 2537728,
         "documents": 741,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_MP-DocVQA"
     },
     "mmeb-visdoc-VisRAG_PlotQA.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the VisRAG_PlotQA corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_PlotQA.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-VisRAG_PlotQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_PlotQA.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_PlotQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "e70d5b1755fcea984a812f56b798cef1",
-        "size compressed (bytes)": 35071852,
+        "md5": "fdb1aed9649f98018221682a830ca84d",
+        "size compressed (bytes)": 32863763,
         "documents": 9593,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_PlotQA"
     },
     "mmeb-visdoc-VisRAG_SlideVQA.gme-Qwen2-VL-2B-Instruct": {
         "description": "Faiss index of the VisRAG_SlideVQA corpus encoded by gme-Qwen2-VL-2B-Instruct",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_SlideVQA.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-VisRAG_SlideVQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_SlideVQA.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_SlideVQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "b1cf7cf517f7b7951310f9acefa6c317",
-        "size compressed (bytes)": 4710723,
+        "md5": "357f7eea450c72dcacdeabcb13ac4109",
+        "size compressed (bytes)": 4420763,
         "documents": 1284,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_SlideVQA"
-    },
-    "mmeb-visdoc-MMLongBench-doc.LamRA-Ret": {
-        "description": "Faiss index of the MMLongBench-doc corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-MMLongBench-doc.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-MMLongBench-doc.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "14295ac18e03f0a1d71cb4d6c30eb1b5",
-        "size compressed (bytes)": 50423326,
-        "documents": 6492,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-MMLongBench-doc"
-    },
-    "mmeb-visdoc-MMLongBench-page.LamRA-Ret": {
-        "description": "Faiss index of the MMLongBench-page corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-MMLongBench-page.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-MMLongBench-page.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "0c734ac7ca1b5e0a9520f628a865690a",
-        "size compressed (bytes)": 50423315,
-        "documents": 6492,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-MMLongBench-page"
-    },
-    "mmeb-visdoc-ViDoRe_arxivqa.LamRA-Ret": {
-        "description": "Faiss index of the ViDoRe_arxivqa corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_arxivqa.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoRe_arxivqa.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "9d814995d1cb0bc827f1e041f2a7b1b4",
-        "size compressed (bytes)": 3892606,
-        "documents": 500,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoRe_arxivqa"
-    },
-    "mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.LamRA-Ret": {
-        "description": "Faiss index of the ViDoRe_biomedical_lectures_v2_multilingual corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "8fec985a2a050b4567df8d1916b697ce",
-        "size compressed (bytes)": 7881694,
-        "documents": 1016,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual"
-    },
-    "mmeb-visdoc-ViDoRe_docvqa.LamRA-Ret": {
-        "description": "Faiss index of the ViDoRe_docvqa corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_docvqa.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoRe_docvqa.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "b529cba8087155be073931083c0b4866",
-        "size compressed (bytes)": 3884104,
-        "documents": 500,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoRe_docvqa"
-    },
-    "mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.LamRA-Ret": {
-        "description": "Faiss index of the ViDoRe_economics_reports_v2_multilingual corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "277336ddb29e7588c1cdfd51ee57d527",
-        "size compressed (bytes)": 3467074,
-        "documents": 452,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual"
-    },
-    "mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.LamRA-Ret": {
-        "description": "Faiss index of the ViDoRe_esg_reports_human_labeled_v2 corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "09b6d408b603414772a99db342320e1d",
-        "size compressed (bytes)": 11949050,
-        "documents": 1538,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2"
-    },
-    "mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.LamRA-Ret": {
-        "description": "Faiss index of the ViDoRe_esg_reports_v2_multilingual corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "a8c575c7fa5f728f6a309fb3d4fe1113",
-        "size compressed (bytes)": 11948016,
-        "documents": 1538,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual"
-    },
-    "mmeb-visdoc-ViDoRe_infovqa.LamRA-Ret": {
-        "description": "Faiss index of the ViDoRe_infovqa corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_infovqa.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoRe_infovqa.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "f034bd59e8c73f8bc715cf7ec84b0868",
-        "size compressed (bytes)": 3885046,
-        "documents": 500,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoRe_infovqa"
-    },
-    "mmeb-visdoc-ViDoRe_shiftproject.LamRA-Ret": {
-        "description": "Faiss index of the ViDoRe_shiftproject corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_shiftproject.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoRe_shiftproject.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "ad8883cd31b5437202b5bc427bb7591f",
-        "size compressed (bytes)": 7754178,
-        "documents": 999,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoRe_shiftproject"
-    },
-    "mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.LamRA-Ret": {
-        "description": "Faiss index of the ViDoRe_syntheticDocQA_artificial_intelligence corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "30fcec3b3ef75b2e122ad66f0bbe48f1",
-        "size compressed (bytes)": 7522878,
-        "documents": 968,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence"
-    },
-    "mmeb-visdoc-ViDoRe_syntheticDocQA_energy.LamRA-Ret": {
-        "description": "Faiss index of the ViDoRe_syntheticDocQA_energy corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_energy.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_energy.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "7e50569ce21d068be005fc228b8f9614",
-        "size compressed (bytes)": 7571024,
-        "documents": 975,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_energy"
-    },
-    "mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.LamRA-Ret": {
-        "description": "Faiss index of the ViDoRe_syntheticDocQA_government_reports corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "9628c5fdf1ec9dc41d3213aac0f0dc97",
-        "size compressed (bytes)": 7551757,
-        "documents": 972,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports"
-    },
-    "mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.LamRA-Ret": {
-        "description": "Faiss index of the ViDoRe_syntheticDocQA_healthcare_industry corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "4b6d336156261e4e0f9a5466187674ed",
-        "size compressed (bytes)": 7479923,
-        "documents": 963,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry"
-    },
-    "mmeb-visdoc-ViDoRe_tabfquad.LamRA-Ret": {
-        "description": "Faiss index of the ViDoRe_tabfquad corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_tabfquad.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoRe_tabfquad.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "3776473a4fc7e6f0bc475e43d42d6c79",
-        "size compressed (bytes)": 544482,
-        "documents": 70,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoRe_tabfquad"
-    },
-    "mmeb-visdoc-ViDoRe_tatdqa.LamRA-Ret": {
-        "description": "Faiss index of the ViDoRe_tatdqa corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_tatdqa.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoRe_tatdqa.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "dca6033cccebc2aeefc70403bbd73d2e",
-        "size compressed (bytes)": 2106668,
-        "documents": 271,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoRe_tatdqa"
-    },
-    "mmeb-visdoc-ViDoSeek-doc.LamRA-Ret": {
-        "description": "Faiss index of the ViDoSeek-doc corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoSeek-doc.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoSeek-doc.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "119f5dac401a5a66e67ce665fc02bb93",
-        "size compressed (bytes)": 41561902,
-        "documents": 5349,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoSeek-doc"
-    },
-    "mmeb-visdoc-ViDoSeek-page.LamRA-Ret": {
-        "description": "Faiss index of the ViDoSeek-page corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoSeek-page.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-ViDoSeek-page.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "d7780d9b867b1e5a4ef5aa0998efa940",
-        "size compressed (bytes)": 41549354,
-        "documents": 5349,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoSeek-page"
-    },
-    "mmeb-visdoc-VisRAG_ArxivQA.LamRA-Ret": {
-        "description": "Faiss index of the VisRAG_ArxivQA corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_ArxivQA.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-VisRAG_ArxivQA.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "b3056bdde7e354339763ebd510ed9649",
-        "size compressed (bytes)": 62789498,
-        "documents": 8066,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-VisRAG_ArxivQA"
-    },
-    "mmeb-visdoc-VisRAG_ChartQA.LamRA-Ret": {
-        "description": "Faiss index of the VisRAG_ChartQA corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_ChartQA.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-VisRAG_ChartQA.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "c9011e99ee8d04de461f0c05f4d36378",
-        "size compressed (bytes)": 3885606,
-        "documents": 500,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-VisRAG_ChartQA"
-    },
-    "mmeb-visdoc-VisRAG_InfoVQA.LamRA-Ret": {
-        "description": "Faiss index of the VisRAG_InfoVQA corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_InfoVQA.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-VisRAG_InfoVQA.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "be25c4e6deb84f493cbe009fba22e8d0",
-        "size compressed (bytes)": 3567745,
-        "documents": 459,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-VisRAG_InfoVQA"
-    },
-    "mmeb-visdoc-VisRAG_MP-DocVQA.LamRA-Ret": {
-        "description": "Faiss index of the VisRAG_MP-DocVQA corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_MP-DocVQA.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-VisRAG_MP-DocVQA.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "c32b8b1ff0f8f30e7a82be29b7e8cad5",
-        "size compressed (bytes)": 5751722,
-        "documents": 741,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-VisRAG_MP-DocVQA"
-    },
-    "mmeb-visdoc-VisRAG_PlotQA.LamRA-Ret": {
-        "description": "Faiss index of the VisRAG_PlotQA corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_PlotQA.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-VisRAG_PlotQA.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "6c86c8b17bf83cc21def374ed7a38f33",
-        "size compressed (bytes)": 74378953,
-        "documents": 9593,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-VisRAG_PlotQA"
-    },
-    "mmeb-visdoc-VisRAG_SlideVQA.LamRA-Ret": {
-        "description": "Faiss index of the VisRAG_SlideVQA corpus encoded by LamRA-Ret",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_SlideVQA.LamRA-Ret.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/LamRA-Ret/faiss-flat.mmeb-visdoc-VisRAG_SlideVQA.LamRA-Ret.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "30e4a899896515e028a96c95e2232275",
-        "size compressed (bytes)": 9997636,
-        "documents": 1284,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-VisRAG_SlideVQA"
-    },
-    "mmeb-visdoc-MMLongBench-doc.VLM2Vec-V2.0": {
-        "description": "Faiss index of the MMLongBench-doc corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-MMLongBench-doc.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-MMLongBench-doc.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "85c63e28f4066440c9382245c66ff099",
-        "size compressed (bytes)": 23669505,
-        "documents": 6492,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-MMLongBench-doc"
     },
     "mmeb-visdoc-MMLongBench-page.VLM2Vec-V2.0": {
         "description": "Faiss index of the MMLongBench-page corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-MMLongBench-page.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-MMLongBench-page.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-MMLongBench-page.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-MMLongBench-page.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "7f66a0909dcd3e3a45e559aa0182fb67",
-        "size compressed (bytes)": 23669322,
+        "md5": "6d43c203b2510167655b68c676637b6c",
+        "size compressed (bytes)": 22178560,
         "documents": 6492,
         "downloaded": False,
         "texts": "mmeb-visdoc-MMLongBench-page"
     },
     "mmeb-visdoc-ViDoRe_arxivqa.VLM2Vec-V2.0": {
         "description": "Faiss index of the ViDoRe_arxivqa corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_arxivqa.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_arxivqa.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_arxivqa.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_arxivqa.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "af5f3008ca20924d4cdedd9e2c873e42",
-        "size compressed (bytes)": 1825537,
+        "md5": "837900a41433f8f7087d4c32b2383d54",
+        "size compressed (bytes)": 1712097,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_arxivqa"
     },
     "mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.VLM2Vec-V2.0": {
         "description": "Faiss index of the ViDoRe_biomedical_lectures_v2_multilingual corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "87657650bc671e2abaf8fa8f56b4064b",
-        "size compressed (bytes)": 3699244,
+        "md5": "109a1752ecad596caa28575fdf614cbd",
+        "size compressed (bytes)": 3469056,
         "documents": 1016,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual"
     },
     "mmeb-visdoc-ViDoRe_docvqa.VLM2Vec-V2.0": {
         "description": "Faiss index of the ViDoRe_docvqa corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_docvqa.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_docvqa.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_docvqa.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_docvqa.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "35cc1edbe60938e5e57a24045bbc4b21",
-        "size compressed (bytes)": 1824377,
+        "md5": "cffa22452328059db00589524f882d57",
+        "size compressed (bytes)": 1709732,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_docvqa"
     },
     "mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.VLM2Vec-V2.0": {
         "description": "Faiss index of the ViDoRe_economics_reports_v2_multilingual corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "57484bc456dfa2498a4c0700cf8e87dd",
-        "size compressed (bytes)": 1613734,
+        "md5": "9b65603f98ca7dc9bc6082c98cfe8862",
+        "size compressed (bytes)": 1512562,
         "documents": 452,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual"
     },
     "mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.VLM2Vec-V2.0": {
         "description": "Faiss index of the ViDoRe_esg_reports_human_labeled_v2 corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "5edb7474500e3c129c7085bb7ee69600",
-        "size compressed (bytes)": 5610989,
+        "md5": "8fefe05fedc73a8bc21def74a89648bd",
+        "size compressed (bytes)": 5255906,
         "documents": 1538,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2"
     },
     "mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.VLM2Vec-V2.0": {
         "description": "Faiss index of the ViDoRe_esg_reports_v2_multilingual corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "6b3f67e682895a260e2c7461cd22925d",
-        "size compressed (bytes)": 5610908,
+        "md5": "b6a7b5c3807159537cd4764686b274e7",
+        "size compressed (bytes)": 5256175,
         "documents": 1538,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual"
     },
     "mmeb-visdoc-ViDoRe_infovqa.VLM2Vec-V2.0": {
         "description": "Faiss index of the ViDoRe_infovqa corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_infovqa.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_infovqa.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_infovqa.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_infovqa.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "c7bda4462966cc58b6b2816d1a4d5137",
-        "size compressed (bytes)": 1824712,
+        "md5": "b477a1649f8c0e2ea2d48c53e59645be",
+        "size compressed (bytes)": 1710805,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_infovqa"
     },
     "mmeb-visdoc-ViDoRe_shiftproject.VLM2Vec-V2.0": {
         "description": "Faiss index of the ViDoRe_shiftproject corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_shiftproject.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_shiftproject.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_shiftproject.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_shiftproject.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "810e4242be1d4e0862579b5ab8edf8fe",
-        "size compressed (bytes)": 3645004,
+        "md5": "a9980cea71cd9f07d474f6f9eeb29015",
+        "size compressed (bytes)": 3414665,
         "documents": 999,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_shiftproject"
     },
     "mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.VLM2Vec-V2.0": {
         "description": "Faiss index of the ViDoRe_syntheticDocQA_artificial_intelligence corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "b351d0c2ca28e6e8ee73354bb037b4e2",
-        "size compressed (bytes)": 3532191,
+        "md5": "e9bf9534b1274dc553e3157519b0ad32",
+        "size compressed (bytes)": 3309513,
         "documents": 968,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence"
     },
     "mmeb-visdoc-ViDoRe_syntheticDocQA_energy.VLM2Vec-V2.0": {
         "description": "Faiss index of the ViDoRe_syntheticDocQA_energy corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_energy.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_energy.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_energy.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_energy.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "5d69016ec689c308bf516586ea54039c",
-        "size compressed (bytes)": 3557105,
+        "md5": "40494bbcf2c2badf963eaa3da33076f8",
+        "size compressed (bytes)": 3332470,
         "documents": 975,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_energy"
     },
     "mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.VLM2Vec-V2.0": {
         "description": "Faiss index of the ViDoRe_syntheticDocQA_government_reports corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "626d721d12a50326312f372965ccfea7",
-        "size compressed (bytes)": 3547004,
+        "md5": "0b674e4a8d752d9499b93fffaddcb82f",
+        "size compressed (bytes)": 3322883,
         "documents": 972,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports"
     },
     "mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.VLM2Vec-V2.0": {
         "description": "Faiss index of the ViDoRe_syntheticDocQA_healthcare_industry corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "9bcb46a3816479c30a3a665aaa5c44d1",
-        "size compressed (bytes)": 3514922,
+        "md5": "7c84f00b2337b4ccbff7c0d14287e6f6",
+        "size compressed (bytes)": 3292728,
         "documents": 963,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry"
     },
     "mmeb-visdoc-ViDoRe_tabfquad.VLM2Vec-V2.0": {
         "description": "Faiss index of the ViDoRe_tabfquad corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_tabfquad.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_tabfquad.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_tabfquad.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_tabfquad.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "d10d4d99786d721c2465ebefaa741e3d",
-        "size compressed (bytes)": 256178,
+        "md5": "019668a306e85f92bf507b176ef2a8bd",
+        "size compressed (bytes)": 241001,
         "documents": 70,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_tabfquad"
     },
     "mmeb-visdoc-ViDoRe_tatdqa.VLM2Vec-V2.0": {
         "description": "Faiss index of the ViDoRe_tatdqa corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_tatdqa.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoRe_tatdqa.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_tatdqa.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_tatdqa.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "d21d312d49e2c094394fd17965a1fcf2",
-        "size compressed (bytes)": 989802,
+        "md5": "6a22f1fee5fd3b251e4debbc75917f31",
+        "size compressed (bytes)": 928230,
         "documents": 271,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_tatdqa"
     },
-    "mmeb-visdoc-ViDoSeek-doc.VLM2Vec-V2.0": {
-        "description": "Faiss index of the ViDoSeek-doc corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoSeek-doc.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoSeek-doc.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
-        ],
-        "md5": "ab79e9665c4aa0b7f7a1529e05694ca3",
-        "size compressed (bytes)": 19504739,
-        "documents": 5349,
-        "downloaded": False,
-        "texts": "mmeb-visdoc-ViDoSeek-doc"
-    },
     "mmeb-visdoc-ViDoSeek-page.VLM2Vec-V2.0": {
         "description": "Faiss index of the ViDoSeek-page corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-ViDoSeek-page.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-ViDoSeek-page.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoSeek-page.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoSeek-page.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "d489c3a4dfcc8e70b5d5da16206937c1",
-        "size compressed (bytes)": 19515019,
+        "md5": "c203a9d820c0320d8564dfb5d937403e",
+        "size compressed (bytes)": 18286911,
         "documents": 5349,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoSeek-page"
     },
     "mmeb-visdoc-VisRAG_ArxivQA.VLM2Vec-V2.0": {
         "description": "Faiss index of the VisRAG_ArxivQA corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_ArxivQA.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-VisRAG_ArxivQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_ArxivQA.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_ArxivQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "1c1b61343262808fdcf60d98271049e1",
-        "size compressed (bytes)": 29458941,
+        "md5": "48d5d1d54a379f3b8e9c28fd40c87777",
+        "size compressed (bytes)": 27624787,
         "documents": 8066,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_ArxivQA"
     },
     "mmeb-visdoc-VisRAG_ChartQA.VLM2Vec-V2.0": {
         "description": "Faiss index of the VisRAG_ChartQA corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_ChartQA.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-VisRAG_ChartQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_ChartQA.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_ChartQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "6516926e1c81123656074ea6a3693183",
-        "size compressed (bytes)": 1828753,
+        "md5": "c7e7db93f708031a9348cdca98b286c8",
+        "size compressed (bytes)": 1713915,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_ChartQA"
     },
     "mmeb-visdoc-VisRAG_InfoVQA.VLM2Vec-V2.0": {
         "description": "Faiss index of the VisRAG_InfoVQA corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_InfoVQA.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-VisRAG_InfoVQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_InfoVQA.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_InfoVQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "b9ffced746d9c1dd834db5140691431d",
-        "size compressed (bytes)": 1676471,
+        "md5": "6ee853bd33007d5cb42610dd20d30608",
+        "size compressed (bytes)": 1571434,
         "documents": 459,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_InfoVQA"
     },
     "mmeb-visdoc-VisRAG_MP-DocVQA.VLM2Vec-V2.0": {
         "description": "Faiss index of the VisRAG_MP-DocVQA corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_MP-DocVQA.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-VisRAG_MP-DocVQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_MP-DocVQA.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_MP-DocVQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "ba32916d184cc8ae729917749427718e",
-        "size compressed (bytes)": 2705388,
+        "md5": "e413821565def456be77cb45581d5627",
+        "size compressed (bytes)": 2535412,
         "documents": 741,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_MP-DocVQA"
     },
     "mmeb-visdoc-VisRAG_PlotQA.VLM2Vec-V2.0": {
         "description": "Faiss index of the VisRAG_PlotQA corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_PlotQA.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-VisRAG_PlotQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_PlotQA.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_PlotQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "8848d672242e411c32b795ff40f011fe",
-        "size compressed (bytes)": 35010271,
+        "md5": "7e0e261fd082f02b7cc8112161ec4b62",
+        "size compressed (bytes)": 32818893,
         "documents": 9593,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_PlotQA"
     },
     "mmeb-visdoc-VisRAG_SlideVQA.VLM2Vec-V2.0": {
         "description": "Faiss index of the VisRAG_SlideVQA corpus encoded by VLM2Vec-V2.0",
-        "filename": "faiss-flat.mmeb-visdoc-VisRAG_SlideVQA.VLM2Vec-V2.0.20260130.ad8e050.tar.gz",
-        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md",
+        "filename": "faiss-flat.mmeb-visdoc-VisRAG_SlideVQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz",
+        "readme": "faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md",
         "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_SlideVQA.VLM2Vec-V2.0.20260130.ad8e050.tar.gz"
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_SlideVQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
-        "md5": "32eec926294e6dd0fd3638b0ec54a643",
-        "size compressed (bytes)": 4702378,
+        "md5": "c4027618ca83a791da38948372a7f7b1",
+        "size compressed (bytes)": 4411898,
         "documents": 1284,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_SlideVQA"

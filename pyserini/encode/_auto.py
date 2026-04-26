@@ -92,7 +92,6 @@ class AutoQueryEncoder(QueryEncoder):
             self.pooling = pooling
             self.l2_norm = l2_norm
             self.prefix = prefix
-            self.max_length = self.tokenizer.model_max_length
         if (not self.has_model) and (not self.has_encoded_query):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
@@ -100,15 +99,16 @@ class AutoQueryEncoder(QueryEncoder):
         if self.has_model:
             if self.prefix:
                 query = f'{self.prefix} {query}'
-            inputs = self.tokenizer(
-                query,
+            tokenizer_kwargs = dict(
                 add_special_tokens=True,
                 return_tensors='pt',
                 padding='longest',
                 return_token_type_ids=False,
                 truncation=True,
-                max_length=max_length or self.max_length,
             )
+            if max_length is not None:
+                tokenizer_kwargs['max_length'] = max_length
+            inputs = self.tokenizer(query, **tokenizer_kwargs)
             inputs.to(self.device)
             outputs = self.model(**inputs)[0].detach().cpu().numpy()
             if self.pooling == "mean":
