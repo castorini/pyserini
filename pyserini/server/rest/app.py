@@ -54,6 +54,7 @@ SERVER_NAME = 'Pyserini API'
 API_VERSION = 'v1'
 DESCRIPTION = 'REST API aligned with Anserini (Lucene indexes via Pyserini).'
 ROUTE_ERROR = 'Expected route /v1/{index}/search or /v1/{index}/doc/{docid}'
+AUTH_TOKEN_REQUEST_EMAIL = 'get-pyserini@googlegroups.com'
 
 def _error_message(detail: object) -> str:
     """Coerce exception detail to a single string (``ErrorResponse.error`` is ``type: string``)."""
@@ -228,7 +229,15 @@ def create_app(
                 query,
                 key_id,
             )
-            return JSONResponse(status_code=401, content={'error': 'Unauthorized'})
+            return JSONResponse(
+                status_code=401,
+                content={
+                    'error': (
+                        'Unauthorized. To request an access token, '
+                        f'email {AUTH_TOKEN_REQUEST_EMAIL}.'
+                    )
+                },
+            )
 
         response = await call_next(request)
         client = request.client.host if request.client else '-'
