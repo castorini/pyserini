@@ -29,7 +29,7 @@ Default transport is **stdio** (no HTTP port). Optional arguments:
 |----------|-------------|
 | `--transport` | `stdio` (default) or `http` for remote/streamable access |
 | `--port PORT` | HTTP port when using `--transport http` (default: 8000) |
-| `--config PATH` | YAML server config: `indexes:` alias → local directory (same idea as Anserini `--index-config`) |
+| `--config PATH` | YAML server config with index mappings |
 
 Example with a Java path and index aliases:
 

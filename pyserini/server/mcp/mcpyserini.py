@@ -47,7 +47,7 @@ def main():
         "--config",
         type=str,
         default=None,
-        help="YAML server config with API tokens and index mappings",
+        help="YAML server config with index mappings and API keys",
     )
 
     args = parser.parse_args()

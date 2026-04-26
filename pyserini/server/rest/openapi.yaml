@@ -58,7 +58,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "401":
-          description: Missing or invalid API credentials (only when the server is configured with api_keys).
+          description: Missing or invalid API credentials (only when the server is configured with API keys).
           content:
             application/json:
               schema:
@@ -125,7 +125,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "401":
-          description: Missing or invalid API credentials (only when the server is configured with api_keys).
+          description: Missing or invalid API credentials (only when the server is configured with API keys).
           content:
             application/json:
               schema:

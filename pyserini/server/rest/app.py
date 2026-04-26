@@ -307,7 +307,7 @@ def main():
         '--config',
         type=str,
         default=None,
-        help='YAML server config: indexes: alias -> path or object {path,index_type,...}; optional non-empty api_keys: enables /v1/ Bearer or X-API-Key auth',
+        help='YAML server config with index mappings and API keys',
     )
     parser.add_argument(
         '--no-prebuilt-indexes',

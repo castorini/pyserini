@@ -23,7 +23,7 @@ python -m pyserini.server.rest --host 127.0.0.1 --port 8080
 
 ## Config and deployment options
 
-Use `--config` to provide index aliases and optional API keys:
+Use `--config` to provide a YAML server config with index mappings and optional API keys:
 
 ```yaml
 indexes:
@@ -54,7 +54,7 @@ With `--config` enabled:
   - optional `base_index` links dense/impact/faiss aliases to the sparse Lucene alias used for stored document fetch.
   - optional `encoder` and `ef_search` provide per-index defaults (request-level values still override them).
 - `api_keys` (optional) enables auth on all `/v1/*` routes.
-- Client auth supports either `Authorization: Bearer <token>` or `X-API-Key: <token>`.
+- Client auth supports either `Authorization: Bearer {api-key}` or `X-API-Key: {api-key}`.
 
 Disable prebuilt indexes and arbitrary index paths with `--no-prebuilt-indexes`:
 
@@ -95,7 +95,7 @@ python -m pyserini.server.rest \
 All search and document routes use the **`GET`** method only. Errors return JSON `{"error": "<message>"}` with a 4xx/5xx status where applicable.
 
 When `api_keys` is configured, every `/v1/*` route requires authentication; you can use either
-`Authorization: Bearer <token>` or `X-API-Key: <token>` on any endpoint.
+`Authorization: Bearer {api-key}` or `X-API-Key: {api-key}` on any endpoint.
 
 ### Index parameter `{index}`
 
@@ -201,7 +201,7 @@ curl -H "X-API-Key: {api-key}" \
 |------|---------|
 | 200 | Success |
 | 400 | Invalid parameters (e.g. missing `query`, invalid `hits` or `parse`), or cannot open index |
-| 401 | Missing or invalid API credentials (when `api_keys` is configured) |
+| 401 | Missing or invalid API credential (when `api_keys` is configured) |
 | 404 | Unknown route, or document not found for `GET .../doc/{docid}` |
 | 405 | Method not allowed (only **GET** is supported on these routes) |
 | 500 | Unhandled server error |
