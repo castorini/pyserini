@@ -2,6 +2,8 @@
 
 This document reports results from re-implementing Anserini's RM3 and Rocchio pseudo-relevance feedback methods in Python. We compare the Python implementations against the corresponding Java implementations in Anserini.
 
+These experiments were run on April 26, 2026, using Pyserini with Lucene 10.4.
+
 ## Rocchio Feedback: Python versus Java
 
 We run the Rocchio experiments using Pyserini's Lucene search module with BM25 + Rocchio. For TREC DL 2019-2020, we use the `msmarco-v1-passage-full` index with topics `dl19-passage` and `dl20-passage`. For TREC DL 2021-2023, we use the `msmarco-v2-passage-full` index with topics `dl21`, `dl22`, and `dl23`.
