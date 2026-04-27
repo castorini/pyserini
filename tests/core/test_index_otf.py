@@ -20,6 +20,7 @@ import shutil
 import unittest
 from typing import List
 
+from pyserini.analysis import JWhiteSpaceAnalyzer
 from pyserini.index.lucene import LuceneIndexer, LuceneIndexReader, JacksonObjectMapper
 from pyserini.search.lucene import JScoredDoc, LuceneSearcher
 
@@ -145,6 +146,28 @@ class TestIndexOTF(unittest.TestCase):
         self.assertEqual(1, len(hits))
         self.assertEqual('CACM-2274', hits[0].docid)
         self.assertAlmostEqual(0.62610, hits[0].score, places=5)
+
+    def test_indexer_with_args_pretokenized_query_analyzer(self):
+        indexer = LuceneIndexer(args=['-index', self.tmp_dir, '-pretokenized'])
+
+        with open(self.test_file) as f:
+            for doc in f:
+                indexer.add_doc_raw(doc)
+
+        indexer.close()
+
+        searcher = LuceneSearcher(self.tmp_dir)
+        self.assertEqual(3, searcher.num_docs)
+        self.assertEqual(0, len(searcher.search('in')))
+
+        searcher.set_analyzer(JWhiteSpaceAnalyzer())
+        hits = searcher.search('in')
+
+        self.assertEqual(2, len(hits))
+        self.assertEqual('CACM-0981', hits[0].docid)
+        self.assertAlmostEqual(0.40000, hits[0].score, places=5)
+        self.assertEqual('CACM-2274', hits[1].docid)
+        self.assertAlmostEqual(0.36620, hits[1].score, places=5)
 
     def test_indexer_append1(self):
         indexer = LuceneIndexer(self.tmp_dir)
