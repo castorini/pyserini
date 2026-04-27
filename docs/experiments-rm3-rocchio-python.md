@@ -1,83 +1,169 @@
-# Pyserini: Performance Comparison of Python versus Java  RM3 and Rocchio Implementations  
+# Pyserini versus Anserini Pseudo-Relevance Feedback
 
-We fully re-implmented the RM3 and Rocchio implementations from Anserini in Python. Below is a comparison of the performance of RM3 and Rocchio in Python versus in Java. 
+This document reports results from re-implementing Anserini's RM3 and Rocchio pseudo-relevance feedback methods in Python. We compare the Python implementations against the corresponding Java implementations in Anserini.
 
-For example, to run RM3 in Python over TREC DL21, 
+## Rocchio Feedback: Python versus Java
 
-```
-python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage \
-  --topics dl21 \
-  --output run.msmarco-v2-passage.bm25-rm3-default.dl21.txt \
-  --bm25 --rm3-py
-```
+We run the Rocchio experiments using Pyserini's Lucene search module with BM25 + Rocchio. For TREC DL 2019-2020, we use the `msmarco-v1-passage-full` index with topics `dl19-passage` and `dl20-passage`. For TREC DL 2021-2023, we use the `msmarco-v2-passage-full` index with topics `dl21`, `dl22`, and `dl23`.
 
-Rocchio follows similar style:
+Each run uses either the Python Rocchio implementation, `--rocchio-py`, or the Java Rocchio implementation, `--rocchio`. All experiments use the default Rocchio parameters.
+
+We run the experiments using the following commands:
+
+Python Rocchio on `msmarco-v1-passage-full`:
 
 ```
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage \
-  --topics dl21 \
-  --output run.msmarco-v2-passage.bm25-rm3-default.dl21.txt \
+  --index msmarco-v1-passage-full \
+  --topics <dl19-passage|dl20-passage> \
+  --output <run-file> \
   --bm25 --rocchio-py
 ```
 
-## Performance Comparison
+Java Rocchio on `msmarco-v1-passage-full`:
 
-For this experiment, these were the computer specs:
+```
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-full \
+  --topics <dl19-passage|dl20-passage> \
+  --output <run-file> \
+  --bm25 --rocchio
+```
 
--  OS: Windows 11 (x64), WSL
-- Machine: Intel NUC11PHi7
-- CPU: 11th Gen Intel Core i7
-- RAM: 16 GB
+Python Rocchio on `msmarco-v2-passage-full`:
 
-### Effectiveness Comparison: Python versus Java
+```
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2-passage-full \
+  --topics <dl21|dl22|dl23> \
+  --output <run-file> \
+  --bm25 --rocchio-py
+```
 
-| Implementation | RM3 MAP | RM3 nDCG@10 | RM3 Recall@1000 | Rocchio MAP | Rocchio nDCG@10 | Rocchio Recall@1000 |
-|---------------|---------|-------------|-----------------|-------------|------------------|----------------------|
-| **TREC DL19** |         |             |                 |             |                  |                      |
-| Python        | 0.3420  | 0.5216      | 0.8136          | 0.3476      | 0.5275           | 0.8007               |
-| Java          | 0.3416  | 0.5216      | 0.8136          | 0.3474      | 0.5275           | 0.8007               |
-| **TREC DL20** |         |             |                 |             |                  |                      |
-| Python        | 0.3010  | 0.4896      | 0.8236          | 0.3118      | 0.4887           | 0.8156               |
-| Java          | 0.3006  | 0.4896      | 0.8236          | 0.3115      | 0.4910           | 0.8156               |
-| **TREC DL21** |         |             |                 |             |                  |                      |
-| Python        | 0.2115  | 0.4454      | 0.6618          | 0.2153      | 0.4550           | 0.6709               |
-| Java          | 0.2115  | 0.4455      | 0.6616          | 0.2152      | 0.4546           | 0.6709               |
-| **TREC DL22** |         |             |                 |             |                  |                      |
-| Python        | 0.0446  | 0.2683      | 0.3559          | 0.0478      | 0.2755           | 0.3637               |
-| Java          | 0.0446  | 0.2686      | 0.3559          | 0.0475      | 0.2743           | 0.3639               |
-| **TREC DL23** |         |             |                 |             |                  |                      |
-| Python        | 0.0968  | 0.2602      | 0.4745          | 0.0968      | 0.2626           | 0.4788               |
-| Java          | 0.0969  | 0.2602      | 0.4748          | 0.0970      | 0.2653           | 0.4810               |
+Java Rocchio on `msmarco-v2-passage-full`:
 
+```
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2-passage-full \
+  --topics <dl21|dl22|dl23> \
+  --output <run-file> \
+  --bm25 --rocchio
+```
 
+## Rocchio Effectiveness
 
-### Latency Differences: Python versus Java
+| Topic | Index | Method | nDCG@10 | Recall@1000 |
+|---|---|---|---:|---:|
+| `dl19` | `msmarco-v1-passage-full` | `rocchio-py` | 0.5275 | 0.7946 |
+| `dl19` | `msmarco-v1-passage-full` | `rocchio` | 0.5275 | 0.7948 |
+| `dl20` | `msmarco-v1-passage-full` | `rocchio-py` | 0.4875 | 0.8330 |
+| `dl20` | `msmarco-v1-passage-full` | `rocchio` | 0.4908 | 0.8327 |
+| `dl21` | `msmarco-v2-passage-full` | `rocchio-py` | 0.4547 | 0.6709 |
+| `dl21` | `msmarco-v2-passage-full` | `rocchio` | 0.4544 | 0.6709 |
+| `dl22` | `msmarco-v2-passage-full` | `rocchio-py` | 0.2745 | 0.3639 |
+| `dl22` | `msmarco-v2-passage-full` | `rocchio` | 0.2742 | 0.3639 |
+| `dl23` | `msmarco-v2-passage-full` | `rocchio-py` | 0.2642 | 0.4798 |
+| `dl23` | `msmarco-v2-passage-full` | `rocchio` | 0.2653 | 0.4810 |
 
-| Implementation | RM3     | Rocchio |
-|---------------|---------|----------|
-| **TREC DL19** |         |          |
-| Python        | 3.67    | 4.14     |
-| Java          | 2.30    | 3.15     |
-| Diff          | 1.37    | 0.99     |
-| **TREC DL20** |         |          |
-| Python        | 13.81   | 19.51    |
-| Java          | 11.67   | 15.84    |
-| Diff          | 2.14    | 3.67     |
-| **TREC DL21** |         |          |
-| Python        | 2338.80 | 4637.96  |
-| Java          | 3293.97 | 4735.69  |
-| Diff          | -955.17 | -97.73   |
-| **TREC DL22** |         |          |
-| Python        | 1282.89 | 1944.76  |
-| Java          | 1503.62 | 2042.32  |
-| Diff          | -220.73 | -97.56   |
-| **TREC DL23** |         |          |
-| Python        | 2112.62 | 4002.54  |
-| Java          | 2758.77 | 3445.50  |
-| Diff          | -646.15 | 557.04   |
+## Latency
 
+Latency is averaged over three measured runs after one warmup run on the WATGPU CPU node `watgpu608`. `Queries/s` is computed as `Queries / Avg Search Seconds`.
 
+| Topic | Index | Method | Avg Search Seconds | Queries | Queries/s |
+|---|---|---|---:|---:|---:|
+| `dl19` | `msmarco-v1-passage-full` | `rocchio-py` | 11.868 | 43 | 3.62 |
+| `dl19` | `msmarco-v1-passage-full` | `rocchio` | 10.601 | 43 | 4.06 |
+| `dl20` | `msmarco-v1-passage-full` | `rocchio-py` | 24.018 | 200 | 8.33 |
+| `dl20` | `msmarco-v1-passage-full` | `rocchio` | 12.827 | 200 | 15.59 |
+| `dl21` | `msmarco-v2-passage-full` | `rocchio-py` | 116.961 | 477 | 4.08 |
+| `dl21` | `msmarco-v2-passage-full` | `rocchio` | 26.076 | 477 | 18.29 |
+| `dl22` | `msmarco-v2-passage-full` | `rocchio-py` | 109.533 | 500 | 4.56 |
+| `dl22` | `msmarco-v2-passage-full` | `rocchio` | 26.001 | 500 | 19.23 |
+| `dl23` | `msmarco-v2-passage-full` | `rocchio-py` | 168.508 | 700 | 4.15 |
+| `dl23` | `msmarco-v2-passage-full` | `rocchio` | 33.425 | 700 | 20.94 |
+
+## RM3 Feedback: Python versus Java
+
+We next run the same comparison with BM25 + RM3, again using Pyserini's Lucene search module and the same TREC DL topics and indexes described above.
+
+We run the experiments using the following commands:
+
+Python RM3 on `msmarco-v1-passage-full`:
+
+```
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-full \
+  --topics <dl19-passage|dl20-passage> \
+  --output <run-file> \
+  --bm25 --rm3-py
+```
+
+Java RM3 on `msmarco-v1-passage-full`:
+
+```
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v1-passage-full \
+  --topics <dl19-passage|dl20-passage> \
+  --output <run-file> \
+  --bm25 --rm3
+```
+
+Python RM3 on `msmarco-v2-passage-full`:
+
+```
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2-passage-full \
+  --topics <dl21|dl22|dl23> \
+  --output <run-file> \
+  --bm25 --rm3-py
+```
+
+Java RM3 on `msmarco-v2-passage-full`:
+
+```
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2-passage-full \
+  --topics <dl21|dl22|dl23> \
+  --output <run-file> \
+  --bm25 --rm3
+```
+
+## RM3 Effectiveness
+
+| Topic | Index | Method | nDCG@10 | Recall@1000 |
+|---|---|---|---:|---:|
+| `dl19` | `msmarco-v1-passage-full` | `rm3-py` | 0.5146 | 0.7952 |
+| `dl19` | `msmarco-v1-passage-full` | `rm3` | 0.5147 | 0.7950 |
+| `dl20` | `msmarco-v1-passage-full` | `rm3-py` | 0.4889 | 0.8292 |
+| `dl20` | `msmarco-v1-passage-full` | `rm3` | 0.4924 | 0.8292 |
+| `dl21` | `msmarco-v2-passage-full` | `rm3-py` | 0.4454 | 0.6618 |
+| `dl21` | `msmarco-v2-passage-full` | `rm3` | 0.4455 | 0.6616 |
+| `dl22` | `msmarco-v2-passage-full` | `rm3-py` | 0.2683 | 0.3559 |
+| `dl22` | `msmarco-v2-passage-full` | `rm3` | 0.2686 | 0.3559 |
+| `dl23` | `msmarco-v2-passage-full` | `rm3-py` | 0.2602 | 0.4745 |
+| `dl23` | `msmarco-v2-passage-full` | `rm3` | 0.2602 | 0.4748 |
+
+## Latency
+
+Latency is averaged over three measured runs after one warmup run on the WATGPU CPU node `watgpu608`. `Queries/s` is computed as `Queries / Avg Search Seconds`.
+
+| Topic | Index | Method | Avg Search Seconds | Queries | Queries/s |
+|---|---|---|---:|---:|---:|
+| `dl19` | `msmarco-v1-passage-full` | `rm3-py` | 11.715 | 43 | 3.67 |
+| `dl19` | `msmarco-v1-passage-full` | `rm3` | 9.275 | 43 | 4.64 |
+| `dl20` | `msmarco-v1-passage-full` | `rm3-py` | 20.096 | 200 | 9.95 |
+| `dl20` | `msmarco-v1-passage-full` | `rm3` | 11.153 | 200 | 17.93 |
+| `dl21` | `msmarco-v2-passage-full` | `rm3-py` | 102.175 | 477 | 4.67 |
+| `dl21` | `msmarco-v2-passage-full` | `rm3` | 23.270 | 477 | 20.50 |
+| `dl22` | `msmarco-v2-passage-full` | `rm3-py` | 96.225 | 500 | 5.20 |
+| `dl22` | `msmarco-v2-passage-full` | `rm3` | 22.701 | 500 | 22.03 |
+| `dl23` | `msmarco-v2-passage-full` | `rm3-py` | 144.725 | 700 | 4.84 |
+| `dl23` | `msmarco-v2-passage-full` | `rm3` | 28.199 | 700 | 24.82 |
