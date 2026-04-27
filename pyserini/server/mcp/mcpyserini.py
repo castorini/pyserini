@@ -21,11 +21,12 @@ A Model Context Protocol server that provides search functionality using Pyserin
 """
 
 import argparse
+import json
 import logging
 from fastmcp import FastMCP
 from fastmcp.server.auth import require_scopes
 from fastmcp.server.auth.providers.jwt import StaticTokenVerifier
-from fastmcp.server.dependencies import get_access_token
+from fastmcp.server.dependencies import get_access_token, get_http_request
 from fastmcp.server.middleware import Middleware, MiddlewareContext
 from fastmcp.server.middleware import AuthMiddleware
 
@@ -37,6 +38,19 @@ from pyserini.server.mcp.tools import register_tools
 
 _MCP_REQUIRED_SCOPE = 'mcp:access'
 auth_logger = logging.getLogger('pyserini.server.mcp.auth')
+
+
+def _serialize_tool_args(arguments: object) -> str:
+    """Best-effort serialized args for audit logs, truncated for readability."""
+    if arguments is None:
+        return '-'
+    try:
+        raw = json.dumps(arguments, ensure_ascii=True, default=str)
+    except (TypeError, ValueError):
+        raw = str(arguments)
+    if len(raw) <= 512:
+        return raw
+    return f'{raw[:512]}...'
 
 class _LoggingStaticTokenVerifier(StaticTokenVerifier):
     """Static token verifier with auth-failure attribution logging."""
@@ -58,9 +72,14 @@ class _McpAuthSuccessAuditMiddleware(Middleware):
         response = await call_next(context)
         token = get_access_token()
         key_id = compute_token_fingerprint(token.token if token is not None else None)
+        request = get_http_request()
+        client = request.client.host if request and request.client else '-'
+        args = _serialize_tool_args(getattr(context.message, 'arguments', None))
         auth_logger.info(
-            'auth_tool_call tool=%s key_id=%s status=ok',
+            'auth_tool_call client=%s tool=%s args=%s key_id=%s status=ok',
+            client,
             context.message.name,
+            args,
             key_id,
         )
         return response

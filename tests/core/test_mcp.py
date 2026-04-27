@@ -287,7 +287,14 @@ class TestMCPyseriniServer(unittest.TestCase):
                 )
             self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
             self.assertTrue(
-                any('auth_tool_call' in line and f'key_id={expected_key_id}' in line for line in cm.output),
+                any(
+                    'auth_tool_call' in line
+                    and 'tool=list_indexes' in line
+                    and 'args={"index_type": "tf"}' in line
+                    and 'client=' in line
+                    and f'key_id={expected_key_id}' in line
+                    for line in cm.output
+                ),
                 msg='\n'.join(cm.output),
             )
         finally:
