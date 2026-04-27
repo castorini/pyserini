@@ -30,7 +30,7 @@ import sys
 import tempfile
 import unittest
 
-from fastmcp import FastMCP, Client
+from fastmcp import Client
 from fastmcp.client.transports import StreamableHttpTransport
 from fastmcp.exceptions import ToolError
 from fastmcp.utilities.tests import run_server_async

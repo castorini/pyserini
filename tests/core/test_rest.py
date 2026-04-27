@@ -406,7 +406,7 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
                     )
                 self.assertEqual(ok.status_code, 200, msg=ok.text)
                 self.assertTrue(
-                    any(f'auth_request' in line and f'key_id={expected_key_id}' in line for line in cm.output),
+                    any('auth_request' in line and f'key_id={expected_key_id}' in line for line in cm.output),
                     msg='\n'.join(cm.output),
                 )
         finally:
