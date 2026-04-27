@@ -23,6 +23,7 @@ All server output (uvicorn, FastMCP, CancelledError, etc.) is suppressed during 
 """
 
 import asyncio
+import hashlib
 import json
 import os
 import sys
@@ -264,6 +265,56 @@ class TestMCPyseriniServer(unittest.TestCase):
             payload = self._single_json_content(result)
             self.assertIsInstance(payload, list)
             self.assertIn(_MCP_INDEX, payload)
+        finally:
+            os.unlink(path)
+
+    def test_auth_enabled_logs_token_fingerprint_for_tool_calls(self):
+        token = 'mcp-auth-test-token-log'
+        expected_key_id = hashlib.sha256(token.encode('utf-8')).hexdigest()[:12]
+        cfg = {'api_keys': [token]}
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            yaml.safe_dump(cfg, f, default_flow_style=False)
+            path = f.name
+        try:
+            with self.assertLogs('pyserini.server.mcp.auth', level='INFO') as cm:
+                result = self._run_async(
+                    self._call_tool(
+                        'list_indexes',
+                        {'index_type': 'tf'},
+                        headers={'Authorization': f'Bearer {token}'},
+                        config_path=path,
+                    )
+                )
+            self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
+            self.assertTrue(
+                any('auth_tool_call' in line and f'key_id={expected_key_id}' in line for line in cm.output),
+                msg='\n'.join(cm.output),
+            )
+        finally:
+            os.unlink(path)
+
+    def test_auth_enabled_logs_failed_token_fingerprint(self):
+        token = 'mcp-auth-test-token-invalid'
+        expected_key_id = hashlib.sha256(token.encode('utf-8')).hexdigest()[:12]
+        cfg = {'api_keys': ['mcp-auth-test-token-actual']}
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            yaml.safe_dump(cfg, f, default_flow_style=False)
+            path = f.name
+        try:
+            with self.assertLogs('pyserini.server.mcp.auth', level='INFO') as cm:
+                with self.assertRaises(Exception):
+                    self._run_async(
+                        self._call_tool(
+                            'list_indexes',
+                            {'index_type': 'tf'},
+                            headers={'Authorization': f'Bearer {token}'},
+                            config_path=path,
+                        )
+                    )
+            self.assertTrue(
+                any('auth_failed' in line and f'key_id={expected_key_id}' in line for line in cm.output),
+                msg='\n'.join(cm.output),
+            )
         finally:
             os.unlink(path)
 

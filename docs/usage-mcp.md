@@ -31,6 +31,9 @@ Default transport is **stdio** (no HTTP port). Optional arguments:
 | `--port PORT` | HTTP port when using `--transport http` (default: 8000) |
 | `--config PATH` | YAML server config with index mappings and optional `api_keys` |
 | `--no-prebuilt-indexes` | Only allow indexes declared in `--config` (disable prebuilt names and arbitrary filesystem paths) |
+| `--server-log-file` | Optional file path for uvicorn server logs (error/access) |
+| `--auth-log-file` | Optional file path for timestamped auth attribution logs |
+| `--no-access-log` | Disable uvicorn default request access logging |
 
 Example with a Java path and index aliases:
 

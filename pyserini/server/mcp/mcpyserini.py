@@ -21,17 +21,49 @@ A Model Context Protocol server that provides search functionality using Pyserin
 """
 
 import argparse
+import logging
 from fastmcp import FastMCP
 from fastmcp.server.auth import require_scopes
 from fastmcp.server.auth.providers.jwt import StaticTokenVerifier
+from fastmcp.server.dependencies import get_access_token
+from fastmcp.server.middleware import Middleware, MiddlewareContext
 from fastmcp.server.middleware import AuthMiddleware
 
 from pyserini.server.backend import SharedSearchBackend, get_backend
 from pyserini.server.config import load_server_config
+from pyserini.server.logging_utils import build_uvicorn_log_config, compute_token_fingerprint
 from pyserini.server.mcp.tools import register_tools
 
 
 _MCP_REQUIRED_SCOPE = 'mcp:access'
+auth_logger = logging.getLogger('pyserini.server.mcp.auth')
+
+class _LoggingStaticTokenVerifier(StaticTokenVerifier):
+    """Static token verifier with auth-failure attribution logging."""
+
+    async def verify_token(self, token: str):
+        verified = await super().verify_token(token)
+        if verified is None:
+            auth_logger.info(
+                'auth_failed key_id=%s status=401',
+                compute_token_fingerprint(token),
+            )
+        return verified
+
+
+class _McpAuthSuccessAuditMiddleware(Middleware):
+    """Logs successful authenticated tool calls with token fingerprint attribution."""
+
+    async def on_call_tool(self, context: MiddlewareContext, call_next):
+        response = await call_next(context)
+        token = get_access_token()
+        key_id = compute_token_fingerprint(token.token if token is not None else None)
+        auth_logger.info(
+            'auth_tool_call tool=%s key_id=%s status=ok',
+            context.message.name,
+            key_id,
+        )
+        return response
 
 
 def create_mcp_server(backend: SharedSearchBackend, config_path: str | None = None) -> FastMCP:
@@ -41,7 +73,7 @@ def create_mcp_server(backend: SharedSearchBackend, config_path: str | None = No
     middleware = None
 
     if token_strings:
-        auth = StaticTokenVerifier(
+        auth = _LoggingStaticTokenVerifier(
             tokens={
                 token: {
                     'client_id': 'api_key',
@@ -51,7 +83,10 @@ def create_mcp_server(backend: SharedSearchBackend, config_path: str | None = No
             },
             required_scopes=[_MCP_REQUIRED_SCOPE],
         )
-        middleware = [AuthMiddleware(auth=require_scopes(_MCP_REQUIRED_SCOPE))]
+        middleware = [
+            AuthMiddleware(auth=require_scopes(_MCP_REQUIRED_SCOPE)),
+            _McpAuthSuccessAuditMiddleware(),
+        ]
 
     mcp = FastMCP('mcpyserini', auth=auth, middleware=middleware)
     register_tools(mcp, backend)
@@ -85,6 +120,23 @@ def main():
         action='store_true',
         help='Only allow indexes declared in --config (disable prebuilt names and arbitrary filesystem paths).',
     )
+    parser.add_argument(
+        '--server-log-file',
+        type=str,
+        default=None,
+        help='Optional file path for uvicorn server logs (error/access).',
+    )
+    parser.add_argument(
+        '--auth-log-file',
+        type=str,
+        default=None,
+        help='Optional file path for timestamped auth attribution logs.',
+    )
+    parser.add_argument(
+        '--no-access-log',
+        action='store_true',
+        help='Disable uvicorn default request access logs.',
+    )
 
     args = parser.parse_args()
 
@@ -97,7 +149,18 @@ def main():
         mcp = create_mcp_server(backend, args.config)
 
         if args.transport == "http":
-            mcp.run(transport=args.transport, port=args.port)
+            mcp.run(
+                transport=args.transport,
+                port=args.port,
+                uvicorn_config={
+                    'access_log': not args.no_access_log,
+                    'log_config': build_uvicorn_log_config(
+                        args.server_log_file,
+                        args.auth_log_file,
+                        auth_logger_name='pyserini.server.mcp.auth',
+                    ),
+                },
+            )
         else:
             mcp.run(transport=args.transport)
 

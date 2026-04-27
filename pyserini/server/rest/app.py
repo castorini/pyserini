@@ -29,10 +29,8 @@ Endpoints:
 
 from __future__ import annotations
 
-import copy
 import json
 import logging
-import hashlib
 from contextlib import asynccontextmanager
 from functools import lru_cache
 from importlib import resources
@@ -45,6 +43,7 @@ import yaml
 
 from pyserini.server.backend import SharedSearchBackend
 from pyserini.server.config import AcceptedApiTokens, load_server_config
+from pyserini.server.logging_utils import build_uvicorn_log_config, compute_token_fingerprint
 from pyserini.server.rest.routes import v1
 
 logger = logging.getLogger(__name__)
@@ -94,16 +93,6 @@ def _extract_api_tokens(request: Request) -> list[str]:
     return candidates
 
 
-def _compute_token_fingerprint(token: str | None) -> str:
-    """Stable, non-reversible short identifier for request attribution logs."""
-    if token is None:
-        return 'missing'
-    t = str(token).strip()
-    if not t:
-        return 'missing'
-    return hashlib.sha256(t.encode('utf-8')).hexdigest()[:12]
-
-
 def _truncate_request_query(request: Request) -> str:
     raw = request.url.query
     if not raw:
@@ -111,61 +100,6 @@ def _truncate_request_query(request: Request) -> str:
     if len(raw) <= 256:
         return raw
     return f'{raw[:256]}...'
-
-
-def _build_uvicorn_log_config(server_log_file: str | None, auth_log_file: str | None) -> dict[str, object]:
-    from uvicorn.config import LOGGING_CONFIG
-
-    config = copy.deepcopy(LOGGING_CONFIG)
-    formatters = config.setdefault('formatters', {})
-    handlers = config.setdefault('handlers', {})
-    loggers = config.setdefault('loggers', {})
-
-    formatters['auth'] = {
-        'format': '%(asctime)s %(levelname)s %(name)s %(message)s',
-        'datefmt': '%Y-%m-%d %H:%M:%S',
-    }
-
-    if server_log_file:
-        handlers['server_default_file'] = {
-            'class': 'logging.FileHandler',
-            'formatter': 'default',
-            'filename': server_log_file,
-            'encoding': 'utf-8',
-        }
-        handlers['server_access_file'] = {
-            'class': 'logging.FileHandler',
-            'formatter': 'access',
-            'filename': server_log_file,
-            'encoding': 'utf-8',
-        }
-        if 'uvicorn.error' in loggers:
-            loggers['uvicorn.error']['handlers'] = ['server_default_file']
-        if 'uvicorn.access' in loggers:
-            loggers['uvicorn.access']['handlers'] = ['server_access_file']
-
-    if auth_log_file:
-        handlers['auth_file'] = {
-            'class': 'logging.FileHandler',
-            'formatter': 'auth',
-            'filename': auth_log_file,
-            'encoding': 'utf-8',
-        }
-        auth_handlers = ['auth_file']
-    else:
-        handlers['auth_console'] = {
-            'class': 'logging.StreamHandler',
-            'formatter': 'auth',
-            'stream': 'ext://sys.stderr',
-        }
-        auth_handlers = ['auth_console']
-
-    loggers['pyserini.server.rest.auth'] = {
-        'handlers': auth_handlers,
-        'level': 'INFO',
-        'propagate': False,
-    }
-    return config
 
 
 def create_app(
@@ -217,7 +151,7 @@ def create_app(
 
         credentials = _extract_api_tokens(request)
         matched_token = next((token for token in credentials if tokens.is_valid(token)), None)
-        key_id = _compute_token_fingerprint(matched_token or (credentials[0] if credentials else None))
+        key_id = compute_token_fingerprint(matched_token or (credentials[0] if credentials else None))
         query = _truncate_request_query(request)
         if matched_token is None:
             client = request.client.host if request.client else '-'
@@ -348,7 +282,11 @@ def main():
         host=args.host,
         port=args.port,
         access_log=not args.no_access_log,
-        log_config=_build_uvicorn_log_config(args.server_log_file, args.auth_log_file),
+        log_config=build_uvicorn_log_config(
+            args.server_log_file,
+            args.auth_log_file,
+            auth_logger_name='pyserini.server.rest.auth',
+        ),
     )
 
 
