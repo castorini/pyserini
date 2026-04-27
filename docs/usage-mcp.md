@@ -30,6 +30,7 @@ Default transport is **stdio** (no HTTP port). Optional arguments:
 | `--transport` | `stdio` (default) or `http` for remote/streamable access |
 | `--port PORT` | HTTP port when using `--transport http` (default: 8000) |
 | `--config PATH` | YAML server config with index mappings and optional `api_keys` |
+| `--no-prebuilt-indexes` | Only allow indexes declared in `--config` (disable prebuilt names and arbitrary filesystem paths) |
 
 Example with a Java path and index aliases:
 
@@ -116,6 +117,16 @@ For Cursor MCP client config:
 ```
 
 Note: token auth applies only to HTTP transport. In `stdio` mode there is no bearer-token transport layer, so auth checks are not enforced.
+
+### Restrict to configured indexes only
+
+Disable prebuilt indexes and arbitrary index paths with `--no-prebuilt-indexes`:
+
+```bash
+python -m pyserini.server.mcp --config /path/to/server.yaml --no-prebuilt-indexes
+```
+
+When `--no-prebuilt-indexes` is set, MCP tools only accept index names declared under `indexes:` in `--config`.
 
 See [Cursor MCP documentation](https://docs.cursor.com/context/model-context-protocol).
 

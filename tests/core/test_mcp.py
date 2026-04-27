@@ -42,11 +42,14 @@ _MCP_QUERY = 'information retrieval'
 _MCP_TOP_DOCID = 'CACM-3134'
 
 
-def _make_mcp_server(config_path: str | None = None):
+def _make_mcp_server(config_path: str | None = None, *, no_prebuilt_indexes: bool = False):
     """Build the same MCP server as mcpyserini (FastMCP + tools + controller)."""
     from pyserini.server.backend import get_backend
     from pyserini.server.mcp.mcpyserini import create_mcp_server
-    return create_mcp_server(get_backend(config_path), config_path)
+    return create_mcp_server(
+        get_backend(config_path, no_prebuilt_indexes=no_prebuilt_indexes),
+        config_path,
+    )
 
 
 class TestMCPyseriniServer(unittest.TestCase):
@@ -77,9 +80,20 @@ class TestMCPyseriniServer(unittest.TestCase):
         self.assertGreaterEqual(len(texts), 1, 'Expected at least one text content part')
         return json.loads(texts[0])
 
-    async def _call_tool(self, name, arguments, *, headers=None, config_path: str | None = None):
+    async def _call_tool(
+        self,
+        name,
+        arguments,
+        *,
+        headers=None,
+        config_path: str | None = None,
+        no_prebuilt_indexes: bool = False,
+    ):
         # Create server inside this event loop so server._started is bound to it
-        mcp = _make_mcp_server(config_path=config_path)
+        mcp = _make_mcp_server(
+            config_path=config_path,
+            no_prebuilt_indexes=no_prebuilt_indexes,
+        )
         async with run_server_async(
             mcp,
             transport='streamable-http',
@@ -250,6 +264,29 @@ class TestMCPyseriniServer(unittest.TestCase):
             payload = self._single_json_content(result)
             self.assertIsInstance(payload, list)
             self.assertIn(_MCP_INDEX, payload)
+        finally:
+            os.unlink(path)
+
+    def test_no_prebuilt_indexes_rejects_unconfigured_prebuilt_index(self):
+        cfg = {'indexes': {'local': '/tmp'}}
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            yaml.safe_dump(cfg, f, default_flow_style=False)
+            path = f.name
+        try:
+            with self.assertRaises(ToolError) as ctx:
+                self._run_async(
+                    self._call_tool(
+                        'search',
+                        {
+                            'query': {'query_txt': _MCP_QUERY},
+                            'index': _MCP_INDEX,
+                            'hits': 1,
+                        },
+                        config_path=path,
+                        no_prebuilt_indexes=True,
+                    )
+                )
+            self.assertIn('not configured', str(ctx.exception))
         finally:
             os.unlink(path)
 

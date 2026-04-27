@@ -199,7 +199,11 @@ class SharedSearchBackend:
             if self._no_prebuilt_indexes:
                 local_cfg = self._local_indexes.get(index_name)
                 if local_cfg is None:
-                    raise IndexNotAvailableError(f'Index not configured for this server: {index_name}')
+                    available_msg = ', '.join(sorted(self._local_indexes.keys()))
+                    raise IndexNotAvailableError(
+                        f'Index not configured for this server: {index_name}. '
+                        f'Available indexes: {available_msg}'
+                    )
                 config.path = local_cfg.path
                 config.index_type = local_cfg.index_type
                 config.base_index = local_cfg.base_index

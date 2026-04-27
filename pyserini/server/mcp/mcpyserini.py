@@ -80,12 +80,20 @@ def main():
         default=None,
         help="YAML server config with index mappings and API keys",
     )
+    parser.add_argument(
+        '--no-prebuilt-indexes',
+        action='store_true',
+        help='Only allow indexes declared in --config (disable prebuilt names and arbitrary filesystem paths).',
+    )
 
     args = parser.parse_args()
 
+    if args.no_prebuilt_indexes and not args.config:
+        raise SystemExit('Error: --no-prebuilt-indexes requires --config')
+
     backend = None
     try:
-        backend = get_backend(args.config)
+        backend = get_backend(args.config, no_prebuilt_indexes=args.no_prebuilt_indexes)
         mcp = create_mcp_server(backend, args.config)
 
         if args.transport == "http":
