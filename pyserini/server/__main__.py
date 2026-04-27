@@ -96,7 +96,7 @@ def main() -> None:
     async def combined_lifespan(parent_app):
         async with AsyncExitStack() as stack:
             await stack.enter_async_context(rest_lifespan(parent_app))
-            await stack.enter_async_context(mcp_lifespan(parent_app))
+            await stack.enter_async_context(mcp_lifespan(mcp_app))
             yield
 
     app.router.lifespan_context = combined_lifespan
