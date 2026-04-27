@@ -23,26 +23,34 @@ All server output (uvicorn, FastMCP, CancelledError, etc.) is suppressed during 
 """
 
 import asyncio
+import hashlib
 import json
 import os
 import sys
+import tempfile
 import unittest
 
-from fastmcp import FastMCP, Client
+from fastmcp import Client
 from fastmcp.client.transports import StreamableHttpTransport
 from fastmcp.exceptions import ToolError
 from fastmcp.utilities.tests import run_server_async
+import yaml
 
 from pyserini.search.faiss import DenseSearchResult
 
+_MCP_INDEX = 'cacm'
+_MCP_QUERY = 'information retrieval'
+_MCP_TOP_DOCID = 'CACM-3134'
 
-def _make_mcp_server():
+
+def _make_mcp_server(config_path: str | None = None, *, no_prebuilt_indexes: bool = False):
     """Build the same MCP server as mcpyserini (FastMCP + tools + controller)."""
     from pyserini.server.backend import get_backend
-    from pyserini.server.mcp.tools import register_tools
-    mcp = FastMCP('mcpyserini')
-    register_tools(mcp, get_backend())
-    return mcp
+    from pyserini.server.mcp.mcpyserini import create_mcp_server
+    return create_mcp_server(
+        get_backend(config_path, no_prebuilt_indexes=no_prebuilt_indexes),
+        config_path,
+    )
 
 
 class TestMCPyseriniServer(unittest.TestCase):
@@ -73,20 +81,31 @@ class TestMCPyseriniServer(unittest.TestCase):
         self.assertGreaterEqual(len(texts), 1, 'Expected at least one text content part')
         return json.loads(texts[0])
 
-    async def _call_tool(self, name, arguments):
+    async def _call_tool(
+        self,
+        name,
+        arguments,
+        *,
+        headers=None,
+        config_path: str | None = None,
+        no_prebuilt_indexes: bool = False,
+    ):
         # Create server inside this event loop so server._started is bound to it
-        mcp = _make_mcp_server()
+        mcp = _make_mcp_server(
+            config_path=config_path,
+            no_prebuilt_indexes=no_prebuilt_indexes,
+        )
         async with run_server_async(
             mcp,
             transport='streamable-http',
         ) as url:
-            async with Client(StreamableHttpTransport(url)) as client:
+            async with Client(StreamableHttpTransport(url, headers=headers)) as client:
                 return await client.call_tool(name, arguments)
 
     def test_search_tool(self):
         result = self._run_async(self._call_tool('search', {
-            'query': {'query_txt': 'what is a lobster roll'},
-            'index': 'msmarco-v1-passage',
+            'query': {'query_txt': _MCP_QUERY},
+            'index': _MCP_INDEX,
             'hits': 3,
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
@@ -98,7 +117,7 @@ class TestMCPyseriniServer(unittest.TestCase):
 
     def test_get_index_tool(self):
         result = self._run_async(self._call_tool('get_index', {
-            'index_name': 'msmarco-v1-passage',
+            'index_name': _MCP_INDEX,
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
         payload = self._single_json_content(result)
@@ -112,7 +131,7 @@ class TestMCPyseriniServer(unittest.TestCase):
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
         payload = self._single_json_content(result)
         self.assertIsInstance(payload, list)
-        self.assertIn('msmarco-v1-passage', payload)
+        self.assertIn(_MCP_INDEX, payload)
 
     def test_list_indexes_invalid_type_raises_tool_error(self):
         async def call_invalid():
@@ -127,8 +146,8 @@ class TestMCPyseriniServer(unittest.TestCase):
 
     def test_get_document_tool(self):
         result = self._run_async(self._call_tool('get_document', {
-            'docid': '7157707',
-            'index': 'msmarco-v1-passage',
+            'docid': _MCP_TOP_DOCID,
+            'index': _MCP_INDEX,
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
         payload = self._single_json_content(result)
@@ -144,7 +163,7 @@ class TestMCPyseriniServer(unittest.TestCase):
                 async with Client(StreamableHttpTransport(url)) as client:
                     await client.call_tool('get_document', {
                         'docid': 'this-docid-does-not-exist',
-                        'index': 'msmarco-v1-passage',
+                        'index': _MCP_INDEX,
                     })
 
         with self.assertRaises(ToolError) as ctx:
@@ -205,6 +224,129 @@ class TestMCPyseriniServer(unittest.TestCase):
         with self.assertRaises(ToolError) as ctx:
             self._run_async(call_invalid())
         self.assertIn('no qrels file', str(ctx.exception))
+
+    def test_auth_enabled_rejects_requests_without_token(self):
+        cfg = {'api_keys': ['mcp-auth-test-token']}
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            yaml.safe_dump(cfg, f, default_flow_style=False)
+            path = f.name
+        try:
+            with self.assertRaises(Exception) as ctx:
+                self._run_async(
+                    self._call_tool(
+                        'list_indexes',
+                        {'index_type': 'tf'},
+                        config_path=path,
+                    )
+                )
+            self.assertTrue(
+                '401' in str(ctx.exception) or 'auth' in str(ctx.exception).lower(),
+                msg=str(ctx.exception),
+            )
+        finally:
+            os.unlink(path)
+
+    def test_auth_enabled_accepts_valid_bearer_token(self):
+        token = 'mcp-auth-test-token-ok'
+        cfg = {'api_keys': [token]}
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            yaml.safe_dump(cfg, f, default_flow_style=False)
+            path = f.name
+        try:
+            result = self._run_async(
+                self._call_tool(
+                    'list_indexes',
+                    {'index_type': 'tf'},
+                    headers={'Authorization': f'Bearer {token}'},
+                    config_path=path,
+                )
+            )
+            self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
+            payload = self._single_json_content(result)
+            self.assertIsInstance(payload, list)
+            self.assertIn(_MCP_INDEX, payload)
+        finally:
+            os.unlink(path)
+
+    def test_auth_enabled_logs_token_fingerprint_for_tool_calls(self):
+        token = 'mcp-auth-test-token-log'
+        expected_key_id = hashlib.sha256(token.encode('utf-8')).hexdigest()[:12]
+        cfg = {'api_keys': [token]}
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            yaml.safe_dump(cfg, f, default_flow_style=False)
+            path = f.name
+        try:
+            with self.assertLogs('pyserini.server.mcp.auth', level='INFO') as cm:
+                result = self._run_async(
+                    self._call_tool(
+                        'list_indexes',
+                        {'index_type': 'tf'},
+                        headers={'Authorization': f'Bearer {token}'},
+                        config_path=path,
+                    )
+                )
+            self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
+            self.assertTrue(
+                any(
+                    'auth_tool_call' in line
+                    and 'tool=list_indexes' in line
+                    and 'args={"index_type": "tf"}' in line
+                    and 'client=' in line
+                    and f'key_id={expected_key_id}' in line
+                    for line in cm.output
+                ),
+                msg='\n'.join(cm.output),
+            )
+        finally:
+            os.unlink(path)
+
+    def test_auth_enabled_logs_failed_token_fingerprint(self):
+        token = 'mcp-auth-test-token-invalid'
+        expected_key_id = hashlib.sha256(token.encode('utf-8')).hexdigest()[:12]
+        cfg = {'api_keys': ['mcp-auth-test-token-actual']}
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            yaml.safe_dump(cfg, f, default_flow_style=False)
+            path = f.name
+        try:
+            with self.assertLogs('pyserini.server.mcp.auth', level='INFO') as cm:
+                with self.assertRaises(Exception):
+                    self._run_async(
+                        self._call_tool(
+                            'list_indexes',
+                            {'index_type': 'tf'},
+                            headers={'Authorization': f'Bearer {token}'},
+                            config_path=path,
+                        )
+                    )
+            self.assertTrue(
+                any('auth_failed' in line and f'key_id={expected_key_id}' in line for line in cm.output),
+                msg='\n'.join(cm.output),
+            )
+        finally:
+            os.unlink(path)
+
+    def test_no_prebuilt_indexes_rejects_unconfigured_prebuilt_index(self):
+        cfg = {'indexes': {'local': '/tmp'}}
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            yaml.safe_dump(cfg, f, default_flow_style=False)
+            path = f.name
+        try:
+            with self.assertRaises(ToolError) as ctx:
+                self._run_async(
+                    self._call_tool(
+                        'search',
+                        {
+                            'query': {'query_txt': _MCP_QUERY},
+                            'index': _MCP_INDEX,
+                            'hits': 1,
+                        },
+                        config_path=path,
+                        no_prebuilt_indexes=True,
+                    )
+                )
+            self.assertIn('not configured', str(ctx.exception))
+        finally:
+            os.unlink(path)
 
 if __name__ == '__main__':
     unittest.main()

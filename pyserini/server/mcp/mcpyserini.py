@@ -21,10 +21,109 @@ A Model Context Protocol server that provides search functionality using Pyserin
 """
 
 import argparse
+import json
+import logging
 from fastmcp import FastMCP
+from fastmcp.server.auth import require_scopes
+from fastmcp.server.auth.providers.jwt import StaticTokenVerifier
+from fastmcp.server.dependencies import get_access_token, get_http_request
+from fastmcp.server.middleware import Middleware, MiddlewareContext
+from fastmcp.server.middleware import AuthMiddleware
 
-from pyserini.server.backend import get_backend
+from pyserini.server.backend import SharedSearchBackend, get_backend
+from pyserini.server.config import load_server_config
+from pyserini.server.logging_utils import build_uvicorn_log_config, compute_token_fingerprint
 from pyserini.server.mcp.tools import register_tools
+
+
+_MCP_REQUIRED_SCOPE = 'mcp:access'
+auth_logger = logging.getLogger('pyserini.server.mcp.auth')
+
+
+def _serialize_tool_args(arguments: object) -> str:
+    """Best-effort serialized args for audit logs, truncated for readability."""
+    if arguments is None:
+        return '-'
+    try:
+        raw = json.dumps(arguments, ensure_ascii=True, default=str)
+    except (TypeError, ValueError):
+        raw = str(arguments)
+    if len(raw) <= 512:
+        return raw
+    return f'{raw[:512]}...'
+
+class _LoggingStaticTokenVerifier(StaticTokenVerifier):
+    """Static token verifier with auth-failure attribution logging."""
+
+    async def verify_token(self, token: str):
+        verified = await super().verify_token(token)
+        if verified is None:
+            auth_logger.info(
+                'auth_failed key_id=%s status=401',
+                compute_token_fingerprint(token),
+            )
+        return verified
+
+
+class _McpAuthSuccessAuditMiddleware(Middleware):
+    """Logs successful authenticated tool calls with token fingerprint attribution."""
+
+    async def on_call_tool(self, context: MiddlewareContext, call_next):
+        response = await call_next(context)
+        token = get_access_token()
+        key_id = compute_token_fingerprint(token.token if token is not None else None)
+        try:
+            request = get_http_request()
+            client = request.client.host if request and request.client else '-'
+        except RuntimeError:
+            # No HTTP request in stdio mode; keep audit logging best-effort.
+            client = '-'
+        args = _serialize_tool_args(getattr(context.message, 'arguments', None))
+        auth_logger.info(
+            'auth_tool_call client=%s tool=%s args=%s key_id=%s status=ok',
+            client,
+            context.message.name,
+            args,
+            key_id,
+        )
+        return response
+
+
+def create_mcp_server(
+    backend: SharedSearchBackend,
+    config_path: str | None = None,
+    *,
+    enable_http_auth: bool = True,
+) -> FastMCP:
+    """Build MCP server with optional token auth from YAML config."""
+    _configured_indexes, token_strings = load_server_config(config_path)
+    auth = None
+    middleware = None
+
+    if token_strings and enable_http_auth:
+        auth = _LoggingStaticTokenVerifier(
+            tokens={
+                token: {
+                    'client_id': 'api_key',
+                    'scopes': [_MCP_REQUIRED_SCOPE],
+                }
+                for token in token_strings
+            },
+            required_scopes=[_MCP_REQUIRED_SCOPE],
+        )
+        middleware = [
+            AuthMiddleware(auth=require_scopes(_MCP_REQUIRED_SCOPE)),
+            _McpAuthSuccessAuditMiddleware(),
+        ]
+    elif token_strings and not enable_http_auth:
+        logging.getLogger(__name__).warning(
+            'MCP api_keys are configured but transport is non-HTTP; '
+            'token auth is only enforced for HTTP transport.'
+        )
+
+    mcp = FastMCP('mcpyserini', auth=auth, middleware=middleware)
+    register_tools(mcp, backend)
+    return mcp
 
 
 def main():
@@ -33,8 +132,8 @@ def main():
     parser.add_argument(
         "--transport", 
         choices=["stdio", "http"], 
-        default="stdio",
-        help="Transport mode for the MCP server (default: stdio)"
+        default="http",
+        help="Transport mode for the MCP server (default: http)"
     )
 
     parser.add_argument(
@@ -49,17 +148,56 @@ def main():
         default=None,
         help="YAML server config with index mappings and API keys",
     )
+    parser.add_argument(
+        '--no-prebuilt-indexes',
+        action='store_true',
+        help='Only allow indexes declared in --config (disable prebuilt names and arbitrary filesystem paths).',
+    )
+    parser.add_argument(
+        '--server-log-file',
+        type=str,
+        default=None,
+        help='Optional file path for uvicorn server logs (error/access).',
+    )
+    parser.add_argument(
+        '--auth-log-file',
+        type=str,
+        default=None,
+        help='Optional file path for timestamped auth attribution logs.',
+    )
+    parser.add_argument(
+        '--no-access-log',
+        action='store_true',
+        help='Disable uvicorn default request access logs.',
+    )
 
     args = parser.parse_args()
 
+    if args.no_prebuilt_indexes and not args.config:
+        raise SystemExit('Error: --no-prebuilt-indexes requires --config')
+
     backend = None
     try:
-        backend = get_backend(args.config)
-        mcp = FastMCP('mcpyserini')
-        register_tools(mcp, backend)
+        backend = get_backend(args.config, no_prebuilt_indexes=args.no_prebuilt_indexes)
+        mcp = create_mcp_server(
+            backend,
+            args.config,
+            enable_http_auth=(args.transport == 'http'),
+        )
 
         if args.transport == "http":
-            mcp.run(transport=args.transport, port=args.port)
+            mcp.run(
+                transport=args.transport,
+                port=args.port,
+                uvicorn_config={
+                    'access_log': not args.no_access_log,
+                    'log_config': build_uvicorn_log_config(
+                        args.server_log_file,
+                        args.auth_log_file,
+                        auth_logger_name='pyserini.server.mcp.auth',
+                    ),
+                },
+            )
         else:
             mcp.run(transport=args.transport)
 

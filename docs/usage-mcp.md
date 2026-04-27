@@ -2,65 +2,73 @@
 
 The Pyserini MCP server exposes search, document retrieval, and evaluation helpers through the [Model Context Protocol](https://modelcontextprotocol.io/), so AI assistants and other MCP clients can use Pyserini’s indexes (sparse, dense, impact, FAISS, etc.).
 
-The server uses the same `SharedSearchBackend` (`pyserini/server/backend.py`) as the REST API: index names, prebuilt indexes, and optional **`--config`** YAML aliases behave the same way.
+The server uses the same `SharedSearchBackend` (`pyserini/server/backend.py`) as the REST API: index names, prebuilt indexes, optional **`--config`** YAML aliases, and optional `api_keys` behave the same way.
 
 This guide uses Claude Desktop and Cursor as examples; other MCP clients work too.
 
-## Local Server
+## Run REST + MCP together
 
-To use the Pyserini MCP server locally with Claude Desktop, go to **Claude → Settings → Developer** and edit the config. That opens `claude_desktop_config.json`. Add Pyserini under `mcpServers`:
+You can launch both servers in one process with a shared backend:
 
-```json
-{
-  "mcpServers": {
-    "mcpyserini": {
-      "command": "/path/to/your/conda/env/bin/python",
-      "args": [
-        "-m", "pyserini.server.mcp"
-      ]
-    }
-  }
-}
+```bash
+python -m pyserini.server --host 0.0.0.0 --port 8081 --mcp-path /mcp
 ```
 
-Default transport is **stdio** (no HTTP port). Optional arguments:
+In this mode:
+- REST stays on `/v1/*`, `/docs`, and `/openapi.yaml`
+- MCP is mounted at `/mcp` on the same host/port
+- both surfaces share one `SharedSearchBackend` instance
+
+## Server options and config
+
+Default transport is **http** on port `8000`.
 
 | Argument | Description |
 |----------|-------------|
-| `--transport` | `stdio` (default) or `http` for remote/streamable access |
+| `--transport` | `http` (default) or `stdio` |
 | `--port PORT` | HTTP port when using `--transport http` (default: 8000) |
-| `--config PATH` | YAML server config with index mappings |
+| `--config PATH` | YAML server config with index mappings and optional `api_keys` |
+| `--no-prebuilt-indexes` | Only allow indexes declared in `--config` (disable prebuilt names and arbitrary filesystem paths) |
+| `--server-log-file` | Optional file path for uvicorn server logs (error/access) |
+| `--auth-log-file` | Optional file path for timestamped auth attribution logs |
+| `--no-access-log` | Disable uvicorn default request access logging |
 
-Example with a Java path and index aliases:
+Start the server:
 
-```json
-{
-  "mcpServers": {
-    "mcpyserini": {
-      "command": "/path/to/your/conda/env/bin/python",
-      "args": [
-        "-m", "pyserini.server.mcp",
-      ],
-      "env": {
-        "JAVA_HOME": "/path/to/your/java/home"
-      }
-    }
-  }
-}
+```bash
+python -m pyserini.server.mcp --port 8000
 ```
 
-Restart Claude Desktop after changes. You should see **`mcpyserini`** among the available MCP servers. Prompt the model to use it with a concrete index name and query.
+Use `--config` to provide a YAML server config with index mappings and optional API keys:
 
-If you hit Java version issues, set **`JAVA_HOME`** explicitly (see above).
+```yaml
+indexes:
+  msmarco:
+    path: /path/to/local/index
+    index_type: tf
+api_keys:
+  - {api-key}
+  - {api-key-2}
+```
 
-More detail: [Claude Desktop MCP quickstart](https://modelcontextprotocol.io/quickstart/user).
+When `api_keys` is configured, the MCP HTTP endpoint requires authentication for MCP calls (tool listing and execution).  
+Client auth uses `Authorization: Bearer {api-key}`.
+With `--transport stdio`, `api_keys` are not enforced.
+
+Disable prebuilt indexes and arbitrary index paths with `--no-prebuilt-indexes`:
+
+```bash
+python -m pyserini.server.mcp --config /path/to/server.yaml --no-prebuilt-indexes
+```
+
+When `--no-prebuilt-indexes` is set, MCP tools only accept index names declared under `indexes:` in `--config`.
 
 ## Remote Server
 
-On the machine that runs Pyserini, start HTTP transport (pick a port if needed):
+On the machine that runs Pyserini, start the server (HTTP is default; pick a port if needed):
 
 ```bash
-python -m pyserini.server.mcp --transport http --port 8000
+python -m pyserini.server.mcp --port 8000
 ```
 
 From your laptop, forward the port:
@@ -75,7 +83,10 @@ For **Cursor**, add something like this to your MCP config (e.g. under `.cursor`
 {
   "mcpServers": {
     "mcpyserini": {
-      "url": "http://127.0.0.1:8000/mcp"
+      "url": "http://127.0.0.1:8000/mcp",
+      "headers": {
+        "Authorization": "Bearer {api-key}"
+      }
     }
   }
 }
@@ -117,6 +128,49 @@ Point Claude at the script:
 Restart Claude Desktop.
 </details>
 <br/>
+
+## Connect to local server
+
+To use the Pyserini MCP server locally with Claude Desktop, go to **Claude → Settings → Developer** and edit the config. That opens `claude_desktop_config.json`. Add Pyserini under `mcpServers`:
+
+```json
+{
+  "mcpServers": {
+    "mcpyserini": {
+      "command": "/path/to/your/conda/env/bin/python",
+      "args": [
+        "-m", "pyserini.server.mcp"
+      ]
+    }
+  }
+}
+```
+
+Example with a Java path:
+
+```json
+{
+  "mcpServers": {
+    "mcpyserini": {
+      "command": "/path/to/your/conda/env/bin/python",
+      "args": [
+        "-m", "pyserini.server.mcp"
+      ],
+      "env": {
+        "JAVA_HOME": "/path/to/your/java/home"
+      }
+    }
+  }
+}
+```
+
+Restart Claude Desktop after changes. You should see **`mcpyserini`** among the available MCP servers. Prompt the model to use it with a concrete index name and query.
+
+If you hit Java version issues, set **`JAVA_HOME`** explicitly (see above).
+
+Note: token auth applies only to HTTP transport. In `stdio` mode there is no bearer-token transport layer, so auth checks are not enforced.
+
+More detail: [Claude Desktop MCP quickstart](https://modelcontextprotocol.io/quickstart/user).
 
 ## Available Tools
 
