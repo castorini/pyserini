@@ -16,6 +16,7 @@
 
 import unittest
 from contextlib import AsyncExitStack, asynccontextmanager
+from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 
@@ -71,6 +72,53 @@ class TestCombinedServer(unittest.TestCase):
             tools_resp = client.post('/mcp/', headers=mcp_headers, json=list_tools)
             self.assertEqual(tools_resp.status_code, 200, msg=tools_resp.text)
             self.assertIn('"tools"', tools_resp.text)
+
+    def test_combined_lifespan_closes_shared_backend_on_shutdown(self):
+        from pyserini.server import __main__ as server_main
+
+        with patch.object(server_main, 'get_backend') as mock_get_backend, \
+            patch.object(server_main, 'create_app') as mock_create_app, \
+            patch.object(server_main, 'create_mcp_server') as mock_create_mcp_server, \
+            patch.object(server_main, 'build_uvicorn_log_config', return_value={}), \
+            patch.object(server_main.uvicorn, 'run') as mock_uvicorn_run, \
+            patch('argparse.ArgumentParser.parse_args') as mock_parse_args:
+            backend = unittest.mock.MagicMock()
+            app = unittest.mock.MagicMock()
+            mcp_app = unittest.mock.MagicMock()
+            mcp_server = unittest.mock.MagicMock()
+            mcp_server.http_app.return_value = mcp_app
+            app.router.lifespan_context = lambda _app: _noop_async_cm()  # type: ignore[assignment]
+            mcp_app.router.lifespan_context = lambda _app: _noop_async_cm()  # type: ignore[assignment]
+
+            mock_get_backend.return_value = backend
+            mock_create_app.return_value = app
+            mock_create_mcp_server.return_value = mcp_server
+            mock_parse_args.return_value = unittest.mock.MagicMock(
+                host='127.0.0.1',
+                port=8081,
+                config=None,
+                no_prebuilt_indexes=False,
+                mcp_path='/mcp',
+                server_log_file=None,
+                auth_log_file=None,
+                no_access_log=True,
+            )
+
+            def _run_with_lifespan(passed_app, *args, **kwargs):
+                async def _drive():
+                    async with passed_app.router.lifespan_context(passed_app):
+                        return None
+                import asyncio
+                asyncio.run(_drive())
+
+            mock_uvicorn_run.side_effect = _run_with_lifespan
+            server_main.main()
+            backend.close_all.assert_called_once()
+
+
+@asynccontextmanager
+async def _noop_async_cm():
+    yield
 
 
 if __name__ == '__main__':

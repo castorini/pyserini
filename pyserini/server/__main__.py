@@ -97,7 +97,10 @@ def main() -> None:
         async with AsyncExitStack() as stack:
             await stack.enter_async_context(rest_lifespan(parent_app))
             await stack.enter_async_context(mcp_lifespan(mcp_app))
-            yield
+            try:
+                yield
+            finally:
+                backend.close_all()
 
     app.router.lifespan_context = combined_lifespan
     app.mount(args.mcp_path, mcp_app)
