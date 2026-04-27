@@ -37,6 +37,10 @@ import yaml
 
 from pyserini.search.faiss import DenseSearchResult
 
+_MCP_INDEX = 'cacm'
+_MCP_QUERY = 'information retrieval'
+_MCP_TOP_DOCID = 'CACM-3134'
+
 
 def _make_mcp_server(config_path: str | None = None):
     """Build the same MCP server as mcpyserini (FastMCP + tools + controller)."""
@@ -85,8 +89,8 @@ class TestMCPyseriniServer(unittest.TestCase):
 
     def test_search_tool(self):
         result = self._run_async(self._call_tool('search', {
-            'query': {'query_txt': 'what is a lobster roll'},
-            'index': 'msmarco-v1-passage',
+            'query': {'query_txt': _MCP_QUERY},
+            'index': _MCP_INDEX,
             'hits': 3,
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
@@ -98,7 +102,7 @@ class TestMCPyseriniServer(unittest.TestCase):
 
     def test_get_index_tool(self):
         result = self._run_async(self._call_tool('get_index', {
-            'index_name': 'msmarco-v1-passage',
+            'index_name': _MCP_INDEX,
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
         payload = self._single_json_content(result)
@@ -112,7 +116,7 @@ class TestMCPyseriniServer(unittest.TestCase):
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
         payload = self._single_json_content(result)
         self.assertIsInstance(payload, list)
-        self.assertIn('msmarco-v1-passage', payload)
+        self.assertIn(_MCP_INDEX, payload)
 
     def test_list_indexes_invalid_type_raises_tool_error(self):
         async def call_invalid():
@@ -127,8 +131,8 @@ class TestMCPyseriniServer(unittest.TestCase):
 
     def test_get_document_tool(self):
         result = self._run_async(self._call_tool('get_document', {
-            'docid': '7157707',
-            'index': 'msmarco-v1-passage',
+            'docid': _MCP_TOP_DOCID,
+            'index': _MCP_INDEX,
         }))
         self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
         payload = self._single_json_content(result)
@@ -144,7 +148,7 @@ class TestMCPyseriniServer(unittest.TestCase):
                 async with Client(StreamableHttpTransport(url)) as client:
                     await client.call_tool('get_document', {
                         'docid': 'this-docid-does-not-exist',
-                        'index': 'msmarco-v1-passage',
+                        'index': _MCP_INDEX,
                     })
 
         with self.assertRaises(ToolError) as ctx:
@@ -245,7 +249,7 @@ class TestMCPyseriniServer(unittest.TestCase):
             self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
             payload = self._single_json_content(result)
             self.assertIsInstance(payload, list)
-            self.assertIn('msmarco-v1-passage', payload)
+            self.assertIn(_MCP_INDEX, payload)
         finally:
             os.unlink(path)
 
