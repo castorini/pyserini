@@ -53,6 +53,7 @@ api_keys:
 
 When `api_keys` is configured, the MCP HTTP endpoint requires authentication for MCP calls (tool listing and execution).  
 Client auth uses `Authorization: Bearer {api-key}`.
+With `--transport stdio`, `api_keys` are not enforced.
 
 Disable prebuilt indexes and arbitrary index paths with `--no-prebuilt-indexes`:
 

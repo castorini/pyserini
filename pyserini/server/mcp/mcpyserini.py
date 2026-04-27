@@ -72,8 +72,12 @@ class _McpAuthSuccessAuditMiddleware(Middleware):
         response = await call_next(context)
         token = get_access_token()
         key_id = compute_token_fingerprint(token.token if token is not None else None)
-        request = get_http_request()
-        client = request.client.host if request and request.client else '-'
+        try:
+            request = get_http_request()
+            client = request.client.host if request and request.client else '-'
+        except RuntimeError:
+            # No HTTP request in stdio mode; keep audit logging best-effort.
+            client = '-'
         args = _serialize_tool_args(getattr(context.message, 'arguments', None))
         auth_logger.info(
             'auth_tool_call client=%s tool=%s args=%s key_id=%s status=ok',
@@ -85,13 +89,18 @@ class _McpAuthSuccessAuditMiddleware(Middleware):
         return response
 
 
-def create_mcp_server(backend: SharedSearchBackend, config_path: str | None = None) -> FastMCP:
+def create_mcp_server(
+    backend: SharedSearchBackend,
+    config_path: str | None = None,
+    *,
+    enable_http_auth: bool = True,
+) -> FastMCP:
     """Build MCP server with optional token auth from YAML config."""
     _configured_indexes, token_strings = load_server_config(config_path)
     auth = None
     middleware = None
 
-    if token_strings:
+    if token_strings and enable_http_auth:
         auth = _LoggingStaticTokenVerifier(
             tokens={
                 token: {
@@ -106,6 +115,11 @@ def create_mcp_server(backend: SharedSearchBackend, config_path: str | None = No
             AuthMiddleware(auth=require_scopes(_MCP_REQUIRED_SCOPE)),
             _McpAuthSuccessAuditMiddleware(),
         ]
+    elif token_strings and not enable_http_auth:
+        logging.getLogger(__name__).warning(
+            'MCP api_keys are configured but transport is non-HTTP; '
+            'token auth is only enforced for HTTP transport.'
+        )
 
     mcp = FastMCP('mcpyserini', auth=auth, middleware=middleware)
     register_tools(mcp, backend)
@@ -165,7 +179,11 @@ def main():
     backend = None
     try:
         backend = get_backend(args.config, no_prebuilt_indexes=args.no_prebuilt_indexes)
-        mcp = create_mcp_server(backend, args.config)
+        mcp = create_mcp_server(
+            backend,
+            args.config,
+            enable_http_auth=(args.transport == 'http'),
+        )
 
         if args.transport == "http":
             mcp.run(
