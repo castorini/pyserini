@@ -99,8 +99,8 @@ def main():
     parser.add_argument(
         "--transport", 
         choices=["stdio", "http"], 
-        default="stdio",
-        help="Transport mode for the MCP server (default: stdio)"
+        default="http",
+        help="Transport mode for the MCP server (default: http)"
     )
 
     parser.add_argument(

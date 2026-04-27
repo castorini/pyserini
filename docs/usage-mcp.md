@@ -6,28 +6,13 @@ The server uses the same `SharedSearchBackend` (`pyserini/server/backend.py`) as
 
 This guide uses Claude Desktop and Cursor as examples; other MCP clients work too.
 
-## Local Server
+## Server options and config
 
-To use the Pyserini MCP server locally with Claude Desktop, go to **Claude → Settings → Developer** and edit the config. That opens `claude_desktop_config.json`. Add Pyserini under `mcpServers`:
-
-```json
-{
-  "mcpServers": {
-    "mcpyserini": {
-      "command": "/path/to/your/conda/env/bin/python",
-      "args": [
-        "-m", "pyserini.server.mcp"
-      ]
-    }
-  }
-}
-```
-
-Default transport is **stdio** (no HTTP port). Optional arguments:
+Default transport is **http** on port `8000`.
 
 | Argument | Description |
 |----------|-------------|
-| `--transport` | `stdio` (default) or `http` for remote/streamable access |
+| `--transport` | `http` (default) or `stdio` |
 | `--port PORT` | HTTP port when using `--transport http` (default: 8000) |
 | `--config PATH` | YAML server config with index mappings and optional `api_keys` |
 | `--no-prebuilt-indexes` | Only allow indexes declared in `--config` (disable prebuilt names and arbitrary filesystem paths) |
@@ -35,59 +20,11 @@ Default transport is **stdio** (no HTTP port). Optional arguments:
 | `--auth-log-file` | Optional file path for timestamped auth attribution logs |
 | `--no-access-log` | Disable uvicorn default request access logging |
 
-Example with a Java path and index aliases:
-
-```json
-{
-  "mcpServers": {
-    "mcpyserini": {
-      "command": "/path/to/your/conda/env/bin/python",
-      "args": [
-        "-m", "pyserini.server.mcp",
-      ],
-      "env": {
-        "JAVA_HOME": "/path/to/your/java/home"
-      }
-    }
-  }
-}
-```
-
-Restart Claude Desktop after changes. You should see **`mcpyserini`** among the available MCP servers. Prompt the model to use it with a concrete index name and query.
-
-If you hit Java version issues, set **`JAVA_HOME`** explicitly (see above).
-
-More detail: [Claude Desktop MCP quickstart](https://modelcontextprotocol.io/quickstart/user).
-
-## Remote Server
-
-On the machine that runs Pyserini, start HTTP transport (pick a port if needed):
+Start the server:
 
 ```bash
-python -m pyserini.server.mcp --transport http --port 8000
+python -m pyserini.server.mcp --port 8000
 ```
-
-From your laptop, forward the port:
-
-```bash
-ssh -L 8000:localhost:8000 username@hostname
-```
-
-For **Cursor**, add something like this to your MCP config (e.g. under `.cursor`):
-
-```json
-{
-  "mcpServers": {
-    "mcpyserini": {
-      "url": "http://127.0.0.1:8000/mcp"
-    }
-  }
-}
-```
-
-Adjust host/port if you use a different bind address or forwarded port.
-
-### Optional Token Auth (HTTP transport)
 
 Use `--config` to provide a YAML server config with index mappings and optional API keys:
 
@@ -104,7 +41,29 @@ api_keys:
 When `api_keys` is configured, the MCP HTTP endpoint requires authentication for MCP calls (tool listing and execution).  
 Client auth uses `Authorization: Bearer {api-key}`.
 
-For Cursor MCP client config:
+Disable prebuilt indexes and arbitrary index paths with `--no-prebuilt-indexes`:
+
+```bash
+python -m pyserini.server.mcp --config /path/to/server.yaml --no-prebuilt-indexes
+```
+
+When `--no-prebuilt-indexes` is set, MCP tools only accept index names declared under `indexes:` in `--config`.
+
+## Remote Server
+
+On the machine that runs Pyserini, start the server (HTTP is default; pick a port if needed):
+
+```bash
+python -m pyserini.server.mcp --port 8000
+```
+
+From your laptop, forward the port:
+
+```bash
+ssh -L 8000:localhost:8000 username@hostname
+```
+
+For **Cursor**, add something like this to your MCP config (e.g. under `.cursor`):
 
 ```json
 {
@@ -119,17 +78,7 @@ For Cursor MCP client config:
 }
 ```
 
-Note: token auth applies only to HTTP transport. In `stdio` mode there is no bearer-token transport layer, so auth checks are not enforced.
-
-### Restrict to configured indexes only
-
-Disable prebuilt indexes and arbitrary index paths with `--no-prebuilt-indexes`:
-
-```bash
-python -m pyserini.server.mcp --config /path/to/server.yaml --no-prebuilt-indexes
-```
-
-When `--no-prebuilt-indexes` is set, MCP tools only accept index names declared under `indexes:` in `--config`.
+Adjust host/port if you use a different bind address or forwarded port.
 
 See [Cursor MCP documentation](https://docs.cursor.com/context/model-context-protocol).
 
@@ -165,6 +114,49 @@ Point Claude at the script:
 Restart Claude Desktop.
 </details>
 <br/>
+
+## Connect to local server
+
+To use the Pyserini MCP server locally with Claude Desktop, go to **Claude → Settings → Developer** and edit the config. That opens `claude_desktop_config.json`. Add Pyserini under `mcpServers`:
+
+```json
+{
+  "mcpServers": {
+    "mcpyserini": {
+      "command": "/path/to/your/conda/env/bin/python",
+      "args": [
+        "-m", "pyserini.server.mcp"
+      ]
+    }
+  }
+}
+```
+
+Example with a Java path:
+
+```json
+{
+  "mcpServers": {
+    "mcpyserini": {
+      "command": "/path/to/your/conda/env/bin/python",
+      "args": [
+        "-m", "pyserini.server.mcp"
+      ],
+      "env": {
+        "JAVA_HOME": "/path/to/your/java/home"
+      }
+    }
+  }
+}
+```
+
+Restart Claude Desktop after changes. You should see **`mcpyserini`** among the available MCP servers. Prompt the model to use it with a concrete index name and query.
+
+If you hit Java version issues, set **`JAVA_HOME`** explicitly (see above).
+
+Note: token auth applies only to HTTP transport. In `stdio` mode there is no bearer-token transport layer, so auth checks are not enforced.
+
+More detail: [Claude Desktop MCP quickstart](https://modelcontextprotocol.io/quickstart/user).
 
 ## Available Tools
 
