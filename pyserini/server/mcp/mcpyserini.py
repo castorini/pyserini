@@ -22,9 +22,40 @@ A Model Context Protocol server that provides search functionality using Pyserin
 
 import argparse
 from fastmcp import FastMCP
+from fastmcp.server.auth import require_scopes
+from fastmcp.server.auth.providers.jwt import StaticTokenVerifier
+from fastmcp.server.middleware import AuthMiddleware
 
-from pyserini.server.backend import get_backend
+from pyserini.server.backend import SharedSearchBackend, get_backend
+from pyserini.server.config import load_server_config
 from pyserini.server.mcp.tools import register_tools
+
+
+_MCP_REQUIRED_SCOPE = 'mcp:access'
+
+
+def create_mcp_server(backend: SharedSearchBackend, config_path: str | None = None) -> FastMCP:
+    """Build MCP server with optional token auth from YAML config."""
+    _configured_indexes, token_strings = load_server_config(config_path)
+    auth = None
+    middleware = None
+
+    if token_strings:
+        auth = StaticTokenVerifier(
+            tokens={
+                token: {
+                    'client_id': 'api_key',
+                    'scopes': [_MCP_REQUIRED_SCOPE],
+                }
+                for token in token_strings
+            },
+            required_scopes=[_MCP_REQUIRED_SCOPE],
+        )
+        middleware = [AuthMiddleware(auth=require_scopes(_MCP_REQUIRED_SCOPE))]
+
+    mcp = FastMCP('mcpyserini', auth=auth, middleware=middleware)
+    register_tools(mcp, backend)
+    return mcp
 
 
 def main():
@@ -55,8 +86,7 @@ def main():
     backend = None
     try:
         backend = get_backend(args.config)
-        mcp = FastMCP('mcpyserini')
-        register_tools(mcp, backend)
+        mcp = create_mcp_server(backend, args.config)
 
         if args.transport == "http":
             mcp.run(transport=args.transport, port=args.port)

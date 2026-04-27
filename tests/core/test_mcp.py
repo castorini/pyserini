@@ -26,23 +26,23 @@ import asyncio
 import json
 import os
 import sys
+import tempfile
 import unittest
 
 from fastmcp import FastMCP, Client
 from fastmcp.client.transports import StreamableHttpTransport
 from fastmcp.exceptions import ToolError
 from fastmcp.utilities.tests import run_server_async
+import yaml
 
 from pyserini.search.faiss import DenseSearchResult
 
 
-def _make_mcp_server():
+def _make_mcp_server(config_path: str | None = None):
     """Build the same MCP server as mcpyserini (FastMCP + tools + controller)."""
     from pyserini.server.backend import get_backend
-    from pyserini.server.mcp.tools import register_tools
-    mcp = FastMCP('mcpyserini')
-    register_tools(mcp, get_backend())
-    return mcp
+    from pyserini.server.mcp.mcpyserini import create_mcp_server
+    return create_mcp_server(get_backend(config_path), config_path)
 
 
 class TestMCPyseriniServer(unittest.TestCase):
@@ -73,14 +73,14 @@ class TestMCPyseriniServer(unittest.TestCase):
         self.assertGreaterEqual(len(texts), 1, 'Expected at least one text content part')
         return json.loads(texts[0])
 
-    async def _call_tool(self, name, arguments):
+    async def _call_tool(self, name, arguments, *, headers=None, config_path: str | None = None):
         # Create server inside this event loop so server._started is bound to it
-        mcp = _make_mcp_server()
+        mcp = _make_mcp_server(config_path=config_path)
         async with run_server_async(
             mcp,
             transport='streamable-http',
         ) as url:
-            async with Client(StreamableHttpTransport(url)) as client:
+            async with Client(StreamableHttpTransport(url, headers=headers)) as client:
                 return await client.call_tool(name, arguments)
 
     def test_search_tool(self):
@@ -205,6 +205,49 @@ class TestMCPyseriniServer(unittest.TestCase):
         with self.assertRaises(ToolError) as ctx:
             self._run_async(call_invalid())
         self.assertIn('no qrels file', str(ctx.exception))
+
+    def test_auth_enabled_rejects_requests_without_token(self):
+        cfg = {'api_keys': ['mcp-auth-test-token']}
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            yaml.safe_dump(cfg, f, default_flow_style=False)
+            path = f.name
+        try:
+            with self.assertRaises(Exception) as ctx:
+                self._run_async(
+                    self._call_tool(
+                        'list_indexes',
+                        {'index_type': 'tf'},
+                        config_path=path,
+                    )
+                )
+            self.assertTrue(
+                '401' in str(ctx.exception) or 'auth' in str(ctx.exception).lower(),
+                msg=str(ctx.exception),
+            )
+        finally:
+            os.unlink(path)
+
+    def test_auth_enabled_accepts_valid_bearer_token(self):
+        token = 'mcp-auth-test-token-ok'
+        cfg = {'api_keys': [token]}
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            yaml.safe_dump(cfg, f, default_flow_style=False)
+            path = f.name
+        try:
+            result = self._run_async(
+                self._call_tool(
+                    'list_indexes',
+                    {'index_type': 'tf'},
+                    headers={'Authorization': f'Bearer {token}'},
+                    config_path=path,
+                )
+            )
+            self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
+            payload = self._single_json_content(result)
+            self.assertIsInstance(payload, list)
+            self.assertIn('msmarco-v1-passage', payload)
+        finally:
+            os.unlink(path)
 
 if __name__ == '__main__':
     unittest.main()

@@ -2,7 +2,7 @@
 
 The Pyserini MCP server exposes search, document retrieval, and evaluation helpers through the [Model Context Protocol](https://modelcontextprotocol.io/), so AI assistants and other MCP clients can use Pyserini’s indexes (sparse, dense, impact, FAISS, etc.).
 
-The server uses the same `SharedSearchBackend` (`pyserini/server/backend.py`) as the REST API: index names, prebuilt indexes, and optional **`--config`** YAML aliases behave the same way.
+The server uses the same `SharedSearchBackend` (`pyserini/server/backend.py`) as the REST API: index names, prebuilt indexes, optional **`--config`** YAML aliases, and optional `api_keys` behave the same way.
 
 This guide uses Claude Desktop and Cursor as examples; other MCP clients work too.
 
@@ -29,7 +29,7 @@ Default transport is **stdio** (no HTTP port). Optional arguments:
 |----------|-------------|
 | `--transport` | `stdio` (default) or `http` for remote/streamable access |
 | `--port PORT` | HTTP port when using `--transport http` (default: 8000) |
-| `--config PATH` | YAML server config with index mappings |
+| `--config PATH` | YAML server config with index mappings and optional `api_keys` |
 
 Example with a Java path and index aliases:
 
@@ -82,6 +82,40 @@ For **Cursor**, add something like this to your MCP config (e.g. under `.cursor`
 ```
 
 Adjust host/port if you use a different bind address or forwarded port.
+
+### Optional Token Auth (HTTP transport)
+
+Use `--config` to provide a YAML server config with index mappings and optional API keys:
+
+```yaml
+indexes:
+  msmarco:
+    path: /path/to/local/index
+    index_type: tf
+api_keys:
+  - {api-key}
+  - {api-key-2}
+```
+
+When `api_keys` is configured, the MCP HTTP endpoint requires authentication for MCP calls (tool listing and execution).  
+Client auth uses `Authorization: Bearer {api-key}`.
+
+For Cursor MCP client config:
+
+```json
+{
+  "mcpServers": {
+    "mcpyserini": {
+      "url": "http://127.0.0.1:8000/mcp",
+      "headers": {
+        "Authorization": "Bearer {api-key}"
+      }
+    }
+  }
+}
+```
+
+Note: token auth applies only to HTTP transport. In `stdio` mode there is no bearer-token transport layer, so auth checks are not enforced.
 
 See [Cursor MCP documentation](https://docs.cursor.com/context/model-context-protocol).
 
