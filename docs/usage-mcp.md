@@ -6,6 +6,19 @@ The server uses the same `SharedSearchBackend` (`pyserini/server/backend.py`) as
 
 This guide uses Claude Desktop and Cursor as examples; other MCP clients work too.
 
+## Run REST + MCP together
+
+You can launch both servers in one process with a shared backend:
+
+```bash
+python -m pyserini.server --host 0.0.0.0 --port 8081 --mcp-path /mcp
+```
+
+In this mode:
+- REST stays on `/v1/*`, `/docs`, and `/openapi.yaml`
+- MCP is mounted at `/mcp` on the same host/port
+- both surfaces share one `SharedSearchBackend` instance
+
 ## Server options and config
 
 Default transport is **http** on port `8000`.

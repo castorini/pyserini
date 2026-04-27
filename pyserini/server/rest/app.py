@@ -106,6 +106,7 @@ def create_app(
     config_path: str | None = None,
     *,
     no_prebuilt_indexes: bool = False,
+    shared_backend: SharedSearchBackend | None = None,
 ) -> FastAPI:
     if no_prebuilt_indexes and not config_path:
         raise ValueError('--no-prebuilt-indexes requires a config file path')
@@ -129,9 +130,11 @@ def create_app(
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
-        app.state.search_backend = SharedSearchBackend(config_path, no_prebuilt_indexes=no_prebuilt_indexes)
+        backend = shared_backend or SharedSearchBackend(config_path, no_prebuilt_indexes=no_prebuilt_indexes)
+        app.state.search_backend = backend
         yield
-        app.state.search_backend.close_all()
+        if shared_backend is None:
+            app.state.search_backend.close_all()
 
     app = FastAPI(
         title=SERVER_NAME,

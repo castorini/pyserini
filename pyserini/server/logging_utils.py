@@ -34,7 +34,7 @@ def build_uvicorn_log_config(
     server_log_file: str | None,
     auth_log_file: str | None,
     *,
-    auth_logger_name: str,
+    auth_logger_name: str | list[str],
 ) -> dict[str, object]:
     from uvicorn.config import LOGGING_CONFIG
 
@@ -82,9 +82,11 @@ def build_uvicorn_log_config(
         }
         auth_handlers = ['auth_console']
 
-    loggers[auth_logger_name] = {
-        'handlers': auth_handlers,
-        'level': 'INFO',
-        'propagate': False,
-    }
+    names = [auth_logger_name] if isinstance(auth_logger_name, str) else auth_logger_name
+    for name in names:
+        loggers[name] = {
+            'handlers': auth_handlers,
+            'level': 'INFO',
+            'propagate': False,
+        }
     return config
