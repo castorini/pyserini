@@ -86,7 +86,7 @@ class TestDpr(unittest.TestCase):
         self.assertAlmostEqual(score, 0.8260, places=4)
 
     def test_dpr_nq_test_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('dpr_multi-nq-test')
+        encoder = QueryEncoder.load_cached_queries('dpr_multi-nq-test')
         topics = get_topics('dpr-nq-test')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoder.embedding)
@@ -138,7 +138,7 @@ class TestDpr(unittest.TestCase):
         self.assertAlmostEqual(score, 0.8264, places=4)
 
     def test_dpr_trivia_test_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('dpr_multi-trivia-test')
+        encoder = QueryEncoder.load_cached_queries('dpr_multi-trivia-test')
         topics = get_topics('dpr-trivia-test')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoder.embedding)
@@ -190,7 +190,7 @@ class TestDpr(unittest.TestCase):
         self.assertAlmostEqual(score, 0.7712, places=4)
 
     def test_dpr_wq_test_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('dpr_multi-wq-test')
+        encoder = QueryEncoder.load_cached_queries('dpr_multi-wq-test')
         topics = get_topics('dpr-wq-test')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoder.embedding)
@@ -244,7 +244,7 @@ class TestDpr(unittest.TestCase):
         self.assertAlmostEqual(score, 0.9006, places=4)
 
     def test_dpr_curated_test_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('dpr_multi-curated-test')
+        encoder = QueryEncoder.load_cached_queries('dpr_multi-curated-test')
         topics = get_topics('dpr-curated-test')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoder.embedding)
@@ -299,7 +299,7 @@ class TestDpr(unittest.TestCase):
         self.assertAlmostEqual(score, 0.7514, places=3)
 
     def test_dpr_squad_test_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('dpr_multi-squad-test')
+        encoder = QueryEncoder.load_cached_queries('dpr_multi-squad-test')
         topics = get_topics('dpr-squad-test')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoder.embedding)

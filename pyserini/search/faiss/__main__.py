@@ -340,12 +340,12 @@ def init_query_encoder(
                 return QueryEncoder(encoded_queries)
         else:
             if "bpr" in encoded_queries:
-                return BprQueryEncoder.load_encoded_queries(encoded_queries)
+                return BprQueryEncoder.load_cached_queries(encoded_queries)
             else:
-                return QueryEncoder.load_encoded_queries(encoded_queries)
+                return QueryEncoder.load_cached_queries(encoded_queries)
 
     if topics_name in encoded_queries_map:
-        return QueryEncoder.load_encoded_queries(encoded_queries_map[topics_name])
+        return QueryEncoder.load_cached_queries(encoded_queries_map[topics_name])
 
     raise ValueError(f"No encoded queries for topic {topics_name}")
 

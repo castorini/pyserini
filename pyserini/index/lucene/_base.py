@@ -195,7 +195,7 @@ class LuceneIndexReader:
         self.reader = self.object.getReader(index_dir)
 
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str, verbose=False):
+    def from_prebuilt_index(cls, prebuilt_index_name: str, verbose=True):
         """Build an index reader from a prebuilt index; download the index if necessary.
 
         Parameters
@@ -211,7 +211,7 @@ class LuceneIndexReader:
             Index reader built from the prebuilt index.
         """
         if verbose:
-            print(f'Attempting to initialize prebuilt index {prebuilt_index_name}.')
+            print(f'Attempting to initialize prebuilt index: {prebuilt_index_name}')
 
         try:
             index_dir = download_prebuilt_index(prebuilt_index_name, verbose=verbose)
@@ -256,7 +256,7 @@ class LuceneIndexReader:
             tokens.append(token)
         return tokens
 
-    def validate(self, prebuilt_index_name: str, verbose=False):
+    def validate(self, prebuilt_index_name: str, verbose=True):
         """Validate this index against stored stats for a prebuilt index."""
         stats = self.stats()
 
@@ -280,7 +280,7 @@ class LuceneIndexReader:
 
         if verbose:
             print(stats)
-            print(f'Index passes consistency checks against prebuilt index \'{prebuilt_index_name}\'!')
+            print(f'Prebuilt index \'{prebuilt_index_name}\' passes consistency checks.')
 
         return True
 

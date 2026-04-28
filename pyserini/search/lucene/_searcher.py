@@ -62,7 +62,7 @@ class LuceneSearcher:
         self.rocchio = None
 
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str, verbose=False):
+    def from_prebuilt_index(cls, prebuilt_index_name: str, verbose=True):
         """Build a searcher from a prebuilt index; download the index if necessary.
 
         Parameters
@@ -78,7 +78,7 @@ class LuceneSearcher:
             Searcher initialized from the prebuilt index.
         """
         if verbose:
-            print(f'Attempting to initialize prebuilt index {prebuilt_index_name}.')
+            print(f'Attempting to initialize prebuilt index: {prebuilt_index_name}')
 
         try:
             index_dir = download_prebuilt_index(prebuilt_index_name, verbose=verbose)
@@ -90,7 +90,8 @@ class LuceneSearcher:
         # to obtain the underlying reader of a SimpleSearcher; see https://github.com/castorini/anserini/issues/2013
         index_reader = LuceneIndexReader(index_dir)
         # This is janky as we're created a separate LuceneIndexReader for the sole purpose of validating index stats.
-        index_reader.validate(prebuilt_index_name, verbose=verbose)
+        index_reader.validate(prebuilt_index_name, verbose=False)
+        # Explicitly set verbose to False above
 
         if verbose:
             print(f'Initializing {prebuilt_index_name}...')

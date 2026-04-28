@@ -83,9 +83,9 @@ class TestFusion(unittest.TestCase):
 
         # Initialize searchers and encoder at class level (shared across all tests)
         cls.encoder = AutoQueryEncoder('BAAI/bge-base-en-v1.5', pooling='cls', l2_norm=True, prefix='Represent this sentence for searching relevant passages:')
-        cls.bm25_searcher = LuceneSearcher.from_prebuilt_index('beir-v1.0.0-arguana.flat')
-        cls.lucene_dense_searcher = LuceneFlatDenseSearcher.from_prebuilt_index('beir-v1.0.0-arguana.bge-base-en-v1.5.flat', encoder='BgeBaseEn15')
-        cls.faiss_dense_searcher_normalized = FaissSearcher.from_prebuilt_index('beir-v1.0.0-arguana.bge-base-en-v1.5', cls.encoder, True)
+        cls.bm25_searcher = LuceneSearcher.from_prebuilt_index('beir-v1.0.0-arguana.flat', verbose=False)
+        cls.lucene_dense_searcher = LuceneFlatDenseSearcher.from_prebuilt_index('beir-v1.0.0-arguana.bge-base-en-v1.5.flat', encoder='BgeBaseEn15', verbose=False)
+        cls.faiss_dense_searcher_normalized = FaissSearcher.from_prebuilt_index('beir-v1.0.0-arguana.bge-base-en-v1.5', query_encoder=cls.encoder, normalize_distances=True, verbose=False)
         cls.qids = ['test-culture-ahrtsdlgra-con01a', 'test-culture-ahrtsdlgra-con02a']
         cls.long_qids = ['test-sport-tshbmlbscac-con01a']
         

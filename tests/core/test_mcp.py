@@ -80,8 +80,12 @@ class TestMCPyseriniServer(unittest.TestCase):
             mcp,
             transport='streamable-http',
         ) as url:
-            async with Client(StreamableHttpTransport(url)) as client:
+            client = Client(StreamableHttpTransport(url))
+            await client.__aenter__()
+            try:
                 return await client.call_tool(name, arguments)
+            finally:
+                await client.close()
 
     def test_search_tool(self):
         result = self._run_async(self._call_tool('search', {

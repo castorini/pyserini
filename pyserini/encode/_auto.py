@@ -92,7 +92,7 @@ class AutoQueryEncoder(QueryEncoder):
             self.pooling = pooling
             self.l2_norm = l2_norm
             self.prefix = prefix
-        if (not self.has_model) and (not self.has_encoded_query):
+        if (not self.has_model) and (not self.has_encoded_queries):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
     def encode(self, query: str, max_length: int = None):

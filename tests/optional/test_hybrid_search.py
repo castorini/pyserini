@@ -30,9 +30,9 @@ class TestHybridSearch(unittest.TestCase):
         cls.d_searcher_name = 'facebook/contriever-msmarco'
         cls.d_index_name = 'beir-v1.0.0-arguana.contriever-msmarco'
         
-        cls.s_searcher = LuceneSearcher.from_prebuilt_index(f'{cls.s_index_name}')
+        cls.s_searcher = LuceneSearcher.from_prebuilt_index(cls.s_index_name, verbose=False)
         cls.d_encoder = AutoQueryEncoder(cls.d_searcher_name, pooling='mean', l2_norm=False)
-        cls.d_searcher = FaissSearcher.from_prebuilt_index(f'{cls.d_index_name}', cls.d_encoder)
+        cls.d_searcher = FaissSearcher.from_prebuilt_index(cls.d_index_name, cls.d_encoder, verbose=False)
         cls.searcher = HybridSearcher(cls.d_searcher, cls.s_searcher)
 
     def test_hybrid_searcher(self):

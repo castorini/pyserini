@@ -50,7 +50,7 @@ class TestEncodeDpr(unittest.TestCase):
         self.assertAlmostEqual(vectors[2][-1], 0.1516793, places=4)
 
     def test_dpr_encoded_queries(self):
-        encoded = DprQueryEncoder.load_encoded_queries('dpr_multi-nq-test')
+        encoded = DprQueryEncoder.load_cached_queries('dpr_multi-nq-test', verbose=False)
         topics = get_topics('dpr-nq-test')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoded.embedding)
@@ -58,7 +58,7 @@ class TestEncodeDpr(unittest.TestCase):
     def test_dpr_query_encoder(self):
         encoder = DprQueryEncoder('facebook/dpr-question_encoder-multiset-base')
 
-        cached_encoder = DprQueryEncoder.load_encoded_queries('dpr_multi-nq-test')
+        cached_encoder = DprQueryEncoder.load_cached_queries('dpr_multi-nq-test', verbose=False)
         topics = get_topics('dpr-nq-test')
         # Just test the first 10 topics
         for t in dict(islice(topics.items(), 10)):

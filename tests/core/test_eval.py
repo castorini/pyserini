@@ -29,12 +29,8 @@ class TestTrecEval(unittest.TestCase):
         else:
             self.root = "."
 
-        self.qrels_path = os.path.join(
-            self.root, "tools/topics-and-qrels/qrels.covid-round1.txt"
-        )
-        self.run_path = os.path.join(
-            self.root, "tests/resources/simple_trec_run_filter.txt"
-        )
+        self.qrels_path = os.path.join(self.root, "tools/topics-and-qrels/qrels.covid-round1.txt")
+        self.run_path = os.path.join(self.root, "tests/resources/simple_trec_run_filter.txt")
 
     def test_aggeregated_scores(self):
         args = [
@@ -44,7 +40,7 @@ class TestTrecEval(unittest.TestCase):
             self.qrels_path,
             self.run_path,
         ]
-        self.assertEqual(trec_eval(args), 0.055)
+        self.assertEqual(trec_eval(args, verbose=False), 0.055)
 
     def test_single_query_score(self):
         args = [
@@ -55,7 +51,7 @@ class TestTrecEval(unittest.TestCase):
             self.qrels_path,
             self.run_path,
         ]
-        self.assertEqual(trec_eval(args, query_id="1"), 0.2201)
+        self.assertEqual(trec_eval(args, query_id="1", verbose=False), 0.2201)
 
     def test_per_query_unaggeregated_scores(self):
         args = [
@@ -67,7 +63,7 @@ class TestTrecEval(unittest.TestCase):
             self.run_path,
         ]
         expected = {"1": 0.2201, "2": 0.0, "3": 0.0, "4": 0.0, "all": 0.055}
-        self.assertDictEqual(trec_eval(args, return_per_query_results=True), expected)
+        self.assertDictEqual(trec_eval(args, return_per_query_results=True, verbose=False), expected)
 
     def test_judged_at_k_scores(self):
         args = [
@@ -78,7 +74,7 @@ class TestTrecEval(unittest.TestCase):
             self.qrels_path,
             self.run_path,
         ]
-        self.assertEqual(trec_eval(args), 0.5)
+        self.assertEqual(trec_eval(args, verbose=False), 0.5)
 
     def test_jar_directory_exists(self):
         import importlib.resources

@@ -58,7 +58,7 @@ class TestJsonlCollectionIterator(unittest.TestCase):
             ('bf003bb2d52304fea114d824bc0bf7bfbc7c3106', 'Dissecting social engineering', ''),
             ('50bc77f3ec070940b1923b823503a4c2b09e9921', 'PHANTOM: A Scalable BlockDAG Protocol', ''),
         ]
-        collection_iterator = JsonlCollectionIterator(corpus_path, ['title', 'text'], delimiter='\n')
+        collection_iterator = JsonlCollectionIterator(corpus_path, ['title', 'text'], delimiter='\n', quiet=True)
         for i, info in enumerate(collection_iterator):
             expected_info = all_expected_info[i]
 
@@ -76,7 +76,7 @@ class TestJsonlCollectionIterator(unittest.TestCase):
             ('CACM-0981',
              'Rounding Problems in Commercial Data Processing A common requirement in commercial data processing is that the sum of a set of numbers, rounded in a generally understood manner, be equal to the sum of the numbers rounded individually. Four rounding procedures are described to accomplish this. The particular procedure that is appropriate depends upon whether the numbers being accumulated can vary in sign, whether their sum can vary in sign, and whether the last number being summed can be recognized as such prior to its rounding. CACM November, 1964 Kelley, T. B. CA641102 JB March 9, 1978 4:25 PM 981 5 981 981 5 981 981 5 981'),
         ]
-        collection_iterator = JsonlCollectionIterator(corpus_path, ['text'], delimiter='\n')
+        collection_iterator = JsonlCollectionIterator(corpus_path, ['text'], delimiter='\n', quiet=True)
         for i, info in enumerate(collection_iterator):
             expected_info = all_expected_info[i]
 
@@ -109,7 +109,7 @@ class TestJsonlCollectionIterator(unittest.TestCase):
              'วิกิพีเดียดำเนินการโดยมูลนิธิวิกิมีเดีย องค์กรไม่แสวงผลกำไร ผู้ดำเนินการอีกหลาย ได้แก่'),
         ]
         delimiter = '\n\n'
-        collection_iterator = JsonlCollectionIterator(corpus_path, ['title', 'text'], delimiter=delimiter)
+        collection_iterator = JsonlCollectionIterator(corpus_path, ['title', 'text'], delimiter=delimiter, quiet=True)
         for i, info in enumerate(collection_iterator):
             expected_info = all_expected_info[i]
 
@@ -129,7 +129,7 @@ class TestJsonlCollectionIterator(unittest.TestCase):
         ]
 
         # Note that here we *don't* specify a delimiter.
-        collection_iterator = JsonlCollectionIterator(corpus_path, ['text'])
+        collection_iterator = JsonlCollectionIterator(corpus_path, ['text'], quiet=True)
         for i, info in enumerate(collection_iterator):
             expected_info = all_expected_info[i]
 
@@ -162,7 +162,7 @@ class TestJsonlCollectionIterator(unittest.TestCase):
              'วิกิพีเดียดำเนินการโดยมูลนิธิวิกิมีเดีย องค์กรไม่แสวงผลกำไร ผู้ดำเนินการอีกหลาย ได้แก่'),
         ]
         # Note that here we *don't* specify a delimiter.
-        collection_iterator = JsonlCollectionIterator(corpus_path, ['title', 'text'])
+        collection_iterator = JsonlCollectionIterator(corpus_path, ['title', 'text'], quiet=True)
         for i, info in enumerate(collection_iterator):
             expected_info = all_expected_info[i]
 
@@ -177,7 +177,7 @@ class TestJsonlCollectionIterator(unittest.TestCase):
             (None, 'text', '8:2', "test"),
             ('train-10958-1-img1.jpg', 'image,text', '8:3', "test"),
         ]
-        collection_iterator = JsonlCollectionIterator(corpus_path, ['img_path', 'modality', 'did', 'txt'], docid_field='did')
+        collection_iterator = JsonlCollectionIterator(corpus_path, ['img_path', 'modality', 'did', 'txt'], docid_field='did', quiet=True)
         for i, info in enumerate(collection_iterator):
             expected_info = all_expected_info[i]
 

@@ -75,13 +75,14 @@ class QueryIterator(ABC):
         return len(self.topics.keys())
 
     @staticmethod
-    def get_predefined_order(topics_path: str):
+    def get_predefined_order(topics_path: str, verbose=False):
         order = None
         normalized_path = Path(topics_path).stem  # get filename w/o extension
         normalized_path = normalized_path.replace('_', '-')
 
         if normalized_path in QueryIterator.PREDEFINED_ORDER:
-            print(f'Using pre-defined topic order for {normalized_path}')
+            if verbose:
+                print(f'Using pre-defined topic order for {normalized_path}')
             # Lazy import:
             from pyserini.query_iterator_order_info import QUERY_IDS
 

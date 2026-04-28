@@ -22,35 +22,35 @@ from pyserini.encode import QueryEncoder
 class TestLoadCachedQueries(unittest.TestCase):
 
     def test_msmarco_v1_and_dl(self):
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('openai-ada2-msmarco-passage-dev-subset'))
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('openai-ada2-dl19-passage'))
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('openai-ada2-dl20'))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('openai-ada2-msmarco-passage-dev-subset', verbose=False))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('openai-ada2-dl19-passage', verbose=False))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('openai-ada2-dl20', verbose=False))
 
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('msmarco-v1-passage.dev.openai-ada2'))
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('dl19-passage.openai-ada2'))
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('dl20-passage.openai-ada2'))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('msmarco-v1-passage.dev.openai-ada2', verbose=False))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('dl19-passage.openai-ada2', verbose=False))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('dl20-passage.openai-ada2', verbose=False))
 
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('openai-ada2-dl19-passage-hyde'))
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('openai-ada2-dl20-hyde'))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('openai-ada2-dl19-passage-hyde', verbose=False))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('openai-ada2-dl20-hyde', verbose=False))
 
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('dl19-passage.openai-ada2-hyde'))
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('dl20-passage.openai-ada2-hyde'))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('dl19-passage.openai-ada2-hyde', verbose=False))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('dl20-passage.openai-ada2-hyde', verbose=False))
 
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('openai-text-embedding-3-large-msmarco-passage-dev-subset'))
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('openai-text-embedding-3-large-dl19-passage'))
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('openai-text-embedding-3-large-dl20'))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('openai-text-embedding-3-large-msmarco-passage-dev-subset', verbose=False))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('openai-text-embedding-3-large-dl19-passage', verbose=False))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('openai-text-embedding-3-large-dl20', verbose=False))
 
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('msmarco-v1-passage.dev.openai-text-embedding-3-large'))
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('dl19-passage.openai-text-embedding-3-large'))
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('dl20-passage.openai-text-embedding-3-large'))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('msmarco-v1-passage.dev.openai-text-embedding-3-large', verbose=False))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('dl19-passage.openai-text-embedding-3-large', verbose=False))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('dl20-passage.openai-text-embedding-3-large', verbose=False))
 
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('cohere-embed-english-v3.0-msmarco-passage-dev-subset'))
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('cohere-embed-english-v3.0-dl19-passage'))
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('cohere-embed-english-v3.0-dl20'))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('cohere-embed-english-v3.0-msmarco-passage-dev-subset', verbose=False))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('cohere-embed-english-v3.0-dl19-passage', verbose=False))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('cohere-embed-english-v3.0-dl20', verbose=False))
 
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('msmarco-v1-passage.dev.cohere-embed-english-v3.0'))
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('dl19-passage.cohere-embed-english-v3.0'))
-        self.assertIsNotNone(QueryEncoder.load_encoded_queries('dl20-passage.cohere-embed-english-v3.0'))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('msmarco-v1-passage.dev.cohere-embed-english-v3.0', verbose=False))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('dl19-passage.cohere-embed-english-v3.0', verbose=False))
+        self.assertIsNotNone(QueryEncoder.load_cached_queries('dl20-passage.cohere-embed-english-v3.0', verbose=False))
 
 
 if __name__ == '__main__':

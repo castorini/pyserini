@@ -48,25 +48,25 @@ class TestEncodeTctColBert(unittest.TestCase):
         self.assertAlmostEqual(vectors[2][-1], 0.05549275, places=4)
 
     def test_msmarco_doc_tct_colbert_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('tct_colbert-msmarco-doc-dev')
+        encoded = QueryEncoder.load_cached_queries('tct_colbert-msmarco-doc-dev', verbose=False)
         topics = get_topics('msmarco-doc-dev')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoded.embedding)
 
     def test_msmarco_passage_tct_colbert_v2_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('tct_colbert-v2-msmarco-passage-dev-subset')
+        encoded = QueryEncoder.load_cached_queries('tct_colbert-v2-msmarco-passage-dev-subset', verbose=False)
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoded.embedding)
 
     def test_msmarco_passage_tct_colbert_v2_hn_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('tct_colbert-v2-hn-msmarco-passage-dev-subset')
+        encoded = QueryEncoder.load_cached_queries('tct_colbert-v2-hn-msmarco-passage-dev-subset', verbose=False)
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoded.embedding)
 
     def test_msmarco_passage_tct_colbert_v2_hnp_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('tct_colbert-v2-hnp-msmarco-passage-dev-subset')
+        encoded = QueryEncoder.load_cached_queries('tct_colbert-v2-hnp-msmarco-passage-dev-subset', verbose=False)
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
             self.assertTrue(topics[t]['title'] in encoded.embedding)

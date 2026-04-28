@@ -63,7 +63,7 @@ class ArcticQueryEncoder(QueryEncoder):
             self.has_model = True
             self.normalize = normalize
 
-        if (not self.has_model) and (not self.has_encoded_query):
+        if (not self.has_model) and (not self.has_encoded_queries):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one.')
 
     def encode(self, query: str):
