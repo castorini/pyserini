@@ -176,7 +176,7 @@ class LuceneSearcher:
             top_docids = [hit.docid for hit in top_hits]
 
             # Bottom-N docs (optional)
-            bottom_hits = hits[-self.rocchio.bottom_fb_docs:]
+            bottom_hits = [] if self.rocchio.bottom_fb_docs == 0 else hits[-self.rocchio.bottom_fb_docs:]
             bottom_docids = [hit.docid for hit in bottom_hits]
 
             # Extract feedback vectors
@@ -350,7 +350,7 @@ class LuceneSearcher:
 
                 # Positive (top) and negative (bottom) feedback docs
                 top_hits = hits[:self.rocchio.top_fb_docs]
-                bottom_hits = hits[-self.rocchio.bottom_fb_docs:]
+                bottom_hits = [] if self.rocchio.bottom_fb_docs == 0 else hits[-self.rocchio.bottom_fb_docs:]
 
                 top_docids = [hit.docid for hit in top_hits]
                 bottom_docids = [hit.docid for hit in bottom_hits]
