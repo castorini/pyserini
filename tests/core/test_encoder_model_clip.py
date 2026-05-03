@@ -17,8 +17,10 @@
 import json
 import os
 import unittest
+import numpy as np
 
 from pyserini.encode import ClipDocumentEncoder
+from pyserini.encode._clip import ClipTextEncoder
 
 
 class TestEncodeClip(unittest.TestCase):
@@ -44,6 +46,11 @@ class TestEncodeClip(unittest.TestCase):
         self.assertAlmostEqual(vectors[0][-1], -0.21501173, places=4)
         self.assertAlmostEqual(vectors[2][0], 0.06461975, places=4)
         self.assertAlmostEqual(vectors[2][-1], 0.35396004, places=4)
+
+    def test_clip_text_encoder_returns_embeddings(self):
+        encoder = ClipTextEncoder('openai/clip-vit-base-patch32', device='cpu')
+        embeddings = encoder.encode(['test query'])
+        self.assertEqual(embeddings.shape[1], 512)
 
 
 if __name__ == '__main__':
