@@ -134,3 +134,4 @@ Note that in this case, the results should be deterministic.
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-10-05 (commit [`58d286c`](https://github.com/castorini/pyserini/commit/58d286c3f9fe845e261c271f2a0f514462844d97))
 + Results reproduced by [@MXueguang](https://github.com/MXueguang) on 2021-10-07 (commit [`5d05426`](https://github.com/castorini/pyserini/commit/5d05426e1b40c513c6fa739a236b9c025b1a62fd))
 + Results reproduced by [@prasys](https://github.com/prasys) on 2021-02-14 (commit [`3732c8e`](https://github.com/castorini/pyserini/commit/3732c8e3f1b72113a3961444b1ac37878afcbb64))
++ Results reproduced by [@zatchbell1311-wq](https://github.com/zatchbell1311-wq) on 2026-04-20 (commit [`b823fb0`](https://github.com/castorini/pyserini/commit/b823fb0af8c48e5a5163949dd499271336fe8f63))
