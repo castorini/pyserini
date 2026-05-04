@@ -18,10 +18,10 @@ Install Pyserini in a uv-managed Python environment, verify Java/Python prerequi
 
 2. Verify tools and prerequisites:
    ```bash
-   uv --version || python -m uv --version
+   uv --version
    java -version
    ```
-   If `uv` is not installed, ask for approval before installing it. If the user does not want uv installed, use the pip fallback below. Prefer `python -m uv` when uv is installed into a user site but the `uv` binary is not on `PATH`. Pyserini depends on Anserini/Lucene and currently expects Java 21.
+   If the `uv` binary is not on `PATH`, check `python -c "import uv"` before trying `python -m uv --version`. If `uv` is not installed, ask for approval before installing it. If the user does not want uv installed, use the pip fallback below. Prefer the `uv` binary when it is available; use `python -m uv` only after confirming the `uv` Python module is importable and the binary is not on `PATH`. Pyserini depends on Anserini/Lucene and currently expects Java 21.
 
 3. Check current PyPI metadata before choosing versions:
    ```bash
@@ -35,13 +35,13 @@ Install Pyserini in a uv-managed Python environment, verify Java/Python prerequi
    ```
    For sandboxed or workspace-local installs, keep uv state under the workspace:
    ```bash
-   python -m uv python install 3.12 --install-dir .uv-python --cache-dir .uv-cache
-   python -m uv venv .venv --python 3.12 --cache-dir .uv-cache
+   uv python install 3.12 --install-dir .uv-python --cache-dir .uv-cache
+   uv venv .venv --python 3.12 --cache-dir .uv-cache
    ```
    If `uv venv --python 3.12` cannot discover the workspace-local interpreter, find it and pass the explicit path:
    ```bash
    find .uv-python -name 'python3.12' -print
-   python -m uv venv .venv --python PATH_FROM_FIND --cache-dir .uv-cache
+   uv venv .venv --python PATH_FROM_FIND --cache-dir .uv-cache
    ```
 
 5. Install Pyserini:
@@ -51,11 +51,11 @@ Install Pyserini in a uv-managed Python environment, verify Java/Python prerequi
      ```
    - Existing environment without project metadata, or workspace-local `.venv`:
      ```bash
-     python -m uv pip install pyserini --python .venv --cache-dir .uv-cache
+     uv pip install pyserini --python .venv --cache-dir .uv-cache
      ```
    - If the user asked for reproducibility or a specific version, pin the verified version explicitly:
      ```bash
-     python -m uv pip install pyserini==VERSION --python .venv --cache-dir .uv-cache
+     uv pip install pyserini==VERSION --python .venv --cache-dir .uv-cache
      ```
    - Optional dependencies when requested:
      ```bash
@@ -63,13 +63,13 @@ Install Pyserini in a uv-managed Python environment, verify Java/Python prerequi
      ```
      or:
      ```bash
-     python -m uv pip install "pyserini[optional]" --python .venv --cache-dir .uv-cache
+     uv pip install "pyserini[optional]" --python .venv --cache-dir .uv-cache
      ```
 
 6. Run smoke tests:
    ```bash
-   python -m uv run --no-project --python .venv/bin/python --cache-dir .uv-cache python -c "import sys, importlib.metadata as m; import pyserini; print(sys.version.split()[0]); print(m.version('pyserini')); print('pyserini import ok')"
-   python -m uv run --no-project --python .venv/bin/python --cache-dir .uv-cache python -c "from pyserini.search.lucene import LuceneSearcher; print('LuceneSearcher import ok')"
+   uv run --no-project --python .venv/bin/python --cache-dir .uv-cache python -c "import sys, importlib.metadata as m; import pyserini; print(sys.version.split()[0]); print(m.version('pyserini')); print('pyserini import ok')"
+   uv run --no-project --python .venv/bin/python --cache-dir .uv-cache python -c "from pyserini.search.lucene import LuceneSearcher; print('LuceneSearcher import ok')"
    ```
    The Lucene import may take tens of seconds while the JVM starts. Warnings about `jdk.incubator.vector` or invalid escape sequences in Pyserini internals are not install failures if the command exits successfully.
 
@@ -96,7 +96,7 @@ Use `uv add` when the install should become part of a project and update `pyproj
 
 Use `uv pip install` when the user only wants to populate the active `.venv` or avoid changing project files.
 
-Use `python -m uv` when `uv` was installed into a user site but its script directory is not on `PATH`.
+Use `python -m uv` only when `uv` was installed into a user site, its script directory is not on `PATH`, and `python -c "import uv"` succeeds.
 
 Use `--cache-dir .uv-cache` when the default uv cache under the user's home directory is not writable or when the user wants workspace-local state.
 
@@ -111,7 +111,7 @@ Do not require Conda or Mamba for the default install. Mention Conda/Mamba only 
 - If Java is missing or too old, install a compatible JDK before retrying Pyserini.
 - If dependency resolution fails, check Pyserini's current PyPI metadata and extras names before pinning anything.
 - If `uv` fails with `Failed to initialize cache` under `~/.cache/uv`, rerun the command with `--cache-dir .uv-cache`.
-- If `uv` is installed but `command -v uv` returns nothing, use `python -m uv` or add the user script directory, often `~/.local/bin`, to `PATH`.
+- If `uv` is installed but `command -v uv` returns nothing, either add the user script directory, often `~/.local/bin`, to `PATH`, or use `python -m uv` only after `python -c "import uv"` succeeds.
 - If optional dependencies fail, try core `pyserini` first, then install `faiss-cpu` or other optional packages separately only if the requested workflow needs them.
 - If the environment already contains conflicting packages, create a fresh uv virtualenv and reinstall rather than mutating a broken environment in place.
 - If `uv add pyserini` or `uv pip install pyserini` pulls a large dependency set, including PyTorch, Transformers, ONNX Runtime, and PyArrow, that is expected for recent Pyserini releases.
