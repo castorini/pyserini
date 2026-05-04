@@ -1,0 +1,4 @@
+interface:
+  display_name: "Install Pyserini for dev"
+  short_description: "Clone Pyserini and install it editable"
+  default_prompt: "Use $install-pyserini-dev to clone Pyserini and install it with pip install -e ."
