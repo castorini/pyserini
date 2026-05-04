@@ -58,6 +58,48 @@ class BaseClipEncoder:
     def normalize_embeddings(self, embeddings):
         """Apply L2 normalization to embeddings if required."""
         return normalize(embeddings, axis=1, norm='l2') if self.l2_norm else embeddings
+    
+    def _unwrap_features(self, features, projection_attr: str):
+        if isinstance(features, torch.Tensor):
+            return features
+
+        projection = getattr(self.model, projection_attr)
+
+        if hasattr(features, 'image_embeds') and features.image_embeds is not None:
+            return features.image_embeds
+
+        if hasattr(features, 'text_embeds') and features.text_embeds is not None:
+            return features.text_embeds
+
+        if hasattr(features, 'pooler_output'):
+            pooled = features.pooler_output
+            if pooled.shape[-1] == projection.out_features:
+                return pooled
+            if pooled.shape[-1] == projection.in_features:
+                return projection(pooled)
+            raise ValueError(
+                f'Unexpected pooled CLIP feature shape {pooled.shape[-1]} for projection '
+                f'{projection_attr} ({projection.in_features}->{projection.out_features})'
+            )
+
+        if isinstance(features, tuple):
+            pooled = features[1]
+            if pooled.shape[-1] == projection.out_features:
+                return pooled
+            if pooled.shape[-1] == projection.in_features:
+                return projection(pooled)
+            raise ValueError(
+                f'Unexpected tuple CLIP feature shape {pooled.shape[-1]} for projection '
+                f'{projection_attr} ({projection.in_features}->{projection.out_features})'
+            )
+
+        raise TypeError(f'Unexpected CLIP feature type: {type(features)}')
+    
+    def _features_to_numpy(self, features, projection_attr: str):
+        features = self._unwrap_features(features, projection_attr)
+        embeddings = features.detach().cpu().numpy()
+        return self.normalize_embeddings(embeddings)
+
 
 
 class ClipImageEncoder(BaseClipEncoder):
@@ -80,8 +122,7 @@ class ClipImageEncoder(BaseClipEncoder):
         with torch.no_grad():
             image_features = self.model.get_image_features(**inputs)
 
-        embeddings = image_features.detach().cpu().numpy()
-        return self.normalize_embeddings(embeddings)
+        return self._features_to_numpy(image_features, 'visual_projection')
 
 
 class ClipTextEncoder(BaseClipEncoder):
@@ -109,14 +150,7 @@ class ClipTextEncoder(BaseClipEncoder):
         with torch.no_grad():
             text_features = self.model.get_text_features(**inputs)
 
-        # In transformers 5.x, get_text_features() returns BaseModelOutputWithPooling
-        # instead of a tensor directly; use pooler_output to get the text embeddings
-        # If statement to support both versions of transformers
-        if hasattr(text_features, 'pooler_output'):
-            embeddings = text_features.pooler_output.detach().cpu().numpy()
-        else:
-            embeddings = text_features.detach().cpu().numpy()
-        return self.normalize_embeddings(embeddings)
+        return self._features_to_numpy(text_features, 'text_projection')
     
     
 class ClipDocumentEncoder(DocumentEncoder):
