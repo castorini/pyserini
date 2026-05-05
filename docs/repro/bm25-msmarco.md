@@ -1,4 +1,16 @@
+## Commands Used
 
+```bash
+python -m pyserini.search.lucene \
+  --index msmarco-passage \
+  --bm25 \
+  --topics msmarco-passage-dev-subset \
+  --output run.txt \
+  --output-format msmarco
+
+python -m pyserini.eval.msmarco_passage_eval \
+  msmarco-passage-dev-subset run.txt
+```
 ## BM25 MS MARCO Reproduction
 
 Environment:
