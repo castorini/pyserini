@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import logging
 import os
+import traceback
 import threading
 from pathlib import Path
 from typing import Any
@@ -25,7 +26,6 @@ from urllib.parse import unquote
 
 import requests
 
-from pyserini.encode.optional._uniir import UniIRQueryEncoder
 from pyserini.prebuilt_index_info import FAISS_INDEX_INFO_M_BEIR
 from pyserini.search.faiss import FaissSearcher
 from pyserini.search.lucene import JBagOfWordsQueryGenerator, JCovid19QueryGenerator, JDisjunctionMaxQueryGenerator, JQuerySideBm25QueryGenerator, LuceneFlatDenseSearcher, LuceneHnswDenseSearcher, LuceneImpactSearcher, LuceneSearcher
@@ -61,6 +61,28 @@ _MBEIR_NAME_TO_INSTR_FILE = {
     'webqa_task1': 'webqa_task1_instr.yaml',
     'webqa_task2': 'webqa_task2_instr.yaml',
 }
+
+_UNIIR_IMPORT_ERROR: str | None = None
+_UNIIR_QUERY_ENCODER: type | None = None
+
+
+def _get_uniir_query_encoder():
+    global _UNIIR_IMPORT_ERROR, _UNIIR_QUERY_ENCODER
+
+    if _UNIIR_QUERY_ENCODER is not None:
+        return _UNIIR_QUERY_ENCODER
+    if _UNIIR_IMPORT_ERROR is not None:
+        return None
+
+    try:
+        from pyserini.encode.optional._uniir import UniIRQueryEncoder
+    except Exception:
+        _UNIIR_IMPORT_ERROR = traceback.format_exc()
+        return None
+
+    _UNIIR_QUERY_ENCODER = UniIRQueryEncoder
+    return _UNIIR_QUERY_ENCODER
+
 
 def _norm_opt_str(value: str | None) -> str:
     return (value or '').strip()
@@ -141,6 +163,13 @@ class SharedSearchBackend:
     def _build_searcher(self, config: IndexConfig, *, index_type: str, local_path: str | None = None):
         if index_type == 'faiss':
             if config.name in FAISS_INDEX_INFO_M_BEIR:
+                uniir_query_encoder = _get_uniir_query_encoder()
+                if uniir_query_encoder is None:
+                    logger.debug('Failed to import UniIRQueryEncoder.', exc_info=False)
+                    raise IndexNotAvailableError(
+                        'UniIR query encoder is unavailable. Install a uniir-for-pyserini version '
+                        'compatible with the installed transformers package to search m-BEIR FAISS indexes.'
+                    )
                 if config.encoder not in ['clip_sf_large', 'blip_ff_large']:
                     if 'blip-ff-large' in config.name:
                         config.encoder = 'blip_ff_large'
@@ -150,7 +179,7 @@ class SharedSearchBackend:
                         raise BadSearchRequestError('Invalid encoder for m-beir FAISS index.')
                 return FaissSearcher.from_prebuilt_index(
                     config.name,
-                    query_encoder=UniIRQueryEncoder(
+                    query_encoder=uniir_query_encoder(
                         encoder_dir=config.encoder,
                         instruction_config=self._resolve_mbeir_instruction_config(config.name),
                     ),

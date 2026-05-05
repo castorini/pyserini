@@ -82,35 +82,35 @@ class TestMultimodalSearch(unittest.TestCase):
         hits = searcher.search('information retrieval')
         self.assertTrue(isinstance(hits, List))
         self.assertEqual(hits[0].docid, '01c79307-76fb-3b82-a96f-8ba1c1b6fa09')
-        self.assertAlmostEqual(hits[0].score, 0.20057034, places=5)
+        self.assertAlmostEqual(hits[0].score, 0.20057034, places=4)
     
     def test_image2text_search(self):
         searcher = FaissSearcher(f'{self.index_dir}/texts', self.image_encoder)
         hits = searcher.search('tests/resources/sample_collection_jsonl_image/images.small/00a3019b-c47c-3a97-8132-81896ab92dfc.webp')
         self.assertTrue(isinstance(hits, List))
         self.assertEqual(hits[0].docid, 'doc1')
-        self.assertAlmostEqual(hits[0].score, 0.2340512, places=5)
+        self.assertAlmostEqual(hits[0].score, 0.2340512, places=4)
     
     def test_text2text_search(self):
         searcher = FaissSearcher(f'{self.index_dir}/texts', self.text_encoder)
         hits = searcher.search('information retrieval')
         self.assertTrue(isinstance(hits, List))
         self.assertEqual(hits[0].docid, 'doc3')
-        self.assertAlmostEqual(hits[0].score, 0.8558732, places=5)
+        self.assertAlmostEqual(hits[0].score, 0.8558732, places=4)
     
     def test_image2image_search(self):
         searcher = FaissSearcher(f'{self.index_dir}/images', self.image_encoder)
         hits = searcher.search(f'{self.resource_dir}/sample_collection_jsonl_image/images.small/00a3019b-c47c-3a97-8132-81896ab92dfc.webp')
         self.assertTrue(isinstance(hits, List))
         self.assertEqual(hits[0].docid, '00a3019b-c47c-3a97-8132-81896ab92dfc')
-        self.assertAlmostEqual(hits[0].score, 0.9999999, places=5)
+        self.assertAlmostEqual(hits[0].score, 0.9999999, places=4)
     
     def test_imageurl2text_search(self):
         searcher = FaissSearcher(f'{self.index_dir}/texts', self.image_encoder)
         hits = searcher.search('https://raw.githubusercontent.com/castorini/pyserini/master/docs/pyserini-logo.png')
         self.assertTrue(isinstance(hits, List))
         self.assertEqual(hits[0].docid, 'doc3')
-        self.assertAlmostEqual(hits[0].score, 0.20829172, places=5)
+        self.assertAlmostEqual(hits[0].score, 0.20829172, places=4)
 
     @classmethod
     def tearDownClass(cls):

@@ -80,7 +80,13 @@ class ClipImageEncoder(BaseClipEncoder):
         with torch.no_grad():
             image_features = self.model.get_image_features(**inputs)
 
-        embeddings = image_features.detach().cpu().numpy()
+        # In transformers 5.x, get_image_features() returns BaseModelOutputWithPooling
+        # instead of a tensor directly; use pooler_output to get the image embeddings.
+        # If statement to support both versions of transformers.
+        if hasattr(image_features, 'pooler_output'):
+            embeddings = image_features.pooler_output.detach().cpu().numpy()
+        else:
+            embeddings = image_features.detach().cpu().numpy()
         return self.normalize_embeddings(embeddings)
 
 
