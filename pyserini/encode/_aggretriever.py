@@ -38,6 +38,8 @@ class BertAggretrieverEncoder(PreTrainedModel):
 
     @property
     def all_tied_weights_keys(self):
+        # Transformers 5.x expects this mapping during from_pretrained().
+        # Aggretriever has no custom tied weights beyond the wrapped encoder.
         return {}
 
     def __init__(self, config: BertConfig):
