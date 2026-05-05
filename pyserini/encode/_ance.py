@@ -81,14 +81,8 @@ class AnceEncoder(PreTrainedModel):
         model = cls.from_pretrained(model_name_or_path)
         if Version(transformers_version) >= Version("5.0.0"):
             load_head_weights(model, model_name_or_path, {
-                'embeddingHead': {
-                    'weight': 'embeddingHead.weight',
-                    'bias': 'embeddingHead.bias'
-                },
-                'norm': {
-                    'weight': 'norm.weight',
-                    'bias': 'norm.bias'
-                }
+                'embeddingHead': 'embeddingHead',
+                'norm': 'norm'
             })
         model.to(device)
         return model
