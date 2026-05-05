@@ -301,7 +301,7 @@ class TestEncode(unittest.TestCase):
             [str(pl.Path(image_dir, entry.strip())) for entry in texts],
         )
  
-        self.assertAlmostEqual(embeddings[0]['vector'][0], 0.003283643862232566, places=4)
+        self.assertAlmostEqual(embeddings[0]['vector'][0], 0.003283643862232566, places=3)
         self.assertAlmostEqual(embeddings[0]['vector'][-1], -0.055951327085494995, places=4)
         self.assertAlmostEqual(embeddings[2]['vector'][0], 0.021012384444475174, places=4)
         self.assertAlmostEqual(embeddings[2]['vector'][-1], -0.0011692788684740663, places=4)

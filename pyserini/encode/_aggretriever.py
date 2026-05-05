@@ -26,12 +26,21 @@ if torch.cuda.is_available():
 from transformers import DistilBertConfig, BertConfig
 from transformers import AutoModelForMaskedLM, AutoTokenizer, PreTrainedModel
 from pyserini.encode import DocumentEncoder, QueryEncoder
+from pyserini.encode._base import load_head_weights
+from packaging.version import Version
+from transformers import __version__ as transformers_version
 
 
 class BertAggretrieverEncoder(PreTrainedModel):
     config_class = BertConfig
     base_model_prefix = 'encoder'
     load_tf_weights = None
+
+    @property
+    def all_tied_weights_keys(self):
+        # Transformers 5.x expects this mapping during from_pretrained().
+        # Aggretriever has no custom tied weights beyond the wrapped encoder.
+        return {}
 
     def __init__(self, config: BertConfig):
         super().__init__(config)
@@ -120,6 +129,23 @@ class BertAggretrieverEncoder(PreTrainedModel):
         semantic_reps = self.cls_proj(cls_hidden)
         return torch.cat((semantic_reps, lexical_reps), -1)
 
+    @classmethod
+    def load_pretrained_encoder(cls, model_name_or_path: str, device: str):
+        model = cls.from_pretrained(model_name_or_path)
+        if Version(transformers_version) >= Version("5.0.0"):
+            load_head_weights(model, model_name_or_path, {
+                'tok_proj': {
+                    'weight': 'tok_proj.weight',
+                    'bias': 'tok_proj.bias'
+                },
+                'cls_proj': {
+                    'weight': 'cls_proj.weight',
+                    'bias': 'cls_proj.bias'
+                }
+            })
+        model.to(device)
+        return model
+
 
 class DistlBertAggretrieverEncoder(BertAggretrieverEncoder):
     config_class = DistilBertConfig
@@ -131,10 +157,9 @@ class AggretrieverDocumentEncoder(DocumentEncoder):
     def __init__(self, model_name: str, tokenizer_name=None, device='cuda:0'):
         self.device = device
         if 'distilbert' in model_name.lower():
-            self.model = DistlBertAggretrieverEncoder.from_pretrained(model_name)
+            self.model = DistlBertAggretrieverEncoder.load_pretrained_encoder(model_name, device)
         else:
-            self.model = BertAggretrieverEncoder.from_pretrained(model_name)
-        self.model.to(self.device)
+            self.model = BertAggretrieverEncoder.load_pretrained_encoder(model_name, device)
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name,
                                                        clean_up_tokenization_spaces=True)
 
@@ -167,10 +192,9 @@ class AggretrieverQueryEncoder(QueryEncoder):
         if encoder_dir:
             self.device = device
             if 'distilbert' in encoder_dir.lower():
-                self.model = DistlBertAggretrieverEncoder.from_pretrained(encoder_dir)
+                self.model = DistlBertAggretrieverEncoder.load_pretrained_encoder(encoder_dir, device)
             else:
-                self.model = BertAggretrieverEncoder.from_pretrained(encoder_dir)
-            self.model.to(self.device)
+                self.model = BertAggretrieverEncoder.load_pretrained_encoder(encoder_dir, device)
             self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir,
                                                            clean_up_tokenization_spaces=True)
             self.has_model = True
