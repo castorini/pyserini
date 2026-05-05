@@ -107,7 +107,7 @@ class TestMCPyseriniServerUniIR(unittest.TestCase):
                 patch.object(SharedSearchBackend, '_bulk_fetch_and_format_documents', return_value={'doc1': 'doc text'}):
             result = self._run_async(self._call_tool('search', {
                 'query': {'query_txt': 'a red dress'},
-                'index': 'm-beir-fashioniq-task7.clip-sf-large',
+                'index': 'm-beir-fashioniq_task7.clip-sf-large',
                 'hits': 1,
             }))
 
