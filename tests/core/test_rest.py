@@ -22,7 +22,7 @@ import hashlib
 import yaml
 from fastapi.testclient import TestClient
 
-from pyserini.server.rest.app import API_VERSION, ROUTE_ERROR, app, create_app, AdaptiveSheddingController
+from pyserini.server.rest.app import API_VERSION, ROUTE_ERROR, app, create_app
 
 # Small prebuilt TF index (see TF_INDEX_INFO["cacm"]); stable BM25 top-1 for this query.
 _REST_INDEX = 'cacm'
@@ -59,7 +59,6 @@ class TestRestServer(unittest.TestCase):
         self.assertIn('ApiKeyAuth', data['components']['securitySchemes'])
         search_responses = data['paths']['/{index}/search']['get']['responses']
         self.assertIn('401', search_responses)
-        self.assertIn('429', search_responses)
 
     def test_docs_available(self):
         response = self.client.get('/docs')
@@ -412,41 +411,6 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
                 )
         finally:
             os.unlink(path)
-
-
-class TestAdaptiveSheddingController(unittest.IsolatedAsyncioTestCase):
-    async def test_sheds_hottest_key_under_overload(self):
-        """After latency shows overload, shed the key with the highest request count in the window."""
-        controller = AdaptiveSheddingController(
-            min_latency_samples=20,
-            p99_latency_ms_threshold=1000.0,
-            retry_after_seconds=2,
-        )
-        self.assertFalse(await controller.register_and_should_shed('cold'))
-        self.assertFalse(await controller.register_and_should_shed('hot'))
-        for _ in range(20):
-            await controller.observe_latency_ms(1500.0)
-        self.assertTrue(await controller.register_and_should_shed('hot'))
-
-    async def test_single_key_sheds_when_overloaded(self):
-        controller = AdaptiveSheddingController(
-            min_latency_samples=5,
-            p99_latency_ms_threshold=1000.0,
-        )
-        self.assertFalse(await controller.register_and_should_shed('only-key'))
-        for _ in range(5):
-            await controller.observe_latency_ms(1500.0)
-        self.assertTrue(await controller.register_and_should_shed('only-key'))
-
-    async def test_single_key_not_shed_when_not_overloaded(self):
-        controller = AdaptiveSheddingController(
-            min_latency_samples=5,
-            p99_latency_ms_threshold=1_000_000.0,
-        )
-        for _ in range(10):
-            await controller.observe_latency_ms(1.0)
-        self.assertFalse(await controller.register_and_should_shed('only-key'))
-        self.assertFalse(await controller.register_and_should_shed('only-key'))
 
 
 if __name__ == '__main__':
