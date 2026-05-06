@@ -64,11 +64,10 @@ python -m pyserini.server.rest --config /path/to/server.yaml --no-prebuilt-index
 
 When `--no-prebuilt-indexes` is set, the server only accepts index names declared under `indexes:` in `--config`.
 
-To limit deployment load, use the following options when starting the server to apply backpressure:
+To limit deployment load, enable adaptive shedding when starting the server:
 
-- `--max-concurrent-per-key <int>` enables keyed backpressure (with `--max-queue-per-key`) by capping in-flight `/v1/*` requests per key.
-- `--max-queue-per-key <int>` caps queued + in-flight `/v1/*` requests per key; requests above this bound are rejected with `429`.
-- `--backpressure-retry-after-seconds <int>` sets the `Retry-After` response header for those `429` rejections.
+- `--adaptive-shedding` turns on overload detection (host load and rolling request latency) and, when hot, temporarily rejects the busiest API key in a recent window with `429`.
+- `--adaptive-retry-after-seconds <int>` (optional) sets the `Retry-After` header on those responses (default: 1).
 
 ### Logging
 
@@ -84,8 +83,7 @@ Example:
 python -m pyserini.server.rest \
   --config /path/to/server.yaml \
   --no-prebuilt-indexes \
-  --max-concurrent-per-key 8 \
-  --max-queue-per-key 64 \
+  --adaptive-shedding \
   --server-log-file logs/rest.server.log \
   --auth-log-file logs/rest.auth.log
 ```
@@ -212,7 +210,7 @@ curl -H "X-API-Key: {api-key}" \
 | 401 | Missing or invalid API credential (when `api_keys` is configured) |
 | 404 | Unknown route, or document not found for `GET .../doc/{docid}` |
 | 405 | Method not allowed (only **GET** is supported on these routes) |
-| 429 | Too many queued requests for a key (when keyed backpressure is enabled) |
+| 429 | Server overloaded; hottest key in the recent window is temporarily shed (when adaptive shedding is enabled) |
 | 500 | Unhandled server error |
 
 The full list of operations, parameters, and response schemas is in **`/openapi.yaml`**.

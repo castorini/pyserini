@@ -64,7 +64,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "429":
-          description: Too many queued requests for this key (only when keyed backpressure is enabled).
+          description: Server overloaded; hottest key in recent window is temporarily shed (only when adaptive shedding is enabled).
           headers:
             Retry-After:
               schema:
@@ -142,7 +142,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "429":
-          description: Too many queued requests for this key (only when keyed backpressure is enabled).
+          description: Server overloaded; hottest key in recent window is temporarily shed (only when adaptive shedding is enabled).
           headers:
             Retry-After:
               schema:

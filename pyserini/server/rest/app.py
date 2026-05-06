@@ -34,10 +34,12 @@ import json
 import logging
 import hashlib
 import asyncio
+import os
+import time
 from contextlib import asynccontextmanager
 from functools import lru_cache
 from importlib import resources
-from dataclasses import dataclass
+from collections import deque
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
@@ -57,66 +59,106 @@ API_VERSION = 'v1'
 DESCRIPTION = 'REST API aligned with Anserini (Lucene indexes via Pyserini).'
 ROUTE_ERROR = 'Expected route /v1/{index}/search or /v1/{index}/doc/{docid}'
 AUTH_TOKEN_REQUEST_EMAIL = 'get-pyserini@googlegroups.com'
-DEFAULT_BACKPRESSURE_RETRY_AFTER_SECONDS = 1
+DEFAULT_ADAPTIVE_RETRY_AFTER_SECONDS = 1
+_ADAPTIVE_WINDOW_SECONDS = 60
+_ADAPTIVE_CPU_LOAD_THRESHOLD = 0.90
+_ADAPTIVE_P99_LATENCY_MS_THRESHOLD = 1200.0
+# Require this many completed /v1 responses in the window before p99 latency can trigger
+# overload (avoids noisy p99 with almost no samples). CPU load can still trigger immediately.
+_ADAPTIVE_MIN_LATENCY_SAMPLES = 20
 
 
-@dataclass
-class _KeyBucket:
-    """Per-key limiter state."""
+class AdaptiveSheddingController:
+    """Shed requests from key(s) tied for highest volume when the host looks overloaded.
 
-    semaphore: asyncio.Semaphore
-    pending: int = 0
-
-
-class KeyBackpressureLimiter:
-    """Apply per-key bounded queueing and bounded in-flight concurrency."""
+    Internal defaults are ``_ADAPTIVE_*``; only ``retry_after_seconds`` is exposed on the CLI.
+    """
 
     def __init__(
         self,
         *,
-        max_concurrent_per_key: int,
-        max_queue_per_key: int,
-        retry_after_seconds: int = DEFAULT_BACKPRESSURE_RETRY_AFTER_SECONDS,
+        window_seconds: int = _ADAPTIVE_WINDOW_SECONDS,
+        cpu_load_threshold: float = _ADAPTIVE_CPU_LOAD_THRESHOLD,
+        p99_latency_ms_threshold: float = _ADAPTIVE_P99_LATENCY_MS_THRESHOLD,
+        min_latency_samples: int = _ADAPTIVE_MIN_LATENCY_SAMPLES,
+        retry_after_seconds: int = DEFAULT_ADAPTIVE_RETRY_AFTER_SECONDS,
     ) -> None:
-        if max_concurrent_per_key <= 0:
-            raise ValueError('max_concurrent_per_key must be >= 1 when backpressure is enabled')
-        if max_queue_per_key <= 0:
-            raise ValueError('max_queue_per_key must be >= 1 when backpressure is enabled')
-        if max_queue_per_key < max_concurrent_per_key:
-            raise ValueError('max_queue_per_key must be >= max_concurrent_per_key')
+        if window_seconds <= 0:
+            raise ValueError('window_seconds must be >= 1')
+        if cpu_load_threshold <= 0:
+            raise ValueError('cpu_load_threshold must be > 0')
+        if p99_latency_ms_threshold <= 0:
+            raise ValueError('p99_latency_ms_threshold must be > 0')
+        if min_latency_samples <= 0:
+            raise ValueError('min_latency_samples must be >= 1')
         if retry_after_seconds <= 0:
             raise ValueError('retry_after_seconds must be >= 1')
-        self._max_concurrent_per_key = max_concurrent_per_key
-        self._max_queue_per_key = max_queue_per_key
+        self._window_seconds = float(window_seconds)
+        self._cpu_load_threshold = cpu_load_threshold
+        self._p99_latency_ms_threshold = p99_latency_ms_threshold
+        self._min_latency_samples = min_latency_samples
         self._retry_after_seconds = retry_after_seconds
         self._lock = asyncio.Lock()
-        self._buckets: dict[str, _KeyBucket] = {}
+        self._request_events: deque[tuple[float, str]] = deque()
+        self._request_counts: dict[str, int] = {}
+        self._latency_events: deque[tuple[float, float]] = deque()
 
     @property
     def retry_after_seconds(self) -> int:
         return self._retry_after_seconds
 
-    async def try_acquire(self, key: str) -> bool:
+    async def register_and_should_shed(self, key: str) -> bool:
+        now = time.monotonic()
         async with self._lock:
-            bucket = self._buckets.get(key)
-            if bucket is None:
-                bucket = _KeyBucket(semaphore=asyncio.Semaphore(self._max_concurrent_per_key))
-                self._buckets[key] = bucket
-            if bucket.pending >= self._max_queue_per_key:
+            self._prune(now)
+            self._request_events.append((now, key))
+            self._request_counts[key] = self._request_counts.get(key, 0) + 1
+            if not self._is_overloaded():
                 return False
-            bucket.pending += 1
-        await bucket.semaphore.acquire()
-        return True
+            key_count = self._request_counts.get(key, 0)
+            top_count = max(self._request_counts.values(), default=0)
+            return key_count >= top_count
 
-    async def release(self, key: str) -> None:
+    async def observe_latency_ms(self, latency_ms: float) -> None:
+        now = time.monotonic()
         async with self._lock:
-            bucket = self._buckets.get(key)
-            if bucket is None:
-                return
-            bucket.pending -= 1
-            bucket.semaphore.release()
-            if bucket.pending <= 0:
-                self._buckets.pop(key, None)
+            self._prune(now)
+            self._latency_events.append((now, max(0.0, latency_ms)))
+
+    def _prune(self, now: float) -> None:
+        cutoff = now - self._window_seconds
+        while self._request_events and self._request_events[0][0] < cutoff:
+            _, old_key = self._request_events.popleft()
+            updated = self._request_counts.get(old_key, 0) - 1
+            if updated <= 0:
+                self._request_counts.pop(old_key, None)
+            else:
+                self._request_counts[old_key] = updated
+        while self._latency_events and self._latency_events[0][0] < cutoff:
+            self._latency_events.popleft()
+
+    def _is_overloaded(self) -> bool:
+        if self._normalized_load_1m() >= self._cpu_load_threshold:
+            return True
+        if len(self._latency_events) < self._min_latency_samples:
+            return False
+        p99_latency = self._p99_latency_ms()
+        return p99_latency >= self._p99_latency_ms_threshold
+
+    def _normalized_load_1m(self) -> float:
+        try:
+            load1, _, _ = os.getloadavg()
+            cpu_count = os.cpu_count() or 1
+            return float(load1) / float(cpu_count)
+        except OSError:
+            return 0.0
+
+    def _p99_latency_ms(self) -> float:
+        values = sorted(lat for _, lat in self._latency_events)
+        if not values:
+            return 0.0
+        index = max(0, min(len(values) - 1, int(len(values) * 0.99) - 1))
+        return values[index]
 
 def _error_message(detail: object) -> str:
     """Coerce exception detail to a single string (``ErrorResponse.error`` is ``type: string``)."""
@@ -263,9 +305,8 @@ def create_app(
     config_path: str | None = None,
     *,
     no_prebuilt_indexes: bool = False,
-    max_concurrent_per_key: int = 0,
-    max_queue_per_key: int = 0,
-    backpressure_retry_after_seconds: int = DEFAULT_BACKPRESSURE_RETRY_AFTER_SECONDS,
+    adaptive_shedding: bool = False,
+    adaptive_retry_after_seconds: int = DEFAULT_ADAPTIVE_RETRY_AFTER_SECONDS,
 ) -> FastAPI:
     if no_prebuilt_indexes and not config_path:
         raise ValueError('--no-prebuilt-indexes requires a config file path')
@@ -286,12 +327,10 @@ def create_app(
     accepted_api_tokens: AcceptedApiTokens | None = None
     if token_strings:
         accepted_api_tokens = AcceptedApiTokens.from_strings(token_strings)
-    keyed_backpressure: KeyBackpressureLimiter | None = None
-    if max_concurrent_per_key > 0 or max_queue_per_key > 0:
-        keyed_backpressure = KeyBackpressureLimiter(
-            max_concurrent_per_key=max_concurrent_per_key,
-            max_queue_per_key=max_queue_per_key,
-            retry_after_seconds=backpressure_retry_after_seconds,
+    adaptive_controller: AdaptiveSheddingController | None = None
+    if adaptive_shedding:
+        adaptive_controller = AdaptiveSheddingController(
+            retry_after_seconds=adaptive_retry_after_seconds,
         )
 
     @asynccontextmanager
@@ -307,15 +346,19 @@ def create_app(
         lifespan=lifespan,
     )
     app.state.accepted_api_tokens = accepted_api_tokens  # type: ignore[attr-defined]
-    app.state.keyed_backpressure = keyed_backpressure  # type: ignore[attr-defined]
+    app.state.adaptive_shedding_controller = adaptive_controller  # type: ignore[attr-defined]
     app.openapi = lambda: _load_openapi_schema()
 
     @app.middleware('http')
     async def rest_api_key_and_access_log(request: Request, call_next):
         prefix = f'/{API_VERSION}/'
         tokens: AcceptedApiTokens | None = getattr(request.app.state, 'accepted_api_tokens', None)
-        limiter: KeyBackpressureLimiter | None = getattr(request.app.state, 'keyed_backpressure', None)
-        if (tokens is None and limiter is None) or not request.url.path.startswith(prefix):
+        controller: AdaptiveSheddingController | None = getattr(
+            request.app.state,
+            'adaptive_shedding_controller',
+            None,
+        )
+        if (tokens is None and controller is None) or not request.url.path.startswith(prefix):
             return await call_next(request)
 
         credentials = _extract_api_tokens(request)
@@ -343,7 +386,7 @@ def create_app(
                 },
             )
 
-        if limiter is None:
+        if controller is None:
             response = await call_next(request)
             _log_auth_event(
                 event='auth_request',
@@ -354,24 +397,27 @@ def create_app(
             )
             return response
 
-        acquired = await limiter.try_acquire(key_id)
-        if not acquired:
+        should_shed = await controller.register_and_should_shed(key_id)
+        if should_shed:
             _log_auth_event(
                 event='auth_backpressure',
                 request=request,
                 query=query,
                 key_id=key_id,
                 status=429,
-                retry_after=limiter.retry_after_seconds,
+                retry_after=controller.retry_after_seconds,
             )
             return JSONResponse(
                 status_code=429,
-                content={'error': 'Too many queued requests for this API key. Please retry later.'},
-                headers={'Retry-After': str(limiter.retry_after_seconds)},
+                content={'error': 'Server overloaded. Please retry later.'},
+                headers={'Retry-After': str(controller.retry_after_seconds)},
             )
 
+        started_at = time.monotonic()
         try:
             response = await call_next(request)
+            latency_ms = (time.monotonic() - started_at) * 1000.0
+            await controller.observe_latency_ms(latency_ms)
             _log_auth_event(
                 event='auth_request',
                 request=request,
@@ -380,8 +426,10 @@ def create_app(
                 status=response.status_code,
             )
             return response
-        finally:
-            await limiter.release(key_id)
+        except Exception:
+            latency_ms = (time.monotonic() - started_at) * 1000.0
+            await controller.observe_latency_ms(latency_ms)
+            raise
 
     @app.exception_handler(Exception)
     async def unhandled_exception_handler(request: Request, exc: Exception):
@@ -463,22 +511,15 @@ def main():
         help='Disable uvicorn default request access logs.',
     )
     parser.add_argument(
-        '--max-concurrent-per-key',
-        type=int,
-        default=0,
-        help='Optional keyed backpressure: max in-flight /v1 requests per key (0 disables).',
+        '--adaptive-shedding',
+        action='store_true',
+        help='Enable adaptive overload shedding of hottest key over the recent window.',
     )
     parser.add_argument(
-        '--max-queue-per-key',
+        '--adaptive-retry-after-seconds',
         type=int,
-        default=0,
-        help='Optional keyed backpressure: max queued + in-flight /v1 requests per key (0 disables).',
-    )
-    parser.add_argument(
-        '--backpressure-retry-after-seconds',
-        type=int,
-        default=DEFAULT_BACKPRESSURE_RETRY_AFTER_SECONDS,
-        help='Retry-After value (seconds) sent with 429 backpressure responses.',
+        default=DEFAULT_ADAPTIVE_RETRY_AFTER_SECONDS,
+        help='Retry-After value (seconds) sent with adaptive 429 responses.',
     )
     args = parser.parse_args()
 
@@ -488,24 +529,15 @@ def main():
     if args.no_prebuilt_indexes:
         if not args.config:
             raise SystemExit('Error: --no-prebuilt-indexes requires --config')
-    if args.max_concurrent_per_key < 0:
-        raise SystemExit('Error: --max-concurrent-per-key must be >= 0')
-    if args.max_queue_per_key < 0:
-        raise SystemExit('Error: --max-queue-per-key must be >= 0')
-    if (args.max_concurrent_per_key == 0) ^ (args.max_queue_per_key == 0):
-        raise SystemExit(
-            'Error: --max-concurrent-per-key and --max-queue-per-key must both be set (>0) to enable backpressure'
-        )
-    if args.backpressure_retry_after_seconds <= 0:
-        raise SystemExit('Error: --backpressure-retry-after-seconds must be >= 1')
+    if args.adaptive_retry_after_seconds <= 0:
+        raise SystemExit('Error: --adaptive-retry-after-seconds must be >= 1')
 
     uvicorn.run(
         create_app(
             args.config,
             no_prebuilt_indexes=args.no_prebuilt_indexes,
-            max_concurrent_per_key=args.max_concurrent_per_key,
-            max_queue_per_key=args.max_queue_per_key,
-            backpressure_retry_after_seconds=args.backpressure_retry_after_seconds,
+            adaptive_shedding=args.adaptive_shedding,
+            adaptive_retry_after_seconds=args.adaptive_retry_after_seconds,
         ),
         host=args.host,
         port=args.port,

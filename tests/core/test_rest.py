@@ -18,12 +18,12 @@ import os
 import tempfile
 import unittest
 import hashlib
-import asyncio
+from unittest.mock import patch
 
 import yaml
 from fastapi.testclient import TestClient
 
-from pyserini.server.rest.app import API_VERSION, ROUTE_ERROR, app, create_app, KeyBackpressureLimiter
+from pyserini.server.rest.app import API_VERSION, ROUTE_ERROR, app, create_app, AdaptiveSheddingController
 
 # Small prebuilt TF index (see TF_INDEX_INFO["cacm"]); stable BM25 top-1 for this query.
 _REST_INDEX = 'cacm'
@@ -415,36 +415,47 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
             os.unlink(path)
 
 
+class TestAdaptiveSheddingController(unittest.IsolatedAsyncioTestCase):
+    async def test_sheds_hottest_key_under_overload(self):
+        """Overload only on the third call so request counts can diverge (cold=1, hot=2)."""
+        controller = AdaptiveSheddingController(
+            cpu_load_threshold=0.5,
+            min_latency_samples=1000,
+            retry_after_seconds=2,
+        )
+        load_seq = [(0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (4.0, 0.0, 0.0)]
+
+        def fake_getloadavg():
+            return load_seq.pop(0) if load_seq else (8.0, 0.0, 0.0)
+
+        with patch('pyserini.server.rest.app.os.getloadavg', side_effect=fake_getloadavg):
+            with patch('pyserini.server.rest.app.os.cpu_count', return_value=8):
+                self.assertFalse(await controller.register_and_should_shed('cold'))
+                self.assertFalse(await controller.register_and_should_shed('hot'))
+                self.assertTrue(await controller.register_and_should_shed('hot'))
+
+    async def test_single_key_sheds_when_overloaded(self):
+        controller = AdaptiveSheddingController(
+            cpu_load_threshold=0.5,
+            min_latency_samples=1000,
+        )
+        load_seq = [(0.0, 0.0, 0.0), (4.0, 0.0, 0.0)]
+
+        def fake_getloadavg():
+            return load_seq.pop(0) if load_seq else (8.0, 0.0, 0.0)
+
+        with patch('pyserini.server.rest.app.os.getloadavg', side_effect=fake_getloadavg):
+            with patch('pyserini.server.rest.app.os.cpu_count', return_value=8):
+                self.assertFalse(await controller.register_and_should_shed('only-key'))
+                self.assertTrue(await controller.register_and_should_shed('only-key'))
+
+    async def test_single_key_not_shed_when_not_overloaded(self):
+        controller = AdaptiveSheddingController(cpu_load_threshold=0.5, min_latency_samples=1000)
+        with patch('pyserini.server.rest.app.os.getloadavg', return_value=(0.0, 0.0, 0.0)):
+            with patch('pyserini.server.rest.app.os.cpu_count', return_value=8):
+                self.assertFalse(await controller.register_and_should_shed('only-key'))
+                self.assertFalse(await controller.register_and_should_shed('only-key'))
+
+
 if __name__ == '__main__':
     unittest.main()
-
-
-class TestKeyBackpressureLimiter(unittest.IsolatedAsyncioTestCase):
-    async def test_queue_limit_denies_when_at_capacity(self):
-        limiter = KeyBackpressureLimiter(max_concurrent_per_key=1, max_queue_per_key=2, retry_after_seconds=2)
-        first = await limiter.try_acquire('k')
-        self.assertTrue(first)
-
-        blocker_released = asyncio.Event()
-
-        async def second_request():
-            acquired = await limiter.try_acquire('k')
-            self.assertTrue(acquired)
-            await blocker_released.wait()
-            await limiter.release('k')
-
-        second_task = asyncio.create_task(second_request())
-        await asyncio.sleep(0.05)
-        denied = await limiter.try_acquire('k')
-        self.assertFalse(denied)
-
-        await limiter.release('k')
-        blocker_released.set()
-        await second_task
-
-    async def test_release_cleans_up_key_state(self):
-        limiter = KeyBackpressureLimiter(max_concurrent_per_key=1, max_queue_per_key=1)
-        self.assertTrue(await limiter.try_acquire('a'))
-        await limiter.release('a')
-        self.assertTrue(await limiter.try_acquire('a'))
-        await limiter.release('a')
