@@ -175,6 +175,35 @@ def _truncate_request_query(request: Request) -> str:
     return f'{raw[:256]}...'
 
 
+def _log_auth_event(
+    *,
+    event: str,
+    request: Request,
+    query: str,
+    key_id: str,
+    status: int,
+    retry_after: int | None = None,
+) -> None:
+    client = request.client.host if request.client else '-'
+    retry_after_fragment = ''
+    args: list[object] = [
+        event,
+        client,
+        request.method,
+        request.url.path,
+        query,
+        key_id,
+        status,
+    ]
+    if retry_after is not None:
+        retry_after_fragment = ' retry_after_s=%s'
+        args.append(retry_after)
+    auth_logger.info(
+        f'%s client=%s method=%s path=%s query=%s key_id=%s status=%s{retry_after_fragment}',
+        *args,
+    )
+
+
 def _build_uvicorn_log_config(server_log_file: str | None, auth_log_file: str | None) -> dict[str, object]:
     from uvicorn.config import LOGGING_CONFIG
 
@@ -297,14 +326,12 @@ def create_app(
             key_id = f'client:{request.client.host}'
         query = _truncate_request_query(request)
         if tokens is not None and matched_token is None:
-            client = request.client.host if request.client else '-'
-            auth_logger.info(
-                'auth_failed client=%s method=%s path=%s query=%s key_id=%s status=401',
-                client,
-                request.method,
-                request.url.path,
-                query,
-                key_id,
+            _log_auth_event(
+                event='auth_failed',
+                request=request,
+                query=query,
+                key_id=key_id,
+                status=401,
             )
             return JSONResponse(
                 status_code=401,
@@ -318,20 +345,25 @@ def create_app(
 
         if limiter is None:
             response = await call_next(request)
-            client = request.client.host if request.client else '-'
-            auth_logger.info(
-                'auth_request client=%s method=%s path=%s query=%s key_id=%s status=%s',
-                client,
-                request.method,
-                request.url.path,
-                query,
-                key_id,
-                response.status_code,
+            _log_auth_event(
+                event='auth_request',
+                request=request,
+                query=query,
+                key_id=key_id,
+                status=response.status_code,
             )
             return response
 
         acquired = await limiter.try_acquire(key_id)
         if not acquired:
+            _log_auth_event(
+                event='auth_backpressure',
+                request=request,
+                query=query,
+                key_id=key_id,
+                status=429,
+                retry_after=limiter.retry_after_seconds,
+            )
             return JSONResponse(
                 status_code=429,
                 content={'error': 'Too many queued requests for this API key. Please retry later.'},
@@ -340,15 +372,12 @@ def create_app(
 
         try:
             response = await call_next(request)
-            client = request.client.host if request.client else '-'
-            auth_logger.info(
-                'auth_request client=%s method=%s path=%s query=%s key_id=%s status=%s',
-                client,
-                request.method,
-                request.url.path,
-                query,
-                key_id,
-                response.status_code,
+            _log_auth_event(
+                event='auth_request',
+                request=request,
+                query=query,
+                key_id=key_id,
+                status=response.status_code,
             )
             return response
         finally:
