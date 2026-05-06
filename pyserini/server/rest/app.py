@@ -34,7 +34,6 @@ import json
 import logging
 import hashlib
 import asyncio
-import os
 import time
 from contextlib import asynccontextmanager
 from functools import lru_cache
@@ -61,32 +60,32 @@ ROUTE_ERROR = 'Expected route /v1/{index}/search or /v1/{index}/doc/{docid}'
 AUTH_TOKEN_REQUEST_EMAIL = 'get-pyserini@googlegroups.com'
 DEFAULT_ADAPTIVE_RETRY_AFTER_SECONDS = 1
 _ADAPTIVE_WINDOW_SECONDS = 60
-_ADAPTIVE_CPU_LOAD_THRESHOLD = 0.90
 _ADAPTIVE_P99_LATENCY_MS_THRESHOLD = 1200.0
-# Require this many completed /v1 responses in the window before p99 latency can trigger
-# overload (avoids noisy p99 with almost no samples). CPU load can still trigger immediately.
+# Require this many completed /v1 latencies in the window before p99 can trigger overload.
 _ADAPTIVE_MIN_LATENCY_SAMPLES = 20
 
 
-class AdaptiveSheddingController:
-    """Shed requests from key(s) tied for highest volume when the host looks overloaded.
+def _p99_ms(samples: list[float]) -> float:
+    if not samples:
+        return 0.0
+    values = sorted(samples)
+    i = max(0, min(len(values) - 1, int(len(values) * 0.99) - 1))
+    return values[i]
 
-    Internal defaults are ``_ADAPTIVE_*``; only ``retry_after_seconds`` is exposed on the CLI.
-    """
+
+class AdaptiveSheddingController:
+    """429 the busiest keys when recent request latency (p99 in-window) is above threshold."""
 
     def __init__(
         self,
         *,
         window_seconds: int = _ADAPTIVE_WINDOW_SECONDS,
-        cpu_load_threshold: float = _ADAPTIVE_CPU_LOAD_THRESHOLD,
         p99_latency_ms_threshold: float = _ADAPTIVE_P99_LATENCY_MS_THRESHOLD,
         min_latency_samples: int = _ADAPTIVE_MIN_LATENCY_SAMPLES,
         retry_after_seconds: int = DEFAULT_ADAPTIVE_RETRY_AFTER_SECONDS,
     ) -> None:
         if window_seconds <= 0:
             raise ValueError('window_seconds must be >= 1')
-        if cpu_load_threshold <= 0:
-            raise ValueError('cpu_load_threshold must be > 0')
         if p99_latency_ms_threshold <= 0:
             raise ValueError('p99_latency_ms_threshold must be > 0')
         if min_latency_samples <= 0:
@@ -94,7 +93,6 @@ class AdaptiveSheddingController:
         if retry_after_seconds <= 0:
             raise ValueError('retry_after_seconds must be >= 1')
         self._window_seconds = float(window_seconds)
-        self._cpu_load_threshold = cpu_load_threshold
         self._p99_latency_ms_threshold = p99_latency_ms_threshold
         self._min_latency_samples = min_latency_samples
         self._retry_after_seconds = retry_after_seconds
@@ -108,20 +106,19 @@ class AdaptiveSheddingController:
         return self._retry_after_seconds
 
     async def register_and_should_shed(self, key: str) -> bool:
-        now = time.monotonic()
         async with self._lock:
+            now = time.monotonic()
             self._prune(now)
             self._request_events.append((now, key))
             self._request_counts[key] = self._request_counts.get(key, 0) + 1
-            if not self._is_overloaded():
-                return False
-            key_count = self._request_counts.get(key, 0)
-            top_count = max(self._request_counts.values(), default=0)
-            return key_count >= top_count
+            top = max(self._request_counts.values(), default=0)
+            lat = [ms for _, ms in self._latency_events]
+            stressed = len(lat) >= self._min_latency_samples and _p99_ms(lat) >= self._p99_latency_ms_threshold
+            return stressed and self._request_counts[key] >= top
 
     async def observe_latency_ms(self, latency_ms: float) -> None:
-        now = time.monotonic()
         async with self._lock:
+            now = time.monotonic()
             self._prune(now)
             self._latency_events.append((now, max(0.0, latency_ms)))
 
@@ -136,29 +133,6 @@ class AdaptiveSheddingController:
                 self._request_counts[old_key] = updated
         while self._latency_events and self._latency_events[0][0] < cutoff:
             self._latency_events.popleft()
-
-    def _is_overloaded(self) -> bool:
-        if self._normalized_load_1m() >= self._cpu_load_threshold:
-            return True
-        if len(self._latency_events) < self._min_latency_samples:
-            return False
-        p99_latency = self._p99_latency_ms()
-        return p99_latency >= self._p99_latency_ms_threshold
-
-    def _normalized_load_1m(self) -> float:
-        try:
-            load1, _, _ = os.getloadavg()
-            cpu_count = os.cpu_count() or 1
-            return float(load1) / float(cpu_count)
-        except OSError:
-            return 0.0
-
-    def _p99_latency_ms(self) -> float:
-        values = sorted(lat for _, lat in self._latency_events)
-        if not values:
-            return 0.0
-        index = max(0, min(len(values) - 1, int(len(values) * 0.99) - 1))
-        return values[index]
 
 def _error_message(detail: object) -> str:
     """Coerce exception detail to a single string (``ErrorResponse.error`` is ``type: string``)."""

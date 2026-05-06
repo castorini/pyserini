@@ -66,7 +66,7 @@ When `--no-prebuilt-indexes` is set, the server only accepts index names declare
 
 To limit deployment load, enable adaptive shedding when starting the server:
 
-- `--adaptive-shedding` turns on overload detection (host load and rolling request latency) and, when hot, temporarily rejects the busiest API key in a recent window with `429`.
+- `--adaptive-shedding` turns on overload detection from rolling **request latency** (p99 in a recent window) and, when high, temporarily rejects the busiest API key in that window with `429`.
 - `--adaptive-retry-after-seconds <int>` (optional) sets the `Retry-After` header on those responses (default: 1).
 
 ### Logging

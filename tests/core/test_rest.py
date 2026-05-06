@@ -18,7 +18,6 @@ import os
 import tempfile
 import unittest
 import hashlib
-from unittest.mock import patch
 
 import yaml
 from fastapi.testclient import TestClient
@@ -417,44 +416,37 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
 
 class TestAdaptiveSheddingController(unittest.IsolatedAsyncioTestCase):
     async def test_sheds_hottest_key_under_overload(self):
-        """Overload only on the third call so request counts can diverge (cold=1, hot=2)."""
+        """After latency shows overload, shed the key with the highest request count in the window."""
         controller = AdaptiveSheddingController(
-            cpu_load_threshold=0.5,
-            min_latency_samples=1000,
+            min_latency_samples=20,
+            p99_latency_ms_threshold=1000.0,
             retry_after_seconds=2,
         )
-        load_seq = [(0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (4.0, 0.0, 0.0)]
-
-        def fake_getloadavg():
-            return load_seq.pop(0) if load_seq else (8.0, 0.0, 0.0)
-
-        with patch('pyserini.server.rest.app.os.getloadavg', side_effect=fake_getloadavg):
-            with patch('pyserini.server.rest.app.os.cpu_count', return_value=8):
-                self.assertFalse(await controller.register_and_should_shed('cold'))
-                self.assertFalse(await controller.register_and_should_shed('hot'))
-                self.assertTrue(await controller.register_and_should_shed('hot'))
+        self.assertFalse(await controller.register_and_should_shed('cold'))
+        self.assertFalse(await controller.register_and_should_shed('hot'))
+        for _ in range(20):
+            await controller.observe_latency_ms(1500.0)
+        self.assertTrue(await controller.register_and_should_shed('hot'))
 
     async def test_single_key_sheds_when_overloaded(self):
         controller = AdaptiveSheddingController(
-            cpu_load_threshold=0.5,
-            min_latency_samples=1000,
+            min_latency_samples=5,
+            p99_latency_ms_threshold=1000.0,
         )
-        load_seq = [(0.0, 0.0, 0.0), (4.0, 0.0, 0.0)]
-
-        def fake_getloadavg():
-            return load_seq.pop(0) if load_seq else (8.0, 0.0, 0.0)
-
-        with patch('pyserini.server.rest.app.os.getloadavg', side_effect=fake_getloadavg):
-            with patch('pyserini.server.rest.app.os.cpu_count', return_value=8):
-                self.assertFalse(await controller.register_and_should_shed('only-key'))
-                self.assertTrue(await controller.register_and_should_shed('only-key'))
+        self.assertFalse(await controller.register_and_should_shed('only-key'))
+        for _ in range(5):
+            await controller.observe_latency_ms(1500.0)
+        self.assertTrue(await controller.register_and_should_shed('only-key'))
 
     async def test_single_key_not_shed_when_not_overloaded(self):
-        controller = AdaptiveSheddingController(cpu_load_threshold=0.5, min_latency_samples=1000)
-        with patch('pyserini.server.rest.app.os.getloadavg', return_value=(0.0, 0.0, 0.0)):
-            with patch('pyserini.server.rest.app.os.cpu_count', return_value=8):
-                self.assertFalse(await controller.register_and_should_shed('only-key'))
-                self.assertFalse(await controller.register_and_should_shed('only-key'))
+        controller = AdaptiveSheddingController(
+            min_latency_samples=5,
+            p99_latency_ms_threshold=1_000_000.0,
+        )
+        for _ in range(10):
+            await controller.observe_latency_ms(1.0)
+        self.assertFalse(await controller.register_and_should_shed('only-key'))
+        self.assertFalse(await controller.register_and_should_shed('only-key'))
 
 
 if __name__ == '__main__':
