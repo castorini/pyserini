@@ -18,11 +18,12 @@ import os
 import tempfile
 import unittest
 import hashlib
+import asyncio
 
 import yaml
 from fastapi.testclient import TestClient
 
-from pyserini.server.rest.app import API_VERSION, ROUTE_ERROR, app, create_app
+from pyserini.server.rest.app import API_VERSION, ROUTE_ERROR, app, create_app, KeyBackpressureLimiter
 
 # Small prebuilt TF index (see TF_INDEX_INFO["cacm"]); stable BM25 top-1 for this query.
 _REST_INDEX = 'cacm'
@@ -59,6 +60,7 @@ class TestRestServer(unittest.TestCase):
         self.assertIn('ApiKeyAuth', data['components']['securitySchemes'])
         search_responses = data['paths']['/{index}/search']['get']['responses']
         self.assertIn('401', search_responses)
+        self.assertIn('429', search_responses)
 
     def test_docs_available(self):
         response = self.client.get('/docs')
@@ -415,3 +417,34 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class TestKeyBackpressureLimiter(unittest.IsolatedAsyncioTestCase):
+    async def test_queue_limit_denies_when_at_capacity(self):
+        limiter = KeyBackpressureLimiter(max_concurrent_per_key=1, max_queue_per_key=2, retry_after_seconds=2)
+        first = await limiter.try_acquire('k')
+        self.assertTrue(first)
+
+        blocker_released = asyncio.Event()
+
+        async def second_request():
+            acquired = await limiter.try_acquire('k')
+            self.assertTrue(acquired)
+            await blocker_released.wait()
+            await limiter.release('k')
+
+        second_task = asyncio.create_task(second_request())
+        await asyncio.sleep(0.05)
+        denied = await limiter.try_acquire('k')
+        self.assertFalse(denied)
+
+        await limiter.release('k')
+        blocker_released.set()
+        await second_task
+
+    async def test_release_cleans_up_key_state(self):
+        limiter = KeyBackpressureLimiter(max_concurrent_per_key=1, max_queue_per_key=1)
+        self.assertTrue(await limiter.try_acquire('a'))
+        await limiter.release('a')
+        self.assertTrue(await limiter.try_acquire('a'))
+        await limiter.release('a')

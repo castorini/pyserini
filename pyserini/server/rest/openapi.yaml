@@ -63,6 +63,17 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: Too many queued requests for this key (only when keyed backpressure is enabled).
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Suggested wait time in seconds before retrying.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
         "404":
           description: Route not found.
           content:
@@ -126,6 +137,17 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
         "401":
           description: Missing or invalid API credentials (only when the server is configured with API keys).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: Too many queued requests for this key (only when keyed backpressure is enabled).
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Suggested wait time in seconds before retrying.
           content:
             application/json:
               schema:

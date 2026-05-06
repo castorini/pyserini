@@ -33,9 +33,11 @@ import copy
 import json
 import logging
 import hashlib
+import asyncio
 from contextlib import asynccontextmanager
 from functools import lru_cache
 from importlib import resources
+from dataclasses import dataclass
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
@@ -55,6 +57,66 @@ API_VERSION = 'v1'
 DESCRIPTION = 'REST API aligned with Anserini (Lucene indexes via Pyserini).'
 ROUTE_ERROR = 'Expected route /v1/{index}/search or /v1/{index}/doc/{docid}'
 AUTH_TOKEN_REQUEST_EMAIL = 'get-pyserini@googlegroups.com'
+DEFAULT_BACKPRESSURE_RETRY_AFTER_SECONDS = 1
+
+
+@dataclass
+class _KeyBucket:
+    """Per-key limiter state."""
+
+    semaphore: asyncio.Semaphore
+    pending: int = 0
+
+
+class KeyBackpressureLimiter:
+    """Apply per-key bounded queueing and bounded in-flight concurrency."""
+
+    def __init__(
+        self,
+        *,
+        max_concurrent_per_key: int,
+        max_queue_per_key: int,
+        retry_after_seconds: int = DEFAULT_BACKPRESSURE_RETRY_AFTER_SECONDS,
+    ) -> None:
+        if max_concurrent_per_key <= 0:
+            raise ValueError('max_concurrent_per_key must be >= 1 when backpressure is enabled')
+        if max_queue_per_key <= 0:
+            raise ValueError('max_queue_per_key must be >= 1 when backpressure is enabled')
+        if max_queue_per_key < max_concurrent_per_key:
+            raise ValueError('max_queue_per_key must be >= max_concurrent_per_key')
+        if retry_after_seconds <= 0:
+            raise ValueError('retry_after_seconds must be >= 1')
+        self._max_concurrent_per_key = max_concurrent_per_key
+        self._max_queue_per_key = max_queue_per_key
+        self._retry_after_seconds = retry_after_seconds
+        self._lock = asyncio.Lock()
+        self._buckets: dict[str, _KeyBucket] = {}
+
+    @property
+    def retry_after_seconds(self) -> int:
+        return self._retry_after_seconds
+
+    async def try_acquire(self, key: str) -> bool:
+        async with self._lock:
+            bucket = self._buckets.get(key)
+            if bucket is None:
+                bucket = _KeyBucket(semaphore=asyncio.Semaphore(self._max_concurrent_per_key))
+                self._buckets[key] = bucket
+            if bucket.pending >= self._max_queue_per_key:
+                return False
+            bucket.pending += 1
+        await bucket.semaphore.acquire()
+        return True
+
+    async def release(self, key: str) -> None:
+        async with self._lock:
+            bucket = self._buckets.get(key)
+            if bucket is None:
+                return
+            bucket.pending -= 1
+            bucket.semaphore.release()
+            if bucket.pending <= 0:
+                self._buckets.pop(key, None)
 
 def _error_message(detail: object) -> str:
     """Coerce exception detail to a single string (``ErrorResponse.error`` is ``type: string``)."""
@@ -172,6 +234,9 @@ def create_app(
     config_path: str | None = None,
     *,
     no_prebuilt_indexes: bool = False,
+    max_concurrent_per_key: int = 0,
+    max_queue_per_key: int = 0,
+    backpressure_retry_after_seconds: int = DEFAULT_BACKPRESSURE_RETRY_AFTER_SECONDS,
 ) -> FastAPI:
     if no_prebuilt_indexes and not config_path:
         raise ValueError('--no-prebuilt-indexes requires a config file path')
@@ -192,6 +257,13 @@ def create_app(
     accepted_api_tokens: AcceptedApiTokens | None = None
     if token_strings:
         accepted_api_tokens = AcceptedApiTokens.from_strings(token_strings)
+    keyed_backpressure: KeyBackpressureLimiter | None = None
+    if max_concurrent_per_key > 0 or max_queue_per_key > 0:
+        keyed_backpressure = KeyBackpressureLimiter(
+            max_concurrent_per_key=max_concurrent_per_key,
+            max_queue_per_key=max_queue_per_key,
+            retry_after_seconds=backpressure_retry_after_seconds,
+        )
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
@@ -206,20 +278,25 @@ def create_app(
         lifespan=lifespan,
     )
     app.state.accepted_api_tokens = accepted_api_tokens  # type: ignore[attr-defined]
+    app.state.keyed_backpressure = keyed_backpressure  # type: ignore[attr-defined]
     app.openapi = lambda: _load_openapi_schema()
 
     @app.middleware('http')
     async def rest_api_key_and_access_log(request: Request, call_next):
         prefix = f'/{API_VERSION}/'
         tokens: AcceptedApiTokens | None = getattr(request.app.state, 'accepted_api_tokens', None)
-        if tokens is None or not request.url.path.startswith(prefix):
+        limiter: KeyBackpressureLimiter | None = getattr(request.app.state, 'keyed_backpressure', None)
+        if (tokens is None and limiter is None) or not request.url.path.startswith(prefix):
             return await call_next(request)
 
         credentials = _extract_api_tokens(request)
-        matched_token = next((token for token in credentials if tokens.is_valid(token)), None)
+        matched_token = next((token for token in credentials if tokens and tokens.is_valid(token)), None)
         key_id = _compute_token_fingerprint(matched_token or (credentials[0] if credentials else None))
+        if matched_token is None and not credentials and request.client is not None:
+            # Use client host as key for anonymous traffic.
+            key_id = f'client:{request.client.host}'
         query = _truncate_request_query(request)
-        if matched_token is None:
+        if tokens is not None and matched_token is None:
             client = request.client.host if request.client else '-'
             auth_logger.info(
                 'auth_failed client=%s method=%s path=%s query=%s key_id=%s status=401',
@@ -239,18 +316,43 @@ def create_app(
                 },
             )
 
-        response = await call_next(request)
-        client = request.client.host if request.client else '-'
-        auth_logger.info(
-            'auth_request client=%s method=%s path=%s query=%s key_id=%s status=%s',
-            client,
-            request.method,
-            request.url.path,
-            query,
-            key_id,
-            response.status_code,
-        )
-        return response
+        if limiter is None:
+            response = await call_next(request)
+            client = request.client.host if request.client else '-'
+            auth_logger.info(
+                'auth_request client=%s method=%s path=%s query=%s key_id=%s status=%s',
+                client,
+                request.method,
+                request.url.path,
+                query,
+                key_id,
+                response.status_code,
+            )
+            return response
+
+        acquired = await limiter.try_acquire(key_id)
+        if not acquired:
+            return JSONResponse(
+                status_code=429,
+                content={'error': 'Too many queued requests for this API key. Please retry later.'},
+                headers={'Retry-After': str(limiter.retry_after_seconds)},
+            )
+
+        try:
+            response = await call_next(request)
+            client = request.client.host if request.client else '-'
+            auth_logger.info(
+                'auth_request client=%s method=%s path=%s query=%s key_id=%s status=%s',
+                client,
+                request.method,
+                request.url.path,
+                query,
+                key_id,
+                response.status_code,
+            )
+            return response
+        finally:
+            await limiter.release(key_id)
 
     @app.exception_handler(Exception)
     async def unhandled_exception_handler(request: Request, exc: Exception):
@@ -331,6 +433,24 @@ def main():
         action='store_true',
         help='Disable uvicorn default request access logs.',
     )
+    parser.add_argument(
+        '--max-concurrent-per-key',
+        type=int,
+        default=0,
+        help='Optional keyed backpressure: max in-flight /v1 requests per key (0 disables).',
+    )
+    parser.add_argument(
+        '--max-queue-per-key',
+        type=int,
+        default=0,
+        help='Optional keyed backpressure: max queued + in-flight /v1 requests per key (0 disables).',
+    )
+    parser.add_argument(
+        '--backpressure-retry-after-seconds',
+        type=int,
+        default=DEFAULT_BACKPRESSURE_RETRY_AFTER_SECONDS,
+        help='Retry-After value (seconds) sent with 429 backpressure responses.',
+    )
     args = parser.parse_args()
 
     if args.port <= 0 or args.port > 65535:
@@ -339,11 +459,24 @@ def main():
     if args.no_prebuilt_indexes:
         if not args.config:
             raise SystemExit('Error: --no-prebuilt-indexes requires --config')
+    if args.max_concurrent_per_key < 0:
+        raise SystemExit('Error: --max-concurrent-per-key must be >= 0')
+    if args.max_queue_per_key < 0:
+        raise SystemExit('Error: --max-queue-per-key must be >= 0')
+    if (args.max_concurrent_per_key == 0) ^ (args.max_queue_per_key == 0):
+        raise SystemExit(
+            'Error: --max-concurrent-per-key and --max-queue-per-key must both be set (>0) to enable backpressure'
+        )
+    if args.backpressure_retry_after_seconds <= 0:
+        raise SystemExit('Error: --backpressure-retry-after-seconds must be >= 1')
 
     uvicorn.run(
         create_app(
             args.config,
             no_prebuilt_indexes=args.no_prebuilt_indexes,
+            max_concurrent_per_key=args.max_concurrent_per_key,
+            max_queue_per_key=args.max_queue_per_key,
+            backpressure_retry_after_seconds=args.backpressure_retry_after_seconds,
         ),
         host=args.host,
         port=args.port,
