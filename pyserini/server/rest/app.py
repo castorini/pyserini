@@ -352,11 +352,18 @@ def create_app(
                 content={'error': 'Service temporarily overloaded; retry later.'},
             )
 
-        response = await call_next(request)
-        if bp is not None:
-            bp.record_latency((time.perf_counter() - t0) * 1000.0, time.perf_counter())
-        _log_auth_attribution('auth_request', client, request, query, key_id, response.status_code)
-        return response
+        status = 500
+        try:
+            response = await call_next(request)
+            status = response.status_code
+            return response
+        except Exception:
+            raise
+        finally:
+            if bp is not None:
+                now = time.perf_counter()
+                bp.record_latency((now - t0) * 1000.0, now)
+            _log_auth_attribution('auth_request', client, request, query, key_id, status)
 
     @app.exception_handler(Exception)
     async def unhandled_exception_handler(request: Request, exc: Exception):
