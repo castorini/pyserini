@@ -20,6 +20,7 @@ import logging
 import os
 import traceback
 import threading
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 from urllib.parse import unquote
@@ -100,6 +101,8 @@ class SharedSearchBackend:
         # Serialize get-or-create per logical index name so different indexes can open in parallel.
         self._index_lock_registry = threading.Lock()
         self._index_locks: dict[str, threading.Lock] = {}
+        self._search_cached = lru_cache(maxsize=2048)(self._search_impl)
+        self._document_cached = lru_cache(maxsize=4096)(self._get_document_impl)
 
     def _lock_for_index_name(self, index_name: str) -> threading.Lock:
         with self._index_lock_registry:
@@ -122,6 +125,8 @@ class SharedSearchBackend:
             except Exception:
                 logger.warning('Failed to close searcher for index %s during backend shutdown.', config.name, exc_info=True)
         self.indexes.clear()
+        self._search_cached.cache_clear()
+        self._document_cached.cache_clear()
 
     def decode_path_segment(self, value: str) -> str:
         return unquote(value)
@@ -438,7 +443,7 @@ class SharedSearchBackend:
         all_results.sort(key=lambda x: x['score'], reverse=True)
         return all_results[:hits]
 
-    def get_document(
+    def _get_document_impl(
         self,
         docid: str,
         index_name: str,
@@ -447,7 +452,16 @@ class SharedSearchBackend:
     ) -> dict[str, Any] | str:
         return self._bulk_fetch_and_format_documents([docid], index_name, parse=parse, allow_local_index=allow_local_index)[docid]
 
-    def search(
+    def get_document(
+        self,
+        docid: str,
+        index_name: str,
+        parse: bool = True,
+        allow_local_index: bool = True,
+    ) -> dict[str, Any] | str:
+        return self._document_cached(docid, index_name, parse, allow_local_index)
+
+    def _search_impl(
         self,
         query: str | dict[str, Any],
         index_name: str,
@@ -512,6 +526,23 @@ class SharedSearchBackend:
             )
         response_payload['candidates'] = candidates
         return response_payload
+
+    def search(
+        self,
+        query: str | dict[str, Any],
+        index_name: str,
+        hits: int = 10,
+        qid: str = '',
+        parse: bool = True,
+        allow_local_index: bool = True,
+        ef_search: int | None = None,
+        encoder: str | None = None,
+        query_generator: str | None = None,
+    ) -> dict[str, Any]:
+        # Cache only REST-style string queries; multimodal dict payloads stay uncached.
+        if isinstance(query, str):
+            return self._search_cached(query, index_name, hits, qid, parse, allow_local_index, ef_search, encoder, query_generator)
+        return self._search_impl(query, index_name, hits, qid, parse, allow_local_index, ef_search, encoder, query_generator)
 
 
 _backend: SharedSearchBackend | None = None

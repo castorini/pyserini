@@ -18,6 +18,7 @@ import os
 import tempfile
 import time
 import unittest
+import unittest.mock
 import hashlib
 
 import yaml
@@ -92,6 +93,22 @@ class TestRestServer(unittest.TestCase):
         self.assertIn('score', cand)
         self.assertIn('doc', cand)
 
+    def test_search_repeated_request_uses_backend_cache(self):
+        backend = self.client.app.state.search_backend
+        backend._search_cached.cache_clear()
+        with unittest.mock.patch.object(backend, '_prepare_query', wraps=backend._prepare_query) as mocked_prepare:
+            r1 = self.client.get(
+                f'/{API_VERSION}/{_REST_INDEX}/search',
+                params={'query': _REST_QUERY, 'hits': 1, 'parse': 'true'},
+            )
+            r2 = self.client.get(
+                f'/{API_VERSION}/{_REST_INDEX}/search',
+                params={'query': _REST_QUERY, 'hits': 1, 'parse': 'true'},
+            )
+        self.assertEqual(r1.status_code, 200, msg=r1.text)
+        self.assertEqual(r2.status_code, 200, msg=r2.text)
+        self.assertEqual(mocked_prepare.call_count, 1)
+
     def test_search_missing_query(self):
         response = self.client.get(f'/{API_VERSION}/{_REST_INDEX}/search')
         self.assertEqual(response.status_code, 400)
@@ -130,6 +147,26 @@ class TestRestServer(unittest.TestCase):
             contents = doc.get('contents') if isinstance(doc, dict) else None
             self.assertIsNotNone(contents)
             self.assertIn(_REST_DOC_SUBSTRING, contents)
+
+    def test_get_doc_repeated_request_uses_backend_cache(self):
+        backend = self.client.app.state.search_backend
+        backend._document_cached.cache_clear()
+        with unittest.mock.patch.object(
+            backend,
+            '_bulk_fetch_and_format_documents',
+            wraps=backend._bulk_fetch_and_format_documents,
+        ) as mocked_bulk_fetch:
+            r1 = self.client.get(
+                f'/{API_VERSION}/{_REST_INDEX}/doc/{_REST_TOP_DOCID}',
+                params={'parse': 'true'},
+            )
+            r2 = self.client.get(
+                f'/{API_VERSION}/{_REST_INDEX}/doc/{_REST_TOP_DOCID}',
+                params={'parse': 'true'},
+            )
+        self.assertEqual(r1.status_code, 200, msg=r1.text)
+        self.assertEqual(r2.status_code, 200, msg=r2.text)
+        self.assertEqual(mocked_bulk_fetch.call_count, 1)
 
     def test_get_doc_not_found(self):
         response = self.client.get(f'/{API_VERSION}/{_REST_INDEX}/doc/does-not-exist-xyz')
