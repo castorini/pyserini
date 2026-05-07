@@ -63,6 +63,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: >
+            Load shedding when the server is configured with API keys and rolling p99 latency exceeds
+            the configured threshold; busiest API key(s) in the last minute may receive this response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
         "404":
           description: Route not found.
           content:
@@ -126,6 +134,14 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
         "401":
           description: Missing or invalid API credentials (only when the server is configured with API keys).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: >
+            Load shedding when the server is configured with API keys and rolling p99 latency exceeds
+            the configured threshold; busiest API key(s) in the last minute may receive this response.
           content:
             application/json:
               schema:

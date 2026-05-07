@@ -18,7 +18,7 @@
 FastAPI server exposing the same REST surface as Anserini (``openapi.yaml``).
 
 Usage:
-    python -m pyserini.server.rest [--host HOST] [--port PORT] [--config PATH] [--no-prebuilt-indexes]
+    python -m pyserini.server.rest [--host HOST] [--port PORT] [--config PATH] [--no-prebuilt-indexes] [--rest-p99-ms MS]
 
 Endpoints:
     GET /openapi.yaml     : OpenAPI specification (same document as Anserini).
@@ -33,6 +33,9 @@ import copy
 import json
 import logging
 import hashlib
+import threading
+import time
+from collections import deque
 from contextlib import asynccontextmanager
 from functools import lru_cache
 from importlib import resources
@@ -55,6 +58,63 @@ API_VERSION = 'v1'
 DESCRIPTION = 'REST API aligned with Anserini (Lucene indexes via Pyserini).'
 ROUTE_ERROR = 'Expected route /v1/{index}/search or /v1/{index}/doc/{docid}'
 AUTH_TOKEN_REQUEST_EMAIL = 'get-pyserini@googlegroups.com'
+
+
+class RestBackpressure:
+    """Rolling p99 latency vs. threshold; shed callers tied for max /v1/ hits in the last minute."""
+
+    __slots__ = ('_p99_threshold_ms', '_lock', '_latencies', '_key_hits')
+    _window_sec = 60.0
+    _min_latency_samples = 20
+
+    def __init__(self, p99_threshold_ms: float) -> None:
+        self._p99_threshold_ms = float(p99_threshold_ms)
+        self._lock = threading.Lock()
+        self._latencies: deque[tuple[float, float]] = deque()
+        self._key_hits: deque[tuple[float, str]] = deque()
+
+    def _prune(self, now: float) -> None:
+        cutoff = now - self._window_sec
+        while self._latencies and self._latencies[0][0] < cutoff:
+            self._latencies.popleft()
+        while self._key_hits and self._key_hits[0][0] < cutoff:
+            self._key_hits.popleft()
+
+    def should_shed(self, key_id: str, now: float) -> bool:
+        with self._lock:
+            self._key_hits.append((now, key_id))
+            self._prune(now)
+            n = len(self._latencies)
+            if n < self._min_latency_samples:
+                return False
+            lat_ms = sorted(ms for _, ms in self._latencies)
+            p99 = float(lat_ms[min(n - 1, int(0.99 * (n - 1)))])
+            if p99 <= self._p99_threshold_ms:
+                return False
+            counts: dict[str, int] = {}
+            for _, k in self._key_hits:
+                counts[k] = counts.get(k, 0) + 1
+            mx = max(counts.values())
+            return counts.get(key_id, 0) == mx and mx >= 2
+
+    def record_latency(self, latency_ms: float, now: float) -> None:
+        with self._lock:
+            self._latencies.append((now, latency_ms))
+            self._prune(now)
+
+
+def _log_auth_attribution(event: str, client: str, request: Request, query: str, key_id: str, status: int) -> None:
+    auth_logger.info(
+        '%s client=%s method=%s path=%s query=%s key_id=%s status=%s',
+        event,
+        client,
+        request.method,
+        request.url.path,
+        query,
+        key_id,
+        status,
+    )
+
 
 def _error_message(detail: object) -> str:
     """Coerce exception detail to a single string (``ErrorResponse.error`` is ``type: string``)."""
@@ -172,6 +232,7 @@ def create_app(
     config_path: str | None = None,
     *,
     no_prebuilt_indexes: bool = False,
+    rest_p99_ms: float = 750.0,
 ) -> FastAPI:
     if no_prebuilt_indexes and not config_path:
         raise ValueError('--no-prebuilt-indexes requires a config file path')
@@ -193,6 +254,10 @@ def create_app(
     if token_strings:
         accepted_api_tokens = AcceptedApiTokens.from_strings(token_strings)
 
+    rest_backpressure: RestBackpressure | None = None
+    if accepted_api_tokens is not None:
+        rest_backpressure = RestBackpressure(rest_p99_ms)
+
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         app.state.search_backend = SharedSearchBackend(config_path, no_prebuilt_indexes=no_prebuilt_indexes)
@@ -206,6 +271,7 @@ def create_app(
         lifespan=lifespan,
     )
     app.state.accepted_api_tokens = accepted_api_tokens  # type: ignore[attr-defined]
+    app.state.rest_backpressure = rest_backpressure  # type: ignore[attr-defined]
     app.openapi = lambda: _load_openapi_schema()
 
     @app.middleware('http')
@@ -215,20 +281,13 @@ def create_app(
         if tokens is None or not request.url.path.startswith(prefix):
             return await call_next(request)
 
+        client = request.client.host if request.client else '-'
+        query = _truncate_request_query(request)
         credentials = _extract_api_tokens(request)
         matched_token = next((token for token in credentials if tokens.is_valid(token)), None)
         key_id = _compute_token_fingerprint(matched_token or (credentials[0] if credentials else None))
-        query = _truncate_request_query(request)
         if matched_token is None:
-            client = request.client.host if request.client else '-'
-            auth_logger.info(
-                'auth_failed client=%s method=%s path=%s query=%s key_id=%s status=401',
-                client,
-                request.method,
-                request.url.path,
-                query,
-                key_id,
-            )
+            _log_auth_attribution('auth_failed', client, request, query, key_id, 401)
             return JSONResponse(
                 status_code=401,
                 content={
@@ -239,17 +298,19 @@ def create_app(
                 },
             )
 
+        bp: RestBackpressure | None = getattr(request.app.state, 'rest_backpressure', None)
+        t0 = time.perf_counter()
+        if bp is not None and bp.should_shed(key_id, t0):
+            _log_auth_attribution('auth_request', client, request, query, key_id, 429)
+            return JSONResponse(
+                status_code=429,
+                content={'error': 'Service temporarily overloaded; retry later.'},
+            )
+
         response = await call_next(request)
-        client = request.client.host if request.client else '-'
-        auth_logger.info(
-            'auth_request client=%s method=%s path=%s query=%s key_id=%s status=%s',
-            client,
-            request.method,
-            request.url.path,
-            query,
-            key_id,
-            response.status_code,
-        )
+        if bp is not None:
+            bp.record_latency((time.perf_counter() - t0) * 1000.0, time.perf_counter())
+        _log_auth_attribution('auth_request', client, request, query, key_id, response.status_code)
         return response
 
     @app.exception_handler(Exception)
@@ -331,6 +392,16 @@ def main():
         action='store_true',
         help='Disable uvicorn default request access logs.',
     )
+    parser.add_argument(
+        '--rest-p99-ms',
+        type=float,
+        default=750.0,
+        metavar='MS',
+        help=(
+            'When api_keys is set in --config, shed the busiest key(s) if rolling p99 latency (ms) '
+            'over the last minute exceeds this value (default: 750).'
+        ),
+    )
     args = parser.parse_args()
 
     if args.port <= 0 or args.port > 65535:
@@ -340,10 +411,14 @@ def main():
         if not args.config:
             raise SystemExit('Error: --no-prebuilt-indexes requires --config')
 
+    if args.rest_p99_ms < 0:
+        raise SystemExit('Error: --rest-p99-ms must be >= 0')
+
     uvicorn.run(
         create_app(
             args.config,
             no_prebuilt_indexes=args.no_prebuilt_indexes,
+            rest_p99_ms=args.rest_p99_ms,
         ),
         host=args.host,
         port=args.port,
@@ -352,4 +427,4 @@ def main():
     )
 
 
-__all__ = ['app', 'create_app', 'main', 'VERSION', 'API_VERSION']
+__all__ = ['RestBackpressure', 'app', 'create_app', 'main', 'VERSION', 'API_VERSION']
