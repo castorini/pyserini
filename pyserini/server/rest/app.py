@@ -63,44 +63,89 @@ AUTH_TOKEN_REQUEST_EMAIL = 'get-pyserini@googlegroups.com'
 class RestBackpressure:
     """Rolling p99 latency vs. threshold; shed callers tied for max /v1/ hits in the last minute."""
 
-    __slots__ = ('_p99_threshold_ms', '_lock', '_latencies', '_key_hits')
+    __slots__ = (
+        '_p99_threshold_ms',
+        '_lock',
+        '_latencies',
+        '_key_hits',
+        '_key_counts',
+        '_max_count',
+        '_cached_p99_ms',
+        '_cached_p99_at',
+    )
     _window_sec = 60.0
     _min_latency_samples = 20
+    _p99_refresh_sec = 0.25
 
     def __init__(self, p99_threshold_ms: float) -> None:
         self._p99_threshold_ms = float(p99_threshold_ms)
         self._lock = threading.Lock()
         self._latencies: deque[tuple[float, float]] = deque()
         self._key_hits: deque[tuple[float, str]] = deque()
+        self._key_counts: dict[str, int] = {}
+        self._max_count = 0
+        self._cached_p99_ms: float | None = None
+        self._cached_p99_at = 0.0
 
-    def _prune(self, now: float) -> None:
+    def _prune_latencies(self, now: float) -> None:
         cutoff = now - self._window_sec
         while self._latencies and self._latencies[0][0] < cutoff:
             self._latencies.popleft()
+
+    def _prune_key_hits(self, now: float) -> None:
+        cutoff = now - self._window_sec
         while self._key_hits and self._key_hits[0][0] < cutoff:
-            self._key_hits.popleft()
+            _, k = self._key_hits.popleft()
+            n = self._key_counts.get(k, 0)
+            if n <= 1:
+                self._key_counts.pop(k, None)
+            else:
+                self._key_counts[k] = n - 1
+        if self._max_count and self._max_count not in self._key_counts.values():
+            self._max_count = max(self._key_counts.values(), default=0)
+
+    def _sync_counts_from_hits_if_needed(self) -> None:
+        # Preserve testability when fixtures seed _key_hits directly.
+        if self._key_counts or not self._key_hits:
+            return
+        for _, k in self._key_hits:
+            self._key_counts[k] = self._key_counts.get(k, 0) + 1
+        self._max_count = max(self._key_counts.values(), default=0)
+
+    def _p99_ms(self, now: float) -> float | None:
+        if (
+            self._cached_p99_ms is not None
+            and now - self._cached_p99_at < self._p99_refresh_sec
+        ):
+            return self._cached_p99_ms
+        n = len(self._latencies)
+        if n < self._min_latency_samples:
+            self._cached_p99_ms = None
+        else:
+            lat_ms = sorted(ms for _, ms in self._latencies)
+            self._cached_p99_ms = float(lat_ms[min(n - 1, int(0.99 * (n - 1)))])
+        self._cached_p99_at = now
+        return self._cached_p99_ms
 
     def should_shed(self, key_id: str, now: float) -> bool:
         with self._lock:
+            self._sync_counts_from_hits_if_needed()
             self._key_hits.append((now, key_id))
-            self._prune(now)
-            n = len(self._latencies)
-            if n < self._min_latency_samples:
+            self._key_counts[key_id] = self._key_counts.get(key_id, 0) + 1
+            self._max_count = max(self._max_count, self._key_counts[key_id])
+            self._prune_key_hits(now)
+            self._prune_latencies(now)
+            p99 = self._p99_ms(now)
+            if p99 is None:
                 return False
-            lat_ms = sorted(ms for _, ms in self._latencies)
-            p99 = float(lat_ms[min(n - 1, int(0.99 * (n - 1)))])
             if p99 <= self._p99_threshold_ms:
                 return False
-            counts: dict[str, int] = {}
-            for _, k in self._key_hits:
-                counts[k] = counts.get(k, 0) + 1
-            mx = max(counts.values())
-            return counts.get(key_id, 0) == mx and mx >= 2
+            return self._key_counts.get(key_id, 0) == self._max_count and self._max_count >= 2
 
     def record_latency(self, latency_ms: float, now: float) -> None:
         with self._lock:
             self._latencies.append((now, latency_ms))
-            self._prune(now)
+            self._prune_latencies(now)
 
 
 def _log_auth_attribution(event: str, client: str, request: Request, query: str, key_id: str, status: int) -> None:
