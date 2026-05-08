@@ -45,6 +45,7 @@ Start by creating the directories where we will store the encoded documents:
 mkdir encode
 cd encode
 mkdir nfcorpus.splade-v3
+cd ..
 ```
 
 We can then setup to use SPLADE-v3:
@@ -213,3 +214,8 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@Zixi-Sam-Tang](https://github.com/Zixi-Sam-Tang) on 2026-04-23 (commit [`b823fb0`](https://github.com/castorini/pyserini/commit/b823fb0af8c48e5a5163949dd499271336fe8f63))
 + Results reproduced by [@alex-wang101](https://github.com/alex-wang101) on 2026-04-25 (commit [`e9cd125`](https://github.com/castorini/pyserini/commit/e9cd1250b2fafa2b806fdb1214c121b2c6e991a7))
 + Results reproduced by [@TahseenSust](https://github.com/TahseenSust) on 2026-04-29 (commit [`c8e8273`](https://github.com/castorini/pyserini/commit/c8e82737077c0990a501927b688cd014b29b4fa7))
++ Results reproduced by [@Seun-Ajayi](https://github.com/Seun-Ajayi) on 2026-04-26 (commit [`1f12c67`](https://github.com/castorini/pyserini/commit/1f12c6760c95f36f87757d3efa0e3a7a7f2d9fc8))
++ Results reproduced by [@mohamedshakir3](https://github.com/mohamedshakir3) on 2026-05-02 (commit [`7ed1f31`](https://github.com/castorini/pyserini/commit/7ed1f31e74db66e75c41f5f95b92f5ccfeaced31))
++ Results reproduced by [@tqmsh](https://github.com/tqmsh) on 2026-05-03 (commit [`6adee73`](https://github.com/castorini/pyserini/commit/6adee73cf36255056a1c46dc5ecdb4b29b9ce1c5))
++ Results reproduced by [@mazleon](https://github.com/mazleon) on 2026-05-03 (commit [`6adee73`](https://github.com/castorini/pyserini/commit/6adee73cf36255056a1c46dc5ecdb4b29b9ce1c5))
++ Results reproduced by [@blissuche90](https://github.com/blissuche90) on 2026-05-04 (commit [`7ed1f31`](https://github.com/castorini/pyserini/commit/7ed1f31e74db66e75c41f5f95b92f5ccfeaced31))

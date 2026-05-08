@@ -20,6 +20,9 @@ MCP server tests using FastMCP HTTP transport and Client API.
 Runs the MCP server in-process over HTTP (streamable-http) via run_server_async,
 then uses the FastMCP Client to call tools. No subprocess or stdio.
 All server output (uvicorn, FastMCP, CancelledError, etc.) is suppressed during tests.
+
+These core tests cover MCP tools that do not require optional uniir_for_pyserini
+dependencies. UniIR-backed m-BEIR MCP tests live under tests/optional/.
 """
 
 import asyncio

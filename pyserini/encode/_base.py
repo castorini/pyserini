@@ -23,6 +23,7 @@ import torch
 from tqdm import tqdm
 
 from pyserini.util import download_encoded_queries
+from transformers.utils import cached_file
 
 
 class DocumentEncoder:
@@ -230,3 +231,15 @@ class JsonlRepresentationWriter(RepresentationWriter):
             self.file.write(json.dumps({'id': batch_info['id'][i],
                                         'contents': contents,
                                         'vector': vector}) + '\n')
+            
+def load_head_weights(model, model_name, weight_map):
+    """
+    Load head weights from checkpoint for transformers 5.x compatibility.
+    This function manually loads head weights from the checkpoint file.
+    """
+
+    weights_path = cached_file(model_name, 'pytorch_model.bin')
+    state_dict = torch.load(weights_path, map_location='cpu', weights_only=True)
+    for module_name, keys in weight_map.items():
+        module = getattr(model, module_name)
+        module.load_state_dict({k: state_dict[v] for k, v in keys.items()})

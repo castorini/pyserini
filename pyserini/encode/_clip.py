@@ -59,6 +59,12 @@ class BaseClipEncoder:
         """Apply L2 normalization to embeddings if required."""
         return normalize(embeddings, axis=1, norm='l2') if self.l2_norm else embeddings
 
+    def features_to_numpy(self, features):
+        """Extract tensor outputs from CLIP features across transformers versions."""
+        if hasattr(features, 'pooler_output'):
+            features = features.pooler_output
+        return features.detach().cpu().numpy()
+
 
 class ClipImageEncoder(BaseClipEncoder):
     """Encodes images using a CLIP model."""
@@ -80,7 +86,7 @@ class ClipImageEncoder(BaseClipEncoder):
         with torch.no_grad():
             image_features = self.model.get_image_features(**inputs)
 
-        embeddings = image_features.detach().cpu().numpy()
+        embeddings = self.features_to_numpy(image_features)
         return self.normalize_embeddings(embeddings)
 
 
@@ -109,7 +115,7 @@ class ClipTextEncoder(BaseClipEncoder):
         with torch.no_grad():
             text_features = self.model.get_text_features(**inputs)
 
-        embeddings = text_features.detach().cpu().numpy()
+        embeddings = self.features_to_numpy(text_features)
         return self.normalize_embeddings(embeddings)
     
     
