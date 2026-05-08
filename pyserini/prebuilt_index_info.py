@@ -1364,59 +1364,29 @@ TF_INDEX_INFO_OTHER = {
     },
 
     "wikipedia-dpr-100w": {
-        "description": "Lucene index of Wikipedia with DPR 100-word splits",
-        "filename": "lucene-index.wikipedia-dpr-100w.20210120.d1b9e6.tar.gz",
-        "readme": "index-wikipedia-dpr-20210120-d1b9e6-readme.txt",
+        "description": "Lucene index of Wikipedia with DPR 100-word splits (Lucene 10.4.0)",
+        "filename": "lucene-inverted.wikipedia-dpr-100w.20260508.deb4c7b.tar",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wikipedia-dpr-100w.20210120.d1b9e6.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.wikipedia-dpr-100w.20260508.deb4c7b.tar"
         ],
-        "md5": "7b58c08da992b2ea7e96667f0b176651",
-        "size compressed (bytes)": 9177917732,
-        "total_terms": 1512973270,
+        "md5": "1ef94a97f2ac418577d1e6a9ecf44806",
+        "size compressed (bytes)": 11078635520,
+        "total_terms": 1512973244,
         "documents": 21015324,
-        "unique_terms": 5345463,
-        "downloaded": False
-    },
-    "wikipedia-dpr-100w-slim": {
-        "description": "Lucene index of Wikipedia with DPR 100-word splits (slim version, document text not stored)",
-        "filename": "lucene-index.wikipedia-dpr-100w-slim.20210120.d1b9e6.tar.gz",
-        "readme": "index-wikipedia-dpr-slim-20210120-d1b9e6-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wikipedia-dpr-100w-slim.20210120.d1b9e6.tar.gz"
-        ],
-        "md5": "5d24352f0de6ae75b60e11a9cf622251",
-        "size compressed (bytes)": 1810337190,
-        "total_terms": 1512973270,
-        "documents": 21015324,
-        "unique_terms": 5345463,
-        "downloaded": False
-    },
-    "wikipedia-kilt-doc": {
-        "description": "Lucene index of Wikipedia snapshot used as KILT's knowledge source.",
-        "filename": "lucene-index.wikipedia-kilt-doc.20210421.f29307.tar.gz",
-        "readme": "index-wikipedia-kilt-doc-20210421-f29307-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wikipedia-kilt-doc.20210421.f29307.tar.gz"
-        ],
-        "md5": "d4a1e7628f6f68c51dd2d764e62b7f8d",
-        "size compressed (bytes)": 10901145611,
-        "total_terms": 1915061164,
-        "documents": 5903530,
-        "unique_terms": 8722502,
+        "unique_terms": 5345516,
         "downloaded": False
     },
     "wiki-all-6-3-tamber": {
-        "description": "Lucene index of wiki-all-6-3-tamber from castorini/odqa-wiki-corpora",
-        "filename": "lucene-index.wiki-all-6-3-tamber.20230111.40277a.tar.gz",
-        "readme": "lucene-index-wiki-all-6-3-tamber-20230111-40277a.README.md",
+        "description": "Lucene index of wiki-all-6-3-tamber from castorini/odqa-wiki-corpora on Huggingface Datasets (Lucene 10.4.0)",
+        "filename": "lucene-inverted.wiki-all-6-3-tamber.20260508.deb4c7b.tar",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wiki-all-6-3-tamber.20230111.40277a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.wiki-all-6-3-tamber.20260508.deb4c7b.tar",
         ],
-        "md5": "018b45ee8c6278a879caa3145b2dc05d",
-        "size compressed (bytes)": 26240661946,
+        "md5": "47c97a91576b4ed1166992d6de5a71dc",
+        "size compressed (bytes)": 25526548480,
         "total_terms": 5064706668,
         "documents": 76680040,
-        "unique_terms": 14604922,
+        "unique_terms": 14604875,
         "downloaded": False
     },
 
