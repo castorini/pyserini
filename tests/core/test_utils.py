@@ -15,8 +15,11 @@
 #
 
 import os
+import shutil
+import tarfile
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from pyserini.prebuilt_index_info import TF_INDEX_INFO
 from pyserini.util import download_url, download_and_unpack_index, compare_trec_strings_with_tolerance, compare_trec_files_with_tolerance
@@ -72,6 +75,35 @@ class TestIterateCollection(unittest.TestCase):
                 expected_size=expected_size, prebuilt=False, verbose=False, force=True)
             self.assertTrue(os.path.isdir(index_path), f"Index path missing: {index_path}")
             self.assertGreater(len(os.listdir(index_path)), 0, "Extracted index directory is empty.")
+
+    def test_prebuilt_plain_tar_download_and_unpack(self):
+        with tempfile.TemporaryDirectory(prefix="prebuilt-index-") as directory:
+            source_dir = os.path.join(directory, 'source')
+            payload_dir = os.path.join(source_dir, 'plain-index')
+            os.makedirs(payload_dir)
+            with open(os.path.join(payload_dir, 'marker.txt'), 'w') as f:
+                f.write('ok')
+
+            source_tar = os.path.join(directory, 'plain-index.tar')
+            with tarfile.open(source_tar, 'w') as tar:
+                tar.add(payload_dir, arcname='plain-index')
+
+            cache_dir = os.path.join(directory, 'cache')
+
+            def fake_download_url(url, save_dir, local_filename=None, **kwargs):
+                filename = local_filename if local_filename else url.split('/')[-1]
+                destination_path = os.path.join(save_dir, filename)
+                shutil.copyfile(source_tar, destination_path)
+                return destination_path
+
+            with patch.dict(os.environ, {'PYSERINI_CACHE': cache_dir}), \
+                    patch('pyserini.util.download_url', side_effect=fake_download_url):
+                index_path = download_and_unpack_index('https://example.com/plain-index.tar', prebuilt=True, md5='abc123', verbose=False)
+
+            self.assertEqual(index_path, os.path.join(cache_dir, 'indexes', 'plain-index.abc123'))
+            self.assertTrue(os.path.isdir(index_path), f"Index path missing: {index_path}")
+            self.assertTrue(os.path.exists(os.path.join(index_path, 'marker.txt')))
+            self.assertFalse(os.path.exists(os.path.join(cache_dir, 'indexes', 'plain-index.tar')))
 
 
 class TestCompareTrecWithTolerance(unittest.TestCase):
