@@ -1371,9 +1371,9 @@ TF_INDEX_INFO_OTHER = {
         ],
         "md5": "1ef94a97f2ac418577d1e6a9ecf44806",
         "size compressed (bytes)": 11078635520,
-        "total_terms": 1512973270,
+        "total_terms": 1512973244,
         "documents": 21015324,
-        "unique_terms": 5345463,
+        "unique_terms": 5345516,
         "downloaded": False
     },
     "wiki-all-6-3-tamber": {
@@ -1386,7 +1386,7 @@ TF_INDEX_INFO_OTHER = {
         "size compressed (bytes)": 25526548480,
         "total_terms": 5064706668,
         "documents": 76680040,
-        "unique_terms": 14604922,
+        "unique_terms": 14604875,
         "downloaded": False
     },
 
