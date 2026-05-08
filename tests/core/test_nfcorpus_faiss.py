@@ -29,7 +29,7 @@ class TestNFCorpus(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         curdir = os.getcwd()
-        if curdir.endswith('optional'):
+        if curdir.endswith('core'):
             cls.queries = '../resources/nfcorpus-queries.tsv'
             cls.qrels = '../resources/nfcorpus-qrels.tsv'
         else:

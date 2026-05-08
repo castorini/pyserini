@@ -26,7 +26,7 @@ class TestEncodeArctic(unittest.TestCase):
     def setUpClass(cls):
         # The current directory depends on if you're running inside an IDE or from command line.
         curdir = os.getcwd()
-        if curdir.endswith('core'):
+        if curdir.endswith('base'):
             cls.resource_dir = '../resources'
         else:
             cls.resource_dir = 'tests/resources'

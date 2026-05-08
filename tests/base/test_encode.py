@@ -23,8 +23,6 @@ import unittest
 from random import randint
 from urllib.request import urlretrieve
 
-import faiss
-
 from pyserini.search.lucene import LuceneImpactSearcher
 
 
@@ -35,7 +33,7 @@ class TestEncode(unittest.TestCase):
         cls.texts = []
 
         curdir = os.getcwd()
-        if curdir.endswith('optional'):
+        if curdir.endswith('base'):
             cls.test_file = '../resources/simple_cacm_corpus.json'
         else:
             cls.test_file = 'tests/resources/simple_cacm_corpus.json'
@@ -94,52 +92,6 @@ class TestEncode(unittest.TestCase):
         self.assertAlmostEqual(embeddings[2]['vector'][-1], 0.13209162652492523, places=4)
 
         shutil.rmtree(index_dir)
-
-    def test_tct_colbert_v2_encode_cmd_shard(self):
-        cleanup_list = []
-        for shard_i in range(2):
-            index_dir = f'temp_index-{shard_i}'
-            cleanup_list.append(index_dir)
-            cmd = f'python -m pyserini.encode \
-                    input   --corpus {self.test_file} \
-                            --fields text \
-                            --shard-id {shard_i} \
-                            --shard-num 2 \
-                    output  --embeddings {index_dir} \
-                            --to-faiss \
-                    encoder --encoder castorini/tct_colbert-v2-hnp-msmarco \
-                            --fields text \
-                            --batch 1 \
-                            --device cpu'
-            status = os.system(cmd)
-            self.assertEqual(status, 0)
-            self.assertIsFile(os.path.join(index_dir, 'docid'))
-            self.assertIsFile(os.path.join(index_dir, 'index'))
-
-        cmd = f'python -m pyserini.index.merge_faiss_indexes --prefix temp_index- --shard-num 2'
-        index_dir = 'temp_index-full'
-        cleanup_list.append(index_dir)
-        docid_fn = os.path.join(index_dir, 'docid')
-        index_fn = os.path.join(index_dir, 'index')
-
-        status = os.system(cmd)
-        self.assertEqual(status, 0)
-        self.assertIsFile(docid_fn)
-        self.assertIsFile(index_fn)
-
-        index = faiss.read_index(index_fn)
-        vectors = index.reconstruct_n(0, index.ntotal)
-
-        with open(docid_fn) as f:
-            self.assertListEqual([docid.strip() for docid in f], self.docids)
-
-        self.assertAlmostEqual(vectors[0][0], 0.12679848074913025, places=4)
-        self.assertAlmostEqual(vectors[0][-1], -0.0037349488120526075, places=4)
-        self.assertAlmostEqual(vectors[2][0], 0.03678430616855621, places=4)
-        self.assertAlmostEqual(vectors[2][-1], 0.13209162652492523, places=4)
-
-        for index_dir in cleanup_list:
-            shutil.rmtree(index_dir)
 
     def test_aggretriever_distilbert_encode_cmd(self):
         index_dir = 'temp_index'
@@ -264,7 +216,7 @@ class TestEncode(unittest.TestCase):
         texts = []
 
         curdir = os.getcwd()
-        if curdir.endswith('optional'):
+        if curdir.endswith('base'):
             test_file = '../resources/sample_collection_jsonl_image/images.small.jsonl'
         else:
             test_file = 'tests/resources/sample_collection_jsonl_image/images.small.jsonl'

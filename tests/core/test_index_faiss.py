@@ -35,7 +35,7 @@ class TestIndexFaiss(unittest.TestCase):
         self.texts = []
 
         curdir = os.getcwd()
-        if curdir.endswith('optional'):
+        if curdir.endswith('core'):
             self.test_file = '../resources/simple_cacm_corpus.json'
         else:
             self.test_file = 'tests/resources/simple_cacm_corpus.json'

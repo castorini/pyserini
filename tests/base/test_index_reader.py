@@ -55,7 +55,7 @@ class TestIndexUtils(unittest.TestCase):
 
         # The current directory depends on if you're running inside an IDE or from command line.
         curdir = os.getcwd()
-        if curdir.endswith('core'):
+        if curdir.endswith('base'):
             self.collection_dir = '../../collections'
             self.emoji_corpus_path = '../resources/sample_collection_json_emoji'
         else:

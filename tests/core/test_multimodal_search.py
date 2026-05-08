@@ -33,7 +33,7 @@ class TestMultimodalSearch(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         curdir = os.getcwd()
-        if curdir.endswith('optional'):
+        if curdir.endswith('core'):
             cls.resource_dir = '../resources'
             cls.text_file = '../resources/sample_collection_jsonl/documents.jsonl'
             cls.image_file = '../resources/sample_collection_jsonl_image/images.small.jsonl'
