@@ -1,4 +1,5 @@
 import os
+import shutil
 import tarfile
 import unittest
 from random import randint
@@ -35,6 +36,17 @@ class TestPythonRerankers(unittest.TestCase):
                 f'-input {corpus_path} -index {cls.no_vec_searcher_index_dir}'
             )
         cls.no_vec_searcher = LuceneSearcher(cls.no_vec_searcher_index_dir)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.searcher = None
+        cls.no_vec_searcher = None
+        if os.path.exists(cls.tarball_name):
+            os.remove(cls.tarball_name)
+        if os.path.exists(cls.searcher_index_dir):
+            shutil.rmtree(cls.searcher_index_dir)
+        if os.path.exists(cls.no_vec_searcher_index_dir):
+            shutil.rmtree(cls.no_vec_searcher_index_dir)
 
     def test_rm3_changes_ranking(self):
         self.searcher.set_rm3(use_python=True)
