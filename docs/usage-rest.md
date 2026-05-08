@@ -64,7 +64,7 @@ python -m pyserini.server.rest --config /path/to/server.yaml --no-prebuilt-index
 
 When `--no-prebuilt-indexes` is set, the server only accepts index names declared under `indexes:` in `--config`.
 
-With `api_keys` in `--config`, **`--load-shedding-threshold`** sets the latency threshold (milliseconds, default **750**) for simple load shedding: if rolling p99 over the last minute is above it, the busiest API key(s) may get **429**. Omitting `api_keys` disables this (and auth) on `/v1/*`.
+With `api_keys` in `--config`, **`--load-shedding-threshold`** sets the latency threshold (milliseconds, default **2000**) for simple load shedding: if rolling p99 over the last minute is above it, the busiest API key(s) may get **429**. Omitting `api_keys` disables this (and auth) on `/v1/*`.
 
 ```bash
 python -m pyserini.server.rest --config /path/to/server.yaml --load-shedding-threshold 500

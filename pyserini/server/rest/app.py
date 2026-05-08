@@ -289,7 +289,7 @@ def create_app(
     config_path: str | None = None,
     *,
     no_prebuilt_indexes: bool = False,
-    load_shedding_threshold_ms: float = 750.0,
+    load_shedding_threshold_ms: float = 2000.0,
     search_cache_size: int = 2048,
     document_cache_size: int = 4096,
 ) -> FastAPI:
@@ -466,11 +466,11 @@ def main():
     parser.add_argument(
         '--load-shedding-threshold',
         type=float,
-        default=750.0,
+        default=2000.0,
         metavar='MS',
         help=(
             'When api_keys is set in --config, shed the busiest key(s) if rolling p99 latency (ms) '
-            'over the last minute exceeds this value (default: 750).'
+            'over the last minute exceeds this value (default: 2000).'
         ),
     )
     parser.add_argument(
