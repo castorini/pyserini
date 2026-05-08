@@ -478,7 +478,7 @@ class TestRestBackpressure(unittest.TestCase):
             yaml.safe_dump(cfg, f, default_flow_style=False)
             path = f.name
         try:
-            app = create_app(path, no_prebuilt_indexes=True, rest_p99_ms=0.0)
+            app = create_app(path, no_prebuilt_indexes=True, load_shedding_threshold_ms=0.0)
             bp = app.state.rest_backpressure
             self.assertIsInstance(bp, RestBackpressure)
             with bp._lock:

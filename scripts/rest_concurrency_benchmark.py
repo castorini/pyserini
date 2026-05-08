@@ -18,19 +18,11 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='Benchmark concurrent REST search throughput.')
     parser.add_argument('--url', default='http://127.0.0.1:8081', help='REST server base URL.')
     parser.add_argument('--index', default='msmarco-v1-passage', help='Index name in /v1/{index}/search.')
-    parser.add_argument(
-        '--topics',
-        default='tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt',
-        help='TSV topics file with qid<TAB>query.',
-    )
+    parser.add_argument('--topics', default='tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt', help='TSV topics file with qid<TAB>query.')
     parser.add_argument('--hits', type=int, default=10, help='hits query parameter.')
     parser.add_argument('--parse', default='false', help='parse query parameter (true/false).')
     parser.add_argument('--token', default=None, help='Bearer token for Authorization header.')
-    parser.add_argument(
-        '--concurrency',
-        default='1,2,4,8',
-        help='Comma-separated concurrency levels (e.g., 1,2,4,8).',
-    )
+    parser.add_argument('--concurrency', default='1,2,4,8', help='Comma-separated concurrency levels (e.g., 1,2,4,8).')
     parser.add_argument('--warmup-runs', type=int, default=1, help='Warmup runs per level (discarded).')
     parser.add_argument('--measured-runs', type=int, default=3, help='Measured runs per level (averaged).')
     parser.add_argument('--timeout-sec', type=float, default=30.0, help='Per-request timeout.')

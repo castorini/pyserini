@@ -18,7 +18,8 @@
 FastAPI server exposing the same REST surface as Anserini (``openapi.yaml``).
 
 Usage:
-    python -m pyserini.server.rest [--host HOST] [--port PORT] [--config PATH] [--no-prebuilt-indexes] [--rest-p99-ms MS]
+    python -m pyserini.server.rest [--host HOST] [--port PORT] [--config PATH] [--no-prebuilt-indexes] 
+                                   [--load-shedding-threshold MS] [--search-cache-size N] [--document-cache-size N]
 
 Endpoints:
     GET /openapi.yaml     : OpenAPI specification (same document as Anserini).
@@ -61,24 +62,35 @@ AUTH_TOKEN_REQUEST_EMAIL = 'get-pyserini@googlegroups.com'
 
 
 class RestBackpressure:
-    """Rolling p99 latency vs. threshold; shed callers tied for max /v1/ hits in the last minute."""
+    """
+    Simple load-shedding policy for authenticated REST API requests.
+    
+    Algorithm:
+    - Tracks all request latencies and per-API-key request counts over a rolling 60-second window.
+    - Computes p99 latency from recent samples, refreshing every 250ms.
+    - When p99 exceeds the configured threshold, sheds requests from the API key(s) with the highest
+      request count in the current window (minimum 2 requests required to shed).
+    - Returns HTTP 429 for shed requests; caller can retry later.
+    
+    This approach provides lightweight overload control without complex rate-limiting state.
+    """
 
     __slots__ = (
-        '_p99_threshold_ms',
-        '_lock',
-        '_latencies',
-        '_key_hits',
-        '_key_counts',
-        '_max_count',
-        '_cached_p99_ms',
-        '_cached_p99_at',
+        '_load_shedding_threshold_ms',  # float - p99 latency threshold in ms for triggering load shedding
+        '_lock',                        # Thread lock for concurrent access
+        '_latencies',                   # deque[(timestamp, latency_ms)] - rolling window of request latencies
+        '_key_hits',                    # deque[(timestamp, key_id)] - rolling window of API key requests
+        '_key_counts',                  # dict[key_id, count] - current count per key in the window
+        '_max_count',                   # int - highest request count among all keys in current window
+        '_cached_p99_ms',               # float | None - cached p99 latency value
+        '_cached_p99_at',               # float - timestamp when p99 was last computed
     )
     _window_sec = 60.0
     _min_latency_samples = 20
     _p99_refresh_sec = 0.25
 
-    def __init__(self, p99_threshold_ms: float) -> None:
-        self._p99_threshold_ms = float(p99_threshold_ms)
+    def __init__(self, load_shedding_threshold_ms: float) -> None:
+        self._load_shedding_threshold_ms = float(load_shedding_threshold_ms)
         self._lock = threading.Lock()
         self._latencies: deque[tuple[float, float]] = deque()
         self._key_hits: deque[tuple[float, str]] = deque()
@@ -138,7 +150,7 @@ class RestBackpressure:
             p99 = self._p99_ms(now)
             if p99 is None:
                 return False
-            if p99 <= self._p99_threshold_ms:
+            if p99 <= self._load_shedding_threshold_ms:
                 return False
             return self._key_counts.get(key_id, 0) == self._max_count and self._max_count >= 2
 
@@ -277,7 +289,9 @@ def create_app(
     config_path: str | None = None,
     *,
     no_prebuilt_indexes: bool = False,
-    rest_p99_ms: float = 750.0,
+    load_shedding_threshold_ms: float = 750.0,
+    search_cache_size: int = 2048,
+    document_cache_size: int = 4096,
 ) -> FastAPI:
     if no_prebuilt_indexes and not config_path:
         raise ValueError('--no-prebuilt-indexes requires a config file path')
@@ -301,11 +315,16 @@ def create_app(
 
     rest_backpressure: RestBackpressure | None = None
     if accepted_api_tokens is not None:
-        rest_backpressure = RestBackpressure(rest_p99_ms)
+        rest_backpressure = RestBackpressure(load_shedding_threshold_ms)
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
-        app.state.search_backend = SharedSearchBackend(config_path, no_prebuilt_indexes=no_prebuilt_indexes)
+        app.state.search_backend = SharedSearchBackend(
+            config_path,
+            no_prebuilt_indexes=no_prebuilt_indexes,
+            search_cache_size=search_cache_size,
+            document_cache_size=document_cache_size,
+        )
         yield
         app.state.search_backend.close_all()
 
@@ -445,7 +464,7 @@ def main():
         help='Disable uvicorn default request access logs.',
     )
     parser.add_argument(
-        '--rest-p99-ms',
+        '--load-shedding-threshold',
         type=float,
         default=750.0,
         metavar='MS',
@@ -453,6 +472,18 @@ def main():
             'When api_keys is set in --config, shed the busiest key(s) if rolling p99 latency (ms) '
             'over the last minute exceeds this value (default: 750).'
         ),
+    )
+    parser.add_argument(
+        '--search-cache-size',
+        type=int,
+        default=2048,
+        help='LRU cache size for search results (default: 2048).',
+    )
+    parser.add_argument(
+        '--document-cache-size',
+        type=int,
+        default=4096,
+        help='LRU cache size for document fetches (default: 4096).',
     )
     args = parser.parse_args()
 
@@ -463,14 +494,22 @@ def main():
         if not args.config:
             raise SystemExit('Error: --no-prebuilt-indexes requires --config')
 
-    if args.rest_p99_ms < 0:
-        raise SystemExit('Error: --rest-p99-ms must be >= 0')
+    if args.load_shedding_threshold < 0:
+        raise SystemExit('Error: --load-shedding-threshold must be >= 0')
+
+    if args.search_cache_size < 0:
+        raise SystemExit('Error: --search-cache-size must be >= 0')
+
+    if args.document_cache_size < 0:
+        raise SystemExit('Error: --document-cache-size must be >= 0')
 
     uvicorn.run(
         create_app(
             args.config,
             no_prebuilt_indexes=args.no_prebuilt_indexes,
-            rest_p99_ms=args.rest_p99_ms,
+            load_shedding_threshold_ms=args.load_shedding_threshold,
+            search_cache_size=args.search_cache_size,
+            document_cache_size=args.document_cache_size,
         ),
         host=args.host,
         port=args.port,

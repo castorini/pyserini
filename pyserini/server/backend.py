@@ -92,7 +92,14 @@ def _norm_opt_str(value: str | None) -> str:
 class SharedSearchBackend:
     """Shared backend for REST and MCP search/doc retrieval."""
 
-    def __init__(self, config_path: str | None = None, *, no_prebuilt_indexes: bool = False):
+    def __init__(
+        self,
+        config_path: str | None = None,
+        *,
+        no_prebuilt_indexes: bool = False,
+        search_cache_size: int = 2048,
+        document_cache_size: int = 4096,
+    ):
         self._no_prebuilt_indexes = no_prebuilt_indexes
         self._local_indexes, _ = load_server_config(config_path)
         if self._no_prebuilt_indexes and not self._local_indexes:
@@ -101,8 +108,8 @@ class SharedSearchBackend:
         # Serialize get-or-create per logical index name so different indexes can open in parallel.
         self._index_lock_registry = threading.Lock()
         self._index_locks: dict[str, threading.Lock] = {}
-        self._search_cached = lru_cache(maxsize=2048)(self._search_impl)
-        self._document_cached = lru_cache(maxsize=4096)(self._get_document_impl)
+        self._search_cached = lru_cache(maxsize=search_cache_size)(self._search_impl)
+        self._document_cached = lru_cache(maxsize=document_cache_size)(self._get_document_impl)
 
     def _lock_for_index_name(self, index_name: str) -> threading.Lock:
         with self._index_lock_registry:
