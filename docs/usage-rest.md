@@ -64,6 +64,21 @@ python -m pyserini.server.rest --config /path/to/server.yaml --no-prebuilt-index
 
 When `--no-prebuilt-indexes` is set, the server only accepts index names declared under `indexes:` in `--config`.
 
+With `api_keys` in `--config`, **`--load-shedding-threshold`** sets the latency threshold (milliseconds, default **3000**) for simple load shedding: if rolling p99 over the last minute is above it, the busiest API key(s) may get **429**. Omitting `api_keys` disables this (and auth) on `/v1/*`.
+
+```bash
+python -m pyserini.server.rest --config /path/to/server.yaml --load-shedding-threshold 500
+```
+
+The backend uses LRU caching for repeated requests:
+
+- **`--search-cache-size`** (default: **2048**): cache size for search results with string queries
+- **`--document-cache-size`** (default: **4096**): cache size for document fetches by docid
+
+```bash
+python -m pyserini.server.rest --search-cache-size 4096 --document-cache-size 8192
+```
+
 ### Logging
 
 REST server logging options:
@@ -202,6 +217,7 @@ curl -H "X-API-Key: {api-key}" \
 | 200 | Success |
 | 400 | Invalid parameters (e.g. missing `query`, invalid `hits` or `parse`), or cannot open index |
 | 401 | Missing or invalid API credential (when `api_keys` is configured) |
+| 429 | Load shedding (with `api_keys`): p99 over `--load-shedding-threshold`; body suggests retry timing; `Retry-After` may be set |
 | 404 | Unknown route, or document not found for `GET .../doc/{docid}` |
 | 405 | Method not allowed (only **GET** is supported on these routes) |
 | 500 | Unhandled server error |

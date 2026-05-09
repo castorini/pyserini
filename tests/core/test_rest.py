@@ -16,7 +16,9 @@
 
 import os
 import tempfile
+import time
 import unittest
+import unittest.mock
 import hashlib
 
 import yaml
@@ -59,6 +61,7 @@ class TestRestServer(unittest.TestCase):
         self.assertIn('ApiKeyAuth', data['components']['securitySchemes'])
         search_responses = data['paths']['/{index}/search']['get']['responses']
         self.assertIn('401', search_responses)
+        self.assertIn('429', search_responses)
 
     def test_docs_available(self):
         response = self.client.get('/docs')
@@ -89,6 +92,22 @@ class TestRestServer(unittest.TestCase):
         self.assertEqual(cand.get('rank'), 1)
         self.assertIn('score', cand)
         self.assertIn('doc', cand)
+
+    def test_search_repeated_request_uses_backend_cache(self):
+        backend = self.client.app.state.search_backend
+        backend._search_cached.cache_clear()
+        with unittest.mock.patch.object(backend, '_prepare_query', wraps=backend._prepare_query) as mocked_prepare:
+            r1 = self.client.get(
+                f'/{API_VERSION}/{_REST_INDEX}/search',
+                params={'query': _REST_QUERY, 'hits': 1, 'parse': 'true'},
+            )
+            r2 = self.client.get(
+                f'/{API_VERSION}/{_REST_INDEX}/search',
+                params={'query': _REST_QUERY, 'hits': 1, 'parse': 'true'},
+            )
+        self.assertEqual(r1.status_code, 200, msg=r1.text)
+        self.assertEqual(r2.status_code, 200, msg=r2.text)
+        self.assertEqual(mocked_prepare.call_count, 1)
 
     def test_search_missing_query(self):
         response = self.client.get(f'/{API_VERSION}/{_REST_INDEX}/search')
@@ -128,6 +147,26 @@ class TestRestServer(unittest.TestCase):
             contents = doc.get('contents') if isinstance(doc, dict) else None
             self.assertIsNotNone(contents)
             self.assertIn(_REST_DOC_SUBSTRING, contents)
+
+    def test_get_doc_repeated_request_uses_backend_cache(self):
+        backend = self.client.app.state.search_backend
+        backend._document_cached.cache_clear()
+        with unittest.mock.patch.object(
+            backend,
+            '_bulk_fetch_and_format_documents',
+            wraps=backend._bulk_fetch_and_format_documents,
+        ) as mocked_bulk_fetch:
+            r1 = self.client.get(
+                f'/{API_VERSION}/{_REST_INDEX}/doc/{_REST_TOP_DOCID}',
+                params={'parse': 'true'},
+            )
+            r2 = self.client.get(
+                f'/{API_VERSION}/{_REST_INDEX}/doc/{_REST_TOP_DOCID}',
+                params={'parse': 'true'},
+            )
+        self.assertEqual(r1.status_code, 200, msg=r1.text)
+        self.assertEqual(r2.status_code, 200, msg=r2.text)
+        self.assertEqual(mocked_bulk_fetch.call_count, 1)
 
     def test_get_doc_not_found(self):
         response = self.client.get(f'/{API_VERSION}/{_REST_INDEX}/doc/does-not-exist-xyz')
@@ -409,6 +448,65 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
                     any(f'auth_request' in line and f'key_id={expected_key_id}' in line for line in cm.output),
                     msg='\n'.join(cm.output),
                 )
+        finally:
+            os.unlink(path)
+
+
+class TestRestBackpressure(unittest.TestCase):
+    """p99-based shedding rejects the busiest API key in the last minute (429)."""
+
+    @classmethod
+    def setUpClass(cls):
+        from pyserini.util import download_prebuilt_index
+
+        cls._index_path = download_prebuilt_index(_REST_INDEX, verbose=False)
+
+    def test_backpressure_429_for_heaviest_api_key_when_p99_high(self):
+        from pyserini.server.rest.app import RestBackpressure, _compute_token_fingerprint
+
+        token_heavy = 'backpressure-test-token-heavy'
+        token_light = 'backpressure-test-token-light'
+        cfg = {
+            'indexes': {'cacm_alias': self._index_path},
+            'api_keys': [token_heavy, token_light],
+        }
+        now = time.perf_counter()
+        heavy_id = _compute_token_fingerprint(token_heavy)
+        light_id = _compute_token_fingerprint(token_light)
+
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            yaml.safe_dump(cfg, f, default_flow_style=False)
+            path = f.name
+        try:
+            app = create_app(path, no_prebuilt_indexes=True, load_shedding_threshold_ms=0.0)
+            bp = app.state.rest_backpressure
+            self.assertIsInstance(bp, RestBackpressure)
+            with bp._lock:
+                bp._latencies.clear()
+                bp._key_hits.clear()
+                for _ in range(100):
+                    bp._latencies.append((now, 1000.0))
+                for _ in range(50):
+                    bp._key_hits.append((now, heavy_id))
+                for _ in range(3):
+                    bp._key_hits.append((now, light_id))
+
+            with TestClient(app) as client:
+                r_heavy = client.get(
+                    f'/{API_VERSION}/cacm_alias/search',
+                    params={'query': _REST_QUERY, 'hits': 1},
+                    headers={'Authorization': f'Bearer {token_heavy}'},
+                )
+                self.assertEqual(r_heavy.status_code, 429, msg=r_heavy.text)
+                self.assertIn('overloaded', r_heavy.json().get('error', '').lower())
+                self.assertEqual(r_heavy.headers.get('retry-after'), '1')
+
+                r_light = client.get(
+                    f'/{API_VERSION}/cacm_alias/search',
+                    params={'query': _REST_QUERY, 'hits': 1},
+                    headers={'Authorization': f'Bearer {token_light}'},
+                )
+                self.assertEqual(r_light.status_code, 200, msg=r_light.text)
         finally:
             os.unlink(path)
 
