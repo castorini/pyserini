@@ -134,14 +134,8 @@ class BertAggretrieverEncoder(PreTrainedModel):
         model = cls.from_pretrained(model_name_or_path)
         if Version(transformers_version) >= Version("5.0.0"):
             load_head_weights(model, model_name_or_path, {
-                'tok_proj': {
-                    'weight': 'tok_proj.weight',
-                    'bias': 'tok_proj.bias'
-                },
-                'cls_proj': {
-                    'weight': 'cls_proj.weight',
-                    'bias': 'cls_proj.bias'
-                }
+                'tok_proj': 'tok_proj',
+                'cls_proj': 'cls_proj'
             })
         model.to(device)
         return model
