@@ -25,7 +25,7 @@ class TestLoadTopics(unittest.TestCase):
     def setUpClass(cls):
         # The current directory depends on if you're running inside an IDE or from command line.
         curdir = os.getcwd()
-        if curdir.endswith('core'):
+        if curdir.endswith('base'):
             cls.tools_dir = '../../tools'
             cls.resource_dir = '../resources'
         else:

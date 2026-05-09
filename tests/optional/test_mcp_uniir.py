@@ -35,12 +35,7 @@ from fastmcp.client.transports import StreamableHttpTransport
 from fastmcp.utilities.tests import run_server_async
 
 from pyserini.search.faiss import DenseSearchResult
-
-try:
-    from pyserini.encode.optional._uniir import UniIRQueryEncoder  # noqa: F401
-    UNIIR_IMPORT_ERROR = None
-except Exception as e:
-    UNIIR_IMPORT_ERROR = e
+from pyserini.encode.optional._uniir import UniIRQueryEncoder  # noqa: F401
 
 
 def _make_mcp_server():
@@ -53,7 +48,6 @@ def _make_mcp_server():
     return mcp
 
 
-@unittest.skipIf(UNIIR_IMPORT_ERROR is not None, f'uniir_for_pyserini unavailable: {UNIIR_IMPORT_ERROR}')
 class TestMCPyseriniServerUniIR(unittest.TestCase):
     """Test MCP server paths that require UniIR-backed m-BEIR search."""
 

@@ -25,7 +25,7 @@ class TestTokenizeJson(unittest.TestCase):
     def setUpClass(cls):
         # The current directory depends on if you're running inside an IDE or from command line.
         curdir = os.getcwd()
-        if curdir.endswith('core'):
+        if curdir.endswith('base'):
             cls.pyserini_dir = '../../pyserini'
         else:
             cls.pyserini_dir = 'pyserini'
