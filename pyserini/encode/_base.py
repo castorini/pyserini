@@ -240,6 +240,15 @@ def load_head_weights(model, model_name, weight_map):
 
     weights_path = cached_file(model_name, 'pytorch_model.bin')
     state_dict = torch.load(weights_path, map_location='cpu', weights_only=True)
-    for module_name, keys in weight_map.items():
+    for module_name, checkpoint_prefixes in weight_map.items():
         module = getattr(model, module_name)
-        module.load_state_dict({k: state_dict[v] for k, v in keys.items()})
+        module_state_dict = {}
+        if isinstance(checkpoint_prefixes, str):
+            checkpoint_prefixes = [checkpoint_prefixes]
+        for module_key in module.state_dict():
+            checkpoint_keys = [f'{prefix}.{module_key}' for prefix in checkpoint_prefixes]
+            checkpoint_key = next((key for key in checkpoint_keys if key in state_dict), None)
+            if checkpoint_key is None:
+                raise KeyError(checkpoint_keys[0])
+            module_state_dict[module_key] = state_dict[checkpoint_key]
+        module.load_state_dict(module_state_dict)
