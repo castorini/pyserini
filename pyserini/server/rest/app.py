@@ -61,6 +61,15 @@ ROUTE_ERROR = 'Expected route /v1/{index}/search or /v1/{index}/doc/{docid}'
 AUTH_TOKEN_REQUEST_EMAIL = 'get-pyserini@googlegroups.com'
 
 
+# Hint for clients when we return 429 (also sent as ``Retry-After`` header).
+_LOAD_SHED_RETRY_AFTER_SEC = 1
+
+_LOAD_SHED_ERROR_BODY = (
+    'Service temporarily overloaded; retry after a few seconds '
+    f'(or wait at least {_LOAD_SHED_RETRY_AFTER_SEC}s). If load persists, back off with jitter.'
+)
+
+
 class RestBackpressure:
     """
     Simple load-shedding policy for authenticated REST API requests.
@@ -289,7 +298,7 @@ def create_app(
     config_path: str | None = None,
     *,
     no_prebuilt_indexes: bool = False,
-    load_shedding_threshold_ms: float = 2000.0,
+    load_shedding_threshold_ms: float = 3000.0,
     search_cache_size: int = 2048,
     document_cache_size: int = 4096,
 ) -> FastAPI:
@@ -368,20 +377,28 @@ def create_app(
             _log_auth_attribution('auth_request', client, request, query, key_id, 429)
             return JSONResponse(
                 status_code=429,
-                content={'error': 'Service temporarily overloaded; retry later.'},
+                content={'error': _LOAD_SHED_ERROR_BODY},
+                headers={'Retry-After': str(_LOAD_SHED_RETRY_AFTER_SEC)},
             )
 
         status = 500
+        response = None
         try:
             response = await call_next(request)
             status = response.status_code
-            return response
-        except Exception:
-            raise
-        finally:
             if bp is not None:
                 now = time.perf_counter()
                 bp.record_latency((now - t0) * 1000.0, now)
+            return response
+        except Exception:
+            logger.warning(
+                'REST /v1 handler raised before response (client=%s path=%s)',
+                client,
+                request.url.path,
+                exc_info=True,
+            )
+            raise
+        finally:
             _log_auth_attribution('auth_request', client, request, query, key_id, status)
 
     @app.exception_handler(Exception)
@@ -466,11 +483,11 @@ def main():
     parser.add_argument(
         '--load-shedding-threshold',
         type=float,
-        default=2000.0,
+        default=3000.0,
         metavar='MS',
         help=(
             'When api_keys is set in --config, shed the busiest key(s) if rolling p99 latency (ms) '
-            'over the last minute exceeds this value (default: 2000).'
+            'over the last minute exceeds this value (default: 3000).'
         ),
     )
     parser.add_argument(

@@ -66,7 +66,13 @@ paths:
         "429":
           description: >
             Load shedding when the server is configured with API keys and rolling p99 latency exceeds
-            the configured threshold; busiest API key(s) in the last minute may receive this response.
+            the configured threshold. API keys tied for the highest hit count in that window may be shed.
+            Clients should honor Retry-After when present.
+          headers:
+            Retry-After:
+              description: Minimum seconds to wait before retrying.
+              schema:
+                type: integer
           content:
             application/json:
               schema:
@@ -141,7 +147,13 @@ paths:
         "429":
           description: >
             Load shedding when the server is configured with API keys and rolling p99 latency exceeds
-            the configured threshold; busiest API key(s) in the last minute may receive this response.
+            the configured threshold. API keys tied for the highest hit count in that window may be shed.
+            Clients should honor Retry-After when present.
+          headers:
+            Retry-After:
+              description: Minimum seconds to wait before retrying.
+              schema:
+                type: integer
           content:
             application/json:
               schema:

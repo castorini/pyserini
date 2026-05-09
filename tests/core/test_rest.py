@@ -499,6 +499,7 @@ class TestRestBackpressure(unittest.TestCase):
                 )
                 self.assertEqual(r_heavy.status_code, 429, msg=r_heavy.text)
                 self.assertIn('overloaded', r_heavy.json().get('error', '').lower())
+                self.assertEqual(r_heavy.headers.get('retry-after'), '1')
 
                 r_light = client.get(
                     f'/{API_VERSION}/cacm_alias/search',
