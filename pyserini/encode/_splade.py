@@ -13,13 +13,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+import os
 from abc import ABC, abstractmethod
-from typing import List, Dict
+from typing import Dict, List
+
 import numpy as np
 import torch
 from transformers import AutoModelForMaskedLM, AutoTokenizer
 
-from pyserini.encode import QueryEncoder, DocumentEncoder
+from pyserini.encode import DocumentEncoder, QueryEncoder
+
+
+def _from_pretrained_without_safetensors_conversion(model_name_or_path, **kwargs):
+    # Some SPLADE checkpoints, such as naver/splade-v3, only publish PyTorch
+    # weights. Newer Transformers versions still load them successfully, but
+    # then spawn a background safetensors conversion thread that can fail noisily.
+    kwargs.setdefault('use_safetensors', False)
+    previous_disable_conversion = os.environ.get('DISABLE_SAFETENSORS_CONVERSION')
+    os.environ['DISABLE_SAFETENSORS_CONVERSION'] = '1'
+    try:
+        return AutoModelForMaskedLM.from_pretrained(model_name_or_path, **kwargs)
+    finally:
+        if previous_disable_conversion is None:
+            del os.environ['DISABLE_SAFETENSORS_CONVERSION']
+        else:
+            os.environ['DISABLE_SAFETENSORS_CONVERSION'] = previous_disable_conversion
 
 
 class SpladeEncoder(ABC):
@@ -55,10 +74,9 @@ class SpladeEncoder(ABC):
 class SpladeDocumentEncoder(DocumentEncoder, SpladeEncoder):
     def __init__(self, model_name, tokenizer_name=None, device='cuda:0', prefix=None, **kwargs):
         self.device = device
-        self.model = AutoModelForMaskedLM.from_pretrained(model_name)
+        self.model = _from_pretrained_without_safetensors_conversion(model_name, **kwargs)
         self.model.to(self.device)
-        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name,
-                                                       clean_up_tokenization_spaces=True)
+        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name, clean_up_tokenization_spaces=True)
         self.prefix = prefix
 
     def encode(self, texts, titles=None, max_length=512, add_sep=False, **kwargs) -> List[Dict[str, float]]:
@@ -89,30 +107,26 @@ class SpladeDocumentEncoder(DocumentEncoder, SpladeEncoder):
         input_ids = inputs['input_ids']
         input_attention = inputs['attention_mask']
         batch_logits = self.model(input_ids=input_ids, attention_mask=input_attention)['logits']
-        batch_aggregated_logits, _ = torch.max(torch.log(1 + torch.relu(batch_logits))
-                                               * input_attention.unsqueeze(-1), dim=1)
+        batch_aggregated_logits, _ = torch.max(torch.log(1 + torch.relu(batch_logits)) * input_attention.unsqueeze(-1), dim=1)
         batch_aggregated_logits = batch_aggregated_logits.cpu().detach().numpy()
         raw_weights = self._output_to_weight_dicts(batch_aggregated_logits)
         return self._get_encoded_query_token_wight_dicts(raw_weights)
 
 
 class SpladeQueryEncoder(QueryEncoder, SpladeEncoder):
-    def __init__(self, model_name_or_path, tokenizer_name=None, device='cpu'):
+    def __init__(self, model_name_or_path, tokenizer_name=None, device='cpu', **kwargs):
         self.device = device
-        self.model = AutoModelForMaskedLM.from_pretrained(model_name_or_path)
+        self.model = _from_pretrained_without_safetensors_conversion(model_name_or_path, **kwargs)
         self.model.to(self.device)
-        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name_or_path,
-                                                       clean_up_tokenization_spaces=True)
+        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name_or_path, clean_up_tokenization_spaces=True)
 
     def encode(self, text, max_length=256, **kwargs) -> Dict[str, float]:
-        inputs = self.tokenizer([text], max_length=max_length, padding='longest',
-                                truncation=True, add_special_tokens=True,
+        inputs = self.tokenizer([text], max_length=max_length, padding='longest', truncation=True, add_special_tokens=True,
                                 return_tensors='pt').to(self.device)
         input_ids = inputs['input_ids']
         input_attention = inputs['attention_mask']
         batch_logits = self.model(input_ids)['logits']
-        batch_aggregated_logits, _ = torch.max(torch.log(1 + torch.relu(batch_logits))
-                                               * input_attention.unsqueeze(-1), dim=1)
+        batch_aggregated_logits, _ = torch.max(torch.log(1 + torch.relu(batch_logits)) * input_attention.unsqueeze(-1), dim=1)
         batch_aggregated_logits = batch_aggregated_logits.cpu().detach().numpy()
         raw_weights = self._output_to_weight_dicts(batch_aggregated_logits)
         return self._get_encoded_query_token_wight_dicts(raw_weights)[0]
