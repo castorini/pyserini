@@ -385,7 +385,7 @@ def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
     else:
         target_index = FAISS_INDEX_INFO[index_name]
 
-    expected_size = target_index.get('size compressed (bytes)', None)
+    expected_size = target_index.get('size', None)
     index_md5 = target_index['md5']
     for url in target_index['urls']:
         local_filename = target_index['filename'] if 'filename' in target_index else None

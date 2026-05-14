@@ -31,11 +31,11 @@ class TestPrebuiltIndexes(unittest.TestCase):
         self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').name,
                          'beir-v1.0.0-arguana.bge-base-en-v1.5.flat')
         self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').filename,
-                         'lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
+                         'lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20260425.bb3d65.tar')
         self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').readme,
-                         'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md')
+                         'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md')
         self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').urls[0],
-                         'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/resolve/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240618.6cf601.tar.gz')
+                         'https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20260425.bb3d65.tar')
 
     def test_lucene_tf_msmarco_v1(self):
         urls = []

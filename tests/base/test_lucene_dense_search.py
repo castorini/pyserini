@@ -149,11 +149,7 @@ class TestLuceneDenseSearch(unittest.TestCase):
 
         # We now run the same test again, but passing in a physical index directory location, as opposed to
         # a symbol representing the index.
-        pattern = os.path.join(get_cache_home(), 'indexes/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5*')
-        directories = [d for d in glob.glob(pattern, recursive=False) if os.path.isdir(d)]
-
-        self.assertEqual(len(directories), 1)
-        index_dir = directories[0]
+        index_dir = searcher.index_dir
 
         searcher = LuceneFlatDenseSearcher(index_dir, encoder='BgeBaseEn15')
         hits = searcher.search(q, k=5)

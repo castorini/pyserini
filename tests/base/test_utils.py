@@ -31,7 +31,7 @@ class TestIterateCollection(unittest.TestCase):
         info = TF_INDEX_INFO["cacm"]
         urls = info.get("urls") or []
         url = urls[0] if urls else None
-        expected_size = info.get("size compressed (bytes)", None)
+        expected_size = info.get("size", None)
         expected_md5 = info.get("md5", None)
 
         with tempfile.TemporaryDirectory(prefix="prebuilt-index-") as directory:
@@ -53,7 +53,7 @@ class TestIterateCollection(unittest.TestCase):
         info = TF_INDEX_INFO["cacm"]
         urls = info.get("urls") or []
         url = urls[0] if urls else None
-        expected_size = info.get("size compressed (bytes)", None)
+        expected_size = info.get("size", None)
 
         with tempfile.TemporaryDirectory(prefix="prebuilt-index-") as directory:
             bad_md5 = "0" * 32
@@ -67,7 +67,7 @@ class TestIterateCollection(unittest.TestCase):
         """
         info = TF_INDEX_INFO["cacm"]
         url = (info.get("urls") or [None])[0]
-        expected_size = info.get("size compressed (bytes)", None)
+        expected_size = info.get("size", None)
         expected_md5 = info.get("md5", None)
 
         with tempfile.TemporaryDirectory(prefix="prebuilt-index-") as directory:
