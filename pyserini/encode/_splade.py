@@ -25,15 +25,14 @@ from transformers import AutoModelForMaskedLM, AutoTokenizer
 from pyserini.encode import DocumentEncoder, QueryEncoder
 
 
-def _from_pretrained_without_safetensors_conversion(model_name_or_path, **kwargs):
+def _from_pretrained_without_safetensors_conversion(model_name_or_path):
     # Some SPLADE checkpoints, such as naver/splade-v3, only publish PyTorch
     # weights. Newer Transformers versions still load them successfully, but
     # then spawn a background safetensors conversion thread that can fail noisily.
-    kwargs.setdefault('use_safetensors', False)
     previous_disable_conversion = os.environ.get('DISABLE_SAFETENSORS_CONVERSION')
     os.environ['DISABLE_SAFETENSORS_CONVERSION'] = '1'
     try:
-        return AutoModelForMaskedLM.from_pretrained(model_name_or_path, **kwargs)
+        return AutoModelForMaskedLM.from_pretrained(model_name_or_path, use_safetensors=False)
     finally:
         if previous_disable_conversion is None:
             del os.environ['DISABLE_SAFETENSORS_CONVERSION']
@@ -72,9 +71,9 @@ class SpladeEncoder(ABC):
         return to_return
 
 class SpladeDocumentEncoder(DocumentEncoder, SpladeEncoder):
-    def __init__(self, model_name, tokenizer_name=None, device='cuda:0', prefix=None, **kwargs):
+    def __init__(self, model_name, tokenizer_name=None, device='cuda:0', prefix=None):
         self.device = device
-        self.model = _from_pretrained_without_safetensors_conversion(model_name, **kwargs)
+        self.model = _from_pretrained_without_safetensors_conversion(model_name)
         self.model.to(self.device)
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name, clean_up_tokenization_spaces=True)
         self.prefix = prefix
@@ -114,9 +113,9 @@ class SpladeDocumentEncoder(DocumentEncoder, SpladeEncoder):
 
 
 class SpladeQueryEncoder(QueryEncoder, SpladeEncoder):
-    def __init__(self, model_name_or_path, tokenizer_name=None, device='cpu', **kwargs):
+    def __init__(self, model_name_or_path, tokenizer_name=None, device='cpu'):
         self.device = device
-        self.model = _from_pretrained_without_safetensors_conversion(model_name_or_path, **kwargs)
+        self.model = _from_pretrained_without_safetensors_conversion(model_name_or_path)
         self.model.to(self.device)
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name_or_path, clean_up_tokenization_spaces=True)
 
