@@ -29,14 +29,10 @@ from pyserini.search.lucene import LuceneImpactSearcher
 
 class TestEncode(unittest.TestCase):
     def setUp(self):
-        curdir = os.getcwd()
-        if curdir.endswith('dense'):
-            self.pyserini_root = '../..'
-        else:
-            self.pyserini_root = '.'
+        self.pyserini_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..'))
         self.temp_folders = []
         self.corpus_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/corpus/jsonl/cacm.json'
-        self.corpus_path = f'{self.pyserini_root}/integrations/dense/temp_cacm/'
+        self.corpus_path = f'{self.pyserini_root}/integrations/core/dense/temp_cacm/'
         os.makedirs(self.corpus_path, exist_ok=True)
         self.temp_folders.append(self.corpus_path)
         urlretrieve(self.corpus_url, os.path.join(self.corpus_path, 'cacm.json'))

@@ -114,10 +114,10 @@ class FaissSearcher:
             Searcher built from the prebuilt faiss index.
         """
         print(f'Attempting to initialize prebuilt index {prebuilt_index_name}.')
-        # see integrations/papers/test_sigir2021.py - preserve working commands published in papers
+        # see integrations/core/papers/test_sigir2021.py - preserve working commands published in papers
         if prebuilt_index_name == 'msmarco-passage-tct_colbert-hnsw':
             prebuilt_index_name = 'msmarco-v1-passage.tct_colbert.hnsw'
-        # see integrations/papers/test_ecir2023.py - preserve working commands published in papers
+        # see integrations/core/papers/test_ecir2023.py - preserve working commands published in papers
         elif prebuilt_index_name == 'wikipedia-dpr-dkrr-nq':
             prebuilt_index_name = 'wikipedia-dpr-100w.dkrr-nq'
 
