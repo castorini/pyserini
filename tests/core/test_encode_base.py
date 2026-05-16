@@ -40,6 +40,30 @@ class TestEncodeBase(unittest.TestCase):
         self.assertTrue(torch.equal(model.tok_proj.weight, checkpoint['tok_proj.weight']))
         self.assertTrue(torch.equal(model.tok_proj.bias, checkpoint['tok_proj.bias']))
 
+    def test_load_head_weights_uses_prefixed_ance_keys(self):
+        model = torch.nn.Module()
+        model.embeddingHead = torch.nn.Linear(2, 1)
+        model.norm = torch.nn.LayerNorm(1)
+
+        checkpoint = {
+            'ance_encoder.embeddingHead.weight': torch.tensor([[1.0, 2.0]]),
+            'ance_encoder.embeddingHead.bias': torch.tensor([3.0]),
+            'ance_encoder.norm.weight': torch.tensor([4.0]),
+            'ance_encoder.norm.bias': torch.tensor([5.0]),
+        }
+
+        with patch('pyserini.encode._base.cached_file', return_value='fake.bin'), \
+                patch('pyserini.encode._base.torch.load', return_value=checkpoint):
+            load_head_weights(model, 'fake-model', {
+                'embeddingHead': ['ance_encoder.embeddingHead', 'embeddingHead'],
+                'norm': ['ance_encoder.norm', 'norm'],
+            })
+
+        self.assertTrue(torch.equal(model.embeddingHead.weight, checkpoint['ance_encoder.embeddingHead.weight']))
+        self.assertTrue(torch.equal(model.embeddingHead.bias, checkpoint['ance_encoder.embeddingHead.bias']))
+        self.assertTrue(torch.equal(model.norm.weight, checkpoint['ance_encoder.norm.weight']))
+        self.assertTrue(torch.equal(model.norm.bias, checkpoint['ance_encoder.norm.bias']))
+
 
 if __name__ == '__main__':
     unittest.main()
