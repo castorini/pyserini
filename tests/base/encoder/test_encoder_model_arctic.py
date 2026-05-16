@@ -24,12 +24,7 @@ from pyserini.encode import ArcticDocumentEncoder
 class TestEncodeArctic(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        # The current directory depends on if you're running inside an IDE or from command line.
-        curdir = os.getcwd()
-        if curdir.endswith('base'):
-            cls.resource_dir = '../resources'
-        else:
-            cls.resource_dir = 'tests/resources'
+        cls.resource_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'resources'))
 
     def test_arctic_doc_encoder(self):
         texts = []

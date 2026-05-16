@@ -32,11 +32,8 @@ class TestEncode(unittest.TestCase):
         cls.docids = []
         cls.texts = []
 
-        curdir = os.getcwd()
-        if curdir.endswith('base'):
-            cls.test_file = '../resources/simple_cacm_corpus.json'
-        else:
-            cls.test_file = 'tests/resources/simple_cacm_corpus.json'
+        resource_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'resources'))
+        cls.test_file = os.path.join(resource_dir, 'simple_cacm_corpus.json')
 
         with open(cls.test_file) as f:
             for line in f:
@@ -215,11 +212,8 @@ class TestEncode(unittest.TestCase):
         docids = []
         texts = []
 
-        curdir = os.getcwd()
-        if curdir.endswith('base'):
-            test_file = '../resources/sample_collection_jsonl_image/images.small.jsonl'
-        else:
-            test_file = 'tests/resources/sample_collection_jsonl_image/images.small.jsonl'
+        resource_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'resources'))
+        test_file = os.path.join(resource_dir, 'sample_collection_jsonl_image/images.small.jsonl')
 
         image_dir = pl.Path(test_file).parent
         
