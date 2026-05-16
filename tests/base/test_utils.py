@@ -22,7 +22,13 @@ import unittest
 from unittest.mock import patch
 
 from pyserini.prebuilt_index_info import TF_INDEX_INFO
-from pyserini.util import download_url, download_and_unpack_index, compare_trec_strings_with_tolerance, compare_trec_files_with_tolerance
+from pyserini.util import (
+    compare_trec_files_with_tolerance,
+    compare_trec_strings_with_tolerance,
+    download_and_unpack_index,
+    download_url,
+    temporary_env,
+)
 
 
 class TestIterateCollection(unittest.TestCase):
@@ -104,6 +110,44 @@ class TestIterateCollection(unittest.TestCase):
             self.assertTrue(os.path.isdir(index_path), f"Index path missing: {index_path}")
             self.assertTrue(os.path.exists(os.path.join(index_path, 'marker.txt')))
             self.assertFalse(os.path.exists(os.path.join(cache_dir, 'indexes', 'plain-index.tar')))
+
+
+class TestTemporaryEnv(unittest.TestCase):
+    def test_temporary_env_sets_and_restores_missing_variable(self):
+        with patch.dict(os.environ, {}, clear=False):
+            os.environ.pop('PYSERINI_TEST_ENV', None)
+
+            with temporary_env(PYSERINI_TEST_ENV='temporary'):
+                self.assertEqual(os.environ['PYSERINI_TEST_ENV'], 'temporary')
+
+            self.assertNotIn('PYSERINI_TEST_ENV', os.environ)
+
+    def test_temporary_env_restores_existing_variable(self):
+        with patch.dict(os.environ, {'PYSERINI_TEST_ENV': 'original'}, clear=False):
+            with temporary_env(PYSERINI_TEST_ENV='temporary'):
+                self.assertEqual(os.environ['PYSERINI_TEST_ENV'], 'temporary')
+
+            self.assertEqual(os.environ['PYSERINI_TEST_ENV'], 'original')
+
+    def test_temporary_env_can_remove_variable_temporarily(self):
+        with patch.dict(os.environ, {'PYSERINI_TEST_ENV': 'original'}, clear=False):
+            with temporary_env(PYSERINI_TEST_ENV=None):
+                self.assertNotIn('PYSERINI_TEST_ENV', os.environ)
+
+            self.assertEqual(os.environ['PYSERINI_TEST_ENV'], 'original')
+
+    def test_temporary_env_restores_multiple_variables_after_exception(self):
+        with patch.dict(os.environ, {'PYSERINI_TEST_ENV': 'original'}, clear=False):
+            os.environ.pop('PYSERINI_TEST_OTHER_ENV', None)
+
+            with self.assertRaises(RuntimeError):
+                with temporary_env(PYSERINI_TEST_ENV='temporary', PYSERINI_TEST_OTHER_ENV='other'):
+                    self.assertEqual(os.environ['PYSERINI_TEST_ENV'], 'temporary')
+                    self.assertEqual(os.environ['PYSERINI_TEST_OTHER_ENV'], 'other')
+                    raise RuntimeError('failed while env was modified')
+
+            self.assertEqual(os.environ['PYSERINI_TEST_ENV'], 'original')
+            self.assertNotIn('PYSERINI_TEST_OTHER_ENV', os.environ)
 
 
 class TestCompareTrecWithTolerance(unittest.TestCase):

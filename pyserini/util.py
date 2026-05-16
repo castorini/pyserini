@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+from collections.abc import Iterator
+from contextlib import contextmanager
 import hashlib
 import importlib
 import logging
@@ -34,6 +36,26 @@ from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, \
     LUCENE_HNSW_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, FAISS_INDEX_INFO
 
 logger = logging.getLogger(__name__)
+
+
+@contextmanager
+def temporary_env(**env_vars: str | None) -> Iterator[None]:
+    previous_values = {key: os.environ.get(key) for key in env_vars}
+
+    for key, value in env_vars.items():
+        if value is None:
+            os.environ.pop(key, None)
+        else:
+            os.environ[key] = value
+
+    try:
+        yield
+    finally:
+        for key, previous_value in previous_values.items():
+            if previous_value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = previous_value
 
 
 def _archive_name_to_index_name(archive_name):

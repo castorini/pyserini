@@ -14,7 +14,6 @@
 # limitations under the License.
 #
 
-import os
 from abc import ABC, abstractmethod
 from typing import Dict, List
 
@@ -23,21 +22,15 @@ import torch
 from transformers import AutoModelForMaskedLM, AutoTokenizer
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
+from pyserini.util import temporary_env
 
 
 def _from_pretrained_without_safetensors_conversion(model_name_or_path):
     # Some SPLADE checkpoints, such as naver/splade-v3, only publish PyTorch
     # weights. Newer Transformers versions still load them successfully, but
     # then spawn a background safetensors conversion thread that can fail noisily.
-    previous_disable_conversion = os.environ.get('DISABLE_SAFETENSORS_CONVERSION')
-    os.environ['DISABLE_SAFETENSORS_CONVERSION'] = '1'
-    try:
+    with temporary_env(DISABLE_SAFETENSORS_CONVERSION='1'):
         return AutoModelForMaskedLM.from_pretrained(model_name_or_path, use_safetensors=False)
-    finally:
-        if previous_disable_conversion is None:
-            del os.environ['DISABLE_SAFETENSORS_CONVERSION']
-        else:
-            os.environ['DISABLE_SAFETENSORS_CONVERSION'] = previous_disable_conversion
 
 
 class SpladeEncoder(ABC):

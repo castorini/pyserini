@@ -14,7 +14,6 @@
 # limitations under the License.
 #
 
-import os
 from typing import List, Optional
 
 import torch
@@ -30,6 +29,7 @@ from transformers import __version__ as transformers_version
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
 from pyserini.encode._base import load_head_weights
+from pyserini.util import temporary_env
 
 
 class AnceEncoder(PreTrainedModel):
@@ -85,15 +85,8 @@ class AnceEncoder(PreTrainedModel):
     
     @classmethod
     def load_pretrained_encoder(cls, model_name_or_path: str, device: str):
-        previous_disable_conversion = os.environ.get('DISABLE_SAFETENSORS_CONVERSION')
-        os.environ['DISABLE_SAFETENSORS_CONVERSION'] = '1'
-        try:
+        with temporary_env(DISABLE_SAFETENSORS_CONVERSION='1'):
             model = cls.from_pretrained(model_name_or_path, use_safetensors=False)
-        finally:
-            if previous_disable_conversion is None:
-                del os.environ['DISABLE_SAFETENSORS_CONVERSION']
-            else:
-                os.environ['DISABLE_SAFETENSORS_CONVERSION'] = previous_disable_conversion
         if Version(transformers_version) >= Version("5.0.0"):
             load_head_weights(model, model_name_or_path, {
                 'embeddingHead': ['ance_encoder.embeddingHead', 'embeddingHead'],
