@@ -180,9 +180,9 @@ TF_INDEX_INFO_MSMARCO = {
 }
 
 TF_INDEX_INFO_MSMARCO_ALIASES = {
-    # To preserve working commands in published papers: integrations/papers/test_sigir2021.py testcase test_section3_3
+    # To preserve working commands in published papers: integrations/core/papers/test_sigir2021.py testcase test_section3_3
     "msmarco-passage": TF_INDEX_INFO_MSMARCO["msmarco-v1-passage"],
-    # To preserve working commands in published papers: integrations/papers/test_sigir2022.py testcase test_Ma_etal_section4_1a
+    # To preserve working commands in published papers: integrations/core/papers/test_sigir2022.py testcase test_Ma_etal_section4_1a
     "msmarco-v1-passage-d2q-t5": TF_INDEX_INFO_MSMARCO["msmarco-v1-passage.d2q-t5"],
 }
 
@@ -1602,7 +1602,7 @@ TF_INDEX_INFO_OTHER = {
 }
 
 TF_INDEX_INFO_OTHER_ALIASES = {
-    # To preserve working commands in published papers: integrations/papers/test_sigir2021.py
+    # To preserve working commands in published papers: integrations/core/papers/test_sigir2021.py
     "wikipedia-dpr": TF_INDEX_INFO_OTHER["wikipedia-dpr-100w"],
 
     # Common names mapping to corpora
@@ -1975,9 +1975,9 @@ IMPACT_INDEX_INFO_MSMARCO = {
 }
 
 IMPACT_INDEX_INFO_MSMARCO_ALIASES = {
-    # To preserve working commands in published papers: integrations/papers/test_sigir2022.py testcase test_Trotman_etal
+    # To preserve working commands in published papers: integrations/core/papers/test_sigir2022.py testcase test_Trotman_etal
     "msmarco-passage-unicoil-d2q": IMPACT_INDEX_INFO_MSMARCO["msmarco-v1-passage.unicoil"],
-    # To preserve working commands in published papers: integrations/papers/test_sigir2022.py testcase test_Ma_etal_section4_1b
+    # To preserve working commands in published papers: integrations/core/papers/test_sigir2022.py testcase test_Ma_etal_section4_1b
     "msmarco-v2-passage-unicoil-0shot": IMPACT_INDEX_INFO_MSMARCO["msmarco-v2-passage.unicoil-0shot"]
 }
 
