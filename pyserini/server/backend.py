@@ -179,13 +179,6 @@ class SharedSearchBackend:
         self._search_cached.cache_clear()
         self._document_cached.cache_clear()
 
-    def _new_bm25_searcher(self, config: IndexConfig, k1: float, b: float) -> LuceneSearcher:
-        searcher = self._build_searcher(config, index_type='tf', local_path=config.path)
-        if not isinstance(searcher, LuceneSearcher):
-            raise IndexNotAvailableError(f'Unable to open sparse searcher for {config.name}')
-        searcher.set_bm25(k1, b)
-        return searcher
-
     def _acquire_bm25_searcher(
         self,
         index_name: str,
@@ -207,7 +200,8 @@ class SharedSearchBackend:
                                 f'Too many active BM25 variants for index {index_name}; retry when in-flight searches finish'
                             )
                         to_close.append(config.bm25_searchers.pop(idle_key).searcher)
-                    bm25_searcher = self._new_bm25_searcher(config, bm25[0], bm25[1])
+                    bm25_searcher = self._build_searcher(config, index_type='tf', local_path=config.path)
+                    bm25_searcher.set_bm25(bm25[0], bm25[1])
                     slot = Bm25SearcherSlot(bm25_searcher)
                     config.bm25_searchers[bm25] = slot
                 else:

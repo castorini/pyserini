@@ -39,6 +39,10 @@ _REST_DOC_SUBSTRING = 'Information Storage and Retrieval'
 class _FakeSearcher:
     def __init__(self):
         self.closed = False
+        self.bm25 = None
+
+    def set_bm25(self, k1, b):
+        self.bm25 = (k1, b)
 
     def close(self):
         self.closed = True
@@ -328,7 +332,7 @@ class TestRestServer(unittest.TestCase):
 
         with unittest.mock.patch.object(
             backend,
-            '_new_bm25_searcher',
+            '_build_searcher',
             side_effect=[first, second, third],
         ):
             searcher, key = backend._acquire_bm25_searcher('fake-tf', config, (0.1, 0.1))
@@ -350,27 +354,30 @@ class TestRestServer(unittest.TestCase):
         self.assertTrue(first.closed)
         self.assertFalse(second.closed)
         self.assertFalse(third.closed)
+        self.assertEqual(first.bm25, (0.1, 0.1))
+        self.assertEqual(second.bm25, (0.2, 0.2))
+        self.assertEqual(third.bm25, (0.3, 0.3))
         self.assertEqual(list(config.bm25_searchers.keys()), [(0.2, 0.2), (0.3, 0.3)])
 
     def test_bm25_variant_pool_preserves_active_searcher(self):
         backend = SharedSearchBackend(bm25_variant_cache_size=1)
         config = IndexConfig(name='fake-tf', index_type='tf')
         first = _FakeSearcher()
-        second = _FakeSearcher()
 
         with unittest.mock.patch.object(
             backend,
-            '_new_bm25_searcher',
-            side_effect=[first, second],
-        ):
+            '_build_searcher',
+            return_value=first,
+        ) as build_searcher:
             searcher, key = backend._acquire_bm25_searcher('fake-tf', config, (0.1, 0.1))
             self.assertIs(searcher, first)
             with self.assertRaises(BadSearchRequestError):
                 backend._acquire_bm25_searcher('fake-tf', config, (0.2, 0.2))
             backend._release_bm25_searcher('fake-tf', config, key)
 
+        self.assertEqual(build_searcher.call_count, 1)
         self.assertFalse(first.closed)
-        self.assertFalse(second.closed)
+        self.assertEqual(first.bm25, (0.1, 0.1))
         self.assertEqual(list(config.bm25_searchers.keys()), [(0.1, 0.1)])
 
     def test_post_to_search_not_allowed_405(self):
