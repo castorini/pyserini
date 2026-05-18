@@ -733,5 +733,6 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@tqmsh](https://github.com/tqmsh) on 2026-05-03 (commit [`6adee73`](https://github.com/castorini/pyserini/commit/6adee73cf36255056a1c46dc5ecdb4b29b9ce1c5))
 + Results reproduced by [@mazleon](https://github.com/mazleon) on 2026-05-03 (commit [`6adee73`](https://github.com/castorini/pyserini/commit/6adee73cf36255056a1c46dc5ecdb4b29b9ce1c5))
 + Results reproduced by [@blissuche90](https://github.com/blissuche90) on 2026-05-04 (commit [`7ed1f31`](https://github.com/castorini/pyserini/commit/7ed1f31e74db66e75c41f5f95b92f5ccfeaced31))
++ Results reproduced by [@nasazzam](https://github.com/nasazzam) on 2026-05-13 (commit [`f8c4bd6`](https://github.com/castorini/pyserini/commit/f8c4bd6b53dc5cd661ba1c1741a438ae9c593571))
 + Results reproduced by [@VanshJain4](https://github.com/VanshJain4) on 2026-05-14 (commit [`b0bf30c`](https://github.com/castorini/pyserini/commit/b0bf30c9352e3dece016499840ef635fff5e98f3))
 + Results reproduced by [@Adebara123](https://github.com/Adebara123) on 2026-05-15 (commit [`e5d3a4a`](https://github.com/castorini/pyserini/commit/e5d3a4ae89c1da8a2ada97293278cd1f7142ee58))
