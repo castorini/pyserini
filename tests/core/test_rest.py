@@ -24,6 +24,7 @@ import hashlib
 import yaml
 from fastapi.testclient import TestClient
 
+from pyserini.server.backend import BM25_DEFAULT_B, BM25_DEFAULT_K1, SharedSearchBackend
 from pyserini.server.rest.app import API_VERSION, ROUTE_ERROR, app, create_app
 
 # Small prebuilt TF index (see TF_INDEX_INFO["cacm"]); stable BM25 top-1 for this query.
@@ -210,6 +211,47 @@ class TestRestServer(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 400)
         self.assertIn('query', response.json().get('error', ''))
+
+    def test_search_bm25_k1_b_accepted(self):
+        response = self.client.get(
+            f'/{API_VERSION}/{_REST_INDEX}/search',
+            params={'query': _REST_QUERY, 'hits': 1, 'k1': '0.8', 'b': '0.3'},
+        )
+        self.assertEqual(response.status_code, 200, msg=response.text)
+        self.assertEqual(response.json()['candidates'][0].get('docid'), _REST_TOP_DOCID)
+
+    def test_search_bm25_k1_only_uses_default_b(self):
+        default_resp = self.client.get(
+            f'/{API_VERSION}/{_REST_INDEX}/search',
+            params={'query': _REST_QUERY, 'hits': 1},
+        )
+        k1_only_resp = self.client.get(
+            f'/{API_VERSION}/{_REST_INDEX}/search',
+            params={'query': _REST_QUERY, 'hits': 1, 'k1': '0.1'},
+        )
+        self.assertEqual(default_resp.status_code, 200, msg=default_resp.text)
+        self.assertEqual(k1_only_resp.status_code, 200, msg=k1_only_resp.text)
+        default_score = default_resp.json()['candidates'][0]['score']
+        k1_only_score = k1_only_resp.json()['candidates'][0]['score']
+        self.assertNotEqual(default_score, k1_only_score)
+
+    def test_apply_bm25_parameters_changes_scores_on_reused_searcher(self):
+        backend = self.client.app.state.search_backend
+        config = backend._ensure_index(_REST_INDEX, allow_local=True)
+        searcher = config.searcher
+        SharedSearchBackend._apply_bm25_parameters(searcher, BM25_DEFAULT_K1, BM25_DEFAULT_B)
+        score_default = searcher.search(_REST_QUERY, 1)[0].score
+        SharedSearchBackend._apply_bm25_parameters(searcher, 0.1, 0.1)
+        score_tuned = searcher.search(_REST_QUERY, 1)[0].score
+        self.assertNotAlmostEqual(float(score_default), float(score_tuned), places=4)
+
+    def test_search_bm25_k1_not_number_400(self):
+        response = self.client.get(
+            f'/{API_VERSION}/{_REST_INDEX}/search',
+            params={'query': _REST_QUERY, 'hits': 1, 'k1': 'x', 'b': '0.3'},
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('k1', response.json().get('error', ''))
 
     def test_post_to_search_not_allowed_405(self):
         response = self.client.post(f'/{API_VERSION}/{_REST_INDEX}/search', params={'query': 'x'})

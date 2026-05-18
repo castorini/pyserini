@@ -44,6 +44,22 @@ paths:
             type: boolean
             default: true
           description: If true, try to return parsed document contents; if false, return the raw stored document string.
+        - name: k1
+          in: query
+          required: false
+          schema:
+            type: number
+            format: float
+            default: 0.9
+          description: BM25 k1 for sparse indexes (default 0.9, matching Anserini). Omit to use the default; b may still be set.
+        - name: b
+          in: query
+          required: false
+          schema:
+            type: number
+            format: float
+            default: 0.4
+          description: BM25 b for sparse indexes (default 0.4, matching Anserini). Omit to use the default; k1 may still be set.
       responses:
         "200":
           description: Search results.
