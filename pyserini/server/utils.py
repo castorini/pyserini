@@ -16,7 +16,8 @@
 
 """Shared helpers for the search server (prebuilt index catalogs and per-connection index types)."""
 
-from dataclasses import dataclass
+from collections import OrderedDict
+from dataclasses import dataclass, field
 from typing import Any
 
 from pyserini.prebuilt_index_info import (
@@ -36,6 +37,14 @@ from pyserini.search.lucene import (
 
 
 @dataclass
+class Bm25SearcherSlot:
+    """Cached immutable LuceneSearcher for a specific BM25 setting."""
+
+    searcher: LuceneSearcher
+    active: int = 0
+
+
+@dataclass
 class IndexConfig:
     """Configuration for a managed search index."""
 
@@ -46,8 +55,8 @@ class IndexConfig:
     encoder: str | None = ''
     base_index: str | None = None
     index_type: str | None = ''
-    # BM25 (k1, b) last applied to a TF LuceneSearcher, or None if the searcher is still at open-time defaults.
-    bm25_applied: tuple[float, float] | None = None
+    # Custom BM25 searchers are immutable after creation; the default searcher remains at open-time defaults.
+    bm25_searchers: OrderedDict[tuple[float, float], Bm25SearcherSlot] = field(default_factory=OrderedDict)
 
 
 SHARDS = {

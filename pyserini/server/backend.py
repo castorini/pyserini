@@ -17,9 +17,10 @@
 from __future__ import annotations
 
 import logging
+import math
 import os
-import traceback
 import threading
+import traceback
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -31,7 +32,7 @@ from pyserini.prebuilt_index_info import FAISS_INDEX_INFO_M_BEIR
 from pyserini.search.faiss import FaissSearcher
 from pyserini.search.lucene import JBagOfWordsQueryGenerator, JCovid19QueryGenerator, JDisjunctionMaxQueryGenerator, JQuerySideBm25QueryGenerator, LuceneFlatDenseSearcher, LuceneHnswDenseSearcher, LuceneImpactSearcher, LuceneSearcher
 from pyserini.server.config import load_server_config
-from pyserini.server.utils import INDEX_TYPE, SHARDS, IndexConfig, create_searcher, lookup_index_type
+from pyserini.server.utils import INDEX_TYPE, SHARDS, Bm25SearcherSlot, IndexConfig, create_searcher, lookup_index_type
 from pyserini.server.document_format import format_lucene_document
 from pyserini.server.errors import BadSearchRequestError, DocumentNotFoundError, IndexNotAvailableError
 from pyserini.util import check_downloaded, download_prebuilt_index, download_url, get_cache_home
@@ -45,6 +46,8 @@ _RESULT_SCORE_DECIMALS = 6
 # BM25 defaults for sparse (tf) indexes (see LuceneSearcher.set_bm25).
 BM25_DEFAULT_K1 = 0.9
 BM25_DEFAULT_B = 0.4
+_BM25_KEY_DECIMALS = 6
+_DEFAULT_BM25_VARIANT_CACHE_SIZE = 4
 
 # Cap for m-beir query images fetched from user-supplied URLs (DoS mitigation: bounded RAM and disk).
 _MAX_M_BEIR_QUERY_IMAGE_BYTES = 50 * 1024 * 1024
@@ -96,10 +99,28 @@ def _norm_opt_str(value: str | None) -> str:
 def _validate_bm25_params(k1: float | None, b: float | None) -> None:
     if (k1 is None) != (b is None):
         raise BadSearchRequestError('BM25 parameters k1 and b must be set together')
-    if k1 is not None and k1 < 0:
+    try:
+        k1_value = float(k1) if k1 is not None else None
+        b_value = float(b) if b is not None else None
+    except (TypeError, ValueError) as e:
+        raise BadSearchRequestError('BM25 parameters k1 and b must be numbers') from e
+    if k1_value is not None and not math.isfinite(k1_value):
+        raise BadSearchRequestError('BM25 parameter k1 must be finite')
+    if b_value is not None and not math.isfinite(b_value):
+        raise BadSearchRequestError('BM25 parameter b must be finite')
+    if k1_value is not None and k1_value < 0:
         raise BadSearchRequestError('BM25 parameter k1 must be non-negative')
-    if b is not None and b < 0:
+    if b_value is not None and b_value < 0:
         raise BadSearchRequestError('BM25 parameter b must be non-negative')
+    if b_value is not None and b_value > 1:
+        raise BadSearchRequestError('BM25 parameter b must be at most 1')
+
+
+def _canonical_bm25_params(k1: float | None, b: float | None) -> tuple[float | None, float | None]:
+    if k1 is None and b is None:
+        return None, None
+    assert k1 is not None and b is not None
+    return round(float(k1), _BM25_KEY_DECIMALS), round(float(b), _BM25_KEY_DECIMALS)
 
 
 class SharedSearchBackend:
@@ -112,8 +133,10 @@ class SharedSearchBackend:
         no_prebuilt_indexes: bool = False,
         search_cache_size: int = 2048,
         document_cache_size: int = 4096,
+        bm25_variant_cache_size: int = _DEFAULT_BM25_VARIANT_CACHE_SIZE,
     ):
         self._no_prebuilt_indexes = no_prebuilt_indexes
+        self._bm25_variant_cache_size = max(1, int(bm25_variant_cache_size))
         self._local_indexes, _ = load_server_config(config_path)
         if self._no_prebuilt_indexes and not self._local_indexes:
             raise ValueError('--no-prebuilt-indexes requires a non-empty index config (indexes: ...)')
@@ -132,21 +155,76 @@ class SharedSearchBackend:
                 self._index_locks[index_name] = lock
             return lock
 
+    @staticmethod
+    def _close_searcher(searcher: Any, index_name: str) -> None:
+        close_fn = getattr(searcher, 'close', None)
+        if not callable(close_fn):
+            return
+        try:
+            close_fn()
+        except Exception:
+            logger.warning('Failed to close searcher for index %s.', index_name, exc_info=True)
+
+    def _close_index_config(self, config: IndexConfig) -> None:
+        if config.searcher is not None:
+            self._close_searcher(config.searcher, config.name)
+        for slot in config.bm25_searchers.values():
+            self._close_searcher(slot.searcher, config.name)
+        config.bm25_searchers.clear()
+
     def close_all(self) -> None:
         for config in self.indexes.values():
-            searcher = config.searcher
-            if searcher is None:
-                continue
-            close_fn = getattr(searcher, 'close', None)
-            if not callable(close_fn):
-                continue
-            try:
-                close_fn()
-            except Exception:
-                logger.warning('Failed to close searcher for index %s during backend shutdown.', config.name, exc_info=True)
+            self._close_index_config(config)
         self.indexes.clear()
         self._search_cached.cache_clear()
         self._document_cached.cache_clear()
+
+    def _new_bm25_searcher(self, config: IndexConfig, k1: float, b: float) -> LuceneSearcher:
+        searcher = self._build_searcher(config, index_type='tf', local_path=config.path)
+        if not isinstance(searcher, LuceneSearcher):
+            raise IndexNotAvailableError(f'Unable to open sparse searcher for {config.name}')
+        searcher.set_bm25(k1, b)
+        return searcher
+
+    def _acquire_bm25_searcher(
+        self,
+        index_name: str,
+        config: IndexConfig,
+        bm25: tuple[float, float],
+    ) -> tuple[LuceneSearcher, tuple[float, float]]:
+        to_close: list[LuceneSearcher] = []
+        try:
+            with self._lock_for_index_name(index_name):
+                slot = config.bm25_searchers.get(bm25)
+                if slot is None:
+                    while len(config.bm25_searchers) >= self._bm25_variant_cache_size:
+                        idle_key = next(
+                            (key for key, cached in config.bm25_searchers.items() if cached.active == 0),
+                            None,
+                        )
+                        if idle_key is None:
+                            raise BadSearchRequestError(
+                                f'Too many active BM25 variants for index {index_name}; retry when in-flight searches finish'
+                            )
+                        to_close.append(config.bm25_searchers.pop(idle_key).searcher)
+                    bm25_searcher = self._new_bm25_searcher(config, bm25[0], bm25[1])
+                    slot = Bm25SearcherSlot(bm25_searcher)
+                    config.bm25_searchers[bm25] = slot
+                else:
+                    config.bm25_searchers.move_to_end(bm25)
+                slot.active += 1
+                searcher = slot.searcher
+        finally:
+            for searcher_to_close in to_close:
+                self._close_searcher(searcher_to_close, index_name)
+        return searcher, bm25
+
+    def _release_bm25_searcher(self, index_name: str, config: IndexConfig, bm25: tuple[float, float]) -> None:
+        with self._lock_for_index_name(index_name):
+            slot = config.bm25_searchers.get(bm25)
+            if slot is None:
+                return
+            slot.active -= 1
 
     def decode_path_segment(self, value: str) -> str:
         return unquote(value)
@@ -229,12 +307,7 @@ class SharedSearchBackend:
                     config, ef_search=ef_search, encoder=encoder
                 )
                 if need_rebuild:
-                    close_fn = getattr(config.searcher, 'close', None)
-                    try:
-                        if callable(close_fn):
-                            close_fn()
-                    except Exception:
-                        logger.warning('Failed to close existing searcher for index %s before rebuild.', index_name, exc_info=True)
+                    self._close_index_config(config)
                     del self.indexes[index_name]
                     config = None
                 else:
@@ -517,21 +590,17 @@ class SharedSearchBackend:
         if 'shard' in index_name and 'msmarco' in index_name and isinstance(query, str):
             results = self.sharded_search(query, hits, ef_search or 100, encoder or 'ArcticEmbedL')
         elif index_config.index_type == 'tf' and isinstance(index_config.searcher, LuceneSearcher):
-            searcher = index_config.searcher
             if bm25_k1 is not None and bm25_b is not None:
                 desired_bm25 = (bm25_k1, bm25_b)
-            elif index_config.bm25_applied is None or index_config.bm25_applied == (
-                BM25_DEFAULT_K1,
-                BM25_DEFAULT_B,
-            ):
-                desired_bm25 = None
+                if desired_bm25 == (BM25_DEFAULT_K1, BM25_DEFAULT_B):
+                    desired_bm25 = None
             else:
-                desired_bm25 = (BM25_DEFAULT_K1, BM25_DEFAULT_B)
+                desired_bm25 = None
 
             qg_k1 = bm25_k1 if bm25_k1 is not None else BM25_DEFAULT_K1
             qg_b = bm25_b if bm25_b is not None else BM25_DEFAULT_B
 
-            def run_tf_search() -> list[Any]:
+            def run_tf_search(searcher: LuceneSearcher) -> list[Any]:
                 if query_generator:
                     jquery_gen = self._resolve_query_generator(
                         query_generator, searcher, k1=qg_k1, b=qg_b
@@ -539,14 +608,14 @@ class SharedSearchBackend:
                     return searcher.search(query, hits, query_generator=jquery_gen)
                 return searcher.search(query, hits)
 
-            if desired_bm25 is not None and index_config.bm25_applied != desired_bm25:
-                with self._lock_for_index_name(index_name):
-                    if index_config.bm25_applied != desired_bm25:
-                        searcher.set_bm25(desired_bm25[0], desired_bm25[1])
-                        index_config.bm25_applied = desired_bm25
-                    results = run_tf_search()
+            if desired_bm25 is not None:
+                searcher, bm25_key = self._acquire_bm25_searcher(index_name, index_config, desired_bm25)
+                try:
+                    results = run_tf_search(searcher)
+                finally:
+                    self._release_bm25_searcher(index_name, index_config, bm25_key)
             else:
-                results = run_tf_search()
+                results = run_tf_search(index_config.searcher)
         else:
             results = index_config.searcher.search(query, hits)
 
@@ -601,8 +670,7 @@ class SharedSearchBackend:
         b: float | None = None,
     ) -> dict[str, Any]:
         _validate_bm25_params(k1, b)
-        bm25_k1 = float(k1) if k1 is not None else None
-        bm25_b = float(b) if b is not None else None
+        bm25_k1, bm25_b = _canonical_bm25_params(k1, b)
         # Cache only REST-style string queries; multimodal dict payloads stay uncached.
         if isinstance(query, str):
             return self._search_cached(

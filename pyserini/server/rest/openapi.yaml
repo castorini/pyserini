@@ -50,9 +50,11 @@ paths:
           schema:
             type: number
             format: float
+            minimum: 0
             default: 0.9
           description: >
-            BM25 k1 for sparse (TF) indexes. Must be sent together with b. Omit both for Anserini defaults (0.9 / 0.4).
+            BM25 k1 for sparse (TF) indexes. Must be finite, non-negative, and sent together with b.
+            Omit both for Anserini defaults (0.9 / 0.4).
             Returns 400 on non-sparse indexes.
         - name: b
           in: query
@@ -60,9 +62,12 @@ paths:
           schema:
             type: number
             format: float
+            minimum: 0
+            maximum: 1
             default: 0.4
           description: >
-            BM25 b for sparse (TF) indexes. Must be sent together with k1. Omit both for Anserini defaults (0.9 / 0.4).
+            BM25 b for sparse (TF) indexes. Must be finite, in [0, 1], and sent together with k1.
+            Omit both for Anserini defaults (0.9 / 0.4).
             Returns 400 on non-sparse indexes.
       responses:
         "200":

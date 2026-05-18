@@ -137,8 +137,8 @@ If the index cannot be opened, the API responds with **400** and a message such 
 | `query` | yes | — | Search query string. |
 | `hits` | no | `10` | Number of hits (integer ≥ 1). |
 | `parse` | no | `true` | If `true`, parse the stored `raw` field when it is JSON (see `format_lucene_document` / Anserini-style formatting); if `false`, return the raw stored string. |
-| `k1` | no | `0.9` | BM25 k1 for sparse (TF) indexes. Must be sent together with `b`. |
-| `b` | no | `0.4` | BM25 b for sparse (TF) indexes. Must be sent together with `k1`. |
+| `k1` | no | `0.9` | BM25 k1 for sparse (TF) indexes. Must be finite, non-negative, and sent together with `b`. |
+| `b` | no | `0.4` | BM25 b for sparse (TF) indexes. Must be finite, in `[0, 1]`, and sent together with `k1`. |
 
 **Example**
 
