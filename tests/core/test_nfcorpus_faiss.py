@@ -45,7 +45,7 @@ class TestNFCorpus(unittest.TestCase):
         urlretrieve(cls.dense_index_url, cls.dense_tarball_name)
 
         tarball = tarfile.open(cls.dense_tarball_name)
-        tarball.extractall(cls.dense_index_dir)
+        tarball.extractall(cls.dense_index_dir, filter='data')
         tarball.close()
 
         cls.sparse_index_url = 'https://github.com/castorini/anserini-data/raw/master/NFCorpus/lucene.nfcorpus.tar.gz'
@@ -55,7 +55,7 @@ class TestNFCorpus(unittest.TestCase):
         urlretrieve(cls.sparse_index_url, cls.sparse_tarball_name)
 
         tarball = tarfile.open(cls.sparse_tarball_name)
-        tarball.extractall(cls.sparse_index_dir)
+        tarball.extractall(cls.sparse_index_dir, filter='data')
         tarball.close()
 
     def test_dense_retrieval(self):

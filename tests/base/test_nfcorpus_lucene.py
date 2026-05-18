@@ -46,7 +46,7 @@ class TestNFCorpus(unittest.TestCase):
         urlretrieve(cls.sparse_index_url, cls.sparse_tarball_name)
 
         tarball = tarfile.open(cls.sparse_tarball_name)
-        tarball.extractall(cls.sparse_index_dir)
+        tarball.extractall(cls.sparse_index_dir, filter='data')
         tarball.close()
 
     def test_sparse_retrieval(self):

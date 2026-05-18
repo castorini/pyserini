@@ -36,7 +36,7 @@ class TestQueryBuilding(unittest.TestCase):
         filename, headers = urlretrieve(self.collection_url, self.tarball_name)
 
         tarball = tarfile.open(self.tarball_name)
-        tarball.extractall(self.index_dir)
+        tarball.extractall(self.index_dir, filter='data')
         tarball.close()
 
         self.searcher = LuceneSearcher(f'{self.index_dir}lucene9-index.cacm')

@@ -45,7 +45,7 @@ class TestSearch(unittest.TestCase):
         urlretrieve(cls.collection_url, cls.tarball_name)
 
         tarball = tarfile.open(cls.tarball_name)
-        tarball.extractall(cls.searcher_index_dir)
+        tarball.extractall(cls.searcher_index_dir, filter='data')
         tarball.close()
 
         cls.searcher = LuceneSearcher(f'{cls.searcher_index_dir}lucene9-index.cacm')
