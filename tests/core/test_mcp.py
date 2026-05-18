@@ -129,6 +129,22 @@ class TestMCPyseriniServer(unittest.TestCase):
             self._run_async(call_k1_only())
         self.assertIn('together', str(ctx.exception).lower())
 
+    def test_search_bm25_b_only_raises_tool_error(self):
+        async def call_b_only():
+            mcp = _make_mcp_server()
+            async with run_server_async(mcp, transport='streamable-http') as url:
+                async with Client(StreamableHttpTransport(url)) as client:
+                    await client.call_tool('search', {
+                        'query': {'query_txt': 'information retrieval'},
+                        'index': 'cacm',
+                        'hits': 1,
+                        'b': 0.3,
+                    })
+
+        with self.assertRaises(ToolError) as ctx:
+            self._run_async(call_b_only())
+        self.assertIn('together', str(ctx.exception).lower())
+
     def test_search_bm25_custom_params_change_score(self):
         default_result = self._run_async(self._call_tool('search', {
             'query': {'query_txt': 'information retrieval'},

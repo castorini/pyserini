@@ -24,7 +24,7 @@ import hashlib
 import yaml
 from fastapi.testclient import TestClient
 
-from pyserini.server.backend import BM25_DEFAULT_B, BM25_DEFAULT_K1, SharedSearchBackend
+from pyserini.server.backend import SharedSearchBackend
 from pyserini.server.errors import BadSearchRequestError
 from pyserini.server.rest.app import API_VERSION, ROUTE_ERROR, app, create_app
 from pyserini.server.utils import IndexConfig
@@ -310,16 +310,6 @@ class TestRestServer(unittest.TestCase):
             with self.assertRaises(BadSearchRequestError) as ctx:
                 backend.search(_REST_QUERY, 'fake-dense', k1=0.8, b=0.3)
         self.assertIn('sparse', str(ctx.exception).lower())
-
-    def test_set_bm25_changes_scores_on_reused_searcher(self):
-        backend = self.client.app.state.search_backend
-        config = backend._ensure_index(_REST_INDEX, allow_local=True)
-        searcher = config.searcher
-        searcher.set_bm25(BM25_DEFAULT_K1, BM25_DEFAULT_B)
-        score_default = searcher.search(_REST_QUERY, 1)[0].score
-        searcher.set_bm25(0.1, 0.1)
-        score_tuned = searcher.search(_REST_QUERY, 1)[0].score
-        self.assertNotAlmostEqual(float(score_default), float(score_tuned), places=4)
 
     def test_search_bm25_k1_not_number_400(self):
         response = self.client.get(

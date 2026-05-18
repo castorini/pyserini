@@ -137,8 +137,8 @@ Runs retrieval against a Pyserini index (BM25 for standard sparse indexes; dense
 | `ef_search` | `int` | no | `100` | HNSW / dense Lucene HNSW search parameter. |
 | `encoder` | `str` | no | `""` | Encoder id when the index requires one (dense / FAISS / etc.). |
 | `query_generator` | `str` | no | `""` | Sparse (TF) indexes only: `BagOfWords`, `DisjunctionMax` / `dismax`, `QuerySideBm25` / `bm25qs`, `Covid19`. Omit for downstream default (`BagOfWords`). |
-| `k1` | `float \| null` | no | `0.9` | BM25 k1 for sparse (TF) indexes. Must be finite, non-negative, and set together with `b`. |
-| `b` | `float \| null` | no | `0.4` | BM25 b for sparse (TF) indexes. Must be finite, in `[0, 1]`, and set together with `k1`. |
+| `k1` | `float \| null` | no | — (omit both) | BM25 k1 for sparse (TF) indexes. Must be finite, non-negative, and set together with `b`. Omit both `k1` and `b` for Anserini defaults (0.9 / 0.4). |
+| `b` | `float \| null` | no | — (omit both) | BM25 b for sparse (TF) indexes. Must be finite, in `[0, 1]`, and set together with `k1`. Omit both for Anserini defaults (0.9 / 0.4). |
 
 **Returns:** `list[Any]` rich content parts, intentionally returned as a list so MCP clients can render mixed text + images correctly.
 Typical layout is:
