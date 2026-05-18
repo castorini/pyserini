@@ -39,12 +39,17 @@ def configure_classpath(anserini_root="."):
         raise Exception('No matching jar file found in {}'.format(os.path.abspath(anserini_root)))
 
     latest = max(paths, key=os.path.getctime)
+    logging_config = os.path.join(os.path.dirname(__file__), 'resources', 'jars', 'logging.properties')
     jnius_config.add_classpath(latest)
     jnius_config.add_options('--add-modules=jdk.incubator.vector')
     # Suppress "WARNING: A restricted method in java.lang.foreign.Linker has been called"
     jnius_config.add_options('--enable-native-access=ALL-UNNAMED')
-    # Suppress "SLF4J(I): Connected with provider of type [org.apache.logging.slf4j.SLF4JServiceProvider]"
-    jnius_config.add_options('-Dslf4j.internal.verbosity=WARN')
+
+    if not os.environ.get('PYSERINI_VERBOSE_JVM'):
+        # Suppress "Java vector incubator API enabled; uses preferredBitSize=128"
+        jnius_config.add_options(f'-Djava.util.logging.config.file={logging_config}')
+        # Suppress "SLF4J(I): Connected with provider of type [org.apache.logging.slf4j.SLF4JServiceProvider]"
+        jnius_config.add_options('-Dslf4j.internal.verbosity=WARN')
 
 
 def is_jvm_already_running_error(exception):

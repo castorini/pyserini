@@ -54,6 +54,15 @@ class TestJvmStartup(unittest.TestCase):
 
         self.jnius_config.add_classpath.assert_called_once_with(newer_jar)
         self.jnius_config.add_options.assert_any_call('--add-modules=jdk.incubator.vector')
+        self.jnius_config.add_options.assert_any_call(
+            '-Djava.util.logging.config.file=' +
+            os.path.join(
+                os.path.dirname(self.jvm.__file__),
+                'resources',
+                'jars',
+                'logging.properties'
+            )
+        )
         self.jnius_config.add_options.assert_any_call('--enable-native-access=ALL-UNNAMED')
         self.jnius_config.add_options.assert_any_call('-Dslf4j.internal.verbosity=WARN')
 
@@ -134,7 +143,12 @@ class TestJvmStartupIntegration(unittest.TestCase):
             [
                 sys.executable,
                 '-c',
-                'from pyserini.pyclass import JString; JString("started"); print("started")',
+                (
+                    'from pyserini.pyclass import JString, autoclass; '
+                    'JString("started"); '
+                    'autoclass("org.apache.lucene.util.VectorUtil").dotProduct([1.0], [1.0]); '
+                    'print("started")'
+                ),
             ],
             cwd=self.repo_root,
             env=env,
@@ -152,6 +166,7 @@ class TestJvmStartupIntegration(unittest.TestCase):
         )
         self.assertIn('started', result.stdout)
         self.assertNotIn('WARNING: Using incubator modules: jdk.incubator.vector', result.stderr)
+        self.assertNotIn('Java vector incubator API enabled', result.stderr)
         self.assertNotIn('SLF4J(I):', result.stderr)
 
     def test_verbose_jvm_env_still_allows_pyclass_import_to_start_jvm(self):
