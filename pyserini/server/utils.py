@@ -46,6 +46,8 @@ class IndexConfig:
     encoder: str | None = ''
     base_index: str | None = None
     index_type: str | None = ''
+    # BM25 (k1, b) last applied to a TF LuceneSearcher, or None if the searcher is still at open-time defaults.
+    bm25_applied: tuple[float, float] | None = None
 
 
 SHARDS = {

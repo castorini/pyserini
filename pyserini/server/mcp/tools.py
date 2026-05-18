@@ -64,8 +64,8 @@ def register_tools(mcp: FastMCP, controller: SharedSearchBackend):
             ef_search: ef_search parameter for HNSW indexes (default: 100)
             encoder: Encoder to use for encoding the query
             query_generator: For sparse (tf) indexes only: how to build the Lucene query. One of: BagOfWords, DisjunctionMax (dismax), QuerySideBm25 (bm25qs), Covid19. Omit or None for default.
-            k1: BM25 k1 for sparse (tf) indexes (default 0.9, matching Anserini). Omit to use the default; b may still be set.
-            b: BM25 b for sparse (tf) indexes (default 0.4, matching Anserini). Omit to use the default; k1 may still be set.
+            k1: BM25 k1 for sparse (tf) indexes. Must be set together with b.
+            b: BM25 b for sparse (tf) indexes. Must be set together with k1.
 
         Returns:
             List of search results with docid, score, and raw contents in text or image form

@@ -42,7 +42,7 @@ logger = logging.getLogger(__name__)
 # https://github.com/castorini/anserini/blob/master/src/main/java/io/anserini/rerank/lib/ScoreTiesAdjusterReranker.java
 _RESULT_SCORE_DECIMALS = 6
 
-# Anserini / Lucene BM25 defaults (see LuceneSearcher.set_bm25).
+# BM25 defaults for sparse (tf) indexes (see LuceneSearcher.set_bm25).
 BM25_DEFAULT_K1 = 0.9
 BM25_DEFAULT_B = 0.4
 
@@ -94,17 +94,12 @@ def _norm_opt_str(value: str | None) -> str:
 
 
 def _validate_bm25_params(k1: float | None, b: float | None) -> None:
+    if (k1 is None) != (b is None):
+        raise BadSearchRequestError('BM25 parameters k1 and b must be set together')
     if k1 is not None and k1 < 0:
         raise BadSearchRequestError('BM25 parameter k1 must be non-negative')
     if b is not None and b < 0:
         raise BadSearchRequestError('BM25 parameter b must be non-negative')
-
-
-def _resolve_bm25_params(k1: float | None, b: float | None) -> tuple[float, float]:
-    """Return effective BM25 parameters (Anserini defaults fill in any omitted value)."""
-    resolved_k1 = BM25_DEFAULT_K1 if k1 is None else float(k1)
-    resolved_b = BM25_DEFAULT_B if b is None else float(b)
-    return resolved_k1, resolved_b
 
 
 class SharedSearchBackend:
@@ -367,10 +362,6 @@ class SharedSearchBackend:
             raise DocumentNotFoundError(f'Document {missing[0]} not found in index {start_index_name}')
         return {d: format_lucene_document(batch[d], parse) for d in docids}
 
-    @staticmethod
-    def _apply_bm25_parameters(searcher: LuceneSearcher, k1: float, b: float) -> None:
-        searcher.set_bm25(k1, b)
-
     def _resolve_query_generator(
         self,
         query_generator_str: str | None,
@@ -508,9 +499,8 @@ class SharedSearchBackend:
         ef_search: int | None = None,
         encoder: str | None = None,
         query_generator: str | None = None,
-        bm25_k1: float = BM25_DEFAULT_K1,
-        bm25_b: float = BM25_DEFAULT_B,
-        explicit_bm25: bool = False,
+        bm25_k1: float | None = None,
+        bm25_b: float | None = None,
     ) -> dict[str, Any]:
         query = self._prepare_query(query, index_name)
         results: list[Any]
@@ -521,21 +511,44 @@ class SharedSearchBackend:
             encoder=encoder,
         )
 
-        if explicit_bm25 and index_config.index_type != 'tf':
+        if bm25_k1 is not None and bm25_b is not None and index_config.index_type != 'tf':
             raise BadSearchRequestError('BM25 parameters k1 and b apply only to sparse (tf) indexes')
 
         if 'shard' in index_name and 'msmarco' in index_name and isinstance(query, str):
             results = self.sharded_search(query, hits, ef_search or 100, encoder or 'ArcticEmbedL')
-        else:
-            if index_config.index_type == 'tf' and isinstance(index_config.searcher, LuceneSearcher):
-                self._apply_bm25_parameters(index_config.searcher, bm25_k1, bm25_b)
-            if query_generator and index_config.index_type == 'tf' and isinstance(index_config.searcher, LuceneSearcher):
-                jquery_gen = self._resolve_query_generator(
-                    query_generator, index_config.searcher, k1=bm25_k1, b=bm25_b
-                )
-                results = index_config.searcher.search(query, hits, query_generator=jquery_gen)
+        elif index_config.index_type == 'tf' and isinstance(index_config.searcher, LuceneSearcher):
+            searcher = index_config.searcher
+            if bm25_k1 is not None and bm25_b is not None:
+                desired_bm25 = (bm25_k1, bm25_b)
+            elif index_config.bm25_applied is None or index_config.bm25_applied == (
+                BM25_DEFAULT_K1,
+                BM25_DEFAULT_B,
+            ):
+                desired_bm25 = None
             else:
-                results = index_config.searcher.search(query, hits)
+                desired_bm25 = (BM25_DEFAULT_K1, BM25_DEFAULT_B)
+
+            qg_k1 = bm25_k1 if bm25_k1 is not None else BM25_DEFAULT_K1
+            qg_b = bm25_b if bm25_b is not None else BM25_DEFAULT_B
+
+            def run_tf_search() -> list[Any]:
+                if query_generator:
+                    jquery_gen = self._resolve_query_generator(
+                        query_generator, searcher, k1=qg_k1, b=qg_b
+                    )
+                    return searcher.search(query, hits, query_generator=jquery_gen)
+                return searcher.search(query, hits)
+
+            if desired_bm25 is not None and index_config.bm25_applied != desired_bm25:
+                with self._lock_for_index_name(index_name):
+                    if index_config.bm25_applied != desired_bm25:
+                        searcher.set_bm25(desired_bm25[0], desired_bm25[1])
+                        index_config.bm25_applied = desired_bm25
+                    results = run_tf_search()
+            else:
+                results = run_tf_search()
+        else:
+            results = index_config.searcher.search(query, hits)
 
         if isinstance(query, str):
             query_payload: dict[str, Any] = {'qid': qid, 'query_txt': query}
@@ -588,8 +601,8 @@ class SharedSearchBackend:
         b: float | None = None,
     ) -> dict[str, Any]:
         _validate_bm25_params(k1, b)
-        explicit_bm25 = k1 is not None or b is not None
-        bm25_k1, bm25_b = _resolve_bm25_params(k1, b)
+        bm25_k1 = float(k1) if k1 is not None else None
+        bm25_b = float(b) if b is not None else None
         # Cache only REST-style string queries; multimodal dict payloads stay uncached.
         if isinstance(query, str):
             return self._search_cached(
@@ -604,7 +617,6 @@ class SharedSearchBackend:
                 query_generator,
                 bm25_k1,
                 bm25_b,
-                explicit_bm25,
             )
         return self._search_impl(
             query,
@@ -618,7 +630,6 @@ class SharedSearchBackend:
             query_generator,
             bm25_k1,
             bm25_b,
-            explicit_bm25,
         )
 
 

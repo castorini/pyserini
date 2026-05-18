@@ -113,25 +113,46 @@ class TestMCPyseriniServer(unittest.TestCase):
         self.assertEqual(len(doc_lines), 1)
         self.assertIn('CACM-3134', doc_lines[0])
 
-    def test_search_bm25_k1_only_uses_default_b(self):
+    def test_search_bm25_k1_only_raises_tool_error(self):
+        async def call_k1_only():
+            mcp = _make_mcp_server()
+            async with run_server_async(mcp, transport='streamable-http') as url:
+                async with Client(StreamableHttpTransport(url)) as client:
+                    await client.call_tool('search', {
+                        'query': {'query_txt': 'information retrieval'},
+                        'index': 'cacm',
+                        'hits': 1,
+                        'k1': 0.1,
+                    })
+
+        with self.assertRaises(ToolError) as ctx:
+            self._run_async(call_k1_only())
+        self.assertIn('together', str(ctx.exception).lower())
+
+    def test_search_bm25_custom_params_change_score(self):
         default_result = self._run_async(self._call_tool('search', {
             'query': {'query_txt': 'information retrieval'},
             'index': 'cacm',
             'hits': 1,
         }))
-        k1_only_result = self._run_async(self._call_tool('search', {
+        tuned_result = self._run_async(self._call_tool('search', {
             'query': {'query_txt': 'information retrieval'},
             'index': 'cacm',
             'hits': 1,
             'k1': 0.1,
+            'b': 0.1,
         }))
         self.assertFalse(default_result.is_error, msg=getattr(default_result, 'content', default_result))
-        self.assertFalse(k1_only_result.is_error, msg=getattr(k1_only_result, 'content', k1_only_result))
-        default_payload = self._single_json_content(default_result)
-        k1_only_payload = self._single_json_content(k1_only_result)
-        default_line = next(t for t in default_payload if isinstance(t, str) and t.startswith('DocID: '))
-        k1_only_line = next(t for t in k1_only_payload if isinstance(t, str) and t.startswith('DocID: '))
-        self.assertNotEqual(default_line, k1_only_line)
+        self.assertFalse(tuned_result.is_error, msg=getattr(tuned_result, 'content', tuned_result))
+        default_line = next(
+            t for t in self._single_json_content(default_result)
+            if isinstance(t, str) and t.startswith('DocID: ')
+        )
+        tuned_line = next(
+            t for t in self._single_json_content(tuned_result)
+            if isinstance(t, str) and t.startswith('DocID: ')
+        )
+        self.assertNotEqual(default_line, tuned_line)
 
     def test_get_index_tool(self):
         result = self._run_async(self._call_tool('get_index', {
