@@ -15,11 +15,13 @@
 #
 
 """
-Module for adding Anserini jar to classpath for pyjnius usage
+Utilities for configuring Pyjnius before the JVM starts.
 """
 
 import glob
 import os
+import sys
+from contextlib import contextmanager
 
 import jnius_config
 
@@ -39,3 +41,35 @@ def configure_classpath(anserini_root="."):
     latest = max(paths, key=os.path.getctime)
     jnius_config.add_classpath(latest)
     jnius_config.add_options('--add-modules=jdk.incubator.vector')
+    # Suppress "WARNING: A restricted method in java.lang.foreign.Linker has been called"
+    jnius_config.add_options('--enable-native-access=ALL-UNNAMED')
+    # Suppress "SLF4J(I): Connected with provider of type [org.apache.logging.slf4j.SLF4JServiceProvider]"
+    jnius_config.add_options('-Dslf4j.internal.verbosity=WARN')
+
+
+def is_jvm_already_running_error(exception):
+    message = str(exception).lower()
+    return (
+        'jvm is already running' in message or
+        'vm is already running' in message or
+        'java virtual machine is already running' in message
+    )
+
+
+@contextmanager
+def suppress_jvm_startup_stderr():
+    if os.environ.get('PYSERINI_VERBOSE_JVM'):
+        yield
+        return
+
+    sys.stderr.flush()
+    saved_stderr_fd = os.dup(2)
+    devnull_fd = os.open(os.devnull, os.O_WRONLY)
+    try:
+        os.dup2(devnull_fd, 2)
+        yield
+    finally:
+        sys.stderr.flush()
+        os.dup2(saved_stderr_fd, 2)
+        os.close(saved_stderr_fd)
+        os.close(devnull_fd)

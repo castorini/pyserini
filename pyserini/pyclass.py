@@ -18,24 +18,48 @@
 Module for hiding Python-Java calls via Pyjnius
 """
 
-from .setup import configure_classpath, os
+import os
+
+from ._jvm import (
+    configure_classpath,
+    is_jvm_already_running_error,
+    suppress_jvm_startup_stderr,
+)
 
 try:
     # If the environment variable isn't defined, look in the current directory.
-    configure_classpath(os.environ['ANSERINI_CLASSPATH'] if 'ANSERINI_CLASSPATH' in os.environ else
-                        os.path.join(os.path.split(__file__)[0], 'resources/jars/'))
-except:
+    anserini_root = os.environ.get(
+        'ANSERINI_CLASSPATH',
+        os.path.join(os.path.split(__file__)[0], 'resources/jars/')
+    )
+    configure_classpath(anserini_root)
+except Exception as e:
     # This might happen if the JVM's already been initialized. Just eat the error.
-    pass
+    if not is_jvm_already_running_error(e):
+        raise
 
-from jnius import autoclass, cast
+with suppress_jvm_startup_stderr():
+    from jnius import autoclass
 
-# Base Java classes
-JString = autoclass('java.lang.String')
-JFloat = autoclass('java.lang.Float')
-JInt = autoclass('java.lang.Integer')
-JPath = autoclass('java.nio.file.Path')
-JPaths = autoclass('java.nio.file.Paths')
-JList = autoclass('java.util.List')
-JArrayList = autoclass('java.util.ArrayList')
-JHashMap = autoclass('java.util.HashMap')
+    # Base Java classes
+    JString = autoclass('java.lang.String')
+    JFloat = autoclass('java.lang.Float')
+    JInt = autoclass('java.lang.Integer')
+    JPath = autoclass('java.nio.file.Path')
+    JPaths = autoclass('java.nio.file.Paths')
+    JList = autoclass('java.util.List')
+    JArrayList = autoclass('java.util.ArrayList')
+    JHashMap = autoclass('java.util.HashMap')
+
+
+__all__ = [
+    'autoclass',
+    'JString',
+    'JFloat',
+    'JInt',
+    'JPath',
+    'JPaths',
+    'JList',
+    'JArrayList',
+    'JHashMap',
+]
