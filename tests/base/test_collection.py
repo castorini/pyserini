@@ -35,7 +35,7 @@ class TestIterateCollection(unittest.TestCase):
         _, _ = urlretrieve(url, tarball_name)
 
         tarball = tarfile.open(tarball_name)
-        tarball.extractall(directory)
+        tarball.extractall(directory, filter='data')
         tarball.close()
 
         cacm = collection.Collection('HtmlCollection', directory)

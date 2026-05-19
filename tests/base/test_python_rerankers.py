@@ -22,7 +22,7 @@ class TestPythonRerankers(unittest.TestCase):
         if not os.path.exists(cls.searcher_index_dir):
             urlretrieve(cls.collection_url, cls.tarball_name)
             with tarfile.open(cls.tarball_name) as tarball:
-                tarball.extractall(cls.searcher_index_dir)
+                tarball.extractall(cls.searcher_index_dir, filter='data')
 
         # Full CACM searcher for rerankers (with doc vectors)
         cls.searcher = LuceneSearcher(f'{cls.searcher_index_dir}lucene9-index.cacm')

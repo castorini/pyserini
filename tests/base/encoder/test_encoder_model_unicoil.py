@@ -56,7 +56,7 @@ class TestEncodeUniCoil(unittest.TestCase):
         urlretrieve(collection_url, tarball_name)
 
         tarball = tarfile.open(tarball_name)
-        tarball.extractall(index_dir)
+        tarball.extractall(index_dir, filter='data')
         tarball.close()
 
         searcher1 = LuceneImpactSearcher(f'{index_dir}lucene9-index.cacm',

@@ -19,7 +19,9 @@ import re
 from enum import Enum
 
 from ..multithreading import Counters
-from ..pyclass import autoclass, cast, JPaths
+# Import pyclass first so Pyjnius is configured before importing directly from jnius.
+from ..pyclass import autoclass, JPaths
+from jnius import cast
 
 logger = logging.getLogger(__name__)
 

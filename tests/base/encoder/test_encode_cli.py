@@ -50,7 +50,7 @@ class TestEncode(unittest.TestCase):
         urlretrieve(cls.collection_url, cls.tarball_name)
 
         tarball = tarfile.open(cls.tarball_name)
-        tarball.extractall(cls.index_dir)
+        tarball.extractall(cls.index_dir, filter='data')
         tarball.close()
 
     @staticmethod
