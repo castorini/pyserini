@@ -36,9 +36,17 @@ from pyserini.search.lucene import (
 )
 
 
+@dataclass(frozen=True)
+class Bm25Config:
+    """BM25 scoring configuration for sparse search."""
+
+    k1: float
+    b: float
+
+
 @dataclass
-class Bm25SearcherSlot:
-    """Cached immutable LuceneSearcher for a specific BM25 setting."""
+class Bm25SearcherCacheEntry:
+    """Cached immutable LuceneSearcher for a BM25 configuration."""
 
     searcher: LuceneSearcher
     active: int = 0
@@ -56,7 +64,7 @@ class IndexConfig:
     base_index: str | None = None
     index_type: str | None = ''
     # Custom BM25 searchers are immutable after creation; the default searcher remains at open-time defaults.
-    bm25_searchers: OrderedDict[tuple[float, float], Bm25SearcherSlot] = field(default_factory=OrderedDict)
+    bm25_searchers: OrderedDict[Bm25Config, Bm25SearcherCacheEntry] = field(default_factory=OrderedDict)
 
 
 SHARDS = {

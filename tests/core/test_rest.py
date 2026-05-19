@@ -27,7 +27,7 @@ from fastapi.testclient import TestClient
 from pyserini.server.backend import SharedSearchBackend
 from pyserini.server.errors import BadSearchRequestError
 from pyserini.server.rest.app import API_VERSION, ROUTE_ERROR, app, create_app
-from pyserini.server.utils import IndexConfig
+from pyserini.server.utils import Bm25Config, IndexConfig
 
 # Small prebuilt TF index (see TF_INDEX_INFO["cacm"]); stable BM25 top-1 for this query.
 _REST_INDEX = 'cacm'
@@ -323,31 +323,34 @@ class TestRestServer(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn('k1', response.json().get('error', ''))
 
-    def test_bm25_variant_pool_reuses_and_evicts_idle_searchers(self):
-        backend = SharedSearchBackend(bm25_variant_cache_size=2)
+    def test_bm25_config_pool_reuses_and_evicts_idle_searchers(self):
+        backend = SharedSearchBackend(bm25_searcher_cache_size=2)
         config = IndexConfig(name='fake-tf', index_type='tf')
         first = _FakeSearcher()
         second = _FakeSearcher()
         third = _FakeSearcher()
+        bm25_a = Bm25Config(k1=0.1, b=0.1)
+        bm25_b = Bm25Config(k1=0.2, b=0.2)
+        bm25_c = Bm25Config(k1=0.3, b=0.3)
 
         with unittest.mock.patch.object(
             backend,
             '_build_searcher',
             side_effect=[first, second, third],
         ):
-            searcher, key = backend._acquire_bm25_searcher('fake-tf', config, (0.1, 0.1))
+            searcher, key = backend._acquire_bm25_searcher('fake-tf', config, bm25_a)
             self.assertIs(searcher, first)
             backend._release_bm25_searcher('fake-tf', config, key)
 
-            searcher, key = backend._acquire_bm25_searcher('fake-tf', config, (0.1, 0.1))
+            searcher, key = backend._acquire_bm25_searcher('fake-tf', config, bm25_a)
             self.assertIs(searcher, first)
             backend._release_bm25_searcher('fake-tf', config, key)
 
-            searcher, key = backend._acquire_bm25_searcher('fake-tf', config, (0.2, 0.2))
+            searcher, key = backend._acquire_bm25_searcher('fake-tf', config, bm25_b)
             self.assertIs(searcher, second)
             backend._release_bm25_searcher('fake-tf', config, key)
 
-            searcher, key = backend._acquire_bm25_searcher('fake-tf', config, (0.3, 0.3))
+            searcher, key = backend._acquire_bm25_searcher('fake-tf', config, bm25_c)
             self.assertIs(searcher, third)
             backend._release_bm25_searcher('fake-tf', config, key)
 
@@ -357,28 +360,30 @@ class TestRestServer(unittest.TestCase):
         self.assertEqual(first.bm25, (0.1, 0.1))
         self.assertEqual(second.bm25, (0.2, 0.2))
         self.assertEqual(third.bm25, (0.3, 0.3))
-        self.assertEqual(list(config.bm25_searchers.keys()), [(0.2, 0.2), (0.3, 0.3)])
+        self.assertEqual(list(config.bm25_searchers.keys()), [bm25_b, bm25_c])
 
-    def test_bm25_variant_pool_preserves_active_searcher(self):
-        backend = SharedSearchBackend(bm25_variant_cache_size=1)
+    def test_bm25_config_pool_preserves_active_searcher(self):
+        backend = SharedSearchBackend(bm25_searcher_cache_size=1)
         config = IndexConfig(name='fake-tf', index_type='tf')
         first = _FakeSearcher()
+        bm25_a = Bm25Config(k1=0.1, b=0.1)
+        bm25_b = Bm25Config(k1=0.2, b=0.2)
 
         with unittest.mock.patch.object(
             backend,
             '_build_searcher',
             return_value=first,
         ) as build_searcher:
-            searcher, key = backend._acquire_bm25_searcher('fake-tf', config, (0.1, 0.1))
+            searcher, key = backend._acquire_bm25_searcher('fake-tf', config, bm25_a)
             self.assertIs(searcher, first)
             with self.assertRaises(BadSearchRequestError):
-                backend._acquire_bm25_searcher('fake-tf', config, (0.2, 0.2))
+                backend._acquire_bm25_searcher('fake-tf', config, bm25_b)
             backend._release_bm25_searcher('fake-tf', config, key)
 
         self.assertEqual(build_searcher.call_count, 1)
         self.assertFalse(first.closed)
         self.assertEqual(first.bm25, (0.1, 0.1))
-        self.assertEqual(list(config.bm25_searchers.keys()), [(0.1, 0.1)])
+        self.assertEqual(list(config.bm25_searchers.keys()), [bm25_a])
 
     def test_post_to_search_not_allowed_405(self):
         response = self.client.post(f'/{API_VERSION}/{_REST_INDEX}/search', params={'query': 'x'})
