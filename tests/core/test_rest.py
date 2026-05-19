@@ -272,7 +272,7 @@ class TestRestServer(unittest.TestCase):
             params={'query': _REST_QUERY, 'hits': 1, 'k1': 'nan', 'b': '0.3'},
         )
         self.assertEqual(response.status_code, 400)
-        self.assertIn('finite', response.json().get('error', ''))
+        self.assertIn('k1', response.json().get('error', ''))
 
     def test_search_bm25_custom_params_change_score(self):
         default_resp = self.client.get(
@@ -323,7 +323,7 @@ class TestRestServer(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn('k1', response.json().get('error', ''))
 
-    def test_bm25_config_pool_reuses_and_evicts_idle_searchers(self):
+    def test_bm25_config_pool_reuses_and_evicts_least_recently_used_idle_searcher(self):
         backend = SharedSearchBackend(bm25_searcher_cache_size=2)
         config = IndexConfig(name='fake-tf', index_type='tf')
         first = _FakeSearcher()
@@ -342,25 +342,25 @@ class TestRestServer(unittest.TestCase):
             self.assertIs(searcher, first)
             backend._release_bm25_searcher('fake-tf', config, key)
 
-            searcher, key = backend._acquire_bm25_searcher('fake-tf', config, bm25_a)
-            self.assertIs(searcher, first)
-            backend._release_bm25_searcher('fake-tf', config, key)
-
             searcher, key = backend._acquire_bm25_searcher('fake-tf', config, bm25_b)
             self.assertIs(searcher, second)
+            backend._release_bm25_searcher('fake-tf', config, key)
+
+            searcher, key = backend._acquire_bm25_searcher('fake-tf', config, bm25_a)
+            self.assertIs(searcher, first)
             backend._release_bm25_searcher('fake-tf', config, key)
 
             searcher, key = backend._acquire_bm25_searcher('fake-tf', config, bm25_c)
             self.assertIs(searcher, third)
             backend._release_bm25_searcher('fake-tf', config, key)
 
-        self.assertTrue(first.closed)
-        self.assertFalse(second.closed)
+        self.assertFalse(first.closed)
+        self.assertTrue(second.closed)
         self.assertFalse(third.closed)
         self.assertEqual(first.bm25, (0.1, 0.1))
         self.assertEqual(second.bm25, (0.2, 0.2))
         self.assertEqual(third.bm25, (0.3, 0.3))
-        self.assertEqual(list(config.bm25_searchers.keys()), [bm25_b, bm25_c])
+        self.assertEqual(list(config.bm25_searchers.keys()), [bm25_a, bm25_c])
 
     def test_bm25_config_pool_preserves_active_searcher(self):
         backend = SharedSearchBackend(bm25_searcher_cache_size=1)

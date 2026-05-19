@@ -98,23 +98,20 @@ def _norm_opt_str(value: str | None) -> str:
 
 
 def _validate_bm25_params(k1: float | None, b: float | None) -> None:
+    # Match pyserini.search.lucene.__main__.set_bm25_parameters (both or neither).
     if (k1 is None) != (b is None):
         raise BadSearchRequestError('BM25 parameters k1 and b must be set together')
+    if k1 is None:
+        return
     try:
-        k1_value = float(k1) if k1 is not None else None
-        b_value = float(b) if b is not None else None
+        k1_value = float(k1)
+        b_value = float(b)
     except (TypeError, ValueError) as e:
         raise BadSearchRequestError('BM25 parameters k1 and b must be numbers') from e
-    if k1_value is not None and not math.isfinite(k1_value):
-        raise BadSearchRequestError('BM25 parameter k1 must be finite')
-    if b_value is not None and not math.isfinite(b_value):
-        raise BadSearchRequestError('BM25 parameter b must be finite')
-    if k1_value is not None and k1_value < 0:
-        raise BadSearchRequestError('BM25 parameter k1 must be non-negative')
-    if b_value is not None and b_value < 0:
-        raise BadSearchRequestError('BM25 parameter b must be non-negative')
-    if b_value is not None and b_value > 1:
-        raise BadSearchRequestError('BM25 parameter b must be at most 1')
+    if math.isnan(k1_value) or k1_value < 0:
+        raise BadSearchRequestError('BM25 parameter k1 must be a non-negative number')
+    if math.isnan(b_value) or not 0 <= b_value <= 1:
+        raise BadSearchRequestError('BM25 parameter b must be between 0 and 1')
 
 
 def _canonical_bm25_config(k1: float | None, b: float | None) -> Bm25Config | None:
