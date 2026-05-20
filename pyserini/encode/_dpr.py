@@ -31,78 +31,6 @@ from transformers.utils import logging
 from pyserini.encode import DocumentEncoder, QueryEncoder
 
 
-def _is_whitespace(char):
-    return char in ' \t\n\r' or unicodedata.category(char) == 'Zs'
-
-
-def _is_control(char):
-    if char in '\t\n\r':
-        return False
-    return unicodedata.category(char) in ('Cc', 'Cf')
-
-
-def _is_punctuation(char):
-    cp = ord(char)
-    return (33 <= cp <= 47) or (58 <= cp <= 64) or (91 <= cp <= 96) or (123 <= cp <= 126) or \
-        unicodedata.category(char).startswith('P')
-
-
-def _is_chinese_char(cp):
-    return ((0x4E00 <= cp <= 0x9FFF) or (0x3400 <= cp <= 0x4DBF) or (0x20000 <= cp <= 0x2A6DF) or
-            (0x2A700 <= cp <= 0x2B73F) or (0x2B740 <= cp <= 0x2B81F) or (0x2B820 <= cp <= 0x2CEAF) or
-            (0xF900 <= cp <= 0xFAFF) or (0x2F800 <= cp <= 0x2FA1F))
-
-
-def _strip_accents(text):
-    text = unicodedata.normalize('NFD', text)
-    return ''.join(char for char in text if unicodedata.category(char) != 'Mn')
-
-
-def _normalize_legacy_wordpiece(text):
-    return text.translate({
-        ord('\u09dc'): '\u09a1\u09bc',
-        ord('\u09dd'): '\u09a2\u09bc',
-        ord('\u09df'): '\u09af\u09bc',
-    })
-
-
-def _split_on_punc(text):
-    output = []
-    current = []
-    for char in text:
-        if _is_punctuation(char):
-            if current:
-                output.append(''.join(current))
-                current = []
-            output.append(char)
-        else:
-            current.append(char)
-    if current:
-        output.append(''.join(current))
-    return output
-
-
-def _clean_text(text):
-    output = []
-    for char in text:
-        cp = ord(char)
-        if cp in (0, 0xFFFD) or _is_control(char):
-            continue
-        output.append(' ' if _is_whitespace(char) else char)
-    return ''.join(output)
-
-
-def _tokenize_chinese_chars(text):
-    output = []
-    for char in text:
-        cp = ord(char)
-        if _is_chinese_char(cp):
-            output.extend([' ', char, ' '])
-        else:
-            output.append(char)
-    return ''.join(output)
-
-
 class _LegacyDprTokenizer:
     def __init__(self, tokenizer):
         self.tokenizer = tokenizer
@@ -121,15 +49,87 @@ class _LegacyDprTokenizer:
         self.mask_token_id = tokenizer.mask_token_id
 
     def tokenize(self, text):
-        text = _tokenize_chinese_chars(_clean_text(text))
+        text = self._tokenize_chinese_chars(self._clean_text(text))
         split_tokens = []
         for token in text.strip().split():
-            token = _normalize_legacy_wordpiece(token)
+            token = self._normalize_legacy_wordpiece(token)
             if self.do_lower_case:
-                token = _strip_accents(token.lower())
-            for sub_token in _split_on_punc(token):
+                token = self._strip_accents(token.lower())
+            for sub_token in self._split_on_punc(token):
                 split_tokens.extend(self._wordpiece_tokenize(sub_token))
         return split_tokens
+
+    @staticmethod
+    def _is_whitespace(char):
+        return char in ' \t\n\r' or unicodedata.category(char) == 'Zs'
+
+    @staticmethod
+    def _is_control(char):
+        if char in '\t\n\r':
+            return False
+        return unicodedata.category(char) in ('Cc', 'Cf')
+
+    @staticmethod
+    def _is_punctuation(char):
+        cp = ord(char)
+        return (33 <= cp <= 47) or (58 <= cp <= 64) or (91 <= cp <= 96) or (123 <= cp <= 126) or \
+            unicodedata.category(char).startswith('P')
+
+    @staticmethod
+    def _is_chinese_char(cp):
+        return ((0x4E00 <= cp <= 0x9FFF) or (0x3400 <= cp <= 0x4DBF) or (0x20000 <= cp <= 0x2A6DF) or
+                (0x2A700 <= cp <= 0x2B73F) or (0x2B740 <= cp <= 0x2B81F) or (0x2B820 <= cp <= 0x2CEAF) or
+                (0xF900 <= cp <= 0xFAFF) or (0x2F800 <= cp <= 0x2FA1F))
+
+    @staticmethod
+    def _strip_accents(text):
+        text = unicodedata.normalize('NFD', text)
+        return ''.join(char for char in text if unicodedata.category(char) != 'Mn')
+
+    @staticmethod
+    def _normalize_legacy_wordpiece(text):
+        return text.translate({
+            ord('\u09dc'): '\u09a1\u09bc',
+            ord('\u09dd'): '\u09a2\u09bc',
+            ord('\u09df'): '\u09af\u09bc',
+        })
+
+    @classmethod
+    def _split_on_punc(cls, text):
+        output = []
+        current = []
+        for char in text:
+            if cls._is_punctuation(char):
+                if current:
+                    output.append(''.join(current))
+                    current = []
+                output.append(char)
+            else:
+                current.append(char)
+        if current:
+            output.append(''.join(current))
+        return output
+
+    @classmethod
+    def _clean_text(cls, text):
+        output = []
+        for char in text:
+            cp = ord(char)
+            if cp in (0, 0xFFFD) or cls._is_control(char):
+                continue
+            output.append(' ' if cls._is_whitespace(char) else char)
+        return ''.join(output)
+
+    @classmethod
+    def _tokenize_chinese_chars(cls, text):
+        output = []
+        for char in text:
+            cp = ord(char)
+            if cls._is_chinese_char(cp):
+                output.extend([' ', char, ' '])
+            else:
+                output.append(char)
+        return ''.join(output)
 
     def _wordpiece_tokenize(self, text):
         if len(text) > 100:
