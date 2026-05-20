@@ -73,6 +73,15 @@ class TestEncodeDpr(unittest.TestCase):
         self.assertEqual(tokens[0], 'Je')
         self.assertEqual(tokens[-2], 'Uganda')
 
+    def test_bengali_dpr_tokenizer(self):
+        tokenizer = _load_dpr_tokenizer(DPRQuestionEncoderTokenizer, 'castorini/mdpr-question-nq',
+                                        clean_up_tokenization_spaces=True)
+        # Bengali mDPR tokenization must preserve legacy WordPiece decomposition.
+        tokens = tokenizer.tokenize('১৯৮৮ সালে ঘূর্ণিঝড়ের কারণে বাংলাদেশের মোট ক্ষয়ক্ষতির পরিমান কত ?')
+        self.assertIn('##ড়ে', tokens)
+        self.assertIn('মোট', tokens)
+        self.assertNotIn('[UNK]', tokens)
+
 
 if __name__ == '__main__':
     unittest.main()
