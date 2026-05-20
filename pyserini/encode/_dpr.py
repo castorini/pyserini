@@ -14,7 +14,15 @@
 # limitations under the License.
 #
 
-from transformers import DPRContextEncoder, DPRContextEncoderTokenizer, DPRQuestionEncoder, DPRQuestionEncoderTokenizer
+from packaging.version import Version
+from transformers import (
+    BertTokenizer,
+    DPRContextEncoder,
+    DPRContextEncoderTokenizer,
+    DPRQuestionEncoder,
+    DPRQuestionEncoderTokenizer,
+)
+from transformers import __version__ as transformers_version
 from transformers.utils import logging
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
@@ -37,14 +45,23 @@ class log_level:
         logging.set_verbosity(self.orig_log_level)
 
 
+def _load_dpr_tokenizer(tokenizer_class, model_name_or_path, **kwargs):
+    tokenizer = tokenizer_class.from_pretrained(model_name_or_path, **kwargs)
+    if Version(transformers_version) >= Version("5.0.0") and getattr(tokenizer, 'do_lower_case', None) is False:
+        # Transformers 5 DPR tokenizers can lowercase despite do_lower_case=False; use the
+        # BERT tokenizer implementation to preserve cased mDPR query vectors.
+        tokenizer = BertTokenizer.from_pretrained(model_name_or_path, do_lower_case=False, **kwargs)
+    return tokenizer
+
+
 class DprDocumentEncoder(DocumentEncoder):
     def __init__(self, model_name, tokenizer_name=None, device='cuda:0'):
         self.device = device
         with log_level(logging.ERROR):
             self.model = DPRContextEncoder.from_pretrained(model_name)
         self.model.to(self.device)
-        self.tokenizer = DPRContextEncoderTokenizer.from_pretrained(tokenizer_name or model_name,
-                                                                    clean_up_tokenization_spaces=True)
+        self.tokenizer = _load_dpr_tokenizer(DPRContextEncoderTokenizer, tokenizer_name or model_name,
+                                             clean_up_tokenization_spaces=True)
 
     def encode(self, texts, titles=None,  max_length=256, **kwargs):
         if titles:
@@ -79,7 +96,8 @@ class DprQueryEncoder(QueryEncoder):
             with log_level(logging.ERROR):
                 self.model = DPRQuestionEncoder.from_pretrained(encoder_dir)
             self.model.to(self.device)
-            self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(tokenizer_name or encoder_dir, clean_up_tokenization_spaces=True)
+            self.tokenizer = _load_dpr_tokenizer(DPRQuestionEncoderTokenizer, tokenizer_name or encoder_dir,
+                                                 clean_up_tokenization_spaces=True)
             self.has_model = True
         if (not self.has_model) and (not self.has_encoded_query):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')

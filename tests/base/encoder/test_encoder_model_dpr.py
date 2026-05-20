@@ -22,7 +22,9 @@ from itertools import islice
 import numpy as np
 
 from pyserini.encode import DprDocumentEncoder, DprQueryEncoder
+from pyserini.encode._dpr import _load_dpr_tokenizer
 from pyserini.search import get_topics
+from transformers import DPRQuestionEncoderTokenizer
 
 
 class TestEncodeDpr(unittest.TestCase):
@@ -62,6 +64,14 @@ class TestEncodeDpr(unittest.TestCase):
 
             l1 = np.sum(np.abs(cached_vector - encoded_vector))
             self.assertTrue(l1 < 0.0005)
+
+    def test_cased_dpr_tokenizer(self):
+        tokenizer = _load_dpr_tokenizer(DPRQuestionEncoderTokenizer, 'castorini/mdpr-question-nq',
+                                        clean_up_tokenization_spaces=True)
+        # Cased mDPR checkpoints must preserve case for reproducible Mr.TyDi retrieval.
+        tokens = tokenizer.tokenize('Je,nani alikuwa rais wa kwanza wa Uganda?')
+        self.assertEqual(tokens[0], 'Je')
+        self.assertEqual(tokens[-2], 'Uganda')
 
 
 if __name__ == '__main__':
