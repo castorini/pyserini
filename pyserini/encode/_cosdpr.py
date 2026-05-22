@@ -27,6 +27,10 @@ class CosDprEncoder(PreTrainedModel):
     base_model_prefix = 'bert'
     load_tf_weights = None
 
+    @property
+    def all_tied_weights_keys(self):
+        return {}
+
     def __init__(self, config: BertConfig):
         super().__init__(config)
         self.config = config
