@@ -17,9 +17,13 @@
 from typing import Optional
 
 import torch
+from packaging.version import Version
 from transformers import PreTrainedModel, BertConfig, BertModel, BertTokenizer
+from transformers import __version__ as transformers_version
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
+from pyserini.encode._base import load_head_weights
+from pyserini.util import temporary_env
 
 
 class CosDprEncoder(PreTrainedModel):
@@ -52,6 +56,18 @@ class CosDprEncoder(PreTrainedModel):
         self.bert.init_weights()
         self.linear.apply(self._init_weights)
 
+    @classmethod
+    def load_pretrained_encoder(cls, model_name_or_path: str, device: str):
+        with temporary_env(DISABLE_SAFETENSORS_CONVERSION='1'):
+            model = cls.from_pretrained(model_name_or_path, use_safetensors=False)
+        if Version(transformers_version) >= Version("5.0.0"):
+            load_head_weights(model, model_name_or_path, {
+                'linear': 'linear'
+            })
+        model.to(device)
+        model.eval()
+        return model
+
     def forward(
             self,
             input_ids: torch.Tensor,
@@ -77,8 +93,7 @@ class CosDprEncoder(PreTrainedModel):
 class CosDprDocumentEncoder(DocumentEncoder):
     def __init__(self, model_name, tokenizer_name=None, device='cuda:0'):
         self.device = device
-        self.model = CosDprEncoder.from_pretrained(model_name)
-        self.model.to(self.device)
+        self.model = CosDprEncoder.load_pretrained_encoder(model_name, self.device)
         self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or model_name,
                                                        clean_up_tokenization_spaces=True)
 
@@ -94,15 +109,15 @@ class CosDprDocumentEncoder(DocumentEncoder):
             return_tensors='pt'
         )
         inputs.to(self.device)
-        return self.model(inputs["input_ids"]).detach().cpu().numpy()
+        with torch.no_grad():
+            return self.model(inputs["input_ids"]).detach().cpu().numpy()
 
 
 class CosDprQueryEncoder(QueryEncoder):
 
     def __init__(self, encoder_dir: str, tokenizer_name: str = None, device: str = 'cpu', **kwargs):
         self.device = device
-        self.model = CosDprEncoder.from_pretrained(encoder_dir)
-        self.model.to(self.device)
+        self.model = CosDprEncoder.load_pretrained_encoder(encoder_dir, self.device)
         self.tokenizer = BertTokenizer.from_pretrained(encoder_dir or tokenizer_name,
                                                        clean_up_tokenization_spaces=True)
 
@@ -118,5 +133,6 @@ class CosDprQueryEncoder(QueryEncoder):
             tokenizer_kwargs['max_length'] = max_length
         inputs = self.tokenizer(query, **tokenizer_kwargs)
         inputs.to(self.device)
-        embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
+        with torch.no_grad():
+            embeddings = self.model(inputs["input_ids"]).detach().cpu().numpy()
         return embeddings.flatten()

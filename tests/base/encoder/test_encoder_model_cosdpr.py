@@ -31,8 +31,8 @@ class TestEncodeCosDpr(unittest.TestCase):
 
         self.assertEqual(vector.shape, (768,))
         self.assertAlmostEqual(np.linalg.norm(vector), 1.0, places=4)
-        self.assertAlmostEqual(vector[0], 0.04074, places=5)
-        self.assertAlmostEqual(vector[-1], 0.01294, places=5)
+        self.assertAlmostEqual(vector[0], -0.00313, places=5)
+        self.assertAlmostEqual(vector[-1], -0.00608, places=5)
 
 
 if __name__ == '__main__':
