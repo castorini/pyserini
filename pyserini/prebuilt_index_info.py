@@ -1112,7 +1112,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index.enwiki-20180701-paragraphs.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.enwiki-20180701-paragraphs.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/WHKMSCbwQfDXyHt/download"
         ],
         "md5": "77d1cd530579905dad2ee3c2bda1b73d",
         "size": 17725958785,
@@ -1126,7 +1125,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index.zhwiki-20181201-paragraphs.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.zhwiki-20181201-paragraphs.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/6kEjQZaRYtnb8A6/download"
         ],
         "md5": "c005af4036296972831288c894918a92",
         "size": 3284531213,
@@ -1141,7 +1139,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-abstract-2020-07-16.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-07-16/lucene-index-cord19-abstract-2020-07-16.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/c37JxKYQ7Hogs72/download"
         ],
         "md5": "c883571ccc78b4c2ce05b41eb07f5405",
         "size": 2294491056,
@@ -1155,7 +1152,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-full-text-2020-07-16.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-07-16/lucene-index-cord19-full-text-2020-07-16.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/c7CcxRbFWfiFnFq/download"
         ],
         "md5": "23cfad89b4c206d66125f5736f60248f",
         "size": 4427535212,
@@ -1169,7 +1165,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-paragraph-2020-07-16.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-07-16/lucene-index-cord19-paragraph-2020-07-16.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/HXigraF5KJL3xS8/download"
         ],
         "md5": "c2c6ac832f8a1fcb767d2356d2b1e1df",
         "size": 6363337237,
@@ -1183,7 +1178,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-abstract-2020-06-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-06-19/lucene-index-cord19-abstract-2020-06-19.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/fBta6sAt4MdaHQX/download"
         ],
         "md5": "029bd55daba8800fbae2be9e5fcd7b33",
         "size": 2123283935,
@@ -1197,7 +1191,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-full-text-2020-06-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-06-19/lucene-index-cord19-full-text-2020-06-19.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/yErSHZHD38jcDSY/download"
         ],
         "md5": "3d0eb12094a24cff9bcacd1f17c3ea1c",
         "size": 4131644421,
@@ -1211,7 +1204,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-paragraph-2020-06-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-06-19/lucene-index-cord19-paragraph-2020-06-19.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/7md4kwNNgy3oxiH/download"
         ],
         "md5": "5cd8cd6998177bed7a3e0057ef8b3595",
         "size": 5894371476,
@@ -1225,7 +1217,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-abstract-2020-05-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-19/lucene-index-cord19-abstract-2020-05-19.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Zg9p2D5tJgiTGx2/download"
         ],
         "md5": "37bb97d0c41d650ba8e135fd75ae8fd8",
         "size": 1800651127,
@@ -1239,7 +1230,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-full-text-2020-05-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-19/lucene-index-cord19-full-text-2020-05-19.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/BTzaQgZ55898dXM/download"
         ],
         "md5": "f5711915a66cd2b511e0fb8d03e4c325",
         "size": 3511868712,
@@ -1253,7 +1243,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-paragraph-2020-05-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-19/lucene-index-cord19-paragraph-2020-05-19.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/nPyMYTys6NkmEdN/download"
         ],
         "md5": "012ab1f804382b2275c433a74d7d31f2",
         "size": 5247367826,
@@ -1267,7 +1256,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-abstract-2020-05-01.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-01/lucene-index-cord19-abstract-2020-05-01.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/3YZE65FSypwfnQQ/download"
         ],
         "md5": "a06e71a98a68d31148cb0e97e70a2ee1",
         "size": 1291687869,
@@ -1281,7 +1269,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-full-text-2020-05-01.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-01/lucene-index-cord19-full-text-2020-05-01.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/NdPEB7swXeZnq3o/download"
         ],
         "md5": "e7eca1b976cdf2cd80e908c9ac2263cb",
         "size": 2557895128,
@@ -1295,7 +1282,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-paragraph-2020-05-01.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-01/lucene-index-cord19-paragraph-2020-05-01.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Mz7n5FAt7rmnYCY/download"
         ],
         "md5": "8f9321757a03985ac1c1952b2fff2c7d",
         "size": 3841496174,
@@ -1309,7 +1295,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-covid-2020-04-10.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-04-10/lucene-index-covid-2020-04-10.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Rz8AEmsFo9NWGP6/download"
         ],
         "md5": "ec239d56498c0e7b74e3b41e1ce5d42a",
         "size": 1299233544,
@@ -1323,7 +1308,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-covid-full-text-2020-04-10.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-04-10/lucene-index-covid-full-text-2020-04-10.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/oQzSoxrT3grGmBe/download"
         ],
         "md5": "401a6f5583b0f05340c73fbbeb3279c8",
         "size": 3555328932,
@@ -1337,7 +1321,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-covid-paragraph-2020-04-10.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-04-10/lucene-index-covid-paragraph-2020-04-10.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/HDtb5Ys7MYBkePC/download"
         ],
         "md5": "8b87a2c55bc0a15b87f11e796860216a",
         "size": 3642128260,
@@ -1352,7 +1335,6 @@ TF_INDEX_INFO_OTHER = {
         "filename": "index-cast2019.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-cast2019.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/56LcDcRPopdQc4d/download"
         ],
         "md5": "36e604d7f5a4e08ade54e446be2f6345",
         "size": 21266884884,
