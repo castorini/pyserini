@@ -35,7 +35,6 @@ from fastmcp.client.transports import StreamableHttpTransport
 from fastmcp.utilities.tests import run_server_async
 
 from pyserini.search.faiss import DenseSearchResult
-from pyserini.encode.optional._uniir import UniIRQueryEncoder  # noqa: F401
 
 
 def _make_mcp_server():

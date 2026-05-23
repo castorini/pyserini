@@ -17,7 +17,6 @@
 import json
 import os
 import unittest
-import numpy as np
 
 from pyserini.encode import ClipDocumentEncoder
 from pyserini.encode._clip import ClipTextEncoder

@@ -478,7 +478,7 @@ class SharedSearchBackend:
             import tarfile
 
             with tarfile.open(os.path.join(cache_dir, 'mbeir_query_images_and_instructions.tar.gz'), 'r:gz') as tar:
-                tar.extractall(cache_dir)
+                tar.extractall(cache_dir, filter='data')
         return str(os.path.join(instr_dir, instr_file))
 
     def _prepare_query(self, query: str | dict[str, Any], index_name: str) -> str | dict[str, Any]:
