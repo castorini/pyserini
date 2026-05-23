@@ -23,7 +23,7 @@ Usage:
 
 Endpoints:
     GET /openapi.yaml     : OpenAPI specification (same document as Anserini).
-    GET /v1/{index}/search?query=...&hits=10&parse=true
+    GET /v1/{index}/search?query=...&hits=10&parse=true&k1=0.9&b=0.4
     GET /v1/{index}/doc/{docid}?parse=true
     GET /docs             : Swagger UI (FastAPI).
 """
