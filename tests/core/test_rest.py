@@ -24,6 +24,7 @@ import hashlib
 import yaml
 from fastapi.testclient import TestClient
 
+# Keep this test in tests/core: the REST server imports search backends including Faiss.
 from pyserini.server.backend import SharedSearchBackend
 from pyserini.server.errors import BadSearchRequestError
 from pyserini.server.rest.app import API_VERSION, ROUTE_ERROR, app, create_app
