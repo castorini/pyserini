@@ -4,7 +4,7 @@ The Pyserini REST server exposes an **HTTP interface aligned with [Anserini’s 
 
 Implementation uses **`SharedSearchBackend`** (`pyserini/server/backend.py`)—the same process-wide search stack as the MCP server. A request may use a **prebuilt index name** (sparse, dense, impact, FAISS, etc., when Pyserini can open it), a **filesystem path** to an index, or an optional **YAML alias** from `--config`.
 
-**v1 limitations:** The public GET API accepts only a **string** `query` parameter. It does **not** expose multimodal payloads, `encoder`, `ef_search`, or sparse `query_generator` options (those exist on the Python API and MCP). For full control over those knobs, use **MCP** or Pyserini directly.
+**v1 limitations:** The public GET API accepts only a **string** `query` parameter. It does **not** expose multimodal payloads, `encoder`, `ef_search`, or sparse `query_generator` options (those exist on the Python API and MCP). Sparse BM25 retrieval uses **k1=0.9** and **b=0.4** by default (same as Anserini). To override BM25, pass **both** `k1` and `b`. For full control over other knobs, use **MCP** or Pyserini directly.
 
 ## Starting the server
 
@@ -137,12 +137,19 @@ If the index cannot be opened, the API responds with **400** and a message such 
 | `query` | yes | — | Search query string. |
 | `hits` | no | `10` | Number of hits (integer ≥ 1). |
 | `parse` | no | `true` | If `true`, parse the stored `raw` field when it is JSON (see `format_lucene_document` / Anserini-style formatting); if `false`, return the raw stored string. |
-
+| `k1` | no | `0.9` | BM25 k1 for sparse (TF) indexes. Must be finite, non-negative, and sent together with `b`. |
+| `b` | no | `0.4` | BM25 b for sparse (TF) indexes. Must be in `[0, 1]`, and sent together with `k1`. |
 
 **Example**
 
 ```bash
 curl "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=1"
+```
+
+Custom BM25 parameters (sparse indexes only; both required together):
+
+```bash
+curl "http://localhost:8081/v1/cacm/search?query=information%20retrieval&hits=5&k1=0.8&b=0.3"
 ```
 
 With API key auth enabled (`api_keys` in `--config`), for example:
