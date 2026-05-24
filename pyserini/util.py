@@ -323,7 +323,7 @@ def download_and_unpack_index(url, index_directory='indexes', local_filename=Fal
     tarball = tarfile.open(local_tarball)
     dirs_in_tarball = [member.name for member in tarball if member.isdir()]
     assert len(dirs_in_tarball), f"Detect multiple members ({', '.join(dirs_in_tarball)}) under the tarball {local_tarball}."
-    tarball.extractall(index_directory)
+    tarball.extractall(index_directory, filter='data')
     tarball.close()
     os.remove(local_tarball)
 

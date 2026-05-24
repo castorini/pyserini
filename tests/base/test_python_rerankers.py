@@ -6,8 +6,6 @@ from random import randint
 from urllib.request import urlretrieve
 
 from pyserini.search.lucene import LuceneSearcher
-from pyserini.search.lucene.rerank.rm3_reranker import RM3Reranker
-from pyserini.search.lucene.rerank.rocchio_reranker import RocchioReranker
 
 
 class TestPythonRerankers(unittest.TestCase):
