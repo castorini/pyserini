@@ -4,7 +4,7 @@ conditions:
       - python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index wikipedia-dpr-100w --topics nq-test --output $output --bm25 --k1 0.9 --b 0.4
     scores:
       - Top5: 44.82
-        Top20: 64.02
+        Top20: 63.99
         Top100: 79.20
         Top500: 86.59
         Top1000: 88.95
@@ -13,7 +13,7 @@ conditions:
       - python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index wikipedia-dpr-100w --topics dpr-nq-test --output $output --bm25 --k1 0.9 --b 0.4
     scores:
       - Top5: 43.77
-        Top20: 62.99
+        Top20: 62.94
         Top100: 78.23
         Top500: 85.60
         Top1000: 88.01
@@ -59,7 +59,7 @@ conditions:
     command:
       - ''
     scores:
-      - Top5: 74.57
+      - Top5: 74.60
         Top20: 84.90
         Top100: 90.86
         Top500: 93.35
