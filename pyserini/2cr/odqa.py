@@ -72,7 +72,7 @@ HITS_1K = {'GarT5-RRF', 'DPR-DKRR', 'DPR-Hybrid'}
 def print_results(table, metric, topics):
     print(f'Metric = {metric}, Topics = {topics}')
     for model in models['models']:
-        print(' ' * 32, end='')
+        print(' ' * 4, end='')
         print(f'{model:30}', end='')
         key = f'{model}'
         print(f'{table[key][metric]:7.2f}', end='\n')
@@ -201,8 +201,8 @@ def generate_report(args):
 
     html_template = read_file('odqa_html.template')
     table_template = read_file('odqa_html_table.template')
-    tqa_yaml_path = importlib.resources.files('pyserini.2cr').joinpath('triviaqa.yaml')
-    nq_yaml_path = importlib.resources.files('pyserini.2cr').joinpath('naturalquestion.yaml')
+    tqa_yaml_path = importlib.resources.files('pyserini.2cr').joinpath('odqa_tqa.yaml')
+    nq_yaml_path = importlib.resources.files('pyserini.2cr').joinpath('odqa_nq.yaml')
 
     garrrf_ls = ['answers', 'titles', 'sentences']
     fusion_cmd_tqa = []
@@ -330,15 +330,14 @@ def generate_report(args):
 
 def topic_configs():
     return [
-        ('tqa', 'dpr-trivia-test', importlib.resources.files('pyserini.2cr').joinpath('triviaqa.yaml')),
-        ('nq', 'nq-test', importlib.resources.files('pyserini.2cr').joinpath('naturalquestion.yaml')),
+        ('tqa', 'dpr-trivia-test', importlib.resources.files('pyserini.2cr').joinpath('odqa_tqa.yaml')),
+        ('nq', 'nq-test', importlib.resources.files('pyserini.2cr').joinpath('odqa_nq.yaml')),
     ]
 
 
 def run_topic_conditions(args, topic_arg, default_topics, yaml_path):
     hits = 1000 if args.full_topk else 100
     topics = default_topics
-    start = time.time()
     table = defaultdict(lambda: defaultdict(lambda: 0.0))
     print(f'# Running topic "{topic_arg}"\n')
 
@@ -450,6 +449,12 @@ def run_topic_conditions(args, topic_arg, default_topics, yaml_path):
     for metric in metric_ls:
         print_results(table, metric, topics)
 
+
+def run_conditions(args):
+    start = time.time()
+    for topic_arg, default_topics, yaml_path in topic_configs():
+        run_topic_conditions(args, topic_arg, default_topics, yaml_path)
+
     end = time.time()
     start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
     end_str = datetime.fromtimestamp(end, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
@@ -458,11 +463,6 @@ def run_topic_conditions(args, topic_arg, default_topics, yaml_path):
     print(f'Start time: {start_str}')
     print(f'End time: {end_str}')
     print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
-
-
-def run_conditions(args):
-    for topic_arg, default_topics, yaml_path in topic_configs():
-        run_topic_conditions(args, topic_arg, default_topics, yaml_path)
 
 
 if __name__ == '__main__': 
