@@ -438,6 +438,24 @@ class TestRestServer(unittest.TestCase):
         self.assertIsInstance(doc, str)
         self.assertIn(_REST_DOC_SUBSTRING, doc)
 
+    def test_search_max_doc_chars_truncates_candidate_doc(self):
+        response = self.client.get(
+            f'/{API_VERSION}/{_REST_INDEX}/search',
+            params={'query': _REST_QUERY, 'hits': 1, 'parse': 'false', 'max_doc_chars': '24'},
+        )
+        self.assertEqual(response.status_code, 200, msg=response.text)
+        doc = response.json()['candidates'][0]['doc']
+        self.assertIsInstance(doc, str)
+        self.assertLessEqual(len(doc), 24)
+
+    def test_search_max_doc_chars_invalid_400(self):
+        response = self.client.get(
+            f'/{API_VERSION}/{_REST_INDEX}/search',
+            params={'query': _REST_QUERY, 'hits': 1, 'max_doc_chars': 'abc'},
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('max_doc_chars', response.json().get('error', ''))
+
     def test_search_candidate_doc_matches_get_document(self):
         search_resp = self.client.get(
             f'/{API_VERSION}/{_REST_INDEX}/search',
