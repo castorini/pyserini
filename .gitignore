@@ -19,10 +19,3 @@ runs/
 
 # logs should also be ignored
 logs/
-
-hs_err_pid*.log
-index/
-encode/
-pyserini-msmarco/
-*.code-workspace
-results_eval*.txt
