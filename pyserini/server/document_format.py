@@ -84,18 +84,10 @@ def truncate_document_payload(
     if isinstance(payload, str):
         return payload[:max_doc_length]
     if isinstance(payload, dict):
-        keys_to_truncate = {k for k in payload if str(k).lower() in _TRUNCATABLE_FIELDS}
-        if keys_to_truncate:
-            return {
-                k: truncate_document_payload(v, max_doc_length=max_doc_length)
-                if k in keys_to_truncate
-                else v
-                for k, v in payload.items()
-            }
-        return payload
-    if isinstance(payload, list):
-        return [
-            truncate_document_payload(v, max_doc_length=max_doc_length)
-            for v in payload
-        ]
+        return {
+            k: v[:max_doc_length]
+            if str(k).lower() in _TRUNCATABLE_FIELDS and isinstance(v, str)
+            else v
+            for k, v in payload.items()
+        }
     return payload
