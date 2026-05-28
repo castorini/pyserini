@@ -153,6 +153,15 @@ paths:
             type: boolean
             default: true
           description: If true, try to return parsed document contents; if false, return the raw stored document string.
+        - name: max_doc_length
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+          description: >
+            Maximum characters to return for the parsed document. If omitted, return the full
+            document. Returns 400 when combined with parse=false.
       responses:
         "200":
           description: Document found.

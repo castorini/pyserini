@@ -566,8 +566,12 @@ class SharedSearchBackend:
         index_name: str,
         parse: bool = True,
         allow_local_index: bool = True,
+        max_doc_length: int | None = None,
     ) -> dict[str, Any] | str:
-        return self._document_cached(docid, index_name, parse, allow_local_index)
+        doc = self._document_cached(docid, index_name, parse, allow_local_index)
+        if parse:
+            doc = truncate_document_payload(doc, max_doc_length=max_doc_length)
+        return doc
 
     def _search_impl(
         self,

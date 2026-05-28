@@ -203,12 +203,23 @@ The `doc` field may be `null`, a string, or a JSON value depending on the index 
 | Name | Required | Default | Description |
 |------|----------|---------|-------------|
 | `parse` | no | `true` | Same meaning as for search. |
+| `max_doc_length` | no | — | Maximum characters to return for the parsed document. If omitted, return the full document. Requires `parse=true`. |
 
 **Example**
 
 ```bash
 curl "http://localhost:8081/v1/msmarco-v1-passage/doc/7157707"
 ```
+
+Limit document text returned:
+
+```bash
+curl "http://localhost:8081/v1/msmarco-v1-passage/doc/7157707?max_doc_length=500"
+```
+
+`max_doc_length` is measured in characters. For parsed object documents, only `body`, `content`,
+`contents`, and `text` are limited. Other fields are unchanged. Combining `parse=false` with
+`max_doc_length` returns **400** to avoid returning malformed JSON strings.
 
 With API key auth enabled (`api_keys` in `--config`), for example:
 

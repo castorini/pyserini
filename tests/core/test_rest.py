@@ -164,6 +164,32 @@ class TestRestServer(unittest.TestCase):
             self.assertIsNotNone(contents)
             self.assertIn(_REST_DOC_SUBSTRING, contents)
 
+    def test_get_doc_max_doc_length_truncates_doc_when_parse_true(self):
+        response = self.client.get(
+            f'/{API_VERSION}/{_REST_INDEX}/doc/{_REST_TOP_DOCID}',
+            params={'max_doc_length': '24'},
+        )
+        self.assertEqual(response.status_code, 200, msg=response.text)
+        doc = response.json()['doc']
+        self.assertIsInstance(doc, str)
+        self.assertLessEqual(len(doc), 24)
+
+    def test_get_doc_max_doc_length_with_parse_false_400(self):
+        response = self.client.get(
+            f'/{API_VERSION}/{_REST_INDEX}/doc/{_REST_TOP_DOCID}',
+            params={'parse': 'false', 'max_doc_length': '24'},
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('parse=true', response.json().get('error', ''))
+
+    def test_get_doc_max_doc_length_invalid_400(self):
+        response = self.client.get(
+            f'/{API_VERSION}/{_REST_INDEX}/doc/{_REST_TOP_DOCID}',
+            params={'max_doc_length': 'abc'},
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('max_doc_length', response.json().get('error', ''))
+
     def test_get_doc_repeated_request_uses_backend_cache(self):
         backend = self.client.app.state.search_backend
         backend._document_cached.cache_clear()

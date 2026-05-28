@@ -172,6 +172,7 @@ async def get_document_v1(
     index: str,
     docid: str,
     parse: str | None = Query(None),
+    max_doc_length: str | None = Query(None),
 ):
     backend = _backend(request)
     index_token = backend.decode_path_segment(index)
@@ -185,8 +186,21 @@ async def get_document_v1(
         return bad_parse
     assert parse_flag is not None
 
+    max_doc_length_val, bad_max_doc_length = _parse_optional_positive_int(max_doc_length, 'max_doc_length')
+    if bad_max_doc_length is not None:
+        return bad_max_doc_length
+    if max_doc_length_val is not None and not parse_flag:
+        return _error(400, "Parameter 'max_doc_length' requires parse=true")
+
     try:
-        doc = await asyncio.to_thread(backend.get_document, docid_token, index_token, parse_flag, True)
+        doc = await asyncio.to_thread(
+            backend.get_document,
+            docid_token,
+            index_token,
+            parse_flag,
+            True,
+            max_doc_length=max_doc_length_val,
+        )
         return {
             'api': 'v1',
             'index': index_token,
