@@ -160,7 +160,7 @@ curl "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%20a%20l
 ```
 
 `max_doc_length` is measured in characters. For parsed object documents, only `body`, `content`,
-`contents`, and `text` are limited. Other fields are unchanged. Combining `parse=false` with
+`contents`, and `text` are truncated. Other fields are unchanged. Combining `parse=false` with
 `max_doc_length` returns **400** to avoid returning malformed JSON strings.
 
 With API key auth enabled (`api_keys` in `--config`), for example:
