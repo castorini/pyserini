@@ -108,14 +108,14 @@ class TestFormatLuceneDocument(unittest.TestCase):
 class TestTruncateDocumentPayload(unittest.TestCase):
     def test_string_truncated_by_chars(self):
         self.assertEqual(
-            truncate_document_payload('one two three four', max_doc_chars=9),
+            truncate_document_payload('one two three four', max_doc_length=9),
             'one two t',
         )
 
     def test_dict_truncates_content_fields_only(self):
         payload = {'title': 'long title stays intact', 'contents': 'one two three', 'encoded_img': 'abcdef'}
         self.assertEqual(
-            truncate_document_payload(payload, max_doc_chars=7),
+            truncate_document_payload(payload, max_doc_length=7),
             {'title': 'long title stays intact', 'contents': 'one two', 'encoded_img': 'abcdef'},
         )
 

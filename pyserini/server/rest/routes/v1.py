@@ -98,7 +98,7 @@ async def search_v1(
     parse: str | None = Query(None),
     k1: str | None = Query(None),
     b: str | None = Query(None),
-    max_doc_chars: str | None = Query(None),
+    max_doc_length: str | None = Query(None),
 ):
     backend = _backend(request)
     index_token = backend.decode_path_segment(index)
@@ -124,9 +124,11 @@ async def search_v1(
     if bad_bm25 is not None:
         return bad_bm25
 
-    max_doc_chars_val, bad_max_doc_chars = _parse_optional_positive_int(max_doc_chars, 'max_doc_chars')
-    if bad_max_doc_chars is not None:
-        return bad_max_doc_chars
+    max_doc_length_val, bad_max_doc_length = _parse_optional_positive_int(max_doc_length, 'max_doc_length')
+    if bad_max_doc_length is not None:
+        return bad_max_doc_length
+    if max_doc_length_val is not None and not parse_flag:
+        return _error(400, "Parameter 'max_doc_length' requires parse=true")
 
     try:
         payload = await asyncio.to_thread(
@@ -139,7 +141,7 @@ async def search_v1(
             True,
             k1=k1_val,
             b=b_val,
-            max_doc_chars=max_doc_chars_val,
+            max_doc_length=max_doc_length_val,
         )
     except IndexNotAvailableError as e:
         return _error(400, str(e))

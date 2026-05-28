@@ -75,21 +75,19 @@ def format_lucene_document(document: Document | None, parse: bool) -> Any:
 def truncate_document_payload(
     payload: Any,
     *,
-    max_doc_chars: int | None = None,
+    max_doc_length: int | None = None,
 ) -> Any:
-    if max_doc_chars is None:
+    if max_doc_length is None:
         return payload
     if payload is None:
         return None
     if isinstance(payload, str):
-        if max_doc_chars is not None:
-            payload = payload[:max_doc_chars]
-        return payload
+        return payload[:max_doc_length]
     if isinstance(payload, dict):
         keys_to_truncate = {k for k in payload if str(k).lower() in _TRUNCATABLE_FIELDS}
         if keys_to_truncate:
             return {
-                k: truncate_document_payload(v, max_doc_chars=max_doc_chars)
+                k: truncate_document_payload(v, max_doc_length=max_doc_length)
                 if k in keys_to_truncate
                 else v
                 for k, v in payload.items()
@@ -97,7 +95,7 @@ def truncate_document_payload(
         return payload
     if isinstance(payload, list):
         return [
-            truncate_document_payload(v, max_doc_chars=max_doc_chars)
+            truncate_document_payload(v, max_doc_length=max_doc_length)
             for v in payload
         ]
     return payload

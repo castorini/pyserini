@@ -134,7 +134,7 @@ class _SearchOptions:
     encoder: str | None = None
     query_generator: str | None = None
     bm25_config: Bm25Config | None = None
-    max_doc_chars: int | None = None
+    max_doc_length: int | None = None
 
 
 class SharedSearchBackend:
@@ -641,10 +641,11 @@ class SharedSearchBackend:
                 docid = result.docid
                 score = float(result.score)
             doc = docs_by_id[docid]
-            doc = truncate_document_payload(
-                doc,
-                max_doc_chars=options.max_doc_chars,
-            )
+            if options.parse:
+                doc = truncate_document_payload(
+                    doc,
+                    max_doc_length=options.max_doc_length,
+                )
             candidates.append(
                 {
                     'docid': docid,
@@ -669,7 +670,7 @@ class SharedSearchBackend:
         query_generator: str | None = None,
         k1: float | None = None,
         b: float | None = None,
-        max_doc_chars: int | None = None,
+        max_doc_length: int | None = None,
     ) -> dict[str, Any]:
         _validate_bm25_params(k1, b)
         options = _SearchOptions(
@@ -681,7 +682,7 @@ class SharedSearchBackend:
             encoder=encoder,
             query_generator=query_generator,
             bm25_config=_canonical_bm25_config(k1, b),
-            max_doc_chars=max_doc_chars,
+            max_doc_length=max_doc_length,
         )
         # Cache only REST-style string queries; multimodal dict payloads stay uncached.
         if isinstance(query, str):

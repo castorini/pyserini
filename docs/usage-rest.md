@@ -139,7 +139,7 @@ If the index cannot be opened, the API responds with **400** and a message such 
 | `parse` | no | `true` | If `true`, parse the stored `raw` field when it is JSON (see `format_lucene_document` / Anserini-style formatting); if `false`, return the raw stored string. |
 | `k1` | no | `0.9` | BM25 k1 for sparse (TF) indexes. Must be finite, non-negative, and sent together with `b`. |
 | `b` | no | `0.4` | BM25 b for sparse (TF) indexes. Must be in `[0, 1]`, and sent together with `k1`. |
-| `max_doc_chars` | no | — | Return only the first N characters of each candidate document payload. If omitted, the full document payload is returned. |
+| `max_doc_length` | no | — | Maximum characters to return for each parsed candidate document. If omitted, return the full document. Requires `parse=true`. |
 
 **Example**
 
@@ -153,11 +153,15 @@ Custom BM25 parameters (sparse indexes only; both required together):
 curl "http://localhost:8081/v1/cacm/search?query=information%20retrieval&hits=5&k1=0.8&b=0.3"
 ```
 
-Truncate the document payload returned for each hit:
+Limit document text returned for each hit:
 
 ```bash
-curl "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=5&max_doc_chars=500"
+curl "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=5&max_doc_length=500"
 ```
+
+`max_doc_length` is measured in characters. For parsed object documents, only `body`, `content`,
+`contents`, and `text` are limited. Other fields are unchanged. Combining `parse=false` with
+`max_doc_length` returns **400** to avoid returning malformed JSON strings.
 
 With API key auth enabled (`api_keys` in `--config`), for example:
 
