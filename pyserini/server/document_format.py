@@ -28,6 +28,7 @@ from typing import Any
 from pyserini.index.lucene import Document
 
 _SKIP_FIELDS = frozenset({'id', '_id', 'docid'})
+_TRUNCATABLE_FIELDS = frozenset({'body', 'content', 'contents', 'text'})
 
 
 def _convert_json_value(value: Any) -> Any:
@@ -69,3 +70,24 @@ def format_lucene_document(document: Document | None, parse: bool) -> Any:
     if isinstance(data, dict):
         return _normalize_parsed_object(data)
     return data
+
+
+def truncate_document_payload(
+    payload: Any,
+    *,
+    max_doc_length: int | None = None,
+) -> Any:
+    if max_doc_length is None:
+        return payload
+    if payload is None:
+        return None
+    if isinstance(payload, str):
+        return payload[:max_doc_length]
+    if isinstance(payload, dict):
+        return {
+            k: v[:max_doc_length]
+            if str(k).lower() in _TRUNCATABLE_FIELDS and isinstance(v, str)
+            else v
+            for k, v in payload.items()
+        }
+    return payload

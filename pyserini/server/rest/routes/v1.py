@@ -60,6 +60,18 @@ def _parse_optional_float(raw: str | None, name: str) -> tuple[float | None, JSO
         return None, _error(400, f"Parameter '{name}' must be a number")
 
 
+def _parse_optional_positive_int(raw: str | None, name: str) -> tuple[int | None, JSONResponse | None]:
+    if raw is None or not str(raw).strip():
+        return None, None
+    try:
+        value = int(raw)
+    except ValueError:
+        return None, _error(400, f"Parameter '{name}' must be an integer")
+    if value <= 0:
+        return None, _error(400, f"Parameter '{name}' must be positive")
+    return value, None
+
+
 def _parse_bm25_params(
     k1_raw: str | None,
     b_raw: str | None,
@@ -86,6 +98,7 @@ async def search_v1(
     parse: str | None = Query(None),
     k1: str | None = Query(None),
     b: str | None = Query(None),
+    max_doc_length: str | None = Query(None),
 ):
     backend = _backend(request)
     index_token = backend.decode_path_segment(index)
@@ -111,6 +124,12 @@ async def search_v1(
     if bad_bm25 is not None:
         return bad_bm25
 
+    max_doc_length_val, bad_max_doc_length = _parse_optional_positive_int(max_doc_length, 'max_doc_length')
+    if bad_max_doc_length is not None:
+        return bad_max_doc_length
+    if max_doc_length_val is not None and not parse_flag:
+        return _error(400, "Parameter 'max_doc_length' requires parse=true")
+
     try:
         payload = await asyncio.to_thread(
             backend.search,
@@ -122,6 +141,7 @@ async def search_v1(
             True,
             k1=k1_val,
             b=b_val,
+            max_doc_length=max_doc_length_val,
         )
     except IndexNotAvailableError as e:
         return _error(400, str(e))
