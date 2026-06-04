@@ -54,12 +54,12 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.3270
-            R@100: 0.7139
+          - nDCG@10: 0.3476
+            R@100: 0.7370
       - split: dev
         scores:
-          - nDCG@10: 0.3334
-            R@100: 0.7306
+          - nDCG@10: 0.3568
+            R@100: 0.7413
   - name: bm25.fi
     eval_key: miracl-v1.0-fi
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language fi --topics miracl-v1.0-fi-${split} --index miracl-v1.0-fi --output $output --bm25 --hits 1000
@@ -126,12 +126,12 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.4279
-            R@100: 0.7572
+          - nDCG@10: 0.4777
+            R@100: 0.8144
       - split: dev
         scores:
-          - nDCG@10: 0.4190
-            R@100: 0.7831
+          - nDCG@10: 0.4533
+            R@100: 0.8579
   - name: bm25.ru
     eval_key: miracl-v1.0-ru
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ru --topics miracl-v1.0-ru-${split} --index miracl-v1.0-ru --output $output --bm25 --hits 1000
