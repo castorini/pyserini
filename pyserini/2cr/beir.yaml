@@ -296,11 +296,11 @@ conditions:
             R@100: 0.9076
             R@1000: 0.9800
   - name: splade-pp-ed
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index beir-v1.0.0-${dataset}.splade-pp-ed --topics beir-v1.0.0-${dataset}.test.splade-pp-ed --output $output --output-format trec --hits 1000 --impact --remove-query
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index beir-v1.0.0-${dataset}.splade-pp-ed --topics beir-v1.0.0-${dataset}-test --encoder naver/splade-cocondenser-ensembledistil --output $output --output-format trec --hits 1000 --impact --remove-query
     datasets:
       - dataset: trec-covid
         scores:
-          - nDCG@10: 0.7274
+          - nDCG@10: 0.7270
             R@100: 0.1282
             R@1000: 0.4441
       - dataset: bioasq
