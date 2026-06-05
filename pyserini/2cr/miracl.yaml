@@ -683,12 +683,12 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.5890
-            R@100: 0.9433
+          - nDCG@10: 0.6002
+            R@100: 0.9412
       - split: dev
         scores:
-          - nDCG@10: 0.5935
-            R@100: 0.9374
+          - nDCG@10: 0.6099
+            R@100: 0.9322
   - name: bm25-mdpr-tied-pft-msmarco-hybrid.fi
     eval_key: miracl-v1.0-fi
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
@@ -755,12 +755,12 @@ conditions:
     splits:
       - split: train
         scores:
-          - nDCG@10: 0.5758
-            R@100: 0.8744
+          - nDCG@10: 0.5855
+            R@100: 0.8895
       - split: dev
         scores:
-          - nDCG@10: 0.6086
-            R@100: 0.8997
+          - nDCG@10: 0.6178
+            R@100: 0.9025
   - name: bm25-mdpr-tied-pft-msmarco-hybrid.ru
     eval_key: miracl-v1.0-ru
     command: python -m pyserini.fusion --runs ${bm25_output} ${mdpr_output} --output ${output} --method interpolation --alpha 0.5 --depth 1000 --k 1000
