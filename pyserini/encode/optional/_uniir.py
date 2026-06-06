@@ -21,8 +21,37 @@ from uniir_for_pyserini.pyserini_integration.uniir_corpus_encoder import CorpusE
 from uniir_for_pyserini.pyserini_integration.uniir_query_encoder import QueryEncoder
 
 
+def _ensure_transformers_additional_special_token_ids():
+    """Restore tokenizer accessors used by uniir-for-pyserini with transformers 5."""
+
+    from transformers import PreTrainedTokenizerBase
+
+    if not hasattr(PreTrainedTokenizerBase, "additional_special_tokens"):
+        PreTrainedTokenizerBase.additional_special_tokens = property(
+            lambda self: [str(token) for token in getattr(self, "_extra_special_tokens", [])]
+        )
+
+    if not hasattr(PreTrainedTokenizerBase, "additional_special_tokens_ids"):
+        PreTrainedTokenizerBase.additional_special_tokens_ids = property(
+            lambda self: self.convert_tokens_to_ids(self.additional_special_tokens)
+        )
+
+
+def _ensure_transformers_tied_weights_keys():
+    from uniir_for_pyserini.models.uniir_blip.backbone.med import BertPreTrainedModel
+
+    if not hasattr(BertPreTrainedModel, "all_tied_weights_keys"):
+        BertPreTrainedModel.all_tied_weights_keys = property(lambda self: {})
+
+
+def _ensure_transformers_compatibility():
+    _ensure_transformers_additional_special_token_ids()
+    _ensure_transformers_tied_weights_keys()
+
+
 class UniIRCorpusEncoder:
     def __init__(self, model_name: str, device="cuda:0", l2_norm=False, **kwargs: Any):
+        _ensure_transformers_compatibility()
         self.l2_norm = l2_norm
         self.corpus_encoder = CorpusEncoder(model_name=model_name, device=device)
 
@@ -60,6 +89,7 @@ class UniIRQueryEncoder:
         **kwargs: Any,
     ):
         # Unlike the corpus encoder, fp16 is passed at init time for the query encoder.
+        _ensure_transformers_compatibility()
         self.fp16 = kwargs.get("fp16", False)
         self.l2_norm = l2_norm
         self.instruction_config = instruction_config
