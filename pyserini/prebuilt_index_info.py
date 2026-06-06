@@ -440,7 +440,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-ar": {
         "description": "Lucene index for MIRACL v1.0 - Arabic (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-ar.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ar.20260604.558ae2c.tar"
         ],
@@ -454,7 +454,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-bn": {
         "description": "Lucene index for MIRACL v1.0 - Bengali (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-bn.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-bn.20260604.558ae2c.tar"
         ],
@@ -468,7 +468,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-en": {
         "description": "Lucene index for MIRACL v1.0 - English (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-en.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-en.20260604.558ae2c.tar"
         ],
@@ -482,7 +482,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-es": {
         "description": "Lucene index for MIRACL v1.0 - Spanish (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-es.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-es.20260604.558ae2c.tar"
         ],
@@ -496,7 +496,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-de": {
         "description": "Lucene index for MIRACL v1.0 - German (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-de.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-de.20260604.558ae2c.tar"
         ],
@@ -510,7 +510,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-fa": {
         "description": "Lucene index for MIRACL v1.0 - Persian (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-fa.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-fa.20260604.558ae2c.tar"
         ],
@@ -524,7 +524,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-fi": {
         "description": "Lucene index for MIRACL v1.0 - Finnish (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-fi.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-fi.20260604.558ae2c.tar"
         ],
@@ -538,7 +538,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-fr": {
         "description": "Lucene index for MIRACL v1.0 - French (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-fr.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-fr.20260604.558ae2c.tar"
         ],
@@ -552,7 +552,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-hi": {
         "description": "Lucene index for MIRACL v1.0 - Hindi (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-hi.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-hi.20260604.558ae2c.tar"
         ],
@@ -566,7 +566,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-id": {
         "description": "Lucene index for MIRACL v1.0 - Indonesian (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-id.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-id.20260604.558ae2c.tar"
         ],
@@ -580,7 +580,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-ja": {
         "description": "Lucene index for MIRACL v1.0 - Japanese (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-ja.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ja.20260604.558ae2c.tar"
         ],
@@ -594,7 +594,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-ko": {
         "description": "Lucene index for MIRACL v1.0 - Korean (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-ko.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ko.20260604.558ae2c.tar"
         ],
@@ -608,7 +608,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-ru": {
         "description": "Lucene index for MIRACL v1.0 - Russian (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-ru.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ru.20260604.558ae2c.tar"
         ],
@@ -622,7 +622,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-sw": {
         "description": "Lucene index for MIRACL v1.0 - Swahili (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-sw.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-sw.20260604.558ae2c.tar"
         ],
@@ -636,7 +636,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-te": {
         "description": "Lucene index for MIRACL v1.0 - Telugu (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-te.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-te.20260604.558ae2c.tar"
         ],
@@ -650,7 +650,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-th": {
         "description": "Lucene index for MIRACL v1.0 - Thai (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-th.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-th.20260604.558ae2c.tar"
         ],
@@ -664,7 +664,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-yo": {
         "description": "Lucene index for MIRACL v1.0 - Yoruba (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-yo.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-yo.20260604.558ae2c.tar"
         ],
@@ -678,7 +678,7 @@ TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-zh": {
         "description": "Lucene index for MIRACL v1.0 - Chinese (Lucene 10.4.0)",
         "filename": "lucene-inverted.miracl-v1.0-zh.20260604.558ae2c.tar",
-        "readme": "lucene-index.miracl-v1.0.20260604.558ae2c.README.md",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-zh.20260604.558ae2c.tar"
         ],

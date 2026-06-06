@@ -575,75 +575,75 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <summary>MIRACL</summary>
 <dl>
 <dt></dt><b><code>miracl-v1.0-ar</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - Arabic (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-bn</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - Bengali (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-en</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - English (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-es</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - Spanish (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-de</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - German (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-fa</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - Persian (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-fi</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - Finnish (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-fr</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - French (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-hi</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - Hindi (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-id</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - Indonesian (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-ja</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - Japanese (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-ko</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - Korean (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-ru</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - Russian (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-sw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - Swahili (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-te</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - Telugu (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-th</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - Thai (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-yo</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - Yoruba (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-zh</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
 <dd>Lucene index for MIRACL v1.0 - Chinese (Lucene 10.4.0)
 </dd>
 </dl>
