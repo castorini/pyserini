@@ -43,6 +43,24 @@ def _ensure_transformers_tied_weights_keys():
     if not hasattr(BertPreTrainedModel, "all_tied_weights_keys"):
         BertPreTrainedModel.all_tied_weights_keys = property(lambda self: {})
 
+    if not hasattr(BertPreTrainedModel, "get_head_mask"):
+        def get_head_mask(self, head_mask, num_hidden_layers, is_attention_chunked=False):
+            if head_mask is None:
+                return [None] * num_hidden_layers
+
+            if head_mask.dim() == 1:
+                head_mask = head_mask[None, None, :, None, None]
+                head_mask = head_mask.expand(num_hidden_layers, -1, -1, -1, -1)
+            elif head_mask.dim() == 2:
+                head_mask = head_mask[:, None, :, None, None]
+
+            head_mask = head_mask.to(dtype=self.dtype)
+            if is_attention_chunked:
+                head_mask = head_mask.unsqueeze(-1)
+            return head_mask
+
+        BertPreTrainedModel.get_head_mask = get_head_mask
+
 
 def _ensure_transformers_compatibility():
     _ensure_transformers_additional_special_token_ids()
@@ -171,11 +189,11 @@ class UniIRQueryEncoder:
                 kwargs.get("instr_file", None)
             )
 
-        query_embeddings = self.query_encoder.encode(
-            qid=qid,
-            query_txt=query_txt,
-            query_img_path=query_img_path,
-            query_modality=query_modality,
+        query_embeddings = self.query_encoder.encode_batch(
+            qids=[qid],
+            query_txts=[query_txt],
+            query_img_paths=[query_img_path],
+            query_modalitys=[query_modality],
             instruction_config=self.instruction_config,
             fp16=self.fp16,
         )
