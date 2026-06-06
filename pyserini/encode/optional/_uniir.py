@@ -61,6 +61,21 @@ def _ensure_transformers_tied_weights_keys():
 
         BertPreTrainedModel.get_head_mask = get_head_mask
 
+    def invert_attention_mask(self, encoder_attention_mask):
+        if encoder_attention_mask.dim() == 3:
+            encoder_extended_attention_mask = encoder_attention_mask[:, None, :, :]
+        elif encoder_attention_mask.dim() == 2:
+            encoder_extended_attention_mask = encoder_attention_mask[:, None, None, :]
+        else:
+            raise ValueError(
+                f"Wrong shape for encoder_attention_mask: {encoder_attention_mask.shape}"
+            )
+
+        encoder_extended_attention_mask = encoder_extended_attention_mask.to(dtype=self.dtype)
+        return (1.0 - encoder_extended_attention_mask) * -10000.0
+
+    BertPreTrainedModel.invert_attention_mask = invert_attention_mask
+
 
 def _ensure_transformers_compatibility():
     _ensure_transformers_additional_special_token_ids()
