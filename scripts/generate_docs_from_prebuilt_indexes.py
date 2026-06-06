@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+from urllib.parse import urlparse
 
 from pyserini.prebuilt_index_info import *
 
@@ -82,13 +82,20 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 '''
 
 
+def readme_href(readme):
+    parsed = urlparse(readme)
+    if parsed.scheme and parsed.netloc:
+        return readme
+    return f'../pyserini/resources/index-metadata/{readme}'
+
+
 def generate_prebuilt(index):
     print('<dl>')
     for entry in index:
         # No, this is not an HTML bug. This is intentional to get GitHub formatting to not add italics to the entry.
         print(f'<dt></dt><b><code>{entry}</code></b>')
         if 'readme' in index[entry]:
-            print(f'[<a href="../pyserini/resources/index-metadata/{index[entry]["readme"]}">readme</a>]')
+            print(f'[<a href="{readme_href(index[entry]["readme"])}">readme</a>]')
         print(f'<dd>{index[entry]["description"]}')
         print(f'</dd>')
     print('</dl>')
