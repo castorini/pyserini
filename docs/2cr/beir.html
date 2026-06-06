@@ -304,7 +304,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-trec-covid.splade-pp-ed \
-  --topics beir-v1.0.0-trec-covid.test.splade-pp-ed \
+  --topics beir-v1.0.0-trec-covid-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.trec-covid.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -502,7 +502,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-bioasq.splade-pp-ed \
-  --topics beir-v1.0.0-bioasq.test.splade-pp-ed \
+  --topics beir-v1.0.0-bioasq-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.bioasq.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -600,7 +600,7 @@ python -m pyserini.eval.trec_eval \
 <td>   0.250</td>
 <td></td>
 <td>   0.347</td>
-<td>   0.284</td>
+<td>   0.285</td>
 <td></td>
 <td>   0.328</td>
 <td>   0.301</td>
@@ -700,7 +700,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-nfcorpus.splade-pp-ed \
-  --topics beir-v1.0.0-nfcorpus.test.splade-pp-ed \
+  --topics beir-v1.0.0-nfcorpus-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.nfcorpus.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -797,7 +797,7 @@ python -m pyserini.eval.trec_eval \
 <td>   0.329</td>
 <td>   0.760</td>
 <td></td>
-<td>   0.538</td>
+<td>   0.537</td>
 <td>   0.930</td>
 <td></td>
 <td>   0.498</td>
@@ -898,7 +898,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-nq.splade-pp-ed \
-  --topics beir-v1.0.0-nq.test.splade-pp-ed \
+  --topics beir-v1.0.0-nq-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.nq.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1096,7 +1096,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-hotpotqa.splade-pp-ed \
-  --topics beir-v1.0.0-hotpotqa.test.splade-pp-ed \
+  --topics beir-v1.0.0-hotpotqa-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.hotpotqa.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1294,7 +1294,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-fiqa.splade-pp-ed \
-  --topics beir-v1.0.0-fiqa.test.splade-pp-ed \
+  --topics beir-v1.0.0-fiqa-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.fiqa.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1492,7 +1492,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-signal1m.splade-pp-ed \
-  --topics beir-v1.0.0-signal1m.test.splade-pp-ed \
+  --topics beir-v1.0.0-signal1m-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.signal1m.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1589,8 +1589,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.398</td>
 <td>   0.422</td>
 <td></td>
-<td>   0.415</td>
-<td>   0.441</td>
+<td>   0.417</td>
+<td>   0.442</td>
 <td></td>
 <td>   0.428</td>
 <td>   0.492</td>
@@ -1690,7 +1690,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-trec-news.splade-pp-ed \
-  --topics beir-v1.0.0-trec-news.test.splade-pp-ed \
+  --topics beir-v1.0.0-trec-news-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.trec-news.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1787,8 +1787,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.407</td>
 <td>   0.375</td>
 <td></td>
-<td>   0.468</td>
-<td>   0.385</td>
+<td>   0.466</td>
+<td>   0.384</td>
 <td></td>
 <td>   0.473</td>
 <td>   0.392</td>
@@ -1888,7 +1888,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-robust04.splade-pp-ed \
-  --topics beir-v1.0.0-robust04.test.splade-pp-ed \
+  --topics beir-v1.0.0-robust04-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.robust04.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1985,8 +1985,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.414</td>
 <td>   0.943</td>
 <td></td>
-<td>   0.520</td>
-<td>   0.974</td>
+<td>   0.526</td>
+<td>   0.983</td>
 <td></td>
 <td>   0.446</td>
 <td>   0.977</td>
@@ -2086,7 +2086,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-arguana.splade-pp-ed \
-  --topics beir-v1.0.0-arguana.test.splade-pp-ed \
+  --topics beir-v1.0.0-arguana-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.arguana.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -2183,7 +2183,7 @@ python -m pyserini.eval.trec_eval \
 <td>   0.367</td>
 <td>   0.538</td>
 <td></td>
-<td>   0.247</td>
+<td>   0.246</td>
 <td>   0.471</td>
 <td></td>
 <td>   0.204</td>
@@ -2284,7 +2284,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-webis-touche2020.splade-pp-ed \
-  --topics beir-v1.0.0-webis-touche2020.test.splade-pp-ed \
+  --topics beir-v1.0.0-webis-touche2020-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.webis-touche2020.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -2382,7 +2382,7 @@ python -m pyserini.eval.trec_eval \
 <td>   0.606</td>
 <td></td>
 <td>   0.334</td>
-<td>   0.650</td>
+<td>   0.649</td>
 <td></td>
 <td>   0.345</td>
 <td>   0.663</td>
@@ -3214,7 +3214,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-android.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-android.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-android-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-android.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3222,7 +3222,7 @@ Command to generate run:
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-english.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-english.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-english-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-english.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3230,7 +3230,7 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gaming.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-gaming.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-gaming-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-gaming.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3238,7 +3238,7 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gis.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-gis.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-gis-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-gis.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3246,7 +3246,7 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-mathematica.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-mathematica.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3254,7 +3254,7 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-physics.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-physics.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-physics-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-physics.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3262,7 +3262,7 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-programmers.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-programmers.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-programmers-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-programmers.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3270,7 +3270,7 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-stats.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-stats.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-stats-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-stats.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3278,7 +3278,7 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-tex.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-tex.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-tex-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-tex.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3286,7 +3286,7 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-unix.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-unix.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-unix-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-unix.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3294,7 +3294,7 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-webmasters.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-webmasters.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3302,7 +3302,7 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-wordpress.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-wordpress.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -4521,7 +4521,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-quora.splade-pp-ed \
-  --topics beir-v1.0.0-quora.test.splade-pp-ed \
+  --topics beir-v1.0.0-quora-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.quora.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -4619,7 +4619,7 @@ python -m pyserini.eval.trec_eval \
 <td>   0.398</td>
 <td></td>
 <td>   0.437</td>
-<td>   0.562</td>
+<td>   0.563</td>
 <td></td>
 <td>   0.413</td>
 <td>   0.541</td>
@@ -4719,7 +4719,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-dbpedia-entity.splade-pp-ed \
-  --topics beir-v1.0.0-dbpedia-entity.test.splade-pp-ed \
+  --topics beir-v1.0.0-dbpedia-entity-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.dbpedia-entity.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -4917,7 +4917,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-scidocs.splade-pp-ed \
-  --topics beir-v1.0.0-scidocs.test.splade-pp-ed \
+  --topics beir-v1.0.0-scidocs-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.scidocs.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -5115,7 +5115,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-fever.splade-pp-ed \
-  --topics beir-v1.0.0-fever.test.splade-pp-ed \
+  --topics beir-v1.0.0-fever-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.fever.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -5313,7 +5313,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-climate-fever.splade-pp-ed \
-  --topics beir-v1.0.0-climate-fever.test.splade-pp-ed \
+  --topics beir-v1.0.0-climate-fever-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.climate-fever.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -5511,7 +5511,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-scifact.splade-pp-ed \
-  --topics beir-v1.0.0-scifact.test.splade-pp-ed \
+  --topics beir-v1.0.0-scifact-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.scifact.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -5653,7 +5653,7 @@ python -m pyserini.eval.trec_eval \
 <td>   0.689</td>
 <td></td>
 <td>   0.390</td>
-<td>   0.740</td>
+<td>   0.741</td>
 <td></td>
 <td>   0.425</td>
 <td>   0.750</td>
@@ -5753,7 +5753,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-android.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-android.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-android-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-android.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -5851,7 +5851,7 @@ python -m pyserini.eval.trec_eval \
 <td>   0.584</td>
 <td></td>
 <td>   0.408</td>
-<td>   0.695</td>
+<td>   0.694</td>
 <td></td>
 <td>   0.433</td>
 <td>   0.694</td>
@@ -5951,7 +5951,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-english.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-english.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-english-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-english.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -6149,7 +6149,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gaming.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-gaming.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-gaming-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-gaming.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -6347,7 +6347,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gis.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-gis.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-gis-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-gis.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -6445,7 +6445,7 @@ python -m pyserini.eval.trec_eval \
 <td>   0.521</td>
 <td></td>
 <td>   0.238</td>
-<td>   0.580</td>
+<td>   0.579</td>
 <td></td>
 <td>   0.235</td>
 <td>   0.573</td>
@@ -6545,7 +6545,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-mathematica.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-mathematica.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -6643,7 +6643,7 @@ python -m pyserini.eval.trec_eval \
 <td>   0.649</td>
 <td></td>
 <td>   0.360</td>
-<td>   0.720</td>
+<td>   0.722</td>
 <td></td>
 <td>   0.416</td>
 <td>   0.762</td>
@@ -6743,7 +6743,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-physics.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-physics.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-physics-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-physics.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -6841,7 +6841,7 @@ python -m pyserini.eval.trec_eval \
 <td>   0.619</td>
 <td></td>
 <td>   0.340</td>
-<td>   0.658</td>
+<td>   0.660</td>
 <td></td>
 <td>   0.357</td>
 <td>   0.719</td>
@@ -6941,7 +6941,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-programmers.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-programmers.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-programmers-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-programmers.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -7038,7 +7038,7 @@ python -m pyserini.eval.trec_eval \
 <td>   0.279</td>
 <td>   0.572</td>
 <td></td>
-<td>   0.299</td>
+<td>   0.298</td>
 <td>   0.589</td>
 <td></td>
 <td>   0.309</td>
@@ -7139,7 +7139,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-stats.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-stats.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-stats-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-stats.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -7337,7 +7337,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-tex.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-tex.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-tex-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-tex.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -7435,7 +7435,7 @@ python -m pyserini.eval.trec_eval \
 <td>   0.572</td>
 <td></td>
 <td>   0.317</td>
-<td>   0.621</td>
+<td>   0.619</td>
 <td></td>
 <td>   0.326</td>
 <td>   0.616</td>
@@ -7535,7 +7535,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-unix.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-unix.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-unix-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-unix.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -7733,7 +7733,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-webmasters.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-webmasters.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -7830,8 +7830,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.256</td>
 <td>   0.553</td>
 <td></td>
-<td>   0.273</td>
-<td>   0.595</td>
+<td>   0.272</td>
+<td>   0.592</td>
 <td></td>
 <td>   0.253</td>
 <td>   0.577</td>
@@ -7931,7 +7931,7 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-wordpress.test.splade-pp-ed \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-wordpress.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
