@@ -814,16 +814,16 @@ conditions:
     splits:
       - split: train
         scores:
-          - MRR@100: 0.2596
-          - R@100: 0.6178
+          - MRR@100: 0.3072
+          - R@100: 0.7162
       - split: dev
         scores:
-          - MRR@100: 0.2888
-          - R@100: 0.6733
+          - MRR@100: 0.3280
+          - R@100: 0.7343
       - split: test
         scores:
-          - MRR@100: 0.2848
-          - R@100: 0.6188
+          - MRR@100: 0.3040
+          - R@100: 0.6924
   - name: bm25.ru
     eval_key: mrtydi-v1.1-russian
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ru --topics mrtydi-v1.1-russian-${split} --index mrtydi-v1.1-ru --output $output --bm25 --hits 100
