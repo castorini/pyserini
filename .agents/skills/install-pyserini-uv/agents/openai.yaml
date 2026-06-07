@@ -1,0 +1,4 @@
+interface:
+  display_name: "Install Pyserini with uv"
+  short_description: "Set up Pyserini in a uv-managed env"
+  default_prompt: "Use $install-pyserini-uv to install Pyserini with uv and verify the environment."

@@ -68,7 +68,7 @@ for key in beir_keys:
     print(f'            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.beir-v1.0.0-{key}.{type}.{date}.{commitid}.tar.gz"')
     print(f'        ],')
     print(f'        "md5": "{md5}",')
-    print(f'        "size compressed (bytes)": {size},')
+    print(f'        "size": {size},')
     print(f'        "total_terms": {stats["total_terms"]},')
     print(f'        "documents": {stats["documents"]},')
     print(f'        "unique_terms": {stats["unique_terms"]},')

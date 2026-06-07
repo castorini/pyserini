@@ -20,6 +20,7 @@ from pathlib import Path
 
 import yaml
 
+# Keep this test in tests/core: server config imports shared server utilities that include Faiss-backed index types.
 from pyserini.server.config import load_server_config
 
 

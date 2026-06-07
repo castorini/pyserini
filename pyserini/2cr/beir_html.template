@@ -154,16 +154,9 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
   <li><b>SPLADE</b>: SPLADE++ CoCondenser-EnsembleDistil (<tt><small>splade-pp-ed</small></tt>) [2]</li>
   <li><b>Contriever</b>: Contriever FT MS MARCO (<tt><small>contriever-msmarco</small></tt>) [3]</li>
   <li><b>BGE</b>: BGE-base-en-v1.5 (Faiss flat index) (<tt><small>bge-base-en-v1.5.faiss</small></tt>) [4]</li>
-  <li><b>Cohere</b>: Cohere embed-english-v3.0 (Faiss flat index) (<tt><small>cohere-embed-english-v3.0</small></tt>) [5]</li>
 </ul>
 
-<p>The symbol shown in parentheses (e.g., <tt><small>bm25-flat</small></tt>) refers the parameter used in the <tt><small>--condition</small></tt> option for programmatic execution (see below).
-In addition, we provide the following models whose runs can be reproduced, but are not shown in the results table:</p>
-
-<ul>
-  <li>BGE-base-en-v1.5 (Lucene flat index) (<tt><small>bge-base-en-v1.5.lucene-flat</small></tt>) [4]</li>
-  <li>BGE-base-en-v1.5 (Lucene HNSW index) (<tt><small>bge-base-en-v1.5.lucene-hnsw</small></tt>) [4]</li>
-</ul>
+<p>The symbol shown in parentheses (e.g., <tt><small>bm25-flat</small></tt>) refers the parameter used in the <tt><small>--condition</small></tt> option for programmatic execution (see below).</p>
 
 <div style="padding-top: 20px"/>
 
@@ -177,14 +170,10 @@ In addition, we provide the following models whose runs can be reproduced, but a
         <th class="headertop" colspan="3"><b>BM25 MF</b></th>
         <th class="headertop" colspan="3"><b>SPLADE</b></th>
         <th class="headertop" colspan="3"><b>Contriever</b></th>
-        <th class="headertop" colspan="3"><b>BGE</b></th>
-        <th class="headertop" colspan="3"><b>Cohere</b></th>
+        <th class="headertop" colspan="2"><b>BGE</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col">nDCG@10</th>
-        <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@100</th>
@@ -226,14 +215,10 @@ $main_rows
         <th class="headertop" colspan="3"><b>BM25 MF</b></th>
         <th class="headertop" colspan="3"><b>SPLADE</b></th>
         <th class="headertop" colspan="3"><b>Contriever</b></th>
-        <th class="headertop" colspan="3"><b>BGE</b></th>
-        <th class="headertop" colspan="3"><b>Cohere</b></th>
+        <th class="headertop" colspan="2"><b>BGE</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col">nDCG@10</th>
-        <th class="headerbottom" scope="col">R@100</th>
         <th class="headerbottom" scope="col"></th>
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@100</th>

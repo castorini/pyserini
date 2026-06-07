@@ -4,7 +4,7 @@ The Pyserini REST server exposes an **HTTP interface aligned with [Anserini’s 
 
 Implementation uses **`SharedSearchBackend`** (`pyserini/server/backend.py`)—the same process-wide search stack as the MCP server. A request may use a **prebuilt index name** (sparse, dense, impact, FAISS, etc., when Pyserini can open it), a **filesystem path** to an index, or an optional **YAML alias** from `--config`.
 
-**v1 limitations:** The public GET API accepts only a **string** `query` parameter. It does **not** expose multimodal payloads, `encoder`, `ef_search`, or sparse `query_generator` options (those exist on the Python API and MCP). For full control over those knobs, use **MCP** or Pyserini directly.
+**v1 limitations:** The public GET API accepts only a **string** `query` parameter. It does **not** expose multimodal payloads, `encoder`, `ef_search`, or sparse `query_generator` options (those exist on the Python API and MCP). Sparse BM25 retrieval uses **k1=0.9** and **b=0.4** by default (same as Anserini). To override BM25, pass **both** `k1` and `b`. For full control over other knobs, use **MCP** or Pyserini directly.
 
 ## Starting the server
 
@@ -64,6 +64,21 @@ python -m pyserini.server.rest --config /path/to/server.yaml --no-prebuilt-index
 
 When `--no-prebuilt-indexes` is set, the server only accepts index names declared under `indexes:` in `--config`.
 
+With `api_keys` in `--config`, **`--load-shedding-threshold`** sets the latency threshold (milliseconds, default **3000**) for simple load shedding: if rolling p99 over the last minute is above it, the busiest API key(s) may get **429**. Omitting `api_keys` disables this (and auth) on `/v1/*`.
+
+```bash
+python -m pyserini.server.rest --config /path/to/server.yaml --load-shedding-threshold 500
+```
+
+The backend uses LRU caching for repeated requests:
+
+- **`--search-cache-size`** (default: **2048**): cache size for search results with string queries
+- **`--document-cache-size`** (default: **4096**): cache size for document fetches by docid
+
+```bash
+python -m pyserini.server.rest --search-cache-size 4096 --document-cache-size 8192
+```
+
 ### Logging
 
 REST server logging options:
@@ -122,13 +137,31 @@ If the index cannot be opened, the API responds with **400** and a message such 
 | `query` | yes | — | Search query string. |
 | `hits` | no | `10` | Number of hits (integer ≥ 1). |
 | `parse` | no | `true` | If `true`, parse the stored `raw` field when it is JSON (see `format_lucene_document` / Anserini-style formatting); if `false`, return the raw stored string. |
-
+| `k1` | no | `0.9` | BM25 k1 for sparse (TF) indexes. Must be finite, non-negative, and sent together with `b`. |
+| `b` | no | `0.4` | BM25 b for sparse (TF) indexes. Must be in `[0, 1]`, and sent together with `k1`. |
+| `max_doc_length` | no | — | Maximum characters to return for each parsed candidate document. If omitted, return the full document. Requires `parse=true`. |
 
 **Example**
 
 ```bash
 curl "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=1"
 ```
+
+Custom BM25 parameters (sparse indexes only; both required together):
+
+```bash
+curl "http://localhost:8081/v1/cacm/search?query=information%20retrieval&hits=5&k1=0.8&b=0.3"
+```
+
+Limit document text returned for each hit:
+
+```bash
+curl "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=5&max_doc_length=500"
+```
+
+`max_doc_length` is measured in characters. For parsed object documents, only `body`, `content`,
+`contents`, and `text` are truncated. Other fields are unchanged. Combining `parse=false` with
+`max_doc_length` returns **400** to avoid returning malformed JSON strings.
 
 With API key auth enabled (`api_keys` in `--config`), for example:
 
@@ -170,12 +203,23 @@ The `doc` field may be `null`, a string, or a JSON value depending on the index 
 | Name | Required | Default | Description |
 |------|----------|---------|-------------|
 | `parse` | no | `true` | Same meaning as for search. |
+| `max_doc_length` | no | — | Maximum characters to return for the parsed document. If omitted, return the full document. Requires `parse=true`. |
 
 **Example**
 
 ```bash
 curl "http://localhost:8081/v1/msmarco-v1-passage/doc/7157707"
 ```
+
+Limit document text returned:
+
+```bash
+curl "http://localhost:8081/v1/msmarco-v1-passage/doc/7157707?max_doc_length=500"
+```
+
+`max_doc_length` is measured in characters. For parsed object documents, only `body`, `content`,
+`contents`, and `text` are limited. Other fields are unchanged. Combining `parse=false` with
+`max_doc_length` returns **400** to avoid returning malformed JSON strings.
 
 With API key auth enabled (`api_keys` in `--config`), for example:
 
@@ -202,6 +246,7 @@ curl -H "X-API-Key: {api-key}" \
 | 200 | Success |
 | 400 | Invalid parameters (e.g. missing `query`, invalid `hits` or `parse`), or cannot open index |
 | 401 | Missing or invalid API credential (when `api_keys` is configured) |
+| 429 | Load shedding (with `api_keys`): p99 over `--load-shedding-threshold`; body suggests retry timing; `Retry-After` may be set |
 | 404 | Unknown route, or document not found for `GET .../doc/{docid}` |
 | 405 | Method not allowed (only **GET** is supported on these routes) |
 | 500 | Unhandled server error |

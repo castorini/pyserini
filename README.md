@@ -178,6 +178,7 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 | [MS MARCO V2 passage: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_passage_unicoil_0shot.tar)           |  41 GB | `1949a00bfd5e1f1a230a04bbc1f01539` |
 | [MS MARCO V2 doc: uniCOIL (noexp)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_doc_segmented_unicoil_noexp_0shot_v2.tar) |  55 GB | `97ba262c497164de1054f357caea0c63` |
 | [MS MARCO V2 doc: uniCOIL (d2q-T5)](https://rgw.cs.uwaterloo.ca/JIMMYLIN-bucket0/data/msmarco_v2_doc_segmented_unicoil_0shot_v2.tar)      |  72 GB | `c5639748c2cbad0152e10b0ebde3b804` |
+
 </details>
 
 ## 📃 Additional Documentation
@@ -196,6 +197,8 @@ Additional reproduction guides below provide detailed step-by-step instructions.
 
 ## 📜️ Release History
 
++ v2.2.0 (w/ Anserini v2.1.1): June 02, 2026 [[Release Notes](docs/release-notes/release-notes-v2.2.0.md)] [[Known Issues](docs/release-notes/known-issues-v2.2.0.md)]
++ v2.1.0 (w/ Anserini v2.1.1): May 19, 2026 [[Release Notes](docs/release-notes/release-notes-v2.1.0.md)] [[Known Issues](docs/release-notes/known-issues-v2.1.0.md)]
 + v2.0.0 (w/ Anserini v2.0.0): April 19, 2026 [[Release Notes](docs/release-notes/release-notes-v2.0.0.md)] [[Known Issues](docs/release-notes/known-issues-v2.0.0.md)]
 + v1.6.0 (w/ Anserini v1.7.1): April 6, 2026 [[Release Notes](docs/release-notes/release-notes-v1.6.0.md)]
 + v1.5.0 (w/ Anserini v1.5.0): January 14, 2026 [[Release Notes](docs/release-notes/release-notes-v1.5.0.md)]

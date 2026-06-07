@@ -85,10 +85,7 @@ class UniCoilEncoder(PreTrainedModel):
         model = cls.from_pretrained(model_name_or_path)
         if Version(transformers_version) >= Version("5.0.0"):
             load_head_weights(model, model_name_or_path, {
-                'tok_proj': {
-                    'weight': 'coil_encoder.tok_proj.weight',
-                    'bias': 'coil_encoder.tok_proj.bias'
-                }
+                'tok_proj': ['coil_encoder.tok_proj', 'tok_proj']
             })
         model.to(device)
         return model

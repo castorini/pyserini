@@ -26,8 +26,13 @@ from string import Template
 
 import yaml
 
-from ._base import run_dpr_retrieval_eval_and_return_metric, convert_trec_run_to_dpr_retrieval_json, run_fusion, ok_str, \
-    fail_str
+from ._base import (
+    convert_trec_run_to_dpr_retrieval_json,
+    fail_str,
+    ok_str,
+    run_dpr_retrieval_eval_and_return_metric,
+    run_fusion
+)
 
 dense_threads = 16
 dense_batch_size = 512
@@ -36,20 +41,20 @@ sparse_batch_size = 128
 
 # The models: the rows of the results table will be ordered this way.
 models = {
-    'models':
-    ['BM25-k1_0.9_b_0.4',
-     'BM25-k1_0.9_b_0.4_dpr-topics',
-     'GarT5-RRF',
-     'DPR',
-     'DPR-DKRR',
-     'DPR-Hybrid',
-     'GarT5RRF-DKRR-RRF'
-     ]
+    'models': [
+        'BM25-k1_0.9_b_0.4',
+        'BM25-k1_0.9_b_0.4_dpr-topics',
+        'GarT5-RRF',
+        'DPR',
+        'DPR-DKRR',
+        'DPR-Hybrid',
+        'GarT5RRF-DKRR-RRF'
+    ]
 }
 
 evaluate_dpr_retrieval_metric_definitions = {
-        'Top5-1000': '--topk 5 20 100 500 1000',
-        'Top5-100': '--topk 5 20 100'
+    'Top5-1000': '--topk 5 20 100 500 1000',
+    'Top5-100': '--topk 5 20 100'
 }
 
 # global vars
@@ -67,7 +72,7 @@ HITS_1K = {'GarT5-RRF', 'DPR-DKRR', 'DPR-Hybrid'}
 def print_results(table, metric, topics):
     print(f'Metric = {metric}, Topics = {topics}')
     for model in models['models']:
-        print(' ' * 32, end='')
+        print(' ' * 4, end='')
         print(f'{model:30}', end='')
         key = f'{model}'
         print(f'{table[key][metric]:7.2f}', end='\n')
@@ -196,8 +201,8 @@ def generate_report(args):
 
     html_template = read_file('odqa_html.template')
     table_template = read_file('odqa_html_table.template')
-    tqa_yaml_path = importlib.resources.files('pyserini.2cr').joinpath('triviaqa.yaml')
-    nq_yaml_path = importlib.resources.files('pyserini.2cr').joinpath('naturalquestion.yaml')
+    tqa_yaml_path = importlib.resources.files('pyserini.2cr').joinpath('odqa_tqa.yaml')
+    nq_yaml_path = importlib.resources.files('pyserini.2cr').joinpath('odqa_nq.yaml')
 
     garrrf_ls = ['answers', 'titles', 'sentences']
     fusion_cmd_tqa = []
@@ -323,13 +328,18 @@ def generate_report(args):
             out.write(Template(html_template).substitute(title=f'Retrieval for Open-Domain QA Datasets', tables=' '.join(tables_html)))
 
 
-def run_conditions(args):
+def topic_configs():
+    return [
+        ('tqa', 'dpr-trivia-test', importlib.resources.files('pyserini.2cr').joinpath('odqa_tqa.yaml')),
+        ('nq', 'nq-test', importlib.resources.files('pyserini.2cr').joinpath('odqa_nq.yaml')),
+    ]
+
+
+def run_topic_conditions(args, topic_arg, default_topics, yaml_path):
     hits = 1000 if args.full_topk else 100
-    yaml_path = importlib.resources.files('pyserini.2cr').joinpath('triviaqa.yaml') \
-        if args.topics == 'tqa' else importlib.resources.files('pyserini.2cr').joinpath('naturalquestion.yaml')
-    topics = 'dpr-trivia-test' if args.topics == 'tqa' else 'nq-test'
-    start = time.time()
+    topics = default_topics
     table = defaultdict(lambda: defaultdict(lambda: 0.0))
+    print(f'# Running topic "{topic_arg}"\n')
 
     with yaml_path.open('r') as f:
         yaml_data = yaml.safe_load(f)
@@ -353,7 +363,7 @@ def run_conditions(args):
             print(f'model {name}:')
             if topics == 'nq-test' and name == 'BM25-k1_0.9_b_0.4_dpr-topics':
                 topics = 'dpr-nq-test'
-            elif args.topics == 'nq':
+            elif topic_arg == 'nq':
                 topics = 'nq-test'
             print(f'  - Topics: {topics}')
 
@@ -439,6 +449,12 @@ def run_conditions(args):
     for metric in metric_ls:
         print_results(table, metric, topics)
 
+
+def run_conditions(args):
+    start = time.time()
+    for topic_arg, default_topics, yaml_path in topic_configs():
+        run_topic_conditions(args, topic_arg, default_topics, yaml_path)
+
     end = time.time()
     start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
     end_str = datetime.fromtimestamp(end, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
@@ -459,7 +475,6 @@ if __name__ == '__main__':
     # For actually running the experimental conditions
     parser.add_argument('--full-topk', action='store_true', default=False, help='Run topk 5-1000, default is topk 5-100')
     parser.add_argument('--all', action='store_true', default=False, help='Run all conditions.')
-    parser.add_argument('--topics', type=str, help='Topics to run [tqa, nq].', choices=['tqa', 'nq'], required=False)
     parser.add_argument('--condition', type=str, help='Condition to run.', required=False)
     parser.add_argument('--directory', type=str, help='Base directory.', default='', required=False)
     parser.add_argument('--dry-run', action='store_true', default=False, help='Print out commands but do not execute.')
@@ -473,18 +488,14 @@ if __name__ == '__main__':
 
     if args.generate_report:
         if not args.output:
-            print(f'Must specify report filename with --output.')
+            print('Must specify report filename with --output.')
             sys.exit()
 
         generate_report(args)
         sys.exit()
         
-    if not args.generate_report and not args.topics:
-        print(f'Must specify a topic [tqa, nq] when running an evaluation.')
-        sys.exit()
-
     if not args.all and not args.condition:
-        print(f'Must specify a specific condition using --condition or use --all to run all conditions.')
+        print('Must specify a specific condition using --condition or use --all to run all conditions.')
         sys.exit()
     
     if args.all and args.condition:

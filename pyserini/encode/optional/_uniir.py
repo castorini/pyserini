@@ -84,7 +84,7 @@ class UniIRQueryEncoder:
             try:
                 download_url(query_images_and_instructions_url, cache_dir, force=False)
                 with tarfile.open(tar_path, 'r:gz') as tar:
-                    tar.extractall(cache_dir)
+                    tar.extractall(cache_dir, filter='data')
             except Exception as e:
                 raise Exception(f"Could not download query images: {e}")
 

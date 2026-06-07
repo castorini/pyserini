@@ -14,15 +14,22 @@
 # limitations under the License.
 #
 
-from typing import Optional, List
+from typing import List, Optional
 
 import torch
-from transformers import PreTrainedModel, RobertaConfig, RobertaModel, RobertaTokenizer, requires_backends
+from packaging.version import Version
+from transformers import (
+    PreTrainedModel,
+    RobertaConfig,
+    RobertaModel,
+    RobertaTokenizer,
+    requires_backends
+)
+from transformers import __version__ as transformers_version
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
 from pyserini.encode._base import load_head_weights
-from packaging.version import Version
-from transformers import __version__ as transformers_version
+from pyserini.util import temporary_env
 
 
 class AnceEncoder(PreTrainedModel):
@@ -78,17 +85,12 @@ class AnceEncoder(PreTrainedModel):
     
     @classmethod
     def load_pretrained_encoder(cls, model_name_or_path: str, device: str):
-        model = cls.from_pretrained(model_name_or_path)
+        with temporary_env(DISABLE_SAFETENSORS_CONVERSION='1'):
+            model = cls.from_pretrained(model_name_or_path, use_safetensors=False)
         if Version(transformers_version) >= Version("5.0.0"):
             load_head_weights(model, model_name_or_path, {
-                'embeddingHead': {
-                    'weight': 'embeddingHead.weight',
-                    'bias': 'embeddingHead.bias'
-                },
-                'norm': {
-                    'weight': 'norm.weight',
-                    'bias': 'norm.bias'
-                }
+                'embeddingHead': ['ance_encoder.embeddingHead', 'embeddingHead'],
+                'norm': ['ance_encoder.norm', 'norm']
             })
         model.to(device)
         return model

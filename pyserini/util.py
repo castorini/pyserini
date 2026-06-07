@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+from collections.abc import Iterator
+from contextlib import contextmanager
 import hashlib
 import importlib
 import logging
@@ -34,6 +36,36 @@ from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, \
     LUCENE_HNSW_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, FAISS_INDEX_INFO
 
 logger = logging.getLogger(__name__)
+
+
+@contextmanager
+def temporary_env(**env_vars: str | None) -> Iterator[None]:
+    previous_values = {key: os.environ.get(key) for key in env_vars}
+
+    for key, value in env_vars.items():
+        if value is None:
+            os.environ.pop(key, None)
+        else:
+            os.environ[key] = value
+
+    try:
+        yield
+    finally:
+        for key, previous_value in previous_values.items():
+            if previous_value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = previous_value
+
+
+def _archive_name_to_index_name(archive_name):
+    return re.sub(r'''\.tar(\.gz)?(\?.*)?$''', '', archive_name)
+
+
+def _download_archive_name(url, local_filename):
+    if local_filename:
+        return local_filename
+    return re.sub('\\?dl=1$', '', url.split('/')[-1])
 
 
 def resolve_device(device: str, backend: str = 'torch') -> str:
@@ -253,14 +285,8 @@ def get_cache_home():
 
 def download_and_unpack_index(url, index_directory='indexes', local_filename=False, md5=None,
                               force=False, verbose=True, prebuilt=False, expected_size=None):
-    # If caller does not specify local filename, figure it out from the download URL:
-    if not local_filename:
-        index_name = url.split('/')[-1]
-    else:
-        # Otherwise, use the specified local_filename:
-        index_name = local_filename
-    # Remove the suffix:
-    index_name = re.sub('''.tar.gz.*$''', '', index_name)
+    archive_name = _download_archive_name(url, local_filename)
+    index_name = _archive_name_to_index_name(archive_name)
 
     if prebuilt:
         index_directory = os.path.join(get_cache_home(), index_directory)
@@ -269,13 +295,13 @@ def download_and_unpack_index(url, index_directory='indexes', local_filename=Fal
         if not os.path.exists(index_directory):
             os.makedirs(index_directory)
 
-        local_tarball = os.path.join(index_directory, f'{index_name}.tar.gz')
+        local_tarball = os.path.join(index_directory, archive_name)
         # If there's a local tarball, it's likely corrupted, because we remove the local tarball on success (below).
         # So, we want to remove.
         if os.path.exists(local_tarball):
             os.remove(local_tarball)
     else:
-        local_tarball = os.path.join(index_directory, f'{index_name}.tar.gz')
+        local_tarball = os.path.join(index_directory, archive_name)
         index_path = os.path.join(index_directory, f'{index_name}')
 
     # Check to see if index already exists, if so, simply return (quietly) unless force=True, in which case we remove
@@ -290,18 +316,14 @@ def download_and_unpack_index(url, index_directory='indexes', local_filename=Fal
         shutil.rmtree(index_path)
 
     print(f'Downloading index at {url}...')
-    download_url(url, index_directory, local_filename=local_filename, verbose=False, md5=md5, expected_size=expected_size)
+    local_tarball = download_url(url, index_directory, local_filename=local_filename, verbose=False, md5=md5, expected_size=expected_size)
 
     if verbose:
         print(f'Extracting {local_tarball} into {index_path}...')
-    try:
-        tarball = tarfile.open(local_tarball)
-    except:
-        local_tarball = os.path.join(index_directory, f'{index_name}')
-        tarball = tarfile.open(local_tarball)
+    tarball = tarfile.open(local_tarball)
     dirs_in_tarball = [member.name for member in tarball if member.isdir()]
     assert len(dirs_in_tarball), f"Detect multiple members ({', '.join(dirs_in_tarball)}) under the tarball {local_tarball}."
-    tarball.extractall(index_directory)
+    tarball.extractall(index_directory, filter='data')
     tarball.close()
     os.remove(local_tarball)
 
@@ -328,8 +350,8 @@ def check_downloaded(index_name):
         target_index = FAISS_INDEX_INFO[index_name]
     index_url = target_index['urls'][0]
     index_md5 = target_index['md5']
-    index_name = index_url.split('/')[-1]
-    index_name = re.sub('''.tar.gz.*$''', '', index_name)
+    archive_name = target_index['filename'] if 'filename' in target_index else _download_archive_name(index_url, None)
+    index_name = _archive_name_to_index_name(archive_name)
     index_directory = os.path.join(get_cache_home(), 'indexes')
     index_path = os.path.join(index_directory, f'{index_name}.{index_md5}')
 
@@ -385,7 +407,7 @@ def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
     else:
         target_index = FAISS_INDEX_INFO[index_name]
 
-    expected_size = target_index.get('size compressed (bytes)', None)
+    expected_size = target_index.get('size', None)
     index_md5 = target_index['md5']
     for url in target_index['urls']:
         local_filename = target_index['filename'] if 'filename' in target_index else None

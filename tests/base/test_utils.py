@@ -1,0 +1,395 @@
+#
+# Pyserini: Reproducible IR research with sparse and dense representations
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+import os
+import shutil
+import tarfile
+import tempfile
+import unittest
+from unittest.mock import patch
+
+from pyserini.prebuilt_index_info import TF_INDEX_INFO
+from pyserini.util import (
+    compare_trec_files_with_tolerance,
+    compare_trec_strings_with_tolerance,
+    download_and_unpack_index,
+    download_url,
+    temporary_env,
+)
+
+
+class TestIterateCollection(unittest.TestCase):
+    def test_cacm_prebuilt_index_download(self):
+        """ Sanity check, download_url will assert file size and md5 checksum when enabled """
+        info = TF_INDEX_INFO["cacm"]
+        urls = info.get("urls") or []
+        url = urls[0] if urls else None
+        expected_size = info.get("size", None)
+        expected_md5 = info.get("md5", None)
+
+        with tempfile.TemporaryDirectory(prefix="prebuilt-index-") as directory:
+            tarball_path = download_url(url, directory, md5=expected_md5, expected_size=expected_size)
+            self.assertTrue(os.path.exists(tarball_path), "Downloaded tarball not found on disk.")
+
+    def test_prebuilt_index_download_size_mismatch_raises(self):
+        """Negative case: wrong expected_size should raise."""
+        info = TF_INDEX_INFO["cacm"]
+        urls = info.get("urls") or []
+        url = urls[0] if urls else None
+
+        with tempfile.TemporaryDirectory(prefix="prebuilt-index-") as directory:
+            with self.assertRaises((AssertionError, ValueError)):
+                download_url(url, directory, expected_size=1, force=True)
+
+    def test_prebuilt_index_download_md5_mismatch_raises(self):
+        """Negative case: wrong md5 should raise."""
+        info = TF_INDEX_INFO["cacm"]
+        urls = info.get("urls") or []
+        url = urls[0] if urls else None
+        expected_size = info.get("size", None)
+
+        with tempfile.TemporaryDirectory(prefix="prebuilt-index-") as directory:
+            bad_md5 = "0" * 32
+            with self.assertRaises((AssertionError, ValueError)):
+                download_url(url, directory, md5=bad_md5, expected_size=expected_size, force=True)
+
+    def test_download_and_unpack_index_sanity(self):
+        """
+        Sanity check: rely on download_url (inside function) to validate MD5/size,
+        then ensure the extracted index directory exists and is non-empty.
+        """
+        info = TF_INDEX_INFO["cacm"]
+        url = (info.get("urls") or [None])[0]
+        expected_size = info.get("size", None)
+        expected_md5 = info.get("md5", None)
+
+        with tempfile.TemporaryDirectory(prefix="prebuilt-index-") as directory:
+            index_path = download_and_unpack_index(url, index_directory=directory, md5=expected_md5,
+                expected_size=expected_size, prebuilt=False, verbose=False, force=True)
+            self.assertTrue(os.path.isdir(index_path), f"Index path missing: {index_path}")
+            self.assertGreater(len(os.listdir(index_path)), 0, "Extracted index directory is empty.")
+
+    def test_prebuilt_plain_tar_download_and_unpack(self):
+        with tempfile.TemporaryDirectory(prefix="prebuilt-index-") as directory:
+            source_dir = os.path.join(directory, 'source')
+            payload_dir = os.path.join(source_dir, 'plain-index')
+            os.makedirs(payload_dir)
+            with open(os.path.join(payload_dir, 'marker.txt'), 'w') as f:
+                f.write('ok')
+
+            source_tar = os.path.join(directory, 'plain-index.tar')
+            with tarfile.open(source_tar, 'w') as tar:
+                tar.add(payload_dir, arcname='plain-index')
+
+            cache_dir = os.path.join(directory, 'cache')
+
+            def fake_download_url(url, save_dir, local_filename=None, **kwargs):
+                filename = local_filename if local_filename else url.split('/')[-1]
+                destination_path = os.path.join(save_dir, filename)
+                shutil.copyfile(source_tar, destination_path)
+                return destination_path
+
+            with patch.dict(os.environ, {'PYSERINI_CACHE': cache_dir}), \
+                    patch('pyserini.util.download_url', side_effect=fake_download_url):
+                index_path = download_and_unpack_index('https://example.com/plain-index.tar', prebuilt=True, md5='abc123', verbose=False)
+
+            self.assertEqual(index_path, os.path.join(cache_dir, 'indexes', 'plain-index.abc123'))
+            self.assertTrue(os.path.isdir(index_path), f"Index path missing: {index_path}")
+            self.assertTrue(os.path.exists(os.path.join(index_path, 'marker.txt')))
+            self.assertFalse(os.path.exists(os.path.join(cache_dir, 'indexes', 'plain-index.tar')))
+
+
+class TestTemporaryEnv(unittest.TestCase):
+    def test_temporary_env_sets_and_restores_missing_variable(self):
+        with patch.dict(os.environ, {}, clear=False):
+            os.environ.pop('PYSERINI_TEST_ENV', None)
+
+            with temporary_env(PYSERINI_TEST_ENV='temporary'):
+                self.assertEqual(os.environ['PYSERINI_TEST_ENV'], 'temporary')
+
+            self.assertNotIn('PYSERINI_TEST_ENV', os.environ)
+
+    def test_temporary_env_restores_existing_variable(self):
+        with patch.dict(os.environ, {'PYSERINI_TEST_ENV': 'original'}, clear=False):
+            with temporary_env(PYSERINI_TEST_ENV='temporary'):
+                self.assertEqual(os.environ['PYSERINI_TEST_ENV'], 'temporary')
+
+            self.assertEqual(os.environ['PYSERINI_TEST_ENV'], 'original')
+
+    def test_temporary_env_can_remove_variable_temporarily(self):
+        with patch.dict(os.environ, {'PYSERINI_TEST_ENV': 'original'}, clear=False):
+            with temporary_env(PYSERINI_TEST_ENV=None):
+                self.assertNotIn('PYSERINI_TEST_ENV', os.environ)
+
+            self.assertEqual(os.environ['PYSERINI_TEST_ENV'], 'original')
+
+    def test_temporary_env_restores_multiple_variables_after_exception(self):
+        with patch.dict(os.environ, {'PYSERINI_TEST_ENV': 'original'}, clear=False):
+            os.environ.pop('PYSERINI_TEST_OTHER_ENV', None)
+
+            with self.assertRaises(RuntimeError):
+                with temporary_env(PYSERINI_TEST_ENV='temporary', PYSERINI_TEST_OTHER_ENV='other'):
+                    self.assertEqual(os.environ['PYSERINI_TEST_ENV'], 'temporary')
+                    self.assertEqual(os.environ['PYSERINI_TEST_OTHER_ENV'], 'other')
+                    raise RuntimeError('failed while env was modified')
+
+            self.assertEqual(os.environ['PYSERINI_TEST_ENV'], 'original')
+            self.assertNotIn('PYSERINI_TEST_OTHER_ENV', os.environ)
+
+
+class TestCompareTrecWithTolerance(unittest.TestCase):
+    def test_compare_trec_strings_exact_match(self):
+        """Test that identical TREC strings match exactly."""
+        strings1 = [
+            "q1 Q0 doc1 1 0.5 runtag",
+            "q1 Q0 doc2 2 0.4 runtag"
+        ]
+        strings2 = [
+            "q1 Q0 doc1 1 0.5 runtag",
+            "q1 Q0 doc2 2 0.4 runtag"
+        ]
+        self.assertTrue(compare_trec_strings_with_tolerance(strings1, strings2))
+
+    def test_compare_trec_strings_within_tolerance(self):
+        """Test that scores within tolerance are considered equal."""
+        strings1 = [
+            "q1 Q0 doc1 1 0.5000 runtag",
+            "q1 Q0 doc2 2 0.4000 runtag"
+        ]
+        strings2 = [
+            "q1 Q0 doc1 1 0.50005 runtag",  # diff = 0.00005 < 1e-4
+            "q1 Q0 doc2 2 0.39995 runtag"   # diff = 0.00005 < 1e-4
+        ]
+        self.assertTrue(compare_trec_strings_with_tolerance(strings1, strings2, tolerance=1e-4))
+
+    def test_compare_trec_strings_beyond_tolerance(self):
+        """Test that scores beyond tolerance are considered different."""
+        strings1 = [
+            "q1 Q0 doc1 1 0.5000 runtag"
+        ]
+        strings2 = [
+            "q1 Q0 doc1 1 0.5002 runtag"  # diff = 0.0002 > 1e-4
+        ]
+        self.assertFalse(compare_trec_strings_with_tolerance(strings1, strings2, tolerance=1e-4))
+
+    def test_compare_trec_strings_custom_tolerance(self):
+        """Test with custom tolerance value."""
+        strings1 = [
+            "q1 Q0 doc1 1 0.5000 runtag"
+        ]
+        strings2 = [
+            "q1 Q0 doc1 1 0.5002 runtag"  # diff = 0.0002
+        ]
+        # Should pass with larger tolerance
+        self.assertTrue(compare_trec_strings_with_tolerance(strings1, strings2, tolerance=1e-3))
+        # Should fail with smaller tolerance
+        self.assertFalse(compare_trec_strings_with_tolerance(strings1, strings2, tolerance=1e-5))
+
+    def test_compare_trec_strings_different_lengths(self):
+        """Test that different length lists return False."""
+        strings1 = [
+            "q1 Q0 doc1 1 0.5 runtag"
+        ]
+        strings2 = [
+            "q1 Q0 doc1 1 0.5 runtag",
+            "q1 Q0 doc2 2 0.4 runtag"
+        ]
+        self.assertFalse(compare_trec_strings_with_tolerance(strings1, strings2))
+
+    def test_compare_trec_strings_different_qid(self):
+        """Test that different query IDs return False."""
+        strings1 = [
+            "q1 Q0 doc1 1 0.5 runtag"
+        ]
+        strings2 = [
+            "q2 Q0 doc1 1 0.5 runtag"
+        ]
+        self.assertFalse(compare_trec_strings_with_tolerance(strings1, strings2))
+
+    def test_compare_trec_strings_different_docid(self):
+        """Test that different document IDs return False."""
+        strings1 = [
+            "q1 Q0 doc1 1 0.5 runtag"
+        ]
+        strings2 = [
+            "q1 Q0 doc2 1 0.5 runtag"
+        ]
+        self.assertFalse(compare_trec_strings_with_tolerance(strings1, strings2))
+
+    def test_compare_trec_strings_different_rank(self):
+        """Test that different ranks return False."""
+        strings1 = [
+            "q1 Q0 doc1 1 0.5 runtag"
+        ]
+        strings2 = [
+            "q1 Q0 doc1 2 0.5 runtag"
+        ]
+        self.assertFalse(compare_trec_strings_with_tolerance(strings1, strings2))
+
+    def test_compare_trec_strings_different_runtag(self):
+        """Test that different runtags return False."""
+        strings1 = [
+            "q1 Q0 doc1 1 0.5 runtag1"
+        ]
+        strings2 = [
+            "q1 Q0 doc1 1 0.5 runtag2"
+        ]
+        self.assertFalse(compare_trec_strings_with_tolerance(strings1, strings2))
+
+    def test_compare_trec_strings_whitespace_handling(self):
+        """Test that whitespace is properly stripped."""
+        strings1 = [
+            "  q1 Q0 doc1 1 0.5 runtag  ",
+            "q1 Q0 doc2 2 0.4 runtag"
+        ]
+        strings2 = [
+            "q1 Q0 doc1 1 0.5 runtag",
+            "  q1 Q0 doc2 2 0.4 runtag  "
+        ]
+        self.assertTrue(compare_trec_strings_with_tolerance(strings1, strings2))
+
+    def test_compare_trec_strings_empty_lists(self):
+        """Test that empty lists match."""
+        self.assertTrue(compare_trec_strings_with_tolerance([], []))
+
+    def test_compare_trec_strings_invalid_score(self):
+        """Test that invalid score format returns False."""
+        strings1 = [
+            "q1 Q0 doc1 1 0.5 runtag"
+        ]
+        strings2 = [
+            "q1 Q0 doc1 1 invalid runtag"
+        ]
+        self.assertFalse(compare_trec_strings_with_tolerance(strings1, strings2))
+
+    def test_compare_trec_strings_different_field_count(self):
+        """Test that different number of fields returns False."""
+        strings1 = [
+            "q1 Q0 doc1 1 0.5 runtag"
+        ]
+        strings2 = [
+            "q1 Q0 doc1 1 0.5"
+        ]
+        self.assertFalse(compare_trec_strings_with_tolerance(strings1, strings2))
+
+    def test_compare_trec_files_exact_match(self):
+        """Test that identical TREC files match."""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f1, \
+             tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f2:
+            f1.write("q1 Q0 doc1 1 0.5 runtag\n")
+            f1.write("q1 Q0 doc2 2 0.4 runtag\n")
+            f2.write("q1 Q0 doc1 1 0.5 runtag\n")
+            f2.write("q1 Q0 doc2 2 0.4 runtag\n")
+            f1_path = f1.name
+            f2_path = f2.name
+
+        try:
+            self.assertTrue(compare_trec_files_with_tolerance(f1_path, f2_path))
+        finally:
+            os.unlink(f1_path)
+            os.unlink(f2_path)
+
+    def test_compare_trec_files_within_tolerance(self):
+        """Test that files with scores within tolerance match."""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f1, \
+             tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f2:
+            f1.write("q1 Q0 doc1 1 0.5000 runtag\n")
+            f2.write("q1 Q0 doc1 1 0.50005 runtag\n")  # diff = 0.00005 < 1e-4
+            f1_path = f1.name
+            f2_path = f2.name
+
+        try:
+            self.assertTrue(compare_trec_files_with_tolerance(f1_path, f2_path, tolerance=1e-4))
+        finally:
+            os.unlink(f1_path)
+            os.unlink(f2_path)
+
+    def test_compare_trec_files_beyond_tolerance(self):
+        """Test that files with scores beyond tolerance don't match."""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f1, \
+             tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f2:
+            f1.write("q1 Q0 doc1 1 0.5000 runtag\n")
+            f2.write("q1 Q0 doc1 1 0.5002 runtag\n")  # diff = 0.0002 > 1e-4
+            f1_path = f1.name
+            f2_path = f2.name
+
+        try:
+            self.assertFalse(compare_trec_files_with_tolerance(f1_path, f2_path, tolerance=1e-4))
+        finally:
+            os.unlink(f1_path)
+            os.unlink(f2_path)
+
+    def test_compare_trec_files_different_lengths(self):
+        """Test that files with different number of lines don't match."""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f1, \
+             tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f2:
+            f1.write("q1 Q0 doc1 1 0.5 runtag\n")
+            f2.write("q1 Q0 doc1 1 0.5 runtag\n")
+            f2.write("q1 Q0 doc2 2 0.4 runtag\n")
+            f1_path = f1.name
+            f2_path = f2.name
+
+        try:
+            self.assertFalse(compare_trec_files_with_tolerance(f1_path, f2_path))
+        finally:
+            os.unlink(f1_path)
+            os.unlink(f2_path)
+
+    def test_compare_trec_files_file_not_found(self):
+        """Test that missing file returns False."""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f1:
+            f1.write("q1 Q0 doc1 1 0.5 runtag\n")
+            f1_path = f1.name
+            nonexistent_path = "/nonexistent/file/path.txt"
+
+        try:
+            self.assertFalse(compare_trec_files_with_tolerance(f1_path, nonexistent_path))
+            self.assertFalse(compare_trec_files_with_tolerance(nonexistent_path, f1_path))
+        finally:
+            os.unlink(f1_path)
+
+    def test_compare_trec_files_empty_files(self):
+        """Test that empty files match."""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f1, \
+             tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f2:
+            # Write nothing (empty files)
+            f1_path = f1.name
+            f2_path = f2.name
+
+        try:
+            self.assertTrue(compare_trec_files_with_tolerance(f1_path, f2_path))
+        finally:
+            os.unlink(f1_path)
+            os.unlink(f2_path)
+
+    def test_compare_trec_files_whitespace_handling(self):
+        """Test that whitespace in files is properly handled."""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f1, \
+             tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as f2:
+            f1.write("  q1 Q0 doc1 1 0.5 runtag  \n")
+            f2.write("q1 Q0 doc1 1 0.5 runtag\n")
+            f1_path = f1.name
+            f2_path = f2.name
+
+        try:
+            self.assertTrue(compare_trec_files_with_tolerance(f1_path, f2_path))
+        finally:
+            os.unlink(f1_path)
+            os.unlink(f2_path)
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -19,21 +19,21 @@ CORPUS_INFO = {
         "description": "MS MARCO passages-v1 corpus encoded by SLIM trained with BM25 negatives. (Scipy)",
         "filename": "scipy-sparse-vectors.msmarco-v1-passage-slimr.20230220.tar.gz",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/4MRXSmiDqNH4mgF/download",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/scipy-sparse-vectors.msmarco-v1-passage-slimr.20230220.tar.gz",
         ],
-        "md5": "7ec96c74dced272712fcbb091bb671a8",
-        "size (bytes)": 16533697862,
+        "md5": "b5e26e41aa9189e114e17dedddf951e1",
+        "size (bytes)": 16209099119,
         "documents": 8841823,
         "downloaded": False
     },
     "scipy-sparse-vectors.msmarco-v1-passage-slimr-pp": {
-        "description": "MS MARCO passages-v1 corpus encoded by SLIM trained with cross-encoder distillation and hardnegative mining (Scipy)",
+        "description": "MS MARCO passages-v1 corpus encoded by SLIM trained with cross-encoder distillation and hard-negative mining. (Scipy)",
         "filename": "scipy-sparse-vectors.msmarco-v1-passage-slimr-pp.20230220.tar.gz",
         "urls": [
-            "https://vault.cs.uwaterloo.ca/s/gDJnrYGKsq6ir4w/download",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/scipy-sparse-vectors.msmarco-v1-passage-slimr-pp.20230220.tar.gz",
         ],
-        "md5": "05ce2ce5f64b668a487909ab538ef2a5",
-        "size (bytes)": 15785241481,
+        "md5": "b9fe5197d529c53d1e4a2c3bf77e6421",
+        "size (bytes)": 15785240483,
         "documents": 8841823,
         "downloaded": False
     },

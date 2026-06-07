@@ -20,6 +20,9 @@ MCP server tests using FastMCP HTTP transport and Client API.
 Runs the MCP server in-process over HTTP (streamable-http) via run_server_async,
 then uses the FastMCP Client to call tools. No subprocess or stdio.
 All server output (uvicorn, FastMCP, CancelledError, etc.) is suppressed during tests.
+
+These core tests cover MCP tools that do not require optional uniir_for_pyserini
+dependencies. UniIR-backed m-BEIR MCP tests live under tests/optional/.
 """
 
 import asyncio
@@ -95,6 +98,77 @@ class TestMCPyseriniServer(unittest.TestCase):
         self.assertTrue(any(isinstance(t, str) and t.startswith('Query Results for:') for t in payload))
         doc_lines = [t for t in payload if isinstance(t, str) and t.startswith('DocID: ')]
         self.assertEqual(len(doc_lines), 3)
+
+    def test_search_bm25_k1_b_params(self):
+        result = self._run_async(self._call_tool('search', {
+            'query': {'query_txt': 'information retrieval'},
+            'index': 'cacm',
+            'hits': 1,
+            'k1': 0.8,
+            'b': 0.3,
+        }))
+        self.assertFalse(result.is_error, msg=getattr(result, 'content', result))
+        payload = self._single_json_content(result)
+        doc_lines = [t for t in payload if isinstance(t, str) and t.startswith('DocID: ')]
+        self.assertEqual(len(doc_lines), 1)
+        self.assertIn('CACM-3134', doc_lines[0])
+
+    def test_search_bm25_k1_only_raises_tool_error(self):
+        async def call_k1_only():
+            mcp = _make_mcp_server()
+            async with run_server_async(mcp, transport='streamable-http') as url:
+                async with Client(StreamableHttpTransport(url)) as client:
+                    await client.call_tool('search', {
+                        'query': {'query_txt': 'information retrieval'},
+                        'index': 'cacm',
+                        'hits': 1,
+                        'k1': 0.1,
+                    })
+
+        with self.assertRaises(ToolError) as ctx:
+            self._run_async(call_k1_only())
+        self.assertIn('together', str(ctx.exception).lower())
+
+    def test_search_bm25_b_only_raises_tool_error(self):
+        async def call_b_only():
+            mcp = _make_mcp_server()
+            async with run_server_async(mcp, transport='streamable-http') as url:
+                async with Client(StreamableHttpTransport(url)) as client:
+                    await client.call_tool('search', {
+                        'query': {'query_txt': 'information retrieval'},
+                        'index': 'cacm',
+                        'hits': 1,
+                        'b': 0.3,
+                    })
+
+        with self.assertRaises(ToolError) as ctx:
+            self._run_async(call_b_only())
+        self.assertIn('together', str(ctx.exception).lower())
+
+    def test_search_bm25_custom_params_change_score(self):
+        default_result = self._run_async(self._call_tool('search', {
+            'query': {'query_txt': 'information retrieval'},
+            'index': 'cacm',
+            'hits': 1,
+        }))
+        tuned_result = self._run_async(self._call_tool('search', {
+            'query': {'query_txt': 'information retrieval'},
+            'index': 'cacm',
+            'hits': 1,
+            'k1': 0.1,
+            'b': 0.1,
+        }))
+        self.assertFalse(default_result.is_error, msg=getattr(default_result, 'content', default_result))
+        self.assertFalse(tuned_result.is_error, msg=getattr(tuned_result, 'content', tuned_result))
+        default_line = next(
+            t for t in self._single_json_content(default_result)
+            if isinstance(t, str) and t.startswith('DocID: ')
+        )
+        tuned_line = next(
+            t for t in self._single_json_content(tuned_result)
+            if isinstance(t, str) and t.startswith('DocID: ')
+        )
+        self.assertNotEqual(default_line, tuned_line)
 
     def test_get_index_tool(self):
         result = self._run_async(self._call_tool('get_index', {

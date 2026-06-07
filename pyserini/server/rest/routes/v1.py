@@ -51,6 +51,40 @@ def _parse_bool(raw: str | None, default: bool, name: str) -> tuple[bool | None,
     return None, _error(400, f"Parameter '{name}' must be 'true' or 'false'")
 
 
+def _parse_optional_float(raw: str | None, name: str) -> tuple[float | None, JSONResponse | None]:
+    if raw is None or not str(raw).strip():
+        return None, None
+    try:
+        return float(raw), None
+    except ValueError:
+        return None, _error(400, f"Parameter '{name}' must be a number")
+
+
+def _parse_optional_positive_int(raw: str | None, name: str) -> tuple[int | None, JSONResponse | None]:
+    if raw is None or not str(raw).strip():
+        return None, None
+    try:
+        value = int(raw)
+    except ValueError:
+        return None, _error(400, f"Parameter '{name}' must be an integer")
+    if value <= 0:
+        return None, _error(400, f"Parameter '{name}' must be positive")
+    return value, None
+
+
+def _parse_bm25_params(
+    k1_raw: str | None,
+    b_raw: str | None,
+) -> tuple[float | None, float | None, JSONResponse | None]:
+    k1, bad_k1 = _parse_optional_float(k1_raw, 'k1')
+    if bad_k1 is not None:
+        return None, None, bad_k1
+    b, bad_b = _parse_optional_float(b_raw, 'b')
+    if bad_b is not None:
+        return None, None, bad_b
+    return k1, b, None
+
+
 def _backend(request: Request) -> SharedSearchBackend:
     return request.app.state.search_backend
 
@@ -62,6 +96,9 @@ async def search_v1(
     query: str | None = Query(None),
     hits: str | None = Query(None),
     parse: str | None = Query(None),
+    k1: str | None = Query(None),
+    b: str | None = Query(None),
+    max_doc_length: str | None = Query(None),
 ):
     backend = _backend(request)
     index_token = backend.decode_path_segment(index)
@@ -83,6 +120,16 @@ async def search_v1(
         return bad_parse
     assert parse_flag is not None
 
+    k1_val, b_val, bad_bm25 = _parse_bm25_params(k1, b)
+    if bad_bm25 is not None:
+        return bad_bm25
+
+    max_doc_length_val, bad_max_doc_length = _parse_optional_positive_int(max_doc_length, 'max_doc_length')
+    if bad_max_doc_length is not None:
+        return bad_max_doc_length
+    if max_doc_length_val is not None and not parse_flag:
+        return _error(400, "Parameter 'max_doc_length' requires parse=true")
+
     try:
         payload = await asyncio.to_thread(
             backend.search,
@@ -92,6 +139,9 @@ async def search_v1(
             '',
             parse_flag,
             True,
+            k1=k1_val,
+            b=b_val,
+            max_doc_length=max_doc_length_val,
         )
     except IndexNotAvailableError as e:
         return _error(400, str(e))
@@ -122,6 +172,7 @@ async def get_document_v1(
     index: str,
     docid: str,
     parse: str | None = Query(None),
+    max_doc_length: str | None = Query(None),
 ):
     backend = _backend(request)
     index_token = backend.decode_path_segment(index)
@@ -135,8 +186,21 @@ async def get_document_v1(
         return bad_parse
     assert parse_flag is not None
 
+    max_doc_length_val, bad_max_doc_length = _parse_optional_positive_int(max_doc_length, 'max_doc_length')
+    if bad_max_doc_length is not None:
+        return bad_max_doc_length
+    if max_doc_length_val is not None and not parse_flag:
+        return _error(400, "Parameter 'max_doc_length' requires parse=true")
+
     try:
-        doc = await asyncio.to_thread(backend.get_document, docid_token, index_token, parse_flag, True)
+        doc = await asyncio.to_thread(
+            backend.get_document,
+            docid_token,
+            index_token,
+            parse_flag,
+            True,
+            max_doc_length=max_doc_length_val,
+        )
         return {
             'api': 'v1',
             'index': index_token,
