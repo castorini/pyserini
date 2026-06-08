@@ -18,18 +18,17 @@ from pyserini.pyclass import autoclass
 
 JPrebuiltInvertedIndex = autoclass('io.anserini.index.prebuilt.PrebuiltInvertedIndex')
 
+
 def import_from_inverted_lucene(index_metadata):
     info = {
         'description': index_metadata.description,
         'filename': index_metadata.filename,
-        'readme': index_metadata.readme,
+        'readme': index_metadata.readme or '',
         'urls': [
             index_metadata.urls[0]
         ],
         'md5': index_metadata.md5,
-        'size compressed (bytes)': index_metadata.compressedSize,
-        # FIXME: this is needed to make tests/core/test_rest.py pass, test case 'test_index_status'
-        'size_bytes': str(index_metadata.compressedSize),
+        'size': index_metadata.size,
         'total_terms': index_metadata.totalTerms,
         'documents': index_metadata.documents,
         'unique_terms': index_metadata.uniqueTerms,
@@ -104,7 +103,7 @@ TF_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage-augmented.20220808.4d6d2a.tar.gz"
         ],
         "md5": "49f30d491c94ffbe3186af9a368de2d8",
-        "size compressed (bytes)": 75036029235,
+        "size": 75036029235,
         "total_terms": 15272965252,
         "documents": 138364198,
         "unique_terms": 16579899,
@@ -118,7 +117,7 @@ TF_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage-augmented-slim.20220808.4d6d2a.tar.gz"
         ],
         "md5": "9aef72c639e75b5a517b4129477e48b5",
-        "size compressed (bytes)": 14757393139,
+        "size": 14757393139,
         "total_terms": 15272965252,
         "documents": 138364198,
         "unique_terms": 16579899,
@@ -132,7 +131,7 @@ TF_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage-augmented-full.20220808.4d6d2a.tar.gz"
         ],
         "md5": "1f40c7ef86b8d6166b8f0c3ea633635c",
-        "size compressed (bytes)": 130622749950,
+        "size": 130622749950,
         "total_terms": 15272965252,
         "documents": 138364198,
         "unique_terms": 16579899,
@@ -148,7 +147,7 @@ TF_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage-augmented.d2q-t5.20220808.4d6d2a.tar.gz"
         ],
         "md5": "7147ad0edce10bc15660f7e5ed96ce1a",
-        "size compressed (bytes)": 20826386147,
+        "size": 20826386147,
         "total_terms": 27561177716,
         "documents": 138364198,
         "unique_terms": 41177061,
@@ -162,7 +161,7 @@ TF_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage-augmented.d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
         ],
         "md5": "f7413828cb3c6c8310a46c18d1fd2662",
-        "size compressed (bytes)": 95787339679,
+        "size": 95787339679,
         "total_terms": 27561177716,
         "documents": 138364198,
         "unique_terms": 41177061,
@@ -181,9 +180,9 @@ TF_INDEX_INFO_MSMARCO = {
 }
 
 TF_INDEX_INFO_MSMARCO_ALIASES = {
-    # To preserve working commands in published papers: integrations/papers/test_sigir2021.py testcase test_section3_3
+    # To preserve working commands in published papers: integrations/core/papers/test_sigir2021.py testcase test_section3_3
     "msmarco-passage": TF_INDEX_INFO_MSMARCO["msmarco-v1-passage"],
-    # To preserve working commands in published papers: integrations/papers/test_sigir2022.py testcase test_Ma_etal_section4_1a
+    # To preserve working commands in published papers: integrations/core/papers/test_sigir2022.py testcase test_Ma_etal_section4_1a
     "msmarco-v1-passage-d2q-t5": TF_INDEX_INFO_MSMARCO["msmarco-v1-passage.d2q-t5"],
 }
 
@@ -268,154 +267,154 @@ TF_INDEX_INFO_BRIGHT = {
 
 TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-ar": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Arabic).",
-        "filename": "lucene-inverted.mrtydi-v1.1-ar.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Arabic (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-ar.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ar.20220928.b5ecc5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ar.20260604.558ae2c.tar",
         ],
-        "md5": "eae9ed3430eeb685328c92be886197d3",
-        "size compressed (bytes)": 1166813697,
+        "md5": "45a70ff0e6ba8edecaa5f6f043701600",
+        "size": 1429483520,
         "total_terms": 92529032,
         "documents": 2106586,
         "unique_terms": 1284748,
         "downloaded": False
     },
     "mrtydi-v1.1-bn": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Bengali).",
-        "filename": "lucene-inverted.mrtydi-v1.1-bn.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Bengali (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-bn.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-bn.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-bn.20260604.558ae2c.tar"
         ],
-        "md5": "4fdb127c48c311851875d884ccf9d3e7",
-        "size compressed (bytes)": 240163624,
+        "md5": "4824ec5fe1cbf134c99e3ff4a94d71b1",
+        "size": 296130560,
         "total_terms": 15236599,
         "documents": 304059,
         "unique_terms": 520699,
         "downloaded": False
     },
     "mrtydi-v1.1-en": {
-        "description": "Lucene index for Mr.TyDi v1.1 (English).",
-        "filename": "lucene-inverted.mrtydi-v1.1-en.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - English (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-en.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-en.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-en.20260604.558ae2c.tar"
         ],
-        "md5": "98eb2e28b120c9fac2aa43fa370d0d27",
-        "size compressed (bytes)": 16732696856,
+        "md5": "e1b4920633c9f8d4d484fbc1f9208c45",
+        "size": 20631726080,
         "total_terms": 1507060932,
         "documents": 32907100,
-        "unique_terms": -1,
+        "unique_terms": 6189405,
         "downloaded": False
     },
     "mrtydi-v1.1-fi": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Finnish).",
-        "filename": "lucene-inverted.mrtydi-v1.1-fi.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Finnish (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-fi.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-fi.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-fi.20260604.558ae2c.tar"
         ],
-        "md5": "c5546562c77bd28bb1ab68ca24c5b37a",
-        "size compressed (bytes)": 906509667,
+        "md5": "12751caf1a2ea823b4ed4acb0fbfd5d8",
+        "size": 1120163840,
         "total_terms": 69416543,
         "documents": 1908757,
         "unique_terms": 1715076,
         "downloaded": False
     },
     "mrtydi-v1.1-id": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Indonesian).",
-        "filename": "lucene-inverted.mrtydi-v1.1-id.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Indonesian (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-id.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-id.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-id.20260604.558ae2c.tar"
         ],
-        "md5": "551b282737fd885b1904ea365768c066",
-        "size compressed (bytes)": 562187620,
+        "md5": "aa02ff7c756106a85ce7778692d2d2bb",
+        "size": 703191040,
         "total_terms": 52493134,
         "documents": 1469399,
         "unique_terms": 942552,
         "downloaded": False
     },
     "mrtydi-v1.1-ja": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Japanese).",
-        "filename": "lucene-inverted.mrtydi-v1.1-ja.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Japanese (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-ja.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ja.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ja.20260604.558ae2c.tar"
         ],
-        "md5": "6f5062b65c69ce37c8a4e76d08e6d5c4",
-        "size compressed (bytes)": 3637126847,
+        "md5": "d29a082b93496875fc12b3155b45eb91",
+        "size": 4350003200,
         "total_terms": 300761975,
         "documents": 7000027,
         "unique_terms": 1588879,
         "downloaded": False
     },
     "mrtydi-v1.1-ko": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Korean).",
-        "filename": "lucene-inverted.mrtydi-v1.1-ko.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Korean (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-ko.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ko.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ko.20260604.558ae2c.tar"
         ],
-        "md5": "a52bfe4be87fd3178ca231b007e7af38",
-        "size compressed (bytes)": 1137658449,
-        "total_terms": 122217295,
+        "md5": "adcd51f82738fcc1eaf2c9003bb4b421",
+        "size": 928686080,
+        "total_terms": 73084884,
         "documents": 1496126,
-        "unique_terms": 1517179,
+        "unique_terms": 456094,
         "downloaded": False
     },
     "mrtydi-v1.1-ru": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Russian).",
-        "filename": "lucene-inverted.mrtydi-v1.1-ru.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Russian (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-ru.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ru.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ru.20260604.558ae2c.tar"
         ],
-        "md5": "dc1d75d31595252e3a6b665b522adf3b",
-        "size compressed (bytes)": 5642484260,
+        "md5": "9abc508ffa0637cedc62e3629d6a7658",
+        "size": 6890475520,
         "total_terms": 346329117,
         "documents": 9597504,
-        "unique_terms": 3034240,
+        "unique_terms": 3034239,
         "downloaded": False
     },
     "mrtydi-v1.1-sw": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Swahili).",
-        "filename": "lucene-inverted.mrtydi-v1.1-sw.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Swahili (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-sw.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-sw.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-sw.20260604.558ae2c.tar"
         ],
-        "md5": "4514e4a3f35279408a2e0aea3051dce0",
-        "size compressed (bytes)": 47557469,
+        "md5": "6bfb2f3bbb3cd2d23c7ff7e5a429b434",
+        "size": 59944960,
         "total_terms": 4937051,
         "documents": 136689,
         "unique_terms": 385711,
         "downloaded": False
     },
     "mrtydi-v1.1-te": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Telugu).",
-        "filename": "lucene-inverted.mrtydi-v1.1-te.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Telugu (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-te.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-te.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-te.20260604.558ae2c.tar"
         ],
-        "md5": "4bd62ef02febb49a487e765c023507de",
-        "size compressed (bytes)": 413881826,
+        "md5": "10b79b19b0b40c87c988b60435e9f29a",
+        "size": 521779200,
         "total_terms": 26812052,
         "documents": 548224,
         "unique_terms": 1157217,
         "downloaded": False
     },
     "mrtydi-v1.1-th": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Thai).",
-        "filename": "lucene-inverted.mrtydi-v1.1-th.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Thai (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-th.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-th.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-th.20260604.558ae2c.tar"
         ],
-        "md5": "d040c15b460d488571eb959192335771",
-        "size compressed (bytes)": 450209352,
+        "md5": "633fd759421414f563f5114ac392cf53",
+        "size": 548075520,
         "total_terms": 31550936,
         "documents": 568855,
         "unique_terms": 663628,
@@ -439,255 +438,255 @@ TF_INDEX_INFO_MRTYDI_ALIASES = {
 
 TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-ar": {
-        "description": "Lucene index for MIRACL v1.0 (Arabic).",
-        "filename": "lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Arabic (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-ar.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ar.20260604.558ae2c.tar"
         ],
-        "md5": "503d3b49a557222d8074ac831a2f047a",
-        "size compressed (bytes)": 1187504365,
+        "md5": "78297714dfdd5e9253cb71f5043e2f89",
+        "size": 1409320960,
         "total_terms": 90223450,
         "documents": 2061414,
         "unique_terms": 1246254,
         "downloaded": False
     },
     "miracl-v1.0-bn": {
-        "description": "Lucene index for MIRACL v1.0 (Bengali).",
-        "filename": "lucene-index.miracl-v1.0-bn.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Bengali (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-bn.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-bn.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-bn.20260604.558ae2c.tar"
         ],
-        "md5": "7a20210328f0b83f44e041f0c94d30e2",
-        "size compressed (bytes)": 236115752,
+        "md5": "9064c52b8cf77a23d62c37400db8a51e",
+        "size": 291256320,
         "total_terms": 14963235,
         "documents": 297265,
         "unique_terms": 506812,
         "downloaded": False
     },
     "miracl-v1.0-en": {
-        "description": "Lucene index for MIRACL v1.0 (English).",
-        "filename": "lucene-index.miracl-v1.0-en.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - English (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-en.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-en.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-en.20260604.558ae2c.tar"
         ],
-        "md5": "4fbd652deb76bcc05daa35392d4aa9f3",
-        "size compressed (bytes)": 17702731887,
+        "md5": "d6c9cdaf90d857fc883124154c95d2a2",
+        "size": 20680714240,
         "total_terms": 1505029955,
         "documents": 32893221,
         "unique_terms": 6152316,
         "downloaded": False
     },
     "miracl-v1.0-es": {
-        "description": "Lucene index for MIRACL v1.0 (Spanish).",
-        "filename": "lucene-index.miracl-v1.0-es.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Spanish (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-es.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-es.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-es.20260604.558ae2c.tar"
         ],
-        "md5": "b4c9993ee3a131871d4f07dd96e80531",
-        "size compressed (bytes)": 5438142131,
+        "md5": "b30182ed716f26de7d54aa329241446c",
+        "size": 6328729600,
         "total_terms": 389319806,
         "documents": 10373953,
         "unique_terms": 2907509,
         "downloaded": False
     },
-    "miracl-v1.0-fa": {
-        "description": "Lucene index for MIRACL v1.0 (Persian).",
-        "filename": "lucene-index.miracl-v1.0-fa.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+    "miracl-v1.0-de": {
+        "description": "Lucene index for MIRACL v1.0 - German (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-de.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-fa.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-de.20260604.558ae2c.tar"
         ],
-        "md5": "bfc824aa37633e3d45bcfd5c5e0e1701",
-        "size compressed (bytes)": 1017387904,
+        "md5": "859308b005802004b7bbc4fe2332a582",
+        "size": 10285731840,
+        "total_terms": 581583743,
+        "documents": 15866222,
+        "unique_terms": 6288858,
+        "downloaded": False
+    },
+    "miracl-v1.0-fa": {
+        "description": "Lucene index for MIRACL v1.0 - Persian (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-fa.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-fa.20260604.558ae2c.tar"
+        ],
+        "md5": "abdbde58b61f360ae325ec9c15071553",
+        "size": 1175224320,
         "total_terms": 67968038,
         "documents": 2207172,
-        "unique_terms": 1208930,
+        "unique_terms": 1104195,
         "downloaded": False
     },
     "miracl-v1.0-fi": {
-        "description": "Lucene index for MIRACL v1.0 (Finnish).",
-        "filename": "lucene-index.miracl-v1.0-fi.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Finnish (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-fi.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-fi.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-fi.20260604.558ae2c.tar"
         ],
-        "md5": "4197c90efd781c6153acaf15452c5479",
-        "size compressed (bytes)": 916687116,
+        "md5": "a0a7407f1557b8151d3497055094ade3",
+        "size": 1104527360,
         "total_terms": 68295087,
         "documents": 1883509,
         "unique_terms": 1669817,
         "downloaded": False
     },
     "miracl-v1.0-fr": {
-        "description": "Lucene index for MIRACL v1.0 (French).",
-        "filename": "lucene-index.miracl-v1.0-fr.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - French (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-fr.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-fr.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-fr.20260604.558ae2c.tar"
         ],
-        "md5": "e68b10d90be71b702888a3d00a8aa39c",
-        "size compressed (bytes)": 6684522892,
+        "md5": "63e71554fddb071be503acb84ac1f55d",
+        "size": 7840276480,
         "total_terms": 508723988,
         "documents": 14636953,
-        "unique_terms": 2811342,
+        "unique_terms": 2811334,
         "downloaded": False
     },
     "miracl-v1.0-hi": {
-        "description": "Lucene index for MIRACL v1.0 (Hindi).",
-        "filename": "lucene-index.miracl-v1.0-hi.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Hindi (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-hi.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-hi.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-hi.20260604.558ae2c.tar"
         ],
-        "md5": "d81f4e2b7ec5df8f9741168c23c977e2",
-        "size compressed (bytes)": 340836547,
+        "md5": "03f37cadc7cf3a79fbf262b8bcf96add",
+        "size": 423127040,
         "total_terms": 21080143,
         "documents": 506264,
         "unique_terms": 597558,
         "downloaded": False
     },
     "miracl-v1.0-id": {
-        "description": "Lucene index for MIRACL v1.0 (Indonesian).",
-        "filename": "lucene-index.miracl-v1.0-id.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Indonesian (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-id.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-id.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-id.20260604.558ae2c.tar"
         ],
-        "md5": "b1092e732991029fae7c542e5e129255",
-        "size compressed (bytes)": 572215307,
+        "md5": "8d81825e9e0363e0504ed32398060aae",
+        "size": 689367040,
         "total_terms": 51469219,
         "documents": 1446315,
         "unique_terms": 911944,
         "downloaded": False
     },
     "miracl-v1.0-ja": {
-        "description": "Lucene index for MIRACL v1.0 (Japanese).",
-        "filename": "lucene-index.miracl-v1.0-ja.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Japanese (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-ja.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ja.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ja.20260604.558ae2c.tar"
         ],
-        "md5": "4db9550d0af63736a0fd2b486b3b7273",
-        "size compressed (bytes)": 3734999654,
+        "md5": "7f337e510c8f9d8c6850a85636c8ecb6",
+        "size": 4317890560,
         "total_terms": 296659169,
         "documents": 6953614,
         "unique_terms": 1558643,
         "downloaded": False
     },
     "miracl-v1.0-ko": {
-        "description": "Lucene index for MIRACL v1.0 (Korean).",
-        "filename": "lucene-index.miracl-v1.0-ko.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Korean (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-ko.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ko.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ko.20260604.558ae2c.tar"
         ],
-        "md5": "c82f5c7641fd78b8dadfcb279a1c0340",
-        "size compressed (bytes)": 1146272936,
-        "total_terms": 121464424,
+        "md5": "d2648e245490dcc6fb80e9f8c4dd3a7a",
+        "size": 922388480,
+        "total_terms": 72532389,
         "documents": 1486752,
-        "unique_terms": 1504782,
+        "unique_terms": 451428,
         "downloaded": False
     },
     "miracl-v1.0-ru": {
-        "description": "Lucene index for MIRACL v1.0 (Russian).",
-        "filename": "lucene-index.miracl-v1.0-ru.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Russian (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-ru.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ru.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ru.20260604.558ae2c.tar"
         ],
-        "md5": "c1b974e298d9e1deeccae8b84a5bcd64",
-        "size compressed (bytes)": 5955535508,
+        "md5": "b0a57963ccfe52ec7edb89cff1fb8c33",
+        "size": 6895124480,
         "total_terms": 343106870,
         "documents": 9543918,
         "unique_terms": 2955627,
         "downloaded": False
     },
     "miracl-v1.0-sw": {
-        "description": "Lucene index for MIRACL v1.0 (Swahili).",
-        "filename": "lucene-index.miracl-v1.0-sw.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Swahili (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-sw.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-sw.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-sw.20260604.558ae2c.tar"
         ],
-        "md5": "64b77bcc11e04575d0723ad81ac7c135",
-        "size compressed (bytes)": 45406742,
+        "md5": "60d473575592cb2fd01ff240bdbc032c",
+        "size": 57292800,
         "total_terms": 4752278,
         "documents": 131924,
         "unique_terms": 361306,
         "downloaded": False
     },
     "miracl-v1.0-te": {
-        "description": "Lucene index for MIRACL v1.0 (Telugu).",
-        "filename": "lucene-index.miracl-v1.0-te.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Telugu (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-te.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-te.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-te.20260604.558ae2c.tar"
         ],
-        "md5": "1f78c68678f439a3143a6fb0d25bfe27",
-        "size compressed (bytes)": 401362581,
+        "md5": "d78c1bb22aacc8934321d1541946da5b",
+        "size": 505917440,
         "total_terms": 26105595,
         "documents": 518079,
         "unique_terms": 1120047,
         "downloaded": False
     },
     "miracl-v1.0-th": {
-        "description": "Lucene index for MIRACL v1.0 (Thai).",
-        "filename": "lucene-index.miracl-v1.0-th.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Thai (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-th.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-th.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-th.20260604.558ae2c.tar"
         ],
-        "md5": "eeef93c23b76fdc66b9e1ee01576765e",
-        "size compressed (bytes)": 430808790,
+        "md5": "d36c74137d7ac74fc40a4e10df63fc52",
+        "size": 523694080,
         "total_terms": 29922100,
         "documents": 542166,
         "unique_terms": 626084,
         "downloaded": False
     },
-    "miracl-v1.0-zh": {
-        "description": "Lucene index for MIRACL v1.0 (Chinese).",
-        "filename": "lucene-index.miracl-v1.0-zh.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-zh.20221004.2b2856.tar.gz"
-        ],
-        "md5": "dc7880da333b7c56d3a4ff0bf018febd",
-        "size compressed (bytes)": 4141810894,
-        "total_terms": 423635495,
-        "documents": 4934368,
-        "unique_terms": 6517412,
-        "downloaded": False
-    },
-    "miracl-v1.0-de": {
-        "description": "Lucene index for MIRACL v1.0 (German).",
-        "filename": "lucene-index.miracl-v1.0-de.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-de.20221004.2b2856.tar.gz"
-        ],
-        "md5": "a40d1b9429c450b2e476d1e4ba22784d",
-        "size compressed (bytes)": 8708219012,
-        "total_terms": 581583743,
-        "documents": 15866222,
-        "unique_terms": 6288858,
-        "downloaded": False
-    },
     "miracl-v1.0-yo": {
-        "description": "Lucene index for MIRACL v1.0 (Yoruba).",
-        "filename": "lucene-index.miracl-v1.0-yo.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Yoruba (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-yo.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-yo.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-yo.20260604.558ae2c.tar"
         ],
-        "md5": "7fa283d1af4a7c4ea8791eab9e386807",
-        "size compressed (bytes)": 13211664,
+        "md5": "a34d7a06904a317b7f257080f6f83539",
+        "size": 17387520,
         "total_terms": 1387088,
         "documents": 49043,
         "unique_terms": 174539,
+        "downloaded": False
+    },
+    "miracl-v1.0-zh": {
+        "description": "Lucene index for MIRACL v1.0 - Chinese (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-zh.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-zh.20260604.558ae2c.tar"
+        ],
+        "md5": "19e3b5dd3f648251f65410ad4c8cb4d8",
+        "size": 4776775680,
+        "total_terms": 423635495,
+        "documents": 4934368,
+        "unique_terms": 6517412,
         "downloaded": False
     }
 }
@@ -701,7 +700,7 @@ TF_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-ha.20230721.e850ea.tar.gz"
         ],
         "md5": "9bef13f2b528d3a5712ce412c3c264f7",
-        "size compressed (bytes)": 671653035,
+        "size": 671653035,
         'total_terms': 93696543,
         'documents': 715355,
         'unique_terms': 817967,
@@ -716,7 +715,7 @@ TF_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-so.20230721.e850ea.tar.gz"
         ],
         "md5": "4bb9d3ae1a6d65fbb2a4e7e57a71397d",
-        "size compressed (bytes)": 916229181,
+        "size": 916229181,
         "total_terms": 103736362,
         "documents": 827552,
         "unique_terms": 1636109,
@@ -731,7 +730,7 @@ TF_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-sw.20230721.e850ea.tar.gz"
         ],
         "md5": "1236a1a4c87268d98ec6534cd99aaada",
-        "size compressed (bytes)": 896921754,
+        "size": 896921754,
         "total_terms": 115140711,
         "documents": 949013,
         "unique_terms": 1655554,
@@ -746,7 +745,7 @@ TF_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-yo.20230721.e850ea.tar.gz"
         ],
         "md5": "655e571314ed85cbfe637246c3d18110",
-        "size compressed (bytes)": 94610259,
+        "size": 94610259,
         "total_terms": 13693080,
         "documents": 82095,
         "unique_terms": 236638,
@@ -761,7 +760,7 @@ TF_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-ha-en.20240212.2154e7.tar.gz"
         ],
         "md5": "40af043730fe0fb31c32551ae615bfb0",
-        "size compressed (bytes)": 485235569,
+        "size": 485235569,
         "total_terms": 55768945,
         "documents": 715355,
         "unique_terms": 222612,
@@ -776,7 +775,7 @@ TF_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-so-en.20240212.2154e7.tar.gz"
         ],
         "md5": "ceff839268ebb1f41ac5398d613cbf32",
-        "size compressed (bytes)": 611458708,
+        "size": 611458708,
         "total_terms": 63835022,
         "documents": 827552,
         "unique_terms": 214501,
@@ -791,7 +790,7 @@ TF_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-sw-en.20240212.2154e7.tar.gz"
         ],
         "md5": "60a57a128cda8c4a1460f1e3a0df002a",
-        "size compressed (bytes)": 683272685,
+        "size": 683272685,
         "total_terms": 83817100,
         "documents": 949013,
         "unique_terms": 265867,
@@ -806,7 +805,7 @@ TF_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-yo-en.20240212.2154e7.tar.gz"
         ],
         "md5": "84f29864973de98f2d93fe03a2908703",
-        "size compressed (bytes)": 60934470,
+        "size": 60934470,
         "total_terms": 7245155,
         "documents": 82095,
         "unique_terms": 68394,
@@ -824,7 +823,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-cirr_task7.20251227.1c5cd3.tar.gz"
         ],
         "md5": "2dd562ce0695fc036d453b0767ca3a18",
-        "size compressed (bytes)": 347187400,
+        "size": 347187400,
         "total_terms": 21551,
         "documents": 21551,
         "unique_terms": 1,
@@ -838,7 +837,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-edis_task2.20251227.1c5cd3.tar.gz"
         ],
         "md5": "e74359b8c696c9ac8f56a0281b7d8f33",
-        "size compressed (bytes)": 20182418990,
+        "size": 20182418990,
         "total_terms": 11989247,
         "documents": 1047067,
         "unique_terms": 120620,
@@ -852,7 +851,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-fashion200k_task0.20251227.1c5cd3.tar.gz"
         ],
         "md5": "92dbd3c7469377901386db86f5c134c4",
-        "size compressed (bytes)": 3094742537,
+        "size": 3094742537,
         "total_terms": 201824,
         "documents": 201824,
         "unique_terms": 1,
@@ -866,7 +865,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-fashion200k_task3.20251227.1c5cd3.tar.gz"
         ],
         "md5": "dea550a91e559ecc20744d64853794d7",
-        "size compressed (bytes)": 3517056,
+        "size": 3517056,
         "total_terms": 320792,
         "documents": 61707,
         "unique_terms": 4674,
@@ -880,7 +879,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-fashioniq_task7.20251227.1c5cd3.tar.gz"
         ],
         "md5": "eec3fcca46d581f6c03386f1746f63d0",
-        "size compressed (bytes)": 704801276,
+        "size": 704801276,
         "total_terms": 74381,
         "documents": 74381,
         "unique_terms": 1,
@@ -894,7 +893,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-infoseek_task6.20251227.1c5cd3.tar.gz"
         ],
         "md5": "b116fd37ec8ab6244f03f8896ad2e1d1",
-        "size compressed (bytes)": 487769698,
+        "size": 487769698,
         "total_terms": 40553515,
         "documents": 611651,
         "unique_terms": 1459469,
@@ -908,7 +907,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-infoseek_task8.20251227.1c5cd3.tar.gz"
         ],
         "md5": "3bfaf443fee8834cfa76161fce6d6cb7",
-        "size compressed (bytes)": 8010635169,
+        "size": 8010635169,
         "total_terms": 33290946,
         "documents": 481782,
         "unique_terms": 1046942,
@@ -922,7 +921,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-mscoco_task0.20251227.1c5cd3.tar.gz"
         ],
         "md5": "a4550dc70ee06f8f254d97b88868ad7a",
-        "size compressed (bytes)": 84945141,
+        "size": 84945141,
         "total_terms": 5000,
         "documents": 5000,
         "unique_terms": 1,
@@ -936,7 +935,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-mscoco_task3.20251227.1c5cd3.tar.gz"
         ],
         "md5": "15779922e7d7fb8f75a11a1b9ef5d617",
-        "size compressed (bytes)": 2003920,
+        "size": 2003920,
         "total_terms": 178755,
         "documents": 24809,
         "unique_terms": 5092,
@@ -950,7 +949,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-nights_task4.20251227.1c5cd3.tar.gz"
         ],
         "md5": "56e6d23a479e6ec03cf16b37ca669b4f",
-        "size compressed (bytes)": 597481018,
+        "size": 597481018,
         "total_terms": 40038,
         "documents": 40038,
         "unique_terms": 1,
@@ -964,7 +963,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-oven_task6.20251227.1c5cd3.tar.gz"
         ],
         "md5": "a82538c3eb5b65eb49fb659909335b2a",
-        "size compressed (bytes)": 471799398,
+        "size": 471799398,
         "total_terms": 39875784,
         "documents": 676667,
         "unique_terms": 1440499,
@@ -978,7 +977,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-oven_task8.20251227.1c5cd3.tar.gz"
         ],
         "md5": "bfb09a394aa2cb426d46b6f917b2c2c8",
-        "size compressed (bytes)": 5843069128,
+        "size": 5843069128,
         "total_terms": 22558337,
         "documents": 335135,
         "unique_terms": 796486,
@@ -992,7 +991,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-visualnews_task0.20251227.1c5cd3.tar.gz"
         ],
         "md5": "6aca88e8c05233f1c66b950e600fc4eb",
-        "size compressed (bytes)": 10567618253,
+        "size": 10567618253,
         "total_terms": 542246,
         "documents": 542246,
         "unique_terms": 1,
@@ -1006,7 +1005,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-visualnews_task3.20251227.1c5cd3.tar.gz"
         ],
         "md5": "f905e307463ed8691d802c512d2382df",
-        "size compressed (bytes)": 98417621,
+        "size": 98417621,
         "total_terms": 7250519,
         "documents": 537568,
         "unique_terms": 191929,
@@ -1020,7 +1019,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-webqa_task1.20251227.1c5cd3.tar.gz"
         ],
         "md5": "0fc780b057dacc9a6f9b13b1996b8cf4",
-        "size compressed (bytes)": 166842728,
+        "size": 166842728,
         "total_terms": 13953966,
         "documents": 544457,
         "unique_terms": 316790,
@@ -1034,7 +1033,7 @@ TF_INDEX_INFO_M_BEIR = {
         "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/lucene-inverted/lucene-inverted.m-beir-webqa_task2.20251227.1c5cd3.tar.gz"
         ],
         "md5": "fca613bc84599f9a46601badd47ee7ff",
-        "size compressed (bytes)": 7467023312,
+        "size": 7467023312,
         "total_terms": 4280768,
         "documents": 403196,
         "unique_terms": 341510,
@@ -1050,7 +1049,7 @@ TF_INDEX_INFO_OTHER = {
             "https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.20221005.252b5e.tar.gz",
         ],
         "md5": "cfe14d543c6a27f4d742fb2d0099b8e0",
-        "size compressed (bytes)": 2347197,
+        "size": 2347197,
         "total_terms": 320968,
         "documents": 3204,
         "unique_terms": 14363,
@@ -1063,7 +1062,7 @@ TF_INDEX_INFO_OTHER = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.disk45.20240803.36f7e3.tar.gz",
         ],
         "md5": "0bb7f40c88a9246d068bbda86a6b90d5",
-        "size compressed (bytes)": 1782067062,
+        "size": 1782067062,
         "total_terms": 174540872,
         "documents": 528030,
         "unique_terms": 923436,
@@ -1076,7 +1075,7 @@ TF_INDEX_INFO_OTHER = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.aquaint.20240803.36f7e3.tar.gz",
         ],
         "md5": "3adbc54b7fcaaf568e741797e407199c",
-        "size compressed (bytes)": 3185164151,
+        "size": 3185164151,
         "total_terms": 317246296,
         "documents": 1031455,
         "unique_terms": 966312,
@@ -1089,7 +1088,7 @@ TF_INDEX_INFO_OTHER = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.nyt.20240803.36f7e3.tar.gz",
         ],
         "md5": "0db100878ee9556515cf2acf3a9f1ac5",
-        "size compressed (bytes)": 7622623345,
+        "size": 7622623345,
         "total_terms": 751047962,
         "documents": 1855650,
         "unique_terms": 1730963,
@@ -1102,7 +1101,7 @@ TF_INDEX_INFO_OTHER = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.wapo.v2.20240803.36f7e3.tar.gz",
         ],
         "md5": "fbe8fa7a7f0dcae2bae9b8fe1dd7ab07",
-        "size compressed (bytes)": 3994471983,
+        "size": 3994471983,
         "total_terms": 318219870,
         "documents": 595031,
         "unique_terms": 835854,
@@ -1113,10 +1112,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index.enwiki-20180701-paragraphs.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.enwiki-20180701-paragraphs.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/WHKMSCbwQfDXyHt/download"
         ],
         "md5": "77d1cd530579905dad2ee3c2bda1b73d",
-        "size compressed (bytes)": 17725958785,
+        "size": 17725958785,
         "total_terms": 1498980668,
         "documents": 39880064,
         "unique_terms": -1,
@@ -1127,10 +1125,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index.zhwiki-20181201-paragraphs.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.zhwiki-20181201-paragraphs.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/6kEjQZaRYtnb8A6/download"
         ],
         "md5": "c005af4036296972831288c894918a92",
-        "size compressed (bytes)": 3284531213,
+        "size": 3284531213,
         "total_terms": 320776789,
         "documents": 4170312,
         "unique_terms": -1,
@@ -1142,10 +1139,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-abstract-2020-07-16.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-07-16/lucene-index-cord19-abstract-2020-07-16.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/c37JxKYQ7Hogs72/download"
         ],
         "md5": "c883571ccc78b4c2ce05b41eb07f5405",
-        "size compressed (bytes)": 2294491056,
+        "size": 2294491056,
         "total_terms": 22100404,
         "documents": 192459,
         "unique_terms": 195875,
@@ -1156,10 +1152,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-full-text-2020-07-16.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-07-16/lucene-index-cord19-full-text-2020-07-16.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/c7CcxRbFWfiFnFq/download"
         ],
         "md5": "23cfad89b4c206d66125f5736f60248f",
-        "size compressed (bytes)": 4427535212,
+        "size": 4427535212,
         "total_terms": 275238847,
         "documents": 192460,
         "unique_terms": 1843368,
@@ -1170,10 +1165,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-paragraph-2020-07-16.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-07-16/lucene-index-cord19-paragraph-2020-07-16.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/HXigraF5KJL3xS8/download"
         ],
         "md5": "c2c6ac832f8a1fcb767d2356d2b1e1df",
-        "size compressed (bytes)": 6363337237,
+        "size": 6363337237,
         "total_terms": 627083574,
         "documents": 3010497,
         "unique_terms": 1843368,
@@ -1184,10 +1178,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-abstract-2020-06-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-06-19/lucene-index-cord19-abstract-2020-06-19.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/fBta6sAt4MdaHQX/download"
         ],
         "md5": "029bd55daba8800fbae2be9e5fcd7b33",
-        "size compressed (bytes)": 2123283935,
+        "size": 2123283935,
         "total_terms": 18724353,
         "documents": 158226,
         "unique_terms": 179937,
@@ -1198,10 +1191,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-full-text-2020-06-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-06-19/lucene-index-cord19-full-text-2020-06-19.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/yErSHZHD38jcDSY/download"
         ],
         "md5": "3d0eb12094a24cff9bcacd1f17c3ea1c",
-        "size compressed (bytes)": 4131644421,
+        "size": 4131644421,
         "total_terms": 254810123,
         "documents": 158227,
         "unique_terms": 1783089,
@@ -1212,10 +1204,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-paragraph-2020-06-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-06-19/lucene-index-cord19-paragraph-2020-06-19.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/7md4kwNNgy3oxiH/download"
         ],
         "md5": "5cd8cd6998177bed7a3e0057ef8b3595",
-        "size compressed (bytes)": 5894371476,
+        "size": 5894371476,
         "total_terms": 567579834,
         "documents": 2781172,
         "unique_terms": 1783089,
@@ -1226,10 +1217,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-abstract-2020-05-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-19/lucene-index-cord19-abstract-2020-05-19.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Zg9p2D5tJgiTGx2/download"
         ],
         "md5": "37bb97d0c41d650ba8e135fd75ae8fd8",
-        "size compressed (bytes)": 1800651127,
+        "size": 1800651127,
         "total_terms": 16278419,
         "documents": 128465,
         "unique_terms": 168291,
@@ -1240,10 +1230,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-full-text-2020-05-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-19/lucene-index-cord19-full-text-2020-05-19.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/BTzaQgZ55898dXM/download"
         ],
         "md5": "f5711915a66cd2b511e0fb8d03e4c325",
-        "size compressed (bytes)": 3511868712,
+        "size": 3511868712,
         "total_terms": 215806519,
         "documents": 128465,
         "unique_terms": 1620335,
@@ -1254,10 +1243,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-paragraph-2020-05-19.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-19/lucene-index-cord19-paragraph-2020-05-19.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/nPyMYTys6NkmEdN/download"
         ],
         "md5": "012ab1f804382b2275c433a74d7d31f2",
-        "size compressed (bytes)": 5247367826,
+        "size": 5247367826,
         "total_terms": 485309568,
         "documents": 2297201,
         "unique_terms": 1620335,
@@ -1268,10 +1256,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-abstract-2020-05-01.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-01/lucene-index-cord19-abstract-2020-05-01.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/3YZE65FSypwfnQQ/download"
         ],
         "md5": "a06e71a98a68d31148cb0e97e70a2ee1",
-        "size compressed (bytes)": 1291687869,
+        "size": 1291687869,
         "total_terms": 7651125,
         "documents": 59873,
         "unique_terms": 109750,
@@ -1282,10 +1269,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-full-text-2020-05-01.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-01/lucene-index-cord19-full-text-2020-05-01.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/NdPEB7swXeZnq3o/download"
         ],
         "md5": "e7eca1b976cdf2cd80e908c9ac2263cb",
-        "size compressed (bytes)": 2557895128,
+        "size": 2557895128,
         "total_terms": 154736295,
         "documents": 59876,
         "unique_terms": 1214374,
@@ -1296,10 +1282,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-cord19-paragraph-2020-05-01.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-01/lucene-index-cord19-paragraph-2020-05-01.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Mz7n5FAt7rmnYCY/download"
         ],
         "md5": "8f9321757a03985ac1c1952b2fff2c7d",
-        "size compressed (bytes)": 3841496174,
+        "size": 3841496174,
         "total_terms": 360119048,
         "documents": 1758168,
         "unique_terms": 1214374,
@@ -1310,10 +1295,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-covid-2020-04-10.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-04-10/lucene-index-covid-2020-04-10.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/Rz8AEmsFo9NWGP6/download"
         ],
         "md5": "ec239d56498c0e7b74e3b41e1ce5d42a",
-        "size compressed (bytes)": 1299233544,
+        "size": 1299233544,
         "total_terms": 6672525,
         "documents": 51069,
         "unique_terms": 104595,
@@ -1324,10 +1308,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-covid-full-text-2020-04-10.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-04-10/lucene-index-covid-full-text-2020-04-10.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/oQzSoxrT3grGmBe/download"
         ],
         "md5": "401a6f5583b0f05340c73fbbeb3279c8",
-        "size compressed (bytes)": 3555328932,
+        "size": 3555328932,
         "total_terms": 315624154,
         "documents": 51071,
         "unique_terms": 1812522,
@@ -1338,10 +1321,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "lucene-index-covid-paragraph-2020-04-10.tar.gz",
         "urls": [
             "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-04-10/lucene-index-covid-paragraph-2020-04-10.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/HDtb5Ys7MYBkePC/download"
         ],
         "md5": "8b87a2c55bc0a15b87f11e796860216a",
-        "size compressed (bytes)": 3642128260,
+        "size": 3642128260,
         "total_terms": 330715243,
         "documents": 1412648,
         "unique_terms": 944574,
@@ -1353,10 +1335,9 @@ TF_INDEX_INFO_OTHER = {
         "filename": "index-cast2019.tar.gz",
         "urls": [
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-cast2019.tar.gz",
-            "https://vault.cs.uwaterloo.ca/s/56LcDcRPopdQc4d/download"
         ],
         "md5": "36e604d7f5a4e08ade54e446be2f6345",
-        "size compressed (bytes)": 21266884884,
+        "size": 21266884884,
         "total_terms": 1593628213,
         "documents": 38429835,
         "unique_terms": -1,
@@ -1364,59 +1345,29 @@ TF_INDEX_INFO_OTHER = {
     },
 
     "wikipedia-dpr-100w": {
-        "description": "Lucene index of Wikipedia with DPR 100-word splits",
-        "filename": "lucene-index.wikipedia-dpr-100w.20210120.d1b9e6.tar.gz",
-        "readme": "index-wikipedia-dpr-20210120-d1b9e6-readme.txt",
+        "description": "Lucene index of Wikipedia with DPR 100-word splits (Lucene 10.4.0)",
+        "filename": "lucene-inverted.wikipedia-dpr-100w.20260508.deb4c7b.tar",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wikipedia-dpr-100w.20210120.d1b9e6.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.wikipedia-dpr-100w.20260508.deb4c7b.tar"
         ],
-        "md5": "7b58c08da992b2ea7e96667f0b176651",
-        "size compressed (bytes)": 9177917732,
-        "total_terms": 1512973270,
+        "md5": "1ef94a97f2ac418577d1e6a9ecf44806",
+        "size": 11078635520,
+        "total_terms": 1512973244,
         "documents": 21015324,
-        "unique_terms": 5345463,
-        "downloaded": False
-    },
-    "wikipedia-dpr-100w-slim": {
-        "description": "Lucene index of Wikipedia with DPR 100-word splits (slim version, document text not stored)",
-        "filename": "lucene-index.wikipedia-dpr-100w-slim.20210120.d1b9e6.tar.gz",
-        "readme": "index-wikipedia-dpr-slim-20210120-d1b9e6-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wikipedia-dpr-100w-slim.20210120.d1b9e6.tar.gz"
-        ],
-        "md5": "5d24352f0de6ae75b60e11a9cf622251",
-        "size compressed (bytes)": 1810337190,
-        "total_terms": 1512973270,
-        "documents": 21015324,
-        "unique_terms": 5345463,
-        "downloaded": False
-    },
-    "wikipedia-kilt-doc": {
-        "description": "Lucene index of Wikipedia snapshot used as KILT's knowledge source.",
-        "filename": "lucene-index.wikipedia-kilt-doc.20210421.f29307.tar.gz",
-        "readme": "index-wikipedia-kilt-doc-20210421-f29307-readme.txt",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wikipedia-kilt-doc.20210421.f29307.tar.gz"
-        ],
-        "md5": "d4a1e7628f6f68c51dd2d764e62b7f8d",
-        "size compressed (bytes)": 10901145611,
-        "total_terms": 1915061164,
-        "documents": 5903530,
-        "unique_terms": 8722502,
+        "unique_terms": 5345516,
         "downloaded": False
     },
     "wiki-all-6-3-tamber": {
-        "description": "Lucene index of wiki-all-6-3-tamber from castorini/odqa-wiki-corpora",
-        "filename": "lucene-index.wiki-all-6-3-tamber.20230111.40277a.tar.gz",
-        "readme": "lucene-index-wiki-all-6-3-tamber-20230111-40277a.README.md",
+        "description": "Lucene index of wiki-all-6-3-tamber from castorini/odqa-wiki-corpora on Huggingface Datasets (Lucene 10.4.0)",
+        "filename": "lucene-inverted.wiki-all-6-3-tamber.20260508.deb4c7b.tar",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wiki-all-6-3-tamber.20230111.40277a.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.wiki-all-6-3-tamber.20260508.deb4c7b.tar",
         ],
-        "md5": "018b45ee8c6278a879caa3145b2dc05d",
-        "size compressed (bytes)": 26240661946,
+        "md5": "47c97a91576b4ed1166992d6de5a71dc",
+        "size": 25526548480,
         "total_terms": 5064706668,
         "documents": 76680040,
-        "unique_terms": 14604922,
+        "unique_terms": 14604875,
         "downloaded": False
     },
 
@@ -1428,7 +1379,7 @@ TF_INDEX_INFO_OTHER = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.hc4-v1.0-fa.20221025.c4a8d0.tar.gz"
         ],
         "md5": "80735c01b2f2cf82288381370adf1d66",
-        "size compressed (bytes)": 1652960750,
+        "size": 1652960750,
         "total_terms": 112225896,
         "documents": 486486,
         "unique_terms": 617109,
@@ -1442,7 +1393,7 @@ TF_INDEX_INFO_OTHER = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.hc4-v1.0-ru.20221025.c4a8d0.tar.gz"
         ],
         "md5": "40259ba9ca993f850c960a172debe33e",
-        "size compressed (bytes)": 13292705599,
+        "size": 13292705599,
         "total_terms": 764996714,
         "documents": 4721064,
         "unique_terms": 2625222,
@@ -1456,7 +1407,7 @@ TF_INDEX_INFO_OTHER = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.hc4-v1.0-zh.20221025.c4a8d0.tar.gz"
         ],
         "md5": "2ea8885b8ec6c637971c8df0706b623e",
-        "size compressed (bytes)": 2899033342,
+        "size": 2899033342,
         "total_terms": 304468580,
         "documents": 646302,
         "unique_terms": 4380932,
@@ -1470,7 +1421,7 @@ TF_INDEX_INFO_OTHER = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-fa.20221025.c4a8d0.tar.gz"
         ],
         "md5": "d423fb72bcd5bf2dea6e4a19743dcb95",
-        "size compressed (bytes)": 7565790180,
+        "size": 7565790180,
         "total_terms": 514262091,
         "documents": 2232016,
         "unique_terms": 1479443,
@@ -1484,7 +1435,7 @@ TF_INDEX_INFO_OTHER = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-ru.20221025.c4a8d0.tar.gz"
         ],
         "md5": "2d04bbc880d535c1c4ab172c2c2d8ffe",
-        "size compressed (bytes)": 14202967387,
+        "size": 14202967387,
         "total_terms": 830006658,
         "documents": 4627541,
         "unique_terms": 3396095,
@@ -1498,7 +1449,7 @@ TF_INDEX_INFO_OTHER = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-zh.20221025.c4a8d0.tar.gz"
         ],
         "md5": "46fe989676ff510b997af24f6398199f",
-        "size compressed (bytes)": 15733809682,
+        "size": 15733809682,
         "total_terms": 1654090507,
         "documents": 3179206,
         "unique_terms": 8213058,
@@ -1512,7 +1463,7 @@ TF_INDEX_INFO_OTHER = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-fa-en.20221025.c4a8d0.tar.gz"
         ],
         "md5": "35363339b7f0527f27403b848fe01b04",
-        "size compressed (bytes)": 6172239242,
+        "size": 6172239242,
         "total_terms": 554848215,
         "documents": 2232016,
         "unique_terms": 1033260,
@@ -1526,7 +1477,7 @@ TF_INDEX_INFO_OTHER = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-ru-en.20221025.c4a8d0.tar.gz"
         ],
         "md5": "b0b98803260665eeae97163d2361838e",
-        "size compressed (bytes)": 10513242212,
+        "size": 10513242212,
         "total_terms": 911886830,
         "documents": 4627541,
         "unique_terms": 2794257,
@@ -1540,7 +1491,7 @@ TF_INDEX_INFO_OTHER = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-zh-en.20221025.c4a8d0.tar.gz"
         ],
         "md5": "d44ca9c7b634cf56e8cfd5892a3d3427",
-        "size compressed (bytes)": 8470981318,
+        "size": 8470981318,
         "total_terms": 803227160,
         "documents": 3179206,
         "unique_terms": 1616532,
@@ -1554,7 +1505,7 @@ TF_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.text.flat.small.validation.tar.gz"
         ],
         "md5": "fe0ae1286dde8a4969f16134c47682ae",
-        "size compressed (bytes)": 32902223,
+        "size": 32902223,
         "total_terms": 2999824,
         "documents": 17173,
         "unique_terms": 118071,
@@ -1568,7 +1519,7 @@ TF_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.text.flat.base.tar.gz"
         ],
         "md5": "fe2f0beb617f5ade4ffce6d05adfbc7a",
-        "size compressed (bytes)": 5532187295,
+        "size": 5532187295,
         "total_terms": 520954965,
         "documents": 3029504,
         "unique_terms": -1,
@@ -1582,7 +1533,7 @@ TF_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.text.flat.large.tar.gz"
         ],
         "md5": "0f4639ba8b6ecff1d26da02790f78add",
-        "size compressed (bytes)": 18194155242,
+        "size": 18194155242,
         "total_terms": 1727597393,
         "documents": 10134744,
         "unique_terms": -1,
@@ -1596,7 +1547,7 @@ TF_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.image.flat.small.validation.tar.gz"
         ],
         "md5": "7afd990df79462040f175b990545ad40",
-        "size compressed (bytes)": 5454742,
+        "size": 5454742,
         "total_terms": 308646,
         "documents": 16126,
         "unique_terms": 48666,
@@ -1610,7 +1561,7 @@ TF_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.image.flat.base.tar.gz"
         ],
         "md5": "d8a4e8ce05305406004cceff60147592",
-        "size compressed (bytes)": 1309435624,
+        "size": 1309435624,
         "total_terms": 100743397,
         "documents": 3410779,
         "unique_terms": -1,
@@ -1624,7 +1575,7 @@ TF_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.image.flat.large.tar.gz"
         ],
         "md5": "3e4a0c976a2c50daeee7a276b9b2c379",
-        "size compressed (bytes)": 1448435404,
+        "size": 1448435404,
         "total_terms": 108550562,
         "documents": 3803656,
         "unique_terms": -1,
@@ -1633,7 +1584,7 @@ TF_INDEX_INFO_OTHER = {
 }
 
 TF_INDEX_INFO_OTHER_ALIASES = {
-    # To preserve working commands in published papers: integrations/papers/test_sigir2021.py
+    # To preserve working commands in published papers: integrations/core/papers/test_sigir2021.py
     "wikipedia-dpr": TF_INDEX_INFO_OTHER["wikipedia-dpr-100w"],
 
     # Common names mapping to corpora
@@ -1667,7 +1618,7 @@ def import_from_impact_lucene(index_metadata):
             index_metadata.urls[0]
         ],
         'md5': index_metadata.md5,
-        'size compressed (bytes)': index_metadata.compressedSize,
+        'size': index_metadata.size,
         'total_terms': index_metadata.totalTerms,
         'documents': index_metadata.documents,
         'unique_terms': index_metadata.uniqueTerms,
@@ -1686,7 +1637,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/slimr/lucene-inverted.msmarco-v1-passage.slimr.tar.gz",
         ],
         "md5": "2871da5fec6991b65032c7a159cfc9ec",
-        "size compressed (bytes)": 1902711709,
+        "size": 1902711709,
         "total_terms": 100694232684,
         "documents": 8841823,
         "unique_terms": 28121,
@@ -1700,7 +1651,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/slimr-pp/lucene-inverted.msmarco-v1-passage.slimr-pp.tar.gz",
         ],
         "md5": "af85ff00a264e5288bac9e745cc4bb62",
-        "size compressed (bytes)": 2135050221,
+        "size": 2135050221,
         "total_terms": 104421954301,
         "documents": 8841823,
         "unique_terms": 27766,
@@ -1714,7 +1665,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/unicoil/lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.tar.gz",
         ],
         "md5": "f926bd3e17d210ff041f880d27bdcd6f",
-        "size compressed (bytes)": 1161033793,
+        "size": 1161033793,
         "total_terms": 44495093768,
         "documents": 8841823,
         "unique_terms": 27678,
@@ -1728,7 +1679,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/unicoil-noexp/lucene-inverted.msmarco-v1-passage.unicoil-noexp.20221005.252b5e.tar.gz",
         ],
         "md5": "8a2527e582c343374b8270b1db8d1a06",
-        "size compressed (bytes)": 873513687,
+        "size": 873513687,
         "total_terms": 26468530021,
         "documents": 8841823,
         "unique_terms": 27647,
@@ -1742,7 +1693,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/unicoil-tilde/lucene-inverted.msmarco-v1-passage.unicoil-tilde.20221005.252b5e.tar.gz",
         ],
         "md5": "2d192adb9e0bfc6024d399dca9f36b50",
-        "size compressed (bytes)": 1871923442,
+        "size": 1871923442,
         "total_terms": 73040108576,
         "documents": 8841823,
         "unique_terms": 27646,
@@ -1756,7 +1707,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/deepimpact/lucene-inverted.msmarco-v1-passage.deepimpact.20221005.252b5e.tar.gz",
         ],
         "md5": "b4f1d0886cdfca43230dfb6d4866ff14",
-        "size compressed (bytes)": 1242661399,
+        "size": 1242661399,
         "total_terms": 35455908214,
         "documents": 8841823,
         "unique_terms": 3514102,
@@ -1770,7 +1721,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/distill-splade-max/lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.tar.gz",
         ],
         "md5": "145e283e9f44235ae132f86fca07f083",
-        "size compressed (bytes)": 3822890791,
+        "size": 3822890791,
         "total_terms": 95445422483,
         "documents": 8841823,
         "unique_terms": 28131,
@@ -1784,7 +1735,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-ed.20230524.a59610.tar.gz",
         ],
         "md5": "2c008fc36131e27966a72292932358e6",
-        "size compressed (bytes)": 2102230097,
+        "size": 2102230097,
         "total_terms": 52376261130,
         "documents": 8841823,
         "unique_terms": 28679,
@@ -1798,7 +1749,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-ed-docvectors.20230524.a59610.tar.gz",
         ],
         "md5": "98d6bb5eaf7b0c704d200843115ef827",
-        "size compressed (bytes)": 13052698276,
+        "size": 13052698276,
         "total_terms": 52376261130,
         "documents": 8841823,
         "unique_terms": 28679,
@@ -1812,7 +1763,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-ed-text.20230524.a59610.tar.gz",
         ],
         "md5": "738f7a79c69075044da92127889fd191",
-        "size compressed (bytes)": 9983469326,
+        "size": 9983469326,
         "total_terms": 52376261130,
         "documents": 8841823,
         "unique_terms": 28679,
@@ -1826,7 +1777,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-sd.20230524.a59610.tar.gz",
         ],
         "md5": "b92bbe960186d2b7c752856b07b0e889",
-        "size compressed (bytes)": 2367260823,
+        "size": 2367260823,
         "total_terms": 55456660129,
         "documents": 8841823,
         "unique_terms": 28662,
@@ -1840,7 +1791,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-sd-docvectors.20230524.a59610.tar.gz",
         ],
         "md5": "32eab153ab5c67faf9c0411a421e2ac5",
-        "size compressed (bytes)": 14829233252,
+        "size": 14829233252,
         "total_terms": 55456660129,
         "documents": 8841823,
         "unique_terms": 28662,
@@ -1854,7 +1805,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-sd-text.20230524.a59610.tar.gz",
         ],
         "md5": "5483ec81dc4f4057468a3df21c22f236",
-        "size compressed (bytes)": 11473064932,
+        "size": 11473064932,
         "total_terms": 55456660129,
         "documents": 8841823,
         "unique_terms": 28662,
@@ -1869,7 +1820,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-v3/lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.tar.gz"
         ],
         "md5": "52f4b59d236547f570555715ed314311",
-        "size compressed (bytes)": 2813676432,
+        "size": 2813676432,
         "total_terms": 46922883529,
         "documents": 8841823,
         "unique_terms": 27952,
@@ -1883,7 +1834,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-v3/lucene-inverted.msmarco-v1-passage.splade-v3-docvectors.20250329.4f4c68.tar.gz",
         ],
         "md5": "28fcf13a9b22ea2b9f9e90b650a9bee9",
-        "size compressed (bytes)": 17003537833,
+        "size": 17003537833,
         "total_terms": 46922883529,
         "documents": 8841823,
         "unique_terms": 27952,
@@ -1897,7 +1848,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-v3/lucene-inverted.msmarco-v1-passage.splade-v3-text.20250329.4f4c68.tar.gz",
         ],
         "md5": "ed19483173a6ebddb257cfef5f5d54d6",
-        "size compressed (bytes)": 15479150141,
+        "size": 15479150141,
         "total_terms": 46922883529,
         "documents": 8841823,
         "unique_terms": 27952,
@@ -1912,7 +1863,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/unicoil/lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.tar.gz",
         ],
         "md5": "7dc32ad22876fbbe0f24f21fd1ea50c0",
-        "size compressed (bytes)": 5765257801,
+        "size": 5765257801,
         "total_terms": 214505277898,
         "documents": 20545677,
         "unique_terms": 29142,
@@ -1926,7 +1877,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/unicoil-noexp/lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.tar.gz",
         ],
         "md5": "f92d5a2ba22274993b34f69e59427379",
-        "size compressed (bytes)": 5323380902,
+        "size": 5323380902,
         "total_terms": 152323732876,
         "documents": 20545677,
         "unique_terms": 29142,
@@ -1941,7 +1892,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage.unicoil-0shot.20220808.4d6d2a.tar.gz",
         ],
         "md5": "69919059e3e9575968edafe168b55b66",
-        "size compressed (bytes)": 21736933019,
+        "size": 21736933019,
         "total_terms": 775253560148,
         "documents": 138364198,
         "unique_terms": 29149,
@@ -1955,7 +1906,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage.unicoil-noexp-0shot.20220808.4d6d2a.tar.gz",
         ],
         "md5": "3e0a5be5adca063a112fa2f0978f91cb",
-        "size compressed (bytes)": 14347304537,
+        "size": 14347304537,
         "total_terms": 411330032512,
         "documents": 138364198,
         "unique_terms": 29148,
@@ -1968,7 +1919,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage.slimr-pp.20230614.tar.gz",
         ],
         "md5": "e4091198c2345a3a9aa073a52ff9fb48",
-        "size compressed (bytes)": 35297331848,
+        "size": 35297331848,
         "total_terms": 1668035574958,
         "documents": 138364197,
         "unique_terms": -1,
@@ -1983,7 +1934,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc-segmented.unicoil-0shot.20220808.4d6d2a.tar.gz"
         ],
         "md5": "ff12d2001f463460a11ff6f60175190e",
-        "size compressed (bytes)": 33573638017,
+        "size": 33573638017,
         "total_terms": 1204542769110,
         "documents": 124131414,
         "unique_terms": 29168,
@@ -1997,7 +1948,7 @@ IMPACT_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc-segmented.unicoil-noexp-0shot.20220808.4d6d2a.tar.gz"
         ],
         "md5": "e3f448f4de46d86953892337fea39ed0",
-        "size compressed (bytes)": 29059154628,
+        "size": 29059154628,
         "total_terms": 820664704261,
         "documents": 124131404,
         "unique_terms": 29172,
@@ -2006,9 +1957,9 @@ IMPACT_INDEX_INFO_MSMARCO = {
 }
 
 IMPACT_INDEX_INFO_MSMARCO_ALIASES = {
-    # To preserve working commands in published papers: integrations/papers/test_sigir2022.py testcase test_Trotman_etal
+    # To preserve working commands in published papers: integrations/core/papers/test_sigir2022.py testcase test_Trotman_etal
     "msmarco-passage-unicoil-d2q": IMPACT_INDEX_INFO_MSMARCO["msmarco-v1-passage.unicoil"],
-    # To preserve working commands in published papers: integrations/papers/test_sigir2022.py testcase test_Ma_etal_section4_1b
+    # To preserve working commands in published papers: integrations/core/papers/test_sigir2022.py testcase test_Ma_etal_section4_1b
     "msmarco-v2-passage-unicoil-0shot": IMPACT_INDEX_INFO_MSMARCO["msmarco-v2-passage.unicoil-0shot"]
 }
 
@@ -2107,7 +2058,7 @@ def import_from_hnsw_lucene(index_metadata):
             index_metadata.urls[0]
         ],
         'md5': index_metadata.md5,
-        'size compressed (bytes)': index_metadata.compressedSize,
+        'size': index_metadata.size,
         'texts': index_metadata.corpusIndex
     }
 
@@ -2182,7 +2133,7 @@ def import_from_flat_lucene(index_metadata):
             index_metadata.urls[0]
         ],
         'md5': index_metadata.md5,
-        'size compressed (bytes)': index_metadata.compressedSize,
+        'size': index_metadata.size,
         'texts': index_metadata.corpusIndex
     }
 
@@ -2248,7 +2199,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.cosdpr-distil.20221023.tar.gz"
         ],
         "md5": "83565019175c79fcc5f8d99fb1bd43ca",
-        "size compressed (bytes)": 23843194320,
+        "size": 23843194320,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2260,7 +2211,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.aggretriever-cocondenser.20230407.f627ef.tar.gz"
         ],
         "md5": "c55472025808eeca736c7123f0033726",
-        "size compressed (bytes)": 26053474818,
+        "size": 26053474818,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2272,7 +2223,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.aggretriever-distilbert.20230407.f627ef.tar.gz"
         ],
         "md5": "d8fd51bfe974752cf770856623e39668",
-        "size compressed (bytes)": 25963140631,
+        "size": 25963140631,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2285,7 +2236,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.ance.20210224.060cef.tar.gz"
         ],
         "md5": "e6cf0c1011200af81fd53aa7c5ce9414",
-        "size compressed (bytes)": 25102344926,
+        "size": 25102344926,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2297,7 +2248,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.distilbert-dot-margin_mse-t2.20210316.d44c3a.tar.gz"
         ],
         "md5": "bb8a3c3cf48fcd8c2e66f974fb449336",
-        "size compressed (bytes)": 25162771335,
+        "size": 25162771335,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2309,7 +2260,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.distilbert-dot-tas_b-b256.20210527.63276f.tar.gz"
         ],
         "md5": "538546d5818527a51d87ce482e7a197e",
-        "size compressed (bytes)": 25162329450,
+        "size": 25162329450,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2321,7 +2272,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.sbert.20210313.a0fbb3.tar.gz"
         ],
         "md5": "b1649ea89b48cc89b3027399d09873dd",
-        "size compressed (bytes)": 25214193348,
+        "size": 25214193348,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2333,7 +2284,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "b21fb6abee3be6da3b6f39c9f6d9f280",
-        "size compressed (bytes)": 25217210007,
+        "size": 25217210007,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2345,7 +2296,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.tct_colbert.20210112.be7119.tar.gz"
         ],
         "md5": "6c544e9dcd87b3b6acac0f8a69d741dd",
-        "size compressed (bytes)": 25204502424,
+        "size": 25204502424,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2357,7 +2308,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-hnsw.msmarco-v1-passage.tct_colbert.20210112.be7119.tar.gz"
         ],
         "md5": "6b7285a7f0163d1a547214396be20488",
-        "size compressed (bytes)": 33359120779,
+        "size": 33359120779,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2369,7 +2320,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.tct_colbert-v2.20210608.5f341b.tar.gz"
         ],
         "md5": "768b897ec4ac62f5cea05ece12e5b284",
-        "size compressed (bytes)": 25211079424,
+        "size": 25211079424,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2381,7 +2332,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.tct_colbert-v2-hn.20210608.5f341b.tar.gz"
         ],
         "md5": "583210e5e8c8cddd4f34dbdf75bb4c21",
-        "size compressed (bytes)": 25205730186,
+        "size": 25205730186,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2393,7 +2344,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.tct_colbert-v2-hnp.20210608.5f341b.tar.gz"
         ],
         "md5": "d22d0b6b32f156088a10b0d54ecc1da2",
-        "size compressed (bytes)": 25225526400,
+        "size": 25225526400,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2405,7 +2356,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.openai-ada2.20230530.e3a58f.tar.gz"
         ],
         "md5": "5bad28d6ab7e28b834c3b3dd7be0fbc7",
-        "size compressed (bytes)": 45649935995,
+        "size": 45649935995,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2417,7 +2368,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.cohere-embed-english-v3.0.20240216.2154e79.tar.gz"
         ],
         "md5": "be2b8975161e1327fc852e01287dff48",
-        "size compressed (bytes)": 21341576860,
+        "size": 21341576860,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2430,7 +2381,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.openai-text-embedding-3-large.20240410.c13cd6.tar.gz"
         ],
         "md5": "e52f046b1decc9bf3a55ac0ff70780d0",
-        "size compressed (bytes)": 87658796879,
+        "size": 87658796879,
         "documents": 8841823,
         "downloaded": False,
         "texts": "msmarco-v1-passage"
@@ -2443,7 +2394,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-doc.ance_maxp.20210304.b2a1b0.tar.gz"
         ],
         "md5": "f956d8c718c77717fa9611c471e336da",
-        "size compressed (bytes)": 58312804630,
+        "size": 58312804630,
         "documents": 20544550,
         "downloaded": False,
         "texts": "msmarco-v1-doc"
@@ -2455,7 +2406,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-doc.tct_colbert.20210112.be7119.tar.gz"
         ],
         "md5": "be7ff45b369803c10cc90fbab8642e60",
-        "size compressed (bytes)": 58514326319,
+        "size": 58514326319,
         "documents": 20544550,
         "downloaded": False,
         "texts": "msmarco-v1-doc"
@@ -2467,7 +2418,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-doc-segmented.tct_colbert-v2-hnp.tar.gz"
         ],
         "md5": "51b1309a0afac090aafbf96f84002ec0",
-        "size compressed (bytes)": 58586765630,
+        "size": 58586765630,
         "documents": 20544550,
         "downloaded": False,
         "texts": "msmarco-v1-doc-segmented"
@@ -2480,7 +2431,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.20241111.tar.gz"
         ],
         "md5": "66323cd3eb23aaf073e506a3c30e3622",
-        "size compressed (bytes)": 226032429430,
+        "size": 226032429430,
         "documents": 59345785,
         "downloaded": False,
         "texts": "msmarco-v2.1-doc-segmented"
@@ -2493,7 +2444,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.20241111.tar.gz"
         ],
         "md5": "a23d0a69df520dda9ac2d913f9d30e96",
-        "size compressed (bytes)": 206300692646,
+        "size": 206300692646,
         "documents": 54174965,
         "downloaded": False,
         "texts": "msmarco-v2.1-doc-segmented"
@@ -2506,7 +2457,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v2.1-doc-segmented-shard01.arctic-embed-m-v1.5.20241111.tar.gz"
         ],
         "md5": "d4c9beda52047204137851b8aeb4b41b",
-        "size compressed (bytes)": 174698080459,
+        "size": 174698080459,
         "documents": 61104707,
         "downloaded": False,
         "texts": "msmarco-v2.1-doc-segmented"
@@ -2519,7 +2470,7 @@ FAISS_INDEX_INFO_MSMARCO = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v2.1-doc-segmented-shard02.arctic-embed-m-v1.5.20241111.tar.gz"
         ],
         "md5": "f885cab8af4a281fde7a33d9d20c5774",
-        "size compressed (bytes)": 149827891716,
+        "size": 149827891716,
         "documents": 52416043,
         "downloaded": False,
         "texts": "msmarco-v2.1-doc-segmented"
@@ -2536,7 +2487,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-trec-covid.contriever.20230124.tar.gz"
         ],
         "md5": "3f178cadc4a2d31bb1087e344f99ab4c",
-        "size compressed (bytes)": 488100337,
+        "size": 488100337,
         "documents": 171332,
         "downloaded": False,
         "texts": "beir-v1.0.0-trec-covid.flat"
@@ -2549,7 +2500,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-bioasq.contriever.20230124.tar.gz"
         ],
         "md5": "a29261de8d5d3e473f66ed255b65ba96",
-        "size compressed (bytes)": 42417202575,
+        "size": 42417202575,
         "documents": 14914603,
         "downloaded": False,
         "texts": "beir-v1.0.0-bioasq.flat"
@@ -2562,7 +2513,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-nfcorpus.contriever.20230124.tar.gz"
         ],
         "md5": "30008d78302ee205f704bae116523efa",
-        "size compressed (bytes)": 10322413,
+        "size": 10322413,
         "documents": 3633,
         "downloaded": False,
         "texts": "beir-v1.0.0-nfcorpus.flat"
@@ -2575,7 +2526,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-nq.contriever.20230124.tar.gz"
         ],
         "md5": "0bcfc534e6ef614e0f1b9ab6da57e481",
-        "size compressed (bytes)": 7617697773,
+        "size": 7617697773,
         "documents": 2681468,
         "downloaded": False,
         "texts": "beir-v1.0.0-nq.flat"
@@ -2588,7 +2539,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-hotpotqa.contriever.20230124.tar.gz"
         ],
         "md5": "b0813bc6c07b972419385e5f7f9aefe4",
-        "size compressed (bytes)": 14874722012,
+        "size": 14874722012,
         "documents": 5233329,
         "downloaded": False,
         "texts": "beir-v1.0.0-hotpotqa.flat"
@@ -2601,7 +2552,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-fiqa.contriever.20230124.tar.gz"
         ],
         "md5": "dd7812b413b2bb6d1168937402b2ac6c",
-        "size compressed (bytes)": 164024743,
+        "size": 164024743,
         "documents": 57638,
         "downloaded": False,
         "texts": "beir-v1.0.0-fiqa.flat"
@@ -2614,7 +2565,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-signal1m.contriever.20230124.tar.gz"
         ],
         "md5": "cb7e12e441584094a996139f16831b71",
-        "size compressed (bytes)": 8142534260,
+        "size": 8142534260,
         "documents": 2866316,
         "downloaded": False,
         "texts": "beir-v1.0.0-signal1m.flat"
@@ -2627,7 +2578,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-trec-news.contriever.20230124.tar.gz"
         ],
         "md5": "d3c5d0b7c3611805bec59b382f373857",
-        "size compressed (bytes)": 1629958666,
+        "size": 1629958666,
         "documents": 594977,
         "downloaded": False,
         "texts": "beir-v1.0.0-trec-news.flat"
@@ -2640,7 +2591,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-robust04.contriever.20230124.tar.gz"
         ],
         "md5": "cbc30e163097ec1269e2b355d40ef373",
-        "size compressed (bytes)": 1501110513,
+        "size": 1501110513,
         "documents": 528155,
         "downloaded": False,
         "texts": "beir-v1.0.0-robust04.flat"
@@ -2653,7 +2604,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-arguana.contriever.20230124.tar.gz"
         ],
         "md5": "d75510f440ba12c645de1a1aa1d2cbc9",
-        "size compressed (bytes)": 24710574,
+        "size": 24710574,
         "documents": 8674,
         "downloaded": False,
         "texts": "beir-v1.0.0-arguana.flat"
@@ -2666,7 +2617,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-webis-touche2020.contriever.20230124.tar.gz"
         ],
         "md5": "d26a488863f44023580deefc309f4d13",
-        "size compressed (bytes)": 1091320687,
+        "size": 1091320687,
         "documents": 382545,
         "downloaded": False,
         "texts": "beir-v1.0.0-webis-touche2020.flat"
@@ -2679,7 +2630,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-android.contriever.20230124.tar.gz"
         ],
         "md5": "e360f313228e914808bc90721bd39784",
-        "size compressed (bytes)": 65447253,
+        "size": 65447253,
         "documents": 22998,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-android.flat"
@@ -2692,7 +2643,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-english.contriever.20230124.tar.gz"
         ],
         "md5": "edb867d9bc0744fefc3024ecd38f83ee",
-        "size compressed (bytes)": 114460503,
+        "size": 114460503,
         "documents": 40221,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-english.flat"
@@ -2705,7 +2656,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-gaming.contriever.20230124.tar.gz"
         ],
         "md5": "8778ea1b56d506449eea05a510935500",
-        "size compressed (bytes)": 128906101,
+        "size": 128906101,
         "documents": 45301,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-gaming.flat"
@@ -2718,7 +2669,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-gis.contriever.20230124.tar.gz"
         ],
         "md5": "0b6224dc15c8c5211f8d16189e3c7fac",
-        "size compressed (bytes)": 107128998,
+        "size": 107128998,
         "documents": 37637,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-gis.flat"
@@ -2731,7 +2682,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-mathematica.contriever.20230124.tar.gz"
         ],
         "md5": "7db3aa811104f7b34464cadcd3084176",
-        "size compressed (bytes)": 47544599,
+        "size": 47544599,
         "documents": 16705,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-mathematica.flat"
@@ -2744,7 +2695,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-physics.contriever.20230124.tar.gz"
         ],
         "md5": "26126f4e8896d054cec11d8f4b840c1a",
-        "size compressed (bytes)": 109048292,
+        "size": 109048292,
         "documents": 38316,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-physics.flat"
@@ -2757,7 +2708,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-programmers.contriever.20230124.tar.gz"
         ],
         "md5": "bb5fec14f14caf08d7338b7d1ff86d6b",
-        "size compressed (bytes)": 91583163,
+        "size": 91583163,
         "documents": 32176,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-programmers.flat"
@@ -2770,7 +2721,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-stats.contriever.20230124.tar.gz"
         ],
         "md5": "249b0a88775ab130e30efd3b6e07ebb8",
-        "size compressed (bytes)": 120288678,
+        "size": 120288678,
         "documents": 42269,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-stats.flat"
@@ -2783,7 +2734,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-tex.contriever.20230124.tar.gz"
         ],
         "md5": "47d87a4dba07dc2cd651582b0388ccf1",
-        "size compressed (bytes)": 194080722,
+        "size": 194080722,
         "documents": 68184,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-tex.flat"
@@ -2796,7 +2747,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-unix.contriever.20230124.tar.gz"
         ],
         "md5": "e8e09adcd207653792b5f5c430f355db",
-        "size compressed (bytes)": 134860136,
+        "size": 134860136,
         "documents": 47382,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-unix.flat"
@@ -2809,7 +2760,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-webmasters.contriever.20230124.tar.gz"
         ],
         "md5": "9c0d468e18b137d8c7123c7ece5deafd",
-        "size compressed (bytes)": 49531606,
+        "size": 49531606,
         "documents": 17405,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-webmasters.flat"
@@ -2822,7 +2773,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-wordpress.contriever.20230124.tar.gz"
         ],
         "md5": "c4100815492270db1519f644260a3b5a",
-        "size compressed (bytes)": 138348174,
+        "size": 138348174,
         "documents": 48605,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-wordpress.flat"
@@ -2835,7 +2786,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-quora.contriever.20230124.tar.gz"
         ],
         "md5": "65cebdab871e2065fdacf0977f32a2bd",
-        "size compressed (bytes)": 1485866155,
+        "size": 1485866155,
         "documents": 522931,
         "downloaded": False,
         "texts": "beir-v1.0.0-quora.flat"
@@ -2848,7 +2799,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-dbpedia-entity.contriever.20230124.tar.gz"
         ],
         "md5": "6098fd3dc9b2cae202d56f20b961291f",
-        "size compressed (bytes)": 13214316276,
+        "size": 13214316276,
         "documents": 4635922,
         "downloaded": False,
         "texts": "beir-v1.0.0-dbpedia-entity.flat"
@@ -2861,7 +2812,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-scidocs.contriever.20230124.tar.gz"
         ],
         "md5": "c565903e4eacf637173df096c6306e45",
-        "size compressed (bytes)": 73532582,
+        "size": 73532582,
         "documents": 25657,
         "downloaded": False,
         "texts": "beir-v1.0.0-scidocs.flat"
@@ -2874,7 +2825,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-fever.contriever.20230124.tar.gz"
         ],
         "md5": "01808e4f7ddcd31b391091c441de4bac",
-        "size compressed (bytes)": 15437918697,
+        "size": 15437918697,
         "documents": 5416568,
         "downloaded": False,
         "texts": "beir-v1.0.0-fever.flat"
@@ -2887,7 +2838,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-climate-fever.contriever.20230124.tar.gz"
         ],
         "md5": "b6ed4fe268281cd6cde8a2e0be361485",
-        "size compressed (bytes)": 15437988872,
+        "size": 15437988872,
         "documents": 5416593,
         "downloaded": False,
         "texts": "beir-v1.0.0-climate-fever.flat"
@@ -2900,7 +2851,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-scifact.contriever.20230124.tar.gz"
         ],
         "md5": "b0fe70f77488b3f296ccc98ffce65b49",
-        "size compressed (bytes)": 14753571,
+        "size": 14753571,
         "documents": 5183,
         "downloaded": False,
         "texts": "beir-v1.0.0-scifact.flat"
@@ -2915,7 +2866,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-trec-covid.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "607174fdc964760a1d491af294fb1b91",
-        "size compressed (bytes)": 487986914,
+        "size": 487986914,
         "documents": 171332,
         "downloaded": False,
         "texts": "beir-v1.0.0-trec-covid.flat",
@@ -2928,7 +2879,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-bioasq.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "280c03564ea10a2bf1dcc01f9107b11c",
-        "size compressed (bytes)": 42438279824,
+        "size": 42438279824,
         "documents": 14914603,
         "downloaded": False,
         "texts": "beir-v1.0.0-bioasq.flat",
@@ -2941,7 +2892,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-nfcorpus.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "bfbec2a543a719e4085b2f67911ce965",
-        "size compressed (bytes)": 10327251,
+        "size": 10327251,
         "documents": 3633,
         "downloaded": False,
         "texts": "beir-v1.0.0-nfcorpus.flat",
@@ -2954,7 +2905,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-nq.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "5eb685f5c2de1978de5b43604560fb01",
-        "size compressed (bytes)": 7619790062,
+        "size": 7619790062,
         "documents": 2681468,
         "downloaded": False,
         "texts": "beir-v1.0.0-nq.flat",
@@ -2967,7 +2918,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-hotpotqa.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "38c37708f9927501ca2f7563aa43f407",
-        "size compressed (bytes)": 14889518959,
+        "size": 14889518959,
         "documents": 5233329,
         "downloaded": False,
         "texts": "beir-v1.0.0-hotpotqa.flat",
@@ -2980,7 +2931,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-fiqa.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "540216665f5611df5ef968c66a068150",
-        "size compressed (bytes)": 163998686,
+        "size": 163998686,
         "documents": 57638,
         "downloaded": False,
         "texts": "beir-v1.0.0-fiqa.flat",
@@ -2993,7 +2944,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-signal1m.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "a71e5a2ada31a540817acdc1a2f7b2de",
-        "size compressed (bytes)": 8146484810,
+        "size": 8146484810,
         "documents": 2866316,
         "downloaded": False,
         "texts": "beir-v1.0.0-signal1m.flat",
@@ -3006,7 +2957,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-trec-news.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "fe560c02030bf212e4a4f3c1f205560d",
-        "size compressed (bytes)": 1629437390,
+        "size": 1629437390,
         "documents": 594977,
         "downloaded": False,
         "texts": "beir-v1.0.0-trec-news.flat",
@@ -3019,7 +2970,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-robust04.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "de5531902df243521e006fbaa82ca1f9",
-        "size compressed (bytes)": 1501089090,
+        "size": 1501089090,
         "documents": 528155,
         "downloaded": False,
         "texts": "beir-v1.0.0-robust04.flat",
@@ -3032,7 +2983,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-arguana.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "2e32725a55a0db47953f481de393f1e4",
-        "size compressed (bytes)": 24705839,
+        "size": 24705839,
         "documents": 8674,
         "downloaded": False,
         "texts": "beir-v1.0.0-arguana.flat",
@@ -3045,7 +2996,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-webis-touche2020.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "c33ec5918c1afc435c5fa5ca2bfe61f1",
-        "size compressed (bytes)": 1090748336,
+        "size": 1090748336,
         "documents": 382545,
         "downloaded": False,
         "texts": "beir-v1.0.0-webis-touche2020.flat",
@@ -3058,7 +3009,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-android.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "797b950b084d394f491fd84a0e7b8ef1",
-        "size compressed (bytes)": 65438909,
+        "size": 65438909,
         "documents": 22998,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-android.flat",
@@ -3071,7 +3022,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-english.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "47f1408415a30ef448e516331d8c6131",
-        "size compressed (bytes)": 114462176,
+        "size": 114462176,
         "documents": 40221,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-english.flat",
@@ -3084,7 +3035,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-gaming.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "c293a3bca328183609c09d910094862a",
-        "size compressed (bytes)": 128896849,
+        "size": 128896849,
         "documents": 45301,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-gaming.flat",
@@ -3097,7 +3048,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-gis.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "524162e606cc785a9f5e30b369d6334d",
-        "size compressed (bytes)": 107086866,
+        "size": 107086866,
         "documents": 37637,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-gis.flat",
@@ -3110,7 +3061,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "a224440d580614ec8dc5d00f052aaa41",
-        "size compressed (bytes)": 47527017,
+        "size": 47527017,
         "documents": 16705,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-mathematica.flat",
@@ -3123,7 +3074,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-physics.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "ed92c35d50f462cf29b09369a15c0b94",
-        "size compressed (bytes)": 109024718,
+        "size": 109024718,
         "documents": 38316,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-physics.flat",
@@ -3136,7 +3087,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-programmers.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "b0f925036d7a7b1b7529fbee840befa1",
-        "size compressed (bytes)": 91567849,
+        "size": 91567849,
         "documents": 32176,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-programmers.flat",
@@ -3149,7 +3100,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-stats.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "a9db7f37526ee392ba762bf52e29f981",
-        "size compressed (bytes)": 120271278,
+        "size": 120271278,
         "documents": 42269,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-stats.flat",
@@ -3162,7 +3113,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-tex.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "f7e4f9da65d21bfc471e72c155791326",
-        "size compressed (bytes)": 194009281,
+        "size": 194009281,
         "documents": 68184,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-tex.flat",
@@ -3175,7 +3126,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-unix.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "d866f3c8d21ccfffecd400bda40dd823",
-        "size compressed (bytes)": 134821507,
+        "size": 134821507,
         "documents": 47382,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-unix.flat",
@@ -3188,7 +3139,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "84631850c0a127382e10ebb871b056a6",
-        "size compressed (bytes)": 49530843,
+        "size": 49530843,
         "documents": 17405,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-webmasters.flat",
@@ -3201,7 +3152,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "2e171633d09f3ac069fbafd7c1b81af3",
-        "size compressed (bytes)": 138328538,
+        "size": 138328538,
         "documents": 48605,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-wordpress.flat",
@@ -3214,7 +3165,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-quora.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "1a58388eca4591390c439c7bf3a10dcc",
-        "size compressed (bytes)": 1487402618,
+        "size": 1487402618,
         "documents": 522931,
         "downloaded": False,
         "texts": "beir-v1.0.0-quora.flat",
@@ -3227,7 +3178,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-dbpedia-entity.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "c9dd2022c77ce99a381346b5e550f438",
-        "size compressed (bytes)": 13226845554,
+        "size": 13226845554,
         "documents": 4635922,
         "downloaded": False,
         "texts": "beir-v1.0.0-dbpedia-entity.flat",
@@ -3240,7 +3191,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-scidocs.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "11181c5fa0c75521cbac1417236a0a95",
-        "size compressed (bytes)": 73530345,
+        "size": 73530345,
         "documents": 25657,
         "downloaded": False,
         "texts": "beir-v1.0.0-scidocs.flat",
@@ -3253,7 +3204,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-fever.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "736b179578fe3798111bda2b2e00aced",
-        "size compressed (bytes)": 15444001345,
+        "size": 15444001345,
         "documents": 5416568,
         "downloaded": False,
         "texts": "beir-v1.0.0-fever.flat",
@@ -3266,7 +3217,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-climate-fever.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "fd1bfde8fd2bccc0be98edec8eb3bf20",
-        "size compressed (bytes)": 15444073241,
+        "size": 15444073241,
         "documents": 5416593,
         "downloaded": False,
         "texts": "beir-v1.0.0-climate-fever.flat",
@@ -3279,7 +3230,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-scifact.contriever-msmarco.20230124.tar.gz"
         ],
         "md5": "0caa1724d9e6e3324bfd2a875b7218df",
-        "size compressed (bytes)": 14758752,
+        "size": 14758752,
         "documents": 5183,
         "downloaded": False,
         "texts": "beir-v1.0.0-scifact.flat",
@@ -3293,7 +3244,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-trec-covid.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "da2d227d8ddbb97109b469f8e1473b3b",
-        "size compressed (bytes)": 489619642,
+        "size": 489619642,
         "documents": 171332,
         "downloaded": False,
         "texts": "beir-v1.0.0-trec-covid.flat"
@@ -3305,7 +3256,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-bioasq.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "13261d776f4f27aec1abf4431eedcb42",
-        "size compressed (bytes)": 42566761620,
+        "size": 42566761620,
         "documents": 14914603,
         "downloaded": False,
         "texts": "beir-v1.0.0-bioasq.flat"
@@ -3317,7 +3268,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-nfcorpus.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "40da814f50fadf5f5ac1feb06ed3903b",
-        "size compressed (bytes)": 10355291,
+        "size": 10355291,
         "documents": 3633,
         "downloaded": False,
         "texts": "beir-v1.0.0-nfcorpus.flat"
@@ -3329,7 +3280,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-nq.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "b738bbbe7ca36532f25189b776d4e153",
-        "size compressed (bytes)": 7630355859,
+        "size": 7630355859,
         "documents": 2681468,
         "downloaded": False,
         "texts": "beir-v1.0.0-nq.flat"
@@ -3341,7 +3292,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-hotpotqa.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "d2c08665e8cd750bd06ceb7d23897c94",
-        "size compressed (bytes)": 14932298529,
+        "size": 14932298529,
         "documents": 5233329,
         "downloaded": False,
         "texts": "beir-v1.0.0-hotpotqa.flat"
@@ -3353,7 +3304,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-fiqa.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "b57027c48f0b31c53fca034a1f773541",
-        "size compressed (bytes)": 164430948,
+        "size": 164430948,
         "documents": 57638,
         "downloaded": False,
         "texts": "beir-v1.0.0-fiqa.flat"
@@ -3365,7 +3316,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-signal1m.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "3286c1fa5496e3d5de97eee1e621ad3b",
-        "size compressed (bytes)": 8162604163,
+        "size": 8162604163,
         "documents": 2866316,
         "downloaded": False,
         "texts": "beir-v1.0.0-signal1m.flat"
@@ -3377,7 +3328,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-trec-news.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "2032399345f13ea0d1f15d7ae22427d1",
-        "size compressed (bytes)": 1580911769,
+        "size": 1580911769,
         "documents": 594977,
         "downloaded": False,
         "texts": "beir-v1.0.0-trec-news.flat"
@@ -3389,7 +3340,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-robust04.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "e136ef8528027b9085161b5a4f3dc046",
-        "size compressed (bytes)": 1503712018,
+        "size": 1503712018,
         "documents": 528155,
         "downloaded": False,
         "texts": "beir-v1.0.0-robust04.flat"
@@ -3401,7 +3352,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "269047a536f856117a6a34048f49c030",
-        "size compressed (bytes)": 24759653,
+        "size": 24759653,
         "documents": 8674,
         "downloaded": False,
         "texts": "beir-v1.0.0-arguana.flat"
@@ -3413,7 +3364,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "00b68d1ef1c677715ca1ac10c676f99d",
-        "size compressed (bytes)": 1090354182,
+        "size": 1090354182,
         "documents": 382545,
         "downloaded": False,
         "texts": "beir-v1.0.0-webis-touche2020.flat"
@@ -3425,7 +3376,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "f77217f345ec8e26e8f4b45c1a81dba2",
-        "size compressed (bytes)": 65620193,
+        "size": 65620193,
         "documents": 22998,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-android.flat"
@@ -3437,7 +3388,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "0c57a49936831e31f8aec4d893dc2e36",
-        "size compressed (bytes)": 114768549,
+        "size": 114768549,
         "documents": 40221,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-english.flat"
@@ -3449,7 +3400,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "51d5a6a8157a27b2a919890d7760fb01",
-        "size compressed (bytes)": 129249921,
+        "size": 129249921,
         "documents": 45301,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-gaming.flat"
@@ -3461,7 +3412,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "0d4a65cecf8fb51be5f3fc89bbc0910d",
-        "size compressed (bytes)": 107394286,
+        "size": 107394286,
         "documents": 37637,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-gis.flat"
@@ -3473,7 +3424,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "bbae6dfe9ad38215143bf04c1d70e210",
-        "size compressed (bytes)": 47672368,
+        "size": 47672368,
         "documents": 16705,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-mathematica.flat"
@@ -3485,7 +3436,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "8a28f699c6c93cf3847b2c7c0e38916d",
-        "size compressed (bytes)": 109354431,
+        "size": 109354431,
         "documents": 38316,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-physics.flat"
@@ -3497,7 +3448,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "87786e84825276f2edddf282dbed87c5",
-        "size compressed (bytes)": 91818236,
+        "size": 91818236,
         "documents": 32176,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-programmers.flat"
@@ -3509,7 +3460,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "44d178e9780083dc5eb6dafdc7871e69",
-        "size compressed (bytes)": 120632552,
+        "size": 120632552,
         "documents": 42269,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-stats.flat"
@@ -3521,7 +3472,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "94eae392bef6c8d78a3e8a086f867478",
-        "size compressed (bytes)": 194551985,
+        "size": 194551985,
         "documents": 68184,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-tex.flat"
@@ -3533,7 +3484,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "cc0c4ec48266f3064661f7e2cfd3aa97",
-        "size compressed (bytes)": 135195477,
+        "size": 135195477,
         "documents": 47382,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-unix.flat"
@@ -3545,7 +3496,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "6e9ccef54902fa6740e0ff37cf187215",
-        "size compressed (bytes)": 49670415,
+        "size": 49670415,
         "documents": 17405,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-webmasters.flat"
@@ -3557,7 +3508,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "b0d124624680cc3c833f348b4f9a1396",
-        "size compressed (bytes)": 138678474,
+        "size": 138678474,
         "documents": 48605,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-wordpress.flat"
@@ -3569,7 +3520,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-quora.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "cab4a6c847331986cf62490238aec4a5",
-        "size compressed (bytes)": 1491755601,
+        "size": 1491755601,
         "documents": 522931,
         "downloaded": False,
         "texts": "beir-v1.0.0-quora.flat"
@@ -3581,7 +3532,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "d3ba32cc2c185ef9585a91b6083ad78e",
-        "size compressed (bytes)": 13265129127,
+        "size": 13265129127,
         "documents": 4635922,
         "downloaded": False,
         "texts": "beir-v1.0.0-dbpedia-entity.flat"
@@ -3593,7 +3544,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-scidocs.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "cb41d6930f699514c70b23e99506954c",
-        "size compressed (bytes)": 73776098,
+        "size": 73776098,
         "documents": 25657,
         "downloaded": False,
         "texts": "beir-v1.0.0-scidocs.flat"
@@ -3605,7 +3556,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-fever.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "b9ccc330c46645e7819b73315dab8d29",
-        "size compressed (bytes)": 15489138892,
+        "size": 15489138892,
         "documents": 5416568,
         "downloaded": False,
         "texts": "beir-v1.0.0-fever.flat"
@@ -3617,7 +3568,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-climate-fever.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "13515703cfa4032a0ae3a94ac2a3b76f",
-        "size compressed (bytes)": 15489213928,
+        "size": 15489213928,
         "documents": 5416593,
         "downloaded": False,
         "texts": "beir-v1.0.0-climate-fever.flat"
@@ -3629,7 +3580,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-scifact.bge-base-en-v1.5.20240107.tar.gz"
         ],
         "md5": "248b6db6e61d18f17674219aecd8b41d",
-        "size compressed (bytes)": 14807082,
+        "size": 14807082,
         "documents": 5183,
         "downloaded": False,
         "texts": "beir-v1.0.0-scifact.flat"
@@ -3643,7 +3594,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-trec-covid.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "bd81f8e76434bac6757a177038752868",
-        "size compressed (bytes)": 414024650,
+        "size": 414024650,
         "documents": 171332,
         "downloaded": False,
         "texts": "beir-v1.0.0-trec-covid.flat"
@@ -3656,7 +3607,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-bioasq.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "d25220fa2405737c41dfec35b67afaa5",
-        "size compressed (bytes)": 36008754089,
+        "size": 36008754089,
         "documents": 14914603,
         "downloaded": False,
         "texts": "beir-v1.0.0-bioasq.flat"
@@ -3669,7 +3620,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-nfcorpus.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "8c0d2577f8cc1b29eff99b92bfb11d7c",
-        "size compressed (bytes)": 8769499,
+        "size": 8769499,
         "documents": 3633,
         "downloaded": False,
         "texts": "beir-v1.0.0-nfcorpus.flat"
@@ -3682,7 +3633,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-nq.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "33998961282a3dc5230093d058a39cda",
-        "size compressed (bytes)": 6456624636,
+        "size": 6456624636,
         "documents": 2681468,
         "downloaded": False,
         "texts": "beir-v1.0.0-nq.flat"
@@ -3695,7 +3646,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-hotpotqa.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "11631f3ea36c39d50a6a1c695449b630",
-        "size compressed (bytes)": 12618101059,
+        "size": 12618101059,
         "documents": 5233329,
         "downloaded": False,
         "texts": "beir-v1.0.0-hotpotqa.flat"
@@ -3708,7 +3659,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-fiqa.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "e5692c7f8ff5d042eba9fe8674d309de",
-        "size compressed (bytes)": 139105165,
+        "size": 139105165,
         "documents": 57638,
         "downloaded": False,
         "texts": "beir-v1.0.0-fiqa.flat"
@@ -3721,7 +3672,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-signal1m.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "baef67767588ef7d6a0eac19b3f3ef3c",
-        "size compressed (bytes)": 6910588927,
+        "size": 6910588927,
         "documents": 2866316,
         "downloaded": False,
         "texts": "beir-v1.0.0-signal1m.flat"
@@ -3734,7 +3685,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-trec-news.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "2de9f2d422d953b71106f8edfbc23e0a",
-        "size compressed (bytes)": 1292117296,
+        "size": 1292117296,
         "documents": 594977,
         "downloaded": False,
         "texts": "beir-v1.0.0-trec-news.flat"
@@ -3747,7 +3698,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-robust04.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "b36948744ed2400343e4bce432c7bb1f",
-        "size compressed (bytes)": 1271873099,
+        "size": 1271873099,
         "documents": 528155,
         "downloaded": False,
         "texts": "beir-v1.0.0-robust04.flat"
@@ -3760,7 +3711,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-arguana.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "3206b775623067252027dee67f28d530",
-        "size compressed (bytes)": 20943333,
+        "size": 20943333,
         "documents": 8674,
         "downloaded": False,
         "texts": "beir-v1.0.0-arguana.flat"
@@ -3773,7 +3724,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-webis-touche2020.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "216ba2c47b4d0562a4eec7b5e34b9408",
-        "size compressed (bytes)": 920313712,
+        "size": 920313712,
         "documents": 382545,
         "downloaded": False,
         "texts": "beir-v1.0.0-webis-touche2020.flat"
@@ -3786,7 +3737,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-android.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "c39b8fa0d7fc013e80f8cca7ac5b6217",
-        "size compressed (bytes)": 55520218,
+        "size": 55520218,
         "documents": 22998,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-android.flat"
@@ -3799,7 +3750,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-english.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "f7180a07b8de17a16edc7c47cd4c7cab",
-        "size compressed (bytes)": 97094242,
+        "size": 97094242,
         "documents": 40221,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-english.flat"
@@ -3812,7 +3763,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-gaming.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "a85599afabaf741b38cbf0749142709f",
-        "size compressed (bytes)": 109357647,
+        "size": 109357647,
         "documents": 45301,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-gaming.flat"
@@ -3825,7 +3776,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-gis.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "17c1db9371d645fa2f28d17cdfe2b6f4",
-        "size compressed (bytes)": 90813980,
+        "size": 90813980,
         "documents": 37637,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-gis.flat"
@@ -3838,7 +3789,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-mathematica.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "6b357fd66d750cf8ab81687cfd76cc35",
-        "size compressed (bytes)": 40290360,
+        "size": 40290360,
         "documents": 16705,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-mathematica.flat"
@@ -3851,7 +3802,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-physics.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "2bc31bf3b46d152c489dde73e986dfef",
-        "size compressed (bytes)": 92506040,
+        "size": 92506040,
         "documents": 38316,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-physics.flat"
@@ -3864,7 +3815,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-programmers.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "f3e418d7401b5e317e15cc23ed4468cd",
-        "size compressed (bytes)": 77659213,
+        "size": 77659213,
         "documents": 32176,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-programmers.flat"
@@ -3877,7 +3828,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-stats.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "c706454f4c953d1023b427447f9df82b",
-        "size compressed (bytes)": 101984055,
+        "size": 101984055,
         "documents": 42269,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-stats.flat"
@@ -3890,7 +3841,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-tex.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "4ae95cca232d0ce62c8fc3cdcbb10dce",
-        "size compressed (bytes)": 164385000,
+        "size": 164385000,
         "documents": 68184,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-tex.flat"
@@ -3903,7 +3854,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-unix.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "fcb03ccdf02632a5e038279ed288ef52",
-        "size compressed (bytes)": 114349002,
+        "size": 114349002,
         "documents": 47382,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-unix.flat"
@@ -3916,7 +3867,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-webmasters.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "aa255ad1f89050003f32b7dca7b065a9",
-        "size compressed (bytes)": 42021462,
+        "size": 42021462,
         "documents": 17405,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-webmasters.flat"
@@ -3929,7 +3880,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-cqadupstack-wordpress.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "20d24ee757a09eb1c371c47156d5a121",
-        "size compressed (bytes)": 117282936,
+        "size": 117282936,
         "documents": 48605,
         "downloaded": False,
         "texts": "beir-v1.0.0-cqadupstack-wordpress.flat"
@@ -3942,7 +3893,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-quora.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "8f7944b52e740cde07093d8eedf59919",
-        "size compressed (bytes)": 1261685446,
+        "size": 1261685446,
         "documents": 522931,
         "downloaded": False,
         "texts": "beir-v1.0.0-quora.flat"
@@ -3955,7 +3906,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-dbpedia-entity.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "03b04926a9ff25b62afc63a04fbdb248",
-        "size compressed (bytes)": 11215257018,
+        "size": 11215257018,
         "documents": 4635922,
         "downloaded": False,
         "texts": "beir-v1.0.0-dbpedia-entity.flat"
@@ -3968,7 +3919,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-scidocs.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "e6e5367aef57e9102b54b2216f6be659",
-        "size compressed (bytes)": 62465542,
+        "size": 62465542,
         "documents": 25657,
         "downloaded": False,
         "texts": "beir-v1.0.0-scidocs.flat"
@@ -3981,7 +3932,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-fever.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "4d4124a61acff68acd63dba0c5e1bfb0",
-        "size compressed (bytes)": 13095399713,
+        "size": 13095399713,
         "documents": 5416568,
         "downloaded": False,
         "texts": "beir-v1.0.0-fever.flat"
@@ -3994,7 +3945,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-climate-fever.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "d3f0e6fbe8485406c65d01f6370f3a29",
-        "size compressed (bytes)": 13095456071,
+        "size": 13095456071,
         "documents": 5416593,
         "downloaded": False,
         "texts": "beir-v1.0.0-climate-fever.flat"
@@ -4007,7 +3958,7 @@ FAISS_INDEX_INFO_BEIR = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.beir-v1.0.0-scifact.cohere-embed-english-v3.0.20240302.tar.gz"
         ],
         "md5": "a6cb53c484e4c44588814e5d22f3e22f",
-        "size compressed (bytes)": 12522128,
+        "size": 12522128,
         "documents": 5183,
         "downloaded": False,
         "texts": "beir-v1.0.0-scifact.flat"
@@ -4023,7 +3974,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-biology.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
         "md5": "6a9490325549d13e59969cef6d8b5d7c",
-        "size compressed (bytes)": 217330251,
+        "size": 217330251,
         "documents": 57359,
         "downloaded": False,
         "texts": "bright-biology"
@@ -4036,7 +3987,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-earth-science.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
         "md5": "6bf6f0ef39a5d7483dff701373483882",
-        "size compressed (bytes)": 459972791,
+        "size": 459972791,
         "documents": 121249,
         "downloaded": False,
         "texts": "bright-earth-science"
@@ -4049,7 +4000,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-economics.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
         "md5": "6fbdfde1f2926024619b6e775bd008dd",
-        "size compressed (bytes)": 189737637,
+        "size": 189737637,
         "documents": 50220,
         "downloaded": False,
         "texts": "bright-economics"
@@ -4062,7 +4013,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-psychology.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
         "md5": "509b90e64e6364e7385781f4f02c4599",
-        "size compressed (bytes)": 200013778,
+        "size": 200013778,
         "documents": 52835,
         "downloaded": False,
         "texts": "bright-psychology"
@@ -4075,7 +4026,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-robotics.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
         "md5": "c0074c762ceac8172d57d1a7612fd4c3",
-        "size compressed (bytes)": 228859778,
+        "size": 228859778,
         "documents": 61961,
         "downloaded": False,
         "texts": "bright-robotics"
@@ -4088,7 +4039,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-stackoverflow.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
         "md5": "63b6bae7e76a26127cd61be20c6c2d41",
-        "size compressed (bytes)": 393734344,
+        "size": 393734344,
         "documents": 107081,
         "downloaded": False,
         "texts": "bright-stackoverflow"
@@ -4101,7 +4052,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-sustainable-living.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
         "md5": "0635388660ecb68fe1309a98a693fe47",
-        "size compressed (bytes)": 229219246,
+        "size": 229219246,
         "documents": 60792,
         "downloaded": False,
         "texts": "bright-sustainable-living"
@@ -4114,7 +4065,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-pony.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
         "md5": "b3de06631f110e51a717d59b56e085ab",
-        "size compressed (bytes)": 29839662,
+        "size": 29839662,
         "documents": 7894,
         "downloaded": False,
         "texts": "bright-pony"
@@ -4127,7 +4078,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-leetcode.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
         "md5": "3cc820d00ddb92203b0121ac7b26ad51",
-        "size compressed (bytes)": 1575964042,
+        "size": 1575964042,
         "documents": 413932,
         "downloaded": False,
         "texts": "bright-leetcode"
@@ -4140,7 +4091,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-aops.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
         "md5": "6f742b4e9f8def4b3b1ca052335a17ac",
-        "size compressed (bytes)": 715133646,
+        "size": 715133646,
         "documents": 188002,
         "downloaded": False,
         "texts": "bright-aops"
@@ -4153,7 +4104,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-theoremqa-theorems.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
         "md5": "b5248a39c78824bfb041ae6f870fc993",
-        "size compressed (bytes)": 90727136,
+        "size": 90727136,
         "documents": 23839,
         "downloaded": False,
         "texts": "bright-theoremqa-theorems"
@@ -4166,7 +4117,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/bge-large-en-v1.5/faiss-flat.bright-theoremqa-questions.bge-large-en-v1.5.20250808.44889d.tar.gz"
         ],
         "md5": "ec5c6223b284509b6fba48658cd9f58f",
-        "size compressed (bytes)": 715133652,
+        "size": 715133652,
         "documents": 188002,
         "downloaded": False,
         "texts": "bright-theoremqa-questions"
@@ -4179,7 +4130,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-aops.diver-retriever-4b.20260227.2f9328f.tar.gz"
         ],
         "md5": "f24a104cc686e87c037b5557381d12e4",
-        "size compressed (bytes)": 896829813,
+        "size": 896829813,
         "documents": 188002,
         "downloaded": False,
         "texts": "bright-aops"
@@ -4192,7 +4143,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-biology.diver-retriever-4b.20260227.2f9328f.tar.gz"
         ],
         "md5": "e71949be07d506da8e626aaa6b0b446b",
-        "size compressed (bytes)": 273798661,
+        "size": 273798661,
         "documents": 57359,
         "downloaded": False,
         "texts": "bright-biology"
@@ -4205,7 +4156,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-earth-science.diver-retriever-4b.20260227.2f9328f.tar.gz"
         ],
         "md5": "81e0507d98bce70f9d2458aaf6593199",
-        "size compressed (bytes)": 579532629,
+        "size": 579532629,
         "documents": 121249,
         "downloaded": False,
         "texts": "bright-earth-science"
@@ -4218,7 +4169,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-economics.diver-retriever-4b.20260227.2f9328f.tar.gz"
         ],
         "md5": "d77ba223e474a426a0bda26d2e941c08",
-        "size compressed (bytes)": 239278385,
+        "size": 239278385,
         "documents": 50220,
         "downloaded": False,
         "texts": "bright-economics"
@@ -4231,7 +4182,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-leetcode.diver-retriever-4b.20260227.2f9328f.tar.gz"
         ],
         "md5": "4b4ba409add65925c4486979d1a9123c",
-        "size compressed (bytes)": 1976072736,
+        "size": 1976072736,
         "documents": 413932,
         "downloaded": False,
         "texts": "bright-leetcode"
@@ -4244,7 +4195,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-pony.diver-retriever-4b.20260227.2f9328f.tar.gz"
         ],
         "md5": "16976eb2bc8a7837d04e421c057049cd",
-        "size compressed (bytes)": 37595406,
+        "size": 37595406,
         "documents": 7894,
         "downloaded": False,
         "texts": "bright-pony"
@@ -4257,7 +4208,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-psychology.diver-retriever-4b.20260227.2f9328f.tar.gz"
         ],
         "md5": "30c7ffc975ee9197d8521edfa71ea55f",
-        "size compressed (bytes)": 252033353,
+        "size": 252033353,
         "documents": 52835,
         "downloaded": False,
         "texts": "bright-psychology"
@@ -4270,7 +4221,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-robotics.diver-retriever-4b.20260227.2f9328f.tar.gz"
         ],
         "md5": "21338a1542c6efc2bac358cd105cf3f1",
-        "size compressed (bytes)": 292835573,
+        "size": 292835573,
         "documents": 61961,
         "downloaded": False,
         "texts": "bright-robotics"
@@ -4283,7 +4234,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-stackoverflow.diver-retriever-4b.20260227.2f9328f.tar.gz"
         ],
         "md5": "159dbb15ef3954e9915b0019789258f5",
-        "size compressed (bytes)": 506187162,
+        "size": 506187162,
         "documents": 107081,
         "downloaded": False,
         "texts": "bright-stackoverflow"
@@ -4296,7 +4247,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-sustainable-living.diver-retriever-4b.20260227.2f9328f.tar.gz"
         ],
         "md5": "fa13ea9c83956c6305033fa0ccb11711",
-        "size compressed (bytes)": 289525259,
+        "size": 289525259,
         "documents": 60792,
         "downloaded": False,
         "texts": "bright-sustainable-living"
@@ -4309,7 +4260,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-theoremqa-questions.diver-retriever-4b.20260227.2f9328f.tar.gz"
         ],
         "md5": "919193a41b11f39fd33a6b7bd26774e6",
-        "size compressed (bytes)": 896822922,
+        "size": 896822922,
         "documents": 188002,
         "downloaded": False,
         "texts": "bright-theoremqa-questions"
@@ -4322,7 +4273,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/diver-retriever-4b/faiss-flat.bright-theoremqa-theorems.diver-retriever-4b.20260227.2f9328f.tar.gz"
         ],
         "md5": "14c4a0c3aa6f4325688ecfc4f40efaf8",
-        "size compressed (bytes)": 113670945,
+        "size": 113670945,
         "documents": 23839,
         "downloaded": False,
         "texts": "bright-theoremqa-theorems"
@@ -4335,7 +4286,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-aops.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
         ],
         "md5": "76989f371ea044ea2df2336ec3b310a1",
-        "size compressed (bytes)": 897863808,
+        "size": 897863808,
         "documents": 188002,
         "downloaded": False,
         "texts": "bright-aops"
@@ -4348,7 +4299,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-biology.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
         ],
         "md5": "141ee65ed539013096a9ba07a8a19365",
-        "size compressed (bytes)": 273894699,
+        "size": 273894699,
         "documents": 57359,
         "downloaded": False,
         "texts": "bright-biology"
@@ -4361,7 +4312,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-earth-science.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
         ],
         "md5": "c0176d3d7bd68aaba44b13b31cc339d6",
-        "size compressed (bytes)": 579701998,
+        "size": 579701998,
         "documents": 121249,
         "downloaded": False,
         "texts": "bright-earth-science"
@@ -4374,7 +4325,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-economics.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
         ],
         "md5": "b818160492813c7822be5303d506def8",
-        "size compressed (bytes)": 239426214,
+        "size": 239426214,
         "documents": 50220,
         "downloaded": False,
         "texts": "bright-economics"
@@ -4387,7 +4338,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-leetcode.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
         ],
         "md5": "71c835683b84cf764bb4c7b0780e40a9",
-        "size compressed (bytes)": 1978373681,
+        "size": 1978373681,
         "documents": 413932,
         "downloaded": False,
         "texts": "bright-leetcode"
@@ -4400,7 +4351,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-pony.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
         ],
         "md5": "9ba31e11ba4b87b0685e11453d00ad16",
-        "size compressed (bytes)": 37605121,
+        "size": 37605121,
         "documents": 7894,
         "downloaded": False,
         "texts": "bright-pony"
@@ -4413,7 +4364,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-psychology.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
         ],
         "md5": "801632d677dd725c115959a3dc4f4a89",
-        "size compressed (bytes)": 252124461,
+        "size": 252124461,
         "documents": 52835,
         "downloaded": False,
         "texts": "bright-psychology"
@@ -4426,7 +4377,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-robotics.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
         ],
         "md5": "6c0b2ffc294ab44c68718c45e7ca06eb",
-        "size compressed (bytes)": 293018660,
+        "size": 293018660,
         "documents": 61961,
         "downloaded": False,
         "texts": "bright-robotics"
@@ -4439,7 +4390,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-stackoverflow.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
         ],
         "md5": "c1bef66533ee8df89bf145f2bf94b820",
-        "size compressed (bytes)": 506544282,
+        "size": 506544282,
         "documents": 107081,
         "downloaded": False,
         "texts": "bright-stackoverflow"
@@ -4452,7 +4403,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-sustainable-living.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
         ],
         "md5": "8eb33615cad468c79dfbd05ff305e96b",
-        "size compressed (bytes)": 289587208,
+        "size": 289587208,
         "documents": 60792,
         "downloaded": False,
         "texts": "bright-sustainable-living"
@@ -4465,7 +4416,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-theoremqa-questions.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
         ],
         "md5": "5e68ee39688e13e484c3118657513489",
-        "size compressed (bytes)": 897852243,
+        "size": 897852243,
         "documents": 188002,
         "downloaded": False,
         "texts": "bright-theoremqa-questions"
@@ -4478,7 +4429,7 @@ FAISS_INDEX_INFO_BRIGHT = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/resolve/main/faiss-flat/reason-embed-qwen3-4b-0928/faiss-flat.bright-theoremqa-theorems.reason-embed-qwen3-4b-0928.20260226.2f9328f.tar.gz"
         ],
         "md5": "090cf3019dc98a09141a49da8b5f48fd",
-        "size compressed (bytes)": 113826179,
+        "size": 113826179,
         "documents": 23839,
         "downloaded": False,
         "texts": "bright-theoremqa-theorems"
@@ -4494,7 +4445,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-arabic.20220207.5df364.tar.gz"
         ],
         "md5": "de86c1ce43854bbeea4e3af5d95d6ffb",
-        "size compressed (bytes)": 5997718937,
+        "size": 5997718937,
         "documents": 2106586,
         "downloaded": False,
         "texts": "mrtydi-v1.1-arabic"
@@ -4507,7 +4458,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-bengali.20220207.5df364.tar.gz"
         ],
         "md5": "e60cb6f1f7139cf0551f0ba4e4e83bf6",
-        "size compressed (bytes)": 865716848,
+        "size": 865716848,
         "documents": 304059,
         "downloaded": False,
         "texts": "mrtydi-v1.1-bengali"
@@ -4520,7 +4471,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-english.20220207.5df364.tar.gz"
         ],
         "md5": "a0a8cc39e8af782ec82188a18c4c97c3",
-        "size compressed (bytes)": 93585951488,
+        "size": 93585951488,
         "documents": 32907100,
         "downloaded": False,
         "texts": "mrtydi-v1.1-english"
@@ -4533,7 +4484,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-finnish.20220207.5df364.tar.gz"
         ],
         "md5": "3e4e18aacf07ca551b474315f267ead6",
-        "size compressed (bytes)": 5435516778,
+        "size": 5435516778,
         "documents": 1908757,
         "downloaded": False,
         "texts": "mrtydi-v1.1-finnish"
@@ -4546,7 +4497,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-indonesian.20220207.5df364.tar.gz"
         ],
         "md5": "0bf693e4046d9a565ae18b9f5939d193",
-        "size compressed (bytes)": 4179177829,
+        "size": 4179177829,
         "documents": 4179177829,
         "downloaded": False,
         "texts": "mrtydi-v1.1-indonesian"
@@ -4559,7 +4510,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-japanese.20220207.5df364.tar.gz"
         ],
         "md5": "4ba566e27bc0158108259b18a153e2fc",
-        "size compressed (bytes)": 19920816424,
+        "size": 19920816424,
         "documents": 7000027,
         "downloaded": False,
         "texts": "mrtydi-v1.1-japanese"
@@ -4572,7 +4523,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-korean.20220207.5df364.tar.gz"
         ],
         "md5": "44212e5722632d5bcb14f0680741638c",
-        "size compressed (bytes)": 4257414237,
+        "size": 4257414237,
         "documents": 1496126,
         "downloaded": False,
         "texts": "mrtydi-v1.1-korean"
@@ -4585,7 +4536,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-russian.20220207.5df364.tar.gz"
         ],
         "md5": "e7634093f2a3362928e9699441ce8a3b",
-        "size compressed (bytes)": 27317759143,
+        "size": 27317759143,
         "documents": 9597504,
         "downloaded": False,
         "texts": "mrtydi-v1.1-russian"
@@ -4598,7 +4549,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-swahili.20220207.5df364.tar.gz"
         ],
         "md5": "5061bdd1d81bc32490bbb3682096acdd",
-        "size compressed (bytes)": 389658394,
+        "size": 389658394,
         "documents": 136689,
         "downloaded": False,
         "texts": "mrtydi-v1.1-swahili"
@@ -4611,7 +4562,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-telugu.20220207.5df364.tar.gz"
         ],
         "md5": "4952dacaeae89185d3757f9f26af4e88",
-        "size compressed (bytes)": 1561173721,
+        "size": 1561173721,
         "documents": 548224,
         "downloaded": False,
         "texts": "mrtydi-v1.1-telugu"
@@ -4624,7 +4575,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-thai.20220207.5df364.tar.gz"
         ],
         "md5": "2458f704b277fa8ffe2509b6296892a0",
-        "size compressed (bytes)": 1616059846,
+        "size": 1616059846,
         "documents": 568855,
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai"
@@ -4638,7 +4589,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-arabic.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "bafb6fb2c530567dec26aa4597c6ee25",
-        "size compressed (bytes)": 5997944387,
+        "size": 5997944387,
         "documents": 2106586,
         "downloaded": False,
         "texts": "mrtydi-v1.1-arabic",
@@ -4651,7 +4602,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-bengali.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "d04bb6e634fb4f7df23dbff7481a8f9b",
-        "size compressed (bytes)": 865733182,
+        "size": 865733182,
         "documents": 304059,
         "downloaded": False,
         "texts": "mrtydi-v1.1-bengali",
@@ -4664,7 +4615,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-english.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "4a93a2211199f7359cc99486a9f93d02",
-        "size compressed (bytes)": 93594560123,
+        "size": 93594560123,
         "documents": 32907100,
         "downloaded": False,
         "texts": "mrtydi-v1.1-english"
@@ -4677,7 +4628,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-finnish.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "6cbe2d52225fb15a494857b9df593113",
-        "size compressed (bytes)": 5436419128,
+        "size": 5436419128,
         "documents": 1908757,
         "downloaded": False,
         "texts": "mrtydi-v1.1-finnish"
@@ -4690,7 +4641,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-indonesian.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "26108a7ee1fc5ac15e0b7fcecf4d39ad",
-        "size compressed (bytes)": 4178791340,
+        "size": 4178791340,
         "documents": 1469399,
         "downloaded": False,
         "texts": "mrtydi-v1.1-indonesian"
@@ -4703,7 +4654,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-japanese.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "2ef2b5e3f5778d99e65aafc48450508a",
-        "size compressed (bytes)": 19918319659,
+        "size": 19918319659,
         "documents": 7000027,
         "downloaded": False,
         "texts": "mrtydi-v1.1-japanese"
@@ -4716,7 +4667,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-korean.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "26ed9be031603019304b66f985ce154c",
-        "size compressed (bytes)": 4256863020,
+        "size": 4256863020,
         "documents": 1496126,
         "downloaded": False,
         "texts": "mrtydi-v1.1-korean"
@@ -4729,7 +4680,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-russian.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "b1be7a45a702be4021f38425c0001f39",
-        "size compressed (bytes)": 27318554290,
+        "size": 27318554290,
         "documents": 9597504,
         "downloaded": False,
         "texts": "mrtydi-v1.1-russian"
@@ -4742,7 +4693,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-swahili.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "14edb5f677820b5a5a3858555e900591",
-        "size compressed (bytes)": 389600489,
+        "size": 389600489,
         "documents": 136689,
         "downloaded": False,
         "texts": "mrtydi-v1.1-swahili"
@@ -4755,7 +4706,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-telugu.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "25b37f5d7a035a17b447f1732e241b85",
-        "size compressed (bytes)": 1561420074,
+        "size": 1561420074,
         "documents": 548224,
         "downloaded": False,
         "texts": "mrtydi-v1.1-telugu"
@@ -4768,7 +4719,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-thai.20220413.aa1c0e9.tar.gz",
         ],
         "md5": "0544ce677fa31b633a29a079c0cdfc82",
-        "size compressed (bytes)": 1616716171,
+        "size": 1616716171,
         "documents": 568855,
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai"
@@ -4782,7 +4733,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-arabic.20220523.7b099d5.tar.gz",
         ],
         "md5": "3d764e7936bb6beb5308ccfd6717b38e",
-        "size compressed (bytes)": 5988743258,
+        "size": 5988743258,
         "documents": 2106586,
         "downloaded": False,
         "texts": "mrtydi-v1.1-arabic"
@@ -4795,7 +4746,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-bengali.20220523.7b099d5.tar.gz",
         ],
         "md5": "2ee8e550245f7eb5184c27fe3369d818",
-        "size compressed (bytes)": 864358280,
+        "size": 864358280,
         "documents": 304059,
         "downloaded": False,
         "texts": "mrtydi-v1.1-bengali"
@@ -4808,7 +4759,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-english.20220523.7b099d5.tar.gz",
         ],
         "md5": "a1be61486c209bf2545d63f950274a99",
-        "size compressed (bytes)": 93435965796,
+        "size": 93435965796,
         "documents": 32907100,
         "downloaded": False,
         "texts": "mrtydi-v1.1-english"
@@ -4821,7 +4772,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-finnish.20220523.7b099d5.tar.gz",
         ],
         "md5": "0dbd873fa8bf8c87052940bdf4097ba2",
-        "size compressed (bytes)": 5427976705,
+        "size": 5427976705,
         "documents": 1908757,
         "downloaded": False,
         "texts": "mrtydi-v1.1-finnish"
@@ -4834,7 +4785,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-indonesian.20220523.7b099d5.tar.gz",
         ],
         "md5": "937f7c03e2386166e34ef81b25d7959f",
-        "size compressed (bytes)": 4172976570,
+        "size": 4172976570,
         "documents": 4179177829,
         "downloaded": False,
         "texts": "mrtydi-v1.1-indonesian"
@@ -4847,7 +4798,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-japanese.20220523.7b099d5.tar.gz",
         ],
         "md5": "21a64d1a012a854d4bf42fa24c8712fd",
-        "size compressed (bytes)": 19890571158,
+        "size": 19890571158,
         "documents": 7000027,
         "downloaded": False,
         "texts": "mrtydi-v1.1-japanese"
@@ -4860,7 +4811,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-korean.20220523.7b099d5.tar.gz",
         ],
         "md5": "ed3216fb5bc431ac52931b58cc4c4d0f",
-        "size compressed (bytes)": 4250320804,
+        "size": 4250320804,
         "documents": 1496126,
         "downloaded": False,
         "texts": "mrtydi-v1.1-korean"
@@ -4873,7 +4824,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-russian.20220523.7b099d5.tar.gz",
         ],
         "md5": "c3c4db1397c7125f8e411cf637054148",
-        "size compressed (bytes)": 27278520787,
+        "size": 27278520787,
         "documents": 9597504,
         "downloaded": False,
         "texts": "mrtydi-v1.1-russian"
@@ -4886,7 +4837,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-swahili.20220523.7b099d5.tar.gz",
         ],
         "md5": "20235115c0a877e11c91cb662d5a6fdb",
-        "size compressed (bytes)": 389244265,
+        "size": 389244265,
         "documents": 136689,
         "downloaded": False,
         "texts": "mrtydi-v1.1-swahili"
@@ -4899,7 +4850,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-telugu.20220523.7b099d5.tar.gz",
         ],
         "md5": "86cae6fe8f8c08489e49b6e6c28a09b0",
-        "size compressed (bytes)": 1558691592,
+        "size": 1558691592,
         "documents": 548224,
         "downloaded": False,
         "texts": "mrtydi-v1.1-telugu"
@@ -4912,7 +4863,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-thai.20220523.7b099d5.tar.gz",
         ],
         "md5": "3ba9c64a9f7479bd2e3a84a816ee0f6f",
-        "size compressed (bytes)": 1613563144,
+        "size": 1613563144,
         "documents": 568855,
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai"
@@ -4926,7 +4877,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-arabic.20220524.7b099d5.tar.gz"
         ],
         "md5": "9ea47ae7425fd3376f015ca7c6ba5134",
-        "size compressed (bytes)": 5993958479,
+        "size": 5993958479,
         "documents": 2106586,
         "downloaded": False,
         "texts": "mrtydi-v1.1-arabic"
@@ -4939,7 +4890,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-bengali.20220524.7b099d5.tar.gz"
         ],
         "md5": "d1e75f4960a723b068bb778a972ffb54",
-        "size compressed (bytes)": 865412932,
+        "size": 865412932,
         "documents": 304059,
         "downloaded": False,
         "texts": "mrtydi-v1.1-bengali"
@@ -4952,7 +4903,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-english.20220524.7b099d5.tar.gz"
         ],
         "md5": "1fce43e549ff57bbac432a579961f34b",
-        "size compressed (bytes)": 93697654837,
+        "size": 93697654837,
         "documents": 32907100,
         "downloaded": False,
         "texts": "mrtydi-v1.1-english"
@@ -4965,7 +4916,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-finnish.20220524.7b099d5.tar.gz"
         ],
         "md5": "6faa7b2fe8ad4b9ca284bd7e8f69b727",
-        "size compressed (bytes)": 5433647583,
+        "size": 5433647583,
         "documents": 1908757,
         "downloaded": False,
         "texts": "mrtydi-v1.1-finnish"
@@ -4978,7 +4929,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-indonesian.20220524.7b099d5.tar.gz"
         ],
         "md5": "659b1e0a1bea46f62a842b55385085b7",
-        "size compressed (bytes)": 4177273338,
+        "size": 4177273338,
         "documents": 4179177829,
         "downloaded": False,
         "texts": "mrtydi-v1.1-indonesian"
@@ -4991,7 +4942,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-japanese.20220524.7b099d5.tar.gz"
         ],
         "md5": "126c82da9e0e0e1fd290cf62d7fe4dfa",
-        "size compressed (bytes)": 19917667830,
+        "size": 19917667830,
         "documents": 7000027,
         "downloaded": False,
         "texts": "mrtydi-v1.1-japanese"
@@ -5004,7 +4955,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-korean.20220524.7b099d5.tar.gz"
         ],
         "md5": "cf07b71aaefba58bbe150265f6696503",
-        "size compressed (bytes)": 4256039967,
+        "size": 4256039967,
         "documents": 1496126,
         "downloaded": False,
         "texts": "mrtydi-v1.1-korean"
@@ -5017,7 +4968,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-russian.20220524.7b099d5.tar.gz"
         ],
         "md5": "c0a53fa6428cb9b1399a90e3a9a805d5",
-        "size compressed (bytes)": 27315435288,
+        "size": 27315435288,
         "documents": 9597504,
         "downloaded": False,
         "texts": "mrtydi-v1.1-russian"
@@ -5030,7 +4981,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-swahili.20220524.7b099d5.tar.gz"
         ],
         "md5": "93dc3f3453815c92f3bccf4f41c5f2d4",
-        "size compressed (bytes)": 389336970,
+        "size": 389336970,
         "documents": 136689,
         "downloaded": False,
         "texts": "mrtydi-v1.1-swahili"
@@ -5043,7 +4994,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-telugu.20220524.7b099d5.tar.gz"
         ],
         "md5": "7aba1b7ee36e572bd982b3f62f41c380",
-        "size compressed (bytes)": 1560353621,
+        "size": 1560353621,
         "documents": 548224,
         "downloaded": False,
         "texts": "mrtydi-v1.1-telugu"
@@ -5056,7 +5007,7 @@ FAISS_INDEX_INFO_MRTYDI = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.mrtydi-v1.1-thai.20220524.7b099d5.tar.gz"
         ],
         "md5": "57151073a4c0d90b64242e4536a3af75",
-        "size compressed (bytes)": 1615313134,
+        "size": 1615313134,
         "documents": 568855,
         "downloaded": False,
         "texts": "mrtydi-v1.1-thai"
@@ -5072,7 +5023,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "177d47e9a802c87abca52380ad1ce83b",
-        "size compressed (bytes)": 5870688114,
+        "size": 5870688114,
         "documents": 2061414,
         "downloaded": False,
         "texts": "miracl-v1.0-ar",
@@ -5085,7 +5036,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "156e8ba8cd369b1c4a606e28ea025b2e",
-        "size compressed (bytes)": 846825797,
+        "size": 846825797,
         "documents": 297265,
         "downloaded": False,
         "texts": "miracl-v1.0-bn",
@@ -5098,7 +5049,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "ce00518f54b130a157112c2a1b2d0980",
-        "size compressed (bytes)": 93554329940,
+        "size": 93554329940,
         "documents": 32893221,
         "downloaded": False,
         "texts": "miracl-v1.0-en"
@@ -5111,7 +5062,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "d7a9627bb60e901386f455ba6c9063ac",
-        "size compressed (bytes)": 29553300438,
+        "size": 29553300438,
         "documents": 10373953,
         "downloaded": False,
         "texts": "miracl-v1.0-es"
@@ -5124,7 +5075,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "e8b59e3eb2e08f61f81569c6d4c85350",
-        "size compressed (bytes)": 6286832343,
+        "size": 6286832343,
         "documents": 2207172,
         "downloaded": False,
         "texts": "miracl-v1.0-fa"
@@ -5137,7 +5088,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "a82d6e6cf964d2e4cfac99cf14cbcc35",
-        "size compressed (bytes)": 5366191108,
+        "size": 5366191108,
         "documents": 1883509,
         "downloaded": False,
         "texts": "miracl-v1.0-fi"
@@ -5150,7 +5101,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "a952d944aa63dcee604c8357f1be18db",
-        "size compressed (bytes)": 41648462352,
+        "size": 41648462352,
         "documents": 14636953,
         "downloaded": False,
         "texts": "miracl-v1.0-fr"
@@ -5163,7 +5114,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "9d1dc4b948edf3df263977d82c9fcc3f",
-        "size compressed (bytes)": 1440625237,
+        "size": 1440625237,
         "documents": 506264,
         "downloaded": False,
         "texts": "miracl-v1.0-hi"
@@ -5176,7 +5127,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "19815233f5cc3a198b88cdb990459637",
-        "size compressed (bytes)": 4115281733,
+        "size": 4115281733,
         "documents": 1446315,
         "downloaded": False,
         "texts": "miracl-v1.0-id"
@@ -5189,7 +5140,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "6e9b6e304b2b1a192a3d81e55880f971",
-        "size compressed (bytes)": 19791966022,
+        "size": 19791966022,
         "documents": 6953614,
         "downloaded": False,
         "texts": "miracl-v1.0-ja"
@@ -5202,7 +5153,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "ea1fa34341fc5d5ea88e5b633025d2d5",
-        "size compressed (bytes)": 4231563143,
+        "size": 4231563143,
         "documents": 1486752,
         "downloaded": False,
         "texts": "miracl-v1.0-ko"
@@ -5215,7 +5166,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "4325e716ee6af5ea2b73d4b25f1ad76c",
-        "size compressed (bytes)": 27173380025,
+        "size": 27173380025,
         "documents": 9543918,
         "downloaded": False,
         "texts": "miracl-v1.0-ru"
@@ -5228,7 +5179,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "2b879dac6823077ae497ba8ebfce523b",
-        "size compressed (bytes)": 376181743,
+        "size": 376181743,
         "documents": 131924,
         "downloaded": False,
         "texts": "miracl-v1.0-sw"
@@ -5241,7 +5192,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "a3dfb8ba31f316c93d1fd147f88fbbfd",
-        "size compressed (bytes)": 1476021093,
+        "size": 1476021093,
         "documents": 518079,
         "downloaded": False,
         "texts": "miracl-v1.0-te"
@@ -5254,7 +5205,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "cb0c9b84a80ff338372b32857c58368d",
-        "size compressed (bytes)": 1541590102,
+        "size": 1541590102,
         "documents": 542166,
         "downloaded": False,
         "texts": "miracl-v1.0-th"
@@ -5267,7 +5218,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "2743dfaa794b7abbef1d3c912c5cc4b5",
-        "size compressed (bytes)": 14046912278,
+        "size": 14046912278,
         "documents": 4934368,
         "downloaded": False,
         "texts": "miracl-v1.0-zh",
@@ -5280,7 +5231,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-de.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "1abcf3aac78e30ebe7a75163412f1c84",
-        "size compressed (bytes)": 45154018897,
+        "size": 45154018897,
         "documents": 15866222,
         "downloaded": False,
         "texts": "miracl-v1.0-de",
@@ -5293,7 +5244,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-yo.mdpr-tied-pft-msmarco.20221004.2b2856.tar.gz"
         ],
         "md5": "2ad15ea0576ae3284082ae661e001faa",
-        "size compressed (bytes)": 139412730,
+        "size": 139412730,
         "documents": 49043,
         "downloaded": False,
         "texts": "miracl-v1.0-yo",
@@ -5307,7 +5258,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "428fbde84d2c18e48f0821298947a9d1",
-        "size compressed (bytes)": 5866199790,
+        "size": 5866199790,
         "documents": 2061414,
         "downloaded": False,
         "texts": "miracl-v1.0-ar",
@@ -5320,7 +5271,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "4394a09e043be9be5b820814a82fc8ac",
-        "size compressed (bytes)": 846476050,
+        "size": 846476050,
         "documents": 297265,
         "downloaded": False,
         "texts": "miracl-v1.0-bn",
@@ -5333,7 +5284,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "5bd57f5e4daf93294fd2cbd969c05bb3",
-        "size compressed (bytes)": 93527497283,
+        "size": 93527497283,
         "documents": 32893221,
         "downloaded": False,
         "texts": "miracl-v1.0-en"
@@ -5346,7 +5297,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "b6db16c1ab0ae95fec0465299c660d2a",
-        "size compressed (bytes)": 29544413180,
+        "size": 29544413180,
         "documents": 10373953,
         "downloaded": False,
         "texts": "miracl-v1.0-es"
@@ -5359,7 +5310,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "2a2825706211eb96bd3dbb616463c661",
-        "size compressed (bytes)": 6283957262,
+        "size": 6283957262,
         "documents": 2207172,
         "downloaded": False,
         "texts": "miracl-v1.0-fa"
@@ -5372,7 +5323,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "65719de730cda3fa5f6a8a75611db6eb",
-        "size compressed (bytes)": 5363289277,
+        "size": 5363289277,
         "documents": 1883509,
         "downloaded": False,
         "texts": "miracl-v1.0-fi"
@@ -5385,7 +5336,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "24eb2f63f78aa1e39b1ea61e20661424",
-        "size compressed (bytes)": 41635104326,
+        "size": 41635104326,
         "documents": 14636953,
         "downloaded": False,
         "texts": "miracl-v1.0-fr"
@@ -5398,7 +5349,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "d08aad08a8592aa40355fb7d50afd170",
-        "size compressed (bytes)": 1439798033,
+        "size": 1439798033,
         "documents": 506264,
         "downloaded": False,
         "texts": "miracl-v1.0-hi"
@@ -5411,7 +5362,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "b02c20d4fc27e390ec5b1e9ca732dc5a",
-        "size compressed (bytes)": 4113737773,
+        "size": 4113737773,
         "documents": 1446315,
         "downloaded": False,
         "texts": "miracl-v1.0-id"
@@ -5424,7 +5375,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "a5f219c7f46a36c5c7a2555fbdaa0479",
-        "size compressed (bytes)": 19790154560,
+        "size": 19790154560,
         "documents": 6953614,
         "downloaded": False,
         "texts": "miracl-v1.0-ja"
@@ -5437,7 +5388,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "67b2a803eab3491a057d4ac6b81974f1",
-        "size compressed (bytes)": 4230830690,
+        "size": 4230830690,
         "documents": 1486752,
         "downloaded": False,
         "texts": "miracl-v1.0-ko"
@@ -5450,7 +5401,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "edad6d5cb508de61ba84173d0ad2aa31",
-        "size compressed (bytes)": 27169921407,
+        "size": 27169921407,
         "documents": 9543918,
         "downloaded": False,
         "texts": "miracl-v1.0-ru"
@@ -5463,7 +5414,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "0b039d766b55f678102a59a6e050d0bc",
-        "size compressed (bytes)": 375865677,
+        "size": 375865677,
         "documents": 131924,
         "downloaded": False,
         "texts": "miracl-v1.0-sw"
@@ -5476,7 +5427,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "ea21915c69f70f41acadee4b6b83d129",
-        "size compressed (bytes)": 1474866678,
+        "size": 1474866678,
         "documents": 518079,
         "downloaded": False,
         "texts": "miracl-v1.0-te"
@@ -5489,7 +5440,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "a5875b473109310789710e2f3df91b0f",
-        "size compressed (bytes)": 1540180247,
+        "size": 1540180247,
         "documents": 542166,
         "downloaded": False,
         "texts": "miracl-v1.0-th"
@@ -5502,7 +5453,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "a2d233e792d46c20c912d10afff033f5",
-        "size compressed (bytes)": 14043150097,
+        "size": 14043150097,
         "documents": 4934368,
         "downloaded": False,
         "texts": "miracl-v1.0-zh",
@@ -5515,7 +5466,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-de.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "d53da12ae6119ed54ef968e968f8520a",
-        "size compressed (bytes)": 45139752128,
+        "size": 45139752128,
         "documents": 15866222,
         "downloaded": False,
         "texts": "miracl-v1.0-de",
@@ -5528,7 +5479,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-yo.mdpr-tied-pft-msmarco-ft-all.20221004.2b2856.tar.gz"
         ],
         "md5": "0a1b0f48108508724a3892dfc04eb756",
-        "size compressed (bytes)": 139286213,
+        "size": 139286213,
         "documents": 49043,
         "downloaded": False,
         "texts": "miracl-v1.0-yo",
@@ -5542,7 +5493,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ar.mdpr-tied-pft-msmarco-ft-miracl-ar.20230329.e40d4a.tar.gz",
         ],
         "md5": "29cdb7fa7cc52cabc32791d57be3bd42",
-        "size compressed (bytes)": 5871030506,
+        "size": 5871030506,
         "documents": 2061414,
         "downloaded": False,
         "texts": "miracl-v1.0-ar"
@@ -5555,7 +5506,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-bn.mdpr-tied-pft-msmarco-ft-miracl-bn.20230329.e40d4a.tar.gz",
         ],
         "md5": "8972166564a9c13e102ae83ea062c166",
-        "size compressed (bytes)": 846236944,
+        "size": 846236944,
         "documents": 297265,
         "downloaded": False,
         "texts": "miracl-v1.0-bn"
@@ -5568,7 +5519,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-en.mdpr-tied-pft-msmarco-ft-miracl-en.20230329.e40d4a.tar.gz",
         ],
         "md5": "cd43e6c93879a107b94396a42aa7c987",
-        "size compressed (bytes)": 93502848095,
+        "size": 93502848095,
         "documents": 32893221,
         "downloaded": False,
         "texts": "miracl-v1.0-en"
@@ -5581,7 +5532,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-es.mdpr-tied-pft-msmarco-ft-miracl-es.20230329.e40d4a.tar.gz",
         ],
         "md5": "4f45c3171690dd691afcfc9e45b89494",
-        "size compressed (bytes)": 29552466540,
+        "size": 29552466540,
         "documents": 10373953,
         "downloaded": False,
         "texts": "miracl-v1.0-es"
@@ -5594,7 +5545,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fa.mdpr-tied-pft-msmarco-ft-miracl-fa.20230329.e40d4a.tar.gz",
         ],
         "md5": "ae262fea849f6903c93e1f3269e07804",
-        "size compressed (bytes)": 6287728719,
+        "size": 6287728719,
         "documents": 2207172,
         "downloaded": False,
         "texts": "miracl-v1.0-fa"
@@ -5607,7 +5558,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fi.mdpr-tied-pft-msmarco-ft-miracl-fi.20230329.e40d4a.tar.gz",
         ],
         "md5": "12c5c5c4dd8df37ad8ae90039851fbec",
-        "size compressed (bytes)": 5367069541,
+        "size": 5367069541,
         "documents": 1883509,
         "downloaded": False,
         "texts": "miracl-v1.0-fi"
@@ -5620,7 +5571,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fr.mdpr-tied-pft-msmarco-ft-miracl-fr.20230329.e40d4a.tar.gz",
         ],
         "md5": "8cf28f8df0805a848cb5c54d5f5d8bfb",
-        "size compressed (bytes)": 41654288474,
+        "size": 41654288474,
         "documents": 14636953,
         "downloaded": False,
         "texts": "miracl-v1.0-fr"
@@ -5633,7 +5584,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-hi.mdpr-tied-pft-msmarco-ft-miracl-hi.20230329.e40d4a.tar.gz",
         ],
         "md5": "f579dfa45a5f14c48f97ba9980f7dec8",
-        "size compressed (bytes)": 1440859085,
+        "size": 1440859085,
         "documents": 506264,
         "downloaded": False,
         "texts": "miracl-v1.0-hi"
@@ -5646,7 +5597,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-id.mdpr-tied-pft-msmarco-ft-miracl-id.20230329.e40d4a.tar.gz",
         ],
         "md5": "d5b540fb82fe21c1fd2b56e248184af6",
-        "size compressed (bytes)": 4111428848,
+        "size": 4111428848,
         "documents": 1446315,
         "downloaded": False,
         "texts": "miracl-v1.0-id"
@@ -5659,7 +5610,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ja.mdpr-tied-pft-msmarco-ft-miracl-ja.20230329.e40d4a.tar.gz",
         ],
         "md5": "e7ad21b12a7d5e937c55d49184d68814",
-        "size compressed (bytes)": 19790420501,
+        "size": 19790420501,
         "documents": 6953614,
         "downloaded": False,
         "texts": "miracl-v1.0-ja"
@@ -5672,7 +5623,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ko.mdpr-tied-pft-msmarco-ft-miracl-ko.20230329.e40d4a.tar.gz",
         ],
         "md5": "c31290dfae5429549500759279af3a8d",
-        "size compressed (bytes)": 4230154713,
+        "size": 4230154713,
         "documents": 1486752,
         "downloaded": False,
         "texts": "miracl-v1.0-ko"
@@ -5685,7 +5636,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ru.mdpr-tied-pft-msmarco-ft-miracl-ru.20230329.e40d4a.tar.gz",
         ],
         "md5": "b9460efd096292a1012ab1d27082498e",
-        "size compressed (bytes)": 27177739148,
+        "size": 27177739148,
         "documents": 9543918,
         "downloaded": False,
         "texts": "miracl-v1.0-ru"
@@ -5698,7 +5649,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-sw.mdpr-tied-pft-msmarco-ft-miracl-sw.20230329.e40d4a.tar.gz",
         ],
         "md5": "526a930a27353462e11cc7e1b794dcc7",
-        "size compressed (bytes)": 375865597,
+        "size": 375865597,
         "documents": 131924,
         "downloaded": False,
         "texts": "miracl-v1.0-sw"
@@ -5711,7 +5662,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-te.mdpr-tied-pft-msmarco-ft-miracl-te.20230329.e40d4a.tar.gz",
         ],
         "md5": "f64b28542afdd15b2fe3831972bcd91e",
-        "size compressed (bytes)": 1475895517,
+        "size": 1475895517,
         "documents": 518079,
         "downloaded": False,
         "texts": "miracl-v1.0-te"
@@ -5724,7 +5675,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-th.mdpr-tied-pft-msmarco-ft-miracl-th.20230329.e40d4a.tar.gz",
         ],
         "md5": "b6ba6d5363bf07a5dc8e1cd35fe11e93",
-        "size compressed (bytes)": 1540581013,
+        "size": 1540581013,
         "documents": 542166,
         "downloaded": False,
         "texts": "miracl-v1.0-th"
@@ -5737,7 +5688,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-zh.mdpr-tied-pft-msmarco-ft-miracl-zh.20230329.e40d4a.tar.gz",
         ],
         "md5": "feba34e41cb8234988f7fb99bd8998f3",
-        "size compressed (bytes)": 14049243202,
+        "size": 14049243202,
         "documents": 4934368,
         "downloaded": False,
         "texts": "miracl-v1.0-zh"
@@ -5751,7 +5702,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ar.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "80c18ac84922ae27bfbee881485816c6",
-        "size compressed (bytes)": 5861079368,
+        "size": 5861079368,
         "documents": 2061414,
         "downloaded": False,
         "texts": "miracl-v1.0-ar",
@@ -5764,7 +5715,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-bn.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "08191b7749151a7bc70e54b92988dd25",
-        "size compressed (bytes)": 845828394, 
+        "size": 845828394, 
         "documents": 297265,
         "downloaded": False,
         "texts": "miracl-v1.0-bn",
@@ -5777,7 +5728,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-en.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "a460d0eb95cf8a278686531e13141d00",
-        "size compressed (bytes)": 93426889457, 
+        "size": 93426889457, 
         "documents": 32893221,
         "downloaded": False,
         "texts": "miracl-v1.0-en"
@@ -5790,7 +5741,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-es.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "936e9188c4dcf57f8f116b9e25790372",
-        "size compressed (bytes)": 29499200527,
+        "size": 29499200527,
         "documents": 10373953,
         "downloaded": False,
         "texts": "miracl-v1.0-es"
@@ -5803,7 +5754,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fa.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "58f83135ecafae6993e49f5f08e471ff",
-        "size compressed (bytes)": 6278766617,
+        "size": 6278766617,
         "documents": 2207172,
         "downloaded": False,
         "texts": "miracl-v1.0-fa"
@@ -5816,7 +5767,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fi.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "b10bc504213199fe0c0972678ab4fdd6",
-        "size compressed (bytes)": 5358004166,
+        "size": 5358004166,
         "documents": 1883509,
         "downloaded": False,
         "texts": "miracl-v1.0-fi"
@@ -5829,7 +5780,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-fr.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "b0d5543824b456d9008d05d7dcef5272",
-        "size compressed (bytes)": 41578767020, 
+        "size": 41578767020, 
         "documents": 14636953,
         "downloaded": False,
         "texts": "miracl-v1.0-fr"
@@ -5842,7 +5793,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-hi.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "ba66e98169b22244c7a7a89ae9bfe549", 
-        "size compressed (bytes)": 1439122724, 
+        "size": 1439122724, 
         "documents": 506264,
         "downloaded": False,
         "texts": "miracl-v1.0-hi"
@@ -5855,7 +5806,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-id.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "700466ab62bfd4b0ceddff7aa9b7a5f8",
-        "size compressed (bytes)": 4113610061,
+        "size": 4113610061,
         "documents": 1446315,
         "downloaded": False,
         "texts": "miracl-v1.0-id"
@@ -5868,7 +5819,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ja.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "f0358ae58b32456c3cef5f71e83a0143",
-        "size compressed (bytes)": 19772957772,
+        "size": 19772957772,
         "documents": 6953614,
         "downloaded": False,
         "texts": "miracl-v1.0-ja"
@@ -5881,7 +5832,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ko.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "fa00afb61fa4332c408069cb6eb2e8f2",
-        "size compressed (bytes)": 4229330667,
+        "size": 4229330667,
         "documents": 1486752,
         "downloaded": False,
         "texts": "miracl-v1.0-ko"
@@ -5894,7 +5845,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-ru.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "118835c214f7b24997ab9f1744b3f5ee",
-        "size compressed (bytes)": 27155045095, 
+        "size": 27155045095, 
         "documents": 9543918,
         "downloaded": False,
         "texts": "miracl-v1.0-ru"
@@ -5907,7 +5858,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-sw.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "ae45812eadb685c672f7b19c084ae3bc",
-        "size compressed (bytes)": 375416284,
+        "size": 375416284,
         "documents": 131924,
         "downloaded": False,
         "texts": "miracl-v1.0-sw"
@@ -5920,7 +5871,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-te.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "8cbea3c141002dd477a15b387350ea37",
-        "size compressed (bytes)": 1474250608,
+        "size": 1474250608,
         "documents": 518079,
         "downloaded": False,
         "texts": "miracl-v1.0-te"
@@ -5933,7 +5884,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-th.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "58cd7d862f202ece45dbd4cb6b6d12f4",
-        "size compressed (bytes)": 1540980581,
+        "size": 1540980581,
         "documents": 542166,
         "downloaded": False,
         "texts": "miracl-v1.0-th"
@@ -5946,7 +5897,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-zh.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "d8800abe1ac22b4161704f2b6d4fe575",
-        "size compressed (bytes)": 14034991692,
+        "size": 14034991692,
         "documents": 4934368,
         "downloaded": False,
         "texts": "miracl-v1.0-zh",
@@ -5959,7 +5910,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-de.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "218cb42441af355285fbf219e9d2d7c7",
-        "size compressed (bytes)": 45085913144,
+        "size": 45085913144,
         "documents": 15866222,
         "downloaded": False,
         "texts": "miracl-v1.0-de",
@@ -5972,7 +5923,7 @@ FAISS_INDEX_INFO_MIRACL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.miracl-v1.0-yo.mcontriever-tied-pft-msmarco.20230313.e40d4a.tar.gz"
         ],
         "md5": "f8aee10055a31914c4c214819a7c1890",
-        "size compressed (bytes)": 139276690,
+        "size": 139276690,
         "documents": 49043,
         "downloaded": False,
         "texts": "miracl-v1.0-yo",
@@ -5989,7 +5940,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-ha.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
         ],
         "md5": "1feb2fb70d16117bd588f7d2168758c8",
-        "size compressed (bytes)": 2023010636,
+        "size": 2023010636,
         "documents": 715355,
         "downloaded": False,
         "texts": "ciral-v1.0-ha"
@@ -6003,7 +5954,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-so.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
         ],
         "md5": "eb5a9ab2c0aea0939768980f93bd28a2",
-        "size compressed (bytes)": 2356035207,
+        "size": 2356035207,
         "documents": 827552,
         "downloaded": False,
         "texts": "ciral-v1.0-so"
@@ -6017,7 +5968,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-sw.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
         ],
         "md5": "0a0412eadf7fb8895bbc6d7090019352",
-        "size compressed (bytes)": 2689038831,
+        "size": 2689038831,
         "documents": 949013,
         "downloaded": False,
         "texts": "ciral-v1.0-sw"
@@ -6031,7 +5982,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-yo.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
         ],
         "md5": "0f84c7f8594b6352aa26970565877668",
-        "size compressed (bytes)": 233478586,
+        "size": 233478586,
         "documents": 82095,
         "downloaded": False,
         "texts": "ciral-v1.0-yo"
@@ -6045,7 +5996,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-ha.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
         ],
         "md5": "809f7c3c211c019a345e7bc8a716ff7b",
-        "size compressed (bytes)": 2023992713,
+        "size": 2023992713,
         "documents": 715355,
         "downloaded": False,
         "texts": "ciral-v1.0-ha"
@@ -6059,7 +6010,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-so.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
         ],
         "md5": "0ef7404ef10f3135f6a11addcf723504",
-        "size compressed (bytes)": 2356542027,
+        "size": 2356542027,
         "documents": 827552,
         "downloaded": False,
         "texts": "ciral-v1.0-so"
@@ -6073,7 +6024,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-sw.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
         ],
         "md5": "1951d3f61eef760407c66c426e5047c6",
-        "size compressed (bytes)": 2688836925,
+        "size": 2688836925,
         "documents": 949013,
         "downloaded": False,
         "texts": "ciral-v1.0-sw"
@@ -6087,7 +6038,7 @@ FAISS_INDEX_INFO_CIRAL = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-yo.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
         ],
         "md5": "f433299809c659cfc4dede6c42d4a3fd",
-        "size compressed (bytes)": 233490804,
+        "size": 233490804,
         "documents": 82095,
         "downloaded": False,
         "texts": "ciral-v1.0-yo"
@@ -6102,7 +6053,7 @@ FAISS_INDEX_INFO_WIKIPEDIA = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.dpr_multi.20200127.f403c3.tar.gz"
         ],
         "md5": "fe307ef2e60ab6e6f3ad66e24a4144ae",
-        "size compressed (bytes)": 59836766732,
+        "size": 59836766732,
         "documents": 21015320,
         "downloaded": False,
         "texts": "wikipedia-dpr-100w"
@@ -6114,7 +6065,7 @@ FAISS_INDEX_INFO_WIKIPEDIA = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.dpr_single-nq.20200115.cd5034.tar.gz"
         ],
         "md5": "01fb6bcaa047df254663d0a3d854b7cc",
-        "size compressed (bytes)": 59836863979,
+        "size": 59836863979,
         "documents": 21015320,
         "downloaded": False,
         "texts": "wikipedia-dpr-100w"
@@ -6126,7 +6077,7 @@ FAISS_INDEX_INFO_WIKIPEDIA = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.bpr_single-nq.20210827.8a8f75.tar.gz"
         ],
         "md5": "b022580ab2fc66f6eaa54af241dba690",
-        "size compressed (bytes)": 1886380629,
+        "size": 1886380629,
         "documents": 21015320,
         "downloaded": False,
         "texts": "wikipedia-dpr-100w"
@@ -6138,7 +6089,7 @@ FAISS_INDEX_INFO_WIKIPEDIA = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.ance_multi.20210224.060cef.tar.gz"
         ],
         "md5": "eb00e096460c8e6296a39732f1676dd7",
-        "size compressed (bytes)": 59890491335,
+        "size": 59890491335,
         "documents": 21015320,
         "downloaded": False,
         "texts": "wikipedia-dpr-100w"
@@ -6150,7 +6101,7 @@ FAISS_INDEX_INFO_WIKIPEDIA = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz",
         ],
         "md5": "36a658e08dafb3e3313b05f88e001557",
-        "size compressed (bytes)": 37812137732,
+        "size": 37812137732,
         "documents": 21015324,
         "downloaded": False,
         "texts": "wikipedia-dpr-100w"
@@ -6162,7 +6113,7 @@ FAISS_INDEX_INFO_WIKIPEDIA = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz",
         ],
         "md5": "072a514ca3ff7717339038d024019e3d",
-        "size compressed (bytes)": 37802648577,
+        "size": 37802648577,
         "documents": 21015324,
         "downloaded": False,
         "texts": "wikipedia-dpr-100w"
@@ -6175,7 +6126,7 @@ FAISS_INDEX_INFO_WIKIPEDIA = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.tar.gz",
         ],
         "md5": "823b6297d6fd8011598e7618742ac7f8",
-        "size compressed (bytes)": 218257913366,
+        "size": 218257913366,
         "documents": 76680040,
         "downloaded": False,
         "texts": "wiki-all-6-3-tamber"
@@ -6191,7 +6142,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-cirr-task7.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "2df0ed1aa8d405148977a74218748db6",
-        "size compressed (bytes)": 38817422,
+        "size": 38817422,
         "documents": 21551,
         "downloaded": False,
         "texts": "m-beir-cirr_task7"
@@ -6204,7 +6155,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-edis-task2.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "f507b70f48facec1de962fd7b2ce617d",
-        "size compressed (bytes)": 1889309291,
+        "size": 1889309291,
         "documents": 1047067,
         "downloaded": False,
         "texts": "m-beir-edis_task2"
@@ -6217,7 +6168,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashion200k-task0.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "e5fe87d779545ef493ee5740e2b075c8",
-        "size compressed (bytes)": 362431088,
+        "size": 362431088,
         "documents": 201824,
         "downloaded": False,
         "texts": "m-beir-fashion200k_task0"
@@ -6230,7 +6181,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashion200k-task3.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "f1d419f3b711b3614300e136e391e63e",
-        "size compressed (bytes)": 111419375,
+        "size": 111419375,
         "documents": 61707,
         "downloaded": False,
         "texts": "m-beir-fashion200k_task3"
@@ -6243,7 +6194,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashioniq-task7.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "77504ab31f03bcf397a5ec3c20864eaf",
-        "size compressed (bytes)": 134235025,
+        "size": 134235025,
         "documents": 74381,
         "downloaded": False,
         "texts": "m-beir-fashioniq_task7"
@@ -6256,7 +6207,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-infoseek-task6.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "e471f7cf13c3ba4cdf0233d9e74f9ee8",
-        "size compressed (bytes)": 1106428847,
+        "size": 1106428847,
         "documents": 611651,
         "downloaded": False,
         "texts": "m-beir-infoseek_task6"
@@ -6269,7 +6220,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-infoseek-task8.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "ba5b02f2e97086ddced32d9af730d841",
-        "size compressed (bytes)": 870321158,
+        "size": 870321158,
         "documents": 481782,
         "downloaded": False,
         "texts": "m-beir-infoseek_task8"
@@ -6282,7 +6233,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-mscoco-task0.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "d015ea6b4b2014722e81bd500999b12b",
-        "size compressed (bytes)": 9018762,
+        "size": 9018762,
         "documents": 5000,
         "downloaded": False,
         "texts": "m-beir-mscoco_task0"
@@ -6295,7 +6246,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-mscoco-task3.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "ba172cbbca9903561a4fe522d2349fb5",
-        "size compressed (bytes)": 44898554,
+        "size": 44898554,
         "documents": 24809,
         "downloaded": False,
         "texts": "m-beir-mscoco_task3"
@@ -6308,7 +6259,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-nights-task4.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "f4dbd632d15efd7eb5abfb0ffc5484af",
-        "size compressed (bytes)": 72057798,
+        "size": 72057798,
         "documents": 40038,
         "downloaded": False,
         "texts": "m-beir-nights_task4"
@@ -6321,7 +6272,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-oven-task6.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "589ebd6326ab1de2329d70840470e5ab",
-        "size compressed (bytes)": 1224166256,
+        "size": 1224166256,
         "documents": 676667,
         "downloaded": False,
         "texts": "m-beir-oven_task6"
@@ -6334,7 +6285,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-oven-task8.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "ecf91e65de23aa90971a7c2c395cc485",
-        "size compressed (bytes)": 605524879,
+        "size": 605524879,
         "documents": 335135,
         "downloaded": False,
         "texts": "m-beir-oven_task8"
@@ -6347,7 +6298,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-visualnews-task0.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "73742e95859b11ac1d3d8692d06e73b2",
-        "size compressed (bytes)": 978318460,
+        "size": 978318460,
         "documents": 542246,
         "downloaded": False,
         "texts": "m-beir-visualnews_task0"
@@ -6360,7 +6311,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-visualnews-task3.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "73f3245e40c1684bb4d74c532a65cb45",
-        "size compressed (bytes)": 972353309,
+        "size": 972353309,
         "documents": 537568,
         "downloaded": False,
         "texts": "m-beir-visualnews_task3"
@@ -6373,7 +6324,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-webqa-task1.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "0cda2d38ce2218607c31a129997a79f1",
-        "size compressed (bytes)": 983308425,
+        "size": 983308425,
         "documents": 544457,
         "downloaded": False,
         "texts": "m-beir-webqa_task1"
@@ -6386,7 +6337,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-webqa-task2.clip-sf-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "1b138a7749e4f1272f39eb9c2ae0f18a",
-        "size compressed (bytes)": 726335240,
+        "size": 726335240,
         "documents": 403196,
         "downloaded": False,
         "texts": "m-beir-webqa_task2"
@@ -6399,7 +6350,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-union.clip-sf-large.20260302.tar.gz"
         ],
         "md5": "2bbd6bf0bb3f08c95542b46b26a43612",
-        "size compressed (bytes)": 10131881426,
+        "size": 10131881426,
         "documents": 5609079,
         "downloaded": False,
         "texts": "m-beir-union"
@@ -6412,7 +6363,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-cirr-task7.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "9cc2cbc853ed3f40faeb1625883dd787",
-        "size compressed (bytes)": 38778158,
+        "size": 38778158,
         "documents": 21551,
         "downloaded": False,
         "texts": "m-beir-cirr_task7"
@@ -6425,7 +6376,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-edis-task2.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "8e6c689bd963c3ba98a12bb09722e6ff",
-        "size compressed (bytes)": 1882886595,
+        "size": 1882886595,
         "documents": 1047067,
         "downloaded": False,
         "texts": "m-beir-edis_task2"
@@ -6438,7 +6389,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashion200k-task0.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "9a994c44fd9cde8950975bae85dc8ce4",
-        "size compressed (bytes)": 361951451,
+        "size": 361951451,
         "documents": 201824,
         "downloaded": False,
         "texts": "m-beir-fashion200k_task0"
@@ -6451,7 +6402,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashion200k-task3.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "49a93245fc3dc254e93db4ef55d88e93",
-        "size compressed (bytes)": 111000347,
+        "size": 111000347,
         "documents": 61707,
         "downloaded": False,
         "texts": "m-beir-fashion200k_task3"
@@ -6464,7 +6415,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashioniq-task7.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "afc68db8916ddfeef0ab4b7c4fcd7c9a",
-        "size compressed (bytes)": 133814528,
+        "size": 133814528,
         "documents": 74381,
         "downloaded": False,
         "texts": "m-beir-fashioniq_task7"
@@ -6477,7 +6428,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-infoseek-task6.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "81a3d728a0e2d73e5fba7bc1c6c04c8d",
-        "size compressed (bytes)": 1101028282,
+        "size": 1101028282,
         "documents": 611651,
         "downloaded": False,
         "texts": "m-beir-infoseek_task6"
@@ -6490,7 +6441,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-infoseek-task8.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "c1b1e9f3301acfc8da19797d2f805a3e",
-        "size compressed (bytes)": 867079294,
+        "size": 867079294,
         "documents": 481782,
         "downloaded": False,
         "texts": "m-beir-infoseek_task8"
@@ -6503,7 +6454,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-mscoco-task0.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "423c4994b238cdcc38c9516606207236",
-        "size compressed (bytes)": 8997191,
+        "size": 8997191,
         "documents": 5000,
         "downloaded": False,
         "texts": "m-beir-mscoco_task0"
@@ -6516,7 +6467,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-mscoco-task3.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "2b7ec1d919a579b9d8c1f40c875a6897",
-        "size compressed (bytes)": 44642915,
+        "size": 44642915,
         "documents": 24809,
         "downloaded": False,
         "texts": "m-beir-mscoco_task3"
@@ -6529,7 +6480,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-nights-task4.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "f356bb29294510bdace4523fa888d8ba",
-        "size compressed (bytes)": 72063162,
+        "size": 72063162,
         "documents": 40038,
         "downloaded": False,
         "texts": "m-beir-nights_task4"
@@ -6542,7 +6493,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-oven-task6.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "42c11b37cb51fc3b3358fa887702d61b",
-        "size compressed (bytes)": 1217888354,
+        "size": 1217888354,
         "documents": 676667,
         "downloaded": False,
         "texts": "m-beir-oven_task6"
@@ -6555,7 +6506,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-oven-task8.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "35ab385ac5e83d829b2d40d048e9c576",
-        "size compressed (bytes)": 603292386,
+        "size": 603292386,
         "documents": 335135,
         "downloaded": False,
         "texts": "m-beir-oven_task8"
@@ -6568,7 +6519,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-visualnews-task0.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "17945848e8425f2c83c671b6f5ab8f8b",
-        "size compressed (bytes)": 975312678,
+        "size": 975312678,
         "documents": 542246,
         "downloaded": False,
         "texts": "m-beir-visualnews_task0"
@@ -6581,7 +6532,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-visualnews-task3.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "75eeedee852dcbeed968e45a3bb585f7",
-        "size compressed (bytes)": 967522065,
+        "size": 967522065,
         "documents": 537568,
         "downloaded": False,
         "texts": "m-beir-visualnews_task3"
@@ -6594,7 +6545,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-webqa-task1.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "b861ea5754d2e6a3c7194818a6521ad9",
-        "size compressed (bytes)": 979823458,
+        "size": 979823458,
         "documents": 544457,
         "downloaded": False,
         "texts": "m-beir-webqa_task1"
@@ -6607,7 +6558,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-webqa-task2.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "2e37ddecd2cd7175056cfb7a743f251c",
-        "size compressed (bytes)": 724742262,
+        "size": 724742262,
         "documents": 403196,
         "downloaded": False,
         "texts": "m-beir-webqa_task2"
@@ -6620,7 +6571,7 @@ FAISS_INDEX_INFO_M_BEIR = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-union.blip-ff-large.20260302.fa77cbd.tar.gz"
         ],
         "md5": "76c614a504333ea6b3e28e11ef6656a2",
-        "size compressed (bytes)": 10090371795,
+        "size": 10090371795,
         "documents": 5609079,
         "downloaded": False,
         "texts": "m-beir-union"
@@ -6635,7 +6586,7 @@ FAISS_INDEX_INFO_DSE = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-dse/resolve/main/slidevqa/slidevqa.dse.tar.gz"
         ],
         "md5": "920bcdbae5cd2730dbf961c7d72778e6",
-        "size compressed (bytes)": 340388515,
+        "size": 340388515,
         "documents": 52480,
         "downloaded": False,
         "texts": None
@@ -6647,7 +6598,7 @@ FAISS_INDEX_INFO_DSE = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-dse/resolve/main/wiki-ss/wiki-ss.dse.tar.gz"
         ],
         "md5": "b80f7a05049d76be18497e3489e91066",
-        "size compressed (bytes)": 8231110478,
+        "size": 8231110478,
         "documents": 1267874,
         "downloaded": False,
         "texts": None
@@ -6663,7 +6614,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-MMLongBench-page.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "bc76564734166016e1b3b91b50cb6c4f",
-        "size compressed (bytes)": 22231867,
+        "size": 22231867,
         "documents": 6492,
         "downloaded": False,
         "texts": "mmeb-visdoc-MMLongBench-page"
@@ -6676,7 +6627,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_arxivqa.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "3e990bb6d563b1221d31fc770cb3585a",
-        "size compressed (bytes)": 1712816,
+        "size": 1712816,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_arxivqa"
@@ -6689,7 +6640,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "bba14aa67334ea0885c440d13ad15710",
-        "size compressed (bytes)": 3476911,
+        "size": 3476911,
         "documents": 1016,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual"
@@ -6702,7 +6653,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_docvqa.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "9c95c4e2df355eedcfaf0047851b6eb9",
-        "size compressed (bytes)": 1711921,
+        "size": 1711921,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_docvqa"
@@ -6715,7 +6666,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "5d2f01361a4709d7d2581513c1788271",
-        "size compressed (bytes)": 1515827,
+        "size": 1515827,
         "documents": 452,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual"
@@ -6728,7 +6679,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "8b1b83e5591c1857164ad29b2ed6cae8",
-        "size compressed (bytes)": 5272565,
+        "size": 5272565,
         "documents": 1538,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2"
@@ -6741,7 +6692,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "32bf50e35bc8a766eeda75f5fd06ae5a",
-        "size compressed (bytes)": 5271794,
+        "size": 5271794,
         "documents": 1538,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual"
@@ -6754,7 +6705,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_infovqa.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "ac393b43b7375f174e30db6ea3cfbaa7",
-        "size compressed (bytes)": 1715092,
+        "size": 1715092,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_infovqa"
@@ -6767,7 +6718,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_shiftproject.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "e08f1292ddc85461d25996243a3b68cc",
-        "size compressed (bytes)": 3425058,
+        "size": 3425058,
         "documents": 999,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_shiftproject"
@@ -6780,7 +6731,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "02f75b35beec881ed7e7b2d3b6bc3565",
-        "size compressed (bytes)": 3316096,
+        "size": 3316096,
         "documents": 968,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence"
@@ -6793,7 +6744,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_energy.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "df05dcebb29719324411e95ab45e3094",
-        "size compressed (bytes)": 3338175,
+        "size": 3338175,
         "documents": 975,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_energy"
@@ -6806,7 +6757,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "426b717c4c36dc45b3d6ea9483805fbc",
-        "size compressed (bytes)": 3329254,
+        "size": 3329254,
         "documents": 972,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports"
@@ -6819,7 +6770,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "4b8a8f7718430f09d2e5903faeeabd04",
-        "size compressed (bytes)": 3297932,
+        "size": 3297932,
         "documents": 963,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry"
@@ -6832,7 +6783,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_tabfquad.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "1446fe9b9a9bb2d09285fe939a394357",
-        "size compressed (bytes)": 241172,
+        "size": 241172,
         "documents": 70,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_tabfquad"
@@ -6845,7 +6796,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoRe_tatdqa.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "39977e4f476ef04036452951a6dd3aee",
-        "size compressed (bytes)": 926788,
+        "size": 926788,
         "documents": 271,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_tatdqa"
@@ -6858,7 +6809,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-ViDoSeek-page.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "134ee2bb9c9bff84f798c3a42709c191",
-        "size compressed (bytes)": 18332388,
+        "size": 18332388,
         "documents": 5349,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoSeek-page"
@@ -6871,7 +6822,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_ArxivQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "d44fe8b4eed3fabb4e17b4519d1f94a7",
-        "size compressed (bytes)": 27623153,
+        "size": 27623153,
         "documents": 8066,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_ArxivQA"
@@ -6884,7 +6835,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_ChartQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "a8a69bb167fec98e62bc6c96fa11754b",
-        "size compressed (bytes)": 1715864,
+        "size": 1715864,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_ChartQA"
@@ -6897,7 +6848,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_InfoVQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "9826a0c798bc364afd3c1e45389ce620",
-        "size compressed (bytes)": 1575019,
+        "size": 1575019,
         "documents": 459,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_InfoVQA"
@@ -6910,7 +6861,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_MP-DocVQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "55a44170e9677ea9e293818cb79c12bb",
-        "size compressed (bytes)": 2537728,
+        "size": 2537728,
         "documents": 741,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_MP-DocVQA"
@@ -6923,7 +6874,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_PlotQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "fdb1aed9649f98018221682a830ca84d",
-        "size compressed (bytes)": 32863763,
+        "size": 32863763,
         "documents": 9593,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_PlotQA"
@@ -6936,7 +6887,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/gme-Qwen2-VL-2B-Instruct/faiss-flat.mmeb-visdoc-VisRAG_SlideVQA.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.tar.gz"
         ],
         "md5": "357f7eea450c72dcacdeabcb13ac4109",
-        "size compressed (bytes)": 4420763,
+        "size": 4420763,
         "documents": 1284,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_SlideVQA"
@@ -6949,7 +6900,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-MMLongBench-page.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "6d43c203b2510167655b68c676637b6c",
-        "size compressed (bytes)": 22178560,
+        "size": 22178560,
         "documents": 6492,
         "downloaded": False,
         "texts": "mmeb-visdoc-MMLongBench-page"
@@ -6962,7 +6913,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_arxivqa.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "837900a41433f8f7087d4c32b2383d54",
-        "size compressed (bytes)": 1712097,
+        "size": 1712097,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_arxivqa"
@@ -6975,7 +6926,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "109a1752ecad596caa28575fdf614cbd",
-        "size compressed (bytes)": 3469056,
+        "size": 3469056,
         "documents": 1016,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual"
@@ -6988,7 +6939,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_docvqa.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "cffa22452328059db00589524f882d57",
-        "size compressed (bytes)": 1709732,
+        "size": 1709732,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_docvqa"
@@ -7001,7 +6952,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "9b65603f98ca7dc9bc6082c98cfe8862",
-        "size compressed (bytes)": 1512562,
+        "size": 1512562,
         "documents": 452,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual"
@@ -7014,7 +6965,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "8fefe05fedc73a8bc21def74a89648bd",
-        "size compressed (bytes)": 5255906,
+        "size": 5255906,
         "documents": 1538,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2"
@@ -7027,7 +6978,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "b6a7b5c3807159537cd4764686b274e7",
-        "size compressed (bytes)": 5256175,
+        "size": 5256175,
         "documents": 1538,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual"
@@ -7040,7 +6991,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_infovqa.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "b477a1649f8c0e2ea2d48c53e59645be",
-        "size compressed (bytes)": 1710805,
+        "size": 1710805,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_infovqa"
@@ -7053,7 +7004,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_shiftproject.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "a9980cea71cd9f07d474f6f9eeb29015",
-        "size compressed (bytes)": 3414665,
+        "size": 3414665,
         "documents": 999,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_shiftproject"
@@ -7066,7 +7017,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "e9bf9534b1274dc553e3157519b0ad32",
-        "size compressed (bytes)": 3309513,
+        "size": 3309513,
         "documents": 968,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence"
@@ -7079,7 +7030,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_energy.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "40494bbcf2c2badf963eaa3da33076f8",
-        "size compressed (bytes)": 3332470,
+        "size": 3332470,
         "documents": 975,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_energy"
@@ -7092,7 +7043,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "0b674e4a8d752d9499b93fffaddcb82f",
-        "size compressed (bytes)": 3322883,
+        "size": 3322883,
         "documents": 972,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports"
@@ -7105,7 +7056,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "7c84f00b2337b4ccbff7c0d14287e6f6",
-        "size compressed (bytes)": 3292728,
+        "size": 3292728,
         "documents": 963,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry"
@@ -7118,7 +7069,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_tabfquad.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "019668a306e85f92bf507b176ef2a8bd",
-        "size compressed (bytes)": 241001,
+        "size": 241001,
         "documents": 70,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_tabfquad"
@@ -7131,7 +7082,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoRe_tatdqa.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "6a22f1fee5fd3b251e4debbc75917f31",
-        "size compressed (bytes)": 928230,
+        "size": 928230,
         "documents": 271,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoRe_tatdqa"
@@ -7144,7 +7095,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-ViDoSeek-page.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "c203a9d820c0320d8564dfb5d937403e",
-        "size compressed (bytes)": 18286911,
+        "size": 18286911,
         "documents": 5349,
         "downloaded": False,
         "texts": "mmeb-visdoc-ViDoSeek-page"
@@ -7157,7 +7108,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_ArxivQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "48d5d1d54a379f3b8e9c28fd40c87777",
-        "size compressed (bytes)": 27624787,
+        "size": 27624787,
         "documents": 8066,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_ArxivQA"
@@ -7170,7 +7121,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_ChartQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "c7e7db93f708031a9348cdca98b286c8",
-        "size compressed (bytes)": 1713915,
+        "size": 1713915,
         "documents": 500,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_ChartQA"
@@ -7183,7 +7134,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_InfoVQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "6ee853bd33007d5cb42610dd20d30608",
-        "size compressed (bytes)": 1571434,
+        "size": 1571434,
         "documents": 459,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_InfoVQA"
@@ -7196,7 +7147,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_MP-DocVQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "e413821565def456be77cb45581d5627",
-        "size compressed (bytes)": 2535412,
+        "size": 2535412,
         "documents": 741,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_MP-DocVQA"
@@ -7209,7 +7160,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_PlotQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "7e0e261fd082f02b7cc8112161ec4b62",
-        "size compressed (bytes)": 32818893,
+        "size": 32818893,
         "documents": 9593,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_PlotQA"
@@ -7222,7 +7173,7 @@ FAISS_INDEX_INFO_MMEB = {
             "https://huggingface.co/datasets/castorini/prebuilt-indexes-mmeb/resolve/main/faiss-flat/VLM2Vec-V2.0/faiss-flat.mmeb-visdoc-VisRAG_SlideVQA.VLM2Vec-V2.0.20260303.fa77cbd.tar.gz"
         ],
         "md5": "c4027618ca83a791da38948372a7f7b1",
-        "size compressed (bytes)": 4411898,
+        "size": 4411898,
         "documents": 1284,
         "downloaded": False,
         "texts": "mmeb-visdoc-VisRAG_SlideVQA"
@@ -7238,7 +7189,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://rgw.cs.uwaterloo.ca/pyserini/indexes/hnsw-faiss.cast2019.tct_colbert-v2.tar.gz"
         ],
         "md5": "2ce7ce8064ed235a9b6aad08571340d4",
-        "size compressed (bytes)": 112121368296,
+        "size": 112121368296,
         "documents": 38429835,
         "downloaded": False,
         "texts": "cast2019"
@@ -7252,7 +7203,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-L-14.laion2b_s32b_b82k.image.base.faiss.flat.tar.gz"
         ],
         "md5": "7e7abf80e99b81c444281405db19c579",
-        "size compressed (bytes)": 9284282630,
+        "size": 9284282630,
         "documents": 3410779,
         "downloaded": False,
         "texts": "atomic_image_v0.2_base"
@@ -7265,7 +7216,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-L-14.laion2b_s32b_b82k.image.faiss.flat.tar.gz"
         ],
         "md5": "501b7477a8e1eea9e10904a2ea307906",
-        "size compressed (bytes)": 29984366146,
+        "size": 29984366146,
         "documents": 3803656,
         "downloaded": False,
         "texts": "atomic_image_v0.2_large"
@@ -7278,7 +7229,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-L-14.laion2b_s32b_b82k.image.small.validation.faiss.flat.tar.gz"
         ],
         "md5": "798d601cfc505a4b290bb708290a38fc",
-        "size compressed (bytes)": 43875634,
+        "size": 43875634,
         "documents": 16126,
         "downloaded": False,
         "texts": "atomic_image_v0.2_small_validation"
@@ -7291,7 +7242,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-L-14.laion2b_s32b_b82k.text.base.faiss.flat.tar.gz"
         ],
         "md5": "1d90ecfb703b96f003a9d6dc054c057b",
-        "size compressed (bytes)": 8187618352,
+        "size": 8187618352,
         "documents": 3029504,
         "downloaded": False,
         "texts": "atomic_text_v0.2.1_base"
@@ -7304,7 +7255,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-L-14.laion2b_s32b_b82k.text.faiss.flat.tar.gz"
         ],
         "md5": "9f5962e0b29bb341cba88041107b693e",
-        "size compressed (bytes)": 27373277238,
+        "size": 27373277238,
         "documents": 10134744,
         "downloaded": False,
         "texts": "atomic_text_v0.2.1_large"
@@ -7317,7 +7268,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-L-14.laion2b_s32b_b82k.text.small.validation.faiss.flat.tar.gz"
         ],
         "md5": "2dd9d0c805bbef6a6a23ece3c2b221a3",
-        "size compressed (bytes)": 46421016,
+        "size": 46421016,
         "documents": 17173,
         "downloaded": False,
         "texts": "atomic_text_v0.2.1_small_validation"
@@ -7330,7 +7281,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-H-14.laion2b_s32b_b79k.image.faiss.flat.tar.gz"
         ],
         "md5": "3cacbc8af251dd59177140b83de61024",
-        "size compressed (bytes)": 39192329951,
+        "size": 39192329951,
         "documents": 3803656,
         "downloaded": False,
         "texts": "atomic_image_v0.2_large"
@@ -7343,7 +7294,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-H-14.laion2b_s32b_b79k.text.faiss.flat.tar.gz"
         ],
         "md5": "7866b6b2c38cd46eea5fc28254cf17bc",
-        "size compressed (bytes)": 35824621106,
+        "size": 35824621106,
         "documents": 10134744,
         "downloaded": False,
         "texts": "atomic_text_v0.2.1_large"
@@ -7356,7 +7307,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-bigG-14.laion2b_s39b_b160k.image.faiss.flat.tar.gz"
         ],
         "md5": "1837c886187bb6ecc60fdc02c6056a21",
-        "size compressed (bytes)": 48274458058,
+        "size": 48274458058,
         "documents": 3803656,
         "downloaded": False,
         "texts": "atomic_image_v0.2_large"
@@ -7369,7 +7320,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-bigG-14.laion2b_s39b_b160k.text.faiss.flat.tar.gz"
         ],
         "md5": "5cc288862b73772b466916a79ec311b0",
-        "size compressed (bytes)": 44195349889,
+        "size": 44195349889,
         "documents": 10134744,
         "downloaded": False,
         "texts": "atomic_text_v0.2.1_large"
@@ -7382,7 +7333,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-B-32.laion2b_e16.image.faiss.flat.tar.gz"
         ],
         "md5": "1b35007a5b066179180edd2fb2d56448",
-        "size compressed (bytes)": 20408227482,
+        "size": 20408227482,
         "documents": 3803656,
         "downloaded": False,
         "texts": "atomic_image_v0.2_large"
@@ -7395,7 +7346,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-B-32.laion2b_e16.text.faiss.flat.tar.gz"
         ],
         "md5": "6182fc18d112dea4dcfd91546ddf0747",
-        "size compressed (bytes)": 18574571493,
+        "size": 18574571493,
         "documents": 10134744,
         "downloaded": False,
         "texts": "atomic_text_v0.2.1_large"
@@ -7408,7 +7359,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-B-32.laion400m_e32.image.faiss.flat.tar.gz"
         ],
         "md5": "c08ea30351953b6c91c9b15ad87749e4",
-        "size compressed (bytes)": 20402486061,
+        "size": 20402486061,
         "documents": 3803656,
         "downloaded": False,
         "texts": "atomic_image_v0.2_large"
@@ -7421,7 +7372,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/ViT-B-32.laion400m_e32.text.faiss.flat.tar.gz"
         ],
         "md5": "a68e71ed301870a9be82003f0246183b",
-        "size compressed (bytes)": 18566367182,
+        "size": 18566367182,
         "documents": 10134744,
         "downloaded": False,
         "texts": "atomic_text_v0.2.1_large"
@@ -7434,7 +7385,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/openai.clip-vit-large-patch14.image.faiss.flat.tar.gz"
         ],
         "md5": "6bb4b5169ca864328ab03ecdd484437d",
-        "size compressed (bytes)": 29989412901,
+        "size": 29989412901,
         "documents": 3803656,
         "downloaded": False,
         "texts": "atomic_image_v0.2_large"
@@ -7447,7 +7398,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/openai.clip-vit-large-patch14.text.faiss.flat.tar.gz"
         ],
         "md5": "c6303d01cac83be6902df2967782d2cb",
-        "size compressed (bytes)": 27399921354,
+        "size": 27399921354,
         "documents": 10134744,
         "downloaded": False,
         "texts": "atomic_text_v0.2.1_large"
@@ -7460,7 +7411,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/openai.clip-vit-base-patch32.image.faiss.flat.tar.gz"
         ],
         "md5": "2af24862dd2a37b92cc03edc465d3705",
-        "size compressed (bytes)": 20434283763,
+        "size": 20434283763,
         "documents": 3803656,
         "downloaded": False,
         "texts": "atomic_image_v0.2_large"
@@ -7473,7 +7424,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/openai.clip-vit-base-patch32.text.faiss.flat.tar.gz"
         ],
         "md5": "15c643b65b990aaf5fe3ec1012a710e0",
-        "size compressed (bytes)": 18586684424,
+        "size": 18586684424,
         "documents": 10134744,
         "downloaded": False,
         "texts": "atomic_text_v0.2.1_large"
@@ -7486,7 +7437,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/facebook.flava-full.image.faiss.flat.tar.gz"
         ],
         "md5": "0c5d4e938627dc902cbde9a47a179d41",
-        "size compressed (bytes)": 29963221412,
+        "size": 29963221412,
         "documents": 3803656,
         "downloaded": False,
         "texts": "atomic_image_v0.2_large"
@@ -7499,7 +7450,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/facebook.flava-full.text.faiss.flat.tar.gz"
         ],
         "md5": "763e574a749a16b6bf56d7b622131c12",
-        "size compressed (bytes)": 27414008560,
+        "size": 27414008560,
         "documents": 10134744,
         "downloaded": False,
         "texts": "atomic_text_v0.2.1_large"
@@ -7512,7 +7463,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/Salesforce.blip-itm-base-coco.image.faiss.flat.tar.gz"
         ],
         "md5": "9d924b64860ae26857e57591c621b811",
-        "size compressed (bytes)": 10466804855,
+        "size": 10466804855,
         "documents": 3803656,
         "downloaded": False,
         "texts": "atomic_image_v0.2_large"
@@ -7525,7 +7476,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/Salesforce.blip-itm-base-coco.text.faiss.flat.tar.gz"
         ],
         "md5": "a52770a28ce877e271544de3298b1e53",
-        "size compressed (bytes)": 9439317784,
+        "size": 9439317784,
         "documents": 10134744,
         "downloaded": False,
         "texts": "atomic_text_v0.2.1_large"
@@ -7538,7 +7489,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/Salesforce.blip-itm-large-coco.image.faiss.flat.tar.gz"
         ],
         "md5": "550b318e53f18604b2b919a3c22cfa39",
-        "size compressed (bytes)": 10463191370,
+        "size": 10463191370,
         "documents": 3803656,
         "downloaded": False,
         "texts": "atomic_image_v0.2_large"
@@ -7551,7 +7502,7 @@ FAISS_INDEX_INFO_OTHER = {
             "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/Salesforce.blip-itm-large-coco.text.faiss.flat.tar.gz"
         ],
         "md5": "a09bb2b0b2ae3eb5099061a7cddfe949",
-        "size compressed (bytes)": 9440231672,
+        "size": 9440231672,
         "documents": 10134744,
         "downloaded": False,
         "texts": "atomic_text_v0.2.1_large"

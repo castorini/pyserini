@@ -24,10 +24,6 @@ import tiktoken
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
 
-api_key = '' if os.getenv("OPENAI_API_KEY") is None else os.getenv("OPENAI_API_KEY")
-org_key = '' if os.getenv("OPENAI_ORG_KEY") is None else os.getenv("OPENAI_ORG_KEY")
-
-client = openai.OpenAI(api_key=api_key, organization=org_key)
 OPENAI_API_RETRY_DELAY = 5
 
 

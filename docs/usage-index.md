@@ -21,14 +21,14 @@ The simplest, however, is the following JSON format:
 }
 ```
 
-A document is simply comprised of two fields, a `docid` and `contents`.
+A document contains two fields: `id` and `contents`.
 Pyserini accepts collections comprised of these documents organized in three different ways:
 
 + Folder with each JSON in its own file, like [this](../tests/resources/sample_collection_json).
 + Folder with files, each of which contains an array of JSON documents, like [this](../tests/resources/sample_collection_json_array).
 + Folder with files, each of which contains a JSON on an individual line, like [this](../tests/resources/sample_collection_jsonl) (often called JSONL format).
 
-So, the quickest way to get started is to write a script that converts your documents into the above format.
+The quickest way to get started is to write a script that converts your documents into the above format.
 Then, you can invoke the indexer (here, we're indexing JSONL, but any of the other formats work as well):
 
 ```bash
@@ -50,7 +50,7 @@ Three options control the type of index that is built:
 If you don't specify any of the three options above, Pyserini builds an index that only stores term frequencies.
 This is sufficient for simple "bag of words" querying (and yields the smallest index size).
 
-Once indexing is done, you can use `SimpleSearcher` to search the index:
+Once indexing is done, you can use `LuceneSearcher` to search the index:
 
 ```python
 from pyserini.search.lucene import LuceneSearcher
@@ -64,12 +64,12 @@ for i in range(len(hits)):
 
 You should get something like the following:
 
-```
+```text
  1 doc2 0.25620
  2 doc3 0.23140
 ```
 
-If you want to perform a batch retrieval run (e.g., directly from the command line), organize all your queries in a tsv file, like [here](../tests/resources/sample_queries.tsv).
+If you want to perform a batch retrieval run (e.g., directly from the command line), organize all your queries in a tsv file, like [these sample queries](../tests/resources/sample_queries.tsv).
 The format is simple: the first field is a query id, and the second field is the query itself.
 Note that the file extension _must_ end in `.tsv` so that Pyserini knows what format the queries are in.
 
@@ -95,7 +95,8 @@ $ cat run.sample.txt
 4 Q0 doc3 1 0.483000 Anserini
 ```
 
-Note that output run file is in standard TREC format.
+Note that the output run file is in standard TREC format.
+The command above writes the run to `run.sample.txt` in the current working directory.
 
 You can also add extra fields in your documents when needed, e.g. text features.
 For example, the [SpaCy](https://spacy.io/usage/linguistic-features#named-entities) Named Entity Recognition (NER) result of `contents` could be stored as an additional field `NER`.
@@ -145,6 +146,11 @@ for i in range(len(hits)):
 ```
 
 The only difference is to use `set_language` to set the language.
+You should get something like the following:
+
+```text
+ 1 doc1 1.33780
+```
 
 To perform a batch run:
 
@@ -159,6 +165,7 @@ python -m pyserini.search.lucene \
 
 Here's what the [query file](../tests/resources/sample_queries_zh.tsv) looks like, in tsv.
 Once again, add `--language zh`.
+The command above writes the run to `run.sample_zh.txt` in the current working directory.
 
 And the expected output:
 
@@ -172,7 +179,133 @@ $ cat run.sample_zh.txt
 
 ## Building a BM25 Index (Embeddable Python Implementation)
 
-To be added...
+Pyserini also provides a programmatic API for building an inverted index (for BM25) directly from Python objects.
+This is useful when your documents are already in memory or produced by a Python pipeline and you don't want to first materialize a collection in JSON or JSONL format.
+
+The `LuceneIndexer` class wraps Anserini's `SimpleIndexer` and accepts the same basic document format as above:
+
+```json
+{
+  "id": "doc1",
+  "contents": "this is the contents."
+}
+```
+
+The simplest way to build an index is to create a `LuceneIndexer`, add documents, and then close the indexer:
+
+```python
+from pyserini.index.lucene import LuceneIndexer
+
+indexer = LuceneIndexer('indexes/simple_cacm_corpus')
+
+with open('tests/resources/simple_cacm_corpus.json') as f:
+    for doc in f:
+        indexer.add_doc_raw(doc)
+
+indexer.close()
+```
+
+The call to `close()` is required because it commits all in-memory data to disk.
+Once indexing is complete, you can use `LuceneSearcher` to search the index:
+
+```python
+from pyserini.search.lucene import LuceneSearcher
+
+searcher = LuceneSearcher('indexes/simple_cacm_corpus')
+hits = searcher.search('semantic networks')
+
+for i in range(len(hits)):
+    print(f'{i+1:2} {hits[i].docid:9} {hits[i].score:.5f}')
+```
+
+You should get something like the following:
+
+```text
+ 1 CACM-2274 1.53650
+```
+
+The example above adds raw JSON strings, but the embeddable indexer can also accept Python dictionaries:
+
+```python
+from pyserini.index.lucene import LuceneIndexer
+
+indexer = LuceneIndexer('indexes/sample_collection_python')
+indexer.add_doc_dict({'id': 'doc1', 'contents': 'this is the contents.'})
+indexer.add_doc_dict({'id': 'doc2', 'contents': 'this is another document.'})
+indexer.close()
+```
+
+For better throughput, add documents in batches:
+
+```python
+from pyserini.index.lucene import LuceneIndexer
+
+docs = [
+    {'id': 'doc1', 'contents': 'this is the contents.'},
+    {'id': 'doc2', 'contents': 'this is another document.'}
+]
+
+indexer = LuceneIndexer('indexes/sample_collection_python', threads=4)
+indexer.add_batch_dict(docs)
+indexer.close()
+```
+
+The indexer supports the following methods:
+
++ `add_doc_raw`: add a raw JSON string.
++ `add_doc_dict`: add a Python dictionary with `id` and `contents` fields.
++ `add_doc_json`: add a Jackson JSON node.
++ `add_batch_raw`: add a batch of raw JSON strings.
++ `add_batch_dict`: add a batch of Python dictionaries.
++ `add_batch_json`: add a batch of Jackson JSON nodes.
+
+By default, creating a `LuceneIndexer` overwrites the target index.
+To append to an existing index, set `append=True`:
+
+```python
+from pyserini.index.lucene import LuceneIndexer
+
+indexer = LuceneIndexer('indexes/sample_collection_python', append=True)
+indexer.add_doc_dict({'id': 'doc3', 'contents': 'this document is appended.'})
+indexer.close()
+```
+
+To pass additional indexing options through to Anserini's `SimpleIndexer`, initialize the indexer with `args`.
+For example, the following builds an index over pretokenized input:
+
+```python
+from pyserini.index.lucene import LuceneIndexer
+
+indexer = LuceneIndexer(args=['-index', 'indexes/simple_cacm_corpus_pretokenized', '-pretokenized'])
+
+with open('tests/resources/simple_cacm_corpus.json') as f:
+    for doc in f:
+        indexer.add_doc_raw(doc)
+
+indexer.close()
+```
+
+When searching a pretokenized index, set the query analyzer to `JWhiteSpaceAnalyzer` so that Pyserini preserves the existing query tokenization.
+For example, the query `in` is preserved as a search term instead of being discarded as an English stopword:
+
+```python
+from pyserini.analysis import JWhiteSpaceAnalyzer
+from pyserini.search.lucene import LuceneSearcher
+
+searcher = LuceneSearcher('indexes/simple_cacm_corpus_pretokenized')
+searcher.set_analyzer(JWhiteSpaceAnalyzer())
+hits = searcher.search('in')
+
+for i in range(len(hits)):
+    print(f'{i+1:2} {hits[i].docid:9} {hits[i].score:.5f}')
+```
+
+You should get something like the following:
+
+```text
+ 1 CACM-0981 0.40000
+ 2 CACM-2274 0.36620
+```
 
 ## Building a Sparse Vector Index
 

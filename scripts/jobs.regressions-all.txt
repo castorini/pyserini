@@ -1,12 +1,12 @@
-python -m pyserini.2cr.msmarco --collection v1-passage --all --directory runs/ --display-commands > logs/log.msmarco-v1-passage 2>&1
-python -m pyserini.2cr.msmarco --collection v1-doc     --all --directory runs/ --display-commands > logs/log.msmarco-v1-doc 2>&1
-python -m pyserini.2cr.msmarco --collection v2-passage --all --directory runs/ --display-commands > logs/log.msmarco-v2-passage 2>&1
-python -m pyserini.2cr.msmarco --collection v2-doc     --all --directory runs/ --display-commands > logs/log.msmarco-v2-doc 2>&1
-python -m pyserini.2cr.m_beir --all --directory runs/ --display-commands > logs/log.m_beir 2>&1
-python -m pyserini.2cr.miracl --all --directory runs/ --display-commands > logs/log.miracl 2>&1
-python -m pyserini.2cr.mrtydi --all --directory runs/ --display-commands > logs/log.mrtydi 2>&1
-python -m pyserini.2cr.beir   --all --directory runs/ --display-commands > logs/log.beir 2>&1
-python -m pyserini.2cr.ciral  --all --directory runs/ --display-commands > logs/log.ciral 2>&1
-python -m pyserini.2cr.odqa   --all --directory runs/ --topic tqa --display-commands > logs/log.odqa.tqa 2>&1
-python -m pyserini.2cr.odqa   --all --directory runs/ --topic nq  --display-commands > logs/log.odqa.nq 2>&1
-python -m pyserini.2cr.atomic --all --directory runs/ --display-commands > logs/log.atomic 2>&1
+python -m pyserini.2cr.msmarco --collection v1-passage --all --directory runs/ --display-commands > logs/log.2cr.msmarco-v1-passage.txt 2>&1
+python -m pyserini.2cr.msmarco --collection v1-doc     --all --directory runs/ --display-commands > logs/log.2cr.msmarco-v1-doc.txt 2>&1
+python -m pyserini.2cr.msmarco --collection v2-passage --all --directory runs/ --display-commands > logs/log.2cr.msmarco-v2-passage.txt 2>&1
+python -m pyserini.2cr.msmarco --collection v2-doc     --all --directory runs/ --display-commands > logs/log.2cr.msmarco-v2-doc.txt 2>&1
+python -m pyserini.2cr.beir   --all --directory runs/ --display-commands > logs/log.2cr.beir.txt 2>&1
+python -m pyserini.2cr.bright --all --directory runs/ --display-commands > logs/log.2cr.bright.txt 2>&1
+python -m pyserini.2cr.miracl --all --directory runs/ --display-commands > logs/log.2cr.miracl.txt 2>&1
+python -m pyserini.2cr.mrtydi --all --directory runs/ --display-commands > logs/log.2cr.mrtydi.txt 2>&1
+python -m pyserini.2cr.ciral  --all --directory runs/ --display-commands > logs/log.2cr.ciral.txt 2>&1
+python -m pyserini.2cr.odqa   --all --directory runs/ --display-commands > logs/log.2cr.odqa.txt 2>&1
+python -m pyserini.2cr.atomic --all --directory runs/ --display-commands > logs/log.2cr.atomic.txt 2>&1
+python -m pyserini.2cr.m_beir --all --directory runs/ --display-commands > logs/log.2cr.m_beir.txt 2>&1

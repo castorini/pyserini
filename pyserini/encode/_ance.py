@@ -14,12 +14,22 @@
 # limitations under the License.
 #
 
-from typing import Optional, List
+from typing import List, Optional
 
 import torch
-from transformers import PreTrainedModel, RobertaConfig, RobertaModel, RobertaTokenizer, requires_backends
+from packaging.version import Version
+from transformers import (
+    PreTrainedModel,
+    RobertaConfig,
+    RobertaModel,
+    RobertaTokenizer,
+    requires_backends
+)
+from transformers import __version__ as transformers_version
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
+from pyserini.encode._base import load_head_weights
+from pyserini.util import temporary_env
 
 
 class AnceEncoder(PreTrainedModel):
@@ -27,6 +37,10 @@ class AnceEncoder(PreTrainedModel):
     base_model_prefix = 'ance_encoder'
     load_tf_weights = None
 
+    @property
+    def all_tied_weights_keys(self):
+        return {}
+    
     def __init__(self, config: RobertaConfig):
         requires_backends(self, 'torch')
         super().__init__(config)
@@ -68,13 +82,24 @@ class AnceEncoder(PreTrainedModel):
         pooled_output = sequence_output[:, 0, :]
         pooled_output = self.norm(self.embeddingHead(pooled_output))
         return pooled_output
+    
+    @classmethod
+    def load_pretrained_encoder(cls, model_name_or_path: str, device: str):
+        with temporary_env(DISABLE_SAFETENSORS_CONVERSION='1'):
+            model = cls.from_pretrained(model_name_or_path, use_safetensors=False)
+        if Version(transformers_version) >= Version("5.0.0"):
+            load_head_weights(model, model_name_or_path, {
+                'embeddingHead': ['ance_encoder.embeddingHead', 'embeddingHead'],
+                'norm': ['ance_encoder.norm', 'norm']
+            })
+        model.to(device)
+        return model
 
 
 class AnceDocumentEncoder(DocumentEncoder):
     def __init__(self, model_name, tokenizer_name=None, device='cuda:0'):
         self.device = device
-        self.model = AnceEncoder.from_pretrained(model_name)
-        self.model.to(self.device)
+        self.model = AnceEncoder.load_pretrained_encoder(model_name, device)
         self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or model_name,
                                                           clean_up_tokenization_spaces=True)
 
@@ -99,8 +124,7 @@ class AnceQueryEncoder(QueryEncoder):
         super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
-            self.model = AnceEncoder.from_pretrained(encoder_dir)
-            self.model.to(self.device)
+            self.model = AnceEncoder.load_pretrained_encoder(encoder_dir, device)
             self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or encoder_dir,
                                                               clean_up_tokenization_spaces=True)
             self.has_model = True

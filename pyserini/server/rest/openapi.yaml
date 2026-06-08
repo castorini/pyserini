@@ -44,6 +44,40 @@ paths:
             type: boolean
             default: true
           description: If true, try to return parsed document contents; if false, return the raw stored document string.
+        - name: k1
+          in: query
+          required: false
+          schema:
+            type: number
+            format: float
+            minimum: 0
+            default: 0.9
+          description: >
+            BM25 k1 for sparse (TF) indexes. Must be finite, non-negative, and sent together with b.
+            Omit both for Anserini defaults (0.9 / 0.4).
+            Returns 400 on non-sparse indexes.
+        - name: b
+          in: query
+          required: false
+          schema:
+            type: number
+            format: float
+            minimum: 0
+            maximum: 1
+            default: 0.4
+          description: >
+            BM25 b for sparse (TF) indexes. Must be finite, in [0, 1], and sent together with k1.
+            Omit both for Anserini defaults (0.9 / 0.4).
+            Returns 400 on non-sparse indexes.
+        - name: max_doc_length
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+          description: >
+            Maximum characters to return for each parsed candidate document. If omitted, return
+            the full document. Returns 400 when combined with parse=false.
       responses:
         "200":
           description: Search results.
@@ -59,6 +93,20 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
         "401":
           description: Missing or invalid API credentials (only when the server is configured with API keys).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: >
+            Load shedding when the server is configured with API keys and rolling p99 latency exceeds
+            the configured threshold. API keys tied for the highest hit count in that window may be shed.
+            Clients should honor Retry-After when present.
+          headers:
+            Retry-After:
+              description: Minimum seconds to wait before retrying.
+              schema:
+                type: integer
           content:
             application/json:
               schema:
@@ -105,6 +153,15 @@ paths:
             type: boolean
             default: true
           description: If true, try to return parsed document contents; if false, return the raw stored document string.
+        - name: max_doc_length
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+          description: >
+            Maximum characters to return for the parsed document. If omitted, return the full
+            document. Returns 400 when combined with parse=false.
       responses:
         "200":
           description: Document found.
@@ -126,6 +183,20 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
         "401":
           description: Missing or invalid API credentials (only when the server is configured with API keys).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "429":
+          description: >
+            Load shedding when the server is configured with API keys and rolling p99 latency exceeds
+            the configured threshold. API keys tied for the highest hit count in that window may be shed.
+            Clients should honor Retry-After when present.
+          headers:
+            Retry-After:
+              description: Minimum seconds to wait before retrying.
+              schema:
+                type: integer
           content:
             application/json:
               schema:

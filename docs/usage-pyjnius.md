@@ -1,17 +1,10 @@
 # Pyserini: Direct Interaction via Pyjnius
 
-For parts of Anserini that have not yet been integrated into the Pyserini interface, you can interact with Anserini's Java classes directly via [pyjnius](https://github.com/kivy/pyjnius). 
-First, call Pyserini's setup helper for setting up classpath for the JVM:
+For parts of Anserini that have not yet been integrated into the Pyserini interface, you can interact with Anserini's Java classes directly via [pyjnius](https://github.com/kivy/pyjnius).
+Import Pyserini's Pyjnius wrapper first so the Anserini jar is added to the classpath before the JVM starts:
 
 ```python
-from pyserini.setup import configure_classpath
-configure_classpath('pyserini/resources/jars')
-```
-
-Now `autoclass` can be used to provide direct access to Java classes:
-
-```python
-from jnius import autoclass
+from pyserini.pyclass import autoclass
 
 JIndexReaderUtils = autoclass('io.anserini.index.IndexReaderUtils')
 reader = JIndexReaderUtils.getReader('indexes/index-robust04-20191213/')

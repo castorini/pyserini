@@ -21,7 +21,6 @@ from pyserini.encode import AutoDocumentEncoder
 from pyserini.encode import document_encoder_class_map, MMEB_IMPORT_ERROR
 from pyserini.encode import OPENAI_API_RETRY_DELAY
 from pyserini.encode import JsonlRepresentationWriter, JsonlCollectionIterator
-from pyserini.encode.optional import FaissRepresentationWriter
 from pyserini.util import resolve_device
 
 
@@ -138,6 +137,7 @@ if __name__ == '__main__':
     encoder = init_encoder(args.encoder.encoder, args.encoder.encoder_class, device=args.encoder.device, pooling=args.encoder.pooling, l2_norm=args.encoder.l2_norm, prefix=args.encoder.prefix, multimodal=args.encoder.multimodal, explicit_truncate=args.encoder.explicit_truncate)
 
     if args.output.to_faiss:
+        from pyserini.encode.optional import FaissRepresentationWriter
         embedding_writer = FaissRepresentationWriter(args.output.embeddings, dimension=args.encoder.dimension)
     else:
         embedding_writer = JsonlRepresentationWriter(args.output.embeddings)
