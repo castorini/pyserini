@@ -267,154 +267,154 @@ TF_INDEX_INFO_BRIGHT = {
 
 TF_INDEX_INFO_MRTYDI = {
     "mrtydi-v1.1-ar": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Arabic).",
-        "filename": "lucene-inverted.mrtydi-v1.1-ar.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Arabic (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-ar.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ar.20220928.b5ecc5.tar.gz",
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ar.20260604.558ae2c.tar",
         ],
-        "md5": "eae9ed3430eeb685328c92be886197d3",
-        "size": 1166813697,
+        "md5": "45a70ff0e6ba8edecaa5f6f043701600",
+        "size": 1429483520,
         "total_terms": 92529032,
         "documents": 2106586,
         "unique_terms": 1284748,
         "downloaded": False
     },
     "mrtydi-v1.1-bn": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Bengali).",
-        "filename": "lucene-inverted.mrtydi-v1.1-bn.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Bengali (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-bn.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-bn.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-bn.20260604.558ae2c.tar"
         ],
-        "md5": "4fdb127c48c311851875d884ccf9d3e7",
-        "size": 240163624,
+        "md5": "4824ec5fe1cbf134c99e3ff4a94d71b1",
+        "size": 296130560,
         "total_terms": 15236599,
         "documents": 304059,
         "unique_terms": 520699,
         "downloaded": False
     },
     "mrtydi-v1.1-en": {
-        "description": "Lucene index for Mr.TyDi v1.1 (English).",
-        "filename": "lucene-inverted.mrtydi-v1.1-en.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - English (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-en.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-en.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-en.20260604.558ae2c.tar"
         ],
-        "md5": "98eb2e28b120c9fac2aa43fa370d0d27",
-        "size": 16732696856,
+        "md5": "e1b4920633c9f8d4d484fbc1f9208c45",
+        "size": 20631726080,
         "total_terms": 1507060932,
         "documents": 32907100,
-        "unique_terms": -1,
+        "unique_terms": 6189405,
         "downloaded": False
     },
     "mrtydi-v1.1-fi": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Finnish).",
-        "filename": "lucene-inverted.mrtydi-v1.1-fi.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Finnish (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-fi.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-fi.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-fi.20260604.558ae2c.tar"
         ],
-        "md5": "c5546562c77bd28bb1ab68ca24c5b37a",
-        "size": 906509667,
+        "md5": "12751caf1a2ea823b4ed4acb0fbfd5d8",
+        "size": 1120163840,
         "total_terms": 69416543,
         "documents": 1908757,
         "unique_terms": 1715076,
         "downloaded": False
     },
     "mrtydi-v1.1-id": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Indonesian).",
-        "filename": "lucene-inverted.mrtydi-v1.1-id.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Indonesian (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-id.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-id.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-id.20260604.558ae2c.tar"
         ],
-        "md5": "551b282737fd885b1904ea365768c066",
-        "size": 562187620,
+        "md5": "aa02ff7c756106a85ce7778692d2d2bb",
+        "size": 703191040,
         "total_terms": 52493134,
         "documents": 1469399,
         "unique_terms": 942552,
         "downloaded": False
     },
     "mrtydi-v1.1-ja": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Japanese).",
-        "filename": "lucene-inverted.mrtydi-v1.1-ja.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Japanese (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-ja.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ja.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ja.20260604.558ae2c.tar"
         ],
-        "md5": "6f5062b65c69ce37c8a4e76d08e6d5c4",
-        "size": 3637126847,
+        "md5": "d29a082b93496875fc12b3155b45eb91",
+        "size": 4350003200,
         "total_terms": 300761975,
         "documents": 7000027,
         "unique_terms": 1588879,
         "downloaded": False
     },
     "mrtydi-v1.1-ko": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Korean).",
-        "filename": "lucene-inverted.mrtydi-v1.1-ko.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Korean (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-ko.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ko.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ko.20260604.558ae2c.tar"
         ],
-        "md5": "a52bfe4be87fd3178ca231b007e7af38",
-        "size": 1137658449,
-        "total_terms": 122217295,
+        "md5": "adcd51f82738fcc1eaf2c9003bb4b421",
+        "size": 928686080,
+        "total_terms": 73084884,
         "documents": 1496126,
-        "unique_terms": 1517179,
+        "unique_terms": 456094,
         "downloaded": False
     },
     "mrtydi-v1.1-ru": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Russian).",
-        "filename": "lucene-inverted.mrtydi-v1.1-ru.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Russian (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-ru.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ru.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ru.20260604.558ae2c.tar"
         ],
-        "md5": "dc1d75d31595252e3a6b665b522adf3b",
-        "size": 5642484260,
+        "md5": "9abc508ffa0637cedc62e3629d6a7658",
+        "size": 6890475520,
         "total_terms": 346329117,
         "documents": 9597504,
-        "unique_terms": 3034240,
+        "unique_terms": 3034239,
         "downloaded": False
     },
     "mrtydi-v1.1-sw": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Swahili).",
-        "filename": "lucene-inverted.mrtydi-v1.1-sw.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Swahili (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-sw.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-sw.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-sw.20260604.558ae2c.tar"
         ],
-        "md5": "4514e4a3f35279408a2e0aea3051dce0",
-        "size": 47557469,
+        "md5": "6bfb2f3bbb3cd2d23c7ff7e5a429b434",
+        "size": 59944960,
         "total_terms": 4937051,
         "documents": 136689,
         "unique_terms": 385711,
         "downloaded": False
     },
     "mrtydi-v1.1-te": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Telugu).",
-        "filename": "lucene-inverted.mrtydi-v1.1-te.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Telugu (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-te.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-te.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-te.20260604.558ae2c.tar"
         ],
-        "md5": "4bd62ef02febb49a487e765c023507de",
-        "size": 413881826,
+        "md5": "10b79b19b0b40c87c988b60435e9f29a",
+        "size": 521779200,
         "total_terms": 26812052,
         "documents": 548224,
         "unique_terms": 1157217,
         "downloaded": False
     },
     "mrtydi-v1.1-th": {
-        "description": "Lucene index for Mr.TyDi v1.1 (Thai).",
-        "filename": "lucene-inverted.mrtydi-v1.1-th.20220928.b5ecc5.tar.gz",
-        "readme": "lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md",
+        "description": "Lucene index for Mr.TyDi v1.1 - Thai (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-th.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-th.20220928.b5ecc5.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-th.20260604.558ae2c.tar"
         ],
-        "md5": "d040c15b460d488571eb959192335771",
-        "size": 450209352,
+        "md5": "633fd759421414f563f5114ac392cf53",
+        "size": 548075520,
         "total_terms": 31550936,
         "documents": 568855,
         "unique_terms": 663628,
@@ -438,255 +438,255 @@ TF_INDEX_INFO_MRTYDI_ALIASES = {
 
 TF_INDEX_INFO_MIRACL = {
     "miracl-v1.0-ar": {
-        "description": "Lucene index for MIRACL v1.0 (Arabic).",
-        "filename": "lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Arabic (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-ar.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ar.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ar.20260604.558ae2c.tar"
         ],
-        "md5": "503d3b49a557222d8074ac831a2f047a",
-        "size": 1187504365,
+        "md5": "78297714dfdd5e9253cb71f5043e2f89",
+        "size": 1409320960,
         "total_terms": 90223450,
         "documents": 2061414,
         "unique_terms": 1246254,
         "downloaded": False
     },
     "miracl-v1.0-bn": {
-        "description": "Lucene index for MIRACL v1.0 (Bengali).",
-        "filename": "lucene-index.miracl-v1.0-bn.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Bengali (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-bn.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-bn.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-bn.20260604.558ae2c.tar"
         ],
-        "md5": "7a20210328f0b83f44e041f0c94d30e2",
-        "size": 236115752,
+        "md5": "9064c52b8cf77a23d62c37400db8a51e",
+        "size": 291256320,
         "total_terms": 14963235,
         "documents": 297265,
         "unique_terms": 506812,
         "downloaded": False
     },
     "miracl-v1.0-en": {
-        "description": "Lucene index for MIRACL v1.0 (English).",
-        "filename": "lucene-index.miracl-v1.0-en.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - English (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-en.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-en.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-en.20260604.558ae2c.tar"
         ],
-        "md5": "4fbd652deb76bcc05daa35392d4aa9f3",
-        "size": 17702731887,
+        "md5": "d6c9cdaf90d857fc883124154c95d2a2",
+        "size": 20680714240,
         "total_terms": 1505029955,
         "documents": 32893221,
         "unique_terms": 6152316,
         "downloaded": False
     },
     "miracl-v1.0-es": {
-        "description": "Lucene index for MIRACL v1.0 (Spanish).",
-        "filename": "lucene-index.miracl-v1.0-es.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Spanish (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-es.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-es.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-es.20260604.558ae2c.tar"
         ],
-        "md5": "b4c9993ee3a131871d4f07dd96e80531",
-        "size": 5438142131,
+        "md5": "b30182ed716f26de7d54aa329241446c",
+        "size": 6328729600,
         "total_terms": 389319806,
         "documents": 10373953,
         "unique_terms": 2907509,
         "downloaded": False
     },
-    "miracl-v1.0-fa": {
-        "description": "Lucene index for MIRACL v1.0 (Persian).",
-        "filename": "lucene-index.miracl-v1.0-fa.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+    "miracl-v1.0-de": {
+        "description": "Lucene index for MIRACL v1.0 - German (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-de.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-fa.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-de.20260604.558ae2c.tar"
         ],
-        "md5": "bfc824aa37633e3d45bcfd5c5e0e1701",
-        "size": 1017387904,
+        "md5": "859308b005802004b7bbc4fe2332a582",
+        "size": 10285731840,
+        "total_terms": 581583743,
+        "documents": 15866222,
+        "unique_terms": 6288858,
+        "downloaded": False
+    },
+    "miracl-v1.0-fa": {
+        "description": "Lucene index for MIRACL v1.0 - Persian (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-fa.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-fa.20260604.558ae2c.tar"
+        ],
+        "md5": "abdbde58b61f360ae325ec9c15071553",
+        "size": 1175224320,
         "total_terms": 67968038,
         "documents": 2207172,
-        "unique_terms": 1208930,
+        "unique_terms": 1104195,
         "downloaded": False
     },
     "miracl-v1.0-fi": {
-        "description": "Lucene index for MIRACL v1.0 (Finnish).",
-        "filename": "lucene-index.miracl-v1.0-fi.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Finnish (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-fi.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-fi.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-fi.20260604.558ae2c.tar"
         ],
-        "md5": "4197c90efd781c6153acaf15452c5479",
-        "size": 916687116,
+        "md5": "a0a7407f1557b8151d3497055094ade3",
+        "size": 1104527360,
         "total_terms": 68295087,
         "documents": 1883509,
         "unique_terms": 1669817,
         "downloaded": False
     },
     "miracl-v1.0-fr": {
-        "description": "Lucene index for MIRACL v1.0 (French).",
-        "filename": "lucene-index.miracl-v1.0-fr.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - French (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-fr.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-fr.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-fr.20260604.558ae2c.tar"
         ],
-        "md5": "e68b10d90be71b702888a3d00a8aa39c",
-        "size": 6684522892,
+        "md5": "63e71554fddb071be503acb84ac1f55d",
+        "size": 7840276480,
         "total_terms": 508723988,
         "documents": 14636953,
-        "unique_terms": 2811342,
+        "unique_terms": 2811334,
         "downloaded": False
     },
     "miracl-v1.0-hi": {
-        "description": "Lucene index for MIRACL v1.0 (Hindi).",
-        "filename": "lucene-index.miracl-v1.0-hi.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Hindi (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-hi.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-hi.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-hi.20260604.558ae2c.tar"
         ],
-        "md5": "d81f4e2b7ec5df8f9741168c23c977e2",
-        "size": 340836547,
+        "md5": "03f37cadc7cf3a79fbf262b8bcf96add",
+        "size": 423127040,
         "total_terms": 21080143,
         "documents": 506264,
         "unique_terms": 597558,
         "downloaded": False
     },
     "miracl-v1.0-id": {
-        "description": "Lucene index for MIRACL v1.0 (Indonesian).",
-        "filename": "lucene-index.miracl-v1.0-id.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Indonesian (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-id.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-id.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-id.20260604.558ae2c.tar"
         ],
-        "md5": "b1092e732991029fae7c542e5e129255",
-        "size": 572215307,
+        "md5": "8d81825e9e0363e0504ed32398060aae",
+        "size": 689367040,
         "total_terms": 51469219,
         "documents": 1446315,
         "unique_terms": 911944,
         "downloaded": False
     },
     "miracl-v1.0-ja": {
-        "description": "Lucene index for MIRACL v1.0 (Japanese).",
-        "filename": "lucene-index.miracl-v1.0-ja.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Japanese (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-ja.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ja.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ja.20260604.558ae2c.tar"
         ],
-        "md5": "4db9550d0af63736a0fd2b486b3b7273",
-        "size": 3734999654,
+        "md5": "7f337e510c8f9d8c6850a85636c8ecb6",
+        "size": 4317890560,
         "total_terms": 296659169,
         "documents": 6953614,
         "unique_terms": 1558643,
         "downloaded": False
     },
     "miracl-v1.0-ko": {
-        "description": "Lucene index for MIRACL v1.0 (Korean).",
-        "filename": "lucene-index.miracl-v1.0-ko.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Korean (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-ko.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ko.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ko.20260604.558ae2c.tar"
         ],
-        "md5": "c82f5c7641fd78b8dadfcb279a1c0340",
-        "size": 1146272936,
-        "total_terms": 121464424,
+        "md5": "d2648e245490dcc6fb80e9f8c4dd3a7a",
+        "size": 922388480,
+        "total_terms": 72532389,
         "documents": 1486752,
-        "unique_terms": 1504782,
+        "unique_terms": 451428,
         "downloaded": False
     },
     "miracl-v1.0-ru": {
-        "description": "Lucene index for MIRACL v1.0 (Russian).",
-        "filename": "lucene-index.miracl-v1.0-ru.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Russian (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-ru.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-ru.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ru.20260604.558ae2c.tar"
         ],
-        "md5": "c1b974e298d9e1deeccae8b84a5bcd64",
-        "size": 5955535508,
+        "md5": "b0a57963ccfe52ec7edb89cff1fb8c33",
+        "size": 6895124480,
         "total_terms": 343106870,
         "documents": 9543918,
         "unique_terms": 2955627,
         "downloaded": False
     },
     "miracl-v1.0-sw": {
-        "description": "Lucene index for MIRACL v1.0 (Swahili).",
-        "filename": "lucene-index.miracl-v1.0-sw.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Swahili (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-sw.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-sw.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-sw.20260604.558ae2c.tar"
         ],
-        "md5": "64b77bcc11e04575d0723ad81ac7c135",
-        "size": 45406742,
+        "md5": "60d473575592cb2fd01ff240bdbc032c",
+        "size": 57292800,
         "total_terms": 4752278,
         "documents": 131924,
         "unique_terms": 361306,
         "downloaded": False
     },
     "miracl-v1.0-te": {
-        "description": "Lucene index for MIRACL v1.0 (Telugu).",
-        "filename": "lucene-index.miracl-v1.0-te.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Telugu (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-te.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-te.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-te.20260604.558ae2c.tar"
         ],
-        "md5": "1f78c68678f439a3143a6fb0d25bfe27",
-        "size": 401362581,
+        "md5": "d78c1bb22aacc8934321d1541946da5b",
+        "size": 505917440,
         "total_terms": 26105595,
         "documents": 518079,
         "unique_terms": 1120047,
         "downloaded": False
     },
     "miracl-v1.0-th": {
-        "description": "Lucene index for MIRACL v1.0 (Thai).",
-        "filename": "lucene-index.miracl-v1.0-th.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Thai (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-th.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-th.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-th.20260604.558ae2c.tar"
         ],
-        "md5": "eeef93c23b76fdc66b9e1ee01576765e",
-        "size": 430808790,
+        "md5": "d36c74137d7ac74fc40a4e10df63fc52",
+        "size": 523694080,
         "total_terms": 29922100,
         "documents": 542166,
         "unique_terms": 626084,
         "downloaded": False
     },
-    "miracl-v1.0-zh": {
-        "description": "Lucene index for MIRACL v1.0 (Chinese).",
-        "filename": "lucene-index.miracl-v1.0-zh.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-zh.20221004.2b2856.tar.gz"
-        ],
-        "md5": "dc7880da333b7c56d3a4ff0bf018febd",
-        "size": 4141810894,
-        "total_terms": 423635495,
-        "documents": 4934368,
-        "unique_terms": 6517412,
-        "downloaded": False
-    },
-    "miracl-v1.0-de": {
-        "description": "Lucene index for MIRACL v1.0 (German).",
-        "filename": "lucene-index.miracl-v1.0-de.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-de.20221004.2b2856.tar.gz"
-        ],
-        "md5": "a40d1b9429c450b2e476d1e4ba22784d",
-        "size": 8708219012,
-        "total_terms": 581583743,
-        "documents": 15866222,
-        "unique_terms": 6288858,
-        "downloaded": False
-    },
     "miracl-v1.0-yo": {
-        "description": "Lucene index for MIRACL v1.0 (Yoruba).",
-        "filename": "lucene-index.miracl-v1.0-yo.20221004.2b2856.tar.gz",
-        "readme": "lucene-index.miracl-v1.0.20221004.2b2856.README.md",
+        "description": "Lucene index for MIRACL v1.0 - Yoruba (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-yo.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
         "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.miracl-v1.0-yo.20221004.2b2856.tar.gz"
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-yo.20260604.558ae2c.tar"
         ],
-        "md5": "7fa283d1af4a7c4ea8791eab9e386807",
-        "size": 13211664,
+        "md5": "a34d7a06904a317b7f257080f6f83539",
+        "size": 17387520,
         "total_terms": 1387088,
         "documents": 49043,
         "unique_terms": 174539,
+        "downloaded": False
+    },
+    "miracl-v1.0-zh": {
+        "description": "Lucene index for MIRACL v1.0 - Chinese (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-zh.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-zh.20260604.558ae2c.tar"
+        ],
+        "md5": "19e3b5dd3f648251f65410ad4c8cb4d8",
+        "size": 4776775680,
+        "total_terms": 423635495,
+        "documents": 4934368,
+        "unique_terms": 6517412,
         "downloaded": False
     }
 }
