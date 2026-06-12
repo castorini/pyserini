@@ -67,123 +67,123 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <summary>MS MARCO</summary>
 <dl>
 <dt></dt><b><code>msmarco-v1-doc</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/doc/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V1 document corpus.
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/doc/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V1 document corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/doc/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc.20221004.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V1 document corpus ('full' version)
 </dd>
 <dt></dt><b><code>msmarco-v1-doc.d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/doc/d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V1 document corpus with doc2query-T5 expansions
 </dd>
 <dt></dt><b><code>msmarco-v1-doc.d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/doc/d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc.d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V1 document corpus with doc2query-T5 expansions (with stored docvectors)
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/doc/segmented/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V1 segmented document corpus
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/doc/segmented/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V1 segmented document corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/doc/segmented/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented.20221004.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V1 segmented document corpus ('full' version)
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented.d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/doc/segmented-d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions
 </dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented.d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/doc/segmented-d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-doc-segmented.d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V1 segmented document corpus with doc2query-T5 expansions (with stored docvectors)
 </dd>
 <dt></dt><b><code>msmarco-v1-passage</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/passage/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V1 passage corpus
 </dd>
 <dt></dt><b><code>msmarco-v1-passage-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/passage/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V1 passage corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v1-passage-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/passage/original/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage.20221004.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V1 passage corpus ('full' version)
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/passage/d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V1 passage corpus with doc2query-T5 expansions
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/passage/d2q-t5/lucene-inverted/tf/lucene-inverted.msmarco-v1-passage.d2q-t5.20221004.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V1 passage corpus with doc2query-T5 expansions (with stored docvectors)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 document corpus
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 document corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 document corpus ('full' version)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc.d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 document corpus with doc2query-T5 expansions
 </dd>
 <dt></dt><b><code>msmarco-v2-doc.d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 document corpus with doc2query-T5 expansions (with stored docvectors)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 segmented document corpus
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 segmented document corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 segmented document corpus ('full' version)
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented.d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions
 </dd>
 <dt></dt><b><code>msmarco-v2-doc-segmented.d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions (with stored docvectors)
 </dd>
 <dt></dt><b><code>msmarco-v2-passage</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 passage corpus
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 passage corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 passage corpus ('full' version)
 </dd>
 <dt></dt><b><code>msmarco-v2-passage.d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 passage corpus with doc2query-T5 expansions
 </dd>
 <dt></dt><b><code>msmarco-v2-passage.d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 passage corpus with doc2query-T5 expansions (with stored docvectors)
 </dd>
 <dt></dt><b><code>msmarco-v2-passage-augmented</code></b>
@@ -207,27 +207,27 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dd>Lucene index (+docvectors) of the MS MARCO V2 augmented passage corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2.1 document corpus
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2.1 document corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2.1 document corpus ('full' version)
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2.1 segmented document corpus
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2.1 segmented document corpus ('slim' version)
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc-segmented.20240418.4f9675.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2.1 segmented document corpus ('full' version)
 </dd>
 </dl>
@@ -236,235 +236,235 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <summary>BEIR</summary>
 <dl>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'trec-covid'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'bioasq'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'nfcorpus'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'nq'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'hotpotqa'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'fiqa'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'signal1m'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'trec-news'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'robust04'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'arguana'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'webis-touche2020'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-android'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-english'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-gaming'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-gis'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-mathematica'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-physics'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-programmers'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-stats'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-tex'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-unix'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-webmasters'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'cqadupstack-wordpress'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'quora'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'dbpedia-entity'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'scidocs'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'fever'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'climate-fever'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/flat/lucene-inverted.beir-v1.0.0-flat.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'flat' index of BEIR collection 'scifact'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'trec-covid'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'bioasq'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'nfcorpus'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'nq'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'hotpotqa'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'fiqa'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'signal1m'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'trec-news'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'robust04'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'arguana'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'webis-touche2020'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-android'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-english'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-gaming'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-gis'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-mathematica'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-physics'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-programmers'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-stats'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-tex'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-unix'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-webmasters'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'cqadupstack-wordpress'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'quora'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'dbpedia-entity'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'scidocs'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'fever'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'climate-fever'
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.multifield</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/multifield/lucene-inverted.beir-v1.0.0-multifield.20221116.505594.README.md">readme</a>]
 <dd>Anserini Lucene inverted 'multifield' index of BEIR collection 'scifact'
 </dd>
 </dl>
@@ -473,51 +473,51 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <summary>BRIGHT</summary>
 <dl>
 <dt></dt><b><code>bright-biology</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/tf/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of BRIGHT collection 'biology'
 </dd>
 <dt></dt><b><code>bright-earth-science</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/tf/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of BRIGHT collection 'earth-science'
 </dd>
 <dt></dt><b><code>bright-economics</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/tf/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of BRIGHT collection 'economics'
 </dd>
 <dt></dt><b><code>bright-psychology</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/tf/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of BRIGHT collection 'psychology'
 </dd>
 <dt></dt><b><code>bright-robotics</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/tf/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of BRIGHT collection 'robotics'
 </dd>
 <dt></dt><b><code>bright-stackoverflow</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/tf/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of BRIGHT collection 'stackoverflow'
 </dd>
 <dt></dt><b><code>bright-sustainable-living</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/tf/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of BRIGHT collection 'sustainable-living'
 </dd>
 <dt></dt><b><code>bright-pony</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/tf/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of BRIGHT collection 'pony'
 </dd>
 <dt></dt><b><code>bright-leetcode</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/tf/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of BRIGHT collection 'leetcode'
 </dd>
 <dt></dt><b><code>bright-aops</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/tf/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of BRIGHT collection 'aops'
 </dd>
 <dt></dt><b><code>bright-theoremqa-theorems</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/tf/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of BRIGHT collection 'theoremqa-theorems'
 </dd>
 <dt></dt><b><code>bright-theoremqa-questions</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/tf/lucene-inverted.bright.20250705.44ae8e.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of BRIGHT collection 'theoremqa-questions'
 </dd>
 </dl>
@@ -526,48 +526,48 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <summary>Mr.TyDi</summary>
 <dl>
 <dt></dt><b><code>mrtydi-v1.1-ar</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Arabic).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 - Arabic (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-bn</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Bengali).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 - Bengali (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-en</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (English).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 - English (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-fi</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Finnish).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 - Finnish (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-id</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Indonesian).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 - Indonesian (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-ja</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Japanese).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 - Japanese (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-ko</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Korean).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 - Korean (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-ru</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Russian).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 - Russian (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-sw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Swahili).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 - Swahili (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-te</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Telugu).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 - Telugu (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>mrtydi-v1.1-th</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20220928.b5ecc5.README.md">readme</a>]
-<dd>Lucene index for Mr.TyDi v1.1 (Thai).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for Mr.TyDi v1.1 - Thai (Lucene 10.4.0)
 </dd>
 </dl>
 </details>
@@ -575,76 +575,76 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <summary>MIRACL</summary>
 <dl>
 <dt></dt><b><code>miracl-v1.0-ar</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Arabic).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - Arabic (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-bn</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Bengali).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - Bengali (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-en</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (English).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - English (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-es</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Spanish).
-</dd>
-<dt></dt><b><code>miracl-v1.0-fa</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Persian).
-</dd>
-<dt></dt><b><code>miracl-v1.0-fi</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Finnish).
-</dd>
-<dt></dt><b><code>miracl-v1.0-fr</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (French).
-</dd>
-<dt></dt><b><code>miracl-v1.0-hi</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Hindi).
-</dd>
-<dt></dt><b><code>miracl-v1.0-id</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Indonesian).
-</dd>
-<dt></dt><b><code>miracl-v1.0-ja</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Japanese).
-</dd>
-<dt></dt><b><code>miracl-v1.0-ko</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Korean).
-</dd>
-<dt></dt><b><code>miracl-v1.0-ru</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Russian).
-</dd>
-<dt></dt><b><code>miracl-v1.0-sw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Swahili).
-</dd>
-<dt></dt><b><code>miracl-v1.0-te</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Telugu).
-</dd>
-<dt></dt><b><code>miracl-v1.0-th</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Thai).
-</dd>
-<dt></dt><b><code>miracl-v1.0-zh</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Chinese).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - Spanish (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-de</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (German).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - German (Lucene 10.4.0)
+</dd>
+<dt></dt><b><code>miracl-v1.0-fa</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - Persian (Lucene 10.4.0)
+</dd>
+<dt></dt><b><code>miracl-v1.0-fi</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - Finnish (Lucene 10.4.0)
+</dd>
+<dt></dt><b><code>miracl-v1.0-fr</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - French (Lucene 10.4.0)
+</dd>
+<dt></dt><b><code>miracl-v1.0-hi</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - Hindi (Lucene 10.4.0)
+</dd>
+<dt></dt><b><code>miracl-v1.0-id</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - Indonesian (Lucene 10.4.0)
+</dd>
+<dt></dt><b><code>miracl-v1.0-ja</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - Japanese (Lucene 10.4.0)
+</dd>
+<dt></dt><b><code>miracl-v1.0-ko</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - Korean (Lucene 10.4.0)
+</dd>
+<dt></dt><b><code>miracl-v1.0-ru</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - Russian (Lucene 10.4.0)
+</dd>
+<dt></dt><b><code>miracl-v1.0-sw</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - Swahili (Lucene 10.4.0)
+</dd>
+<dt></dt><b><code>miracl-v1.0-te</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - Telugu (Lucene 10.4.0)
+</dd>
+<dt></dt><b><code>miracl-v1.0-th</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - Thai (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>miracl-v1.0-yo</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index.miracl-v1.0.20221004.2b2856.README.md">readme</a>]
-<dd>Lucene index for MIRACL v1.0 (Yoruba).
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - Yoruba (Lucene 10.4.0)
+</dd>
+<dt></dt><b><code>miracl-v1.0-zh</code></b>
+[<a href="../pyserini/resources/index-metadata/lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md">readme</a>]
+<dd>Lucene index for MIRACL v1.0 - Chinese (Lucene 10.4.0)
 </dd>
 </dl>
 </details>
@@ -759,20 +759,10 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dd>Lucene index for TREC 2019 CaST
 </dd>
 <dt></dt><b><code>wikipedia-dpr-100w</code></b>
-[<a href="../pyserini/resources/index-metadata/index-wikipedia-dpr-20210120-d1b9e6-readme.txt">readme</a>]
-<dd>Lucene index of Wikipedia with DPR 100-word splits
-</dd>
-<dt></dt><b><code>wikipedia-dpr-100w-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/index-wikipedia-dpr-slim-20210120-d1b9e6-readme.txt">readme</a>]
-<dd>Lucene index of Wikipedia with DPR 100-word splits (slim version, document text not stored)
-</dd>
-<dt></dt><b><code>wikipedia-kilt-doc</code></b>
-[<a href="../pyserini/resources/index-metadata/index-wikipedia-kilt-doc-20210421-f29307-readme.txt">readme</a>]
-<dd>Lucene index of Wikipedia snapshot used as KILT's knowledge source.
+<dd>Lucene index of Wikipedia with DPR 100-word splits (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>wiki-all-6-3-tamber</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-index-wiki-all-6-3-tamber-20230111-40277a.README.md">readme</a>]
-<dd>Lucene index of wiki-all-6-3-tamber from castorini/odqa-wiki-corpora
+<dd>Lucene index of wiki-all-6-3-tamber from castorini/odqa-wiki-corpora on Huggingface Datasets (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>hc4-v1.0-fa</code></b>
 [<a href="../pyserini/resources/index-metadata/lucene-index.hc4-v1.0.20221025.c4a8d0.README.md">readme</a>]
@@ -939,235 +929,235 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <summary>BEIR</summary>
 <dl>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'trec-covid' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'trec-covid' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'bioasq' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'bioasq' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'nfcorpus' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'nfcorpus' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'nq' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'nq' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'hotpotqa' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'hotpotqa' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'fiqa' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'fiqa' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'signal1m' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'signal1m' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'trec-news' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'trec-news' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'robust04' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'robust04' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'arguana' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'arguana' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'webis-touche2020' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'webis-touche2020' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-android' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-android' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-english' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-english' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-gaming' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-gaming' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-gis' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-gis' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-mathematica' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-mathematica' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-physics' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-physics' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-programmers' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-programmers' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-stats' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-stats' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-tex' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-tex' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-unix' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-unix' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-webmasters' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-webmasters' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-wordpress' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-wordpress' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'quora' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'quora' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'dbpedia-entity' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'dbpedia-entity' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'scidocs' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'scidocs' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'fever' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'fever' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'climate-fever' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'climate-fever' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.splade-pp-ed</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
-<dd>Anserini Lucene impact index of BEIR collection 'scifact' encoded by SPLADE++ CoCondenser-EnsembleDistil
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'scifact' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'trec-covid' collection 'trec-covid' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'bioasq' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'nfcorpus' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'nq' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'hotpotqa' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'fiqa' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'signal1m' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'trec-news' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'robust04' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'arguana' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'webis-touche2020' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-android' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-english' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-gaming' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-gis' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-mathematica' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-physics' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-programmers' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-stats' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-tex' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-unix' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-webmasters' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-wordpress' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'quora' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'dbpedia-entity' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'scidocs' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'fever' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'climate-fever' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-v3/lucene-inverted.beir-v1.0.0-splade-v3.20250603.168a2d.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'scifact' encoded by SPLADE-v3
 </dd>
 </dl>
@@ -1176,51 +1166,51 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <summary>BRIGHT</summary>
 <dl>
 <dt></dt><b><code>bright-biology.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/splade-v3/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BRIGHT collection 'biology' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-earth-science.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/splade-v3/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BRIGHT collection 'earth-science' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-economics.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/splade-v3/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BRIGHT collection 'economics' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-psychology.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/splade-v3/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BRIGHT collection 'psychology' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-robotics.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/splade-v3/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BRIGHT collection 'robotics' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-stackoverflow.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/splade-v3/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BRIGHT collection 'stackoverflow' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-sustainable-living.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/splade-v3/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BRIGHT collection 'sustainable-living' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-pony.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/splade-v3/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BRIGHT collection 'pony' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-leetcode.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/splade-v3/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BRIGHT collection 'leetcode' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-aops.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/splade-v3/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BRIGHT collection 'aops' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-theoremqa-theorems.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/splade-v3/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BRIGHT collection 'theoremqa-theorems' encoded by SPLADE-v3
 </dd>
 <dt></dt><b><code>bright-theoremqa-questions.splade-v3</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-inverted/splade-v3/lucene-inverted.bright.splade-v3.20250808.c6674a.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BRIGHT collection 'theoremqa-questions' encoded by SPLADE-v3
 </dd>
 </dl>
@@ -1232,19 +1222,19 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <summary>MS MARCO</summary>
 <dl>
 <dt></dt><b><code>msmarco-v1-passage.cosdpr-distil.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.cosdpr-distil.20240108.825148.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/passage/original/lucene-hnsw/cosdpr-distil/lucene-hnsw.msmarco-v1-passage.cosdpr-distil.20240108.825148.README.md">readme</a>]
 <dd>Anserini Lucene HNSW index of the MS MARCO V1 passage corpus encoded by cos-DPR Distil
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.cosdpr-distil.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.cosdpr-distil.20240108.825148.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/passage/original/lucene-hnsw/cosdpr-distil/lucene-hnsw.msmarco-v1-passage.cosdpr-distil.20240108.825148.README.md">readme</a>]
 <dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V1 passage corpus encoded by cos-DPR Distil
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.bge-base-en-v1.5.20240117.53514b.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/passage/original/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.msmarco-v1-passage.bge-base-en-v1.5.20240117.53514b.README.md">readme</a>]
 <dd>Anserini Lucene HNSW index of the MS MARCO V1 passage corpus encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.bge-base-en-v1.5.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.msmarco-v1-passage.bge-base-en-v1.5.20240117.53514b.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/passage/original/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.msmarco-v1-passage.bge-base-en-v1.5.20240117.53514b.README.md">readme</a>]
 <dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V1 passage corpus encoded by BGE-base-en-v1.5
 </dd>
 <dt></dt><b><code>msmarco-v1-passage.cohere-embed-english-v3.0.hnsw</code></b>
@@ -1256,43 +1246,43 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V1 passage corpus encoded by Cohere embed-english-v3.0
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard00) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard01) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard02) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard03) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard04) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard05) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard06) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard07) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard08) encoded by Snowflake's arctic-embed-l model
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.hnsw-int8</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md">readme</a>]
 <dd>Anserini Lucene quantized (int8) HNSW index of the MS MARCO V2.1 segmented document corpus (shard09) encoded by Snowflake's arctic-embed-l model
 </dd>
 </dl>
@@ -1301,120 +1291,120 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <summary>BEIR</summary>
 <dl>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'trec-covid' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'trec-covid' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'bioasq' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'bioasq' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'nfcorpus' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'nfcorpus' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'nq' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'nq' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'hotpotqa' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'hotpotqa' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'fiqa' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'fiqa' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'signal1m' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'signal1m' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'trec-news' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'trec-news' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'robust04' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'robust04' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'arguana' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'arguana' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'webis-touche2020' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'webis-touche2020' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-android' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-android' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-english' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-english' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-gaming' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-gaming' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-gis' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-gis' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-mathematica' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-mathematica' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-physics' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-physics' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-programmers' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-programmers' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-stats' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-stats' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-tex' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-tex' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-unix' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-unix' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-webmasters' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-webmasters' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-wordpress' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'cqadupstack-wordpress' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'quora' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'quora' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'dbpedia-entity' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'dbpedia-entity' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'scidocs' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'scidocs' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'fever' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'fever' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'climate-fever' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'climate-fever' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.bge-base-en-v1.5.hnsw</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
-<dd>Anserini Lucene HNSW index of BEIR collection 'scifact' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-hnsw/bge-base-en-v1.5/lucene-hnsw.beir-v1.0.0.bge-base-en-v1.5.20240223.43c9ec.README.md">readme</a>]
+<dd>Anserini Lucene HNSW index of BEIR collection 'scifact' encoded by BGE-base-en-v1.5 (Lucene 9)
 </dd>
 </dl>
 </details>
@@ -1425,120 +1415,120 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <summary>BEIR</summary>
 <dl>
 <dt></dt><b><code>beir-v1.0.0-trec-covid.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'trec-covid' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'trec-covid' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-bioasq.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'bioasq' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'bioasq' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nfcorpus.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'nfcorpus' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'nfcorpus' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-nq.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'nq' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'nq' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-hotpotqa.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'hotpotqa' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'hotpotqa' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fiqa.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'fiqa' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'fiqa' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-signal1m.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'signal1m' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'signal1m' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-trec-news.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'trec-news' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'trec-news' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-robust04.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'robust04' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'robust04' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-arguana.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'arguana' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'arguana' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-webis-touche2020.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'webis-touche2020' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'webis-touche2020' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-android' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-android' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-english' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-english' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-gaming' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-gaming' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-gis' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-gis' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-mathematica' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-mathematica' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-physics' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-physics' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-programmers' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-programmers' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-stats' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-stats' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-tex' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-tex' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-unix' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-unix' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-webmasters' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-webmasters' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-wordpress' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'cqadupstack-wordpress' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-quora.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'quora' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'quora' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'dbpedia-entity' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'dbpedia-entity' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scidocs.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'scidocs' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'scidocs' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-fever.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'fever' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'fever' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-climate-fever.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'climate-fever' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'climate-fever' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 <dt></dt><b><code>beir-v1.0.0-scifact.bge-base-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20240618.6cf601.README.md">readme</a>]
-<dd>Anserini Lucene flat vector index of BEIR collection 'scifact' encoded by BGE-base-en-v1.5
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md">readme</a>]
+<dd>Anserini Lucene flat vector index of BEIR collection 'scifact' encoded by BGE-base-en-v1.5 (Lucene 10.4.0)
 </dd>
 </dl>
 </details>
@@ -1546,51 +1536,51 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <summary>BRIGHT</summary>
 <dl>
 <dt></dt><b><code>bright-biology.bge-large-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-flat/bge-large-en-v1.5/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
 <dd>Anserini Lucene flat vector index of BRIGHT collection 'biology' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-earth-science.bge-large-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-flat/bge-large-en-v1.5/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
 <dd>Anserini Lucene flat vector index of BRIGHT collection 'earth-science' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-economics.bge-large-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-flat/bge-large-en-v1.5/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
 <dd>Anserini Lucene flat vector index of BRIGHT collection 'economics' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-psychology.bge-large-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-flat/bge-large-en-v1.5/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
 <dd>Anserini Lucene flat vector index of BRIGHT collection 'psychology' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-robotics.bge-large-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-flat/bge-large-en-v1.5/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
 <dd>Anserini Lucene flat vector index of BRIGHT collection 'robotics' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-stackoverflow.bge-large-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-flat/bge-large-en-v1.5/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
 <dd>Anserini Lucene flat vector index of BRIGHT collection 'stackoverflow' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-sustainable-living.bge-large-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-flat/bge-large-en-v1.5/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
 <dd>Anserini Lucene flat vector index of BRIGHT collection 'sustainable-living' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-pony.bge-large-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-flat/bge-large-en-v1.5/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
 <dd>Anserini Lucene flat vector index of BRIGHT collection 'pony' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-leetcode.bge-large-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-flat/bge-large-en-v1.5/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
 <dd>Anserini Lucene flat vector index of BRIGHT collection 'leetcode' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-aops.bge-large-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-flat/bge-large-en-v1.5/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
 <dd>Anserini Lucene flat vector index of BRIGHT collection 'aops' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-theoremqa-theorems.bge-large-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-flat/bge-large-en-v1.5/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
 <dd>Anserini Lucene flat vector index of BRIGHT collection 'theoremqa-theorems' encoded by BGE-large-en-v1.5
 </dd>
 <dt></dt><b><code>bright-theoremqa-questions.bge-large-en-v1.5.flat</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-bright/blob/main/lucene-flat/bge-large-en-v1.5/lucene-flat.bright.bge-large-en-v1.5.20250819.e5ee76.README.md">readme</a>]
 <dd>Anserini Lucene flat vector index of BRIGHT collection 'theoremqa-questions' encoded by BGE-large-en-v1.5
 </dd>
 </dl>
@@ -2168,6 +2158,102 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 [<a href="../pyserini/resources/index-metadata/faiss-flat.bright.bge-large-en-v1.5.20250808.44889d.README.md">readme</a>]
 <dd>Faiss flat index for BRIGHT: theoremqa-questions corpus encoded by BGE-large-en-v1.5.
 </dd>
+<dt></dt><b><code>bright-aops.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the aops corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-biology.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the biology corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-earth-science.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the earth-science corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-economics.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the economics corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-leetcode.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the leetcode corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-pony.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the pony corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-psychology.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the psychology corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-robotics.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the robotics corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-stackoverflow.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the stackoverflow corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-sustainable-living.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the sustainable-living corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-theoremqa-questions.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the theoremqa-questions corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-theoremqa-theorems.diver-retriever-4b</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.diver-retriever-4b.20260227.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the theoremqa-theorems corpus encoded by diver-retriever-4b
+</dd>
+<dt></dt><b><code>bright-aops.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the aops corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-biology.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the biology corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-earth-science.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the earth-science corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-economics.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the economics corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-leetcode.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the leetcode corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-pony.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the pony corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-psychology.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the psychology corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-robotics.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the robotics corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-stackoverflow.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the stackoverflow corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-sustainable-living.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the sustainable-living corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-theoremqa-questions.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the theoremqa-questions corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
+<dt></dt><b><code>bright-theoremqa-theorems.reason-embed-qwen3-4b-0928</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.bright.reason-embed-qwen3-4b-0928.20260226.2f9328f.README.md">readme</a>]
+<dd>Faiss index of the theoremqa-theorems corpus encoded by reason-embed-qwen3-4b-0928
+</dd>
 </dl>
 </details>
 <details>
@@ -2640,132 +2726,140 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <summary>M-BEIR</summary>
 <dl>
 <dt></dt><b><code>m-beir-cirr_task7.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR CIRR task 7 corpus encoded by UniIR's clip-sf-large model
 </dd>
 <dt></dt><b><code>m-beir-edis_task2.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's clip-sf-large model
 </dd>
 <dt></dt><b><code>m-beir-fashion200k_task0.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's clip-sf-large model
 </dd>
 <dt></dt><b><code>m-beir-fashion200k_task3.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's clip-sf-large model
 </dd>
 <dt></dt><b><code>m-beir-fashioniq_task7.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's clip-sf-large model
 </dd>
 <dt></dt><b><code>m-beir-infoseek_task6.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's clip-sf-large model
 </dd>
 <dt></dt><b><code>m-beir-infoseek_task8.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's clip-sf-large model
 </dd>
 <dt></dt><b><code>m-beir-mscoco_task0.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's clip-sf-large model
 </dd>
 <dt></dt><b><code>m-beir-mscoco_task3.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's clip-sf-large model
 </dd>
 <dt></dt><b><code>m-beir-nights_task4.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's clip-sf-large model
 </dd>
 <dt></dt><b><code>m-beir-oven_task6.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's clip-sf-large model
 </dd>
 <dt></dt><b><code>m-beir-oven_task8.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's clip-sf-large model
 </dd>
 <dt></dt><b><code>m-beir-visualnews_task0.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's clip-sf-large model
 </dd>
 <dt></dt><b><code>m-beir-visualnews_task3.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's clip-sf-large model
 </dd>
 <dt></dt><b><code>m-beir-webqa_task1.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's clip-sf-large model
 </dd>
 <dt></dt><b><code>m-beir-webqa_task2.clip-sf-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's clip-sf-large model
 </dd>
+<dt></dt><b><code>m-beir-union.clip-sf-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR global (union) corpus encoded by UniIR's clip-sf-large model
+</dd>
 <dt></dt><b><code>m-beir-cirr_task7.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR CIRR task 7 corpus encoded by UniIR's blip-ff-large model
 </dd>
 <dt></dt><b><code>m-beir-edis_task2.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's blip-ff-large model
 </dd>
 <dt></dt><b><code>m-beir-fashion200k_task0.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's blip-ff-large model
 </dd>
 <dt></dt><b><code>m-beir-fashion200k_task3.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's blip-ff-large model
 </dd>
 <dt></dt><b><code>m-beir-fashioniq_task7.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's blip-ff-large model
 </dd>
 <dt></dt><b><code>m-beir-infoseek_task6.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's blip-ff-large model
 </dd>
 <dt></dt><b><code>m-beir-infoseek_task8.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's blip-ff-large model
 </dd>
 <dt></dt><b><code>m-beir-mscoco_task0.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's blip-ff-large model
 </dd>
 <dt></dt><b><code>m-beir-mscoco_task3.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's blip-ff-large model
 </dd>
 <dt></dt><b><code>m-beir-nights_task4.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's blip-ff-large model
 </dd>
 <dt></dt><b><code>m-beir-oven_task6.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's blip-ff-large model
 </dd>
 <dt></dt><b><code>m-beir-oven_task8.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's blip-ff-large model
 </dd>
 <dt></dt><b><code>m-beir-visualnews_task0.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's blip-ff-large model
 </dd>
 <dt></dt><b><code>m-beir-visualnews_task3.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's blip-ff-large model
 </dd>
 <dt></dt><b><code>m-beir-webqa_task1.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's blip-ff-large model
 </dd>
 <dt></dt><b><code>m-beir-webqa_task2.blip-ff-large</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.m_beir.20250813.a9ec58.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
 <dd>Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's blip-ff-large model
+</dd>
+<dt></dt><b><code>m-beir-union.blip-ff-large</code></b>
+[<a href="../pyserini/resources/index-metadata/faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md">readme</a>]
+<dd>Faiss FlatIP index of the MBEIR global (union) corpus encoded by UniIR's blip-ff-large model
 </dd>
 </dl>
 </details>
@@ -2783,292 +2877,180 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <details>
 <summary>MMEB</summary>
 <dl>
-<dt></dt><b><code>mmeb-visdoc-MMLongBench-doc.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the MMLongBench-doc corpus encoded by gme-Qwen2-VL-2B-Instruct
-</dd>
 <dt></dt><b><code>mmeb-visdoc-MMLongBench-page.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the MMLongBench-page corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_arxivqa.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_arxivqa corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_biomedical_lectures_v2_multilingual corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_docvqa.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_docvqa corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_economics_reports_v2_multilingual corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_esg_reports_human_labeled_v2 corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_esg_reports_v2_multilingual corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_infovqa.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_infovqa corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_shiftproject.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_shiftproject corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_syntheticDocQA_artificial_intelligence corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_energy.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_syntheticDocQA_energy corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_syntheticDocQA_government_reports corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_syntheticDocQA_healthcare_industry corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_tabfquad.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_tabfquad corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_tatdqa.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_tatdqa corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoSeek-doc.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoSeek-doc corpus encoded by gme-Qwen2-VL-2B-Instruct
-</dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoSeek-page.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoSeek-page corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-VisRAG_ArxivQA.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the VisRAG_ArxivQA corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-VisRAG_ChartQA.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the VisRAG_ChartQA corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-VisRAG_InfoVQA.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the VisRAG_InfoVQA corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-VisRAG_MP-DocVQA.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the VisRAG_MP-DocVQA corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-VisRAG_PlotQA.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the VisRAG_PlotQA corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
 <dt></dt><b><code>mmeb-visdoc-VisRAG_SlideVQA.gme-Qwen2-VL-2B-Instruct</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.gme-Qwen2-VL-2B-Instruct.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the VisRAG_SlideVQA corpus encoded by gme-Qwen2-VL-2B-Instruct
 </dd>
-<dt></dt><b><code>mmeb-visdoc-MMLongBench-doc.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the MMLongBench-doc corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-MMLongBench-page.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the MMLongBench-page corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoRe_arxivqa.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoRe_arxivqa corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoRe_biomedical_lectures_v2_multilingual corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoRe_docvqa.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoRe_docvqa corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoRe_economics_reports_v2_multilingual corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoRe_esg_reports_human_labeled_v2 corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoRe_esg_reports_v2_multilingual corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoRe_infovqa.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoRe_infovqa corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoRe_shiftproject.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoRe_shiftproject corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoRe_syntheticDocQA_artificial_intelligence corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_energy.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoRe_syntheticDocQA_energy corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoRe_syntheticDocQA_government_reports corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoRe_syntheticDocQA_healthcare_industry corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoRe_tabfquad.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoRe_tabfquad corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoRe_tatdqa.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoRe_tatdqa corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoSeek-doc.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoSeek-doc corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoSeek-page.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoSeek-page corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-VisRAG_ArxivQA.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the VisRAG_ArxivQA corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-VisRAG_ChartQA.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the VisRAG_ChartQA corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-VisRAG_InfoVQA.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the VisRAG_InfoVQA corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-VisRAG_MP-DocVQA.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the VisRAG_MP-DocVQA corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-VisRAG_PlotQA.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the VisRAG_PlotQA corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-VisRAG_SlideVQA.LamRA-Ret</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.LamRA-Ret.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the VisRAG_SlideVQA corpus encoded by LamRA-Ret
-</dd>
-<dt></dt><b><code>mmeb-visdoc-MMLongBench-doc.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the MMLongBench-doc corpus encoded by VLM2Vec-V2.0
-</dd>
 <dt></dt><b><code>mmeb-visdoc-MMLongBench-page.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the MMLongBench-page corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_arxivqa.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_arxivqa corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_biomedical_lectures_v2_multilingual corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_docvqa.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_docvqa corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_economics_reports_v2_multilingual corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_esg_reports_human_labeled_v2 corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_esg_reports_v2_multilingual corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_infovqa.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_infovqa corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_shiftproject.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_shiftproject corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_syntheticDocQA_artificial_intelligence corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_energy.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_syntheticDocQA_energy corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_syntheticDocQA_government_reports corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_syntheticDocQA_healthcare_industry corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_tabfquad.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_tabfquad corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoRe_tatdqa.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoRe_tatdqa corpus encoded by VLM2Vec-V2.0
 </dd>
-<dt></dt><b><code>mmeb-visdoc-ViDoSeek-doc.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
-<dd>Faiss index of the ViDoSeek-doc corpus encoded by VLM2Vec-V2.0
-</dd>
 <dt></dt><b><code>mmeb-visdoc-ViDoSeek-page.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the ViDoSeek-page corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-VisRAG_ArxivQA.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the VisRAG_ArxivQA corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-VisRAG_ChartQA.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the VisRAG_ChartQA corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-VisRAG_InfoVQA.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the VisRAG_InfoVQA corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-VisRAG_MP-DocVQA.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the VisRAG_MP-DocVQA corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-VisRAG_PlotQA.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the VisRAG_PlotQA corpus encoded by VLM2Vec-V2.0
 </dd>
 <dt></dt><b><code>mmeb-visdoc-VisRAG_SlideVQA.VLM2Vec-V2.0</code></b>
-[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260130.ad8e050.README.md">readme</a>]
+[<a href="../pyserini/resources/index-metadata/faiss-flat.mmeb-visdoc.VLM2Vec-V2.20260303.fa77cbd.README.md">readme</a>]
 <dd>Faiss index of the VisRAG_SlideVQA corpus encoded by VLM2Vec-V2.0
 </dd>
 </dl>

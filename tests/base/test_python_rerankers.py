@@ -11,7 +11,6 @@ from pyserini.search.lucene import LuceneSearcher
 class TestPythonRerankers(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        # Randomize filenames to avoid clashes
         r = randint(0, 10000000)
         cls.collection_url = 'https://github.com/castorini/anserini-data/raw/master/CACM/lucene9-index.cacm.tar.gz'
         cls.tarball_name = f'lucene-index.cacm-{r}.tar.gz'
@@ -22,7 +21,6 @@ class TestPythonRerankers(unittest.TestCase):
             with tarfile.open(cls.tarball_name) as tarball:
                 tarball.extractall(cls.searcher_index_dir, filter='data')
 
-        # Full CACM searcher for rerankers (with doc vectors)
         cls.searcher = LuceneSearcher(f'{cls.searcher_index_dir}lucene9-index.cacm')
 
         corpus_path = 'tests/resources/sample_collection_json'

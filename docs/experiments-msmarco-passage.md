@@ -512,6 +512,7 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@tqmsh](https://github.com/tqmsh) on 2026-05-03 (commit [`6adee73`](https://github.com/castorini/pyserini/commit/6adee73cf36255056a1c46dc5ecdb4b29b9ce1c5))
 + Results reproduced by [@mazleon](https://github.com/mazleon) on 2026-05-03 (commit [`6adee73`](https://github.com/castorini/pyserini/commit/6adee73cf36255056a1c46dc5ecdb4b29b9ce1c5))
 + Results reproduced by [@blissuche90](https://github.com/blissuche90) on 2026-05-04 (commit [`7ed1f31`](https://github.com/castorini/pyserini/commit/7ed1f31e74db66e75c41f5f95b92f5ccfeaced31))
++ Results reproduced by [@yogi272403](https://github.com/yogi272403) on 2026-05-05 (commit [`67e9fc4`](https://github.com/castorini/anserini/commit/67e9fc4356f84b2852dee2c0170aca194028c806))
 + Results reproduced by [@nasazzam](https://github.com/nasazzam) on 2026-05-13 (commit [`f8c4bd6`](https://github.com/castorini/pyserini/commit/f8c4bd6b53dc5cd661ba1c1741a438ae9c593571))
 + Results reproduced by [@VanshJain4](https://github.com/VanshJain4) on 2026-05-14 (commit [`b0bf30c`](https://github.com/castorini/pyserini/commit/b0bf30c9352e3dece016499840ef635fff5e98f3))
 + Results reproduced by [@Adebara123](https://github.com/Adebara123) on 2026-05-15 (commit [`e5d3a4a`](https://github.com/castorini/pyserini/commit/e5d3a4ae89c1da8a2ada97293278cd1f7142ee58))
@@ -521,4 +522,8 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@ibot1](https://github.com/ibot1) on 2026-05-23 (commit [`21a411a`](https://github.com/castorini/pyserini/commit/21a411aa65b88b01ed415ee6469df7a871537b43))
 + Results reproduced by [@grf932](https://github.com/grf932) on 2026-05-29 (commit [`4536186`](https://github.com/castorini/pyserini/commit/45361866da443a8127bf964f2095703dfd7b19a6))
 + Results reproduced by [@amulyabenarji777](https://github.com/amulyabenarji777) on 2026-05-30 (commit [`4536186`](https://github.com/castorini/pyserini/commit/45361866da443a8127bf964f2095703dfd7b19a6))
++ Results reproduced by [@Maroibo](https://github.com/Maroibo) on 2026-06-01 (commit [`95e88d0`](https://github.com/castorini/pyserini/commit/95e88d0e09c07a1c30b5aedbca2fc1b7deb95fe0))
 + Results reproduced by [@Hayanaanaa](https://github.com/Hayanaanaa) on 2026-06-01 (commit [`6518710`](https://github.com/castorini/anserini/commit/65187107a637b11c942aec0e427e396201df2fe0))
++ Results reproduced by [@rhea2801](https://github.com/rhea2801) on 2026-06-06 (commit [`0238dc5`](https://github.com/castorini/pyserini/commit/0238dc5e9a845625686b9ff89435dc607eed5f59))
++ Results reproduced by [@zxTomw](https://github.com/zxTomw) on 2026-06-09 (commit [`ab2d0bf`](https://github.com/castorini/pyserini/commit/ab2d0bf571d975c14f9d2b68a9058adebdf8894c))
+

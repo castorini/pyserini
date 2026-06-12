@@ -21,8 +21,70 @@ from uniir_for_pyserini.pyserini_integration.uniir_corpus_encoder import CorpusE
 from uniir_for_pyserini.pyserini_integration.uniir_query_encoder import QueryEncoder
 
 
+def _ensure_transformers_additional_special_token_ids():
+    """Restore tokenizer accessors used by uniir-for-pyserini with transformers 5."""
+
+    from transformers import PreTrainedTokenizerBase
+
+    if not hasattr(PreTrainedTokenizerBase, "additional_special_tokens"):
+        PreTrainedTokenizerBase.additional_special_tokens = property(
+            lambda self: [str(token) for token in getattr(self, "_extra_special_tokens", [])]
+        )
+
+    if not hasattr(PreTrainedTokenizerBase, "additional_special_tokens_ids"):
+        PreTrainedTokenizerBase.additional_special_tokens_ids = property(
+            lambda self: self.convert_tokens_to_ids(self.additional_special_tokens)
+        )
+
+
+def _ensure_transformers_tied_weights_keys():
+    from uniir_for_pyserini.models.uniir_blip.backbone.med import BertPreTrainedModel
+
+    if not hasattr(BertPreTrainedModel, "all_tied_weights_keys"):
+        BertPreTrainedModel.all_tied_weights_keys = property(lambda self: {})
+
+    if not hasattr(BertPreTrainedModel, "get_head_mask"):
+        def get_head_mask(self, head_mask, num_hidden_layers, is_attention_chunked=False):
+            if head_mask is None:
+                return [None] * num_hidden_layers
+
+            if head_mask.dim() == 1:
+                head_mask = head_mask[None, None, :, None, None]
+                head_mask = head_mask.expand(num_hidden_layers, -1, -1, -1, -1)
+            elif head_mask.dim() == 2:
+                head_mask = head_mask[:, None, :, None, None]
+
+            head_mask = head_mask.to(dtype=self.dtype)
+            if is_attention_chunked:
+                head_mask = head_mask.unsqueeze(-1)
+            return head_mask
+
+        BertPreTrainedModel.get_head_mask = get_head_mask
+
+    def invert_attention_mask(self, encoder_attention_mask):
+        if encoder_attention_mask.dim() == 3:
+            encoder_extended_attention_mask = encoder_attention_mask[:, None, :, :]
+        elif encoder_attention_mask.dim() == 2:
+            encoder_extended_attention_mask = encoder_attention_mask[:, None, None, :]
+        else:
+            raise ValueError(
+                f"Wrong shape for encoder_attention_mask: {encoder_attention_mask.shape}"
+            )
+
+        encoder_extended_attention_mask = encoder_extended_attention_mask.to(dtype=self.dtype)
+        return (1.0 - encoder_extended_attention_mask) * -10000.0
+
+    BertPreTrainedModel.invert_attention_mask = invert_attention_mask
+
+
+def _ensure_transformers_compatibility():
+    _ensure_transformers_additional_special_token_ids()
+    _ensure_transformers_tied_weights_keys()
+
+
 class UniIRCorpusEncoder:
     def __init__(self, model_name: str, device="cuda:0", l2_norm=False, **kwargs: Any):
+        _ensure_transformers_compatibility()
         self.l2_norm = l2_norm
         self.corpus_encoder = CorpusEncoder(model_name=model_name, device=device)
 
@@ -60,6 +122,7 @@ class UniIRQueryEncoder:
         **kwargs: Any,
     ):
         # Unlike the corpus encoder, fp16 is passed at init time for the query encoder.
+        _ensure_transformers_compatibility()
         self.fp16 = kwargs.get("fp16", False)
         self.l2_norm = l2_norm
         self.instruction_config = instruction_config
@@ -141,11 +204,11 @@ class UniIRQueryEncoder:
                 kwargs.get("instr_file", None)
             )
 
-        query_embeddings = self.query_encoder.encode(
-            qid=qid,
-            query_txt=query_txt,
-            query_img_path=query_img_path,
-            query_modality=query_modality,
+        query_embeddings = self.query_encoder.encode_batch(
+            qids=[qid],
+            query_txts=[query_txt],
+            query_img_paths=[query_img_path],
+            query_modalitys=[query_modality],
             instruction_config=self.instruction_config,
             fp16=self.fp16,
         )
