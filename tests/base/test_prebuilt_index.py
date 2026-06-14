@@ -337,10 +337,40 @@ class TestPrebuiltIndexes(unittest.TestCase):
         cnt = 0
         for url in urls:
             cnt += 1
-            response = requests.head(url, allow_redirects=True)
-            self.assertEqual(response.status_code, 200, f'Error checking {url}')
+            self._assert_url_accessible(url)
 
         self.assertEqual(cnt, len(urls))
+
+    def _assert_url_accessible(self, url):
+        transient_status_codes = {408, 429, 500, 502, 503, 504}
+        attempts = []
+
+        for _ in range(3):
+            for method in ['HEAD', 'GET']:
+                try:
+                    kwargs = {
+                        'allow_redirects': True,
+                        'timeout': (5, 30),
+                    }
+                    if method == 'GET':
+                        kwargs['headers'] = {'Range': 'bytes=0-0'}
+                        kwargs['stream'] = True
+
+                    response = requests.request(method, url, **kwargs)
+                    try:
+                        attempts.append(f'{method} {response.status_code} {response.url}')
+
+                        if response.status_code == 200 or (method == 'GET' and response.status_code == 206):
+                            return
+
+                        if response.status_code not in transient_status_codes and method == 'GET':
+                            self.fail(f'Error checking {url}; attempts: {"; ".join(attempts)}')
+                    finally:
+                        response.close()
+                except requests.RequestException as e:
+                    attempts.append(f'{method} {type(e).__name__}: {e}')
+
+        self.fail(f'Error checking {url}; attempts: {"; ".join(attempts)}')
 
 
 if __name__ == '__main__':
