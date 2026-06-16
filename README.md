@@ -110,8 +110,49 @@ For more details, see our paper on [Building a Culture of Reproducibility in Aca
 
 Additional reproduction guides below provide detailed step-by-step instructions.
 
+## Windows Installation and Resource Optimization (CPU-only Systems)
+
+This section provides setup instructions for running Pyserini on Windows systems without GPU support and with limited system resources.
+
+### 1. Create a Virtual Environment
+
+To isolate dependencies and avoid conflicts with system Python installations:
+
+```cmd
+python -m venv pyserini_env
+pyserini_env\Scripts\activate
+```
+
+### 2. Install CPU-Compatible Dependencies
+
+Install the required packages using CPU-compatible builds:
+
+```cmd
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+pip install faiss-cpu
+pip install pyserini
+```
+
+### 3. System Resource Configuration (Recommended)
+
+To reduce memory consumption and limit excessive CPU usage during indexing and search operations, configure the following environment variables before running Pyserini:
+
+```cmd
+set OMP_NUM_THREADS=2
+set MKL_NUM_THREADS=2
+set _JAVA_OPTIONS="-Xmx2g -Xms512m"
+```
+
+These settings:
+
+* Limit CPU thread utilization
+* Reduce Java heap memory consumption
+* Improve stability on systems with limited hardware resources
+
 <details>
 <summary>Sparse Retrieval</summary>
+
+
 
 ### Sparse Retrieval
 
@@ -311,3 +352,4 @@ If you use Pyserini, please cite the following paper:
 ## 🙏 Acknowledgments
 
 This research is primarily supported in part by the Natural Sciences and Engineering Research Council (NSERC) of Canada.
+
