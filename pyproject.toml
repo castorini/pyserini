@@ -17,7 +17,7 @@ skip-string-normalization = true
 
 [project]
 name = "pyserini"
-version = "2.2.0"
+version = "2.3.0"
 license = "Apache-2.0"
 license-files = ["LICENSE.txt",
 ]
