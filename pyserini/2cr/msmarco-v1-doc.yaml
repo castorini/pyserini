@@ -473,7 +473,7 @@ conditions:
   - name: unicoil-pytorch
     display: "uniCOIL w/ doc2query-T5: PyTorch"
     display-html: "uniCOIL w/ doc2query-T5: PyTorch"
-    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(3a)"    
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(3b)"    
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-doc-segmented.unicoil --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
