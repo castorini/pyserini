@@ -51,7 +51,12 @@ def load_auto_tokenizer(tokenizer_name, **kwargs):
             category=DeprecationWarning,
             module='transformers.models.bert.tokenization_bert',
         )
-        return AutoTokenizer.from_pretrained(tokenizer_name, **kwargs)
+        try:
+            return AutoTokenizer.from_pretrained(tokenizer_name, **kwargs)
+        except Exception:
+            fallback_kwargs = dict(kwargs)
+            fallback_kwargs.setdefault('use_fast', False)
+            return AutoTokenizer.from_pretrained(tokenizer_name, **fallback_kwargs)
 
 
 def load_roberta_tokenizer(tokenizer_name, **kwargs):
