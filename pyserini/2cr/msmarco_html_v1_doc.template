@@ -141,7 +141,8 @@ pre[class*="prettyprint"] {
 <div class="container my-4">
 
 <p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.
-Instructions for programmatic execution are shown at the bottom of this page (scroll down).</p>
+These runs take advantage of prebuilt indexes in Pyserini, so you don't need access to the raw corpus.
+Instructions for programmatic execution are shown at the bottom of this page.</p>
 
 <div class="table-responsive">
   <table class="table">
@@ -179,6 +180,7 @@ $rows
 </div>
 
 <div style="padding-top: 20px"/>
+
 <h4>References</h4>
 
 <ul style="list-style-type:none; padding-top: 25px">
