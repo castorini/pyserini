@@ -22,13 +22,12 @@ from transformers import (
     PreTrainedModel,
     RobertaConfig,
     RobertaModel,
-    RobertaTokenizer,
-    requires_backends
+    requires_backends,
 )
 from transformers import __version__ as transformers_version
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
-from pyserini.encode._base import load_head_weights
+from pyserini.encode._base import load_head_weights, load_roberta_tokenizer
 from pyserini.util import temporary_env
 
 
@@ -100,8 +99,7 @@ class AnceDocumentEncoder(DocumentEncoder):
     def __init__(self, model_name, tokenizer_name=None, device='cuda:0'):
         self.device = device
         self.model = AnceEncoder.load_pretrained_encoder(model_name, device)
-        self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or model_name,
-                                                          clean_up_tokenization_spaces=True)
+        self.tokenizer = load_roberta_tokenizer(tokenizer_name or model_name, clean_up_tokenization_spaces=True)
 
     def encode(self, texts, titles=None,  max_length=256, **kwargs):
         if titles is not None:
@@ -125,12 +123,11 @@ class AnceQueryEncoder(QueryEncoder):
         if encoder_dir:
             self.device = device
             self.model = AnceEncoder.load_pretrained_encoder(encoder_dir, device)
-            self.tokenizer = RobertaTokenizer.from_pretrained(tokenizer_name or encoder_dir,
-                                                              clean_up_tokenization_spaces=True)
+            self.tokenizer = load_roberta_tokenizer(tokenizer_name or encoder_dir, clean_up_tokenization_spaces=True)
             self.has_model = True
             self.tokenizer.do_lower_case = True
         if (not self.has_model) and (not self.has_encoded_query):
-            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one.')
 
     def encode(self, query: str):
         if self.has_model:
