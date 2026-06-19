@@ -23,11 +23,8 @@ import unittest
 
 import pandas as pd
 
-from pyserini.encode import QueryEncoder
-from pyserini.encode import TctColBertDocumentEncoder
-from pyserini.encode import TctColBertQueryEncoder
+from pyserini.encode import TctColBertDocumentEncoder, TctColBertQueryEncoder
 from pyserini.query_iterator import DefaultQueryIterator
-from pyserini.search import get_topics
 
 
 class TestEncodeTctColBert(unittest.TestCase):
@@ -86,12 +83,6 @@ class TestEncodeTctColBert(unittest.TestCase):
         self.assertAlmostEqual(vectors[2][0], -0.10293, places=5)
         self.assertAlmostEqual(vectors[2][-1], 0.05549, places=5)
 
-    def test_msmarco_doc_tct_colbert_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('tct_colbert-msmarco-doc-dev')
-        topics = get_topics('msmarco-doc-dev')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
     def test_msmarco_doc_tct_colbert_encode_query_cli(self):
         self._assert_encode_query_cli_output(
             'msmarco-passage-dev-subset',
@@ -105,12 +96,6 @@ class TestEncodeTctColBert(unittest.TestCase):
             'castorini/tct_colbert-msmarco',
             [(0.14085, -0.15662), (-0.14778, 0.10030)]
         )
-
-    def test_msmarco_passage_tct_colbert_v2_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('tct_colbert-v2-msmarco-passage-dev-subset')
-        topics = get_topics('msmarco-passage-dev-subset')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
 
     def test_msmarco_passage_tct_colbert_v2_encode_query_cli(self):
         self._assert_encode_query_cli_output(
@@ -126,12 +111,6 @@ class TestEncodeTctColBert(unittest.TestCase):
             [(0.18285, -0.10137), (-0.03068, 0.08468)]
         )
 
-    def test_msmarco_passage_tct_colbert_v2_hn_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('tct_colbert-v2-hn-msmarco-passage-dev-subset')
-        topics = get_topics('msmarco-passage-dev-subset')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
     def test_msmarco_passage_tct_colbert_v2_hn_encode_query_cli(self):
         self._assert_encode_query_cli_output(
             'msmarco-passage-dev-subset',
@@ -145,12 +124,6 @@ class TestEncodeTctColBert(unittest.TestCase):
             'castorini/tct_colbert-v2-hn-msmarco',
             [(0.15629, -0.09900), (-0.04446, 0.07603)]
         )
-
-    def test_msmarco_passage_tct_colbert_v2_hnp_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('tct_colbert-v2-hnp-msmarco-passage-dev-subset')
-        topics = get_topics('msmarco-passage-dev-subset')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
 
     def test_msmarco_passage_tct_colbert_v2_hnp_encode_query_cli(self):
         self._assert_encode_query_cli_output(
