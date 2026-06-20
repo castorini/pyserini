@@ -16,14 +16,60 @@
 
 import json
 import os
+import warnings
 
 import numpy as np
 import pandas as pd
 import torch
 from tqdm import tqdm
+from transformers import AutoTokenizer, BertTokenizer, RobertaTokenizer
+from transformers.utils import cached_file
 
 from pyserini.util import download_encoded_queries
-from transformers.utils import cached_file
+
+
+def load_bert_tokenizer(tokenizer_name, **kwargs):
+    # The upstream tokenizers WordPiece implementation emits this warning while
+    # constructing BERT WordPiece tokenizers; tokenization behavior is unchanged.
+    with warnings.catch_warnings():
+        warnings.filterwarnings(
+            'ignore',
+            message='Deprecated in 0.9.0: WordPiece.__init__ will not create from files anymore.*',
+            category=DeprecationWarning,
+            module='transformers.models.bert.tokenization_bert',
+        )
+        return BertTokenizer.from_pretrained(tokenizer_name, **kwargs)
+
+
+def load_auto_tokenizer(tokenizer_name, **kwargs):
+    # Some AutoTokenizer paths resolve to BERT WordPiece tokenizers and emit the
+    # same upstream tokenizers deprecation; tokenization behavior is unchanged.
+    with warnings.catch_warnings():
+        warnings.filterwarnings(
+            'ignore',
+            message='Deprecated in 0.9.0: WordPiece.__init__ will not create from files anymore.*',
+            category=DeprecationWarning,
+            module='transformers.models.bert.tokenization_bert',
+        )
+        try:
+            return AutoTokenizer.from_pretrained(tokenizer_name, **kwargs)
+        except Exception:
+            fallback_kwargs = dict(kwargs)
+            fallback_kwargs.setdefault('use_fast', False)
+            return AutoTokenizer.from_pretrained(tokenizer_name, **fallback_kwargs)
+
+
+def load_roberta_tokenizer(tokenizer_name, **kwargs):
+    # The upstream tokenizers BPE implementation emits this warning while
+    # constructing file-backed RoBERTa tokenizers; tokenization behavior is unchanged.
+    with warnings.catch_warnings():
+        warnings.filterwarnings(
+            'ignore',
+            message='Deprecated in 0.9.0: BPE.__init__ will not create from files anymore.*',
+            category=DeprecationWarning,
+            module='transformers.models.roberta.tokenization_roberta',
+        )
+        return RobertaTokenizer.from_pretrained(tokenizer_name, **kwargs)
 
 
 class DocumentEncoder:

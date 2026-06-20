@@ -17,13 +17,38 @@
 import numpy as np
 import torch
 
-if torch.cuda.is_available():
-    from torch.cuda.amp import autocast
+from transformers import BertModel
+from transformers.utils import logging as transformers_logging
 
-from transformers import BertModel, BertTokenizer, BertTokenizerFast
+from pyserini.encode._base import DocumentEncoder, QueryEncoder, load_bert_tokenizer
 
-from pyserini.encode import DocumentEncoder, QueryEncoder
-from onnxruntime import SessionOptions, InferenceSession
+
+def _load_bert_backbone(model_name):
+    # TCT-ColBERT checkpoints include BERT pretraining heads, but these encoders
+    # only use the BERT backbone. Suppress the expected Transformers load report
+    # for those extra cls.* weights while preserving diagnostics for real issues.
+    verbosity = transformers_logging.get_verbosity()
+    transformers_logging.set_verbosity_error()
+    try:
+        model, loading_info = BertModel.from_pretrained(model_name, output_loading_info=True)
+    finally:
+        transformers_logging.set_verbosity(verbosity)
+
+    has_only_bert_pretraining_head_unexpected_keys = all(
+        key.startswith('cls.predictions.') or key.startswith('cls.seq_relationship.')
+        for key in loading_info['unexpected_keys']
+    )
+    if (
+        loading_info['missing_keys']
+        or loading_info['mismatched_keys']
+        or loading_info['error_msgs']
+        or not has_only_bert_pretraining_head_unexpected_keys
+    ):
+        transformers_logging.get_logger(__name__).warning(
+            'BertModel load from %s had non-benign loading info: %s', model_name, loading_info
+        )
+
+    return model
 
 
 class TctColBertDocumentEncoder(DocumentEncoder):
@@ -31,16 +56,22 @@ class TctColBertDocumentEncoder(DocumentEncoder):
         self.device = device
         self.onnx = False
         if model_name.endswith('onnx'):
+            from onnxruntime import InferenceSession, SessionOptions
+
             options = SessionOptions()
             self.session = InferenceSession(model_name, options)
             self.onnx = True
-            self.tokenizer = BertTokenizerFast.from_pretrained(tokenizer_name or model_name[:-5],
-                                                               clean_up_tokenization_spaces=True)
+            self.tokenizer = load_bert_tokenizer(
+                tokenizer_name or model_name[:-5],
+                clean_up_tokenization_spaces=True
+            )
         else:
-            self.model = BertModel.from_pretrained(model_name)
+            self.model = _load_bert_backbone(model_name)
             self.model.to(self.device)
-            self.tokenizer = BertTokenizerFast.from_pretrained(tokenizer_name or model_name,
-                                                               clean_up_tokenization_spaces=True)
+            self.tokenizer = load_bert_tokenizer(
+                tokenizer_name or model_name,
+                clean_up_tokenization_spaces=True
+            )
 
     def encode(self, texts, titles=None, fp16=False,  max_length=512, **kwargs):
         if titles is not None:
@@ -63,12 +94,12 @@ class TctColBertDocumentEncoder(DocumentEncoder):
             embeddings = self._mean_pooling(outputs[:, 4:, :], inputs['attention_mask'][:, 4:])
         else:
             inputs.to(self.device)
-            if fp16:
-                with autocast():
-                    with torch.no_grad():
+            with torch.no_grad():
+                if fp16 and str(self.device).startswith('cuda'):
+                    with torch.amp.autocast('cuda'):
                         outputs = self.model(**inputs)
-            else:
-                outputs = self.model(**inputs)
+                else:
+                    outputs = self.model(**inputs)
             embeddings = self._mean_pooling(outputs["last_hidden_state"][:, 4:, :], inputs['attention_mask'][:, 4:])
         return embeddings.detach().cpu().numpy()
 
@@ -79,13 +110,15 @@ class TctColBertQueryEncoder(QueryEncoder):
         super().__init__(encoded_query_dir)
         if encoder_dir:
             self.device = device
-            self.model = BertModel.from_pretrained(encoder_dir)
+            self.model = _load_bert_backbone(encoder_dir)
             self.model.to(self.device)
-            self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or encoder_dir,
-                                                           clean_up_tokenization_spaces=True)
+            self.tokenizer = load_bert_tokenizer(
+                tokenizer_name or encoder_dir,
+                clean_up_tokenization_spaces=True
+            )
             self.has_model = True
         if (not self.has_model) and (not self.has_encoded_query):
-            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one.')
 
     def encode(self, query: str):
         if self.has_model:

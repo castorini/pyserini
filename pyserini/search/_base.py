@@ -102,7 +102,6 @@ topics_mapping = {
     'dl19-passage': 'TREC2019_DL_PASSAGE',
     'dl19-passage-unicoil': 'TREC2019_DL_PASSAGE_UNICOIL',
     'dl19-passage-unicoil-noexp': 'TREC2019_DL_PASSAGE_UNICOIL_NOEXP',
-    'dl19-passage-unicoil': 'TREC2019_DL_PASSAGE_UNICOIL',
     'dl19-passage-splade-distil-cocodenser-medium': 'TREC2019_DL_PASSAGE_SPLADE_DISTILL_COCODENSER_MEDIUM',
     'dl19-passage-splade-pp-ed': 'TREC2019_DL_PASSAGE_SPLADE_PP_ED',
     'dl19-passage-splade-pp-sd': 'TREC2019_DL_PASSAGE_SPLADE_PP_SD',
@@ -143,9 +142,11 @@ topics_mapping = {
     'dl23-doc': 'TREC2023_DL',
     'dl23-unicoil': 'TREC2023_DL_UNICOIL',
     'dl23-unicoil-noexp': 'TREC2023_DL_UNICOIL_NOEXP',
+
     'rag24.raggy-dev': 'TREC2024_RAG_RAGGY_DEV',
     'rag24.researchy-dev': 'TREC2024_RAG_RESEARCHY_DEV',
     'rag24.test': 'TREC2024_RAG_TEST',
+
     'msmarco-doc-dev': 'MSMARCO_DOC_DEV',
     'msmarco-doc-dev-unicoil': 'MSMARCO_DOC_DEV_UNICOIL',
     'msmarco-doc-dev-unicoil-noexp': 'MSMARCO_DOC_DEV_UNICOIL_NOEXP',

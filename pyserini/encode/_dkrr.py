@@ -13,12 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-
 import torch
-from transformers import (BertModel, BertTokenizerFast)
+from transformers import BertModel
 
-from pyserini.encode import QueryEncoder
+from pyserini.encode._base import QueryEncoder, load_bert_tokenizer
 
 
 class DkrrDprQueryEncoder(QueryEncoder):
@@ -28,8 +26,7 @@ class DkrrDprQueryEncoder(QueryEncoder):
         self.device = device
         self.model = BertModel.from_pretrained(encoder_dir)
         self.model.to(self.device)
-        self.tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased',
-                                                           clean_up_tokenization_spaces=True)
+        self.tokenizer = load_bert_tokenizer('bert-base-uncased', clean_up_tokenization_spaces=True)
         self.has_model = True
         self.prefix = prefix
 
