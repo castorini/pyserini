@@ -448,8 +448,9 @@ conditions:
             nDCG@10: 0.5851
             R@1K: 0.8266
   - name: unicoil-noexp-pytorch
-    display: "uniCOIL (noexp): PyTorch"
-    display-html: "uniCOIL (noexp): PyTorch"
+    display: "uniCOIL noexp: PyTorch"
+    display-html: "uniCOIL noexp: PyTorch"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(3a)"    
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-doc-segmented.unicoil-noexp --topics $topics --encoder castorini/unicoil-noexp-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
@@ -469,32 +470,10 @@ conditions:
           - MAP: 0.3698
             nDCG@10: 0.5893
             R@1K: 0.7623
-  - name: unicoil-noexp
-    display: "uniCOIL (noexp): cached queries"
-    display-html: "uniCOIL (noexp): cached queries"
-    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(3a)"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-doc-segmented.unicoil-noexp --topics $topics --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
-    topics:
-      - topic_key: msmarco-doc-dev-unicoil-noexp
-        eval_key: msmarco-doc-dev
-        scores:
-          - MRR@10: 0.3409
-            R@1K: 0.9420
-      - topic_key: dl19-doc-unicoil-noexp
-        eval_key: dl19-doc
-        scores:
-          - MAP: 0.2665
-            nDCG@10: 0.6349
-            R@1K: 0.6391
-      - topic_key: dl20-unicoil-noexp
-        eval_key: dl20-doc
-        scores:
-          - MAP: 0.3698
-            nDCG@10: 0.5893
-            R@1K: 0.7623
   - name: unicoil-pytorch
-    display: "uniCOIL (w/ doc2query-T5): PyTorch"
-    display-html: "uniCOIL (w/ doc2query-T5): PyTorch"
+    display: "uniCOIL w/ doc2query-T5: PyTorch"
+    display-html: "uniCOIL w/ doc2query-T5: PyTorch"
+    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(3b)"    
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-doc-segmented.unicoil --topics $topics --encoder castorini/unicoil-msmarco-passage --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
     topics:
       - topic_key: msmarco-doc-dev
@@ -509,29 +488,6 @@ conditions:
             nDCG@10: 0.6396
             R@1K: 0.6652
       - topic_key: dl20
-        eval_key: dl20-doc
-        scores:
-          - MAP: 0.3882
-            nDCG@10: 0.6033
-            R@1K: 0.7869
-  - name: unicoil
-    display: "uniCOIL (w/ doc2query-T5): cached queries"
-    display-html: "uniCOIL (w/ doc2query-T5): cached queries"
-    display-row: "[<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(3b)"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-doc-segmented.unicoil --topics $topics --output $output --impact --hits 10000 --max-passage-hits 1000 --max-passage
-    topics:
-      - topic_key: msmarco-doc-dev-unicoil
-        eval_key: msmarco-doc-dev
-        scores:
-          - MRR@10: 0.3531
-            R@1K: 0.9546
-      - topic_key: dl19-doc-unicoil
-        eval_key: dl19-doc
-        scores:
-          - MAP: 0.2789
-            nDCG@10: 0.6396
-            R@1K: 0.6652
-      - topic_key: dl20-unicoil
         eval_key: dl20-doc
         scores:
           - MAP: 0.3882
