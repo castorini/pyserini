@@ -16,9 +16,9 @@
 
 import numpy as np
 from sklearn.preprocessing import normalize
-from transformers import AutoModel, AutoTokenizer
+from transformers import AutoModel
 
-from pyserini.encode import DocumentEncoder, QueryEncoder
+from pyserini.encode._base import DocumentEncoder, QueryEncoder, load_auto_tokenizer
 
 
 class AutoDocumentEncoder(DocumentEncoder):
@@ -26,13 +26,7 @@ class AutoDocumentEncoder(DocumentEncoder):
         self.device = device
         self.model = AutoModel.from_pretrained(model_name)
         self.model.to(self.device)
-        try:
-            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name,
-                                                           clean_up_tokenization_spaces=True)
-        except:
-            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or model_name,
-                                                           use_fast=False,
-                                                           clean_up_tokenization_spaces=True)
+        self.tokenizer = load_auto_tokenizer(tokenizer_name or model_name, clean_up_tokenization_spaces=True)
         self.has_model = True
         self.pooling = pooling
         self.l2_norm = l2_norm
@@ -81,19 +75,13 @@ class AutoQueryEncoder(QueryEncoder):
             self.device = device
             self.model = AutoModel.from_pretrained(encoder_dir)
             self.model.to(self.device)
-            try:
-                self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir,
-                                                               clean_up_tokenization_spaces=True)
-            except:
-                self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir,
-                                                               use_fast=False,
-                                                               clean_up_tokenization_spaces=True)
+            self.tokenizer = load_auto_tokenizer(tokenizer_name or encoder_dir, clean_up_tokenization_spaces=True)
             self.has_model = True
             self.pooling = pooling
             self.l2_norm = l2_norm
             self.prefix = prefix
         if (not self.has_model) and (not self.has_encoded_query):
-            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
+            raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one.')
 
     def encode(self, query: str, max_length: int = None):
         if self.has_model:

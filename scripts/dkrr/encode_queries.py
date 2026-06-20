@@ -19,9 +19,11 @@ import argparse
 import pandas as pd
 
 from tqdm import tqdm
+from pyserini.encode._base import load_bert_tokenizer
 from pyserini.query_iterator import get_query_iterator, TopicsFormat
-from transformers import BertModel,  BertTokenizerFast
+from transformers import BertModel
 import torch
+
 
 class DkrrDprQueryEncoder():
 
@@ -29,7 +31,7 @@ class DkrrDprQueryEncoder():
         self.device = device
         self.model = BertModel.from_pretrained(encoder)
         self.model.to(self.device)
-        self.tokenizer = BertTokenizerFast.from_pretrained("bert-base-uncased")
+        self.tokenizer = load_bert_tokenizer("bert-base-uncased")
         self.prefix = prefix
 
     @staticmethod
