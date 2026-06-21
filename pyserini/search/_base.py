@@ -20,29 +20,28 @@ and dense retrieval.
 """
 
 import json
-import logging
 import os
-from importlib import resources
 from pathlib import Path
-from urllib.request import urlretrieve
+from urllib.request import urlopen, urlretrieve
 
 from pyserini.pyclass import autoclass
-
-logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.WARNING, format='\n%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 # Wrappers around Anserini classes
 JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
 
-QRELS_BASE_URL = 'https://raw.githubusercontent.com/castorini/anserini-tools/master/topics-and-qrels/'
+TOPICS_AND_QRELS_BASE_URL = 'https://raw.githubusercontent.com/castorini/anserini-tools/master/topics-and-qrels/'
+QRELS_METADATA_FILE = '_metadata_qrels.json'
+TOPICS_METADATA_FILE = '_metadata_topics.json'
 
 
 def _load_qrels_mapping():
-    return json.loads(resources.files('pyserini.resources').joinpath('qrels.json').read_text())
+    with urlopen(f'{TOPICS_AND_QRELS_BASE_URL}{QRELS_METADATA_FILE}') as response:
+        return json.loads(response.read().decode('utf-8'))
 
 
 def _load_topics_mapping():
-    return json.loads(resources.files('pyserini.resources').joinpath('topics.json').read_text())
+    with urlopen(f'{TOPICS_AND_QRELS_BASE_URL}{TOPICS_METADATA_FILE}') as response:
+        return json.loads(response.read().decode('utf-8'))
 
 
 def _get_cache_base_path():
@@ -61,13 +60,6 @@ def _get_topics_and_qrels_cache_path():
     cache_path = _get_cache_base_path() / 'topics-and-qrels'
     cache_path.mkdir(parents=True, exist_ok=True)
     return cache_path
-
-
-def _download_qrels(qrels_file, target_path):
-    target_path.parent.mkdir(parents=True, exist_ok=True)
-    tmp_path = target_path.with_name(f'{target_path.name}.tmp')
-    urlretrieve(f'{QRELS_BASE_URL}{qrels_file}', tmp_path)
-    tmp_path.replace(target_path)
 
 
 def get_bright_excluded_ids(index_path):
@@ -98,6 +90,23 @@ topics_mapping = _load_topics_mapping()
 qrels_mapping = _load_qrels_mapping()
 
 
+def _parse_topics(topics):
+    t = {}
+    for topic in topics.keySet().toArray():
+
+        if topic.isdigit():
+            # parse the keys into integers
+            topic_key = int(topic)
+        else:
+            topic_key = topic
+
+        t[topic_key] = {}
+        for key in topics.get(topic).keySet().toArray():
+            t[topic_key][key] = topics.get(topic).get(key)
+
+    return t
+
+
 def get_topics(collection_name):
     """
     Parameters
@@ -114,44 +123,21 @@ def get_topics(collection_name):
         raise ValueError(f'Topic {collection_name} Not Found')
 
     topic = topics_mapping[collection_name]
+    # Yes, this is an insanely ridiculous method name.
     topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(topic['reader_class'], topic['path'])
     if topics is None:
         raise ValueError(f'Unable to load topic {collection_name} from {topic["path"]}!')
 
-    t = {}
-    for topic in topics.keySet().toArray():
-        
-        if topic.isdigit():
-            # parse the keys into integers
-            topic_key = int(topic)
-        else:
-            topic_key = topic
-            
-        t[topic_key] = {}
-        for key in topics.get(topic).keySet().toArray():
-            t[topic_key][key] = topics.get(topic).get(key)
-    return t
+    return _parse_topics(topics)
 
 
-def get_topics_with_reader(reader_class, file):
+def load_topics_with_reader(file, reader_class):
     # Yes, this is an insanely ridiculous method name.
     topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(reader_class, file)
     if topics is None:
         raise ValueError(f'Unable to initialize TopicReader {reader_class} with file {file}!')
 
-    t = {}
-    for topic in topics.keySet().toArray():
-        
-        if topic.isdigit():
-            # parse the keys into integers
-            topic_key = int(topic)
-        else:
-            topic_key = topic
-            
-        t[topic_key] = {}
-        for key in topics.get(topic).keySet().toArray():
-            t[topic_key][key] = topics.get(topic).get(key)
-    return t
+    return _parse_topics(topics)
 
 
 def get_qrels_file(collection_name):
@@ -170,7 +156,10 @@ def get_qrels_file(collection_name):
         qrels_file = qrels_mapping[collection_name]
         target_path = _get_topics_and_qrels_cache_path() / Path(qrels_file).name
         if not target_path.exists():
-            _download_qrels(qrels_file, target_path)
+            target_path.parent.mkdir(parents=True, exist_ok=True)
+            tmp_path = target_path.with_name(f'{target_path.name}.tmp')
+            urlretrieve(f'{TOPICS_AND_QRELS_BASE_URL}{qrels_file}', tmp_path)
+            tmp_path.replace(target_path)
         return str(target_path)
 
     raise FileNotFoundError(f'no qrels file for {collection_name}')

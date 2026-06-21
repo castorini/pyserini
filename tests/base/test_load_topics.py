@@ -1624,7 +1624,7 @@ class TestLoadTopics(unittest.TestCase):
         path = os.path.join(self.tools_dir, 'topics-and-qrels/topics.msmarco-doc.dev.txt')
 
         self.assertTrue(os.path.exists(path))
-        topics = search.get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', path)
+        topics = search.load_topics_with_reader(path, 'io.anserini.search.topicreader.TsvIntTopicReader')
         self.assertEqual(len(topics), 5193)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
@@ -1634,7 +1634,7 @@ class TestLoadTopics(unittest.TestCase):
         path = os.path.join(self.tools_dir, 'topics-and-qrels/topics.robust04.txt')
 
         self.assertTrue(os.path.exists(path))
-        topics = search.get_topics_with_reader('io.anserini.search.topicreader.TrecTopicReader', path)
+        topics = search.load_topics_with_reader(path, 'io.anserini.search.topicreader.TrecTopicReader')
         self.assertEqual(len(topics), 250)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
@@ -1644,7 +1644,7 @@ class TestLoadTopics(unittest.TestCase):
         path = os.path.join(self.resource_dir, 'sample_queries_nonint_qid.tsv')
 
         self.assertTrue(os.path.exists(path))
-        topics = search.get_topics_with_reader('io.anserini.search.topicreader.TsvStringTopicReader', path)
+        topics = search.load_topics_with_reader(path, 'io.anserini.search.topicreader.TsvStringTopicReader')
         self.assertEqual(len(topics), 3)
         self.assertTrue(isinstance(next(iter(topics.keys())), str))
         self.assertEqual({'30_1', '30_2', '30_3'}, set(topics))
