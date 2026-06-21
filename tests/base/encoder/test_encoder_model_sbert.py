@@ -16,16 +16,20 @@
 
 import unittest
 
-from pyserini.encode import QueryEncoder
-from pyserini.search import get_topics
+from pyserini.encode import AutoQueryEncoder
+from tests.base.encoder.utils import assert_encode_query_cli_output, assert_query_encoder_output
+
+
+EXPECTED_VALUES = [(0.01859, -0.02723), (-0.04856, 0.03721)]
 
 
 class TestEncodeSBert(unittest.TestCase):
-    def test_msmarco_passage_sbert_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('sbert-msmarco-passage-dev-subset')
-        topics = get_topics('msmarco-passage-dev-subset')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
+    def test_msmarco_passage_sbert_encode_query_cli(self):
+        assert_encode_query_cli_output(self, 'msmarco-passage-dev-subset', 'sentence-transformers/msmarco-distilbert-base-v3', EXPECTED_VALUES)
+
+    def test_msmarco_passage_sbert_query_encoder_direct(self):
+        encoder = AutoQueryEncoder('sentence-transformers/msmarco-distilbert-base-v3', device='cpu', pooling='mean', l2_norm=True)
+        assert_query_encoder_output(self, 'msmarco-passage-dev-subset', encoder, EXPECTED_VALUES)
 
 
 if __name__ == '__main__':

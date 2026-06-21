@@ -15,13 +15,28 @@
 #
 
 import argparse
+import inspect
+from itertools import islice
 
 import numpy as np
 import pandas as pd
-from pyserini.encode import AnceQueryEncoder, ArcticQueryEncoder, AutoQueryEncoder, CosDprQueryEncoder, \
-    DprQueryEncoder, DseQueryEncoder, MMEBQueryEncoder, OpenAiQueryEncoder, SpladeQueryEncoder, TctColBertQueryEncoder, UniCoilQueryEncoder, MMEB_IMPORT_ERROR
-from pyserini.query_iterator import DefaultQueryIterator
 from tqdm import tqdm
+
+from pyserini.encode import (
+    MMEB_IMPORT_ERROR,
+    AnceQueryEncoder,
+    ArcticQueryEncoder,
+    AutoQueryEncoder,
+    CosDprQueryEncoder,
+    DprQueryEncoder,
+    DseQueryEncoder,
+    MMEBQueryEncoder,
+    OpenAiQueryEncoder,
+    SpladeQueryEncoder,
+    TctColBertQueryEncoder,
+    UniCoilQueryEncoder,
+)
+from pyserini.query_iterator import DefaultQueryIterator
 
 
 def init_encoder(encoder, device, pooling, l2_norm, prefix):
@@ -53,6 +68,13 @@ def init_encoder(encoder, device, pooling, l2_norm, prefix):
         return AutoQueryEncoder(encoder, device=device, pooling=pooling, l2_norm=l2_norm, prefix=prefix)
 
 
+def encode_query(encoder, text, max_length):
+    signature = inspect.signature(encoder.encode)
+    if 'max_length' in signature.parameters:
+        return encoder.encode(text, max_length=max_length)
+    return encoder.encode(text)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--topics', type=str, help='path to topics file in tsv format or self-contained topics name', required=True)
@@ -62,20 +84,26 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=str, help='path to stored encoded queries', required=True)
     parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]', default='cpu', required=False)
     parser.add_argument('--max-length', type=int, help='max length', default=256, required=False)
+    parser.add_argument('--max-queries', type=int, help='maximum number of queries to encode', default=None, required=False)
     parser.add_argument('--pooling', type=str, help='pooling strategy', default='cls', choices=['cls', 'mean'], required=False)
     parser.add_argument('--l2-norm', action='store_true', help='whether to normalize embedding', default=False, required=False)
-    parser.add_argument('--prefx', type=str, help='prefix query input', default=None, required=False)
+    parser.add_argument('--prefix', type=str, help='prefix query input', default=None, required=False)
     args = parser.parse_args()
 
-    encoder = init_encoder(args.encoder, device=args.device, pooling=args.pooling, l2_norm=args.l2_norm, prefix=args.prefx)
+    if args.max_queries is not None and args.max_queries < 0:
+        raise ValueError('--max-queries must be non-negative')
+
+    encoder = init_encoder(args.encoder, device=args.device, pooling=args.pooling, l2_norm=args.l2_norm, prefix=args.prefix)
     query_iterator = DefaultQueryIterator.from_topics(args.topics)
+    if args.max_queries is not None:
+        query_iterator = islice(query_iterator, args.max_queries)
 
     is_sparse = False
     query_ids = []
     query_texts = []
     query_embeddings = []
     for topic_id, text in tqdm(query_iterator):
-        embedding = encoder.encode(text, max_length=args.max_length)
+        embedding = encode_query(encoder, text, args.max_length)
         if isinstance(embedding, dict):
             is_sparse = True
             pseudo_str = []
