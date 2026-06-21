@@ -16,6 +16,8 @@
 
 import os
 import unittest
+from importlib import reload
+from unittest.mock import patch
 
 from pyserini import search
 from pyserini.search import _base as search_base
@@ -1650,7 +1652,7 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual({'30_1', '30_2', '30_3'}, set(topics))
 
     def test_topics_resource_json_shape(self):
-        for name, topic in search_base.topics_mapping.items():
+        for name, topic in search_base._get_topics_mapping().items():
             self.assertIsInstance(name, str)
             self.assertIsInstance(topic, dict)
             self.assertEqual(set(topic.keys()), {'path', 'reader_class'})
@@ -1658,6 +1660,12 @@ class TestLoadTopics(unittest.TestCase):
             self.assertTrue(topic['path'])
             self.assertIsInstance(topic['reader_class'], str)
             self.assertTrue(topic['reader_class'])
+
+    def test_topics_metadata_loads_lazily(self):
+        with patch('urllib.request.urlopen') as urlopen:
+            reload(search_base)
+            urlopen.assert_not_called()
+        reload(search_base)
 
     def test_topic_aliases_resolve_to_same_resource(self):
         expected_aliases = {
@@ -1669,8 +1677,9 @@ class TestLoadTopics(unittest.TestCase):
             'msmarco-v1-passage.dev.splade-v3': 'msmarco-passage-dev-subset-splade-v3',
         }
 
+        topics_mapping = search_base._get_topics_mapping()
         for alias, canonical in expected_aliases.items():
-            self.assertEqual(search_base.topics_mapping[alias], search_base.topics_mapping[canonical])
+            self.assertEqual(topics_mapping[alias], topics_mapping[canonical])
 
 
 if __name__ == '__main__':

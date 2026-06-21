@@ -33,6 +33,9 @@ TOPICS_AND_QRELS_BASE_URL = 'https://raw.githubusercontent.com/castorini/anserin
 QRELS_METADATA_FILE = '_metadata_qrels.json'
 TOPICS_METADATA_FILE = '_metadata_topics.json'
 
+_topics_mapping = None
+_qrels_mapping = None
+
 
 def _load_qrels_mapping():
     with urlopen(f'{TOPICS_AND_QRELS_BASE_URL}{QRELS_METADATA_FILE}') as response:
@@ -62,32 +65,18 @@ def _get_topics_and_qrels_cache_path():
     return cache_path
 
 
-def get_bright_excluded_ids(index_path):
-    """
-    For BRIGHT splits that exclude certain docids per query (aops, leetcode, theoremqa-questions),
-    load the mapping from Hugging Face once. Call this once before the search loop to avoid rate limits.
-
-    Returns:
-        dict: query_id -> excluded_ids. Empty dict means no filtering. For each topic, exclude hits
-        whose docid is in the list for that topic.
-    """
-    if "bright-aops" not in index_path and "bright-leetcode" not in index_path and "bright-theoremqa-questions" not in index_path:
-        return {}
-    if "aops" in index_path:
-        split = "aops"
-    elif "leetcode" in index_path:
-        split = "leetcode"
-    elif "theoremqa-questions" in index_path:
-        split = "theoremqa_questions"
-    else:
-        return {}
-    from datasets import load_dataset
-    ds = load_dataset("xlangai/BRIGHT", "examples")[split]
-    return {q["id"]: q["excluded_ids"] for q in ds}
+def _get_topics_mapping():
+    global _topics_mapping
+    if _topics_mapping is None:
+        _topics_mapping = _load_topics_mapping()
+    return _topics_mapping
 
 
-topics_mapping = _load_topics_mapping()
-qrels_mapping = _load_qrels_mapping()
+def _get_qrels_mapping():
+    global _qrels_mapping
+    if _qrels_mapping is None:
+        _qrels_mapping = _load_qrels_mapping()
+    return _qrels_mapping
 
 
 def _parse_topics(topics):
@@ -119,6 +108,7 @@ def get_topics(collection_name):
     result : dictionary
         Topics as a dictionary
     """
+    topics_mapping = _get_topics_mapping()
     if collection_name not in topics_mapping:
         raise ValueError(f'Topic {collection_name} Not Found')
 
@@ -140,6 +130,31 @@ def load_topics_with_reader(file, reader_class):
     return _parse_topics(topics)
 
 
+def get_bright_excluded_ids(index_path):
+    """
+    For BRIGHT splits that exclude certain docids per query (aops, leetcode, theoremqa-questions),
+    load the mapping from Hugging Face once. Call this once before the search loop to avoid rate limits.
+
+    Returns:
+        dict: query_id -> excluded_ids. Empty dict means no filtering. For each topic, exclude hits
+        whose docid is in the list for that topic.
+    """
+    if 'bright-aops' not in index_path and 'bright-leetcode' not in index_path and 'bright-theoremqa-questions' not in index_path:
+        return {}
+    if 'aops' in index_path:
+        split = 'aops'
+    elif 'leetcode' in index_path:
+        split = 'leetcode'
+    elif 'theoremqa-questions' in index_path:
+        split = 'theoremqa_questions'
+    else:
+        return {}
+
+    from datasets import load_dataset
+    ds = load_dataset('xlangai/BRIGHT', 'examples')[split]
+    return {q['id']: q['excluded_ids'] for q in ds}
+
+
 def get_qrels_file(collection_name):
     """
     Parameters
@@ -152,6 +167,7 @@ def get_qrels_file(collection_name):
     path : str
         path of the qrels file
     """
+    qrels_mapping = _get_qrels_mapping()
     if collection_name in qrels_mapping:
         qrels_file = qrels_mapping[collection_name]
         target_path = _get_topics_and_qrels_cache_path() / Path(qrels_file).name

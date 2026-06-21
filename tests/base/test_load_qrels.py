@@ -1314,7 +1314,7 @@ class TestLoadQrels(unittest.TestCase):
         self.assertTrue(isinstance(next(iter(qrels.keys())), str))
 
     def test_qrels_resource_json_shape(self):
-        for name, qrels_file in search_base.qrels_mapping.items():
+        for name, qrels_file in search_base._get_qrels_mapping().items():
             self.assertIsInstance(name, str)
             self.assertIsInstance(qrels_file, str)
             self.assertTrue(qrels_file)
