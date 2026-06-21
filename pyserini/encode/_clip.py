@@ -142,15 +142,15 @@ class ClipEncoder(QueryEncoder):
 class ClipQueryEncoder(QueryEncoder):
     """Encodes queries using a CLIP model, supporting both images and texts."""
 
-    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cuda:0',
+    def __init__(self, encoder_dir: str = None, encoded_queries_dir: str = None, device: str = 'cuda:0',
                  l2_norm: bool = False, prefix: str = None, multimodal: bool = False, **kwargs):
-        super().__init__(encoded_query_dir)
+        super().__init__(encoded_queries_dir)
         if encoder_dir:
             self.device = device
             self.encoder = ClipEncoder(encoder_dir, device, l2_norm, prefix, multimodal)
             self.has_model = True
 
-        if not self.has_model and not self.has_encoded_query:
+        if not self.has_model and not self.has_encoded_queries:
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
     def encode(self, query: str):

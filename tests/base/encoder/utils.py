@@ -21,6 +21,7 @@ import tempfile
 
 import pandas as pd
 
+from pyserini.encode import QueryEncoder
 from pyserini.query_iterator import DefaultQueryIterator
 
 
@@ -29,7 +30,7 @@ REPO_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '
 
 def assert_encode_query_cli_output(testcase, topics, encoder, expected_values, embedding_dim=768):
     with tempfile.TemporaryDirectory() as temp_dir:
-        output_path = os.path.join(temp_dir, 'encoded_queries.pkl')
+        output_path = os.path.join(temp_dir, 'embedding.pkl')
         subprocess.run(
             [
                 sys.executable, '-m', 'pyserini.encode.query',
@@ -44,12 +45,22 @@ def assert_encode_query_cli_output(testcase, topics, encoder, expected_values, e
         )
 
         encoded = pd.read_pickle(output_path)
+        loaded_encoder = QueryEncoder.load_encoded_queries(temp_dir, verbose=False)
+        testcase.assertIsNotNone(loaded_encoder)
+
         testcase.assertEqual(encoded.shape, (len(expected_values), 3))
         testcase.assertEqual(encoded.columns.tolist(), ['id', 'text', 'embedding'])
         testcase.assertEqual(len(encoded.iloc[0]['embedding']), embedding_dim)
+
+        query_iterator = iter(DefaultQueryIterator.from_topics(topics))
         for i, (first_value, last_value) in enumerate(expected_values):
             testcase.assertAlmostEqual(encoded.iloc[i]['embedding'][0], first_value, places=5)
             testcase.assertAlmostEqual(encoded.iloc[i]['embedding'][-1], last_value, places=5)
+            _, text = next(query_iterator)
+            loaded_embedding = loaded_encoder.encode(text)
+            testcase.assertEqual(len(loaded_embedding), embedding_dim)
+            testcase.assertAlmostEqual(loaded_embedding[0], first_value, places=5)
+            testcase.assertAlmostEqual(loaded_embedding[-1], last_value, places=5)
 
 
 def assert_query_encoder_output(testcase, topics, encoder, expected_values, embedding_dim=768):

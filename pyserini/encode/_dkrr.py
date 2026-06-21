@@ -20,9 +20,9 @@ from pyserini.encode._base import QueryEncoder, load_bert_tokenizer
 
 
 class DkrrDprQueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None, device: str = 'cpu',
+    def __init__(self, encoder_dir: str = None, encoded_queries_dir: str = None, device: str = 'cpu',
                  prefix: str = "question:", **kwargs):
-        super().__init__(encoded_query_dir)
+        super().__init__(encoded_queries_dir)
         self.device = device
         self.model = BertModel.from_pretrained(encoder_dir)
         self.model.to(self.device)

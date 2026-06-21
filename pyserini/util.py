@@ -315,7 +315,9 @@ def download_and_unpack_index(url, index_directory='indexes', local_filename=Fal
             print(f'{index_path} already exists, but force=True, removing {index_path} and fetching fresh copy...')
         shutil.rmtree(index_path)
 
-    print(f'Downloading index at {url}...')
+    if verbose:
+        print(f'Downloading index at {url}...')
+
     local_tarball = download_url(url, index_directory, local_filename=local_filename, verbose=False, md5=md5, expected_size=expected_size)
 
     if verbose:
@@ -425,7 +427,7 @@ def download_encoded_queries(query_name, force=False, verbose=True, mirror=None)
     query_md5 = QUERY_INFO[query_name]['md5']
     for url in QUERY_INFO[query_name]['urls']:
         try:
-            return download_and_unpack_index(url, index_directory='queries', prebuilt=True, md5=query_md5)
+            return download_and_unpack_index(url, index_directory='queries', prebuilt=True, verbose=verbose, md5=query_md5)
         except (HTTPError, URLError) as e:
             print(f'Unable to download encoded query at {url}, trying next URL...')
     raise ValueError(f'Unable to download encoded query at any known URLs.')

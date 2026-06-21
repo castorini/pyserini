@@ -62,9 +62,9 @@ class OpenAiDocumentEncoder(DocumentEncoder):
 
 
 class OpenAiQueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir: str = None, encoded_query_dir: str = None,
+    def __init__(self, encoder_dir: str = None, encoded_queries_dir: str = None,
                  tokenizer_name: str = None, max_length: int = 512, **kwargs):
-        super().__init__(encoded_query_dir)
+        super().__init__(encoded_queries_dir)
         if encoder_dir:
             api_key = '' if os.getenv("OPENAI_API_KEY") is None else os.getenv("OPENAI_API_KEY")
             org_key = '' if os.getenv("OPENAI_ORG_KEY") is None else os.getenv("OPENAI_ORG_KEY")
@@ -73,7 +73,7 @@ class OpenAiQueryEncoder(QueryEncoder):
             self.tokenizer = tiktoken.get_encoding(tokenizer_name)
             self.max_length = max_length
             self.has_model = True
-        if (not self.has_model) and (not self.has_encoded_query):
+        if (not self.has_model) and (not self.has_encoded_queries):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
     @retry_with_delay
