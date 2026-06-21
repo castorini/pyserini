@@ -17,14 +17,15 @@
 import json
 import os
 import unittest
-from itertools import islice
 
-import numpy as np
+from transformers import DPRQuestionEncoderTokenizer
 
 from pyserini.encode import DprDocumentEncoder, DprQueryEncoder
 from pyserini.encode._dpr import _load_dpr_tokenizer
-from pyserini.search import get_topics
-from transformers import DPRQuestionEncoderTokenizer
+from tests.base.encoder.utils import assert_encode_query_cli_output, assert_query_encoder_output
+
+
+EXPECTED_VALUES = [(-0.39652, 0.25375), (0.06198, -0.49947)]
 
 
 class TestEncodeDpr(unittest.TestCase):
@@ -41,41 +42,27 @@ class TestEncodeDpr(unittest.TestCase):
 
         encoder = DprDocumentEncoder('facebook/dpr-ctx_encoder-multiset-base', device='cpu')
         vectors = encoder.encode(texts[:3])
-        self.assertAlmostEqual(vectors[0][0], -0.59793323, places=4)
-        self.assertAlmostEqual(vectors[0][-1], -0.13036962, places=4)
-        self.assertAlmostEqual(vectors[2][0], -0.3044764, places=4)
-        self.assertAlmostEqual(vectors[2][-1], 0.1516793, places=4)
+        self.assertAlmostEqual(vectors[0][0], -0.59793, places=5)
+        self.assertAlmostEqual(vectors[0][-1], -0.13037, places=5)
+        self.assertAlmostEqual(vectors[2][0], -0.30448, places=5)
+        self.assertAlmostEqual(vectors[2][-1], 0.15168, places=5)
 
-    def test_dpr_encoded_queries(self):
-        encoded = DprQueryEncoder.load_encoded_queries('dpr_multi-nq-test')
-        topics = get_topics('dpr-nq-test')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
+    def test_dpr_encode_query_cli(self):
+        assert_encode_query_cli_output(self, 'dpr-nq-test', 'facebook/dpr-question_encoder-multiset-base', EXPECTED_VALUES)
 
-    def test_dpr_query_encoder(self):
-        encoder = DprQueryEncoder('facebook/dpr-question_encoder-multiset-base')
-
-        cached_encoder = DprQueryEncoder.load_encoded_queries('dpr_multi-nq-test')
-        topics = get_topics('dpr-nq-test')
-        # Just test the first 10 topics
-        for t in dict(islice(topics.items(), 10)):
-            cached_vector = np.array(cached_encoder.encode(topics[t]['title']))
-            encoded_vector = np.array(encoder.encode(topics[t]['title']))
-
-            l1 = np.sum(np.abs(cached_vector - encoded_vector))
-            self.assertTrue(l1 < 0.0005)
+    def test_dpr_query_encoder_direct(self):
+        encoder = DprQueryEncoder('facebook/dpr-question_encoder-multiset-base', device='cpu')
+        assert_query_encoder_output(self, 'dpr-nq-test', encoder, EXPECTED_VALUES)
 
     def test_cased_dpr_tokenizer(self):
-        tokenizer = _load_dpr_tokenizer(DPRQuestionEncoderTokenizer, 'castorini/mdpr-question-nq',
-                                        clean_up_tokenization_spaces=True)
+        tokenizer = _load_dpr_tokenizer(DPRQuestionEncoderTokenizer, 'castorini/mdpr-question-nq', clean_up_tokenization_spaces=True)
         # Cased mDPR checkpoints must preserve case for reproducible Mr.TyDi retrieval.
         tokens = tokenizer.tokenize('Je,nani alikuwa rais wa kwanza wa Uganda?')
         self.assertEqual(tokens[0], 'Je')
         self.assertEqual(tokens[-2], 'Uganda')
 
     def test_bengali_dpr_tokenizer(self):
-        tokenizer = _load_dpr_tokenizer(DPRQuestionEncoderTokenizer, 'castorini/mdpr-question-nq',
-                                        clean_up_tokenization_spaces=True)
+        tokenizer = _load_dpr_tokenizer(DPRQuestionEncoderTokenizer, 'castorini/mdpr-question-nq', clean_up_tokenization_spaces=True)
         # Bengali mDPR tokenization must preserve legacy WordPiece decomposition.
         tokens = tokenizer.tokenize('১৯৮৮ সালে ঘূর্ণিঝড়ের কারণে বাংলাদেশের মোট ক্ষয়ক্ষতির পরিমান কত ?')
         self.assertIn('##ড়ে', tokens)

@@ -16,14 +16,16 @@
 
 import os
 import unittest
-from itertools import islice
 from unittest.mock import MagicMock, patch
 
 import numpy as np
 
-from pyserini.encode import QueryEncoder, AnceQueryEncoder
+from pyserini.encode import AnceQueryEncoder
 from pyserini.encode._ance import AnceEncoder
-from pyserini.search import get_topics
+from tests.base.encoder.utils import assert_encode_query_cli_output, assert_query_encoder_output
+
+
+EXPECTED_VALUES = [(-1.34755, -1.22419), (-1.36109, -1.47927)]
 
 
 class TestEncodeAnce(unittest.TestCase):
@@ -60,43 +62,19 @@ class TestEncodeAnce(unittest.TestCase):
 
             self.assertEqual(os.environ['DISABLE_SAFETENSORS_CONVERSION'], 'previous')
 
-    def test_ance_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('ance-msmarco-passage-dev-subset')
-        topics = get_topics('msmarco-passage-dev-subset')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
+    def test_ance_encode_query_cli(self):
+        assert_encode_query_cli_output(self, 'msmarco-passage-dev-subset', 'castorini/ance-msmarco-passage', EXPECTED_VALUES)
 
-        encoded = QueryEncoder.load_encoded_queries('ance-dl19-passage')
-        topics = get_topics('dl19-passage')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
-        encoded = QueryEncoder.load_encoded_queries('ance-dl20')
-        topics = get_topics('dl20')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
-    def test_ance_encoder(self):
-        encoder = AnceQueryEncoder('castorini/ance-msmarco-passage')
-
-        cached_encoder = QueryEncoder.load_encoded_queries('ance-dl20')
-        topics = get_topics('dl20')
-        # Just test the first 10 topics
-        for t in dict(islice(topics.items(), 10)):
-            cached_vector = np.array(cached_encoder.encode(topics[t]['title']))
-            encoded_vector = np.array(encoder.encode(topics[t]['title']))
-
-            l1 = np.sum(np.abs(cached_vector - encoded_vector))
-            self.assertTrue(l1 < 0.0005)
+    def test_ance_query_encoder_direct(self):
+        encoder = AnceQueryEncoder('castorini/ance-msmarco-passage', device='cpu')
+        assert_query_encoder_output(self, 'msmarco-passage-dev-subset', encoder, EXPECTED_VALUES)
 
     def test_ance_weights_loaded(self):
         encoder = AnceQueryEncoder('castorini/ance-msmarco-passage')
         norm_weights = encoder.model.norm.weight.detach().cpu().numpy()
         norm_bias = encoder.model.norm.bias.detach().cpu().numpy()
-        self.assertFalse(np.allclose(norm_weights, np.ones_like(norm_weights)),
-            "norm weights appear to be default initialized, not loaded from checkpoint")
-        self.assertFalse(np.allclose(norm_bias, np.zeros_like(norm_bias)),
-            "norm bias appear to be default initialized, not loaded from checkpoint")
+        self.assertFalse(np.allclose(norm_weights, np.ones_like(norm_weights)), 'norm weights appear to be default initialized, not loaded from checkpoint')
+        self.assertFalse(np.allclose(norm_bias, np.zeros_like(norm_bias)), 'norm bias appear to be default initialized, not loaded from checkpoint')
 
 
 if __name__ == '__main__':

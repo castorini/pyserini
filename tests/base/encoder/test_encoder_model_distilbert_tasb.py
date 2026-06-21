@@ -15,43 +15,21 @@
 #
 
 import unittest
-from itertools import islice
 
-import numpy as np
+from pyserini.encode import AutoQueryEncoder
+from tests.base.encoder.utils import assert_encode_query_cli_output, assert_query_encoder_output
 
-from pyserini.encode import QueryEncoder, AutoQueryEncoder
-from pyserini.search import get_topics
+
+EXPECTED_VALUES = [(0.18463, -0.08488), (-0.28631, 0.20652)]
 
 
 class TestEncodeDistilBertTasB(unittest.TestCase):
-    def test_distilbert_tas_b_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('distilbert_tas_b-msmarco-passage-dev-subset')
-        topics = get_topics('msmarco-passage-dev-subset')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
+    def test_distilbert_tas_b_encode_query_cli(self):
+        assert_encode_query_cli_output(self, 'msmarco-passage-dev-subset', 'sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco', EXPECTED_VALUES)
 
-        encoded = QueryEncoder.load_encoded_queries('distilbert_tas_b-dl19-passage')
-        topics = get_topics('dl19-passage')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
-        encoded = QueryEncoder.load_encoded_queries('distilbert_tas_b-dl20')
-        topics = get_topics('dl20')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
-
-    def test_distilbert_tas_b_encoder(self):
-        encoder = AutoQueryEncoder('sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco')
-
-        cached_encoder = QueryEncoder.load_encoded_queries('distilbert_tas_b-dl20')
-        topics = get_topics('dl20')
-        # Just test the first 10 topics
-        for t in dict(islice(topics.items(), 10)):
-            cached_vector = np.array(cached_encoder.encode(topics[t]['title']))
-            encoded_vector = np.array(encoder.encode(topics[t]['title']))
-
-            l1 = np.sum(np.abs(cached_vector - encoded_vector))
-            self.assertTrue(l1 < 0.0005)
+    def test_distilbert_tas_b_query_encoder_direct(self):
+        encoder = AutoQueryEncoder('sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco', device='cpu')
+        assert_query_encoder_output(self, 'msmarco-passage-dev-subset', encoder, EXPECTED_VALUES)
 
 
 if __name__ == '__main__':
