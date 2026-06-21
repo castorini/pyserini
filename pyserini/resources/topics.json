@@ -1,0 +1,1942 @@
+{
+  "atomic-v0.2-Salesforce.blip-itm-base-coco-image-validation": {
+    "path": "topics.atomic.validation.image.Salesforce.blip-itm-base-coco.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2-Salesforce.blip-itm-large-coco-image-validation": {
+    "path": "topics.atomic.validation.image.Salesforce.blip-itm-large-coco.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2-ViT-B-32.laion2b_e16-image-validation": {
+    "path": "topics.atomic.validation.image.ViT-B-32.laion2b_e16.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2-ViT-B-32.laion400m_e32-image-validation": {
+    "path": "topics.atomic.validation.image.ViT-B-32.laion400m_e32.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2-ViT-H-14.laion2b_s32b_b79k-image-validation": {
+    "path": "topics.atomic.validation.image.ViT-H-14.laion2b_s32b_b79k.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2-ViT-L-14.laion2b_s32b_b82k-image-validation": {
+    "path": "topics.atomic.validation.image.ViT-L-14.laion2b_s32b_b82k.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2-ViT-bigG-14.laion2b_s39b_b160k-image-validation": {
+    "path": "topics.atomic.validation.image.ViT-bigG-14.laion2b_s39b_b160k.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2-facebook.flava-full-image-validation": {
+    "path": "topics.atomic.validation.image.facebook.flava-full.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2-openai.clip-vit-base-patch32-image-validation": {
+    "path": "topics.atomic.validation.image.openai.clip-vit-base-patch32.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2-openai.clip-vit-large-patch14-image-validation": {
+    "path": "topics.atomic.validation.image.openai.clip-vit-large-patch14.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2.1-Salesforce.blip-itm-base-coco-text-validation": {
+    "path": "topics.atomic.validation.text.Salesforce.blip-itm-base-coco.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2.1-Salesforce.blip-itm-large-coco-text-validation": {
+    "path": "topics.atomic.validation.text.Salesforce.blip-itm-large-coco.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2.1-ViT-B-32.laion2b_e16-text-validation": {
+    "path": "topics.atomic.validation.text.ViT-B-32.laion2b_e16.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2.1-ViT-B-32.laion400m_e32-text-validation": {
+    "path": "topics.atomic.validation.text.ViT-B-32.laion400m_e32.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2.1-ViT-H-14.laion2b_s32b_b79k-text-validation": {
+    "path": "topics.atomic.validation.text.ViT-H-14.laion2b_s32b_b79k.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2.1-ViT-L-14.laion2b_s32b_b82k-text-validation": {
+    "path": "topics.atomic.validation.text.ViT-L-14.laion2b_s32b_b82k.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2.1-ViT-bigG-14.laion2b_s39b_b160k-text-validation": {
+    "path": "topics.atomic.validation.text.ViT-bigG-14.laion2b_s39b_b160k.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2.1-facebook.flava-full-text-validation": {
+    "path": "topics.atomic.validation.text.facebook.flava-full.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2.1-openai.clip-vit-base-patch32-text-validation": {
+    "path": "topics.atomic.validation.text.openai.clip-vit-base-patch32.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "atomic-v0.2.1-openai.clip-vit-large-patch14-text-validation": {
+    "path": "topics.atomic.validation.text.openai.clip-vit-large-patch14.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "beir-v1.0.0-arguana": {
+    "path": "topics.beir-v1.0.0-arguana.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-arguana-test": {
+    "path": "topics.beir-v1.0.0-arguana.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-bioasq": {
+    "path": "topics.beir-v1.0.0-bioasq.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-bioasq-test": {
+    "path": "topics.beir-v1.0.0-bioasq.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-climate-fever": {
+    "path": "topics.beir-v1.0.0-climate-fever.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-climate-fever-test": {
+    "path": "topics.beir-v1.0.0-climate-fever.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-android": {
+    "path": "topics.beir-v1.0.0-cqadupstack-android.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-android-test": {
+    "path": "topics.beir-v1.0.0-cqadupstack-android.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-english": {
+    "path": "topics.beir-v1.0.0-cqadupstack-english.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-english-test": {
+    "path": "topics.beir-v1.0.0-cqadupstack-english.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-gaming": {
+    "path": "topics.beir-v1.0.0-cqadupstack-gaming.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-gaming-test": {
+    "path": "topics.beir-v1.0.0-cqadupstack-gaming.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-gis": {
+    "path": "topics.beir-v1.0.0-cqadupstack-gis.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-gis-test": {
+    "path": "topics.beir-v1.0.0-cqadupstack-gis.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-mathematica": {
+    "path": "topics.beir-v1.0.0-cqadupstack-mathematica.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-mathematica-test": {
+    "path": "topics.beir-v1.0.0-cqadupstack-mathematica.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-physics": {
+    "path": "topics.beir-v1.0.0-cqadupstack-physics.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-physics-test": {
+    "path": "topics.beir-v1.0.0-cqadupstack-physics.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-programmers": {
+    "path": "topics.beir-v1.0.0-cqadupstack-programmers.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-programmers-test": {
+    "path": "topics.beir-v1.0.0-cqadupstack-programmers.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-stats": {
+    "path": "topics.beir-v1.0.0-cqadupstack-stats.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-stats-test": {
+    "path": "topics.beir-v1.0.0-cqadupstack-stats.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-tex": {
+    "path": "topics.beir-v1.0.0-cqadupstack-tex.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-tex-test": {
+    "path": "topics.beir-v1.0.0-cqadupstack-tex.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-unix": {
+    "path": "topics.beir-v1.0.0-cqadupstack-unix.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-unix-test": {
+    "path": "topics.beir-v1.0.0-cqadupstack-unix.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-webmasters": {
+    "path": "topics.beir-v1.0.0-cqadupstack-webmasters.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-webmasters-test": {
+    "path": "topics.beir-v1.0.0-cqadupstack-webmasters.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-wordpress": {
+    "path": "topics.beir-v1.0.0-cqadupstack-wordpress.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-cqadupstack-wordpress-test": {
+    "path": "topics.beir-v1.0.0-cqadupstack-wordpress.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-dbpedia-entity": {
+    "path": "topics.beir-v1.0.0-dbpedia-entity.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-dbpedia-entity-test": {
+    "path": "topics.beir-v1.0.0-dbpedia-entity.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-fever": {
+    "path": "topics.beir-v1.0.0-fever.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-fever-test": {
+    "path": "topics.beir-v1.0.0-fever.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-fiqa": {
+    "path": "topics.beir-v1.0.0-fiqa.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-fiqa-test": {
+    "path": "topics.beir-v1.0.0-fiqa.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-hotpotqa": {
+    "path": "topics.beir-v1.0.0-hotpotqa.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-hotpotqa-test": {
+    "path": "topics.beir-v1.0.0-hotpotqa.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-nfcorpus": {
+    "path": "topics.beir-v1.0.0-nfcorpus.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-nfcorpus-test": {
+    "path": "topics.beir-v1.0.0-nfcorpus.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-nq": {
+    "path": "topics.beir-v1.0.0-nq.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-nq-test": {
+    "path": "topics.beir-v1.0.0-nq.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-quora": {
+    "path": "topics.beir-v1.0.0-quora.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-quora-test": {
+    "path": "topics.beir-v1.0.0-quora.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-robust04": {
+    "path": "topics.beir-v1.0.0-robust04.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-robust04-test": {
+    "path": "topics.beir-v1.0.0-robust04.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-scidocs": {
+    "path": "topics.beir-v1.0.0-scidocs.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-scidocs-test": {
+    "path": "topics.beir-v1.0.0-scidocs.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-scifact": {
+    "path": "topics.beir-v1.0.0-scifact.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-scifact-test": {
+    "path": "topics.beir-v1.0.0-scifact.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-signal1m": {
+    "path": "topics.beir-v1.0.0-signal1m.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-signal1m-test": {
+    "path": "topics.beir-v1.0.0-signal1m.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-trec-covid": {
+    "path": "topics.beir-v1.0.0-trec-covid.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-trec-covid-test": {
+    "path": "topics.beir-v1.0.0-trec-covid.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-trec-news": {
+    "path": "topics.beir-v1.0.0-trec-news.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-trec-news-test": {
+    "path": "topics.beir-v1.0.0-trec-news.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-webis-touche2020": {
+    "path": "topics.beir-v1.0.0-webis-touche2020.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "beir-v1.0.0-webis-touche2020-test": {
+    "path": "topics.beir-v1.0.0-webis-touche2020.test.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-aops": {
+    "path": "topics.bright-aops.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-aops-original": {
+    "path": "topics.bright-aops-original.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "bright-aops.bge-large-en-v1.5.flat": {
+    "path": "topics.bright-aops.bge-large-en-v1.5.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringVectorTopicReader"
+  },
+  "bright-aops.splade-v3": {
+    "path": "topics.bright-aops.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-biology": {
+    "path": "topics.bright-biology.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-biology-original": {
+    "path": "topics.bright-biology-original.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "bright-biology.bge-large-en-v1.5.flat": {
+    "path": "topics.bright-biology.bge-large-en-v1.5.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringVectorTopicReader"
+  },
+  "bright-biology.splade-v3": {
+    "path": "topics.bright-biology.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-earth-science": {
+    "path": "topics.bright-earth-science.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-earth-science-original": {
+    "path": "topics.bright-earth-science-original.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "bright-earth-science.bge-large-en-v1.5.flat": {
+    "path": "topics.bright-earth-science.bge-large-en-v1.5.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringVectorTopicReader"
+  },
+  "bright-earth-science.splade-v3": {
+    "path": "topics.bright-earth-science.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-economics": {
+    "path": "topics.bright-economics.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-economics-original": {
+    "path": "topics.bright-economics-original.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "bright-economics.bge-large-en-v1.5.flat": {
+    "path": "topics.bright-economics.bge-large-en-v1.5.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringVectorTopicReader"
+  },
+  "bright-economics.splade-v3": {
+    "path": "topics.bright-economics.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-leetcode": {
+    "path": "topics.bright-leetcode.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-leetcode-original": {
+    "path": "topics.bright-leetcode-original.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "bright-leetcode.bge-large-en-v1.5.flat": {
+    "path": "topics.bright-leetcode.bge-large-en-v1.5.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringVectorTopicReader"
+  },
+  "bright-leetcode.splade-v3": {
+    "path": "topics.bright-leetcode.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-pony": {
+    "path": "topics.bright-pony.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-pony-original": {
+    "path": "topics.bright-pony-original.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "bright-pony.bge-large-en-v1.5.flat": {
+    "path": "topics.bright-pony.bge-large-en-v1.5.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringVectorTopicReader"
+  },
+  "bright-pony.splade-v3": {
+    "path": "topics.bright-pony.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-psychology": {
+    "path": "topics.bright-psychology.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-psychology-original": {
+    "path": "topics.bright-psychology-original.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "bright-psychology.bge-large-en-v1.5.flat": {
+    "path": "topics.bright-psychology.bge-large-en-v1.5.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringVectorTopicReader"
+  },
+  "bright-psychology.splade-v3": {
+    "path": "topics.bright-psychology.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-robotics": {
+    "path": "topics.bright-robotics.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-robotics-original": {
+    "path": "topics.bright-robotics-original.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "bright-robotics.bge-large-en-v1.5.flat": {
+    "path": "topics.bright-robotics.bge-large-en-v1.5.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringVectorTopicReader"
+  },
+  "bright-robotics.splade-v3": {
+    "path": "topics.bright-robotics.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-stackoverflow": {
+    "path": "topics.bright-stackoverflow.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-stackoverflow-original": {
+    "path": "topics.bright-stackoverflow-original.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "bright-stackoverflow.bge-large-en-v1.5.flat": {
+    "path": "topics.bright-stackoverflow.bge-large-en-v1.5.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringVectorTopicReader"
+  },
+  "bright-stackoverflow.splade-v3": {
+    "path": "topics.bright-stackoverflow.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-sustainable-living": {
+    "path": "topics.bright-sustainable-living.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-sustainable-living-original": {
+    "path": "topics.bright-sustainable-living-original.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "bright-sustainable-living.bge-large-en-v1.5.flat": {
+    "path": "topics.bright-sustainable-living.bge-large-en-v1.5.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringVectorTopicReader"
+  },
+  "bright-sustainable-living.splade-v3": {
+    "path": "topics.bright-sustainable-living.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-theoremqa-questions": {
+    "path": "topics.bright-theoremqa-questions.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-theoremqa-questions-original": {
+    "path": "topics.bright-theoremqa-questions-original.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "bright-theoremqa-questions.bge-large-en-v1.5.flat": {
+    "path": "topics.bright-theoremqa-questions.bge-large-en-v1.5.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringVectorTopicReader"
+  },
+  "bright-theoremqa-questions.splade-v3": {
+    "path": "topics.bright-theoremqa-questions.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-theoremqa-theorems": {
+    "path": "topics.bright-theoremqa-theorems.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "bright-theoremqa-theorems-original": {
+    "path": "topics.bright-theoremqa-theorems-original.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "bright-theoremqa-theorems.bge-large-en-v1.5.flat": {
+    "path": "topics.bright-theoremqa-theorems.bge-large-en-v1.5.jsonl.gz",
+    "reader_class": "io.anserini.search.topicreader.JsonStringVectorTopicReader"
+  },
+  "bright-theoremqa-theorems.splade-v3": {
+    "path": "topics.bright-theoremqa-theorems.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "car17v1.5-benchmarkY1test": {
+    "path": "topics.car17v1.5.benchmarkY1test.txt",
+    "reader_class": "io.anserini.search.topicreader.CarTopicReader"
+  },
+  "car17v2.0-benchmarkY1test": {
+    "path": "topics.car17v2.0.benchmarkY1test.txt",
+    "reader_class": "io.anserini.search.topicreader.CarTopicReader"
+  },
+  "ciral-v1.0-ha-dev-native": {
+    "path": "topics.ciral-v1.0-ha-dev-native.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-ha-test-a": {
+    "path": "topics.ciral-v1.0-ha-test-a.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-ha-test-a-native": {
+    "path": "topics.ciral-v1.0-ha-test-a-native.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-ha-test-b": {
+    "path": "topics.ciral-v1.0-ha-test-b.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-ha-test-b-native": {
+    "path": "topics.ciral-v1.0-ha-test-b-native.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-so-dev-native": {
+    "path": "topics.ciral-v1.0-so-dev-native.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-so-test-a": {
+    "path": "topics.ciral-v1.0-so-test-a.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-so-test-a-native": {
+    "path": "topics.ciral-v1.0-so-test-a-native.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-so-test-b": {
+    "path": "topics.ciral-v1.0-so-test-b.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-so-test-b-native": {
+    "path": "topics.ciral-v1.0-so-test-b-native.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-sw-dev-native": {
+    "path": "topics.ciral-v1.0-sw-dev-native.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-sw-test-a": {
+    "path": "topics.ciral-v1.0-sw-test-a.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-sw-test-a-native": {
+    "path": "topics.ciral-v1.0-sw-test-a-native.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-sw-test-b": {
+    "path": "topics.ciral-v1.0-sw-test-b.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-sw-test-b-native": {
+    "path": "topics.ciral-v1.0-sw-test-b-native.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-yo-dev-native": {
+    "path": "topics.ciral-v1.0-yo-dev-native.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-yo-test-a": {
+    "path": "topics.ciral-v1.0-yo-test-a.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-yo-test-a-native": {
+    "path": "topics.ciral-v1.0-yo-test-a-native.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-yo-test-b": {
+    "path": "topics.ciral-v1.0-yo-test-b.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ciral-v1.0-yo-test-b-native": {
+    "path": "topics.ciral-v1.0-yo-test-b-native.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "clef2006-fr": {
+    "path": "topics.clef06fr.mono.fr.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "core17": {
+    "path": "topics.core17.txt",
+    "reader_class": "io.anserini.search.topicreader.TrecTopicReader"
+  },
+  "core18": {
+    "path": "topics.core18.txt",
+    "reader_class": "io.anserini.search.topicreader.TrecTopicReader"
+  },
+  "covid-round1": {
+    "path": "topics.covid-round1.xml",
+    "reader_class": "io.anserini.search.topicreader.CovidTopicReader"
+  },
+  "covid-round1-udel": {
+    "path": "topics.covid-round1-udel.xml",
+    "reader_class": "io.anserini.search.topicreader.CovidTopicReader"
+  },
+  "covid-round2": {
+    "path": "topics.covid-round2.xml",
+    "reader_class": "io.anserini.search.topicreader.CovidTopicReader"
+  },
+  "covid-round2-udel": {
+    "path": "topics.covid-round2-udel.xml",
+    "reader_class": "io.anserini.search.topicreader.CovidTopicReader"
+  },
+  "covid-round3": {
+    "path": "topics.covid-round3.xml",
+    "reader_class": "io.anserini.search.topicreader.CovidTopicReader"
+  },
+  "covid-round3-udel": {
+    "path": "topics.covid-round3-udel.xml",
+    "reader_class": "io.anserini.search.topicreader.CovidTopicReader"
+  },
+  "covid-round4": {
+    "path": "topics.covid-round4.xml",
+    "reader_class": "io.anserini.search.topicreader.CovidTopicReader"
+  },
+  "covid-round4-udel": {
+    "path": "topics.covid-round4-udel.xml",
+    "reader_class": "io.anserini.search.topicreader.CovidTopicReader"
+  },
+  "covid-round5": {
+    "path": "topics.covid-round5.xml",
+    "reader_class": "io.anserini.search.topicreader.CovidTopicReader"
+  },
+  "covid-round5-udel": {
+    "path": "topics.covid-round5-udel.xml",
+    "reader_class": "io.anserini.search.topicreader.CovidTopicReader"
+  },
+  "dl19-doc": {
+    "path": "topics.dl19-doc.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl19-doc-unicoil": {
+    "path": "topics.dl19-doc.unicoil.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl19-doc-unicoil-noexp": {
+    "path": "topics.dl19-doc.unicoil-noexp.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl19-passage": {
+    "path": "topics.dl19-passage.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl19-passage-splade-distil-cocodenser-medium": {
+    "path": "topics.dl19-passage.splade_distil_cocodenser_medium.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl19-passage-splade-pp-ed": {
+    "path": "topics.dl19-passage.splade-pp-ed.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl19-passage-splade-pp-sd": {
+    "path": "topics.dl19-passage.splade-pp-sd.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl19-passage-splade-v3": {
+    "path": "topics.dl19-passage.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl19-passage-unicoil": {
+    "path": "topics.dl19-passage.unicoil.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl19-passage-unicoil-noexp": {
+    "path": "topics.dl19-passage.unicoil-noexp.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl19-passage.splade-distil-cocodenser-medium": {
+    "path": "topics.dl19-passage.splade_distil_cocodenser_medium.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl19-passage.splade-pp-ed": {
+    "path": "topics.dl19-passage.splade-pp-ed.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl19-passage.splade-pp-sd": {
+    "path": "topics.dl19-passage.splade-pp-sd.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl19-passage.splade-v3": {
+    "path": "topics.dl19-passage.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl19-passage.unicoil": {
+    "path": "topics.dl19-passage.unicoil.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl19-passage.unicoil-noexp": {
+    "path": "topics.dl19-passage.unicoil-noexp.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20": {
+    "path": "topics.dl20.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-doc": {
+    "path": "topics.dl20.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-doc-unicoil": {
+    "path": "topics.dl20.unicoil.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-doc-unicoil-noexp": {
+    "path": "topics.dl20.unicoil-noexp.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-passage": {
+    "path": "topics.dl20.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-passage-splade-distil-cocodenser-medium": {
+    "path": "topics.dl20.splade_distil_cocodenser_medium.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-passage-splade-pp-ed": {
+    "path": "topics.dl20.splade-pp-ed.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-passage-splade-pp-sd": {
+    "path": "topics.dl20.splade-pp-sd.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-passage-splade-v3": {
+    "path": "topics.dl20.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-passage-unicoil": {
+    "path": "topics.dl20.unicoil.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-passage-unicoil-noexp": {
+    "path": "topics.dl20.unicoil-noexp.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-passage.splade-distil-cocodenser-medium": {
+    "path": "topics.dl20.splade_distil_cocodenser_medium.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-passage.splade-pp-ed": {
+    "path": "topics.dl20.splade-pp-ed.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-passage.splade-pp-sd": {
+    "path": "topics.dl20.splade-pp-sd.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-passage.splade-v3": {
+    "path": "topics.dl20.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-passage.unicoil": {
+    "path": "topics.dl20.unicoil.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-passage.unicoil-noexp": {
+    "path": "topics.dl20.unicoil-noexp.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-splade-distil-cocodenser-medium": {
+    "path": "topics.dl20.splade_distil_cocodenser_medium.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-splade-pp-ed": {
+    "path": "topics.dl20.splade-pp-ed.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-splade-pp-sd": {
+    "path": "topics.dl20.splade-pp-sd.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-splade-v3": {
+    "path": "topics.dl20.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-unicoil": {
+    "path": "topics.dl20.unicoil.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl20-unicoil-noexp": {
+    "path": "topics.dl20.unicoil-noexp.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl21": {
+    "path": "topics.dl21.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl21-doc": {
+    "path": "topics.dl21.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl21-unicoil": {
+    "path": "topics.dl21.unicoil.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl21-unicoil-noexp": {
+    "path": "topics.dl21.unicoil-noexp.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl22": {
+    "path": "topics.dl22.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl22-doc": {
+    "path": "topics.dl22.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl22-unicoil": {
+    "path": "topics.dl22.unicoil.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl22-unicoil-noexp": {
+    "path": "topics.dl22.unicoil-noexp.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl23": {
+    "path": "topics.dl23.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl23-doc": {
+    "path": "topics.dl23.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl23-unicoil": {
+    "path": "topics.dl23.unicoil.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dl23-unicoil-noexp": {
+    "path": "topics.dl23.unicoil-noexp.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dpr-curated-test": {
+    "path": "topics.dpr.curated.test.txt",
+    "reader_class": "io.anserini.search.topicreader.DprJsonlTopicReader"
+  },
+  "dpr-nq-dev": {
+    "path": "topics.dpr.nq.dev.txt",
+    "reader_class": "io.anserini.search.topicreader.DprNqTopicReader"
+  },
+  "dpr-nq-test": {
+    "path": "topics.dpr.nq.test.txt",
+    "reader_class": "io.anserini.search.topicreader.DprNqTopicReader"
+  },
+  "dpr-squad-test": {
+    "path": "topics.dpr.squad.test.txt",
+    "reader_class": "io.anserini.search.topicreader.DprJsonlTopicReader"
+  },
+  "dpr-trivia-dev": {
+    "path": "topics.dpr.trivia.dev.txt",
+    "reader_class": "io.anserini.search.topicreader.DprNqTopicReader"
+  },
+  "dpr-trivia-test": {
+    "path": "topics.dpr.trivia.test.txt",
+    "reader_class": "io.anserini.search.topicreader.DprNqTopicReader"
+  },
+  "dpr-trivia-test-gar-t5-all": {
+    "path": "topics.dpr.trivia.test.gar-t5.all.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dpr-trivia-test-gar-t5-answers": {
+    "path": "topics.dpr.trivia.test.gar-t5.answers.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dpr-trivia-test-gar-t5-sentences": {
+    "path": "topics.dpr.trivia.test.gar-t5.sentences.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dpr-trivia-test-gar-t5-titles": {
+    "path": "topics.dpr.trivia.test.gar-t5.titles.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "dpr-wq-test": {
+    "path": "topics.dpr.wq.test.txt",
+    "reader_class": "io.anserini.search.topicreader.DprJsonlTopicReader"
+  },
+  "epidemic-qa-consumer-prelim": {
+    "path": "topics.epidemic-qa.consumer.prelim.json",
+    "reader_class": "io.anserini.search.topicreader.EpidemicQATopicReader"
+  },
+  "epidemic-qa-expert-prelim": {
+    "path": "topics.epidemic-qa.expert.prelim.json",
+    "reader_class": "io.anserini.search.topicreader.EpidemicQATopicReader"
+  },
+  "fire2012-bn": {
+    "path": "topics.fire12bn.176-225.txt",
+    "reader_class": "io.anserini.search.topicreader.TrecTopicReader"
+  },
+  "fire2012-en": {
+    "path": "topics.fire12en.176-225.txt",
+    "reader_class": "io.anserini.search.topicreader.TrecTopicReader"
+  },
+  "fire2012-hi": {
+    "path": "topics.fire12hi.176-225.txt",
+    "reader_class": "io.anserini.search.topicreader.TrecTopicReader"
+  },
+  "hc4-v1.0-fa-dev-desc": {
+    "path": "topics.hc4-v1.0-fa.dev.desc.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-fa-dev-desc-title": {
+    "path": "topics.hc4-v1.0-fa.dev.desc.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-fa-dev-title": {
+    "path": "topics.hc4-v1.0-fa.dev.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-fa-en-test-desc": {
+    "path": "topics.hc4-v1.0-fa.en.test.desc.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-fa-en-test-desc-title": {
+    "path": "topics.hc4-v1.0-fa.en.test.desc.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-fa-en-test-title": {
+    "path": "topics.hc4-v1.0-fa.en.test.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-fa-test-desc": {
+    "path": "topics.hc4-v1.0-fa.test.desc.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-fa-test-desc-title": {
+    "path": "topics.hc4-v1.0-fa.test.desc.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-fa-test-title": {
+    "path": "topics.hc4-v1.0-fa.test.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-ru-dev-desc": {
+    "path": "topics.hc4-v1.0-ru.dev.desc.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-ru-dev-desc-title": {
+    "path": "topics.hc4-v1.0-ru.dev.desc.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-ru-dev-title": {
+    "path": "topics.hc4-v1.0-ru.dev.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-ru-en-test-desc": {
+    "path": "topics.hc4-v1.0-ru.en.test.desc.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-ru-en-test-desc-title": {
+    "path": "topics.hc4-v1.0-ru.en.test.desc.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-ru-en-test-title": {
+    "path": "topics.hc4-v1.0-ru.en.test.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-ru-test-desc": {
+    "path": "topics.hc4-v1.0-ru.test.desc.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-ru-test-desc-title": {
+    "path": "topics.hc4-v1.0-ru.test.desc.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-ru-test-title": {
+    "path": "topics.hc4-v1.0-ru.test.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-zh-dev-desc": {
+    "path": "topics.hc4-v1.0-zh.dev.desc.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-zh-dev-desc-title": {
+    "path": "topics.hc4-v1.0-zh.dev.desc.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-zh-dev-title": {
+    "path": "topics.hc4-v1.0-zh.dev.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-zh-en-test-desc": {
+    "path": "topics.hc4-v1.0-zh.en.test.desc.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-zh-en-test-desc-title": {
+    "path": "topics.hc4-v1.0-zh.en.test.desc.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-zh-en-test-title": {
+    "path": "topics.hc4-v1.0-zh.en.test.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-zh-test-desc": {
+    "path": "topics.hc4-v1.0-zh.test.desc.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-zh-test-desc-title": {
+    "path": "topics.hc4-v1.0-zh.test.desc.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "hc4-v1.0-zh-test-title": {
+    "path": "topics.hc4-v1.0-zh.test.title.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "m-beir-cirr_task7-test": {
+    "path": "topics.mbeir-cirr_task7.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "m-beir-edis_task2-test": {
+    "path": "topics.mbeir-edis_task2.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "m-beir-fashion200k_task0-test": {
+    "path": "topics.mbeir-fashion200k_task0.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "m-beir-fashion200k_task3-test": {
+    "path": "topics.mbeir-fashion200k_task3.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "m-beir-fashioniq_task7-test": {
+    "path": "topics.mbeir-fashioniq_task7.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "m-beir-infoseek_task6-test": {
+    "path": "topics.mbeir-infoseek_task6.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "m-beir-infoseek_task8-test": {
+    "path": "topics.mbeir-infoseek_task8.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "m-beir-mscoco_task0-test": {
+    "path": "topics.mbeir-mscoco_task0.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "m-beir-mscoco_task3-test": {
+    "path": "topics.mbeir-mscoco_task3.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "m-beir-nights_task4-test": {
+    "path": "topics.mbeir-nights_task4.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "m-beir-oven_task6-test": {
+    "path": "topics.mbeir-oven_task6.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "m-beir-oven_task8-test": {
+    "path": "topics.mbeir-oven_task8.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "m-beir-visualnews_task0-test": {
+    "path": "topics.mbeir-visualnews_task0.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "m-beir-visualnews_task3-test": {
+    "path": "topics.mbeir-visualnews_task3.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "m-beir-webqa_task1-test": {
+    "path": "topics.mbeir-webqa_task1.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "m-beir-webqa_task2-test": {
+    "path": "topics.mbeir-webqa_task2.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mb11": {
+    "path": "topics.microblog2011.txt",
+    "reader_class": "io.anserini.search.topicreader.MicroblogTopicReader"
+  },
+  "mb12": {
+    "path": "topics.microblog2012.txt",
+    "reader_class": "io.anserini.search.topicreader.MicroblogTopicReader"
+  },
+  "mb13": {
+    "path": "topics.microblog2013.txt",
+    "reader_class": "io.anserini.search.topicreader.MicroblogTopicReader"
+  },
+  "mb14": {
+    "path": "topics.microblog2014.txt",
+    "reader_class": "io.anserini.search.topicreader.MicroblogTopicReader"
+  },
+  "miracl-v1.0-ar-dev": {
+    "path": "topics.miracl-v1.0-ar-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "miracl-v1.0-bn-dev": {
+    "path": "topics.miracl-v1.0-bn-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "miracl-v1.0-de-dev": {
+    "path": "topics.miracl-v1.0-de-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "miracl-v1.0-en-dev": {
+    "path": "topics.miracl-v1.0-en-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "miracl-v1.0-es-dev": {
+    "path": "topics.miracl-v1.0-es-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "miracl-v1.0-fa-dev": {
+    "path": "topics.miracl-v1.0-fa-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "miracl-v1.0-fi-dev": {
+    "path": "topics.miracl-v1.0-fi-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "miracl-v1.0-fr-dev": {
+    "path": "topics.miracl-v1.0-fr-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "miracl-v1.0-hi-dev": {
+    "path": "topics.miracl-v1.0-hi-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "miracl-v1.0-id-dev": {
+    "path": "topics.miracl-v1.0-id-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "miracl-v1.0-ja-dev": {
+    "path": "topics.miracl-v1.0-ja-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "miracl-v1.0-ko-dev": {
+    "path": "topics.miracl-v1.0-ko-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "miracl-v1.0-ru-dev": {
+    "path": "topics.miracl-v1.0-ru-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "miracl-v1.0-sw-dev": {
+    "path": "topics.miracl-v1.0-sw-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "miracl-v1.0-te-dev": {
+    "path": "topics.miracl-v1.0-te-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "miracl-v1.0-th-dev": {
+    "path": "topics.miracl-v1.0-th-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "miracl-v1.0-yo-dev": {
+    "path": "topics.miracl-v1.0-yo-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "miracl-v1.0-zh-dev": {
+    "path": "topics.miracl-v1.0-zh-dev.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "mmeb-visdoc-MMLongBench-doc-test": {
+    "path": "topics.mmeb-visdoc-MMLongBench-doc.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-MMLongBench-page-test": {
+    "path": "topics.mmeb-visdoc-MMLongBench-page.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_arxivqa-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_arxivqa.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_biomedical_lectures_v2-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_biomedical_lectures_v2.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_biomedical_lectures_v2_multilingual.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_docvqa-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_docvqa.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_economics_reports_v2_multilingual.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_economics_reports_v2_test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_economics_reports_v2.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_esg_reports_human_labeled_v2.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_esg_reports_v2-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_esg_reports_v2.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_esg_reports_v2_multilingual.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_infovqa-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_infovqa.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_shiftproject-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_shiftproject.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_syntheticDocQA_artificial_intelligence.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_syntheticDocQA_energy-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_syntheticDocQA_energy.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_syntheticDocQA_government_reports.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_syntheticDocQA_healthcare_industry.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_tabfquad-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_tabfquad.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoRe_tatdqa-test": {
+    "path": "topics.mmeb-visdoc-ViDoRe_tatdqa.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoSeek-doc-test": {
+    "path": "topics.mmeb-visdoc-ViDoSeek-doc.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-ViDoSeek-page-test": {
+    "path": "topics.mmeb-visdoc-ViDoSeek-page.test.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-VisRAG_ArxivQA-train": {
+    "path": "topics.mmeb-visdoc-VisRAG_ArxivQA.train.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-VisRAG_ChartQA-train": {
+    "path": "topics.mmeb-visdoc-VisRAG_ChartQA.train.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-VisRAG_InfoVQA-train": {
+    "path": "topics.mmeb-visdoc-VisRAG_InfoVQA.train.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-VisRAG_MP-DocVQA-train": {
+    "path": "topics.mmeb-visdoc-VisRAG_MP-DocVQA.train.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-VisRAG_PlotQA-train": {
+    "path": "topics.mmeb-visdoc-VisRAG_PlotQA.train.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mmeb-visdoc-VisRAG_SlideVQA-train": {
+    "path": "topics.mmeb-visdoc-VisRAG_SlideVQA.train.jsonl",
+    "reader_class": "io.anserini.search.topicreader.JsonStringTopicReader"
+  },
+  "mrtydi-v1.1-arabic-dev": {
+    "path": "topics.mrtydi-v1.1-ar.dev.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-arabic-test": {
+    "path": "topics.mrtydi-v1.1-ar.test.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-arabic-train": {
+    "path": "topics.mrtydi-v1.1-ar.train.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-bengali-dev": {
+    "path": "topics.mrtydi-v1.1-bn.dev.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-bengali-test": {
+    "path": "topics.mrtydi-v1.1-bn.test.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-bengali-train": {
+    "path": "topics.mrtydi-v1.1-bn.train.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-english-dev": {
+    "path": "topics.mrtydi-v1.1-en.dev.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-english-test": {
+    "path": "topics.mrtydi-v1.1-en.test.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-english-train": {
+    "path": "topics.mrtydi-v1.1-en.train.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-finnish-dev": {
+    "path": "topics.mrtydi-v1.1-fi.dev.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-finnish-test": {
+    "path": "topics.mrtydi-v1.1-fi.test.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-finnish-train": {
+    "path": "topics.mrtydi-v1.1-fi.train.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-indonesian-dev": {
+    "path": "topics.mrtydi-v1.1-id.dev.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-indonesian-test": {
+    "path": "topics.mrtydi-v1.1-id.test.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-indonesian-train": {
+    "path": "topics.mrtydi-v1.1-id.train.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-japanese-dev": {
+    "path": "topics.mrtydi-v1.1-ja.dev.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-japanese-test": {
+    "path": "topics.mrtydi-v1.1-ja.test.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-japanese-train": {
+    "path": "topics.mrtydi-v1.1-ja.train.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-korean-dev": {
+    "path": "topics.mrtydi-v1.1-ko.dev.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-korean-test": {
+    "path": "topics.mrtydi-v1.1-ko.test.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-korean-train": {
+    "path": "topics.mrtydi-v1.1-ko.train.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-russian-dev": {
+    "path": "topics.mrtydi-v1.1-ru.dev.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-russian-test": {
+    "path": "topics.mrtydi-v1.1-ru.test.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-russian-train": {
+    "path": "topics.mrtydi-v1.1-ru.train.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-swahili-dev": {
+    "path": "topics.mrtydi-v1.1-sw.dev.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-swahili-test": {
+    "path": "topics.mrtydi-v1.1-sw.test.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-swahili-train": {
+    "path": "topics.mrtydi-v1.1-sw.train.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-telugu-dev": {
+    "path": "topics.mrtydi-v1.1-te.dev.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-telugu-test": {
+    "path": "topics.mrtydi-v1.1-te.test.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-telugu-train": {
+    "path": "topics.mrtydi-v1.1-te.train.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-thai-dev": {
+    "path": "topics.mrtydi-v1.1-th.dev.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-thai-test": {
+    "path": "topics.mrtydi-v1.1-th.test.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "mrtydi-v1.1-thai-train": {
+    "path": "topics.mrtydi-v1.1-th.train.txt.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-doc-dev": {
+    "path": "topics.msmarco-doc.dev.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-doc-dev-unicoil": {
+    "path": "topics.msmarco-doc.dev.unicoil.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-doc-dev-unicoil-noexp": {
+    "path": "topics.msmarco-doc.dev.unicoil-noexp.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-doc-test": {
+    "path": "topics.msmarco-doc.test.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev": {
+    "path": "topics.msmarco-passage.dev-subset.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset": {
+    "path": "topics.msmarco-passage.dev-subset.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset-deepimpact": {
+    "path": "topics.msmarco-passage.dev-subset.deepimpact.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset-distill-splade-max": {
+    "path": "topics.msmarco-passage.dev-subset.distill-splade-max.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset-splade-distil-cocodenser-medium": {
+    "path": "topics.msmarco-passage.dev-subset.splade_distil_cocodenser_medium.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset-splade-pp-ed": {
+    "path": "topics.msmarco-passage.dev-subset.splade-pp-ed.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset-splade-pp-sd": {
+    "path": "topics.msmarco-passage.dev-subset.splade-pp-sd.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset-splade-v3": {
+    "path": "topics.msmarco-passage.dev-subset.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset-unicoil": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset-unicoil-noexp": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil-noexp.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset-unicoil-tilde": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil-tilde-expansion.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset.deepimpact": {
+    "path": "topics.msmarco-passage.dev-subset.deepimpact.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset.distill-splade-max": {
+    "path": "topics.msmarco-passage.dev-subset.distill-splade-max.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset.splade-distil-cocodenser-medium": {
+    "path": "topics.msmarco-passage.dev-subset.splade_distil_cocodenser_medium.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset.splade-pp-ed": {
+    "path": "topics.msmarco-passage.dev-subset.splade-pp-ed.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset.splade-pp-sd": {
+    "path": "topics.msmarco-passage.dev-subset.splade-pp-sd.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset.splade-v3": {
+    "path": "topics.msmarco-passage.dev-subset.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset.unicoil": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset.unicoil-noexp": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil-noexp.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev-subset.unicoil-tilde": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil-tilde-expansion.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev.deepimpact": {
+    "path": "topics.msmarco-passage.dev-subset.deepimpact.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev.distill-splade-max": {
+    "path": "topics.msmarco-passage.dev-subset.distill-splade-max.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev.splade-distil-cocodenser-medium": {
+    "path": "topics.msmarco-passage.dev-subset.splade_distil_cocodenser_medium.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev.splade-pp-ed": {
+    "path": "topics.msmarco-passage.dev-subset.splade-pp-ed.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev.splade-pp-sd": {
+    "path": "topics.msmarco-passage.dev-subset.splade-pp-sd.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev.splade-v3": {
+    "path": "topics.msmarco-passage.dev-subset.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev.unicoil": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev.unicoil-noexp": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil-noexp.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-dev.unicoil-tilde": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil-tilde-expansion.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage-test-subset": {
+    "path": "topics.msmarco-passage.test-subset.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage.dev": {
+    "path": "topics.msmarco-passage.dev-subset.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage.dev.deepimpact": {
+    "path": "topics.msmarco-passage.dev-subset.deepimpact.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage.dev.distill-splade-max": {
+    "path": "topics.msmarco-passage.dev-subset.distill-splade-max.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage.dev.splade-distil-cocodenser-medium": {
+    "path": "topics.msmarco-passage.dev-subset.splade_distil_cocodenser_medium.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage.dev.splade-pp-ed": {
+    "path": "topics.msmarco-passage.dev-subset.splade-pp-ed.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage.dev.splade-pp-sd": {
+    "path": "topics.msmarco-passage.dev-subset.splade-pp-sd.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage.dev.splade-v3": {
+    "path": "topics.msmarco-passage.dev-subset.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage.dev.unicoil": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage.dev.unicoil-noexp": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil-noexp.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-passage.dev.unicoil-tilde": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil-tilde-expansion.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage-dev": {
+    "path": "topics.msmarco-passage.dev-subset.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage-dev.deepimpact": {
+    "path": "topics.msmarco-passage.dev-subset.deepimpact.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage-dev.distill-splade-max": {
+    "path": "topics.msmarco-passage.dev-subset.distill-splade-max.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage-dev.splade-distil-cocodenser-medium": {
+    "path": "topics.msmarco-passage.dev-subset.splade_distil_cocodenser_medium.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage-dev.splade-pp-ed": {
+    "path": "topics.msmarco-passage.dev-subset.splade-pp-ed.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage-dev.splade-pp-sd": {
+    "path": "topics.msmarco-passage.dev-subset.splade-pp-sd.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage-dev.splade-v3": {
+    "path": "topics.msmarco-passage.dev-subset.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage-dev.unicoil": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage-dev.unicoil-noexp": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil-noexp.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage-dev.unicoil-tilde": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil-tilde-expansion.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage.dev": {
+    "path": "topics.msmarco-passage.dev-subset.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage.dev.deepimpact": {
+    "path": "topics.msmarco-passage.dev-subset.deepimpact.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage.dev.distill-splade-max": {
+    "path": "topics.msmarco-passage.dev-subset.distill-splade-max.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage.dev.splade-distil-cocodenser-medium": {
+    "path": "topics.msmarco-passage.dev-subset.splade_distil_cocodenser_medium.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage.dev.splade-pp-ed": {
+    "path": "topics.msmarco-passage.dev-subset.splade-pp-ed.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage.dev.splade-pp-sd": {
+    "path": "topics.msmarco-passage.dev-subset.splade-pp-sd.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage.dev.splade-v3": {
+    "path": "topics.msmarco-passage.dev-subset.splade-v3.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage.dev.unicoil": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage.dev.unicoil-noexp": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil-noexp.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v1-passage.dev.unicoil-tilde": {
+    "path": "topics.msmarco-passage.dev-subset.unicoil-tilde-expansion.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v2-doc-dev": {
+    "path": "topics.msmarco-v2-doc.dev.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v2-doc-dev-unicoil": {
+    "path": "topics.msmarco-v2-doc.dev.unicoil.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v2-doc-dev-unicoil-noexp": {
+    "path": "topics.msmarco-v2-doc.dev.unicoil-noexp.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v2-doc-dev2": {
+    "path": "topics.msmarco-v2-doc.dev2.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v2-doc-dev2-unicoil": {
+    "path": "topics.msmarco-v2-doc.dev2.unicoil.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v2-doc-dev2-unicoil-noexp": {
+    "path": "topics.msmarco-v2-doc.dev2.unicoil-noexp.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v2-doc.dev": {
+    "path": "topics.msmarco-v2-doc.dev.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v2-doc.dev2": {
+    "path": "topics.msmarco-v2-doc.dev2.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v2-passage-dev": {
+    "path": "topics.msmarco-v2-passage.dev.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v2-passage-dev-unicoil": {
+    "path": "topics.msmarco-v2-passage.dev.unicoil.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v2-passage-dev-unicoil-noexp": {
+    "path": "topics.msmarco-v2-passage.dev.unicoil-noexp.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v2-passage-dev2": {
+    "path": "topics.msmarco-v2-passage.dev2.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v2-passage-dev2-unicoil": {
+    "path": "topics.msmarco-v2-passage.dev2.unicoil.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "msmarco-v2-passage-dev2-unicoil-noexp": {
+    "path": "topics.msmarco-v2-passage.dev2.unicoil-noexp.0shot.tsv.gz",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-en-desc": {
+    "path": "topics.neuclir22-en.original-desc.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-en-desc-title": {
+    "path": "topics.neuclir22-en.original-desc_title.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-en-title": {
+    "path": "topics.neuclir22-en.original-title.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-fa-ht-desc": {
+    "path": "topics.neuclir22-fa.ht-desc.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-fa-ht-desc-title": {
+    "path": "topics.neuclir22-fa.ht-desc_title.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-fa-ht-title": {
+    "path": "topics.neuclir22-fa.ht-title.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-fa-mt-desc": {
+    "path": "topics.neuclir22-fa.mt-desc.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-fa-mt-desc-title": {
+    "path": "topics.neuclir22-fa.mt-desc_title.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-fa-mt-title": {
+    "path": "topics.neuclir22-fa.mt-title.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-ru-ht-desc": {
+    "path": "topics.neuclir22-ru.ht-desc.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-ru-ht-desc-title": {
+    "path": "topics.neuclir22-ru.ht-desc_title.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-ru-ht-title": {
+    "path": "topics.neuclir22-ru.ht-title.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-ru-mt-desc": {
+    "path": "topics.neuclir22-ru.mt-desc.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-ru-mt-desc-title": {
+    "path": "topics.neuclir22-ru.mt-desc_title.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-ru-mt-title": {
+    "path": "topics.neuclir22-ru.mt-title.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-zh-ht-desc": {
+    "path": "topics.neuclir22-zh.ht-desc.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-zh-ht-desc-title": {
+    "path": "topics.neuclir22-zh.ht-desc_title.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-zh-ht-title": {
+    "path": "topics.neuclir22-zh.ht-title.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-zh-mt-desc": {
+    "path": "topics.neuclir22-zh.mt-desc.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-zh-mt-desc-title": {
+    "path": "topics.neuclir22-zh.mt-desc_title.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "neuclir22-zh-mt-title": {
+    "path": "topics.neuclir22-zh.mt-title.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "nq-dev": {
+    "path": "topics.nq.dev.txt",
+    "reader_class": "io.anserini.search.topicreader.DprNqTopicReader"
+  },
+  "nq-test": {
+    "path": "topics.nq.test.txt",
+    "reader_class": "io.anserini.search.topicreader.DprNqTopicReader"
+  },
+  "nq-test-gar-t5-all": {
+    "path": "topics.nq.test.gar-t5.all.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "nq-test-gar-t5-answers": {
+    "path": "topics.nq.test.gar-t5.answers.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "nq-test-gar-t5-sentences": {
+    "path": "topics.nq.test.gar-t5.sentences.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "nq-test-gar-t5-titles": {
+    "path": "topics.nq.test.gar-t5.titles.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "ntcir8-zh": {
+    "path": "topics.ntcir8zh.eval.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "rag24.raggy-dev": {
+    "path": "topics.rag24.raggy-dev.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "rag24.researchy-dev": {
+    "path": "topics.rag24.researchy-dev.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "rag24.test": {
+    "path": "topics.rag24.test.txt",
+    "reader_class": "io.anserini.search.topicreader.TsvStringTopicReader"
+  },
+  "robust04": {
+    "path": "topics.robust04.txt",
+    "reader_class": "io.anserini.search.topicreader.TrecTopicReader"
+  },
+  "robust05": {
+    "path": "topics.robust05.txt",
+    "reader_class": "io.anserini.search.topicreader.TrecTopicReader"
+  },
+  "slidevqa": {
+    "path": "topics.slidevqa.test.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "trec1-adhoc": {
+    "path": "topics.adhoc.51-100.txt",
+    "reader_class": "io.anserini.search.topicreader.TrecTopicReader"
+  },
+  "trec2-adhoc": {
+    "path": "topics.adhoc.101-150.txt",
+    "reader_class": "io.anserini.search.topicreader.TrecTopicReader"
+  },
+  "trec2002-ar": {
+    "path": "topics.trec02ar-ar.txt",
+    "reader_class": "io.anserini.search.topicreader.TrecTopicReader"
+  },
+  "trec2004-terabyte": {
+    "path": "topics.terabyte04.701-750.txt",
+    "reader_class": "io.anserini.search.topicreader.TrecTopicReader"
+  },
+  "trec2005-terabyte": {
+    "path": "topics.terabyte05.751-800.txt",
+    "reader_class": "io.anserini.search.topicreader.TrecTopicReader"
+  },
+  "trec2006-terabyte": {
+    "path": "topics.terabyte06.801-850.txt",
+    "reader_class": "io.anserini.search.topicreader.TrecTopicReader"
+  },
+  "trec2007-million-query": {
+    "path": "topics.mq.1-10000.txt",
+    "reader_class": "io.anserini.search.topicreader.WebTopicReader"
+  },
+  "trec2008-million-query": {
+    "path": "topics.mq.10001-20000.txt",
+    "reader_class": "io.anserini.search.topicreader.WebTopicReader"
+  },
+  "trec2009-million-query": {
+    "path": "topics.mq.20001-60000.txt",
+    "reader_class": "io.anserini.search.topicreader.PrioritizedWebTopicReader"
+  },
+  "trec2010-web": {
+    "path": "topics.web.51-100.txt",
+    "reader_class": "io.anserini.search.topicreader.WebxmlTopicReader"
+  },
+  "trec2011-web": {
+    "path": "topics.web.101-150.txt",
+    "reader_class": "io.anserini.search.topicreader.WebxmlTopicReader"
+  },
+  "trec2012-web": {
+    "path": "topics.web.151-200.txt",
+    "reader_class": "io.anserini.search.topicreader.WebxmlTopicReader"
+  },
+  "trec2013-web": {
+    "path": "topics.web.201-250.txt",
+    "reader_class": "io.anserini.search.topicreader.WebxmlTopicReader"
+  },
+  "trec2014-web": {
+    "path": "topics.web.251-300.txt",
+    "reader_class": "io.anserini.search.topicreader.WebxmlTopicReader"
+  },
+  "trec2018-bl": {
+    "path": "topics.backgroundlinking18.txt",
+    "reader_class": "io.anserini.search.topicreader.BackgroundLinkingTopicReader"
+  },
+  "trec2019-bl": {
+    "path": "topics.backgroundlinking19.txt",
+    "reader_class": "io.anserini.search.topicreader.BackgroundLinkingTopicReader"
+  },
+  "trec2020-bl": {
+    "path": "topics.backgroundlinking20.txt",
+    "reader_class": "io.anserini.search.topicreader.BackgroundLinkingTopicReader"
+  },
+  "trec3-adhoc": {
+    "path": "topics.adhoc.151-200.txt",
+    "reader_class": "io.anserini.search.topicreader.TrecTopicReader"
+  },
+  "wiki-ss-nq": {
+    "path": "topics.wiki-ss-nq.test.tsv",
+    "reader_class": "io.anserini.search.topicreader.TsvIntTopicReader"
+  },
+  "wt10g": {
+    "path": "topics.adhoc.451-550.txt",
+    "reader_class": "io.anserini.search.topicreader.TrecTopicReader"
+  }
+}

@@ -14,9 +14,14 @@
 # limitations under the License.
 #
 
+import os
+import tempfile
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 
 from pyserini import search
+from pyserini.search import _base as search_base
 
 
 class TestLoadQrels(unittest.TestCase):
@@ -1309,6 +1314,31 @@ class TestLoadQrels(unittest.TestCase):
         self.assertIsNotNone(qrels)
         self.assertEqual(len(qrels), 4889)
         self.assertTrue(isinstance(next(iter(qrels.keys())), str))
+
+    def test_qrels_resource_json_shape(self):
+        for name, qrels_file in search_base.qrels_mapping.items():
+            self.assertIsInstance(name, str)
+            self.assertIsInstance(qrels_file, str)
+            self.assertTrue(qrels_file)
+
+    def test_get_qrels_file_downloads_once_and_uses_cache(self):
+        repo_tmp = Path(__file__).resolve().parents[2] / 'tmp'
+        repo_tmp.mkdir(exist_ok=True)
+
+        def fake_download(qrels_file, target_path):
+            self.assertEqual(qrels_file, 'qrels.robust04.txt')
+            target_path.write_text('301 0 FBIS3-10082 1\n')
+
+        with tempfile.TemporaryDirectory(dir=repo_tmp) as cache_dir:
+            with patch.dict(os.environ, {'PYSERINI_CACHE': cache_dir}):
+                with patch.object(search_base, '_download_qrels', side_effect=fake_download) as download:
+                    qrels_path = search.get_qrels_file('robust04')
+                    self.assertEqual(download.call_count, 1)
+                    self.assertEqual(Path(qrels_path).read_text(), '301 0 FBIS3-10082 1\n')
+
+                    cached_qrels_path = search.get_qrels_file('robust04')
+                    self.assertEqual(cached_qrels_path, qrels_path)
+                    self.assertEqual(download.call_count, 1)
 
 if __name__ == '__main__':
     unittest.main()

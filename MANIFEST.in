@@ -1,6 +1,8 @@
 include *.md
 include pyserini/2cr/*.yaml
 include pyserini/2cr/*.template
+include pyserini/resources/qrels.json
+include pyserini/resources/topics.json
 include pyserini/resources/jars/anserini-*-fatjar.jar
 include pyserini/resources/jars/logging.properties
 prune tests/
