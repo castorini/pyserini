@@ -16,58 +16,23 @@
 
 import json
 import os
-import subprocess
-import sys
-import tempfile
 import unittest
 
-import pandas as pd
-
 from pyserini.encode import TctColBertDocumentEncoder, TctColBertQueryEncoder
-from pyserini.query_iterator import DefaultQueryIterator
+from tests.base.encoder.utils import assert_encode_query_cli_output, assert_query_encoder_output
 
 
 class TestEncodeTctColBert(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.resource_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'resources'))
-        cls.repo_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 
     def _assert_encode_query_cli_output(self, topics, encoder, expected_values):
-        with tempfile.TemporaryDirectory() as temp_dir:
-            output_path = os.path.join(temp_dir, 'encoded_queries.pkl')
-            subprocess.run(
-                [
-                    sys.executable, '-m', 'pyserini.encode.query',
-                    '--topics', topics,
-                    '--encoder', encoder,
-                    '--output', output_path,
-                    '--device', 'cpu',
-                    '--max-queries', '2',
-                ],
-                cwd=self.repo_dir,
-                check=True,
-            )
-
-            encoded = pd.read_pickle(output_path)
-            self.assertEqual(encoded.shape, (2, 3))
-            self.assertEqual(encoded.columns.tolist(), ['id', 'text', 'embedding'])
-            self.assertEqual(len(encoded.iloc[0]['embedding']), 768)
-            self.assertAlmostEqual(encoded.iloc[0]['embedding'][0], expected_values[0][0], places=5)
-            self.assertAlmostEqual(encoded.iloc[0]['embedding'][-1], expected_values[0][1], places=5)
-            self.assertAlmostEqual(encoded.iloc[1]['embedding'][0], expected_values[1][0], places=5)
-            self.assertAlmostEqual(encoded.iloc[1]['embedding'][-1], expected_values[1][1], places=5)
+        assert_encode_query_cli_output(self, topics, encoder, expected_values)
 
     def _assert_query_encoder_output(self, topics, encoder, expected_values):
         encoder = TctColBertQueryEncoder(encoder, device='cpu')
-        query_iterator = DefaultQueryIterator.from_topics(topics)
-        for i, (_, text) in enumerate(query_iterator):
-            if i == 2:
-                break
-            embedding = encoder.encode(text)
-            self.assertEqual(len(embedding), 768)
-            self.assertAlmostEqual(embedding[0], expected_values[i][0], places=5)
-            self.assertAlmostEqual(embedding[-1], expected_values[i][1], places=5)
+        assert_query_encoder_output(self, topics, encoder, expected_values)
 
     def test_tct_colbert_encoder(self):
         texts = []

@@ -14,60 +14,22 @@
 # limitations under the License.
 #
 
-import os
-import subprocess
-import sys
-import tempfile
 import unittest
 
-import pandas as pd
-
 from pyserini.encode import AutoQueryEncoder
-from pyserini.query_iterator import DefaultQueryIterator
+from tests.base.encoder.utils import assert_encode_query_cli_output, assert_query_encoder_output
 
 
 EXPECTED_VALUES = [(0.01859, -0.02723), (-0.04856, 0.03721)]
 
 
 class TestEncodeSBert(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.repo_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
-
     def test_msmarco_passage_sbert_encode_query_cli(self):
-        with tempfile.TemporaryDirectory() as temp_dir:
-            output_path = os.path.join(temp_dir, 'encoded_queries.pkl')
-            subprocess.run(
-                [
-                    sys.executable, '-m', 'pyserini.encode.query',
-                    '--topics', 'msmarco-passage-dev-subset',
-                    '--encoder', 'sentence-transformers/msmarco-distilbert-base-v3',
-                    '--output', output_path,
-                    '--device', 'cpu',
-                    '--max-queries', '2',
-                ],
-                cwd=self.repo_dir,
-                check=True,
-            )
-
-            encoded = pd.read_pickle(output_path)
-            self.assertEqual(encoded.shape, (2, 3))
-            self.assertEqual(encoded.columns.tolist(), ['id', 'text', 'embedding'])
-            self.assertEqual(len(encoded.iloc[0]['embedding']), 768)
-            for i, (first_value, last_value) in enumerate(EXPECTED_VALUES):
-                self.assertAlmostEqual(encoded.iloc[i]['embedding'][0], first_value, places=5)
-                self.assertAlmostEqual(encoded.iloc[i]['embedding'][-1], last_value, places=5)
+        assert_encode_query_cli_output(self, 'msmarco-passage-dev-subset', 'sentence-transformers/msmarco-distilbert-base-v3', EXPECTED_VALUES)
 
     def test_msmarco_passage_sbert_query_encoder_direct(self):
         encoder = AutoQueryEncoder('sentence-transformers/msmarco-distilbert-base-v3', device='cpu', pooling='mean', l2_norm=True)
-        query_iterator = DefaultQueryIterator.from_topics('msmarco-passage-dev-subset')
-        for i, (_, text) in enumerate(query_iterator):
-            if i == 2:
-                break
-            embedding = encoder.encode(text)
-            self.assertEqual(len(embedding), 768)
-            self.assertAlmostEqual(embedding[0], EXPECTED_VALUES[i][0], places=5)
-            self.assertAlmostEqual(embedding[-1], EXPECTED_VALUES[i][1], places=5)
+        assert_query_encoder_output(self, 'msmarco-passage-dev-subset', encoder, EXPECTED_VALUES)
 
 
 if __name__ == '__main__':

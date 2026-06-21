@@ -15,28 +15,20 @@
 #
 
 import os
-import subprocess
-import sys
-import tempfile
 import unittest
 from unittest.mock import MagicMock, patch
 
 import numpy as np
-import pandas as pd
 
 from pyserini.encode import AnceQueryEncoder
 from pyserini.encode._ance import AnceEncoder
-from pyserini.query_iterator import DefaultQueryIterator
+from tests.base.encoder.utils import assert_encode_query_cli_output, assert_query_encoder_output
 
 
 EXPECTED_VALUES = [(-1.34755, -1.22419), (-1.36109, -1.47927)]
 
 
 class TestEncodeAnce(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.repo_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
-
     def test_ance_load_disables_safetensors_conversion(self):
         model = MagicMock()
 
@@ -71,39 +63,11 @@ class TestEncodeAnce(unittest.TestCase):
             self.assertEqual(os.environ['DISABLE_SAFETENSORS_CONVERSION'], 'previous')
 
     def test_ance_encode_query_cli(self):
-        with tempfile.TemporaryDirectory() as temp_dir:
-            output_path = os.path.join(temp_dir, 'encoded_queries.pkl')
-            subprocess.run(
-                [
-                    sys.executable, '-m', 'pyserini.encode.query',
-                    '--topics', 'msmarco-passage-dev-subset',
-                    '--encoder', 'castorini/ance-msmarco-passage',
-                    '--output', output_path,
-                    '--device', 'cpu',
-                    '--max-queries', '2',
-                ],
-                cwd=self.repo_dir,
-                check=True,
-            )
-
-            encoded = pd.read_pickle(output_path)
-            self.assertEqual(encoded.shape, (2, 3))
-            self.assertEqual(encoded.columns.tolist(), ['id', 'text', 'embedding'])
-            self.assertEqual(len(encoded.iloc[0]['embedding']), 768)
-            for i, (first_value, last_value) in enumerate(EXPECTED_VALUES):
-                self.assertAlmostEqual(encoded.iloc[i]['embedding'][0], first_value, places=5)
-                self.assertAlmostEqual(encoded.iloc[i]['embedding'][-1], last_value, places=5)
+        assert_encode_query_cli_output(self, 'msmarco-passage-dev-subset', 'castorini/ance-msmarco-passage', EXPECTED_VALUES)
 
     def test_ance_query_encoder_direct(self):
         encoder = AnceQueryEncoder('castorini/ance-msmarco-passage', device='cpu')
-        query_iterator = DefaultQueryIterator.from_topics('msmarco-passage-dev-subset')
-        for i, (_, text) in enumerate(query_iterator):
-            if i == 2:
-                break
-            embedding = encoder.encode(text)
-            self.assertEqual(len(embedding), 768)
-            self.assertAlmostEqual(embedding[0], EXPECTED_VALUES[i][0], places=5)
-            self.assertAlmostEqual(embedding[-1], EXPECTED_VALUES[i][1], places=5)
+        assert_query_encoder_output(self, 'msmarco-passage-dev-subset', encoder, EXPECTED_VALUES)
 
     def test_ance_weights_loaded(self):
         encoder = AnceQueryEncoder('castorini/ance-msmarco-passage')
