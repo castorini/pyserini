@@ -16,14 +16,11 @@ Thus, while the scoring script provides results to much higher precision, we hav
 python -m pyserini.search.faiss \
   --index msmarco-v1-passage.ance \
   --topics msmarco-passage-dev-subset \
-  --encoded-queries ance-msmarco-passage-dev-subset \
+  --encoder castorini/ance-msmarco-passage \
   --output runs/run.msmarco-passage.ance.tsv \
   --output-format msmarco \
   --batch-size 512 --threads 16
 ```
-
-The option `--encoded-queries` specifies the use of encoded queries (i.e., queries that have already been converted into dense vectors and cached).
-As an alternative, replace with `--encoder castorini/ance-msmarco-passage` to perform "on-the-fly" query encoding, i.e., convert text queries into dense vectors as part of the dense retrieval process.
 
 To evaluate:
 
@@ -34,7 +31,7 @@ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
 
 Results:
 
-```
+```text
 #####################
 MRR @10: 0.3302
 QueriesRanked: 6980
@@ -50,14 +47,14 @@ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
   --output runs/run.msmarco-passage.ance.trec
 
 python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
-    runs/run.msmarco-passage.ance.trec
+  runs/run.msmarco-passage.ance.trec
 ```
 
 Results:
 
-```
-map                   	all	0.3363
-recall_1000           	all	0.9584
+```text
+map                     all     0.3363
+recall_1000             all     0.9584
 ```
 
 ## MS MARCO Document
@@ -68,14 +65,12 @@ recall_1000           	all	0.9584
 python -m pyserini.search.faiss \
   --index msmarco-v1-doc.ance-maxp \
   --topics msmarco-doc-dev \
-  --encoded-queries ance_maxp-msmarco-doc-dev \
+  --encoder castorini/ance-msmarco-doc-maxp \
   --output runs/run.msmarco-doc.passage.ance-maxp.txt \
   --output-format msmarco \
   --batch-size 512 --threads 16 \
   --hits 1000 --max-passage --max-passage-hits 100
 ```
-
-Same as above, replace `--encoded-queries` with `--encoder castorini/ance-msmarco-doc-maxp` for on-the-fly query encoding.
 
 To evaluate:
 
@@ -87,7 +82,7 @@ python -m pyserini.eval.msmarco_doc_eval \
 
 Results:
 
-```
+```text
 #####################
 MRR @100: 0.3794
 QueriesRanked: 5193
@@ -108,9 +103,9 @@ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap msmarco-doc-dev \
 
 Results:
 
-```
-map                   	all	0.3794
-recall_100            	all	0.9033
+```text
+map                     all     0.3794
+recall_100              all     0.9033
 ```
 
 ## Natural Questions (NQ)
@@ -121,12 +116,10 @@ recall_100            	all	0.9033
 python -m pyserini.search.faiss \
   --index wikipedia-dpr-100w.ance-multi \
   --topics dpr-nq-test \
-  --encoded-queries ance_multi-nq-test \
+  --encoder castorini/ance-dpr-question-multi \
   --output runs/run.ance.nq-test.multi.trec \
   --batch-size 512 --threads 16
 ```
-
-Same as above, replace `--encoded-queries` with `--encoder castorini/ance-dpr-question-multi` for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -144,9 +137,9 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 
 Results:
 
-```
-Top20	accuracy: 0.8224
-Top100	accuracy: 0.8787
+```text
+Top20   accuracy: 0.8224
+Top100  accuracy: 0.8787
 ```
 
 ## Trivia QA
@@ -157,12 +150,10 @@ Top100	accuracy: 0.8787
 python -m pyserini.search.faiss \
   --index wikipedia-dpr-100w.ance-multi \
   --topics dpr-trivia-test \
-  --encoded-queries ance_multi-trivia-test \
+  --encoder castorini/ance-dpr-question-multi \
   --output runs/run.ance.trivia-test.multi.trec \
   --batch-size 512 --threads 16
 ```
-
-Same as above, replace `--encoded-queries` with `--encoder castorini/ance-dpr-question-multi` for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -180,9 +171,9 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 
 Results:
 
-```
-Top20	accuracy: 0.8010
-Top100	accuracy: 0.8522
+```text
+Top20   accuracy: 0.8010
+Top100  accuracy: 0.8522
 ```
 
 ## Reproduction Log[*](reproducibility.md)
@@ -195,3 +186,4 @@ Top100	accuracy: 0.8522
 + Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-23 (commit [`0c495c`](https://github.com/castorini/pyserini/commit/0c495cf2999dda980eb1f85efa30a4323cef5855))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2023-01-10 (commit [`7dafc4`](https://github.com/castorini/pyserini/commit/7dafc4f918bd44ada3771a5c81692ab19cc2cae9))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2024-10-07 (commit [`3f7609`](https://github.com/castorini/pyserini/commit/3f76099a73820afee12496c0354d52ca6a6175c2))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2026-06-22 (commit [`65b1bbb`](https://github.com/castorini/pyserini/commit/65b1bbb43af9d841e9e78dcb185f1b45d903cede))
