@@ -115,7 +115,7 @@ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-sub
 Results:
 
 ```text
-map                     all     0.3608
+map                     all     0.3609
 recall_1000             all     0.9708
 ```
 
@@ -216,7 +216,7 @@ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-sub
 Results:
 
 ```text
-map                     all     0.3737
+map                     all     0.3736
 recall_1000             all     0.9707
 ```
 
