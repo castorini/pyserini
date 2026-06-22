@@ -31,6 +31,7 @@ JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
 
 TOPICS_AND_QRELS_BASE_URL = 'https://raw.githubusercontent.com/castorini/anserini-tools/master/topics-and-qrels/'
 QRELS_METADATA_FILE = '_metadata_qrels.json'
+QRELS_ALIASES_METADATA_FILE = '_metadata_qrels_aliases.json'
 TOPICS_METADATA_FILE = '_metadata_topics.json'
 
 _topics_mapping = None
@@ -39,7 +40,19 @@ _qrels_mapping = None
 
 def _load_qrels_mapping():
     with urlopen(f'{TOPICS_AND_QRELS_BASE_URL}{QRELS_METADATA_FILE}') as response:
-        return json.loads(response.read().decode('utf-8'))
+        qrels_mapping = json.loads(response.read().decode('utf-8'))
+
+    with urlopen(f'{TOPICS_AND_QRELS_BASE_URL}{QRELS_ALIASES_METADATA_FILE}') as response:
+        qrels_aliases_mapping = json.loads(response.read().decode('utf-8'))
+
+    for canonical_name, aliases in qrels_aliases_mapping.items():
+        if canonical_name not in qrels_mapping:
+            continue
+
+        for alias in aliases:
+            qrels_mapping[alias] = qrels_mapping[canonical_name]
+
+    return qrels_mapping
 
 
 def _load_topics_mapping():
