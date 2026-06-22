@@ -65,7 +65,7 @@ class TestAnce(unittest.TestCase):
         encoder = QueryEncoder.load_encoded_queries('ance_maxp-msmarco-doc-dev')
         topics = get_topics('msmarco-doc-dev')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+            self.assertTrue(topics[t]['title'] in encoder.embeddings)
 
     def test_nq_test_ance_bf_otf(self):
         output_file = 'test_run.ance.nq-test.multi.bf.otf.trec'
@@ -93,7 +93,7 @@ class TestAnce(unittest.TestCase):
         encoder = QueryEncoder.load_encoded_queries('dpr_multi-nq-test')
         topics = get_topics('dpr-nq-test')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+            self.assertTrue(topics[t]['title'] in encoder.embeddings)
 
     def test_trivia_test_ance_bf_otf(self):
         output_file = 'test_run.ance.trivia-test.multi.bf.otf.trec'
@@ -121,7 +121,7 @@ class TestAnce(unittest.TestCase):
         encoder = QueryEncoder.load_encoded_queries('dpr_multi-trivia-test')
         topics = get_topics('dpr-trivia-test')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+            self.assertTrue(topics[t]['title'] in encoder.embeddings)
 
     def tearDown(self):
         clean_files(self.temp_files)

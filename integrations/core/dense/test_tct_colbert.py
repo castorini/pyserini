@@ -111,7 +111,7 @@ class TestTctColBert(unittest.TestCase):
         encoded = QueryEncoder.load_encoded_queries('tct_colbert-msmarco-passage-dev-subset')
         topics = get_topics('msmarco-passage-dev-subset')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
+            self.assertTrue(topics[t]['title'] in encoded.embeddings)
 
     def test_msmarco_doc_tct_colbert_bf_otf(self):
         output_file = 'test_run.msmarco-doc.passage.tct_colbert-otf.txt'

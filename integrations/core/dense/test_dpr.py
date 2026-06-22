@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-"""Integration tests for DPR model using pre-encoded queries."""
+"""Integration tests for DPR dense retrieval and encoded queries."""
 
 import json
 import multiprocessing
@@ -89,7 +89,7 @@ class TestDpr(unittest.TestCase):
         encoder = QueryEncoder.load_encoded_queries('dpr_multi-nq-test')
         topics = get_topics('dpr-nq-test')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+            self.assertTrue(topics[t]['title'] in encoder.embeddings)
 
     def test_dpr_trivia_test_bf_otf(self):
         output_file = 'test_run.dpr.trivia-test.multi.bf.otf.trec'
@@ -141,7 +141,7 @@ class TestDpr(unittest.TestCase):
         encoder = QueryEncoder.load_encoded_queries('dpr_multi-trivia-test')
         topics = get_topics('dpr-trivia-test')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+            self.assertTrue(topics[t]['title'] in encoder.embeddings)
 
     def test_dpr_wq_test_bf_otf(self):
         output_file = 'test_run.dpr.wq-test.multi.bf.otf.trec'
@@ -193,7 +193,7 @@ class TestDpr(unittest.TestCase):
         encoder = QueryEncoder.load_encoded_queries('dpr_multi-wq-test')
         topics = get_topics('dpr-wq-test')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+            self.assertTrue(topics[t]['title'] in encoder.embeddings)
 
     def test_dpr_curated_test_bf_otf(self):
         output_file = 'test_run.dpr.curated-test.multi.bf.otf.trec'
@@ -247,7 +247,7 @@ class TestDpr(unittest.TestCase):
         encoder = QueryEncoder.load_encoded_queries('dpr_multi-curated-test')
         topics = get_topics('dpr-curated-test')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+            self.assertTrue(topics[t]['title'] in encoder.embeddings)
 
     def test_dpr_squad_test_bf_otf(self):
         output_file = 'test_run.dpr.squad-test.multi.bf.otf.trec'
@@ -302,7 +302,7 @@ class TestDpr(unittest.TestCase):
         encoder = QueryEncoder.load_encoded_queries('dpr_multi-squad-test')
         topics = get_topics('dpr-squad-test')
         for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+            self.assertTrue(topics[t]['title'] in encoder.embeddings)
 
     def test_convert_trec_run_to_dpr_retrieval_run(self):
         trec_run_file = 'tests/resources/simple_test_run_convert_trec_run_dpr.trec'
@@ -313,9 +313,9 @@ class TestDpr(unittest.TestCase):
         index_dir = 'temp_index'
 
         self.temp_files.extend([dpr_run_file, index_dir])
-        cmd1 = f'python -m pyserini.index.lucene -collection JsonCollection ' + \
-               f'-generator DefaultLuceneDocumentGenerator ' + \
-               f'-threads 1 -input {collection_path} -index {index_dir} -storeRaw'
+        cmd1 = f'python -m pyserini.index.lucene -collection JsonCollection \
+                             -generator DefaultLuceneDocumentGenerator \
+                             -threads 1 -input {collection_path} -index {index_dir} -storeRaw'
 
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics-file {topics_file} \
                                                            --topics-reader {topic_reader} \

@@ -183,6 +183,7 @@ class AggretrieverDocumentEncoder(DocumentEncoder):
 class AggretrieverQueryEncoder(QueryEncoder):
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
                  encoded_queries_dir: str = None, device: str = 'cpu', **kwargs):
+        super().__init__(encoded_queries_dir)
         if encoder_dir:
             self.device = device
             if 'distilbert' in encoder_dir.lower():
