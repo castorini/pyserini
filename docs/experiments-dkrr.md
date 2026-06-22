@@ -17,7 +17,7 @@ Running DKRR retrieval on `dpr-nq-dev` and `nq-test` of the Natural Questions da
 python -m pyserini.search.faiss \
   --index wikipedia-dpr-100w.dkrr-nq \
   --topics dpr-nq-dev \
-  --encoded-queries dkrr-dpr-nq-retriever-dpr-nq-dev \
+  --encoder castorini/dkrr-dpr-nq-retriever \
   --output runs/run.dpr-dkrr-nq.dev.trec \
   --query-prefix question: \
   --batch-size 512 --threads 16
@@ -25,13 +25,11 @@ python -m pyserini.search.faiss \
 python -m pyserini.search.faiss \
   --index wikipedia-dpr-100w.dkrr-nq \
   --topics nq-test \
-  --encoded-queries dkrr-dpr-nq-retriever-nq-test \
+  --encoder castorini/dkrr-dpr-nq-retriever \
   --output runs/run.dpr-dkrr-nq.test.trec \
   --query-prefix question: \
   --batch-size 512 --threads 16
 ```
-
-Alternatively, replace `--encoded-queries ...` with `--encoder castorini/dkrr-dpr-nq-retriever` for on-the-fly query encoding.
 
 To evaluate, convert the TREC output format to DPR's json format:
 
@@ -65,7 +63,7 @@ The expected results are as follows, shown in the "ours" column:
 
 | Metric   | `dpr-nq-dev` (ours) | `dpr-nq-dev` (orig) | `nq-test` (ours) |
 |:---------|--------------------:|--------------------:|-----------------:|
-| Top-5    |               72.40 |                     |            73.80 | 
+| Top-5    |               72.40 |                     |            73.80 |
 | Top-20   |               82.36 |                82.4 |            84.27 |
 | Top-100  |               87.87 |                87.9 |            89.34 |
 | Top-500  |               90.37 |                     |            92.24 |
@@ -81,7 +79,7 @@ Running DKRR retrieval on `dpr-trivia-dev` and `dpr-trivia-test` of the TriviaQA
 python -m pyserini.search.faiss \
   --index wikipedia-dpr-100w.dkrr-tqa \
   --topics dpr-trivia-dev \
-  --encoded-queries dkrr-dpr-tqa-retriever-dpr-tqa-dev \
+  --encoder castorini/dkrr-dpr-tqa-retriever \
   --output runs/run.dpr-dkrr-trivia.dev.trec \
   --query-prefix question: \
   --batch-size 512 --threads 16
@@ -89,12 +87,11 @@ python -m pyserini.search.faiss \
 python -m pyserini.search.faiss \
   --index wikipedia-dpr-100w.dkrr-tqa \
   --topics dpr-trivia-test \
-  --encoded-queries dkrr-dpr-tqa-retriever-dpr-tqa-test \
+  --encoder castorini/dkrr-dpr-tqa-retriever \
   --output runs/run.dpr-dkrr-trivia.test.trec \
   --query-prefix question: \
   --batch-size 512 --threads 16
 ```
-Alternatively, replace `--encoded-queries ...` with `--encoder castorini/dkrr-dpr-tqa-retriever` for on-the-fly query encoding.
 
 To evaluate, convert the TREC output format to DPR's json format:
 
@@ -146,3 +143,4 @@ Running hybrid sparse-dense retrieval with DKKR and [GAR-T5](https://github.com/
 + Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-23 (commit [`90676b`](https://github.com/castorini/pyserini/commit/90676b351b47585084aa8136265d02a67ced3803))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2023-01-10 (commit [`7dafc4`](https://github.com/castorini/pyserini/commit/7dafc4f918bd44ada3771a5c81692ab19cc2cae9))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2024-10-07 (commit [`3f7609`](https://github.com/castorini/pyserini/commit/3f76099a73820afee12496c0354d52ca6a6175c2))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2026-06-22 (commit [`65b1bbb`](https://github.com/castorini/pyserini/commit/65b1bbb43af9d841e9e78dcb185f1b45d903cede))
