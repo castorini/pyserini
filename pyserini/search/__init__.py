@@ -14,4 +14,4 @@
 # limitations under the License.
 #
 
-from ._base import get_topics, get_topics_with_reader, get_qrels_file, get_qrels
+from ._base import get_topics, load_topics_with_reader, get_qrels_file, get_qrels

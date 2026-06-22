@@ -16,8 +16,11 @@
 
 import os
 import unittest
+from importlib import reload
+from unittest.mock import patch
 
 from pyserini import search
+from pyserini.search import _base as search_base
 
 
 class TestLoadTopics(unittest.TestCase):
@@ -1623,7 +1626,7 @@ class TestLoadTopics(unittest.TestCase):
         path = os.path.join(self.tools_dir, 'topics-and-qrels/topics.msmarco-doc.dev.txt')
 
         self.assertTrue(os.path.exists(path))
-        topics = search.get_topics_with_reader('io.anserini.search.topicreader.TsvIntTopicReader', path)
+        topics = search.load_topics_with_reader(path, 'io.anserini.search.topicreader.TsvIntTopicReader')
         self.assertEqual(len(topics), 5193)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
@@ -1633,7 +1636,7 @@ class TestLoadTopics(unittest.TestCase):
         path = os.path.join(self.tools_dir, 'topics-and-qrels/topics.robust04.txt')
 
         self.assertTrue(os.path.exists(path))
-        topics = search.get_topics_with_reader('io.anserini.search.topicreader.TrecTopicReader', path)
+        topics = search.load_topics_with_reader(path, 'io.anserini.search.topicreader.TrecTopicReader')
         self.assertEqual(len(topics), 250)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
@@ -1643,10 +1646,40 @@ class TestLoadTopics(unittest.TestCase):
         path = os.path.join(self.resource_dir, 'sample_queries_nonint_qid.tsv')
 
         self.assertTrue(os.path.exists(path))
-        topics = search.get_topics_with_reader('io.anserini.search.topicreader.TsvStringTopicReader', path)
+        topics = search.load_topics_with_reader(path, 'io.anserini.search.topicreader.TsvStringTopicReader')
         self.assertEqual(len(topics), 3)
         self.assertTrue(isinstance(next(iter(topics.keys())), str))
         self.assertEqual({'30_1', '30_2', '30_3'}, set(topics))
+
+    def test_topics_resource_json_shape(self):
+        for name, topic in search_base._get_topics_mapping().items():
+            self.assertIsInstance(name, str)
+            self.assertIsInstance(topic, dict)
+            self.assertEqual(set(topic.keys()), {'path', 'reader_class'})
+            self.assertIsInstance(topic['path'], str)
+            self.assertTrue(topic['path'])
+            self.assertIsInstance(topic['reader_class'], str)
+            self.assertTrue(topic['reader_class'])
+
+    def test_topics_metadata_loads_lazily(self):
+        with patch('urllib.request.urlopen') as urlopen:
+            reload(search_base)
+            urlopen.assert_not_called()
+        reload(search_base)
+
+    def test_topic_aliases_resolve_to_same_resource(self):
+        expected_aliases = {
+            'dl19-passage.splade-v3': 'dl19-passage-splade-v3',
+            'msmarco-passage-dev-subset.splade-v3': 'msmarco-passage-dev-subset-splade-v3',
+            'msmarco-passage-dev.splade-v3': 'msmarco-passage-dev-subset-splade-v3',
+            'msmarco-passage.dev.splade-v3': 'msmarco-passage-dev-subset-splade-v3',
+            'msmarco-v1-passage-dev.splade-v3': 'msmarco-passage-dev-subset-splade-v3',
+            'msmarco-v1-passage.dev.splade-v3': 'msmarco-passage-dev-subset-splade-v3',
+        }
+
+        topics_mapping = search_base._get_topics_mapping()
+        for alias, canonical in expected_aliases.items():
+            self.assertEqual(topics_mapping[alias], topics_mapping[canonical])
 
 
 if __name__ == '__main__':

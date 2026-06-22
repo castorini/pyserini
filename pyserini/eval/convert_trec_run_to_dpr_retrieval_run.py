@@ -21,7 +21,7 @@ import os
 from tqdm import tqdm
 
 from pyserini.eval.evaluate_dpr_retrieval import has_answers, SimpleTokenizer
-from pyserini.search import get_topics, get_topics_with_reader
+from pyserini.search import get_topics, load_topics_with_reader
 from pyserini.search.lucene import LuceneSearcher
 
 if __name__ == '__main__':
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.topics_file:
-        qas = get_topics_with_reader(args.topics_reader, args.topics_file)
+        qas = load_topics_with_reader(args.topics_file, args.topics_reader)
     elif args.topics:
         qas = get_topics(args.topics)
     else:

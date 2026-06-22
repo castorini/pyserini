@@ -23,7 +23,7 @@ from pathlib import Path
 from urllib.error import HTTPError, URLError
 
 from pyserini.external_query_info import KILT_QUERY_INFO
-from pyserini.search import get_topics, get_topics_with_reader
+from pyserini.search import get_topics, load_topics_with_reader
 from pyserini.util import download_url, get_cache_home
 
 
@@ -101,13 +101,9 @@ class DefaultQueryIterator(QueryIterator):
                 with open(topics_path, 'r') as f:
                     topics = json.load(f)
             elif 'beir' in topics_path:
-                topics = get_topics_with_reader(
-                    'io.anserini.search.topicreader.TsvStringTopicReader', topics_path
-                )
+                topics = load_topics_with_reader(topics_path, 'io.anserini.search.topicreader.TsvStringTopicReader')
             elif 'cacm' in topics_path:
-                topics = get_topics_with_reader(
-                    'io.anserini.search.topicreader.CacmTopicReader', topics_path
-                )
+                topics = load_topics_with_reader(topics_path, 'io.anserini.search.topicreader.CacmTopicReader')
             # If extension is tsv or txt we just assume file contains (qid, query) pairs.
             elif (
                 topics_path.endswith('.tsv')
@@ -116,26 +112,15 @@ class DefaultQueryIterator(QueryIterator):
                 or topics_path.endswith('.txt.gz')
             ):
                 try:
-                    topics = get_topics_with_reader(
-                        'io.anserini.search.topicreader.TsvIntTopicReader', topics_path
-                    )
+                    topics = load_topics_with_reader(topics_path, 'io.anserini.search.topicreader.TsvIntTopicReader')
                 except ValueError as e:
-                    topics = get_topics_with_reader(
-                        'io.anserini.search.topicreader.TsvStringTopicReader',
-                        topics_path,
-                    )
+                    topics = load_topics_with_reader(topics_path, 'io.anserini.search.topicreader.TsvStringTopicReader')
             elif topics_path.endswith('.trec'):
-                topics = get_topics_with_reader(
-                    'io.anserini.search.topicreader.TrecTopicReader', topics_path
-                )
+                topics = load_topics_with_reader(topics_path, 'io.anserini.search.topicreader.TrecTopicReader')
             elif topics_path.endswith('.jsonl'):
-                topics = get_topics_with_reader(
-                    'io.anserini.search.topicreader.JsonStringTopicReader', topics_path
-                )
+                topics = load_topics_with_reader(topics_path, 'io.anserini.search.topicreader.JsonStringTopicReader')
             else:
-                raise NotImplementedError(
-                    f"Not sure how to parse {topics_path}. Please specify the file extension."
-                )
+                raise NotImplementedError(f'Not sure how to parse {topics_path}. Please specify the file extension.')
         else:
             topics = get_topics(topics_path)
         if not topics:
@@ -195,22 +180,16 @@ class MultimodalQueryIterator(QueryIterator):
         """Prepare multimodal query, assume the file is placed near by the topic file."""
         query_path = os.path.join(self.topic_dir, self.topics[id_].get('path', ''))
         if not os.path.exists(query_path):
-            raise FileNotFoundError(
-                f"Query file for ID {id_} not found at {query_path}"
-            )
+            raise FileNotFoundError(f'Query file for ID {id_} not found at {query_path}')
         return query_path
 
     @classmethod
     def from_topics(cls, topics_path: str):
         if os.path.exists(topics_path):
             if topics_path.endswith('.jsonl'):
-                topics = get_topics_with_reader(
-                    'io.anserini.search.topicreader.JsonStringTopicReader', topics_path
-                )
+                topics = load_topics_with_reader(topics_path, 'io.anserini.search.topicreader.JsonStringTopicReader')
             else:
-                raise NotImplementedError(
-                    f"Not sure how to parse {topics_path}. Please specify the file extension."
-                )
+                raise NotImplementedError(f'Not sure how to parse {topics_path}. Please specify the file extension.')
         else:
             topics = get_topics(topics_path)
         if not topics:
@@ -239,9 +218,7 @@ class MBEIRQueryIterator(QueryIterator):
         else:
             query_img_path = os.path.join(self.topic_dir, query_img_path)
             if not os.path.exists(query_img_path):
-                raise FileNotFoundError(
-                    f"Query image for ID {id_} not found at {query_img_path}"
-                )
+                raise FileNotFoundError(f'Query image for ID {id_} not found at {query_img_path}')
 
         query_data = {
             'instr_file': topic['instr_file'],
