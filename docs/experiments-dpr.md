@@ -30,13 +30,13 @@ Here's how our results stack up against results reported in the paper using the 
 | Dataset     | Method        | Top-20 (orig) | Top-20 (us) | Top-100 (orig) | Top-100 (us) |
 |:------------|:--------------|--------------:|------------:|---------------:|-------------:|
 | NQ          | DPR           |          79.4 |        79.5 |           86.0 |         86.1 |
-| NQ          | BM25          |          59.1 |        63.0 |           73.7 |         78.2 |
+| NQ          | BM25          |          59.1 |        62.9 |           73.7 |         78.3 |
 | NQ          | Hybrid        |          78.0 |        82.6 |           83.9 |         88.6 |
 | TriviaQA    | DPR           |          78.8 |        78.9 |           84.7 |         84.8 |
-| TriviaQA    | BM25          |          66.9 |        76.4 |           76.7 |         83.1 |
+| TriviaQA    | BM25          |          66.9 |        76.4 |           76.7 |         83.2 |
 | TriviaQA    | Hybrid        |          79.9 |        82.6 |           84.4 |         86.6 |
 | WQ          | DPR           |          75.0 |        75.1 |           82.9 |         83.0 |
-| WQ          | BM25          |          55.0 |        62.3 |           71.1 |         75.5 |
+| WQ          | BM25          |          55.0 |        62.4 |           71.1 |         75.5 |
 | WQ          | Hybrid        |          74.7 |        77.1 |           82.3 |         84.4 |
 | CuratedTREC | DPR           |          89.1 |        88.8 |           93.9 |         93.4 |
 | CuratedTREC | BM25          |          70.9 |        80.7 |           84.1 |         89.9 |
@@ -108,8 +108,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.6299
-Top100 accuracy: 0.7823
+Top20  accuracy: 0.6294
+Top100 accuracy: 0.7825
 ```
 
 **Hybrid dense-sparse retrieval** (combining above two approaches):
@@ -207,7 +207,7 @@ And the expected results:
 
 ```text
 Top20  accuracy: 0.7641
-Top100 accuracy: 0.8314
+Top100 accuracy: 0.8315
 ```
 
 **Hybrid dense-sparse retrieval** (combining above two approaches):
@@ -304,7 +304,7 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.6230
+Top20  accuracy: 0.6240
 Top100 accuracy: 0.7549
 ```
 
@@ -506,8 +506,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.7107
-Top100 accuracy: 0.8183
+Top20  accuracy: 0.7109
+Top100 accuracy: 0.8184
 ```
 
 **Hybrid dense-sparse retrieval** (combining above two approaches):
