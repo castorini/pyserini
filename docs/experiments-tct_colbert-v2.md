@@ -52,7 +52,7 @@ QueriesRanked: 6980
 #####################
 ```
 
-We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10. 
+We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10.
 For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash

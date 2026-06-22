@@ -11,7 +11,7 @@ Our own efforts are described in the following paper:
 
 Which evolved from a previous arXiv preprint:
 
-> Xueguang Ma, Kai Sun, Ronak Pradeep, and Jimmy Lin. [A Replication Study of Dense Passage Retriever](https://arxiv.org/abs/2104.05740). _arXiv:2104.05740_, April 2021. 
+> Xueguang Ma, Kai Sun, Ronak Pradeep, and Jimmy Lin. [A Replication Study of Dense Passage Retriever](https://arxiv.org/abs/2104.05740). _arXiv:2104.05740_, April 2021.
 
 To be clear, we started with model checkpoint releases in the official [DPR repo](https://github.com/facebookresearch/DPR) and did _not_ retrain the query and passage encoders from scratch.
 Our implementation does not share any code with the DPR repo, other than evaluation scripts to ensure that results are comparable.
@@ -56,13 +56,10 @@ Note that the results below represent the current state of the code base, where 
 python -m pyserini.search.faiss \
   --index wikipedia-dpr-100w.dpr-multi \
   --topics dpr-nq-test \
-  --encoded-queries dpr_multi-nq-test \
-  --output runs/run.encoded.dpr.nq-test.multi.trec \
+  --encoder facebook/dpr-question_encoder-multiset-base \
+  --output runs/run.dpr.nq-test.multi.trec \
   --batch-size 512 --threads 16
 ```
-
-The option `--encoded-queries` specifies the use of encoded queries (i.e., queries that have already been converted into dense vectors and cached).
-As an alternative, replace with `--encoder facebook/dpr-question_encoder-multiset-base` to perform "on-the-fly" query encoding, i.e., convert text queries into dense vectors as part of the dense retrieval process.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -70,17 +67,17 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-nq-test \
-  --input runs/run.encoded.dpr.nq-test.multi.trec \
-  --output runs/run.encoded.dpr.nq-test.multi.json
+  --input runs/run.dpr.nq-test.multi.trec \
+  --output runs/run.dpr.nq-test.multi.json
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.nq-test.multi.json \
+  --retrieval runs/run.dpr.nq-test.multi.json \
   --topk 20 100
 ```
 
 And the expected results:
 
-```
+```text
 Top20  accuracy: 0.7947
 Top100 accuracy: 0.8609
 ```
@@ -91,7 +88,7 @@ Top100 accuracy: 0.8609
 python -m pyserini.search.lucene \
   --index wikipedia-dpr-100w \
   --topics dpr-nq-test \
-  --output runs/run.encoded.dpr.nq-test.bm25.trec
+  --output runs/run.dpr.nq-test.bm25.trec
 ```
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
@@ -100,17 +97,17 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-nq-test \
-  --input runs/run.encoded.dpr.nq-test.bm25.trec \
-  --output runs/run.encoded.dpr.nq-test.bm25.json
+  --input runs/run.dpr.nq-test.bm25.trec \
+  --output runs/run.dpr.nq-test.bm25.json
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.nq-test.bm25.json \
+  --retrieval runs/run.dpr.nq-test.bm25.json \
   --topk 20 100
 ```
 
 And the expected results:
 
-```
+```text
 Top20  accuracy: 0.6299
 Top100 accuracy: 0.7823
 ```
@@ -120,15 +117,13 @@ Top100 accuracy: 0.7823
 ```bash
 python -m pyserini.search.hybrid \
   dense  --index wikipedia-dpr-100w.dpr-multi \
-         --encoded-queries dpr_multi-nq-test \
+         --encoder facebook/dpr-question_encoder-multiset-base \
   sparse --index wikipedia-dpr-100w \
   fusion --alpha 1.3 \
   run    --topics dpr-nq-test \
-         --output runs/run.encoded.dpr.nq-test.multi.bm25.trec \
+         --output runs/run.dpr.nq-test.multi.bm25.trec \
          --batch-size 512 --threads 16
 ```
-
-Same as above, replace `--encoded-queries` with `--encoder facebook/dpr-question_encoder-multiset-base` for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -136,17 +131,17 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-nq-test \
-  --input runs/run.encoded.dpr.nq-test.multi.bm25.trec \
-  --output runs/run.encoded.dpr.nq-test.multi.bm25.json
+  --input runs/run.dpr.nq-test.multi.bm25.trec \
+  --output runs/run.dpr.nq-test.multi.bm25.json
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.nq-test.multi.bm25.json \
+  --retrieval runs/run.dpr.nq-test.multi.bm25.json \
   --topk 20 100
 ```
 
 And the expected results:
 
-```
+```text
 Top20  accuracy: 0.8260
 Top100 accuracy: 0.8859
 ```
@@ -159,12 +154,10 @@ Top100 accuracy: 0.8859
 python -m pyserini.search.faiss \
   --index wikipedia-dpr-100w.dpr-multi \
   --topics dpr-trivia-test \
-  --encoded-queries dpr_multi-trivia-test \
-  --output runs/run.encoded.dpr.trivia-test.multi.trec \
+  --encoder facebook/dpr-question_encoder-multiset-base \
+  --output runs/run.dpr.trivia-test.multi.trec \
   --batch-size 512 --threads 16
 ```
-
-Same as above, replace `--encoded-queries` with `--encoder facebook/dpr-question_encoder-multiset-base` for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -172,17 +165,17 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-trivia-test \
-  --input runs/run.encoded.dpr.trivia-test.multi.trec \
-  --output runs/run.encoded.dpr.trivia-test.multi.json
+  --input runs/run.dpr.trivia-test.multi.trec \
+  --output runs/run.dpr.trivia-test.multi.json
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.trivia-test.multi.json \
+  --retrieval runs/run.dpr.trivia-test.multi.json \
   --topk 20 100
 ```
 
 And the expected results:
 
-```
+```text
 Top20  accuracy: 0.7887
 Top100 accuracy: 0.8479
 ```
@@ -193,7 +186,7 @@ Top100 accuracy: 0.8479
 python -m pyserini.search.lucene \
   --index wikipedia-dpr-100w \
   --topics dpr-trivia-test \
-  --output runs/run.encoded.dpr.trivia-test.bm25.trec
+  --output runs/run.dpr.trivia-test.bm25.trec
 ```
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
@@ -202,17 +195,17 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-trivia-test \
-  --input runs/run.encoded.dpr.trivia-test.bm25.trec \
-  --output runs/run.encoded.dpr.trivia-test.bm25.json
+  --input runs/run.dpr.trivia-test.bm25.trec \
+  --output runs/run.dpr.trivia-test.bm25.json
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.trivia-test.bm25.json \
+  --retrieval runs/run.dpr.trivia-test.bm25.json \
   --topk 20 100
 ```
 
 And the expected results:
 
-```
+```text
 Top20  accuracy: 0.7641
 Top100 accuracy: 0.8314
 ```
@@ -222,15 +215,13 @@ Top100 accuracy: 0.8314
 ```bash
 python -m pyserini.search.hybrid \
   dense  --index wikipedia-dpr-100w.dpr-multi \
-         --encoded-queries dpr_multi-trivia-test \
+         --encoder facebook/dpr-question_encoder-multiset-base \
   sparse --index wikipedia-dpr-100w \
   fusion --alpha 0.95 \
   run    --topics dpr-trivia-test \
-         --output runs/run.encoded.dpr.trivia-test.multi.bm25.trec \
+         --output runs/run.dpr.trivia-test.multi.bm25.trec \
          --batch-size 512 --threads 16
 ```
-
-Same as above, replace `--encoded-queries` with `--encoder facebook/dpr-question_encoder-multiset-base` for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -238,17 +229,17 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-trivia-test \
-  --input runs/run.encoded.dpr.trivia-test.multi.bm25.trec \
-  --output runs/run.encoded.dpr.trivia-test.multi.bm25.json
+  --input runs/run.dpr.trivia-test.multi.bm25.trec \
+  --output runs/run.dpr.trivia-test.multi.bm25.json
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.trivia-test.multi.bm25.json \
+  --retrieval runs/run.dpr.trivia-test.multi.bm25.json \
   --topk 20 100
 ```
 
 And the expected results:
 
-```
+```text
 Top20  accuracy: 0.8264
 Top100 accuracy: 0.8655
 ```
@@ -261,12 +252,10 @@ Top100 accuracy: 0.8655
 python -m pyserini.search.faiss \
   --index wikipedia-dpr-100w.dpr-multi \
   --topics dpr-wq-test \
-  --encoded-queries dpr_multi-wq-test \
-  --output runs/run.encoded.dpr.wq-test.multi.trec \
+  --encoder facebook/dpr-question_encoder-multiset-base \
+  --output runs/run.dpr.wq-test.multi.trec \
   --batch-size 512 --threads 16
 ```
-
-Same as above, replace `--encoded-queries` with `--encoder facebook/dpr-question_encoder-multiset-base` for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -274,17 +263,17 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-wq-test \
-  --input runs/run.encoded.dpr.wq-test.multi.trec \
-  --output runs/run.encoded.dpr.wq-test.multi.json
+  --input runs/run.dpr.wq-test.multi.trec \
+  --output runs/run.dpr.wq-test.multi.json
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.wq-test.multi.json \
+  --retrieval runs/run.dpr.wq-test.multi.json \
   --topk 20 100
 ```
 
 And the expected results:
 
-```
+```text
 Top20  accuracy: 0.7505
 Top100 accuracy: 0.8297
 ```
@@ -295,7 +284,7 @@ Top100 accuracy: 0.8297
 python -m pyserini.search.lucene \
   --index wikipedia-dpr-100w \
   --topics dpr-wq-test \
-  --output runs/run.encoded.dpr.wq-test.bm25.trec
+  --output runs/run.dpr.wq-test.bm25.trec
 ```
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
@@ -304,17 +293,17 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-wq-test \
-  --input runs/run.encoded.dpr.wq-test.bm25.trec \
-  --output runs/run.encoded.dpr.wq-test.bm25.json
+  --input runs/run.dpr.wq-test.bm25.trec \
+  --output runs/run.dpr.wq-test.bm25.json
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.wq-test.bm25.json \
+  --retrieval runs/run.dpr.wq-test.bm25.json \
   --topk 20 100
 ```
 
 And the expected results:
 
-```
+```text
 Top20  accuracy: 0.6230
 Top100 accuracy: 0.7549
 ```
@@ -324,15 +313,13 @@ Top100 accuracy: 0.7549
 ```bash
 python -m pyserini.search.hybrid \
   dense  --index wikipedia-dpr-100w.dpr-multi \
-         --encoded-queries dpr_multi-wq-test \
+         --encoder facebook/dpr-question_encoder-multiset-base \
   sparse --index wikipedia-dpr-100w \
   fusion --alpha 0.95 \
   run    --topics dpr-wq-test \
-         --output runs/run.encoded.dpr.wq-test.multi.bm25.trec \
+         --output runs/run.dpr.wq-test.multi.bm25.trec \
          --batch-size 512 --threads 16
 ```
-
-Same as above, replace `--encoded-queries` with `--encoder facebook/dpr-question_encoder-multiset-base` for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -340,17 +327,17 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-wq-test \
-  --input runs/run.encoded.dpr.wq-test.multi.bm25.trec \
-  --output runs/run.encoded.dpr.wq-test.multi.bm25.json
+  --input runs/run.dpr.wq-test.multi.bm25.trec \
+  --output runs/run.dpr.wq-test.multi.bm25.json
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.wq-test.multi.bm25.json \
+  --retrieval runs/run.dpr.wq-test.multi.bm25.json \
   --topk 20 100
 ```
 
 And the expected results:
 
-```
+```text
 Top20  accuracy: 0.7712
 Top100 accuracy: 0.8440
 ```
@@ -363,12 +350,10 @@ Top100 accuracy: 0.8440
 python -m pyserini.search.faiss \
   --index wikipedia-dpr-100w.dpr-multi \
   --topics dpr-curated-test \
-  --encoded-queries dpr_multi-curated-test \
-  --output runs/run.encoded.dpr.curated-test.multi.trec \
+  --encoder facebook/dpr-question_encoder-multiset-base \
+  --output runs/run.dpr.curated-test.multi.trec \
   --batch-size 512 --threads 16
 ```
-
-Same as above, replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-multiset-base` with for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -376,19 +361,19 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-curated-test \
-  --input runs/run.encoded.dpr.curated-test.multi.trec \
-  --output runs/run.encoded.dpr.curated-test.multi.json \
+  --input runs/run.dpr.curated-test.multi.trec \
+  --output runs/run.dpr.curated-test.multi.json \
   --regex
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.curated-test.multi.json \
+  --retrieval runs/run.dpr.curated-test.multi.json \
   --topk 20 100 \
   --regex
 ```
 
 And the expected results:
 
-```
+```text
 Top20  accuracy: 0.8876
 Top100 accuracy: 0.9337
 ```
@@ -399,7 +384,7 @@ Top100 accuracy: 0.9337
 python -m pyserini.search.lucene \
   --index wikipedia-dpr-100w \
   --topics dpr-curated-test \
-  --output runs/run.encoded.dpr.curated-test.bm25.trec
+  --output runs/run.dpr.curated-test.bm25.trec
 ```
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
@@ -408,19 +393,19 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-curated-test \
-  --input runs/run.encoded.dpr.curated-test.bm25.trec \
-  --output runs/run.encoded.dpr.curated-test.bm25.json \
+  --input runs/run.dpr.curated-test.bm25.trec \
+  --output runs/run.dpr.curated-test.bm25.json \
   --regex
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.curated-test.bm25.json \
+  --retrieval runs/run.dpr.curated-test.bm25.json \
   --topk 20 100 \
   --regex
 ```
 
 And the expected results:
 
-```
+```text
 Top20  accuracy: 0.8069
 Top100 accuracy: 0.8991
 ```
@@ -430,15 +415,13 @@ Top100 accuracy: 0.8991
 ```bash
 python -m pyserini.search.hybrid \
   dense  --index wikipedia-dpr-100w.dpr-multi \
-         --encoded-queries dpr_multi-curated-test \
+         --encoder facebook/dpr-question_encoder-multiset-base \
   sparse --index wikipedia-dpr-100w \
   fusion --alpha 1.05 \
   run    --topics dpr-curated-test \
-         --output runs/run.encoded.dpr.curated-test.multi.bm25.trec \
+         --output runs/run.dpr.curated-test.multi.bm25.trec \
          --batch-size 512 --threads 16
 ```
-
-Same as above, replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-multiset-base` for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -446,19 +429,19 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-curated-test \
-  --input runs/run.encoded.dpr.curated-test.multi.bm25.trec \
-  --output runs/run.encoded.dpr.curated-test.multi.bm25.json \
+  --input runs/run.dpr.curated-test.multi.bm25.trec \
+  --output runs/run.dpr.curated-test.multi.bm25.json \
   --regex
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.curated-test.multi.bm25.json \
+  --retrieval runs/run.dpr.curated-test.multi.bm25.json \
   --topk 20 100 \
   --regex
 ```
 
 And the expected results:
 
-```
+```text
 Top20  accuracy: 0.9006
 Top100 accuracy: 0.9496
 ```
@@ -471,12 +454,10 @@ Top100 accuracy: 0.9496
 python -m pyserini.search.faiss \
   --index wikipedia-dpr-100w.dpr-multi \
   --topics dpr-squad-test \
-  --encoded-queries dpr_multi-squad-test \
-  --output runs/run.encoded.dpr.squad-test.multi.trec \
+  --encoder facebook/dpr-question_encoder-multiset-base \
+  --output runs/run.dpr.squad-test.multi.trec \
   --batch-size 512 --threads 16
 ```
-
-Same as above, replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-multiset-base` for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -484,17 +465,17 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-squad-test \
-  --input runs/run.encoded.dpr.squad-test.multi.trec \
-  --output runs/run.encoded.dpr.squad-test.multi.json
+  --input runs/run.dpr.squad-test.multi.trec \
+  --output runs/run.dpr.squad-test.multi.json
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.squad-test.multi.json \
+  --retrieval runs/run.dpr.squad-test.multi.json \
   --topk 20 100
 ```
 
 And the expected results:
 
-```
+```text
 Top20  accuracy: 0.5199
 Top100 accuracy: 0.6773
 ```
@@ -505,7 +486,7 @@ Top100 accuracy: 0.6773
 python -m pyserini.search.lucene \
   --index wikipedia-dpr-100w \
   --topics dpr-squad-test \
-  --output runs/run.encoded.dpr.squad-test.bm25.trec
+  --output runs/run.dpr.squad-test.bm25.trec
 ```
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
@@ -514,17 +495,17 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-squad-test \
-  --input runs/run.encoded.dpr.squad-test.bm25.trec \
-  --output runs/run.encoded.dpr.squad-test.bm25.json
+  --input runs/run.dpr.squad-test.bm25.trec \
+  --output runs/run.dpr.squad-test.bm25.json
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.squad-test.bm25.json \
+  --retrieval runs/run.dpr.squad-test.bm25.json \
   --topk 20 100
 ```
 
 And the expected results:
 
-```
+```text
 Top20  accuracy: 0.7107
 Top100 accuracy: 0.8183
 ```
@@ -534,15 +515,13 @@ Top100 accuracy: 0.8183
 ```bash
 python -m pyserini.search.hybrid \
   dense  --index wikipedia-dpr-100w.dpr-multi \
-         --encoded-queries dpr_multi-squad-test \
+         --encoder facebook/dpr-question_encoder-multiset-base \
   sparse --index wikipedia-dpr-100w \
   fusion --alpha 2.00 \
   run    --topics dpr-squad-test \
-         --output runs/run.encoded.dpr.squad-test.multi.bm25.trec \
+         --output runs/run.dpr.squad-test.multi.bm25.trec \
          --batch-size 512 --threads 16
 ```
-
-Same as above, replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-multiset-base` for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -550,17 +529,17 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-squad-test \
-  --input runs/run.encoded.dpr.squad-test.multi.bm25.trec \
-  --output runs/run.encoded.dpr.squad-test.multi.bm25.json
+  --input runs/run.dpr.squad-test.multi.bm25.trec \
+  --output runs/run.dpr.squad-test.multi.bm25.json
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.squad-test.multi.bm25.json \
+  --retrieval runs/run.dpr.squad-test.multi.bm25.json \
   --topk 20 100
 ```
 
 And the expected results:
 
-```
+```text
 Top20  accuracy: 0.7511
 Top100 accuracy: 0.8437
 ```
@@ -573,12 +552,10 @@ Top100 accuracy: 0.8437
 python -m pyserini.search.faiss \
   --index wikipedia-dpr-100w.dpr-single-nq \
   --topics dpr-nq-test \
-  --encoded-queries dpr_single_nq-nq-test \
-  --output runs/run.encoded.dpr.nq-test.single.trec \
+  --encoder facebook/dpr-question_encoder-single-nq-base \
+  --output runs/run.dpr.nq-test.single.trec \
   --batch-size 512 --threads 16
 ```
-
-Same as above, replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-single-nq-base` for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -586,19 +563,19 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --index wikipedia-dpr-100w \
   --topics dpr-nq-test \
-  --input runs/run.encoded.dpr.nq-test.single.trec \
-  --output runs/run.encoded.dpr.nq-test.single.json
+  --input runs/run.dpr.nq-test.single.trec \
+  --output runs/run.dpr.nq-test.single.json
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.nq-test.single.json \
+  --retrieval runs/run.dpr.nq-test.single.json \
   --topk 20 100
 ```
 
 And the expected results:
 
-```
-Top20	accuracy: 0.8006
-Top100	accuracy: 0.8609
+```text
+Top20  accuracy: 0.8006
+Top100 accuracy: 0.8609
 ```
 
 **Hybrid dense-sparse retrieval**:
@@ -606,15 +583,13 @@ Top100	accuracy: 0.8609
 ```bash
 python -m pyserini.search.hybrid \
   dense  --index wikipedia-dpr-100w.dpr-single-nq \
-         --encoded-queries dpr_single_nq-nq-test \
+         --encoder facebook/dpr-question_encoder-single-nq-base \
   sparse --index wikipedia-dpr-100w \
   fusion --alpha 1.2 \
   run    --topics dpr-nq-test \
-         --output runs/run.encoded.dpr.nq-test.single.bm25.trec \
+         --output runs/run.dpr.nq-test.single.bm25.trec \
          --batch-size 512 --threads 16
 ```
-
-Same as above, replace `--encoded-queries` by `--encoder facebook/dpr-question_encoder-single-nq-base` for on-the-fly query encoding.
 
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
@@ -622,19 +597,19 @@ To evaluate, first convert the TREC output format to DPR's `json` format:
 python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
   --topics dpr-nq-test \
   --index wikipedia-dpr-100w \
-  --input runs/run.encoded.dpr.nq-test.single.bm25.trec \
-  --output runs/run.encoded.dpr.nq-test.single.bm25.json
+  --input runs/run.dpr.nq-test.single.bm25.trec \
+  --output runs/run.dpr.nq-test.single.bm25.json
 
 python -m pyserini.eval.evaluate_dpr_retrieval \
-  --retrieval runs/run.encoded.dpr.nq-test.single.bm25.json \
+  --retrieval runs/run.dpr.nq-test.single.bm25.json \
   --topk 20 100
 ```
 
 And the expected results:
 
-```
-Top20	accuracy: 0.8288
-Top100	accuracy: 0.8837
+```text
+Top20  accuracy: 0.8288
+Top100 accuracy: 0.8837
 ```
 
 ## Reproduction Log[*](reproducibility.md)
@@ -648,3 +623,4 @@ Top100	accuracy: 0.8837
 + Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-25 (commit [`0c495c`](https://github.com/castorini/pyserini/commit/0c495cf2999dda980eb1f85efa30a4323cef5855))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2023-01-10 (commit [`7dafc4`](https://github.com/castorini/pyserini/commit/7dafc4f918bd44ada3771a5c81692ab19cc2cae9))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2024-10-07 (commit [`3f7609`](https://github.com/castorini/pyserini/commit/3f76099a73820afee12496c0354d52ca6a6175c2))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2026-06-22 (commit [`65b1bbb`](https://github.com/castorini/pyserini/commit/65b1bbb43af9d841e9e78dcb185f1b45d903cede))
