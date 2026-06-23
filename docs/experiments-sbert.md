@@ -1,6 +1,6 @@
 # Pyserini: Reproducing SBERT Results
 
-This guide provides instructions to reproduce the SBERT dense retrieval models for MS MARCO passage ranking (v3) described [here](https://github.com/UKPLab/sentence-transformers/blob/master/docs/pretrained-models/msmarco-v3.md).
+This guide provides instructions to reproduce the SBERT dense retrieval models for [`sentence-transformers/msmarco-distilbert-base-v3`](https://github.com/huggingface/sentence-transformers/blob/main/docs/pretrained-models/msmarco-v3.md).
 
 Note that we often observe minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
@@ -12,13 +12,11 @@ Dense retrieval, brute-force index:
 python -m pyserini.search.faiss \
   --index msmarco-v1-passage.sbert \
   --topics msmarco-passage-dev-subset \
-  --encoded-queries sbert-msmarco-passage-dev-subset \
+  --encoder sentence-transformers/msmarco-distilbert-base-v3 \
   --output runs/run.msmarco-passage.sbert.tsv \
   --output-format msmarco \
   --batch-size 512 --threads 16
 ```
-
-Replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbert-base-v3` for on-the-fly query encoding.
 
 To evaluate:
 
@@ -29,14 +27,14 @@ python -m pyserini.eval.msmarco_passage_eval \
 
 Results:
 
-```
+```text
 #####################
 MRR @10: 0.3314
 QueriesRanked: 6980
 #####################
 ```
 
-We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10. 
+We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10.
 For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
@@ -45,24 +43,25 @@ python -m pyserini.eval.convert_msmarco_run_to_trec_run \
   --output runs/run.msmarco-passage.sbert.trec
 
 python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-subset \
-    runs/run.msmarco-passage.sbert.trec
+  runs/run.msmarco-passage.sbert.trec
 ```
 
 Results:
 
-```
+```text
 map                     all     0.3373
 recall_1000             all     0.9558
 ```
 
 Hybrid retrieval with dense-sparse representations (without document expansion):
-- dense retrieval with SBERT, brute force index.
-- sparse retrieval with BM25 `msmarco-passage` (i.e., default bag-of-words) index.
+
++ dense retrieval with SBERT, brute force index.
++ sparse retrieval with BM25 `msmarco-passage` (i.e., default bag-of-words) index.
 
 ```bash
 python -m pyserini.search.hybrid \
   dense  --index msmarco-v1-passage.sbert \
-         --encoded-queries sbert-msmarco-passage-dev-subset \
+         --encoder sentence-transformers/msmarco-distilbert-base-v3 \
   sparse --index msmarco-passage \
   fusion --alpha 0.015  \
   run    --topics msmarco-passage-dev-subset \
@@ -70,8 +69,6 @@ python -m pyserini.search.hybrid \
          --output-format msmarco \
          --batch-size 512 --threads 16
 ```
-
-Replace `--encoded-queries` by `--encoder sentence-transformers/msmarco-distilbert-base-v3` for on-the-fly query encoding.
 
 To evaluate:
 
@@ -82,7 +79,7 @@ python -m pyserini.eval.msmarco_passage_eval \
 
 Results:
 
-```
+```text
 #####################
 MRR @10: 0.3379
 QueriesRanked: 6980
@@ -101,7 +98,8 @@ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-sub
 ```
 
 Results:
-```
+
+```text
 map                     all     0.3445
 recall_1000             all     0.9659
 ```
@@ -113,3 +111,4 @@ recall_1000             all     0.9659
 + Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-23 (commit [`0c495c`](https://github.com/castorini/pyserini/commit/0c495cf2999dda980eb1f85efa30a4323cef5855))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2023-01-10 (commit [`7dafc4`](https://github.com/castorini/pyserini/commit/7dafc4f918bd44ada3771a5c81692ab19cc2cae9))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2024-10-07 (commit [`3f7609`](https://github.com/castorini/pyserini/commit/3f76099a73820afee12496c0354d52ca6a6175c2))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2026-06-22 (commit [`65b1bbb`](https://github.com/castorini/pyserini/commit/65b1bbb43af9d841e9e78dcb185f1b45d903cede))
