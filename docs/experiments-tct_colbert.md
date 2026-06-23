@@ -2,7 +2,7 @@
 
 This guide provides instructions to reproduce the TCT-ColBERT dense retrieval model described in the following paper:
 
-> Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin. [Distilling Dense Representations for Ranking using Tightly-Coupled Teachers.](https://arxiv.org/abs/2010.11386) arXiv:2010.11386, October 2020. 
+> Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin. [Distilling Dense Representations for Ranking using Tightly-Coupled Teachers.](https://arxiv.org/abs/2010.11386) arXiv:2010.11386, October 2020.
 
 Note that we often observe minor differences in scores between different computing environments (e.g., Linux vs. macOS).
 However, the differences usually appear in the fifth digit after the decimal point, and do not appear to be a cause for concern from a reproducibility perspective.
@@ -27,14 +27,14 @@ Dense retrieval with TCT-ColBERT, brute-force index:
 python -m pyserini.search.faiss \
   --index msmarco-v1-passage.tct_colbert \
   --topics msmarco-passage-dev-subset \
-  --encoded-queries tct_colbert-msmarco-passage-dev-subset \
+  --encoder castorini/tct_colbert-msmarco \
   --output runs/run.msmarco-passage.tct_colbert.tsv \
   --output-format msmarco \
   --batch-size 512 --threads 16
 ```
 
-Note that to ensure maximum reproducibility, by default Pyserini uses pre-computed query representations that are automatically downloaded.
-As an alternative, to perform "on-the-fly" query encoding, see additional instructions below.
+Query encoding will run on the CPU by default.
+To perform query encoding on the GPU, use the option `--device cuda:0`.
 
 To evaluate:
 
@@ -45,14 +45,14 @@ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
 
 Results:
 
-```
+```text
 #####################
 MRR @10: 0.3350
 QueriesRanked: 6980
 #####################
 ```
 
-We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10. 
+We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10.
 For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
@@ -66,14 +66,10 @@ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-sub
 
 Results:
 
-```
+```text
 map                     all     0.3416
 recall_1000             all     0.9640
 ```
-
-To perform on-the-fly query encoding with our [pretrained encoder model](https://huggingface.co/castorini/tct_colbert-msmarco/tree/main) use the option `--encoder castorini/tct_colbert-msmarco`.
-Query encoding will run on the CPU by default.
-To perform query encoding on the GPU, use the option `--device cuda:0`.
 
 Dense retrieval with TCT-ColBERT, HNSW index:
 
@@ -81,7 +77,7 @@ Dense retrieval with TCT-ColBERT, HNSW index:
 python -m pyserini.search.faiss \
   --index msmarco-v1-passage.tct_colbert.hnsw \
   --topics msmarco-passage-dev-subset \
-  --encoded-queries tct_colbert-msmarco-passage-dev-subset \
+  --encoder castorini/tct_colbert-msmarco \
   --output runs/run.msmarco-passage.tct_colbert.hnsw.tsv \
   --output-format msmarco \
   --batch-size 512 --threads 16
@@ -96,7 +92,7 @@ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
 
 Results:
 
-```
+```text
 #####################
 MRR @10: 0.3345
 QueriesRanked: 6980
@@ -116,24 +112,22 @@ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-sub
 
 Results:
 
-```
+```text
 map                     all     0.3411
 recall_1000             all     0.9618
 ```
 
-Follow the same instructions above to perform on-the-fly query encoding.
-The caveat about minor differences in score applies here as well.
-
 ### Hybrid Dense-Sparse Retrieval
 
 Hybrid retrieval with dense-sparse representations (without document expansion):
-- dense retrieval with TCT-ColBERT, brute force index.
-- sparse retrieval with BM25 `msmarco-passage` (i.e., default bag-of-words) index.
+
++ dense retrieval with TCT-ColBERT, brute force index.
++ sparse retrieval with BM25 `msmarco-passage` (i.e., default bag-of-words) index.
 
 ```bash
 python -m pyserini.search.hybrid \
   dense  --index msmarco-v1-passage.tct_colbert \
-         --encoded-queries tct_colbert-msmarco-passage-dev-subset \
+         --encoder castorini/tct_colbert-msmarco \
   sparse --index msmarco-v1-passage \
   fusion --alpha 0.12 \
   run    --topics msmarco-passage-dev-subset \
@@ -151,7 +145,7 @@ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
 
 Results:
 
-```
+```text
 #####################
 MRR @10: 0.3529
 QueriesRanked: 6980
@@ -171,22 +165,20 @@ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-sub
 
 Results:
 
+```text
+map                     all     0.3594
+recall_1000             all     0.9698
 ```
-map                   	all	0.3594
-recall_1000           	all	0.9698
-```
-
-Follow the same instructions above to perform on-the-fly query encoding.
-The caveat about minor differences in score applies here as well.
 
 Hybrid retrieval with dense-sparse representations (with document expansion):
-- dense retrieval with TCT-ColBERT, brute force index.
-- sparse retrieval with doc2query-T5 expanded index.
+
++ dense retrieval with TCT-ColBERT, brute force index.
++ sparse retrieval with doc2query-T5 expanded index.
 
 ```bash
 python -m pyserini.search.hybrid \
   dense  --index msmarco-v1-passage.tct_colbert \
-         --encoded-queries tct_colbert-msmarco-passage-dev-subset \
+         --encoder castorini/tct_colbert-msmarco \
   sparse --index msmarco-v1-passage.d2q-t5 \
   fusion --alpha 0.22 \
   run    --topics msmarco-passage-dev-subset \
@@ -204,7 +196,7 @@ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
 
 Results:
 
-```
+```text
 #####################
 MRR @10: 0.3647
 QueriesRanked: 6980
@@ -224,13 +216,10 @@ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-sub
 
 Results:
 
+```text
+map                     all     0.3711
+recall_1000             all     0.9751
 ```
-map                   	all	0.3711
-recall_1000           	all	0.9751
-```
-
-Follow the same instructions above to perform on-the-fly query encoding.
-The caveat about minor differences in score applies here as well.
 
 ## MS MARCO Document Ranking
 
@@ -252,14 +241,12 @@ Dense retrieval using a brute force index:
 python -m pyserini.search.faiss \
   --index msmarco-v1-doc.tct_colbert \
   --topics msmarco-doc-dev \
-  --encoded-queries tct_colbert-msmarco-doc-dev \
+  --encoder castorini/tct_colbert-msmarco \
   --output runs/run.msmarco-doc.passage.tct_colbert.txt \
   --output-format msmarco \
   --batch-size 512 --threads 16 \
   --hits 1000 --max-passage --max-passage-hits 100
 ```
-
-Replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco` for on-the-fly query encoding.
 
 To compute the official metric MRR@100 using the official evaluation scripts:
 
@@ -271,7 +258,7 @@ python -m pyserini.eval.msmarco_doc_eval \
 
 Results:
 
-```
+```text
 #####################
 MRR @100: 0.3323
 QueriesRanked: 5193
@@ -291,19 +278,20 @@ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap msmarco-doc-dev \
 
 Results:
 
-```
-map                   	all	0.3323
-recall_100            	all	0.8664
+```text
+map                     all     0.3323
+recall_100              all     0.8664
 ```
 
 Dense-sparse hybrid retrieval (without document expansion):
-- dense retrieval with TCT-ColBERT, brute force index.
-- sparse retrieval with BoW BM25 index.
+
++ dense retrieval with TCT-ColBERT, brute force index.
++ sparse retrieval with BoW BM25 index.
 
 ```bash
 python -m pyserini.search.hybrid \
   dense  --index msmarco-v1-doc.tct_colbert \
-         --encoded-queries tct_colbert-msmarco-doc-dev \
+         --encoder castorini/tct_colbert-msmarco \
   sparse --index msmarco-v1-doc-segmented \
   fusion --alpha 0.25 \
   run    --topics msmarco-doc-dev \
@@ -312,8 +300,6 @@ python -m pyserini.search.hybrid \
          --batch-size 512 --threads 16 \
          --hits 1000 --max-passage --max-passage-hits 100
 ```
-
-Replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco` for on-the-fly query encoding.
 
 To evaluate:
 
@@ -325,7 +311,7 @@ python -m pyserini.eval.msmarco_doc_eval \
 
 Results:
 
-```
+```text
 #####################
 MRR @100: 0.3701
 QueriesRanked: 5193
@@ -345,19 +331,20 @@ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap msmarco-doc-dev \
 
 Results:
 
-```
-map                   	all	0.3701
-recall_100            	all	0.9020
+```text
+map                     all     0.3701
+recall_100              all     0.9020
 ```
 
 Dense-sparse hybrid retrieval (with document expansion):
-- dense retrieval with TCT-ColBERT, brute force index.
-- sparse retrieval with doc2query-T5 expanded index.
+
++ dense retrieval with TCT-ColBERT, brute force index.
++ sparse retrieval with doc2query-T5 expanded index.
 
 ```bash
 python -m pyserini.search.hybrid \
   dense  --index msmarco-v1-doc.tct_colbert \
-         --encoded-queries tct_colbert-msmarco-doc-dev \
+         --encoder castorini/tct_colbert-msmarco \
   sparse --index msmarco-v1-doc-segmented.d2q-t5 \
   fusion --alpha 0.32 \
   run    --topics msmarco-doc-dev \
@@ -366,8 +353,6 @@ python -m pyserini.search.hybrid \
          --batch-size 512 --threads 16 \
          --hits 1000 --max-passage --max-passage-hits 100
 ```
-
-Replace `--encoded-queries` by `--encoder castorini/tct_colbert-msmarco` for on-the-fly query encoding.
 
 To evaluate:
 
@@ -379,7 +364,7 @@ python -m pyserini.eval.msmarco_doc_eval \
 
 Results:
 
-```
+```text
 #####################
 MRR @100: 0.3784
 QueriesRanked: 5193
@@ -399,9 +384,9 @@ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap msmarco-doc-dev \
 
 Results:
 
-```
-map                   	all	0.3784
-recall_100            	all	0.9083
+```text
+map                     all     0.3784
+recall_100              all     0.9083
 ```
 
 ## Reproduction Log[*](reproducibility.md)
@@ -416,3 +401,4 @@ recall_100            	all	0.9083
 + Results reproduced by [@lintool](https://github.com/lintool) on 2023-01-10 (commit [`7dafc4`](https://github.com/castorini/pyserini/commit/7dafc4f918bd44ada3771a5c81692ab19cc2cae9))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2023-05-06 (commit [`dcc0ba`](https://github.com/castorini/pyserini/commit/dcc0ba06585a08d7c78cbffac4217b57e170fc3a))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2024-10-07 (commit [`3f7609`](https://github.com/castorini/pyserini/commit/3f76099a73820afee12496c0354d52ca6a6175c2))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2026-06-22 (commit [`65b1bbb`](https://github.com/castorini/pyserini/commit/65b1bbb43af9d841e9e78dcb185f1b45d903cede))

@@ -7,7 +7,7 @@ date
 python -m pyserini.search.faiss \
   --index msmarco-v1-passage.tct_colbert \
   --topics msmarco-passage-dev-subset \
-  --encoded-queries tct_colbert-msmarco-passage-dev-subset \
+  --encoder castorini/tct_colbert-msmarco \
   --output runs/run.msmarco-passage.tct_colbert.tsv \
   --output-format msmarco \
   --batch-size 512 --threads 16
@@ -25,7 +25,7 @@ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-sub
 python -m pyserini.search.faiss \
   --index msmarco-v1-passage.tct_colbert.hnsw \
   --topics msmarco-passage-dev-subset \
-  --encoded-queries tct_colbert-msmarco-passage-dev-subset \
+  --encoder castorini/tct_colbert-msmarco \
   --output runs/run.msmarco-passage.tct_colbert.hnsw.tsv \
   --output-format msmarco \
   --batch-size 512 --threads 16
@@ -42,7 +42,7 @@ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-sub
 
 python -m pyserini.search.hybrid \
   dense  --index msmarco-v1-passage.tct_colbert \
-         --encoded-queries tct_colbert-msmarco-passage-dev-subset \
+         --encoder castorini/tct_colbert-msmarco \
   sparse --index msmarco-v1-passage \
   fusion --alpha 0.12 \
   run    --topics msmarco-passage-dev-subset \
@@ -62,7 +62,7 @@ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-sub
 
 python -m pyserini.search.hybrid \
   dense  --index msmarco-v1-passage.tct_colbert \
-         --encoded-queries tct_colbert-msmarco-passage-dev-subset \
+         --encoder castorini/tct_colbert-msmarco \
   sparse --index msmarco-v1-passage.d2q-t5 \
   fusion --alpha 0.22 \
   run    --topics msmarco-passage-dev-subset \
@@ -86,7 +86,7 @@ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-sub
 python -m pyserini.search.faiss \
   --index msmarco-v1-doc.tct_colbert \
   --topics msmarco-doc-dev \
-  --encoded-queries tct_colbert-msmarco-doc-dev \
+  --encoder castorini/tct_colbert-msmarco \
   --output runs/run.msmarco-doc.passage.tct_colbert.txt \
   --output-format msmarco \
   --batch-size 512 --threads 16 \
@@ -105,7 +105,7 @@ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap msmarco-doc-dev \
 
 python -m pyserini.search.hybrid \
   dense  --index msmarco-v1-doc.tct_colbert \
-         --encoded-queries tct_colbert-msmarco-doc-dev \
+         --encoder castorini/tct_colbert-msmarco \
   sparse --index msmarco-v1-doc-segmented \
   fusion --alpha 0.25 \
   run    --topics msmarco-doc-dev \
@@ -127,7 +127,7 @@ python -m pyserini.eval.trec_eval -c -mrecall.100 -mmap msmarco-doc-dev \
 
 python -m pyserini.search.hybrid \
   dense  --index msmarco-v1-doc.tct_colbert \
-         --encoded-queries tct_colbert-msmarco-doc-dev \
+         --encoder castorini/tct_colbert-msmarco \
   sparse --index msmarco-v1-doc-segmented.d2q-t5 \
   fusion --alpha 0.32 \
   run    --topics msmarco-doc-dev \

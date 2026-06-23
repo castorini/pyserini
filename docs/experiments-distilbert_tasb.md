@@ -14,13 +14,11 @@ Dense retrieval, with brute-force index:
 python -m pyserini.search.faiss \
   --index msmarco-v1-passage.distilbert-dot-tas_b-b256 \
   --topics msmarco-passage-dev-subset \
-  --encoded-queries distilbert_tas_b-msmarco-passage-dev-subset \
+  --encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco \
   --output runs/run.msmarco-passage.distilbert-dot-tas_b-b256.tsv \
   --output-format msmarco \
   --batch-size 512 --threads 16
 ```
-
-Replace `--encoded-queries` with `--encoder sebastian-hofstaetter/distilbert-dot-tas_b-b256-msmarco` for on-the-fly query encoding.
 
 To evaluate:
 
@@ -31,14 +29,14 @@ python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset \
 
 Results:
 
-```
+```text
 #####################
 MRR @10: 0.3444
 QueriesRanked: 6980
 #####################
 ```
 
-We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10. 
+We can also use the official TREC evaluation tool `trec_eval` to compute other metrics than MRR@10.
 For that we first need to convert runs and qrels files to the TREC format:
 
 ```bash
@@ -52,14 +50,15 @@ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-sub
 
 Results:
 
-```
+```text
 map                     all     0.3515
 recall_1000             all     0.9771
 ```
 
 ## Reproduction Log[*](reproducibility.md)
- 
+
 + Results reproduced by [@lintool](https://github.com/lintool) on 2021-05-28 (commit [`102ed2`](https://github.com/castorini/pyserini/commit/102ed2b2e8770978e4b3e09804913dcffb63c4a7))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2022-12-23 (commit [`0c495c`](https://github.com/castorini/pyserini/commit/0c495cf2999dda980eb1f85efa30a4323cef5855))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2023-01-10 (commit [`7dafc4`](https://github.com/castorini/pyserini/commit/7dafc4f918bd44ada3771a5c81692ab19cc2cae9))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2024-10-07 (commit [`3f7609`](https://github.com/castorini/pyserini/commit/3f76099a73820afee12496c0354d52ca6a6175c2))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2026-06-22 (commit [`65b1bbb`](https://github.com/castorini/pyserini/commit/65b1bbb43af9d841e9e78dcb185f1b45d903cede))
