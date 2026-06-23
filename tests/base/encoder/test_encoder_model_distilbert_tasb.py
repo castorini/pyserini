@@ -20,7 +20,8 @@ from pyserini.encode import AutoQueryEncoder
 from tests.base.encoder.utils import assert_encode_query_cli_output, assert_query_encoder_output
 
 
-EXPECTED_VALUES = [(0.18463, -0.08488), (-0.28631, 0.20652)]
+# For the second vector, there are minor macOS/Linux differences, so back off to 4 places
+EXPECTED_VALUES = [(0.18463, -0.08488, 5), (-0.28631, 0.20652, 4)]
 
 
 class TestEncodeDistilBertTasB(unittest.TestCase):
