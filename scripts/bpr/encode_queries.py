@@ -15,62 +15,45 @@
 #
 
 import argparse
-import csv
-import json
+import os
 
 import pandas as pd
 from tqdm import tqdm
-import sys
 
-# We're going to explicitly use a local installation of Pyserini.
-sys.path.insert(0, './')
-sys.path.insert(0, '../pyserini/')
-
-from pyserini.dsearch import BprQueryEncoder
-
-def parse_qa_csv_file(location):
-    with open(location) as file:
-        reader = csv.reader(file, delimiter='\t')
-        for row in reader:
-            question = row[0]
-            answers = eval(row[1])
-            yield question, answers
+from pyserini.encode import BprQueryEncoder
+from pyserini.query_iterator import DefaultQueryIterator
 
 
-def parse_qa_json_file(location):
-    with open(location) as file:
-        for line in file:
-            qa = json.loads(line)
-            question = qa['question']
-            answers = qa['answer']
-            yield question, answers
+def parse_topics(topics):
+    for topic_id, text in DefaultQueryIterator.from_topics(topics):
+        yield topic_id, text
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--encoder', type=str, help='encoder name or path',
-                        default='facebook/dpr-question_encoder-multiset-base', required=False)
-    parser.add_argument('--input', type=str, help='qas file, json file by default', required=True)
-    parser.add_argument('--format', type=str, help='qas file format', default='json', required=False)
+    parser.add_argument('--encoder', type=str, help='encoder name or path', default='castorini/bpr-nq-question-encoder', required=False)
+    parser.add_argument('--topics', type=str, help='path to topics file or self-contained topics name', required=True)
     parser.add_argument('--output', type=str, help='path to store query embeddings', required=True)
+    parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]', default='cpu', required=False)
+    parser.add_argument('--batch-size', type=int, help='query encoding batch size', default=256, required=False)
     args = parser.parse_args()
 
-    model = BprQueryEncoder(args.encoder)
-    tokenizer = model.tokenizer
-    
+    model = BprQueryEncoder(encoder_dir=args.encoder, device=args.device)
+
     embeddings = {'id': [], 'text': [], 'dense_embedding': [], 'sparse_embedding': []}
-    qa_parser = None
-    if args.format == 'csv':
-        qa_parser = parse_qa_csv_file
-    elif args.format == 'json':
-        qa_parser = parse_qa_json_file
-    if qa_parser is None:
-        print(f'No QA parser defined for file format: {args.format}, or format not match')
-    for qid, (question, answers) in enumerate(tqdm(list(qa_parser(args.input)))):
+    queries = list(parse_topics(args.topics))
+
+    for qid, question in tqdm(queries):
         embeddings['id'].append(qid)
         embeddings['text'].append(question)
         ret = model.encode(question)
         embeddings['dense_embedding'].append(ret['dense'])
         embeddings['sparse_embedding'].append(ret['sparse'])
+
     embeddings = pd.DataFrame(embeddings)
+    output_dir = os.path.dirname(args.output)
+
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+
     embeddings.to_pickle(args.output)

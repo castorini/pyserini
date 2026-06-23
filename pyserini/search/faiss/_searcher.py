@@ -380,22 +380,14 @@ class BinaryDenseFaissSearcher(FaissSearcher):
         Path to faiss index directory.
     """
 
-    def __init__(
-        self,
-        index_dir: str,
-        query_encoder: Union[QueryEncoder, str],
-        prebuilt_index_name: Optional[str] = None,
-    ):
-        super().__init__(index_dir, query_encoder, prebuilt_index_name)
+    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str],
+                 prebuilt_index_name: Optional[str] = None, normalize_distances: bool = False,
+                 faiss_device: str = "cpu"):
+        super().__init__(index_dir, query_encoder, None, normalize_distances, faiss_device)
+        self.ssearcher = None
 
-    def search(
-        self,
-        query: str,
-        k: int = 10,
-        binary_k: int = 100,
-        rerank: bool = True,
-        threads: int = 1,
-    ) -> List[DenseSearchResult]:
+    def search(self, query: str, k: int = 10, binary_k: int = 100, rerank: bool = True,
+               threads: int = 1) -> List[DenseSearchResult]:
         """Search the collection.
 
         Parameters
@@ -424,26 +416,13 @@ class BinaryDenseFaissSearcher(FaissSearcher):
         dense_emb_q = dense_emb_q.reshape((1, len(dense_emb_q)))
         sparse_emb_q = sparse_emb_q.reshape((1, len(sparse_emb_q)))
         faiss.omp_set_num_threads(threads)
-        distances, indexes = self.binary_dense_search(
-            k, binary_k, rerank, dense_emb_q, sparse_emb_q
-        )
+        distances, indexes = self.binary_dense_search(k, binary_k, rerank, dense_emb_q, sparse_emb_q)
         distances = distances.flat
         indexes = indexes.flat
-        return [
-            DenseSearchResult(str(idx), score)
-            for score, idx in zip(distances, indexes)
-            if idx != -1
-        ]
+        return [DenseSearchResult(str(idx), score) for score, idx in zip(distances, indexes) if idx != -1]
 
-    def batch_search(
-        self,
-        queries: List[str],
-        q_ids: List[str],
-        k: int = 10,
-        binary_k: int = 100,
-        rerank: bool = True,
-        threads: int = 1,
-    ) -> Dict[str, List[DenseSearchResult]]:
+    def batch_search(self, queries: List[str], q_ids: List[str], k: int = 10, binary_k: int = 100,
+                     rerank: bool = True, threads: int = 1) -> Dict[str, List[DenseSearchResult]]:
         """
 
         Parameters
@@ -478,38 +457,25 @@ class BinaryDenseFaissSearcher(FaissSearcher):
         n, m = dense_q_embs.shape
         assert m == self.dimension
         faiss.omp_set_num_threads(threads)
-        D, I = self.binary_dense_search(
-            k, binary_k, rerank, dense_q_embs, sparse_q_embs
-        )
+        D, I = self.binary_dense_search(k, binary_k, rerank, dense_q_embs, sparse_q_embs)
         return {
-            key: [
-                DenseSearchResult(str(idx), score)
-                for score, idx in zip(distances, indexes)
-                if idx != -1
-            ]
+            key: [DenseSearchResult(str(idx), score) for score, idx in zip(distances, indexes) if idx != -1]
             for key, distances, indexes in zip(q_ids, D, I)
         }
 
     def binary_dense_search(self, k, binary_k, rerank, dense_emb_q, sparse_emb_q):
         num_queries = dense_emb_q.shape[0]
-        sparse_emb_q = np.packbits(np.where(sparse_emb_q > 0, 1, 0)).reshape(
-            num_queries, -1
-        )
+        sparse_emb_q = np.packbits(np.where(sparse_emb_q > 0, 1, 0)).reshape(num_queries, -1)
 
         if not rerank:
             distances, indexes = self.index.search(sparse_emb_q, k)
         else:
             raw_index = self.index.index
             _, indexes = raw_index.search(sparse_emb_q, binary_k)
-            sparse_emb_p = np.vstack(
-                [
-                    np.unpackbits(raw_index.reconstruct(int(id_)))
-                    for id_ in indexes.reshape(-1)
-                ]
-            )
-            sparse_emb_p = sparse_emb_p.reshape(
-                dense_emb_q.shape[0], binary_k, dense_emb_q.shape[1]
-            )
+            sparse_emb_p = np.vstack([
+                np.unpackbits(raw_index.reconstruct(int(id_))) for id_ in indexes.reshape(-1)
+            ])
+            sparse_emb_p = sparse_emb_p.reshape(dense_emb_q.shape[0], binary_k, dense_emb_q.shape[1])
             sparse_emb_p = sparse_emb_p.astype(np.float32)
             sparse_emb_p = sparse_emb_p * 2 - 1
             distances = np.einsum("ijk,ik->ij", sparse_emb_p, dense_emb_q)
@@ -521,15 +487,51 @@ class BinaryDenseFaissSearcher(FaissSearcher):
                 dtype=np.int32,
             )
             indexes = indexes.reshape(num_queries, -1)[:, :k]
-            distances = distances[np.arange(num_queries)[:, None], sorted_indices][
-                :, :k
-            ]
+            distances = distances[np.arange(num_queries)[:, None], sorted_indices][:, :k]
         return distances, indexes
 
     def load_index(self, index_dir: str):
         index_path = os.path.join(index_dir, 'index')
-        index = faiss.read_index_binary(index_path)
+        try:
+            index = faiss.read_index_binary(index_path)
+        except RuntimeError as e:
+            if "code_size=0" not in str(e):
+                raise
+            try:
+                index = self._read_legacy_binary_idmap_index(index_path)
+            except RuntimeError:
+                raise e
         return index, None
+
+    @staticmethod
+    def _read_legacy_binary_idmap_index(index_path: str):
+        if not hasattr(faiss, 'PyCallbackIOReader'):
+            raise RuntimeError('FAISS PyCallbackIOReader is not available.')
+
+        with open(index_path, 'rb') as f:
+            header = f.read(12)
+            if len(header) < 12 or header[:4] != b'IBMp':
+                raise RuntimeError('Not a legacy FAISS binary ID-map index.')
+            dim = int.from_bytes(header[4:8], byteorder='little')
+            if dim % 8 != 0:
+                raise RuntimeError('Invalid legacy FAISS binary index dimension.')
+            code_size = (dim // 8).to_bytes(4, byteorder='little')
+            f.seek(0)
+
+            def read(size):
+                data = f.read(size)
+                start = read.offset
+                read.offset += len(data)
+                if start < 12 and read.offset > 8:
+                    # Older FAISS binary ID-map indexes omitted code_size in the outer header.
+                    data = bytearray(data)
+                    for pos in range(max(start, 8), min(read.offset, 12)):
+                        data[pos - start] = code_size[pos - 8]
+                    data = bytes(data)
+                return data
+
+            read.offset = 0
+            return faiss.read_index_binary(faiss.PyCallbackIOReader(read))
 
     @staticmethod
     def _init_encoder_from_str(encoder):
