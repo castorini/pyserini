@@ -22,21 +22,17 @@ from pyserini.encode import TctColBertDocumentEncoder, TctColBertQueryEncoder
 from tests.base.encoder.utils import assert_encode_query_cli_output, assert_query_encoder_output
 
 
+EXPECTED_VALUES_TCT_COLBERT_MSMARCO = [(0.14085, -0.15662, 5), (-0.14778, 0.10030, 5)]
+EXPECTED_VALUES_TCT_COLBERT_V2_MSMARCO = [(0.18285, -0.10137, 5), (-0.03068, 0.08468, 5)]
+EXPECTED_VALUES_TCT_COLBERT_V2_HN_MSMARCO = [(0.15629, -0.09900, 5), (-0.04446, 0.07603, 5)]
+EXPECTED_VALUES_TCT_COLBERT_V2_HNP_MSMARCO = [(0.15061, -0.08704, 5), (-0.05862, 0.10783, 5)]
+
+
 class TestEncodeTctColBert(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.resource_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'resources'))
-
-    def _assert_encode_query_cli_output(self, topics, encoder, expected_values):
-        assert_encode_query_cli_output(self, topics, encoder, expected_values)
-
-    def _assert_query_encoder_output(self, topics, encoder, expected_values):
-        encoder = TctColBertQueryEncoder(encoder, device='cpu')
-        assert_query_encoder_output(self, topics, encoder, expected_values)
-
     def test_tct_colbert_encoder(self):
         texts = []
-        with open(os.path.join(self.resource_dir, 'simple_cacm_corpus.json')) as f:
+        resource_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'resources', 'simple_cacm_corpus.json'))
+        with open(resource_path) as f:
             for line in f:
                 line = json.loads(line)
                 texts.append(line['contents'])
@@ -49,60 +45,32 @@ class TestEncodeTctColBert(unittest.TestCase):
         self.assertAlmostEqual(vectors[2][-1], 0.05549, places=5)
 
     def test_msmarco_doc_tct_colbert_encode_query_cli(self):
-        self._assert_encode_query_cli_output(
-            'msmarco-passage-dev-subset',
-            'castorini/tct_colbert-msmarco',
-            [(0.14085, -0.15662), (-0.14778, 0.10030)]
-        )
+        assert_encode_query_cli_output(self, 'msmarco-passage-dev-subset', 'castorini/tct_colbert-msmarco', EXPECTED_VALUES_TCT_COLBERT_MSMARCO)
 
     def test_msmarco_doc_tct_colbert_query_encoder(self):
-        self._assert_query_encoder_output(
-            'msmarco-passage-dev-subset',
-            'castorini/tct_colbert-msmarco',
-            [(0.14085, -0.15662), (-0.14778, 0.10030)]
-        )
+        encoder = TctColBertQueryEncoder('castorini/tct_colbert-msmarco', device='cpu')
+        assert_query_encoder_output(self, 'msmarco-passage-dev-subset', encoder, EXPECTED_VALUES_TCT_COLBERT_MSMARCO)
 
     def test_msmarco_passage_tct_colbert_v2_encode_query_cli(self):
-        self._assert_encode_query_cli_output(
-            'msmarco-passage-dev-subset',
-            'castorini/tct_colbert-v2-msmarco',
-            [(0.18285, -0.10137), (-0.03068, 0.08468)]
-        )
+        assert_encode_query_cli_output(self, 'msmarco-passage-dev-subset', 'castorini/tct_colbert-v2-msmarco', EXPECTED_VALUES_TCT_COLBERT_V2_MSMARCO)
 
     def test_msmarco_passage_tct_colbert_v2_query_encoder(self):
-        self._assert_query_encoder_output(
-            'msmarco-passage-dev-subset',
-            'castorini/tct_colbert-v2-msmarco',
-            [(0.18285, -0.10137), (-0.03068, 0.08468)]
-        )
+        encoder = TctColBertQueryEncoder('castorini/tct_colbert-v2-msmarco', device='cpu')
+        assert_query_encoder_output(self, 'msmarco-passage-dev-subset', encoder, EXPECTED_VALUES_TCT_COLBERT_V2_MSMARCO)
 
     def test_msmarco_passage_tct_colbert_v2_hn_encode_query_cli(self):
-        self._assert_encode_query_cli_output(
-            'msmarco-passage-dev-subset',
-            'castorini/tct_colbert-v2-hn-msmarco',
-            [(0.15629, -0.09900), (-0.04446, 0.07603)]
-        )
+        assert_encode_query_cli_output(self, 'msmarco-passage-dev-subset', 'castorini/tct_colbert-v2-hn-msmarco', EXPECTED_VALUES_TCT_COLBERT_V2_HN_MSMARCO)
 
     def test_msmarco_passage_tct_colbert_v2_hn_query_encoder(self):
-        self._assert_query_encoder_output(
-            'msmarco-passage-dev-subset',
-            'castorini/tct_colbert-v2-hn-msmarco',
-            [(0.15629, -0.09900), (-0.04446, 0.07603)]
-        )
+        encoder = TctColBertQueryEncoder('castorini/tct_colbert-v2-hn-msmarco', device='cpu')
+        assert_query_encoder_output(self, 'msmarco-passage-dev-subset', encoder, EXPECTED_VALUES_TCT_COLBERT_V2_HN_MSMARCO)
 
     def test_msmarco_passage_tct_colbert_v2_hnp_encode_query_cli(self):
-        self._assert_encode_query_cli_output(
-            'msmarco-passage-dev-subset',
-            'castorini/tct_colbert-v2-hnp-msmarco',
-            [(0.15061, -0.08704), (-0.05862, 0.10783)]
-        )
+        assert_encode_query_cli_output(self, 'msmarco-passage-dev-subset', 'castorini/tct_colbert-v2-hnp-msmarco', EXPECTED_VALUES_TCT_COLBERT_V2_HNP_MSMARCO)
 
     def test_msmarco_passage_tct_colbert_v2_hnp_query_encoder(self):
-        self._assert_query_encoder_output(
-            'msmarco-passage-dev-subset',
-            'castorini/tct_colbert-v2-hnp-msmarco',
-            [(0.15061, -0.08704), (-0.05862, 0.10783)]
-        )
+        encoder = TctColBertQueryEncoder('castorini/tct_colbert-v2-hnp-msmarco', device='cpu')
+        assert_query_encoder_output(self, 'msmarco-passage-dev-subset', encoder, EXPECTED_VALUES_TCT_COLBERT_V2_HNP_MSMARCO)
 
 
 if __name__ == '__main__':

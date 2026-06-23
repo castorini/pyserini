@@ -20,7 +20,7 @@ from pyserini.encode import AutoQueryEncoder
 from tests.base.encoder.utils import assert_encode_query_cli_output, assert_query_encoder_output
 
 
-EXPECTED_VALUES = [(0.01859, -0.02723), (-0.04856, 0.03721)]
+EXPECTED_VALUES = [(0.01859, -0.02723, 5), (-0.04856, 0.03721, 5)]
 
 
 class TestEncodeSBert(unittest.TestCase):
