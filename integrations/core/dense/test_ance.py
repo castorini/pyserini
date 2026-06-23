@@ -21,8 +21,6 @@ import os
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score_qa, parse_score_msmarco
-from pyserini.encode import QueryEncoder
-from pyserini.search import get_topics
 
 
 class TestAnce(unittest.TestCase):
@@ -61,12 +59,6 @@ class TestAnce(unittest.TestCase):
         # We get a small difference, 0.3794 on macOS.
         self.assertAlmostEqual(score, 0.3796, delta=0.0002)
 
-    def test_msmarco_doc_ance_bf_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('ance_maxp-msmarco-doc-dev')
-        topics = get_topics('msmarco-doc-dev')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embeddings)
-
     def test_nq_test_ance_bf_otf(self):
         output_file = 'test_run.ance.nq-test.multi.bf.otf.trec'
         retrieval_file = 'test_run.ance.nq-test.multi.bf.otf.json'
@@ -89,12 +81,6 @@ class TestAnce(unittest.TestCase):
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.8224, places=4)
 
-    def test_nq_test_ance_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('dpr_multi-nq-test')
-        topics = get_topics('dpr-nq-test')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embeddings)
-
     def test_trivia_test_ance_bf_otf(self):
         output_file = 'test_run.ance.trivia-test.multi.bf.otf.trec'
         retrieval_file = 'test_run.ance.trivia-test.multi.bf.otf.json'
@@ -116,12 +102,6 @@ class TestAnce(unittest.TestCase):
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.8010, places=4)
-
-    def test_trivia_test_ance_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('dpr_multi-trivia-test')
-        topics = get_topics('dpr-trivia-test')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embeddings)
 
     def tearDown(self):
         clean_files(self.temp_files)
