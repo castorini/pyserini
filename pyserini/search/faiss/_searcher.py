@@ -383,8 +383,7 @@ class BinaryDenseFaissSearcher(FaissSearcher):
     def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str],
                  prebuilt_index_name: Optional[str] = None, normalize_distances: bool = False,
                  faiss_device: str = "cpu"):
-        super().__init__(index_dir, query_encoder, None, normalize_distances, faiss_device)
-        self.ssearcher = None
+        super().__init__(index_dir, query_encoder, prebuilt_index_name, normalize_distances, faiss_device)
 
     def search(self, query: str, k: int = 10, binary_k: int = 100, rerank: bool = True,
                threads: int = 1) -> List[DenseSearchResult]:
