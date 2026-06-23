@@ -25,7 +25,7 @@ from pyserini.encode._ance import AnceEncoder
 from tests.base.encoder.utils import assert_encode_query_cli_output, assert_query_encoder_output
 
 
-EXPECTED_VALUES = [(-1.34755, -1.22419), (-1.36109, -1.47927)]
+EXPECTED_VALUES = [(-1.34755, -1.22419, 5), (-1.36109, -1.47927, 5)]
 
 
 class TestEncodeAnce(unittest.TestCase):

@@ -25,7 +25,7 @@ from pyserini.encode._dpr import _load_dpr_tokenizer
 from tests.base.encoder.utils import assert_encode_query_cli_output, assert_query_encoder_output
 
 
-EXPECTED_VALUES = [(-0.39652, 0.25375), (0.06198, -0.49947)]
+EXPECTED_VALUES = [(-0.39652, 0.25375, 5), (0.06198, -0.49947, 5)]
 
 
 class TestEncodeDpr(unittest.TestCase):

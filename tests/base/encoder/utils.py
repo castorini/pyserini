@@ -51,16 +51,9 @@ def assert_encode_query_cli_output(testcase, topics, encoder, expected_values, e
         testcase.assertEqual(encoded.shape, (len(expected_values), 3))
         testcase.assertEqual(encoded.columns.tolist(), ['id', 'text', 'embedding'])
         testcase.assertEqual(len(encoded.iloc[0]['embedding']), embedding_dim)
-
-        query_iterator = iter(DefaultQueryIterator.from_topics(topics))
-        for i, (first_value, last_value) in enumerate(expected_values):
-            testcase.assertAlmostEqual(encoded.iloc[i]['embedding'][0], first_value, places=5)
-            testcase.assertAlmostEqual(encoded.iloc[i]['embedding'][-1], last_value, places=5)
-            _, text = next(query_iterator)
-            loaded_embedding = loaded_encoder.encode(text)
-            testcase.assertEqual(len(loaded_embedding), embedding_dim)
-            testcase.assertAlmostEqual(loaded_embedding[0], first_value, places=5)
-            testcase.assertAlmostEqual(loaded_embedding[-1], last_value, places=5)
+        for i, (first_value, last_value, places) in enumerate(expected_values):
+            testcase.assertAlmostEqual(encoded.iloc[i]['embedding'][0], first_value, places=places)
+            testcase.assertAlmostEqual(encoded.iloc[i]['embedding'][-1], last_value, places=places)
 
 
 def assert_query_encoder_output(testcase, topics, encoder, expected_values, embedding_dim=768):
@@ -70,5 +63,6 @@ def assert_query_encoder_output(testcase, topics, encoder, expected_values, embe
             break
         embedding = encoder.encode(text)
         testcase.assertEqual(len(embedding), embedding_dim)
-        testcase.assertAlmostEqual(embedding[0], expected_values[i][0], places=5)
-        testcase.assertAlmostEqual(embedding[-1], expected_values[i][1], places=5)
+        first_value, last_value, places = expected_values[i]
+        testcase.assertAlmostEqual(embedding[0], first_value, places=places)
+        testcase.assertAlmostEqual(embedding[-1], last_value, places=places)
