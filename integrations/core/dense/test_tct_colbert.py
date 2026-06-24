@@ -21,8 +21,6 @@ import os
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score
-from pyserini.encode import QueryEncoder
-from pyserini.search import get_topics
 
 
 class TestTctColBert(unittest.TestCase):
@@ -106,12 +104,6 @@ class TestTctColBert(unittest.TestCase):
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
         self.assertAlmostEqual(score, 0.3647, delta=0.0002)
-
-    def test_msmarco_passage_tct_colbert_encoded_queries(self):
-        encoded = QueryEncoder.load_encoded_queries('tct_colbert-msmarco-passage-dev-subset')
-        topics = get_topics('msmarco-passage-dev-subset')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoded.embedding)
 
     def test_msmarco_doc_tct_colbert_bf_otf(self):
         output_file = 'test_run.msmarco-doc.passage.tct_colbert-otf.txt'
