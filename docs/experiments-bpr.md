@@ -6,6 +6,7 @@ Binary passage retriever (BPR) is a two-stage ranking approach that represents t
 
 We have replicated BPR's results and incorporated the model into Pyserini.
 To be clear, we started with model checkpoint and index releases in the official [BPR repo](https://github.com/studio-ousia/bpr) and did _not_ train the query and passage encoders from scratch.
+Both are available on Hugging Face as [`castorini/bpr-nq-question-encoder`](https://huggingface.co/castorini/bpr-nq-question-encoder) and [`castorini/bpr-nq-ctx-encoder`](https://huggingface.co/castorini/bpr-nq-ctx-encoder), respectively.
 
 This guide provides instructions to reproduce the BPR's results.
 
