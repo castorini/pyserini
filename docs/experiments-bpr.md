@@ -27,7 +27,8 @@ BPR with brute-force index:
 python -m pyserini.search.faiss \
   --index wikipedia-dpr-100w.bpr-single-nq \
   --topics dpr-nq-test \
-  --encoded-queries bpr_single_nq-nq-test \
+  --encoder castorini/bpr-nq-question-encoder \
+  --encoder-class bpr \
   --output runs/run.bpr.rerank.nq-test.nq.hash.trec \
   --batch-size 512 --threads 16 \
   --hits 100 --binary-hits 1000 \
@@ -52,7 +53,7 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 
 Results:
 
-```
+```text
 Top20  accuracy: 0.7792
 Top100 accuracy: 0.8571
 ```

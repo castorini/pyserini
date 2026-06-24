@@ -35,16 +35,6 @@ QUERY_INFO_BASE = {
         "total_queries": 6980,
         "downloaded": False
     },
-    "bpr_single_nq-nq-test": {
-        "description": "NQ test set questions encoded by BPR question encoder trained on NQ dataset",
-        "urls": [
-            "https://github.com/castorini/pyserini-data/raw/main/encoded-queries/query-embedding-bpr_single_nq-nq-test-20210827-8a8f75.tar.gz",
-        ],
-        "md5": "b139d5a096ad52d2abc66fb54ec66158",
-        "size (bytes)": 11094680,
-        "total_queries": 3610,
-        "downloaded": False
-     },
     "dkrr-dpr-nq-retriever-dpr-nq-dev": {
         "description": "DPR-NQ dev set questions encoded by castorini/dkrr-dpr-nq-retriever trained on NQ dataset",
         "urls": [
