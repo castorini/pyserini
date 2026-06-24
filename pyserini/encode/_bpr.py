@@ -25,13 +25,13 @@ from pyserini.encode import QueryEncoder
 
 class BprQueryEncoder(QueryEncoder):
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
+                 encoded_queries_dir: str = None, device: str = 'cpu', **kwargs):
         self.has_model = False
-        self.has_encoded_query = False
+        self.has_encoded_queries = False
 
-        if encoded_query_dir:
-            self.embedding = self._load_embeddings(encoded_query_dir)
-            self.has_encoded_query = True
+        if encoded_queries_dir:
+            self.embeddings = self._load_embeddings(encoded_queries_dir)
+            self.has_encoded_queries = True
 
         if encoder_dir:
             self.device = device
@@ -41,7 +41,7 @@ class BprQueryEncoder(QueryEncoder):
                                                                          clean_up_tokenization_spaces=True)
             self.has_model = True
 
-        if (not self.has_model) and (not self.has_encoded_query):
+        if (not self.has_model) and (not self.has_encoded_queries):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
     def encode(self, query: str):
@@ -59,8 +59,8 @@ class BprQueryEncoder(QueryEncoder):
         return input_repr.new_ones(input_repr.size()).masked_fill_(input_repr < 0, -1.0)
 
     @staticmethod
-    def _load_embeddings(encoded_query_dir):
-        df = pd.read_pickle(os.path.join(encoded_query_dir, 'embedding.pkl'))
+    def _load_embeddings(encoded_queries_dir):
+        df = pd.read_pickle(os.path.join(encoded_queries_dir, 'embedding.pkl'))
         ret = {}
         for text, dense, sparse in zip(df['text'].tolist(), df['dense_embedding'].tolist(),
                                        df['sparse_embedding'].tolist()):

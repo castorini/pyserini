@@ -81,7 +81,6 @@ class QueryIterator(ABC):
         normalized_path = normalized_path.replace('_', '-')
 
         if normalized_path in QueryIterator.PREDEFINED_ORDER:
-            print(f'Using pre-defined topic order for {normalized_path}')
             # Lazy import:
             from pyserini.query_iterator_order_info import QUERY_IDS
 

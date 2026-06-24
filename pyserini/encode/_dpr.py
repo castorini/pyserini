@@ -283,8 +283,8 @@ class DprDocumentEncoder(DocumentEncoder):
 
 class DprQueryEncoder(QueryEncoder):
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
-        super().__init__(encoded_query_dir)
+                 encoded_queries_dir: str = None, device: str = 'cpu', **kwargs):
+        super().__init__(encoded_queries_dir)
         if encoder_dir:
             self.device = device
             with log_level(logging.ERROR):
@@ -293,7 +293,7 @@ class DprQueryEncoder(QueryEncoder):
             self.tokenizer = _load_dpr_tokenizer(DPRQuestionEncoderTokenizer, tokenizer_name or encoder_dir,
                                                  clean_up_tokenization_spaces=True)
             self.has_model = True
-        if (not self.has_model) and (not self.has_encoded_query):
+        if (not self.has_model) and (not self.has_encoded_queries):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one')
 
     def encode(self, query: str):

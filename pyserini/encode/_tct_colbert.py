@@ -106,8 +106,8 @@ class TctColBertDocumentEncoder(DocumentEncoder):
 
 class TctColBertQueryEncoder(QueryEncoder):
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_query_dir: str = None, device: str = 'cpu', **kwargs):
-        super().__init__(encoded_query_dir)
+                 encoded_queries_dir: str = None, device: str = 'cpu', **kwargs):
+        super().__init__(encoded_queries_dir)
         if encoder_dir:
             self.device = device
             self.model = _load_bert_backbone(encoder_dir)
@@ -117,7 +117,7 @@ class TctColBertQueryEncoder(QueryEncoder):
                 clean_up_tokenization_spaces=True
             )
             self.has_model = True
-        if (not self.has_model) and (not self.has_encoded_query):
+        if (not self.has_model) and (not self.has_encoded_queries):
             raise Exception('Neither query encoder model nor encoded queries provided. Please provide at least one.')
 
     def encode(self, query: str):

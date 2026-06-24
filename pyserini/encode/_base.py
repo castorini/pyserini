@@ -86,43 +86,50 @@ class DocumentEncoder:
 
 
 class QueryEncoder:
-    def __init__(self, encoded_query_dir: str = None):
+    def __init__(self, encoded_queries_dir: str = None):
         self.has_model = False
-        self.has_encoded_query = False
-        if encoded_query_dir:
-            self.embedding = self._load_embeddings(encoded_query_dir)
-            self.has_encoded_query = True
+        self.has_encoded_queries = False
+        if encoded_queries_dir:
+            self.embeddings = self._load_embeddings(encoded_queries_dir)
+            self.has_encoded_queries = True
 
     def encode(self, query: str):
-        return self.embedding[query]
+        return self.embeddings[query]
 
     @classmethod
-    def load_encoded_queries(cls, encoded_query_name: str):
-        """Build a query encoder from a pre-encoded query; download the encoded queries if necessary.
+    def load_encoded_queries(cls, encoded_queries: str, verbose: bool = True):
+        """Build a query encoder from encoded queries; download them if necessary.
 
         Parameters
         ----------
-        encoded_query_name : str
-            pre encoded query name.
+        encoded_queries : str
+            Registered encoded-query name or local encoded-query directory.
+        verbose : bool
+            Whether to print status messages.
 
         Returns
         -------
         QueryEncoder
-            Encoder built from the pre encoded queries.
+            Encoder built from encoded queries.
         """
-        print(f'Attempting to initialize pre-encoded queries {encoded_query_name}.')
+        if verbose:
+            print(f'Loading encoded queries {encoded_queries}...')
+
+        if os.path.isdir(encoded_queries):
+            return cls(encoded_queries_dir=encoded_queries)
+
         try:
-            query_dir = download_encoded_queries(encoded_query_name)
+            query_dir = download_encoded_queries(encoded_queries, verbose=verbose)
         except ValueError as e:
-            print(str(e))
+            if verbose:
+                print(str(e))
             return None
 
-        print(f'Initializing {encoded_query_name}...')
-        return cls(encoded_query_dir=query_dir)
+        return cls(encoded_queries_dir=query_dir)
 
     @staticmethod
-    def _load_embeddings(encoded_query_dir):
-        df = pd.read_pickle(os.path.join(encoded_query_dir, 'embedding.pkl'))
+    def _load_embeddings(encoded_queries_dir):
+        df = pd.read_pickle(os.path.join(encoded_queries_dir, 'embedding.pkl'))
         return dict(zip(df['text'].tolist(), df['embedding'].tolist()))
 
 
