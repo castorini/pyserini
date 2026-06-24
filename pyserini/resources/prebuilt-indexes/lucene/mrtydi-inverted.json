@@ -1,0 +1,189 @@
+[
+    {
+        "name": "mrtydi-v1.1-ar",
+        "type": "inverted",
+        "corpus": "Mr.TyDi v1.1: Arabic",
+        "corpus_index": "mrtydi-v1.1-ar",
+        "description": "Lucene index for Mr.TyDi v1.1 - Arabic (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-ar.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ar.20260604.558ae2c.tar"
+        ],
+        "md5": "45a70ff0e6ba8edecaa5f6f043701600",
+        "size": 1429483520,
+        "documents": 2106586,
+        "total_terms": 92529032,
+        "unique_terms": 1284748
+    },
+    {
+        "name": "mrtydi-v1.1-bn",
+        "type": "inverted",
+        "corpus": "Mr.TyDi v1.1: Bengali",
+        "corpus_index": "mrtydi-v1.1-bn",
+        "description": "Lucene index for Mr.TyDi v1.1 - Bengali (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-bn.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-bn.20260604.558ae2c.tar"
+        ],
+        "md5": "4824ec5fe1cbf134c99e3ff4a94d71b1",
+        "size": 296130560,
+        "documents": 304059,
+        "total_terms": 15236599,
+        "unique_terms": 520699
+    },
+    {
+        "name": "mrtydi-v1.1-en",
+        "type": "inverted",
+        "corpus": "Mr.TyDi v1.1: English",
+        "corpus_index": "mrtydi-v1.1-en",
+        "description": "Lucene index for Mr.TyDi v1.1 - English (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-en.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-en.20260604.558ae2c.tar"
+        ],
+        "md5": "e1b4920633c9f8d4d484fbc1f9208c45",
+        "size": 20631726080,
+        "documents": 32907100,
+        "total_terms": 1507060932,
+        "unique_terms": 6189405
+    },
+    {
+        "name": "mrtydi-v1.1-fi",
+        "type": "inverted",
+        "corpus": "Mr.TyDi v1.1: Finnish",
+        "corpus_index": "mrtydi-v1.1-fi",
+        "description": "Lucene index for Mr.TyDi v1.1 - Finnish (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-fi.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-fi.20260604.558ae2c.tar"
+        ],
+        "md5": "12751caf1a2ea823b4ed4acb0fbfd5d8",
+        "size": 1120163840,
+        "documents": 1908757,
+        "total_terms": 69416543,
+        "unique_terms": 1715076
+    },
+    {
+        "name": "mrtydi-v1.1-id",
+        "type": "inverted",
+        "corpus": "Mr.TyDi v1.1: Indonesian",
+        "corpus_index": "mrtydi-v1.1-id",
+        "description": "Lucene index for Mr.TyDi v1.1 - Indonesian (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-id.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-id.20260604.558ae2c.tar"
+        ],
+        "md5": "aa02ff7c756106a85ce7778692d2d2bb",
+        "size": 703191040,
+        "documents": 1469399,
+        "total_terms": 52493134,
+        "unique_terms": 942552
+    },
+    {
+        "name": "mrtydi-v1.1-ja",
+        "type": "inverted",
+        "corpus": "Mr.TyDi v1.1: Japanese",
+        "corpus_index": "mrtydi-v1.1-ja",
+        "description": "Lucene index for Mr.TyDi v1.1 - Japanese (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-ja.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ja.20260604.558ae2c.tar"
+        ],
+        "md5": "d29a082b93496875fc12b3155b45eb91",
+        "size": 4350003200,
+        "documents": 7000027,
+        "total_terms": 300761975,
+        "unique_terms": 1588879
+    },
+    {
+        "name": "mrtydi-v1.1-ko",
+        "type": "inverted",
+        "corpus": "Mr.TyDi v1.1: Korean",
+        "corpus_index": "mrtydi-v1.1-ko",
+        "description": "Lucene index for Mr.TyDi v1.1 - Korean (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-ko.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ko.20260604.558ae2c.tar"
+        ],
+        "md5": "adcd51f82738fcc1eaf2c9003bb4b421",
+        "size": 928686080,
+        "documents": 1496126,
+        "total_terms": 73084884,
+        "unique_terms": 456094
+    },
+    {
+        "name": "mrtydi-v1.1-ru",
+        "type": "inverted",
+        "corpus": "Mr.TyDi v1.1: Russian",
+        "corpus_index": "mrtydi-v1.1-ru",
+        "description": "Lucene index for Mr.TyDi v1.1 - Russian (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-ru.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ru.20260604.558ae2c.tar"
+        ],
+        "md5": "9abc508ffa0637cedc62e3629d6a7658",
+        "size": 6890475520,
+        "documents": 9597504,
+        "total_terms": 346329117,
+        "unique_terms": 3034239
+    },
+    {
+        "name": "mrtydi-v1.1-sw",
+        "type": "inverted",
+        "corpus": "Mr.TyDi v1.1: Swahili",
+        "corpus_index": "mrtydi-v1.1-sw",
+        "description": "Lucene index for Mr.TyDi v1.1 - Swahili (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-sw.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-sw.20260604.558ae2c.tar"
+        ],
+        "md5": "6bfb2f3bbb3cd2d23c7ff7e5a429b434",
+        "size": 59944960,
+        "documents": 136689,
+        "total_terms": 4937051,
+        "unique_terms": 385711
+    },
+    {
+        "name": "mrtydi-v1.1-te",
+        "type": "inverted",
+        "corpus": "Mr.TyDi v1.1: Telugu",
+        "corpus_index": "mrtydi-v1.1-te",
+        "description": "Lucene index for Mr.TyDi v1.1 - Telugu (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-te.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-te.20260604.558ae2c.tar"
+        ],
+        "md5": "10b79b19b0b40c87c988b60435e9f29a",
+        "size": 521779200,
+        "documents": 548224,
+        "total_terms": 26812052,
+        "unique_terms": 1157217
+    },
+    {
+        "name": "mrtydi-v1.1-th",
+        "type": "inverted",
+        "corpus": "Mr.TyDi v1.1: Thai",
+        "corpus_index": "mrtydi-v1.1-th",
+        "description": "Lucene index for Mr.TyDi v1.1 - Thai (Lucene 10.4.0)",
+        "filename": "lucene-inverted.mrtydi-v1.1-th.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-th.20260604.558ae2c.tar"
+        ],
+        "md5": "633fd759421414f563f5114ac392cf53",
+        "size": 548075520,
+        "documents": 568855,
+        "total_terms": 31550936,
+        "unique_terms": 663628
+    }
+]

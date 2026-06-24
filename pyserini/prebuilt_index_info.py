@@ -14,6 +14,11 @@
 # limitations under the License.
 #
 
+from collections.abc import Mapping
+import importlib.resources
+import json
+from urllib.request import urlopen
+
 from pyserini.pyclass import autoclass
 
 JPrebuiltInvertedIndex = autoclass('io.anserini.index.prebuilt.PrebuiltInvertedIndex')
@@ -36,6 +41,105 @@ def import_from_inverted_lucene(index_metadata):
     }
 
     return info
+
+
+def _import_from_lucene_prebuilt_inverted_index_json(index_metadata):
+    info = {
+        'description': index_metadata['description'],
+        'filename': index_metadata['filename'],
+        'readme': index_metadata.get('readme') or '',
+        'urls': index_metadata['urls'],
+        'md5': index_metadata['md5'],
+        'size': index_metadata['size'],
+        'texts': index_metadata['corpus_index']
+    }
+
+    for field in ['total_terms', 'documents', 'unique_terms']:
+        if field in index_metadata:
+            info[field] = index_metadata[field]
+
+    return info
+
+
+class _LazyLucenePrebuiltInvertedIndexJson(Mapping):
+    def __init__(self, *urls, key_prefixes=()):
+        self._urls = urls
+        self._key_prefixes = key_prefixes
+        self._info = None
+
+    def _load(self):
+        if self._info is None:
+            info = {}
+            for url in self._urls:
+                if url.startswith('http://') or url.startswith('https://'):
+                    with urlopen(url, timeout=10) as response:
+                        records = json.load(response)
+                else:
+                    resource = importlib.resources.files('pyserini')
+                    for path_part in url.split('/'):
+                        resource = resource / path_part
+                    with resource.open(encoding='utf-8') as response:
+                        records = json.load(response)
+                info.update({record['name']: _import_from_lucene_prebuilt_inverted_index_json(record) for record in records})
+            self._info = info
+
+        return self._info
+
+    def __getitem__(self, key):
+        return self._load()[key]
+
+    def __iter__(self):
+        return iter(self._load())
+
+    def __len__(self):
+        return len(self._load())
+
+    def __contains__(self, key):
+        if not isinstance(key, str):
+            return False
+        if self._key_prefixes and not any(key.startswith(prefix) for prefix in self._key_prefixes):
+            return False
+        return key in self._load()
+
+
+class _MergedLucenePrebuiltInvertedIndexInfo(Mapping):
+    def __init__(self, *mappings):
+        self._mappings = mappings
+
+    def __getitem__(self, key):
+        for mapping in self._mappings:
+            if key in mapping:
+                return mapping[key]
+        raise KeyError(key)
+
+    def __iter__(self):
+        seen = set()
+        for mapping in self._mappings:
+            for key in mapping:
+                if key not in seen:
+                    seen.add(key)
+                    yield key
+
+    def __len__(self):
+        return sum(1 for _ in self)
+
+
+class _AliasedLucenePrebuiltInvertedIndexInfo(Mapping):
+    def __init__(self, target, aliases):
+        self._target = target
+        self._aliases = aliases
+
+    def __getitem__(self, key):
+        return self._target[self._aliases[key]]
+
+    def __iter__(self):
+        return iter(self._aliases)
+
+    def __len__(self):
+        return len(self._aliases)
+
+    def __contains__(self, key):
+        return key in self._aliases
 
 
 # Bindings for Lucene (standard) inverted indexes
@@ -186,633 +290,45 @@ TF_INDEX_INFO_MSMARCO_ALIASES = {
     "msmarco-v1-passage-d2q-t5": TF_INDEX_INFO_MSMARCO["msmarco-v1-passage.d2q-t5"],
 }
 
-TF_INDEX_INFO_BEIR = {
-    # BEIR: flat
-    "beir-v1.0.0-trec-covid.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-trec-covid.flat')),
-    "beir-v1.0.0-bioasq.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-bioasq.flat')),
-    "beir-v1.0.0-nfcorpus.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-nfcorpus.flat')),
-    "beir-v1.0.0-nq.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-nq.flat')),
-    "beir-v1.0.0-hotpotqa.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-hotpotqa.flat')),
-    "beir-v1.0.0-fiqa.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-fiqa.flat')),
-    "beir-v1.0.0-signal1m.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-signal1m.flat')),
-    "beir-v1.0.0-trec-news.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-trec-news.flat')),
-    "beir-v1.0.0-robust04.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-robust04.flat')),
-    "beir-v1.0.0-arguana.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-arguana.flat')),
-    "beir-v1.0.0-webis-touche2020.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-webis-touche2020.flat')),
-    "beir-v1.0.0-cqadupstack-android.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-android.flat')),
-    "beir-v1.0.0-cqadupstack-english.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-english.flat')),
-    "beir-v1.0.0-cqadupstack-gaming.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-gaming.flat')),
-    "beir-v1.0.0-cqadupstack-gis.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-gis.flat')),
-    "beir-v1.0.0-cqadupstack-mathematica.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-mathematica.flat')),
-    "beir-v1.0.0-cqadupstack-physics.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-physics.flat')),
-    "beir-v1.0.0-cqadupstack-programmers.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-programmers.flat')),
-    "beir-v1.0.0-cqadupstack-stats.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-stats.flat')),
-    "beir-v1.0.0-cqadupstack-tex.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-tex.flat')),
-    "beir-v1.0.0-cqadupstack-unix.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-unix.flat')),
-    "beir-v1.0.0-cqadupstack-webmasters.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-webmasters.flat')),
-    "beir-v1.0.0-cqadupstack-wordpress.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-wordpress.flat')),
-    "beir-v1.0.0-quora.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-quora.flat')),
-    "beir-v1.0.0-dbpedia-entity.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-dbpedia-entity.flat')),
-    "beir-v1.0.0-scidocs.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-scidocs.flat')),
-    "beir-v1.0.0-fever.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-fever.flat')),
-    "beir-v1.0.0-climate-fever.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-climate-fever.flat')),
-    "beir-v1.0.0-scifact.flat": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-scifact.flat')),
+TF_INDEX_INFO_BEIR = _LazyLucenePrebuiltInvertedIndexJson(
+    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/beir-inverted-flat.json',
+    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/beir-inverted-multifield.json',
+    key_prefixes=('beir-v1.0.0-',)
+)
 
-    # BEIR: multifield
-    "beir-v1.0.0-trec-covid.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-trec-covid.multifield')),
-    "beir-v1.0.0-bioasq.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-bioasq.multifield')),
-    "beir-v1.0.0-nfcorpus.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-nfcorpus.multifield')),
-    "beir-v1.0.0-nq.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-nq.multifield')),
-    "beir-v1.0.0-hotpotqa.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-hotpotqa.multifield')),
-    "beir-v1.0.0-fiqa.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-fiqa.multifield')),
-    "beir-v1.0.0-signal1m.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-signal1m.multifield')),
-    "beir-v1.0.0-trec-news.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-trec-news.multifield')),
-    "beir-v1.0.0-robust04.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-robust04.multifield')),
-    "beir-v1.0.0-arguana.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-arguana.multifield')),
-    "beir-v1.0.0-webis-touche2020.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-webis-touche2020.multifield')),
-    "beir-v1.0.0-cqadupstack-android.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-android.multifield')),
-    "beir-v1.0.0-cqadupstack-english.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-english.multifield')),
-    "beir-v1.0.0-cqadupstack-gaming.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-gaming.multifield')),
-    "beir-v1.0.0-cqadupstack-gis.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-gis.multifield')),
-    "beir-v1.0.0-cqadupstack-mathematica.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-mathematica.multifield')),
-    "beir-v1.0.0-cqadupstack-physics.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-physics.multifield')),
-    "beir-v1.0.0-cqadupstack-programmers.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-programmers.multifield')),
-    "beir-v1.0.0-cqadupstack-stats.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-stats.multifield')),
-    "beir-v1.0.0-cqadupstack-tex.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-tex.multifield')),
-    "beir-v1.0.0-cqadupstack-unix.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-unix.multifield')),
-    "beir-v1.0.0-cqadupstack-webmasters.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-webmasters.multifield')),
-    "beir-v1.0.0-cqadupstack-wordpress.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-cqadupstack-wordpress.multifield')),
-    "beir-v1.0.0-quora.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-quora.multifield')),
-    "beir-v1.0.0-dbpedia-entity.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-dbpedia-entity.multifield')),
-    "beir-v1.0.0-scidocs.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-scidocs.multifield')),
-    "beir-v1.0.0-fever.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-fever.multifield')),
-    "beir-v1.0.0-climate-fever.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-climate-fever.multifield')),
-    "beir-v1.0.0-scifact.multifield": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('beir-v1.0.0-scifact.multifield'))
-}
+TF_INDEX_INFO_BRIGHT = _LazyLucenePrebuiltInvertedIndexJson(
+    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/bright-inverted.json',
+    key_prefixes=('bright-',)
+)
 
-TF_INDEX_INFO_BRIGHT = {
-    "bright-biology": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-biology')),
-    "bright-earth-science": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-earth-science')),
-    "bright-economics": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-economics')),
-    "bright-psychology": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-psychology')),
-    "bright-robotics": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-robotics')),
-    "bright-stackoverflow": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-stackoverflow')),
-    "bright-sustainable-living": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-sustainable-living')),
-    "bright-pony": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-pony')),
-    "bright-leetcode": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-leetcode')),
-    "bright-aops": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-aops')),
-    "bright-theoremqa-theorems": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-theoremqa-theorems')),
-    "bright-theoremqa-questions": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('bright-theoremqa-questions'))
-}
+TF_INDEX_INFO_MRTYDI = _LazyLucenePrebuiltInvertedIndexJson(
+    'resources/prebuilt-indexes/lucene/mrtydi-inverted.json',
+    key_prefixes=('mrtydi-v1.1-',)
+)
 
-TF_INDEX_INFO_MRTYDI = {
-    "mrtydi-v1.1-ar": {
-        "description": "Lucene index for Mr.TyDi v1.1 - Arabic (Lucene 10.4.0)",
-        "filename": "lucene-inverted.mrtydi-v1.1-ar.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ar.20260604.558ae2c.tar",
-        ],
-        "md5": "45a70ff0e6ba8edecaa5f6f043701600",
-        "size": 1429483520,
-        "total_terms": 92529032,
-        "documents": 2106586,
-        "unique_terms": 1284748,
-        "downloaded": False
-    },
-    "mrtydi-v1.1-bn": {
-        "description": "Lucene index for Mr.TyDi v1.1 - Bengali (Lucene 10.4.0)",
-        "filename": "lucene-inverted.mrtydi-v1.1-bn.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-bn.20260604.558ae2c.tar"
-        ],
-        "md5": "4824ec5fe1cbf134c99e3ff4a94d71b1",
-        "size": 296130560,
-        "total_terms": 15236599,
-        "documents": 304059,
-        "unique_terms": 520699,
-        "downloaded": False
-    },
-    "mrtydi-v1.1-en": {
-        "description": "Lucene index for Mr.TyDi v1.1 - English (Lucene 10.4.0)",
-        "filename": "lucene-inverted.mrtydi-v1.1-en.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-en.20260604.558ae2c.tar"
-        ],
-        "md5": "e1b4920633c9f8d4d484fbc1f9208c45",
-        "size": 20631726080,
-        "total_terms": 1507060932,
-        "documents": 32907100,
-        "unique_terms": 6189405,
-        "downloaded": False
-    },
-    "mrtydi-v1.1-fi": {
-        "description": "Lucene index for Mr.TyDi v1.1 - Finnish (Lucene 10.4.0)",
-        "filename": "lucene-inverted.mrtydi-v1.1-fi.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-fi.20260604.558ae2c.tar"
-        ],
-        "md5": "12751caf1a2ea823b4ed4acb0fbfd5d8",
-        "size": 1120163840,
-        "total_terms": 69416543,
-        "documents": 1908757,
-        "unique_terms": 1715076,
-        "downloaded": False
-    },
-    "mrtydi-v1.1-id": {
-        "description": "Lucene index for Mr.TyDi v1.1 - Indonesian (Lucene 10.4.0)",
-        "filename": "lucene-inverted.mrtydi-v1.1-id.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-id.20260604.558ae2c.tar"
-        ],
-        "md5": "aa02ff7c756106a85ce7778692d2d2bb",
-        "size": 703191040,
-        "total_terms": 52493134,
-        "documents": 1469399,
-        "unique_terms": 942552,
-        "downloaded": False
-    },
-    "mrtydi-v1.1-ja": {
-        "description": "Lucene index for Mr.TyDi v1.1 - Japanese (Lucene 10.4.0)",
-        "filename": "lucene-inverted.mrtydi-v1.1-ja.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ja.20260604.558ae2c.tar"
-        ],
-        "md5": "d29a082b93496875fc12b3155b45eb91",
-        "size": 4350003200,
-        "total_terms": 300761975,
-        "documents": 7000027,
-        "unique_terms": 1588879,
-        "downloaded": False
-    },
-    "mrtydi-v1.1-ko": {
-        "description": "Lucene index for Mr.TyDi v1.1 - Korean (Lucene 10.4.0)",
-        "filename": "lucene-inverted.mrtydi-v1.1-ko.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ko.20260604.558ae2c.tar"
-        ],
-        "md5": "adcd51f82738fcc1eaf2c9003bb4b421",
-        "size": 928686080,
-        "total_terms": 73084884,
-        "documents": 1496126,
-        "unique_terms": 456094,
-        "downloaded": False
-    },
-    "mrtydi-v1.1-ru": {
-        "description": "Lucene index for Mr.TyDi v1.1 - Russian (Lucene 10.4.0)",
-        "filename": "lucene-inverted.mrtydi-v1.1-ru.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-ru.20260604.558ae2c.tar"
-        ],
-        "md5": "9abc508ffa0637cedc62e3629d6a7658",
-        "size": 6890475520,
-        "total_terms": 346329117,
-        "documents": 9597504,
-        "unique_terms": 3034239,
-        "downloaded": False
-    },
-    "mrtydi-v1.1-sw": {
-        "description": "Lucene index for Mr.TyDi v1.1 - Swahili (Lucene 10.4.0)",
-        "filename": "lucene-inverted.mrtydi-v1.1-sw.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-sw.20260604.558ae2c.tar"
-        ],
-        "md5": "6bfb2f3bbb3cd2d23c7ff7e5a429b434",
-        "size": 59944960,
-        "total_terms": 4937051,
-        "documents": 136689,
-        "unique_terms": 385711,
-        "downloaded": False
-    },
-    "mrtydi-v1.1-te": {
-        "description": "Lucene index for Mr.TyDi v1.1 - Telugu (Lucene 10.4.0)",
-        "filename": "lucene-inverted.mrtydi-v1.1-te.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-te.20260604.558ae2c.tar"
-        ],
-        "md5": "10b79b19b0b40c87c988b60435e9f29a",
-        "size": 521779200,
-        "total_terms": 26812052,
-        "documents": 548224,
-        "unique_terms": 1157217,
-        "downloaded": False
-    },
-    "mrtydi-v1.1-th": {
-        "description": "Lucene index for Mr.TyDi v1.1 - Thai (Lucene 10.4.0)",
-        "filename": "lucene-inverted.mrtydi-v1.1-th.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.mrtydi-v1.1.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.mrtydi-v1.1-th.20260604.558ae2c.tar"
-        ],
-        "md5": "633fd759421414f563f5114ac392cf53",
-        "size": 548075520,
-        "total_terms": 31550936,
-        "documents": 568855,
-        "unique_terms": 663628,
-        "downloaded": False
-    }
-}
+TF_INDEX_INFO_MRTYDI_ALIASES = _AliasedLucenePrebuiltInvertedIndexInfo(TF_INDEX_INFO_MRTYDI, {
+    "mrtydi-v1.1-arabic": "mrtydi-v1.1-ar",
+    "mrtydi-v1.1-bengali": "mrtydi-v1.1-bn",
+    "mrtydi-v1.1-english": "mrtydi-v1.1-en",
+    "mrtydi-v1.1-finnish": "mrtydi-v1.1-fi",
+    "mrtydi-v1.1-indonesian": "mrtydi-v1.1-id",
+    "mrtydi-v1.1-japanese": "mrtydi-v1.1-ja",
+    "mrtydi-v1.1-korean": "mrtydi-v1.1-ko",
+    "mrtydi-v1.1-russian": "mrtydi-v1.1-ru",
+    "mrtydi-v1.1-swahili": "mrtydi-v1.1-sw",
+    "mrtydi-v1.1-telugu": "mrtydi-v1.1-te",
+    "mrtydi-v1.1-thai": "mrtydi-v1.1-th"
+})
 
-TF_INDEX_INFO_MRTYDI_ALIASES = {
-    "mrtydi-v1.1-arabic": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-ar"],
-    "mrtydi-v1.1-bengali": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-bn"],
-    "mrtydi-v1.1-english": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-en"],
-    "mrtydi-v1.1-finnish": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-fi"],
-    "mrtydi-v1.1-indonesian": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-id"],
-    "mrtydi-v1.1-japanese": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-ja"],
-    "mrtydi-v1.1-korean": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-ko"],
-    "mrtydi-v1.1-russian": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-ru"],
-    "mrtydi-v1.1-swahili": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-sw"],
-    "mrtydi-v1.1-telugu": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-te"],
-    "mrtydi-v1.1-thai": TF_INDEX_INFO_MRTYDI["mrtydi-v1.1-th"]
-}
+TF_INDEX_INFO_MIRACL = _LazyLucenePrebuiltInvertedIndexJson(
+    'resources/prebuilt-indexes/lucene/miracl-inverted.json',
+    key_prefixes=('miracl-v1.0-',)
+)
 
-TF_INDEX_INFO_MIRACL = {
-    "miracl-v1.0-ar": {
-        "description": "Lucene index for MIRACL v1.0 - Arabic (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-ar.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ar.20260604.558ae2c.tar"
-        ],
-        "md5": "78297714dfdd5e9253cb71f5043e2f89",
-        "size": 1409320960,
-        "total_terms": 90223450,
-        "documents": 2061414,
-        "unique_terms": 1246254,
-        "downloaded": False
-    },
-    "miracl-v1.0-bn": {
-        "description": "Lucene index for MIRACL v1.0 - Bengali (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-bn.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-bn.20260604.558ae2c.tar"
-        ],
-        "md5": "9064c52b8cf77a23d62c37400db8a51e",
-        "size": 291256320,
-        "total_terms": 14963235,
-        "documents": 297265,
-        "unique_terms": 506812,
-        "downloaded": False
-    },
-    "miracl-v1.0-en": {
-        "description": "Lucene index for MIRACL v1.0 - English (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-en.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-en.20260604.558ae2c.tar"
-        ],
-        "md5": "d6c9cdaf90d857fc883124154c95d2a2",
-        "size": 20680714240,
-        "total_terms": 1505029955,
-        "documents": 32893221,
-        "unique_terms": 6152316,
-        "downloaded": False
-    },
-    "miracl-v1.0-es": {
-        "description": "Lucene index for MIRACL v1.0 - Spanish (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-es.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-es.20260604.558ae2c.tar"
-        ],
-        "md5": "b30182ed716f26de7d54aa329241446c",
-        "size": 6328729600,
-        "total_terms": 389319806,
-        "documents": 10373953,
-        "unique_terms": 2907509,
-        "downloaded": False
-    },
-    "miracl-v1.0-de": {
-        "description": "Lucene index for MIRACL v1.0 - German (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-de.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-de.20260604.558ae2c.tar"
-        ],
-        "md5": "859308b005802004b7bbc4fe2332a582",
-        "size": 10285731840,
-        "total_terms": 581583743,
-        "documents": 15866222,
-        "unique_terms": 6288858,
-        "downloaded": False
-    },
-    "miracl-v1.0-fa": {
-        "description": "Lucene index for MIRACL v1.0 - Persian (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-fa.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-fa.20260604.558ae2c.tar"
-        ],
-        "md5": "abdbde58b61f360ae325ec9c15071553",
-        "size": 1175224320,
-        "total_terms": 67968038,
-        "documents": 2207172,
-        "unique_terms": 1104195,
-        "downloaded": False
-    },
-    "miracl-v1.0-fi": {
-        "description": "Lucene index for MIRACL v1.0 - Finnish (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-fi.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-fi.20260604.558ae2c.tar"
-        ],
-        "md5": "a0a7407f1557b8151d3497055094ade3",
-        "size": 1104527360,
-        "total_terms": 68295087,
-        "documents": 1883509,
-        "unique_terms": 1669817,
-        "downloaded": False
-    },
-    "miracl-v1.0-fr": {
-        "description": "Lucene index for MIRACL v1.0 - French (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-fr.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-fr.20260604.558ae2c.tar"
-        ],
-        "md5": "63e71554fddb071be503acb84ac1f55d",
-        "size": 7840276480,
-        "total_terms": 508723988,
-        "documents": 14636953,
-        "unique_terms": 2811334,
-        "downloaded": False
-    },
-    "miracl-v1.0-hi": {
-        "description": "Lucene index for MIRACL v1.0 - Hindi (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-hi.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-hi.20260604.558ae2c.tar"
-        ],
-        "md5": "03f37cadc7cf3a79fbf262b8bcf96add",
-        "size": 423127040,
-        "total_terms": 21080143,
-        "documents": 506264,
-        "unique_terms": 597558,
-        "downloaded": False
-    },
-    "miracl-v1.0-id": {
-        "description": "Lucene index for MIRACL v1.0 - Indonesian (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-id.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-id.20260604.558ae2c.tar"
-        ],
-        "md5": "8d81825e9e0363e0504ed32398060aae",
-        "size": 689367040,
-        "total_terms": 51469219,
-        "documents": 1446315,
-        "unique_terms": 911944,
-        "downloaded": False
-    },
-    "miracl-v1.0-ja": {
-        "description": "Lucene index for MIRACL v1.0 - Japanese (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-ja.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ja.20260604.558ae2c.tar"
-        ],
-        "md5": "7f337e510c8f9d8c6850a85636c8ecb6",
-        "size": 4317890560,
-        "total_terms": 296659169,
-        "documents": 6953614,
-        "unique_terms": 1558643,
-        "downloaded": False
-    },
-    "miracl-v1.0-ko": {
-        "description": "Lucene index for MIRACL v1.0 - Korean (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-ko.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ko.20260604.558ae2c.tar"
-        ],
-        "md5": "d2648e245490dcc6fb80e9f8c4dd3a7a",
-        "size": 922388480,
-        "total_terms": 72532389,
-        "documents": 1486752,
-        "unique_terms": 451428,
-        "downloaded": False
-    },
-    "miracl-v1.0-ru": {
-        "description": "Lucene index for MIRACL v1.0 - Russian (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-ru.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ru.20260604.558ae2c.tar"
-        ],
-        "md5": "b0a57963ccfe52ec7edb89cff1fb8c33",
-        "size": 6895124480,
-        "total_terms": 343106870,
-        "documents": 9543918,
-        "unique_terms": 2955627,
-        "downloaded": False
-    },
-    "miracl-v1.0-sw": {
-        "description": "Lucene index for MIRACL v1.0 - Swahili (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-sw.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-sw.20260604.558ae2c.tar"
-        ],
-        "md5": "60d473575592cb2fd01ff240bdbc032c",
-        "size": 57292800,
-        "total_terms": 4752278,
-        "documents": 131924,
-        "unique_terms": 361306,
-        "downloaded": False
-    },
-    "miracl-v1.0-te": {
-        "description": "Lucene index for MIRACL v1.0 - Telugu (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-te.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-te.20260604.558ae2c.tar"
-        ],
-        "md5": "d78c1bb22aacc8934321d1541946da5b",
-        "size": 505917440,
-        "total_terms": 26105595,
-        "documents": 518079,
-        "unique_terms": 1120047,
-        "downloaded": False
-    },
-    "miracl-v1.0-th": {
-        "description": "Lucene index for MIRACL v1.0 - Thai (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-th.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-th.20260604.558ae2c.tar"
-        ],
-        "md5": "d36c74137d7ac74fc40a4e10df63fc52",
-        "size": 523694080,
-        "total_terms": 29922100,
-        "documents": 542166,
-        "unique_terms": 626084,
-        "downloaded": False
-    },
-    "miracl-v1.0-yo": {
-        "description": "Lucene index for MIRACL v1.0 - Yoruba (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-yo.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-yo.20260604.558ae2c.tar"
-        ],
-        "md5": "a34d7a06904a317b7f257080f6f83539",
-        "size": 17387520,
-        "total_terms": 1387088,
-        "documents": 49043,
-        "unique_terms": 174539,
-        "downloaded": False
-    },
-    "miracl-v1.0-zh": {
-        "description": "Lucene index for MIRACL v1.0 - Chinese (Lucene 10.4.0)",
-        "filename": "lucene-inverted.miracl-v1.0-zh.20260604.558ae2c.tar",
-        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-zh.20260604.558ae2c.tar"
-        ],
-        "md5": "19e3b5dd3f648251f65410ad4c8cb4d8",
-        "size": 4776775680,
-        "total_terms": 423635495,
-        "documents": 4934368,
-        "unique_terms": 6517412,
-        "downloaded": False
-    }
-}
-
-TF_INDEX_INFO_CIRAL = {
-    "ciral-v1.0-ha": {
-        "description": "Lucene index for CIRAL v1.0 (Hausa).",
-        "filename": "lucene-index.ciral-v1.0-ha.20230721.e850ea.tar.gz",
-        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-ha.20230721.e850ea.tar.gz"
-        ],
-        "md5": "9bef13f2b528d3a5712ce412c3c264f7",
-        "size": 671653035,
-        'total_terms': 93696543,
-        'documents': 715355,
-        'unique_terms': 817967,
-        "downloaded": False
-    },
-
-    "ciral-v1.0-so": {
-        "description": "Lucene index for CIRAL v1.0 (Somali).",
-        "filename": "lucene-index.ciral-v1.0-so.20230721.e850ea.tar.gz",
-        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-so.20230721.e850ea.tar.gz"
-        ],
-        "md5": "4bb9d3ae1a6d65fbb2a4e7e57a71397d",
-        "size": 916229181,
-        "total_terms": 103736362,
-        "documents": 827552,
-        "unique_terms": 1636109,
-        "downloaded": False
-    },
-
-    "ciral-v1.0-sw": {
-        "description": "Lucene index for CIRAL v1.0 (Swahili).",
-        "filename": "lucene-index.ciral-v1.0-sw.20230721.e850ea.tar.gz",
-        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-sw.20230721.e850ea.tar.gz"
-        ],
-        "md5": "1236a1a4c87268d98ec6534cd99aaada",
-        "size": 896921754,
-        "total_terms": 115140711,
-        "documents": 949013,
-        "unique_terms": 1655554,
-        "downloaded": False
-    },
-
-    "ciral-v1.0-yo": {
-        "description": "Lucene index for CIRAL v1.0 (Yoruba).",
-        "filename": "lucene-index.ciral-v1.0-yo.20230721.e850ea.tar.gz",
-        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-yo.20230721.e850ea.tar.gz"
-        ],
-        "md5": "655e571314ed85cbfe637246c3d18110",
-        "size": 94610259,
-        "total_terms": 13693080,
-        "documents": 82095,
-        "unique_terms": 236638,
-        "downloaded": False
-    },
-
-    "ciral-v1.0-ha-en": {
-        "description": "Lucene index for CIRAL v1.0 English Translations (Hausa).",
-        "filename": "lucene-index.ciral-v1.0-ha-en.20240212.2154e7.tar.gz",
-        "readme": "lucene-index.ciral-v1.0-en.20240212.2154e7.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-ha-en.20240212.2154e7.tar.gz"
-        ],
-        "md5": "40af043730fe0fb31c32551ae615bfb0",
-        "size": 485235569,
-        "total_terms": 55768945,
-        "documents": 715355,
-        "unique_terms": 222612,
-        "downloaded": False
-    },
-
-    "ciral-v1.0-so-en": {
-        "description": "Lucene index for CIRAL v1.0 English Translations (Somali).",
-        "filename": "lucene-index.ciral-v1.0-so-en.20240212.2154e7.tar.gz",
-        "readme": "lucene-index.ciral-v1.0-en.20240212.2154e7.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-so-en.20240212.2154e7.tar.gz"
-        ],
-        "md5": "ceff839268ebb1f41ac5398d613cbf32",
-        "size": 611458708,
-        "total_terms": 63835022,
-        "documents": 827552,
-        "unique_terms": 214501,
-        "downloaded": False
-    },
-
-    "ciral-v1.0-sw-en": {
-        "description": "Lucene index for CIRAL v1.0 English Translations (Swahili).",
-        "filename": "lucene-index.ciral-v1.0-sw-en.20240212.2154e7.tar.gz",
-        "readme": "lucene-index.ciral-v1.0-en.20240212.2154e7.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-sw-en.20240212.2154e7.tar.gz"
-        ],
-        "md5": "60a57a128cda8c4a1460f1e3a0df002a",
-        "size": 683272685,
-        "total_terms": 83817100,
-        "documents": 949013,
-        "unique_terms": 265867,
-        "downloaded": False
-    },
-
-    "ciral-v1.0-yo-en": {
-        "description": "Lucene index for CIRAL v1.0 English Translations (Yoruba).",
-        "filename": "lucene-index.ciral-v1.0-yo-en.20240212.2154e7.tar.gz",
-        "readme": "lucene-index.ciral-v1.0-en.20240212.2154e7.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-yo-en.20240212.2154e7.tar.gz"
-        ],
-        "md5": "84f29864973de98f2d93fe03a2908703",
-        "size": 60934470,
-        "total_terms": 7245155,
-        "documents": 82095,
-        "unique_terms": 68394,
-        "downloaded": False
-    }
-
-}
+TF_INDEX_INFO_CIRAL = _LazyLucenePrebuiltInvertedIndexJson(
+    'resources/prebuilt-indexes/lucene/ciral-inverted.json',
+    key_prefixes=('ciral-v1.0-',)
+)
 
 TF_INDEX_INFO_M_BEIR = {
     "m-beir-cirr_task7": {
@@ -1594,17 +1110,17 @@ TF_INDEX_INFO_OTHER_ALIASES = {
     "core18": TF_INDEX_INFO_OTHER["wapo.v2"],
 }
 
-TF_INDEX_INFO = {**TF_INDEX_INFO_MSMARCO,
-                 **TF_INDEX_INFO_MSMARCO_ALIASES,
-                 **TF_INDEX_INFO_BEIR,
-                 **TF_INDEX_INFO_BRIGHT,
-                 **TF_INDEX_INFO_MRTYDI,
-                 **TF_INDEX_INFO_MRTYDI_ALIASES,
-                 **TF_INDEX_INFO_MIRACL,
-                 **TF_INDEX_INFO_CIRAL,
-                 **TF_INDEX_INFO_M_BEIR,
-                 **TF_INDEX_INFO_OTHER,
-                 **TF_INDEX_INFO_OTHER_ALIASES}
+TF_INDEX_INFO = _MergedLucenePrebuiltInvertedIndexInfo(TF_INDEX_INFO_MSMARCO,
+                                                       TF_INDEX_INFO_MSMARCO_ALIASES,
+                                                       TF_INDEX_INFO_BEIR,
+                                                       TF_INDEX_INFO_BRIGHT,
+                                                       TF_INDEX_INFO_MRTYDI,
+                                                       TF_INDEX_INFO_MRTYDI_ALIASES,
+                                                       TF_INDEX_INFO_MIRACL,
+                                                       TF_INDEX_INFO_CIRAL,
+                                                       TF_INDEX_INFO_M_BEIR,
+                                                       TF_INDEX_INFO_OTHER,
+                                                       TF_INDEX_INFO_OTHER_ALIASES)
 
 
 JPrebuiltImpactIndex = autoclass('io.anserini.index.prebuilt.PrebuiltImpactIndex')

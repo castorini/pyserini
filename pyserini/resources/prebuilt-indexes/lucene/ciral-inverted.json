@@ -1,0 +1,138 @@
+[
+    {
+        "name": "ciral-v1.0-ha",
+        "type": "inverted",
+        "corpus": "CIRAL v1.0: Hausa",
+        "corpus_index": "ciral-v1.0-ha",
+        "description": "Lucene index for CIRAL v1.0 (Hausa).",
+        "filename": "lucene-index.ciral-v1.0-ha.20230721.e850ea.tar.gz",
+        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-ha.20230721.e850ea.tar.gz"
+        ],
+        "md5": "9bef13f2b528d3a5712ce412c3c264f7",
+        "size": 671653035,
+        "documents": 715355,
+        "total_terms": 93696543,
+        "unique_terms": 817967
+    },
+    {
+        "name": "ciral-v1.0-so",
+        "type": "inverted",
+        "corpus": "CIRAL v1.0: Somali",
+        "corpus_index": "ciral-v1.0-so",
+        "description": "Lucene index for CIRAL v1.0 (Somali).",
+        "filename": "lucene-index.ciral-v1.0-so.20230721.e850ea.tar.gz",
+        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-so.20230721.e850ea.tar.gz"
+        ],
+        "md5": "4bb9d3ae1a6d65fbb2a4e7e57a71397d",
+        "size": 916229181,
+        "documents": 827552,
+        "total_terms": 103736362,
+        "unique_terms": 1636109
+    },
+    {
+        "name": "ciral-v1.0-sw",
+        "type": "inverted",
+        "corpus": "CIRAL v1.0: Swahili",
+        "corpus_index": "ciral-v1.0-sw",
+        "description": "Lucene index for CIRAL v1.0 (Swahili).",
+        "filename": "lucene-index.ciral-v1.0-sw.20230721.e850ea.tar.gz",
+        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-sw.20230721.e850ea.tar.gz"
+        ],
+        "md5": "1236a1a4c87268d98ec6534cd99aaada",
+        "size": 896921754,
+        "documents": 949013,
+        "total_terms": 115140711,
+        "unique_terms": 1655554
+    },
+    {
+        "name": "ciral-v1.0-yo",
+        "type": "inverted",
+        "corpus": "CIRAL v1.0: Yoruba",
+        "corpus_index": "ciral-v1.0-yo",
+        "description": "Lucene index for CIRAL v1.0 (Yoruba).",
+        "filename": "lucene-index.ciral-v1.0-yo.20230721.e850ea.tar.gz",
+        "readme": "lucene-index.ciral-v1.0.20230721.e850ea.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-yo.20230721.e850ea.tar.gz"
+        ],
+        "md5": "655e571314ed85cbfe637246c3d18110",
+        "size": 94610259,
+        "documents": 82095,
+        "total_terms": 13693080,
+        "unique_terms": 236638
+    },
+    {
+        "name": "ciral-v1.0-ha-en",
+        "type": "inverted",
+        "corpus": "CIRAL v1.0 English Translations: Hausa",
+        "corpus_index": "ciral-v1.0-ha-en",
+        "description": "Lucene index for CIRAL v1.0 English Translations (Hausa).",
+        "filename": "lucene-index.ciral-v1.0-ha-en.20240212.2154e7.tar.gz",
+        "readme": "lucene-index.ciral-v1.0-en.20240212.2154e7.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-ha-en.20240212.2154e7.tar.gz"
+        ],
+        "md5": "40af043730fe0fb31c32551ae615bfb0",
+        "size": 485235569,
+        "documents": 715355,
+        "total_terms": 55768945,
+        "unique_terms": 222612
+    },
+    {
+        "name": "ciral-v1.0-so-en",
+        "type": "inverted",
+        "corpus": "CIRAL v1.0 English Translations: Somali",
+        "corpus_index": "ciral-v1.0-so-en",
+        "description": "Lucene index for CIRAL v1.0 English Translations (Somali).",
+        "filename": "lucene-index.ciral-v1.0-so-en.20240212.2154e7.tar.gz",
+        "readme": "lucene-index.ciral-v1.0-en.20240212.2154e7.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-so-en.20240212.2154e7.tar.gz"
+        ],
+        "md5": "ceff839268ebb1f41ac5398d613cbf32",
+        "size": 611458708,
+        "documents": 827552,
+        "total_terms": 63835022,
+        "unique_terms": 214501
+    },
+    {
+        "name": "ciral-v1.0-sw-en",
+        "type": "inverted",
+        "corpus": "CIRAL v1.0 English Translations: Swahili",
+        "corpus_index": "ciral-v1.0-sw-en",
+        "description": "Lucene index for CIRAL v1.0 English Translations (Swahili).",
+        "filename": "lucene-index.ciral-v1.0-sw-en.20240212.2154e7.tar.gz",
+        "readme": "lucene-index.ciral-v1.0-en.20240212.2154e7.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-sw-en.20240212.2154e7.tar.gz"
+        ],
+        "md5": "60a57a128cda8c4a1460f1e3a0df002a",
+        "size": 683272685,
+        "documents": 949013,
+        "total_terms": 83817100,
+        "unique_terms": 265867
+    },
+    {
+        "name": "ciral-v1.0-yo-en",
+        "type": "inverted",
+        "corpus": "CIRAL v1.0 English Translations: Yoruba",
+        "corpus_index": "ciral-v1.0-yo-en",
+        "description": "Lucene index for CIRAL v1.0 English Translations (Yoruba).",
+        "filename": "lucene-index.ciral-v1.0-yo-en.20240212.2154e7.tar.gz",
+        "readme": "lucene-index.ciral-v1.0-en.20240212.2154e7.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.ciral-v1.0-yo-en.20240212.2154e7.tar.gz"
+        ],
+        "md5": "84f29864973de98f2d93fe03a2908703",
+        "size": 60934470,
+        "documents": 82095,
+        "total_terms": 7245155,
+        "unique_terms": 68394
+    }
+]
