@@ -27,6 +27,7 @@ from pyserini.util import (
     compare_trec_strings_with_tolerance,
     download_and_unpack_index,
     download_url,
+    get_cache_home,
     temporary_env,
 )
 
@@ -110,6 +111,24 @@ class TestIterateCollection(unittest.TestCase):
             self.assertTrue(os.path.isdir(index_path), f"Index path missing: {index_path}")
             self.assertTrue(os.path.exists(os.path.join(index_path, 'marker.txt')))
             self.assertFalse(os.path.exists(os.path.join(cache_dir, 'indexes', 'plain-index.tar')))
+
+
+class TestCacheHome(unittest.TestCase):
+    def test_cache_home_uses_environment_override(self):
+        with tempfile.TemporaryDirectory(prefix="cache-home-") as directory:
+            with patch.dict(os.environ, {'PYSERINI_CACHE': directory}):
+                self.assertEqual(get_cache_home(), directory)
+
+    def test_cache_home_uses_local_cache_when_environment_override_is_empty(self):
+        with tempfile.TemporaryDirectory(prefix="cache-home-") as directory:
+            os.mkdir(os.path.join(directory, '.cache'))
+            with patch.dict(os.environ, {'PYSERINI_CACHE': ''}), patch('os.getcwd', return_value=directory):
+                self.assertEqual(get_cache_home(), os.path.join(directory, '.cache', 'pyserini'))
+
+    def test_cache_home_uses_default_when_no_override_or_local_cache_exists(self):
+        with tempfile.TemporaryDirectory(prefix="cache-home-") as directory:
+            with patch.dict(os.environ, {}, clear=True), patch('os.getcwd', return_value=directory):
+                self.assertEqual(get_cache_home(), os.path.expanduser('~/.cache/pyserini'))
 
 
 class TestTemporaryEnv(unittest.TestCase):
