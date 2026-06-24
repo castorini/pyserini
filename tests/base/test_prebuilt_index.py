@@ -18,8 +18,13 @@ import unittest
 
 import requests
 
-from pyserini.prebuilt_index_info import TF_INDEX_INFO, IMPACT_INDEX_INFO, \
-    LUCENE_HNSW_INDEX_INFO, LUCENE_FLAT_INDEX_INFO, FAISS_INDEX_INFO
+from pyserini.prebuilt_index_info import (
+    TF_INDEX_INFO,
+    IMPACT_INDEX_INFO,
+    LUCENE_HNSW_INDEX_INFO,
+    LUCENE_FLAT_INDEX_INFO,
+    FAISS_INDEX_INFO,
+)
 from pyserini.pyclass import autoclass
 
 
@@ -28,310 +33,155 @@ class TestPrebuiltIndexes(unittest.TestCase):
         # Test the accessibility of IndexInfo on the Anserini end to make sure everything is "connected together"
         JPrebuiltFlatIndex = autoclass('io.anserini.index.prebuilt.PrebuiltFlatIndex')
 
-        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').name,
-                         'beir-v1.0.0-arguana.bge-base-en-v1.5.flat')
-        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').filename,
-                         'lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20260425.bb3d65.tar')
-        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').readme,
-                         'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md')
-        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').urls[0],
-                         'https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20260425.bb3d65.tar')
+        self.assertEqual(
+            JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').name,
+            'beir-v1.0.0-arguana.bge-base-en-v1.5.flat',
+        )
+        self.assertEqual(
+            JPrebuiltFlatIndex.get(
+                'beir-v1.0.0-arguana.bge-base-en-v1.5.flat'
+            ).filename,
+            'lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20260425.bb3d65.tar',
+        )
+        self.assertEqual(
+            JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').readme,
+            'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md',
+        )
+        self.assertEqual(
+            JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').urls[0],
+            'https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20260425.bb3d65.tar',
+        )
 
-    def test_lucene_tf_msmarco_v1(self):
-        urls = []
-        cnt = 0
-        for key in TF_INDEX_INFO:
-            if 'msmarco-v1' in key:
-                cnt += 1
-                for url in TF_INDEX_INFO[key]['urls']:
-                    urls.append(url)
+    TF_CASES = [
+        ('msmarco-v1', 16),  # 10 for doc, 5 for passage, 1 alias
+        ('beir', 74),  # 29 each for flat and multifield
+        ('bright', 12),
+        (
+            'mrtydi',
+            22,
+        ),  # 11 languages, but two entries for each language from aliases (e.g., arabic and ar)
+        ('miracl', 18),  # 18 languages including surprise
+        ('ciral', 8),  # each 4: african languages, english translations
+    ]
 
-        # 10 for doc, 5 for passage, 1 alias
-        self.assertEqual(cnt, 16)
-        self._test_urls(urls)
+    IMPACT_CASES = [
+        ('msmarco', 25),
+        ('beir', 58),  # 29 each from SPLADE++ (CoCondenser-EnsembleDistil) and SPLADEv3
+        ('bright', 12),
+        ('mrtydi', 0),  # currently, none
+        ('miracl', 0),  # currently, none
+    ]
 
-    def test_lucene_tf_beir(self):
-        urls = []
-        cnt = 0
-        for key in TF_INDEX_INFO:
-            if 'beir' in key:
-                cnt += 1
-                for url in TF_INDEX_INFO[key]['urls']:
-                    urls.append(url)
+    HNSW_CASES = [
+        ('beir', 29),
+    ]
 
-        # 29 each for flat and multifield
-        self.assertEqual(cnt, 74)
-        self._test_urls(urls)
+    FLAT_CASES = [
+        ('beir', 29),
+        ('bright', 12),
+    ]
 
-    def test_lucene_tf_bright(self):
-        urls = []
-        cnt = 0
-        for key in TF_INDEX_INFO:
-            if 'bright' in key:
-                cnt += 1
-                for url in TF_INDEX_INFO[key]['urls']:
-                    urls.append(url)
+    FAISS_CASES = [
+        # name,        match,                                         expected, dedupe
+        (
+            'beir',
+            lambda k: 'beir' in k and 'm-beir' not in k,
+            116,
+            False,
+        ),  # each 29: contriever, contriever-msmarco, bge, cohere-embed-english-v3.0
+        ('bright', lambda k: 'bright' in k, 36, False),
+        (
+            'mrtydi',
+            lambda k: 'mrtydi-' in k,
+            44,
+            False,
+        ),  # each 11: mdpr-nq, mdpr-tied-pft-msmarco, mdpr-tied-pft-nq, mdpr-tied-pft-msmarco-ft-all
+        (
+            'miracl',
+            lambda k: 'miracl' in k,
+            70,
+            False,
+        ),  # 18 pFT MS MARCO, 18 pFT MS MARCO all, 16 pFT MS MARCO + per lang (no de, yo), 18 mContriever pFT MS MARCO
+        ('msmarco', lambda k: 'msmarco-v' in k, 23, False),
+        (
+            'ciral',
+            lambda k: 'ciral' in k,
+            8,
+            False,
+        ),  # each 4: mdpr-tied-pft-msmarco, afriberta-dpr-ptf-msmarco-ft-latin-mrtydi
+        ('wikipedia', lambda k: 'wikipedia' in k or 'wiki-all' in k, 7, False),
+        ('mmeb', lambda k: 'mmeb' in k, 44, True),
+        ('m-beir', lambda k: 'm-beir' in k, 34, True),
+        ('dse', lambda k: 'dse' in k, 2, False),
+    ]
 
-        self.assertEqual(cnt, 12)
-        self._test_urls(urls)
+    # TF Cases
+    def test_lucene_tf_indexes(self):
+        for keyword, expected in self.TF_CASES:
+            with self.subTest(keyword=keyword):
+                urls = []
+                cnt = 0
+                for key in TF_INDEX_INFO:
+                    if keyword in key:
+                        cnt += 1
+                        urls.extend(TF_INDEX_INFO[key]['urls'])
+                self.assertEqual(cnt, expected)
+                self._test_urls(urls)
 
-    def test_lucene_tf_mrtydi(self):
-        urls = []
-        cnt = 0
-        for key in TF_INDEX_INFO:
-            if 'mrtydi' in key:
-                cnt += 1
-                for url in TF_INDEX_INFO[key]['urls']:
-                    urls.append(url)
+    # Impact Cases
+    def test_lucene_impact_indexes(self):
+        for keyword, expected in self.IMPACT_CASES:
+            with self.subTest(keyword=keyword):
+                urls = []
+                cnt = 0
+                for key in IMPACT_INDEX_INFO:
+                    if keyword in key:
+                        cnt += 1
+                        urls.extend(IMPACT_INDEX_INFO[key]['urls'])
+                self.assertEqual(cnt, expected)
+                self._test_urls(urls)
 
-        # 11 languages, but two entries for each language from aliases (e.g., arabic and ar)
-        self.assertEqual(cnt, 22)
-        self._test_urls(urls)
+    # Lucene HNSW Cases
+    def test_lucene_hnsw_indexes(self):
+        for keyword, expected in self.HNSW_CASES:
+            with self.subTest(keyword=keyword):
+                urls = []
+                cnt = 0
+                for key in LUCENE_HNSW_INDEX_INFO:
+                    if keyword in key:
+                        cnt += 1
+                        urls.extend(LUCENE_HNSW_INDEX_INFO[key]['urls'])
+                self.assertEqual(cnt, expected)
+                self._test_urls(urls)
 
-    def test_lucene_tf_miracl(self):
-        urls = []
-        cnt = 0
-        for key in TF_INDEX_INFO:
-            if 'miracl' in key:
-                cnt += 1
-                for url in TF_INDEX_INFO[key]['urls']:
-                    urls.append(url)
+    # Lucene Flat Cases
+    def test_lucene_flat_indexes(self):
+        for keyword, expected in self.FLAT_CASES:
+            with self.subTest(keyword=keyword):
+                urls = []
+                cnt = 0
+                for key in LUCENE_FLAT_INDEX_INFO:
+                    if keyword in key:
+                        cnt += 1
+                        urls.extend(LUCENE_FLAT_INDEX_INFO[key]['urls'])
+                self.assertEqual(cnt, expected)
+                self._test_urls(urls)
 
-        # 18 languages including surprise
-        self.assertEqual(cnt, 18)
-        self._test_urls(urls)
-
-    def test_lucene_tf_ciral(self):
-        urls = []
-        cnt = 0
-        for key in TF_INDEX_INFO:
-            if 'ciral' in key:
-                cnt += 1
-                for url in TF_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        # each 4: african languages, english translations
-        self.assertEqual(cnt, 8)
-        self._test_urls(urls)
-
-    def test_lucene_impact_msmarco(self):
-        urls = []
-        cnt = 0
-        for key in IMPACT_INDEX_INFO:
-            if 'msmarco' in key:
-                cnt += 1
-                for url in IMPACT_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        self.assertEqual(cnt, 25)
-        self._test_urls(urls)
-
-    def test_lucene_impact_beir(self):
-        urls = []
-        cnt = 0
-        for key in IMPACT_INDEX_INFO:
-            if 'beir' in key:
-                cnt += 1
-                for url in IMPACT_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        # 29 each from SPLADE++ (CoCondenser-EnsembleDistil) and SPLADEv3
-        self.assertEqual(cnt, 58)
-        self._test_urls(urls)
-
-    def test_lucene_impact_bright(self):
-        urls = []
-        cnt = 0
-        for key in IMPACT_INDEX_INFO:
-            if 'bright' in key:
-                cnt += 1
-                for url in IMPACT_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        self.assertEqual(cnt, 12)
-        self._test_urls(urls)
-
-    def test_lucene_impact_mrtydi(self):
-        urls = []
-        cnt = 0
-        for key in IMPACT_INDEX_INFO:
-            if 'miracl' in key:
-                cnt += 1
-                for url in IMPACT_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        # currently, none
-        self.assertEqual(cnt, 0)
-
-    def test_lucene_impact_miracl(self):
-        urls = []
-        cnt = 0
-        for key in IMPACT_INDEX_INFO:
-            if 'miracl' in key:
-                cnt += 1
-                for url in IMPACT_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        # currently, none
-        self.assertEqual(cnt, 0)
-
-    def test_lucene_hnsw_beir(self):
-        urls = []
-        cnt = 0
-        for key in LUCENE_HNSW_INDEX_INFO:
-            if 'beir' in key:
-                cnt += 1
-                for url in LUCENE_HNSW_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        self.assertEqual(cnt, 29)
-        self._test_urls(urls)
-
-    def test_lucene_flat_beir(self):
-        urls = []
-        cnt = 0
-        for key in LUCENE_FLAT_INDEX_INFO:
-            if 'beir' in key:
-                cnt += 1
-                for url in LUCENE_FLAT_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        self.assertEqual(cnt, 29)
-        self._test_urls(urls)
-
-    def test_lucene_flat_bright(self):
-        urls = []
-        cnt = 0
-        for key in LUCENE_FLAT_INDEX_INFO:
-            if 'bright' in key:
-                cnt += 1
-                for url in LUCENE_FLAT_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        self.assertEqual(cnt, 12)
-        self._test_urls(urls)
-
-    def test_faiss_beir(self):
-        urls = []
-        cnt = 0
-        for key in FAISS_INDEX_INFO:
-            if 'beir' in key and 'm-beir' not in key:
-                cnt += 1
-                for url in FAISS_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        # each 29: contriever, contriever-msmarco, bge, cohere-embed-english-v3.0
-        self.assertEqual(cnt, 116)
-        self._test_urls(urls)
-
-    def test_faiss_bright(self):
-        urls = []
-        cnt = 0
-        for key in FAISS_INDEX_INFO:
-            if 'bright' in key:
-                cnt += 1
-                for url in FAISS_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        self.assertEqual(cnt, 36)
-        self._test_urls(urls)
-
-    def test_faiss_mrtydi(self):
-        urls = []
-        cnt = 0
-        for key in FAISS_INDEX_INFO:
-            if 'mrtydi-' in key:
-                cnt += 1
-                for url in FAISS_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        # each 11: mdpr-nq, mdpr-tied-pft-msmarco, mdpr-tied-pft-nq, mdpr-tied-pft-msmarco-ft-all
-        self.assertEqual(cnt, 44)
-        self._test_urls(urls)
-
-    def test_faiss_miracl(self):
-        urls = []
-        cnt = 0
-        for key in FAISS_INDEX_INFO:
-            if 'miracl' in key:
-                cnt += 1
-                for url in FAISS_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        # 18 pFT MS MARCO, 18 pFT MS MARCO all, 16 pFT MS MARCO + per lang (no de, yo), 18 mContriever pFT MS MARCO
-        self.assertEqual(cnt, 70)
-        self._test_urls(urls)
-
-    def test_faiss_msmarco(self):
-        urls = []
-        cnt = 0
-        for key in FAISS_INDEX_INFO:
-            if 'msmarco-v' in key:
-                cnt += 1
-                for url in FAISS_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        self.assertEqual(cnt, 23)
-        self._test_urls(urls)
-
-    def test_faiss_ciral(self):
-        urls = []
-        cnt = 0
-        for key in FAISS_INDEX_INFO:
-            if 'ciral' in key:
-                cnt += 1
-                for url in FAISS_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        # each 4: mdpr-tied-pft-msmarco, afriberta-dpr-ptf-msmarco-ft-latin-mrtydi
-        self.assertEqual(cnt, 8)
-        self._test_urls(urls)
-
-    def test_faiss_wikipedia(self):
-        urls = []
-        cnt = 0
-        for key in FAISS_INDEX_INFO:
-            if 'wikipedia' in key or 'wiki-all' in key:
-                cnt += 1
-                for url in FAISS_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        self.assertEqual(cnt, 7)
-        self._test_urls(urls)
-
-    def test_faiss_mmeb(self):
-        urls = set()
-        cnt = 0
-        for key in FAISS_INDEX_INFO:
-            if 'mmeb' in key:
-                cnt += 1
-                for url in FAISS_INDEX_INFO[key]['urls']:
-                    urls.add(url)
-        self.assertEqual(cnt, 44)
-        self._test_urls(urls)
-
-    def test_faiss_m_beir(self):
-        urls = set()
-        cnt = 0
-        for key in FAISS_INDEX_INFO:
-            if 'm-beir' in key:
-                cnt += 1
-                for url in FAISS_INDEX_INFO[key]['urls']:
-                    urls.add(url)
-        self.assertEqual(cnt, 34)
-        self._test_urls(urls)
-
-    def test_faiss_dse(self):
-        urls = []
-        cnt = 0
-        for key in FAISS_INDEX_INFO:
-            if 'dse' in key:
-                cnt += 1
-                for url in FAISS_INDEX_INFO[key]['urls']:
-                    urls.append(url)
-
-        self.assertEqual(cnt, 2)
-        self._test_urls(urls)
+    # Faiss Cases
+    def test_faiss_indexes(self):
+        for name, match, expected, dedupe in self.FAISS_CASES:
+            with self.subTest(name=name):
+                urls = set() if dedupe else []
+                cnt = 0
+                for key in FAISS_INDEX_INFO:
+                    if match(key):
+                        cnt += 1
+                        if dedupe:
+                            urls.update(FAISS_INDEX_INFO[key]['urls'])
+                        else:
+                            urls.extend(FAISS_INDEX_INFO[key]['urls'])
+                self.assertEqual(cnt, expected)
+                self._test_urls(urls)
 
     def _test_urls(self, urls):
         cnt = 0
@@ -358,13 +208,22 @@ class TestPrebuiltIndexes(unittest.TestCase):
 
                     response = requests.request(method, url, **kwargs)
                     try:
-                        attempts.append(f'{method} {response.status_code} {response.url}')
+                        attempts.append(
+                            f'{method} {response.status_code} {response.url}'
+                        )
 
-                        if response.status_code == 200 or (method == 'GET' and response.status_code == 206):
+                        if response.status_code == 200 or (
+                            method == 'GET' and response.status_code == 206
+                        ):
                             return
 
-                        if response.status_code not in transient_status_codes and method == 'GET':
-                            self.fail(f'Error checking {url}; attempts: {"; ".join(attempts)}')
+                        if (
+                            response.status_code not in transient_status_codes
+                            and method == 'GET'
+                        ):
+                            self.fail(
+                                f'Error checking {url}; attempts: {"; ".join(attempts)}'
+                            )
                     finally:
                         response.close()
                 except requests.RequestException as e:
