@@ -38,9 +38,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
             'beir-v1.0.0-arguana.bge-base-en-v1.5.flat',
         )
         self.assertEqual(
-            JPrebuiltFlatIndex.get(
-                'beir-v1.0.0-arguana.bge-base-en-v1.5.flat'
-            ).filename,
+            JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').filename,
             'lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20260425.bb3d65.tar',
         )
         self.assertEqual(
@@ -56,10 +54,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
         ('msmarco-v1', 16),  # 10 for doc, 5 for passage, 1 alias
         ('beir', 74),  # 29 each for flat and multifield
         ('bright', 12),
-        (
-            'mrtydi',
-            22,
-        ),  # 11 languages, but two entries for each language from aliases (e.g., arabic and ar)
+        ('mrtydi', 22),  # 11 languages, but two entries for each language from aliases (e.g., arabic and ar)
         ('miracl', 18),  # 18 languages including surprise
         ('ciral', 8),  # each 4: african languages, english translations
     ]
@@ -72,43 +67,19 @@ class TestPrebuiltIndexes(unittest.TestCase):
         ('miracl', 0),  # currently, none
     ]
 
-    HNSW_CASES = [
-        ('beir', 29),
-    ]
+    HNSW_CASES = [('beir', 29)]
 
-    FLAT_CASES = [
-        ('beir', 29),
-        ('bright', 12),
-    ]
+    FLAT_CASES = [('beir', 29),
+                  ('bright', 12)]
 
     FAISS_CASES = [
-        # name,        match,                                         expected, dedupe
-        (
-            'beir',
-            lambda k: 'beir' in k and 'm-beir' not in k,
-            116,
-            False,
-        ),  # each 29: contriever, contriever-msmarco, bge, cohere-embed-english-v3.0
+        # name, match, expected, dedupe
+        ('beir', lambda k: 'beir' in k and 'm-beir' not in k, 116, False),  # each 29: contriever, contriever-msmarco, bge, cohere-embed-english-v3.0
         ('bright', lambda k: 'bright' in k, 36, False),
-        (
-            'mrtydi',
-            lambda k: 'mrtydi-' in k,
-            44,
-            False,
-        ),  # each 11: mdpr-nq, mdpr-tied-pft-msmarco, mdpr-tied-pft-nq, mdpr-tied-pft-msmarco-ft-all
-        (
-            'miracl',
-            lambda k: 'miracl' in k,
-            70,
-            False,
-        ),  # 18 pFT MS MARCO, 18 pFT MS MARCO all, 16 pFT MS MARCO + per lang (no de, yo), 18 mContriever pFT MS MARCO
+        ('mrtydi', lambda k: 'mrtydi-' in k, 44, False),  # each 11: mdpr-nq, mdpr-tied-pft-msmarco, mdpr-tied-pft-nq, mdpr-tied-pft-msmarco-ft-all
+        ('miracl', lambda k: 'miracl' in k, 70, False),  # 18 pFT MS MARCO, 18 pFT MS MARCO all, 16 pFT MS MARCO + per lang (no de, yo), 18 mContriever pFT MS MARCO
         ('msmarco', lambda k: 'msmarco-v' in k, 23, False),
-        (
-            'ciral',
-            lambda k: 'ciral' in k,
-            8,
-            False,
-        ),  # each 4: mdpr-tied-pft-msmarco, afriberta-dpr-ptf-msmarco-ft-latin-mrtydi
+        ('ciral', lambda k: 'ciral' in k, 8, False),  # each 4: mdpr-tied-pft-msmarco, afriberta-dpr-ptf-msmarco-ft-latin-mrtydi
         ('wikipedia', lambda k: 'wikipedia' in k or 'wiki-all' in k, 7, False),
         ('mmeb', lambda k: 'mmeb' in k, 44, True),
         ('m-beir', lambda k: 'm-beir' in k, 34, True),
@@ -198,32 +169,20 @@ class TestPrebuiltIndexes(unittest.TestCase):
         for _ in range(3):
             for method in ['HEAD', 'GET']:
                 try:
-                    kwargs = {
-                        'allow_redirects': True,
-                        'timeout': (5, 30),
-                    }
+                    kwargs = {'allow_redirects': True, 'timeout': (5, 30)}
                     if method == 'GET':
                         kwargs['headers'] = {'Range': 'bytes=0-0'}
                         kwargs['stream'] = True
 
                     response = requests.request(method, url, **kwargs)
                     try:
-                        attempts.append(
-                            f'{method} {response.status_code} {response.url}'
-                        )
+                        attempts.append(f'{method} {response.status_code} {response.url}')
 
-                        if response.status_code == 200 or (
-                            method == 'GET' and response.status_code == 206
-                        ):
+                        if response.status_code == 200 or (method == 'GET' and response.status_code == 206):
                             return
 
-                        if (
-                            response.status_code not in transient_status_codes
-                            and method == 'GET'
-                        ):
-                            self.fail(
-                                f'Error checking {url}; attempts: {"; ".join(attempts)}'
-                            )
+                        if response.status_code not in transient_status_codes and method == 'GET':
+                            self.fail(f'Error checking {url}; attempts: {"; ".join(attempts)}')
                     finally:
                         response.close()
                 except requests.RequestException as e:
