@@ -15,61 +15,36 @@
 #
 
 import argparse
+import os
 
 import pandas as pd
-
 from tqdm import tqdm
-from pyserini.encode._base import load_bert_tokenizer
-from pyserini.query_iterator import get_query_iterator, TopicsFormat
-from transformers import BertModel
-import torch
 
+from pyserini.encode.query import DkrrDprQueryEncoder
+from pyserini.query_iterator import DefaultQueryIterator
 
-class DkrrDprQueryEncoder():
+ENCODER = 'castorini/dkrr-dpr-nq-retriever'
 
-    def __init__(self, encoder: str = None, device: str = 'cpu', prefix: str = "question:"):
-        self.device = device
-        self.model = BertModel.from_pretrained(encoder)
-        self.model.to(self.device)
-        self.tokenizer = load_bert_tokenizer("bert-base-uncased")
-        self.prefix = prefix
-
-    @staticmethod
-    def _mean_pooling(model_output, attention_mask):
-        model_output = model_output[0].masked_fill(attention_mask[:, :, None] == 0, 0.)
-        model_output = torch.sum(model_output, dim=1) / torch.clamp(torch.sum(attention_mask, dim=1), min=1e-9)[:, None]
-        return model_output.flatten()
-
-    def encode(self, query: str):
-        if self.prefix:
-            query = f'{self.prefix} {query}'
-        inputs = self.tokenizer(query, return_tensors='pt', max_length=40, padding="max_length")
-        inputs.to(self.device)
-        outputs = self.model(input_ids=inputs["input_ids"],
-                            attention_mask=inputs["attention_mask"])
-        embeddings = self._mean_pooling(outputs, inputs['attention_mask']).detach().cpu().numpy()
-        return embeddings.flatten()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--topics', type=str, metavar='topic_name', required=True,
-                        help="Name of topics.")
-    parser.add_argument('--encoder', type=str, help='encoder name or path',
-                        default='facebook/dpr-question_encoder-multiset-base', required=False)
+    parser.add_argument('--topics', type=str, help='path to topics file or topics name', required=True)
     parser.add_argument('--output', type=str, help='path to store query embeddings', required=True)
-    parser.add_argument('--device', type=str,
-                        help='device cpu or cuda [cuda:0, cuda:1...]', default='cpu', required=False)
+    parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]', default='cpu', required=False)
     args = parser.parse_args()
 
-    query_iterator = get_query_iterator(args.topics, TopicsFormat(TopicsFormat.DEFAULT.value))
-    topics = query_iterator.topics
-    
-    encoder = DkrrDprQueryEncoder(args.encoder, args.device)
+    encoder = DkrrDprQueryEncoder(encoder_dir=ENCODER, device=args.device)
 
     embeddings = {'id': [], 'text': [], 'embedding': []}
-    for index, (topic_id, text) in enumerate(tqdm(query_iterator, total=len(topics.keys()))):
-        embeddings['id'].append(topic_id)
+    for qid, text in tqdm(DefaultQueryIterator.from_topics(args.topics)):
+        embeddings['id'].append(qid)
         embeddings['text'].append(text)
         embeddings['embedding'].append(encoder.encode(text))
+
     embeddings = pd.DataFrame(embeddings)
+    output_dir = os.path.dirname(args.output)
+
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+
     embeddings.to_pickle(args.output)

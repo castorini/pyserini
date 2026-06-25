@@ -54,8 +54,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 Results:
 
 ```text
-Top20  accuracy: 0.7792
-Top100 accuracy: 0.8571
+Top20   accuracy: 0.7792
+Top100  accuracy: 0.8571
 ```
 
 ## Reproduction Log[*](reproducibility.md)

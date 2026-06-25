@@ -23,30 +23,23 @@ from tqdm import tqdm
 from pyserini.encode import BprQueryEncoder
 from pyserini.query_iterator import DefaultQueryIterator
 
-
-def parse_topics(topics):
-    for topic_id, text in DefaultQueryIterator.from_topics(topics):
-        yield topic_id, text
+ENCODER = 'castorini/bpr-nq-question-encoder'
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--encoder', type=str, help='encoder name or path', default='castorini/bpr-nq-question-encoder', required=False)
-    parser.add_argument('--topics', type=str, help='path to topics file or self-contained topics name', required=True)
+    parser.add_argument('--topics', type=str, help='path to topics file or topics name', required=True)
     parser.add_argument('--output', type=str, help='path to store query embeddings', required=True)
     parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]', default='cpu', required=False)
-    parser.add_argument('--batch-size', type=int, help='query encoding batch size', default=256, required=False)
     args = parser.parse_args()
 
-    model = BprQueryEncoder(encoder_dir=args.encoder, device=args.device)
+    encoder = BprQueryEncoder(encoder_dir=ENCODER, device=args.device)
 
     embeddings = {'id': [], 'text': [], 'dense_embedding': [], 'sparse_embedding': []}
-    queries = list(parse_topics(args.topics))
-
-    for qid, question in tqdm(queries):
+    for qid, text in tqdm(DefaultQueryIterator.from_topics(args.topics)):
         embeddings['id'].append(qid)
-        embeddings['text'].append(question)
-        ret = model.encode(question)
+        embeddings['text'].append(text)
+        ret = encoder.encode(text)
         embeddings['dense_embedding'].append(ret['dense'])
         embeddings['sparse_embedding'].append(ret['sparse'])
 
