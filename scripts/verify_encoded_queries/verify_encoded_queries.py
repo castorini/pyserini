@@ -328,6 +328,29 @@ def cosine_similarity(left, right):
     return float(np.dot(left, right) / (left_norm * right_norm))
 
 
+def summarize_similarities(key, similarities):
+    scores = np.asarray(similarities, dtype=np.float64)
+    finite = scores[np.isfinite(scores)]
+    if len(finite) == 0:
+        raise ValueError(f'{key}: no finite cosine similarities computed')
+
+    print(f'Summary for {key}:')
+    print(f'  compared queries: {len(scores)}')
+    print(f'  finite similarities: {len(finite)}')
+    print(f'  min cosine: {finite.min():.12f}')
+    print(f'  avg cosine: {finite.mean():.12f}')
+    print(f'  max cosine: {finite.max():.12f}')
+    print(f'  stddev cosine: {finite.std():.12f}')
+    print(f'  p50 cosine: {np.percentile(finite, 50):.12f}')
+    print(f'  p95 cosine: {np.percentile(finite, 95):.12f}')
+    print(f'  p99 cosine: {np.percentile(finite, 99):.12f}')
+    print(f'  exact 1.0 similarities: {np.count_nonzero(finite == 1.0)}')
+    one_minus = 1.0 - finite
+    print(f'  min 1-cosine: {one_minus.min():.6e}')
+    print(f'  avg 1-cosine: {one_minus.mean():.6e}')
+    print(f'  max 1-cosine: {one_minus.max():.6e}')
+
+
 def download_cached_embeddings(key, info, work_dir, force):
     download_dir = work_dir / 'download'
     download_dir.mkdir(parents=True, exist_ok=True)
@@ -403,22 +426,12 @@ def compare_embeddings(key, downloaded_path, encoded_path, expected_total):
         raise ValueError(f'{key}: {len(missing)} generated queries are missing from cached embeddings')
 
     similarities = []
-    print('query_id\tcached_id\tcosine')
     for text in encoded_texts:
         cached_row = downloaded_by_text[text]
         encoded_row = encoded_by_text[text]
         similarity = cosine_similarity(encoded_row.embedding, cached_row.embedding)
         similarities.append(similarity)
-        print(f'{encoded_row.id}\t{cached_row.id}\t{similarity:.8f}')
-
-    finite = np.array([score for score in similarities if np.isfinite(score)])
-    if len(finite) == 0:
-        raise ValueError(f'{key}: no finite cosine similarities computed')
-
-    print(
-        f'Summary for {key}: compared={len(similarities)} '
-        f'min={finite.min():.8f} mean={finite.mean():.8f} max={finite.max():.8f}'
-    )
+    summarize_similarities(key, similarities)
 
 
 def verify_key(key, args):
