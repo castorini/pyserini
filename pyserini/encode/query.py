@@ -16,6 +16,7 @@
 
 import argparse
 import inspect
+import os
 from itertools import islice
 
 import numpy as np
@@ -27,6 +28,7 @@ from pyserini.encode import (
     AnceQueryEncoder,
     ArcticQueryEncoder,
     AutoQueryEncoder,
+    BprQueryEncoder,
     CosDprQueryEncoder,
     DprQueryEncoder,
     DseQueryEncoder,
@@ -39,8 +41,10 @@ from pyserini.encode import (
 from pyserini.query_iterator import DefaultQueryIterator
 
 
-def init_encoder(encoder, device, pooling, l2_norm, prefix):
-    if 'dpr' in encoder.lower():
+def init_encoder(encoder, device, pooling, l2_norm, prefix, bpr):
+    if bpr:
+        return BprQueryEncoder(encoder, device=device)
+    elif 'dpr' in encoder.lower():
         return DprQueryEncoder(encoder, device=device)
     elif 'tct' in encoder.lower():
         return TctColBertQueryEncoder(encoder, device=device)
@@ -75,6 +79,12 @@ def encode_query(encoder, text, max_length):
     return encoder.encode(text)
 
 
+def create_output_dir(output):
+    output_dir = os.path.dirname(output)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--topics', type=str, help='path to topics file in tsv format or self-contained topics name', required=True)
@@ -88,12 +98,13 @@ if __name__ == '__main__':
     parser.add_argument('--pooling', type=str, help='pooling strategy', default='cls', choices=['cls', 'mean'], required=False)
     parser.add_argument('--l2-norm', action='store_true', help='whether to normalize embedding', default=False, required=False)
     parser.add_argument('--prefix', type=str, help='prefix query input', default=None, required=False)
+    parser.add_argument('--bpr', action='store_true', help='encode BPR dense and binary query representations', default=False, required=False)
     args = parser.parse_args()
 
     if args.max_queries is not None and args.max_queries < 0:
         raise ValueError('--max-queries must be non-negative')
 
-    encoder = init_encoder(args.encoder, device=args.device, pooling=args.pooling, l2_norm=args.l2_norm, prefix=args.prefix)
+    encoder = init_encoder(args.encoder, device=args.device, pooling=args.pooling, l2_norm=args.l2_norm, prefix=args.prefix, bpr=args.bpr)
     query_iterator = DefaultQueryIterator.from_topics(args.topics)
     if args.max_queries is not None:
         query_iterator = islice(query_iterator, args.max_queries)
@@ -102,8 +113,16 @@ if __name__ == '__main__':
     query_ids = []
     query_texts = []
     query_embeddings = []
+    dense_embeddings = []
+    sparse_embeddings = []
     for topic_id, text in tqdm(query_iterator):
         embedding = encode_query(encoder, text, args.max_length)
+        if args.bpr:
+            query_ids.append(topic_id)
+            query_texts.append(text)
+            dense_embeddings.append(embedding['dense'])
+            sparse_embeddings.append(embedding['sparse'])
+            continue
         if isinstance(embedding, dict):
             is_sparse = True
             pseudo_str = []
@@ -116,10 +135,21 @@ if __name__ == '__main__':
         query_texts.append(text)
         query_embeddings.append(embedding)
 
+    create_output_dir(args.output)
+
     if is_sparse:
         with open(args.output, 'w') as f:
             for i in range(len(query_ids)):
                 f.write(f"{query_ids[i]}\t{query_embeddings[i]}\n")
+    elif args.bpr:
+        embeddings = {
+            'id': query_ids,
+            'text': query_texts,
+            'dense_embedding': dense_embeddings,
+            'sparse_embedding': sparse_embeddings,
+        }
+        embeddings = pd.DataFrame(embeddings)
+        embeddings.to_pickle(args.output)
     else:
         embeddings = {'id': query_ids, 'text': query_texts, 'embedding': query_embeddings}
         embeddings = pd.DataFrame(embeddings)
