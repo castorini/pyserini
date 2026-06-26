@@ -78,8 +78,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.7947
-Top100 accuracy: 0.8609
+Top20   accuracy: 0.7947
+Top100  accuracy: 0.8609
 ```
 
 **BM25 retrieval**:
@@ -108,8 +108,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.6294
-Top100 accuracy: 0.7825
+Top20   accuracy: 0.6294
+Top100  accuracy: 0.7825
 ```
 
 **Hybrid dense-sparse retrieval** (combining above two approaches):
@@ -142,8 +142,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.8260
-Top100 accuracy: 0.8859
+Top20   accuracy: 0.8260
+Top100  accuracy: 0.8859
 ```
 
 ## TriviaQA with DPR-Multi
@@ -176,8 +176,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.7887
-Top100 accuracy: 0.8479
+Top20   accuracy: 0.7887
+Top100  accuracy: 0.8479
 ```
 
 **BM25 retrieval**:
@@ -206,8 +206,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.7641
-Top100 accuracy: 0.8315
+Top20   accuracy: 0.7641
+Top100  accuracy: 0.8315
 ```
 
 **Hybrid dense-sparse retrieval** (combining above two approaches):
@@ -240,8 +240,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.8264
-Top100 accuracy: 0.8655
+Top20   accuracy: 0.8264
+Top100  accuracy: 0.8655
 ```
 
 ## WebQuestions (WQ) with DPR-Multi
@@ -274,8 +274,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.7505
-Top100 accuracy: 0.8297
+Top20   accuracy: 0.7505
+Top100  accuracy: 0.8297
 ```
 
 **BM25 retrieval**:
@@ -304,8 +304,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.6240
-Top100 accuracy: 0.7549
+Top20   accuracy: 0.6240
+Top100  accuracy: 0.7549
 ```
 
 **Hybrid dense-sparse retrieval** (combining above two approaches):
@@ -338,8 +338,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.7712
-Top100 accuracy: 0.8440
+Top20   accuracy: 0.7712
+Top100  accuracy: 0.8440
 ```
 
 ## CuratedTREC with DPR-Multi
@@ -374,8 +374,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.8876
-Top100 accuracy: 0.9337
+Top20   accuracy: 0.8876
+Top100  accuracy: 0.9337
 ```
 
 **BM25 retrieval**:
@@ -406,8 +406,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.8069
-Top100 accuracy: 0.8991
+Top20   accuracy: 0.8069
+Top100  accuracy: 0.8991
 ```
 
 **Hybrid dense-sparse retrieval** (combining above two approaches):
@@ -442,8 +442,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.9006
-Top100 accuracy: 0.9496
+Top20   accuracy: 0.9006
+Top100  accuracy: 0.9496
 ```
 
 ## SQuAD with DPR-Multi
@@ -476,8 +476,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.5199
-Top100 accuracy: 0.6773
+Top20   accuracy: 0.5199
+Top100  accuracy: 0.6773
 ```
 
 **BM25 retrieval**:
@@ -506,8 +506,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.7109
-Top100 accuracy: 0.8184
+Top20   accuracy: 0.7109
+Top100  accuracy: 0.8184
 ```
 
 **Hybrid dense-sparse retrieval** (combining above two approaches):
@@ -540,8 +540,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.7511
-Top100 accuracy: 0.8437
+Top20   accuracy: 0.7512
+Top100  accuracy: 0.8436
 ```
 
 ## Natural Questions (NQ) with DPR-Single
@@ -574,8 +574,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.8006
-Top100 accuracy: 0.8609
+Top20   accuracy: 0.8006
+Top100  accuracy: 0.8609
 ```
 
 **Hybrid dense-sparse retrieval**:
@@ -608,8 +608,8 @@ python -m pyserini.eval.evaluate_dpr_retrieval \
 And the expected results:
 
 ```text
-Top20  accuracy: 0.8288
-Top100 accuracy: 0.8837
+Top20   accuracy: 0.8288
+Top100  accuracy: 0.8837
 ```
 
 ## Reproduction Log[*](reproducibility.md)
