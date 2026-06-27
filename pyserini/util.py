@@ -285,8 +285,8 @@ def get_cache_home():
     Resolve the Pyserini cache home.
 
     Precedence:
-    1. PYSERINI_CACHE, when set to a non-empty value.
-    2. <cwd>/.cache/pyserini, when <cwd>/.cache exists.
+    1. PYSERINI_CACHE, if set to a non-empty value.
+    2. <cwd>/.cache/pyserini, if <cwd>/.cache already exists.
     3. ~/.cache/pyserini.
     """
     custom_dir = os.environ.get('PYSERINI_CACHE')
