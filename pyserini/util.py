@@ -417,8 +417,7 @@ def download_prebuilt_index(index_name, force=False, verbose=True, mirror=None):
     for url in target_index['urls']:
         local_filename = target_index['filename'] if 'filename' in target_index else None
         try:
-            return download_and_unpack_archive(url, local_filename=local_filename, append_md5_to_dir_name=True,
-                                               md5=index_md5, verbose=verbose, expected_size=expected_size)
+            return download_and_unpack_archive(url, local_filename=local_filename, append_md5_to_dir_name=True, md5=index_md5, verbose=verbose, expected_size=expected_size)
         except (HTTPError, URLError):
             print(f'Unable to download prebuilt index at {url}, trying next URL...')
     raise ValueError('Unable to download prebuilt index at any known URLs.')
@@ -430,7 +429,7 @@ def download_encoded_queries(query_name, force=False, verbose=True, mirror=None)
     query_md5 = QUERY_INFO[query_name]['md5']
     for url in QUERY_INFO[query_name]['urls']:
         try:
-            return download_and_unpack_archive(url, output_dir='queries', append_md5_to_dir_name=True, md5=query_md5)
+            return download_and_unpack_archive(url, output_dir='queries', append_md5_to_dir_name=True, verbose=verbose, md5=query_md5)
         except (HTTPError, URLError):
             print(f'Unable to download encoded query at {url}, trying next URL...')
     raise ValueError('Unable to download encoded query at any known URLs.')
