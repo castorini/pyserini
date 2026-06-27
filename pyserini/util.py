@@ -281,10 +281,24 @@ def download_url(url, save_dir, local_filename=None, md5=None, force=False, verb
 
 
 def get_cache_home():
+    """
+    Resolve the Pyserini cache home.
+
+    Precedence:
+    1. PYSERINI_CACHE, if set to a non-empty value.
+    2. <cwd>/.cache/pyserini, if <cwd>/.cache already exists.
+    3. ~/.cache/pyserini.
+    """
     custom_dir = os.environ.get('PYSERINI_CACHE')
     if custom_dir is not None and custom_dir != '':
         return custom_dir
-    return os.path.expanduser(os.path.join(f'~{os.path.sep}.cache', "pyserini"))
+
+    local_cache = os.path.join(os.getcwd(), '.cache')
+    if os.path.isdir(local_cache):
+        return os.path.join(local_cache, 'pyserini')
+
+    return os.path.expanduser(os.path.join(f'~{os.path.sep}.cache', 'pyserini'))
+
 
 def download_and_unpack_archive(url, output_dir='indexes', local_filename=False, md5=None,
                                 force=False, verbose=True, append_md5_to_dir_name=False, expected_size=None):

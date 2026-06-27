@@ -20,6 +20,7 @@ import shutil
 import unittest
 
 from pyserini.search.lucene import LuceneSearcher
+from pyserini.util import get_cache_home
 
 
 class TestIndexDownload(unittest.TestCase):
@@ -28,7 +29,7 @@ class TestIndexDownload(unittest.TestCase):
 
     def test_default_cache(self):
         LuceneSearcher.from_prebuilt_index('cacm')
-        self.assertTrue(os.path.exists(os.path.expanduser('~/.cache/pyserini/indexes')))
+        self.assertTrue(os.path.exists(os.path.join(get_cache_home(), 'indexes')))
 
     def test_custom_cache(self):
         os.environ['PYSERINI_CACHE'] = self.tmp_dir
