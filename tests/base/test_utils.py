@@ -25,7 +25,7 @@ from pyserini.prebuilt_index_info import TF_INDEX_INFO
 from pyserini.util import (
     compare_trec_files_with_tolerance,
     compare_trec_strings_with_tolerance,
-    download_and_unpack_index,
+    download_and_unpack_archive,
     download_url,
     get_cache_home,
     temporary_env,
@@ -67,7 +67,7 @@ class TestIterateCollection(unittest.TestCase):
             with self.assertRaises((AssertionError, ValueError)):
                 download_url(url, directory, md5=bad_md5, expected_size=expected_size, force=True)
 
-    def test_download_and_unpack_index_sanity(self):
+    def test_download_and_unpack_archive_sanity(self):
         """
         Sanity check: rely on download_url (inside function) to validate MD5/size,
         then ensure the extracted index directory exists and is non-empty.
@@ -78,8 +78,8 @@ class TestIterateCollection(unittest.TestCase):
         expected_md5 = info.get("md5", None)
 
         with tempfile.TemporaryDirectory(prefix="prebuilt-index-") as directory:
-            index_path = download_and_unpack_index(url, index_directory=directory, md5=expected_md5,
-                expected_size=expected_size, prebuilt=False, verbose=False, force=True)
+            index_path = download_and_unpack_archive(url, output_dir=directory, md5=expected_md5,
+                expected_size=expected_size, append_md5_to_dir_name=False, verbose=False, force=True)
             self.assertTrue(os.path.isdir(index_path), f"Index path missing: {index_path}")
             self.assertGreater(len(os.listdir(index_path)), 0, "Extracted index directory is empty.")
 
@@ -105,7 +105,11 @@ class TestIterateCollection(unittest.TestCase):
 
             with patch.dict(os.environ, {'PYSERINI_CACHE': cache_dir}), \
                     patch('pyserini.util.download_url', side_effect=fake_download_url):
-                index_path = download_and_unpack_index('https://example.com/plain-index.tar', prebuilt=True, md5='abc123', verbose=False)
+                index_path = download_and_unpack_archive(
+                    'https://example.com/plain-index.tar',
+                    append_md5_to_dir_name=True,
+                    md5='abc123',
+                    verbose=False)
 
             self.assertEqual(index_path, os.path.join(cache_dir, 'indexes', 'plain-index.abc123'))
             self.assertTrue(os.path.isdir(index_path), f"Index path missing: {index_path}")

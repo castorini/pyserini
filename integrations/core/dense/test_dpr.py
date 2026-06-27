@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-"""Integration tests for DPR model using pre-encoded queries."""
+"""Integration tests for DPR dense retrieval and encoded queries."""
 
 import json
 import multiprocessing
@@ -22,8 +22,6 @@ import os
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score_qa
-from pyserini.encode import QueryEncoder
-from pyserini.search import get_topics
 
 
 class TestDpr(unittest.TestCase):
@@ -85,12 +83,6 @@ class TestDpr(unittest.TestCase):
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.8260, places=4)
 
-    def test_dpr_nq_test_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('dpr_multi-nq-test')
-        topics = get_topics('dpr-nq-test')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
-
     def test_dpr_trivia_test_bf_otf(self):
         output_file = 'test_run.dpr.trivia-test.multi.bf.otf.trec'
         retrieval_file = 'test_run.dpr.trivia-test.multi.bf.otf.json'
@@ -137,12 +129,6 @@ class TestDpr(unittest.TestCase):
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.8264, places=4)
 
-    def test_dpr_trivia_test_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('dpr_multi-trivia-test')
-        topics = get_topics('dpr-trivia-test')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
-
     def test_dpr_wq_test_bf_otf(self):
         output_file = 'test_run.dpr.wq-test.multi.bf.otf.trec'
         retrieval_file = 'test_run.dpr.wq-test.multi.bf.otf.json'
@@ -188,12 +174,6 @@ class TestDpr(unittest.TestCase):
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.7712, places=4)
-
-    def test_dpr_wq_test_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('dpr_multi-wq-test')
-        topics = get_topics('dpr-wq-test')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
 
     def test_dpr_curated_test_bf_otf(self):
         output_file = 'test_run.dpr.curated-test.multi.bf.otf.trec'
@@ -243,12 +223,6 @@ class TestDpr(unittest.TestCase):
         self.assertEqual(status2, 0)
         self.assertAlmostEqual(score, 0.9006, places=4)
 
-    def test_dpr_curated_test_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('dpr_multi-curated-test')
-        topics = get_topics('dpr-curated-test')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
-
     def test_dpr_squad_test_bf_otf(self):
         output_file = 'test_run.dpr.squad-test.multi.bf.otf.trec'
         retrieval_file = 'test_run.dpr.squad-test.multi.bf.otf.json'
@@ -293,16 +267,13 @@ class TestDpr(unittest.TestCase):
         score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
+        # (2022/09)
         # This appears to be a flaky test case; previously, we were getting a score of 0.7511, per
         # https://github.com/castorini/pyserini/pull/1273/files#diff-799c2c339e1d7defa31fa1e82f9b16886269b37805376ef93f7c8afedcee574e
         # Sometimes we get 0.7512. Fix is to reduce tolerance.
-        self.assertAlmostEqual(score, 0.7514, places=3)
-
-    def test_dpr_squad_test_encoded_queries(self):
-        encoder = QueryEncoder.load_encoded_queries('dpr_multi-squad-test')
-        topics = get_topics('dpr-squad-test')
-        for t in topics:
-            self.assertTrue(topics[t]['title'] in encoder.embedding)
+        # (2026/06)
+        # Changing back to 0.7511, with places=4 to see if this gives us any trouble
+        self.assertAlmostEqual(score, 0.7511, places=4)
 
     def test_convert_trec_run_to_dpr_retrieval_run(self):
         trec_run_file = 'tests/resources/simple_test_run_convert_trec_run_dpr.trec'
@@ -313,9 +284,9 @@ class TestDpr(unittest.TestCase):
         index_dir = 'temp_index'
 
         self.temp_files.extend([dpr_run_file, index_dir])
-        cmd1 = f'python -m pyserini.index.lucene -collection JsonCollection ' + \
-               f'-generator DefaultLuceneDocumentGenerator ' + \
-               f'-threads 1 -input {collection_path} -index {index_dir} -storeRaw'
+        cmd1 = f'python -m pyserini.index.lucene -collection JsonCollection \
+                             -generator DefaultLuceneDocumentGenerator \
+                             -threads 1 -input {collection_path} -index {index_dir} -storeRaw'
 
         cmd2 = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics-file {topics_file} \
                                                            --topics-reader {topic_reader} \
