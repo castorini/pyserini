@@ -20,11 +20,11 @@ and dense retrieval.
 """
 
 import json
-import os
 from pathlib import Path
 from urllib.request import urlopen, urlretrieve
 
 from pyserini.pyclass import autoclass
+from pyserini.util import get_cache_home
 
 # Wrappers around Anserini classes
 JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
@@ -61,15 +61,7 @@ def _load_topics_mapping():
 
 
 def _get_cache_base_path():
-    cache_dir = os.environ.get('PYSERINI_CACHE')
-    if cache_dir:
-        return Path(cache_dir)
-
-    local_cache = Path.cwd() / '.cache'
-    if local_cache.is_dir():
-        return local_cache / 'pyserini'
-
-    return Path.home() / '.cache' / 'pyserini'
+    return Path(get_cache_home())
 
 
 def _get_topics_and_qrels_cache_path():
