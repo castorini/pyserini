@@ -37,6 +37,7 @@ import logging
 import hashlib
 import threading
 import time
+import uuid
 from collections import deque
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
@@ -61,6 +62,8 @@ API_VERSION = 'v1'
 DESCRIPTION = 'REST API aligned with Anserini (Lucene indexes via Pyserini).'
 ROUTE_ERROR = 'Expected route /v1/{index}/search or /v1/{index}/doc/{docid}'
 AUTH_TOKEN_REQUEST_EMAIL = 'get-pyserini@googlegroups.com'
+MAX_LOGGED_QUERY_CHARS = 1000
+REQUEST_ID_HEADER = 'X-Request-ID'
 
 
 # Hint for clients when we return 429 (also sent as ``Retry-After`` header).
@@ -227,8 +230,15 @@ def _compute_token_fingerprint(token: str | None) -> str:
     return hashlib.sha256(t.encode('utf-8')).hexdigest()[:12]
 
 
-def _request_query(request: Request) -> str:
-    return request.url.query
+def _request_id() -> str:
+    return uuid.uuid4().hex
+
+
+def _request_query_for_log(request: Request) -> tuple[str, bool]:
+    query = request.url.query
+    if len(query) <= MAX_LOGGED_QUERY_CHARS:
+        return query, False
+    return query[:MAX_LOGGED_QUERY_CHARS], True
 
 
 def _build_uvicorn_log_config(
@@ -336,13 +346,17 @@ def create_app(
     async def rest_api_key_and_access_log(request: Request, call_next):
         t0 = time.perf_counter()
         client = request.client.host if request.client else ''
+        request_id = _request_id()
+        query, query_truncated = _request_query_for_log(request)
         log_entry: dict[str, object] = {
             'ts': _now_iso8601(),
             'event': 'request',
+            'request_id': request_id,
             'client': client,
             'method': request.method,
             'path': request.url.path,
-            'query': _request_query(request),
+            'query': query,
+            'query_truncated': query_truncated,
             'status': 500,
             'latency_ms': 0.0,
             'auth': 'not_configured',
@@ -367,6 +381,7 @@ def create_app(
                                 f'email {AUTH_TOKEN_REQUEST_EMAIL}.'
                             )
                         },
+                        headers={REQUEST_ID_HEADER: request_id},
                     )
                 else:
                     log_entry['auth'] = 'authenticated'
@@ -376,7 +391,10 @@ def create_app(
                         response = JSONResponse(
                             status_code=429,
                             content={'error': _LOAD_SHED_ERROR_BODY},
-                            headers={'Retry-After': str(_LOAD_SHED_RETRY_AFTER_SEC)},
+                            headers={
+                                'Retry-After': str(_LOAD_SHED_RETRY_AFTER_SEC),
+                                REQUEST_ID_HEADER: request_id,
+                            },
                         )
                     else:
                         response = await call_next(request)
@@ -386,6 +404,7 @@ def create_app(
             else:
                 response = await call_next(request)
             log_entry['status'] = response.status_code
+            response.headers[REQUEST_ID_HEADER] = request_id
             return response
         except Exception:
             logger.warning(

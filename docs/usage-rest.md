@@ -88,9 +88,11 @@ REST server logging options:
   uvicorn access logs are disabled because the JSONL request log is the canonical access log.
   If combined with `--log-file`, uvicorn text access lines are appended to the same file.
 
-Each JSONL request record includes the timestamp, client, method, path, full query string,
-status, latency, auth outcome, and a non-reversible API-key fingerprint when credentials are present.
-Auth failures and load-shedding responses are written to the same log as successful requests.
+Each JSONL request record includes the timestamp, request ID, client, method, path, query string
+(capped at 1000 characters), status, latency, auth outcome, and a non-reversible API-key fingerprint
+when credentials are present. Auth failures and load-shedding responses are written to the same log as
+successful requests. The server generates a request ID for each request, logs it, and returns it as
+`X-Request-ID`.
 
 Example:
 
@@ -116,7 +118,7 @@ lines.
 Example request log line:
 
 ```json
-{"auth":"authenticated","client":"127.0.0.1","event":"request","key_id":"7f83b1657ff1","latency_ms":14.217,"method":"GET","path":"/v1/cacm/search","query":"query=information+retrieval&hits=1","status":200,"ts":"2026-05-31T16:42:03.123Z"}
+{"auth":"authenticated","client":"127.0.0.1","event":"request","key_id":"7f83b1657ff1","latency_ms":14.217,"method":"GET","path":"/v1/cacm/search","query":"query=information+retrieval&hits=1","query_truncated":false,"request_id":"8dd7f6fa4b7a4a04a029a70c7cf4ec75","status":200,"ts":"2026-05-31T16:42:03.123Z"}
 ```
 
 ## Discovery and documentation

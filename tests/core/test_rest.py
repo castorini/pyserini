@@ -679,6 +679,8 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
                 self.assertEqual(record.get('key_id'), expected_key_id)
                 self.assertEqual(record.get('method'), 'GET')
                 self.assertEqual(record.get('path'), f'/{API_VERSION}/cacm_alias/search')
+                self.assertEqual(record.get('request_id'), ok.headers.get('X-Request-ID'))
+                self.assertFalse(record.get('query_truncated'))
                 self.assertIn('latency_ms', record)
         finally:
             os.unlink(path)
@@ -703,6 +705,7 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
                 self.assertEqual(record.get('auth'), 'invalid')
                 self.assertEqual(record.get('status'), 401)
                 self.assertEqual(record.get('key_id'), hashlib.sha256(b'bad-token').hexdigest()[:12])
+                self.assertEqual(record.get('request_id'), denied.headers.get('X-Request-ID'))
         finally:
             os.unlink(path)
 
@@ -716,6 +719,34 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
         self.assertEqual(record.get('auth'), 'not_configured')
         self.assertEqual(record.get('status'), 200)
         self.assertEqual(record.get('path'), '/')
+        self.assertEqual(record.get('request_id'), response.headers.get('X-Request-ID'))
+        self.assertFalse(record.get('query_truncated'))
+
+    def test_request_id_is_server_generated_and_ignores_incoming_headers(self):
+        client_request_id = 'req-test-123'
+        with TestClient(create_app()) as client:
+            with self.assertLogs('pyserini.server.rest.request', level='INFO') as cm:
+                response = client.get(
+                    '/',
+                    headers={
+                        'X-Request-ID': client_request_id,
+                        'X-Correlation-ID': 'corr-test-123',
+                    },
+                )
+            self.assertEqual(response.status_code, 200, msg=response.text)
+            self.assertNotEqual(response.headers.get('X-Request-ID'), client_request_id)
+        record = json.loads(cm.records[-1].getMessage())
+        self.assertEqual(record.get('request_id'), response.headers.get('X-Request-ID'))
+
+    def test_long_query_string_is_truncated_in_request_log(self):
+        query = 'q=' + ('x' * 1200)
+        with TestClient(create_app()) as client:
+            with self.assertLogs('pyserini.server.rest.request', level='INFO') as cm:
+                response = client.get('/?' + query)
+            self.assertEqual(response.status_code, 200, msg=response.text)
+        record = json.loads(cm.records[-1].getMessage())
+        self.assertEqual(len(record.get('query')), 1000)
+        self.assertTrue(record.get('query_truncated'))
 
     def test_keep_uvicorn_logs_routes_access_to_request_log_file(self):
         config = _build_uvicorn_log_config(
