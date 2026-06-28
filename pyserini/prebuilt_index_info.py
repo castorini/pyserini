@@ -102,44 +102,48 @@ class _LazyLucenePrebuiltInvertedIndexJson(Mapping):
         return key in self._load()
 
 
-class _MergedLucenePrebuiltInvertedIndexInfo(Mapping):
-    def __init__(self, *mappings):
-        self._mappings = mappings
+class _PrebuiltIndexCatalog(Mapping):
+    def __init__(self, *sources, aliases=None):
+        self._sources = sources
+        self._aliases = aliases or {}
+
+    def _resolve_alias(self, key):
+        seen = set()
+        while key in self._aliases:
+            if key in seen:
+                raise KeyError(key)
+            seen.add(key)
+            key = self._aliases[key]
+        return key
 
     def __getitem__(self, key):
-        for mapping in self._mappings:
-            if key in mapping:
-                return mapping[key]
+        resolved_key = self._resolve_alias(key)
+        for source in self._sources:
+            if resolved_key in source:
+                return source[resolved_key]
         raise KeyError(key)
 
     def __iter__(self):
         seen = set()
-        for mapping in self._mappings:
-            for key in mapping:
+        for source in self._sources:
+            for key in source:
                 if key not in seen:
                     seen.add(key)
                     yield key
+        for key in self._aliases:
+            if key not in seen:
+                yield key
 
     def __len__(self):
         return sum(1 for _ in self)
 
-
-class _AliasedLucenePrebuiltInvertedIndexInfo(Mapping):
-    def __init__(self, target, aliases):
-        self._target = target
-        self._aliases = aliases
-
-    def __getitem__(self, key):
-        return self._target[self._aliases[key]]
-
-    def __iter__(self):
-        return iter(self._aliases)
-
-    def __len__(self):
-        return len(self._aliases)
-
     def __contains__(self, key):
-        return key in self._aliases
+        if key in self._aliases:
+            return True
+        for source in self._sources:
+            if key in source:
+                return True
+        return False
 
 
 # Bindings for Lucene (standard) inverted indexes
@@ -285,9 +289,9 @@ TF_INDEX_INFO_MSMARCO = {
 
 TF_INDEX_INFO_MSMARCO_ALIASES = {
     # To preserve working commands in published papers: integrations/core/papers/test_sigir2021.py testcase test_section3_3
-    "msmarco-passage": TF_INDEX_INFO_MSMARCO["msmarco-v1-passage"],
+    "msmarco-passage": "msmarco-v1-passage",
     # To preserve working commands in published papers: integrations/core/papers/test_sigir2022.py testcase test_Ma_etal_section4_1a
-    "msmarco-v1-passage-d2q-t5": TF_INDEX_INFO_MSMARCO["msmarco-v1-passage.d2q-t5"],
+    "msmarco-v1-passage-d2q-t5": "msmarco-v1-passage.d2q-t5",
 }
 
 TF_INDEX_INFO_BEIR = _LazyLucenePrebuiltInvertedIndexJson(
@@ -306,7 +310,7 @@ TF_INDEX_INFO_MRTYDI = _LazyLucenePrebuiltInvertedIndexJson(
     key_prefixes=('mrtydi-v1.1-',)
 )
 
-TF_INDEX_INFO_MRTYDI_ALIASES = _AliasedLucenePrebuiltInvertedIndexInfo(TF_INDEX_INFO_MRTYDI, {
+TF_INDEX_INFO_MRTYDI_ALIASES = {
     "mrtydi-v1.1-arabic": "mrtydi-v1.1-ar",
     "mrtydi-v1.1-bengali": "mrtydi-v1.1-bn",
     "mrtydi-v1.1-english": "mrtydi-v1.1-en",
@@ -318,7 +322,7 @@ TF_INDEX_INFO_MRTYDI_ALIASES = _AliasedLucenePrebuiltInvertedIndexInfo(TF_INDEX_
     "mrtydi-v1.1-swahili": "mrtydi-v1.1-sw",
     "mrtydi-v1.1-telugu": "mrtydi-v1.1-te",
     "mrtydi-v1.1-thai": "mrtydi-v1.1-th"
-})
+}
 
 TF_INDEX_INFO_MIRACL = _LazyLucenePrebuiltInvertedIndexJson(
     'resources/prebuilt-indexes/lucene/miracl-inverted.json',
@@ -1101,26 +1105,28 @@ TF_INDEX_INFO_OTHER = {
 
 TF_INDEX_INFO_OTHER_ALIASES = {
     # To preserve working commands in published papers: integrations/core/papers/test_sigir2021.py
-    "wikipedia-dpr": TF_INDEX_INFO_OTHER["wikipedia-dpr-100w"],
+    "wikipedia-dpr": "wikipedia-dpr-100w",
 
     # Common names mapping to corpora
-    "robust04": TF_INDEX_INFO_OTHER["disk45"],
-    "robust05": TF_INDEX_INFO_OTHER["aquaint"],
-    "core17": TF_INDEX_INFO_OTHER["nyt"],
-    "core18": TF_INDEX_INFO_OTHER["wapo.v2"],
+    "robust04": "disk45",
+    "robust05": "aquaint",
+    "core17": "nyt",
+    "core18": "wapo.v2",
 }
 
-TF_INDEX_INFO = _MergedLucenePrebuiltInvertedIndexInfo(TF_INDEX_INFO_MSMARCO,
-                                                       TF_INDEX_INFO_MSMARCO_ALIASES,
-                                                       TF_INDEX_INFO_BEIR,
-                                                       TF_INDEX_INFO_BRIGHT,
-                                                       TF_INDEX_INFO_MRTYDI,
-                                                       TF_INDEX_INFO_MRTYDI_ALIASES,
-                                                       TF_INDEX_INFO_MIRACL,
-                                                       TF_INDEX_INFO_CIRAL,
-                                                       TF_INDEX_INFO_M_BEIR,
-                                                       TF_INDEX_INFO_OTHER,
-                                                       TF_INDEX_INFO_OTHER_ALIASES)
+TF_INDEX_INFO = _PrebuiltIndexCatalog(TF_INDEX_INFO_MSMARCO,
+                                      TF_INDEX_INFO_BEIR,
+                                      TF_INDEX_INFO_BRIGHT,
+                                      TF_INDEX_INFO_MRTYDI,
+                                      TF_INDEX_INFO_MIRACL,
+                                      TF_INDEX_INFO_CIRAL,
+                                      TF_INDEX_INFO_M_BEIR,
+                                      TF_INDEX_INFO_OTHER,
+                                      aliases={
+                                          **TF_INDEX_INFO_MSMARCO_ALIASES,
+                                          **TF_INDEX_INFO_MRTYDI_ALIASES,
+                                          **TF_INDEX_INFO_OTHER_ALIASES,
+                                      })
 
 
 JPrebuiltImpactIndex = autoclass('io.anserini.index.prebuilt.PrebuiltImpactIndex')
