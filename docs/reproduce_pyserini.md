@@ -2,6 +2,6 @@
 
 ## Reproduction Log
 
-| Date | Contributor | Results |
+| Date | Contributor | Status |
 |------|---|---|
-| 2026-06-28 | Dana Mohammad Abu Alkhair | BM25 reproduced |
+| 2026-06-28 | Dana Mohammad Abu Alkhair | BM25 completed |
