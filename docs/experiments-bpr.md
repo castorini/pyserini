@@ -35,8 +35,6 @@ python -m pyserini.search.faiss \
   --searcher bpr --rerank
 ```
 
-The option `--encoded-queries` specifies the use of encoded queries (i.e., queries that have already been converted into dense vectors and cached).
-
 To evaluate, first convert the TREC output format to DPR's `json` format:
 
 ```bash
