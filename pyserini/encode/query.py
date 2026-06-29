@@ -30,6 +30,7 @@ from pyserini.encode import (
     AutoQueryEncoder,
     BprQueryEncoder,
     CosDprQueryEncoder,
+    DkrrDprQueryEncoder,
     DprQueryEncoder,
     DseQueryEncoder,
     MMEBQueryEncoder,
@@ -44,6 +45,8 @@ from pyserini.query_iterator import DefaultQueryIterator
 def init_encoder(encoder, device, pooling, l2_norm, prefix, bpr):
     if bpr:
         return BprQueryEncoder(encoder, device=device)
+    elif 'dkrr' in encoder.lower():
+        return DkrrDprQueryEncoder(encoder, device=device)
     elif 'dpr' in encoder.lower():
         return DprQueryEncoder(encoder, device=device)
     elif 'tct' in encoder.lower():

@@ -15,9 +15,9 @@ Summary of results (figures from the paper are in parentheses):
 | Condition                                                     | MRR@10 (paper) |    MAP | Recall@1000 |
 |:--------------------------------------------------------------|---------------:|-------:|------------:|
 | TCT_ColBERT-V2 (brute-force index)                            | 0.3440 (0.344) | 0.3509 |      0.9670 |
-| TCT_ColBERT-V2-HN (brute-force index)                         | 0.3543 (0.354) | 0.3608 |      0.9708 |
+| TCT_ColBERT-V2-HN (brute-force index)                         | 0.3543 (0.354) | 0.3609 |      0.9708 |
 | TCT_ColBERT-V2-HN+ (brute-force index)                        | 0.3584 (0.359) | 0.3644 |      0.9695 |
-| TCT_ColBERT-V2-HN+ (brute-force index) + BoW BM25             | 0.3682 (0.369) | 0.3737 |      0.9707 |
+| TCT_ColBERT-V2-HN+ (brute-force index) + BoW BM25             | 0.3683 (0.369) | 0.3737 |      0.9707 |
 | TCT_ColBERT-V2-HN+ (brute-force index) + BM25 w/ doc2query-T5 | 0.3731 (0.375) | 0.3789 |      0.9759 |
 
 The slight differences between the reproduced scores and those reported in the paper can be attributed to TensorFlow implementations in the published paper vs. PyTorch implementations here in this reproduction guide.
@@ -197,7 +197,7 @@ Results:
 
 ```text
 #####################
-MRR @10: 0.3682
+MRR @10: 0.3683
 QueriesRanked: 6980
 #####################
 ```
@@ -216,7 +216,7 @@ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-sub
 Results:
 
 ```text
-map                     all     0.3736
+map                     all     0.3737
 recall_1000             all     0.9707
 ```
 
