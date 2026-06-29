@@ -19,7 +19,8 @@ FastAPI server exposing the same REST surface as Anserini (``openapi.yaml``).
 
 Usage:
     python -m pyserini.server.rest [--host HOST] [--port PORT] [--config PATH] [--no-prebuilt-indexes] 
-                                   [--load-shedding-threshold MS] [--search-cache-size N] [--document-cache-size N]
+                                   [--log-file PATH] [--keep-uvicorn-logs] [--load-shedding-threshold MS]
+                                   [--search-cache-size N] [--document-cache-size N]
 
 Endpoints:
     GET /openapi.yaml     : OpenAPI specification (same document as Anserini).
@@ -36,8 +37,10 @@ import logging
 import hashlib
 import threading
 import time
+import uuid
 from collections import deque
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 from functools import lru_cache
 from importlib import resources
 
@@ -52,13 +55,15 @@ from pyserini.server.config import AcceptedApiTokens, load_server_config
 from pyserini.server.rest.routes import v1
 
 logger = logging.getLogger(__name__)
-auth_logger = logging.getLogger('pyserini.server.rest.auth')
+request_logger = logging.getLogger('pyserini.server.rest.request')
 
 SERVER_NAME = 'Pyserini API'
 API_VERSION = 'v1'
 DESCRIPTION = 'REST API aligned with Anserini (Lucene indexes via Pyserini).'
 ROUTE_ERROR = 'Expected route /v1/{index}/search or /v1/{index}/doc/{docid}'
 AUTH_TOKEN_REQUEST_EMAIL = 'get-pyserini@googlegroups.com'
+MAX_LOGGED_QUERY_CHARS = 1000
+REQUEST_ID_HEADER = 'X-Request-ID'
 
 
 # Hint for clients when we return 429 (also sent as ``Retry-After`` header).
@@ -169,17 +174,12 @@ class RestBackpressure:
             self._prune_latencies(now)
 
 
-def _log_auth_attribution(event: str, client: str, request: Request, query: str, key_id: str, status: int) -> None:
-    auth_logger.info(
-        '%s client=%s method=%s path=%s query=%s key_id=%s status=%s',
-        event,
-        client,
-        request.method,
-        request.url.path,
-        query,
-        key_id,
-        status,
-    )
+def _now_iso8601() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec='milliseconds').replace('+00:00', 'Z')
+
+
+def _log_request_jsonl(entry: dict[str, object]) -> None:
+    request_logger.info(json.dumps(entry, sort_keys=True, separators=(',', ':')))
 
 
 def _error_message(detail: object) -> str:
@@ -230,16 +230,22 @@ def _compute_token_fingerprint(token: str | None) -> str:
     return hashlib.sha256(t.encode('utf-8')).hexdigest()[:12]
 
 
-def _truncate_request_query(request: Request) -> str:
-    raw = request.url.query
-    if not raw:
-        return '-'
-    if len(raw) <= 256:
-        return raw
-    return f'{raw[:256]}...'
+def _request_id() -> str:
+    return uuid.uuid4().hex
 
 
-def _build_uvicorn_log_config(server_log_file: str | None, auth_log_file: str | None) -> dict[str, object]:
+def _request_query_for_log(request: Request) -> tuple[str, bool]:
+    query = request.url.query
+    if len(query) <= MAX_LOGGED_QUERY_CHARS:
+        return query, False
+    return query[:MAX_LOGGED_QUERY_CHARS], True
+
+
+def _build_uvicorn_log_config(
+    request_log_file: str | None,
+    *,
+    keep_uvicorn_logs: bool = False,
+) -> dict[str, object]:
     from uvicorn.config import LOGGING_CONFIG
 
     config = copy.deepcopy(LOGGING_CONFIG)
@@ -247,50 +253,39 @@ def _build_uvicorn_log_config(server_log_file: str | None, auth_log_file: str | 
     handlers = config.setdefault('handlers', {})
     loggers = config.setdefault('loggers', {})
 
-    formatters['auth'] = {
-        'format': '%(asctime)s %(levelname)s %(name)s %(message)s',
-        'datefmt': '%Y-%m-%d %H:%M:%S',
+    formatters['jsonl'] = {
+        'format': '%(message)s',
     }
 
-    if server_log_file:
-        handlers['server_default_file'] = {
+    if request_log_file:
+        handlers['request_jsonl_file'] = {
             'class': 'logging.FileHandler',
-            'formatter': 'default',
-            'filename': server_log_file,
+            'formatter': 'jsonl',
+            'filename': request_log_file,
             'encoding': 'utf-8',
         }
-        handlers['server_access_file'] = {
-            'class': 'logging.FileHandler',
-            'formatter': 'access',
-            'filename': server_log_file,
-            'encoding': 'utf-8',
-        }
-        if 'uvicorn.error' in loggers:
-            loggers['uvicorn.error']['handlers'] = ['server_default_file']
-        if 'uvicorn.access' in loggers:
-            loggers['uvicorn.access']['handlers'] = ['server_access_file']
-
-    if auth_log_file:
-        handlers['auth_file'] = {
-            'class': 'logging.FileHandler',
-            'formatter': 'auth',
-            'filename': auth_log_file,
-            'encoding': 'utf-8',
-        }
-        auth_handlers = ['auth_file']
+        request_handlers = ['request_jsonl_file']
     else:
-        handlers['auth_console'] = {
+        handlers['request_jsonl_console'] = {
             'class': 'logging.StreamHandler',
-            'formatter': 'auth',
+            'formatter': 'jsonl',
             'stream': 'ext://sys.stderr',
         }
-        auth_handlers = ['auth_console']
+        request_handlers = ['request_jsonl_console']
 
-    loggers['pyserini.server.rest.auth'] = {
-        'handlers': auth_handlers,
+    loggers['pyserini.server.rest.request'] = {
+        'handlers': request_handlers,
         'level': 'INFO',
         'propagate': False,
     }
+    if keep_uvicorn_logs and request_log_file and 'uvicorn.access' in loggers:
+        handlers['uvicorn_access_request_file'] = {
+            'class': 'logging.FileHandler',
+            'formatter': 'access',
+            'filename': request_log_file,
+            'encoding': 'utf-8',
+        }
+        loggers['uvicorn.access']['handlers'] = ['uvicorn_access_request_file']
     return config
 
 
@@ -349,46 +344,67 @@ def create_app(
 
     @app.middleware('http')
     async def rest_api_key_and_access_log(request: Request, call_next):
+        t0 = time.perf_counter()
+        client = request.client.host if request.client else ''
+        request_id = _request_id()
+        query, query_truncated = _request_query_for_log(request)
+        log_entry: dict[str, object] = {
+            'ts': _now_iso8601(),
+            'event': 'request',
+            'request_id': request_id,
+            'client': client,
+            'method': request.method,
+            'path': request.url.path,
+            'query': query,
+            'query_truncated': query_truncated,
+            'status': 500,
+            'latency_ms': 0.0,
+            'auth': 'not_configured',
+            'key_id': None,
+        }
         prefix = f'/{API_VERSION}/'
         tokens: AcceptedApiTokens | None = getattr(request.app.state, 'accepted_api_tokens', None)
-        if tokens is None or not request.url.path.startswith(prefix):
-            return await call_next(request)
-
-        client = request.client.host if request.client else '-'
-        query = _truncate_request_query(request)
-        credentials = _extract_api_tokens(request)
-        matched_token = next((token for token in credentials if tokens.is_valid(token)), None)
-        key_id = _compute_token_fingerprint(matched_token or (credentials[0] if credentials else None))
-        if matched_token is None:
-            _log_auth_attribution('auth_failed', client, request, query, key_id, 401)
-            return JSONResponse(
-                status_code=401,
-                content={
-                    'error': (
-                        'Unauthorized. To request an access token, '
-                        f'email {AUTH_TOKEN_REQUEST_EMAIL}.'
-                    )
-                },
-            )
-
-        bp: RestBackpressure | None = getattr(request.app.state, 'rest_backpressure', None)
-        t0 = time.perf_counter()
-        if bp is not None and bp.should_shed(key_id, t0):
-            _log_auth_attribution('auth_request', client, request, query, key_id, 429)
-            return JSONResponse(
-                status_code=429,
-                content={'error': _LOAD_SHED_ERROR_BODY},
-                headers={'Retry-After': str(_LOAD_SHED_RETRY_AFTER_SEC)},
-            )
-
-        status = 500
         response = None
         try:
-            response = await call_next(request)
-            status = response.status_code
-            if bp is not None:
-                now = time.perf_counter()
-                bp.record_latency((now - t0) * 1000.0, now)
+            if tokens is not None and request.url.path.startswith(prefix):
+                credentials = _extract_api_tokens(request)
+                matched_token = next((token for token in credentials if tokens.is_valid(token)), None)
+                key_id = _compute_token_fingerprint(matched_token or (credentials[0] if credentials else None))
+                log_entry['key_id'] = key_id
+                if matched_token is None:
+                    log_entry['auth'] = 'invalid' if credentials else 'missing'
+                    response = JSONResponse(
+                        status_code=401,
+                        content={
+                            'error': (
+                                'Unauthorized. To request an access token, '
+                                f'email {AUTH_TOKEN_REQUEST_EMAIL}.'
+                            )
+                        },
+                        headers={REQUEST_ID_HEADER: request_id},
+                    )
+                else:
+                    log_entry['auth'] = 'authenticated'
+                    bp: RestBackpressure | None = getattr(request.app.state, 'rest_backpressure', None)
+                    if bp is not None and bp.should_shed(key_id, t0):
+                        log_entry['auth'] = 'load_shed'
+                        response = JSONResponse(
+                            status_code=429,
+                            content={'error': _LOAD_SHED_ERROR_BODY},
+                            headers={
+                                'Retry-After': str(_LOAD_SHED_RETRY_AFTER_SEC),
+                                REQUEST_ID_HEADER: request_id,
+                            },
+                        )
+                    else:
+                        response = await call_next(request)
+                        if bp is not None:
+                            now = time.perf_counter()
+                            bp.record_latency((now - t0) * 1000.0, now)
+            else:
+                response = await call_next(request)
+            log_entry['status'] = response.status_code
+            response.headers[REQUEST_ID_HEADER] = request_id
             return response
         except Exception:
             logger.warning(
@@ -399,7 +415,8 @@ def create_app(
             )
             raise
         finally:
-            _log_auth_attribution('auth_request', client, request, query, key_id, status)
+            log_entry['latency_ms'] = round((time.perf_counter() - t0) * 1000.0, 3)
+            _log_request_jsonl(log_entry)
 
     @app.exception_handler(Exception)
     async def unhandled_exception_handler(request: Request, exc: Exception):
@@ -464,21 +481,15 @@ def main():
         help='Only allow indexes declared in --config (disable prebuilt names and arbitrary filesystem paths).',
     )
     parser.add_argument(
-        '--server-log-file',
+        '--log-file',
         type=str,
         default=None,
-        help='Optional file path for uvicorn server logs (error/access).',
+        help='Optional file path for unified JSONL request logs (one request per line).',
     )
     parser.add_argument(
-        '--auth-log-file',
-        type=str,
-        default=None,
-        help='Optional file path for timestamped auth attribution logs.',
-    )
-    parser.add_argument(
-        '--no-access-log',
+        '--keep-uvicorn-logs',
         action='store_true',
-        help='Disable uvicorn default request access logs.',
+        help='Keep uvicorn text access logs. If --log-file is set, these are appended to the JSONL request log.',
     )
     parser.add_argument(
         '--load-shedding-threshold',
@@ -530,8 +541,11 @@ def main():
         ),
         host=args.host,
         port=args.port,
-        access_log=not args.no_access_log,
-        log_config=_build_uvicorn_log_config(args.server_log_file, args.auth_log_file),
+        access_log=args.keep_uvicorn_logs,
+        log_config=_build_uvicorn_log_config(
+            args.log_file,
+            keep_uvicorn_logs=args.keep_uvicorn_logs,
+        ),
     )
 
 

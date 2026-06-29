@@ -20,6 +20,7 @@ import time
 import unittest
 import unittest.mock
 import hashlib
+import json
 
 import yaml
 from fastapi.testclient import TestClient
@@ -27,7 +28,7 @@ from fastapi.testclient import TestClient
 # Keep this test in tests/core: the REST server imports search backends including Faiss.
 from pyserini.server.backend import SharedSearchBackend
 from pyserini.server.errors import BadSearchRequestError
-from pyserini.server.rest.app import API_VERSION, ROUTE_ERROR, app, create_app
+from pyserini.server.rest.app import API_VERSION, ROUTE_ERROR, app, create_app, _build_uvicorn_log_config
 from pyserini.server.utils import Bm25Config, IndexConfig
 
 # Small prebuilt TF index (see TF_INDEX_INFO["cacm"]); stable BM25 top-1 for this query.
@@ -655,7 +656,7 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
         finally:
             os.unlink(path)
 
-    def test_no_prebuilt_indexes_logs_key_fingerprint_for_authenticated_requests(self):
+    def test_no_prebuilt_indexes_logs_jsonl_key_fingerprint_for_authenticated_requests(self):
         token = 'no-prebuilt-indexes-integration-test-token-log'
         expected_key_id = hashlib.sha256(token.encode('utf-8')).hexdigest()[:12]
         cfg = {'indexes': {'cacm_alias': self._index_path}, 'api_keys': [token]}
@@ -664,19 +665,97 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
             path = f.name
         try:
             with TestClient(create_app(path, no_prebuilt_indexes=True)) as client:
-                with self.assertLogs('pyserini.server.rest.auth', level='INFO') as cm:
+                with self.assertLogs('pyserini.server.rest.request', level='INFO') as cm:
                     ok = client.get(
                         f'/{API_VERSION}/cacm_alias/search',
                         params={'query': _REST_QUERY, 'hits': 1},
                         headers={'X-API-Key': token},
                     )
                 self.assertEqual(ok.status_code, 200, msg=ok.text)
-                self.assertTrue(
-                    any(f'auth_request' in line and f'key_id={expected_key_id}' in line for line in cm.output),
-                    msg='\n'.join(cm.output),
-                )
+                record = json.loads(cm.records[-1].getMessage())
+                self.assertEqual(record.get('event'), 'request')
+                self.assertEqual(record.get('auth'), 'authenticated')
+                self.assertEqual(record.get('status'), 200)
+                self.assertEqual(record.get('key_id'), expected_key_id)
+                self.assertEqual(record.get('method'), 'GET')
+                self.assertEqual(record.get('path'), f'/{API_VERSION}/cacm_alias/search')
+                self.assertEqual(record.get('request_id'), ok.headers.get('X-Request-ID'))
+                self.assertFalse(record.get('query_truncated'))
+                self.assertIn('latency_ms', record)
         finally:
             os.unlink(path)
+
+    def test_no_prebuilt_indexes_logs_jsonl_auth_failure_in_same_request_log(self):
+        token = 'no-prebuilt-indexes-integration-test-token-deny-log'
+        cfg = {'indexes': {'cacm_alias': self._index_path}, 'api_keys': [token]}
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False, encoding='utf-8') as f:
+            yaml.safe_dump(cfg, f, default_flow_style=False)
+            path = f.name
+        try:
+            with TestClient(create_app(path, no_prebuilt_indexes=True)) as client:
+                with self.assertLogs('pyserini.server.rest.request', level='INFO') as cm:
+                    denied = client.get(
+                        f'/{API_VERSION}/cacm_alias/search',
+                        params={'query': _REST_QUERY, 'hits': 1},
+                        headers={'X-API-Key': 'bad-token'},
+                    )
+                self.assertEqual(denied.status_code, 401, msg=denied.text)
+                record = json.loads(cm.records[-1].getMessage())
+                self.assertEqual(record.get('event'), 'request')
+                self.assertEqual(record.get('auth'), 'invalid')
+                self.assertEqual(record.get('status'), 401)
+                self.assertEqual(record.get('key_id'), hashlib.sha256(b'bad-token').hexdigest()[:12])
+                self.assertEqual(record.get('request_id'), denied.headers.get('X-Request-ID'))
+        finally:
+            os.unlink(path)
+
+    def test_anonymous_routes_log_jsonl_request(self):
+        with TestClient(create_app()) as client:
+            with self.assertLogs('pyserini.server.rest.request', level='INFO') as cm:
+                response = client.get('/')
+            self.assertEqual(response.status_code, 200, msg=response.text)
+        record = json.loads(cm.records[-1].getMessage())
+        self.assertEqual(record.get('event'), 'request')
+        self.assertEqual(record.get('auth'), 'not_configured')
+        self.assertEqual(record.get('status'), 200)
+        self.assertEqual(record.get('path'), '/')
+        self.assertEqual(record.get('request_id'), response.headers.get('X-Request-ID'))
+        self.assertFalse(record.get('query_truncated'))
+
+    def test_request_id_is_server_generated_and_ignores_incoming_headers(self):
+        client_request_id = 'req-test-123'
+        with TestClient(create_app()) as client:
+            with self.assertLogs('pyserini.server.rest.request', level='INFO') as cm:
+                response = client.get(
+                    '/',
+                    headers={
+                        'X-Request-ID': client_request_id,
+                        'X-Correlation-ID': 'corr-test-123',
+                    },
+                )
+            self.assertEqual(response.status_code, 200, msg=response.text)
+            self.assertNotEqual(response.headers.get('X-Request-ID'), client_request_id)
+        record = json.loads(cm.records[-1].getMessage())
+        self.assertEqual(record.get('request_id'), response.headers.get('X-Request-ID'))
+
+    def test_long_query_string_is_truncated_in_request_log(self):
+        query = 'q=' + ('x' * 1200)
+        with TestClient(create_app()) as client:
+            with self.assertLogs('pyserini.server.rest.request', level='INFO') as cm:
+                response = client.get('/?' + query)
+            self.assertEqual(response.status_code, 200, msg=response.text)
+        record = json.loads(cm.records[-1].getMessage())
+        self.assertEqual(len(record.get('query')), 1000)
+        self.assertTrue(record.get('query_truncated'))
+
+    def test_keep_uvicorn_logs_routes_access_to_request_log_file(self):
+        config = _build_uvicorn_log_config(
+            'requests.jsonl',
+            keep_uvicorn_logs=True,
+        )
+        access_handlers = config['loggers']['uvicorn.access']['handlers']
+        self.assertEqual(access_handlers, ['uvicorn_access_request_file'])
+        self.assertEqual(config['handlers']['uvicorn_access_request_file']['filename'], 'requests.jsonl')
 
 
 class TestRestBackpressure(unittest.TestCase):

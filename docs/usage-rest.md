@@ -83,9 +83,16 @@ python -m pyserini.server.rest --search-cache-size 4096 --document-cache-size 81
 
 REST server logging options:
 
-- `--server-log-file <path>` writes uvicorn error + access logs to a file.
-- `--auth-log-file <path>` writes auth request attribution logs (client, route, status, key fingerprint) to a file.
-- `--no-access-log` disables uvicorn request access logging.
+- `--log-file <path>` writes unified JSONL request logs, one request per line.
+- `--keep-uvicorn-logs` keeps uvicorn's default text request access logging. By default,
+  uvicorn access logs are disabled because the JSONL request log is the canonical access log.
+  If combined with `--log-file`, uvicorn text access lines are appended to the same file.
+
+Each JSONL request record includes the timestamp, request ID, client, method, path, query string
+(capped at 1000 characters), status, latency, auth outcome, and a non-reversible API-key fingerprint
+when credentials are present. Auth failures and load-shedding responses are written to the same log as
+successful requests. The server generates a request ID for each request, logs it, and returns it as
+`X-Request-ID`.
 
 Example:
 
@@ -93,8 +100,25 @@ Example:
 python -m pyserini.server.rest \
   --config /path/to/server.yaml \
   --no-prebuilt-indexes \
-  --server-log-file logs/rest.server.log \
-  --auth-log-file logs/rest.auth.log
+  --log-file logs/rest.requests.jsonl
+```
+
+To keep uvicorn's text access logs anyway:
+
+```bash
+python -m pyserini.server.rest \
+  --config /path/to/server.yaml \
+  --log-file logs/rest.requests.jsonl \
+  --keep-uvicorn-logs
+```
+
+In this mode, `logs/rest.requests.jsonl` contains both JSONL request records and uvicorn text access
+lines.
+
+Example request log line:
+
+```json
+{"auth":"authenticated","client":"127.0.0.1","event":"request","key_id":"7f83b1657ff1","latency_ms":14.217,"method":"GET","path":"/v1/cacm/search","query":"query=information+retrieval&hits=1","query_truncated":false,"request_id":"8dd7f6fa4b7a4a04a029a70c7cf4ec75","status":200,"ts":"2026-05-31T16:42:03.123Z"}
 ```
 
 ## Discovery and documentation
