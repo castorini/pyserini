@@ -304,7 +304,7 @@ QUERY_INFO = {
         "md5": "3c84c7fb6569d7690d5c38be61d3a5a4",
         "size": 25146526,
         "total_queries": 8757,
-        "topics": "dpr-nq-dev",
+        "topics": "nq-dev",
         "encoder": "castorini/dkrr-dpr-nq-retriever",
     },
     "dkrr-dpr-nq-retriever-nq-test": {
@@ -312,7 +312,7 @@ QUERY_INFO = {
         "md5": "cd3c30fc6dfde160983167b59acb17a3",
         "size": 10370264,
         "total_queries": 3610,
-        "topics": "dpr-nq-test",
+        "topics": "nq-test",
         "encoder": "castorini/dkrr-dpr-nq-retriever",
     },
     "dkrr-dpr-tqa-retriever-dpr-tqa-dev": {
