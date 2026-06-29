@@ -342,7 +342,7 @@ def parse_args():
     parser.add_argument('--max-length', type=int, default=256, help='Max query length passed to pyserini.encode.query.')
     parser.add_argument('--max-queries', type=int, default=None, help='Only encode and compare the first N queries for each key.')
     parser.add_argument('--keep-going', action='store_true', help='Continue verifying remaining keys after a key fails.')
-    parser.add_argument('--force', action='store_true', help='Force fresh downloads even when the archive already exists.')
+    parser.add_argument('--force', action='store_true', help='Force fresh downloads, extraction, and encoding even when outputs already exist.')
     return parser.parse_args()
 
 
@@ -350,20 +350,27 @@ def shell_join(command):
     return ' '.join(shlex.quote(str(part)) for part in command)
 
 
+REQUIRED_EMBEDDING_COLUMNS = {'id', 'text', 'embedding'}
+
+
 def load_embedding_frame(path):
     frame = pd.read_pickle(path)
-    required = {'id', 'text', 'embedding'}
-    missing = required.difference(frame.columns)
+    missing = REQUIRED_EMBEDDING_COLUMNS.difference(frame.columns)
     if missing:
         raise ValueError(f'{path} is missing columns: {sorted(missing)}')
     return frame
 
 
-def frame_by_text(frame):
-    result = {}
-    for row in frame.itertuples(index=False):
-        result[row.text] = row
-    return result
+def normalize_query_id(query_id):
+    return str(query_id)
+
+
+def validate_unique_ids(frame, path):
+    normalized_ids = frame['id'].map(normalize_query_id)
+    duplicated_ids = normalized_ids[normalized_ids.duplicated()].unique()
+    if len(duplicated_ids) > 0:
+        sample = ', '.join(duplicated_ids[:3])
+        raise ValueError(f'{path} contains duplicate query ids: {sample}')
 
 
 def cosine_similarity(left, right):
@@ -399,6 +406,25 @@ def summarize_similarities(key, similarities):
     print(f'  max 1-cosine: {one_minus.max():.6e}')
 
 
+def validate_archive(key, archive_path, info):
+    actual_size = archive_path.stat().st_size
+    actual_md5 = compute_md5(archive_path)
+    print(f'Actual size: {actual_size} bytes')
+    print(f'Actual MD5: {actual_md5}')
+    if actual_size != info['size']:
+        raise ValueError(f'{key}: expected {info["size"]} bytes, got {actual_size} bytes')
+    if actual_md5 != info['md5']:
+        raise ValueError(f'{key}: expected MD5 {info["md5"]}, got {actual_md5}')
+
+
+def extracted_top_level_dir(key, archive_path):
+    with tarfile.open(archive_path) as tarball:
+        top_level_dirs = [member.name for member in tarball if member.isdir()]
+    if not top_level_dirs:
+        raise ValueError(f'{key}: {archive_path} does not contain a top-level directory')
+    return top_level_dirs[0]
+
+
 def download_cached_embeddings(key, info, work_dir, force):
     download_dir = work_dir / 'download'
     download_dir.mkdir(parents=True, exist_ok=True)
@@ -409,26 +435,14 @@ def download_cached_embeddings(key, info, work_dir, force):
         verbose=True,
     ))
 
-    actual_size = archive_path.stat().st_size
-    actual_md5 = compute_md5(archive_path)
-    print(f'Actual size: {actual_size} bytes')
-    print(f'Actual MD5: {actual_md5}')
-    if actual_size != info['size']:
-        raise ValueError(f'{key}: expected {info["size"]} bytes, got {actual_size} bytes')
-    if actual_md5 != info['md5']:
-        raise ValueError(f'{key}: expected MD5 {info["md5"]}, got {actual_md5}')
+    validate_archive(key, archive_path, info)
 
     extracted_dir = work_dir / 'cached'
     if force and extracted_dir.exists():
         shutil.rmtree(extracted_dir)
     extracted_dir.mkdir(parents=True, exist_ok=True)
 
-    with tarfile.open(archive_path) as tarball:
-        dirs_in_tarball = [member.name for member in tarball if member.isdir()]
-    if not dirs_in_tarball:
-        raise ValueError(f'{key}: {archive_path} does not contain a top-level directory')
-
-    extracted_path = extracted_dir / dirs_in_tarball[0]
+    extracted_path = extracted_dir / extracted_top_level_dir(key, archive_path)
     if not extracted_path.exists():
         print(f'Extracting {archive_path} into {extracted_dir}...')
         with tarfile.open(archive_path) as tarball:
@@ -441,6 +455,10 @@ def download_cached_embeddings(key, info, work_dir, force):
 def encode_queries(key, info, work_dir, args):
     output_path = work_dir / 'encoded' / f'{key}.pkl'
     output_path.parent.mkdir(parents=True, exist_ok=True)
+    if output_path.exists() and not args.force:
+        print(f'{output_path} already exists, skipping encoding.')
+        return output_path
+
     command = [
         sys.executable, '-m', 'pyserini.encode.query',
         '--topics', info['topics'],
@@ -459,24 +477,31 @@ def encode_queries(key, info, work_dir, args):
 
 
 def compare_embeddings(key, downloaded_path, encoded_path, expected_total):
-    downloaded = load_embedding_frame(downloaded_path / 'embedding.pkl')
+    downloaded_embedding_path = downloaded_path / 'embedding.pkl'
+    downloaded = load_embedding_frame(downloaded_embedding_path)
     encoded = load_embedding_frame(encoded_path)
 
     if len(downloaded) != expected_total:
         raise ValueError(f'{key}: expected {expected_total} cached queries, found {len(downloaded)}')
 
-    downloaded_by_text = frame_by_text(downloaded)
-    encoded_by_text = frame_by_text(encoded)
-    encoded_texts = list(encoded['text'])
+    validate_unique_ids(downloaded, downloaded_embedding_path)
+    validate_unique_ids(encoded, encoded_path)
+    downloaded_by_id = {normalize_query_id(row.id): row for row in downloaded.itertuples(index=False)}
 
-    missing = [text for text in encoded_texts if text not in downloaded_by_text]
+    missing = [normalize_query_id(row.id) for row in encoded.itertuples(index=False)
+               if normalize_query_id(row.id) not in downloaded_by_id]
     if missing:
-        raise ValueError(f'{key}: {len(missing)} generated queries are missing from cached embeddings')
+        raise ValueError(f'{key}: {len(missing)} generated query ids are missing from cached embeddings')
+
+    mismatched_texts = [normalize_query_id(row.id) for row in encoded.itertuples(index=False)
+                        if row.text != downloaded_by_id[normalize_query_id(row.id)].text]
+    if mismatched_texts:
+        sample = ', '.join(mismatched_texts[:3])
+        raise ValueError(f'{key}: {len(mismatched_texts)} generated query ids have mismatched text: {sample}')
 
     similarities = []
-    for text in encoded_texts:
-        cached_row = downloaded_by_text[text]
-        encoded_row = encoded_by_text[text]
+    for encoded_row in encoded.itertuples(index=False):
+        cached_row = downloaded_by_id[normalize_query_id(encoded_row.id)]
         similarity = cosine_similarity(encoded_row.embedding, cached_row.embedding)
         similarities.append(similarity)
     summarize_similarities(key, similarities)
