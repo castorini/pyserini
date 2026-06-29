@@ -10,6 +10,7 @@ namespaces = false
 
 [tool.setuptools.package-data]
 "pyserini.server.rest" = ["openapi.yaml"]
+"pyserini.resources" = ["prebuilt-indexes/lucene/*.json"]
 "pyserini.resources.jars" = ["logging.properties"]
 
 [tool.black]

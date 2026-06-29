@@ -1,0 +1,308 @@
+[
+    {
+        "name": "miracl-v1.0-ar",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: Arabic",
+        "corpus_index": "miracl-v1.0-ar",
+        "description": "Lucene index for MIRACL v1.0 - Arabic (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-ar.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ar.20260604.558ae2c.tar"
+        ],
+        "md5": "78297714dfdd5e9253cb71f5043e2f89",
+        "size": 1409320960,
+        "documents": 2061414,
+        "total_terms": 90223450,
+        "unique_terms": 1246254
+    },
+    {
+        "name": "miracl-v1.0-bn",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: Bengali",
+        "corpus_index": "miracl-v1.0-bn",
+        "description": "Lucene index for MIRACL v1.0 - Bengali (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-bn.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-bn.20260604.558ae2c.tar"
+        ],
+        "md5": "9064c52b8cf77a23d62c37400db8a51e",
+        "size": 291256320,
+        "documents": 297265,
+        "total_terms": 14963235,
+        "unique_terms": 506812
+    },
+    {
+        "name": "miracl-v1.0-en",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: English",
+        "corpus_index": "miracl-v1.0-en",
+        "description": "Lucene index for MIRACL v1.0 - English (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-en.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-en.20260604.558ae2c.tar"
+        ],
+        "md5": "d6c9cdaf90d857fc883124154c95d2a2",
+        "size": 20680714240,
+        "documents": 32893221,
+        "total_terms": 1505029955,
+        "unique_terms": 6152316
+    },
+    {
+        "name": "miracl-v1.0-es",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: Spanish",
+        "corpus_index": "miracl-v1.0-es",
+        "description": "Lucene index for MIRACL v1.0 - Spanish (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-es.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-es.20260604.558ae2c.tar"
+        ],
+        "md5": "b30182ed716f26de7d54aa329241446c",
+        "size": 6328729600,
+        "documents": 10373953,
+        "total_terms": 389319806,
+        "unique_terms": 2907509
+    },
+    {
+        "name": "miracl-v1.0-de",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: German",
+        "corpus_index": "miracl-v1.0-de",
+        "description": "Lucene index for MIRACL v1.0 - German (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-de.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-de.20260604.558ae2c.tar"
+        ],
+        "md5": "859308b005802004b7bbc4fe2332a582",
+        "size": 10285731840,
+        "documents": 15866222,
+        "total_terms": 581583743,
+        "unique_terms": 6288858
+    },
+    {
+        "name": "miracl-v1.0-fa",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: Persian",
+        "corpus_index": "miracl-v1.0-fa",
+        "description": "Lucene index for MIRACL v1.0 - Persian (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-fa.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-fa.20260604.558ae2c.tar"
+        ],
+        "md5": "abdbde58b61f360ae325ec9c15071553",
+        "size": 1175224320,
+        "documents": 2207172,
+        "total_terms": 67968038,
+        "unique_terms": 1104195
+    },
+    {
+        "name": "miracl-v1.0-fi",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: Finnish",
+        "corpus_index": "miracl-v1.0-fi",
+        "description": "Lucene index for MIRACL v1.0 - Finnish (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-fi.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-fi.20260604.558ae2c.tar"
+        ],
+        "md5": "a0a7407f1557b8151d3497055094ade3",
+        "size": 1104527360,
+        "documents": 1883509,
+        "total_terms": 68295087,
+        "unique_terms": 1669817
+    },
+    {
+        "name": "miracl-v1.0-fr",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: French",
+        "corpus_index": "miracl-v1.0-fr",
+        "description": "Lucene index for MIRACL v1.0 - French (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-fr.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-fr.20260604.558ae2c.tar"
+        ],
+        "md5": "63e71554fddb071be503acb84ac1f55d",
+        "size": 7840276480,
+        "documents": 14636953,
+        "total_terms": 508723988,
+        "unique_terms": 2811334
+    },
+    {
+        "name": "miracl-v1.0-hi",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: Hindi",
+        "corpus_index": "miracl-v1.0-hi",
+        "description": "Lucene index for MIRACL v1.0 - Hindi (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-hi.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-hi.20260604.558ae2c.tar"
+        ],
+        "md5": "03f37cadc7cf3a79fbf262b8bcf96add",
+        "size": 423127040,
+        "documents": 506264,
+        "total_terms": 21080143,
+        "unique_terms": 597558
+    },
+    {
+        "name": "miracl-v1.0-id",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: Indonesian",
+        "corpus_index": "miracl-v1.0-id",
+        "description": "Lucene index for MIRACL v1.0 - Indonesian (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-id.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-id.20260604.558ae2c.tar"
+        ],
+        "md5": "8d81825e9e0363e0504ed32398060aae",
+        "size": 689367040,
+        "documents": 1446315,
+        "total_terms": 51469219,
+        "unique_terms": 911944
+    },
+    {
+        "name": "miracl-v1.0-ja",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: Japanese",
+        "corpus_index": "miracl-v1.0-ja",
+        "description": "Lucene index for MIRACL v1.0 - Japanese (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-ja.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ja.20260604.558ae2c.tar"
+        ],
+        "md5": "7f337e510c8f9d8c6850a85636c8ecb6",
+        "size": 4317890560,
+        "documents": 6953614,
+        "total_terms": 296659169,
+        "unique_terms": 1558643
+    },
+    {
+        "name": "miracl-v1.0-ko",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: Korean",
+        "corpus_index": "miracl-v1.0-ko",
+        "description": "Lucene index for MIRACL v1.0 - Korean (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-ko.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ko.20260604.558ae2c.tar"
+        ],
+        "md5": "d2648e245490dcc6fb80e9f8c4dd3a7a",
+        "size": 922388480,
+        "documents": 1486752,
+        "total_terms": 72532389,
+        "unique_terms": 451428
+    },
+    {
+        "name": "miracl-v1.0-ru",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: Russian",
+        "corpus_index": "miracl-v1.0-ru",
+        "description": "Lucene index for MIRACL v1.0 - Russian (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-ru.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-ru.20260604.558ae2c.tar"
+        ],
+        "md5": "b0a57963ccfe52ec7edb89cff1fb8c33",
+        "size": 6895124480,
+        "documents": 9543918,
+        "total_terms": 343106870,
+        "unique_terms": 2955627
+    },
+    {
+        "name": "miracl-v1.0-sw",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: Swahili",
+        "corpus_index": "miracl-v1.0-sw",
+        "description": "Lucene index for MIRACL v1.0 - Swahili (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-sw.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-sw.20260604.558ae2c.tar"
+        ],
+        "md5": "60d473575592cb2fd01ff240bdbc032c",
+        "size": 57292800,
+        "documents": 131924,
+        "total_terms": 4752278,
+        "unique_terms": 361306
+    },
+    {
+        "name": "miracl-v1.0-te",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: Telugu",
+        "corpus_index": "miracl-v1.0-te",
+        "description": "Lucene index for MIRACL v1.0 - Telugu (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-te.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-te.20260604.558ae2c.tar"
+        ],
+        "md5": "d78c1bb22aacc8934321d1541946da5b",
+        "size": 505917440,
+        "documents": 518079,
+        "total_terms": 26105595,
+        "unique_terms": 1120047
+    },
+    {
+        "name": "miracl-v1.0-th",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: Thai",
+        "corpus_index": "miracl-v1.0-th",
+        "description": "Lucene index for MIRACL v1.0 - Thai (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-th.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-th.20260604.558ae2c.tar"
+        ],
+        "md5": "d36c74137d7ac74fc40a4e10df63fc52",
+        "size": 523694080,
+        "documents": 542166,
+        "total_terms": 29922100,
+        "unique_terms": 626084
+    },
+    {
+        "name": "miracl-v1.0-yo",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: Yoruba",
+        "corpus_index": "miracl-v1.0-yo",
+        "description": "Lucene index for MIRACL v1.0 - Yoruba (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-yo.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-yo.20260604.558ae2c.tar"
+        ],
+        "md5": "a34d7a06904a317b7f257080f6f83539",
+        "size": 17387520,
+        "documents": 49043,
+        "total_terms": 1387088,
+        "unique_terms": 174539
+    },
+    {
+        "name": "miracl-v1.0-zh",
+        "type": "inverted",
+        "corpus": "MIRACL v1.0: Chinese",
+        "corpus_index": "miracl-v1.0-zh",
+        "description": "Lucene index for MIRACL v1.0 - Chinese (Lucene 10.4.0)",
+        "filename": "lucene-inverted.miracl-v1.0-zh.20260604.558ae2c.tar",
+        "readme": "lucene-inverted.miracl-v1.0.20260604.558ae2c.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.miracl-v1.0-zh.20260604.558ae2c.tar"
+        ],
+        "md5": "19e3b5dd3f648251f65410ad4c8cb4d8",
+        "size": 4776775680,
+        "documents": 4934368,
+        "total_terms": 423635495,
+        "unique_terms": 6517412
+    }
+]
