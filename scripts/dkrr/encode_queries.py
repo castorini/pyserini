@@ -23,17 +23,16 @@ from tqdm import tqdm
 from pyserini.encode.query import DkrrDprQueryEncoder
 from pyserini.query_iterator import DefaultQueryIterator
 
-ENCODER = 'castorini/dkrr-dpr-nq-retriever'
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--topics', type=str, help='path to topics file or topics name', required=True)
+    parser.add_argument('--encoder', type=str, help='encoder name or path', default='castorini/dkrr-dpr-nq-retriever', required=False)
     parser.add_argument('--output', type=str, help='path to store query embeddings', required=True)
     parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]', default='cpu', required=False)
     args = parser.parse_args()
 
-    encoder = DkrrDprQueryEncoder(encoder_dir=ENCODER, device=args.device)
+    encoder = DkrrDprQueryEncoder(encoder_dir=args.encoder, device=args.device)
 
     embeddings = {'id': [], 'text': [], 'embedding': []}
     for qid, text in tqdm(DefaultQueryIterator.from_topics(args.topics)):
