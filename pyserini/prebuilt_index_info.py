@@ -21,27 +21,6 @@ from urllib.request import urlopen
 
 from pyserini.pyclass import autoclass
 
-JPrebuiltInvertedIndex = autoclass('io.anserini.index.prebuilt.PrebuiltInvertedIndex')
-
-
-def import_from_inverted_lucene(index_metadata):
-    info = {
-        'description': index_metadata.description,
-        'filename': index_metadata.filename,
-        'readme': index_metadata.readme or '',
-        'urls': [
-            index_metadata.urls[0]
-        ],
-        'md5': index_metadata.md5,
-        'size': index_metadata.size,
-        'total_terms': index_metadata.totalTerms,
-        'documents': index_metadata.documents,
-        'unique_terms': index_metadata.uniqueTerms,
-        'texts': index_metadata.corpusIndex
-    }
-
-    return info
-
 
 def _import_from_lucene_prebuilt_inverted_index_json(index_metadata):
     info = {
@@ -147,145 +126,16 @@ class _PrebuiltIndexCatalog(Mapping):
 
 
 # Bindings for Lucene (standard) inverted indexes
-TF_INDEX_INFO_MSMARCO = {
-    # MS MARCO V1 document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v1-doc": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc')),
-    "msmarco-v1-doc-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc-slim')),
-    "msmarco-v1-doc-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc-full')),
-
-    # MS MARCO V1 document corpus, doc2query-T5 expansions;  defined in Anserini.
-    "msmarco-v1-doc.d2q-t5": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc.d2q-t5')),
-    "msmarco-v1-doc.d2q-t5-docvectors": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc.d2q-t5-docvectors')),
-
-    # MS MARCO V1 segmented document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v1-doc-segmented": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc-segmented')),
-    "msmarco-v1-doc-segmented-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc-segmented-slim')),
-    "msmarco-v1-doc-segmented-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc-segmented-full')),
-
-    # MS MARCO V1 segmented document corpus, doc2query-T5 expansions; defined in Anserini.
-    "msmarco-v1-doc-segmented.d2q-t5": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc-segmented.d2q-t5')),
-    "msmarco-v1-doc-segmented.d2q-t5-docvectors": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-doc-segmented.d2q-t5-docvectors')),
-
-    # MS MARCO V1 passage corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v1-passage": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-passage')),
-    "msmarco-v1-passage-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-passage-slim')),
-    "msmarco-v1-passage-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-passage-full')),
-
-    # MS MARCO V1 passage corpus, doc2query-T5 expansions; defined in Anserini.
-    "msmarco-v1-passage.d2q-t5": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-passage.d2q-t5')),
-    "msmarco-v1-passage.d2q-t5-docvectors": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v1-passage.d2q-t5-docvectors')),
-
-    # MS MARCO V2 document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v2-doc": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc')),
-    "msmarco-v2-doc-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc-slim')),
-    "msmarco-v2-doc-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc-full')),
-
-    # MS MARCO V2 document corpus, doc2query-T5 expansions; defined in Anserini.
-    "msmarco-v2-doc.d2q-t5": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc.d2q-t5')),
-    "msmarco-v2-doc.d2q-t5-docvectors": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc.d2q-t5-docvectors')),
-
-    # MS MARCO V2 segmented document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v2-doc-segmented": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc-segmented')),
-    "msmarco-v2-doc-segmented-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc-segmented-slim')),
-    "msmarco-v2-doc-segmented-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc-segmented-full')),
-
-    # MS MARCO V2 segmented document corpus, doc2query-T5 expansions; defined in Anserini.
-    "msmarco-v2-doc-segmented.d2q-t5": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc-segmented.d2q-t5')),
-    "msmarco-v2-doc-segmented.d2q-t5-docvectors": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-doc-segmented.d2q-t5-docvectors')),
-
-    # MS MARCO V2 passage corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v2-passage": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-passage')),
-    "msmarco-v2-passage-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-passage-slim')),
-    "msmarco-v2-passage-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-passage-full')),
-
-    # MS MARCO V2 passage corpus, doc2query-T5 expansions; defined in Anserini.
-    "msmarco-v2-passage.d2q-t5": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-passage.d2q-t5')),
-    "msmarco-v2-passage.d2q-t5-docvectors": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2-passage.d2q-t5-docvectors')),
-
-    # MS MARCO V2 augmented passage corpus, three indexes with different amounts of information (and sizes).
-    "msmarco-v2-passage-augmented": {
-        "description": "Lucene index of the MS MARCO V2 augmented passage corpus.",
-        "filename": "lucene-inverted.msmarco-v2-passage-augmented.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage-augmented.20220808.4d6d2a.tar.gz"
-        ],
-        "md5": "49f30d491c94ffbe3186af9a368de2d8",
-        "size": 75036029235,
-        "total_terms": 15272965252,
-        "documents": 138364198,
-        "unique_terms": 16579899,
-        "downloaded": False
-    },
-    "msmarco-v2-passage-augmented-slim": {
-        "description": "Lucene index of the MS MARCO V2 augmented passage corpus ('slim' version).",
-        "filename": "lucene-inverted.msmarco-v2-passage-augmented-slim.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage-augmented-slim.20220808.4d6d2a.tar.gz"
-        ],
-        "md5": "9aef72c639e75b5a517b4129477e48b5",
-        "size": 14757393139,
-        "total_terms": 15272965252,
-        "documents": 138364198,
-        "unique_terms": 16579899,
-        "downloaded": False
-    },
-    "msmarco-v2-passage-augmented-full": {
-        "description": "Lucene index of the MS MARCO V2 augmented passage corpus ('full' version).",
-        "filename": "lucene-inverted.msmarco-v2-passage-augmented-full.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage-augmented-full.20220808.4d6d2a.tar.gz"
-        ],
-        "md5": "1f40c7ef86b8d6166b8f0c3ea633635c",
-        "size": 130622749950,
-        "total_terms": 15272965252,
-        "documents": 138364198,
-        "unique_terms": 16579899,
-        "downloaded": False
-    },
-
-    # MS MARCO V2 augmented passage corpus, doc2query-T5 expansions.
-    "msmarco-v2-passage-augmented.d2q-t5": {
-        "description": "Lucene index of the MS MARCO V2 augmented passage corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v2-passage-augmented.d2q-t5.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-passage-augmented.d2q-t5.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage-augmented.d2q-t5.20220808.4d6d2a.tar.gz"
-        ],
-        "md5": "7147ad0edce10bc15660f7e5ed96ce1a",
-        "size": 20826386147,
-        "total_terms": 27561177716,
-        "documents": 138364198,
-        "unique_terms": 41177061,
-        "downloaded": False
-    },
-    "msmarco-v2-passage-augmented.d2q-t5-docvectors": {
-        "description": "Lucene index (+docvectors) of the MS MARCO V2 augmented passage corpus with doc2query-T5 expansions.",
-        "filename": "lucene-inverted.msmarco-v2-passage-augmented.d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-passage-augmented.d2q-t5.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage-augmented.d2q-t5-docvectors.20220808.4d6d2a.tar.gz",
-        ],
-        "md5": "f7413828cb3c6c8310a46c18d1fd2662",
-        "size": 95787339679,
-        "total_terms": 27561177716,
-        "documents": 138364198,
-        "unique_terms": 41177061,
-        "downloaded": False
-    },
-
-    # MS MARCO V2.1 document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v2.1-doc": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2.1-doc')),
-    "msmarco-v2.1-doc-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2.1-doc-slim')),
-    "msmarco-v2.1-doc-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2.1-doc-full')),
-
-    # MS MARCO V2.1 segmented document corpus, three indexes with different amounts of information (and sizes); defined in Anserini.
-    "msmarco-v2.1-doc-segmented": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2.1-doc-segmented')),
-    "msmarco-v2.1-doc-segmented-slim": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2.1-doc-segmented-slim')),
-    "msmarco-v2.1-doc-segmented-full": import_from_inverted_lucene(JPrebuiltInvertedIndex.get('msmarco-v2.1-doc-segmented-full'))
-}
+TF_INDEX_INFO_MSMARCO = _LazyLucenePrebuiltInvertedIndexJson(
+    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/msmarco-v1-doc-inverted.json',
+    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/msmarco-v1-passage-inverted.json',
+    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/msmarco-v2-doc-inverted.json',
+    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/msmarco-v2-doc-segmented-inverted.json',
+    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/msmarco-v2-passage-inverted.json',
+    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/msmarco-v2.1-doc-inverted.json',
+    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/msmarco-v2.1-doc-segmented-inverted.json',
+    key_prefixes=('msmarco-',)
+)
 
 TF_INDEX_INFO_MSMARCO_ALIASES = {
     # To preserve working commands in published papers: integrations/core/papers/test_sigir2021.py testcase test_section3_3
