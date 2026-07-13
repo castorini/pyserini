@@ -24,6 +24,9 @@ import os
 from dataclasses import dataclass
 from typing import Dict, List, Union, Optional, Tuple
 
+# Work around duplicate OpenMP runtimes in the same Python process on macOS.
+os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "True")
+
 import faiss
 import numpy as np
 

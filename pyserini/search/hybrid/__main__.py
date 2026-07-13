@@ -28,10 +28,6 @@ from pyserini.search.hybrid import HybridSearcher
 from pyserini.search.lucene import LuceneImpactSearcher, LuceneSearcher
 from pyserini.search.lucene.__main__ import define_search_args, set_bm25_parameters
 
-# Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
-# https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
-os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
-
 
 def define_fusion_args(parser):
     parser.add_argument('--alpha', type=float, metavar='num', required=False, default=0.1,
