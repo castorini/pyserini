@@ -17,7 +17,7 @@ Summary of results (figures from the paper are in parentheses):
 | TCT_ColBERT-V2 (brute-force index)                            | 0.3440 (0.344) | 0.3509 |      0.9670 |
 | TCT_ColBERT-V2-HN (brute-force index)                         | 0.3543 (0.354) | 0.3609 |      0.9708 |
 | TCT_ColBERT-V2-HN+ (brute-force index)                        | 0.3584 (0.359) | 0.3644 |      0.9695 |
-| TCT_ColBERT-V2-HN+ (brute-force index) + BoW BM25             | 0.3683 (0.369) | 0.3737 |      0.9707 |
+| TCT_ColBERT-V2-HN+ (brute-force index) + BoW BM25             | 0.3683 (0.369) | 0.3736 |      0.9707 |
 | TCT_ColBERT-V2-HN+ (brute-force index) + BM25 w/ doc2query-T5 | 0.3731 (0.375) | 0.3789 |      0.9759 |
 
 The slight differences between the reproduced scores and those reported in the paper can be attributed to TensorFlow implementations in the published paper vs. PyTorch implementations here in this reproduction guide.
@@ -216,7 +216,7 @@ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap msmarco-passage-dev-sub
 Results:
 
 ```text
-map                     all     0.3737
+map                     all     0.3736
 recall_1000             all     0.9707
 ```
 
@@ -388,3 +388,4 @@ ndcg_cut_10             all     0.6094
 + Results reproduced by [@lintool](https://github.com/lintool) on 2023-05-06 (commit [`dcc0ba`](https://github.com/castorini/pyserini/commit/dcc0ba06585a08d7c78cbffac4217b57e170fc3a))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2024-10-07 (commit [`3f7609`](https://github.com/castorini/pyserini/commit/3f76099a73820afee12496c0354d52ca6a6175c2))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2026-06-22 (commit [`65b1bbb`](https://github.com/castorini/pyserini/commit/65b1bbb43af9d841e9e78dcb185f1b45d903cede))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2026-07-02 (commit [`ef7398b`](https://github.com/castorini/pyserini/commit/ef7398baec47c18a90757ce6d1cc815682432e1a))
