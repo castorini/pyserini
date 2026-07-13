@@ -229,7 +229,7 @@ Summary of results:
 |:-------------------------------------------------------|--------:|-------:|-----------:|
 | TCT-ColBERT (brute-force index)                        |  0.3323 | 0.3323 |     0.8664 |
 | TCT-ColBERT (brute-force index) + BoW BM25             |  0.3701 | 0.3701 |     0.9020 |
-| TCT-ColBERT (brute-force index) + BM25 w/ doc2query-T5 |  0.3784 | 0.3784 |     0.9083 |
+| TCT-ColBERT (brute-force index) + BM25 w/ doc2query-T5 |  0.3784 | 0.3784 |     0.9081 |
 
 Although this is not described in the paper, we have adapted TCT-ColBERT to the MS MARCO document ranking task in a zero-shot manner.
 Documents in the MS MARCO document collection are first segmented, and each segment is then encoded with the TCT-ColBERT model trained on trained on MS MARCO passages.
@@ -386,7 +386,7 @@ Results:
 
 ```text
 map                     all     0.3784
-recall_100              all     0.9083
+recall_100              all     0.9081
 ```
 
 ## Reproduction Log[*](reproducibility.md)
@@ -402,3 +402,4 @@ recall_100              all     0.9083
 + Results reproduced by [@lintool](https://github.com/lintool) on 2023-05-06 (commit [`dcc0ba`](https://github.com/castorini/pyserini/commit/dcc0ba06585a08d7c78cbffac4217b57e170fc3a))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2024-10-07 (commit [`3f7609`](https://github.com/castorini/pyserini/commit/3f76099a73820afee12496c0354d52ca6a6175c2))
 + Results reproduced by [@lintool](https://github.com/lintool) on 2026-06-22 (commit [`65b1bbb`](https://github.com/castorini/pyserini/commit/65b1bbb43af9d841e9e78dcb185f1b45d903cede))
++ Results reproduced by [@lintool](https://github.com/lintool) on 2026-07-02 (commit [`ef7398b`](https://github.com/castorini/pyserini/commit/ef7398baec47c18a90757ce6d1cc815682432e1a))
