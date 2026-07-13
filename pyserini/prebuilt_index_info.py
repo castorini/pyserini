@@ -22,20 +22,28 @@ from urllib.request import urlopen
 from pyserini.pyclass import autoclass
 
 
+PREBUILT_INDEXES_COMMIT = 'eb2a94de2029b3e9234ffd7445ab74991b6b0137'
+
+
+def _prebuilt_indexes_url(path):
+    return f'https://raw.githubusercontent.com/castorini/prebuilt-indexes/{PREBUILT_INDEXES_COMMIT}/{path}'
+
+
 def _import_from_lucene_prebuilt_inverted_index_json(index_metadata):
     info = {
         'description': index_metadata['description'],
         'filename': index_metadata['filename'],
-        'readme': index_metadata.get('readme') or '',
         'urls': index_metadata['urls'],
         'md5': index_metadata['md5'],
         'size': index_metadata['size'],
-        'texts': index_metadata['corpus_index']
     }
 
-    for field in ['total_terms', 'documents', 'unique_terms']:
+    for field in ['readme', 'total_terms', 'documents', 'unique_terms', 'downloaded']:
         if field in index_metadata:
             info[field] = index_metadata[field]
+
+    if 'corpus_index' in index_metadata:
+        info['texts'] = index_metadata['corpus_index']
 
     return info
 
@@ -127,13 +135,13 @@ class _PrebuiltIndexCatalog(Mapping):
 
 # Bindings for Lucene (standard) inverted indexes
 TF_INDEX_INFO_MSMARCO = _LazyLucenePrebuiltInvertedIndexJson(
-    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/msmarco-v1-doc-inverted.json',
-    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/msmarco-v1-passage-inverted.json',
-    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/msmarco-v2-doc-inverted.json',
-    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/msmarco-v2-doc-segmented-inverted.json',
-    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/msmarco-v2-passage-inverted.json',
-    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/msmarco-v2.1-doc-inverted.json',
-    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/msmarco-v2.1-doc-segmented-inverted.json',
+    _prebuilt_indexes_url('lucene/msmarco-v1-doc-inverted.json'),
+    _prebuilt_indexes_url('lucene/msmarco-v1-passage-inverted.json'),
+    _prebuilt_indexes_url('lucene/msmarco-v2-doc-inverted.json'),
+    _prebuilt_indexes_url('lucene/msmarco-v2-doc-segmented-inverted.json'),
+    _prebuilt_indexes_url('lucene/msmarco-v2-passage-inverted.json'),
+    _prebuilt_indexes_url('lucene/msmarco-v2.1-doc-inverted.json'),
+    _prebuilt_indexes_url('lucene/msmarco-v2.1-doc-segmented-inverted.json'),
     key_prefixes=('msmarco-',)
 )
 
@@ -145,13 +153,13 @@ TF_INDEX_INFO_MSMARCO_ALIASES = {
 }
 
 TF_INDEX_INFO_BEIR = _LazyLucenePrebuiltInvertedIndexJson(
-    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/beir-inverted-flat.json',
-    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/beir-inverted-multifield.json',
+    _prebuilt_indexes_url('lucene/beir-inverted-flat.json'),
+    _prebuilt_indexes_url('lucene/beir-inverted-multifield.json'),
     key_prefixes=('beir-v1.0.0-',)
 )
 
 TF_INDEX_INFO_BRIGHT = _LazyLucenePrebuiltInvertedIndexJson(
-    'https://raw.githubusercontent.com/castorini/prebuilt-indexes/main/lucene/bright-inverted.json',
+    _prebuilt_indexes_url('lucene/bright-inverted.json'),
     key_prefixes=('bright-',)
 )
 
@@ -219,354 +227,11 @@ TF_INDEX_INFO = _PrebuiltIndexCatalog(TF_INDEX_INFO_MSMARCO,
                                       })
 
 
-JPrebuiltImpactIndex = autoclass('io.anserini.index.prebuilt.PrebuiltImpactIndex')
-
-def import_from_impact_lucene(index_metadata):
-    info = {
-        'description': index_metadata.description,
-        'filename': index_metadata.filename,
-        'readme': index_metadata.readme,
-        'urls': [
-            index_metadata.urls[0]
-        ],
-        'md5': index_metadata.md5,
-        'size': index_metadata.size,
-        'total_terms': index_metadata.totalTerms,
-        'documents': index_metadata.documents,
-        'unique_terms': index_metadata.uniqueTerms,
-        'texts': index_metadata.corpusIndex
-    }
-
-    return info
-
 # Bindings for Lucene impact indexes
-IMPACT_INDEX_INFO_MSMARCO = {
-    "msmarco-v1-passage.slimr": {
-        "description": "Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with BM25 negatives.",
-        "filename": "lucene-inverted.msmarco-v1-passage.slimr.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.slimr.20230925.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/slimr/lucene-inverted.msmarco-v1-passage.slimr.tar.gz",
-        ],
-        "md5": "2871da5fec6991b65032c7a159cfc9ec",
-        "size": 1902711709,
-        "total_terms": 100694232684,
-        "documents": 8841823,
-        "unique_terms": 28121,
-        "downloaded": False
-    },
-    "msmarco-v1-passage.slimr-pp": {
-        "description": "Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with cross-encoder distillation and hard-negative mining.",
-        "filename": "lucene-inverted.msmarco-v1-passage.slimr-pp.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.slimr-pp.20230925.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/slimr-pp/lucene-inverted.msmarco-v1-passage.slimr-pp.tar.gz",
-        ],
-        "md5": "af85ff00a264e5288bac9e745cc4bb62",
-        "size": 2135050221,
-        "total_terms": 104421954301,
-        "documents": 8841823,
-        "unique_terms": 27766,
-        "downloaded": False
-    },
-    "msmarco-v1-passage.unicoil": {
-        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL.",
-        "filename": "lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/unicoil/lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.tar.gz",
-        ],
-        "md5": "f926bd3e17d210ff041f880d27bdcd6f",
-        "size": 1161033793,
-        "total_terms": 44495093768,
-        "documents": 8841823,
-        "unique_terms": 27678,
-        "downloaded": False
-    },
-    "msmarco-v1-passage.unicoil-noexp": {
-        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL (noexp).",
-        "filename": "lucene-inverted.msmarco-v1-passage.unicoil-noexp.20221005.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.unicoil-noexp.20221005.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/unicoil-noexp/lucene-inverted.msmarco-v1-passage.unicoil-noexp.20221005.252b5e.tar.gz",
-        ],
-        "md5": "8a2527e582c343374b8270b1db8d1a06",
-        "size": 873513687,
-        "total_terms": 26468530021,
-        "documents": 8841823,
-        "unique_terms": 27647,
-        "downloaded": False
-    },
-    "msmarco-v1-passage.unicoil-tilde": {
-        "description": "Lucene impact index of the MS MARCO V1 passage corpus encoded by uniCOIL-TILDE.",
-        "filename": "lucene-inverted.msmarco-v1-passage.unicoil-tilde.20221005.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.unicoil-tilde.20221005.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/unicoil-tilde/lucene-inverted.msmarco-v1-passage.unicoil-tilde.20221005.252b5e.tar.gz",
-        ],
-        "md5": "2d192adb9e0bfc6024d399dca9f36b50",
-        "size": 1871923442,
-        "total_terms": 73040108576,
-        "documents": 8841823,
-        "unique_terms": 27646,
-        "downloaded": False
-    },
-    "msmarco-v1-passage.deepimpact": {
-        "description": "Lucene impact index of the MS MARCO V1 passage corpus encoded by DeepImpact.",
-        "filename": "lucene-inverted.msmarco-v1-passage.deepimpact.20221005.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.deepimpact.20221005.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/deepimpact/lucene-inverted.msmarco-v1-passage.deepimpact.20221005.252b5e.tar.gz",
-        ],
-        "md5": "b4f1d0886cdfca43230dfb6d4866ff14",
-        "size": 1242661399,
-        "total_terms": 35455908214,
-        "documents": 8841823,
-        "unique_terms": 3514102,
-        "downloaded": False
-    },
-    "msmarco-v1-passage.distill-splade-max": {
-        "description": "Lucene impact index of the MS MARCO V1 passage corpus encoded by distill-splade-max.",
-        "filename": "lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/distill-splade-max/lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.tar.gz",
-        ],
-        "md5": "145e283e9f44235ae132f86fca07f083",
-        "size": 3822890791,
-        "total_terms": 95445422483,
-        "documents": 8841823,
-        "unique_terms": 28131,
-        "downloaded": False
-    },
-    "msmarco-v1-passage.splade-pp-ed": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil.",
-        "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-ed.20230524.a59610.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-ed.20230524.a59610.tar.gz",
-        ],
-        "md5": "2c008fc36131e27966a72292932358e6",
-        "size": 2102230097,
-        "total_terms": 52376261130,
-        "documents": 8841823,
-        "unique_terms": 28679,
-        "downloaded": False
-    },
-    "msmarco-v1-passage.splade-pp-ed-docvectors": {
-        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil.",
-        "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-ed-docvectors.20230524.a59610.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-ed-docvectors.20230524.a59610.tar.gz",
-        ],
-        "md5": "98d6bb5eaf7b0c704d200843115ef827",
-        "size": 13052698276,
-        "total_terms": 52376261130,
-        "documents": 8841823,
-        "unique_terms": 28679,
-        "downloaded": False
-    },
-    "msmarco-v1-passage.splade-pp-ed-text": {
-        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil.",
-        "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-ed-text.20230524.a59610.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-ed-text.20230524.a59610.tar.gz",
-        ],
-        "md5": "738f7a79c69075044da92127889fd191",
-        "size": 9983469326,
-        "total_terms": 52376261130,
-        "documents": 8841823,
-        "unique_terms": 28679,
-        "downloaded": False
-    },
-    "msmarco-v1-passage.splade-pp-sd": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.",
-        "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-sd.20230524.a59610.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-sd.20230524.a59610.tar.gz",
-        ],
-        "md5": "b92bbe960186d2b7c752856b07b0e889",
-        "size": 2367260823,
-        "total_terms": 55456660129,
-        "documents": 8841823,
-        "unique_terms": 28662,
-        "downloaded": False
-    },
-    "msmarco-v1-passage.splade-pp-sd-docvectors": {
-        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.",
-        "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-sd-docvectors.20230524.a59610.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-sd-docvectors.20230524.a59610.tar.gz",
-        ],
-        "md5": "32eab153ab5c67faf9c0411a421e2ac5",
-        "size": 14829233252,
-        "total_terms": 55456660129,
-        "documents": 8841823,
-        "unique_terms": 28662,
-        "downloaded": False
-    },
-    "msmarco-v1-passage.splade-pp-sd-text": {
-        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.",
-        "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-sd-text.20230524.a59610.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-sd-text.20230524.a59610.tar.gz",
-        ],
-        "md5": "5483ec81dc4f4057468a3df21c22f236",
-        "size": 11473064932,
-        "total_terms": 55456660129,
-        "documents": 8841823,
-        "unique_terms": 28662,
-        "downloaded": False
-    },
-
-    "msmarco-v1-passage.splade-v3": {
-        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADEv3.",
-        "filename": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-v3/lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.tar.gz"
-        ],
-        "md5": "52f4b59d236547f570555715ed314311",
-        "size": 2813676432,
-        "total_terms": 46922883529,
-        "documents": 8841823,
-        "unique_terms": 27952,
-        "downloaded": False
-    },
-    "msmarco-v1-passage.splade-v3-docvectors": {
-        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADEv3.",
-        "filename": "lucene-inverted.msmarco-v1-passage.splade-v3-docvectors.20250329.4f4c68.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-v3/lucene-inverted.msmarco-v1-passage.splade-v3-docvectors.20250329.4f4c68.tar.gz",
-        ],
-        "md5": "28fcf13a9b22ea2b9f9e90b650a9bee9",
-        "size": 17003537833,
-        "total_terms": 46922883529,
-        "documents": 8841823,
-        "unique_terms": 27952,
-        "downloaded": False
-    },
-    "msmarco-v1-passage.splade-v3-text": {
-        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADEv3.",
-        "filename": "lucene-inverted.msmarco-v1-passage.splade-v3-text.20250329.4f4c68.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-v3/lucene-inverted.msmarco-v1-passage.splade-v3-text.20250329.4f4c68.tar.gz",
-        ],
-        "md5": "ed19483173a6ebddb257cfef5f5d54d6",
-        "size": 15479150141,
-        "total_terms": 46922883529,
-        "documents": 8841823,
-        "unique_terms": 27952,
-        "downloaded": False
-    },
-
-    "msmarco-v1-doc-segmented.unicoil": {
-        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL, with title/segment encoding.",
-        "filename": "lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/unicoil/lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.tar.gz",
-        ],
-        "md5": "7dc32ad22876fbbe0f24f21fd1ea50c0",
-        "size": 5765257801,
-        "total_terms": 214505277898,
-        "documents": 20545677,
-        "unique_terms": 29142,
-        "downloaded": False
-    },
-    "msmarco-v1-doc-segmented.unicoil-noexp": {
-        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp), with title/segment encoding.",
-        "filename": "lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.tar.gz",
-        "readme": "lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.README.md",
-        "urls": [
-            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/unicoil-noexp/lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.tar.gz",
-        ],
-        "md5": "f92d5a2ba22274993b34f69e59427379",
-        "size": 5323380902,
-        "total_terms": 152323732876,
-        "documents": 20545677,
-        "unique_terms": 29142,
-        "downloaded": False
-    },
-
-    "msmarco-v2-passage.unicoil-0shot": {
-        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL.",
-        "filename": "lucene-inverted.msmarco-v2-passage.unicoil-0shot.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-passage.unicoil-0shot.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage.unicoil-0shot.20220808.4d6d2a.tar.gz",
-        ],
-        "md5": "69919059e3e9575968edafe168b55b66",
-        "size": 21736933019,
-        "total_terms": 775253560148,
-        "documents": 138364198,
-        "unique_terms": 29149,
-        "downloaded": False
-    },
-    "msmarco-v2-passage.unicoil-noexp-0shot": {
-        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL (noexp).",
-        "filename": "lucene-inverted.msmarco-v2-passage.unicoil-noexp-0shot.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-passage.unicoil-noexp-0shot.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage.unicoil-noexp-0shot.20220808.4d6d2a.tar.gz",
-        ],
-        "md5": "3e0a5be5adca063a112fa2f0978f91cb",
-        "size": 14347304537,
-        "total_terms": 411330032512,
-        "documents": 138364198,
-        "unique_terms": 29148,
-        "downloaded": False
-    },
-    "msmarco-v2-passage.slimr-pp": {
-        "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by SLIM (norefine) trained with cross-encoder distillation and hard-negative mining.",
-        "filename": "lucene-inverted.msmarco-v2-passage.slimr-pp.20230614.tar.gz",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage.slimr-pp.20230614.tar.gz",
-        ],
-        "md5": "e4091198c2345a3a9aa073a52ff9fb48",
-        "size": 35297331848,
-        "total_terms": 1668035574958,
-        "documents": 138364197,
-        "unique_terms": -1,
-        "downloaded": False
-    },
-
-    "msmarco-v2-doc-segmented.unicoil-0shot": {
-        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL, with title prepended.",
-        "filename": "lucene-inverted.msmarco-v2-doc-segmented.unicoil-0shot.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-doc-segmented.unicoil-0shot.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc-segmented.unicoil-0shot.20220808.4d6d2a.tar.gz"
-        ],
-        "md5": "ff12d2001f463460a11ff6f60175190e",
-        "size": 33573638017,
-        "total_terms": 1204542769110,
-        "documents": 124131414,
-        "unique_terms": 29168,
-        "downloaded": False
-    },
-    "msmarco-v2-doc-segmented.unicoil-noexp-0shot": {
-        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended.",
-        "filename": "lucene-inverted.msmarco-v2-doc-segmented.unicoil-noexp-0shot.20220808.4d6d2a.tar.gz",
-        "readme": "lucene-inverted.msmarco-v2-doc-segmented.unicoil-noexp-0shot.20220808.4d6d2a.README.md",
-        "urls": [
-            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc-segmented.unicoil-noexp-0shot.20220808.4d6d2a.tar.gz"
-        ],
-        "md5": "e3f448f4de46d86953892337fea39ed0",
-        "size": 29059154628,
-        "total_terms": 820664704261,
-        "documents": 124131404,
-        "unique_terms": 29172,
-        "downloaded": False
-    }
-}
+IMPACT_INDEX_INFO_MSMARCO = _LazyLucenePrebuiltInvertedIndexJson(
+    'resources/prebuilt-indexes/lucene/msmarco-impact.json',
+    key_prefixes=('msmarco-',)
+)
 
 IMPACT_INDEX_INFO_MSMARCO_ALIASES = {
     # To preserve working commands in published papers: integrations/core/papers/test_sigir2022.py testcase test_Trotman_etal
@@ -575,89 +240,21 @@ IMPACT_INDEX_INFO_MSMARCO_ALIASES = {
     "msmarco-v2-passage-unicoil-0shot": IMPACT_INDEX_INFO_MSMARCO["msmarco-v2-passage.unicoil-0shot"]
 }
 
-IMPACT_INDEX_INFO_BEIR = {
-    # BEIR: SPLADE++ ED
-    "beir-v1.0.0-trec-covid.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-trec-covid.splade-pp-ed')),
-    "beir-v1.0.0-bioasq.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-bioasq.splade-pp-ed')),
-    "beir-v1.0.0-nfcorpus.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-nfcorpus.splade-pp-ed')),
-    "beir-v1.0.0-nq.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-nq.splade-pp-ed')),
-    "beir-v1.0.0-hotpotqa.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-hotpotqa.splade-pp-ed')),
-    "beir-v1.0.0-fiqa.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-fiqa.splade-pp-ed')),
-    "beir-v1.0.0-signal1m.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-signal1m.splade-pp-ed')),
-    "beir-v1.0.0-trec-news.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-trec-news.splade-pp-ed')),
-    "beir-v1.0.0-robust04.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-robust04.splade-pp-ed')),
-    "beir-v1.0.0-arguana.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-arguana.splade-pp-ed')),
-    "beir-v1.0.0-webis-touche2020.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-webis-touche2020.splade-pp-ed')),
-    "beir-v1.0.0-cqadupstack-android.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-android.splade-pp-ed')),
-    "beir-v1.0.0-cqadupstack-english.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-english.splade-pp-ed')),
-    "beir-v1.0.0-cqadupstack-gaming.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-gaming.splade-pp-ed')),
-    "beir-v1.0.0-cqadupstack-gis.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-gis.splade-pp-ed')),
-    "beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed')),
-    "beir-v1.0.0-cqadupstack-physics.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-physics.splade-pp-ed')),
-    "beir-v1.0.0-cqadupstack-programmers.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-programmers.splade-pp-ed')),
-    "beir-v1.0.0-cqadupstack-stats.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-stats.splade-pp-ed')),
-    "beir-v1.0.0-cqadupstack-tex.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-tex.splade-pp-ed')),
-    "beir-v1.0.0-cqadupstack-unix.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-unix.splade-pp-ed')),
-    "beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed')),
-    "beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed')),
-    "beir-v1.0.0-quora.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-quora.splade-pp-ed')),
-    "beir-v1.0.0-dbpedia-entity.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-dbpedia-entity.splade-pp-ed')),
-    "beir-v1.0.0-scidocs.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-scidocs.splade-pp-ed')),
-    "beir-v1.0.0-fever.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-fever.splade-pp-ed')),
-    "beir-v1.0.0-climate-fever.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-climate-fever.splade-pp-ed')),
-    "beir-v1.0.0-scifact.splade-pp-ed": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-scifact.splade-pp-ed')),
+IMPACT_INDEX_INFO_BEIR = _LazyLucenePrebuiltInvertedIndexJson(
+    _prebuilt_indexes_url('lucene/beir-impact-splade-pp-ed.json'),
+    _prebuilt_indexes_url('lucene/beir-impact-splade-v3.json'),
+    key_prefixes=('beir-v1.0.0-',)
+)
 
-    # BEIR: SPLADEv3
-    "beir-v1.0.0-trec-covid.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-trec-covid.splade-v3')),
-    "beir-v1.0.0-bioasq.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-bioasq.splade-v3')),
-    "beir-v1.0.0-nfcorpus.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-nfcorpus.splade-v3')),
-    "beir-v1.0.0-nq.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-nq.splade-v3')),
-    "beir-v1.0.0-hotpotqa.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-hotpotqa.splade-v3')),
-    "beir-v1.0.0-fiqa.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-fiqa.splade-v3')),
-    "beir-v1.0.0-signal1m.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-signal1m.splade-v3')),
-    "beir-v1.0.0-trec-news.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-trec-news.splade-v3')),
-    "beir-v1.0.0-robust04.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-robust04.splade-v3')),
-    "beir-v1.0.0-arguana.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-arguana.splade-v3')),
-    "beir-v1.0.0-webis-touche2020.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-webis-touche2020.splade-v3')),
-    "beir-v1.0.0-cqadupstack-android.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-android.splade-v3')),
-    "beir-v1.0.0-cqadupstack-english.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-english.splade-v3')),
-    "beir-v1.0.0-cqadupstack-gaming.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-gaming.splade-v3')),
-    "beir-v1.0.0-cqadupstack-gis.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-gis.splade-v3')),
-    "beir-v1.0.0-cqadupstack-mathematica.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-mathematica.splade-v3')),
-    "beir-v1.0.0-cqadupstack-physics.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-physics.splade-v3')),
-    "beir-v1.0.0-cqadupstack-programmers.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-programmers.splade-v3')),
-    "beir-v1.0.0-cqadupstack-stats.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-stats.splade-v3')),
-    "beir-v1.0.0-cqadupstack-tex.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-tex.splade-v3')),
-    "beir-v1.0.0-cqadupstack-unix.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-unix.splade-v3')),
-    "beir-v1.0.0-cqadupstack-webmasters.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-webmasters.splade-v3')),
-    "beir-v1.0.0-cqadupstack-wordpress.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-cqadupstack-wordpress.splade-v3')),
-    "beir-v1.0.0-quora.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-quora.splade-v3')),
-    "beir-v1.0.0-dbpedia-entity.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-dbpedia-entity.splade-v3')),
-    "beir-v1.0.0-scidocs.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-scidocs.splade-v3')),
-    "beir-v1.0.0-fever.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-fever.splade-v3')),
-    "beir-v1.0.0-climate-fever.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-climate-fever.splade-v3')),
-    "beir-v1.0.0-scifact.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('beir-v1.0.0-scifact.splade-v3')),
-}
+IMPACT_INDEX_INFO_BRIGHT = _LazyLucenePrebuiltInvertedIndexJson(
+    _prebuilt_indexes_url('lucene/bright-impact.json'),
+    key_prefixes=('bright-',)
+)
 
-IMPACT_INDEX_INFO_BRIGHT = {
-    "bright-biology.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-biology.splade-v3')),
-    "bright-earth-science.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-earth-science.splade-v3')),
-    "bright-economics.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-economics.splade-v3')),
-    "bright-psychology.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-psychology.splade-v3')),
-    "bright-robotics.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-robotics.splade-v3')),
-    "bright-stackoverflow.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-stackoverflow.splade-v3')),
-    "bright-sustainable-living.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-sustainable-living.splade-v3')),
-    "bright-pony.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-pony.splade-v3')),
-    "bright-leetcode.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-leetcode.splade-v3')),
-    "bright-aops.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-aops.splade-v3')),
-    "bright-theoremqa-theorems.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-theoremqa-theorems.splade-v3')),
-    "bright-theoremqa-questions.splade-v3": import_from_impact_lucene(JPrebuiltImpactIndex.get('bright-theoremqa-questions.splade-v3')),
-}
-
-IMPACT_INDEX_INFO = {**IMPACT_INDEX_INFO_MSMARCO,
-                     **IMPACT_INDEX_INFO_MSMARCO_ALIASES,
-                     **IMPACT_INDEX_INFO_BEIR,
-                     **IMPACT_INDEX_INFO_BRIGHT}
+IMPACT_INDEX_INFO = _PrebuiltIndexCatalog(IMPACT_INDEX_INFO_MSMARCO,
+                                          IMPACT_INDEX_INFO_MSMARCO_ALIASES,
+                                          IMPACT_INDEX_INFO_BEIR,
+                                          IMPACT_INDEX_INFO_BRIGHT)
 
 JPrebuiltHnswIndex = autoclass('io.anserini.index.prebuilt.PrebuiltHnswIndex')
 

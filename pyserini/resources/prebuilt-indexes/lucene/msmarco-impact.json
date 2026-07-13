@@ -1,0 +1,369 @@
+[
+    {
+        "name": "msmarco-v1-passage.slimr",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with BM25 negatives.",
+        "filename": "lucene-inverted.msmarco-v1-passage.slimr.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.slimr.20230925.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/slimr/lucene-inverted.msmarco-v1-passage.slimr.tar.gz"
+        ],
+        "md5": "2871da5fec6991b65032c7a159cfc9ec",
+        "size": 1902711709,
+        "total_terms": 100694232684,
+        "documents": 8841823,
+        "unique_terms": 28121,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-passage.slimr-pp",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus enoded by SLIM trained with cross-encoder distillation and hard-negative mining.",
+        "filename": "lucene-inverted.msmarco-v1-passage.slimr-pp.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.slimr-pp.20230925.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/slimr-pp/lucene-inverted.msmarco-v1-passage.slimr-pp.tar.gz"
+        ],
+        "md5": "af85ff00a264e5288bac9e745cc4bb62",
+        "size": 2135050221,
+        "total_terms": 104421954301,
+        "documents": 8841823,
+        "unique_terms": 27766,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-passage.unicoil",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL.",
+        "filename": "lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/unicoil/lucene-inverted.msmarco-v1-passage.unicoil.20221005.252b5e.tar.gz"
+        ],
+        "md5": "f926bd3e17d210ff041f880d27bdcd6f",
+        "size": 1161033793,
+        "total_terms": 44495093768,
+        "documents": 8841823,
+        "unique_terms": 27678,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-passage.unicoil-noexp",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus for uniCOIL (noexp).",
+        "filename": "lucene-inverted.msmarco-v1-passage.unicoil-noexp.20221005.252b5e.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.unicoil-noexp.20221005.252b5e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/unicoil-noexp/lucene-inverted.msmarco-v1-passage.unicoil-noexp.20221005.252b5e.tar.gz"
+        ],
+        "md5": "8a2527e582c343374b8270b1db8d1a06",
+        "size": 873513687,
+        "total_terms": 26468530021,
+        "documents": 8841823,
+        "unique_terms": 27647,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-passage.unicoil-tilde",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus encoded by uniCOIL-TILDE.",
+        "filename": "lucene-inverted.msmarco-v1-passage.unicoil-tilde.20221005.252b5e.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.unicoil-tilde.20221005.252b5e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/unicoil-tilde/lucene-inverted.msmarco-v1-passage.unicoil-tilde.20221005.252b5e.tar.gz"
+        ],
+        "md5": "2d192adb9e0bfc6024d399dca9f36b50",
+        "size": 1871923442,
+        "total_terms": 73040108576,
+        "documents": 8841823,
+        "unique_terms": 27646,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-passage.deepimpact",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus encoded by DeepImpact.",
+        "filename": "lucene-inverted.msmarco-v1-passage.deepimpact.20221005.252b5e.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.deepimpact.20221005.252b5e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/deepimpact/lucene-inverted.msmarco-v1-passage.deepimpact.20221005.252b5e.tar.gz"
+        ],
+        "md5": "b4f1d0886cdfca43230dfb6d4866ff14",
+        "size": 1242661399,
+        "total_terms": 35455908214,
+        "documents": 8841823,
+        "unique_terms": 3514102,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-passage.distill-splade-max",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO V1 passage corpus encoded by distill-splade-max.",
+        "filename": "lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/distill-splade-max/lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.tar.gz"
+        ],
+        "md5": "145e283e9f44235ae132f86fca07f083",
+        "size": 3822890791,
+        "total_terms": 95445422483,
+        "documents": 8841823,
+        "unique_terms": 28131,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-passage.splade-pp-ed",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil.",
+        "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-ed.20230524.a59610.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-ed.20230524.a59610.tar.gz"
+        ],
+        "md5": "2c008fc36131e27966a72292932358e6",
+        "size": 2102230097,
+        "total_terms": 52376261130,
+        "documents": 8841823,
+        "unique_terms": 28679,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-passage.splade-pp-ed-docvectors",
+        "type": "impact",
+        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil.",
+        "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-ed-docvectors.20230524.a59610.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-ed-docvectors.20230524.a59610.tar.gz"
+        ],
+        "md5": "98d6bb5eaf7b0c704d200843115ef827",
+        "size": 13052698276,
+        "total_terms": 52376261130,
+        "documents": 8841823,
+        "unique_terms": 28679,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-passage.splade-pp-ed-text",
+        "type": "impact",
+        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-EnsembleDistil.",
+        "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-ed-text.20230524.a59610.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-ed-text.20230524.a59610.tar.gz"
+        ],
+        "md5": "738f7a79c69075044da92127889fd191",
+        "size": 9983469326,
+        "total_terms": 52376261130,
+        "documents": 8841823,
+        "unique_terms": 28679,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-passage.splade-pp-sd",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.",
+        "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-sd.20230524.a59610.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-sd.20230524.a59610.tar.gz"
+        ],
+        "md5": "b92bbe960186d2b7c752856b07b0e889",
+        "size": 2367260823,
+        "total_terms": 55456660129,
+        "documents": 8841823,
+        "unique_terms": 28662,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-passage.splade-pp-sd-docvectors",
+        "type": "impact",
+        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.",
+        "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-sd-docvectors.20230524.a59610.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-sd-docvectors.20230524.a59610.tar.gz"
+        ],
+        "md5": "32eab153ab5c67faf9c0411a421e2ac5",
+        "size": 14829233252,
+        "total_terms": 55456660129,
+        "documents": 8841823,
+        "unique_terms": 28662,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-passage.splade-pp-sd-text",
+        "type": "impact",
+        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADE++ CoCondenser-SelfDistil.",
+        "filename": "lucene-inverted.msmarco-v1-passage.splade-pp-sd-text.20230524.a59610.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-pp.20230524.a59610.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-pp/lucene-inverted.msmarco-v1-passage.splade-pp-sd-text.20230524.a59610.tar.gz"
+        ],
+        "md5": "5483ec81dc4f4057468a3df21c22f236",
+        "size": 11473064932,
+        "total_terms": 55456660129,
+        "documents": 8841823,
+        "unique_terms": 28662,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-passage.splade-v3",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO passage corpus encoded by SPLADEv3.",
+        "filename": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-v3/lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.tar.gz"
+        ],
+        "md5": "52f4b59d236547f570555715ed314311",
+        "size": 2813676432,
+        "total_terms": 46922883529,
+        "documents": 8841823,
+        "unique_terms": 27952,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-passage.splade-v3-docvectors",
+        "type": "impact",
+        "description": "Lucene impact index (with docvectors) of the MS MARCO passage corpus encoded by SPLADEv3.",
+        "filename": "lucene-inverted.msmarco-v1-passage.splade-v3-docvectors.20250329.4f4c68.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-v3/lucene-inverted.msmarco-v1-passage.splade-v3-docvectors.20250329.4f4c68.tar.gz"
+        ],
+        "md5": "28fcf13a9b22ea2b9f9e90b650a9bee9",
+        "size": 17003537833,
+        "total_terms": 46922883529,
+        "documents": 8841823,
+        "unique_terms": 27952,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-passage.splade-v3-text",
+        "type": "impact",
+        "description": "Lucene impact index (with text) of the MS MARCO passage corpus encoded by SPLADEv3.",
+        "filename": "lucene-inverted.msmarco-v1-passage.splade-v3-text.20250329.4f4c68.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-passage.splade-v3.20250329.4f4c68.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/passage/original/lucene-inverted/splade-v3/lucene-inverted.msmarco-v1-passage.splade-v3-text.20250329.4f4c68.tar.gz"
+        ],
+        "md5": "ed19483173a6ebddb257cfef5f5d54d6",
+        "size": 15479150141,
+        "total_terms": 46922883529,
+        "documents": 8841823,
+        "unique_terms": 27952,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-doc-segmented.unicoil",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL, with title/segment encoding.",
+        "filename": "lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/unicoil/lucene-inverted.msmarco-v1-doc-segmented.unicoil.20221005.252b5e.tar.gz"
+        ],
+        "md5": "7dc32ad22876fbbe0f24f21fd1ea50c0",
+        "size": 5765257801,
+        "total_terms": 214505277898,
+        "documents": 20545677,
+        "unique_terms": 29142,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v1-doc-segmented.unicoil-noexp",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp), with title/segment encoding.",
+        "filename": "lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.tar.gz",
+        "readme": "lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/resolve/main/doc/segmented/lucene-inverted/unicoil-noexp/lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.tar.gz"
+        ],
+        "md5": "f92d5a2ba22274993b34f69e59427379",
+        "size": 5323380902,
+        "total_terms": 152323732876,
+        "documents": 20545677,
+        "unique_terms": 29142,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v2-passage.unicoil-0shot",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL.",
+        "filename": "lucene-inverted.msmarco-v2-passage.unicoil-0shot.20220808.4d6d2a.tar.gz",
+        "readme": "lucene-inverted.msmarco-v2-passage.unicoil-0shot.20220808.4d6d2a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage.unicoil-0shot.20220808.4d6d2a.tar.gz"
+        ],
+        "md5": "69919059e3e9575968edafe168b55b66",
+        "size": 21736933019,
+        "total_terms": 775253560148,
+        "documents": 138364198,
+        "unique_terms": 29149,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v2-passage.unicoil-noexp-0shot",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus for uniCOIL (noexp).",
+        "filename": "lucene-inverted.msmarco-v2-passage.unicoil-noexp-0shot.20220808.4d6d2a.tar.gz",
+        "readme": "lucene-inverted.msmarco-v2-passage.unicoil-noexp-0shot.20220808.4d6d2a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage.unicoil-noexp-0shot.20220808.4d6d2a.tar.gz"
+        ],
+        "md5": "3e0a5be5adca063a112fa2f0978f91cb",
+        "size": 14347304537,
+        "total_terms": 411330032512,
+        "documents": 138364198,
+        "unique_terms": 29148,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v2-passage.slimr-pp",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO V2 passage corpus encoded by SLIM (norefine) trained with cross-encoder distillation and hard-negative mining.",
+        "filename": "lucene-inverted.msmarco-v2-passage.slimr-pp.20230614.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-passage.slimr-pp.20230614.tar.gz"
+        ],
+        "md5": "e4091198c2345a3a9aa073a52ff9fb48",
+        "size": 35297331848,
+        "total_terms": 1668035574958,
+        "documents": 138364197,
+        "unique_terms": -1,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v2-doc-segmented.unicoil-0shot",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL, with title prepended.",
+        "filename": "lucene-inverted.msmarco-v2-doc-segmented.unicoil-0shot.20220808.4d6d2a.tar.gz",
+        "readme": "lucene-inverted.msmarco-v2-doc-segmented.unicoil-0shot.20220808.4d6d2a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc-segmented.unicoil-0shot.20220808.4d6d2a.tar.gz"
+        ],
+        "md5": "ff12d2001f463460a11ff6f60175190e",
+        "size": 33573638017,
+        "total_terms": 1204542769110,
+        "documents": 124131414,
+        "unique_terms": 29168,
+        "downloaded": false
+    },
+    {
+        "name": "msmarco-v2-doc-segmented.unicoil-noexp-0shot",
+        "type": "impact",
+        "description": "Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended.",
+        "filename": "lucene-inverted.msmarco-v2-doc-segmented.unicoil-noexp-0shot.20220808.4d6d2a.tar.gz",
+        "readme": "lucene-inverted.msmarco-v2-doc-segmented.unicoil-noexp-0shot.20220808.4d6d2a.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.msmarco-v2-doc-segmented.unicoil-noexp-0shot.20220808.4d6d2a.tar.gz"
+        ],
+        "md5": "e3f448f4de46d86953892337fea39ed0",
+        "size": 29059154628,
+        "total_terms": 820664704261,
+        "documents": 124131404,
+        "unique_terms": 29172,
+        "downloaded": false
+    }
+]
