@@ -8,6 +8,7 @@ collections/*
 indexes/*
 .vscode/
 venv/
+.venv/
 
 # build directories from `python3 setup.py sdist bdist_wheel`
 build/
