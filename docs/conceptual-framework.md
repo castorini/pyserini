@@ -501,3 +501,4 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@abduldattijo](https://github.com/abduldattijo) on 2026-07-12 (commit [`e81bbf2`](https://github.com/castorini/pyserini/commit/e81bbf2cc89c83b327ad11bf460e8a9692b2bb83))
 + Results reproduced by [@abubinfahd](https://github.com/abubinfahd) on 2026-07-13 (commit [`e81bbf2`](https://github.com/castorini/pyserini/commit/e81bbf2cc89c83b327ad11bf460e8a9692b2bb83))
 + Results reproduced by [@sadia213](https://github.com/sadia213) on 2026-07-13 (commit [`e81bbf2`](https://github.com/castorini/pyserini/commit/e81bbf2cc89c83b327ad11bf460e8a9692b2bb83))
++ Results reproduced by [@JonHolman](https://github.com/JonHolman) on 2026-06-28 (commit [`6d03d1e`](https://github.com/castorini/pyserini/commit/6d03d1e43e5d6bc424f4bd46ac978891661fcb55))
