@@ -274,25 +274,11 @@ def import_from_hnsw_lucene(index_metadata):
     return info
 
 # Bindings for Lucene HNSW MSMARCO indexes
-LUCENE_HNSW_INDEX_INFO_MSMARCO = {
-    "msmarco-v1-passage.cosdpr-distil.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v1-passage.cosdpr-distil.hnsw')),
-    "msmarco-v1-passage.cosdpr-distil.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v1-passage.cosdpr-distil.hnsw-int8')),
-    "msmarco-v1-passage.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v1-passage.bge-base-en-v1.5.hnsw')),
-    "msmarco-v1-passage.bge-base-en-v1.5.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v1-passage.bge-base-en-v1.5.hnsw-int8')),
-    "msmarco-v1-passage.cohere-embed-english-v3.0.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v1-passage.cohere-embed-english-v3.0.hnsw')),
-    "msmarco-v1-passage.cohere-embed-english-v3.0.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v1-passage.cohere-embed-english-v3.0.hnsw-int8')),
-
-    "msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8')),
-    "msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.hnsw-int8')),
-    "msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.hnsw-int8')),
-    "msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.hnsw-int8')),
-    "msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.hnsw-int8')),
-    "msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.hnsw-int8')),
-    "msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.hnsw-int8')),
-    "msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.hnsw-int8')),
-    "msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.hnsw-int8')),
-    "msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.hnsw-int8": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.hnsw-int8')),
-}
+LUCENE_HNSW_INDEX_INFO_MSMARCO = _LazyLucenePrebuiltInvertedIndexJson(
+    _prebuilt_indexes_url('lucene/msmarco-v1-passage-hnsw.json'),
+    _prebuilt_indexes_url('lucene/msmarco-v2.1-doc-segmented-hnsw.json'),
+    key_prefixes=('msmarco-',)
+)
 
 # Bindings for Lucene HNSW BEIR indexes
 LUCENE_HNSW_INDEX_INFO_BEIR = {
@@ -327,8 +313,8 @@ LUCENE_HNSW_INDEX_INFO_BEIR = {
     "beir-v1.0.0-scifact.bge-base-en-v1.5.hnsw": import_from_hnsw_lucene(JPrebuiltHnswIndex.get('beir-v1.0.0-scifact.bge-base-en-v1.5.hnsw')),
 }
 
-LUCENE_HNSW_INDEX_INFO = {**LUCENE_HNSW_INDEX_INFO_MSMARCO,
-                          **LUCENE_HNSW_INDEX_INFO_BEIR}
+LUCENE_HNSW_INDEX_INFO = _PrebuiltIndexCatalog(LUCENE_HNSW_INDEX_INFO_MSMARCO,
+                                               LUCENE_HNSW_INDEX_INFO_BEIR)
 
 
 JPrebuiltFlatIndex = autoclass('io.anserini.index.prebuilt.PrebuiltFlatIndex')
