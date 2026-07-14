@@ -1,0 +1,106 @@
+{
+  "ciral-v1.0-ha-mdpr-tied-pft-msmarco": {
+    "description": "Faiss index for CIRAL v1.0 (Hausa) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+    "filename": "faiss.ciral-v1.0-ha.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz",
+    "readme": "faiss.ciral-v1.0.mdpr-tied-pft-msmarco.20240212.2154e7.README.md",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-ha.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
+    ],
+    "md5": "1feb2fb70d16117bd588f7d2168758c8",
+    "size": 2023010636,
+    "documents": 715355,
+    "downloaded": false,
+    "texts": "ciral-v1.0-ha"
+  },
+  "ciral-v1.0-so-mdpr-tied-pft-msmarco": {
+    "description": "Faiss index for CIRAL v1.0 (Somali) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+    "filename": "faiss.ciral-v1.0-so.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz",
+    "readme": "faiss.ciral-v1.0.mdpr-tied-pft-msmarco.20240212.2154e7.README.md",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-so.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
+    ],
+    "md5": "eb5a9ab2c0aea0939768980f93bd28a2",
+    "size": 2356035207,
+    "documents": 827552,
+    "downloaded": false,
+    "texts": "ciral-v1.0-so"
+  },
+  "ciral-v1.0-sw-mdpr-tied-pft-msmarco": {
+    "description": "Faiss index for CIRAL v1.0 (Swahili) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+    "filename": "faiss.ciral-v1.0-sw.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz",
+    "readme": "faiss.ciral-v1.0.mdpr-tied-pft-msmarco.20240212.2154e7.README.md",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-sw.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
+    ],
+    "md5": "0a0412eadf7fb8895bbc6d7090019352",
+    "size": 2689038831,
+    "documents": 949013,
+    "downloaded": false,
+    "texts": "ciral-v1.0-sw"
+  },
+  "ciral-v1.0-yo-mdpr-tied-pft-msmarco": {
+    "description": "Faiss index for CIRAL v1.0 (Yoruba) corpus encoded by mDPR passage encoder pre-fine-tuned on MS MARCO.",
+    "filename": "faiss.ciral-v1.0-yo.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz",
+    "readme": "faiss.ciral-v1.0.mdpr-tied-pft-msmarco.20240212.2154e7.README.md",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-yo.mdpr-tied-pft-msmarco.20240212.2154e7.tar.gz"
+    ],
+    "md5": "0f84c7f8594b6352aa26970565877668",
+    "size": 233478586,
+    "documents": 82095,
+    "downloaded": false,
+    "texts": "ciral-v1.0-yo"
+  },
+  "ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi": {
+    "description": "Faiss index for CIRAL v1.0 (Hausa) corpus encoded by Afriberta-DPR passage encoder pre-fine-tuned on MS MARCO and fine-tuned on Latin languages in Mr. TyDi.",
+    "filename": "faiss.ciral-v1.0-ha.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz",
+    "readme": "faiss.ciral-v1.0.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20240212.2154e7.README.md",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-ha.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
+    ],
+    "md5": "809f7c3c211c019a345e7bc8a716ff7b",
+    "size": 2023992713,
+    "documents": 715355,
+    "downloaded": false,
+    "texts": "ciral-v1.0-ha"
+  },
+  "ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi": {
+    "description": "Faiss index for CIRAL v1.0 (Somali) corpus encoded by Afriberta-DPR passage encoder pre-fine-tuned on MS MARCO and fine-tuned on Latin languages in Mr. TyDi.",
+    "filename": "faiss.ciral-v1.0-so.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz",
+    "readme": "faiss.ciral-v1.0.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20240212.2154e7.README.md",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-so.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
+    ],
+    "md5": "0ef7404ef10f3135f6a11addcf723504",
+    "size": 2356542027,
+    "documents": 827552,
+    "downloaded": false,
+    "texts": "ciral-v1.0-so"
+  },
+  "ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi": {
+    "description": "Faiss index for CIRAL v1.0 (Swahili) corpus encoded by Afriberta-DPR passage encoder pre-fine-tuned on MS MARCO and fine-tuned on Latin languages in Mr. TyDi.",
+    "filename": "faiss.ciral-v1.0-sw.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz",
+    "readme": "faiss.ciral-v1.0.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20240212.2154e7.README.md",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-sw.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
+    ],
+    "md5": "1951d3f61eef760407c66c426e5047c6",
+    "size": 2688836925,
+    "documents": 949013,
+    "downloaded": false,
+    "texts": "ciral-v1.0-sw"
+  },
+  "ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi": {
+    "description": "Faiss index for CIRAL v1.0 (Yoruba) corpus encoded by Afriberta-DPR passage encoder pre-fine-tuned on MS MARCO and fine-tuned on Latin languages in Mr. TyDi.",
+    "filename": "faiss.ciral-v1.0-yo.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz",
+    "readme": "faiss.ciral-v1.0.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20240212.2154e7.README.md",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.ciral-v1.0-yo.afriberta-dpr-ptf-msmarco-ft-latin-mrtydi.20230814.b56d04.tar.gz"
+    ],
+    "md5": "f433299809c659cfc4dede6c42d4a3fd",
+    "size": 233490804,
+    "documents": 82095,
+    "downloaded": false,
+    "texts": "ciral-v1.0-yo"
+  }
+}

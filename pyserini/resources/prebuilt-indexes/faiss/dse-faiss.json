@@ -1,0 +1,26 @@
+{
+  "slidevqa.dse": {
+    "description": "Faiss index of the SlideVQA corpus encoded by DSE (Tevatron/dse-phi3-v1.0)",
+    "filename": "slidevqa.dse.tar.gz",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-dse/resolve/main/slidevqa/slidevqa.dse.tar.gz"
+    ],
+    "md5": "920bcdbae5cd2730dbf961c7d72778e6",
+    "size": 340388515,
+    "documents": 52480,
+    "downloaded": false,
+    "texts": null
+  },
+  "wiki-ss.dse": {
+    "description": "Faiss index of the Wiki-SS corpus encoded by DSE (Tevatron/dse-phi3-v1.0)",
+    "filename": "wiki-ss.dse.tar.gz",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-dse/resolve/main/wiki-ss/wiki-ss.dse.tar.gz"
+    ],
+    "md5": "b80f7a05049d76be18497e3489e91066",
+    "size": 8231110478,
+    "documents": 1267874,
+    "downloaded": false,
+    "texts": null
+  }
+}
