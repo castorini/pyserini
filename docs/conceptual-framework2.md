@@ -192,7 +192,7 @@ for i in range(0, 10):
 
 And the result will be:
 
-```
+```text
  1 MED-4555 0.791379
  2 MED-4560 0.710725
  3 MED-4421 0.688938
@@ -223,7 +223,7 @@ for i in range(0, 10):
 
 And the result will be:
 
-```
+```text
  1 MED-4555 1.472201
  2 MED-3180 1.125014
  3 MED-1309 1.067153
@@ -333,7 +333,6 @@ Again, the output is the same as search with `FaissSearcher` above.
 </details>
 <br/>
 
-
 ## Sparse Retrieval Models
 
 Now, we're going to basically do the same thing, but with BM25.
@@ -392,7 +391,7 @@ python -m pyserini.eval.trec_eval \
 
 The expected results are:
 
-```
+```text
 Results:
 ndcg_cut_10           	all	0.3218
 ```
@@ -411,7 +410,7 @@ for i in range(0, 10):
 
 The results should be as follows:
 
-```
+```text
  1 MED-4555 11.9305
  2 MED-4423 8.4771
  3 MED-3180 7.1896
@@ -528,7 +527,17 @@ To recap, what's the point for this exercise?
 Okay, that's it for this lesson.
 
 The next lesson will provide [a deeper dive into learned sparse representations](conceptual-framework3.md).
-Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Pyserini, and use its 7-hexadecimal prefix for the link anchor text.
+
+Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page:
+
++ Follow the same format as the existing entries: make sure you use a commit id that's on the main trunk of Pyserini. Use its 7-hexadecimal prefix for the link anchor text (but the URL should contain the full commit hash).
++ Provide some details about your setup in the description of your pull request (e.g., operating system, environment and configuration, etc.).
++ Provide some indication of success (e.g., everything worked) or document issues you encountered.
++ Confirm that your new entry is chronologically sorted.
++ Include additional edits in the pull request if you think this exercise can be improved (e.g., you caught a typo or think a clarification is warranted).
+
+Do not send a separate pull request for each exercise in the onboarding path; instead, send a single pull request for all edits to the Pyserini repository.
+If you have any questions, look at previous pull requests for examples.
 
 ## Reproduction Log[*](reproducibility.md)
 
@@ -749,7 +758,7 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@MasrurAjhor](https://github.com/MasrurAjhor) on 2026-06-21 (commit [`42ff49c`](https://github.com/castorini/pyserini/commit/42ff49c1393de811f46674188411a6970e0c85c6))
 + Results reproduced by [@Quaden2307](https://github.com/Quaden2307) on 2026-06-21 (commit [`42ff49c`](https://github.com/castorini/pyserini/commit/42ff49c1393de811f46674188411a6970e0c85c6))
 + Results reproduced by [@farhadmoradi66](https://github.com/farhadmoradi66) on 2026-06-19 (commit [`08fd23b`](https://github.com/castorini/pyserini/commit/08fd23b1262213c63661948f7b084fb3eb23ac2a))
-+ Results reproduced by [@sparshshah19](https://github.com/sparshshah19) on 2026-06-25 (commit [`6f48030`](https://github.com/castorini/pyserini/commit/6f48030cf786280625bc3ed6d2743374bd099e57)) 
++ Results reproduced by [@sparshshah19](https://github.com/sparshshah19) on 2026-06-25 (commit [`6f48030`](https://github.com/castorini/pyserini/commit/6f48030cf786280625bc3ed6d2743374bd099e57))
 + Results reproduced by [@k22mitta](https://github.com/k22mitta) on 2026-06-28 (commit [`6d03d1e`](https://github.com/castorini/pyserini/commit/6d03d1e43e5d6bc424f4bd46ac978891661fcb55))
 + Results reproduced by [@Fustigate8933](https://github.com/Fustigate8933) on 2026-07-01 (commit [`ef7398b`](https://github.com/castorini/pyserini/commit/ef7398baec47c18a90757ce6d1cc815682432e1a))
 + Results reproduced by [@yashs33244](https://github.com/yashs33244) on 2026-07-05 (commit [`ef7398b`](https://github.com/castorini/pyserini/commit/ef7398baec47c18a90757ce6d1cc815682432e1a))
