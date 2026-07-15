@@ -34,10 +34,6 @@ from ._prf import (DenseVectorAncePrf, DenseVectorAveragePrf,
                    DenseVectorRocchioPrf)
 from ._searcher import BinaryDenseFaissSearcher, FaissSearcher
 
-# Fixes this error: "OMP: Error #15: Initializing libomp.a, but found libomp.dylib already initialized."
-# https://stackoverflow.com/questions/53014306/error-15-initializing-libiomp5-dylib-but-found-libiomp5-dylib-already-initial
-os.environ["KMP_DUPLICATE_LIB_OK"] = "True"
-
 
 def define_dsearch_args(parser):
     parser.add_argument(
