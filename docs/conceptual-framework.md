@@ -164,7 +164,7 @@ multihot_query_weights = {k: 1 for k in query_tokens}
 
 The query tokens (`query_tokens`) are:
 
-```
+```text
 ['what', 'paula', 'deen', 'brother']
 ```
 
@@ -270,7 +270,17 @@ We'll save a more complete exploration of this design space for some other time,
 
 Okay, that's it for this lesson.
 Next, you're going to play with [an actual dense retrieval model](experiments-nfcorpus.md).
-Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Pyserini, and use its 7-hexadecimal prefix for the link anchor text.
+
+Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page:
+
++ Follow the same format as the existing entries: make sure you use a commit id that's on the main trunk of Pyserini. Use its 7-hexadecimal prefix for the link anchor text (but the URL should contain the full commit hash).
++ Provide some details about your setup in the description of your pull request (e.g., operating system, environment and configuration, etc.).
++ Provide some indication of success (e.g., everything worked) or document issues you encountered.
++ Confirm that your new entry is chronologically sorted.
++ Include additional edits in the pull request if you think this exercise can be improved (e.g., you caught a typo or think a clarification is warranted).
+
+Do not send a separate pull request for each exercise in the onboarding path; instead, send a single pull request for all edits to the Pyserini repository.
+If you have any questions, look at previous pull requests for examples.
 
 ## Reproduction Log[*](reproducibility.md)
 
@@ -450,7 +460,7 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@MehdiJmlkh](https://github.com/MehdiJmlkh) on 2025-12-10 (commit [`d26c2fd`](https://github.com/castorini/pyserini/commit/d26c2fd224439ca564fe9d2b9e2be580391f1275))
 + Results reproduced by [@MuhammadAli13562](https://github.com/MuhammadAli13562) on 2025-12-18 (commit [`e4bf66e`](https://github.com/castorini/pyserini/commit/e4bf66e77eadcfff29637fd10b31fc4b236a9be7))
 + Results reproduced by [@Hossein-Molaeian](https://github.com/Hossein-Molaeian) on 2025-12-19 (commit [`fee9962`](https://github.com/castorini/pyserini/commit/fee9962f97ba4b2f362c0f4c84908f15f61424e6))
-+ Results reproduced by [@anjanpa](https://github.com/anjanpa) on 2025-12-22 (commit [`d12db6a`](https://github.com/castorini/pyserini/commit/d12db6abed1cc9e7a20f8d5685d2e133005aa0a9)) 
++ Results reproduced by [@anjanpa](https://github.com/anjanpa) on 2025-12-22 (commit [`d12db6a`](https://github.com/castorini/pyserini/commit/d12db6abed1cc9e7a20f8d5685d2e133005aa0a9))
 + Results reproduced by [@nli33](https://github.com/nli33) on 2025-12-25 (commit [`d12db6a`](https://github.com/castorini/pyserini/commit/d12db6abed1cc9e7a20f8d5685d2e133005aa0a9))
 + Results reproduced by [@VarnitOS](https://github.com/VarnitOS) on 2025-12-29 (commit [`4106eed`](https://github.com/castorini/pyserini/commit/4106eed08a62f9c2631a267eb4863649ee2b748e))
 + Results reproduced by [@zizimind](https://github.com/zizimind) on 2026-01-06 (commit [`74d7182`](https://github.com/castorini/pyserini/commit/74d7182004e4380e3cf0caf993375a25c1bcc5dc))
