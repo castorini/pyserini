@@ -84,7 +84,7 @@ class QueryIterator(ABC):
             # Lazy import:
             from pyserini.query_iterator_order_info import QUERY_IDS
 
-            order = QUERY_IDS[topics_path]
+            order = QUERY_IDS[normalized_path]
         return order
 
 
