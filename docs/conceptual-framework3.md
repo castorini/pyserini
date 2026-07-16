@@ -13,7 +13,8 @@ Following the onboarding path, this lesson does **not** introduce any new concep
 Rather, the focus is to solidify previously introduced concepts and to connect the bi-encoder architecture to implementations in Pyserini.
 Informally, we're "peeling back the covers".
 
-**Learning outcomes** for this guide, building on previous steps in the onboarding path, are divided into three parts.
+**Learning outcomes** for this guide, building on previous steps in the onboarding path, are as follows:
+
 1. Be able to encode a corpus into its sparse vector representations with SPLADE-v3.
 2. Be able to index them into a retrieval system using Lucene inverted index.
 3. Be able to compute query-document scores (i.e., retrieval scores) with pyserini for SPLADE retrieval.
@@ -50,6 +51,7 @@ cd ..
 
 We can then setup to use SPLADE-v3:
 First, we need to request access to SPLADE-v3 model on Hugging Face since it is gated:
+
 1. Create an account for Hugging Face: https://huggingface.co/join
 2. Go to the model page on Hugging Face: [Splade-v3](https://huggingface.co/naver/splade-v3)
 3. Click the "Log In" button.
@@ -68,6 +70,7 @@ hf auth login
 ```
 
 You’ll be prompted to enter your Hugging Face API token. You can generate a token from your Hugging Face account settings:
+
 1. Go to https://huggingface.co/settings/tokens.
 2. Click **"New token"** to generate a token.
 3. For your token's permissions, give “Read access to contents of all public gated repos you can access”.
@@ -119,7 +122,8 @@ python -m pyserini.search.lucene \
   --impact \
   --threads 4
 ```
-The runs will be stored in runs/run.splade.txt.
+
+The runs will be stored in `runs/run.splade.txt`.
 
 And evaluate the retrieval run:
 
@@ -131,7 +135,7 @@ python -m pyserini.eval.trec_eval \
 
 The expected results are:
 
-```
+```text
 ndcg_cut_10           	all	0.3624
 ```
 
@@ -152,7 +156,7 @@ for i in range(0, 10):
 
 The results should be as follows:
 
-```
+```text
  1 MED-4555 51131.000000
  2 MED-4423 36854.000000
  3 MED-3180 30411.000000
@@ -164,7 +168,7 @@ The results should be as follows:
  9 MED-4030 27699.000000
 10 MED-1194 27588.000000
 ```
-     
+
 To recap, what's the point for this exercise?
 
 + We see that a machine learning model can also be applied to generate sparse vectors.
@@ -172,7 +176,17 @@ To recap, what's the point for this exercise?
 + You now know how to encode a query into a query vector.
 
 Okay, that's it for this lesson.
-Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Pyserini, and use its 7-hexadecimal prefix for the link anchor text.
+
+Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page:
+
++ Follow the same format as the existing entries: make sure you use a commit id that's on the main trunk of Pyserini. Use its 7-hexadecimal prefix for the link anchor text (but the URL should contain the full commit hash).
++ Provide some details about your setup in the description of your pull request (e.g., operating system, environment and configuration, etc.).
++ Provide some indication of success (e.g., everything worked) or document issues you encountered.
++ Confirm that your new entry is chronologically sorted.
++ Include additional edits in the pull request if you think this exercise can be improved (e.g., you caught a typo or think a clarification is warranted).
+
+Do not send a separate pull request for each exercise in the onboarding path; instead, send a single pull request for all edits to the Pyserini repository.
+If you have any questions, look at previous pull requests for examples.
 
 ## Reproduction Log[*](reproducibility.md)
 
@@ -246,3 +260,5 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@abubinfahd](https://github.com/abubinfahd) on 2026-07-13 (commit [`e81bbf2`](https://github.com/castorini/pyserini/commit/e81bbf2cc89c83b327ad11bf460e8a9692b2bb83))
 + Results reproduced by [@sadia213](https://github.com/sadia213) on 2026-07-13 (commit [`e81bbf2`](https://github.com/castorini/pyserini/commit/e81bbf2cc89c83b327ad11bf460e8a9692b2bb83))
 + Results reproduced by [@JonHolman](https://github.com/JonHolman) on 2026-06-29 (commit [`6d03d1e`](https://github.com/castorini/pyserini/commit/6d03d1e43e5d6bc424f4bd46ac978891661fcb55))
++ Results reproduced by [@mfrashidi](https://github.com/mfrashidi) on 2026-07-15 (commit [`a5a5b33`](https://github.com/castorini/pyserini/commit/a5a5b33d7b648cba2597230deefed73ed85f7eff))
++ Results reproduced by [@Leonoaix](https://github.com/Leonoaix) on 2026-07-16 (commit [`50e5dc8`](https://github.com/castorini/pyserini/commit/50e5dc8737538eb82dbe3592e53f736e175daac7))

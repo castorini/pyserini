@@ -217,7 +217,7 @@ In the code snippet above, we're issuing the query about Paula Deen's brother (f
 Note that we're explicitly setting the BM25 parameters, which are not the default parameters.
 We get back a list of results (`hits`), which we then iterate through and print out:
 
-```
+```text
  1 7187158 18.811600
  2 7187157 18.333401
  3 7187163 17.878799
@@ -254,14 +254,23 @@ hits[0].lucene_document.get('raw')
 
 And you should get:
 
-```
+```text
 '{\n  "id" : "7187158",\n  "contents" : "Paula Deen and her brother Earl W. Bubba Hiers are being sued by a former general manager at Uncle Bubba\'sâ\x80¦ Paula Deen and her brother Earl W. Bubba Hiers are being sued by a former general manager at Uncle Bubba\'sâ\x80¦"\n}'
 ```
 
 Everything make sense?
 If so, now you're truly done with this guide and are ready to move on and [learn about the relationship between sparse and dense retrieval](conceptual-framework.md)!
 
-Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Pyserini, and use its 7-hexadecimal prefix for the link anchor text.
+Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page:
+
++ Follow the same format as the existing entries: make sure you use a commit id that's on the main trunk of Pyserini. Use its 7-hexadecimal prefix for the link anchor text (but the URL should contain the full commit hash).
++ Provide some details about your setup in the description of your pull request (e.g., operating system, environment and configuration, etc.).
++ Provide some indication of success (e.g., everything worked) or document issues you encountered.
++ Confirm that your new entry is chronologically sorted.
++ Include additional edits in the pull request if you think this exercise can be improved (e.g., you caught a typo or think a clarification is warranted).
+
+Do not send a separate pull request for each exercise in the onboarding path; instead, send a single pull request for all edits to the Pyserini repository.
+If you have any questions, look at previous pull requests for examples.
 
 ## Reproduction Log[*](reproducibility.md)
 
@@ -488,7 +497,7 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@Hossein-Molaeian](https://github.com/Hossein-Molaeian) on 2025-12-19 (commit [`fee9962`](https://github.com/castorini/pyserini/commit/fee9962f97ba4b2f362c0f4c84908f15f61424e6))
 + Results reproduced by [@anjanpa](https://github.com/anjanpa) on 2025-12-20 (commit [`d12db6a`](https://github.com/castorini/pyserini/commit/d12db6abed1cc9e7a20f8d5685d2e133005aa0a9))
 + Results reproduced by [@nli33](https://github.com/nli33) on 2025-12-25 (commit [`d12db6a`](https://github.com/castorini/pyserini/commit/d12db6abed1cc9e7a20f8d5685d2e133005aa0a9))
-+ Results reproduced by [@VarnitOS](https://github.com/VarnitOS) on 2025-12-29 (commit [`4106eed`](https://github.com/castorini/pyserini/commit/4106eed08a62f9c2631a267eb4863649ee2b748e)) 
++ Results reproduced by [@VarnitOS](https://github.com/VarnitOS) on 2025-12-29 (commit [`4106eed`](https://github.com/castorini/pyserini/commit/4106eed08a62f9c2631a267eb4863649ee2b748e))
 + Results reproduced by [@zizimind](https://github.com/zizimind) on 2026-01-06 (commit [`74d7182`](https://github.com/castorini/pyserini/commit/74d7182004e4380e3cf0caf993375a25c1bcc5dc))
 + Results reproduced by [@izzat5233](https://github.com/izzat5233) on 2026-01-17 (commit [`4bfbb9e`](https://github.com/castorini/pyserini/commit/4bfbb9e144872b9223359ee6bac0bc595c0734d6))
 + Results reproduced by [@aaryanshroff](https://github.com/aaryanshroff) on 2026-01-27 (commit [`9e92b42`](https://github.com/castorini/pyserini/commit/9e92b4291fd30faad4b64bdd0ddba2d106694ed5))
@@ -539,3 +548,5 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@abubinfahd](https://github.com/abubinfahd) on 2026-07-13 (commit [`e81bbf2`](https://github.com/castorini/pyserini/commit/e81bbf2cc89c83b327ad11bf460e8a9692b2bb83))
 + Results reproduced by [@sadia213](https://github.com/sadia213) on 2026-07-13 (commit [`e81bbf2`](https://github.com/castorini/pyserini/commit/e81bbf2cc89c83b327ad11bf460e8a9692b2bb83))
 + Results reproduced by [@JonHolman](https://github.com/JonHolman) on 2026-06-28 (commit [`6d03d1e`](https://github.com/castorini/pyserini/commit/6d03d1e43e5d6bc424f4bd46ac978891661fcb55))
++ Results reproduced by [@mfrashidi](https://github.com/mfrashidi) on 2026-07-15 (commit [`a5a5b33`](https://github.com/castorini/pyserini/commit/a5a5b33d7b648cba2597230deefed73ed85f7eff))
++ Results reproduced by [@Leonoaix](https://github.com/Leonoaix) on 2026-07-16 (commit [`50e5dc8`](https://github.com/castorini/pyserini/commit/50e5dc8737538eb82dbe3592e53f736e175daac7))

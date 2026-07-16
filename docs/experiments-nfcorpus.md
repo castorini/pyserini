@@ -177,9 +177,10 @@ python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 collections/nfcorpus/qrels/test.qrels \
   runs/run.beir.bge-base-en-v1.5.nfcorpus.txt
 ```
+
 The results will be something like:
 
-```
+```text
 Results:
 ndcg_cut_10           	all	0.3808
 ```
@@ -196,7 +197,7 @@ python -m pyserini.eval.trec_eval \
 
 The results will be something like:
 
-```
+```text
 Results:
 ndcg_cut_10           	all	0.3306
 ```
@@ -229,7 +230,7 @@ for i in range(0, 10):
 The `FaissSearcher` provides search capabilities using Faiss as its underlying implementation.
 The `AutoQueryEncoder` allows us to initialize an encoder using a HuggingFace model.
 
-```
+```text
  1 MED-4555 0.791379
  2 MED-4560 0.710725
  3 MED-4421 0.688938
@@ -279,7 +280,7 @@ for i in range(0, 10):
 The `FaissSearcher` provides search capabilities using Faiss as its underlying implementation.
 The `AutoQueryEncoder` allows us to initialize an encoder using a HuggingFace model.
 
-```
+```text
  1 MED-4555 1.472201
  2 MED-3180 1.125014
  3 MED-1309 1.067153
@@ -314,7 +315,17 @@ PLAIN-3074 Q0 MED-2587 10 1.010811 Faiss
 And that's it!
 
 The next lesson will provide [a deeper dive into dense and sparse representations](conceptual-framework2.md).
-Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page, following the same format: use `yyyy-mm-dd`, make sure you're using a commit id that's on the main trunk of Pyserini, and use its 7-hexadecimal prefix for the link anchor text.
+
+Before you move on, however, add an entry in the "Reproduction Log" at the bottom of this page:
+
++ Follow the same format as the existing entries: make sure you use a commit id that's on the main trunk of Pyserini. Use its 7-hexadecimal prefix for the link anchor text (but the URL should contain the full commit hash).
++ Provide some details about your setup in the description of your pull request (e.g., operating system, environment and configuration, etc.).
++ Provide some indication of success (e.g., everything worked) or document issues you encountered.
++ Confirm that your new entry is chronologically sorted.
++ Include additional edits in the pull request if you think this exercise can be improved (e.g., you caught a typo or think a clarification is warranted).
+
+Do not send a separate pull request for each exercise in the onboarding path; instead, send a single pull request for all edits to the Pyserini repository.
+If you have any questions, look at previous pull requests for examples.
 
 ## Reproduction Log[*](reproducibility.md)
 
@@ -546,3 +557,5 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 + Results reproduced by [@abubinfahd](https://github.com/abubinfahd) on 2026-07-13 (commit [`e81bbf2`](https://github.com/castorini/pyserini/commit/e81bbf2cc89c83b327ad11bf460e8a9692b2bb83))
 + Results reproduced by [@sadia213](https://github.com/sadia213) on 2026-07-13 (commit [`e81bbf2`](https://github.com/castorini/pyserini/commit/e81bbf2cc89c83b327ad11bf460e8a9692b2bb83))
 + Results reproduced by [@JonHolman](https://github.com/JonHolman) on 2026-06-28 (commit [`6d03d1e`](https://github.com/castorini/pyserini/commit/6d03d1e43e5d6bc424f4bd46ac978891661fcb55))
++ Results reproduced by [@mfrashidi](https://github.com/mfrashidi) on 2026-07-15 (commit [`a5a5b33`](https://github.com/castorini/pyserini/commit/a5a5b33d7b648cba2597230deefed73ed85f7eff))
++ Results reproduced by [@Leonoaix](https://github.com/Leonoaix) on 2026-07-16 (commit [`50e5dc8`](https://github.com/castorini/pyserini/commit/50e5dc8737538eb82dbe3592e53f736e175daac7))
