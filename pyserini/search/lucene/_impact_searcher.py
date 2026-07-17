@@ -373,7 +373,7 @@ class LuceneImpactSearcher:
     def _init_query_encoder_from_str(query_encoder):
         if query_encoder is None:
             return TokFreqQueryEncoder()
-        elif os.path.isfile(query_encoder) and (query_encoder.endswith('jsonl') or query_encoder.encode('json')):
+        elif os.path.isfile(query_encoder) and (query_encoder.endswith('jsonl') or query_encoder.endswith('json')):
             return CachedDataQueryEncoder(query_encoder)
         elif 'unicoil' in query_encoder.lower():
             return UniCoilQueryEncoder(query_encoder)
