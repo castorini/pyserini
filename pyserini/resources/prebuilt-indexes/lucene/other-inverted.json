@@ -1,0 +1,661 @@
+[
+    {
+        "name": "cacm",
+        "type": "inverted",
+        "corpus": "cacm",
+        "corpus_index": "cacm",
+        "description": "Lucene index of the CACM corpus.",
+        "filename": "lucene-index.cacm.tar.gz",
+        "urls": [
+            "https://github.com/castorini/anserini-data/raw/master/CACM/lucene-index.cacm.20221005.252b5e.tar.gz"
+        ],
+        "md5": "cfe14d543c6a27f4d742fb2d0099b8e0",
+        "size": 2347197,
+        "total_terms": 320968,
+        "documents": 3204,
+        "unique_terms": 14363
+    },
+    {
+        "name": "disk45",
+        "type": "inverted",
+        "corpus": "disk45",
+        "corpus_index": "disk45",
+        "description": "Lucene index of TREC Disks 4 & 5 (minus Congressional Records), used in the TREC 2004 Robust Track.",
+        "filename": "lucene-inverted.disk45.20240803.36f7e3.tar.gz",
+        "readme": "lucene-inverted.disk45.20240803.36f7e3.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.disk45.20240803.36f7e3.tar.gz"
+        ],
+        "md5": "0bb7f40c88a9246d068bbda86a6b90d5",
+        "size": 1782067062,
+        "total_terms": 174540872,
+        "documents": 528030,
+        "unique_terms": 923436
+    },
+    {
+        "name": "aquaint",
+        "type": "inverted",
+        "corpus": "aquaint",
+        "corpus_index": "aquaint",
+        "description": "Lucene index of the AQUAINT collection, used in the TREC 2005 Robust Track.",
+        "filename": "lucene-inverted.aquaint.20240803.36f7e3.tar.gz",
+        "readme": "lucene-inverted.aquaint.20240803.36f7e3.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.aquaint.20240803.36f7e3.tar.gz"
+        ],
+        "md5": "3adbc54b7fcaaf568e741797e407199c",
+        "size": 3185164151,
+        "total_terms": 317246296,
+        "documents": 1031455,
+        "unique_terms": 966312
+    },
+    {
+        "name": "nyt",
+        "type": "inverted",
+        "corpus": "nyt",
+        "corpus_index": "nyt",
+        "description": "Lucene index of the New York Times Annotated Corpus, used in the TREC 2017 Common Core Track.",
+        "filename": "lucene-inverted.nyt.20240803.36f7e3.tar.gz",
+        "readme": "lucene-inverted.nyt.20240803.36f7e3.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.nyt.20240803.36f7e3.tar.gz"
+        ],
+        "md5": "0db100878ee9556515cf2acf3a9f1ac5",
+        "size": 7622623345,
+        "total_terms": 751047962,
+        "documents": 1855650,
+        "unique_terms": 1730963
+    },
+    {
+        "name": "wapo.v2",
+        "type": "inverted",
+        "corpus": "wapo.v2",
+        "corpus_index": "wapo.v2",
+        "description": "Lucene index of the TREC Washington Post Corpus, used in the TREC 2018 Common Core Track.",
+        "filename": "lucene-inverted.wapo.v2.20240803.36f7e3.tar.gz",
+        "readme": "lucene-inverted.wapo.v2.20240803.36f7e3.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.wapo.v2.20240803.36f7e3.tar.gz"
+        ],
+        "md5": "fbe8fa7a7f0dcae2bae9b8fe1dd7ab07",
+        "size": 3994471983,
+        "total_terms": 318219870,
+        "documents": 595031,
+        "unique_terms": 835854
+    },
+    {
+        "name": "enwiki-paragraphs",
+        "type": "inverted",
+        "corpus": "enwiki-paragraphs",
+        "corpus_index": "enwiki-paragraphs",
+        "description": "Lucene index of English Wikipedia for BERTserini",
+        "filename": "lucene-index.enwiki-20180701-paragraphs.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.enwiki-20180701-paragraphs.tar.gz"
+        ],
+        "md5": "77d1cd530579905dad2ee3c2bda1b73d",
+        "size": 17725958785,
+        "total_terms": 1498980668,
+        "documents": 39880064,
+        "unique_terms": -1
+    },
+    {
+        "name": "zhwiki-paragraphs",
+        "type": "inverted",
+        "corpus": "zhwiki-paragraphs",
+        "corpus_index": "zhwiki-paragraphs",
+        "description": "Lucene index of Chinese Wikipedia for BERTserini",
+        "filename": "lucene-index.zhwiki-20181201-paragraphs.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.zhwiki-20181201-paragraphs.tar.gz"
+        ],
+        "md5": "c005af4036296972831288c894918a92",
+        "size": 3284531213,
+        "total_terms": 320776789,
+        "documents": 4170312,
+        "unique_terms": -1
+    },
+    {
+        "name": "trec-covid-r5-abstract",
+        "type": "inverted",
+        "corpus": "trec-covid-r5-abstract",
+        "corpus_index": "trec-covid-r5-abstract",
+        "description": "Lucene index for TREC-COVID Round 5: abstract index",
+        "filename": "lucene-index-cord19-abstract-2020-07-16.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-07-16/lucene-index-cord19-abstract-2020-07-16.tar.gz"
+        ],
+        "md5": "c883571ccc78b4c2ce05b41eb07f5405",
+        "size": 2294491056,
+        "total_terms": 22100404,
+        "documents": 192459,
+        "unique_terms": 195875
+    },
+    {
+        "name": "trec-covid-r5-full-text",
+        "type": "inverted",
+        "corpus": "trec-covid-r5-full-text",
+        "corpus_index": "trec-covid-r5-full-text",
+        "description": "Lucene index for TREC-COVID Round 5: full-text index",
+        "filename": "lucene-index-cord19-full-text-2020-07-16.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-07-16/lucene-index-cord19-full-text-2020-07-16.tar.gz"
+        ],
+        "md5": "23cfad89b4c206d66125f5736f60248f",
+        "size": 4427535212,
+        "total_terms": 275238847,
+        "documents": 192460,
+        "unique_terms": 1843368
+    },
+    {
+        "name": "trec-covid-r5-paragraph",
+        "type": "inverted",
+        "corpus": "trec-covid-r5-paragraph",
+        "corpus_index": "trec-covid-r5-paragraph",
+        "description": "Lucene index for TREC-COVID Round 5: paragraph index",
+        "filename": "lucene-index-cord19-paragraph-2020-07-16.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-07-16/lucene-index-cord19-paragraph-2020-07-16.tar.gz"
+        ],
+        "md5": "c2c6ac832f8a1fcb767d2356d2b1e1df",
+        "size": 6363337237,
+        "total_terms": 627083574,
+        "documents": 3010497,
+        "unique_terms": 1843368
+    },
+    {
+        "name": "trec-covid-r4-abstract",
+        "type": "inverted",
+        "corpus": "trec-covid-r4-abstract",
+        "corpus_index": "trec-covid-r4-abstract",
+        "description": "Lucene index for TREC-COVID Round 4: abstract index",
+        "filename": "lucene-index-cord19-abstract-2020-06-19.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-06-19/lucene-index-cord19-abstract-2020-06-19.tar.gz"
+        ],
+        "md5": "029bd55daba8800fbae2be9e5fcd7b33",
+        "size": 2123283935,
+        "total_terms": 18724353,
+        "documents": 158226,
+        "unique_terms": 179937
+    },
+    {
+        "name": "trec-covid-r4-full-text",
+        "type": "inverted",
+        "corpus": "trec-covid-r4-full-text",
+        "corpus_index": "trec-covid-r4-full-text",
+        "description": "Lucene index for TREC-COVID Round 4: full-text index",
+        "filename": "lucene-index-cord19-full-text-2020-06-19.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-06-19/lucene-index-cord19-full-text-2020-06-19.tar.gz"
+        ],
+        "md5": "3d0eb12094a24cff9bcacd1f17c3ea1c",
+        "size": 4131644421,
+        "total_terms": 254810123,
+        "documents": 158227,
+        "unique_terms": 1783089
+    },
+    {
+        "name": "trec-covid-r4-paragraph",
+        "type": "inverted",
+        "corpus": "trec-covid-r4-paragraph",
+        "corpus_index": "trec-covid-r4-paragraph",
+        "description": "Lucene index for TREC-COVID Round 4: paragraph index",
+        "filename": "lucene-index-cord19-paragraph-2020-06-19.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-06-19/lucene-index-cord19-paragraph-2020-06-19.tar.gz"
+        ],
+        "md5": "5cd8cd6998177bed7a3e0057ef8b3595",
+        "size": 5894371476,
+        "total_terms": 567579834,
+        "documents": 2781172,
+        "unique_terms": 1783089
+    },
+    {
+        "name": "trec-covid-r3-abstract",
+        "type": "inverted",
+        "corpus": "trec-covid-r3-abstract",
+        "corpus_index": "trec-covid-r3-abstract",
+        "description": "Lucene index for TREC-COVID Round 3: abstract index",
+        "filename": "lucene-index-cord19-abstract-2020-05-19.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-19/lucene-index-cord19-abstract-2020-05-19.tar.gz"
+        ],
+        "md5": "37bb97d0c41d650ba8e135fd75ae8fd8",
+        "size": 1800651127,
+        "total_terms": 16278419,
+        "documents": 128465,
+        "unique_terms": 168291
+    },
+    {
+        "name": "trec-covid-r3-full-text",
+        "type": "inverted",
+        "corpus": "trec-covid-r3-full-text",
+        "corpus_index": "trec-covid-r3-full-text",
+        "description": "Lucene index for TREC-COVID Round 3: full-text index",
+        "filename": "lucene-index-cord19-full-text-2020-05-19.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-19/lucene-index-cord19-full-text-2020-05-19.tar.gz"
+        ],
+        "md5": "f5711915a66cd2b511e0fb8d03e4c325",
+        "size": 3511868712,
+        "total_terms": 215806519,
+        "documents": 128465,
+        "unique_terms": 1620335
+    },
+    {
+        "name": "trec-covid-r3-paragraph",
+        "type": "inverted",
+        "corpus": "trec-covid-r3-paragraph",
+        "corpus_index": "trec-covid-r3-paragraph",
+        "description": "Lucene index for TREC-COVID Round 3: paragraph index",
+        "filename": "lucene-index-cord19-paragraph-2020-05-19.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-19/lucene-index-cord19-paragraph-2020-05-19.tar.gz"
+        ],
+        "md5": "012ab1f804382b2275c433a74d7d31f2",
+        "size": 5247367826,
+        "total_terms": 485309568,
+        "documents": 2297201,
+        "unique_terms": 1620335
+    },
+    {
+        "name": "trec-covid-r2-abstract",
+        "type": "inverted",
+        "corpus": "trec-covid-r2-abstract",
+        "corpus_index": "trec-covid-r2-abstract",
+        "description": "Lucene index for TREC-COVID Round 2: abstract index",
+        "filename": "lucene-index-cord19-abstract-2020-05-01.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-01/lucene-index-cord19-abstract-2020-05-01.tar.gz"
+        ],
+        "md5": "a06e71a98a68d31148cb0e97e70a2ee1",
+        "size": 1291687869,
+        "total_terms": 7651125,
+        "documents": 59873,
+        "unique_terms": 109750
+    },
+    {
+        "name": "trec-covid-r2-full-text",
+        "type": "inverted",
+        "corpus": "trec-covid-r2-full-text",
+        "corpus_index": "trec-covid-r2-full-text",
+        "description": "Lucene index for TREC-COVID Round 2: full-text index",
+        "filename": "lucene-index-cord19-full-text-2020-05-01.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-01/lucene-index-cord19-full-text-2020-05-01.tar.gz"
+        ],
+        "md5": "e7eca1b976cdf2cd80e908c9ac2263cb",
+        "size": 2557895128,
+        "total_terms": 154736295,
+        "documents": 59876,
+        "unique_terms": 1214374
+    },
+    {
+        "name": "trec-covid-r2-paragraph",
+        "type": "inverted",
+        "corpus": "trec-covid-r2-paragraph",
+        "corpus_index": "trec-covid-r2-paragraph",
+        "description": "Lucene index for TREC-COVID Round 2: paragraph index",
+        "filename": "lucene-index-cord19-paragraph-2020-05-01.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-05-01/lucene-index-cord19-paragraph-2020-05-01.tar.gz"
+        ],
+        "md5": "8f9321757a03985ac1c1952b2fff2c7d",
+        "size": 3841496174,
+        "total_terms": 360119048,
+        "documents": 1758168,
+        "unique_terms": 1214374
+    },
+    {
+        "name": "trec-covid-r1-abstract",
+        "type": "inverted",
+        "corpus": "trec-covid-r1-abstract",
+        "corpus_index": "trec-covid-r1-abstract",
+        "description": "Lucene index for TREC-COVID Round 1: abstract index",
+        "filename": "lucene-index-covid-2020-04-10.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-04-10/lucene-index-covid-2020-04-10.tar.gz"
+        ],
+        "md5": "ec239d56498c0e7b74e3b41e1ce5d42a",
+        "size": 1299233544,
+        "total_terms": 6672525,
+        "documents": 51069,
+        "unique_terms": 104595
+    },
+    {
+        "name": "trec-covid-r1-full-text",
+        "type": "inverted",
+        "corpus": "trec-covid-r1-full-text",
+        "corpus_index": "trec-covid-r1-full-text",
+        "description": "Lucene index for TREC-COVID Round 1: full-text index",
+        "filename": "lucene-index-covid-full-text-2020-04-10.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-04-10/lucene-index-covid-full-text-2020-04-10.tar.gz"
+        ],
+        "md5": "401a6f5583b0f05340c73fbbeb3279c8",
+        "size": 3555328932,
+        "total_terms": 315624154,
+        "documents": 51071,
+        "unique_terms": 1812522
+    },
+    {
+        "name": "trec-covid-r1-paragraph",
+        "type": "inverted",
+        "corpus": "trec-covid-r1-paragraph",
+        "corpus_index": "trec-covid-r1-paragraph",
+        "description": "Lucene index for TREC-COVID Round 1: paragraph index",
+        "filename": "lucene-index-covid-paragraph-2020-04-10.tar.gz",
+        "urls": [
+            "https://git.uwaterloo.ca/jimmylin/cord19-indexes/raw/master/2020-04-10/lucene-index-covid-paragraph-2020-04-10.tar.gz"
+        ],
+        "md5": "8b87a2c55bc0a15b87f11e796860216a",
+        "size": 3642128260,
+        "total_terms": 330715243,
+        "documents": 1412648,
+        "unique_terms": 944574
+    },
+    {
+        "name": "cast2019",
+        "type": "inverted",
+        "corpus": "cast2019",
+        "corpus_index": "cast2019",
+        "description": "Lucene index for TREC 2019 CaST",
+        "filename": "index-cast2019.tar.gz",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/index-cast2019.tar.gz"
+        ],
+        "md5": "36e604d7f5a4e08ade54e446be2f6345",
+        "size": 21266884884,
+        "total_terms": 1593628213,
+        "documents": 38429835,
+        "unique_terms": -1
+    },
+    {
+        "name": "wikipedia-dpr-100w",
+        "type": "inverted",
+        "corpus": "wikipedia-dpr-100w",
+        "corpus_index": "wikipedia-dpr-100w",
+        "description": "Lucene index of Wikipedia with DPR 100-word splits (Lucene 10.4.0)",
+        "filename": "lucene-inverted.wikipedia-dpr-100w.20260508.deb4c7b.tar",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.wikipedia-dpr-100w.20260508.deb4c7b.tar"
+        ],
+        "md5": "1ef94a97f2ac418577d1e6a9ecf44806",
+        "size": 11078635520,
+        "total_terms": 1512973244,
+        "documents": 21015324,
+        "unique_terms": 5345516
+    },
+    {
+        "name": "wiki-all-6-3-tamber",
+        "type": "inverted",
+        "corpus": "wiki-all-6-3-tamber",
+        "corpus_index": "wiki-all-6-3-tamber",
+        "description": "Lucene index of wiki-all-6-3-tamber from castorini/odqa-wiki-corpora on Huggingface Datasets (Lucene 10.4.0)",
+        "filename": "lucene-inverted.wiki-all-6-3-tamber.20260508.deb4c7b.tar",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-inverted.wiki-all-6-3-tamber.20260508.deb4c7b.tar"
+        ],
+        "md5": "47c97a91576b4ed1166992d6de5a71dc",
+        "size": 25526548480,
+        "total_terms": 5064706668,
+        "documents": 76680040,
+        "unique_terms": 14604875
+    },
+    {
+        "name": "hc4-v1.0-fa",
+        "type": "inverted",
+        "corpus": "hc4-v1.0-fa",
+        "corpus_index": "hc4-v1.0-fa",
+        "description": "Lucene index for HC4 v1.0 (Persian).",
+        "filename": "lucene-index.hc4-v1.0-fa.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.hc4-v1.0.20221025.c4a8d0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.hc4-v1.0-fa.20221025.c4a8d0.tar.gz"
+        ],
+        "md5": "80735c01b2f2cf82288381370adf1d66",
+        "size": 1652960750,
+        "total_terms": 112225896,
+        "documents": 486486,
+        "unique_terms": 617109
+    },
+    {
+        "name": "hc4-v1.0-ru",
+        "type": "inverted",
+        "corpus": "hc4-v1.0-ru",
+        "corpus_index": "hc4-v1.0-ru",
+        "description": "Lucene index for HC4 v1.0 (Russian).",
+        "filename": "lucene-index.hc4-v1.0-ru.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.hc4-v1.0.20221025.c4a8d0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.hc4-v1.0-ru.20221025.c4a8d0.tar.gz"
+        ],
+        "md5": "40259ba9ca993f850c960a172debe33e",
+        "size": 13292705599,
+        "total_terms": 764996714,
+        "documents": 4721064,
+        "unique_terms": 2625222
+    },
+    {
+        "name": "hc4-v1.0-zh",
+        "type": "inverted",
+        "corpus": "hc4-v1.0-zh",
+        "corpus_index": "hc4-v1.0-zh",
+        "description": "Lucene index for HC4 v1.0 (Chinese).",
+        "filename": "lucene-index.hc4-v1.0-zh.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.hc4-v1.0.20221025.c4a8d0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.hc4-v1.0-zh.20221025.c4a8d0.tar.gz"
+        ],
+        "md5": "2ea8885b8ec6c637971c8df0706b623e",
+        "size": 2899033342,
+        "total_terms": 304468580,
+        "documents": 646302,
+        "unique_terms": 4380932
+    },
+    {
+        "name": "neuclir22-fa",
+        "type": "inverted",
+        "corpus": "neuclir22-fa",
+        "corpus_index": "neuclir22-fa",
+        "description": "Lucene index for NeuCLIR 2022 corpus (Persian).",
+        "filename": "lucene-index.neuclir22-fa.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.neuclir22.20221025.c4a8d0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-fa.20221025.c4a8d0.tar.gz"
+        ],
+        "md5": "d423fb72bcd5bf2dea6e4a19743dcb95",
+        "size": 7565790180,
+        "total_terms": 514262091,
+        "documents": 2232016,
+        "unique_terms": 1479443
+    },
+    {
+        "name": "neuclir22-ru",
+        "type": "inverted",
+        "corpus": "neuclir22-ru",
+        "corpus_index": "neuclir22-ru",
+        "description": "Lucene index for NeuCLIR 2022 corpus (Russian).",
+        "filename": "lucene-index.neuclir22-ru.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.neuclir22.20221025.c4a8d0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-ru.20221025.c4a8d0.tar.gz"
+        ],
+        "md5": "2d04bbc880d535c1c4ab172c2c2d8ffe",
+        "size": 14202967387,
+        "total_terms": 830006658,
+        "documents": 4627541,
+        "unique_terms": 3396095
+    },
+    {
+        "name": "neuclir22-zh",
+        "type": "inverted",
+        "corpus": "neuclir22-zh",
+        "corpus_index": "neuclir22-zh",
+        "description": "Lucene index for NeuCLIR 2022 corpus (Chinese).",
+        "filename": "lucene-index.neuclir22-zh.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.neuclir22.20221025.c4a8d0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-zh.20221025.c4a8d0.tar.gz"
+        ],
+        "md5": "46fe989676ff510b997af24f6398199f",
+        "size": 15733809682,
+        "total_terms": 1654090507,
+        "documents": 3179206,
+        "unique_terms": 8213058
+    },
+    {
+        "name": "neuclir22-fa-en",
+        "type": "inverted",
+        "corpus": "neuclir22-fa-en",
+        "corpus_index": "neuclir22-fa-en",
+        "description": "Lucene index for NeuCLIR 2022 corpus (official English translation from Persian).",
+        "filename": "lucene-index.neuclir22-fa-en.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.neuclir22-en.20221025.c4a8d0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-fa-en.20221025.c4a8d0.tar.gz"
+        ],
+        "md5": "35363339b7f0527f27403b848fe01b04",
+        "size": 6172239242,
+        "total_terms": 554848215,
+        "documents": 2232016,
+        "unique_terms": 1033260
+    },
+    {
+        "name": "neuclir22-ru-en",
+        "type": "inverted",
+        "corpus": "neuclir22-ru-en",
+        "corpus_index": "neuclir22-ru-en",
+        "description": "Lucene index for NeuCLIR 2022 corpus (official English translation from Russian).",
+        "filename": "lucene-index.neuclir22-ru-en.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.neuclir22-en.20221025.c4a8d0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-ru-en.20221025.c4a8d0.tar.gz"
+        ],
+        "md5": "b0b98803260665eeae97163d2361838e",
+        "size": 10513242212,
+        "total_terms": 911886830,
+        "documents": 4627541,
+        "unique_terms": 2794257
+    },
+    {
+        "name": "neuclir22-zh-en",
+        "type": "inverted",
+        "corpus": "neuclir22-zh-en",
+        "corpus_index": "neuclir22-zh-en",
+        "description": "Lucene index for NeuCLIR 2022 corpus (official English translation from Chinese).",
+        "filename": "lucene-index.neuclir22-zh-en.20221025.c4a8d0.tar.gz",
+        "readme": "lucene-index.neuclir22-en.20221025.c4a8d0.README.md",
+        "urls": [
+            "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.neuclir22-zh-en.20221025.c4a8d0.tar.gz"
+        ],
+        "md5": "d44ca9c7b634cf56e8cfd5892a3d3427",
+        "size": 8470981318,
+        "total_terms": 803227160,
+        "documents": 3179206,
+        "unique_terms": 1616532
+    },
+    {
+        "name": "atomic_text_v0.2.1_small_validation",
+        "type": "inverted",
+        "corpus": "atomic_text_v0.2.1_small_validation",
+        "corpus_index": "atomic_text_v0.2.1_small_validation",
+        "description": "Lucene index for AToMiC Text v0.2.1 small setting on validation set",
+        "filename": "lucene-index.atomic.image.flat.small.validation.tar.gz",
+        "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.text.flat.small.validation.tar.gz"
+        ],
+        "md5": "fe0ae1286dde8a4969f16134c47682ae",
+        "size": 32902223,
+        "total_terms": 2999824,
+        "documents": 17173,
+        "unique_terms": 118071
+    },
+    {
+        "name": "atomic_text_v0.2.1_base",
+        "type": "inverted",
+        "corpus": "atomic_text_v0.2.1_base",
+        "corpus_index": "atomic_text_v0.2.1_base",
+        "description": "Lucene index for AToMiC Text v0.2.1 base setting on validation set",
+        "filename": "lucene-index.atomic.image.flat.base.tar.gz",
+        "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.text.flat.base.tar.gz"
+        ],
+        "md5": "fe2f0beb617f5ade4ffce6d05adfbc7a",
+        "size": 5532187295,
+        "total_terms": 520954965,
+        "documents": 3029504,
+        "unique_terms": -1
+    },
+    {
+        "name": "atomic_text_v0.2.1_large",
+        "type": "inverted",
+        "corpus": "atomic_text_v0.2.1_large",
+        "corpus_index": "atomic_text_v0.2.1_large",
+        "description": "Lucene index for AToMiC Text v0.2.1 large setting on validation set",
+        "filename": "lucene-index.atomic.image.flat.large.tar.gz",
+        "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.text.flat.large.tar.gz"
+        ],
+        "md5": "0f4639ba8b6ecff1d26da02790f78add",
+        "size": 18194155242,
+        "total_terms": 1727597393,
+        "documents": 10134744,
+        "unique_terms": -1
+    },
+    {
+        "name": "atomic_image_v0.2_small_validation",
+        "type": "inverted",
+        "corpus": "atomic_image_v0.2_small_validation",
+        "corpus_index": "atomic_image_v0.2_small_validation",
+        "description": "Lucene index for AToMiC Images v0.2 small setting on validation set",
+        "filename": "lucene-index.atomic.image.flat.small.validation.tar.gz",
+        "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.image.flat.small.validation.tar.gz"
+        ],
+        "md5": "7afd990df79462040f175b990545ad40",
+        "size": 5454742,
+        "total_terms": 308646,
+        "documents": 16126,
+        "unique_terms": 48666
+    },
+    {
+        "name": "atomic_image_v0.2_base",
+        "type": "inverted",
+        "corpus": "atomic_image_v0.2_base",
+        "corpus_index": "atomic_image_v0.2_base",
+        "description": "Lucene index for AToMiC Images v0.2 base setting on validation set",
+        "filename": "lucene-index.atomic.image.flat.base.tar.gz",
+        "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.image.flat.base.tar.gz"
+        ],
+        "md5": "d8a4e8ce05305406004cceff60147592",
+        "size": 1309435624,
+        "total_terms": 100743397,
+        "documents": 3410779,
+        "unique_terms": -1
+    },
+    {
+        "name": "atomic_image_v0.2_large",
+        "type": "inverted",
+        "corpus": "atomic_image_v0.2_large",
+        "corpus_index": "atomic_image_v0.2_large",
+        "description": "Lucene index for AToMiC Images v0.2 large setting on validation set",
+        "filename": "lucene-index.atomic.image.flat.large.tar.gz",
+        "readme": "lucene-index.atomic.20231018.ae6ff6.README.md",
+        "urls": [
+            "https://huggingface.co/datasets/TREC-AToMiC/AToMiC-Baselines/resolve/main/indexes/lucene-index.atomic.image.flat.large.tar.gz"
+        ],
+        "md5": "3e4a0c976a2c50daeee7a276b9b2c379",
+        "size": 1448435404,
+        "total_terms": 108550562,
+        "documents": 3803656,
+        "unique_terms": -1
+    }
+]

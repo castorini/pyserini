@@ -1,0 +1,87 @@
+{
+  "wikipedia-dpr-100w.dpr-multi": {
+    "description": "Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on multiple QA datasets",
+    "filename": "faiss.wikipedia-dpr-100w.dpr_multi.20200127.f403c3.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.dpr_multi.20200127.f403c3.tar.gz"
+    ],
+    "md5": "fe307ef2e60ab6e6f3ad66e24a4144ae",
+    "size": 59836766732,
+    "documents": 21015320,
+    "downloaded": false,
+    "texts": "wikipedia-dpr-100w"
+  },
+  "wikipedia-dpr-100w.dpr-single-nq": {
+    "description": "Faiss FlatIP index of Wikipedia encoded by the DPR doc encoder trained on NQ",
+    "filename": "faiss.wikipedia-dpr-100w.dpr_single-nq.20200115.cd5034.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.dpr_single-nq.20200115.cd5034.tar.gz"
+    ],
+    "md5": "01fb6bcaa047df254663d0a3d854b7cc",
+    "size": 59836863979,
+    "documents": 21015320,
+    "downloaded": false,
+    "texts": "wikipedia-dpr-100w"
+  },
+  "wikipedia-dpr-100w.bpr-single-nq": {
+    "description": "Faiss binary index of Wikipedia encoded by the BPR doc encoder trained on NQ",
+    "filename": "faiss.wikipedia-dpr-100w.bpr_single-nq.20210827.8a8f75.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.bpr_single-nq.20210827.8a8f75.tar.gz"
+    ],
+    "md5": "b022580ab2fc66f6eaa54af241dba690",
+    "size": 1886380629,
+    "documents": 21015320,
+    "downloaded": false,
+    "texts": "wikipedia-dpr-100w"
+  },
+  "wikipedia-dpr-100w.ance-multi": {
+    "description": "Faiss FlatIP index of Wikipedia encoded by the ANCE-multi encoder",
+    "filename": "faiss.wikipedia-dpr-100w.ance_multi.20210224.060cef.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.ance_multi.20210224.060cef.tar.gz"
+    ],
+    "md5": "eb00e096460c8e6296a39732f1676dd7",
+    "size": 59890491335,
+    "documents": 21015320,
+    "downloaded": false,
+    "texts": "wikipedia-dpr-100w"
+  },
+  "wikipedia-dpr-100w.dkrr-nq": {
+    "description": "Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on NQ",
+    "filename": "faiss.wikipedia-dpr-100w.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.dkrr-dpr-nq-retriever.20220217.25ed1f.cc91b2.tar.gz"
+    ],
+    "md5": "36a658e08dafb3e3313b05f88e001557",
+    "size": 37812137732,
+    "documents": 21015324,
+    "downloaded": false,
+    "texts": "wikipedia-dpr-100w"
+  },
+  "wikipedia-dpr-100w.dkrr-tqa": {
+    "description": "Faiss FlatIP index of Wikipedia DPR encoded by the retriever model from 'Distilling Knowledge from Reader to Retriever for Question Answering' trained on TriviaQA",
+    "filename": "faiss.wikipedia-dpr-100w.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wikipedia-dpr-100w.dkrr-dpr-tqa-retriever.20220217.25ed1f.cc91b2.tar.gz"
+    ],
+    "md5": "072a514ca3ff7717339038d024019e3d",
+    "size": 37802648577,
+    "documents": 21015324,
+    "downloaded": false,
+    "texts": "wikipedia-dpr-100w"
+  },
+  "wiki-all-6-3.dpr2-multi-retriever": {
+    "description": "Faiss FlatIP index of wiki-all-6-3-tamber encoded by a 2nd iteration DPR model trained on multiple QA datasets",
+    "filename": "faiss.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.tar.gz",
+    "readme": "faiss-flat.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.README.md",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss.wiki-all-6-3.dpr2-multi-retriever.20230103.186fa7.tar.gz"
+    ],
+    "md5": "823b6297d6fd8011598e7618742ac7f8",
+    "size": 218257913366,
+    "documents": 76680040,
+    "downloaded": false,
+    "texts": "wiki-all-6-3-tamber"
+  }
+}

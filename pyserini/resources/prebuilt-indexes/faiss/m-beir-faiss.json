@@ -1,0 +1,444 @@
+{
+  "m-beir-cirr_task7.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR CIRR task 7 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-cirr-task7.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-cirr-task7.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "2df0ed1aa8d405148977a74218748db6",
+    "size": 38817422,
+    "documents": 21551,
+    "downloaded": false,
+    "texts": "m-beir-cirr_task7"
+  },
+  "m-beir-edis_task2.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-edis-task2.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-edis-task2.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "f507b70f48facec1de962fd7b2ce617d",
+    "size": 1889309291,
+    "documents": 1047067,
+    "downloaded": false,
+    "texts": "m-beir-edis_task2"
+  },
+  "m-beir-fashion200k_task0.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-fashion200k-task0.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashion200k-task0.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "e5fe87d779545ef493ee5740e2b075c8",
+    "size": 362431088,
+    "documents": 201824,
+    "downloaded": false,
+    "texts": "m-beir-fashion200k_task0"
+  },
+  "m-beir-fashion200k_task3.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-fashion200k-task3.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashion200k-task3.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "f1d419f3b711b3614300e136e391e63e",
+    "size": 111419375,
+    "documents": 61707,
+    "downloaded": false,
+    "texts": "m-beir-fashion200k_task3"
+  },
+  "m-beir-fashioniq_task7.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-fashioniq-task7.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-fashioniq-task7.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "77504ab31f03bcf397a5ec3c20864eaf",
+    "size": 134235025,
+    "documents": 74381,
+    "downloaded": false,
+    "texts": "m-beir-fashioniq_task7"
+  },
+  "m-beir-infoseek_task6.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-infoseek-task6.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-infoseek-task6.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "e471f7cf13c3ba4cdf0233d9e74f9ee8",
+    "size": 1106428847,
+    "documents": 611651,
+    "downloaded": false,
+    "texts": "m-beir-infoseek_task6"
+  },
+  "m-beir-infoseek_task8.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-infoseek-task8.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-infoseek-task8.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "ba5b02f2e97086ddced32d9af730d841",
+    "size": 870321158,
+    "documents": 481782,
+    "downloaded": false,
+    "texts": "m-beir-infoseek_task8"
+  },
+  "m-beir-mscoco_task0.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-mscoco-task0.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-mscoco-task0.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "d015ea6b4b2014722e81bd500999b12b",
+    "size": 9018762,
+    "documents": 5000,
+    "downloaded": false,
+    "texts": "m-beir-mscoco_task0"
+  },
+  "m-beir-mscoco_task3.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-mscoco-task3.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-mscoco-task3.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "ba172cbbca9903561a4fe522d2349fb5",
+    "size": 44898554,
+    "documents": 24809,
+    "downloaded": false,
+    "texts": "m-beir-mscoco_task3"
+  },
+  "m-beir-nights_task4.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-nights-task4.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-nights-task4.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "f4dbd632d15efd7eb5abfb0ffc5484af",
+    "size": 72057798,
+    "documents": 40038,
+    "downloaded": false,
+    "texts": "m-beir-nights_task4"
+  },
+  "m-beir-oven_task6.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-oven-task6.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-oven-task6.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "589ebd6326ab1de2329d70840470e5ab",
+    "size": 1224166256,
+    "documents": 676667,
+    "downloaded": false,
+    "texts": "m-beir-oven_task6"
+  },
+  "m-beir-oven_task8.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-oven-task8.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-oven-task8.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "ecf91e65de23aa90971a7c2c395cc485",
+    "size": 605524879,
+    "documents": 335135,
+    "downloaded": false,
+    "texts": "m-beir-oven_task8"
+  },
+  "m-beir-visualnews_task0.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-visualnews-task0.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-visualnews-task0.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "73742e95859b11ac1d3d8692d06e73b2",
+    "size": 978318460,
+    "documents": 542246,
+    "downloaded": false,
+    "texts": "m-beir-visualnews_task0"
+  },
+  "m-beir-visualnews_task3.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-visualnews-task3.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-visualnews-task3.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "73f3245e40c1684bb4d74c532a65cb45",
+    "size": 972353309,
+    "documents": 537568,
+    "downloaded": false,
+    "texts": "m-beir-visualnews_task3"
+  },
+  "m-beir-webqa_task1.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-webqa-task1.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-webqa-task1.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "0cda2d38ce2218607c31a129997a79f1",
+    "size": 983308425,
+    "documents": 544457,
+    "downloaded": false,
+    "texts": "m-beir-webqa_task1"
+  },
+  "m-beir-webqa_task2.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-webqa-task2.clip-sf-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-webqa-task2.clip-sf-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "1b138a7749e4f1272f39eb9c2ae0f18a",
+    "size": 726335240,
+    "documents": 403196,
+    "downloaded": false,
+    "texts": "m-beir-webqa_task2"
+  },
+  "m-beir-union.clip-sf-large": {
+    "description": "Faiss FlatIP index of the MBEIR global (union) corpus encoded by UniIR's clip-sf-large model",
+    "filename": "faiss-flat.m-beir-union.clip-sf-large.20260302.tar.gz",
+    "readme": "faiss-flat.m-beir.clip-sf-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/CLIP_SF/faiss-flat.m-beir-union.clip-sf-large.20260302.tar.gz"
+    ],
+    "md5": "2bbd6bf0bb3f08c95542b46b26a43612",
+    "size": 10131881426,
+    "documents": 5609079,
+    "downloaded": false,
+    "texts": "m-beir-union"
+  },
+  "m-beir-cirr_task7.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR CIRR task 7 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-cirr-task7.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-cirr-task7.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "9cc2cbc853ed3f40faeb1625883dd787",
+    "size": 38778158,
+    "documents": 21551,
+    "downloaded": false,
+    "texts": "m-beir-cirr_task7"
+  },
+  "m-beir-edis_task2.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR EDIS task 2 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-edis-task2.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-edis-task2.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "8e6c689bd963c3ba98a12bb09722e6ff",
+    "size": 1882886595,
+    "documents": 1047067,
+    "downloaded": false,
+    "texts": "m-beir-edis_task2"
+  },
+  "m-beir-fashion200k_task0.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR Fashion200k task 0 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-fashion200k-task0.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashion200k-task0.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "9a994c44fd9cde8950975bae85dc8ce4",
+    "size": 361951451,
+    "documents": 201824,
+    "downloaded": false,
+    "texts": "m-beir-fashion200k_task0"
+  },
+  "m-beir-fashion200k_task3.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR Fashion200k task 3 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-fashion200k-task3.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashion200k-task3.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "49a93245fc3dc254e93db4ef55d88e93",
+    "size": 111000347,
+    "documents": 61707,
+    "downloaded": false,
+    "texts": "m-beir-fashion200k_task3"
+  },
+  "m-beir-fashioniq_task7.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR FashionIQ task 7 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-fashioniq-task7.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-fashioniq-task7.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "afc68db8916ddfeef0ab4b7c4fcd7c9a",
+    "size": 133814528,
+    "documents": 74381,
+    "downloaded": false,
+    "texts": "m-beir-fashioniq_task7"
+  },
+  "m-beir-infoseek_task6.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR InfoSeek task 6 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-infoseek-task6.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-infoseek-task6.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "81a3d728a0e2d73e5fba7bc1c6c04c8d",
+    "size": 1101028282,
+    "documents": 611651,
+    "downloaded": false,
+    "texts": "m-beir-infoseek_task6"
+  },
+  "m-beir-infoseek_task8.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR InfoSeek task 8 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-infoseek-task8.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-infoseek-task8.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "c1b1e9f3301acfc8da19797d2f805a3e",
+    "size": 867079294,
+    "documents": 481782,
+    "downloaded": false,
+    "texts": "m-beir-infoseek_task8"
+  },
+  "m-beir-mscoco_task0.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR MSCOCO task 0 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-mscoco-task0.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-mscoco-task0.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "423c4994b238cdcc38c9516606207236",
+    "size": 8997191,
+    "documents": 5000,
+    "downloaded": false,
+    "texts": "m-beir-mscoco_task0"
+  },
+  "m-beir-mscoco_task3.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR MSCOCO task 3 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-mscoco-task3.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-mscoco-task3.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "2b7ec1d919a579b9d8c1f40c875a6897",
+    "size": 44642915,
+    "documents": 24809,
+    "downloaded": false,
+    "texts": "m-beir-mscoco_task3"
+  },
+  "m-beir-nights_task4.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR NIGHTS task 4 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-nights-task4.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-nights-task4.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "f356bb29294510bdace4523fa888d8ba",
+    "size": 72063162,
+    "documents": 40038,
+    "downloaded": false,
+    "texts": "m-beir-nights_task4"
+  },
+  "m-beir-oven_task6.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR OVEN task 6 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-oven-task6.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-oven-task6.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "42c11b37cb51fc3b3358fa887702d61b",
+    "size": 1217888354,
+    "documents": 676667,
+    "downloaded": false,
+    "texts": "m-beir-oven_task6"
+  },
+  "m-beir-oven_task8.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR OVEN task 8 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-oven-task8.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-oven-task8.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "35ab385ac5e83d829b2d40d048e9c576",
+    "size": 603292386,
+    "documents": 335135,
+    "downloaded": false,
+    "texts": "m-beir-oven_task8"
+  },
+  "m-beir-visualnews_task0.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR VisualNews task 0 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-visualnews-task0.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-visualnews-task0.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "17945848e8425f2c83c671b6f5ab8f8b",
+    "size": 975312678,
+    "documents": 542246,
+    "downloaded": false,
+    "texts": "m-beir-visualnews_task0"
+  },
+  "m-beir-visualnews_task3.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR VisualNews task 3 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-visualnews-task3.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-visualnews-task3.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "75eeedee852dcbeed968e45a3bb585f7",
+    "size": 967522065,
+    "documents": 537568,
+    "downloaded": false,
+    "texts": "m-beir-visualnews_task3"
+  },
+  "m-beir-webqa_task1.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR WebQA task 1 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-webqa-task1.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-webqa-task1.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "b861ea5754d2e6a3c7194818a6521ad9",
+    "size": 979823458,
+    "documents": 544457,
+    "downloaded": false,
+    "texts": "m-beir-webqa_task1"
+  },
+  "m-beir-webqa_task2.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR WebQA task 2 corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-webqa-task2.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-webqa-task2.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "2e37ddecd2cd7175056cfb7a743f251c",
+    "size": 724742262,
+    "documents": 403196,
+    "downloaded": false,
+    "texts": "m-beir-webqa_task2"
+  },
+  "m-beir-union.blip-ff-large": {
+    "description": "Faiss FlatIP index of the MBEIR global (union) corpus encoded by UniIR's blip-ff-large model",
+    "filename": "faiss-flat.m-beir-union.blip-ff-large.20260302.fa77cbd.tar.gz",
+    "readme": "faiss-flat.m-beir.blip-ff-large.20260302.fa77cbd.README.md",
+    "urls": [
+      "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/UniIR/BLIP_FF/faiss-flat.m-beir-union.blip-ff-large.20260302.fa77cbd.tar.gz"
+    ],
+    "md5": "76c614a504333ea6b3e28e11ef6656a2",
+    "size": 10090371795,
+    "documents": 5609079,
+    "downloaded": false,
+    "texts": "m-beir-union"
+  }
+}
