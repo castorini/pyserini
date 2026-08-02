@@ -14,13 +14,12 @@
 # limitations under the License.
 #
 
-from collections.abc import Mapping
 import importlib.resources
 import json
+from collections.abc import Mapping
 from urllib.request import urlopen
 
-
-PREBUILT_INDEXES_COMMIT = 'eb2a94de2029b3e9234ffd7445ab74991b6b0137'
+PREBUILT_INDEXES_COMMIT = '13ddfcddc737ca0d6452b052ae157deb8439c2ce'
 
 
 def _prebuilt_indexes_url(path):
@@ -56,7 +55,7 @@ class _LazyLucenePrebuiltInvertedIndexJson(Mapping):
         if self._info is None:
             info = {}
             for url in self._urls:
-                if url.startswith('http://') or url.startswith('https://'):
+                if url.startswith(('http://', 'https://')):
                     with urlopen(url, timeout=10) as response:
                         records = json.load(response)
                 else:
@@ -190,7 +189,7 @@ TF_INDEX_INFO_BRIGHT = _LazyLucenePrebuiltInvertedIndexJson(
 )
 
 TF_INDEX_INFO_MRTYDI = _LazyLucenePrebuiltInvertedIndexJson(
-    'resources/prebuilt-indexes/lucene/mrtydi-inverted.json',
+    _prebuilt_indexes_url('lucene/mrtydi-inverted.json'),
     key_prefixes=('mrtydi-v1.1-',)
 )
 
@@ -209,12 +208,12 @@ TF_INDEX_INFO_MRTYDI_ALIASES = {
 }
 
 TF_INDEX_INFO_MIRACL = _LazyLucenePrebuiltInvertedIndexJson(
-    'resources/prebuilt-indexes/lucene/miracl-inverted.json',
+    _prebuilt_indexes_url('lucene/miracl-inverted.json'),
     key_prefixes=('miracl-v1.0-',)
 )
 
 TF_INDEX_INFO_CIRAL = _LazyLucenePrebuiltInvertedIndexJson(
-    'resources/prebuilt-indexes/lucene/ciral-inverted.json',
+    _prebuilt_indexes_url('lucene/ciral-inverted.json'),
     key_prefixes=('ciral-v1.0-',)
 )
 
