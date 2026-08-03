@@ -19,7 +19,7 @@ import json
 from collections.abc import Mapping
 from urllib.request import urlopen
 
-PREBUILT_INDEXES_COMMIT = '7ad005df394712d682ce74b903183934cac07d18'
+PREBUILT_INDEXES_COMMIT = '02160aa637ad06a36ba5c4f4697775318f90a1cb'
 
 
 def _prebuilt_indexes_url(path):
@@ -227,7 +227,7 @@ TF_INDEX_INFO_M_BEIR = _LazyLucenePrebuiltInvertedIndexJson(
 )
 
 TF_INDEX_INFO_OTHER = _LazyLucenePrebuiltInvertedIndexJson(
-    'resources/prebuilt-indexes/lucene/other-inverted.json'
+    _prebuilt_indexes_url('lucene/other-inverted.json')
 )
 
 TF_INDEX_INFO_OTHER_ALIASES = {
@@ -258,7 +258,11 @@ TF_INDEX_INFO = _PrebuiltIndexCatalog(TF_INDEX_INFO_MSMARCO,
 
 # Bindings for Lucene impact indexes
 IMPACT_INDEX_INFO_MSMARCO = _LazyLucenePrebuiltInvertedIndexJson(
-    'resources/prebuilt-indexes/lucene/msmarco-impact.json',
+    _prebuilt_indexes_url('lucene/msmarco-v1-passage-impact.json'),
+    _prebuilt_indexes_url('lucene/msmarco-v1-doc-impact.json'),
+    _prebuilt_indexes_url('lucene/msmarco-v2-passage-impact.json'),
+    _prebuilt_indexes_url('lucene/msmarco-v2-doc-segmented-impact.json'),
+    _prebuilt_indexes_url('lucene/msmarco-v2.1-doc-segmented-impact.json'),
     key_prefixes=('msmarco-',)
 )
 

@@ -60,7 +60,7 @@ class TestPrebuiltIndexes(unittest.TestCase):
     ]
 
     IMPACT_CASES = [
-        ('msmarco', 25),
+        ('msmarco', 26),
         ('beir', 58),  # 29 each from SPLADE++ (CoCondenser-EnsembleDistil) and SPLADEv3
         ('bright', 12),
         ('mrtydi', 0),  # currently, none
