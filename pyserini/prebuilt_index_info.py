@@ -19,7 +19,7 @@ import json
 from collections.abc import Mapping
 from urllib.request import urlopen
 
-PREBUILT_INDEXES_COMMIT = 'c0f02dcbedf7356bd34975dfce946770ad902652'
+PREBUILT_INDEXES_COMMIT = '7ad005df394712d682ce74b903183934cac07d18'
 
 
 def _prebuilt_indexes_url(path):
@@ -93,11 +93,15 @@ class _LazyPrebuiltIndexInfoJson(Mapping):
 
     def _load(self):
         if self._info is None:
-            resource = importlib.resources.files('pyserini')
-            for path_part in self._url.split('/'):
-                resource = resource / path_part
-            with resource.open(encoding='utf-8') as response:
-                self._info = json.load(response)
+            if self._url.startswith(('http://', 'https://')):
+                with urlopen(self._url, timeout=10) as response:
+                    self._info = json.load(response)
+            else:
+                resource = importlib.resources.files('pyserini')
+                for path_part in self._url.split('/'):
+                    resource = resource / path_part
+                with resource.open(encoding='utf-8') as response:
+                    self._info = json.load(response)
 
         return self._info
 
@@ -218,7 +222,7 @@ TF_INDEX_INFO_CIRAL = _LazyLucenePrebuiltInvertedIndexJson(
 )
 
 TF_INDEX_INFO_M_BEIR = _LazyLucenePrebuiltInvertedIndexJson(
-    'resources/prebuilt-indexes/lucene/m-beir-inverted.json',
+    _prebuilt_indexes_url('lucene/mbeir-inverted.json'),
     key_prefixes=('m-beir-',)
 )
 
@@ -314,47 +318,47 @@ LUCENE_FLAT_INDEX_INFO = _PrebuiltIndexCatalog(LUCENE_FLAT_INDEX_INFO_BEIR,
 
 # Bindings for Faiss indexes
 FAISS_INDEX_INFO_MSMARCO = _LazyPrebuiltIndexInfoJson(
-    'resources/prebuilt-indexes/faiss/msmarco-faiss.json'
+    _prebuilt_indexes_url('faiss/msmarco-faiss.json')
 )
 
 FAISS_INDEX_INFO_BEIR = _LazyPrebuiltIndexInfoJson(
-    'resources/prebuilt-indexes/faiss/beir-faiss.json'
+    _prebuilt_indexes_url('faiss/beir-faiss.json')
 )
 
 FAISS_INDEX_INFO_BRIGHT = _LazyPrebuiltIndexInfoJson(
-    'resources/prebuilt-indexes/faiss/bright-faiss.json'
+    _prebuilt_indexes_url('faiss/bright-faiss.json')
 )
 
 FAISS_INDEX_INFO_MRTYDI = _LazyPrebuiltIndexInfoJson(
-    'resources/prebuilt-indexes/faiss/mrtydi-faiss.json'
+    _prebuilt_indexes_url('faiss/mrtydi-faiss.json')
 )
 
 FAISS_INDEX_INFO_MIRACL = _LazyPrebuiltIndexInfoJson(
-    'resources/prebuilt-indexes/faiss/miracl-faiss.json'
+    _prebuilt_indexes_url('faiss/miracl-faiss.json')
 )
 
 FAISS_INDEX_INFO_CIRAL = _LazyPrebuiltIndexInfoJson(
-    'resources/prebuilt-indexes/faiss/ciral-faiss.json'
+    _prebuilt_indexes_url('faiss/ciral-faiss.json')
 )
 
 FAISS_INDEX_INFO_WIKIPEDIA = _LazyPrebuiltIndexInfoJson(
-    'resources/prebuilt-indexes/faiss/wikipedia-faiss.json'
+    _prebuilt_indexes_url('faiss/wikipedia-faiss.json')
 )
 
 FAISS_INDEX_INFO_M_BEIR = _LazyPrebuiltIndexInfoJson(
-    'resources/prebuilt-indexes/faiss/m-beir-faiss.json'
+    _prebuilt_indexes_url('faiss/mbeir-faiss.json')
 )
 
 FAISS_INDEX_INFO_DSE = _LazyPrebuiltIndexInfoJson(
-    'resources/prebuilt-indexes/faiss/dse-faiss.json'
+    _prebuilt_indexes_url('faiss/dse-faiss.json')
 )
 
 FAISS_INDEX_INFO_MMEB = _LazyPrebuiltIndexInfoJson(
-    'resources/prebuilt-indexes/faiss/mmeb-faiss.json'
+    _prebuilt_indexes_url('faiss/mmeb-faiss.json')
 )
 
 FAISS_INDEX_INFO_OTHER = _LazyPrebuiltIndexInfoJson(
-    'resources/prebuilt-indexes/faiss/other-faiss.json'
+    _prebuilt_indexes_url('faiss/other-faiss.json')
 )
 
 FAISS_INDEX_INFO = _PrebuiltIndexCatalog(FAISS_INDEX_INFO_MSMARCO,
