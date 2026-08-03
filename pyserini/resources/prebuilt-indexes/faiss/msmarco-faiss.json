@@ -1,0 +1,283 @@
+{
+  "msmarco-v1-passage.cosdpr-distil": {
+    "description": "Faiss flat index of the MS MARCO passage corpus encoded by cosDPR-distil.",
+    "filename": "faiss-flat.msmarco-v1-passage.cosdpr-distil.20221023.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.cosdpr-distil.20221023.tar.gz"
+    ],
+    "md5": "83565019175c79fcc5f8d99fb1bd43ca",
+    "size": 23843194320,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-passage.aggretriever-cocondenser": {
+    "description": "Faiss flat index of the MS MARCO passage corpus encoded by aggretriever-cocondenser.",
+    "filename": "faiss-flat.msmarco-v1-passage.aggretriever-cocondenser.20230407.f627ef.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.aggretriever-cocondenser.20230407.f627ef.tar.gz"
+    ],
+    "md5": "c55472025808eeca736c7123f0033726",
+    "size": 26053474818,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-passage.aggretriever-distilbert": {
+    "description": "Faiss flat index of the MS MARCO passage corpus encoded by aggretriever-distilbert.",
+    "filename": "faiss-flat.msmarco-v1-passage.aggretriever-distilbert.20230407.f627ef.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.aggretriever-distilbert.20230407.f627ef.tar.gz"
+    ],
+    "md5": "d8fd51bfe974752cf770856623e39668",
+    "size": 25963140631,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-passage.ance": {
+    "description": "Faiss flat index of the MS MARCO passage corpus encoded by the ANCE MS MARCO passage encoder",
+    "filename": "faiss-flat.msmarco-v1-passage.ance.20210224.060cef.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.ance.20210224.060cef.tar.gz"
+    ],
+    "md5": "e6cf0c1011200af81fd53aa7c5ce9414",
+    "size": 25102344926,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-passage.distilbert-dot-margin-mse-t2": {
+    "description": "Faiss flat index of the MS MARCO passage corpus encoded by the distilbert-dot-margin_mse-T2-msmarco encoder",
+    "filename": "faiss-flat.msmarco-v1-passage.distilbert-dot-margin_mse-t2.20210316.d44c3a.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.distilbert-dot-margin_mse-t2.20210316.d44c3a.tar.gz"
+    ],
+    "md5": "bb8a3c3cf48fcd8c2e66f974fb449336",
+    "size": 25162771335,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-passage.distilbert-dot-tas_b-b256": {
+    "description": "Faiss flat index of the MS MARCO passage corpus encoded by distilbert-dot-tas_b-b256-msmarco encoder",
+    "filename": "faiss-flat.msmarco-v1-passage.distilbert-dot-tas_b-b256.20210527.63276f.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.distilbert-dot-tas_b-b256.20210527.63276f.tar.gz"
+    ],
+    "md5": "538546d5818527a51d87ce482e7a197e",
+    "size": 25162329450,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-passage.sbert": {
+    "description": "Faiss flat index of the MS MARCO passage corpus encoded by the SBERT MS MARCO passage encoder",
+    "filename": "faiss-flat.msmarco-v1-passage.sbert.20210313.a0fbb3.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.sbert.20210313.a0fbb3.tar.gz"
+    ],
+    "md5": "b1649ea89b48cc89b3027399d09873dd",
+    "size": 25214193348,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-passage.bge-base-en-v1.5": {
+    "description": "Faiss index of the MS MARCO passage corpus encoded by BGE-base-en-v1.5 encoder",
+    "filename": "faiss-flat.msmarco-v1-passage.bge-base-en-v1.5.20240107.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.bge-base-en-v1.5.20240107.tar.gz"
+    ],
+    "md5": "b21fb6abee3be6da3b6f39c9f6d9f280",
+    "size": 25217210007,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-passage.tct_colbert": {
+    "description": "Faiss flat index of the MS MARCO passage corpus encoded by TCT-ColBERT",
+    "filename": "faiss-flat.msmarco-v1-passage.tct_colbert.20210112.be7119.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.tct_colbert.20210112.be7119.tar.gz"
+    ],
+    "md5": "6c544e9dcd87b3b6acac0f8a69d741dd",
+    "size": 25204502424,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-passage.tct_colbert.hnsw": {
+    "description": "Faiss HNSW index of the MS MARCO passage corpus encoded by TCT-ColBERT",
+    "filename": "faiss-hnsw.msmarco-v1-passage.tct_colbert.20210112.be7119.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-hnsw.msmarco-v1-passage.tct_colbert.20210112.be7119.tar.gz"
+    ],
+    "md5": "6b7285a7f0163d1a547214396be20488",
+    "size": 33359120779,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-passage.tct_colbert-v2": {
+    "description": "Faiss flat index of the MS MARCO passage corpus encoded by the tct_colbert-v2 passage encoder",
+    "filename": "faiss-flat.msmarco-v1-passage.tct_colbert-v2.20210608.5f341b.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.tct_colbert-v2.20210608.5f341b.tar.gz"
+    ],
+    "md5": "768b897ec4ac62f5cea05ece12e5b284",
+    "size": 25211079424,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-passage.tct_colbert-v2-hn": {
+    "description": "Faiss flat index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hn passage encoder",
+    "filename": "faiss-flat.msmarco-v1-passage.tct_colbert-v2-hn.20210608.5f341b.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.tct_colbert-v2-hn.20210608.5f341b.tar.gz"
+    ],
+    "md5": "583210e5e8c8cddd4f34dbdf75bb4c21",
+    "size": 25205730186,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-passage.tct_colbert-v2-hnp": {
+    "description": "Faiss flat index of the MS MARCO passage corpus encoded by the tct_colbert-v2-hnp passage encoder",
+    "filename": "faiss-flat.msmarco-v1-passage.tct_colbert-v2-hnp.20210608.5f341b.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.tct_colbert-v2-hnp.20210608.5f341b.tar.gz"
+    ],
+    "md5": "d22d0b6b32f156088a10b0d54ecc1da2",
+    "size": 25225526400,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-passage.openai-ada2": {
+    "description": "Faiss flat index of the MS MARCO passage corpus encoded by OpenAI ada2",
+    "filename": "faiss-flat.msmarco-v1-passage.openai-ada2.20230530.e3a58f.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.openai-ada2.20230530.e3a58f.tar.gz"
+    ],
+    "md5": "5bad28d6ab7e28b834c3b3dd7be0fbc7",
+    "size": 45649935995,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-passage.cohere-embed-english-v3.0": {
+    "description": "Faiss flat index of the MS MARCO passage corpus encoded by Cohere Embed English v3.0",
+    "filename": "faiss-flat.msmarco-v1-passage.cohere-embed-english-v3.0.20240216.2154e79.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.cohere-embed-english-v3.0.20240216.2154e79.tar.gz"
+    ],
+    "md5": "be2b8975161e1327fc852e01287dff48",
+    "size": 21341576860,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-passage.openai-text-embedding-3-large": {
+    "description": "Faiss flat index of the MS MARCO passage corpus encoded by OpenAI text-embedding-3-large",
+    "filename": "faiss-flat.msmarco-v1-passage.openai-text-embedding-3-large.20240410.c13cd6.tar.gz",
+    "readme": "faiss-flat.msmarco-v1-passage.openai-text-embedding-3-large.20240410.c13cd6.README.md",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-passage.openai-text-embedding-3-large.20240410.c13cd6.tar.gz"
+    ],
+    "md5": "e52f046b1decc9bf3a55ac0ff70780d0",
+    "size": 87658796879,
+    "documents": 8841823,
+    "downloaded": false,
+    "texts": "msmarco-v1-passage"
+  },
+  "msmarco-v1-doc.ance-maxp": {
+    "description": "Faiss flat index of the MS MARCO document corpus encoded by the ANCE MaxP encoder",
+    "filename": "faiss-flat.msmarco-v1-doc.ance_maxp.20210304.b2a1b0.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-doc.ance_maxp.20210304.b2a1b0.tar.gz"
+    ],
+    "md5": "f956d8c718c77717fa9611c471e336da",
+    "size": 58312804630,
+    "documents": 20544550,
+    "downloaded": false,
+    "texts": "msmarco-v1-doc"
+  },
+  "msmarco-v1-doc.tct_colbert": {
+    "description": "Faiss flat index of the MS MARCO document corpus encoded by TCT-ColBERT",
+    "filename": "faiss-flat.msmarco-v1-doc.tct_colbert.20210112.be7119.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-doc.tct_colbert.20210112.be7119.tar.gz"
+    ],
+    "md5": "be7ff45b369803c10cc90fbab8642e60",
+    "size": 58514326319,
+    "documents": 20544550,
+    "downloaded": false,
+    "texts": "msmarco-v1-doc"
+  },
+  "msmarco-v1-doc-segmented.tct_colbert-v2-hnp": {
+    "description": "Faiss flat index of the MS MARCO document corpus encoded by TCT-ColBERT-V2-HNP",
+    "filename": "faiss-flat.msmarco-v1-doc-segmented.tct_colbert-v2-hnp.tar.gz",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v1-doc-segmented.tct_colbert-v2-hnp.tar.gz"
+    ],
+    "md5": "51b1309a0afac090aafbf96f84002ec0",
+    "size": 58586765630,
+    "documents": 20544550,
+    "downloaded": false,
+    "texts": "msmarco-v1-doc-segmented"
+  },
+  "msmarco-v2.1-doc-segmented-shard01.arctic-embed-l": {
+    "description": "Faiss flat index of the MS MARCO 2.1 document corpus (shard 1) encoded by Snowflake's arctic-l",
+    "filename": "faiss-flat.msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.20241111.tar.gz",
+    "readme": "faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.20241111.tar.gz"
+    ],
+    "md5": "66323cd3eb23aaf073e506a3c30e3622",
+    "size": 226032429430,
+    "documents": 59345785,
+    "downloaded": false,
+    "texts": "msmarco-v2.1-doc-segmented"
+  },
+  "msmarco-v2.1-doc-segmented-shard02.arctic-embed-l": {
+    "description": "Faiss flat index of the MS MARCO 2.1 document corpus (shard 2) encoded by Snowflake's arctic-l",
+    "filename": "faiss-flat.msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.20241111.tar.gz",
+    "readme": "faiss-flat.msmarco-v2.1-doc.arctic-embed-l.20240824.README.md",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.20241111.tar.gz"
+    ],
+    "md5": "a23d0a69df520dda9ac2d913f9d30e96",
+    "size": 206300692646,
+    "documents": 54174965,
+    "downloaded": false,
+    "texts": "msmarco-v2.1-doc-segmented"
+  },
+  "msmarco-v2.1-doc-segmented-shard01.arctic-embed-m-v1.5": {
+    "description": "Faiss flat index of the MS MARCO 2.1 document corpus (shard 1) encoded by Snowflake's arctic-m-v1.5",
+    "filename": "faiss-flat.msmarco-v2.1-doc-segmented-shard01.arctic-embed-m-v1.5.20241111.tar.gz",
+    "readme": "faiss-flat.msmarco-v2.1-doc.arctic-embed-m-v1.5.20240824.README.md",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v2.1-doc-segmented-shard01.arctic-embed-m-v1.5.20241111.tar.gz"
+    ],
+    "md5": "d4c9beda52047204137851b8aeb4b41b",
+    "size": 174698080459,
+    "documents": 61104707,
+    "downloaded": false,
+    "texts": "msmarco-v2.1-doc-segmented"
+  },
+  "msmarco-v2.1-doc-segmented-shard02.arctic-embed-m-v1.5": {
+    "description": "Faiss flat index of the MS MARCO 2.1 document corpus (shard 2) encoded by Snowflake's arctic-m-v1.5",
+    "filename": "faiss-flat.msmarco-v2.1-doc-segmented-shard02.arctic-embed-m-v1.5.20241111.tar.gz",
+    "readme": "faiss-flat.msmarco-v2.1-doc.arctic-embed-m-v1.5.20240824.README.md",
+    "urls": [
+      "https://rgw.cs.uwaterloo.ca/pyserini/indexes/faiss/faiss-flat.msmarco-v2.1-doc-segmented-shard02.arctic-embed-m-v1.5.20241111.tar.gz"
+    ],
+    "md5": "f885cab8af4a281fde7a33d9d20c5774",
+    "size": 149827891716,
+    "documents": 52416043,
+    "downloaded": false,
+    "texts": "msmarco-v2.1-doc-segmented"
+  }
+}

@@ -166,6 +166,14 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 [<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 segmented document corpus with doc2query-T5 expansions (with stored docvectors)
 </dd>
+<dt></dt><b><code>msmarco-v2-doc-segmented.unicoil-noexp-0shot</code></b>
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.unicoil-noexp-0shot.20220808.4d6d2a.README.md">readme</a>]
+<dd>Anserini Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL (noexp) with title prepended
+</dd>
+<dt></dt><b><code>msmarco-v2-doc-segmented.unicoil-0shot</code></b>
+[<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-doc-segmented.unicoil-0shot.20220808.4d6d2a.README.md">readme</a>]
+<dd>Anserini Lucene impact index of the MS MARCO V2 segmented document corpus for uniCOIL, with title prepended
+</dd>
 <dt></dt><b><code>msmarco-v2-passage</code></b>
 [<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 passage corpus
@@ -185,26 +193,6 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dt></dt><b><code>msmarco-v2-passage.d2q-t5-docvectors</code></b>
 [<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
 <dd>Anserini Lucene inverted index of the MS MARCO V2 passage corpus with doc2query-T5 expansions (with stored docvectors)
-</dd>
-<dt></dt><b><code>msmarco-v2-passage-augmented</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 augmented passage corpus.
-</dd>
-<dt></dt><b><code>msmarco-v2-passage-augmented-slim</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 augmented passage corpus ('slim' version).
-</dd>
-<dt></dt><b><code>msmarco-v2-passage-augmented-full</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage-augmented.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 augmented passage corpus ('full' version).
-</dd>
-<dt></dt><b><code>msmarco-v2-passage-augmented.d2q-t5</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage-augmented.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index of the MS MARCO V2 augmented passage corpus with doc2query-T5 expansions.
-</dd>
-<dt></dt><b><code>msmarco-v2-passage-augmented.d2q-t5-docvectors</code></b>
-[<a href="../pyserini/resources/index-metadata/lucene-inverted.msmarco-v2-passage-augmented.d2q-t5.20220808.4d6d2a.README.md">readme</a>]
-<dd>Lucene index (+docvectors) of the MS MARCO V2 augmented passage corpus with doc2query-T5 expansions.
 </dd>
 <dt></dt><b><code>msmarco-v2.1-doc</code></b>
 [<a href="https://github.com/castorini/pyserini/tree/master/pyserini/resources/index-metadata/lucene-inverted.msmarco-v2.1-doc.20240418.4f9675.README.md">readme</a>]
