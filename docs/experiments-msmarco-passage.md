@@ -542,6 +542,7 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@k22mitta](https://github.com/k22mitta) on 2026-06-27 (commit [`6d03d1e`](https://github.com/castorini/pyserini/commit/6d03d1e43e5d6bc424f4bd46ac978891661fcb55))
 + Results reproduced by [@Fustigate8933](https://github.com/Fustigate8933) on 2026-07-01 (commit [`ef7398b`](https://github.com/castorini/pyserini/commit/ef7398baec47c18a90757ce6d1cc815682432e1a))
 + Results reproduced by [@yashs33244](https://github.com/yashs33244) on 2026-07-05 (commit [`ef7398b`](https://github.com/castorini/pyserini/commit/ef7398baec47c18a90757ce6d1cc815682432e1a))
+<<<<<<< HEAD
 + Results reproduced by [@muhammad-ali-arshad](https://github.com/muhammad-ali-arshad) on 2026-07-05 (commit [`ef7398b`](https://github.com/castorini/pyserini/commit/ef7398baec47c18a90757ce6d1cc815682432e1a))
 + Results reproduced by [@sepidfs](https://github.com/sepidfs) on 2026-07-09 (commit [`ef7398b`](https://github.com/castorini/pyserini/commit/ef7398baec47c18a90757ce6d1cc815682432e1a))
 + Results reproduced by [@abduldattijo](https://github.com/abduldattijo) on 2026-07-12 (commit [`e81bbf2`](https://github.com/castorini/pyserini/commit/e81bbf2cc89c83b327ad11bf460e8a9692b2bb83))
@@ -556,3 +557,6 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@BakaryGibba](https://github.com/BakaryGibba) on 2026-07-26 (commit [`8f6964c`](https://github.com/castorini/pyserini/commit/8f6964c95d01980b1700381998c2448d9e6232de))
 + Results reproduced by [@niloy-biswas](https://github.com/niloy-biswas) on 2026-07-30 (commit [`8f6964c`](https://github.com/castorini/pyserini/commit/8f6964c95d01980b1700381998c2448d9e6232de))
 + Results reproduced by [@dawoodkhandev](https://github.com/dawoodkhandev) on 2026-08-03 (commit [`9dcc206`](https://github.com/castorini/pyserini/commit/9dcc2063187b0d9770af2580a964091f1a08252b))
+=======
++ Results reproduced by [@NMA19](https://github.com/NMA19) on 2026-07-12 (commit [`e81bbf2`](https://github.com/castorini/pyserini/commit/e81bbf2cc89c83b327ad11bf460e8a9692b2bb83))
+>>>>>>> 690d041 (Add reproduction log for Pyserini BM25 baseline - NMA19 2026-07-12)
