@@ -19,11 +19,11 @@ import unittest
 import requests
 
 from pyserini.prebuilt_index_info import (
-    TF_INDEX_INFO,
-    IMPACT_INDEX_INFO,
-    LUCENE_HNSW_INDEX_INFO,
-    LUCENE_FLAT_INDEX_INFO,
     FAISS_INDEX_INFO,
+    IMPACT_INDEX_INFO,
+    LUCENE_FLAT_INDEX_INFO,
+    LUCENE_HNSW_INDEX_INFO,
+    TF_INDEX_INFO,
 )
 from pyserini.pyclass import autoclass
 
@@ -33,110 +33,104 @@ class TestPrebuiltIndexes(unittest.TestCase):
         # Test the accessibility of IndexInfo on the Anserini end to make sure everything is "connected together"
         JPrebuiltFlatIndex = autoclass('io.anserini.index.prebuilt.PrebuiltFlatIndex')
 
-        self.assertEqual(
-            JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').name,
-            'beir-v1.0.0-arguana.bge-base-en-v1.5.flat',
-        )
-        self.assertEqual(
-            JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').filename,
-            'lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20260425.bb3d65.tar',
-        )
-        self.assertEqual(
-            JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').readme,
-            'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md',
-        )
-        self.assertEqual(
-            JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').urls[0],
-            'https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20260425.bb3d65.tar',
-        )
+        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').name,
+            'beir-v1.0.0-arguana.bge-base-en-v1.5.flat')
+        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').filename,
+            'lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20260425.bb3d65.tar')
+        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').readme,
+            'https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-flat/bge-base-en-v1.5/lucene-flat.beir-v1.0.0.bge-base-en-v1.5.20260425.bb3d65.README.md')
+        self.assertEqual(JPrebuiltFlatIndex.get('beir-v1.0.0-arguana.bge-base-en-v1.5.flat').urls[0],
+            'https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20260425.bb3d65.tar')
 
-    TF_CASES = [
-        ('msmarco-v1', 16),  # 10 for doc, 5 for passage, 1 alias
-        ('beir', 74),  # 29 each for flat and multifield
-        ('bright', 12),
-        ('mrtydi', 22),  # 11 languages, but two entries for each language from aliases (e.g., arabic and ar)
-        ('miracl', 18),  # 18 languages including surprise
-        ('ciral', 8),  # each 4: african languages, english translations
-    ]
-
-    IMPACT_CASES = [
-        ('msmarco', 25),
-        ('beir', 58),  # 29 each from SPLADE++ (CoCondenser-EnsembleDistil) and SPLADEv3
-        ('bright', 12),
-        ('mrtydi', 0),  # currently, none
-        ('miracl', 0),  # currently, none
-    ]
-
-    HNSW_CASES = [('beir', 29)]
-
-    FLAT_CASES = [('beir', 29),
-                  ('bright', 12)]
-
-    FAISS_CASES = [
-        # name, match, expected, dedupe
-        ('beir', lambda k: 'beir' in k and 'm-beir' not in k, 116, False),  # each 29: contriever, contriever-msmarco, bge, cohere-embed-english-v3.0
-        ('bright', lambda k: 'bright' in k, 36, False),
-        ('mrtydi', lambda k: 'mrtydi-' in k, 44, False),  # each 11: mdpr-nq, mdpr-tied-pft-msmarco, mdpr-tied-pft-nq, mdpr-tied-pft-msmarco-ft-all
-        ('miracl', lambda k: 'miracl' in k, 70, False),  # 18 pFT MS MARCO, 18 pFT MS MARCO all, 16 pFT MS MARCO + per lang (no de, yo), 18 mContriever pFT MS MARCO
-        ('msmarco', lambda k: 'msmarco-v' in k, 23, False),
-        ('ciral', lambda k: 'ciral' in k, 8, False),  # each 4: mdpr-tied-pft-msmarco, afriberta-dpr-ptf-msmarco-ft-latin-mrtydi
-        ('wikipedia', lambda k: 'wikipedia' in k or 'wiki-all' in k, 7, False),
-        ('mmeb', lambda k: 'mmeb' in k, 44, True),
-        ('m-beir', lambda k: 'm-beir' in k, 34, True),
-        ('dse', lambda k: 'dse' in k, 2, False),
-    ]
+    TF_CASES = (
+        ('msmarco-v1', 16),    # 10 for doc, 5 for passage, 1 alias
+        ('beir-v1.0.0-', 58),  # 29 each for flat and multifield
+        ('bright-', 12),
+        ('mrtydi-v1.1-', 22),  # 11 languages, but two entries for each language from aliases (e.g., arabic and ar)
+        ('miracl-v1.0-', 18),  # 18 languages including surprise
+        ('ciral-v1.0-', 8)     # each 4: african languages, english translations
+    )
 
     # TF Cases
     def test_lucene_tf_indexes(self):
-        for keyword, expected in self.TF_CASES:
-            with self.subTest(keyword=keyword):
+        for prefix, expected in self.TF_CASES:
+            with self.subTest(prefix=prefix):
                 urls = []
                 cnt = 0
                 for key in TF_INDEX_INFO:
-                    if keyword in key:
+                    if key.startswith(prefix):
                         cnt += 1
                         urls.extend(TF_INDEX_INFO[key]['urls'])
                 self.assertEqual(cnt, expected)
                 self._test_urls(urls)
 
+    IMPACT_CASES = (
+        ('msmarco-', 26),
+        ('beir-v1.0.0-', 58),  # 29 each from SPLADE++ (CoCondenser-EnsembleDistil) and SPLADEv3
+        ('bright-', 12),
+        ('mrtydi-', 0),        # currently, none
+        ('miracl-', 0)         # currently, none
+    )
+
     # Impact Cases
     def test_lucene_impact_indexes(self):
-        for keyword, expected in self.IMPACT_CASES:
-            with self.subTest(keyword=keyword):
+        for prefix, expected in self.IMPACT_CASES:
+            with self.subTest(prefix=prefix):
                 urls = []
                 cnt = 0
                 for key in IMPACT_INDEX_INFO:
-                    if keyword in key:
+                    if key.startswith(prefix):
                         cnt += 1
                         urls.extend(IMPACT_INDEX_INFO[key]['urls'])
                 self.assertEqual(cnt, expected)
                 self._test_urls(urls)
 
+    HNSW_CASES = (('beir-v1.0.0-', 29),
+                  ('msmarco-v1-passage', 6),
+                  ('msmarco-v2.1-doc-segmented', 10))
+
     # Lucene HNSW Cases
     def test_lucene_hnsw_indexes(self):
-        for keyword, expected in self.HNSW_CASES:
-            with self.subTest(keyword=keyword):
+        for prefix, expected in self.HNSW_CASES:
+            with self.subTest(prefix=prefix):
                 urls = []
                 cnt = 0
                 for key in LUCENE_HNSW_INDEX_INFO:
-                    if keyword in key:
+                    if key.startswith(prefix):
                         cnt += 1
                         urls.extend(LUCENE_HNSW_INDEX_INFO[key]['urls'])
                 self.assertEqual(cnt, expected)
                 self._test_urls(urls)
 
+    FLAT_CASES = (('beir-v1.0.0-', 29),
+                  ('bright-', 12))
+
     # Lucene Flat Cases
     def test_lucene_flat_indexes(self):
-        for keyword, expected in self.FLAT_CASES:
-            with self.subTest(keyword=keyword):
+        for prefix, expected in self.FLAT_CASES:
+            with self.subTest(prefix=prefix):
                 urls = []
                 cnt = 0
                 for key in LUCENE_FLAT_INDEX_INFO:
-                    if keyword in key:
+                    if key.startswith(prefix):
                         cnt += 1
                         urls.extend(LUCENE_FLAT_INDEX_INFO[key]['urls'])
                 self.assertEqual(cnt, expected)
                 self._test_urls(urls)
+
+    FAISS_CASES = (
+        # name, match, expected, dedupe
+        ('beir', lambda k: 'beir' in k and 'm-beir' not in k, 116, False),  # each 29: contriever, contriever-msmarco, bge, cohere-embed-english-v3.0
+        ('bright', lambda k: 'bright' in k, 36, False),
+        ('mrtydi', lambda k: 'mrtydi-' in k, 44, False),                    # each 11: mdpr-nq, mdpr-tied-pft-msmarco, mdpr-tied-pft-nq, mdpr-tied-pft-msmarco-ft-all
+        ('miracl', lambda k: 'miracl' in k, 70, False),                     # 18 pFT MS MARCO, 18 pFT MS MARCO all, 16 pFT MS MARCO + per lang (no de, yo), 18 mContriever pFT MS MARCO
+        ('msmarco', lambda k: 'msmarco-v' in k, 23, False),
+        ('ciral', lambda k: 'ciral' in k, 8, False),                        # each 4: mdpr-tied-pft-msmarco, afriberta-dpr-ptf-msmarco-ft-latin-mrtydi
+        ('wikipedia', lambda k: 'wikipedia' in k or 'wiki-all' in k, 7, False),
+        ('mmeb', lambda k: 'mmeb' in k, 44, True),
+        ('m-beir', lambda k: 'm-beir' in k, 34, True),
+        ('dse', lambda k: 'dse' in k, 2, False)
+    )
 
     # Faiss Cases
     def test_faiss_indexes(self):
