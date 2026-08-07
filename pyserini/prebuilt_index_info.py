@@ -19,7 +19,7 @@ import json
 from collections.abc import Mapping
 from urllib.request import urlopen
 
-PREBUILT_INDEXES_COMMIT = '02160aa637ad06a36ba5c4f4697775318f90a1cb'
+PREBUILT_INDEXES_COMMIT = '367560b4de7d9c3486f666dcc2df7783ca7758f2'
 
 
 def _prebuilt_indexes_url(path):
@@ -182,8 +182,7 @@ TF_INDEX_INFO_MSMARCO_ALIASES = {
 }
 
 TF_INDEX_INFO_BEIR = _LazyLucenePrebuiltInvertedIndexJson(
-    _prebuilt_indexes_url('lucene/beir-inverted-flat.json'),
-    _prebuilt_indexes_url('lucene/beir-inverted-multifield.json'),
+    _prebuilt_indexes_url('lucene/beir-inverted.json'),
     key_prefixes=('beir-v1.0.0-',)
 )
 
@@ -222,7 +221,7 @@ TF_INDEX_INFO_CIRAL = _LazyLucenePrebuiltInvertedIndexJson(
 )
 
 TF_INDEX_INFO_M_BEIR = _LazyLucenePrebuiltInvertedIndexJson(
-    _prebuilt_indexes_url('lucene/mbeir-inverted.json'),
+    _prebuilt_indexes_url('lucene/m-beir-inverted.json'),
     key_prefixes=('m-beir-',)
 )
 
@@ -274,8 +273,7 @@ IMPACT_INDEX_INFO_MSMARCO_ALIASES = {
 }
 
 IMPACT_INDEX_INFO_BEIR = _LazyLucenePrebuiltInvertedIndexJson(
-    _prebuilt_indexes_url('lucene/beir-impact-splade-pp-ed.json'),
-    _prebuilt_indexes_url('lucene/beir-impact-splade-v3.json'),
+    _prebuilt_indexes_url('lucene/beir-impact.json'),
     key_prefixes=('beir-v1.0.0-',)
 )
 
@@ -298,7 +296,7 @@ LUCENE_HNSW_INDEX_INFO_MSMARCO = _LazyLucenePrebuiltInvertedIndexJson(
 
 # Bindings for Lucene HNSW BEIR indexes
 LUCENE_HNSW_INDEX_INFO_BEIR = _LazyLucenePrebuiltInvertedIndexJson(
-    _prebuilt_indexes_url('lucene/beir-hnsw-bge-base-en-v1.5.json'),
+    _prebuilt_indexes_url('lucene/beir-hnsw.json'),
     key_prefixes=('beir-v1.0.0-',)
 )
 
@@ -307,7 +305,7 @@ LUCENE_HNSW_INDEX_INFO = _PrebuiltIndexCatalog(LUCENE_HNSW_INDEX_INFO_MSMARCO,
 
 # Bindings for Lucene flat indexes
 LUCENE_FLAT_INDEX_INFO_BEIR = _LazyLucenePrebuiltInvertedIndexJson(
-    _prebuilt_indexes_url('lucene/beir-flat-bge-base-en-v1.5.json'),
+    _prebuilt_indexes_url('lucene/beir-flat.json'),
     key_prefixes=('beir-v1.0.0-',)
 )
 
@@ -350,7 +348,7 @@ FAISS_INDEX_INFO_WIKIPEDIA = _LazyPrebuiltIndexInfoJson(
 )
 
 FAISS_INDEX_INFO_M_BEIR = _LazyPrebuiltIndexInfoJson(
-    _prebuilt_indexes_url('faiss/mbeir-faiss.json')
+    _prebuilt_indexes_url('faiss/m-beir-faiss.json')
 )
 
 FAISS_INDEX_INFO_DSE = _LazyPrebuiltIndexInfoJson(
