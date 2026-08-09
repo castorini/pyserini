@@ -50,24 +50,21 @@ class TestSearchIntegration(unittest.TestCase):
         self.cacm_index_path = os.path.join(self.tmp, 'cacm_index')
         self.cacm_bert_index_path = os.path.join(self.tmp, 'cacm_bert_index')
 
-        self.cacm_qrels_path = os.path.join(self.pyserini_root, 'tools/topics-and-qrels/qrels.cacm.txt')
-        self.cacm_topics_path = os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.cacm.txt')
-
         os.system(f'{self.pyserini_index_cmd} -collection JsonCollection -generator DefaultLuceneDocumentGenerator -threads 9 -input {self.cacm_jsonl_path} -index {self.cacm_index_path} -storePositions -storeDocvectors -storeRaw' )
         os.system(f'{self.pyserini_index_cmd} -collection JsonCollection -generator DefaultLuceneDocumentGenerator -threads 9 -input {self.cacm_bert_jsonl_path} -index {self.cacm_bert_index_path} -storePositions -storeDocvectors -storeRaw -pretokenized')
         
         self.cacm_checker = LuceneSearcherScoreChecker(
             index=self.cacm_index_path,
-            topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.cacm.txt'),
-            pyserini_topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.cacm.txt'),
-            qrels=self.cacm_qrels_path,
+            topics='cacm',
+            pyserini_topics='cacm',
+            qrels='cacm',
             eval=f'{self.pyserini_trec_eval_cmd} -m map -m P.30')
 
         self.cacm_bert_checker = LuceneSearcherScoreChecker(
             index=self.cacm_bert_index_path,
-            topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.cacm.txt'),
-            pyserini_topics=os.path.join(self.pyserini_root, 'tools/topics-and-qrels/topics.cacm.txt'),
-            qrels=self.cacm_qrels_path,
+            topics='cacm',
+            pyserini_topics='cacm',
+            qrels='cacm',
             eval=f'{self.pyserini_trec_eval_cmd} -m map -m P.30')
 
     def test_without_pretokenized(self):

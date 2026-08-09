@@ -27,9 +27,9 @@ class CheckSearchResultsAgainstAnseriniForCore18(unittest.TestCase):
 
         self.checker = LuceneSearcherAnseriniMatchChecker(
             index='wapo.v2',
-            topics='tools/topics-and-qrels/topics.core18.txt',
+            topics='core18',
             pyserini_topics='core18',
-            qrels='tools/topics-and-qrels/qrels.core18.txt')
+            qrels='core18')
 
     def test_bm25(self):
         self.assertTrue(self.checker.run('core18_bm25', '-bm25', '--bm25'))

@@ -44,36 +44,40 @@ class TestSearchIntegration(unittest.TestCase):
         self.pyserini_search_cmd = 'python -m pyserini.search.lucene'
         self.pyserini_fusion_cmd = 'python -m pyserini.fusion'
         self.pyserini_eval_cmd = 'python -m pyserini.eval.trec_eval'
+        self.core17_qrels = 'core17'
+        self.core18_qrels = 'core18'
+        self.robust04_qrels = 'robust04'
+        self.robust05_qrels = 'robust05'
 
         self.core17_checker = LuceneSearcherScoreChecker(
             index='nyt',
-            topics='tools/topics-and-qrels/topics.core17.txt',
+            topics='core17',
             pyserini_topics='core17',
-            qrels='tools/topics-and-qrels/qrels.core17.txt',
+            qrels=self.core17_qrels,
             eval=f'{self.pyserini_eval_cmd} -m map -m P.30')
         self.core17_index_path = self.core17_checker.index_path
 
         self.core18_checker = LuceneSearcherScoreChecker(
             index='wapo.v2',
-            topics='tools/topics-and-qrels/topics.core18.txt',
+            topics='core18',
             pyserini_topics='core18',
-            qrels='tools/topics-and-qrels/qrels.core18.txt',
+            qrels=self.core18_qrels,
             eval=f'{self.pyserini_eval_cmd} -m map -m P.30')
         self.core18_index_path = self.core18_checker.index_path
 
         self.robust04_checker = LuceneSearcherScoreChecker(
             index='disk45',
-            topics='tools/topics-and-qrels/topics.robust04.txt',
+            topics='robust04',
             pyserini_topics='robust04',
-            qrels='tools/topics-and-qrels/qrels.robust04.txt',
+            qrels=self.robust04_qrels,
             eval=f'{self.pyserini_eval_cmd} -m map -m P.30')
         self.robust04_index_path = self.robust04_checker.index_path
 
         self.robust05_checker = LuceneSearcherScoreChecker(
             index='aquaint',
-            topics='tools/topics-and-qrels/topics.robust05.txt',
+            topics='robust05',
             pyserini_topics='robust05',
-            qrels='tools/topics-and-qrels/qrels.robust05.txt',
+            qrels=self.robust05_qrels,
             eval=f'{self.pyserini_eval_cmd} -m map -m P.30')
         self.robust05_index_path = self.robust05_checker.index_path
 
@@ -91,7 +95,7 @@ class TestSearchIntegration(unittest.TestCase):
                       --collection core17 --output {self.tmp}/core17_lr.txt --classifier lr ')
 
         cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                tools/topics-and-qrels/qrels.core17.txt \
+                {self.core17_qrels} \
                 {self.tmp}/core17_lr.txt'
 
         status = os.system(cmd)
@@ -119,7 +123,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core17.txt \
+                      {self.core17_qrels} \
                       {self.tmp}/core17_lr.txt'
 
         status = os.system(score_cmd)
@@ -141,7 +145,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core17.txt \
+                      {self.core17_qrels} \
                       {self.tmp}/core17_lr_rm3.txt'
 
         status = os.system(score_cmd)
@@ -163,7 +167,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core17.txt \
+                      {self.core17_qrels} \
                       {self.tmp}/core17_svm.txt'
 
         status = os.system(score_cmd)
@@ -185,7 +189,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core17.txt \
+                      {self.core17_qrels} \
                       {self.tmp}/core17_svm_rm3.txt'
 
         status = os.system(score_cmd)
@@ -207,7 +211,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core17.txt \
+                      {self.core17_qrels} \
                       {self.tmp}/core17_avg.txt'
 
         status = os.system(score_cmd)
@@ -229,7 +233,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core17.txt \
+                      {self.core17_qrels} \
                       {self.tmp}/core17_avg_rm3.txt'
 
         status = os.system(score_cmd)
@@ -264,7 +268,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core17.txt \
+                      {self.core17_qrels} \
                       {self.tmp}/core17_rrf.txt'
 
         status = os.system(score_cmd)
@@ -299,7 +303,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core17.txt \
+                      {self.core17_qrels} \
                       {self.tmp}/core17_rrf_rm3.txt'
 
         status = os.system(score_cmd)
@@ -327,7 +331,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core18.txt \
+                      {self.core18_qrels} \
                       {self.tmp}/core18_lr.txt'
 
         status = os.system(score_cmd)
@@ -349,7 +353,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core18.txt \
+                      {self.core18_qrels} \
                       {self.tmp}/core18_lr_rm3.txt'
 
         status = os.system(score_cmd)
@@ -371,7 +375,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core18.txt \
+                      {self.core18_qrels} \
                       {self.tmp}/core18_svm.txt'
 
         status = os.system(score_cmd)
@@ -393,7 +397,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core18.txt \
+                      {self.core18_qrels} \
                       {self.tmp}/core18_svm_rm3.txt'
 
         status = os.system(score_cmd)
@@ -415,7 +419,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core18.txt \
+                      {self.core18_qrels} \
                       {self.tmp}/core18_avg.txt'
 
         status = os.system(score_cmd)
@@ -437,7 +441,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core18.txt \
+                      {self.core18_qrels} \
                       {self.tmp}/core18_avg_rm3.txt'
 
         status = os.system(score_cmd)
@@ -472,7 +476,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core18.txt \
+                      {self.core18_qrels} \
                       {self.tmp}/core18_rrf.txt'
 
         status = os.system(score_cmd)
@@ -507,7 +511,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.core18.txt \
+                      {self.core18_qrels} \
                       {self.tmp}/core18_rrf_rm3.txt'
 
         status = os.system(score_cmd)
@@ -535,7 +539,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust04.txt \
+                      {self.robust04_qrels} \
                       {self.tmp}/robust04_lr.txt'
 
         status = os.system(score_cmd)
@@ -557,7 +561,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust04.txt \
+                      {self.robust04_qrels} \
                       {self.tmp}/robust04_lr_rm3.txt'
 
         status = os.system(score_cmd)
@@ -579,7 +583,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust04.txt \
+                      {self.robust04_qrels} \
                       {self.tmp}/robust04_svm.txt'
 
         status = os.system(score_cmd)
@@ -601,7 +605,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust04.txt \
+                      {self.robust04_qrels} \
                       {self.tmp}/robust04_svm_rm3.txt'
 
         status = os.system(score_cmd)
@@ -623,7 +627,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust04.txt \
+                      {self.robust04_qrels} \
                       {self.tmp}/robust04_avg.txt'
 
         status = os.system(score_cmd)
@@ -645,7 +649,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust04.txt \
+                      {self.robust04_qrels} \
                       {self.tmp}/robust04_avg_rm3.txt'
 
         status = os.system(score_cmd)
@@ -680,7 +684,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust04.txt \
+                      {self.robust04_qrels} \
                       {self.tmp}/robust04_rrf.txt'
 
         status = os.system(score_cmd)
@@ -715,7 +719,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust04.txt \
+                      {self.robust04_qrels} \
                       {self.tmp}/robust04_rrf_rm3.txt'
 
         status = os.system(score_cmd)
@@ -743,7 +747,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust05.txt \
+                      {self.robust05_qrels} \
                       {self.tmp}/robust05_lr.txt'
 
         status = os.system(score_cmd)
@@ -765,7 +769,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust05.txt \
+                      {self.robust05_qrels} \
                       {self.tmp}/robust05_lr_rm3.txt'
 
         status = os.system(score_cmd)
@@ -787,7 +791,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust05.txt \
+                      {self.robust05_qrels} \
                       {self.tmp}/robust05_svm.txt'
 
         status = os.system(score_cmd)
@@ -809,7 +813,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust05.txt \
+                      {self.robust05_qrels} \
                       {self.tmp}/robust05_svm_rm3.txt'
 
         status = os.system(score_cmd)
@@ -831,7 +835,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust05.txt \
+                      {self.robust05_qrels} \
                       {self.tmp}/robust05_avg.txt'
 
         status = os.system(score_cmd)
@@ -853,7 +857,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust05.txt \
+                      {self.robust05_qrels} \
                       {self.tmp}/robust05_avg_rm3.txt'
 
         status = os.system(score_cmd)
@@ -888,7 +892,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust05.txt \
+                      {self.robust05_qrels} \
                       {self.tmp}/robust05_rrf.txt'
 
         status = os.system(score_cmd)
@@ -923,7 +927,7 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         score_cmd = f'{self.pyserini_eval_cmd} -m map -m P.30 \
-                      tools/topics-and-qrels/qrels.robust05.txt \
+                      {self.robust05_qrels} \
                       {self.tmp}/robust05_rrf_rm3.txt'
 
         status = os.system(score_cmd)

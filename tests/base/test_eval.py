@@ -18,6 +18,7 @@ import os
 import unittest
 
 from pyserini.eval.trec_eval import trec_eval
+from pyserini.search import get_qrels_file
 
 
 class TestTrecEval(unittest.TestCase):
@@ -29,12 +30,13 @@ class TestTrecEval(unittest.TestCase):
         else:
             self.root = "."
 
-        self.qrels_path = os.path.join(
-            self.root, "tools/topics-and-qrels/qrels.covid-round1.txt"
-        )
         self.run_path = os.path.join(
             self.root, "tests/resources/simple_trec_run_filter.txt"
         )
+
+    @property
+    def qrels_path(self):
+        return get_qrels_file("covid-round1")
 
     def test_aggeregated_scores(self):
         args = [

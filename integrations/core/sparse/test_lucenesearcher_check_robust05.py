@@ -27,9 +27,9 @@ class CheckSearchResultsAgainstAnseriniForRobust05(unittest.TestCase):
 
         self.checker = LuceneSearcherAnseriniMatchChecker(
             index='robust05',
-            topics='tools/topics-and-qrels/topics.robust05.txt',
+            topics='robust05',
             pyserini_topics='robust05',
-            qrels='tools/topics-and-qrels/qrels.robust05.txt')
+            qrels='robust05')
 
     def test_bm25(self):
         self.assertTrue(self.checker.run('robust05_bm25', '-bm25', '--bm25'))

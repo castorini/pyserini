@@ -19,6 +19,8 @@ import os
 from typing import List
 
 from pyserini.prebuilt_index_info import TF_INDEX_INFO
+from pyserini.search import _base as search_base
+from pyserini.search import get_qrels_file
 from pyserini.util import get_cache_home
 
 
@@ -28,8 +30,9 @@ class LuceneSearcherAnseriniMatchChecker:
             get_cache_home(),
             f'indexes/{TF_INDEX_INFO[index]["filename"].removesuffix(".tar.gz")}.{TF_INDEX_INFO[index]["md5"]}')
 
-        self.topics = topics
-        self.qrels = qrels
+        topic = search_base._get_topics_mapping().get(topics)
+        self.topics = topic['path'] if topic else topics
+        self.qrels = get_qrels_file(qrels) if not os.path.exists(qrels) else qrels
         self.pyserini_topics = pyserini_topics
 
         self.anserini_base_cmd = 'java -cp `ls pyserini/resources/jars/*-fatjar.jar` io.anserini.search.SearchCollection -topicReader Trec'
