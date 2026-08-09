@@ -25,11 +25,7 @@ class CheckSearchResultsAgainstAnseriniForRobust04(unittest.TestCase):
         # Make sure the required index is downloaded.
         LuceneSearcher.from_prebuilt_index('disk45')
 
-        self.checker = LuceneSearcherAnseriniMatchChecker(
-            index='disk45',
-            topics='robust04',
-            pyserini_topics='robust04',
-            qrels='robust04')
+        self.checker = LuceneSearcherAnseriniMatchChecker(index='disk45', topics='robust04', qrels='robust04')
 
     def test_bm25(self):
         self.assertTrue(self.checker.run('robust04_bm25', '-bm25', '--bm25'))
