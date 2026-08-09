@@ -1622,8 +1622,10 @@ class TestLoadTopics(unittest.TestCase):
     # General test cases
     def test_tsv_int_topicreader(self):
         path = search_base._get_topics_mapping()['msmarco-doc-dev']['path']
+        reader_class = search_base._get_topics_mapping()['msmarco-doc-dev']['reader_class']
 
-        topics = search.load_topics_with_reader(path, 'io.anserini.search.topicreader.TsvIntTopicReader')
+        self.assertEqual(reader_class, 'io.anserini.search.topicreader.TsvIntTopicReader')
+        topics = search.load_topics_with_reader(path, reader_class)
         self.assertEqual(len(topics), 5193)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
@@ -1631,8 +1633,10 @@ class TestLoadTopics(unittest.TestCase):
 
     def test_trec_topicreader(self):
         path = search_base._get_topics_mapping()['robust04']['path']
+        reader_class = search_base._get_topics_mapping()['robust04']['reader_class']
 
-        topics = search.load_topics_with_reader(path, 'io.anserini.search.topicreader.TrecTopicReader')
+        self.assertEqual(reader_class, 'io.anserini.search.topicreader.TrecTopicReader')
+        topics = search.load_topics_with_reader(path, reader_class)
         self.assertEqual(len(topics), 250)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
