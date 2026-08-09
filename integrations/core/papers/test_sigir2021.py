@@ -166,7 +166,8 @@ class TestSIGIR2021(unittest.TestCase):
 
         eval_cmd = f'python -m pyserini.eval.msmarco_passage_eval \
                        msmarco-passage-dev-subset {output_file}'
-        stdout, stderr = run_command(eval_cmd)
+        result = run_command(eval_cmd)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score_msmarco(stdout, "MRR @10")
         self.assertAlmostEqual(score, 0.1874, delta=0.0001)
 

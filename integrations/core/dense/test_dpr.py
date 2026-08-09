@@ -53,7 +53,8 @@ class TestDpr(unittest.TestCase):
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
-        stdout, stderr = run_command(cmd3)
+        result = run_command(cmd3)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
@@ -77,7 +78,8 @@ class TestDpr(unittest.TestCase):
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
-        stdout, stderr = run_command(cmd3)
+        result = run_command(cmd3)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
@@ -99,7 +101,8 @@ class TestDpr(unittest.TestCase):
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
-        stdout, stderr = run_command(cmd3)
+        result = run_command(cmd3)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
@@ -123,7 +126,8 @@ class TestDpr(unittest.TestCase):
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
-        stdout, stderr = run_command(cmd3)
+        result = run_command(cmd3)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
@@ -145,7 +149,8 @@ class TestDpr(unittest.TestCase):
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
-        stdout, stderr = run_command(cmd3)
+        result = run_command(cmd3)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
@@ -169,7 +174,8 @@ class TestDpr(unittest.TestCase):
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
-        stdout, stderr = run_command(cmd3)
+        result = run_command(cmd3)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
@@ -192,7 +198,8 @@ class TestDpr(unittest.TestCase):
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20 --regex'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
-        stdout, stderr = run_command(cmd3)
+        result = run_command(cmd3)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
@@ -217,7 +224,8 @@ class TestDpr(unittest.TestCase):
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20 --regex'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
-        stdout, stderr = run_command(cmd3)
+        result = run_command(cmd3)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
@@ -239,7 +247,8 @@ class TestDpr(unittest.TestCase):
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
-        stdout, stderr = run_command(cmd3)
+        result = run_command(cmd3)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
@@ -263,7 +272,8 @@ class TestDpr(unittest.TestCase):
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
-        stdout, stderr = run_command(cmd3)
+        result = run_command(cmd3)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)

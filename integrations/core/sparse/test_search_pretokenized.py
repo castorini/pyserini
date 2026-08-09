@@ -19,7 +19,7 @@ import shutil
 import unittest
 from random import randint
 
-from integrations.core.lucenesearcher_score_checker import LuceneSearcherScoreChecker
+from integrations.core.lucenesearcher import LuceneSearcherScoreChecker
 
 
 class TestSearchIntegration(unittest.TestCase):
@@ -56,14 +56,12 @@ class TestSearchIntegration(unittest.TestCase):
         self.cacm_checker = LuceneSearcherScoreChecker(
             index=self.cacm_index_path,
             topics='cacm',
-            pyserini_topics='cacm',
             qrels='cacm',
             eval=f'{self.pyserini_trec_eval_cmd} -m map -m P.30')
 
         self.cacm_bert_checker = LuceneSearcherScoreChecker(
             index=self.cacm_bert_index_path,
             topics='cacm',
-            pyserini_topics='cacm',
             qrels='cacm',
             eval=f'{self.pyserini_trec_eval_cmd} -m map -m P.30')
 

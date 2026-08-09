@@ -16,7 +16,7 @@
 
 import unittest
 
-from integrations.core.lucenesearcher_anserini_checker import LuceneSearcherAnseriniMatchChecker
+from integrations.core.lucenesearcher import LuceneSearcherAnseriniMatchChecker
 from pyserini.search.lucene import LuceneSearcher
 
 

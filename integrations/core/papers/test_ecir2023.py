@@ -70,7 +70,8 @@ class TestECIR2023(unittest.TestCase):
         eval_cmd = f'python -m pyserini.eval.evaluate_dpr_retrieval \
                        --retrieval {json_file} \
                        --topk 5 20 100'
-        stdout, stderr = run_command(eval_cmd)
+        result = run_command(eval_cmd)
+        stdout, stderr = result.stdout, result.stderr
         
         scores = [] 
         for mt in metrics: 

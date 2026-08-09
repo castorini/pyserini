@@ -16,11 +16,12 @@
 
 import filecmp
 import glob
+import hashlib
 import os
 import shlex
-import subprocess
 import sys
 
+from integrations.utils import parse_score, run_command
 from pyserini.prebuilt_index_info import TF_INDEX_INFO
 from pyserini.util import get_cache_home
 
@@ -45,11 +46,6 @@ class LuceneSearcherAnseriniMatchChecker:
             if os.path.exists(file):
                 os.remove(file)
 
-    @staticmethod
-    def _run(command: list[str]) -> bool:
-        print(shlex.join(command))
-        return subprocess.run(command, check=False).returncode == 0
-
     def run(self, runtag: str, anserini_extras: str, pyserini_extras: str):
         print('-------------------------')
         print(f'Running {runtag}:')
@@ -61,17 +57,21 @@ class LuceneSearcherAnseriniMatchChecker:
         anserini_cmd = self.anserini_base_cmd + ['-index', self.index_path, '-topics', self.topics, '-output', anserini_output, *shlex.split(anserini_extras)]
         pyserini_cmd = self.pyserini_base_cmd + ['--index', self.index_path, '--topics', self.topics, '--output', pyserini_output, *shlex.split(pyserini_extras)]
 
-        if not self._run(anserini_cmd):
+        result = run_command(anserini_cmd)
+        if result.returncode != 0:
             self._cleanup([anserini_output, pyserini_output])
             return False
-        if not self._run(pyserini_cmd):
+
+        result = run_command(pyserini_cmd)
+        if result.returncode != 0:
             self._cleanup([anserini_output, pyserini_output])
             return False
 
         res = filecmp.cmp(anserini_output, pyserini_output)
         if res is True:
             eval_cmd = self.eval_base_cmd + [self.qrels, anserini_output]
-            if not self._run(eval_cmd):
+            result = run_command(eval_cmd)
+            if result.returncode != 0:
                 print(f'[FAIL] {runtag} evaluation failure!')
                 self._cleanup([anserini_output, pyserini_output])
                 return False
@@ -82,3 +82,77 @@ class LuceneSearcherAnseriniMatchChecker:
             print(f'[FAIL] {runtag} result do not match!')
             self._cleanup([anserini_output, pyserini_output])
             return False
+
+
+class LuceneSearcherScoreChecker:
+    def __init__(self, index: str, topics: str, qrels: str, eval:str):
+        self.index_path = index
+        self.topics = topics
+        self.qrels = qrels
+        self.pyserini_base_cmd = 'python -m pyserini.search.lucene'
+        self.eval_base_cmd = eval
+
+    @staticmethod
+    def _cleanup(files: list[str]):
+        for file in files:
+            if os.path.exists(file):
+                os.remove(file)
+
+    def run(self, runtag: str, pyserini_extras: str, actualscore: float, tokenizer = None):
+        print('-------------------------')
+        print(f'Running {runtag}:')
+        print('-------------------------')
+
+        pyserini_output = f'verify.pyserini.{runtag}.txt'
+
+        pyserini_cmd = f'{self.pyserini_base_cmd} --index {self.index_path} \
+                           --topics {self.topics} --output {pyserini_output} {pyserini_extras}'
+
+        if tokenizer is not None:
+            pyserini_cmd = pyserini_cmd + f' --tokenizer {tokenizer}'
+
+        result = run_command(pyserini_cmd)
+        if result.returncode != 0:
+            return False
+
+        eval_cmd = f'{self.eval_base_cmd} {self.qrels} {pyserini_output}'
+        result = run_command(eval_cmd)
+        if result.returncode != 0:
+            return False
+
+        score = parse_score(result.stdout, 'map')
+        self._cleanup([pyserini_output])
+
+        return actualscore == score
+
+
+class RunLuceneSearcher:
+    def __init__(self, index: str, topics: str):
+        self.index_path = index
+        self.topics = topics
+        self.pyserini_base_cmd = 'python -m pyserini.search.lucene'
+
+    @staticmethod
+    def _cleanup(files: list[str]):
+        for file in files:
+            if os.path.exists(file):
+                os.remove(file)
+
+    def run(self, runtag: str, extras: str) -> str:
+        print('-------------------------')
+        print(f'Running {runtag}:')
+        print('-------------------------')
+
+        output = f'verify.pyserini.{runtag}.txt'
+        pyserini_cmd = f'{self.pyserini_base_cmd} --index {self.index_path} ' \
+            + f'--topics {self.topics} --output {output} {extras}'
+
+        result = run_command(pyserini_cmd)
+        if result.returncode != 0:
+            self._cleanup([output])
+            return ''
+
+        with open(output, 'rb') as f:
+            md5 = hashlib.md5(f.read()).hexdigest()
+        self._cleanup([output])
+        return md5
