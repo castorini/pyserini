@@ -29,7 +29,8 @@ from pyserini.util import get_cache_home
 # Wrappers around Anserini classes
 JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
 
-TOPICS_AND_QRELS_BASE_URL = 'https://raw.githubusercontent.com/castorini/anserini-tools/master/topics-and-qrels/'
+TOPICS_AND_QRELS_COMMIT = '12982126736f2ed7dc45bf30acb2af9fed13c0ef'
+TOPICS_AND_QRELS_BASE_URL = f'https://raw.githubusercontent.com/castorini/anserini-tools/{TOPICS_AND_QRELS_COMMIT}/topics-and-qrels/'
 QRELS_METADATA_FILE = '_metadata_qrels.json'
 QRELS_ALIASES_METADATA_FILE = '_metadata_qrels_aliases.json'
 TOPICS_METADATA_FILE = '_metadata_topics.json'
