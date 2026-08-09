@@ -43,12 +43,15 @@ class TestPrebuiltIndexes(unittest.TestCase):
             'https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene/lucene-flat.beir-v1.0.0-arguana.bge-base-en-v1.5.20260425.bb3d65.tar')
 
     TF_CASES = (
-        ('msmarco-v1', 16),    # 10 for doc, 5 for passage, 1 alias
-        ('beir-v1.0.0-', 58),  # 29 each for flat and multifield
+        ('msmarco-v1-', 16),     # 15 canonical indexes, 1 compatibility alias
+        ('msmarco-v2-', 20),
+        ('msmarco-v2.1-', 6),
+        ('msmarco-passage', 1),  # compatibility alias
+        ('beir-', 58),           # 29 each for flat and multifield
         ('bright-', 12),
-        ('mrtydi-v1.1-', 22),  # 11 languages, but two entries for each language from aliases (e.g., arabic and ar)
-        ('miracl-v1.0-', 18),  # 18 languages including surprise
-        ('ciral-v1.0-', 8)     # each 4: african languages, english translations
+        ('mrtydi-', 22),         # 11 languages, but two entries for each language from aliases (e.g., arabic and ar)
+        ('miracl-', 18),         # 18 languages including surprise
+        ('ciral-', 8)            # each 4: African languages, English translations
     )
 
     # TF Cases
@@ -65,11 +68,15 @@ class TestPrebuiltIndexes(unittest.TestCase):
                 self._test_urls(urls)
 
     IMPACT_CASES = (
-        ('msmarco-', 26),
-        ('beir-v1.0.0-', 58),  # 29 each from SPLADE++ (CoCondenser-EnsembleDistil) and SPLADEv3
+        ('msmarco-v1-', 18),
+        ('msmarco-v2-', 6),       # 5 canonical indexes, 1 compatibility alias
+        ('msmarco-v2.1-', 1),
+        ('msmarco-passage-', 1),  # compatibility alias
+        ('beir-', 58),            # 29 each from SPLADE++ (CoCondenser-EnsembleDistil) and SPLADEv3
         ('bright-', 12),
-        ('mrtydi-', 0),        # currently, none
-        ('miracl-', 0)         # currently, none
+        ('mrtydi-', 0),           # currently, none
+        ('miracl-', 0),           # currently, none
+        ('ciral-', 0)             # currently, none
     )
 
     # Impact Cases
