@@ -48,7 +48,8 @@ class TestTctColBert(unittest.TestCase):
                              --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
         status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
+        result = run_command(cmd2)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
         # We get a small difference in scores on macOS vs. Linux, better way to check:
@@ -64,7 +65,8 @@ class TestTctColBert(unittest.TestCase):
                              --output-format msmarco '
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
         status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
+        result = run_command(cmd2)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
         self.assertAlmostEqual(score, 0.3345, delta=0.0002)
@@ -82,7 +84,8 @@ class TestTctColBert(unittest.TestCase):
                                     --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
         status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
+        result = run_command(cmd2)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
         self.assertAlmostEqual(score, 0.3529, places=4)
@@ -100,7 +103,8 @@ class TestTctColBert(unittest.TestCase):
                                     --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
         status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
+        result = run_command(cmd2)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score(stdout, "MRR @10")
         self.assertEqual(status, 0)
         self.assertAlmostEqual(score, 0.3647, delta=0.0002)
@@ -120,7 +124,8 @@ class TestTctColBert(unittest.TestCase):
                              --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'
         status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
+        result = run_command(cmd2)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score(stdout, "MRR @100")
         self.assertEqual(status, 0)
         self.assertAlmostEqual(score, 0.3323, places=4)
@@ -139,7 +144,8 @@ class TestTctColBert(unittest.TestCase):
                                     --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'
         status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
+        result = run_command(cmd2)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score(stdout, "MRR @100")
         self.assertEqual(status, 0)
         self.assertAlmostEqual(score, 0.3701, places=4)
@@ -158,7 +164,8 @@ class TestTctColBert(unittest.TestCase):
                                     --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'
         status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
+        result = run_command(cmd2)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score(stdout, "MRR @100")
         self.assertEqual(status, 0)
         self.assertAlmostEqual(score, 0.3784, places=4)

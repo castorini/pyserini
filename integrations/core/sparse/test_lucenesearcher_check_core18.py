@@ -16,7 +16,7 @@
 
 import unittest
 
-from integrations.core.lucenesearcher_anserini_checker import LuceneSearcherAnseriniMatchChecker
+from integrations.core.lucenesearcher import LuceneSearcherAnseriniMatchChecker
 from pyserini.search.lucene import LuceneSearcher
 
 
@@ -25,11 +25,7 @@ class CheckSearchResultsAgainstAnseriniForCore18(unittest.TestCase):
         # Make sure the required index is downloaded.
         LuceneSearcher.from_prebuilt_index('wapo.v2')
 
-        self.checker = LuceneSearcherAnseriniMatchChecker(
-            index='wapo.v2',
-            topics='tools/topics-and-qrels/topics.core18.txt',
-            pyserini_topics='core18',
-            qrels='tools/topics-and-qrels/qrels.core18.txt')
+        self.checker = LuceneSearcherAnseriniMatchChecker(index='wapo.v2', topics='core18', qrels='core18')
 
     def test_bm25(self):
         self.assertTrue(self.checker.run('core18_bm25', '-bm25', '--bm25'))

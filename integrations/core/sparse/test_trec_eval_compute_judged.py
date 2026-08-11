@@ -98,9 +98,10 @@ class TestTrecEvalComputeJudged(unittest.TestCase):
             self.assertTrue(os.path.exists(full_path))
 
             eval_cmd = f'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 -m recall.1000 -m judged.10,100,1000 \
-                           tools/topics-and-qrels/qrels.covid-round4-cumulative.txt \
+                           covid-round4-cumulative \
                            {full_path}'
-            stdout, stderr = run_command(eval_cmd)
+            result = run_command(eval_cmd)
+            stdout, stderr = result.stdout, result.stderr
             self.assertAlmostEqual(parse_score(stdout, 'ndcg_cut_10'), runs[url]['ndcg_cut_10'], delta=0.0001)
             self.assertAlmostEqual(parse_score(stdout, 'judged_10'), runs[url]['judged_10'], delta=0.0001)
             self.assertAlmostEqual(parse_score(stdout, 'recall_1000'), runs[url]['recall_1000'], delta=0.0001)

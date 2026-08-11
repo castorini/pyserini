@@ -29,10 +29,8 @@ class TestLoadTopics(unittest.TestCase):
         # The current directory depends on if you're running inside an IDE or from command line.
         curdir = os.getcwd()
         if curdir.endswith('base'):
-            cls.tools_dir = '../../tools'
             cls.resource_dir = '../resources'
         else:
-            cls.tools_dir = 'tools'
             cls.resource_dir = 'tests/resources'
 
     def test_trec1_adhoc(self):
@@ -1623,20 +1621,22 @@ class TestLoadTopics(unittest.TestCase):
 
     # General test cases
     def test_tsv_int_topicreader(self):
-        path = os.path.join(self.tools_dir, 'topics-and-qrels/topics.msmarco-doc.dev.txt')
+        path = search_base._get_topics_mapping()['msmarco-doc-dev']['path']
+        reader_class = search_base._get_topics_mapping()['msmarco-doc-dev']['reader_class']
 
-        self.assertTrue(os.path.exists(path))
-        topics = search.load_topics_with_reader(path, 'io.anserini.search.topicreader.TsvIntTopicReader')
+        self.assertEqual(reader_class, 'io.anserini.search.topicreader.TsvIntTopicReader')
+        topics = search.load_topics_with_reader(path, reader_class)
         self.assertEqual(len(topics), 5193)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
         self.assertEqual(search.get_topics('msmarco-doc-dev'), topics)
 
     def test_trec_topicreader(self):
-        path = os.path.join(self.tools_dir, 'topics-and-qrels/topics.robust04.txt')
+        path = search_base._get_topics_mapping()['robust04']['path']
+        reader_class = search_base._get_topics_mapping()['robust04']['reader_class']
 
-        self.assertTrue(os.path.exists(path))
-        topics = search.load_topics_with_reader(path, 'io.anserini.search.topicreader.TrecTopicReader')
+        self.assertEqual(reader_class, 'io.anserini.search.topicreader.TrecTopicReader')
+        topics = search.load_topics_with_reader(path, reader_class)
         self.assertEqual(len(topics), 250)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 

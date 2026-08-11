@@ -53,7 +53,8 @@ class TestAnce(unittest.TestCase):
                              --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'
         status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
+        result = run_command(cmd2)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score_msmarco(stdout, 'MRR @100')
         self.assertEqual(status, 0)
         # We get a small difference, 0.3794 on macOS.
@@ -75,7 +76,8 @@ class TestAnce(unittest.TestCase):
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
-        stdout, stderr = run_command(cmd3)
+        result = run_command(cmd3)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)
@@ -97,7 +99,8 @@ class TestAnce(unittest.TestCase):
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
         status1 = os.system(cmd1)
         status2 = os.system(cmd2)
-        stdout, stderr = run_command(cmd3)
+        result = run_command(cmd3)
+        stdout, stderr = result.stdout, result.stderr
         score = parse_score_qa(stdout, 'Top20')
         self.assertEqual(status1, 0)
         self.assertEqual(status2, 0)

@@ -15,8 +15,10 @@
 #
 
 import os
+import shlex
 import shutil
 import subprocess
+from collections.abc import Sequence
 
 
 def clean_files(files):
@@ -28,18 +30,14 @@ def clean_files(files):
                 os.remove(file)
 
 
-def run_command(cmd, echo=False):
-    process = subprocess.Popen(cmd.split(),
-                               stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE)
-    stdout, stderr = process.communicate()
-    stdout = stdout.decode('utf-8')
-    stderr = stderr.decode('utf-8')
-    if stderr and echo:
-        print(stderr)
+def run_command(cmd: str | Sequence[str], echo: bool = False) -> subprocess.CompletedProcess[str]:
+    args = shlex.split(cmd) if isinstance(cmd, str) else list(cmd)
+    result = subprocess.run(args, capture_output=True, text=True, check=False)
+    if result.stderr and echo:
+        print(result.stderr)
     if echo:
-        print(stdout)
-    return stdout, stderr
+        print(result.stdout)
+    return result
 
 
 def parse_score(output, metric, digits=4):
@@ -93,23 +91,28 @@ def run_retrieval_and_return_scores(output_file, retrieval_cmd, qrels, eval_type
     if eval_type == 'trec_eval':
         for metric in metrics:
             cmd = f'python -m pyserini.eval.trec_eval -m {metric[0]} {qrels} {output_file}'
-            stdout, stderr = run_command(cmd)
+            result = run_command(cmd)
+            stdout, stderr = result.stdout, result.stderr
             scores[metric[0]] = parse_score(stdout, metric[1])
     elif eval_type == 'msmarco_passage':
         cmd = f'python -m pyserini.eval.msmarco_passage_eval {qrels} {output_file}'
-        stdout, stderr = run_command(cmd)
+        result = run_command(cmd)
+        stdout, stderr = result.stdout, result.stderr
         scores['MRR@10'] = parse_score_msmarco(stdout, 'MRR @10')
     elif eval_type == 'msmarco_passage_string':
         cmd = f'python -m pyserini.eval.msmarco_passage_eval {qrels} {output_file}'
-        stdout, stderr = run_command(cmd)
+        result = run_command(cmd)
+        stdout, stderr = result.stdout, result.stderr
         scores['MRR@10'] = parse_score_msmarco_as_string(stdout, 'MRR @10')
     elif eval_type == 'msmarco_doc':
         cmd = f'python -m pyserini.eval.msmarco_doc_eval --judgments {qrels} --run {output_file}'
-        stdout, stderr = run_command(cmd)
+        result = run_command(cmd)
+        stdout, stderr = result.stdout, result.stderr
         scores['MRR@100'] = parse_score_msmarco(stdout, 'MRR @100')
     elif eval_type == 'msmarco_doc_string':
         cmd = f'python -m pyserini.eval.msmarco_doc_eval --judgments {qrels} --run {output_file}'
-        stdout, stderr = run_command(cmd)
+        result = run_command(cmd)
+        stdout, stderr = result.stdout, result.stderr
         scores['MRR@100'] = parse_score_msmarco_as_string(stdout, 'MRR @100')
     else:
         clean_files(temp_files)
