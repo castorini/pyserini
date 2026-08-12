@@ -20,6 +20,7 @@ and dense retrieval.
 """
 
 import json
+from importlib import resources
 from pathlib import Path
 from urllib.request import urlopen, urlretrieve
 
@@ -29,36 +30,49 @@ from pyserini.util import get_cache_home
 # Wrappers around Anserini classes
 JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
 
-TOPICS_AND_QRELS_COMMIT = '12982126736f2ed7dc45bf30acb2af9fed13c0ef'
-TOPICS_AND_QRELS_BASE_URL = f'https://raw.githubusercontent.com/castorini/anserini-tools/{TOPICS_AND_QRELS_COMMIT}/topics-and-qrels/'
-QRELS_METADATA_FILE = '_metadata_qrels.json'
-QRELS_ALIASES_METADATA_FILE = '_metadata_qrels_aliases.json'
-TOPICS_METADATA_FILE = '_metadata_topics.json'
+EVAL_COMMIT = '1662f7ac99fe594b896b2562f06341b34daa50a0'
+EVAL_BASE_URL = f'https://raw.githubusercontent.com/castorini/eval/{EVAL_COMMIT}/'
+QRELS_BASE_URL = f'{EVAL_BASE_URL}qrels/'
+TOPICS_METADATA_FILE = 'topics.json'
+TOPICS_ALIASES_METADATA_FILE = 'topics-aliases.json'
+QRELS_METADATA_FILE = 'qrels.json'
+QRELS_ALIASES_METADATA_FILE = 'qrels-aliases.json'
+TOPICS_COMPATIBILITY_ALIASES_FILE = 'topics-aliases.json'
 
 _topics_mapping = None
 _qrels_mapping = None
 
 
-def _load_qrels_mapping():
-    with urlopen(f'{TOPICS_AND_QRELS_BASE_URL}{QRELS_METADATA_FILE}') as response:
-        qrels_mapping = json.loads(response.read().decode('utf-8'))
-
-    with urlopen(f'{TOPICS_AND_QRELS_BASE_URL}{QRELS_ALIASES_METADATA_FILE}') as response:
-        qrels_aliases_mapping = json.loads(response.read().decode('utf-8'))
-
-    for canonical_name, aliases in qrels_aliases_mapping.items():
-        if canonical_name not in qrels_mapping:
+def _apply_aliases(mapping, aliases_mapping):
+    for canonical_name, aliases in aliases_mapping.items():
+        if canonical_name not in mapping:
             continue
 
         for alias in aliases:
-            qrels_mapping[alias] = qrels_mapping[canonical_name]
+            mapping[alias] = mapping[canonical_name]
 
-    return qrels_mapping
+
+def _load_mapping(metadata_file, aliases_metadata_file):
+    with urlopen(f'{EVAL_BASE_URL}{metadata_file}') as response:
+        mapping = json.loads(response.read().decode('utf-8'))
+
+    with urlopen(f'{EVAL_BASE_URL}{aliases_metadata_file}') as response:
+        aliases_mapping = json.loads(response.read().decode('utf-8'))
+
+    _apply_aliases(mapping, aliases_mapping)
+    return mapping
+
+
+def _load_qrels_mapping():
+    return _load_mapping(QRELS_METADATA_FILE, QRELS_ALIASES_METADATA_FILE)
 
 
 def _load_topics_mapping():
-    with urlopen(f'{TOPICS_AND_QRELS_BASE_URL}{TOPICS_METADATA_FILE}') as response:
-        return json.loads(response.read().decode('utf-8'))
+    topics_mapping = _load_mapping(TOPICS_METADATA_FILE, TOPICS_ALIASES_METADATA_FILE)
+    aliases_file = resources.files('pyserini.resources').joinpath(TOPICS_COMPATIBILITY_ALIASES_FILE)
+    with aliases_file.open(encoding='utf-8') as f:
+        _apply_aliases(topics_mapping, json.load(f))
+    return topics_mapping
 
 
 def _get_cache_base_path():
@@ -180,7 +194,7 @@ def get_qrels_file(collection_name):
         if not target_path.exists():
             target_path.parent.mkdir(parents=True, exist_ok=True)
             tmp_path = target_path.with_name(f'{target_path.name}.tmp')
-            urlretrieve(f'{TOPICS_AND_QRELS_BASE_URL}{qrels_file}', tmp_path)
+            urlretrieve(f'{QRELS_BASE_URL}{qrels_file}', tmp_path)
             tmp_path.replace(target_path)
         return str(target_path)
 
