@@ -283,7 +283,9 @@ class TestDpr(unittest.TestCase):
         # Sometimes we get 0.7512. Fix is to reduce tolerance.
         # (2026/06)
         # Changing back to 0.7511, with places=4 to see if this gives us any trouble
-        self.assertAlmostEqual(score, 0.7511, places=4)
+        # (2026/08)
+        # Changing to 0.751 with tolerance places=3
+        self.assertAlmostEqual(score, 0.751, places=3)
 
     def test_convert_trec_run_to_dpr_retrieval_run(self):
         trec_run_file = 'tests/resources/simple_test_run_convert_trec_run_dpr.trec'

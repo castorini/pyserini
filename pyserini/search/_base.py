@@ -32,6 +32,7 @@ JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
 
 EVAL_COMMIT = '1662f7ac99fe594b896b2562f06341b34daa50a0'
 EVAL_BASE_URL = f'https://raw.githubusercontent.com/castorini/eval/{EVAL_COMMIT}/'
+TOPICS_BASE_URL = f'{EVAL_BASE_URL}topics/'
 QRELS_BASE_URL = f'{EVAL_BASE_URL}qrels/'
 TOPICS_METADATA_FILE = 'topics.json'
 TOPICS_ALIASES_METADATA_FILE = 'topics-aliases.json'
@@ -133,10 +134,17 @@ def get_topics(collection_name):
         raise ValueError(f'Topic {collection_name} Not Found')
 
     topic = topics_mapping[collection_name]
+    topics_file = topic['path']
+    target_path = _get_topics_and_qrels_cache_path() / Path(topics_file).name
+    if not target_path.exists():
+        tmp_path = target_path.with_name(f'{target_path.name}.tmp')
+        urlretrieve(f'{TOPICS_BASE_URL}{topics_file}', tmp_path)
+        tmp_path.replace(target_path)
+
     # Yes, this is an insanely ridiculous method name.
-    topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(topic['reader_class'], topic['path'])
+    topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(topic['reader_class'], str(target_path))
     if topics is None:
-        raise ValueError(f'Unable to load topic {collection_name} from {topic["path"]}!')
+        raise ValueError(f'Unable to load topic {collection_name} from {target_path}!')
 
     return _parse_topics(topics)
 

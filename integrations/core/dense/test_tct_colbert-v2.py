@@ -17,10 +17,9 @@
 """Integration tests for TCT-ColBERTv2 models using on-the-fly query encoding."""
 
 import multiprocessing
-import os
 import unittest
 
-from integrations.utils import clean_files, run_command, parse_score
+from integrations.utils import clean_files, parse_score, run_command
 
 
 class TestTctColBertV2(unittest.TestCase):
@@ -47,11 +46,10 @@ class TestTctColBertV2(unittest.TestCase):
                              --output {output_file} \
                              --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
-        status = os.system(cmd1)
+        search_result = run_command(cmd1)
         result = run_command(cmd2)
-        stdout, stderr = result.stdout, result.stderr
-        score = parse_score(stdout, "MRR @10")
-        self.assertEqual(status, 0)
+        score = parse_score(result.stdout, "MRR @10")
+        self.assertEqual(search_result.returncode, 0, search_result.stderr or search_result.stdout)
         self.assertAlmostEqual(score, 0.3440, delta=0.0001)
 
     def test_msmarco_passage_tct_colbert_v2_hn_otf(self):
@@ -65,11 +63,10 @@ class TestTctColBertV2(unittest.TestCase):
                              --output {output_file} \
                              --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
-        status = os.system(cmd1)
+        search_result = run_command(cmd1)
         result = run_command(cmd2)
-        stdout, stderr = result.stdout, result.stderr
-        score = parse_score(stdout, "MRR @10")
-        self.assertEqual(status, 0)
+        score = parse_score(result.stdout, "MRR @10")
+        self.assertEqual(search_result.returncode, 0, search_result.stderr or search_result.stdout)
         self.assertAlmostEqual(score, 0.3543, delta=0.0001)
 
     def tearDown(self):

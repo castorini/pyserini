@@ -98,7 +98,7 @@ class TestSearchIntegration(unittest.TestCase):
 
             download_url(url, tmp, md5=runs[url], force=True)
             self.assertTrue(os.path.exists(os.path.join(tmp, filename)))
-            print('')
+            print()
 
         shutil.rmtree(tmp)
 

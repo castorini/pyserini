@@ -22,7 +22,6 @@ from random import randint
 
 from pyserini.util import download_url
 
-
 # The purpose of this test case is that, up through and including round 4, the TREC-COVID fusion baselines were
 # generated using trectools [1]. This test case ensures that our own internal fusion tools generate *exactly* the
 # same output (based on MD5 checksums).
@@ -71,7 +70,7 @@ class TestRRF(unittest.TestCase):
 
             download_url(url, self.tmp, md5=self.runs[url], force=True)
             self.assertTrue(os.path.exists(os.path.join(self.tmp, filename)))
-            print('')
+            print()
 
     def test_round3_fusion_runs(self):
         os.system(f'python -m pyserini.fusion --method rrf --runs ' +
