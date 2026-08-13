@@ -18,10 +18,9 @@
 
 import json
 import multiprocessing
-import os
 import unittest
 
-from integrations.utils import clean_files, run_command, parse_score_qa
+from integrations.utils import clean_files, parse_score_qa, run_command
 
 
 class TestDpr(unittest.TestCase):
@@ -51,13 +50,12 @@ class TestDpr(unittest.TestCase):
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
-        status1 = os.system(cmd1)
-        status2 = os.system(cmd2)
+        result1 = run_command(cmd1)
+        result2 = run_command(cmd2)
         result = run_command(cmd3)
-        stdout, stderr = result.stdout, result.stderr
-        score = parse_score_qa(stdout, 'Top20')
-        self.assertEqual(status1, 0)
-        self.assertEqual(status2, 0)
+        score = parse_score_qa(result.stdout, 'Top20')
+        self.assertEqual(result1.returncode, 0, result1.stderr or result1.stdout)
+        self.assertEqual(result2.returncode, 0, result2.stderr or result2.stdout)
         self.assertAlmostEqual(score, 0.7947, delta=0.0002)
 
     def test_dpr_nq_test_bf_bm25_hybrid_otf(self):
@@ -76,13 +74,12 @@ class TestDpr(unittest.TestCase):
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
-        status1 = os.system(cmd1)
-        status2 = os.system(cmd2)
+        result1 = run_command(cmd1)
+        result2 = run_command(cmd2)
         result = run_command(cmd3)
-        stdout, stderr = result.stdout, result.stderr
-        score = parse_score_qa(stdout, 'Top20')
-        self.assertEqual(status1, 0)
-        self.assertEqual(status2, 0)
+        score = parse_score_qa(result.stdout, 'Top20')
+        self.assertEqual(result1.returncode, 0, result1.stderr or result1.stdout)
+        self.assertEqual(result2.returncode, 0, result2.stderr or result2.stdout)
         self.assertAlmostEqual(score, 0.8260, places=4)
 
     def test_dpr_trivia_test_bf_otf(self):
@@ -99,13 +96,12 @@ class TestDpr(unittest.TestCase):
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
-        status1 = os.system(cmd1)
-        status2 = os.system(cmd2)
+        result1 = run_command(cmd1)
+        result2 = run_command(cmd2)
         result = run_command(cmd3)
-        stdout, stderr = result.stdout, result.stderr
-        score = parse_score_qa(stdout, 'Top20')
-        self.assertEqual(status1, 0)
-        self.assertEqual(status2, 0)
+        score = parse_score_qa(result.stdout, 'Top20')
+        self.assertEqual(result1.returncode, 0, result1.stderr or result1.stdout)
+        self.assertEqual(result2.returncode, 0, result2.stderr or result2.stdout)
         self.assertAlmostEqual(score, 0.7887, places=4)
 
     def test_dpr_trivia_test_bf_bm25_hybrid_otf(self):
@@ -124,13 +120,12 @@ class TestDpr(unittest.TestCase):
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
-        status1 = os.system(cmd1)
-        status2 = os.system(cmd2)
+        result1 = run_command(cmd1)
+        result2 = run_command(cmd2)
         result = run_command(cmd3)
-        stdout, stderr = result.stdout, result.stderr
-        score = parse_score_qa(stdout, 'Top20')
-        self.assertEqual(status1, 0)
-        self.assertEqual(status2, 0)
+        score = parse_score_qa(result.stdout, 'Top20')
+        self.assertEqual(result1.returncode, 0, result1.stderr or result1.stdout)
+        self.assertEqual(result2.returncode, 0, result2.stderr or result2.stdout)
         self.assertAlmostEqual(score, 0.8264, places=4)
 
     def test_dpr_wq_test_bf_otf(self):
@@ -147,13 +142,12 @@ class TestDpr(unittest.TestCase):
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
-        status1 = os.system(cmd1)
-        status2 = os.system(cmd2)
+        result1 = run_command(cmd1)
+        result2 = run_command(cmd2)
         result = run_command(cmd3)
-        stdout, stderr = result.stdout, result.stderr
-        score = parse_score_qa(stdout, 'Top20')
-        self.assertEqual(status1, 0)
-        self.assertEqual(status2, 0)
+        score = parse_score_qa(result.stdout, 'Top20')
+        self.assertEqual(result1.returncode, 0, result1.stderr or result1.stdout)
+        self.assertEqual(result2.returncode, 0, result2.stderr or result2.stdout)
         self.assertAlmostEqual(score, 0.7505, places=4)
 
     def test_dpr_wq_test_bf_bm25_hybrid_otf(self):
@@ -172,13 +166,12 @@ class TestDpr(unittest.TestCase):
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
-        status1 = os.system(cmd1)
-        status2 = os.system(cmd2)
+        result1 = run_command(cmd1)
+        result2 = run_command(cmd2)
         result = run_command(cmd3)
-        stdout, stderr = result.stdout, result.stderr
-        score = parse_score_qa(stdout, 'Top20')
-        self.assertEqual(status1, 0)
-        self.assertEqual(status2, 0)
+        score = parse_score_qa(result.stdout, 'Top20')
+        self.assertEqual(result1.returncode, 0, result1.stderr or result1.stdout)
+        self.assertEqual(result2.returncode, 0, result2.stderr or result2.stdout)
         self.assertAlmostEqual(score, 0.7712, places=4)
 
     def test_dpr_curated_test_bf_otf(self):
@@ -196,13 +189,12 @@ class TestDpr(unittest.TestCase):
                                                            --output {retrieval_file} \
                                                            --regex'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20 --regex'
-        status1 = os.system(cmd1)
-        status2 = os.system(cmd2)
+        result1 = run_command(cmd1)
+        result2 = run_command(cmd2)
         result = run_command(cmd3)
-        stdout, stderr = result.stdout, result.stderr
-        score = parse_score_qa(stdout, 'Top20')
-        self.assertEqual(status1, 0)
-        self.assertEqual(status2, 0)
+        score = parse_score_qa(result.stdout, 'Top20')
+        self.assertEqual(result1.returncode, 0, result1.stderr or result1.stdout)
+        self.assertEqual(result2.returncode, 0, result2.stderr or result2.stdout)
         self.assertAlmostEqual(score, 0.8876, places=4)
 
     def test_dpr_curated_test_bf_bm25_hybrid_otf(self):
@@ -222,13 +214,12 @@ class TestDpr(unittest.TestCase):
                                                            --output {retrieval_file} \
                                                            --regex'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20 --regex'
-        status1 = os.system(cmd1)
-        status2 = os.system(cmd2)
+        result1 = run_command(cmd1)
+        result2 = run_command(cmd2)
         result = run_command(cmd3)
-        stdout, stderr = result.stdout, result.stderr
-        score = parse_score_qa(stdout, 'Top20')
-        self.assertEqual(status1, 0)
-        self.assertEqual(status2, 0)
+        score = parse_score_qa(result.stdout, 'Top20')
+        self.assertEqual(result1.returncode, 0, result1.stderr or result1.stdout)
+        self.assertEqual(result2.returncode, 0, result2.stderr or result2.stdout)
         self.assertAlmostEqual(score, 0.9006, places=4)
 
     def test_dpr_squad_test_bf_otf(self):
@@ -245,13 +236,12 @@ class TestDpr(unittest.TestCase):
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
-        status1 = os.system(cmd1)
-        status2 = os.system(cmd2)
+        result1 = run_command(cmd1)
+        result2 = run_command(cmd2)
         result = run_command(cmd3)
-        stdout, stderr = result.stdout, result.stderr
-        score = parse_score_qa(stdout, 'Top20')
-        self.assertEqual(status1, 0)
-        self.assertEqual(status2, 0)
+        score = parse_score_qa(result.stdout, 'Top20')
+        self.assertEqual(result1.returncode, 0, result1.stderr or result1.stdout)
+        self.assertEqual(result2.returncode, 0, result2.stderr or result2.stdout)
         self.assertAlmostEqual(score, 0.5199, places=4)
 
     def test_dpr_squad_test_bf_bm25_hybrid_otf(self):
@@ -270,13 +260,12 @@ class TestDpr(unittest.TestCase):
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
-        status1 = os.system(cmd1)
-        status2 = os.system(cmd2)
+        result1 = run_command(cmd1)
+        result2 = run_command(cmd2)
         result = run_command(cmd3)
-        stdout, stderr = result.stdout, result.stderr
-        score = parse_score_qa(stdout, 'Top20')
-        self.assertEqual(status1, 0)
-        self.assertEqual(status2, 0)
+        score = parse_score_qa(result.stdout, 'Top20')
+        self.assertEqual(result1.returncode, 0, result1.stderr or result1.stdout)
+        self.assertEqual(result2.returncode, 0, result2.stderr or result2.stdout)
         # (2022/09)
         # This appears to be a flaky test case; previously, we were getting a score of 0.7511, per
         # https://github.com/castorini/pyserini/pull/1273/files#diff-799c2c339e1d7defa31fa1e82f9b16886269b37805376ef93f7c8afedcee574e
@@ -305,8 +294,10 @@ class TestDpr(unittest.TestCase):
                                                            --index {index_dir} \
                                                            --input {trec_run_file} \
                                                            --output {dpr_run_file}'
-        _ = os.system(cmd1)
-        _ = os.system(cmd2)
+        result1 = run_command(cmd1)
+        result2 = run_command(cmd2)
+        self.assertEqual(result1.returncode, 0, result1.stderr or result1.stdout)
+        self.assertEqual(result2.returncode, 0, result2.stderr or result2.stdout)
 
         with open(dpr_run_file) as f:
             topic_data = json.load(f)

@@ -23,6 +23,7 @@ from urllib.request import urlretrieve
 
 import faiss
 
+from integrations.utils import run_command
 from pyserini.search.faiss import FaissSearcher
 from pyserini.search.lucene import LuceneImpactSearcher
 
@@ -47,12 +48,10 @@ class TestEncode(unittest.TestCase):
                                   --fields text \
                                   --batch 4 \
                                   --device cpu'
-        _ = os.system(cmd1)
-        searcher = FaissSearcher(
-            index_dir,
-            'facebook/dpr-question_encoder-multiset-base'
-        )
-        q_emb, hit = searcher.search('What is the solution of separable closed queueing networks?', k=1, return_vector=True)
+        result = run_command(cmd1)
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+        searcher = FaissSearcher(index_dir, 'facebook/dpr-question_encoder-multiset-base')
+        _, hit = searcher.search('What is the solution of separable closed queueing networks?', k=1, return_vector=True)
         self.assertEqual(hit[0].docid, 'CACM-2445')
         self.assertAlmostEqual(hit[0].vectors[0], -6.88267112e-01, places=4)
         self.assertEqual(searcher.num_docs, 3204)
@@ -70,7 +69,8 @@ class TestEncode(unittest.TestCase):
                                   --fields text \
                                   --batch 4 \
                                   --device cpu'
-        _ = os.system(cmd1)
+        result = run_command(cmd1)
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
         index = faiss.read_index(os.path.join(index_dir, 'index'))
         new_index_partition1 = faiss.IndexFlatIP(index.d) 
         new_index_partition2 = faiss.IndexFlatIP(index.d) 
@@ -82,19 +82,25 @@ class TestEncode(unittest.TestCase):
         faiss.write_index(new_index_partition1, os.path.join(index_dir, 'partition1/index'))
         faiss.write_index(new_index_partition2, os.path.join(index_dir, 'partition2/index'))
         
-        with open(os.path.join(index_dir, 'partition1/docid'), 'w') as docid1, open(os.path.join(index_dir, 'partition2/docid'), 'w') as docid2:
-            with open(os.path.join(index_dir, 'docid'), 'r') as file:
-                for i in range(index.ntotal):
-                    line = next(file)
-                    if i < (index.ntotal // 2):
-                        docid1.write(line)
-                    else:
-                        docid2.write(line)
+        partition1_docids = os.path.join(index_dir, 'partition1', 'docid')
+        partition2_docids = os.path.join(index_dir, 'partition2', 'docid')
+        source_docids = os.path.join(index_dir, 'docid')
+
+        with (
+            open(partition1_docids, 'w') as docid1,
+            open(partition2_docids, 'w') as docid2,
+            open(source_docids) as source,
+        ):
+            for i, line in enumerate(source):
+                if i < index.ntotal // 2:
+                    docid1.write(line)
+                else:
+                    docid2.write(line)
 
         searcher_partition1 = FaissSearcher(index_dir + '/partition1','facebook/dpr-question_encoder-multiset-base')
         searcher_partition2 = FaissSearcher(index_dir + '/partition2','facebook/dpr-question_encoder-multiset-base')
-        q_emb, hit1 = searcher_partition1.search('What is the solution of separable closed queueing networks?', k=2, return_vector=True)
-        q_emb, hit2 = searcher_partition2.search('What is the solution of separable closed queueing networks?', k=2, return_vector=True)
+        _, hit1 = searcher_partition1.search('What is the solution of separable closed queueing networks?', k=2, return_vector=True)
+        _, hit2 = searcher_partition2.search('What is the solution of separable closed queueing networks?', k=2, return_vector=True)
         merged_hits = hit1 + hit2
         merged_hits.sort(key=lambda x: x.score, reverse=True)
         
@@ -113,7 +119,8 @@ class TestEncode(unittest.TestCase):
                                   --fields text \
                                   --batch 4 \
                                   --device cpu'
-        _ = os.system(cmd1)
+        result = run_command(cmd1)
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
         index_dir = f'{self.pyserini_root}/temp_lucene'
         self.temp_folders.append(index_dir)
         cmd2 = f'python -m pyserini.index -collection JsonVectorCollection \
@@ -121,7 +128,8 @@ class TestEncode(unittest.TestCase):
                                           -index {index_dir} \
                                           -generator DefaultLuceneDocumentGenerator \
                                           -impact -pretokenized -threads 12 -storeRaw'
-        _ = os.system(cmd2)
+        result = run_command(cmd2)
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
         searcher = LuceneImpactSearcher(index_dir, query_encoder='castorini/unicoil-msmarco-passage')
         hits = searcher.search('What is the solution of separable closed queueing networks?', k=1)
         hit = hits[0]

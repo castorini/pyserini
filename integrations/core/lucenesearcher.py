@@ -20,6 +20,7 @@ import hashlib
 import os
 import shlex
 import sys
+import tempfile
 
 from integrations.utils import parse_score, run_command
 from pyserini.prebuilt_index_info import TF_INDEX_INFO
@@ -51,37 +52,34 @@ class LuceneSearcherAnseriniMatchChecker:
         print(f'Running {runtag}:')
         print('-------------------------')
 
-        anserini_output = f'verify.anserini.{runtag}.txt'
-        pyserini_output = f'verify.pyserini.{runtag}.txt'
+        os.makedirs('tmp', exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix=f'lucenesearcher-{runtag}-', dir='tmp') as temp_dir:
+            anserini_output = os.path.join(temp_dir, 'anserini.txt')
+            pyserini_output = os.path.join(temp_dir, 'pyserini.txt')
 
-        anserini_cmd = self.anserini_base_cmd + ['-index', self.index_path, '-topics', self.topics, '-output', anserini_output, *shlex.split(anserini_extras)]
-        pyserini_cmd = self.pyserini_base_cmd + ['--index', self.index_path, '--topics', self.topics, '--output', pyserini_output, *shlex.split(pyserini_extras)]
+            anserini_cmd = self.anserini_base_cmd + ['-index', self.index_path, '-topics', self.topics, '-output', anserini_output, *shlex.split(anserini_extras)]
+            pyserini_cmd = self.pyserini_base_cmd + ['--index', self.index_path, '--topics', self.topics, '--output', pyserini_output, *shlex.split(pyserini_extras)]
 
-        result = run_command(anserini_cmd)
-        if result.returncode != 0:
-            self._cleanup([anserini_output, pyserini_output])
-            return False
-
-        result = run_command(pyserini_cmd)
-        if result.returncode != 0:
-            self._cleanup([anserini_output, pyserini_output])
-            return False
-
-        res = filecmp.cmp(anserini_output, pyserini_output)
-        if res is True:
-            eval_cmd = self.eval_base_cmd + [self.qrels, anserini_output]
-            result = run_command(eval_cmd)
+            result = run_command(anserini_cmd)
             if result.returncode != 0:
-                print(f'[FAIL] {runtag} evaluation failure!')
-                self._cleanup([anserini_output, pyserini_output])
                 return False
-            print(f'[SUCCESS] {runtag} results verified!')
-            self._cleanup([anserini_output, pyserini_output])
-            return True
-        else:
-            print(f'[FAIL] {runtag} result do not match!')
-            self._cleanup([anserini_output, pyserini_output])
-            return False
+
+            result = run_command(pyserini_cmd)
+            if result.returncode != 0:
+                return False
+
+            res = filecmp.cmp(anserini_output, pyserini_output)
+            if res is True:
+                eval_cmd = self.eval_base_cmd + [self.qrels, anserini_output]
+                result = run_command(eval_cmd)
+                if result.returncode != 0:
+                    print(f'[FAIL] {runtag} evaluation failure!')
+                    return False
+                print(f'[SUCCESS] {runtag} results verified!')
+                return True
+            else:
+                print(f'[FAIL] {runtag} result do not match!')
+                return False
 
 
 class LuceneSearcherScoreChecker:
@@ -89,8 +87,8 @@ class LuceneSearcherScoreChecker:
         self.index_path = index
         self.topics = topics
         self.qrels = qrels
-        self.pyserini_base_cmd = 'python -m pyserini.search.lucene'
-        self.eval_base_cmd = eval
+        self.pyserini_base_cmd = [sys.executable, '-m', 'pyserini.search.lucene']
+        self.eval_base_cmd = shlex.split(eval)
 
     @staticmethod
     def _cleanup(files: list[str]):
@@ -105,17 +103,21 @@ class LuceneSearcherScoreChecker:
 
         pyserini_output = f'verify.pyserini.{runtag}.txt'
 
-        pyserini_cmd = f'{self.pyserini_base_cmd} --index {self.index_path} \
-                           --topics {self.topics} --output {pyserini_output} {pyserini_extras}'
+        pyserini_cmd = self.pyserini_base_cmd + [
+            '--index', self.index_path,
+            '--topics', self.topics,
+            '--output', pyserini_output,
+            *shlex.split(pyserini_extras),
+        ]
 
         if tokenizer is not None:
-            pyserini_cmd = pyserini_cmd + f' --tokenizer {tokenizer}'
+            pyserini_cmd += ['--tokenizer', tokenizer]
 
         result = run_command(pyserini_cmd)
         if result.returncode != 0:
             return False
 
-        eval_cmd = f'{self.eval_base_cmd} {self.qrels} {pyserini_output}'
+        eval_cmd = self.eval_base_cmd + [self.qrels, pyserini_output]
         result = run_command(eval_cmd)
         if result.returncode != 0:
             return False
@@ -130,7 +132,7 @@ class RunLuceneSearcher:
     def __init__(self, index: str, topics: str):
         self.index_path = index
         self.topics = topics
-        self.pyserini_base_cmd = 'python -m pyserini.search.lucene'
+        self.pyserini_base_cmd = [sys.executable, '-m', 'pyserini.search.lucene']
 
     @staticmethod
     def _cleanup(files: list[str]):
@@ -144,8 +146,12 @@ class RunLuceneSearcher:
         print('-------------------------')
 
         output = f'verify.pyserini.{runtag}.txt'
-        pyserini_cmd = f'{self.pyserini_base_cmd} --index {self.index_path} ' \
-            + f'--topics {self.topics} --output {output} {extras}'
+        pyserini_cmd = self.pyserini_base_cmd + [
+            '--index', self.index_path,
+            '--topics', self.topics,
+            '--output', output,
+            *shlex.split(extras),
+        ]
 
         result = run_command(pyserini_cmd)
         if result.returncode != 0:

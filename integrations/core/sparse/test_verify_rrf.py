@@ -20,6 +20,7 @@ import shutil
 import unittest
 from random import randint
 
+from integrations.utils import run_command
 from pyserini.util import download_url
 
 # The purpose of this test case is that, up through and including round 4, the TREC-COVID fusion baselines were
@@ -73,46 +74,46 @@ class TestRRF(unittest.TestCase):
             print()
 
     def test_round3_fusion_runs(self):
-        os.system(f'python -m pyserini.fusion --method rrf --runs ' +
-                  f'{self.tmp}/anserini.covid-r3.abstract.qq.bm25.txt ' +
-                  f'{self.tmp}/anserini.covid-r3.full-text.qq.bm25.txt ' +
-                  f'{self.tmp}/anserini.covid-r3.paragraph.qq.bm25.txt ' +
-                  f' --output {self.tmp}/anserini.covid-r3.fusion1.txt ' +
-                  f'--runtag reciprocal_rank_fusion_k=60 --k 100000')
+        result = run_command(f'python -m pyserini.fusion \
+                      --method rrf \
+                      --runs {self.tmp}/anserini.covid-r3.abstract.qq.bm25.txt {self.tmp}/anserini.covid-r3.full-text.qq.bm25.txt {self.tmp}/anserini.covid-r3.paragraph.qq.bm25.txt --output {self.tmp}/anserini.covid-r3.fusion1.txt \
+                      --runtag reciprocal_rank_fusion_k=60 \
+                      --k 100000')
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
 
         with open(f'{self.tmp}/anserini.covid-r3.fusion1.txt', 'rb') as f:
             md5 = hashlib.md5(f.read()).hexdigest()
         self.assertEqual('353eb335acff30cfe74f14b1b87671c9', md5)
 
-        os.system(f'python -m pyserini.fusion --method rrf --runs ' +
-                  f'{self.tmp}/anserini.covid-r3.abstract.qdel.bm25.txt ' +
-                  f'{self.tmp}/anserini.covid-r3.full-text.qdel.bm25.txt ' +
-                  f'{self.tmp}/anserini.covid-r3.paragraph.qdel.bm25.txt ' +
-                  f' --output {self.tmp}/anserini.covid-r3.fusion2.txt ' +
-                  f'--runtag reciprocal_rank_fusion_k=60 --k 100000')
+        result = run_command(f'python -m pyserini.fusion \
+                      --method rrf \
+                      --runs {self.tmp}/anserini.covid-r3.abstract.qdel.bm25.txt {self.tmp}/anserini.covid-r3.full-text.qdel.bm25.txt {self.tmp}/anserini.covid-r3.paragraph.qdel.bm25.txt --output {self.tmp}/anserini.covid-r3.fusion2.txt \
+                      --runtag reciprocal_rank_fusion_k=60 \
+                      --k 100000')
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
 
         with open(f'{self.tmp}/anserini.covid-r3.fusion2.txt', 'rb') as f:
             md5 = hashlib.md5(f.read()).hexdigest()
         self.assertEqual('604bfb165d24559d104f475486ac461b', md5)
 
     def test_round4_fusion_runs(self):
-        os.system(f'python -m pyserini.fusion --method rrf --runs ' +
-                  f'{self.tmp}/anserini.covid-r4.abstract.qq.bm25.txt ' +
-                  f'{self.tmp}/anserini.covid-r4.full-text.qq.bm25.txt ' +
-                  f'{self.tmp}/anserini.covid-r4.paragraph.qq.bm25.txt ' +
-                  f' --output {self.tmp}/anserini.covid-r4.fusion1.txt ' +
-                  f'--runtag reciprocal_rank_fusion_k=60 --k 100000')
+        result = run_command(f'python -m pyserini.fusion \
+                      --method rrf \
+                      --runs {self.tmp}/anserini.covid-r4.abstract.qq.bm25.txt {self.tmp}/anserini.covid-r4.full-text.qq.bm25.txt {self.tmp}/anserini.covid-r4.paragraph.qq.bm25.txt --output {self.tmp}/anserini.covid-r4.fusion1.txt \
+                      --runtag reciprocal_rank_fusion_k=60 \
+                      --k 100000')
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
 
         with open(f'{self.tmp}/anserini.covid-r4.fusion1.txt', 'rb') as f:
             md5 = hashlib.md5(f.read()).hexdigest()
         self.assertEqual('0dfced296c0c2c44067796b384a038a2', md5)
 
-        os.system(f'python -m pyserini.fusion --method rrf --runs ' +
-                  f'{self.tmp}/anserini.covid-r4.abstract.qdel.bm25.txt ' +
-                  f'{self.tmp}/anserini.covid-r4.full-text.qdel.bm25.txt ' +
-                  f'{self.tmp}/anserini.covid-r4.paragraph.qdel.bm25.txt ' +
-                  f' --output {self.tmp}/anserini.covid-r4.fusion2.txt ' +
-                  f'--runtag reciprocal_rank_fusion_k=60 --k 100000')
+        result = run_command(f'python -m pyserini.fusion \
+                      --method rrf \
+                      --runs {self.tmp}/anserini.covid-r4.abstract.qdel.bm25.txt {self.tmp}/anserini.covid-r4.full-text.qdel.bm25.txt {self.tmp}/anserini.covid-r4.paragraph.qdel.bm25.txt --output {self.tmp}/anserini.covid-r4.fusion2.txt \
+                      --runtag reciprocal_rank_fusion_k=60 \
+                      --k 100000')
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
 
         with open(f'{self.tmp}/anserini.covid-r4.fusion2.txt', 'rb') as f:
             md5 = hashlib.md5(f.read()).hexdigest()

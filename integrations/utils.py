@@ -92,28 +92,23 @@ def run_retrieval_and_return_scores(output_file, retrieval_cmd, qrels, eval_type
         for metric in metrics:
             cmd = f'python -m pyserini.eval.trec_eval -m {metric[0]} {qrels} {output_file}'
             result = run_command(cmd)
-            stdout, stderr = result.stdout, result.stderr
-            scores[metric[0]] = parse_score(stdout, metric[1])
+            scores[metric[0]] = parse_score(result.stdout, metric[1])
     elif eval_type == 'msmarco_passage':
         cmd = f'python -m pyserini.eval.msmarco_passage_eval {qrels} {output_file}'
         result = run_command(cmd)
-        stdout, stderr = result.stdout, result.stderr
-        scores['MRR@10'] = parse_score_msmarco(stdout, 'MRR @10')
+        scores['MRR@10'] = parse_score_msmarco(result.stdout, 'MRR @10')
     elif eval_type == 'msmarco_passage_string':
         cmd = f'python -m pyserini.eval.msmarco_passage_eval {qrels} {output_file}'
         result = run_command(cmd)
-        stdout, stderr = result.stdout, result.stderr
-        scores['MRR@10'] = parse_score_msmarco_as_string(stdout, 'MRR @10')
+        scores['MRR@10'] = parse_score_msmarco_as_string(result.stdout, 'MRR @10')
     elif eval_type == 'msmarco_doc':
         cmd = f'python -m pyserini.eval.msmarco_doc_eval --judgments {qrels} --run {output_file}'
         result = run_command(cmd)
-        stdout, stderr = result.stdout, result.stderr
-        scores['MRR@100'] = parse_score_msmarco(stdout, 'MRR @100')
+        scores['MRR@100'] = parse_score_msmarco(result.stdout, 'MRR @100')
     elif eval_type == 'msmarco_doc_string':
         cmd = f'python -m pyserini.eval.msmarco_doc_eval --judgments {qrels} --run {output_file}'
         result = run_command(cmd)
-        stdout, stderr = result.stdout, result.stderr
-        scores['MRR@100'] = parse_score_msmarco_as_string(stdout, 'MRR @100')
+        scores['MRR@100'] = parse_score_msmarco_as_string(result.stdout, 'MRR @100')
     else:
         clean_files(temp_files)
         raise ValueError('Unknown eval_type!')

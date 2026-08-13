@@ -15,11 +15,15 @@
 #
 
 import os
+import shlex
 import shutil
+import sys
+import tempfile
 import unittest
-from random import randint
 
 from integrations.core.lucenesearcher import LuceneSearcherScoreChecker
+from integrations.utils import run_command
+from pyserini.util import download_url
 
 
 class TestSearchIntegration(unittest.TestCase):
@@ -27,31 +31,51 @@ class TestSearchIntegration(unittest.TestCase):
         # We assume running in the base directory from the command line.
         # Testcase will *not* run from inside the IDE.
         self.pyserini_root = '.'
-        self.tmp = f'{self.pyserini_root}/integrations/tmp{randint(0, 10000)}'
-
-        if os.path.exists(self.tmp):
-            shutil.rmtree(self.tmp)
-        else:
-            os.mkdir(self.tmp)
-
-        #wget cacm jsonl file
-        os.system(f'wget https://raw.githubusercontent.com/castorini/anserini-data/master/CACM/corpus/jsonl/cacm.json -P {self.tmp}/cacm_jsonl')
-
-        #pre tokenized jsonl
-        os.system(f'python -m pyserini.tokenize_json_collection --input {self.tmp}/cacm_jsonl/ --output {self.tmp}/cacm_bert_jsonl/ --tokenizer bert-base-uncased')
-
-        self.pyserini_index_cmd = 'python -m pyserini.index'
-        self.pyserini_search_cmd = 'python -m pyserini.search'
-        self.pyserini_trec_eval_cmd = 'python -m pyserini.eval.trec_eval'
+        self.tmp = tempfile.mkdtemp(prefix='search-pretokenized-', dir='integrations')
+        self.addCleanup(shutil.rmtree, self.tmp, True)
 
         self.cacm_jsonl_path = os.path.join(self.tmp, 'cacm_jsonl')
         self.cacm_bert_jsonl_path = os.path.join(self.tmp, 'cacm_bert_jsonl')
+        os.mkdir(self.cacm_jsonl_path)
+
+        download_url('https://raw.githubusercontent.com/castorini/anserini-data/master/CACM/corpus/jsonl/cacm.json', self.cacm_jsonl_path)
+
+        result = run_command([
+            sys.executable, '-m', 'pyserini.tokenize_json_collection',
+            '--input', self.cacm_jsonl_path,
+            '--output', self.cacm_bert_jsonl_path,
+            '--tokenizer', 'bert-base-uncased',
+        ])
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+
+        self.pyserini_trec_eval_cmd = shlex.join([sys.executable, '-m', 'pyserini.eval.trec_eval'])
 
         self.cacm_index_path = os.path.join(self.tmp, 'cacm_index')
         self.cacm_bert_index_path = os.path.join(self.tmp, 'cacm_bert_index')
 
-        os.system(f'{self.pyserini_index_cmd} -collection JsonCollection -generator DefaultLuceneDocumentGenerator -threads 9 -input {self.cacm_jsonl_path} -index {self.cacm_index_path} -storePositions -storeDocvectors -storeRaw' )
-        os.system(f'{self.pyserini_index_cmd} -collection JsonCollection -generator DefaultLuceneDocumentGenerator -threads 9 -input {self.cacm_bert_jsonl_path} -index {self.cacm_bert_index_path} -storePositions -storeDocvectors -storeRaw -pretokenized')
+        index_cmd = [
+            sys.executable, '-m', 'pyserini.index',
+            '-collection', 'JsonCollection',
+            '-generator', 'DefaultLuceneDocumentGenerator',
+            '-threads', '9',
+            '-input', self.cacm_jsonl_path,
+            '-index', self.cacm_index_path,
+            '-storePositions', '-storeDocvectors', '-storeRaw',
+        ]
+        result = run_command(index_cmd)
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
+
+        pretokenized_index_cmd = [
+            sys.executable, '-m', 'pyserini.index',
+            '-collection', 'JsonCollection',
+            '-generator', 'DefaultLuceneDocumentGenerator',
+            '-threads', '9',
+            '-input', self.cacm_bert_jsonl_path,
+            '-index', self.cacm_bert_index_path,
+            '-storePositions', '-storeDocvectors', '-storeRaw', '-pretokenized',
+        ]
+        result = run_command(pretokenized_index_cmd)
+        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
         
         self.cacm_checker = LuceneSearcherScoreChecker(
             index=self.cacm_index_path,
@@ -70,10 +94,6 @@ class TestSearchIntegration(unittest.TestCase):
 
     def test_with_pretokenized(self):
         self.assertTrue(self.cacm_bert_checker.run('cacm_bert', '--bm25', 0.2750, 'bert-base-uncased'))
-
-    def tearDown(self):
-        shutil.rmtree(f'{self.tmp}')
-
 
 if __name__ == '__main__':
     unittest.main()
