@@ -20,6 +20,7 @@ and dense retrieval.
 """
 
 import json
+import tempfile
 from importlib import resources
 from pathlib import Path
 from urllib.request import urlopen, urlretrieve
@@ -32,13 +33,16 @@ JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
 
 EVAL_COMMIT = '1662f7ac99fe594b896b2562f06341b34daa50a0'
 EVAL_BASE_URL = f'https://raw.githubusercontent.com/castorini/eval/{EVAL_COMMIT}/'
+
 TOPICS_BASE_URL = f'{EVAL_BASE_URL}topics/'
-QRELS_BASE_URL = f'{EVAL_BASE_URL}qrels/'
 TOPICS_METADATA_FILE = 'topics.json'
 TOPICS_ALIASES_METADATA_FILE = 'topics-aliases.json'
+
+QRELS_BASE_URL = f'{EVAL_BASE_URL}qrels/'
 QRELS_METADATA_FILE = 'qrels.json'
 QRELS_ALIASES_METADATA_FILE = 'qrels-aliases.json'
-TOPICS_COMPATIBILITY_ALIASES_FILE = 'topics-aliases.json'
+
+LOCAL_TOPICS_METADATA_FILE = 'topics-aliases.json'
 
 _topics_mapping = None
 _qrels_mapping = None
@@ -70,7 +74,7 @@ def _load_qrels_mapping():
 
 def _load_topics_mapping():
     topics_mapping = _load_mapping(TOPICS_METADATA_FILE, TOPICS_ALIASES_METADATA_FILE)
-    aliases_file = resources.files('pyserini.resources').joinpath(TOPICS_COMPATIBILITY_ALIASES_FILE)
+    aliases_file = resources.files('pyserini.resources').joinpath(LOCAL_TOPICS_METADATA_FILE)
     with aliases_file.open(encoding='utf-8') as f:
         _apply_aliases(topics_mapping, json.load(f))
     return topics_mapping
@@ -80,10 +84,39 @@ def _get_cache_base_path():
     return Path(get_cache_home())
 
 
-def _get_topics_and_qrels_cache_path():
-    cache_path = _get_cache_base_path() / 'topics-and-qrels'
+def _get_topics_cache_path():
+    cache_path = _get_cache_base_path() / 'topics'
     cache_path.mkdir(parents=True, exist_ok=True)
     return cache_path
+
+
+def _get_qrels_cache_path():
+    cache_path = _get_cache_base_path() / 'qrels'
+    cache_path.mkdir(parents=True, exist_ok=True)
+    return cache_path
+
+
+def _download_and_cache(url, filename, cache_path):
+    cache_path.mkdir(parents=True, exist_ok=True)
+    target_path = cache_path / Path(filename).name
+    if target_path.exists():
+        return target_path
+
+    with tempfile.NamedTemporaryFile(
+        dir=target_path.parent,
+        prefix=f'{target_path.name}.',
+        suffix='.tmp',
+        delete=False,
+    ) as temp_file:
+        temp_path = Path(temp_file.name)
+
+    try:
+        urlretrieve(url, temp_path)
+        temp_path.replace(target_path)
+    finally:
+        temp_path.unlink(missing_ok=True)
+
+    return target_path
 
 
 def _get_topics_mapping():
@@ -135,11 +168,7 @@ def get_topics(collection_name):
 
     topic = topics_mapping[collection_name]
     topics_file = topic['path']
-    target_path = _get_topics_and_qrels_cache_path() / Path(topics_file).name
-    if not target_path.exists():
-        tmp_path = target_path.with_name(f'{target_path.name}.tmp')
-        urlretrieve(f'{TOPICS_BASE_URL}{topics_file}', tmp_path)
-        tmp_path.replace(target_path)
+    target_path = _download_and_cache(f'{TOPICS_BASE_URL}{topics_file}', topics_file, _get_topics_cache_path())
 
     # Yes, this is an insanely ridiculous method name.
     topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(topic['reader_class'], str(target_path))
@@ -198,12 +227,7 @@ def get_qrels_file(collection_name):
     qrels_mapping = _get_qrels_mapping()
     if collection_name in qrels_mapping:
         qrels_file = qrels_mapping[collection_name]
-        target_path = _get_topics_and_qrels_cache_path() / Path(qrels_file).name
-        if not target_path.exists():
-            target_path.parent.mkdir(parents=True, exist_ok=True)
-            tmp_path = target_path.with_name(f'{target_path.name}.tmp')
-            urlretrieve(f'{QRELS_BASE_URL}{qrels_file}', tmp_path)
-            tmp_path.replace(target_path)
+        target_path = _download_and_cache(f'{QRELS_BASE_URL}{qrels_file}', qrels_file, _get_qrels_cache_path())
         return str(target_path)
 
     raise FileNotFoundError(f'no qrels file for {collection_name}')

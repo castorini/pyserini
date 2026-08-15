@@ -30,7 +30,7 @@ class TestLoadQrels(unittest.TestCase):
         with open(path) as f:
             return f.readlines()
 
-    # Note that these test cases download and cache qrels in ~/.cache/pyserini/topics-and-qrels.
+    # Note that these test cases download and cache qrels in ~/.cache/pyserini/qrels.
 
     def test_trec1_adhoc(self):
         qrels = search.get_qrels('trec1-adhoc')
