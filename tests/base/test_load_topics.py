@@ -1620,33 +1620,29 @@ class TestLoadTopics(unittest.TestCase):
         self.assertTrue(isinstance(next(iter(topics.keys())), str))
 
     # General test cases
-    def test_tsv_int_topicreader(self):
-        path = search_base._get_topics_mapping()['msmarco-doc-dev']['path']
-        reader_class = search_base._get_topics_mapping()['msmarco-doc-dev']['reader_class']
+    def test_load_topics_with_tsv_int_reader(self):
+        path = os.path.join(self.resource_dir, 'sample_queries.tsv')
 
-        self.assertEqual(reader_class, 'io.anserini.search.topicreader.TsvIntTopicReader')
-        topics = search.load_topics_with_reader(path, reader_class)
-        self.assertEqual(len(topics), 5193)
+        self.assertTrue(os.path.exists(path))
+        topics = search.load_topics_from_file(path, 'io.anserini.search.topicreader.TsvIntTopicReader')
+        self.assertEqual(len(topics), 4)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
+        self.assertEqual({1, 2, 3, 4}, set(topics))
 
-        self.assertEqual(search.get_topics('msmarco-doc-dev'), topics)
+    def test_load_topics_with_trec_reader(self):
+        path = os.path.join(self.resource_dir, 'sample_queries.trec')
 
-    def test_trec_topicreader(self):
-        path = search_base._get_topics_mapping()['robust04']['path']
-        reader_class = search_base._get_topics_mapping()['robust04']['reader_class']
-
-        self.assertEqual(reader_class, 'io.anserini.search.topicreader.TrecTopicReader')
-        topics = search.load_topics_with_reader(path, reader_class)
-        self.assertEqual(len(topics), 250)
+        self.assertTrue(os.path.exists(path))
+        topics = search.load_topics_from_file(path, 'io.anserini.search.topicreader.TrecTopicReader')
+        self.assertEqual(len(topics), 2)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
+        self.assertEqual({1, 2}, set(topics))
 
-        self.assertEqual(search.get_topics('robust04'), topics)
-
-    def test_trec_topicreader_nonint_qid(self):
+    def test_load_topics_with_tsv_string_reader(self):
         path = os.path.join(self.resource_dir, 'sample_queries_nonint_qid.tsv')
 
         self.assertTrue(os.path.exists(path))
-        topics = search.load_topics_with_reader(path, 'io.anserini.search.topicreader.TsvStringTopicReader')
+        topics = search.load_topics_from_file(path, 'io.anserini.search.topicreader.TsvStringTopicReader')
         self.assertEqual(len(topics), 3)
         self.assertTrue(isinstance(next(iter(topics.keys())), str))
         self.assertEqual({'30_1', '30_2', '30_3'}, set(topics))

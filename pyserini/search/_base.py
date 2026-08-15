@@ -178,11 +178,11 @@ def get_topics(collection_name):
     return _parse_topics(topics)
 
 
-def load_topics_with_reader(file, reader_class):
+def load_topics_from_file(file_path, reader_class):
     # Yes, this is an insanely ridiculous method name.
-    topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(reader_class, file)
+    topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(reader_class, file_path)
     if topics is None:
-        raise ValueError(f'Unable to initialize TopicReader {reader_class} with file {file}!')
+        raise ValueError(f'Unable to initialize TopicReader {reader_class} with file {file_path}!')
 
     return _parse_topics(topics)
 
