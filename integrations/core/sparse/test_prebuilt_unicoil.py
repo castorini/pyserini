@@ -19,7 +19,7 @@
 import os
 import unittest
 
-from integrations.utils import clean_files, run_command, parse_score
+from integrations.utils import clean_files, parse_score, run_command
 
 
 class TestSearchIntegration(unittest.TestCase):
@@ -43,10 +43,8 @@ class TestSearchIntegration(unittest.TestCase):
         self.assertEqual(status, 0)
 
         # Match score in https://github.com/castorini/pyserini/blob/master/docs/experiments-unicoil-tilde-expansion.md
-        result = run_command(f'python -m pyserini.eval.msmarco_passage_eval \
-                             msmarco-passage-dev-subset {output_file}')
-        stdout, stderr = result.stdout, result.stderr
-        self.assertAlmostEqual(0.3495, parse_score(stdout, "MRR @10"), delta=0.0001)
+        result = run_command(f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}')
+        self.assertAlmostEqual(0.3495, parse_score(result.stdout, "MRR @10"), delta=0.0001)
 
     def tearDown(self):
         clean_files(self.temp_files)

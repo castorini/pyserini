@@ -80,7 +80,7 @@ class TestSearchIntegration(unittest.TestCase):
     def test_cross_validation(self):
         pyserini_topics = 'core17'
         os.mkdir(f'{self.tmp}/core17')
-        for alpha in [x / 10.0 for x in range(0, 11)]:
+        for alpha in [x / 10.0 for x in range(11)]:
             run_file_cmd = f'{self.pyserini_search_cmd} --index {self.core17_index_path} \
                                --topics {pyserini_topics} --output {self.tmp}/core17/core17_lr_A{alpha}_bm25.txt \
                                --prcl lr --prcl.vectorizer TfidfVectorizer --prcl.alpha {alpha}'

@@ -20,6 +20,8 @@ and dense retrieval.
 """
 
 import json
+import tempfile
+from importlib import resources
 from pathlib import Path
 from urllib.request import urlopen, urlretrieve
 
@@ -29,46 +31,92 @@ from pyserini.util import get_cache_home
 # Wrappers around Anserini classes
 JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
 
-TOPICS_AND_QRELS_COMMIT = '12982126736f2ed7dc45bf30acb2af9fed13c0ef'
-TOPICS_AND_QRELS_BASE_URL = f'https://raw.githubusercontent.com/castorini/anserini-tools/{TOPICS_AND_QRELS_COMMIT}/topics-and-qrels/'
-QRELS_METADATA_FILE = '_metadata_qrels.json'
-QRELS_ALIASES_METADATA_FILE = '_metadata_qrels_aliases.json'
-TOPICS_METADATA_FILE = '_metadata_topics.json'
+EVAL_COMMIT = '1662f7ac99fe594b896b2562f06341b34daa50a0'
+EVAL_BASE_URL = f'https://raw.githubusercontent.com/castorini/eval/{EVAL_COMMIT}/'
+
+TOPICS_BASE_URL = f'{EVAL_BASE_URL}topics/'
+TOPICS_METADATA_FILE = 'topics.json'
+TOPICS_ALIASES_METADATA_FILE = 'topics-aliases.json'
+
+QRELS_BASE_URL = f'{EVAL_BASE_URL}qrels/'
+QRELS_METADATA_FILE = 'qrels.json'
+QRELS_ALIASES_METADATA_FILE = 'qrels-aliases.json'
+
+LOCAL_TOPICS_METADATA_FILE = 'topics-aliases.json'
 
 _topics_mapping = None
 _qrels_mapping = None
 
 
-def _load_qrels_mapping():
-    with urlopen(f'{TOPICS_AND_QRELS_BASE_URL}{QRELS_METADATA_FILE}') as response:
-        qrels_mapping = json.loads(response.read().decode('utf-8'))
-
-    with urlopen(f'{TOPICS_AND_QRELS_BASE_URL}{QRELS_ALIASES_METADATA_FILE}') as response:
-        qrels_aliases_mapping = json.loads(response.read().decode('utf-8'))
-
-    for canonical_name, aliases in qrels_aliases_mapping.items():
-        if canonical_name not in qrels_mapping:
+def _apply_aliases(mapping, aliases_mapping):
+    for canonical_name, aliases in aliases_mapping.items():
+        if canonical_name not in mapping:
             continue
 
         for alias in aliases:
-            qrels_mapping[alias] = qrels_mapping[canonical_name]
+            mapping[alias] = mapping[canonical_name]
 
-    return qrels_mapping
+
+def _load_mapping(metadata_file, aliases_metadata_file):
+    with urlopen(f'{EVAL_BASE_URL}{metadata_file}') as response:
+        mapping = json.loads(response.read().decode('utf-8'))
+
+    with urlopen(f'{EVAL_BASE_URL}{aliases_metadata_file}') as response:
+        aliases_mapping = json.loads(response.read().decode('utf-8'))
+
+    _apply_aliases(mapping, aliases_mapping)
+    return mapping
+
+
+def _load_qrels_mapping():
+    return _load_mapping(QRELS_METADATA_FILE, QRELS_ALIASES_METADATA_FILE)
 
 
 def _load_topics_mapping():
-    with urlopen(f'{TOPICS_AND_QRELS_BASE_URL}{TOPICS_METADATA_FILE}') as response:
-        return json.loads(response.read().decode('utf-8'))
+    topics_mapping = _load_mapping(TOPICS_METADATA_FILE, TOPICS_ALIASES_METADATA_FILE)
+    aliases_file = resources.files('pyserini.resources').joinpath(LOCAL_TOPICS_METADATA_FILE)
+    with aliases_file.open(encoding='utf-8') as f:
+        _apply_aliases(topics_mapping, json.load(f))
+    return topics_mapping
 
 
 def _get_cache_base_path():
     return Path(get_cache_home())
 
 
-def _get_topics_and_qrels_cache_path():
-    cache_path = _get_cache_base_path() / 'topics-and-qrels'
+def _get_topics_cache_path():
+    cache_path = _get_cache_base_path() / 'topics'
     cache_path.mkdir(parents=True, exist_ok=True)
     return cache_path
+
+
+def _get_qrels_cache_path():
+    cache_path = _get_cache_base_path() / 'qrels'
+    cache_path.mkdir(parents=True, exist_ok=True)
+    return cache_path
+
+
+def _download_and_cache(url, filename, cache_path):
+    cache_path.mkdir(parents=True, exist_ok=True)
+    target_path = cache_path / Path(filename).name
+    if target_path.exists():
+        return target_path
+
+    with tempfile.NamedTemporaryFile(
+        dir=target_path.parent,
+        prefix=f'{target_path.name}.',
+        suffix='.tmp',
+        delete=False,
+    ) as temp_file:
+        temp_path = Path(temp_file.name)
+
+    try:
+        urlretrieve(url, temp_path)
+        temp_path.replace(target_path)
+    finally:
+        temp_path.unlink(missing_ok=True)
+
+    return target_path
 
 
 def _get_topics_mapping():
@@ -119,19 +167,22 @@ def get_topics(collection_name):
         raise ValueError(f'Topic {collection_name} Not Found')
 
     topic = topics_mapping[collection_name]
+    topics_file = topic['path']
+    target_path = _download_and_cache(f'{TOPICS_BASE_URL}{topics_file}', topics_file, _get_topics_cache_path())
+
     # Yes, this is an insanely ridiculous method name.
-    topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(topic['reader_class'], topic['path'])
+    topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(topic['reader_class'], str(target_path))
     if topics is None:
-        raise ValueError(f'Unable to load topic {collection_name} from {topic["path"]}!')
+        raise ValueError(f'Unable to load topic {collection_name} from {target_path}!')
 
     return _parse_topics(topics)
 
 
-def load_topics_with_reader(file, reader_class):
+def load_topics_from_file(file_path, reader_class):
     # Yes, this is an insanely ridiculous method name.
-    topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(reader_class, file)
+    topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(reader_class, file_path)
     if topics is None:
-        raise ValueError(f'Unable to initialize TopicReader {reader_class} with file {file}!')
+        raise ValueError(f'Unable to initialize TopicReader {reader_class} with file {file_path}!')
 
     return _parse_topics(topics)
 
@@ -176,12 +227,7 @@ def get_qrels_file(collection_name):
     qrels_mapping = _get_qrels_mapping()
     if collection_name in qrels_mapping:
         qrels_file = qrels_mapping[collection_name]
-        target_path = _get_topics_and_qrels_cache_path() / Path(qrels_file).name
-        if not target_path.exists():
-            target_path.parent.mkdir(parents=True, exist_ok=True)
-            tmp_path = target_path.with_name(f'{target_path.name}.tmp')
-            urlretrieve(f'{TOPICS_AND_QRELS_BASE_URL}{qrels_file}', tmp_path)
-            tmp_path.replace(target_path)
+        target_path = _download_and_cache(f'{QRELS_BASE_URL}{qrels_file}', qrels_file, _get_qrels_cache_path())
         return str(target_path)
 
     raise FileNotFoundError(f'no qrels file for {collection_name}')
