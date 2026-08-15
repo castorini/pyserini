@@ -576,7 +576,6 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 4552)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        # This is an alias used by Anserini fatjar regressions, making sure it works in Pyserini also.
         topics = search.get_topics('msmarco-v2-doc.dev')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 4552)
@@ -597,7 +596,6 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 5000)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        # This is an alias used by Anserini fatjar regressions, making sure it works in Pyserini also.
         topics = search.get_topics('msmarco-v2-doc.dev2')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 5000)
@@ -655,7 +653,6 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 477)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
 
-        # This is an alias used by Anserini fatjar regressions, making sure it works in Pyserini also.
         topics = search.get_topics('dl21-doc')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 477)
@@ -677,7 +674,6 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 500)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
 
-        # This is an alias used by Anserini fatjar regressions, making sure it works in Pyserini also.
         topics = search.get_topics('dl22-doc')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 500)
@@ -699,7 +695,6 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 700)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
 
-        # This is an alias used by Anserini fatjar regressions, making sure it works in Pyserini also.
         topics = search.get_topics('dl23-doc')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 700)
@@ -1676,6 +1671,15 @@ class TestLoadTopics(unittest.TestCase):
         topics_mapping = search_base._get_topics_mapping()
         for alias, canonical in expected_aliases.items():
             self.assertEqual(topics_mapping[alias], topics_mapping[canonical])
+            self.assertEqual(search.get_topics(alias), search.get_topics(canonical))
+
+    def test_local_topic_alias_resolves_to_same_resource(self):
+        topics_mapping = search_base._get_topics_mapping()
+        self.assertEqual(topics_mapping['dummy.msmarco-passage.dev-subset'], topics_mapping['msmarco-passage.dev-subset'])
+
+        alias_topics = search.get_topics('dummy.msmarco-passage.dev-subset')
+        canonical_topics = search.get_topics('msmarco-passage.dev-subset')
+        self.assertEqual(alias_topics, canonical_topics)
 
 
 if __name__ == '__main__':

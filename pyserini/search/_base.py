@@ -31,7 +31,7 @@ from pyserini.util import get_cache_home
 # Wrappers around Anserini classes
 JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
 
-EVAL_COMMIT = '1662f7ac99fe594b896b2562f06341b34daa50a0'
+EVAL_COMMIT = '0b4acbd929edd11edfd16250457fb70ff69e9b4f'
 EVAL_BASE_URL = f'https://raw.githubusercontent.com/castorini/eval/{EVAL_COMMIT}/'
 
 TOPICS_BASE_URL = f'{EVAL_BASE_URL}topics/'
@@ -42,7 +42,8 @@ QRELS_BASE_URL = f'{EVAL_BASE_URL}qrels/'
 QRELS_METADATA_FILE = 'qrels.json'
 QRELS_ALIASES_METADATA_FILE = 'qrels-aliases.json'
 
-LOCAL_TOPICS_METADATA_FILE = 'topics-aliases.json'
+LOCAL_TOPICS_ALIASES_METADATA_FILE = 'local-topics-aliases.json'
+LOCAL_QRELS_ALIASES_METADATA_FILE = 'local-qrels-aliases.json'
 
 _topics_mapping = None
 _qrels_mapping = None
@@ -69,12 +70,16 @@ def _load_mapping(metadata_file, aliases_metadata_file):
 
 
 def _load_qrels_mapping():
-    return _load_mapping(QRELS_METADATA_FILE, QRELS_ALIASES_METADATA_FILE)
+    qrels_mapping = _load_mapping(QRELS_METADATA_FILE, QRELS_ALIASES_METADATA_FILE)
+    aliases_file = resources.files('pyserini.resources').joinpath(LOCAL_QRELS_ALIASES_METADATA_FILE)
+    with aliases_file.open(encoding='utf-8') as f:
+        _apply_aliases(qrels_mapping, json.load(f))
+    return qrels_mapping
 
 
 def _load_topics_mapping():
     topics_mapping = _load_mapping(TOPICS_METADATA_FILE, TOPICS_ALIASES_METADATA_FILE)
-    aliases_file = resources.files('pyserini.resources').joinpath(LOCAL_TOPICS_METADATA_FILE)
+    aliases_file = resources.files('pyserini.resources').joinpath(LOCAL_TOPICS_ALIASES_METADATA_FILE)
     with aliases_file.open(encoding='utf-8') as f:
         _apply_aliases(topics_mapping, json.load(f))
     return topics_mapping
