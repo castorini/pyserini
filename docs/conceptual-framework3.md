@@ -100,7 +100,7 @@ Next, we will index the encoded corpus using inverted index into a retrieval sys
 python -m pyserini.index.lucene \
   --collection JsonVectorCollection \
   --input encode/nfcorpus.splade-v3 \
-  --index index/nfcorpus.splade-v3 \
+  --index indexes/nfcorpus.splade-v3 \
   --generator DefaultLuceneDocumentGenerator \
   --threads 4 \
   --impact \
@@ -112,7 +112,7 @@ Perform retrieval:
 
 ```bash
 python -m pyserini.search.lucene \
-  --index index/nfcorpus.splade-v3 \
+  --index indexes/nfcorpus.splade-v3 \
   --topics collections/nfcorpus/queries.tsv \
   --output runs/run.splade.txt \
   --hits 1000 \
@@ -147,7 +147,7 @@ from pyserini.search.lucene import LuceneImpactSearcher
 from pyserini.encode import SpladeQueryEncoder
 
 encoder = SpladeQueryEncoder(model_name_or_path="naver/splade-v3", device='cuda' if torch.cuda.is_available() else 'cpu')
-searcher = LuceneImpactSearcher('index/nfcorpus.splade-v3', query_encoder=encoder)
+searcher = LuceneImpactSearcher('indexes/nfcorpus.splade-v3', query_encoder=encoder)
 hits = searcher.search('How to Help Prevent Abdominal Aortic Aneurysms')
 
 for i in range(0, 10):
