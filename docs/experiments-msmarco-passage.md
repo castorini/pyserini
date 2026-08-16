@@ -49,10 +49,14 @@ tar xvfz collections/msmarco-passage/collectionandqueries.tar.gz -C collections/
 
 To confirm, `collectionandqueries.tar.gz` should have MD5 checksum of `31644046b18952c1386cd4564ba2ae69`.
 
-Next, we need to convert the MS MARCO tsv collection into Pyserini's jsonl files (which have one json object per line):
+Next, we need to convert the MS MARCO tsv collection into Pyserini's jsonl files (which have one json object per line).
+The conversion script lives in [`castorini/eval`](https://github.com/castorini/eval), so fetch it first:
 
 ```bash
-python tools/scripts/msmarco/convert_collection_to_jsonl.py \
+wget https://raw.githubusercontent.com/castorini/eval/master/scripts/msmarco/convert_collection_to_jsonl.py \
+ -P collections/msmarco-passage/
+
+python collections/msmarco-passage/convert_collection_to_jsonl.py \
  --collection-path collections/msmarco-passage/collection.tsv \
  --output-folder collections/msmarco-passage/collection_jsonl
 ```
@@ -81,27 +85,19 @@ The indexing speed may vary; on a modern desktop with an SSD, indexing takes a c
 
 ## Retrieval
 
-The 6980 queries in the development set are already stored in the repo.
+The 6980 queries in the development set are downloaded and cached automatically the first time they are referenced by name.
 Let's take a peek:
 
-```bash
-$ head tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
-1048585	what is paula deen's brother
-2	 Androgen receptor define
-524332	treating tension headaches without medication
-1048642	what is paranoid sc
-524447	treatment of varicose veins in legs
-786674	what is prime rate in canada
-1048876	who plays young dr mallard on ncis
-1048917	what is operating system misconfiguration
-786786	what is priority pass
-524699	tricare service number
-
-$ wc tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
-    6980   48335  290193 tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
+```python
+>>> from pyserini.search import get_topics
+>>> topics = get_topics('msmarco-passage-dev-subset')
+>>> len(topics)
+6980
+>>> list(topics.items())[:2]
+[(1102330, {'title': 'why do people grind teeth in sleep'}), (160885, {'title': 'do you need immunizations for belize'})]
 ```
 
-Each line contains a tab-delimited (query id, query) pair.
+Each entry pairs a query id with the query text, which sits under the `title` key.
 Conveniently, Pyserini already knows how to load and iterate through these pairs.
 We can now perform retrieval using these queries:
 
@@ -134,7 +130,7 @@ After the run finishes, we can evaluate the results using the official MS MARCO 
 
 ```bash
 $ python -m pyserini.eval.msmarco_passage_eval \
-   tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+   msmarco-passage-dev-subset \
    runs/run.msmarco-passage.bm25tuned.txt
 
 #####################
@@ -159,19 +155,11 @@ python -m pyserini.search.lucene \
 
 The only difference here is that we've removed `--output-format msmarco`.
 
-Then, convert qrels files to the TREC format:
-
-```bash
-python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
-  --input collections/msmarco-passage/qrels.dev.small.tsv \
-  --output collections/msmarco-passage/qrels.dev.small.trec
-```
-
 Finally, run the `trec_eval` tool, which has been incorporated into Pyserini:
 
 ```bash
 $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap \
-   collections/msmarco-passage/qrels.dev.small.trec \
+   msmarco-passage-dev-subset \
    runs/run.msmarco-passage.bm25tuned.trec
 
 map                   	all	0.1957
@@ -182,7 +170,7 @@ If you want to examine the MRR@10 for `qid` 1048585:
 
 ```bash
 $ python -m pyserini.eval.trec_eval -q -c -M 10 -m recip_rank \
-    collections/msmarco-passage/qrels.dev.small.trec \
+    msmarco-passage-dev-subset \
     runs/run.msmarco-passage.bm25tuned.trec | grep 1048585
 
 recip_rank            	1048585	1.0000
