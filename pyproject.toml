@@ -10,7 +10,7 @@ namespaces = false
 
 [tool.setuptools.package-data]
 "pyserini.server.rest" = ["openapi.yaml"]
-"pyserini.resources" = ["topics-aliases.json"]
+"pyserini.resources" = ["local-topics-aliases.json", "local-qrels-aliases.json"]
 "pyserini.resources.jars" = ["logging.properties"]
 
 [tool.black]
