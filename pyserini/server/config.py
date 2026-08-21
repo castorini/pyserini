@@ -19,6 +19,11 @@
 from __future__ import annotations
 
 import hmac
+import os
+import secrets
+import stat
+import tempfile
+import threading
 from collections import OrderedDict
 from collections.abc import Iterable
 from pathlib import Path
@@ -162,10 +167,11 @@ def _normalize_token_strings(raw: Iterable[str]) -> frozenset[str]:
 class AcceptedApiTokens:
     """Constant-time-ish membership check for high-entropy API tokens."""
 
-    __slots__ = ('_tokens',)
+    __slots__ = ('_tokens', '_write_lock')
 
     def __init__(self, tokens: frozenset[str]) -> None:
         self._tokens = tokens
+        self._write_lock = threading.Lock()
 
     @classmethod
     def from_strings(cls, tokens: Iterable[str]) -> AcceptedApiTokens:
@@ -176,9 +182,100 @@ class AcceptedApiTokens:
             return False
         t = str(token).strip()
         t_bytes = t.encode('utf-8')
-        for stored in self._tokens:
+        tokens = self._tokens
+        for stored in tokens:
             if len(stored) != len(t):
                 continue
             if hmac.compare_digest(stored.encode('utf-8'), t_bytes):
                 return True
         return False
+
+    def add(self, token: str) -> None:
+        """Atomically add a token to the snapshot used by request handlers."""
+        normalized = _normalize_token_strings([token])
+        with self._write_lock:
+            self._tokens = self._tokens.union(normalized)
+
+
+class ApiTokenStore:
+    """Issue API tokens into the existing YAML ``api_keys`` list atomically."""
+
+    __slots__ = ('_config_path', '_lock')
+
+    def __init__(self, config_path: str) -> None:
+        path = Path(config_path).expanduser().resolve()
+        if not path.is_file():
+            raise ValueError(f'Config file not found: {path}')
+        self._config_path = path
+        self._lock = threading.Lock()
+
+    @property
+    def config_path(self) -> Path:
+        return self._config_path
+
+    @staticmethod
+    def _load_payload(path: Path) -> tuple[dict, list[str]]:
+        with path.open('r', encoding='utf-8') as f:
+            payload = yaml.safe_load(f)
+        if not isinstance(payload, dict):
+            raise ValueError('Config root must be a mapping/object')
+
+        raw_keys = payload.get('api_keys')
+        if raw_keys is None:
+            keys: list[str] = []
+        elif not isinstance(raw_keys, list):
+            raise ValueError('Config "api_keys" must be a list of strings')
+        else:
+            keys = []
+            for i, item in enumerate(raw_keys):
+                if not isinstance(item, str) or not item.strip():
+                    raise ValueError(f'Config api_keys entry #{i} must be a non-empty string')
+                keys.append(item.strip())
+        return payload, keys
+
+    @staticmethod
+    def _write_payload(path: Path, payload: dict) -> None:
+        current = path.stat()
+        fd, tmp_name = tempfile.mkstemp(prefix=f'.{path.name}.', suffix='.tmp', dir=path.parent)
+        tmp_path = Path(tmp_name)
+        try:
+            with os.fdopen(fd, 'w', encoding='utf-8') as f:
+                yaml.safe_dump(payload, f, default_flow_style=False, sort_keys=False)
+                f.flush()
+                os.fsync(f.fileno())
+            os.chmod(tmp_path, stat.S_IMODE(current.st_mode))
+            if hasattr(os, 'chown'):
+                try:
+                    os.chown(tmp_path, current.st_uid, current.st_gid)
+                except PermissionError:
+                    # The service normally owns its config. Preserve ownership when permitted,
+                    # while still supporting unprivileged test and development environments.
+                    pass
+            os.replace(tmp_path, path)
+            try:
+                dir_fd = os.open(path.parent, os.O_RDONLY | getattr(os, 'O_DIRECTORY', 0))
+            except OSError:
+                dir_fd = None
+            if dir_fd is not None:
+                try:
+                    os.fsync(dir_fd)
+                finally:
+                    os.close(dir_fd)
+        finally:
+            try:
+                tmp_path.unlink()
+            except FileNotFoundError:
+                pass
+
+    def issue(self) -> str:
+        """Append and return one new 256-bit token."""
+        with self._lock:
+            payload, keys = self._load_payload(self._config_path)
+            existing = set(keys)
+            token = secrets.token_hex(32)
+            while token in existing:
+                token = secrets.token_hex(32)
+            keys.append(token)
+            payload['api_keys'] = keys
+            self._write_payload(self._config_path, payload)
+            return token

@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+import concurrent.futures
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -21,7 +23,7 @@ from pathlib import Path
 import yaml
 
 # Keep this test in tests/core: server config imports shared server utilities that include Faiss-backed index types.
-from pyserini.server.config import load_server_config
+from pyserini.server.config import AcceptedApiTokens, ApiTokenStore, load_server_config
 
 
 class TestServerConfigParsing(unittest.TestCase):
@@ -117,6 +119,56 @@ class TestServerConfigParsing(unittest.TestCase):
             cfg_path.write_text(yaml.safe_dump(cfg), encoding='utf-8')
             with self.assertRaises(ValueError):
                 load_server_config(str(cfg_path))
+
+    def test_api_token_store_appends_token_and_preserves_config_mode(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg_path = Path(tmp) / 'server.yaml'
+            cfg = {'indexes': {'local': '/tmp'}, 'api_keys': ['existing-key'], 'custom': {'keep': True}}
+            cfg_path.write_text(yaml.safe_dump(cfg, sort_keys=False), encoding='utf-8')
+            cfg_path.chmod(0o600)
+
+            token = ApiTokenStore(str(cfg_path)).issue()
+
+            self.assertEqual(len(token), 64)
+            int(token, 16)
+            persisted = yaml.safe_load(cfg_path.read_text(encoding='utf-8'))
+            self.assertEqual(persisted['api_keys'], ['existing-key', token])
+            self.assertEqual(persisted['indexes'], cfg['indexes'])
+            self.assertEqual(persisted['custom'], cfg['custom'])
+            self.assertEqual(os.stat(cfg_path).st_mode & 0o777, 0o600)
+
+    def test_api_token_store_serializes_concurrent_issuance(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg_path = Path(tmp) / 'server.yaml'
+            cfg_path.write_text('indexes:\n  local: /tmp\napi_keys:\n  - existing-key\n', encoding='utf-8')
+            store = ApiTokenStore(str(cfg_path))
+
+            with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+                tokens = list(executor.map(lambda _: store.issue(), range(24)))
+
+            self.assertEqual(len(tokens), len(set(tokens)))
+            persisted = yaml.safe_load(cfg_path.read_text(encoding='utf-8'))
+            self.assertEqual(len(persisted['api_keys']), 25)
+            self.assertEqual(set(persisted['api_keys'][1:]), set(tokens))
+
+    def test_api_token_store_rejects_invalid_api_keys_without_modifying_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg_path = Path(tmp) / 'server.yaml'
+            original = 'indexes:\n  local: /tmp\napi_keys: invalid\n'
+            cfg_path.write_text(original, encoding='utf-8')
+
+            with self.assertRaises(ValueError):
+                ApiTokenStore(str(cfg_path)).issue()
+
+            self.assertEqual(cfg_path.read_text(encoding='utf-8'), original)
+
+    def test_accepted_api_tokens_can_activate_new_token(self):
+        accepted = AcceptedApiTokens.from_strings(['existing-key'])
+        accepted.add('new-key')
+
+        self.assertTrue(accepted.is_valid('existing-key'))
+        self.assertTrue(accepted.is_valid('new-key'))
+        self.assertFalse(accepted.is_valid('unknown-key'))
 
 
 if __name__ == '__main__':

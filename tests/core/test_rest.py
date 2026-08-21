@@ -21,6 +21,7 @@ import unittest
 import unittest.mock
 import hashlib
 import json
+from pathlib import Path
 
 import yaml
 from fastapi.testclient import TestClient
@@ -76,6 +77,8 @@ class TestRestServer(unittest.TestCase):
         self.assertIn('components', data)
         self.assertIn('securitySchemes', data['components'])
         self.assertIn('ApiKeyAuth', data['components']['securitySchemes'])
+        self.assertIn('/token', data['paths'])
+        self.assertIn('201', data['paths']['/token']['post']['responses'])
         search_responses = data['paths']['/{index}/search']['get']['responses']
         self.assertIn('401', search_responses)
         self.assertIn('429', search_responses)
@@ -756,6 +759,107 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
         access_handlers = config['loggers']['uvicorn.access']['handlers']
         self.assertEqual(access_handlers, ['uvicorn_access_request_file'])
         self.assertEqual(config['handlers']['uvicorn_access_request_file']['filename'], 'requests.jsonl')
+
+
+class TestRestTokenIssuance(unittest.TestCase):
+    @staticmethod
+    def _write_config(root: str, token: str = 'existing-token') -> str:
+        path = os.path.join(root, 'server.yaml')
+        with open(path, 'w', encoding='utf-8') as f:
+            yaml.safe_dump({'indexes': {'local': '/tmp'}, 'api_keys': [token]}, f, sort_keys=False)
+        os.chmod(path, 0o600)
+        return path
+
+    def test_token_issuance_requires_config(self):
+        with self.assertRaises(ValueError):
+            create_app(enable_token_issuance=True)
+
+    def test_disabled_token_issuance_returns_503(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self._write_config(tmp)
+            with TestClient(create_app(path)) as client:
+                response = client.post(f'/{API_VERSION}/token')
+            self.assertEqual(response.status_code, 503, msg=response.text)
+            self.assertNotIn('api_key', response.json())
+
+    def test_issued_token_is_persisted_and_accepted_without_restart(self):
+        existing_token = 'existing-token'
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self._write_config(tmp, existing_token)
+            issuance_app = create_app(
+                path,
+                no_prebuilt_indexes=True,
+                enable_token_issuance=True,
+                token_issuance_cooldown_sec=0,
+            )
+            with TestClient(issuance_app) as client:
+                denied = client.get(
+                    f'/{API_VERSION}/local/search',
+                    params={'query': 'test', 'hits': 1},
+                )
+                self.assertEqual(denied.status_code, 401, msg=denied.text)
+
+                with self.assertLogs('pyserini.server.rest.request', level='INFO') as cm:
+                    issued = client.post(f'/{API_VERSION}/token')
+                self.assertEqual(issued.status_code, 201, msg=issued.text)
+                token = issued.json().get('api_key')
+                self.assertIsInstance(token, str)
+                self.assertEqual(len(token), 64)
+                self.assertEqual(issued.json().get('token_type'), 'bearer')
+                self.assertEqual(issued.headers.get('cache-control'), 'no-store')
+                self.assertEqual(issued.headers.get('pragma'), 'no-cache')
+                self.assertNotIn(token, '\n'.join(record.getMessage() for record in cm.records))
+                log_record = json.loads(cm.records[-1].getMessage())
+                self.assertEqual(log_record.get('auth'), 'token_issuance')
+                self.assertEqual(log_record.get('status'), 201)
+
+                accepted = issuance_app.state.accepted_api_tokens
+                self.assertTrue(accepted.is_valid(existing_token))
+                self.assertTrue(accepted.is_valid(token))
+
+                existing_authorized = client.get(
+                    f'/{API_VERSION}/local/search',
+                    params={'query': 'test', 'hits': 1},
+                    headers={'X-API-Key': existing_token},
+                )
+                self.assertNotEqual(existing_authorized.status_code, 401, msg=existing_authorized.text)
+
+                authorized = client.get(
+                    f'/{API_VERSION}/local/search',
+                    params={'query': 'test', 'hits': 1},
+                    headers={'Authorization': f'Bearer {token}'},
+                )
+                self.assertNotEqual(authorized.status_code, 401, msg=authorized.text)
+
+            persisted = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
+            self.assertEqual(persisted['api_keys'], [existing_token, token])
+            self.assertEqual(os.stat(path).st_mode & 0o777, 0o600)
+
+    def test_token_issuance_cooldown_returns_429_without_persisting_another_key(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self._write_config(tmp)
+            issuance_app = create_app(
+                path,
+                enable_token_issuance=True,
+                token_issuance_cooldown_sec=60,
+            )
+            with TestClient(issuance_app) as client:
+                first = client.post(f'/{API_VERSION}/token')
+                second = client.post(f'/{API_VERSION}/token')
+            self.assertEqual(first.status_code, 201, msg=first.text)
+            self.assertEqual(second.status_code, 429, msg=second.text)
+            self.assertGreaterEqual(int(second.headers.get('retry-after', '0')), 1)
+            persisted = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
+            self.assertEqual(len(persisted['api_keys']), 2)
+
+    def test_get_token_endpoint_returns_post_only_405(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self._write_config(tmp)
+            issuance_app = create_app(path, enable_token_issuance=True)
+            with TestClient(issuance_app) as client:
+                response = client.get(f'/{API_VERSION}/token')
+            self.assertEqual(response.status_code, 405, msg=response.text)
+            self.assertEqual(response.json().get('error'), 'Only POST is supported')
 
 
 class TestRestBackpressure(unittest.TestCase):

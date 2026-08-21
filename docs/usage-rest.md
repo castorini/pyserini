@@ -1,6 +1,6 @@
 # Pyserini: REST API server (FastAPI)
 
-The Pyserini REST server exposes an **HTTP interface aligned with [Anserini’s REST API](https://github.com/castorini/anserini)** and ships the same **`openapi.yaml`** document (served at **`/openapi.yaml`**). Routes are **GET-only** for search and document fetch.
+The Pyserini REST server exposes an **HTTP interface aligned with [Anserini’s REST API](https://github.com/castorini/anserini)** and ships the same **`openapi.yaml`** document (served at **`/openapi.yaml`**). Search and document-fetch routes use `GET`; optional token issuance uses `POST`.
 
 Implementation uses **`SharedSearchBackend`** (`pyserini/server/backend.py`)—the same process-wide search stack as the MCP server. A request may use a **prebuilt index name** (sparse, dense, impact, FAISS, etc., when Pyserini can open it), a **filesystem path** to an index, or an optional **YAML alias** from `--config`.
 
@@ -55,6 +55,46 @@ With `--config` enabled:
   - optional `encoder` and `ef_search` provide per-index defaults (request-level values still override them).
 - `api_keys` (optional) enables auth on all `/v1/*` routes.
 - Client auth supports either `Authorization: Bearer {api-key}` or `X-API-Key: {api-key}`.
+
+### Automatic API token issuance
+
+Token issuance is disabled by default. Enable an anonymous issuance endpoint backed by the same
+`api_keys` list in the YAML config:
+
+```bash
+python -m pyserini.server.rest \
+  --config /path/to/server.yaml \
+  --enable-token-issuance
+```
+
+Clients request a token with `POST /v1/token`:
+
+```bash
+curl -X POST http://localhost:8081/v1/token
+```
+
+The response contains a newly generated 256-bit token:
+
+```json
+{"api_key":"...","token_type":"bearer"}
+```
+
+The server atomically appends the token to the existing YAML `api_keys` list and activates it in
+memory immediately, so no restart is required. Existing keys and both authentication header formats
+continue to work. Responses include `Cache-Control: no-store`; the token is not logged and is not
+available from the API again.
+
+Anonymous issuance has a per-client cooldown of one hour by default. Configure it in seconds, or use
+`0` to disable the cooldown:
+
+```bash
+python -m pyserini.server.rest \
+  --config /path/to/server.yaml \
+  --enable-token-issuance \
+  --token-issuance-cooldown 300
+```
+
+Because this endpoint returns a credential, production deployments should serve it over HTTPS.
 
 Disable prebuilt indexes and arbitrary index paths with `--no-prebuilt-indexes`:
 
@@ -133,8 +173,9 @@ Example request log line:
 
 All search and document routes use the **`GET`** method only. Errors return JSON `{"error": "<message>"}` with a 4xx/5xx status where applicable.
 
-When `api_keys` is configured, every `/v1/*` route requires authentication; you can use either
-`Authorization: Bearer {api-key}` or `X-API-Key: {api-key}` on any endpoint.
+When `api_keys` is configured, search and document routes require authentication; you can use either
+`Authorization: Bearer {api-key}` or `X-API-Key: {api-key}`. The optional token-issuance route is
+anonymous so that new clients can obtain a credential.
 
 ### Index parameter `{index}`
 

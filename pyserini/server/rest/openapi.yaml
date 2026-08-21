@@ -12,6 +12,51 @@ security:
   - ApiKeyAuth: []
   - BearerAuth: []
 paths:
+  /token:
+    post:
+      summary: Issue an API token
+      description: >
+        Creates a new 256-bit API token, stores it in the configured api_keys list, and activates it
+        immediately. This endpoint is anonymous but available only when the server starts with
+        --enable-token-issuance. A per-client cooldown limits repeated issuance. The token is returned
+        only in this response and should be stored securely.
+      operationId: issueApiTokenV1
+      security: []
+      responses:
+        "201":
+          description: API token created and activated.
+          headers:
+            Cache-Control:
+              description: Prevents caches from storing the returned credential.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenResponse"
+        "429":
+          description: The client has requested a token within the configured cooldown period.
+          headers:
+            Retry-After:
+              description: Seconds until this client may request another token.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "503":
+          description: Token issuance is not enabled on this server.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: The token could not be persisted.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /{index}/search:
     get:
       summary: Search an index
@@ -226,6 +271,16 @@ components:
       bearerFormat: API token
       description: Same secret as X-API-Key; send header Authorization with scheme bearer and token value.
   schemas:
+    TokenResponse:
+      type: object
+      properties:
+        api_key:
+          type: string
+          description: Newly issued API token. This value is returned only once.
+        token_type:
+          type: string
+          enum: [bearer]
+      required: [api_key, token_type]
     Query:
       type: object
       properties:
