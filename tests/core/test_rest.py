@@ -852,6 +852,18 @@ class TestRestTokenIssuance(unittest.TestCase):
             persisted = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
             self.assertEqual(len(persisted['api_keys']), 2)
 
+    def test_token_issuance_cooldown_prunes_expired_clients(self):
+        from pyserini.server.rest.app import TokenIssuanceCooldown
+
+        cooldown = TokenIssuanceCooldown(10)
+        cooldown.reserve('first-client', 0)
+        cooldown.reserve('second-client', 5)
+        cooldown.reserve('third-client', 11)
+
+        self.assertNotIn('first-client', cooldown._last_issued_at)
+        self.assertIn('second-client', cooldown._last_issued_at)
+        self.assertIn('third-client', cooldown._last_issued_at)
+
     def test_get_token_endpoint_returns_post_only_405(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = self._write_config(tmp)

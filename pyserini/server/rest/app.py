@@ -193,19 +193,19 @@ class TokenIssuanceCooldown:
             return None, None
         key = client or '<unknown>'
         with self._lock:
+            cutoff = now - self._interval_sec
+            while self._last_issued_at:
+                oldest_client = next(iter(self._last_issued_at))
+                if self._last_issued_at[oldest_client] >= cutoff:
+                    break
+                self._last_issued_at.pop(oldest_client)
             last = self._last_issued_at.get(key)
             if last is not None:
                 retry_after = self._interval_sec - (now - last)
                 if retry_after > 0:
                     return retry_after, None
+                self._last_issued_at.pop(key)
             self._last_issued_at[key] = now
-            cutoff = now - self._interval_sec
-            if len(self._last_issued_at) > 4096:
-                self._last_issued_at = {
-                    stored_client: issued_at
-                    for stored_client, issued_at in self._last_issued_at.items()
-                    if issued_at >= cutoff
-                }
             return None, now
 
     def release(self, client: str, reservation: float | None) -> None:
