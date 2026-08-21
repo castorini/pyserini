@@ -352,14 +352,6 @@ def run_conditions(args):
                                                             sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
                                                             dense_threads=dense_threads, dense_batch_size=dense_batch_size)
 
-                # In the yaml file, the topics are written as something like '--topics miracl-v1.0-ar-${split}'
-                # This works for the dev split because the topics are directly included in Anserini/Pyserini.
-                # For this training split, we have to map the symbol into a file in tools/topics-and-qrels/
-                # Here, we assume that the developer has cloned the miracl repo and placed the topics there.
-                if split == 'train':
-                    cmd = cmd.replace(f'--topics miracl-v1.0-{lang}-{split}',
-                                      f'--topics tools/topics-and-qrels/topics.miracl-v1.0-{lang}-{split}.tsv')
-
                 if args.display_commands:
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
 
@@ -376,15 +368,9 @@ def run_conditions(args):
                 for expected in splits['scores']:
                     for metric in expected:
                         if not args.skip_eval:
-                            # We have to translate the training qrels into a file located in tools/topics-and-qrels/
-                            # because they are not included with Anserini/Pyserini by default.
-                            # Here, we assume that the developer has cloned the miracl repo and placed the qrels there.
                             if not os.path.exists(runfile):
                                 continue
-                            if split == 'train':
-                                qrels = f'tools/topics-and-qrels/qrels.{eval_key}-train.tsv'
-                            else:
-                                qrels = f'{eval_key}-{split}'
+                            qrels = f'{eval_key}-{split}'
 
                             score = float(run_eval_and_return_metric(metric, qrels,
                                 trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))

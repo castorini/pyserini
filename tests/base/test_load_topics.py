@@ -29,10 +29,8 @@ class TestLoadTopics(unittest.TestCase):
         # The current directory depends on if you're running inside an IDE or from command line.
         curdir = os.getcwd()
         if curdir.endswith('base'):
-            cls.tools_dir = '../../tools'
             cls.resource_dir = '../resources'
         else:
-            cls.tools_dir = 'tools'
             cls.resource_dir = 'tests/resources'
 
     def test_trec1_adhoc(self):
@@ -578,7 +576,6 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 4552)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        # This is an alias used by Anserini fatjar regressions, making sure it works in Pyserini also.
         topics = search.get_topics('msmarco-v2-doc.dev')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 4552)
@@ -599,7 +596,6 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 5000)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
 
-        # This is an alias used by Anserini fatjar regressions, making sure it works in Pyserini also.
         topics = search.get_topics('msmarco-v2-doc.dev2')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 5000)
@@ -657,7 +653,6 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 477)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
 
-        # This is an alias used by Anserini fatjar regressions, making sure it works in Pyserini also.
         topics = search.get_topics('dl21-doc')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 477)
@@ -679,7 +674,6 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 500)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
 
-        # This is an alias used by Anserini fatjar regressions, making sure it works in Pyserini also.
         topics = search.get_topics('dl22-doc')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 500)
@@ -701,7 +695,6 @@ class TestLoadTopics(unittest.TestCase):
         self.assertEqual(len(topics), 700)
         self.assertFalse(isinstance(next(iter(topics.keys())), str))
 
-        # This is an alias used by Anserini fatjar regressions, making sure it works in Pyserini also.
         topics = search.get_topics('dl23-doc')
         self.assertIsNotNone(topics)
         self.assertEqual(len(topics), 700)
@@ -1622,31 +1615,29 @@ class TestLoadTopics(unittest.TestCase):
         self.assertTrue(isinstance(next(iter(topics.keys())), str))
 
     # General test cases
-    def test_tsv_int_topicreader(self):
-        path = os.path.join(self.tools_dir, 'topics-and-qrels/topics.msmarco-doc.dev.txt')
+    def test_load_topics_with_tsv_int_reader(self):
+        path = os.path.join(self.resource_dir, 'sample_queries.tsv')
 
         self.assertTrue(os.path.exists(path))
-        topics = search.load_topics_with_reader(path, 'io.anserini.search.topicreader.TsvIntTopicReader')
-        self.assertEqual(len(topics), 5193)
+        topics = search.load_topics_from_file(path, 'io.anserini.search.topicreader.TsvIntTopicReader')
+        self.assertEqual(len(topics), 4)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
+        self.assertEqual({1, 2, 3, 4}, set(topics))
 
-        self.assertEqual(search.get_topics('msmarco-doc-dev'), topics)
-
-    def test_trec_topicreader(self):
-        path = os.path.join(self.tools_dir, 'topics-and-qrels/topics.robust04.txt')
+    def test_load_topics_with_trec_reader(self):
+        path = os.path.join(self.resource_dir, 'sample_queries.trec')
 
         self.assertTrue(os.path.exists(path))
-        topics = search.load_topics_with_reader(path, 'io.anserini.search.topicreader.TrecTopicReader')
-        self.assertEqual(len(topics), 250)
+        topics = search.load_topics_from_file(path, 'io.anserini.search.topicreader.TrecTopicReader')
+        self.assertEqual(len(topics), 2)
         self.assertTrue(isinstance(next(iter(topics.keys())), int))
+        self.assertEqual({1, 2}, set(topics))
 
-        self.assertEqual(search.get_topics('robust04'), topics)
-
-    def test_trec_topicreader_nonint_qid(self):
+    def test_load_topics_with_tsv_string_reader(self):
         path = os.path.join(self.resource_dir, 'sample_queries_nonint_qid.tsv')
 
         self.assertTrue(os.path.exists(path))
-        topics = search.load_topics_with_reader(path, 'io.anserini.search.topicreader.TsvStringTopicReader')
+        topics = search.load_topics_from_file(path, 'io.anserini.search.topicreader.TsvStringTopicReader')
         self.assertEqual(len(topics), 3)
         self.assertTrue(isinstance(next(iter(topics.keys())), str))
         self.assertEqual({'30_1', '30_2', '30_3'}, set(topics))
@@ -1680,6 +1671,15 @@ class TestLoadTopics(unittest.TestCase):
         topics_mapping = search_base._get_topics_mapping()
         for alias, canonical in expected_aliases.items():
             self.assertEqual(topics_mapping[alias], topics_mapping[canonical])
+            self.assertEqual(search.get_topics(alias), search.get_topics(canonical))
+
+    def test_local_topic_alias_resolves_to_same_resource(self):
+        topics_mapping = search_base._get_topics_mapping()
+        self.assertEqual(topics_mapping['dummy.msmarco-passage.dev-subset'], topics_mapping['msmarco-passage.dev-subset'])
+
+        alias_topics = search.get_topics('dummy.msmarco-passage.dev-subset')
+        canonical_topics = search.get_topics('msmarco-passage.dev-subset')
+        self.assertEqual(alias_topics, canonical_topics)
 
 
 if __name__ == '__main__':

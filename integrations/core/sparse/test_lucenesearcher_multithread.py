@@ -16,7 +16,7 @@
 
 import unittest
 
-from integrations.core.run_lucenesearcher import RunLuceneSearcher
+from integrations.core.lucenesearcher import RunLuceneSearcher
 
 
 class TestSearchIntegration(unittest.TestCase):
@@ -56,19 +56,16 @@ class TestSearchIntegration(unittest.TestCase):
 
     def test_msmarco_doc_docTTTTTquery(self):
         checker = RunLuceneSearcher(index='msmarco-v1-doc.d2q-t5', topics='msmarco-doc-dev')
-        self.assertTrue(self.check_equal(checker, 'msmarco-v1-doc.d2q-t5',
-                                         extras='--hits 100 --output-format msmarco'))
+        self.assertTrue(self.check_equal(checker, 'msmarco-v1-doc.d2q-t5', extras='--hits 100 --output-format msmarco'))
 
     def test_msmarco_doc_per_passage(self):
         checker = RunLuceneSearcher(index='msmarco-v1-doc-segmented', topics='msmarco-doc-dev')
         self.assertTrue(
-            self.check_equal(checker, 'msmarco-v1-doc-segmented',
-                             extras='--hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco'))
+            self.check_equal(checker, 'msmarco-v1-doc-segmented', extras='--hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco'))
 
     def test_msmarco_doc_docTTTTTquery_passage(self):
         checker = RunLuceneSearcher(index='msmarco-v1-doc-segmented.d2q-t5', topics='msmarco-doc-dev')
-        self.assertTrue(self.check_equal(checker, 'msmarco-v1-doc-segmented.d2q-t5',
-                                         extras='--hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco'))
+        self.assertTrue(self.check_equal(checker, 'msmarco-v1-doc-segmented.d2q-t5', extras='--hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco'))
 
     def tearDown(self):
         pass

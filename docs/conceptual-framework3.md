@@ -94,13 +94,17 @@ python -m pyserini.encode \
 
 Use `--device cuda` for faster encoding if you have a CUDA-enabled GPU.
 
+This command uses the default batch size of 64, which needs roughly 10 GB of RAM.
+If the process exits with nothing but `Killed`, that was the kernel's out-of-memory killer: add `--batch-size 8` to the `encoder` arguments.
+Encoding then takes about 27 minutes on a 12-core CPU, and the nDCG@10 score below is unchanged.
+
 Next, we will index the encoded corpus using inverted index into a retrieval system.
 
 ```bash
 python -m pyserini.index.lucene \
   --collection JsonVectorCollection \
   --input encode/nfcorpus.splade-v3 \
-  --index index/nfcorpus.splade-v3 \
+  --index indexes/nfcorpus.splade-v3 \
   --generator DefaultLuceneDocumentGenerator \
   --threads 4 \
   --impact \
@@ -112,7 +116,7 @@ Perform retrieval:
 
 ```bash
 python -m pyserini.search.lucene \
-  --index index/nfcorpus.splade-v3 \
+  --index indexes/nfcorpus.splade-v3 \
   --topics collections/nfcorpus/queries.tsv \
   --output runs/run.splade.txt \
   --hits 1000 \
@@ -147,7 +151,7 @@ from pyserini.search.lucene import LuceneImpactSearcher
 from pyserini.encode import SpladeQueryEncoder
 
 encoder = SpladeQueryEncoder(model_name_or_path="naver/splade-v3", device='cuda' if torch.cuda.is_available() else 'cpu')
-searcher = LuceneImpactSearcher('index/nfcorpus.splade-v3', query_encoder=encoder)
+searcher = LuceneImpactSearcher('indexes/nfcorpus.splade-v3', query_encoder=encoder)
 hits = searcher.search('How to Help Prevent Abdominal Aortic Aneurysms')
 
 for i in range(0, 10):
@@ -272,3 +276,5 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@Hamza-Nadif](https://github.com/Hamza-Nadif) on 2026-08-04 (commit [`7b13d9b`](https://github.com/castorini/pyserini/commit/7b13d9ba2dbb07bd6ceee269564f972a394f26ac))
 + Results reproduced by [@nomsou](https://github.com/nomsou) on 2026-08-07 (commit [`b81d99c`](https://github.com/castorini/pyserini/commit/b81d99c868e39cdbc9e420425e9b123dfa55bb95))
 + Results reproduced by [@Rex-fortune](https://github.com/Rex-fortune) on 2026-08-12 (commit [`583bbda`](https://github.com/castorini/pyserini/commit/583bbda9413bf81a57f043c7a2c9b3009dfc34ec))
++ Results reproduced by [@Navid-Ebadi-2003](https://github.com/Navid-Ebadi-2003) on 2026-08-09 (commit [`583bbda`](https://github.com/castorini/pyserini/commit/583bbda9413bf81a57f043c7a2c9b3009dfc34ec))
++ Results reproduced by [@AhmadT198](https://github.com/AhmadT198) on 2026-08-16 (commit [`f8af512`](https://github.com/castorini/pyserini/commit/f8af512b484848924d462a67dd0d1cdcd419eb64))
