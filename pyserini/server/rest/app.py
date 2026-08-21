@@ -199,43 +199,55 @@ class RestBackpressure:
 
 
 class TokenIssuanceCooldown:
-    """Per-client-and-email cooldown for the anonymous token-issuance endpoint."""
+    """Independent client-IP and email cooldowns for token issuance."""
 
-    __slots__ = ('_interval_sec', '_lock', '_last_issued_at')
+    __slots__ = ('_interval_sec', '_lock', '_last_issued_by_client', '_last_issued_by_email')
 
     def __init__(self, interval_sec: float) -> None:
         self._interval_sec = float(interval_sec)
         self._lock = threading.Lock()
-        self._last_issued_at: dict[tuple[str, str], float] = {}
+        self._last_issued_by_client: dict[str, float] = {}
+        self._last_issued_by_email: dict[str, float] = {}
+
+    @staticmethod
+    def _prune_expired(entries: dict[str, float], cutoff: float) -> None:
+        while entries:
+            oldest = next(iter(entries))
+            if entries[oldest] >= cutoff:
+                break
+            entries.pop(oldest)
 
     def reserve(self, client: str, email: str, now: float) -> tuple[float | None, float | None]:
         """Reserve an issuance slot, returning ``(retry_after, reservation)``."""
         if self._interval_sec <= 0:
             return None, None
-        key = (client or '<unknown>', email)
+        client_key = client or '<unknown>'
         with self._lock:
             cutoff = now - self._interval_sec
-            while self._last_issued_at:
-                oldest_identity = next(iter(self._last_issued_at))
-                if self._last_issued_at[oldest_identity] >= cutoff:
-                    break
-                self._last_issued_at.pop(oldest_identity)
-            last = self._last_issued_at.get(key)
-            if last is not None:
-                retry_after = self._interval_sec - (now - last)
-                if retry_after > 0:
-                    return retry_after, None
-                self._last_issued_at.pop(key)
-            self._last_issued_at[key] = now
+            self._prune_expired(self._last_issued_by_client, cutoff)
+            self._prune_expired(self._last_issued_by_email, cutoff)
+            client_last = self._last_issued_by_client.get(client_key)
+            email_last = self._last_issued_by_email.get(email)
+            retry_after = 0.0
+            if client_last is not None:
+                retry_after = max(retry_after, self._interval_sec - (now - client_last))
+            if email_last is not None:
+                retry_after = max(retry_after, self._interval_sec - (now - email_last))
+            if retry_after > 0:
+                return retry_after, None
+            self._last_issued_by_client[client_key] = now
+            self._last_issued_by_email[email] = now
             return None, now
 
     def release(self, client: str, email: str, reservation: float | None) -> None:
         if reservation is None:
             return
-        key = (client or '<unknown>', email)
+        client_key = client or '<unknown>'
         with self._lock:
-            if self._last_issued_at.get(key) == reservation:
-                self._last_issued_at.pop(key, None)
+            if self._last_issued_by_client.get(client_key) == reservation:
+                self._last_issued_by_client.pop(client_key, None)
+            if self._last_issued_by_email.get(email) == reservation:
+                self._last_issued_by_email.pop(email, None)
 
 
 def _now_iso8601() -> str:
@@ -552,7 +564,7 @@ def create_app(
             retry_after_sec = max(1, math.ceil(retry_after))
             return JSONResponse(
                 status_code=429,
-                content={'error': 'API token issuance is temporarily rate limited for this client and email'},
+                content={'error': 'API token issuance is temporarily rate limited for this client IP or email'},
                 headers={'Retry-After': str(retry_after_sec)},
             )
 

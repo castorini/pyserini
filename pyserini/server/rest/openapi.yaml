@@ -18,10 +18,9 @@ paths:
       description: >
         Creates a new 256-bit API token, stores it in the configured api_keys list, and activates it
         immediately. This endpoint is anonymous but available only when the server starts with
-        --enable-token-issuance. The request must include the user's name and email. A cooldown keyed
-        by both client IP and normalized email limits repeated issuance while allowing different users
-        behind one network address. The token is returned only in this response and should be stored
-        securely.
+        --enable-token-issuance. The request must include the user's name and email. Independent
+        cooldowns apply to the client IP and normalized email; both must be unused during the cooldown
+        period. The token is returned only in this response and should be stored securely.
       operationId: issueApiTokenV1
       security: []
       requestBody:
@@ -43,7 +42,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/TokenResponse"
         "429":
-          description: This client-IP-and-email pair requested a token within the cooldown period.
+          description: The client IP or email received a token within the cooldown period.
           headers:
             Retry-After:
               description: Seconds until this client may request another token.

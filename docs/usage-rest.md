@@ -86,10 +86,10 @@ memory immediately, so no restart is required. Existing keys and both authentica
 continue to work. Responses include `Cache-Control: no-store`; the token is not logged and is not
 available from the API again.
 
-Both `name` and a syntactically valid `email` are required. Anonymous issuance has a one-hour cooldown
-for each client-IP-and-normalized-email pair by default, allowing different researchers behind the same
-network address to request their own tokens. The identity fields are used only for the in-memory
-cooldown and are not persisted or logged. Configure the cooldown in seconds, or use `0` to disable it:
+Both `name` and a syntactically valid `email` are required. Anonymous issuance has independent one-hour
+cooldowns for the client IP and normalized email by default. A token is issued only when neither value
+has received one during the cooldown. The identity fields are used only for the in-memory cooldown and
+are not persisted or logged. Configure the cooldown in seconds, or use `0` to disable it:
 
 ```bash
 python -m pyserini.server.rest \

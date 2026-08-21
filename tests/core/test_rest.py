@@ -861,16 +861,16 @@ class TestRestTokenIssuance(unittest.TestCase):
                     f'/{API_VERSION}/token',
                     json=self._identity(name='First User Again', email=' FIRST@EXAMPLE.EDU '),
                 )
-                different_email = client.post(
+                same_ip_different_email = client.post(
                     f'/{API_VERSION}/token',
                     json=self._identity(name='Second User', email='second@example.edu'),
                 )
             self.assertEqual(first.status_code, 201, msg=first.text)
             self.assertEqual(second.status_code, 429, msg=second.text)
             self.assertGreaterEqual(int(second.headers.get('retry-after', '0')), 1)
-            self.assertEqual(different_email.status_code, 201, msg=different_email.text)
+            self.assertEqual(same_ip_different_email.status_code, 429, msg=same_ip_different_email.text)
             persisted = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
-            self.assertEqual(len(persisted['api_keys']), 3)
+            self.assertEqual(len(persisted['api_keys']), 2)
 
     def test_token_issuance_requires_valid_name_and_email(self):
         invalid_requests = [
@@ -897,13 +897,28 @@ class TestRestTokenIssuance(unittest.TestCase):
         from pyserini.server.rest.app import TokenIssuanceCooldown
 
         cooldown = TokenIssuanceCooldown(10)
-        cooldown.reserve('shared-client', 'first@example.edu', 0)
-        cooldown.reserve('shared-client', 'second@example.edu', 5)
-        cooldown.reserve('shared-client', 'third@example.edu', 11)
+        cooldown.reserve('first-client', 'first@example.edu', 0)
+        cooldown.reserve('second-client', 'second@example.edu', 5)
+        cooldown.reserve('third-client', 'third@example.edu', 11)
 
-        self.assertNotIn(('shared-client', 'first@example.edu'), cooldown._last_issued_at)
-        self.assertIn(('shared-client', 'second@example.edu'), cooldown._last_issued_at)
-        self.assertIn(('shared-client', 'third@example.edu'), cooldown._last_issued_at)
+        self.assertNotIn('first-client', cooldown._last_issued_by_client)
+        self.assertNotIn('first@example.edu', cooldown._last_issued_by_email)
+        self.assertIn('second-client', cooldown._last_issued_by_client)
+        self.assertIn('second@example.edu', cooldown._last_issued_by_email)
+
+    def test_token_issuance_cooldown_requires_both_new_ip_and_email(self):
+        from pyserini.server.rest.app import TokenIssuanceCooldown
+
+        cooldown = TokenIssuanceCooldown(60)
+        first_retry, _ = cooldown.reserve('first-client', 'first@example.edu', 0)
+        same_ip_retry, _ = cooldown.reserve('first-client', 'second@example.edu', 1)
+        same_email_retry, _ = cooldown.reserve('second-client', 'first@example.edu', 1)
+        both_new_retry, _ = cooldown.reserve('second-client', 'second@example.edu', 1)
+
+        self.assertIsNone(first_retry)
+        self.assertIsNotNone(same_ip_retry)
+        self.assertIsNotNone(same_email_retry)
+        self.assertIsNone(both_new_retry)
 
     def test_get_token_endpoint_returns_post_only_405(self):
         with tempfile.TemporaryDirectory() as tmp:
