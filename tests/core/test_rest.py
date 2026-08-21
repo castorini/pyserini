@@ -79,6 +79,8 @@ class TestRestServer(unittest.TestCase):
         self.assertIn('ApiKeyAuth', data['components']['securitySchemes'])
         self.assertIn('/token', data['paths'])
         self.assertIn('201', data['paths']['/token']['post']['responses'])
+        self.assertTrue(data['paths']['/token']['post']['requestBody']['required'])
+        self.assertIn('TokenIssuanceRequest', data['components']['schemas'])
         search_responses = data['paths']['/{index}/search']['get']['responses']
         self.assertIn('401', search_responses)
         self.assertIn('429', search_responses)
@@ -763,6 +765,10 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
 
 class TestRestTokenIssuance(unittest.TestCase):
     @staticmethod
+    def _identity(name: str = 'Test User', email: str = 'test@example.edu') -> dict[str, str]:
+        return {'name': name, 'email': email}
+
+    @staticmethod
     def _write_config(root: str, token: str = 'existing-token') -> str:
         path = os.path.join(root, 'server.yaml')
         with open(path, 'w', encoding='utf-8') as f:
@@ -778,7 +784,7 @@ class TestRestTokenIssuance(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             path = self._write_config(tmp)
             with TestClient(create_app(path)) as client:
-                response = client.post(f'/{API_VERSION}/token')
+                response = client.post(f'/{API_VERSION}/token', json=self._identity())
             self.assertEqual(response.status_code, 503, msg=response.text)
             self.assertNotIn('api_key', response.json())
 
@@ -800,7 +806,7 @@ class TestRestTokenIssuance(unittest.TestCase):
                 self.assertEqual(denied.status_code, 401, msg=denied.text)
 
                 with self.assertLogs('pyserini.server.rest.request', level='INFO') as cm:
-                    issued = client.post(f'/{API_VERSION}/token')
+                    issued = client.post(f'/{API_VERSION}/token', json=self._identity())
                 self.assertEqual(issued.status_code, 201, msg=issued.text)
                 token = issued.json().get('api_key')
                 self.assertIsInstance(token, str)
@@ -808,7 +814,10 @@ class TestRestTokenIssuance(unittest.TestCase):
                 self.assertEqual(issued.json().get('token_type'), 'bearer')
                 self.assertEqual(issued.headers.get('cache-control'), 'no-store')
                 self.assertEqual(issued.headers.get('pragma'), 'no-cache')
-                self.assertNotIn(token, '\n'.join(record.getMessage() for record in cm.records))
+                log_messages = '\n'.join(record.getMessage() for record in cm.records)
+                self.assertNotIn(token, log_messages)
+                self.assertNotIn('Test User', log_messages)
+                self.assertNotIn('test@example.edu', log_messages)
                 log_record = json.loads(cm.records[-1].getMessage())
                 self.assertEqual(log_record.get('auth'), 'token_issuance')
                 self.assertEqual(log_record.get('status'), 201)
@@ -844,25 +853,57 @@ class TestRestTokenIssuance(unittest.TestCase):
                 token_issuance_cooldown_sec=60,
             )
             with TestClient(issuance_app) as client:
-                first = client.post(f'/{API_VERSION}/token')
-                second = client.post(f'/{API_VERSION}/token')
+                first = client.post(
+                    f'/{API_VERSION}/token',
+                    json=self._identity(name='First User', email='first@example.edu'),
+                )
+                second = client.post(
+                    f'/{API_VERSION}/token',
+                    json=self._identity(name='First User Again', email=' FIRST@EXAMPLE.EDU '),
+                )
+                different_email = client.post(
+                    f'/{API_VERSION}/token',
+                    json=self._identity(name='Second User', email='second@example.edu'),
+                )
             self.assertEqual(first.status_code, 201, msg=first.text)
             self.assertEqual(second.status_code, 429, msg=second.text)
             self.assertGreaterEqual(int(second.headers.get('retry-after', '0')), 1)
+            self.assertEqual(different_email.status_code, 201, msg=different_email.text)
             persisted = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
-            self.assertEqual(len(persisted['api_keys']), 2)
+            self.assertEqual(len(persisted['api_keys']), 3)
+
+    def test_token_issuance_requires_valid_name_and_email(self):
+        invalid_requests = [
+            None,
+            {},
+            {'name': 'Test User'},
+            {'email': 'test@example.edu'},
+            self._identity(name=''),
+            self._identity(email='not-an-email'),
+            self._identity(email='test @example.edu'),
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self._write_config(tmp)
+            issuance_app = create_app(path, enable_token_issuance=True)
+            with TestClient(issuance_app) as client:
+                responses = [client.post(f'/{API_VERSION}/token', json=payload) for payload in invalid_requests]
+
+            self.assertTrue(all(response.status_code == 400 for response in responses))
+            self.assertTrue(all('test @example.edu' not in response.text for response in responses))
+            persisted = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
+            self.assertEqual(persisted['api_keys'], ['existing-token'])
 
     def test_token_issuance_cooldown_prunes_expired_clients(self):
         from pyserini.server.rest.app import TokenIssuanceCooldown
 
         cooldown = TokenIssuanceCooldown(10)
-        cooldown.reserve('first-client', 0)
-        cooldown.reserve('second-client', 5)
-        cooldown.reserve('third-client', 11)
+        cooldown.reserve('shared-client', 'first@example.edu', 0)
+        cooldown.reserve('shared-client', 'second@example.edu', 5)
+        cooldown.reserve('shared-client', 'third@example.edu', 11)
 
-        self.assertNotIn('first-client', cooldown._last_issued_at)
-        self.assertIn('second-client', cooldown._last_issued_at)
-        self.assertIn('third-client', cooldown._last_issued_at)
+        self.assertNotIn(('shared-client', 'first@example.edu'), cooldown._last_issued_at)
+        self.assertIn(('shared-client', 'second@example.edu'), cooldown._last_issued_at)
+        self.assertIn(('shared-client', 'third@example.edu'), cooldown._last_issued_at)
 
     def test_get_token_endpoint_returns_post_only_405(self):
         with tempfile.TemporaryDirectory() as tmp:

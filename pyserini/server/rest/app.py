@@ -49,6 +49,7 @@ from importlib import resources
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, PlainTextResponse
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 from starlette.exceptions import HTTPException as StarletteHTTPException
 import yaml
 
@@ -76,6 +77,26 @@ _LOAD_SHED_ERROR_BODY = (
     'Service temporarily overloaded; retry after a few seconds '
     f'(or wait at least {_LOAD_SHED_RETRY_AFTER_SEC}s). If load persists, back off with jitter.'
 )
+
+
+class TokenIssuanceRequest(BaseModel):
+    """Required identity fields for anonymous token issuance."""
+
+    model_config = ConfigDict(extra='forbid', str_strip_whitespace=True)
+
+    name: str = Field(min_length=1, max_length=200)
+    email: str = Field(min_length=3, max_length=254)
+
+    @field_validator('email')
+    @classmethod
+    def normalize_email(cls, value: str) -> str:
+        normalized = value.casefold()
+        if normalized.count('@') != 1 or any(char.isspace() for char in normalized):
+            raise ValueError('email must be a valid address')
+        local, domain = normalized.split('@', 1)
+        if not local or not domain or domain.startswith('.') or domain.endswith('.') or '..' in domain:
+            raise ValueError('email must be a valid address')
+        return normalized
 
 
 class RestBackpressure:
@@ -178,27 +199,27 @@ class RestBackpressure:
 
 
 class TokenIssuanceCooldown:
-    """Per-client cooldown for the anonymous token-issuance endpoint."""
+    """Per-client-and-email cooldown for the anonymous token-issuance endpoint."""
 
     __slots__ = ('_interval_sec', '_lock', '_last_issued_at')
 
     def __init__(self, interval_sec: float) -> None:
         self._interval_sec = float(interval_sec)
         self._lock = threading.Lock()
-        self._last_issued_at: dict[str, float] = {}
+        self._last_issued_at: dict[tuple[str, str], float] = {}
 
-    def reserve(self, client: str, now: float) -> tuple[float | None, float | None]:
+    def reserve(self, client: str, email: str, now: float) -> tuple[float | None, float | None]:
         """Reserve an issuance slot, returning ``(retry_after, reservation)``."""
         if self._interval_sec <= 0:
             return None, None
-        key = client or '<unknown>'
+        key = (client or '<unknown>', email)
         with self._lock:
             cutoff = now - self._interval_sec
             while self._last_issued_at:
-                oldest_client = next(iter(self._last_issued_at))
-                if self._last_issued_at[oldest_client] >= cutoff:
+                oldest_identity = next(iter(self._last_issued_at))
+                if self._last_issued_at[oldest_identity] >= cutoff:
                     break
-                self._last_issued_at.pop(oldest_client)
+                self._last_issued_at.pop(oldest_identity)
             last = self._last_issued_at.get(key)
             if last is not None:
                 retry_after = self._interval_sec - (now - last)
@@ -208,10 +229,10 @@ class TokenIssuanceCooldown:
             self._last_issued_at[key] = now
             return None, now
 
-    def release(self, client: str, reservation: float | None) -> None:
+    def release(self, client: str, email: str, reservation: float | None) -> None:
         if reservation is None:
             return
-        key = client or '<unknown>'
+        key = (client or '<unknown>', email)
         with self._lock:
             if self._last_issued_at.get(key) == reservation:
                 self._last_issued_at.pop(key, None)
@@ -497,7 +518,11 @@ def create_app(
 
     @app.exception_handler(RequestValidationError)
     async def validation_exception_handler(request: Request, exc: RequestValidationError):
-        return JSONResponse(status_code=400, content={'error': _error_message(exc.errors())})
+        errors = [
+            {key: value for key, value in error.items() if key not in ('ctx', 'input')}
+            for error in exc.errors()
+        ]
+        return JSONResponse(status_code=400, content={'error': _error_message(errors)})
 
     @app.get('/openapi.yaml', include_in_schema=False)
     async def openapi_yaml():
@@ -514,7 +539,7 @@ def create_app(
         }
 
     @app.post(TOKEN_ISSUE_PATH, status_code=201)
-    async def issue_api_token(request: Request):
+    async def issue_api_token(token_request: TokenIssuanceRequest, request: Request):
         store: ApiTokenStore | None = getattr(request.app.state, 'token_store', None)
         cooldown: TokenIssuanceCooldown | None = getattr(request.app.state, 'token_issuance_cooldown', None)
         tokens: AcceptedApiTokens | None = getattr(request.app.state, 'accepted_api_tokens', None)
@@ -522,12 +547,12 @@ def create_app(
             return JSONResponse(status_code=503, content={'error': 'API token issuance is not enabled'})
 
         client = request.client.host if request.client else ''
-        retry_after, reservation = cooldown.reserve(client, time.monotonic())
+        retry_after, reservation = cooldown.reserve(client, token_request.email, time.monotonic())
         if retry_after is not None:
             retry_after_sec = max(1, math.ceil(retry_after))
             return JSONResponse(
                 status_code=429,
-                content={'error': 'API token issuance is temporarily rate limited for this client'},
+                content={'error': 'API token issuance is temporarily rate limited for this client and email'},
                 headers={'Retry-After': str(retry_after_sec)},
             )
 
@@ -535,7 +560,7 @@ def create_app(
             token = await asyncio.to_thread(store.issue)
             tokens.add(token)
         except Exception:
-            cooldown.release(client, reservation)
+            cooldown.release(client, token_request.email, reservation)
             raise
         return JSONResponse(
             status_code=201,

@@ -70,7 +70,9 @@ python -m pyserini.server.rest \
 Clients request a token with `POST /v1/token`:
 
 ```bash
-curl -X POST http://localhost:8081/v1/token
+curl -X POST http://localhost:8081/v1/token \
+  -H 'Content-Type: application/json' \
+  -d '{"name":"Ada Lovelace","email":"ada@example.edu"}'
 ```
 
 The response contains a newly generated 256-bit token:
@@ -84,8 +86,10 @@ memory immediately, so no restart is required. Existing keys and both authentica
 continue to work. Responses include `Cache-Control: no-store`; the token is not logged and is not
 available from the API again.
 
-Anonymous issuance has a per-client cooldown of one hour by default. Configure it in seconds, or use
-`0` to disable the cooldown:
+Both `name` and a syntactically valid `email` are required. Anonymous issuance has a one-hour cooldown
+for each client-IP-and-normalized-email pair by default, allowing different researchers behind the same
+network address to request their own tokens. The identity fields are used only for the in-memory
+cooldown and are not persisted or logged. Configure the cooldown in seconds, or use `0` to disable it:
 
 ```bash
 python -m pyserini.server.rest \
