@@ -1,0 +1,62 @@
+name: resolve-onboarding-conflicts
+
+on:
+  push:
+    branches: [onboarding-reproduction]
+    paths: ['.github/workflows/resolve-onboarding-conflicts.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  resolve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: onboarding-reproduction
+          fetch-depth: 0
+      - name: Merge latest upstream and preserve reproduction entries
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "sattipraveena3-sudo"
+          git config user.email "sattipraveena3@gmail.com"
+          git remote add upstream https://github.com/castorini/pyserini.git || true
+          git fetch upstream master
+          git merge --no-commit --no-ff upstream/master || true
+          files=(
+            docs/experiments-msmarco-passage.md
+            docs/conceptual-framework.md
+            docs/experiments-nfcorpus.md
+            docs/conceptual-framework2.md
+            docs/conceptual-framework3.md
+          )
+          for f in "${files[@]}"; do
+            if git ls-files -u -- "$f" | grep -q .; then
+              git checkout --theirs -- "$f"
+            fi
+          done
+          python - <<'PY'
+          from pathlib import Path
+          entry = '+ Results reproduced by [@sattipraveena3-sudo](https://github.com/sattipraveena3-sudo) on 2026-08-21 (commit [`e863f8e`](https://github.com/castorini/pyserini/commit/e863f8e301990cab979f327f5b292ddfcc94a1f7))'
+          files = [
+              Path('docs/experiments-msmarco-passage.md'),
+              Path('docs/conceptual-framework.md'),
+              Path('docs/experiments-nfcorpus.md'),
+              Path('docs/conceptual-framework2.md'),
+              Path('docs/conceptual-framework3.md'),
+          ]
+          for p in files:
+              text = p.read_text()
+              if entry not in text:
+                  if not text.endswith('\n'):
+                      text += '\n'
+                  text += entry + '\n'
+                  p.write_text(text)
+          PY
+          git add docs/experiments-msmarco-passage.md docs/conceptual-framework.md docs/experiments-nfcorpus.md docs/conceptual-framework2.md docs/conceptual-framework3.md
+          git rm -f .github/workflows/resolve-onboarding-conflicts.yml
+          git commit -m "Resolve onboarding reproduction-log conflicts with latest master"
+          git push origin HEAD:onboarding-reproduction
