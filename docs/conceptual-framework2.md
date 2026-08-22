@@ -782,3 +782,4 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@Navid-Ebadi-2003](https://github.com/Navid-Ebadi-2003) on 2026-08-09 (commit [`583bbda`](https://github.com/castorini/pyserini/commit/583bbda9413bf81a57f043c7a2c9b3009dfc34ec))
 + Results reproduced by [@Rex-fortune](https://github.com/Rex-fortune) on 2026-08-12 (commit [`583bbda`](https://github.com/castorini/pyserini/commit/583bbda9413bf81a57f043c7a2c9b3009dfc34ec))
 + Results reproduced by [@AhmadT198](https://github.com/AhmadT198) on 2026-08-16 (commit [`f8af512`](https://github.com/castorini/pyserini/commit/f8af512b484848924d462a67dd0d1cdcd419eb64))
++ Results reproduced by [@Evan-Lowry](https://github.com/Evan-Lowry) on 2026-08-17 (commit [`c16016f`](https://github.com/castorini/pyserini/commit/c16016f315feb83b0c4279cc69c8586dab33f424))
