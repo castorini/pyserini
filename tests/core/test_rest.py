@@ -842,7 +842,15 @@ class TestRestTokenIssuance(unittest.TestCase):
 
             persisted = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
             self.assertEqual(persisted['api_keys'], [existing_token, token])
+            self.assertEqual(
+                persisted['api_key_identities'][token],
+                {'name': 'Test User', 'email': 'test@example.edu'},
+            )
             self.assertEqual(os.stat(path).st_mode & 0o777, 0o600)
+
+            restarted_app = create_app(path, no_prebuilt_indexes=True)
+            self.assertTrue(restarted_app.state.accepted_api_tokens.is_valid(existing_token))
+            self.assertTrue(restarted_app.state.accepted_api_tokens.is_valid(token))
 
     def test_token_issuance_cooldown_returns_429_without_persisting_another_key(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -871,6 +879,11 @@ class TestRestTokenIssuance(unittest.TestCase):
             self.assertEqual(same_ip_different_email.status_code, 429, msg=same_ip_different_email.text)
             persisted = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
             self.assertEqual(len(persisted['api_keys']), 2)
+            self.assertEqual(len(persisted['api_key_identities']), 1)
+            self.assertEqual(
+                next(iter(persisted['api_key_identities'].values())),
+                {'name': 'First User', 'email': 'first@example.edu'},
+            )
 
     def test_token_issuance_requires_valid_name_and_email(self):
         invalid_requests = [

@@ -214,7 +214,7 @@ class ApiTokenStore:
         return self._config_path
 
     @staticmethod
-    def _load_payload(path: Path) -> tuple[dict, list[str]]:
+    def _load_payload(path: Path) -> tuple[dict, list[str], dict[str, dict[str, object]]]:
         with path.open('r', encoding='utf-8') as f:
             payload = yaml.safe_load(f)
         if not isinstance(payload, dict):
@@ -231,7 +231,30 @@ class ApiTokenStore:
                 if not isinstance(item, str) or not item.strip():
                     raise ValueError(f'Config api_keys entry #{i} must be a non-empty string')
                 keys.append(item.strip())
-        return payload, keys
+
+        raw_identities = payload.get('api_key_identities')
+        if raw_identities is None:
+            identities: dict[str, dict[str, object]] = {}
+        elif not isinstance(raw_identities, dict):
+            raise ValueError('Config "api_key_identities" must be a mapping/object')
+        else:
+            identities = {}
+            for raw_token, raw_identity in raw_identities.items():
+                if not isinstance(raw_token, str) or not raw_token.strip():
+                    raise ValueError('Config api_key_identities keys must be non-empty token strings')
+                if not isinstance(raw_identity, dict):
+                    raise ValueError(f'Config identity for token "{raw_token}" must be a mapping/object')
+                name = raw_identity.get('name')
+                email = raw_identity.get('email')
+                if not isinstance(name, str) or not name.strip():
+                    raise ValueError(f'Config identity for token "{raw_token}" requires a non-empty name')
+                if not isinstance(email, str) or not email.strip():
+                    raise ValueError(f'Config identity for token "{raw_token}" requires a non-empty email')
+                identity = dict(raw_identity)
+                identity['name'] = name.strip()
+                identity['email'] = email.strip()
+                identities[raw_token.strip()] = identity
+        return payload, keys, identities
 
     @staticmethod
     def _write_payload(path: Path, payload: dict) -> None:
@@ -267,15 +290,23 @@ class ApiTokenStore:
             except FileNotFoundError:
                 pass
 
-    def issue(self) -> str:
-        """Append and return one new 256-bit token."""
+    def issue(self, *, name: str, email: str) -> str:
+        """Append a 256-bit token and its user identity, then return the token."""
+        normalized_name = name.strip() if isinstance(name, str) else ''
+        normalized_email = email.strip() if isinstance(email, str) else ''
+        if not normalized_name:
+            raise ValueError('Token identity name must be a non-empty string')
+        if not normalized_email:
+            raise ValueError('Token identity email must be a non-empty string')
         with self._lock:
-            payload, keys = self._load_payload(self._config_path)
-            existing = set(keys)
+            payload, keys, identities = self._load_payload(self._config_path)
+            existing = set(keys).union(identities)
             token = secrets.token_hex(32)
             while token in existing:
                 token = secrets.token_hex(32)
             keys.append(token)
+            identities[token] = {'name': normalized_name, 'email': normalized_email}
             payload['api_keys'] = keys
+            payload['api_key_identities'] = identities
             self._write_payload(self._config_path, payload)
             return token

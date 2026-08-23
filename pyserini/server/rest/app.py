@@ -569,7 +569,7 @@ def create_app(
             )
 
         try:
-            token = await asyncio.to_thread(store.issue)
+            token = await asyncio.to_thread(store.issue, name=token_request.name, email=token_request.email)
             tokens.add(token)
         except Exception:
             cooldown.release(client, token_request.email, reservation)

@@ -123,16 +123,35 @@ class TestServerConfigParsing(unittest.TestCase):
     def test_api_token_store_appends_token_and_preserves_config_mode(self):
         with tempfile.TemporaryDirectory() as tmp:
             cfg_path = Path(tmp) / 'server.yaml'
-            cfg = {'indexes': {'local': '/tmp'}, 'api_keys': ['existing-key'], 'custom': {'keep': True}}
+            cfg = {
+                'indexes': {'local': '/tmp'},
+                'api_keys': ['existing-key'],
+                'api_key_identities': {
+                    'existing-key': {
+                        'name': 'Existing User',
+                        'email': 'existing@example.edu',
+                        'team': 'IR Lab',
+                    }
+                },
+                'custom': {'keep': True},
+            }
             cfg_path.write_text(yaml.safe_dump(cfg, sort_keys=False), encoding='utf-8')
             cfg_path.chmod(0o600)
 
-            token = ApiTokenStore(str(cfg_path)).issue()
+            token = ApiTokenStore(str(cfg_path)).issue(name='Test User', email='test@example.edu')
 
             self.assertEqual(len(token), 64)
             int(token, 16)
             persisted = yaml.safe_load(cfg_path.read_text(encoding='utf-8'))
             self.assertEqual(persisted['api_keys'], ['existing-key', token])
+            self.assertEqual(
+                persisted['api_key_identities']['existing-key'],
+                cfg['api_key_identities']['existing-key'],
+            )
+            self.assertEqual(
+                persisted['api_key_identities'][token],
+                {'name': 'Test User', 'email': 'test@example.edu'},
+            )
             self.assertEqual(persisted['indexes'], cfg['indexes'])
             self.assertEqual(persisted['custom'], cfg['custom'])
             self.assertEqual(os.stat(cfg_path).st_mode & 0o777, 0o600)
@@ -144,12 +163,23 @@ class TestServerConfigParsing(unittest.TestCase):
             store = ApiTokenStore(str(cfg_path))
 
             with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
-                tokens = list(executor.map(lambda _: store.issue(), range(24)))
+                tokens = list(
+                    executor.map(
+                        lambda i: store.issue(name=f'Test User {i}', email=f'test-{i}@example.edu'),
+                        range(24),
+                    )
+                )
 
             self.assertEqual(len(tokens), len(set(tokens)))
             persisted = yaml.safe_load(cfg_path.read_text(encoding='utf-8'))
             self.assertEqual(len(persisted['api_keys']), 25)
             self.assertEqual(set(persisted['api_keys'][1:]), set(tokens))
+            self.assertEqual(set(persisted['api_key_identities']), set(tokens))
+            for i, token in enumerate(tokens):
+                self.assertEqual(
+                    persisted['api_key_identities'][token],
+                    {'name': f'Test User {i}', 'email': f'test-{i}@example.edu'},
+                )
 
     def test_api_token_store_rejects_invalid_api_keys_without_modifying_file(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -158,7 +188,35 @@ class TestServerConfigParsing(unittest.TestCase):
             cfg_path.write_text(original, encoding='utf-8')
 
             with self.assertRaises(ValueError):
-                ApiTokenStore(str(cfg_path)).issue()
+                ApiTokenStore(str(cfg_path)).issue(name='Test User', email='test@example.edu')
+
+            self.assertEqual(cfg_path.read_text(encoding='utf-8'), original)
+
+    def test_api_token_store_rejects_invalid_identity_mapping_without_modifying_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg_path = Path(tmp) / 'server.yaml'
+            original = (
+                'indexes:\n  local: /tmp\napi_keys:\n  - existing-key\n'
+                'api_key_identities:\n  existing-key:\n    name: Existing User\n'
+            )
+            cfg_path.write_text(original, encoding='utf-8')
+
+            with self.assertRaises(ValueError):
+                ApiTokenStore(str(cfg_path)).issue(name='Test User', email='test@example.edu')
+
+            self.assertEqual(cfg_path.read_text(encoding='utf-8'), original)
+
+    def test_api_token_store_requires_name_and_email_without_modifying_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg_path = Path(tmp) / 'server.yaml'
+            original = 'indexes:\n  local: /tmp\napi_keys:\n  - existing-key\n'
+            cfg_path.write_text(original, encoding='utf-8')
+            store = ApiTokenStore(str(cfg_path))
+
+            with self.assertRaises(ValueError):
+                store.issue(name='', email='test@example.edu')
+            with self.assertRaises(ValueError):
+                store.issue(name='Test User', email='')
 
             self.assertEqual(cfg_path.read_text(encoding='utf-8'), original)
 

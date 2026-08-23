@@ -20,7 +20,8 @@ paths:
         immediately. This endpoint is anonymous but available only when the server starts with
         --enable-token-issuance. The request must include the user's name and email. Independent
         cooldowns apply to the client IP and normalized email; both must be unused during the cooldown
-        period. The token is returned only in this response and should be stored securely.
+        period. The supplied name and normalized email are stored with the token in the protected
+        server config. The token is returned only in this response and should be stored securely.
       operationId: issueApiTokenV1
       security: []
       requestBody:
