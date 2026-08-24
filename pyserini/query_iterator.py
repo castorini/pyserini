@@ -23,7 +23,7 @@ from pathlib import Path
 from urllib.error import HTTPError, URLError
 
 from pyserini.external_query_info import KILT_QUERY_INFO
-from pyserini.search import get_topics, load_topics_with_reader
+from pyserini.search import get_topics, load_topics_from_file
 from pyserini.util import download_url, get_cache_home
 
 
@@ -100,9 +100,9 @@ class DefaultQueryIterator(QueryIterator):
                 with open(topics_path, 'r') as f:
                     topics = json.load(f)
             elif 'beir' in topics_path:
-                topics = load_topics_with_reader(topics_path, 'io.anserini.search.topicreader.TsvStringTopicReader')
+                topics = load_topics_from_file(topics_path, 'io.anserini.search.topicreader.TsvStringTopicReader')
             elif 'cacm' in topics_path:
-                topics = load_topics_with_reader(topics_path, 'io.anserini.search.topicreader.CacmTopicReader')
+                topics = load_topics_from_file(topics_path, 'io.anserini.search.topicreader.CacmTopicReader')
             # If extension is tsv or txt we just assume file contains (qid, query) pairs.
             elif (
                 topics_path.endswith('.tsv')
@@ -111,13 +111,13 @@ class DefaultQueryIterator(QueryIterator):
                 or topics_path.endswith('.txt.gz')
             ):
                 try:
-                    topics = load_topics_with_reader(topics_path, 'io.anserini.search.topicreader.TsvIntTopicReader')
+                    topics = load_topics_from_file(topics_path, 'io.anserini.search.topicreader.TsvIntTopicReader')
                 except ValueError as e:
-                    topics = load_topics_with_reader(topics_path, 'io.anserini.search.topicreader.TsvStringTopicReader')
+                    topics = load_topics_from_file(topics_path, 'io.anserini.search.topicreader.TsvStringTopicReader')
             elif topics_path.endswith('.trec'):
-                topics = load_topics_with_reader(topics_path, 'io.anserini.search.topicreader.TrecTopicReader')
+                topics = load_topics_from_file(topics_path, 'io.anserini.search.topicreader.TrecTopicReader')
             elif topics_path.endswith('.jsonl'):
-                topics = load_topics_with_reader(topics_path, 'io.anserini.search.topicreader.JsonStringTopicReader')
+                topics = load_topics_from_file(topics_path, 'io.anserini.search.topicreader.JsonStringTopicReader')
             else:
                 raise NotImplementedError(f'Not sure how to parse {topics_path}. Please specify the file extension.')
         else:
@@ -186,7 +186,7 @@ class MultimodalQueryIterator(QueryIterator):
     def from_topics(cls, topics_path: str):
         if os.path.exists(topics_path):
             if topics_path.endswith('.jsonl'):
-                topics = load_topics_with_reader(topics_path, 'io.anserini.search.topicreader.JsonStringTopicReader')
+                topics = load_topics_from_file(topics_path, 'io.anserini.search.topicreader.JsonStringTopicReader')
             else:
                 raise NotImplementedError(f'Not sure how to parse {topics_path}. Please specify the file extension.')
         else:

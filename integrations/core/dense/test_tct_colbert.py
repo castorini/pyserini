@@ -17,10 +17,9 @@
 """Integration tests for TCT-ColBERTv1 models using on-the-fly query encoding."""
 
 import multiprocessing
-import os
 import unittest
 
-from integrations.utils import clean_files, run_command, parse_score
+from integrations.utils import clean_files, parse_score, run_command
 
 
 class TestTctColBert(unittest.TestCase):
@@ -47,10 +46,10 @@ class TestTctColBert(unittest.TestCase):
                              --output {output_file} \
                              --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
-        self.assertEqual(status, 0)
+        search_result = run_command(cmd1)
+        result = run_command(cmd2)
+        score = parse_score(result.stdout, "MRR @10")
+        self.assertEqual(search_result.returncode, 0, search_result.stderr or search_result.stdout)
         # We get a small difference in scores on macOS vs. Linux, better way to check:
         self.assertAlmostEqual(score, 0.3350, delta=0.0002)
 
@@ -63,10 +62,10 @@ class TestTctColBert(unittest.TestCase):
                              --output {output_file} \
                              --output-format msmarco '
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
-        self.assertEqual(status, 0)
+        search_result = run_command(cmd1)
+        result = run_command(cmd2)
+        score = parse_score(result.stdout, "MRR @10")
+        self.assertEqual(search_result.returncode, 0, search_result.stderr or search_result.stdout)
         self.assertAlmostEqual(score, 0.3345, delta=0.0002)
 
     def test_msmarco_passage_tct_colbert_bf_bm25_hybrid_otf(self):
@@ -81,10 +80,10 @@ class TestTctColBert(unittest.TestCase):
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
-        self.assertEqual(status, 0)
+        search_result = run_command(cmd1)
+        result = run_command(cmd2)
+        score = parse_score(result.stdout, "MRR @10")
+        self.assertEqual(search_result.returncode, 0, search_result.stderr or search_result.stdout)
         self.assertAlmostEqual(score, 0.3529, places=4)
 
     def test_msmarco_passage_tct_colbert_bf_d2q_hybrid_otf(self):
@@ -99,10 +98,10 @@ class TestTctColBert(unittest.TestCase):
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @10")
-        self.assertEqual(status, 0)
+        search_result = run_command(cmd1)
+        result = run_command(cmd2)
+        score = parse_score(result.stdout, "MRR @10")
+        self.assertEqual(search_result.returncode, 0, search_result.stderr or search_result.stdout)
         self.assertAlmostEqual(score, 0.3647, delta=0.0002)
 
     def test_msmarco_doc_tct_colbert_bf_otf(self):
@@ -119,10 +118,10 @@ class TestTctColBert(unittest.TestCase):
                              --batch-size {self.batch_size} \
                              --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @100")
-        self.assertEqual(status, 0)
+        search_result = run_command(cmd1)
+        result = run_command(cmd2)
+        score = parse_score(result.stdout, "MRR @100")
+        self.assertEqual(search_result.returncode, 0, search_result.stderr or search_result.stdout)
         self.assertAlmostEqual(score, 0.3323, places=4)
 
     def test_msmarco_doc_tct_colbert_bf_bm25_hybrid_otf(self):
@@ -138,10 +137,10 @@ class TestTctColBert(unittest.TestCase):
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @100")
-        self.assertEqual(status, 0)
+        search_result = run_command(cmd1)
+        result = run_command(cmd2)
+        score = parse_score(result.stdout, "MRR @100")
+        self.assertEqual(search_result.returncode, 0, search_result.stderr or search_result.stdout)
         self.assertAlmostEqual(score, 0.3701, places=4)
 
     def test_msmarco_doc_tct_colbert_bf_d2q_hybrid_otf(self):
@@ -157,10 +156,10 @@ class TestTctColBert(unittest.TestCase):
                                     --batch-size {self.batch_size} --threads {self.threads} \
                                     --output-format msmarco'
         cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score(stdout, "MRR @100")
-        self.assertEqual(status, 0)
+        search_result = run_command(cmd1)
+        result = run_command(cmd2)
+        score = parse_score(result.stdout, "MRR @100")
+        self.assertEqual(search_result.returncode, 0, search_result.stderr or search_result.stdout)
         self.assertAlmostEqual(score, 0.3784, places=4)
 
     def tearDown(self):

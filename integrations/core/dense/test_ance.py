@@ -17,10 +17,14 @@
 """Integration tests for ANCE and ANCE PRF using on-the-fly query encoding."""
 
 import multiprocessing
-import os
 import unittest
 
-from integrations.utils import clean_files, run_command, parse_score_qa, parse_score_msmarco
+from integrations.utils import (
+    clean_files,
+    parse_score_msmarco,
+    parse_score_qa,
+    run_command,
+)
 
 
 class TestAnce(unittest.TestCase):
@@ -52,10 +56,10 @@ class TestAnce(unittest.TestCase):
                              --batch-size {self.batch_size} \
                              --threads {self.threads}'
         cmd2 = f'python -m pyserini.eval.msmarco_doc_eval --judgments msmarco-doc-dev --run {output_file}'
-        status = os.system(cmd1)
-        stdout, stderr = run_command(cmd2)
-        score = parse_score_msmarco(stdout, 'MRR @100')
-        self.assertEqual(status, 0)
+        search_result = run_command(cmd1)
+        result = run_command(cmd2)
+        score = parse_score_msmarco(result.stdout, 'MRR @100')
+        self.assertEqual(search_result.returncode, 0, search_result.stderr or search_result.stdout)
         # We get a small difference, 0.3794 on macOS.
         self.assertAlmostEqual(score, 0.3796, delta=0.0002)
 
@@ -73,12 +77,12 @@ class TestAnce(unittest.TestCase):
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
-        status1 = os.system(cmd1)
-        status2 = os.system(cmd2)
-        stdout, stderr = run_command(cmd3)
-        score = parse_score_qa(stdout, 'Top20')
-        self.assertEqual(status1, 0)
-        self.assertEqual(status2, 0)
+        result1 = run_command(cmd1)
+        result2 = run_command(cmd2)
+        result = run_command(cmd3)
+        score = parse_score_qa(result.stdout, 'Top20')
+        self.assertEqual(result1.returncode, 0, result1.stderr or result1.stdout)
+        self.assertEqual(result2.returncode, 0, result2.stderr or result2.stdout)
         self.assertAlmostEqual(score, 0.8224, places=4)
 
     def test_trivia_test_ance_bf_otf(self):
@@ -95,12 +99,12 @@ class TestAnce(unittest.TestCase):
                                                            --input {output_file} \
                                                            --output {retrieval_file}'
         cmd3 = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {retrieval_file} --topk 20'
-        status1 = os.system(cmd1)
-        status2 = os.system(cmd2)
-        stdout, stderr = run_command(cmd3)
-        score = parse_score_qa(stdout, 'Top20')
-        self.assertEqual(status1, 0)
-        self.assertEqual(status2, 0)
+        result1 = run_command(cmd1)
+        result2 = run_command(cmd2)
+        result = run_command(cmd3)
+        score = parse_score_qa(result.stdout, 'Top20')
+        self.assertEqual(result1.returncode, 0, result1.stderr or result1.stdout)
+        self.assertEqual(result2.returncode, 0, result2.stderr or result2.stdout)
         self.assertAlmostEqual(score, 0.8010, places=4)
 
     def tearDown(self):

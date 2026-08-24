@@ -173,19 +173,15 @@ However, if you're planning on contributing to the codebase or want to work with
 
 Start the same way as the install above, but **don't** install `pip install pyserini`.
 
-Instead, clone the Pyserini repo with the `--recurse-submodules` option to make sure the `tools/` submodule also gets cloned:
+Instead, clone the Pyserini repo:
 
 ```bash
-git clone git@github.com:castorini/pyserini.git --recurse-submodules
+git clone git@github.com:castorini/pyserini.git
 ```
 
-The `tools/` directory, which contains evaluation tools and scripts, is actually [this repo](https://github.com/castorini/anserini-tools), integrated as a [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) (so that it can be shared across related projects).
-Change into the `pyserini` subdirectory and build as follows (you might get warnings, but okay to ignore):
-
-```bash
-cd tools/eval && tar xvfz trec_eval.9.0.4.tar.gz && cd trec_eval.9.0.4 && make && cd ../../..
-cd tools/eval/ndeval && make && cd ../../..
-```
+Topics and qrels live in a [centralized repo containing evaluation data](https://github.com/castorini/eval), shared across Anserini and Pyserini.
+Pyserini fetches what it needs on demand and caches it under `$PYSERINI_CACHE` (`~/.cache/pyserini` by default), so there is nothing to build here.
+The `trec_eval` implementation used by `pyserini.eval.trec_eval` comes from the Anserini fatjar, which is added below.
 
 Then, in the `pyserini` clone, use `pip` to add an ["editable" installation](https://setuptools.pypa.io/en/latest/userguide/development_mode.html), as follows:
 

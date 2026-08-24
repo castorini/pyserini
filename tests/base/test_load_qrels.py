@@ -30,7 +30,7 @@ class TestLoadQrels(unittest.TestCase):
         with open(path) as f:
             return f.readlines()
 
-    # Note that these test cases download and cache qrels in ~/.cache/pyserini/topics-and-qrels.
+    # Note that these test cases download and cache qrels in ~/.cache/pyserini/qrels.
 
     def test_trec1_adhoc(self):
         qrels = search.get_qrels('trec1-adhoc')
@@ -202,12 +202,9 @@ class TestLoadQrels(unittest.TestCase):
         mid_line = lines[length // 2].rstrip()
         last_line = lines[-1].rstrip()
         self.assertEqual(length, 5820)
-        self.assertEqual(first_line, "Aftertaste/Aftertaste%20processing%20in%20the%20cerebral%20cortex "
-                                     "0 38c1bd25ddca2705164677a3f598c46df85afba7 1")
-        self.assertEqual(mid_line, "Insular%20cortex/Function/Interoceptive%20awareness "
-                                   "0 f037f925acd4c59e802a58aa74430fc6aa163606 1")
-        self.assertEqual(last_line, "Yellowstone%20National%20Park/Recreation"
-                                    " 0 e80b5185da1493edde41bea19a389a3f62167369 1")
+        self.assertEqual(first_line, "Aftertaste/Aftertaste%20processing%20in%20the%20cerebral%20cortex 0 38c1bd25ddca2705164677a3f598c46df85afba7 1")
+        self.assertEqual(mid_line, "Insular%20cortex/Function/Interoceptive%20awareness 0 f037f925acd4c59e802a58aa74430fc6aa163606 1")
+        self.assertEqual(last_line, "Yellowstone%20National%20Park/Recreation 0 e80b5185da1493edde41bea19a389a3f62167369 1")
 
     def test_car15b(self):
         qrels = search.get_qrels('car17v1.5-benchmarkY1test')
@@ -224,10 +221,8 @@ class TestLoadQrels(unittest.TestCase):
         last_line = lines[-1].rstrip()
         self.assertEqual(length, 6192)
         self.assertEqual(first_line, "enwiki:Aftertaste 0 327cca6c4d38953196fa6789f615546f03287b25 1")
-        self.assertEqual(mid_line, "enwiki:Insular%20cortex/Function/Interoceptive%20awareness"
-                                   " 0 f037f925acd4c59e802a58aa74430fc6aa163606 1")
-        self.assertEqual(last_line, "enwiki:Yellowstone%20National%20Park/Recreation"
-                                    " 0 b812fca195f74f8c563db4262260554fe3ff3731 1")
+        self.assertEqual(mid_line, "enwiki:Insular%20cortex/Function/Interoceptive%20awareness 0 f037f925acd4c59e802a58aa74430fc6aa163606 1")
+        self.assertEqual(last_line, "enwiki:Yellowstone%20National%20Park/Recreation 0 b812fca195f74f8c563db4262260554fe3ff3731 1")
 
     def test_car20b(self):
         qrels = search.get_qrels('car17v2.0-benchmarkY1test')
@@ -1319,6 +1314,14 @@ class TestLoadQrels(unittest.TestCase):
             self.assertIsInstance(qrels_file, str)
             self.assertTrue(qrels_file)
 
+    def test_local_qrels_alias_resolves_to_same_resource(self):
+        qrels_mapping = search_base._get_qrels_mapping()
+        self.assertEqual(qrels_mapping['dummy.msmarco-passage.dev-subset'], qrels_mapping['msmarco-passage.dev-subset'])
+
+        alias_qrels = search.get_qrels('dummy.msmarco-passage.dev-subset')
+        canonical_qrels = search.get_qrels('msmarco-passage.dev-subset')
+        self.assertEqual(alias_qrels, canonical_qrels)
+
     def test_get_qrels_file_downloads_once_and_uses_cache(self):
         repo_tmp = Path(__file__).resolve().parents[2] / 'tmp'
         repo_tmp.mkdir(exist_ok=True)
@@ -1327,16 +1330,18 @@ class TestLoadQrels(unittest.TestCase):
             self.assertTrue(url.endswith('/qrels.robust04.txt'))
             target_path.write_text('301 0 FBIS3-10082 1\n')
 
-        with tempfile.TemporaryDirectory(dir=repo_tmp) as cache_dir:
-            with patch.dict(os.environ, {'PYSERINI_CACHE': cache_dir}):
-                with patch.object(search_base, 'urlretrieve', side_effect=fake_urlretrieve) as download:
-                    qrels_path = search.get_qrels_file('robust04')
-                    self.assertEqual(download.call_count, 1)
-                    self.assertEqual(Path(qrels_path).read_text(), '301 0 FBIS3-10082 1\n')
+        with (
+            tempfile.TemporaryDirectory(dir=repo_tmp) as cache_dir,
+            patch.dict(os.environ, {'PYSERINI_CACHE': cache_dir}),
+            patch.object(search_base, 'urlretrieve', side_effect=fake_urlretrieve) as download,
+        ):
+            qrels_path = search.get_qrels_file('robust04')
+            self.assertEqual(download.call_count, 1)
+            self.assertEqual(Path(qrels_path).read_text(), '301 0 FBIS3-10082 1\n')
 
-                    cached_qrels_path = search.get_qrels_file('robust04')
-                    self.assertEqual(cached_qrels_path, qrels_path)
-                    self.assertEqual(download.call_count, 1)
+            cached_qrels_path = search.get_qrels_file('robust04')
+            self.assertEqual(cached_qrels_path, qrels_path)
+            self.assertEqual(download.call_count, 1)
 
 if __name__ == '__main__':
     unittest.main()

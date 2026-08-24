@@ -49,10 +49,14 @@ tar xvfz collections/msmarco-passage/collectionandqueries.tar.gz -C collections/
 
 To confirm, `collectionandqueries.tar.gz` should have MD5 checksum of `31644046b18952c1386cd4564ba2ae69`.
 
-Next, we need to convert the MS MARCO tsv collection into Pyserini's jsonl files (which have one json object per line):
+Next, we need to convert the MS MARCO tsv collection into Pyserini's jsonl files (which have one json object per line).
+The conversion script lives in [`castorini/eval`](https://github.com/castorini/eval), so fetch it first:
 
 ```bash
-python tools/scripts/msmarco/convert_collection_to_jsonl.py \
+wget https://raw.githubusercontent.com/castorini/eval/master/scripts/msmarco/convert_collection_to_jsonl.py \
+ -P collections/msmarco-passage/
+
+python collections/msmarco-passage/convert_collection_to_jsonl.py \
  --collection-path collections/msmarco-passage/collection.tsv \
  --output-folder collections/msmarco-passage/collection_jsonl
 ```
@@ -81,27 +85,19 @@ The indexing speed may vary; on a modern desktop with an SSD, indexing takes a c
 
 ## Retrieval
 
-The 6980 queries in the development set are already stored in the repo.
+The 6980 queries in the development set are downloaded and cached automatically the first time they are referenced by name.
 Let's take a peek:
 
-```bash
-$ head tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
-1048585	what is paula deen's brother
-2	 Androgen receptor define
-524332	treating tension headaches without medication
-1048642	what is paranoid sc
-524447	treatment of varicose veins in legs
-786674	what is prime rate in canada
-1048876	who plays young dr mallard on ncis
-1048917	what is operating system misconfiguration
-786786	what is priority pass
-524699	tricare service number
-
-$ wc tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
-    6980   48335  290193 tools/topics-and-qrels/topics.msmarco-passage.dev-subset.txt
+```python
+>>> from pyserini.search import get_topics
+>>> topics = get_topics('msmarco-passage-dev-subset')
+>>> len(topics)
+6980
+>>> list(topics.items())[:2]
+[(1102330, {'title': 'why do people grind teeth in sleep'}), (160885, {'title': 'do you need immunizations for belize'})]
 ```
 
-Each line contains a tab-delimited (query id, query) pair.
+Each entry pairs a query id with the query text, which sits under the `title` key.
 Conveniently, Pyserini already knows how to load and iterate through these pairs.
 We can now perform retrieval using these queries:
 
@@ -134,7 +130,7 @@ After the run finishes, we can evaluate the results using the official MS MARCO 
 
 ```bash
 $ python -m pyserini.eval.msmarco_passage_eval \
-   tools/topics-and-qrels/qrels.msmarco-passage.dev-subset.txt \
+   msmarco-passage-dev-subset \
    runs/run.msmarco-passage.bm25tuned.txt
 
 #####################
@@ -159,19 +155,11 @@ python -m pyserini.search.lucene \
 
 The only difference here is that we've removed `--output-format msmarco`.
 
-Then, convert qrels files to the TREC format:
-
-```bash
-python tools/scripts/msmarco/convert_msmarco_to_trec_qrels.py \
-  --input collections/msmarco-passage/qrels.dev.small.tsv \
-  --output collections/msmarco-passage/qrels.dev.small.trec
-```
-
 Finally, run the `trec_eval` tool, which has been incorporated into Pyserini:
 
 ```bash
 $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap \
-   collections/msmarco-passage/qrels.dev.small.trec \
+   msmarco-passage-dev-subset \
    runs/run.msmarco-passage.bm25tuned.trec
 
 map                   	all	0.1957
@@ -182,7 +170,7 @@ If you want to examine the MRR@10 for `qid` 1048585:
 
 ```bash
 $ python -m pyserini.eval.trec_eval -q -c -M 10 -m recip_rank \
-    collections/msmarco-passage/qrels.dev.small.trec \
+    msmarco-passage-dev-subset \
     runs/run.msmarco-passage.bm25tuned.trec | grep 1048585
 
 recip_rank            	1048585	1.0000
@@ -559,4 +547,10 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@dawoodkhandev](https://github.com/dawoodkhandev) on 2026-08-03 (commit [`9dcc206`](https://github.com/castorini/pyserini/commit/9dcc2063187b0d9770af2580a964091f1a08252b))
 + Results reproduced by [@Hamza-Nadif](https://github.com/Hamza-Nadif) on 2026-08-04 (commit [`7b13d9b`](https://github.com/castorini/pyserini/commit/7b13d9ba2dbb07bd6ceee269564f972a394f26ac))
 + Results reproduced by [@nomsou](https://github.com/nomsou) on 2026-08-07 (commit [`b81d99c`](https://github.com/castorini/pyserini/commit/b81d99c868e39cdbc9e420425e9b123dfa55bb95))
++ Results reproduced by [@Navid-Ebadi-2003](https://github.com/Navid-Ebadi-2003) on 2026-08-09 (commit [`583bbda`](https://github.com/castorini/pyserini/commit/583bbda9413bf81a57f043c7a2c9b3009dfc34ec))
++ Results reproduced by [@mehra-es](https://github.com/mehra-es) on 2026-08-11 (commit [`7f46990`](https://github.com/castorini/pyserini/commit/7f46990ecf3e3c7419de0ffb91fc8bfef4eaabcf))
 + Results reproduced by [@akshaldhal](https://github.com/akshaldhal) on 2026-08-12 (commit [`c16016f`](https://github.com/castorini/pyserini/commit/c16016f315feb83b0c4279cc69c8586dab33f424))
++ Results reproduced by [@Rex-fortune](https://github.com/Rex-fortune) on 2026-08-12 (commit [`583bbda`](https://github.com/castorini/pyserini/commit/583bbda9413bf81a57f043c7a2c9b3009dfc34ec))
++ Results reproduced by [@Evan-Lowry](https://github.com/Evan-Lowry) on 2026-08-13 (commit [`c16016f`](https://github.com/castorini/pyserini/commit/c16016f315feb83b0c4279cc69c8586dab33f424))
++ Results reproduced by [@AhmadT198](https://github.com/AhmadT198) on 2026-08-16 (commit [`f8af512`](https://github.com/castorini/pyserini/commit/f8af512b484848924d462a67dd0d1cdcd419eb64))
++ Results reproduced by [@sattipraveena3-sudo](https://github.com/sattipraveena3-sudo) on 2026-08-21 (commit [`e863f8e`](https://github.com/castorini/pyserini/commit/e863f8e301990cab979f327f5b292ddfcc94a1f7))

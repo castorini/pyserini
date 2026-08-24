@@ -35,8 +35,11 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-passage.trec.txt',
                 f'python -m pyserini.search.lucene \
-                    --threads {self.threads} --batch-size {self.batch_size} \
-                    --index {index} --topics msmarco-passage-dev-subset --bm25',
+                    --threads {self.threads} \
+                    --batch-size {self.batch_size} \
+                    --index {index} \
+                    --topics msmarco-passage-dev-subset \
+                    --bm25',
                 'msmarco-passage-dev-subset',
                 'trec_eval',
                 [['map', 'map'], ['recall.1000', 'recall_1000']])
@@ -54,8 +57,13 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
         for index in ['msmarco-v1-passage', 'msmarco-v1-passage-slim', 'msmarco-v1-passage-full']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-passage.msmarco.txt',
-                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                    --index {index} --topics msmarco-passage-dev-subset --bm25 --output-format msmarco',
+                f'python -m pyserini.search.lucene \
+                    --threads {self.threads} \
+                    --batch-size {self.batch_size} \
+                    --index {index} \
+                    --topics msmarco-passage-dev-subset \
+                    --bm25 \
+                    --output-format msmarco',
                 'msmarco-passage-dev-subset',
                 'msmarco_passage_string', [])
 
@@ -69,8 +77,12 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
         for index in ['msmarco-v1-passage.d2q-t5', 'msmarco-v1-passage.d2q-t5-docvectors']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-passage.expanded.trec.txt',
-                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                    --index {index} --topics msmarco-passage-dev-subset --bm25',
+                f'python -m pyserini.search.lucene \
+                    --threads {self.threads} \
+                    --batch-size {self.batch_size} \
+                    --index {index} \
+                    --topics msmarco-passage-dev-subset \
+                    --bm25',
                 'msmarco-passage-dev-subset',
                 'trec_eval',
                 [['map', 'map'], ['recall.1000', 'recall_1000']])
@@ -87,8 +99,13 @@ class TestPrebuiltMsMarcoV1Passage(unittest.TestCase):
         for index in ['msmarco-v1-passage.d2q-t5', 'msmarco-v1-passage.d2q-t5-docvectors']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-passage.expanded.msmarco.txt',
-                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                    --index {index} --topics msmarco-passage-dev-subset --bm25 --output-format msmarco',
+                f'python -m pyserini.search.lucene \
+                    --threads {self.threads} \
+                    --batch-size {self.batch_size} \
+                    --index {index} \
+                    --topics msmarco-passage-dev-subset \
+                    --bm25 \
+                    --output-format msmarco',
                 'msmarco-passage-dev-subset',
                 'msmarco_passage_string', [])
 

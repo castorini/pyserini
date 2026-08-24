@@ -47,8 +47,8 @@ def read_topics_alpha_map(collection, run_file, classifier, rm3: bool):
             run_file, collection, classifier, alpha, rm3)
 
         res_paths.append(res_filename)
-        trec_eval_cmd = 'tools/eval/trec_eval.9.0.4/trec_eval'
-        qrels_path = f'tools/topics-and-qrels/qrels.{collection}.txt'
+        trec_eval_cmd = 'python -m pyserini.eval.trec_eval'
+        qrels_path = collection
         cmd = f'{trec_eval_cmd} -q -m map -m P.30 {qrels_path} {file_path} > {res_filename}'
 
         res = os.system(cmd)

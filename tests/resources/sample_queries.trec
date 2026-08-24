@@ -1,0 +1,17 @@
+<top>
+<num> Number: 1
+<title> first topic
+<desc> Description:
+first topic description
+<narr> Narrative:
+Documents about the first topic are relevant.
+</top>
+
+<top>
+<num> Number: 2
+<title> second topic
+<desc> Description:
+second topic description
+<narr> Narrative:
+Documents about the second topic are relevant.
+</top>

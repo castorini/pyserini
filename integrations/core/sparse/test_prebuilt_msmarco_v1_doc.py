@@ -38,8 +38,13 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
         for index in ['msmarco-v1-doc', 'msmarco-v1-doc-slim', 'msmarco-v1-doc-full']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-doc.trec.txt',
-                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                    --index {index} --topics msmarco-doc-dev --bm25 --hits 1000',
+                f'python -m pyserini.search.lucene \
+                    --threads {self.threads} \
+                    --batch-size {self.batch_size} \
+                    --index {index} \
+                    --topics msmarco-doc-dev \
+                    --bm25 \
+                    --hits 1000',
                 'msmarco-doc-dev',
                 'trec_eval',
                 [['map', 'map'], ['recall.1000', 'recall_1000']])
@@ -57,8 +62,14 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
         for index in ['msmarco-v1-doc', 'msmarco-v1-doc-slim', 'msmarco-v1-doc-full']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-doc.msmarco.txt',
-                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                    --index {index} --topics msmarco-doc-dev --bm25 --hits 100 --output-format msmarco',
+                f'python -m pyserini.search.lucene \
+                    --threads {self.threads} \
+                    --batch-size {self.batch_size} \
+                    --index {index} \
+                    --topics msmarco-doc-dev \
+                    --bm25 \
+                    --hits 100 \
+                    --output-format msmarco',
                 'msmarco-doc-dev',
                 'msmarco_doc_string', [])
 
@@ -77,8 +88,15 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
         for index in ['msmarco-v1-doc-segmented', 'msmarco-v1-doc-segmented-slim', 'msmarco-v1-doc-segmented-full']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-doc-segmented.trec.txt',
-                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                    --index {index} --topics msmarco-doc-dev --bm25 --hits 10000 --max-passage --max-passage-hits 1000',
+                f'python -m pyserini.search.lucene \
+                    --threads {self.threads} \
+                    --batch-size {self.batch_size} \
+                    --index {index} \
+                    --topics msmarco-doc-dev \
+                    --bm25 \
+                    --hits 10000 \
+                    --max-passage \
+                    --max-passage-hits 1000',
                 'msmarco-doc-dev',
                 'trec_eval',
                 [['map', 'map'], ['recall.1000', 'recall_1000']])
@@ -96,9 +114,16 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
         for index in ['msmarco-v1-doc-segmented', 'msmarco-v1-doc-segmented-slim', 'msmarco-v1-doc-segmented-full']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-doc-segmented.msmarco.txt',
-                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                    --index {index} --topics msmarco-doc-dev \
-                    --bm25 --hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco',
+                f'python -m pyserini.search.lucene \
+                    --threads {self.threads} \
+                    --batch-size {self.batch_size} \
+                    --index {index} \
+                    --topics msmarco-doc-dev \
+                    --bm25 \
+                    --hits 1000 \
+                    --max-passage \
+                    --max-passage-hits 100 \
+                    --output-format msmarco',
                 'msmarco-doc-dev',
                 'msmarco_doc_string', [])
 
@@ -116,8 +141,13 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
         for index in ['msmarco-v1-doc.d2q-t5', 'msmarco-v1-doc.d2q-t5-docvectors']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-doc.expanded.trec.txt',
-                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                    --index {index} --topics msmarco-doc-dev --bm25 --hits 1000',
+                f'python -m pyserini.search.lucene \
+                    --threads {self.threads} \
+                    --batch-size {self.batch_size} \
+                    --index {index} \
+                    --topics msmarco-doc-dev \
+                    --bm25 \
+                    --hits 1000',
                 'msmarco-doc-dev',
                 'trec_eval',
                 [['map', 'map'], ['recall.1000', 'recall_1000']])
@@ -134,8 +164,14 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
         for index in ['msmarco-v1-doc.d2q-t5', 'msmarco-v1-doc.d2q-t5-docvectors']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-doc.expanded.msmarco.txt',
-                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                    --index {index} --topics msmarco-doc-dev --bm25 --hits 100 --output-format msmarco',
+                f'python -m pyserini.search.lucene \
+                    --threads {self.threads} \
+                    --batch-size {self.batch_size} \
+                    --index {index} \
+                    --topics msmarco-doc-dev \
+                    --bm25 \
+                    --hits 100 \
+                    --output-format msmarco',
                 'msmarco-doc-dev',
                 'msmarco_doc_string', [])
 
@@ -149,9 +185,15 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
         for index in ['msmarco-v1-doc-segmented.d2q-t5', 'msmarco-v1-doc-segmented.d2q-t5-docvectors']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-doc-segmented.expanded.trec.txt',
-                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                    --index {index} --topics msmarco-doc-dev \
-                    --bm25 --hits 10000 --max-passage --max-passage-hits 1000',
+                f'python -m pyserini.search.lucene \
+                    --threads {self.threads} \
+                    --batch-size {self.batch_size} \
+                    --index {index} \
+                    --topics msmarco-doc-dev \
+                    --bm25 \
+                    --hits 10000 \
+                    --max-passage \
+                    --max-passage-hits 1000',
                 'msmarco-doc-dev',
                 'trec_eval',
                 [['map', 'map'], ['recall.1000', 'recall_1000']])
@@ -168,9 +210,16 @@ class TestPrebuiltMsMarcoV1Doc(unittest.TestCase):
         for index in ['msmarco-v1-doc-segmented.d2q-t5', 'msmarco-v1-doc-segmented.d2q-t5-docvectors']:
             scores = run_retrieval_and_return_scores(
                 'runs/test_run.msmarco-doc-segmented.expanded.msmarco.txt',
-                f'python -m pyserini.search.lucene --threads {self.threads} --batch-size {self.batch_size} \
-                    --index {index} --topics msmarco-doc-dev \
-                    --bm25 --hits 1000 --max-passage --max-passage-hits 100 --output-format msmarco',
+                f'python -m pyserini.search.lucene \
+                    --threads {self.threads} \
+                    --batch-size {self.batch_size} \
+                    --index {index} \
+                    --topics msmarco-doc-dev \
+                    --bm25 \
+                    --hits 1000 \
+                    --max-passage \
+                    --max-passage-hits 100 \
+                    --output-format msmarco',
                 'msmarco-doc-dev',
                 'msmarco_doc_string', [])
 
