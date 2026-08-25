@@ -99,6 +99,11 @@ async def search_v1(
     k1: str | None = Query(None),
     b: str | None = Query(None),
     max_doc_length: str | None = Query(None),
+    qid: str | None = Query(None),
+    question: str | None = Query(None),
+    run_id: str | None = Query(None),
+    agent: str | None = Query(None),
+    step: int | None = Query(None, ge=0),
 ):
     backend = _backend(request)
     index_token = backend.decode_path_segment(index)
@@ -173,6 +178,11 @@ async def get_document_v1(
     docid: str,
     parse: str | None = Query(None),
     max_doc_length: str | None = Query(None),
+    qid: str | None = Query(None),
+    question: str | None = Query(None),
+    run_id: str | None = Query(None),
+    agent: str | None = Query(None),
+    step: int | None = Query(None, ge=0),
 ):
     backend = _backend(request)
     index_token = backend.decode_path_segment(index)

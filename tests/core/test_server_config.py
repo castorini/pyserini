@@ -23,7 +23,12 @@ from pathlib import Path
 import yaml
 
 # Keep this test in tests/core: server config imports shared server utilities that include Faiss-backed index types.
-from pyserini.server.config import AcceptedApiTokens, ApiTokenStore, load_server_config
+from pyserini.server.config import (
+    AcceptedApiTokens,
+    ApiTokenEmailAlreadyIssuedError,
+    ApiTokenStore,
+    load_server_config,
+)
 
 
 class TestServerConfigParsing(unittest.TestCase):
@@ -138,7 +143,8 @@ class TestServerConfigParsing(unittest.TestCase):
             cfg_path.write_text(yaml.safe_dump(cfg, sort_keys=False), encoding='utf-8')
             cfg_path.chmod(0o600)
 
-            token = ApiTokenStore(str(cfg_path)).issue(name='Test User', email='test@example.edu')
+            store = ApiTokenStore(str(cfg_path))
+            token = store.issue(name='Test User', email=' Test@Example.EDU ')
 
             self.assertEqual(len(token), 64)
             int(token, 16)
@@ -152,6 +158,8 @@ class TestServerConfigParsing(unittest.TestCase):
                 persisted['api_key_identities'][token],
                 {'name': 'Test User', 'email': 'test@example.edu'},
             )
+            self.assertTrue(store.has_email('TEST@example.edu'))
+            self.assertFalse(store.has_email('other@example.edu'))
             self.assertEqual(persisted['indexes'], cfg['indexes'])
             self.assertEqual(persisted['custom'], cfg['custom'])
             self.assertEqual(os.stat(cfg_path).st_mode & 0o777, 0o600)
@@ -191,6 +199,22 @@ class TestServerConfigParsing(unittest.TestCase):
                 ApiTokenStore(str(cfg_path)).issue(name='Test User', email='test@example.edu')
 
             self.assertEqual(cfg_path.read_text(encoding='utf-8'), original)
+
+    def test_api_token_store_allows_only_one_lifetime_token_per_email(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg_path = Path(tmp) / 'server.yaml'
+            cfg_path.write_text('indexes:\n  local: /tmp\napi_keys:\n  - existing-key\n', encoding='utf-8')
+            store = ApiTokenStore(str(cfg_path))
+            token = store.issue(name='First User', email='first@example.edu')
+            after_first = cfg_path.read_text(encoding='utf-8')
+
+            with self.assertRaises(ApiTokenEmailAlreadyIssuedError):
+                store.issue(name='Renamed User', email=' FIRST@EXAMPLE.EDU ')
+
+            self.assertEqual(cfg_path.read_text(encoding='utf-8'), after_first)
+            persisted = yaml.safe_load(after_first)
+            self.assertEqual(persisted['api_keys'], ['existing-key', token])
+            self.assertEqual(len(persisted['api_key_identities']), 1)
 
     def test_api_token_store_rejects_invalid_identity_mapping_without_modifying_file(self):
         with tempfile.TemporaryDirectory() as tmp:

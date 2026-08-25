@@ -88,8 +88,10 @@ include `Cache-Control: no-store`; the token is not logged and is not available 
 
 Both `name` and a syntactically valid `email` are required. Anonymous issuance has independent one-hour
 cooldowns for the client IP and normalized email by default. A token is issued only when neither value
-has received one during the cooldown. Identity fields are persisted in the protected YAML config but
-are not written to request logs. Configure the cooldown in seconds, or use `0` to disable it:
+has received one during the cooldown. Each normalized email can receive only one token for the lifetime
+of its persisted identity record; later requests return **409**. Identity fields are persisted in the
+protected YAML config but are not written to request logs. Configure the cooldown in seconds, or use
+`0` to disable it:
 
 ```bash
 python -m pyserini.server.rest \
@@ -134,9 +136,10 @@ REST server logging options:
 
 Each JSONL request record includes the timestamp, request ID, client, method, path, query string
 (capped at 1000 characters), status, latency, auth outcome, and a non-reversible API-key fingerprint
-when credentials are present. Auth failures and load-shedding responses are written to the same log as
-successful requests. The server generates a request ID for each request, logs it, and returns it as
-`X-Request-ID`.
+when credentials are present. It also includes explicit `qid`, `question`, `retrieval_query`, `run_id`,
+`agent`, and `step` fields when clients provide academic trace metadata. Auth failures and load-shedding
+responses are written to the same log as successful requests. The server generates a request ID for
+each request, logs it, and returns it as `X-Request-ID`.
 
 Example:
 
@@ -181,6 +184,23 @@ When `api_keys` is configured, search and document routes require authentication
 `Authorization: Bearer {api-key}` or `X-API-Key: {api-key}`. The optional token-issuance route is
 anonymous so that new clients can obtain a credential.
 
+### Optional academic trace metadata
+
+Search and document requests accept optional `qid`, `question`, `run_id`, `agent`, and `step` query
+parameters. Clients are encouraged, as a courtesy, to include them whenever the values are known.
+They are collected solely for academic research on agent retrieval behavior and do not affect ranking
+or response contents.
+
+- `qid`: source-dataset question identifier
+- `question`: complete question body the user or agent is answering
+- `run_id`: stable identifier shared by requests from one answer attempt
+- `agent`: agent or client name and version
+- `step`: zero-based retrieval step within the run
+
+The server records these fields alongside the retrieval `query`, request ID, timestamp, API-key
+fingerprint, route, status, and latency. Omit unknown values rather than fabricating them. Agents should
+propagate the same trace fields to follow-up document fetches.
+
 ### Index parameter `{index}`
 
 The `{index}` path parameter may contain **slashes**, so a relative filesystem path can appear directly under `/v1/` (for example `GET /v1/project/indexes/msmarco/search`).
@@ -209,6 +229,11 @@ If the index cannot be opened, the API responds with **400** and a message such 
 | `k1` | no | `0.9` | BM25 k1 for sparse (TF) indexes. Must be finite, non-negative, and sent together with `b`. |
 | `b` | no | `0.4` | BM25 b for sparse (TF) indexes. Must be in `[0, 1]`, and sent together with `k1`. |
 | `max_doc_length` | no | — | Maximum characters to return for each parsed candidate document. If omitted, return the full document. Requires `parse=true`. |
+| `qid` | no | — | Academic trace: source question identifier. |
+| `question` | no | — | Academic trace: complete question body. |
+| `run_id` | no | — | Academic trace: stable answer-attempt identifier. |
+| `agent` | no | — | Academic trace: agent/client name and version. |
+| `step` | no | — | Academic trace: zero-based retrieval step. |
 
 **Example**
 
@@ -273,6 +298,11 @@ The `doc` field may be `null`, a string, or a JSON value depending on the index 
 |------|----------|---------|-------------|
 | `parse` | no | `true` | Same meaning as for search. |
 | `max_doc_length` | no | — | Maximum characters to return for the parsed document. If omitted, return the full document. Requires `parse=true`. |
+| `qid` | no | — | Academic trace: source question identifier. |
+| `question` | no | — | Academic trace: complete question body. |
+| `run_id` | no | — | Academic trace: stable answer-attempt identifier. |
+| `agent` | no | — | Academic trace: agent/client name and version. |
+| `step` | no | — | Academic trace: zero-based retrieval step. |
 
 **Example**
 

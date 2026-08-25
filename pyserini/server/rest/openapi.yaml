@@ -65,6 +65,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: The normalized email address already has a token.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
         "500":
           description: The token could not be persisted.
           content:
@@ -137,6 +143,11 @@ paths:
           description: >
             Maximum characters to return for each parsed candidate document. If omitted, return
             the full document. Returns 400 when combined with parse=false.
+        - $ref: "#/components/parameters/TraceQid"
+        - $ref: "#/components/parameters/TraceQuestion"
+        - $ref: "#/components/parameters/TraceRunId"
+        - $ref: "#/components/parameters/TraceAgent"
+        - $ref: "#/components/parameters/TraceStep"
       responses:
         "200":
           description: Search results.
@@ -221,6 +232,11 @@ paths:
           description: >
             Maximum characters to return for the parsed document. If omitted, return the full
             document. Returns 400 when combined with parse=false.
+        - $ref: "#/components/parameters/TraceQid"
+        - $ref: "#/components/parameters/TraceQuestion"
+        - $ref: "#/components/parameters/TraceRunId"
+        - $ref: "#/components/parameters/TraceAgent"
+        - $ref: "#/components/parameters/TraceStep"
       responses:
         "200":
           description: Document found.
@@ -273,6 +289,43 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 components:
+  parameters:
+    TraceQid:
+      name: qid
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Source-dataset question identifier for optional academic trace collection.
+    TraceQuestion:
+      name: question
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Complete question body for optional academic trace collection.
+    TraceRunId:
+      name: run_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Stable identifier shared by requests in one agent answer attempt.
+    TraceAgent:
+      name: agent
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Agent or client name and version for optional academic trace collection.
+    TraceStep:
+      name: step
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: Zero-based retrieval step within the agent run.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

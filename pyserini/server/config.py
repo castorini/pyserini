@@ -197,6 +197,10 @@ class AcceptedApiTokens:
             self._tokens = self._tokens.union(normalized)
 
 
+class ApiTokenEmailAlreadyIssuedError(ValueError):
+    """Raised when an email address already owns an issued API token."""
+
+
 class ApiTokenStore:
     """Issue API tokens into the existing YAML ``api_keys`` list atomically."""
 
@@ -212,6 +216,13 @@ class ApiTokenStore:
     @property
     def config_path(self) -> Path:
         return self._config_path
+
+    @staticmethod
+    def _normalize_email(email: str) -> str:
+        normalized = email.strip().casefold() if isinstance(email, str) else ''
+        if not normalized:
+            raise ValueError('Token identity email must be a non-empty string')
+        return normalized
 
     @staticmethod
     def _load_payload(path: Path) -> tuple[dict, list[str], dict[str, dict[str, object]]]:
@@ -256,6 +267,16 @@ class ApiTokenStore:
                 identities[raw_token.strip()] = identity
         return payload, keys, identities
 
+    def has_email(self, email: str) -> bool:
+        """Return whether a normalized email already has a persisted token identity."""
+        normalized_email = self._normalize_email(email)
+        with self._lock:
+            _, _, identities = self._load_payload(self._config_path)
+            return any(
+                str(identity['email']).strip().casefold() == normalized_email
+                for identity in identities.values()
+            )
+
     @staticmethod
     def _write_payload(path: Path, payload: dict) -> None:
         current = path.stat()
@@ -293,13 +314,16 @@ class ApiTokenStore:
     def issue(self, *, name: str, email: str) -> str:
         """Append a 256-bit token and its user identity, then return the token."""
         normalized_name = name.strip() if isinstance(name, str) else ''
-        normalized_email = email.strip() if isinstance(email, str) else ''
+        normalized_email = self._normalize_email(email)
         if not normalized_name:
             raise ValueError('Token identity name must be a non-empty string')
-        if not normalized_email:
-            raise ValueError('Token identity email must be a non-empty string')
         with self._lock:
             payload, keys, identities = self._load_payload(self._config_path)
+            if any(
+                str(identity['email']).strip().casefold() == normalized_email
+                for identity in identities.values()
+            ):
+                raise ApiTokenEmailAlreadyIssuedError('This email address already has an API token')
             existing = set(keys).union(identities)
             token = secrets.token_hex(32)
             while token in existing:

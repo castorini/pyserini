@@ -79,8 +79,29 @@ class TestRestServer(unittest.TestCase):
         self.assertIn('ApiKeyAuth', data['components']['securitySchemes'])
         self.assertIn('/token', data['paths'])
         self.assertIn('201', data['paths']['/token']['post']['responses'])
+        self.assertIn('409', data['paths']['/token']['post']['responses'])
         self.assertTrue(data['paths']['/token']['post']['requestBody']['required'])
         self.assertIn('TokenIssuanceRequest', data['components']['schemas'])
+        trace_parameter_names = {
+            parameter['name'] for parameter in data['components']['parameters'].values()
+        }
+        self.assertEqual(trace_parameter_names, {'qid', 'question', 'run_id', 'agent', 'step'})
+        expected_trace_refs = {
+            f'#/components/parameters/{name}'
+            for name in ('TraceQid', 'TraceQuestion', 'TraceRunId', 'TraceAgent', 'TraceStep')
+        }
+        search_trace_refs = {
+            parameter['$ref']
+            for parameter in data['paths']['/{index}/search']['get']['parameters']
+            if '$ref' in parameter
+        }
+        document_trace_refs = {
+            parameter['$ref']
+            for parameter in data['paths']['/{index}/doc/{docid}']['get']['parameters']
+            if '$ref' in parameter
+        }
+        self.assertEqual(search_trace_refs, expected_trace_refs)
+        self.assertEqual(document_trace_refs, expected_trace_refs)
         search_responses = data['paths']['/{index}/search']['get']['responses']
         self.assertIn('401', search_responses)
         self.assertIn('429', search_responses)
@@ -673,7 +694,15 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
                 with self.assertLogs('pyserini.server.rest.request', level='INFO') as cm:
                     ok = client.get(
                         f'/{API_VERSION}/cacm_alias/search',
-                        params={'query': _REST_QUERY, 'hits': 1},
+                        params={
+                            'query': _REST_QUERY,
+                            'hits': 1,
+                            'qid': 'q-123',
+                            'question': 'Which document explains information retrieval?',
+                            'run_id': 'run-456',
+                            'agent': 'test-agent/1.0',
+                            'step': 3,
+                        },
                         headers={'X-API-Key': token},
                     )
                 self.assertEqual(ok.status_code, 200, msg=ok.text)
@@ -686,6 +715,14 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
                 self.assertEqual(record.get('path'), f'/{API_VERSION}/cacm_alias/search')
                 self.assertEqual(record.get('request_id'), ok.headers.get('X-Request-ID'))
                 self.assertFalse(record.get('query_truncated'))
+                self.assertEqual(record.get('qid'), 'q-123')
+                self.assertEqual(record.get('question'), 'Which document explains information retrieval?')
+                self.assertEqual(record.get('retrieval_query'), _REST_QUERY)
+                self.assertEqual(record.get('run_id'), 'run-456')
+                self.assertEqual(record.get('agent'), 'test-agent/1.0')
+                self.assertEqual(record.get('step'), 3)
+                self.assertFalse(record.get('question_truncated'))
+                self.assertFalse(record.get('retrieval_query_truncated'))
                 self.assertIn('latency_ms', record)
         finally:
             os.unlink(path)
@@ -726,6 +763,12 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
         self.assertEqual(record.get('path'), '/')
         self.assertEqual(record.get('request_id'), response.headers.get('X-Request-ID'))
         self.assertFalse(record.get('query_truncated'))
+        self.assertIsNone(record.get('qid'))
+        self.assertIsNone(record.get('question'))
+        self.assertIsNone(record.get('retrieval_query'))
+        self.assertIsNone(record.get('run_id'))
+        self.assertIsNone(record.get('agent'))
+        self.assertIsNone(record.get('step'))
 
     def test_request_id_is_server_generated_and_ignores_incoming_headers(self):
         client_request_id = 'req-test-123'
@@ -752,6 +795,16 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
         record = json.loads(cm.records[-1].getMessage())
         self.assertEqual(len(record.get('query')), 1000)
         self.assertTrue(record.get('query_truncated'))
+
+    def test_long_question_is_truncated_in_structured_trace(self):
+        question = 'q' * 9000
+        with TestClient(create_app()) as client:
+            with self.assertLogs('pyserini.server.rest.request', level='INFO') as cm:
+                response = client.get('/', params={'question': question})
+            self.assertEqual(response.status_code, 200, msg=response.text)
+        record = json.loads(cm.records[-1].getMessage())
+        self.assertEqual(len(record.get('question')), 8192)
+        self.assertTrue(record.get('question_truncated'))
 
     def test_keep_uvicorn_logs_routes_access_to_request_log_file(self):
         config = _build_uvicorn_log_config(
@@ -874,9 +927,9 @@ class TestRestTokenIssuance(unittest.TestCase):
                     json=self._identity(name='Second User', email='second@example.edu'),
                 )
             self.assertEqual(first.status_code, 201, msg=first.text)
-            self.assertEqual(second.status_code, 429, msg=second.text)
-            self.assertGreaterEqual(int(second.headers.get('retry-after', '0')), 1)
+            self.assertEqual(second.status_code, 409, msg=second.text)
             self.assertEqual(same_ip_different_email.status_code, 429, msg=same_ip_different_email.text)
+            self.assertGreaterEqual(int(same_ip_different_email.headers.get('retry-after', '0')), 1)
             persisted = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
             self.assertEqual(len(persisted['api_keys']), 2)
             self.assertEqual(len(persisted['api_key_identities']), 1)
@@ -932,6 +985,36 @@ class TestRestTokenIssuance(unittest.TestCase):
         self.assertIsNotNone(same_ip_retry)
         self.assertIsNotNone(same_email_retry)
         self.assertIsNone(both_new_retry)
+
+    def test_token_issuance_rejects_email_that_already_has_a_token_after_restart(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self._write_config(tmp)
+            first_app = create_app(
+                path,
+                enable_token_issuance=True,
+                token_issuance_cooldown_sec=0,
+            )
+            with TestClient(first_app) as client:
+                first = client.post(
+                    f'/{API_VERSION}/token',
+                    json=self._identity(name='First User', email='first@example.edu'),
+                )
+            self.assertEqual(first.status_code, 201, msg=first.text)
+
+            restarted_app = create_app(
+                path,
+                enable_token_issuance=True,
+                token_issuance_cooldown_sec=0,
+            )
+            with TestClient(restarted_app) as client:
+                duplicate = client.post(
+                    f'/{API_VERSION}/token',
+                    json=self._identity(name='Renamed User', email=' FIRST@EXAMPLE.EDU '),
+                )
+            self.assertEqual(duplicate.status_code, 409, msg=duplicate.text)
+            persisted = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
+            self.assertEqual(len(persisted['api_keys']), 2)
+            self.assertEqual(len(persisted['api_key_identities']), 1)
 
     def test_get_token_endpoint_returns_post_only_405(self):
         with tempfile.TemporaryDirectory() as tmp:

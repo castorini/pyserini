@@ -54,7 +54,12 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 import yaml
 
 from pyserini.server.backend import SharedSearchBackend
-from pyserini.server.config import AcceptedApiTokens, ApiTokenStore, load_server_config
+from pyserini.server.config import (
+    AcceptedApiTokens,
+    ApiTokenEmailAlreadyIssuedError,
+    ApiTokenStore,
+    load_server_config,
+)
 from pyserini.server.rest.routes import v1
 
 logger = logging.getLogger(__name__)
@@ -66,6 +71,11 @@ DESCRIPTION = 'REST API aligned with Anserini (Lucene indexes via Pyserini).'
 ROUTE_ERROR = 'Expected route /v1/{index}/search or /v1/{index}/doc/{docid}'
 AUTH_TOKEN_REQUEST_EMAIL = 'get-pyserini@googlegroups.com'
 MAX_LOGGED_QUERY_CHARS = 1000
+MAX_LOGGED_QID_CHARS = 256
+MAX_LOGGED_QUESTION_CHARS = 8192
+MAX_LOGGED_RETRIEVAL_QUERY_CHARS = 4096
+MAX_LOGGED_RUN_ID_CHARS = 256
+MAX_LOGGED_AGENT_CHARS = 256
 REQUEST_ID_HEADER = 'X-Request-ID'
 TOKEN_ISSUE_PATH = f'/{API_VERSION}/token'
 
@@ -317,6 +327,49 @@ def _request_query_for_log(request: Request) -> tuple[str, bool]:
     return query[:MAX_LOGGED_QUERY_CHARS], True
 
 
+def _query_param_for_log(request: Request, name: str, max_chars: int) -> tuple[str | None, bool]:
+    value = request.query_params.get(name)
+    if value is None:
+        return None, False
+    if len(value) <= max_chars:
+        return value, False
+    return value[:max_chars], True
+
+
+def _request_trace_for_log(request: Request) -> dict[str, object]:
+    qid, qid_truncated = _query_param_for_log(request, 'qid', MAX_LOGGED_QID_CHARS)
+    question, question_truncated = _query_param_for_log(
+        request,
+        'question',
+        MAX_LOGGED_QUESTION_CHARS,
+    )
+    retrieval_query, retrieval_query_truncated = _query_param_for_log(
+        request,
+        'query',
+        MAX_LOGGED_RETRIEVAL_QUERY_CHARS,
+    )
+    run_id, run_id_truncated = _query_param_for_log(request, 'run_id', MAX_LOGGED_RUN_ID_CHARS)
+    agent, agent_truncated = _query_param_for_log(request, 'agent', MAX_LOGGED_AGENT_CHARS)
+    step_raw = request.query_params.get('step')
+    try:
+        step: int | str | None = int(step_raw) if step_raw is not None else None
+    except ValueError:
+        step = step_raw
+    return {
+        'qid': qid,
+        'qid_truncated': qid_truncated,
+        'question': question,
+        'question_truncated': question_truncated,
+        'retrieval_query': retrieval_query,
+        'retrieval_query_truncated': retrieval_query_truncated,
+        'run_id': run_id,
+        'run_id_truncated': run_id_truncated,
+        'agent': agent,
+        'agent_truncated': agent_truncated,
+        'step': step,
+    }
+
+
 def _build_uvicorn_log_config(
     request_log_file: str | None,
     *,
@@ -452,6 +505,7 @@ def create_app(
             'auth': 'not_configured',
             'key_id': None,
         }
+        log_entry.update(_request_trace_for_log(request))
         prefix = f'/{API_VERSION}/'
         tokens: AcceptedApiTokens | None = getattr(request.app.state, 'accepted_api_tokens', None)
         response = None
@@ -559,6 +613,11 @@ def create_app(
             return JSONResponse(status_code=503, content={'error': 'API token issuance is not enabled'})
 
         client = request.client.host if request.client else ''
+        if await asyncio.to_thread(store.has_email, token_request.email):
+            return JSONResponse(
+                status_code=409,
+                content={'error': 'This email address already has an API token'},
+            )
         retry_after, reservation = cooldown.reserve(client, token_request.email, time.monotonic())
         if retry_after is not None:
             retry_after_sec = max(1, math.ceil(retry_after))
@@ -571,6 +630,12 @@ def create_app(
         try:
             token = await asyncio.to_thread(store.issue, name=token_request.name, email=token_request.email)
             tokens.add(token)
+        except ApiTokenEmailAlreadyIssuedError:
+            cooldown.release(client, token_request.email, reservation)
+            return JSONResponse(
+                status_code=409,
+                content={'error': 'This email address already has an API token'},
+            )
         except Exception:
             cooldown.release(client, token_request.email, reservation)
             raise
