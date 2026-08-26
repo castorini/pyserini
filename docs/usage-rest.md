@@ -76,12 +76,13 @@ python -m pyserini.server.rest \
   --token-email-smtp-username pyserini@example.edu \
   --token-email-smtp-password-file /secure/path/to/smtp-password \
   --token-email-from pyserini@example.edu \
-  --token-email-cc get-pyserini@googlegroups.com
+  --token-email-cc operator@example.edu
 ```
 
-The SMTP password file must be readable only by its owner. Repeat `--token-email-cc` to copy additional
-operator addresses. SMTP authentication is optional only when both the username and password-file
-options are omitted, for example when using a trusted local relay.
+The SMTP password file must be readable only by its owner. At least one `--token-email-cc` is required;
+repeat it only for individual operator mailboxes. Never use a mailing list or Google Group because it
+may distribute the credential to every subscriber. SMTP authentication is optional only when both the
+username and password-file options are omitted, for example when using a trusted local relay.
 
 Clients request a token with `POST /v1/token`:
 

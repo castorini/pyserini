@@ -18,7 +18,7 @@ paths:
       description: >
         Claims a pre-generated 256-bit API token from protected inventory, stores the supplied name
         and normalized email, activates the credential, and sends it to that email address while
-        copying the configured service operators. The server never generates credentials and never
+        copying explicitly configured individual service operators. The server never generates credentials and never
         returns one in an HTTP response. A later eligible request for the same email resends its
         lifetime token instead of allocating another. Independent cooldowns apply to the observed
         client IP and normalized email. This endpoint is available only when the server starts with

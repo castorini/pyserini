@@ -83,6 +83,15 @@ class TestSmtpTokenEmailSender(unittest.TestCase):
                 username='smtp-user',
             )
 
+    def test_google_group_cannot_receive_token_cc(self):
+        with self.assertRaisesRegex(ValueError, 'individual mailboxes'):
+            SmtpTokenEmailSender(
+                host='smtp.example.edu',
+                port=587,
+                sender='tokens@example.edu',
+                cc=('research-list@googlegroups.com',),
+            )
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -75,7 +75,6 @@ SERVER_NAME = 'Pyserini API'
 API_VERSION = 'v1'
 DESCRIPTION = 'REST API aligned with Anserini (Lucene indexes via Pyserini).'
 ROUTE_ERROR = 'Expected route /v1/{index}/search or /v1/{index}/doc/{docid}'
-AUTH_TOKEN_REQUEST_EMAIL = 'get-pyserini@googlegroups.com'
 MAX_LOGGED_QUERY_CHARS = 1000
 MAX_LOGGED_QID_CHARS = 256
 MAX_LOGGED_QUESTION_CHARS = 8192
@@ -538,10 +537,7 @@ def create_app(
                     response = JSONResponse(
                         status_code=401,
                         content={
-                            'error': (
-                                'Unauthorized. To request an access token, '
-                                f'email {AUTH_TOKEN_REQUEST_EMAIL}.'
-                            )
+                            'error': 'Unauthorized. Request access from the service operator.'
                         },
                         headers={REQUEST_ID_HEADER: request_id},
                     )
@@ -782,7 +778,7 @@ def main():
         '--token-email-cc',
         action='append',
         default=None,
-        help=f'CC address for token delivery (repeatable; default: {AUTH_TOKEN_REQUEST_EMAIL}).',
+        help='Individual CC mailbox for token delivery (required and repeatable; mailing lists are unsafe).',
     )
     parser.add_argument(
         '--token-email-timeout',
@@ -820,6 +816,9 @@ def main():
     if args.enable_token_issuance and not args.token_email_from:
         raise SystemExit('Error: --enable-token-issuance requires --token-email-from')
 
+    if args.enable_token_issuance and not args.token_email_cc:
+        raise SystemExit('Error: --enable-token-issuance requires at least one --token-email-cc')
+
     if args.token_issuance_cooldown < 0:
         raise SystemExit('Error: --token-issuance-cooldown must be >= 0')
 
@@ -830,7 +829,7 @@ def main():
                 host=args.token_email_smtp_host,
                 port=args.token_email_smtp_port,
                 sender=args.token_email_from,
-                cc=tuple(args.token_email_cc or (AUTH_TOKEN_REQUEST_EMAIL,)),
+                cc=tuple(args.token_email_cc),
                 username=args.token_email_smtp_username,
                 password_file=args.token_email_smtp_password_file,
                 security=args.token_email_smtp_security,

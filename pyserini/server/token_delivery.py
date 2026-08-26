@@ -36,6 +36,7 @@ class SmtpTokenEmailSender:
 
     DEFAULT_STARTTLS_PORT = 587
     DEFAULT_TIMEOUT_SEC = 20.0
+    FORBIDDEN_CC_DOMAINS = frozenset({'googlegroups.com'})
     VALID_SECURITY_MODES = frozenset({'starttls', 'ssl'})
 
     __slots__ = (
@@ -76,6 +77,11 @@ class SmtpTokenEmailSender:
             raise ValueError('Token email sender address is required')
         if not self._cc:
             raise ValueError('At least one token email CC address is required')
+        if any(
+            address.rsplit('@', 1)[-1].casefold() in self.FORBIDDEN_CC_DOMAINS
+            for address in self._cc
+        ):
+            raise ValueError('Token email CC addresses must be individual mailboxes, not Google Groups')
         if self._security not in self.VALID_SECURITY_MODES:
             raise ValueError(f'SMTP security must be one of {sorted(self.VALID_SECURITY_MODES)}')
         if self._timeout_sec <= 0:
