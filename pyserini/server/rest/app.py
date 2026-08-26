@@ -21,9 +21,12 @@ Usage:
     python -m pyserini.server.rest [--host HOST] [--port PORT] [--config PATH] [--no-prebuilt-indexes] 
                                    [--log-file PATH] [--keep-uvicorn-logs] [--load-shedding-threshold MS]
                                    [--search-cache-size N] [--document-cache-size N]
+                                   [--enable-token-issuance --token-pool PATH --token-email-smtp-host HOST
+                                    --token-email-from ADDRESS]
 
 Endpoints:
     GET /openapi.yaml     : OpenAPI specification (same document as Anserini).
+    POST /v1/token        : Request delivery of a pre-generated credential by email.
     GET /v1/{index}/search?query=...&hits=10&parse=true&k1=0.9&b=0.4
     GET /v1/{index}/doc/{docid}?parse=true
     GET /docs             : Swagger UI (FastAPI).
@@ -57,10 +60,13 @@ from pyserini.server.backend import SharedSearchBackend
 from pyserini.server.config import (
     AcceptedApiTokens,
     ApiTokenEmailAlreadyIssuedError,
+    ApiTokenPoolExhaustedError,
     ApiTokenStore,
+    PreGeneratedApiTokenPool,
     load_server_config,
 )
 from pyserini.server.rest.routes import v1
+from pyserini.server.token_delivery import SmtpTokenEmailSender, TokenEmailSender
 
 logger = logging.getLogger(__name__)
 request_logger = logging.getLogger('pyserini.server.rest.request')
@@ -427,6 +433,8 @@ def create_app(
     document_cache_size: int = 4096,
     enable_token_issuance: bool = False,
     token_issuance_cooldown_sec: float = 3600.0,
+    token_pool_path: str | None = None,
+    token_email_sender: TokenEmailSender | None = None,
 ) -> FastAPI:
     if no_prebuilt_indexes and not config_path:
         raise ValueError('--no-prebuilt-indexes requires a config file path')
@@ -446,6 +454,10 @@ def create_app(
 
     if enable_token_issuance and not config_path:
         raise ValueError('--enable-token-issuance requires a config file path')
+    if enable_token_issuance and not token_pool_path:
+        raise ValueError('--enable-token-issuance requires a pre-generated token pool')
+    if enable_token_issuance and token_email_sender is None:
+        raise ValueError('--enable-token-issuance requires an email sender')
     if token_issuance_cooldown_sec < 0:
         raise ValueError('token_issuance_cooldown_sec must be >= 0')
 
@@ -454,6 +466,7 @@ def create_app(
         accepted_api_tokens = AcceptedApiTokens.from_strings(token_strings or [])
 
     token_store = ApiTokenStore(config_path) if enable_token_issuance and config_path else None
+    token_pool = PreGeneratedApiTokenPool(token_pool_path) if enable_token_issuance and token_pool_path else None
     token_issuance_cooldown = (
         TokenIssuanceCooldown(token_issuance_cooldown_sec) if enable_token_issuance else None
     )
@@ -482,6 +495,8 @@ def create_app(
     app.state.accepted_api_tokens = accepted_api_tokens  # type: ignore[attr-defined]
     app.state.rest_backpressure = rest_backpressure  # type: ignore[attr-defined]
     app.state.token_store = token_store  # type: ignore[attr-defined]
+    app.state.token_pool = token_pool  # type: ignore[attr-defined]
+    app.state.token_email_sender = token_email_sender  # type: ignore[attr-defined]
     app.state.token_issuance_cooldown = token_issuance_cooldown  # type: ignore[attr-defined]
     app.openapi = lambda: _load_openapi_schema()
 
@@ -604,20 +619,17 @@ def create_app(
             'documentation': '/docs',
         }
 
-    @app.post(TOKEN_ISSUE_PATH, status_code=201)
+    @app.post(TOKEN_ISSUE_PATH, status_code=202)
     async def issue_api_token(token_request: TokenIssuanceRequest, request: Request):
         store: ApiTokenStore | None = getattr(request.app.state, 'token_store', None)
+        pool: PreGeneratedApiTokenPool | None = getattr(request.app.state, 'token_pool', None)
+        email_sender: TokenEmailSender | None = getattr(request.app.state, 'token_email_sender', None)
         cooldown: TokenIssuanceCooldown | None = getattr(request.app.state, 'token_issuance_cooldown', None)
         tokens: AcceptedApiTokens | None = getattr(request.app.state, 'accepted_api_tokens', None)
-        if store is None or cooldown is None or tokens is None:
+        if store is None or pool is None or email_sender is None or cooldown is None or tokens is None:
             return JSONResponse(status_code=503, content={'error': 'API token issuance is not enabled'})
 
         client = request.client.host if request.client else ''
-        if await asyncio.to_thread(store.has_email, token_request.email):
-            return JSONResponse(
-                status_code=409,
-                content={'error': 'This email address already has an API token'},
-            )
         retry_after, reservation = cooldown.reserve(client, token_request.email, time.monotonic())
         if retry_after is not None:
             retry_after_sec = max(1, math.ceil(retry_after))
@@ -628,20 +640,47 @@ def create_app(
             )
 
         try:
-            token = await asyncio.to_thread(store.issue, name=token_request.name, email=token_request.email)
+            token = await asyncio.to_thread(store.token_for_email, token_request.email)
+            if token is None:
+                token = await asyncio.to_thread(
+                    pool.claim,
+                    name=token_request.name,
+                    email=token_request.email,
+                )
+                try:
+                    token = await asyncio.to_thread(
+                        store.activate,
+                        token,
+                        name=token_request.name,
+                        email=token_request.email,
+                    )
+                except ApiTokenEmailAlreadyIssuedError:
+                    token = await asyncio.to_thread(store.token_for_email, token_request.email)
+                    if token is None:
+                        raise
             tokens.add(token)
-        except ApiTokenEmailAlreadyIssuedError:
+            await asyncio.to_thread(
+                email_sender.send,
+                name=token_request.name,
+                email=token_request.email,
+                token=token,
+            )
+        except ApiTokenPoolExhaustedError:
             cooldown.release(client, token_request.email, reservation)
             return JSONResponse(
-                status_code=409,
-                content={'error': 'This email address already has an API token'},
+                status_code=503,
+                content={'error': 'Token delivery is temporarily unavailable'},
             )
         except Exception:
             cooldown.release(client, token_request.email, reservation)
-            raise
+            logger.error('Token email delivery failed')
+            return JSONResponse(
+                status_code=503,
+                content={'error': 'Token delivery is temporarily unavailable'},
+            )
         return JSONResponse(
-            status_code=201,
-            content={'api_key': token, 'token_type': 'bearer'},
+            status_code=202,
+            content={'status': 'accepted', 'message': 'Token delivery will be sent by email.'},
             headers={'Cache-Control': 'no-store', 'Pragma': 'no-cache'},
         )
 
@@ -710,7 +749,7 @@ def main():
     parser.add_argument(
         '--enable-token-issuance',
         action='store_true',
-        help='Enable anonymous POST /v1/token issuance into the configured api_keys list.',
+        help='Claim pre-generated tokens and deliver them by email through POST /v1/token.',
     )
     parser.add_argument(
         '--token-issuance-cooldown',
@@ -718,6 +757,38 @@ def main():
         default=3600.0,
         metavar='SECONDS',
         help='Minimum seconds between token issuances per client (default: 3600; 0 disables).',
+    )
+    parser.add_argument(
+        '--token-pool',
+        type=str,
+        default=None,
+        help='Protected JSON inventory of pre-generated API tokens.',
+    )
+    parser.add_argument('--token-email-smtp-host', type=str, default=None)
+    parser.add_argument(
+        '--token-email-smtp-port',
+        type=int,
+        default=SmtpTokenEmailSender.DEFAULT_STARTTLS_PORT,
+    )
+    parser.add_argument(
+        '--token-email-smtp-security',
+        choices=sorted(SmtpTokenEmailSender.VALID_SECURITY_MODES),
+        default='starttls',
+    )
+    parser.add_argument('--token-email-smtp-username', type=str, default=None)
+    parser.add_argument('--token-email-smtp-password-file', type=str, default=None)
+    parser.add_argument('--token-email-from', type=str, default=None)
+    parser.add_argument(
+        '--token-email-cc',
+        action='append',
+        default=None,
+        help=f'CC address for token delivery (repeatable; default: {AUTH_TOKEN_REQUEST_EMAIL}).',
+    )
+    parser.add_argument(
+        '--token-email-timeout',
+        type=float,
+        default=SmtpTokenEmailSender.DEFAULT_TIMEOUT_SEC,
+        metavar='SECONDS',
     )
     args = parser.parse_args()
 
@@ -740,8 +811,33 @@ def main():
     if args.enable_token_issuance and not args.config:
         raise SystemExit('Error: --enable-token-issuance requires --config')
 
+    if args.enable_token_issuance and not args.token_pool:
+        raise SystemExit('Error: --enable-token-issuance requires --token-pool')
+
+    if args.enable_token_issuance and not args.token_email_smtp_host:
+        raise SystemExit('Error: --enable-token-issuance requires --token-email-smtp-host')
+
+    if args.enable_token_issuance and not args.token_email_from:
+        raise SystemExit('Error: --enable-token-issuance requires --token-email-from')
+
     if args.token_issuance_cooldown < 0:
         raise SystemExit('Error: --token-issuance-cooldown must be >= 0')
+
+    token_email_sender = None
+    if args.enable_token_issuance:
+        try:
+            token_email_sender = SmtpTokenEmailSender(
+                host=args.token_email_smtp_host,
+                port=args.token_email_smtp_port,
+                sender=args.token_email_from,
+                cc=tuple(args.token_email_cc or (AUTH_TOKEN_REQUEST_EMAIL,)),
+                username=args.token_email_smtp_username,
+                password_file=args.token_email_smtp_password_file,
+                security=args.token_email_smtp_security,
+                timeout_sec=args.token_email_timeout,
+            )
+        except ValueError as exc:
+            raise SystemExit(f'Error: {exc}') from exc
 
     uvicorn.run(
         create_app(
@@ -752,6 +848,8 @@ def main():
             document_cache_size=args.document_cache_size,
             enable_token_issuance=args.enable_token_issuance,
             token_issuance_cooldown_sec=args.token_issuance_cooldown,
+            token_pool_path=args.token_pool,
+            token_email_sender=token_email_sender,
         ),
         host=args.host,
         port=args.port,

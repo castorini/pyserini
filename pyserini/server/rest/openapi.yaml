@@ -14,14 +14,15 @@ security:
 paths:
   /token:
     post:
-      summary: Issue an API token
+      summary: Request API token delivery by email
       description: >
-        Creates a new 256-bit API token, stores it in the configured api_keys list, and activates it
-        immediately. This endpoint is anonymous but available only when the server starts with
-        --enable-token-issuance. The request must include the user's name and email. Independent
-        cooldowns apply to the client IP and normalized email; both must be unused during the cooldown
-        period. The supplied name and normalized email are stored with the token in the protected
-        server config. The token is returned only in this response and should be stored securely.
+        Claims a pre-generated 256-bit API token from protected inventory, stores the supplied name
+        and normalized email, activates the credential, and sends it to that email address while
+        copying the configured service operators. The server never generates credentials and never
+        returns one in an HTTP response. A later eligible request for the same email resends its
+        lifetime token instead of allocating another. Independent cooldowns apply to the observed
+        client IP and normalized email. This endpoint is available only when the server starts with
+        a token pool and TLS email delivery configuration.
       operationId: issueApiTokenV1
       security: []
       requestBody:
@@ -31,19 +32,19 @@ paths:
             schema:
               $ref: "#/components/schemas/TokenIssuanceRequest"
       responses:
-        "201":
-          description: API token created and activated.
+        "202":
+          description: The token delivery request was accepted and the credential was sent by email.
           headers:
             Cache-Control:
-              description: Prevents caches from storing the returned credential.
+              description: Prevents caches from storing the delivery response.
               schema:
                 type: string
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TokenResponse"
+                $ref: "#/components/schemas/TokenDeliveryResponse"
         "429":
-          description: The client IP or email received a token within the cooldown period.
+          description: The client IP or email submitted a delivery request within the cooldown period.
           headers:
             Retry-After:
               description: Seconds until this client may request another token.
@@ -54,25 +55,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "503":
-          description: Token issuance is not enabled on this server.
+          description: Token delivery is disabled, inventory is exhausted, or email delivery failed.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "400":
           description: The required name or email is missing or invalid.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "409":
-          description: The normalized email address already has a token.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "500":
-          description: The token could not be persisted.
           content:
             application/json:
               schema:
@@ -352,16 +341,15 @@ components:
           minLength: 3
           maxLength: 254
       required: [name, email]
-    TokenResponse:
+    TokenDeliveryResponse:
       type: object
       properties:
-        api_key:
+        status:
           type: string
-          description: Newly issued API token. This value is returned only once.
-        token_type:
+          enum: [accepted]
+        message:
           type: string
-          enum: [bearer]
-      required: [api_key, token_type]
+      required: [status, message]
     Query:
       type: object
       properties:

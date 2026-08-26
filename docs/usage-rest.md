@@ -56,16 +56,32 @@ With `--config` enabled:
 - `api_keys` (optional) enables auth on all `/v1/*` routes.
 - Client auth supports either `Authorization: Bearer {api-key}` or `X-API-Key: {api-key}`.
 
-### Automatic API token issuance
+### API token requests and email delivery
 
-Token issuance is disabled by default. Enable an anonymous issuance endpoint backed by the same
-`api_keys` list in the YAML config:
+Token requests are disabled by default. When enabled, the server claims credentials from a protected,
+pre-generated `lookup.json` inventory. It never generates credentials. Only inventory rows whose
+`name`, `email`, and `issued_at` fields are all `null` can be claimed; existing or partially populated
+rows remain reserved.
+
+Configure a TLS SMTP connection and start the endpoint with both the YAML server config and token pool:
 
 ```bash
 python -m pyserini.server.rest \
   --config /path/to/server.yaml \
-  --enable-token-issuance
+  --enable-token-issuance \
+  --token-pool /secure/path/to/lookup.json \
+  --token-email-smtp-host smtp.example.edu \
+  --token-email-smtp-port 587 \
+  --token-email-smtp-security starttls \
+  --token-email-smtp-username pyserini@example.edu \
+  --token-email-smtp-password-file /secure/path/to/smtp-password \
+  --token-email-from pyserini@example.edu \
+  --token-email-cc get-pyserini@googlegroups.com
 ```
+
+The SMTP password file must be readable only by its owner. Repeat `--token-email-cc` to copy additional
+operator addresses. SMTP authentication is optional only when both the username and password-file
+options are omitted, for example when using a trusted local relay.
 
 Clients request a token with `POST /v1/token`:
 
@@ -75,32 +91,39 @@ curl -X POST http://localhost:8081/v1/token \
   -d '{"name":"Ada Lovelace","email":"ada@example.edu"}'
 ```
 
-The response contains a newly generated 256-bit token:
+An accepted request returns **202** with no credential in the response:
 
 ```json
-{"api_key":"...","token_type":"bearer"}
+{"status":"accepted","message":"Token delivery will be sent by email."}
 ```
 
-The server atomically appends the token to the existing YAML `api_keys` list, records its `name` and
-normalized `email` under `api_key_identities[token]`, and activates it in memory immediately, so no
-restart is required. Existing keys and both authentication header formats continue to work. Responses
-include `Cache-Control: no-store`; the token is not logged and is not available from the API again.
+The token is sent to the submitted email address and CC'd to the configured service operators. The
+server atomically assigns the pre-generated inventory row, appends that token to the YAML `api_keys`
+list, records its `name` and normalized `email` under `api_key_identities[token]`, and activates it in
+memory immediately, so no restart is required. Existing keys and both authentication header formats
+continue to work. Responses include `Cache-Control: no-store`, and credentials are not written to
+request logs or HTTP response bodies.
 
 Both `name` and a syntactically valid `email` are required. Anonymous issuance has independent one-hour
-cooldowns for the client IP and normalized email by default. A token is issued only when neither value
-has received one during the cooldown. Each normalized email can receive only one token for the lifetime
-of its persisted identity record; later requests return **409**. Identity fields are persisted in the
-protected YAML config but are not written to request logs. Configure the cooldown in seconds, or use
-`0` to disable it:
+cooldowns for the client IP and normalized email by default. A delivery request is accepted only when
+neither value has submitted one during the cooldown. Each normalized email owns one token for its
+lifetime; an eligible later request resends that same token rather than claiming another. Identity
+fields are persisted in both the protected token pool and YAML config but are not written to request
+logs. Configure the cooldown in seconds, or use `0` to disable it:
 
 ```bash
 python -m pyserini.server.rest \
   --config /path/to/server.yaml \
   --enable-token-issuance \
+  --token-pool /secure/path/to/lookup.json \
+  --token-email-smtp-host smtp.example.edu \
+  --token-email-from pyserini@example.edu \
   --token-issuance-cooldown 300
 ```
 
-Because this endpoint returns a credential, production deployments should serve it over HTTPS.
+Production deployments must serve this endpoint over HTTPS because the request contains personal
+identity fields. Protect both the token pool and YAML config as credential stores; neither should be
+world- or group-readable.
 
 Disable prebuilt indexes and arbitrary index paths with `--no-prebuilt-indexes`:
 
@@ -343,11 +366,13 @@ curl -H "X-API-Key: {api-key}" \
 | Code | Meaning |
 |------|---------|
 | 200 | Success |
+| 202 | Token delivery request accepted; the credential is sent by email and is not returned by HTTP |
 | 400 | Invalid parameters (e.g. missing `query`, invalid `hits` or `parse`), or cannot open index |
 | 401 | Missing or invalid API credential (when `api_keys` is configured) |
-| 429 | Load shedding (with `api_keys`): p99 over `--load-shedding-threshold`; body suggests retry timing; `Retry-After` may be set |
+| 429 | Load shedding, or token-request cooldown for the observed client IP or normalized email; `Retry-After` may be set |
 | 404 | Unknown route, or document not found for `GET .../doc/{docid}` |
-| 405 | Method not allowed (only **GET** is supported on these routes) |
+| 405 | Method not allowed (`POST` is required for `/v1/token`; the search and document routes use `GET`) |
 | 500 | Unhandled server error |
+| 503 | Token delivery is disabled, inventory is exhausted, or email delivery failed |
 
 The full list of operations, parameters, and response schemas is in **`/openapi.yaml`**.

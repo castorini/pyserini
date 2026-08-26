@@ -19,11 +19,13 @@
 from __future__ import annotations
 
 import hmac
+import json
 import os
-import secrets
 import stat
+import string
 import tempfile
 import threading
+import time
 from collections import OrderedDict
 from collections.abc import Iterable
 from pathlib import Path
@@ -201,8 +203,12 @@ class ApiTokenEmailAlreadyIssuedError(ValueError):
     """Raised when an email address already owns an issued API token."""
 
 
+class ApiTokenPoolExhaustedError(RuntimeError):
+    """Raised when no unassigned pre-generated API token remains."""
+
+
 class ApiTokenStore:
-    """Issue API tokens into the existing YAML ``api_keys`` list atomically."""
+    """Activate pre-generated API tokens in the existing YAML config atomically."""
 
     __slots__ = ('_config_path', '_lock')
 
@@ -277,6 +283,16 @@ class ApiTokenStore:
                 for identity in identities.values()
             )
 
+    def token_for_email(self, email: str) -> str | None:
+        """Return the existing lifetime token for an email without changing the config."""
+        normalized_email = self._normalize_email(email)
+        with self._lock:
+            _, _, identities = self._load_payload(self._config_path)
+            for token, identity in identities.items():
+                if str(identity['email']).strip().casefold() == normalized_email:
+                    return token
+        return None
+
     @staticmethod
     def _write_payload(path: Path, payload: dict) -> None:
         current = path.stat()
@@ -311,26 +327,129 @@ class ApiTokenStore:
             except FileNotFoundError:
                 pass
 
-    def issue(self, *, name: str, email: str) -> str:
-        """Append a 256-bit token and its user identity, then return the token."""
+    def activate(self, token: str, *, name: str, email: str) -> str:
+        """Persist a pre-generated token and identity without creating a credential."""
+        normalized_token = token.strip() if isinstance(token, str) else ''
         normalized_name = name.strip() if isinstance(name, str) else ''
         normalized_email = self._normalize_email(email)
+        if not normalized_token:
+            raise ValueError('Pre-generated API token must be a non-empty string')
         if not normalized_name:
             raise ValueError('Token identity name must be a non-empty string')
         with self._lock:
             payload, keys, identities = self._load_payload(self._config_path)
-            if any(
-                str(identity['email']).strip().casefold() == normalized_email
-                for identity in identities.values()
-            ):
-                raise ApiTokenEmailAlreadyIssuedError('This email address already has an API token')
-            existing = set(keys).union(identities)
-            token = secrets.token_hex(32)
-            while token in existing:
-                token = secrets.token_hex(32)
-            keys.append(token)
-            identities[token] = {'name': normalized_name, 'email': normalized_email}
+            for existing_token, identity in identities.items():
+                if str(identity['email']).strip().casefold() == normalized_email:
+                    if existing_token == normalized_token:
+                        return existing_token
+                    raise ApiTokenEmailAlreadyIssuedError('This email address already has an API token')
+            if normalized_token in identities:
+                raise ValueError('Pre-generated API token is already assigned to another identity')
+            if normalized_token not in keys:
+                keys.append(normalized_token)
+            identities[normalized_token] = {'name': normalized_name, 'email': normalized_email}
             payload['api_keys'] = keys
             payload['api_key_identities'] = identities
             self._write_payload(self._config_path, payload)
-            return token
+            return normalized_token
+
+
+class PreGeneratedApiTokenPool:
+    """Claim exact all-null entries from a protected JSON token inventory."""
+
+    TOKEN_HEX_LENGTH = 64
+    __slots__ = ('_path', '_lock')
+
+    def __init__(self, path: str) -> None:
+        resolved = Path(path).expanduser().resolve()
+        if not resolved.is_file():
+            raise ValueError(f'Pre-generated API token pool not found: {resolved}')
+        self._path = resolved
+        self._lock = threading.Lock()
+        self._load_entries(resolved)
+
+    @staticmethod
+    def _is_available(entry: dict[str, object]) -> bool:
+        return all(field in entry and entry[field] is None for field in ('name', 'email', 'issued_at'))
+
+    @classmethod
+    def _load_entries(cls, path: Path) -> list[dict[str, object]]:
+        with path.open('r', encoding='utf-8') as f:
+            entries = json.load(f)
+        if not isinstance(entries, list):
+            raise ValueError('Pre-generated API token pool must be a JSON list')
+        seen = set()
+        normalized = []
+        for index, raw_entry in enumerate(entries):
+            if not isinstance(raw_entry, dict):
+                raise ValueError(f'Token pool entry #{index} must be an object')
+            token = raw_entry.get('token')
+            if (
+                not isinstance(token, str)
+                or len(token) != cls.TOKEN_HEX_LENGTH
+                or any(char not in string.hexdigits for char in token)
+            ):
+                raise ValueError(f'Token pool entry #{index} has an invalid token')
+            if token in seen:
+                raise ValueError(f'Token pool entry #{index} duplicates another token')
+            seen.add(token)
+            normalized.append(dict(raw_entry))
+        return normalized
+
+    @staticmethod
+    def _write_entries(path: Path, entries: list[dict[str, object]]) -> None:
+        current = path.stat()
+        fd, tmp_name = tempfile.mkstemp(prefix=f'.{path.name}.', suffix='.tmp', dir=path.parent)
+        tmp_path = Path(tmp_name)
+        try:
+            with os.fdopen(fd, 'w', encoding='utf-8') as f:
+                json.dump(entries, f, indent=2, ensure_ascii=False)
+                f.write('\n')
+                f.flush()
+                os.fsync(f.fileno())
+            os.chmod(tmp_path, stat.S_IMODE(current.st_mode))
+            if hasattr(os, 'chown'):
+                try:
+                    os.chown(tmp_path, current.st_uid, current.st_gid)
+                except PermissionError:
+                    pass
+            os.replace(tmp_path, path)
+            try:
+                dir_fd = os.open(path.parent, os.O_RDONLY | getattr(os, 'O_DIRECTORY', 0))
+            except OSError:
+                dir_fd = None
+            if dir_fd is not None:
+                try:
+                    os.fsync(dir_fd)
+                finally:
+                    os.close(dir_fd)
+        finally:
+            try:
+                tmp_path.unlink()
+            except FileNotFoundError:
+                pass
+
+    def claim(self, *, name: str, email: str) -> str:
+        """Return an existing email assignment or claim one available token."""
+        normalized_name = name.strip() if isinstance(name, str) else ''
+        normalized_email = ApiTokenStore._normalize_email(email)
+        if not normalized_name:
+            raise ValueError('Token identity name must be a non-empty string')
+        with self._lock:
+            entries = self._load_entries(self._path)
+            for entry in entries:
+                entry_email = entry.get('email')
+                if isinstance(entry_email, str) and entry_email.strip().casefold() == normalized_email:
+                    return str(entry['token'])
+            for entry in entries:
+                if self._is_available(entry):
+                    entry['name'] = normalized_name
+                    entry['email'] = normalized_email
+                    entry['issued_at'] = int(time.time())
+                    self._write_entries(self._path, entries)
+                    return str(entry['token'])
+        raise ApiTokenPoolExhaustedError('No pre-generated API tokens remain')
+
+    def available_count(self) -> int:
+        with self._lock:
+            return sum(self._is_available(entry) for entry in self._load_entries(self._path))

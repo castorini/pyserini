@@ -78,10 +78,13 @@ class TestRestServer(unittest.TestCase):
         self.assertIn('securitySchemes', data['components'])
         self.assertIn('ApiKeyAuth', data['components']['securitySchemes'])
         self.assertIn('/token', data['paths'])
-        self.assertIn('201', data['paths']['/token']['post']['responses'])
-        self.assertIn('409', data['paths']['/token']['post']['responses'])
+        self.assertIn('202', data['paths']['/token']['post']['responses'])
+        self.assertNotIn('201', data['paths']['/token']['post']['responses'])
+        self.assertNotIn('409', data['paths']['/token']['post']['responses'])
         self.assertTrue(data['paths']['/token']['post']['requestBody']['required'])
         self.assertIn('TokenIssuanceRequest', data['components']['schemas'])
+        self.assertIn('TokenDeliveryResponse', data['components']['schemas'])
+        self.assertNotIn('TokenResponse', data['components']['schemas'])
         trace_parameter_names = {
             parameter['name'] for parameter in data['components']['parameters'].values()
         }
@@ -816,6 +819,17 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
         self.assertEqual(config['handlers']['uvicorn_access_request_file']['filename'], 'requests.jsonl')
 
 
+class RecordingTokenEmailSender:
+    def __init__(self, *, fail: bool = False) -> None:
+        self.fail = fail
+        self.deliveries: list[dict[str, str]] = []
+
+    def send(self, *, name: str, email: str, token: str) -> None:
+        if self.fail:
+            raise RuntimeError('simulated SMTP failure')
+        self.deliveries.append({'name': name, 'email': email, 'token': token})
+
+
 class TestRestTokenIssuance(unittest.TestCase):
     @staticmethod
     def _identity(name: str = 'Test User', email: str = 'test@example.edu') -> dict[str, str]:
@@ -829,9 +843,41 @@ class TestRestTokenIssuance(unittest.TestCase):
         os.chmod(path, 0o600)
         return path
 
+    @staticmethod
+    def _write_pool(root: str, count: int = 3) -> str:
+        path = os.path.join(root, 'lookup.json')
+        entries = [
+            {'token': f'{i + 1:064x}', 'name': None, 'email': None, 'issued_at': None}
+            for i in range(count)
+        ]
+        Path(path).write_text(json.dumps(entries, indent=2) + '\n', encoding='utf-8')
+        os.chmod(path, 0o600)
+        return path
+
     def test_token_issuance_requires_config(self):
         with self.assertRaises(ValueError):
-            create_app(enable_token_issuance=True)
+            create_app(
+                enable_token_issuance=True,
+                token_pool_path='/missing/pool.json',
+                token_email_sender=RecordingTokenEmailSender(),
+            )
+
+    def test_token_issuance_requires_pool_and_email_sender(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            config_path = self._write_config(tmp)
+            pool_path = self._write_pool(tmp)
+            with self.assertRaisesRegex(ValueError, 'pre-generated token pool'):
+                create_app(
+                    config_path,
+                    enable_token_issuance=True,
+                    token_email_sender=RecordingTokenEmailSender(),
+                )
+            with self.assertRaisesRegex(ValueError, 'email sender'):
+                create_app(
+                    config_path,
+                    enable_token_issuance=True,
+                    token_pool_path=pool_path,
+                )
 
     def test_disabled_token_issuance_returns_503(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -845,12 +891,17 @@ class TestRestTokenIssuance(unittest.TestCase):
         existing_token = 'existing-token'
         with tempfile.TemporaryDirectory() as tmp:
             path = self._write_config(tmp, existing_token)
+            pool_path = self._write_pool(tmp)
+            email_sender = RecordingTokenEmailSender()
             issuance_app = create_app(
                 path,
                 no_prebuilt_indexes=True,
                 enable_token_issuance=True,
                 token_issuance_cooldown_sec=0,
+                token_pool_path=pool_path,
+                token_email_sender=email_sender,
             )
+            self.assertFalse(issuance_app.state.accepted_api_tokens.is_valid(f'{1:064x}'))
             with TestClient(issuance_app) as client:
                 denied = client.get(
                     f'/{API_VERSION}/local/search',
@@ -860,11 +911,14 @@ class TestRestTokenIssuance(unittest.TestCase):
 
                 with self.assertLogs('pyserini.server.rest.request', level='INFO') as cm:
                     issued = client.post(f'/{API_VERSION}/token', json=self._identity())
-                self.assertEqual(issued.status_code, 201, msg=issued.text)
-                token = issued.json().get('api_key')
-                self.assertIsInstance(token, str)
-                self.assertEqual(len(token), 64)
-                self.assertEqual(issued.json().get('token_type'), 'bearer')
+                self.assertEqual(issued.status_code, 202, msg=issued.text)
+                self.assertEqual(issued.json().get('status'), 'accepted')
+                self.assertNotIn('api_key', issued.json())
+                self.assertNotIn('token', issued.json())
+                self.assertEqual(len(email_sender.deliveries), 1)
+                token = email_sender.deliveries[0]['token']
+                self.assertEqual(token, f'{1:064x}')
+                self.assertEqual(email_sender.deliveries[0]['email'], 'test@example.edu')
                 self.assertEqual(issued.headers.get('cache-control'), 'no-store')
                 self.assertEqual(issued.headers.get('pragma'), 'no-cache')
                 log_messages = '\n'.join(record.getMessage() for record in cm.records)
@@ -873,7 +927,7 @@ class TestRestTokenIssuance(unittest.TestCase):
                 self.assertNotIn('test@example.edu', log_messages)
                 log_record = json.loads(cm.records[-1].getMessage())
                 self.assertEqual(log_record.get('auth'), 'token_issuance')
-                self.assertEqual(log_record.get('status'), 201)
+                self.assertEqual(log_record.get('status'), 202)
 
                 accepted = issuance_app.state.accepted_api_tokens
                 self.assertTrue(accepted.is_valid(existing_token))
@@ -900,6 +954,11 @@ class TestRestTokenIssuance(unittest.TestCase):
                 {'name': 'Test User', 'email': 'test@example.edu'},
             )
             self.assertEqual(os.stat(path).st_mode & 0o777, 0o600)
+            pool = json.loads(Path(pool_path).read_text(encoding='utf-8'))
+            self.assertEqual(pool[0]['name'], 'Test User')
+            self.assertEqual(pool[0]['email'], 'test@example.edu')
+            self.assertIsInstance(pool[0]['issued_at'], int)
+            self.assertIsNone(pool[1]['email'])
 
             restarted_app = create_app(path, no_prebuilt_indexes=True)
             self.assertTrue(restarted_app.state.accepted_api_tokens.is_valid(existing_token))
@@ -908,10 +967,14 @@ class TestRestTokenIssuance(unittest.TestCase):
     def test_token_issuance_cooldown_returns_429_without_persisting_another_key(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = self._write_config(tmp)
+            pool_path = self._write_pool(tmp)
+            email_sender = RecordingTokenEmailSender()
             issuance_app = create_app(
                 path,
                 enable_token_issuance=True,
                 token_issuance_cooldown_sec=60,
+                token_pool_path=pool_path,
+                token_email_sender=email_sender,
             )
             with TestClient(issuance_app) as client:
                 first = client.post(
@@ -926,10 +989,11 @@ class TestRestTokenIssuance(unittest.TestCase):
                     f'/{API_VERSION}/token',
                     json=self._identity(name='Second User', email='second@example.edu'),
                 )
-            self.assertEqual(first.status_code, 201, msg=first.text)
-            self.assertEqual(second.status_code, 409, msg=second.text)
+            self.assertEqual(first.status_code, 202, msg=first.text)
+            self.assertEqual(second.status_code, 429, msg=second.text)
             self.assertEqual(same_ip_different_email.status_code, 429, msg=same_ip_different_email.text)
             self.assertGreaterEqual(int(same_ip_different_email.headers.get('retry-after', '0')), 1)
+            self.assertEqual(len(email_sender.deliveries), 1)
             persisted = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
             self.assertEqual(len(persisted['api_keys']), 2)
             self.assertEqual(len(persisted['api_key_identities']), 1)
@@ -950,7 +1014,12 @@ class TestRestTokenIssuance(unittest.TestCase):
         ]
         with tempfile.TemporaryDirectory() as tmp:
             path = self._write_config(tmp)
-            issuance_app = create_app(path, enable_token_issuance=True)
+            issuance_app = create_app(
+                path,
+                enable_token_issuance=True,
+                token_pool_path=self._write_pool(tmp),
+                token_email_sender=RecordingTokenEmailSender(),
+            )
             with TestClient(issuance_app) as client:
                 responses = [client.post(f'/{API_VERSION}/token', json=payload) for payload in invalid_requests]
 
@@ -986,40 +1055,105 @@ class TestRestTokenIssuance(unittest.TestCase):
         self.assertIsNotNone(same_email_retry)
         self.assertIsNone(both_new_retry)
 
-    def test_token_issuance_rejects_email_that_already_has_a_token_after_restart(self):
+    def test_token_issuance_resends_same_lifetime_token_after_restart(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = self._write_config(tmp)
+            pool_path = self._write_pool(tmp)
+            first_sender = RecordingTokenEmailSender()
             first_app = create_app(
                 path,
                 enable_token_issuance=True,
                 token_issuance_cooldown_sec=0,
+                token_pool_path=pool_path,
+                token_email_sender=first_sender,
             )
             with TestClient(first_app) as client:
                 first = client.post(
                     f'/{API_VERSION}/token',
                     json=self._identity(name='First User', email='first@example.edu'),
                 )
-            self.assertEqual(first.status_code, 201, msg=first.text)
+            self.assertEqual(first.status_code, 202, msg=first.text)
+            first_token = first_sender.deliveries[0]['token']
 
+            second_sender = RecordingTokenEmailSender()
             restarted_app = create_app(
                 path,
                 enable_token_issuance=True,
                 token_issuance_cooldown_sec=0,
+                token_pool_path=pool_path,
+                token_email_sender=second_sender,
             )
             with TestClient(restarted_app) as client:
                 duplicate = client.post(
                     f'/{API_VERSION}/token',
                     json=self._identity(name='Renamed User', email=' FIRST@EXAMPLE.EDU '),
                 )
-            self.assertEqual(duplicate.status_code, 409, msg=duplicate.text)
+            self.assertEqual(duplicate.status_code, 202, msg=duplicate.text)
+            self.assertEqual(second_sender.deliveries[0]['token'], first_token)
+            self.assertNotIn('api_key', duplicate.json())
             persisted = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
             self.assertEqual(len(persisted['api_keys']), 2)
             self.assertEqual(len(persisted['api_key_identities']), 1)
+            pool = json.loads(Path(pool_path).read_text(encoding='utf-8'))
+            self.assertEqual(sum(entry['email'] is None for entry in pool), 2)
+
+    def test_token_pool_exhaustion_returns_503_without_changing_auth(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self._write_config(tmp)
+            pool_path = self._write_pool(tmp, count=0)
+            email_sender = RecordingTokenEmailSender()
+            issuance_app = create_app(
+                path,
+                enable_token_issuance=True,
+                token_issuance_cooldown_sec=0,
+                token_pool_path=pool_path,
+                token_email_sender=email_sender,
+            )
+            with TestClient(issuance_app) as client:
+                response = client.post(f'/{API_VERSION}/token', json=self._identity())
+
+            self.assertEqual(response.status_code, 503, msg=response.text)
+            self.assertNotIn('api_key', response.json())
+            self.assertEqual(email_sender.deliveries, [])
+            persisted = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
+            self.assertEqual(persisted['api_keys'], ['existing-token'])
+
+    def test_email_failure_can_retry_same_claimed_token(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = self._write_config(tmp)
+            pool_path = self._write_pool(tmp, count=1)
+            email_sender = RecordingTokenEmailSender(fail=True)
+            issuance_app = create_app(
+                path,
+                enable_token_issuance=True,
+                token_issuance_cooldown_sec=60,
+                token_pool_path=pool_path,
+                token_email_sender=email_sender,
+            )
+            with TestClient(issuance_app) as client:
+                failed = client.post(f'/{API_VERSION}/token', json=self._identity())
+                email_sender.fail = False
+                retried = client.post(f'/{API_VERSION}/token', json=self._identity())
+
+            self.assertEqual(failed.status_code, 503, msg=failed.text)
+            self.assertEqual(retried.status_code, 202, msg=retried.text)
+            self.assertNotIn('api_key', retried.json())
+            self.assertEqual(len(email_sender.deliveries), 1)
+            persisted = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
+            self.assertEqual(len(persisted['api_keys']), 2)
+            self.assertEqual(email_sender.deliveries[0]['token'], persisted['api_keys'][1])
+            pool = json.loads(Path(pool_path).read_text(encoding='utf-8'))
+            self.assertEqual(pool[0]['email'], 'test@example.edu')
 
     def test_get_token_endpoint_returns_post_only_405(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = self._write_config(tmp)
-            issuance_app = create_app(path, enable_token_issuance=True)
+            issuance_app = create_app(
+                path,
+                enable_token_issuance=True,
+                token_pool_path=self._write_pool(tmp),
+                token_email_sender=RecordingTokenEmailSender(),
+            )
             with TestClient(issuance_app) as client:
                 response = client.get(f'/{API_VERSION}/token')
             self.assertEqual(response.status_code, 405, msg=response.text)
