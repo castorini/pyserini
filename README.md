@@ -4,7 +4,7 @@
 [![PyPI Downloads](https://static.pepy.tech/badge/pyserini)](https://pepy.tech/projects/pyserini)
 [![PyPI Downloads](https://static.pepy.tech/badge/pyserini/week)](https://pepy.tech/projects/pyserini)
 [![Maven Central](https://img.shields.io/maven-central/v/io.anserini/anserini?color=brightgreen)](https://search.maven.org/search?q=a:anserini)
-[![Generic badge](https://img.shields.io/badge/Lucene-v10.4.0-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/10.4.0/)
+[![Generic badge](https://img.shields.io/badge/Lucene-v10.5.0-brightgreen.svg)](https://archive.apache.org/dist/lucene/java/10.5.0/)
 [![LICENSE](https://img.shields.io/badge/license-Apache-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
 Pyserini is a Python toolkit for reproducible information retrieval research with sparse and dense representations.
