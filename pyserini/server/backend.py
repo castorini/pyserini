@@ -36,7 +36,7 @@ from pyserini.server.config import load_server_config
 from pyserini.server.utils import INDEX_TYPE, SHARDS, Bm25Config, Bm25SearcherCacheEntry, IndexConfig, create_searcher, lookup_index_type
 from pyserini.server.document_format import format_lucene_document, truncate_document_payload
 from pyserini.server.errors import BadSearchRequestError, DocumentNotFoundError, IndexNotAvailableError
-from pyserini.util import check_downloaded, download_prebuilt_index, download_url, get_cache_home
+from pyserini.util import check_downloaded, download_prebuilt_index, get_cache_home, get_mbeir_instruction_config
 
 logger = logging.getLogger(__name__)
 
@@ -466,21 +466,7 @@ class SharedSearchBackend:
 
     def _resolve_mbeir_instruction_config(self, index_name: str) -> str | None:
         instr_file = next((v for k, v in _MBEIR_NAME_TO_INSTR_FILE.items() if k in index_name), None)
-        if not instr_file:
-            return None
-
-        cache_dir = get_cache_home()
-        instr_dir = os.path.join(cache_dir, 'query_instructions')
-        if not os.path.exists(instr_dir):
-            query_images_and_instructions_url = (
-                'https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/mbeir_query_images_and_instructions.tar.gz'
-            )
-            download_url(query_images_and_instructions_url, cache_dir, force=False)
-            import tarfile
-
-            with tarfile.open(os.path.join(cache_dir, 'mbeir_query_images_and_instructions.tar.gz'), 'r:gz') as tar:
-                tar.extractall(cache_dir, filter='data')
-        return str(os.path.join(instr_dir, instr_file))
+        return get_mbeir_instruction_config(instr_file)
 
     def _prepare_query(self, query: str | dict[str, Any], index_name: str) -> str | dict[str, Any]:
         if isinstance(query, str):

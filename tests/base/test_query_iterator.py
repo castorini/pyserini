@@ -1,6 +1,7 @@
 import os
 import unittest
 import tempfile
+from unittest.mock import patch
 from pyserini.query_iterator import MBEIRQueryIterator, DefaultQueryIterator, KiltQueryIterator, MultimodalQueryIterator
 
 class TestQueryIterators(unittest.TestCase):
@@ -105,6 +106,34 @@ class TestQueryIterators(unittest.TestCase):
             result = iterator.get_query("missing_text_field")
             self.assertEqual(result['query_txt'], '')
             self.assertEqual(result['query_modality'], 'image')
+
+    def test_mbeir_predefined_topics_use_configured_cache_home(self):
+        topics = {
+            "text_only": {
+                "qid": "text_only",
+                "query_txt": "This is a text-only query",
+                "query_img_path": None,
+                "query_modality": "text",
+            }
+        }
+
+        with tempfile.TemporaryDirectory() as cache_dir:
+            os.makedirs(os.path.join(cache_dir, "mbeir_images"))
+
+            with (
+                patch.dict(os.environ, {"PYSERINI_CACHE": cache_dir}),
+                patch("pyserini.query_iterator.get_topics", return_value=topics),
+                patch(
+                    "pyserini.query_iterator.download_url",
+                    side_effect=AssertionError("download_url should not be called"),
+                ),
+            ):
+                iterator = MBEIRQueryIterator.from_topics("m-beir-cirr_task7-test")
+                result = iterator.get_query("text_only")
+
+        self.assertEqual(iterator.topic_dir, cache_dir)
+        self.assertEqual(result["instr_file"], "cirr_task7_instr.yaml")
+        self.assertEqual(result["query_modality"], "text")
 
     def test_default_query_iterator(self):
         topics = {
