@@ -300,6 +300,65 @@ def get_cache_home():
     return os.path.expanduser(os.path.join(f'~{os.path.sep}.cache', 'pyserini'))
 
 
+def _rewrite_mbeir_instruction_config(instruction_config_path, instructions_dir):
+    import yaml
+
+    with open(instruction_config_path, 'r', encoding='utf-8') as f:
+        config = yaml.safe_load(f)
+
+    if not isinstance(config, dict):
+        return
+
+    instruction_file = config.get('instruction_file')
+    if not isinstance(instruction_file, str) or not instruction_file:
+        return
+
+    if os.path.basename(os.path.normpath(instruction_file)) != 'query_instructions.tsv':
+        return
+
+    resolved_instruction_file = os.path.abspath(
+        os.path.join(instructions_dir, 'query_instructions.tsv')
+    )
+    if os.path.normpath(os.path.expanduser(instruction_file)) == os.path.normpath(resolved_instruction_file):
+        return
+
+    config['instruction_file'] = resolved_instruction_file
+    with open(instruction_config_path, 'w', encoding='utf-8') as f:
+        yaml.safe_dump(config, f, default_flow_style=False, sort_keys=False)
+
+
+def get_mbeir_instruction_config(instr_file=None):
+    """Return an M-BEIR instruction config path resolved against the Pyserini cache."""
+    if instr_file is None:
+        return None
+
+    cache_dir = get_cache_home()
+    instructions_dir = os.path.join(cache_dir, 'query_instructions')
+
+    if not os.path.exists(instructions_dir):
+        os.makedirs(cache_dir, exist_ok=True)
+        query_images_and_instructions_url = (
+            "https://huggingface.co/datasets/castorini/prebuilt-indexes-m-beir/resolve/main/"
+            "mbeir_query_images_and_instructions.tar.gz"
+        )
+        tar_path = os.path.join(
+            cache_dir, 'mbeir_query_images_and_instructions.tar.gz'
+        )
+
+        try:
+            download_url(query_images_and_instructions_url, cache_dir, force=False)
+            with tarfile.open(tar_path, 'r:gz') as tar:
+                tar.extractall(cache_dir, filter='data')
+        except Exception as e:
+            raise Exception(f"Could not download default M-BEIR instructions: {e}")
+
+    instruction_config_path = os.path.join(instructions_dir, instr_file)
+    if os.path.exists(instruction_config_path):
+        _rewrite_mbeir_instruction_config(instruction_config_path, instructions_dir)
+
+    return instruction_config_path
+
+
 def download_and_unpack_archive(url, output_dir='indexes', local_filename=False, md5=None,
                                 force=False, verbose=True, append_md5_to_dir_name=False, expected_size=None):
     archive_name = _download_archive_name(url, local_filename)
