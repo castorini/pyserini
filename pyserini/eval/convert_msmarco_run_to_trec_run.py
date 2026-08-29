@@ -16,7 +16,6 @@
 
 import argparse
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Convert an MS MARCO run file to a TREC run file.')
     parser.add_argument('--input', required=True, default='', help='Input MS MARCO run file.')
@@ -24,11 +23,10 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    with open(args.output, 'w') as fout:
-        for line in open(args.input):
+    with open(args.input) as fin, open(args.output, 'w') as fout:
+        for line in fin:
             query_id, doc_id, rank = line.strip().split('\t')
             score = 1.0 / int(rank)
-            fout.write('{} Q0 {} {} {} anserini\n'.format(
-                query_id, doc_id, rank, score))
+            fout.write(f'{query_id} Q0 {doc_id} {rank} {score} anserini\n')
 
     print('Done!')

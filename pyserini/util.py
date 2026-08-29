@@ -31,7 +31,6 @@ from tqdm import tqdm
 
 from pyserini.encoded_corpus_info import CORPUS_INFO
 from pyserini.encoded_query_info import QUERY_INFO
-from pyserini.evaluate_script_info import EVALUATION_INFO
 from pyserini.prebuilt_index_info import (
     FAISS_INDEX_INFO,
     IMPACT_INDEX_INFO,
@@ -519,20 +518,6 @@ def download_encoded_corpus(corpus_name, force=False, verbose=True, mirror=None)
         except (HTTPError, URLError):
             print(f'Unable to download encoded corpus at {url}, trying next URL...')
     raise ValueError('Unable to download encoded corpus at any known URLs.')
-
-
-def download_evaluation_script(evaluation_name, force=False, verbose=True, mirror=None):
-    if evaluation_name not in EVALUATION_INFO:
-        raise ValueError(f'Unrecognized evaluation name {evaluation_name}')
-    for url in EVALUATION_INFO[evaluation_name]['urls']:
-        try:
-            save_dir = os.path.join(get_cache_home(), 'eval')
-            if not os.path.exists(save_dir):
-                os.makedirs(save_dir)
-            return download_url(url, save_dir=save_dir)
-        except HTTPError:
-            print(f'Unable to download evaluation script at {url}, trying next URL...')
-    raise ValueError('Unable to download evaluation script at any known URLs.')
 
 
 def get_sparse_index(index_name):
