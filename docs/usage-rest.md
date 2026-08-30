@@ -82,7 +82,9 @@ python -m pyserini.server.rest \
 The SMTP password file must be readable only by its owner. At least one `--token-email-cc` is required;
 repeat it only for individual operator mailboxes. Never use a mailing list or Google Group because it
 may distribute the credential to every subscriber. SMTP authentication is optional only when both the
-username and password-file options are omitted, for example when using a trusted local relay.
+username and password-file options are omitted, for example when using a trusted local relay. Such a
+relay can use a visible `no-reply` sender without a Gmail API key or SMTP password; the relay must
+authorize the server by another mechanism, such as its source IP.
 
 Clients request a token with `POST /v1/token`:
 

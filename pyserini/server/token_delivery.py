@@ -32,7 +32,7 @@ class TokenEmailSender(Protocol):
 
 
 class SmtpTokenEmailSender:
-    """Send a token through an authenticated TLS SMTP connection."""
+    """Send a token through TLS SMTP, optionally using SMTP authentication."""
 
     DEFAULT_STARTTLS_PORT = 587
     DEFAULT_TIMEOUT_SEC = 20.0

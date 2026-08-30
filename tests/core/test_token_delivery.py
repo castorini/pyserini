@@ -24,6 +24,29 @@ from pyserini.server.token_delivery import SmtpTokenEmailSender
 
 
 class TestSmtpTokenEmailSender(unittest.TestCase):
+    def test_starttls_relay_delivery_does_not_require_authentication(self):
+        sender = SmtpTokenEmailSender(
+            host='relay.example.edu',
+            port=25,
+            sender='no-reply@example.edu',
+            cc=('operator@example.edu',),
+        )
+        smtp = MagicMock()
+        smtp.__enter__.return_value = smtp
+        with patch('pyserini.server.token_delivery.smtplib.SMTP', return_value=smtp):
+            sender.send(
+                name='Test User',
+                email='user@example.edu',
+                token='a' * 64,
+            )
+
+        smtp.starttls.assert_called_once()
+        smtp.login.assert_not_called()
+        message = smtp.send_message.call_args.args[0]
+        self.assertEqual(message['From'], 'no-reply@example.edu')
+        self.assertEqual(message['To'], 'user@example.edu')
+        self.assertEqual(message['Cc'], 'operator@example.edu')
+
     def test_starttls_delivery_sends_to_user_and_cc(self):
         with tempfile.TemporaryDirectory() as tmp:
             password_path = Path(tmp) / 'smtp-password'
