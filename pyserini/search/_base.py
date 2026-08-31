@@ -176,7 +176,7 @@ def get_topics(collection_name):
     target_path = _download_and_cache(f'{TOPICS_BASE_URL}{topics_file}', topics_file, _get_topics_cache_path())
 
     # Yes, this is an insanely ridiculous method name.
-    topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(str(target_path), topic['reader_class'])
+    topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(topic['reader_class'], str(target_path))
     if topics is None:
         raise ValueError(f'Unable to load topic {collection_name} from {target_path}!')
 
@@ -185,7 +185,7 @@ def get_topics(collection_name):
 
 def load_topics_from_file(file_path, reader_class):
     # Yes, this is an insanely ridiculous method name.
-    topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(file_path, reader_class)
+    topics = JTopicReader.getTopicsWithStringIdsFromFileWithTopicReaderClass(reader_class, file_path)
     if topics is None:
         raise ValueError(f'Unable to initialize TopicReader {reader_class} with file {file_path}!')
 
