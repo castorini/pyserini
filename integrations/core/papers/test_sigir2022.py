@@ -17,7 +17,6 @@
 """Integration tests for commands in Ma et al. resource paper and Trotman et al. demo paper at SIGIR 2022."""
 
 import multiprocessing
-import os
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score, parse_score_msmarco
@@ -47,8 +46,8 @@ class TestSIGIR2022(unittest.TestCase):
                       --output {output_file} \
                       --output-format msmarco \
                       --bm25'
-        status = os.system(run_cmd)
-        self.assertEqual(status, 0)
+        result = run_command(run_cmd)
+        self.assertEqual(result.returncode, 0)
 
         eval_cmd = f'python -m pyserini.eval.msmarco_passage_eval \
                        msmarco-passage-dev-subset {output_file}'
@@ -71,8 +70,8 @@ class TestSIGIR2022(unittest.TestCase):
                       --batch {self.batch_size} --threads {self.threads} \
                       --hits 1000 \
                       --impact'
-        status = os.system(run_cmd)
-        self.assertEqual(status, 0)
+        result = run_command(run_cmd)
+        self.assertEqual(result.returncode, 0)
 
         eval_cmd = f'python -m pyserini.eval.trec_eval -c -M 100 -m map -m recip_rank msmarco-v2-passage-dev {output_file}'
         result = run_command(eval_cmd)
@@ -93,8 +92,8 @@ class TestSIGIR2022(unittest.TestCase):
                       --batch {self.batch_size} --threads {self.threads} \
                       --hits 1000 \
                       --impact'
-        status = os.system(run_cmd)
-        self.assertEqual(status, 0)
+        result = run_command(run_cmd)
+        self.assertEqual(result.returncode, 0)
 
         eval_cmd = f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}'
         result = run_command(eval_cmd)

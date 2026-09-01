@@ -18,7 +18,6 @@ import argparse
 import importlib.resources
 import math
 import os
-import subprocess
 import sys
 import time
 from collections import defaultdict, OrderedDict
@@ -26,6 +25,8 @@ from datetime import datetime, timezone
 from string import Template
 
 import yaml
+
+from pyserini.util import run_command
 
 from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
 
@@ -357,8 +358,8 @@ def run_conditions(args):
 
                 if not os.path.exists(runfile):
                     if not args.dry_run:
-                        rtn = subprocess.run(cmd.split(), capture_output=True)
-                        stderr = rtn.stderr.decode()
+                        result = run_command(cmd)
+                        stderr = result.stderr
                         if '--topics' in cmd:
                             topic_fn = extract_topic_fn_from_cmd(cmd)
                             if f'ValueError: Topic {topic_fn} Not Found' in stderr:

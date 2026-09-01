@@ -19,10 +19,12 @@ import importlib
 import logging
 import os
 import re
+import shlex
 import shutil
+import subprocess
 import tarfile
 import urllib.request
-from collections.abc import Iterator
+from collections.abc import Iterator, Mapping, Sequence
 from contextlib import contextmanager
 from urllib.error import HTTPError, URLError
 
@@ -40,6 +42,33 @@ from pyserini.prebuilt_index_info import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+def run_command(
+    cmd: str | Sequence[str],
+    *,
+    echo: bool = False,
+    check: bool = False,
+    cwd: str | os.PathLike | None = None,
+    env: Mapping[str, str] | None = None,
+    timeout: float | None = None,
+) -> subprocess.CompletedProcess[str]:
+    """Run a command and capture its output as text."""
+    args = shlex.split(cmd) if isinstance(cmd, str) else list(cmd)
+    result = subprocess.run(
+        args,
+        capture_output=True,
+        text=True,
+        check=check,
+        cwd=cwd,
+        env=env,
+        timeout=timeout,
+    )
+    if result.stderr and echo:
+        print(result.stderr)
+    if echo:
+        print(result.stdout)
+    return result
 
 
 @contextmanager

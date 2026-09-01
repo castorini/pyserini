@@ -15,10 +15,9 @@
 #
 
 import os
-import shlex
 import shutil
-import subprocess
-from collections.abc import Sequence
+
+from pyserini.util import run_command
 
 
 def clean_files(files):
@@ -28,16 +27,6 @@ def clean_files(files):
                 shutil.rmtree(file)
             else:
                 os.remove(file)
-
-
-def run_command(cmd: str | Sequence[str], echo: bool = False) -> subprocess.CompletedProcess[str]:
-    args = shlex.split(cmd) if isinstance(cmd, str) else list(cmd)
-    result = subprocess.run(args, capture_output=True, text=True, check=False)
-    if result.stderr and echo:
-        print(result.stderr)
-    if echo:
-        print(result.stdout)
-    return result
 
 
 def parse_score(output, metric, digits=4):
@@ -84,7 +73,7 @@ def run_retrieval_and_return_scores(output_file, retrieval_cmd, qrels, eval_type
     temp_files = [output_file]
 
     # Take the base retrieval command and append the output file name to it.
-    os.system(retrieval_cmd + f' --output {output_file}')
+    run_command(retrieval_cmd + f' --output {output_file}')
 
     scores = {}
     # How we compute eval metrics depends on the `eval_type`.

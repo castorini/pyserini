@@ -15,20 +15,12 @@
 #
 
 import os
-import subprocess
+
+from pyserini.util import run_command
 
 fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK]'
 okish_str = '\033[94m[OKish]\033[0m'
-
-
-def run_command(cmd):
-    process = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = process.communicate()
-    stdout = stdout.decode('utf-8')
-    stderr = stderr.decode('utf-8')
-
-    return stdout, stderr
 
 
 def run_eval_and_return_metric(metric, eval_key, defs, runfile, display_command=False):
@@ -37,7 +29,8 @@ def run_eval_and_return_metric(metric, eval_key, defs, runfile, display_command=
     if display_command:
         print(f'\n```bash\n{eval_cmd}\n```\n')
 
-    eval_stdout, eval_stderr = run_command(eval_cmd)
+    result = run_command(eval_cmd)
+    eval_stdout = result.stdout
 
     for line in eval_stdout.split('\n'):
         parts = line.split('\t')
@@ -58,7 +51,8 @@ def run_dpr_retrieval_eval_and_return_metric(defs, json_file):
         topk: a dictionary of topk scores (e.g., {"Top5": <score>})
     """
     eval_cmd = f'python -m pyserini.eval.evaluate_dpr_retrieval --retrieval {json_file} {defs} '
-    eval_stdout, eval_stderr = run_command(eval_cmd)
+    result = run_command(eval_cmd)
+    eval_stdout = result.stdout
     topk = {}
     for line in eval_stdout.split('\n'):
         parts = line.split('\t')

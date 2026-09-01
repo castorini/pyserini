@@ -16,6 +16,8 @@
 
 import os
 import shutil
+import subprocess
+import sys
 import tarfile
 import tempfile
 import unittest
@@ -31,8 +33,27 @@ from pyserini.util import (
     download_url,
     get_cache_home,
     get_mbeir_instruction_config,
+    run_command,
     temporary_env,
 )
+
+
+class TestRunCommand(unittest.TestCase):
+    def test_run_command_accepts_argument_sequence(self):
+        result = run_command([sys.executable, '-c', 'print("hello")'])
+
+        self.assertEqual(result.returncode, 0)
+        self.assertEqual(result.stdout, 'hello\n')
+        self.assertEqual(result.stderr, '')
+
+    def test_run_command_parses_quoted_string(self):
+        result = run_command(f'{sys.executable} -c "print(\'hello world\')"')
+
+        self.assertEqual(result.stdout, 'hello world\n')
+
+    def test_run_command_check_raises_for_nonzero_exit(self):
+        with self.assertRaises(subprocess.CalledProcessError):
+            run_command([sys.executable, '-c', 'raise SystemExit(2)'], check=True)
 
 
 class TestIterateCollection(unittest.TestCase):

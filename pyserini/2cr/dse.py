@@ -104,7 +104,7 @@ def run_conditions(args):
                                 # Custom evaluation for Wiki-SS
                                 k = int(metric.split('-')[1])
                                 eval_cmd = f'python scripts/dse/evaluate_wiki_ss_run.py --run_file {runfile} --k {k}'
-                                out, err = run_command(eval_cmd)
+                                out = run_command(eval_cmd).stdout
                                 # Parse "Top-k Accuracy: 0.43"
                                 for line in out.split('\n'):
                                     if "Top-k Accuracy:" in line:
