@@ -26,8 +26,6 @@ from string import Template
 
 import yaml
 
-from pyserini.util import run_command
-
 from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
 
 metrics = ['nDCG@10', 'R@100', 'R@1000']
@@ -201,7 +199,7 @@ def run_conditions(args):
 
                 if not os.path.exists(runfile):
                     if not args.dry_run:
-                        run_command(cmd, capture_output=False)
+                        os.system(cmd)
 
                 for expected in datasets['scores']:
                     for metric in expected:
