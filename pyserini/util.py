@@ -52,21 +52,22 @@ def run_command(
     cwd: str | os.PathLike | None = None,
     env: Mapping[str, str] | None = None,
     timeout: float | None = None,
+    capture_output: bool = True,
 ) -> subprocess.CompletedProcess[str]:
-    """Run a command and capture its output as text."""
+    """Run a command, optionally capturing its output as text."""
     args = shlex.split(cmd) if isinstance(cmd, str) else list(cmd)
     result = subprocess.run(
         args,
-        capture_output=True,
+        capture_output=capture_output,
         text=True,
         check=check,
         cwd=cwd,
         env=env,
         timeout=timeout,
     )
-    if result.stderr and echo:
+    if capture_output and result.stderr and echo:
         print(result.stderr)
-    if echo:
+    if capture_output and echo:
         print(result.stdout)
     return result
 

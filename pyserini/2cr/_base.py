@@ -14,8 +14,6 @@
 # limitations under the License.
 #
 
-import os
-
 from pyserini.util import run_command
 
 fail_str = '\033[91m[FAIL]\033[0m'
@@ -74,7 +72,7 @@ def convert_trec_run_to_dpr_retrieval_json(topics,index,runfile,output):
         exit status: exit status
     """
     cmd = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run --topics {topics} --index {index} --input {runfile} --output {output}'
-    return os.system(cmd)
+    return run_command(cmd, capture_output=False).returncode
 
 
 def run_fusion(run_ls, output, k):
@@ -90,4 +88,4 @@ def run_fusion(run_ls, output, k):
     """
     run_files = ' '.join(run_ls)
     cmd = f'python -m pyserini.fusion --runs {run_files} --output {output} --k {k}'
-    return os.system(cmd)
+    return run_command(cmd, capture_output=False).returncode

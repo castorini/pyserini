@@ -26,6 +26,8 @@ from string import Template
 
 import yaml
 
+from pyserini.util import run_command
+
 from ._base import fail_str, ok_str, okish_str, run_eval_and_return_metric
 
 dense_threads = 16
@@ -127,7 +129,7 @@ def run_conditions(args):
                           
                         if not os.path.exists(runfile):  
                             if not args.dry_run:  
-                                os.system(cmd)  
+                                run_command(cmd, capture_output=False)
                           
                         for expected in sub['scores']:  
                             for metric in expected:  
@@ -157,7 +159,7 @@ def run_conditions(args):
                           
                     if not os.path.exists(runfile):  
                         if not args.dry_run:  
-                            os.system(cmd)  
+                            run_command(cmd, capture_output=False)
                               
                     for expected in datasets['scores']:  
                         for metric in expected:  

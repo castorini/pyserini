@@ -55,6 +55,22 @@ class TestRunCommand(unittest.TestCase):
         with self.assertRaises(subprocess.CalledProcessError):
             run_command([sys.executable, '-c', 'raise SystemExit(2)'], check=True)
 
+    @patch('pyserini.util.subprocess.run')
+    def test_run_command_can_stream_output(self, mock_run):
+        mock_run.return_value = subprocess.CompletedProcess([], 0)
+
+        run_command(['example'], capture_output=False)
+
+        mock_run.assert_called_once_with(
+            ['example'],
+            capture_output=False,
+            text=True,
+            check=False,
+            cwd=None,
+            env=None,
+            timeout=None,
+        )
+
 
 class TestIterateCollection(unittest.TestCase):
     def test_cacm_prebuilt_index_download(self):
