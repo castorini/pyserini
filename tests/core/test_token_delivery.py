@@ -56,7 +56,11 @@ class TestSmtpTokenEmailSender(unittest.TestCase):
                 host='smtp.example.edu',
                 port=587,
                 sender='tokens@example.edu',
-                cc=('audit@example.edu',),
+                cc=(
+                    'first-operator@example.edu',
+                    'second-operator@example.edu',
+                    'third-operator@example.edu',
+                ),
                 username='smtp-user',
                 password_file=str(password_path),
             )
@@ -73,11 +77,19 @@ class TestSmtpTokenEmailSender(unittest.TestCase):
             smtp.login.assert_called_once_with('smtp-user', 'secret-password')
             message = smtp.send_message.call_args.args[0]
             self.assertEqual(message['To'], 'user@example.edu')
-            self.assertEqual(message['Cc'], 'audit@example.edu')
+            self.assertEqual(
+                message['Cc'],
+                'first-operator@example.edu, second-operator@example.edu, third-operator@example.edu',
+            )
             self.assertIn('a' * 64, message.get_content())
             self.assertEqual(
                 smtp.send_message.call_args.kwargs['to_addrs'],
-                ['user@example.edu', 'audit@example.edu'],
+                [
+                    'user@example.edu',
+                    'first-operator@example.edu',
+                    'second-operator@example.edu',
+                    'third-operator@example.edu',
+                ],
             )
 
     def test_password_file_must_be_private(self):

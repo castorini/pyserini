@@ -58,6 +58,9 @@ With `--config` enabled:
 
 ### API token requests and email delivery
 
+The complete production contract, state transitions, failure behavior, and BM25 request surface are
+specified in [Token issuance and BM25 REST API design](token-bm25-api-design.md).
+
 Token requests are disabled by default. When enabled, the server claims credentials from a protected,
 pre-generated `lookup.json` inventory. It never generates credentials. Only inventory rows whose
 `name`, `email`, and `issued_at` fields are all `null` can be claimed; existing or partially populated
@@ -70,16 +73,20 @@ python -m pyserini.server.rest \
   --config /path/to/server.yaml \
   --enable-token-issuance \
   --token-pool /secure/path/to/lookup.json \
-  --token-email-smtp-host smtp.example.edu \
+  --token-email-smtp-host smtp.gmail.com \
   --token-email-smtp-port 587 \
   --token-email-smtp-security starttls \
-  --token-email-smtp-username pyserini@example.edu \
-  --token-email-smtp-password-file /secure/path/to/smtp-password \
-  --token-email-from pyserini@example.edu \
-  --token-email-cc operator@example.edu
+  --token-email-smtp-username castorini.api@gmail.com \
+  --token-email-smtp-password-file /secure/path/to/gmail-app-password \
+  --token-email-from castorini.api@gmail.com \
+  --token-email-cc lingwei.gu@uwaterloo.ca \
+  --token-email-cc njedidi@uwaterloo.ca \
+  --token-email-cc jimmylin@uwaterloo.ca
 ```
 
-The SMTP password file must be readable only by its owner. At least one `--token-email-cc` is required;
+For personal Gmail SMTP, enable two-step verification and store a dedicated app password in the
+password file; no Google Cloud project, Gmail API, or `gcloud` configuration is involved. The SMTP
+password file must be readable only by its owner. At least one `--token-email-cc` is required;
 repeat it only for individual operator mailboxes. Never use a mailing list or Google Group because it
 may distribute the credential to every subscriber. SMTP authentication is optional only when both the
 username and password-file options are omitted, for example when using a trusted local relay. Such a

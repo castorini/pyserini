@@ -81,6 +81,9 @@ MAX_LOGGED_QUESTION_CHARS = 8192
 MAX_LOGGED_RETRIEVAL_QUERY_CHARS = 4096
 MAX_LOGGED_RUN_ID_CHARS = 256
 MAX_LOGGED_AGENT_CHARS = 256
+TOKEN_ISSUANCE_NAME_MAX_CHARS = 200
+TOKEN_ISSUANCE_EMAIL_MAX_CHARS = 254
+DEFAULT_TOKEN_ISSUANCE_COOLDOWN_SEC = 3600.0
 REQUEST_ID_HEADER = 'X-Request-ID'
 TOKEN_ISSUE_PATH = f'/{API_VERSION}/token'
 
@@ -99,8 +102,8 @@ class TokenIssuanceRequest(BaseModel):
 
     model_config = ConfigDict(extra='forbid', str_strip_whitespace=True)
 
-    name: str = Field(min_length=1, max_length=200)
-    email: str = Field(min_length=3, max_length=254)
+    name: str = Field(min_length=1, max_length=TOKEN_ISSUANCE_NAME_MAX_CHARS)
+    email: str = Field(min_length=3, max_length=TOKEN_ISSUANCE_EMAIL_MAX_CHARS)
 
     @field_validator('email')
     @classmethod
@@ -431,7 +434,7 @@ def create_app(
     search_cache_size: int = 2048,
     document_cache_size: int = 4096,
     enable_token_issuance: bool = False,
-    token_issuance_cooldown_sec: float = 3600.0,
+    token_issuance_cooldown_sec: float = DEFAULT_TOKEN_ISSUANCE_COOLDOWN_SEC,
     token_pool_path: str | None = None,
     token_email_sender: TokenEmailSender | None = None,
 ) -> FastAPI:
@@ -750,9 +753,12 @@ def main():
     parser.add_argument(
         '--token-issuance-cooldown',
         type=float,
-        default=3600.0,
+        default=DEFAULT_TOKEN_ISSUANCE_COOLDOWN_SEC,
         metavar='SECONDS',
-        help='Minimum seconds between token issuances per client (default: 3600; 0 disables).',
+        help=(
+            'Minimum seconds between token deliveries for each observed client IP and normalized '
+            'email (default: 3600; 0 disables).'
+        ),
     )
     parser.add_argument(
         '--token-pool',

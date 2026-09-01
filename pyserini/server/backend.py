@@ -108,10 +108,10 @@ def _validate_bm25_params(k1: float | None, b: float | None) -> None:
         b_value = float(b)
     except (TypeError, ValueError) as e:
         raise BadSearchRequestError('BM25 parameters k1 and b must be numbers') from e
-    if math.isnan(k1_value) or k1_value < 0:
-        raise BadSearchRequestError('BM25 parameter k1 must be a non-negative number')
-    if math.isnan(b_value) or not 0 <= b_value <= 1:
-        raise BadSearchRequestError('BM25 parameter b must be between 0 and 1')
+    if not math.isfinite(k1_value) or k1_value < 0:
+        raise BadSearchRequestError('BM25 parameter k1 must be a finite non-negative number')
+    if not math.isfinite(b_value) or not 0 <= b_value <= 1:
+        raise BadSearchRequestError('BM25 parameter b must be a finite number between 0 and 1')
 
 
 def _canonical_bm25_config(k1: float | None, b: float | None) -> Bm25Config | None:
