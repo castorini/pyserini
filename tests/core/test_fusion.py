@@ -16,13 +16,19 @@
 
 import os
 import random
+import shlex
+import shutil
+import subprocess
+import sys
+import tempfile
 import unittest
+import gzip
 
 from pyserini.search import get_topics
 from pyserini.search.lucene import LuceneSearcher, LuceneFlatDenseSearcher
 from pyserini.search.faiss import FaissSearcher
 from pyserini.encode import AutoQueryEncoder
-from pyserini.util import compare_trec_files_with_tolerance
+from pyserini.util import compare_trec_files_with_tolerance, download_url
 
 def retrieve_and_save_runs(test_obj, searcher, topics_name, searcher_type='bm25', qids=None):
     """Retrieve search results and save to file."""
@@ -55,9 +61,17 @@ def run_fusion_on_saved_runs(self, bm25_path, dense_path, method, expected_resul
     if output_path is None:
         output_path = self.output_path
     
-    qruns_str = f'{bm25_path} {dense_path}'
-    cmd = f'python -m pyserini.fusion --method {method} {extra_args} --runs {qruns_str} --output {output_path} --runtag {runtag} --k 10 --depth 1000'
-    os.system(cmd)
+    cmd = [
+        sys.executable, '-m', 'pyserini.fusion',
+        '--method', method,
+        *shlex.split(extra_args),
+        '--runs', bm25_path, dense_path,
+        '--output', output_path,
+        '--runtag', runtag,
+        '--k', '10',
+        '--depth', '1000',
+    ]
+    subprocess.run(cmd, check=True)
     self.assertTrue(os.path.exists(output_path), f"{method} fusion run file not created: {output_path}")
 
     with open(output_path, 'r') as f:
@@ -203,14 +217,27 @@ class TestFusion(unittest.TestCase):
     def setUp(self):
         self.output_path = 'output_test_fusion.txt'
 
+    def run_fusion(self, input_paths, method, runtag, extra_args=None, output_path=None):
+        if output_path is None:
+            output_path = self.output_path
+        cmd = [
+            sys.executable, '-m', 'pyserini.fusion',
+            '--method', method,
+            *(extra_args or []),
+            '--runs', *input_paths,
+            '--output', output_path,
+            '--runtag', runtag,
+        ]
+        subprocess.run(cmd, check=True)
+        return output_path
+
 
     def test_reciprocal_rank_fusion_simple(self):
         input_paths = [os.path.join(self.resource_dir, 'simple_trec_run_fusion_1.txt'),
                        os.path.join(self.resource_dir, 'simple_trec_run_fusion_2.txt')]
         verify_path = os.path.join(self.resource_dir, 'simple_trec_run_rrf_verify.txt')
 
-        qruns_str = ' '.join(input_paths)
-        os.system(f'python -m pyserini.fusion --method rrf --runs {qruns_str} --output {self.output_path} --runtag test')
+        self.run_fusion(input_paths, 'rrf', 'test')
         self.assertTrue(compare_trec_files_with_tolerance(verify_path, self.output_path))
 
     def test_interpolation_fusion_simple(self):
@@ -218,8 +245,7 @@ class TestFusion(unittest.TestCase):
                        os.path.join(self.resource_dir, 'simple_trec_run_fusion_2.txt')]
         verify_path = os.path.join(self.resource_dir, 'simple_trec_run_interpolation_verify.txt')
 
-        qruns_str = ' '.join(input_paths)
-        os.system(f'python -m pyserini.fusion --method interpolation --alpha 0.4 --runs {qruns_str} --output {self.output_path} --runtag test')
+        self.run_fusion(input_paths, 'interpolation', 'test', ['--alpha', '0.4'])
         self.assertTrue(compare_trec_files_with_tolerance(verify_path, self.output_path))
 
     def test_average_fusion_simple(self):
@@ -227,8 +253,7 @@ class TestFusion(unittest.TestCase):
                        os.path.join(self.resource_dir, 'simple_trec_run_fusion_2.txt')]
         verify_path = os.path.join(self.resource_dir, 'simple_trec_run_average_verify.txt')
 
-        qruns_str = ' '.join(input_paths)
-        os.system(f'python -m pyserini.fusion --method average --runs {qruns_str} --output {self.output_path} --runtag test')
+        self.run_fusion(input_paths, 'average', 'test')
         self.assertTrue(compare_trec_files_with_tolerance(verify_path, self.output_path))
 
     def test_normalize_fusion_simple(self):
@@ -236,25 +261,31 @@ class TestFusion(unittest.TestCase):
                        os.path.join(self.resource_dir, 'simple_trec_run_fusion_2.txt')]
         verify_path = os.path.join(self.resource_dir, 'simple_fusion_normalize_verify.txt')
 
-        qruns_str = ' '.join(input_paths)
-        os.system(f'python -m pyserini.fusion --method normalize --runs {qruns_str} --output {self.output_path} --runtag test')
+        self.run_fusion(input_paths, 'normalize', 'test')
         self.assertTrue(compare_trec_files_with_tolerance(verify_path, self.output_path))
 
     def test_reciprocal_rank_fusion_complex(self):
-        os.system('wget -q -nc https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.abstract.qq.bm25.txt.gz')
-        os.system('wget -q -nc https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.full-text.qq.bm25.txt.gz')
-        os.system('wget -q -nc https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.paragraph.qq.bm25.txt.gz')
-        os.system('wget -q -nc https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.fusion1.txt.gz')
-        os.system('gunzip -f anserini.covid-r2.*.txt.gz')
+        os.makedirs('tmp', exist_ok=True)
+        urls = [
+            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.abstract.qq.bm25.txt.gz',
+            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.full-text.qq.bm25.txt.gz',
+            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.paragraph.qq.bm25.txt.gz',
+            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.fusion1.txt.gz',
+        ]
+        with tempfile.TemporaryDirectory(dir='tmp') as tmpdir:
+            txt_paths = []
+            for url in urls:
+                gz_path = download_url(url, tmpdir, verbose=False)
+                txt_path = gz_path[:-3]
+                with gzip.open(gz_path, 'rb') as src, open(txt_path, 'wb') as dst:
+                    shutil.copyfileobj(src, dst)
+                if not txt_path.endswith('fusion1.txt'):
+                    txt_paths.append(txt_path)
 
-        txt_paths = ['anserini.covid-r2.abstract.qq.bm25.txt',
-                     'anserini.covid-r2.full-text.qq.bm25.txt',
-                     'anserini.covid-r2.paragraph.qq.bm25.txt']
-
-        qruns_str = ' '.join(txt_paths)
-        os.system(f'python -m pyserini.fusion --method rrf --runs {qruns_str} --output {self.output_path} --runtag reciprocal_rank_fusion_k=60')
-        self.assertTrue(compare_trec_files_with_tolerance('anserini.covid-r2.fusion1.txt', self.output_path))
-        os.system('rm anserini.covid-r2.*')
+            verify_path = os.path.join(tmpdir, 'anserini.covid-r2.fusion1.txt')
+            output_path = os.path.join(tmpdir, 'output_test_fusion.txt')
+            self.run_fusion(txt_paths, 'rrf', 'reciprocal_rank_fusion_k=60', output_path=output_path)
+            self.assertTrue(compare_trec_files_with_tolerance(verify_path, output_path))
 
     def test_lucene_flat_dense_rrf_fusion(self):
         run_fusion_on_saved_runs(self, self.bm25_path, self.lucene_flat_dense_path, 'rrf', self.expected_results['rrf'], 'fusion_rrf', '--rrf.k 60')
