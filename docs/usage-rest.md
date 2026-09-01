@@ -53,18 +53,14 @@ With `--config` enabled:
   - `encoder` is required for `impact`, `faiss`, `lucene_flat`, `lucene_hnsw` local indexes.
   - optional `base_index` links dense/impact/faiss aliases to the sparse Lucene alias used for stored document fetch.
   - optional `encoder` and `ef_search` provide per-index defaults (request-level values still override them).
-- `api_keys` (optional) enables auth on all `/v1/*` routes.
+- `api_keys` (optional) enables auth on search and document routes.
 - Client auth supports either `Authorization: Bearer {api-key}` or `X-API-Key: {api-key}`.
 
 ### API token requests and email delivery
 
-The complete production contract, state transitions, failure behavior, and BM25 request surface are
-specified in [Token issuance and BM25 REST API design](token-bm25-api-design.md).
-
-Token requests are disabled by default. When enabled, the server claims credentials from a protected,
-pre-generated `lookup.json` inventory. It never generates credentials. Only inventory rows whose
-`name`, `email`, and `issued_at` fields are all `null` can be claimed; existing or partially populated
-rows remain reserved.
+Token requests are disabled by default. When enabled, the server claims credentials from a protected
+`lookup.json` inventory; it never generates credentials. Only entries with null `name`, `email`, and
+`issued_at` fields are available.
 
 Configure a TLS SMTP connection and start the endpoint with both the YAML server config and token pool:
 
@@ -73,26 +69,18 @@ python -m pyserini.server.rest \
   --config /path/to/server.yaml \
   --enable-token-issuance \
   --token-pool /secure/path/to/lookup.json \
-  --token-email-smtp-host smtp.gmail.com \
+  --token-email-smtp-host smtp.example.edu \
   --token-email-smtp-port 587 \
   --token-email-smtp-security starttls \
-  --token-email-smtp-username castorini.api@gmail.com \
-  --token-email-smtp-password-file /secure/path/to/gmail-app-password \
-  --token-email-from castorini.api@gmail.com \
-  --token-email-cc lingwei.gu@uwaterloo.ca \
-  --token-email-cc njedidi@uwaterloo.ca \
-  --token-email-cc jimmylin@uwaterloo.ca \
-  --token-email-cc l2ge@uwaterloo.ca
+  --token-email-smtp-username api@example.edu \
+  --token-email-smtp-password-file /secure/path/to/smtp-password \
+  --token-email-from api@example.edu \
+  --token-email-cc operator@example.edu
 ```
 
-For personal Gmail SMTP, enable two-step verification and store a dedicated app password in the
-password file; no Google Cloud project, Gmail API, or `gcloud` configuration is involved. The SMTP
-password file must be readable only by its owner. At least one `--token-email-cc` is required;
-repeat it only for individual operator mailboxes. Never use a mailing list or Google Group because it
-may distribute the credential to every subscriber. SMTP authentication is optional only when both the
-username and password-file options are omitted, for example when using a trusted local relay. Such a
-relay can use a visible `no-reply` sender without a Gmail API key or SMTP password; the relay must
-authorize the server by another mechanism, such as its source IP.
+The password file must be readable only by its owner. At least one individual operator mailbox is
+required through `--token-email-cc`; mailing lists and Google Groups are rejected. Omit both SMTP
+authentication options when using a trusted relay.
 
 Clients request a token with `POST /v1/token`:
 
@@ -108,29 +96,15 @@ An accepted request returns **202** with no credential in the response:
 {"status":"accepted","message":"Token delivery will be sent by email."}
 ```
 
-The token is sent to the submitted email address and CC'd to the configured service operators. The
-server atomically assigns the pre-generated inventory row, appends that token to the YAML `api_keys`
-list, records its `name` and normalized `email` under `api_key_identities[token]`, and activates it in
-memory immediately, so no restart is required. Existing keys and both authentication header formats
-continue to work. Responses include `Cache-Control: no-store`, and credentials are not written to
-request logs or HTTP response bodies.
+The token is emailed to the requester and the configured service operators. The assignment and
+identity are persisted to the protected pool and YAML config, then activated without a restart. The
+credential is never returned or written to request logs.
 
 Both `name` and a syntactically valid `email` are required. Anonymous issuance has independent one-hour
 cooldowns for the client IP and normalized email by default. A delivery request is accepted only when
 neither value has submitted one during the cooldown. Each normalized email owns one token for its
-lifetime; an eligible later request resends that same token rather than claiming another. Identity
-fields are persisted in both the protected token pool and YAML config but are not written to request
-logs. Configure the cooldown in seconds, or use `0` to disable it:
-
-```bash
-python -m pyserini.server.rest \
-  --config /path/to/server.yaml \
-  --enable-token-issuance \
-  --token-pool /secure/path/to/lookup.json \
-  --token-email-smtp-host smtp.example.edu \
-  --token-email-from pyserini@example.edu \
-  --token-issuance-cooldown 300
-```
+lifetime; an eligible later request resends that same token rather than claiming another. Configure
+the interval with `--token-issuance-cooldown`; use `0` to disable it.
 
 Production deployments must serve this endpoint over HTTPS because the request contains personal
 identity fields. Protect both the token pool and YAML config as credential stores; neither should be
@@ -260,7 +234,7 @@ If the index cannot be opened, the API responds with **400** and a message such 
 | `query` | yes | — | Search query string. |
 | `hits` | no | `10` | Number of hits (integer ≥ 1). |
 | `parse` | no | `true` | If `true`, parse the stored `raw` field when it is JSON (see `format_lucene_document` / Anserini-style formatting); if `false`, return the raw stored string. |
-| `k1` | no | `0.9` | BM25 k1 for sparse (TF) indexes. Must be finite, non-negative, and sent together with `b`. |
+| `k1` | no | `0.9` | BM25 k1 for sparse (TF) indexes. Must be non-negative and sent together with `b`. |
 | `b` | no | `0.4` | BM25 b for sparse (TF) indexes. Must be in `[0, 1]`, and sent together with `k1`. |
 | `max_doc_length` | no | — | Maximum characters to return for each parsed candidate document. If omitted, return the full document. Requires `parse=true`. |
 | `qid` | no | — | Academic trace: source question identifier. |

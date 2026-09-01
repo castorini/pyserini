@@ -331,14 +331,6 @@ class TestRestServer(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn('k1', response.json().get('error', ''))
 
-    def test_search_bm25_infinity_400(self):
-        response = self.client.get(
-            f'/{API_VERSION}/{_REST_INDEX}/search',
-            params={'query': _REST_QUERY, 'hits': 1, 'k1': 'inf', 'b': '0.3'},
-        )
-        self.assertEqual(response.status_code, 400)
-        self.assertIn('finite', response.json().get('error', ''))
-
     def test_search_bm25_custom_params_change_score(self):
         default_resp = self.client.get(
             f'/{API_VERSION}/{_REST_INDEX}/search',

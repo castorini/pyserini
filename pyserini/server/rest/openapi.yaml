@@ -18,8 +18,8 @@ paths:
       description: >
         Claims a pre-generated 256-bit API token from protected inventory, stores the supplied name
         and normalized email, activates the credential, and sends it to that email address while
-        copying explicitly configured individual service operators. The server never generates credentials and never
-        returns one in an HTTP response. A later eligible request for the same email resends its
+        copying explicitly configured individual service operators. The server never generates or
+        returns credentials. A later eligible request for the same email resends its
         lifetime token instead of allocating another. Independent cooldowns apply to the observed
         client IP and normalized email. This endpoint is available only when the server starts with
         a token pool and TLS email delivery configuration.
@@ -107,7 +107,7 @@ paths:
             minimum: 0
             default: 0.9
           description: >
-            BM25 k1 for sparse (TF) indexes. Must be finite, non-negative, and sent together with b.
+            BM25 k1 for sparse (TF) indexes. Must be non-negative and sent together with b.
             Omit both for Anserini defaults (0.9 / 0.4).
             Returns 400 on non-sparse indexes.
         - name: b
@@ -120,7 +120,7 @@ paths:
             maximum: 1
             default: 0.4
           description: >
-            BM25 b for sparse (TF) indexes. Must be finite, in [0, 1], and sent together with k1.
+            BM25 b for sparse (TF) indexes. Must be in [0, 1] and sent together with k1.
             Omit both for Anserini defaults (0.9 / 0.4).
             Returns 400 on non-sparse indexes.
         - name: max_doc_length

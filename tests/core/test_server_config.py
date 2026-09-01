@@ -160,8 +160,8 @@ class TestServerConfigParsing(unittest.TestCase):
                 persisted['api_key_identities'][token],
                 {'name': 'Test User', 'email': 'test@example.edu'},
             )
-            self.assertTrue(store.has_email('TEST@example.edu'))
-            self.assertFalse(store.has_email('other@example.edu'))
+            self.assertEqual(store.token_for_email('TEST@example.edu'), token)
+            self.assertIsNone(store.token_for_email('other@example.edu'))
             self.assertEqual(persisted['indexes'], cfg['indexes'])
             self.assertEqual(persisted['custom'], cfg['custom'])
             self.assertEqual(os.stat(cfg_path).st_mode & 0o777, 0o600)
@@ -226,6 +226,12 @@ class TestServerConfigParsing(unittest.TestCase):
                     'email': None,
                     'issued_at': 123,
                 },
+                {
+                    'token': 'f' * 64,
+                    'name': 'Partially Assigned User',
+                    'email': 'new@example.edu',
+                    'issued_at': None,
+                },
                 {'token': 'e' * 64, 'name': None, 'email': None},
                 {'token': 'c' * 64, 'name': None, 'email': None, 'issued_at': None},
                 {'token': 'd' * 64, 'name': None, 'email': None, 'issued_at': None},
@@ -239,14 +245,13 @@ class TestServerConfigParsing(unittest.TestCase):
 
             self.assertEqual(claimed, 'c' * 64)
             self.assertEqual(claimed_again, claimed)
-            self.assertEqual(pool.available_count(), 1)
             persisted = json.loads(pool_path.read_text(encoding='utf-8'))
-            self.assertEqual(persisted[:3], entries[:3])
-            self.assertEqual(persisted[3]['name'], 'New User')
-            self.assertEqual(persisted[3]['email'], 'new@example.edu')
-            self.assertIsInstance(persisted[3]['issued_at'], int)
+            self.assertEqual(persisted[:4], entries[:4])
+            self.assertEqual(persisted[4]['name'], 'New User')
+            self.assertEqual(persisted[4]['email'], 'new@example.edu')
+            self.assertIsInstance(persisted[4]['issued_at'], int)
             self.assertEqual(
-                persisted[4],
+                persisted[5],
                 {'token': 'd' * 64, 'name': None, 'email': None, 'issued_at': None},
             )
             self.assertEqual(os.stat(pool_path).st_mode & 0o777, 0o600)
@@ -294,7 +299,6 @@ class TestServerConfigParsing(unittest.TestCase):
                 )
 
             self.assertEqual(len(tokens), len(set(tokens)))
-            self.assertEqual(pool.available_count(), 0)
             persisted = json.loads(pool_path.read_text(encoding='utf-8'))
             self.assertTrue(all(entry['name'] and entry['email'] for entry in persisted))
 

@@ -36,6 +36,38 @@ import yaml
 from pyserini.server.utils import INDEX_TYPE, IndexConfig
 
 
+def _atomic_write_text(path: Path, content: str) -> None:
+    current = path.stat()
+    fd, tmp_name = tempfile.mkstemp(prefix=f'.{path.name}.', suffix='.tmp', dir=path.parent)
+    tmp_path = Path(tmp_name)
+    try:
+        with os.fdopen(fd, 'w', encoding='utf-8') as f:
+            f.write(content)
+            f.flush()
+            os.fsync(f.fileno())
+        os.chmod(tmp_path, stat.S_IMODE(current.st_mode))
+        if hasattr(os, 'chown'):
+            try:
+                os.chown(tmp_path, current.st_uid, current.st_gid)
+            except PermissionError:
+                pass
+        os.replace(tmp_path, path)
+        try:
+            dir_fd = os.open(path.parent, os.O_RDONLY | getattr(os, 'O_DIRECTORY', 0))
+        except OSError:
+            pass
+        else:
+            try:
+                os.fsync(dir_fd)
+            finally:
+                os.close(dir_fd)
+    finally:
+        try:
+            tmp_path.unlink()
+        except FileNotFoundError:
+            pass
+
+
 def _parse_indexes(raw_indexes: object, config_parent: Path) -> OrderedDict[str, IndexConfig]:
     if not isinstance(raw_indexes, dict) or not raw_indexes:
         return OrderedDict()
@@ -166,6 +198,13 @@ def _normalize_token_strings(raw: Iterable[str]) -> frozenset[str]:
     return frozenset(out)
 
 
+def _normalize_email(email: str) -> str:
+    normalized = email.strip().casefold() if isinstance(email, str) else ''
+    if not normalized:
+        raise ValueError('Token identity email must be a non-empty string')
+    return normalized
+
+
 class AcceptedApiTokens:
     """Constant-time-ish membership check for high-entropy API tokens."""
 
@@ -219,17 +258,6 @@ class ApiTokenStore:
         self._config_path = path
         self._lock = threading.Lock()
 
-    @property
-    def config_path(self) -> Path:
-        return self._config_path
-
-    @staticmethod
-    def _normalize_email(email: str) -> str:
-        normalized = email.strip().casefold() if isinstance(email, str) else ''
-        if not normalized:
-            raise ValueError('Token identity email must be a non-empty string')
-        return normalized
-
     @staticmethod
     def _load_payload(path: Path) -> tuple[dict, list[str], dict[str, dict[str, object]]]:
         with path.open('r', encoding='utf-8') as f:
@@ -273,19 +301,9 @@ class ApiTokenStore:
                 identities[raw_token.strip()] = identity
         return payload, keys, identities
 
-    def has_email(self, email: str) -> bool:
-        """Return whether a normalized email already has a persisted token identity."""
-        normalized_email = self._normalize_email(email)
-        with self._lock:
-            _, _, identities = self._load_payload(self._config_path)
-            return any(
-                str(identity['email']).strip().casefold() == normalized_email
-                for identity in identities.values()
-            )
-
     def token_for_email(self, email: str) -> str | None:
         """Return the existing lifetime token for an email without changing the config."""
-        normalized_email = self._normalize_email(email)
+        normalized_email = _normalize_email(email)
         with self._lock:
             _, _, identities = self._load_payload(self._config_path)
             for token, identity in identities.items():
@@ -293,45 +311,11 @@ class ApiTokenStore:
                     return token
         return None
 
-    @staticmethod
-    def _write_payload(path: Path, payload: dict) -> None:
-        current = path.stat()
-        fd, tmp_name = tempfile.mkstemp(prefix=f'.{path.name}.', suffix='.tmp', dir=path.parent)
-        tmp_path = Path(tmp_name)
-        try:
-            with os.fdopen(fd, 'w', encoding='utf-8') as f:
-                yaml.safe_dump(payload, f, default_flow_style=False, sort_keys=False)
-                f.flush()
-                os.fsync(f.fileno())
-            os.chmod(tmp_path, stat.S_IMODE(current.st_mode))
-            if hasattr(os, 'chown'):
-                try:
-                    os.chown(tmp_path, current.st_uid, current.st_gid)
-                except PermissionError:
-                    # The service normally owns its config. Preserve ownership when permitted,
-                    # while still supporting unprivileged test and development environments.
-                    pass
-            os.replace(tmp_path, path)
-            try:
-                dir_fd = os.open(path.parent, os.O_RDONLY | getattr(os, 'O_DIRECTORY', 0))
-            except OSError:
-                dir_fd = None
-            if dir_fd is not None:
-                try:
-                    os.fsync(dir_fd)
-                finally:
-                    os.close(dir_fd)
-        finally:
-            try:
-                tmp_path.unlink()
-            except FileNotFoundError:
-                pass
-
     def activate(self, token: str, *, name: str, email: str) -> str:
         """Persist a pre-generated token and identity without creating a credential."""
         normalized_token = token.strip() if isinstance(token, str) else ''
         normalized_name = name.strip() if isinstance(name, str) else ''
-        normalized_email = self._normalize_email(email)
+        normalized_email = _normalize_email(email)
         if not normalized_token:
             raise ValueError('Pre-generated API token must be a non-empty string')
         if not normalized_name:
@@ -350,7 +334,10 @@ class ApiTokenStore:
             identities[normalized_token] = {'name': normalized_name, 'email': normalized_email}
             payload['api_keys'] = keys
             payload['api_key_identities'] = identities
-            self._write_payload(self._config_path, payload)
+            _atomic_write_text(
+                self._config_path,
+                yaml.safe_dump(payload, default_flow_style=False, sort_keys=False),
+            )
             return normalized_token
 
 
@@ -371,6 +358,17 @@ class PreGeneratedApiTokenPool:
     @staticmethod
     def _is_available(entry: dict[str, object]) -> bool:
         return all(field in entry and entry[field] is None for field in ('name', 'email', 'issued_at'))
+
+    @staticmethod
+    def _assigned_email(entry: dict[str, object]) -> str | None:
+        name = entry.get('name')
+        email = entry.get('email')
+        issued_at = entry.get('issued_at')
+        if not isinstance(name, str) or not name.strip():
+            return None
+        if not isinstance(email, str) or not email.strip() or issued_at is None:
+            return None
+        return email.strip().casefold()
 
     @classmethod
     def _load_entries(cls, path: Path) -> list[dict[str, object]]:
@@ -396,60 +394,25 @@ class PreGeneratedApiTokenPool:
             normalized.append(dict(raw_entry))
         return normalized
 
-    @staticmethod
-    def _write_entries(path: Path, entries: list[dict[str, object]]) -> None:
-        current = path.stat()
-        fd, tmp_name = tempfile.mkstemp(prefix=f'.{path.name}.', suffix='.tmp', dir=path.parent)
-        tmp_path = Path(tmp_name)
-        try:
-            with os.fdopen(fd, 'w', encoding='utf-8') as f:
-                json.dump(entries, f, indent=2, ensure_ascii=False)
-                f.write('\n')
-                f.flush()
-                os.fsync(f.fileno())
-            os.chmod(tmp_path, stat.S_IMODE(current.st_mode))
-            if hasattr(os, 'chown'):
-                try:
-                    os.chown(tmp_path, current.st_uid, current.st_gid)
-                except PermissionError:
-                    pass
-            os.replace(tmp_path, path)
-            try:
-                dir_fd = os.open(path.parent, os.O_RDONLY | getattr(os, 'O_DIRECTORY', 0))
-            except OSError:
-                dir_fd = None
-            if dir_fd is not None:
-                try:
-                    os.fsync(dir_fd)
-                finally:
-                    os.close(dir_fd)
-        finally:
-            try:
-                tmp_path.unlink()
-            except FileNotFoundError:
-                pass
-
     def claim(self, *, name: str, email: str) -> str:
         """Return an existing email assignment or claim one available token."""
         normalized_name = name.strip() if isinstance(name, str) else ''
-        normalized_email = ApiTokenStore._normalize_email(email)
+        normalized_email = _normalize_email(email)
         if not normalized_name:
             raise ValueError('Token identity name must be a non-empty string')
         with self._lock:
             entries = self._load_entries(self._path)
             for entry in entries:
-                entry_email = entry.get('email')
-                if isinstance(entry_email, str) and entry_email.strip().casefold() == normalized_email:
+                if self._assigned_email(entry) == normalized_email:
                     return str(entry['token'])
             for entry in entries:
                 if self._is_available(entry):
                     entry['name'] = normalized_name
                     entry['email'] = normalized_email
                     entry['issued_at'] = int(time.time())
-                    self._write_entries(self._path, entries)
+                    _atomic_write_text(
+                        self._path,
+                        json.dumps(entries, indent=2, ensure_ascii=False) + '\n',
+                    )
                     return str(entry['token'])
         raise ApiTokenPoolExhaustedError('No pre-generated API tokens remain')
-
-    def available_count(self) -> int:
-        with self._lock:
-            return sum(self._is_available(entry) for entry in self._load_entries(self._path))
