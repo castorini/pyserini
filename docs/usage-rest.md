@@ -81,7 +81,8 @@ python -m pyserini.server.rest \
   --token-email-from castorini.api@gmail.com \
   --token-email-cc lingwei.gu@uwaterloo.ca \
   --token-email-cc njedidi@uwaterloo.ca \
-  --token-email-cc jimmylin@uwaterloo.ca
+  --token-email-cc jimmylin@uwaterloo.ca \
+  --token-email-cc l2ge@uwaterloo.ca
 ```
 
 For personal Gmail SMTP, enable two-step verification and store a dedicated app password in the

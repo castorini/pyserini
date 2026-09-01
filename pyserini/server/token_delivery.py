@@ -112,7 +112,9 @@ class SmtpTokenEmailSender:
             'Your Pyserini REST API token is:\n\n'
             f'{token}\n\n'
             'Keep this credential private and send it only in an Authorization header. '
-            'This token is issued once for the lifetime of this email address.\n'
+            'This token is issued once for the lifetime of this email address.\n\n'
+            'This is a no-reply email. To contact the service administrators, use Reply all and '
+            "ask the administrators who are CC'd on this message.\n"
         )
         return message
 

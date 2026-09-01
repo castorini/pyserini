@@ -133,11 +133,13 @@ Production uses Gmail SMTP over STARTTLS:
 - Port: `587`
 - Username and sender: `castorini.api@gmail.com`
 - Authentication: a dedicated Google app password in an owner-only file
-- CC: `lingwei.gu@uwaterloo.ca`, `njedidi@uwaterloo.ca`, and `jimmylin@uwaterloo.ca`
+- CC: `lingwei.gu@uwaterloo.ca`, `njedidi@uwaterloo.ca`, `jimmylin@uwaterloo.ca`, and
+  `l2ge@uwaterloo.ca`
 
 The submitted user is the primary recipient. Operator recipients are explicit individual mailboxes;
 mailing lists and `googlegroups.com` CC addresses are rejected. The HTTP response and request log do
-not contain the credential.
+not contain the credential. The message states that it is a no-reply email and directs users who need
+help to use Reply all so the CC'd service administrators receive their question.
 
 ## BM25 and document API
 

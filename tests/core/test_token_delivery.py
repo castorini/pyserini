@@ -60,6 +60,7 @@ class TestSmtpTokenEmailSender(unittest.TestCase):
                     'first-operator@example.edu',
                     'second-operator@example.edu',
                     'third-operator@example.edu',
+                    'fourth-operator@example.edu',
                 ),
                 username='smtp-user',
                 password_file=str(password_path),
@@ -79,9 +80,14 @@ class TestSmtpTokenEmailSender(unittest.TestCase):
             self.assertEqual(message['To'], 'user@example.edu')
             self.assertEqual(
                 message['Cc'],
-                'first-operator@example.edu, second-operator@example.edu, third-operator@example.edu',
+                'first-operator@example.edu, second-operator@example.edu, '
+                'third-operator@example.edu, fourth-operator@example.edu',
             )
-            self.assertIn('a' * 64, message.get_content())
+            content = message.get_content()
+            self.assertIn('a' * 64, content)
+            self.assertIn('This is a no-reply email.', content)
+            self.assertIn('use Reply all', content)
+            self.assertIn("administrators who are CC'd on this message", content)
             self.assertEqual(
                 smtp.send_message.call_args.kwargs['to_addrs'],
                 [
@@ -89,6 +95,7 @@ class TestSmtpTokenEmailSender(unittest.TestCase):
                     'first-operator@example.edu',
                     'second-operator@example.edu',
                     'third-operator@example.edu',
+                    'fourth-operator@example.edu',
                 ],
             )
 
