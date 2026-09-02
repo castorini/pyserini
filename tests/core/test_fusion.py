@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+import gzip
 import os
 import random
 import shlex
@@ -22,13 +23,13 @@ import subprocess
 import sys
 import tempfile
 import unittest
-import gzip
 
-from pyserini.search import get_topics
-from pyserini.search.lucene import LuceneSearcher, LuceneFlatDenseSearcher
-from pyserini.search.faiss import FaissSearcher
 from pyserini.encode import AutoQueryEncoder
+from pyserini.search import get_topics
+from pyserini.search.faiss import FaissSearcher
+from pyserini.search.lucene import LuceneFlatDenseSearcher, LuceneSearcher
 from pyserini.util import compare_trec_files_with_tolerance, download_url
+
 
 def retrieve_and_save_runs(test_obj, searcher, topics_name, searcher_type='bm25', qids=None):
     """Retrieve search results and save to file."""
@@ -45,15 +46,16 @@ def retrieve_and_save_runs(test_obj, searcher, topics_name, searcher_type='bm25'
             else:  # dense
                 raw_hits = searcher.search(query, k=20)
                 hits = [h for h in raw_hits if h.docid != qid][:10]
-            for rank, hit in enumerate(hits, start=1):
-                run_file.write(f"{qid} Q0 {hit.docid} {rank} {hit.score:.6f} {searcher_type}_search\n")
+            run_file.writelines(f'{qid} Q0 {hit.docid} {rank} {hit.score:.6f} {searcher_type}_search\n' for rank, hit in enumerate(hits, start=1))
     # Only assert if test_obj is an instance (has assertTrue method), not a class
+
     if hasattr(test_obj, 'assertTrue'):
         test_obj.assertTrue(os.path.exists(run_path), f"{searcher_type} run file not created: {run_path}")
     else:
         # For class-level calls, just check and raise if file doesn't exist
         if not os.path.exists(run_path):
             raise FileNotFoundError(f"{searcher_type} run file not created: {run_path}")
+
     return run_path
 
 def run_fusion_on_saved_runs(self, bm25_path, dense_path, method, expected_results, runtag, extra_args='', output_path=None):
@@ -76,6 +78,7 @@ def run_fusion_on_saved_runs(self, bm25_path, dense_path, method, expected_resul
 
     with open(output_path, 'r') as f:
         lines = f.readlines()
+
     if expected_results:
         for i, (expected_qid, expected_docid, expected_rank, expected_score) in enumerate(expected_results):
             if i < len(lines):
@@ -220,6 +223,7 @@ class TestFusion(unittest.TestCase):
     def run_fusion(self, input_paths, method, runtag, extra_args=None, output_path=None):
         if output_path is None:
             output_path = self.output_path
+
         cmd = [
             sys.executable, '-m', 'pyserini.fusion',
             '--method', method,
@@ -229,6 +233,7 @@ class TestFusion(unittest.TestCase):
             '--runtag', runtag,
         ]
         subprocess.run(cmd, check=True)
+
         return output_path
 
 
@@ -267,10 +272,10 @@ class TestFusion(unittest.TestCase):
     def test_reciprocal_rank_fusion_complex(self):
         os.makedirs('tmp', exist_ok=True)
         urls = [
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.abstract.qq.bm25.txt.gz',
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.full-text.qq.bm25.txt.gz',
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.paragraph.qq.bm25.txt.gz',
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round2/anserini.covid-r2.fusion1.txt.gz',
+            'https://raw.githubusercontent.com/castorini/anserini-data/master/TREC-COVID-covidex-runs/round2/anserini.covid-r2.abstract.qq.bm25.txt.gz',
+            'https://raw.githubusercontent.com/castorini/anserini-data/master/TREC-COVID-covidex-runs/round2/anserini.covid-r2.full-text.qq.bm25.txt.gz',
+            'https://raw.githubusercontent.com/castorini/anserini-data/master/TREC-COVID-covidex-runs/round2/anserini.covid-r2.paragraph.qq.bm25.txt.gz',
+            'https://raw.githubusercontent.com/castorini/anserini-data/master/TREC-COVID-covidex-runs/round2/anserini.covid-r2.fusion1.txt.gz',
         ]
         with tempfile.TemporaryDirectory(dir='tmp') as tmpdir:
             txt_paths = []
