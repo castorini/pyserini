@@ -53,7 +53,7 @@ class Qrels:
             self.read_run(self.filepath)
 
     def read_run(self, filepath: str):
-        self.qrels_data = pd.read_csv(filepath, sep='\s+', names=Qrels.columns)
+        self.qrels_data = pd.read_csv(filepath, sep=r'\s+', names=Qrels.columns)
 
     def get_relevance_grades(self) -> Set[str]:
         """Return a set with all relevance grades."""
@@ -107,7 +107,7 @@ class TrecRun:
         self.run_data = pd.DataFrame(columns=TrecRun.columns)
 
     def read_run(self, filepath: str, resort: bool = False) -> None:
-        self.run_data = pd.read_csv(filepath, sep='\s+', names=TrecRun.columns, dtype={'docid': 'str', 'score': 'float'})
+        self.run_data = pd.read_csv(filepath, sep=r'\s+', names=TrecRun.columns, dtype={'docid': 'str', 'score': 'float'})
         if resort:
             self.run_data.sort_values(["topic", "score"], inplace=True, ascending=[True, False])
             self.run_data["rank"] = self.run_data.groupby("topic")["score"].rank(ascending=False,method='first')

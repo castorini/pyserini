@@ -21,6 +21,8 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
+import yaml
+
 from pyserini.prebuilt_index_info import TF_INDEX_INFO
 from pyserini.util import (
     compare_trec_files_with_tolerance,
@@ -28,6 +30,7 @@ from pyserini.util import (
     download_and_unpack_archive,
     download_url,
     get_cache_home,
+    get_mbeir_instruction_config,
     temporary_env,
 )
 
@@ -132,7 +135,77 @@ class TestCacheHome(unittest.TestCase):
     def test_cache_home_uses_default_when_no_override_or_local_cache_exists(self):
         with tempfile.TemporaryDirectory(prefix="cache-home-") as directory:
             with patch.dict(os.environ, {}, clear=True), patch('os.getcwd', return_value=directory):
-                self.assertEqual(get_cache_home(), os.path.expanduser('~/.cache/pyserini'))
+                self.assertEqual(
+                    get_cache_home(),
+                    os.path.expanduser(os.path.join('~', '.cache', 'pyserini'))
+                )
+
+
+class TestMbeirInstructionConfig(unittest.TestCase):
+    def test_mbeir_instruction_config_rewrites_instruction_file_to_cache_home(self):
+        with tempfile.TemporaryDirectory(prefix='mbeir-source-') as source_dir, \
+                tempfile.TemporaryDirectory(prefix='mbeir-cache-parent-') as cache_parent_dir:
+            cache_dir = os.path.join(cache_parent_dir, 'pyserini-cache')
+            source_instr_dir = os.path.join(source_dir, 'query_instructions')
+            os.makedirs(source_instr_dir)
+            config_path = os.path.join(source_instr_dir, 'cirr_task7_instr.yaml')
+            with open(config_path, 'w', encoding='utf-8') as f:
+                yaml.safe_dump({
+                    'instruction_file': '~/.cache/pyserini/query_instructions/query_instructions.tsv',
+                    'candidate_modality': 'image',
+                    'dataset_id': 0,
+                }, f)
+            with open(os.path.join(source_instr_dir, 'query_instructions.tsv'), 'w', encoding='utf-8') as f:
+                f.write('dataset_id\tquery_modality\tcand_modality\tprompt_1\n')
+
+            source_tar = os.path.join(source_dir, 'mbeir_query_images_and_instructions.tar.gz')
+            with tarfile.open(source_tar, 'w:gz') as tar:
+                tar.add(source_instr_dir, arcname='query_instructions')
+
+            def fake_download_url(url, save_dir, force=False):
+                self.assertIn('mbeir_query_images_and_instructions.tar.gz', url)
+                destination_path = os.path.join(save_dir, 'mbeir_query_images_and_instructions.tar.gz')
+                shutil.copyfile(source_tar, destination_path)
+                return destination_path
+
+            with patch.dict(os.environ, {'PYSERINI_CACHE': cache_dir}), \
+                    patch('pyserini.util.download_url', side_effect=fake_download_url):
+                instruction_config = get_mbeir_instruction_config('cirr_task7_instr.yaml')
+
+            expected_config = os.path.join(cache_dir, 'query_instructions', 'cirr_task7_instr.yaml')
+            expected_instruction_file = os.path.abspath(
+                os.path.join(cache_dir, 'query_instructions', 'query_instructions.tsv')
+            )
+            self.assertEqual(instruction_config, expected_config)
+            with open(expected_config, 'r', encoding='utf-8') as f:
+                config = yaml.safe_load(f)
+            self.assertEqual(config['instruction_file'], expected_instruction_file)
+            self.assertEqual(config['candidate_modality'], 'image')
+            self.assertEqual(config['dataset_id'], 0)
+
+    def test_mbeir_instruction_config_preserves_custom_instruction_file(self):
+        with tempfile.TemporaryDirectory(prefix='mbeir-cache-') as cache_dir:
+            instr_dir = os.path.join(cache_dir, 'query_instructions')
+            os.makedirs(instr_dir)
+            config_path = os.path.join(instr_dir, 'cirr_task7_instr.yaml')
+            with open(config_path, 'w', encoding='utf-8') as f:
+                yaml.safe_dump({
+                    'instruction_file': 'custom_instructions.tsv',
+                    'candidate_modality': 'image',
+                    'dataset_id': 0,
+                }, f)
+
+            with patch.dict(os.environ, {'PYSERINI_CACHE': cache_dir}), \
+                    patch(
+                        'pyserini.util.download_url',
+                        side_effect=AssertionError('download_url should not be called'),
+                    ):
+                instruction_config = get_mbeir_instruction_config('cirr_task7_instr.yaml')
+
+            self.assertEqual(instruction_config, config_path)
+            with open(config_path, 'r', encoding='utf-8') as f:
+                config = yaml.safe_load(f)
+            self.assertEqual(config['instruction_file'], 'custom_instructions.tsv')
 
 
 class TestTemporaryEnv(unittest.TestCase):
