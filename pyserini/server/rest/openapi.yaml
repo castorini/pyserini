@@ -18,8 +18,9 @@ paths:
       description: >
         Claims a pre-generated 256-bit API token from protected inventory, stores the supplied name
         and normalized email, activates the credential, and sends it to that email address while
-        copying explicitly configured individual service operators. The server never generates or
-        returns credentials. A later eligible request for the same email resends its
+        copying explicitly configured individual service operators. Token generation happens only
+        in the offline inventory workflow, so the server never creates or returns credentials. A
+        later eligible request for the same email resends its
         lifetime token instead of allocating another. Independent cooldowns apply to the observed
         client IP and normalized email. This endpoint is available only when the server starts with
         a token pool and TLS email delivery configuration.
@@ -132,10 +133,12 @@ paths:
           description: >
             Maximum characters to return for each parsed candidate document. If omitted, return
             the full document. Returns 400 when combined with parse=false.
+        - $ref: "#/components/parameters/TraceDataset"
         - $ref: "#/components/parameters/TraceQid"
         - $ref: "#/components/parameters/TraceQuestion"
         - $ref: "#/components/parameters/TraceRunId"
         - $ref: "#/components/parameters/TraceAgent"
+        - $ref: "#/components/parameters/TraceModel"
         - $ref: "#/components/parameters/TraceStep"
       responses:
         "200":
@@ -221,10 +224,12 @@ paths:
           description: >
             Maximum characters to return for the parsed document. If omitted, return the full
             document. Returns 400 when combined with parse=false.
+        - $ref: "#/components/parameters/TraceDataset"
         - $ref: "#/components/parameters/TraceQid"
         - $ref: "#/components/parameters/TraceQuestion"
         - $ref: "#/components/parameters/TraceRunId"
         - $ref: "#/components/parameters/TraceAgent"
+        - $ref: "#/components/parameters/TraceModel"
         - $ref: "#/components/parameters/TraceStep"
       responses:
         "200":
@@ -279,13 +284,20 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
 components:
   parameters:
+    TraceDataset:
+      name: dataset
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Source dataset name and version for optional academic trace collection.
     TraceQid:
       name: qid
       in: query
       required: false
       schema:
         type: string
-      description: Source-dataset question identifier for optional academic trace collection.
+      description: Question identifier within dataset for optional academic trace collection.
     TraceQuestion:
       name: question
       in: query
@@ -306,7 +318,14 @@ components:
       required: false
       schema:
         type: string
-      description: Agent or client name and version for optional academic trace collection.
+      description: Retrieval harness or agent name and version for optional academic trace collection.
+    TraceModel:
+      name: model
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Model provider, name, and version for optional academic trace collection.
     TraceStep:
       name: step
       in: query
@@ -314,7 +333,7 @@ components:
       schema:
         type: integer
         minimum: 0
-      description: Zero-based retrieval step within the agent run.
+      description: Zero-based request sequence number within run_id; the first request is 0.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

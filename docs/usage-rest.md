@@ -60,27 +60,37 @@ With `--config` enabled:
 
 Token requests are disabled by default. When enabled, the server claims credentials from a protected
 `lookup.json` inventory; it never generates credentials. Only entries with null `name`, `email`, and
-`issued_at` fields are available.
+`issued_at` fields are available. The inventory is generated and audited offline so credential
+creation remains outside the serving process.
 
-Configure a TLS SMTP connection and start the endpoint with both the YAML server config and token pool:
+Configure the token pool and TLS SMTP delivery in the same YAML server config:
+
+```yaml
+token_issuance:
+  pool: /secure/path/to/lookup.json
+  cooldown_seconds: 3600
+  smtp:
+    host: smtp.example.edu
+    port: 587
+    security: starttls
+    username: api@example.edu
+    password_file: /secure/path/to/smtp-password
+    sender: api@example.edu
+    cc:
+      - operator@example.edu
+    timeout_seconds: 20
+```
+
+Then explicitly enable the endpoint at startup:
 
 ```bash
-python -m pyserini.server.rest \
-  --config /path/to/server.yaml \
-  --enable-token-issuance \
-  --token-pool /secure/path/to/lookup.json \
-  --token-email-smtp-host smtp.example.edu \
-  --token-email-smtp-port 587 \
-  --token-email-smtp-security starttls \
-  --token-email-smtp-username api@example.edu \
-  --token-email-smtp-password-file /secure/path/to/smtp-password \
-  --token-email-from api@example.edu \
-  --token-email-cc operator@example.edu
+python -m pyserini.server.rest --config /path/to/server.yaml --enable-token-issuance
 ```
 
 The password file must be readable only by its owner. At least one individual operator mailbox is
-required through `--token-email-cc`; mailing lists and Google Groups are rejected. Omit both SMTP
-authentication options when using a trusted relay.
+required in `token_issuance.smtp.cc`; mailing lists and Google Groups are rejected. Omit both
+`username` and `password_file` when using a trusted relay. Relative pool and password-file paths are
+resolved from the YAML file's directory.
 
 Clients request a token with `POST /v1/token`:
 
@@ -103,8 +113,8 @@ credential is never returned or written to request logs.
 Both `name` and a syntactically valid `email` are required. Anonymous issuance has independent one-hour
 cooldowns for the client IP and normalized email by default. A delivery request is accepted only when
 neither value has submitted one during the cooldown. Each normalized email owns one token for its
-lifetime; an eligible later request resends that same token rather than claiming another. Configure
-the interval with `--token-issuance-cooldown`; use `0` to disable it.
+lifetime; an eligible later request resends that same token rather than claiming another. Set
+`cooldown_seconds` to `0` to disable the cooldown.
 
 Production deployments must serve this endpoint over HTTPS because the request contains personal
 identity fields. Protect both the token pool and YAML config as credential stores; neither should be
@@ -144,10 +154,10 @@ REST server logging options:
 
 Each JSONL request record includes the timestamp, request ID, client, method, path, query string
 (capped at 1000 characters), status, latency, auth outcome, and a non-reversible API-key fingerprint
-when credentials are present. It also includes explicit `qid`, `question`, `retrieval_query`, `run_id`,
-`agent`, and `step` fields when clients provide academic trace metadata. Auth failures and load-shedding
-responses are written to the same log as successful requests. The server generates a request ID for
-each request, logs it, and returns it as `X-Request-ID`.
+when credentials are present. It also includes explicit `dataset`, `qid`, `question`, `retrieval_query`,
+`run_id`, `agent`, `model`, and `step` fields when clients provide academic trace metadata. Auth failures
+and load-shedding responses are written to the same log as successful requests. The server generates a
+request ID for each request, logs it, and returns it as `X-Request-ID`.
 
 Example:
 
@@ -194,16 +204,18 @@ anonymous so that new clients can obtain a credential.
 
 ### Optional academic trace metadata
 
-Search and document requests accept optional `qid`, `question`, `run_id`, `agent`, and `step` query
-parameters. Clients are encouraged, as a courtesy, to include them whenever the values are known.
-They are collected solely for academic research on agent retrieval behavior and do not affect ranking
-or response contents.
+Search and document requests accept optional `dataset`, `qid`, `question`, `run_id`, `agent`, `model`,
+and `step` query parameters. Clients are encouraged, as a courtesy, to include them whenever the values
+are known. They are collected solely for academic research on agent retrieval behavior and do not
+affect ranking or response contents.
 
-- `qid`: source-dataset question identifier
+- `dataset`: source dataset name and version, such as `browsecomp-plus-v1`
+- `qid`: question identifier within `dataset`
 - `question`: complete question body the user or agent is answering
 - `run_id`: stable identifier shared by requests from one answer attempt
-- `agent`: agent or client name and version
-- `step`: zero-based retrieval step within the run
+- `agent`: retrieval harness or agent name and version
+- `model`: model provider, name, and version
+- `step`: zero-based sequence number of this retrieval request within `run_id`; the first request is `0`
 
 The server records these fields alongside the retrieval `query`, request ID, timestamp, API-key
 fingerprint, route, status, and latency. Omit unknown values rather than fabricating them. Agents should
@@ -237,11 +249,13 @@ If the index cannot be opened, the API responds with **400** and a message such 
 | `k1` | no | `0.9` | BM25 k1 for sparse (TF) indexes. Must be non-negative and sent together with `b`. |
 | `b` | no | `0.4` | BM25 b for sparse (TF) indexes. Must be in `[0, 1]`, and sent together with `k1`. |
 | `max_doc_length` | no | — | Maximum characters to return for each parsed candidate document. If omitted, return the full document. Requires `parse=true`. |
-| `qid` | no | — | Academic trace: source question identifier. |
+| `dataset` | no | — | Academic trace: source dataset name and version. |
+| `qid` | no | — | Academic trace: question identifier within `dataset`. |
 | `question` | no | — | Academic trace: complete question body. |
 | `run_id` | no | — | Academic trace: stable answer-attempt identifier. |
-| `agent` | no | — | Academic trace: agent/client name and version. |
-| `step` | no | — | Academic trace: zero-based retrieval step. |
+| `agent` | no | — | Academic trace: retrieval harness or agent name and version. |
+| `model` | no | — | Academic trace: model provider, name, and version. |
+| `step` | no | — | Academic trace: zero-based request sequence number within the run. |
 
 **Example**
 
@@ -306,11 +320,13 @@ The `doc` field may be `null`, a string, or a JSON value depending on the index 
 |------|----------|---------|-------------|
 | `parse` | no | `true` | Same meaning as for search. |
 | `max_doc_length` | no | — | Maximum characters to return for the parsed document. If omitted, return the full document. Requires `parse=true`. |
-| `qid` | no | — | Academic trace: source question identifier. |
+| `dataset` | no | — | Academic trace: source dataset name and version. |
+| `qid` | no | — | Academic trace: question identifier within `dataset`. |
 | `question` | no | — | Academic trace: complete question body. |
 | `run_id` | no | — | Academic trace: stable answer-attempt identifier. |
-| `agent` | no | — | Academic trace: agent/client name and version. |
-| `step` | no | — | Academic trace: zero-based retrieval step. |
+| `agent` | no | — | Academic trace: retrieval harness or agent name and version. |
+| `model` | no | — | Academic trace: model provider, name, and version. |
+| `step` | no | — | Academic trace: zero-based request sequence number within the run. |
 
 **Example**
 

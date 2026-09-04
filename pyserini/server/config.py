@@ -28,12 +28,30 @@ import threading
 import time
 from collections import OrderedDict
 from collections.abc import Iterable
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Mapping
 
 import yaml
 
+from pyserini.server.token_delivery import SmtpTokenEmailSender
 from pyserini.server.utils import INDEX_TYPE, IndexConfig
+
+DEFAULT_TOKEN_ISSUANCE_COOLDOWN_SEC = 3600.0
+
+
+@dataclass(frozen=True)
+class TokenIssuanceConfig:
+    pool_path: str
+    cooldown_sec: float
+    smtp_host: str
+    smtp_port: int
+    smtp_security: str
+    smtp_username: str | None
+    smtp_password_file: str | None
+    email_from: str
+    email_cc: tuple[str, ...]
+    smtp_timeout_sec: float
 
 
 def _atomic_write_text(path: Path, content: str) -> None:
@@ -153,11 +171,10 @@ def _parse_indexes(raw_indexes: object, config_parent: Path) -> OrderedDict[str,
     return parsed_indexes
 
 
-def load_server_config(config_path: str | None) -> tuple[Mapping[str, IndexConfig], list[str] | None]:
-    """Load ``indexes`` and optional ``api_keys`` (list of secret strings)."""
+def _load_config_payload(config_path: str | None) -> tuple[Path | None, dict]:
     if not config_path or not str(config_path).strip():
-        return {}, None
-    path = Path(config_path)
+        return None, {}
+    path = Path(config_path).expanduser().resolve()
     if not path.is_file():
         raise ValueError(f'Config file not found: {path}')
 
@@ -165,9 +182,17 @@ def load_server_config(config_path: str | None) -> tuple[Mapping[str, IndexConfi
         payload = yaml.safe_load(f)
 
     if not payload:
-        return {}, None
+        return path, {}
     if not isinstance(payload, dict):
         raise ValueError('Config root must be a mapping/object')
+    return path, payload
+
+
+def load_server_config(config_path: str | None) -> tuple[Mapping[str, IndexConfig], list[str] | None]:
+    """Load ``indexes`` and optional ``api_keys`` (list of secret strings)."""
+    path, payload = _load_config_payload(config_path)
+    if path is None:
+        return {}, None
 
     api_keys_out: list[str] | None = None
     api_keys_raw = payload.get('api_keys')
@@ -184,8 +209,100 @@ def load_server_config(config_path: str | None) -> tuple[Mapping[str, IndexConfi
     if 'indexes' not in payload:
         return {}, api_keys_out
 
-    parsed_indexes = _parse_indexes(payload['indexes'], path.resolve().parent)
+    parsed_indexes = _parse_indexes(payload['indexes'], path.parent)
     return parsed_indexes, api_keys_out
+
+
+def _config_string(mapping: dict, key: str, section: str) -> str:
+    value = mapping.get(key)
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f'Config "{section}.{key}" must be a non-empty string')
+    return value.strip()
+
+
+def _optional_config_string(mapping: dict, key: str, section: str) -> str | None:
+    value = mapping.get(key)
+    if value is None:
+        return None
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f'Config "{section}.{key}" must be a non-empty string when set')
+    return value.strip()
+
+
+def _config_path(value: str, parent: Path) -> str:
+    path = Path(value).expanduser()
+    return str(path.resolve() if path.is_absolute() else (parent / path).resolve())
+
+
+def load_token_issuance_config(config_path: str | None) -> TokenIssuanceConfig | None:
+    """Load optional token inventory and SMTP settings from the server config."""
+    path, payload = _load_config_payload(config_path)
+    if path is None or 'token_issuance' not in payload:
+        return None
+
+    raw = payload['token_issuance']
+    if not isinstance(raw, dict):
+        raise ValueError('Config "token_issuance" must be a mapping/object')
+    unknown = set(raw) - {'pool', 'cooldown_seconds', 'smtp'}
+    if unknown:
+        raise ValueError(f'Unknown token_issuance config field(s): {sorted(unknown)}')
+
+    raw_smtp = raw.get('smtp')
+    if not isinstance(raw_smtp, dict):
+        raise ValueError('Config "token_issuance.smtp" must be a mapping/object')
+    unknown_smtp = set(raw_smtp) - {
+        'host',
+        'port',
+        'security',
+        'username',
+        'password_file',
+        'sender',
+        'cc',
+        'timeout_seconds',
+    }
+    if unknown_smtp:
+        raise ValueError(f'Unknown token_issuance.smtp config field(s): {sorted(unknown_smtp)}')
+
+    cooldown = raw.get('cooldown_seconds', DEFAULT_TOKEN_ISSUANCE_COOLDOWN_SEC)
+    if isinstance(cooldown, bool) or not isinstance(cooldown, (int, float)) or cooldown < 0:
+        raise ValueError('Config "token_issuance.cooldown_seconds" must be a non-negative number')
+
+    port = raw_smtp.get('port', SmtpTokenEmailSender.DEFAULT_STARTTLS_PORT)
+    if isinstance(port, bool) or not isinstance(port, int):
+        raise ValueError('Config "token_issuance.smtp.port" must be an integer')
+
+    timeout = raw_smtp.get('timeout_seconds', SmtpTokenEmailSender.DEFAULT_TIMEOUT_SEC)
+    if isinstance(timeout, bool) or not isinstance(timeout, (int, float)):
+        raise ValueError('Config "token_issuance.smtp.timeout_seconds" must be a number')
+
+    cc = raw_smtp.get('cc')
+    if not isinstance(cc, list) or not cc or any(not isinstance(item, str) or not item.strip() for item in cc):
+        raise ValueError('Config "token_issuance.smtp.cc" must be a non-empty list of email addresses')
+
+    pool = _config_string(raw, 'pool', 'token_issuance')
+    password_file = _optional_config_string(
+        raw_smtp,
+        'password_file',
+        'token_issuance.smtp',
+    )
+    return TokenIssuanceConfig(
+        pool_path=_config_path(pool, path.parent),
+        cooldown_sec=float(cooldown),
+        smtp_host=_config_string(raw_smtp, 'host', 'token_issuance.smtp'),
+        smtp_port=port,
+        smtp_security=(
+            _optional_config_string(raw_smtp, 'security', 'token_issuance.smtp') or 'starttls'
+        ),
+        smtp_username=_optional_config_string(
+            raw_smtp,
+            'username',
+            'token_issuance.smtp',
+        ),
+        smtp_password_file=_config_path(password_file, path.parent) if password_file else None,
+        email_from=_config_string(raw_smtp, 'sender', 'token_issuance.smtp'),
+        email_cc=tuple(item.strip() for item in cc),
+        smtp_timeout_sec=float(timeout),
+    )
 
 
 def _normalize_token_strings(raw: Iterable[str]) -> frozenset[str]:

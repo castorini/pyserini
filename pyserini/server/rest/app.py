@@ -21,8 +21,7 @@ Usage:
     python -m pyserini.server.rest [--host HOST] [--port PORT] [--config PATH] [--no-prebuilt-indexes] 
                                    [--log-file PATH] [--keep-uvicorn-logs] [--load-shedding-threshold MS]
                                    [--search-cache-size N] [--document-cache-size N]
-                                   [--enable-token-issuance --token-pool PATH --token-email-smtp-host HOST
-                                    --token-email-from ADDRESS]
+                                   [--enable-token-issuance]
 
 Endpoints:
     GET /openapi.yaml     : OpenAPI specification (same document as Anserini).
@@ -36,9 +35,9 @@ from __future__ import annotations
 
 import asyncio
 import copy
+import hashlib
 import json
 import logging
-import hashlib
 import math
 import threading
 import time
@@ -49,21 +48,23 @@ from datetime import datetime, timezone
 from functools import lru_cache
 from importlib import resources
 
+import yaml
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, PlainTextResponse
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 from starlette.exceptions import HTTPException as StarletteHTTPException
-import yaml
 
 from pyserini.server.backend import SharedSearchBackend
 from pyserini.server.config import (
+    DEFAULT_TOKEN_ISSUANCE_COOLDOWN_SEC,
     AcceptedApiTokens,
     ApiTokenEmailAlreadyIssuedError,
     ApiTokenPoolExhaustedError,
     ApiTokenStore,
     PreGeneratedApiTokenPool,
     load_server_config,
+    load_token_issuance_config,
 )
 from pyserini.server.rest.routes import v1
 from pyserini.server.token_delivery import SmtpTokenEmailSender, TokenEmailSender
@@ -76,16 +77,27 @@ API_VERSION = 'v1'
 DESCRIPTION = 'REST API aligned with Anserini (Lucene indexes via Pyserini).'
 ROUTE_ERROR = 'Expected route /v1/{index}/search or /v1/{index}/doc/{docid}'
 MAX_LOGGED_QUERY_CHARS = 1000
+MAX_LOGGED_DATASET_CHARS = 256
 MAX_LOGGED_QID_CHARS = 256
 MAX_LOGGED_QUESTION_CHARS = 8192
 MAX_LOGGED_RETRIEVAL_QUERY_CHARS = 4096
 MAX_LOGGED_RUN_ID_CHARS = 256
 MAX_LOGGED_AGENT_CHARS = 256
+MAX_LOGGED_MODEL_CHARS = 256
 TOKEN_ISSUANCE_NAME_MAX_CHARS = 200
 TOKEN_ISSUANCE_EMAIL_MAX_CHARS = 254
-DEFAULT_TOKEN_ISSUANCE_COOLDOWN_SEC = 3600.0
 REQUEST_ID_HEADER = 'X-Request-ID'
 TOKEN_ISSUE_PATH = f'/{API_VERSION}/token'
+
+_TRACE_LOG_FIELDS = (
+    ('dataset', 'dataset', MAX_LOGGED_DATASET_CHARS),
+    ('qid', 'qid', MAX_LOGGED_QID_CHARS),
+    ('question', 'question', MAX_LOGGED_QUESTION_CHARS),
+    ('retrieval_query', 'query', MAX_LOGGED_RETRIEVAL_QUERY_CHARS),
+    ('run_id', 'run_id', MAX_LOGGED_RUN_ID_CHARS),
+    ('agent', 'agent', MAX_LOGGED_AGENT_CHARS),
+    ('model', 'model', MAX_LOGGED_MODEL_CHARS),
+)
 
 
 # Hint for clients when we return 429 (also sent as ``Retry-After`` header).
@@ -345,37 +357,17 @@ def _query_param_for_log(request: Request, name: str, max_chars: int) -> tuple[s
 
 
 def _request_trace_for_log(request: Request) -> dict[str, object]:
-    qid, qid_truncated = _query_param_for_log(request, 'qid', MAX_LOGGED_QID_CHARS)
-    question, question_truncated = _query_param_for_log(
-        request,
-        'question',
-        MAX_LOGGED_QUESTION_CHARS,
-    )
-    retrieval_query, retrieval_query_truncated = _query_param_for_log(
-        request,
-        'query',
-        MAX_LOGGED_RETRIEVAL_QUERY_CHARS,
-    )
-    run_id, run_id_truncated = _query_param_for_log(request, 'run_id', MAX_LOGGED_RUN_ID_CHARS)
-    agent, agent_truncated = _query_param_for_log(request, 'agent', MAX_LOGGED_AGENT_CHARS)
+    trace: dict[str, object] = {}
+    for output_name, parameter_name, max_chars in _TRACE_LOG_FIELDS:
+        value, truncated = _query_param_for_log(request, parameter_name, max_chars)
+        trace[output_name] = value
+        trace[f'{output_name}_truncated'] = truncated
     step_raw = request.query_params.get('step')
     try:
-        step: int | str | None = int(step_raw) if step_raw is not None else None
+        trace['step'] = int(step_raw) if step_raw is not None else None
     except ValueError:
-        step = step_raw
-    return {
-        'qid': qid,
-        'qid_truncated': qid_truncated,
-        'question': question,
-        'question_truncated': question_truncated,
-        'retrieval_query': retrieval_query,
-        'retrieval_query_truncated': retrieval_query_truncated,
-        'run_id': run_id,
-        'run_id_truncated': run_id_truncated,
-        'agent': agent,
-        'agent_truncated': agent_truncated,
-        'step': step,
-    }
+        trace['step'] = step_raw
+    return trace
 
 
 def _build_uvicorn_log_config(
@@ -540,7 +532,10 @@ def create_app(
                     response = JSONResponse(
                         status_code=401,
                         content={
-                            'error': 'Unauthorized. Request access from the service operator.'
+                            'error': (
+                                'Unauthorized. Provide a valid Bearer token or X-API-Key; '
+                                'request one with POST /v1/token if enabled.'
+                            ),
                         },
                         headers={REQUEST_ID_HEADER: request_id},
                     )
@@ -705,7 +700,7 @@ def main():
         '--config',
         type=str,
         default=None,
-        help='YAML server config with index mappings and API keys',
+        help='YAML server config with indexes, API keys, and optional token delivery settings',
     )
     parser.add_argument(
         '--no-prebuilt-indexes',
@@ -748,49 +743,7 @@ def main():
     parser.add_argument(
         '--enable-token-issuance',
         action='store_true',
-        help='Claim pre-generated tokens and deliver them by email through POST /v1/token.',
-    )
-    parser.add_argument(
-        '--token-issuance-cooldown',
-        type=float,
-        default=DEFAULT_TOKEN_ISSUANCE_COOLDOWN_SEC,
-        metavar='SECONDS',
-        help=(
-            'Minimum seconds between token deliveries for each observed client IP and normalized '
-            'email (default: 3600; 0 disables).'
-        ),
-    )
-    parser.add_argument(
-        '--token-pool',
-        type=str,
-        default=None,
-        help='Protected JSON inventory of pre-generated API tokens.',
-    )
-    parser.add_argument('--token-email-smtp-host', type=str, default=None)
-    parser.add_argument(
-        '--token-email-smtp-port',
-        type=int,
-        default=SmtpTokenEmailSender.DEFAULT_STARTTLS_PORT,
-    )
-    parser.add_argument(
-        '--token-email-smtp-security',
-        choices=sorted(SmtpTokenEmailSender.VALID_SECURITY_MODES),
-        default='starttls',
-    )
-    parser.add_argument('--token-email-smtp-username', type=str, default=None)
-    parser.add_argument('--token-email-smtp-password-file', type=str, default=None)
-    parser.add_argument('--token-email-from', type=str, default=None)
-    parser.add_argument(
-        '--token-email-cc',
-        action='append',
-        default=None,
-        help='Individual CC mailbox for token delivery (required and repeatable; mailing lists are unsafe).',
-    )
-    parser.add_argument(
-        '--token-email-timeout',
-        type=float,
-        default=SmtpTokenEmailSender.DEFAULT_TIMEOUT_SEC,
-        metavar='SECONDS',
+        help='Enable POST /v1/token using token_issuance settings from --config.',
     )
     args = parser.parse_args()
 
@@ -810,37 +763,28 @@ def main():
     if args.document_cache_size < 0:
         raise SystemExit('Error: --document-cache-size must be >= 0')
 
-    if args.enable_token_issuance and not args.config:
-        raise SystemExit('Error: --enable-token-issuance requires --config')
-
-    if args.enable_token_issuance and not args.token_pool:
-        raise SystemExit('Error: --enable-token-issuance requires --token-pool')
-
-    if args.enable_token_issuance and not args.token_email_smtp_host:
-        raise SystemExit('Error: --enable-token-issuance requires --token-email-smtp-host')
-
-    if args.enable_token_issuance and not args.token_email_from:
-        raise SystemExit('Error: --enable-token-issuance requires --token-email-from')
-
-    if args.enable_token_issuance and not args.token_email_cc:
-        raise SystemExit('Error: --enable-token-issuance requires at least one --token-email-cc')
-
-    if args.token_issuance_cooldown < 0:
-        raise SystemExit('Error: --token-issuance-cooldown must be >= 0')
-
     token_email_sender = None
+    token_pool_path = None
+    token_issuance_cooldown_sec = DEFAULT_TOKEN_ISSUANCE_COOLDOWN_SEC
     if args.enable_token_issuance:
+        if not args.config:
+            raise SystemExit('Error: --enable-token-issuance requires --config')
         try:
+            token_config = load_token_issuance_config(args.config)
+            if token_config is None:
+                raise ValueError('Config must define "token_issuance"')
             token_email_sender = SmtpTokenEmailSender(
-                host=args.token_email_smtp_host,
-                port=args.token_email_smtp_port,
-                sender=args.token_email_from,
-                cc=tuple(args.token_email_cc),
-                username=args.token_email_smtp_username,
-                password_file=args.token_email_smtp_password_file,
-                security=args.token_email_smtp_security,
-                timeout_sec=args.token_email_timeout,
+                host=token_config.smtp_host,
+                port=token_config.smtp_port,
+                sender=token_config.email_from,
+                cc=token_config.email_cc,
+                username=token_config.smtp_username,
+                password_file=token_config.smtp_password_file,
+                security=token_config.smtp_security,
+                timeout_sec=token_config.smtp_timeout_sec,
             )
+            token_pool_path = token_config.pool_path
+            token_issuance_cooldown_sec = token_config.cooldown_sec
         except ValueError as exc:
             raise SystemExit(f'Error: {exc}') from exc
 
@@ -852,8 +796,8 @@ def main():
             search_cache_size=args.search_cache_size,
             document_cache_size=args.document_cache_size,
             enable_token_issuance=args.enable_token_issuance,
-            token_issuance_cooldown_sec=args.token_issuance_cooldown,
-            token_pool_path=args.token_pool,
+            token_issuance_cooldown_sec=token_issuance_cooldown_sec,
+            token_pool_path=token_pool_path,
             token_email_sender=token_email_sender,
         ),
         host=args.host,

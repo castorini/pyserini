@@ -29,7 +29,11 @@ from fastapi import APIRouter, Query, Request
 from fastapi.responses import JSONResponse
 
 from pyserini.server.backend import SharedSearchBackend
-from pyserini.server.errors import BadSearchRequestError, DocumentNotFoundError, IndexNotAvailableError
+from pyserini.server.errors import (
+    BadSearchRequestError,
+    DocumentNotFoundError,
+    IndexNotAvailableError,
+)
 
 router = APIRouter(tags=['v1'])
 
@@ -99,10 +103,12 @@ async def search_v1(
     k1: str | None = Query(None),
     b: str | None = Query(None),
     max_doc_length: str | None = Query(None),
+    dataset: str | None = Query(None),
     qid: str | None = Query(None),
     question: str | None = Query(None),
     run_id: str | None = Query(None),
     agent: str | None = Query(None),
+    model: str | None = Query(None),
     step: int | None = Query(None, ge=0),
 ):
     backend = _backend(request)
@@ -178,10 +184,12 @@ async def get_document_v1(
     docid: str,
     parse: str | None = Query(None),
     max_doc_length: str | None = Query(None),
+    dataset: str | None = Query(None),
     qid: str | None = Query(None),
     question: str | None = Query(None),
     run_id: str | None = Query(None),
     agent: str | None = Query(None),
+    model: str | None = Query(None),
     step: int | None = Query(None, ge=0),
 ):
     backend = _backend(request)

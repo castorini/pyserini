@@ -31,6 +31,7 @@ from pyserini.server.config import (
     ApiTokenStore,
     PreGeneratedApiTokenPool,
     load_server_config,
+    load_token_issuance_config,
 )
 
 
@@ -127,6 +128,68 @@ class TestServerConfigParsing(unittest.TestCase):
             cfg_path.write_text(yaml.safe_dump(cfg), encoding='utf-8')
             with self.assertRaises(ValueError):
                 load_server_config(str(cfg_path))
+
+    def test_loads_token_issuance_config_with_relative_paths(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            cfg_path = root / 'server.yaml'
+            cfg_path.write_text(
+                yaml.safe_dump(
+                    {
+                        'token_issuance': {
+                            'pool': 'secrets/lookup.json',
+                            'cooldown_seconds': 300,
+                            'smtp': {
+                                'host': 'smtp.example.edu',
+                                'port': 465,
+                                'security': 'ssl',
+                                'username': 'api@example.edu',
+                                'password_file': 'secrets/smtp-password',
+                                'sender': 'api@example.edu',
+                                'cc': ['operator@example.edu'],
+                                'timeout_seconds': 10,
+                            },
+                        }
+                    }
+                ),
+                encoding='utf-8',
+            )
+
+            config = load_token_issuance_config(str(cfg_path))
+
+            self.assertIsNotNone(config)
+            self.assertEqual(config.pool_path, str((root / 'secrets/lookup.json').resolve()))
+            self.assertEqual(config.smtp_password_file, str((root / 'secrets/smtp-password').resolve()))
+            self.assertEqual(config.cooldown_sec, 300)
+            self.assertEqual(config.smtp_host, 'smtp.example.edu')
+            self.assertEqual(config.smtp_port, 465)
+            self.assertEqual(config.smtp_security, 'ssl')
+            self.assertEqual(config.smtp_username, 'api@example.edu')
+            self.assertEqual(config.email_from, 'api@example.edu')
+            self.assertEqual(config.email_cc, ('operator@example.edu',))
+            self.assertEqual(config.smtp_timeout_sec, 10)
+
+    def test_rejects_invalid_token_issuance_config(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg_path = Path(tmp) / 'server.yaml'
+            cfg_path.write_text(
+                yaml.safe_dump(
+                    {
+                        'token_issuance': {
+                            'pool': 'lookup.json',
+                            'smtp': {
+                                'host': 'smtp.example.edu',
+                                'sender': 'api@example.edu',
+                                'cc': 'operator@example.edu',
+                            },
+                        }
+                    }
+                ),
+                encoding='utf-8',
+            )
+
+            with self.assertRaisesRegex(ValueError, 'smtp.cc'):
+                load_token_issuance_config(str(cfg_path))
 
     def test_api_token_store_appends_token_and_preserves_config_mode(self):
         with tempfile.TemporaryDirectory() as tmp:

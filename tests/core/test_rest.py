@@ -14,13 +14,13 @@
 # limitations under the License.
 #
 
+import hashlib
+import json
 import os
 import tempfile
 import time
 import unittest
 import unittest.mock
-import hashlib
-import json
 from pathlib import Path
 
 import yaml
@@ -29,7 +29,14 @@ from fastapi.testclient import TestClient
 # Keep this test in tests/core: the REST server imports search backends including Faiss.
 from pyserini.server.backend import SharedSearchBackend
 from pyserini.server.errors import BadSearchRequestError
-from pyserini.server.rest.app import API_VERSION, ROUTE_ERROR, app, create_app, _build_uvicorn_log_config
+from pyserini.server.rest.app import (
+    API_VERSION,
+    ROUTE_ERROR,
+    _build_uvicorn_log_config,
+    app,
+    create_app,
+    main,
+)
 from pyserini.server.utils import Bm25Config, IndexConfig
 
 # Small prebuilt TF index (see TF_INDEX_INFO["cacm"]); stable BM25 top-1 for this query.
@@ -88,10 +95,21 @@ class TestRestServer(unittest.TestCase):
         trace_parameter_names = {
             parameter['name'] for parameter in data['components']['parameters'].values()
         }
-        self.assertEqual(trace_parameter_names, {'qid', 'question', 'run_id', 'agent', 'step'})
+        self.assertEqual(
+            trace_parameter_names,
+            {'dataset', 'qid', 'question', 'run_id', 'agent', 'model', 'step'},
+        )
         expected_trace_refs = {
             f'#/components/parameters/{name}'
-            for name in ('TraceQid', 'TraceQuestion', 'TraceRunId', 'TraceAgent', 'TraceStep')
+            for name in (
+                'TraceDataset',
+                'TraceQid',
+                'TraceQuestion',
+                'TraceRunId',
+                'TraceAgent',
+                'TraceModel',
+                'TraceStep',
+            )
         }
         search_trace_refs = {
             parameter['$ref']
@@ -700,10 +718,12 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
                         params={
                             'query': _REST_QUERY,
                             'hits': 1,
+                            'dataset': 'test-dataset-v1',
                             'qid': 'q-123',
                             'question': 'Which document explains information retrieval?',
                             'run_id': 'run-456',
                             'agent': 'test-agent/1.0',
+                            'model': 'example/test-model-v1',
                             'step': 3,
                         },
                         headers={'X-API-Key': token},
@@ -718,11 +738,13 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
                 self.assertEqual(record.get('path'), f'/{API_VERSION}/cacm_alias/search')
                 self.assertEqual(record.get('request_id'), ok.headers.get('X-Request-ID'))
                 self.assertFalse(record.get('query_truncated'))
+                self.assertEqual(record.get('dataset'), 'test-dataset-v1')
                 self.assertEqual(record.get('qid'), 'q-123')
                 self.assertEqual(record.get('question'), 'Which document explains information retrieval?')
                 self.assertEqual(record.get('retrieval_query'), _REST_QUERY)
                 self.assertEqual(record.get('run_id'), 'run-456')
                 self.assertEqual(record.get('agent'), 'test-agent/1.0')
+                self.assertEqual(record.get('model'), 'example/test-model-v1')
                 self.assertEqual(record.get('step'), 3)
                 self.assertFalse(record.get('question_truncated'))
                 self.assertFalse(record.get('retrieval_query_truncated'))
@@ -745,6 +767,8 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
                         headers={'X-API-Key': 'bad-token'},
                     )
                 self.assertEqual(denied.status_code, 401, msg=denied.text)
+                self.assertIn('Bearer token or X-API-Key', denied.json().get('error', ''))
+                self.assertIn('POST /v1/token', denied.json().get('error', ''))
                 record = json.loads(cm.records[-1].getMessage())
                 self.assertEqual(record.get('event'), 'request')
                 self.assertEqual(record.get('auth'), 'invalid')
@@ -766,11 +790,13 @@ class TestRestServerNoPrebuiltIndexesAuthenticated(unittest.TestCase):
         self.assertEqual(record.get('path'), '/')
         self.assertEqual(record.get('request_id'), response.headers.get('X-Request-ID'))
         self.assertFalse(record.get('query_truncated'))
+        self.assertIsNone(record.get('dataset'))
         self.assertIsNone(record.get('qid'))
         self.assertIsNone(record.get('question'))
         self.assertIsNone(record.get('retrieval_query'))
         self.assertIsNone(record.get('run_id'))
         self.assertIsNone(record.get('agent'))
+        self.assertIsNone(record.get('model'))
         self.assertIsNone(record.get('step'))
 
     def test_request_id_is_server_generated_and_ignores_incoming_headers(self):
@@ -861,6 +887,32 @@ class TestRestTokenIssuance(unittest.TestCase):
                 token_pool_path='/missing/pool.json',
                 token_email_sender=RecordingTokenEmailSender(),
             )
+
+    def test_main_loads_token_issuance_settings_from_config(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            config_path = Path(self._write_config(tmp))
+            pool_path = Path(self._write_pool(tmp))
+            config = yaml.safe_load(config_path.read_text(encoding='utf-8'))
+            config['token_issuance'] = {
+                'pool': pool_path.name,
+                'cooldown_seconds': 0,
+                'smtp': {
+                    'host': 'relay.example.edu',
+                    'sender': 'api@example.edu',
+                    'cc': ['operator@example.edu'],
+                },
+            }
+            config_path.write_text(yaml.safe_dump(config, sort_keys=False), encoding='utf-8')
+
+            argv = ['pyserini.server.rest', '--config', str(config_path), '--enable-token-issuance']
+            with unittest.mock.patch('sys.argv', argv), unittest.mock.patch('uvicorn.run') as run:
+                main()
+
+            configured_app = run.call_args.args[0]
+            self.assertIsNotNone(configured_app.state.token_store)
+            self.assertIsNotNone(configured_app.state.token_pool)
+            self.assertIsNotNone(configured_app.state.token_email_sender)
+            self.assertEqual(configured_app.state.token_issuance_cooldown._interval_sec, 0)
 
     def test_token_issuance_requires_pool_and_email_sender(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -1170,7 +1222,10 @@ class TestRestBackpressure(unittest.TestCase):
         cls._index_path = download_prebuilt_index(_REST_INDEX, verbose=False)
 
     def test_backpressure_429_for_heaviest_api_key_when_p99_high(self):
-        from pyserini.server.rest.app import RestBackpressure, _compute_token_fingerprint
+        from pyserini.server.rest.app import (
+            RestBackpressure,
+            _compute_token_fingerprint,
+        )
 
         token_heavy = 'backpressure-test-token-heavy'
         token_light = 'backpressure-test-token-light'
