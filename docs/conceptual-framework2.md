@@ -541,6 +541,7 @@ If you have any questions, look at previous pull requests for examples.
 
 ## Reproduction Log[*](reproducibility.md)
 
+
 + Results reproduced by [@sahel-sh](https://github.com/sahel-sh) on 2023-08-07 (commit [`9dab30f`](https://github.com/castorini/pyserini/commit/9dab30f1ac2b7672ffc65477f0d4279d30e97ad4))
 + Results reproduced by [@Andrwyl](https://github.com/Andrwyl) on 2023-08-26 (commit [`d9da49e`](https://github.com/castorini/pyserini/commit/d9da49eb3a23fb9daa26399a2e27a5efc73beb71))
 + Results reproduced by [@yilinjz](https://github.com/yilinjz) on 2023-08-30 (commit [`42b3549`](https://github.com/castorini/pyserini/commit/42b354914b230880c91b2e4e70605b472441a9a1))
@@ -794,3 +795,4 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@iwis19](https://github.com/iwis19) on 2026-08-30 (commit [`45b6ca2`](https://github.com/castorini/pyserini/commit/45b6ca2cbf14f61a38b6391b641e232fecba15a3))
 + Results reproduced by [@jnx01](https://github.com/jnx01) on 2026-08-31 (commit [`3664a5d`](https://github.com/castorini/pyserini/commit/3664a5dc840696471cd94ae5e3a51d4635c77edc))
 + Results reproduced by [@sliverdancer](https://github.com/sliverdancer) on 2026-08-31 (commit [`9a5330a`](https://github.com/castorini/pyserini/commit/9a5330a2dcbabda99ccf70c6237a7caa92d5cef4))
++ Results reproduced by [@datascientist970](https://github.com/datascientist970) on 2026-09-01 (commit [`7f46990`](https://github.com/castorini/pyserini/commit/7f46990ecf3e3c7419de0ffb91fc8bfef4eaabcf)).
