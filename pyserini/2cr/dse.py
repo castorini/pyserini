@@ -26,7 +26,9 @@ from string import Template
 
 import yaml
 
-from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str, run_command
+from pyserini.util import run_command
+
+from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
 
 def format_run_command(raw):
     return raw.replace('--topics', '\\\n  --topics') \
@@ -91,7 +93,7 @@ def run_conditions(args):
 
                 if not os.path.exists(runfile):
                     if not args.dry_run:
-                        os.system(cmd)
+                        run_command(cmd, capture_output=False)
 
                 for expected in datasets['scores']:
                     for metric in expected:
@@ -104,7 +106,7 @@ def run_conditions(args):
                                 # Custom evaluation for Wiki-SS
                                 k = int(metric.split('-')[1])
                                 eval_cmd = f'python scripts/dse/evaluate_wiki_ss_run.py --run_file {runfile} --k {k}'
-                                out, err = run_command(eval_cmd)
+                                out = run_command(eval_cmd).stdout
                                 # Parse "Top-k Accuracy: 0.43"
                                 for line in out.split('\n'):
                                     if "Top-k Accuracy:" in line:
