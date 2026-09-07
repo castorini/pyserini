@@ -293,3 +293,4 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@ParsaA2006](https://github.com/ParsaA2006) on 2026-09-04 (commit [`b791648`](https://github.com/castorini/pyserini/commit/b791648ea88f301cc48d1e53943cae441ba068d8))
 + Results reproduced by [@Ben-geo](https://github.com/Ben-geo) on 2026-09-05 (commit [`b791648`](https://github.com/castorini/pyserini/commit/b791648ea88f301cc48d1e53943cae441ba068d8))
 + Results reproduced by [@mentaltraffic](https://github.com/mentaltraffic) on 2026-09-05 (commit [`b791648`](https://github.com/castorini/pyserini/commit/b791648ea88f301cc48d1e53943cae441ba068d8))
++ Results reproduced by [@kamrankhoxa](https://github.com/kamrankhoxa) on 2026-09-07 (commit [`139adc8`](https://github.com/castorini/pyserini/commit/139adc808413158c09510a7341cd6dcd3f122acc))
