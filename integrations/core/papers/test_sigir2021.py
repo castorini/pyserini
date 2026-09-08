@@ -16,7 +16,6 @@
 
 """Integration tests for commands in Lin et al. (SIGIR 2021) paper, but with class names updated."""
 
-import os
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score_msmarco
@@ -161,8 +160,8 @@ class TestSIGIR2021(unittest.TestCase):
         run_cmd = f'python -m pyserini.search.lucene --topics msmarco-passage-dev-subset \
                       --index msmarco-passage --output {output_file} \
                       --bm25 --output-format msmarco'
-        status = os.system(run_cmd)
-        self.assertEqual(status, 0)
+        result = run_command(run_cmd)
+        self.assertEqual(result.returncode, 0)
 
         eval_cmd = f'python -m pyserini.eval.msmarco_passage_eval \
                        msmarco-passage-dev-subset {output_file}'

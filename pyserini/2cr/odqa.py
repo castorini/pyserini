@@ -26,6 +26,8 @@ from string import Template
 
 import yaml
 
+from pyserini.util import run_command
+
 from ._base import (
     convert_trec_run_to_dpr_retrieval_json,
     fail_str,
@@ -392,7 +394,7 @@ def run_topic_conditions(args, topic_arg, default_topics, yaml_path):
                         print(f'\n```bash\n{formatted_command}\n```\n')
                     if not os.path.exists(runfile[i]):
                         if not args.dry_run:
-                            os.system(cmd[i])
+                            run_command(cmd[i], capture_output=False)
 
             # fusion
             if 'RRF' in name:

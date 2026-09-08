@@ -16,7 +16,6 @@
 
 """Integration tests for uniCOIL models using on-the-fly query encoding."""
 
-import os
 import unittest
 
 from integrations.utils import clean_files, parse_score, run_command
@@ -39,8 +38,8 @@ class TestSearchIntegration(unittest.TestCase):
                    --output {output_file} \
                    --output-format msmarco \
                    --impact --hits 1000'
-        status = os.system(cmd)
-        self.assertEqual(status, 0)
+        result = run_command(cmd)
+        self.assertEqual(result.returncode, 0)
 
         # Match score in https://github.com/castorini/pyserini/blob/master/docs/experiments-unicoil-tilde-expansion.md
         result = run_command(f'python -m pyserini.eval.msmarco_passage_eval msmarco-passage-dev-subset {output_file}')
