@@ -264,7 +264,7 @@ def run_conditions(args):
 
     end = time.time()
     start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
-    end_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.fromtimestamp(end, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
 
     print(f'Start time: {start_str}')
     print(f'End time: {end_str}')
