@@ -21,14 +21,21 @@ import os
 import sys
 import time
 from collections import defaultdict
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from string import Template
 
 import yaml
 
 from pyserini.util import run_command
 
-from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
+from ._base import (
+    fail_str,
+    format_eval_command,
+    ok_str,
+    okish_str,
+    read_file,
+    run_eval_and_return_metric,
+)
 
 atomic_models = [
     'ViT-L-14.laion2b_s32b_b82k',
@@ -58,19 +65,6 @@ def format_run_command(raw):
         .replace('--hits ', '\\\n  --hits ')
 
 
-def format_eval_command(raw):
-    return raw.replace('-c ', '\\\n  -c ')\
-        .replace('run.', '\\\n  run.')
-
-
-def read_file(f):
-    fin = open(importlib.resources.files('pyserini.2cr')/f, 'r')
-    text = fin.read()
-    fin.close()
-
-    return text
-
-
 def list_models():
     for model in atomic_models:
         print(model)
@@ -93,16 +87,20 @@ def list_conditions():
 def print_results(table, metric):
     print(f'Metric = {metric}')
     print(' ' * 35, end='')
+
     conditions = get_conditions()
     for condition in conditions:
         print(f'{condition}' + ' ' * 5, end='')
-    print('')
+
+    print()
+
     for model in atomic_models:
         print(f'{model:35}', end='')
         for condition in conditions:
             print(f'{table[model][condition][metric]:.3f}' + ' ' * len(condition), end='')
-        print('')
-    print('')
+        print()
+
+    print()
 
 
 def generate_report(args):
@@ -129,8 +127,7 @@ def generate_report(args):
 
                 for expected in models['scores']:
                     for metric in expected:
-                        eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
-                                   f'{trec_eval_metric_definitions[metric]} atomic.validation.{retrieval_type} {runfile}'
+                        eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[metric]} atomic.validation.{retrieval_type} {runfile}'
                         eval_commands[model][name] += format_eval_command(eval_cmd) + '\n\n'
 
                         table[model][name][metric] = expected[metric]
@@ -204,9 +201,7 @@ def run_conditions(args):
                 
                 if args.all:
                     pass
-                elif args.condition != name:
-                    continue
-                elif args.model and args.model != model:
+                elif args.condition != name or args.model and args.model != model:
                     continue
 
                 print(f'  - Model: {model}')
@@ -217,9 +212,8 @@ def run_conditions(args):
                 if args.display_commands:
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
 
-                if not os.path.exists(runfile):
-                    if not args.dry_run:
-                        run_command(cmd, capture_output=False)
+                if not os.path.exists(runfile) and not args.dry_run:
+                    run_command(cmd, capture_output=False)
 
                 for expected in models['scores']:
                     for metric in expected:
@@ -243,14 +237,14 @@ def run_conditions(args):
                         else:
                             table[model][name][metric] = expected[metric]
 
-            print('')
+            print()
 
     for metric in trec_eval_metric_definitions:
         print_results(table, metric)
 
     end = time.time()
-    start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
-    end_str = datetime.fromtimestamp(end, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+    start_str = datetime.fromtimestamp(start, tz=UTC).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.fromtimestamp(end, tz=UTC).strftime('%Y-%m-%d %H:%M:%S')
 
     print('\n')
     print(f'Start time: {start_str}')
@@ -286,14 +280,14 @@ if __name__ == '__main__':
     
     if args.generate_report:
         if not args.output:
-            print(f'Must specify report filename with --output.')
+            print('Must specify report filename with --output.')
             sys.exit()
 
         generate_report(args)
         sys.exit()
     
     if not args.all and not args.condition:
-        print(f'Must specify a specific condition using --condition or use --all to run all conditions.')
+        print('Must specify a specific condition using --condition or use --all to run all conditions.')
         sys.exit()
         
     if args.all and (args.condition or args.model):

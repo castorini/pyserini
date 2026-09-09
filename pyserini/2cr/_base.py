@@ -14,11 +14,23 @@
 # limitations under the License.
 #
 
+import importlib.resources
+
 from pyserini.util import run_command
 
 fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK]'
 okish_str = '\033[94m[OKish]\033[0m'
+
+
+def read_file(filename):
+    with importlib.resources.files('pyserini.2cr').joinpath(filename).open('r') as f:
+        return f.read()
+
+
+def format_eval_command(raw):
+    return raw.replace('-c ', '\\\n  -c ') \
+        .replace(raw.split()[-1], f'\\\n  {raw.split()[-1]}')
 
 
 def run_eval_and_return_metric(metric, eval_key, defs, runfile, display_command=False):

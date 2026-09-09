@@ -20,15 +20,22 @@ import math
 import os
 import sys
 import time
-from collections import defaultdict, OrderedDict
-from datetime import datetime, timezone
+from collections import OrderedDict, defaultdict
+from datetime import UTC, datetime
 from string import Template
 
 import yaml
 
 from pyserini.util import run_command
 
-from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
+from ._base import (
+    fail_str,
+    format_eval_command,
+    ok_str,
+    okish_str,
+    read_file,
+    run_eval_and_return_metric,
+)
 
 dense_threads = 16
 dense_batch_size = 512
@@ -83,22 +90,9 @@ def format_run_command(raw):
         .replace('--bm25 ', '\\\n  --bm25 ')
 
 
-def format_eval_command(raw):
-    return raw.replace('-c ', '\\\n  -c ') \
-        .replace(raw.split()[-1], f'\\\n  {raw.split()[-1]}')
-
-
-def read_file(f):
-    fin = open(importlib.resources.files("pyserini.2cr")/f, 'r')
-    text = fin.read()
-    fin.close()
-
-    return text
-
-
 def list_conditions():
     print('Conditions:\n-----------')
-    for condition, _ in html_display.items():
+    for condition in html_display:
         print(condition)
     print('\nLanguages\n---------')
     for language in languages:
@@ -209,14 +203,17 @@ def print_results(table, metric, split):
     print(' ' * 35, end='')
     for lang in languages:
         print(f'{lang[0]:3}    ', end='')
-    print('')
+
+    print()
+
     for model in models:
         print(f'{model:33}', end='')
         for lang in languages:
             key = f'{model}.{lang[0]}'
             print(f'{table[key][split][metric]:7.3f}', end='')
-        print('')
-    print('')
+        print()
+
+    print()
 
 
 def extract_topic_fn_from_cmd(cmd):
@@ -275,8 +272,7 @@ def generate_report(args):
                             expected[metric] += 1e-5
                         table[name][split][metric] = expected[metric]
 
-                        eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
-                                   f'{trec_eval_metric_definitions[metric]} {eval_key}-{split} {runfile}'
+                        eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[metric]} {eval_key}-{split} {runfile}'
                         eval_commands[name][metric] = format_eval_command(eval_cmd)
 
         tables_html = []
@@ -314,9 +310,7 @@ def run_conditions(args):
             lang = name.split('.')[-1]
             if args.all:
                 pass
-            elif args.condition != encoder:
-                continue
-            elif args.language and args.language != lang:
+            elif args.condition != encoder or args.language and args.language != lang:
                 continue
             eval_key = condition['eval_key']
             cmd_template = condition['command']
@@ -336,10 +330,8 @@ def run_conditions(args):
 
                 runfile = os.path.join(args.directory, f'run.miracl.{name}.{split}.top{hits}.txt')
                 if is_hybrid_run:
-                    bm25_output = os.path.join(args.directory,
-                                               f'run.miracl.bm25.{lang}.{split}.top{hits}.txt')
-                    mdpr_output = os.path.join(args.directory,
-                                               f'run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt')
+                    bm25_output = os.path.join(args.directory, f'run.miracl.bm25.{lang}.{split}.top{hits}.txt')
+                    mdpr_output = os.path.join(args.directory, f'run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt')
                     if not os.path.exists(bm25_output):
                         print(f'Missing BM25 file: {bm25_output}')
                         continue
@@ -356,15 +348,14 @@ def run_conditions(args):
                 if args.display_commands:
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
 
-                if not os.path.exists(runfile):
-                    if not args.dry_run:
-                        result = run_command(cmd)
-                        stderr = result.stderr
-                        if '--topics' in cmd:
-                            topic_fn = extract_topic_fn_from_cmd(cmd)
-                            if f'ValueError: Topic {topic_fn} Not Found' in stderr:
-                                print(f'Skipping {topic_fn}: file not found.')
-                                continue
+                if not os.path.exists(runfile) and not args.dry_run:
+                    result = run_command(cmd)
+                    stderr = result.stderr
+                    if '--topics' in cmd:
+                        topic_fn = extract_topic_fn_from_cmd(cmd)
+                        if f'ValueError: Topic {topic_fn} Not Found' in stderr:
+                            print(f'Skipping {topic_fn}: file not found.')
+                            continue
 
                 for expected in splits['scores']:
                     for metric in expected:
@@ -388,15 +379,15 @@ def run_conditions(args):
                         else:
                             table[name][split][metric] = expected[metric]
 
-            print('')
+            print()
 
     for metric in ['nDCG@10', 'R@100']:
         for split in ['dev', 'train']:
             print_results(table, metric, split)
 
     end = time.time()
-    start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
-    end_str = datetime.fromtimestamp(end, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+    start_str = datetime.fromtimestamp(start, tz=UTC).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.fromtimestamp(end, tz=UTC).strftime('%Y-%m-%d %H:%M:%S')
 
     print('\n')
     print(f'Start time: {start_str}')
@@ -427,7 +418,7 @@ if __name__ == '__main__':
 
     if args.generate_report:
         if not args.output:
-            print(f'Must specify report filename with --output.')
+            print('Must specify report filename with --output.')
             sys.exit()
 
         generate_report(args)

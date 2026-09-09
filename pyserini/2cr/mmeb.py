@@ -28,7 +28,14 @@ import yaml
 
 from pyserini.util import run_command
 
-from ._base import fail_str, ok_str, okish_str, run_eval_and_return_metric
+from ._base import (
+    fail_str,
+    format_eval_command,
+    ok_str,
+    okish_str,
+    read_file,
+    run_eval_and_return_metric,
+)
 
 dense_threads = 16
 dense_batch_size = 512
@@ -52,21 +59,11 @@ def format_run_command(raw):
         .replace("--hits", "\\\n  --hits")
     )
 
-def format_eval_command(raw):
-    return raw.replace("-c ", "\\\n  -c ").replace("run.", "\\\n  run.")
-
-
 def print_command_block(cmd):
     print('```bash')
     print(format_run_command(cmd))
     print('```')
     print()
-
-def read_file(f):
-    fin = open(importlib.resources.files("pyserini.2cr") / f, "r")
-    text = fin.read()
-    fin.close()
-    return text
 
 def list_conditions():  
     with importlib.resources.files('pyserini.2cr').joinpath('mmeb.yaml').open('r') as f:  
