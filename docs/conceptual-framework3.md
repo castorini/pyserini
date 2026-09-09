@@ -194,6 +194,7 @@ If you have any questions, look at previous pull requests for examples.
 
 ## Reproduction Log[*](reproducibility.md)
 
+
 + Results reproduced by [@JJGreen0](https://github.com/JJGreen0) on 2025-02-16 (commit [`f7ed14d`](https://github.com/castorini/pyserini/commit/f7ed14d145746224be2e09b4046e9140237360ab))
 + Results reproduced by [@lilyjge](https://github.com/lilyjge) on 2025-04-22 (commit [`ba896e2`](https://github.com/lilyjge/pyserini/commit/ba896e217949208fbca88a10708bfad68bfa888f))
 + Results reproduced by [@ricky42613](https://github.com/ricky42613) on 2025-04-25 (commit [`ea70638`](https://github.com/castorini/pyserini/commit/ea70638d56e4346ab8ae9ec205b1e278bcc5afe2))
@@ -290,7 +291,9 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@iwis19](https://github.com/iwis19) on 2026-08-30 (commit [`45b6ca2`](https://github.com/castorini/pyserini/commit/45b6ca2cbf14f61a38b6391b641e232fecba15a3))
 + Results reproduced by [@jnx01](https://github.com/jnx01) on 2026-08-31 (commit [`3664a5d`](https://github.com/castorini/pyserini/commit/3664a5dc840696471cd94ae5e3a51d4635c77edc))
 + Results reproduced by [@sliverdancer](https://github.com/sliverdancer) on 2026-09-01 (commit [`9a5330a`](https://github.com/castorini/pyserini/commit/9a5330a2dcbabda99ccf70c6237a7caa92d5cef4))
++ Results reproduced by [@datascientist970](https://github.com/datascientist970) on 2026-09-05 (commit [`7f46990`](https://github.com/castorini/pyserini/commit/7f46990ecf3e3c7419de0ffb91fc8bfef4eaabcf)).
 + Results reproduced by [@ParsaA2006](https://github.com/ParsaA2006) on 2026-09-04 (commit [`b791648`](https://github.com/castorini/pyserini/commit/b791648ea88f301cc48d1e53943cae441ba068d8))
 + Results reproduced by [@Ben-geo](https://github.com/Ben-geo) on 2026-09-05 (commit [`b791648`](https://github.com/castorini/pyserini/commit/b791648ea88f301cc48d1e53943cae441ba068d8))
 + Results reproduced by [@mentaltraffic](https://github.com/mentaltraffic) on 2026-09-05 (commit [`b791648`](https://github.com/castorini/pyserini/commit/b791648ea88f301cc48d1e53943cae441ba068d8))
 + Results reproduced by [@kamrankhoxa](https://github.com/kamrankhoxa) on 2026-09-07 (commit [`139adc8`](https://github.com/castorini/pyserini/commit/139adc808413158c09510a7341cd6dcd3f122acc))
+
