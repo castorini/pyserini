@@ -14,11 +14,42 @@
 # limitations under the License.
 #
 
+from enum import Enum
+
 from pyserini.util import run_command
 
 fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK]'
 okish_str = '\033[94m[OKish]\033[0m'
+
+NUMERICAL_TOLERANCE = 1e-9
+OKISH_TOLERANCE = 0.0002
+
+
+class ScoreStatus(Enum):
+    OK = 'OK'
+    OKISH = 'OKish'
+    FAIL = 'FAIL'
+
+
+def classify_score(observed, expected, *, percentage=False):
+    """Classify an observed score against its expected value.
+
+    ``NUMERICAL_TOLERANCE`` absorbs floating-point noise. Larger improvements
+    and differences strictly below ``OKISH_TOLERANCE`` are ``OKISH``; all
+    remaining regressions are ``FAIL``. Percentage-scale inputs are normalized
+    to the same 0-1 scale before comparison.
+    """
+    scale = 100.0 if percentage else 1.0
+    observed = float(observed) / scale
+    expected = float(expected) / scale
+    delta = abs(observed - expected)
+
+    if delta <= NUMERICAL_TOLERANCE:
+        return ScoreStatus.OK
+    if observed > expected or delta < OKISH_TOLERANCE:
+        return ScoreStatus.OKISH
+    return ScoreStatus.FAIL
 
 
 def run_eval_and_return_metric(metric, eval_key, defs, runfile, display_command=False):

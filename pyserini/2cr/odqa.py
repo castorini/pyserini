@@ -16,7 +16,6 @@
 
 import argparse
 import importlib.resources
-import math
 import os
 import sys
 import time
@@ -29,9 +28,12 @@ import yaml
 from pyserini.util import run_command
 
 from ._base import (
+    ScoreStatus,
+    classify_score,
     convert_trec_run_to_dpr_retrieval_json,
     fail_str,
     ok_str,
+    okish_str,
     run_dpr_retrieval_eval_and_return_metric,
     run_fusion
 )
@@ -437,8 +439,11 @@ def run_topic_conditions(args, topic_arg, default_topics, yaml_path):
                     if not args.skip_eval and metric not in score.keys():
                         continue
                     if not args.skip_eval:
-                        if math.isclose(score[metric], float(expected_score), abs_tol=2e-2):
+                        status = classify_score(score[metric], expected_score, percentage=True)
+                        if status is ScoreStatus.OK:
                             result_str = ok_str
+                        elif status is ScoreStatus.OKISH:
+                            result_str = okish_str + f' expected {expected[metric]:.4f}'
                         else:
                             result_str = fail_str + f' expected {expected[metric]:.4f}'
                         print(f'      {metric:7}: {score[metric]:.2f} {result_str}')
