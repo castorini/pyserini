@@ -16,7 +16,6 @@
 
 import argparse
 import importlib.resources
-import math
 import os
 import sys
 import time
@@ -28,7 +27,7 @@ import yaml
 
 from pyserini.util import run_command
 
-from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
+from ._base import ScoreStatus, classify_score, fail_str, ok_str, okish_str, run_eval_and_return_metric
 
 def format_run_command(raw):
     return raw.replace('--topics', '\\\n  --topics') \
@@ -125,9 +124,10 @@ def run_conditions(args):
                                     trec_eval_metric, runfile, display_command=args.display_commands)) * 100
 
 
-                            if math.isclose(score, float(expected[metric]), abs_tol=0.1): 
+                            status = classify_score(score, expected[metric], percentage=True)
+                            if status is ScoreStatus.OK:
                                 result = ok_str
-                            elif abs(score - float(expected[metric])) <= 0.5:
+                            elif status is ScoreStatus.OKISH:
                                 result = okish_str + f' expected {expected[metric]:.1f}'
                             else:
                                 result = fail_str + f' expected {expected[metric]:.1f}'

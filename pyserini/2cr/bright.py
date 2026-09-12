@@ -16,7 +16,6 @@
 
 import argparse
 import importlib.resources
-import math
 import os
 import sys
 import time
@@ -26,7 +25,7 @@ from string import Template
 
 import yaml
 
-from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
+from ._base import ScoreStatus, classify_score, fail_str, ok_str, okish_str, run_eval_and_return_metric
 
 metrics = ['nDCG@10', 'R@100', 'R@1000']
 
@@ -210,10 +209,10 @@ def run_conditions(args):
                             score = float(run_eval_and_return_metric(metric, f'bright-{dataset}',
                                 trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
 
-                            if math.isclose(score, float(expected[metric])):
+                            status = classify_score(score, expected[metric])
+                            if status is ScoreStatus.OK:
                                 result = ok_str
-                            # If results are within 0.005, just call it "OKish".
-                            elif abs(score - float(expected[metric])) <= 0.005:
+                            elif status is ScoreStatus.OKISH:
                                 result = okish_str + f' expected {expected[metric]:.4f}'
                             else:
                                 result = fail_str + f' expected {expected[metric]:.4f}'
