@@ -12,6 +12,61 @@ security:
   - ApiKeyAuth: []
   - BearerAuth: []
 paths:
+  /token:
+    post:
+      summary: Request API token delivery by email
+      description: >
+        Claims a pre-generated 256-bit API token from protected inventory, stores the supplied name
+        and normalized email, activates the credential, and sends it to that email address while
+        copying explicitly configured individual service operators. Token generation happens only
+        in the offline inventory workflow, so the server never creates or returns credentials. A
+        later eligible request for the same email resends its
+        lifetime token instead of allocating another. Independent cooldowns apply to the observed
+        client IP and normalized email. This endpoint is available only when the server starts with
+        a token pool and TLS email delivery configuration.
+      operationId: issueApiTokenV1
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TokenIssuanceRequest"
+      responses:
+        "202":
+          description: The token delivery request was accepted and the credential was sent by email.
+          headers:
+            Cache-Control:
+              description: Prevents caches from storing the delivery response.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenDeliveryResponse"
+        "429":
+          description: The client IP or email submitted a delivery request within the cooldown period.
+          headers:
+            Retry-After:
+              description: Seconds until this client may request another token.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "503":
+          description: Token delivery is disabled, inventory is exhausted, or email delivery failed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "400":
+          description: The required name or email is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
   /{index}/search:
     get:
       summary: Search an index
@@ -53,7 +108,7 @@ paths:
             minimum: 0
             default: 0.9
           description: >
-            BM25 k1 for sparse (TF) indexes. Must be finite, non-negative, and sent together with b.
+            BM25 k1 for sparse (TF) indexes. Must be non-negative and sent together with b.
             Omit both for Anserini defaults (0.9 / 0.4).
             Returns 400 on non-sparse indexes.
         - name: b
@@ -66,7 +121,7 @@ paths:
             maximum: 1
             default: 0.4
           description: >
-            BM25 b for sparse (TF) indexes. Must be finite, in [0, 1], and sent together with k1.
+            BM25 b for sparse (TF) indexes. Must be in [0, 1] and sent together with k1.
             Omit both for Anserini defaults (0.9 / 0.4).
             Returns 400 on non-sparse indexes.
         - name: max_doc_length
@@ -78,6 +133,13 @@ paths:
           description: >
             Maximum characters to return for each parsed candidate document. If omitted, return
             the full document. Returns 400 when combined with parse=false.
+        - $ref: "#/components/parameters/TraceDataset"
+        - $ref: "#/components/parameters/TraceQid"
+        - $ref: "#/components/parameters/TraceQuestion"
+        - $ref: "#/components/parameters/TraceRunId"
+        - $ref: "#/components/parameters/TraceAgent"
+        - $ref: "#/components/parameters/TraceModel"
+        - $ref: "#/components/parameters/TraceStep"
       responses:
         "200":
           description: Search results.
@@ -162,6 +224,13 @@ paths:
           description: >
             Maximum characters to return for the parsed document. If omitted, return the full
             document. Returns 400 when combined with parse=false.
+        - $ref: "#/components/parameters/TraceDataset"
+        - $ref: "#/components/parameters/TraceQid"
+        - $ref: "#/components/parameters/TraceQuestion"
+        - $ref: "#/components/parameters/TraceRunId"
+        - $ref: "#/components/parameters/TraceAgent"
+        - $ref: "#/components/parameters/TraceModel"
+        - $ref: "#/components/parameters/TraceStep"
       responses:
         "200":
           description: Document found.
@@ -214,6 +283,57 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 components:
+  parameters:
+    TraceDataset:
+      name: dataset
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Source dataset name and version for optional academic trace collection.
+    TraceQid:
+      name: qid
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Question identifier within dataset for optional academic trace collection.
+    TraceQuestion:
+      name: question
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Complete question body for optional academic trace collection.
+    TraceRunId:
+      name: run_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Stable identifier shared by requests in one agent answer attempt.
+    TraceAgent:
+      name: agent
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Retrieval harness or agent name and version for optional academic trace collection.
+    TraceModel:
+      name: model
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Model provider, name, and version for optional academic trace collection.
+    TraceStep:
+      name: step
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: Zero-based request sequence number within run_id; the first request is 0.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
@@ -226,6 +346,29 @@ components:
       bearerFormat: API token
       description: Same secret as X-API-Key; send header Authorization with scheme bearer and token value.
   schemas:
+    TokenIssuanceRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        email:
+          type: string
+          format: email
+          minLength: 3
+          maxLength: 254
+      required: [name, email]
+    TokenDeliveryResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [accepted]
+        message:
+          type: string
+      required: [status, message]
     Query:
       type: object
       properties:

@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
+import concurrent.futures
+import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -21,7 +24,15 @@ from pathlib import Path
 import yaml
 
 # Keep this test in tests/core: server config imports shared server utilities that include Faiss-backed index types.
-from pyserini.server.config import load_server_config
+from pyserini.server.config import (
+    AcceptedApiTokens,
+    ApiTokenEmailAlreadyIssuedError,
+    ApiTokenPoolExhaustedError,
+    ApiTokenStore,
+    PreGeneratedApiTokenPool,
+    load_server_config,
+    load_token_issuance_config,
+)
 
 
 class TestServerConfigParsing(unittest.TestCase):
@@ -117,6 +128,308 @@ class TestServerConfigParsing(unittest.TestCase):
             cfg_path.write_text(yaml.safe_dump(cfg), encoding='utf-8')
             with self.assertRaises(ValueError):
                 load_server_config(str(cfg_path))
+
+    def test_loads_token_issuance_config_with_relative_paths(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            cfg_path = root / 'server.yaml'
+            cfg_path.write_text(
+                yaml.safe_dump(
+                    {
+                        'token_issuance': {
+                            'pool': 'secrets/lookup.json',
+                            'cooldown_seconds': 300,
+                            'smtp': {
+                                'host': 'smtp.example.edu',
+                                'port': 465,
+                                'security': 'ssl',
+                                'username': 'api@example.edu',
+                                'password_file': 'secrets/smtp-password',
+                                'sender': 'api@example.edu',
+                                'cc': ['operator@example.edu'],
+                                'timeout_seconds': 10,
+                            },
+                        }
+                    }
+                ),
+                encoding='utf-8',
+            )
+
+            config = load_token_issuance_config(str(cfg_path))
+
+            self.assertIsNotNone(config)
+            self.assertEqual(config.pool_path, str((root / 'secrets/lookup.json').resolve()))
+            self.assertEqual(config.smtp_password_file, str((root / 'secrets/smtp-password').resolve()))
+            self.assertEqual(config.cooldown_sec, 300)
+            self.assertEqual(config.smtp_host, 'smtp.example.edu')
+            self.assertEqual(config.smtp_port, 465)
+            self.assertEqual(config.smtp_security, 'ssl')
+            self.assertEqual(config.smtp_username, 'api@example.edu')
+            self.assertEqual(config.email_from, 'api@example.edu')
+            self.assertEqual(config.email_cc, ('operator@example.edu',))
+            self.assertEqual(config.smtp_timeout_sec, 10)
+
+    def test_rejects_invalid_token_issuance_config(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg_path = Path(tmp) / 'server.yaml'
+            cfg_path.write_text(
+                yaml.safe_dump(
+                    {
+                        'token_issuance': {
+                            'pool': 'lookup.json',
+                            'smtp': {
+                                'host': 'smtp.example.edu',
+                                'sender': 'api@example.edu',
+                                'cc': 'operator@example.edu',
+                            },
+                        }
+                    }
+                ),
+                encoding='utf-8',
+            )
+
+            with self.assertRaisesRegex(ValueError, 'smtp.cc'):
+                load_token_issuance_config(str(cfg_path))
+
+    def test_api_token_store_appends_token_and_preserves_config_mode(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg_path = Path(tmp) / 'server.yaml'
+            cfg = {
+                'indexes': {'local': '/tmp'},
+                'api_keys': ['existing-key'],
+                'api_key_identities': {
+                    'existing-key': {
+                        'name': 'Existing User',
+                        'email': 'existing@example.edu',
+                        'team': 'IR Lab',
+                    }
+                },
+                'custom': {'keep': True},
+            }
+            cfg_path.write_text(yaml.safe_dump(cfg, sort_keys=False), encoding='utf-8')
+            cfg_path.chmod(0o600)
+
+            store = ApiTokenStore(str(cfg_path))
+            token = store.activate('a' * 64, name='Test User', email=' Test@Example.EDU ')
+
+            self.assertEqual(token, 'a' * 64)
+            persisted = yaml.safe_load(cfg_path.read_text(encoding='utf-8'))
+            self.assertEqual(persisted['api_keys'], ['existing-key', token])
+            self.assertEqual(
+                persisted['api_key_identities']['existing-key'],
+                cfg['api_key_identities']['existing-key'],
+            )
+            self.assertEqual(
+                persisted['api_key_identities'][token],
+                {'name': 'Test User', 'email': 'test@example.edu'},
+            )
+            self.assertEqual(store.token_for_email('TEST@example.edu'), token)
+            self.assertIsNone(store.token_for_email('other@example.edu'))
+            self.assertEqual(persisted['indexes'], cfg['indexes'])
+            self.assertEqual(persisted['custom'], cfg['custom'])
+            self.assertEqual(os.stat(cfg_path).st_mode & 0o777, 0o600)
+
+    def test_api_token_store_serializes_concurrent_activation(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg_path = Path(tmp) / 'server.yaml'
+            cfg_path.write_text('indexes:\n  local: /tmp\napi_keys:\n  - existing-key\n', encoding='utf-8')
+            store = ApiTokenStore(str(cfg_path))
+
+            with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+                tokens = list(
+                    executor.map(
+                        lambda i: store.activate(
+                            f'{i + 1:064x}',
+                            name=f'Test User {i}',
+                            email=f'test-{i}@example.edu',
+                        ),
+                        range(24),
+                    )
+                )
+
+            self.assertEqual(len(tokens), len(set(tokens)))
+            persisted = yaml.safe_load(cfg_path.read_text(encoding='utf-8'))
+            self.assertEqual(len(persisted['api_keys']), 25)
+            self.assertEqual(set(persisted['api_keys'][1:]), set(tokens))
+            self.assertEqual(set(persisted['api_key_identities']), set(tokens))
+            for i, token in enumerate(tokens):
+                self.assertEqual(
+                    persisted['api_key_identities'][token],
+                    {'name': f'Test User {i}', 'email': f'test-{i}@example.edu'},
+                )
+
+    def test_api_token_store_rejects_invalid_api_keys_without_modifying_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg_path = Path(tmp) / 'server.yaml'
+            original = 'indexes:\n  local: /tmp\napi_keys: invalid\n'
+            cfg_path.write_text(original, encoding='utf-8')
+
+            with self.assertRaises(ValueError):
+                ApiTokenStore(str(cfg_path)).activate(
+                    'a' * 64,
+                    name='Test User',
+                    email='test@example.edu',
+                )
+
+            self.assertEqual(cfg_path.read_text(encoding='utf-8'), original)
+
+    def test_pre_generated_pool_claims_only_exact_all_null_inventory(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            pool_path = Path(tmp) / 'lookup.json'
+            entries = [
+                {
+                    'token': 'a' * 64,
+                    'name': 'Assigned User',
+                    'email': 'assigned@example.edu',
+                    'issued_at': 123,
+                },
+                {
+                    'token': 'b' * 64,
+                    'name': 'Legacy Reserved User',
+                    'email': None,
+                    'issued_at': 123,
+                },
+                {
+                    'token': 'f' * 64,
+                    'name': 'Partially Assigned User',
+                    'email': 'new@example.edu',
+                    'issued_at': None,
+                },
+                {'token': 'e' * 64, 'name': None, 'email': None},
+                {'token': 'c' * 64, 'name': None, 'email': None, 'issued_at': None},
+                {'token': 'd' * 64, 'name': None, 'email': None, 'issued_at': None},
+            ]
+            pool_path.write_text(json.dumps(entries, indent=2) + '\n', encoding='utf-8')
+            pool_path.chmod(0o600)
+            pool = PreGeneratedApiTokenPool(str(pool_path))
+
+            claimed = pool.claim(name='New User', email=' NEW@EXAMPLE.EDU ')
+            claimed_again = pool.claim(name='Renamed User', email='new@example.edu')
+
+            self.assertEqual(claimed, 'c' * 64)
+            self.assertEqual(claimed_again, claimed)
+            persisted = json.loads(pool_path.read_text(encoding='utf-8'))
+            self.assertEqual(persisted[:4], entries[:4])
+            self.assertEqual(persisted[4]['name'], 'New User')
+            self.assertEqual(persisted[4]['email'], 'new@example.edu')
+            self.assertIsInstance(persisted[4]['issued_at'], int)
+            self.assertEqual(
+                persisted[5],
+                {'token': 'd' * 64, 'name': None, 'email': None, 'issued_at': None},
+            )
+            self.assertEqual(os.stat(pool_path).st_mode & 0o777, 0o600)
+
+    def test_pre_generated_pool_exhaustion_never_creates_a_token(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            pool_path = Path(tmp) / 'lookup.json'
+            pool_path.write_text(
+                json.dumps(
+                    [
+                        {
+                            'token': 'a' * 64,
+                            'name': 'Assigned User',
+                            'email': 'assigned@example.edu',
+                            'issued_at': 123,
+                        }
+                    ]
+                ),
+                encoding='utf-8',
+            )
+            pool = PreGeneratedApiTokenPool(str(pool_path))
+            before = pool_path.read_text(encoding='utf-8')
+
+            with self.assertRaises(ApiTokenPoolExhaustedError):
+                pool.claim(name='New User', email='new@example.edu')
+
+            self.assertEqual(pool_path.read_text(encoding='utf-8'), before)
+
+    def test_pre_generated_pool_serializes_concurrent_claims(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            pool_path = Path(tmp) / 'lookup.json'
+            entries = [
+                {'token': f'{i + 1:064x}', 'name': None, 'email': None, 'issued_at': None}
+                for i in range(24)
+            ]
+            pool_path.write_text(json.dumps(entries), encoding='utf-8')
+            pool = PreGeneratedApiTokenPool(str(pool_path))
+
+            with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+                tokens = list(
+                    executor.map(
+                        lambda i: pool.claim(name=f'User {i}', email=f'user-{i}@example.edu'),
+                        range(24),
+                    )
+                )
+
+            self.assertEqual(len(tokens), len(set(tokens)))
+            persisted = json.loads(pool_path.read_text(encoding='utf-8'))
+            self.assertTrue(all(entry['name'] and entry['email'] for entry in persisted))
+
+    def test_pre_generated_pool_rejects_duplicate_tokens(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            pool_path = Path(tmp) / 'lookup.json'
+            entry = {'token': 'a' * 64, 'name': None, 'email': None, 'issued_at': None}
+            pool_path.write_text(json.dumps([entry, entry]), encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'duplicates'):
+                PreGeneratedApiTokenPool(str(pool_path))
+
+    def test_api_token_store_allows_only_one_lifetime_token_per_email(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg_path = Path(tmp) / 'server.yaml'
+            cfg_path.write_text('indexes:\n  local: /tmp\napi_keys:\n  - existing-key\n', encoding='utf-8')
+            store = ApiTokenStore(str(cfg_path))
+            token = store.activate('a' * 64, name='First User', email='first@example.edu')
+            after_first = cfg_path.read_text(encoding='utf-8')
+
+            with self.assertRaises(ApiTokenEmailAlreadyIssuedError):
+                store.activate('b' * 64, name='Renamed User', email=' FIRST@EXAMPLE.EDU ')
+
+            self.assertEqual(cfg_path.read_text(encoding='utf-8'), after_first)
+            persisted = yaml.safe_load(after_first)
+            self.assertEqual(persisted['api_keys'], ['existing-key', token])
+            self.assertEqual(len(persisted['api_key_identities']), 1)
+
+    def test_api_token_store_rejects_invalid_identity_mapping_without_modifying_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg_path = Path(tmp) / 'server.yaml'
+            original = (
+                'indexes:\n  local: /tmp\napi_keys:\n  - existing-key\n'
+                'api_key_identities:\n  existing-key:\n    name: Existing User\n'
+            )
+            cfg_path.write_text(original, encoding='utf-8')
+
+            with self.assertRaises(ValueError):
+                ApiTokenStore(str(cfg_path)).activate(
+                    'a' * 64,
+                    name='Test User',
+                    email='test@example.edu',
+                )
+
+            self.assertEqual(cfg_path.read_text(encoding='utf-8'), original)
+
+    def test_api_token_store_requires_name_and_email_without_modifying_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg_path = Path(tmp) / 'server.yaml'
+            original = 'indexes:\n  local: /tmp\napi_keys:\n  - existing-key\n'
+            cfg_path.write_text(original, encoding='utf-8')
+            store = ApiTokenStore(str(cfg_path))
+
+            with self.assertRaises(ValueError):
+                store.activate('a' * 64, name='', email='test@example.edu')
+            with self.assertRaises(ValueError):
+                store.activate('a' * 64, name='Test User', email='')
+            with self.assertRaises(ValueError):
+                store.activate('', name='Test User', email='test@example.edu')
+
+            self.assertEqual(cfg_path.read_text(encoding='utf-8'), original)
+
+    def test_accepted_api_tokens_can_activate_new_token(self):
+        accepted = AcceptedApiTokens.from_strings(['existing-key'])
+        accepted.add('new-key')
+
+        self.assertTrue(accepted.is_valid('existing-key'))
+        self.assertTrue(accepted.is_valid('new-key'))
+        self.assertFalse(accepted.is_valid('unknown-key'))
 
 
 if __name__ == '__main__':
