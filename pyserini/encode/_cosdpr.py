@@ -22,6 +22,7 @@ from transformers import PreTrainedModel, BertConfig, BertModel, BertTokenizer
 from transformers import __version__ as transformers_version
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
+from pyserini.encode._base import resolve_encoder_name_or_path
 from pyserini.encode._base import load_head_weights
 from pyserini.util import temporary_env
 
@@ -115,10 +116,12 @@ class CosDprDocumentEncoder(DocumentEncoder):
 
 class CosDprQueryEncoder(QueryEncoder):
 
-    def __init__(self, encoder_dir: str, tokenizer_name: str = None, device: str = 'cpu', **kwargs):
+    def __init__(self, encoder_name_or_path: str = None, tokenizer_name: str = None,
+                 device: str = 'cpu', encoder_dir: str = None, **kwargs):
+        encoder_name_or_path = resolve_encoder_name_or_path(encoder_name_or_path, encoder_dir)
         self.device = device
-        self.model = CosDprEncoder.load_pretrained_encoder(encoder_dir, self.device)
-        self.tokenizer = BertTokenizer.from_pretrained(encoder_dir or tokenizer_name,
+        self.model = CosDprEncoder.load_pretrained_encoder(encoder_name_or_path, self.device)
+        self.tokenizer = BertTokenizer.from_pretrained(tokenizer_name or encoder_name_or_path,
                                                        clean_up_tokenization_spaces=True)
 
     def encode(self, query: str, max_length: int = None, **kwargs):

@@ -20,6 +20,8 @@ import faiss
 from vlm2vec_for_pyserini.pyserini_integration.mmeb_corpus_encoder import CorpusEncoder
 from vlm2vec_for_pyserini.pyserini_integration.mmeb_query_encoder import QueryEncoder
 
+from pyserini.encode._base import resolve_encoder_name_or_path
+
 
 def get_model_type(model_name: str) -> str:
     if "gme" in model_name.lower():
@@ -73,17 +75,19 @@ class MMEBCorpusEncoder:
 class MMEBQueryEncoder:
     def __init__(
         self,
-        encoder_dir: str,
+        encoder_name_or_path: str = None,
         device="cpu",
+        encoder_dir: str = None,
         **kwargs: Any,
     ):
+        encoder_name_or_path = resolve_encoder_name_or_path(encoder_name_or_path, encoder_dir)
         pooling = kwargs.get("pooling", "eos")
         self.l2_norm = kwargs.get("l2_norm", True)
         # Unlike the corpus encoder, here fp16 is only passed during the initialization.
         self.fp16 = kwargs.get("fp16", False)
         self.query_encoder = QueryEncoder(
-            model_name=encoder_dir,
-            model_type=get_model_type(encoder_dir),
+            model_name=encoder_name_or_path,
+            model_type=get_model_type(encoder_name_or_path),
             device=device,
             pooling=pooling,
             l2_norm=False,
