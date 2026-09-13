@@ -28,7 +28,7 @@ import yaml
 
 from pyserini.util import run_command
 
-from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
+from ._base import read_file, run_eval_and_return_metric, ok_str, okish_str, fail_str
 
 def format_run_command(raw):
     return raw.replace('--topics', '\\\n  --topics') \
@@ -149,13 +149,6 @@ def run_conditions(args):
     print(f'End time: {end_str}')
     print(f'Total elapsed time: {end - start:.0f}s ~{(end - start)/3600:.1f}hr')
 
-
-def read_file(f):
-    fin = open(importlib.resources.files("pyserini.2cr")/f, 'r')
-    text = fin.read()
-    fin.close()
-
-    return text
 
 def generate_report(args):
     
