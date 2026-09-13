@@ -539,7 +539,9 @@ Before you move on, however, add an entry in the "Reproduction Log" at the botto
 Do not send a separate pull request for each exercise in the onboarding path; instead, send a single pull request for all edits to the Pyserini repository.
 If you have any questions, look at previous pull requests for examples.
 
+
 ## Reproduction Log[*](reproducibility.md)
+
 
 + Results reproduced by [@sahel-sh](https://github.com/sahel-sh) on 2023-08-07 (commit [`9dab30f`](https://github.com/castorini/pyserini/commit/9dab30f1ac2b7672ffc65477f0d4279d30e97ad4))
 + Results reproduced by [@Andrwyl](https://github.com/Andrwyl) on 2023-08-26 (commit [`d9da49e`](https://github.com/castorini/pyserini/commit/d9da49eb3a23fb9daa26399a2e27a5efc73beb71))
@@ -799,3 +801,4 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@mentaltraffic](https://github.com/mentaltraffic) on 2026-09-05 (commit [`b791648`](https://github.com/castorini/pyserini/commit/b791648ea88f301cc48d1e53943cae441ba068d8))
 + Results reproduced by [@kamrankhoxa](https://github.com/kamrankhoxa) on 2026-09-07 (commit [`139adc8`](https://github.com/castorini/pyserini/commit/139adc808413158c09510a7341cd6dcd3f122acc))
 + Results reproduced by [@tanvirsarao](https://github.com/tanvirsarao) on 2026-09-09 (commit [`b0ad282`](https://github.com/castorini/pyserini/commit/b0ad28270848f9b34ca822827bf5f71717255e84))
++ Results reproduced by [@Kiarash-Ghaderi](https://github.com/Kiarash-Ghaderi) on 2026-09-13 (commit [`1cfdc41`](https://github.com/castorini/pyserini/commit/1cfdc418e5f61c5164914c0844ab6f6a9550683e))
