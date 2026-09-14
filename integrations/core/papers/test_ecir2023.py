@@ -17,7 +17,6 @@
 """Integration tests for commands in Pradeep et al. resource paper at ECIR 2023."""
 
 import multiprocessing
-import os
 import unittest
 
 from integrations.utils import clean_files, run_command, parse_score_qa
@@ -54,8 +53,8 @@ class TestECIR2023(unittest.TestCase):
                       --output {output_file} --query-prefix question: \
                       --threads {self.threads} --batch-size {self.batch_size} \
                       --hits 100'
-        status = os.system(run_cmd)
-        self.assertEqual(status, 0)
+        result = run_command(run_cmd)
+        self.assertEqual(result.returncode, 0)
 
         # conversion
         convert_cmd = f'python -m pyserini.eval.convert_trec_run_to_dpr_retrieval_run \
@@ -63,8 +62,8 @@ class TestECIR2023(unittest.TestCase):
                         --index wikipedia-dpr \
                         --input {output_file} \
                         --output {json_file}'
-        status = os.system(convert_cmd)
-        self.assertEqual(status, 0)
+        result = run_command(convert_cmd)
+        self.assertEqual(result.returncode, 0)
 
         # evaluation
         eval_cmd = f'python -m pyserini.eval.evaluate_dpr_retrieval \
@@ -100,4 +99,3 @@ class TestECIR2023(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

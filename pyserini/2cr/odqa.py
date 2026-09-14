@@ -21,17 +21,20 @@ import os
 import sys
 import time
 from collections import defaultdict
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from string import Template
 
 import yaml
+
+from pyserini.util import run_command
 
 from ._base import (
     convert_trec_run_to_dpr_retrieval_json,
     fail_str,
     ok_str,
+    read_file,
     run_dpr_retrieval_eval_and_return_metric,
-    run_fusion
+    run_fusion,
 )
 
 dense_threads = 16
@@ -112,14 +115,6 @@ def format_convert_command(raw):
 def format_eval_command(raw):
     return raw.replace('--retrieval ', '\\\n  --retrieval ') \
         .replace('--topk', '\\\n  --topk')
-
-
-def read_file(f):
-    fin = open(importlib.resources.files('pyserini.2cr')/f, 'r')
-    text = fin.read()
-    fin.close()
-
-    return text
 
 
 def list_conditions():
@@ -392,7 +387,7 @@ def run_topic_conditions(args, topic_arg, default_topics, yaml_path):
                         print(f'\n```bash\n{formatted_command}\n```\n')
                     if not os.path.exists(runfile[i]):
                         if not args.dry_run:
-                            os.system(cmd[i])
+                            run_command(cmd[i], capture_output=False)
 
             # fusion
             if 'RRF' in name:
@@ -456,8 +451,8 @@ def run_conditions(args):
         run_topic_conditions(args, topic_arg, default_topics, yaml_path)
 
     end = time.time()
-    start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
-    end_str = datetime.fromtimestamp(end, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+    start_str = datetime.fromtimestamp(start, tz=UTC).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.fromtimestamp(end, tz=UTC).strftime('%Y-%m-%d %H:%M:%S')
 
     print('\n')
     print(f'Start time: {start_str}')
