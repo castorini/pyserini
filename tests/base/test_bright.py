@@ -118,6 +118,17 @@ class TestBrightCommands(unittest.TestCase):
                         bright.build_run_command(condition, dataset, runfile), capture_output=False
                     )
 
+    def test_shared_eval_formatter_supports_strings_and_argv(self):
+        command = 'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 bright-biology run.txt'
+        self.assertEqual(
+            self.capture_shell_args(base.format_eval_command(command)), shlex.split(command)
+        )
+        argv = shlex.split(command)
+        argv[-1] = "/tmp/bright results/it's <run>.txt"
+        self.assertEqual(self.capture_shell_args(base.format_eval_command(argv)), argv)
+        self.assertIs(bright.format_eval_command, base.format_eval_command)
+        self.assertIs(bright.read_file, base.read_file)
+
     def test_evaluation_preserves_runfile_argument(self):
         runfile = '/tmp/bright results/it\'s <run>.txt'
         stdout = io.StringIO()

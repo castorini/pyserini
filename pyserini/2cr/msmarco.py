@@ -22,14 +22,14 @@ import re
 import sys
 import time
 from collections import defaultdict, namedtuple
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from string import Template
 
 import yaml
 
 from pyserini.util import run_command
 
-from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
+from ._base import fail_str, ok_str, okish_str, read_file, run_eval_and_return_metric
 
 dense_threads = 16
 dense_batch_size = 512
@@ -276,9 +276,9 @@ def find_msmarco_table_topic_set_key_v1(topic_key):
 
 def find_msmarco_table_topic_set_key_v2(topic_key):
     key = ''
-    if topic_key.endswith('dev') or topic_key.endswith('dev-unicoil') or topic_key.endswith('dev-unicoil-noexp'):
+    if topic_key.endswith(('dev', 'dev-unicoil', 'dev-unicoil-noexp')):
         key = 'dev'
-    elif topic_key.endswith('dev2') or topic_key.endswith('dev2-unicoil') or topic_key.endswith('dev2-unicoil-noexp'):
+    elif topic_key.endswith(('dev2', 'dev2-unicoil', 'dev2-unicoil-noexp')):
         key = 'dev2'
     elif topic_key.startswith('dl21'):
         key = 'dl21'
@@ -317,14 +317,6 @@ def format_command(raw):
         .replace('--encoded-corpus', '\\\n  --encoded-corpus') \
         .replace('--encoded-queries', '\\\n  --encoded-queries') \
         .replace('.txt ', '.txt \\\n  ')
-
-
-def read_file(f):
-    fin = open(importlib.resources.files("pyserini.2cr")/f, 'r')
-    text = fin.read()
-    fin.close()
-
-    return text
 
 
 def list_conditions(args):
@@ -388,7 +380,7 @@ def generate_report(args):
         for condition in yaml_data['conditions']:
             name = condition['name']
             display = condition['display-html']
-            row_id = condition['display-row'] if 'display-row' in condition else ''
+            row_id = condition.get('display-row', '')
             cmd_template = condition['command']
 
             row_ids[name] = row_id
@@ -411,8 +403,7 @@ def generate_report(args):
 
                 for expected in topic_set['scores']:
                     for metric in expected:
-                        eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
-                                   f'{trec_eval_metric_definitions[args.collection][eval_key][metric]} {eval_key} {runfile}'
+                        eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[args.collection][eval_key][metric]} {eval_key} {runfile}'
                         eval_commands[name][short_topic_key] += eval_cmd + '\n'
                         table[name][short_topic_key][metric] = expected[metric]
 
@@ -532,9 +523,8 @@ def run_conditions(args):
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             # Either we're running all conditions, or running only the condition specified in --condition
-            if not args.all:
-                if not condition['name'] == args.condition:
-                    continue
+            if not args.all and condition['name'] != args.condition:
+                continue
 
             name = condition['name']
             display = condition['display']
@@ -560,9 +550,8 @@ def run_conditions(args):
                 if args.display_commands:
                     print(f'\n```bash\n{format_command(cmd)}\n```\n')
 
-                if not os.path.exists(runfile):
-                    if not args.dry_run:
-                        run_command(cmd, capture_output=False)
+                if not os.path.exists(runfile) and not args.dry_run:
+                    run_command(cmd, capture_output=False)
 
                 for expected in topic_set['scores']:
                     for metric in expected:
@@ -594,7 +583,7 @@ def run_conditions(args):
                             table[name][short_topic_key][metric] = expected[metric]
 
                 if not args.skip_eval:
-                    print('')
+                    print()
 
     if args.collection == 'msmarco-v1-passage' or args.collection == 'msmarco-v1-doc':
         print(' ' * 74 + 'TREC 2019' + ' ' * 16 + 'TREC 2020' + ' ' * 12 + 'MS MARCO dev')
@@ -610,7 +599,7 @@ def run_conditions(args):
 
         for name in names:
             if not name:
-                print('')
+                print()
                 continue
             print(f'{table_keys[name]:65}' +
                   f'{table[name]["dl19"]["MAP"]:8.4f}{table[name]["dl19"]["nDCG@10"]:8.4f}{table[name]["dl19"]["R@1K"]:8.4f}  ' +
@@ -630,7 +619,7 @@ def run_conditions(args):
 
         for name in names:
             if not name:
-                print('')
+                print()
                 continue
             print(f'{table_keys[name]:60}' +
                   f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
@@ -640,8 +629,8 @@ def run_conditions(args):
                   f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
 
     end = time.time()
-    start_str = datetime.fromtimestamp(start, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
-    end_str = datetime.fromtimestamp(end, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+    start_str = datetime.fromtimestamp(start, tz=UTC).strftime('%Y-%m-%d %H:%M:%S')
+    end_str = datetime.fromtimestamp(end, tz=UTC).strftime('%Y-%m-%d %H:%M:%S')
 
     print('\n')
     print(f'Start time: {start_str}')
@@ -683,14 +672,14 @@ if __name__ == '__main__':
 
     if args.generate_report:
         if not args.output:
-            print(f'Must specify report filename with --output.')
+            print('Must specify report filename with --output.')
             sys.exit()
 
         generate_report(args)
         sys.exit()
 
     if not args.all and not args.condition:
-        print(f'Must specify a specific condition using --condition or use --all to run all conditions.')
+        print('Must specify a specific condition using --condition or use --all to run all conditions.')
         sys.exit()
 
     run_conditions(args)

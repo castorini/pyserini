@@ -28,7 +28,14 @@ import yaml
 
 from pyserini.util import run_command
 
-from ._base import fail_str, ok_str, okish_str, run_eval_and_return_metric
+from ._base import (
+    fail_str,
+    format_eval_command,
+    ok_str,
+    okish_str,
+    read_file,
+    run_eval_and_return_metric,
+)
 
 dense_threads = 16
 dense_batch_size = 512
@@ -51,15 +58,6 @@ def format_run_command(raw):
         .replace("--hits", "\\\n  --hits")
     )
 
-def format_eval_command(raw):
-    return raw.replace("-c ", "\\\n  -c ").replace("run.", "\\\n  run.")
-
-def read_file(f):
-    fin = open(importlib.resources.files("pyserini.2cr") / f, "r")
-    text = fin.read()
-    fin.close()
-    return text
-
 def list_conditions():  
     with importlib.resources.files('pyserini.2cr').joinpath('m_beir.yaml').open('r') as f:  
         yaml_data = yaml.safe_load(f)  
@@ -72,9 +70,9 @@ def print_results_by_metric_position(table, position, metric_name):
     conditions = ['clip-sf-large', 'blip-ff-large']
     for condition in conditions:
         print(f'{condition:15}', end='')
-    print('')
+    print()
 
-    for dataset in table.keys():
+    for dataset in table:
         print(f'{dataset:30}', end='')
         metric_list = list(trec_eval_metric_definitions.keys())
 
@@ -86,8 +84,8 @@ def print_results_by_metric_position(table, position, metric_name):
             else:
                 score = 0.0
             print(f'{score:8.4f}' + ' ' * 7, end='')
-        print('')
-    print('')
+        print()
+    print()
 
 def run_conditions(args):  
     start = time.time()  
@@ -127,8 +125,8 @@ def run_conditions(args):
                         if args.display_commands:  
                             print(f'\n```bash\n{format_run_command(cmd)}\n```\n')  
                           
-                        if not os.path.exists(runfile):  
-                            if not args.dry_run:  
+                        if not os.path.exists(runfile):
+                            if not args.dry_run:
                                 run_command(cmd, capture_output=False)
                           
                         for expected in sub['scores']:  
@@ -157,8 +155,8 @@ def run_conditions(args):
                     if args.display_commands:  
                         print(f'\n```bash\n{format_run_command(cmd)}\n```\n')  
                           
-                    if not os.path.exists(runfile):  
-                        if not args.dry_run:  
+                    if not os.path.exists(runfile):
+                        if not args.dry_run:
                             run_command(cmd, capture_output=False)
                               
                     for expected in datasets['scores']:  
@@ -180,9 +178,9 @@ def run_conditions(args):
                                 table[dataset][name][metric] = score  
                             else:  
                                 table[dataset][name][metric] = expected[metric]  
-                print('')  
+                print()
                               
-            print('')  
+            print()
     
     print_results_by_metric_position(table, 0, 'R@5')
     print_results_by_metric_position(table, 1, 'R@10')
@@ -248,7 +246,7 @@ def generate_report(args):
     html_rows = []    
     row_cnt = 1    
         
-    for dataset in table.keys():  
+    for dataset in table:
         # Get dataset-specific metrics to determine the order  
         metric_names = list(trec_eval_metric_definitions.keys())  
           
@@ -281,27 +279,18 @@ def generate_report(args):
 
 
 if __name__ == '__main__':  
-    parser = argparse.ArgumentParser(description='Generate regression matrix for UniIR datasets.')  
+    parser = argparse.ArgumentParser(description='Generate regression matrix for UniIR datasets.')
       
-    parser.add_argument('--list-conditions', action='store_true', default=False,   
-                        help='List available conditions.')  
-      
-    parser.add_argument('--generate-report', action='store_true', default=False,   
-                        help='Generate report.')  
-    parser.add_argument('--output', type=str, help='File to store report.', required=False)  
-      
-    parser.add_argument('--all', action='store_true', default=False,   
-                        help='Run all conditions.')  
-    parser.add_argument('--condition', type=str, help='Condition to run.', required=False)  
-    parser.add_argument('--dataset', type=str, help='Dataset to run.', required=False)  
-    parser.add_argument('--directory', type=str, help='Base directory.', default='', required=False)  
-      
-    parser.add_argument('--dry-run', action='store_true', default=False,   
-                        help='Print out commands but do not execute.')  
-    parser.add_argument('--skip-eval', action='store_true', default=False,   
-                        help='Skip running trec_eval.')  
-    parser.add_argument('--display-commands', action='store_true', default=False,   
-                        help='Display command.')  
+    parser.add_argument('--list-conditions', action='store_true', default=False, help='List available conditions.')
+    parser.add_argument('--generate-report', action='store_true', default=False, help='Generate report.')
+    parser.add_argument('--output', type=str, help='File to store report.', required=False)
+    parser.add_argument('--all', action='store_true', default=False, help='Run all conditions.')
+    parser.add_argument('--condition', type=str, help='Condition to run.', required=False)
+    parser.add_argument('--dataset', type=str, help='Dataset to run.', required=False)
+    parser.add_argument('--directory', type=str, help='Base directory.', default='', required=False)
+    parser.add_argument('--dry-run', action='store_true', default=False, help='Print out commands but do not execute.')
+    parser.add_argument('--skip-eval', action='store_true', default=False, help='Skip running trec_eval.')
+    parser.add_argument('--display-commands', action='store_true', default=False, help='Display command.')
       
     args = parser.parse_args()  
   

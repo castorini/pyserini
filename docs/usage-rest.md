@@ -1,6 +1,6 @@
 # Pyserini: REST API server (FastAPI)
 
-The Pyserini REST server exposes an **HTTP interface aligned with [Anserini’s REST API](https://github.com/castorini/anserini)** and ships the same **`openapi.yaml`** document (served at **`/openapi.yaml`**). Routes are **GET-only** for search and document fetch.
+The Pyserini REST server exposes an **HTTP interface aligned with [Anserini’s REST API](https://github.com/castorini/anserini)** and ships the same **`openapi.yaml`** document (served at **`/openapi.yaml`**). Search and document-fetch routes use `GET`; optional token issuance uses `POST`.
 
 Implementation uses **`SharedSearchBackend`** (`pyserini/server/backend.py`)—the same process-wide search stack as the MCP server. A request may use a **prebuilt index name** (sparse, dense, impact, FAISS, etc., when Pyserini can open it), a **filesystem path** to an index, or an optional **YAML alias** from `--config`.
 
@@ -53,8 +53,72 @@ With `--config` enabled:
   - `encoder` is required for `impact`, `faiss`, `lucene_flat`, `lucene_hnsw` local indexes.
   - optional `base_index` links dense/impact/faiss aliases to the sparse Lucene alias used for stored document fetch.
   - optional `encoder` and `ef_search` provide per-index defaults (request-level values still override them).
-- `api_keys` (optional) enables auth on all `/v1/*` routes.
+- `api_keys` (optional) enables auth on search and document routes.
 - Client auth supports either `Authorization: Bearer {api-key}` or `X-API-Key: {api-key}`.
+
+### API token requests and email delivery
+
+Token requests are disabled by default. When enabled, the server claims credentials from a protected
+`lookup.json` inventory; it never generates credentials. Only entries with null `name`, `email`, and
+`issued_at` fields are available. The inventory is generated and audited offline so credential
+creation remains outside the serving process.
+
+Configure the token pool and TLS SMTP delivery in the same YAML server config:
+
+```yaml
+token_issuance:
+  pool: /secure/path/to/lookup.json
+  cooldown_seconds: 3600
+  smtp:
+    host: smtp.example.edu
+    port: 587
+    security: starttls
+    username: api@example.edu
+    password_file: /secure/path/to/smtp-password
+    sender: api@example.edu
+    cc:
+      - operator@example.edu
+    timeout_seconds: 20
+```
+
+Then explicitly enable the endpoint at startup:
+
+```bash
+python -m pyserini.server.rest --config /path/to/server.yaml --enable-token-issuance
+```
+
+The password file must be readable only by its owner. At least one individual operator mailbox is
+required in `token_issuance.smtp.cc`; mailing lists and Google Groups are rejected. Omit both
+`username` and `password_file` when using a trusted relay. Relative pool and password-file paths are
+resolved from the YAML file's directory.
+
+Clients request a token with `POST /v1/token`:
+
+```bash
+curl -X POST http://localhost:8081/v1/token \
+  -H 'Content-Type: application/json' \
+  -d '{"name":"Ada Lovelace","email":"ada@example.edu"}'
+```
+
+An accepted request returns **202** with no credential in the response:
+
+```json
+{"status":"accepted","message":"Token delivery will be sent by email."}
+```
+
+The token is emailed to the requester and the configured service operators. The assignment and
+identity are persisted to the protected pool and YAML config, then activated without a restart. The
+credential is never returned or written to request logs.
+
+Both `name` and a syntactically valid `email` are required. Anonymous issuance has independent one-hour
+cooldowns for the client IP and normalized email by default. A delivery request is accepted only when
+neither value has submitted one during the cooldown. Each normalized email owns one token for its
+lifetime; an eligible later request resends that same token rather than claiming another. Set
+`cooldown_seconds` to `0` to disable the cooldown.
+
+Production deployments must serve this endpoint over HTTPS because the request contains personal
+identity fields. Protect both the token pool and YAML config as credential stores; neither should be
+world- or group-readable.
 
 Disable prebuilt indexes and arbitrary index paths with `--no-prebuilt-indexes`:
 
@@ -90,9 +154,10 @@ REST server logging options:
 
 Each JSONL request record includes the timestamp, request ID, client, method, path, query string
 (capped at 1000 characters), status, latency, auth outcome, and a non-reversible API-key fingerprint
-when credentials are present. Auth failures and load-shedding responses are written to the same log as
-successful requests. The server generates a request ID for each request, logs it, and returns it as
-`X-Request-ID`.
+when credentials are present. It also includes explicit `dataset`, `qid`, `question`, `retrieval_query`,
+`run_id`, `agent`, `model`, and `step` fields when clients provide academic trace metadata. Auth failures
+and load-shedding responses are written to the same log as successful requests. The server generates a
+request ID for each request, logs it, and returns it as `X-Request-ID`.
 
 Example:
 
@@ -133,8 +198,28 @@ Example request log line:
 
 All search and document routes use the **`GET`** method only. Errors return JSON `{"error": "<message>"}` with a 4xx/5xx status where applicable.
 
-When `api_keys` is configured, every `/v1/*` route requires authentication; you can use either
-`Authorization: Bearer {api-key}` or `X-API-Key: {api-key}` on any endpoint.
+When `api_keys` is configured, search and document routes require authentication; you can use either
+`Authorization: Bearer {api-key}` or `X-API-Key: {api-key}`. The optional token-issuance route is
+anonymous so that new clients can obtain a credential.
+
+### Optional academic trace metadata
+
+Search and document requests accept optional `dataset`, `qid`, `question`, `run_id`, `agent`, `model`,
+and `step` query parameters. Clients are encouraged, as a courtesy, to include them whenever the values
+are known. They are collected solely for academic research on agent retrieval behavior and do not
+affect ranking or response contents.
+
+- `dataset`: source dataset name and version, such as `browsecomp-plus-v1`
+- `qid`: question identifier within `dataset`
+- `question`: complete question body the user or agent is answering
+- `run_id`: stable identifier shared by requests from one answer attempt
+- `agent`: retrieval harness or agent name and version
+- `model`: model provider, name, and version
+- `step`: zero-based sequence number of this retrieval request within `run_id`; the first request is `0`
+
+The server records these fields alongside the retrieval `query`, request ID, timestamp, API-key
+fingerprint, route, status, and latency. Omit unknown values rather than fabricating them. Agents should
+propagate the same trace fields to follow-up document fetches.
 
 ### Index parameter `{index}`
 
@@ -161,9 +246,16 @@ If the index cannot be opened, the API responds with **400** and a message such 
 | `query` | yes | — | Search query string. |
 | `hits` | no | `10` | Number of hits (integer ≥ 1). |
 | `parse` | no | `true` | If `true`, parse the stored `raw` field when it is JSON (see `format_lucene_document` / Anserini-style formatting); if `false`, return the raw stored string. |
-| `k1` | no | `0.9` | BM25 k1 for sparse (TF) indexes. Must be finite, non-negative, and sent together with `b`. |
+| `k1` | no | `0.9` | BM25 k1 for sparse (TF) indexes. Must be non-negative and sent together with `b`. |
 | `b` | no | `0.4` | BM25 b for sparse (TF) indexes. Must be in `[0, 1]`, and sent together with `k1`. |
 | `max_doc_length` | no | — | Maximum characters to return for each parsed candidate document. If omitted, return the full document. Requires `parse=true`. |
+| `dataset` | no | — | Academic trace: source dataset name and version. |
+| `qid` | no | — | Academic trace: question identifier within `dataset`. |
+| `question` | no | — | Academic trace: complete question body. |
+| `run_id` | no | — | Academic trace: stable answer-attempt identifier. |
+| `agent` | no | — | Academic trace: retrieval harness or agent name and version. |
+| `model` | no | — | Academic trace: model provider, name, and version. |
+| `step` | no | — | Academic trace: zero-based request sequence number within the run. |
 
 **Example**
 
@@ -228,6 +320,13 @@ The `doc` field may be `null`, a string, or a JSON value depending on the index 
 |------|----------|---------|-------------|
 | `parse` | no | `true` | Same meaning as for search. |
 | `max_doc_length` | no | — | Maximum characters to return for the parsed document. If omitted, return the full document. Requires `parse=true`. |
+| `dataset` | no | — | Academic trace: source dataset name and version. |
+| `qid` | no | — | Academic trace: question identifier within `dataset`. |
+| `question` | no | — | Academic trace: complete question body. |
+| `run_id` | no | — | Academic trace: stable answer-attempt identifier. |
+| `agent` | no | — | Academic trace: retrieval harness or agent name and version. |
+| `model` | no | — | Academic trace: model provider, name, and version. |
+| `step` | no | — | Academic trace: zero-based request sequence number within the run. |
 
 **Example**
 
@@ -268,11 +367,13 @@ curl -H "X-API-Key: {api-key}" \
 | Code | Meaning |
 |------|---------|
 | 200 | Success |
+| 202 | Token delivery request accepted; the credential is sent by email and is not returned by HTTP |
 | 400 | Invalid parameters (e.g. missing `query`, invalid `hits` or `parse`), or cannot open index |
 | 401 | Missing or invalid API credential (when `api_keys` is configured) |
-| 429 | Load shedding (with `api_keys`): p99 over `--load-shedding-threshold`; body suggests retry timing; `Retry-After` may be set |
+| 429 | Load shedding, or token-request cooldown for the observed client IP or normalized email; `Retry-After` may be set |
 | 404 | Unknown route, or document not found for `GET .../doc/{docid}` |
-| 405 | Method not allowed (only **GET** is supported on these routes) |
+| 405 | Method not allowed (`POST` is required for `/v1/token`; the search and document routes use `GET`) |
 | 500 | Unhandled server error |
+| 503 | Token delivery is disabled, inventory is exhausted, or email delivery failed |
 
 The full list of operations, parameters, and response schemas is in **`/openapi.yaml`**.
