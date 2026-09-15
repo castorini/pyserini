@@ -21,9 +21,11 @@ Usage:
     python -m pyserini.server.rest [--host HOST] [--port PORT] [--config PATH] [--no-prebuilt-indexes] 
                                    [--log-file PATH] [--keep-uvicorn-logs] [--load-shedding-threshold MS]
                                    [--search-cache-size N] [--document-cache-size N]
+                                   [--enable-token-issuance]
 
 Endpoints:
     GET /openapi.yaml     : OpenAPI specification (same document as Anserini).
+    POST /v1/token        : Request delivery of a pre-generated credential by email.
     GET /v1/{index}/search?query=...&hits=10&parse=true&k1=0.9&b=0.4
     GET /v1/{index}/doc/{docid}?parse=true
     GET /docs             : Swagger UI (FastAPI).
@@ -31,10 +33,12 @@ Endpoints:
 
 from __future__ import annotations
 
+import asyncio
 import copy
+import hashlib
 import json
 import logging
-import hashlib
+import math
 import threading
 import time
 import uuid
@@ -44,15 +48,26 @@ from datetime import datetime, timezone
 from functools import lru_cache
 from importlib import resources
 
+import yaml
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, PlainTextResponse
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 from starlette.exceptions import HTTPException as StarletteHTTPException
-import yaml
 
 from pyserini.server.backend import SharedSearchBackend
-from pyserini.server.config import AcceptedApiTokens, load_server_config
+from pyserini.server.config import (
+    DEFAULT_TOKEN_ISSUANCE_COOLDOWN_SEC,
+    AcceptedApiTokens,
+    ApiTokenEmailAlreadyIssuedError,
+    ApiTokenPoolExhaustedError,
+    ApiTokenStore,
+    PreGeneratedApiTokenPool,
+    load_server_config,
+    load_token_issuance_config,
+)
 from pyserini.server.rest.routes import v1
+from pyserini.server.token_delivery import SmtpTokenEmailSender, TokenEmailSender
 
 logger = logging.getLogger(__name__)
 request_logger = logging.getLogger('pyserini.server.rest.request')
@@ -61,9 +76,28 @@ SERVER_NAME = 'Pyserini API'
 API_VERSION = 'v1'
 DESCRIPTION = 'REST API aligned with Anserini (Lucene indexes via Pyserini).'
 ROUTE_ERROR = 'Expected route /v1/{index}/search or /v1/{index}/doc/{docid}'
-AUTH_TOKEN_REQUEST_EMAIL = 'get-pyserini@googlegroups.com'
 MAX_LOGGED_QUERY_CHARS = 1000
+MAX_LOGGED_DATASET_CHARS = 256
+MAX_LOGGED_QID_CHARS = 256
+MAX_LOGGED_QUESTION_CHARS = 8192
+MAX_LOGGED_RETRIEVAL_QUERY_CHARS = 4096
+MAX_LOGGED_RUN_ID_CHARS = 256
+MAX_LOGGED_AGENT_CHARS = 256
+MAX_LOGGED_MODEL_CHARS = 256
+TOKEN_ISSUANCE_NAME_MAX_CHARS = 200
+TOKEN_ISSUANCE_EMAIL_MAX_CHARS = 254
 REQUEST_ID_HEADER = 'X-Request-ID'
+TOKEN_ISSUE_PATH = f'/{API_VERSION}/token'
+
+_TRACE_LOG_FIELDS = (
+    ('dataset', 'dataset', MAX_LOGGED_DATASET_CHARS),
+    ('qid', 'qid', MAX_LOGGED_QID_CHARS),
+    ('question', 'question', MAX_LOGGED_QUESTION_CHARS),
+    ('retrieval_query', 'query', MAX_LOGGED_RETRIEVAL_QUERY_CHARS),
+    ('run_id', 'run_id', MAX_LOGGED_RUN_ID_CHARS),
+    ('agent', 'agent', MAX_LOGGED_AGENT_CHARS),
+    ('model', 'model', MAX_LOGGED_MODEL_CHARS),
+)
 
 
 # Hint for clients when we return 429 (also sent as ``Retry-After`` header).
@@ -73,6 +107,26 @@ _LOAD_SHED_ERROR_BODY = (
     'Service temporarily overloaded; retry after a few seconds '
     f'(or wait at least {_LOAD_SHED_RETRY_AFTER_SEC}s). If load persists, back off with jitter.'
 )
+
+
+class TokenIssuanceRequest(BaseModel):
+    """Required identity fields for anonymous token issuance."""
+
+    model_config = ConfigDict(extra='forbid', str_strip_whitespace=True)
+
+    name: str = Field(min_length=1, max_length=TOKEN_ISSUANCE_NAME_MAX_CHARS)
+    email: str = Field(min_length=3, max_length=TOKEN_ISSUANCE_EMAIL_MAX_CHARS)
+
+    @field_validator('email')
+    @classmethod
+    def normalize_email(cls, value: str) -> str:
+        normalized = value.casefold()
+        if normalized.count('@') != 1 or any(char.isspace() for char in normalized):
+            raise ValueError('email must be a valid address')
+        local, domain = normalized.split('@', 1)
+        if not local or not domain or domain.startswith('.') or domain.endswith('.') or '..' in domain:
+            raise ValueError('email must be a valid address')
+        return normalized
 
 
 class RestBackpressure:
@@ -174,6 +228,58 @@ class RestBackpressure:
             self._prune_latencies(now)
 
 
+class TokenIssuanceCooldown:
+    """Independent client-IP and email cooldowns for token issuance."""
+
+    __slots__ = ('_interval_sec', '_lock', '_last_issued_by_client', '_last_issued_by_email')
+
+    def __init__(self, interval_sec: float) -> None:
+        self._interval_sec = float(interval_sec)
+        self._lock = threading.Lock()
+        self._last_issued_by_client: dict[str, float] = {}
+        self._last_issued_by_email: dict[str, float] = {}
+
+    @staticmethod
+    def _prune_expired(entries: dict[str, float], cutoff: float) -> None:
+        while entries:
+            oldest = next(iter(entries))
+            if entries[oldest] >= cutoff:
+                break
+            entries.pop(oldest)
+
+    def reserve(self, client: str, email: str, now: float) -> tuple[float | None, float | None]:
+        """Reserve an issuance slot, returning ``(retry_after, reservation)``."""
+        if self._interval_sec <= 0:
+            return None, None
+        client_key = client or '<unknown>'
+        with self._lock:
+            cutoff = now - self._interval_sec
+            self._prune_expired(self._last_issued_by_client, cutoff)
+            self._prune_expired(self._last_issued_by_email, cutoff)
+            client_last = self._last_issued_by_client.get(client_key)
+            email_last = self._last_issued_by_email.get(email)
+            retry_after = 0.0
+            if client_last is not None:
+                retry_after = max(retry_after, self._interval_sec - (now - client_last))
+            if email_last is not None:
+                retry_after = max(retry_after, self._interval_sec - (now - email_last))
+            if retry_after > 0:
+                return retry_after, None
+            self._last_issued_by_client[client_key] = now
+            self._last_issued_by_email[email] = now
+            return None, now
+
+    def release(self, client: str, email: str, reservation: float | None) -> None:
+        if reservation is None:
+            return
+        client_key = client or '<unknown>'
+        with self._lock:
+            if self._last_issued_by_client.get(client_key) == reservation:
+                self._last_issued_by_client.pop(client_key, None)
+            if self._last_issued_by_email.get(email) == reservation:
+                self._last_issued_by_email.pop(email, None)
+
+
 def _now_iso8601() -> str:
     return datetime.now(timezone.utc).isoformat(timespec='milliseconds').replace('+00:00', 'Z')
 
@@ -241,6 +347,29 @@ def _request_query_for_log(request: Request) -> tuple[str, bool]:
     return query[:MAX_LOGGED_QUERY_CHARS], True
 
 
+def _query_param_for_log(request: Request, name: str, max_chars: int) -> tuple[str | None, bool]:
+    value = request.query_params.get(name)
+    if value is None:
+        return None, False
+    if len(value) <= max_chars:
+        return value, False
+    return value[:max_chars], True
+
+
+def _request_trace_for_log(request: Request) -> dict[str, object]:
+    trace: dict[str, object] = {}
+    for output_name, parameter_name, max_chars in _TRACE_LOG_FIELDS:
+        value, truncated = _query_param_for_log(request, parameter_name, max_chars)
+        trace[output_name] = value
+        trace[f'{output_name}_truncated'] = truncated
+    step_raw = request.query_params.get('step')
+    try:
+        trace['step'] = int(step_raw) if step_raw is not None else None
+    except ValueError:
+        trace['step'] = step_raw
+    return trace
+
+
 def _build_uvicorn_log_config(
     request_log_file: str | None,
     *,
@@ -296,6 +425,10 @@ def create_app(
     load_shedding_threshold_ms: float = 3000.0,
     search_cache_size: int = 2048,
     document_cache_size: int = 4096,
+    enable_token_issuance: bool = False,
+    token_issuance_cooldown_sec: float = DEFAULT_TOKEN_ISSUANCE_COOLDOWN_SEC,
+    token_pool_path: str | None = None,
+    token_email_sender: TokenEmailSender | None = None,
 ) -> FastAPI:
     if no_prebuilt_indexes and not config_path:
         raise ValueError('--no-prebuilt-indexes requires a config file path')
@@ -306,16 +439,31 @@ def create_app(
         if no_prebuilt_indexes and not _configured_indexes:
             raise ValueError('--no-prebuilt-indexes requires at least one entry under indexes: in the config file')
 
-    if no_prebuilt_indexes and not token_strings:
+    if no_prebuilt_indexes and not token_strings and not enable_token_issuance:
         logger.warning(
             'REST --no-prebuilt-indexes is enabled but ``api_keys`` in %s is missing or empty; '
             '/v1/ is not authenticated. Add non-empty ``api_keys`` unless this host is intentionally public.',
             config_path,
         )
 
+    if enable_token_issuance and not config_path:
+        raise ValueError('--enable-token-issuance requires a config file path')
+    if enable_token_issuance and not token_pool_path:
+        raise ValueError('--enable-token-issuance requires a pre-generated token pool')
+    if enable_token_issuance and token_email_sender is None:
+        raise ValueError('--enable-token-issuance requires an email sender')
+    if token_issuance_cooldown_sec < 0:
+        raise ValueError('token_issuance_cooldown_sec must be >= 0')
+
     accepted_api_tokens: AcceptedApiTokens | None = None
-    if token_strings:
-        accepted_api_tokens = AcceptedApiTokens.from_strings(token_strings)
+    if token_strings or enable_token_issuance:
+        accepted_api_tokens = AcceptedApiTokens.from_strings(token_strings or [])
+
+    token_store = ApiTokenStore(config_path) if enable_token_issuance and config_path else None
+    token_pool = PreGeneratedApiTokenPool(token_pool_path) if enable_token_issuance and token_pool_path else None
+    token_issuance_cooldown = (
+        TokenIssuanceCooldown(token_issuance_cooldown_sec) if enable_token_issuance else None
+    )
 
     rest_backpressure: RestBackpressure | None = None
     if accepted_api_tokens is not None:
@@ -340,6 +488,10 @@ def create_app(
     )
     app.state.accepted_api_tokens = accepted_api_tokens  # type: ignore[attr-defined]
     app.state.rest_backpressure = rest_backpressure  # type: ignore[attr-defined]
+    app.state.token_store = token_store  # type: ignore[attr-defined]
+    app.state.token_pool = token_pool  # type: ignore[attr-defined]
+    app.state.token_email_sender = token_email_sender  # type: ignore[attr-defined]
+    app.state.token_issuance_cooldown = token_issuance_cooldown  # type: ignore[attr-defined]
     app.openapi = lambda: _load_openapi_schema()
 
     @app.middleware('http')
@@ -362,11 +514,15 @@ def create_app(
             'auth': 'not_configured',
             'key_id': None,
         }
+        log_entry.update(_request_trace_for_log(request))
         prefix = f'/{API_VERSION}/'
         tokens: AcceptedApiTokens | None = getattr(request.app.state, 'accepted_api_tokens', None)
         response = None
         try:
-            if tokens is not None and request.url.path.startswith(prefix):
+            if request.url.path == TOKEN_ISSUE_PATH:
+                log_entry['auth'] = 'token_issuance'
+                response = await call_next(request)
+            elif tokens is not None and request.url.path.startswith(prefix):
                 credentials = _extract_api_tokens(request)
                 matched_token = next((token for token in credentials if tokens.is_valid(token)), None)
                 key_id = _compute_token_fingerprint(matched_token or (credentials[0] if credentials else None))
@@ -377,9 +533,9 @@ def create_app(
                         status_code=401,
                         content={
                             'error': (
-                                'Unauthorized. To request an access token, '
-                                f'email {AUTH_TOKEN_REQUEST_EMAIL}.'
-                            )
+                                'Unauthorized. Provide a valid Bearer token or X-API-Key; '
+                                'request one with POST /v1/token if enabled.'
+                            ),
                         },
                         headers={REQUEST_ID_HEADER: request_id},
                     )
@@ -430,12 +586,18 @@ def create_app(
             message = ROUTE_ERROR if detail in (None, 'Not Found') else _error_message(detail)
             return JSONResponse(status_code=404, content={'error': message})
         if exc.status_code == 405:
+            if request.url.path == TOKEN_ISSUE_PATH:
+                return JSONResponse(status_code=405, content={'error': 'Only POST is supported'})
             return JSONResponse(status_code=405, content={'error': 'Only GET is supported'})
         return JSONResponse(status_code=exc.status_code, content={'error': _error_message(exc.detail)})
 
     @app.exception_handler(RequestValidationError)
     async def validation_exception_handler(request: Request, exc: RequestValidationError):
-        return JSONResponse(status_code=400, content={'error': _error_message(exc.errors())})
+        errors = [
+            {key: value for key, value in error.items() if key not in ('ctx', 'input')}
+            for error in exc.errors()
+        ]
+        return JSONResponse(status_code=400, content={'error': _error_message(errors)})
 
     @app.get('/openapi.yaml', include_in_schema=False)
     async def openapi_yaml():
@@ -450,6 +612,71 @@ def create_app(
             'openapi': '/openapi.yaml',
             'documentation': '/docs',
         }
+
+    @app.post(TOKEN_ISSUE_PATH, status_code=202)
+    async def issue_api_token(token_request: TokenIssuanceRequest, request: Request):
+        store: ApiTokenStore | None = getattr(request.app.state, 'token_store', None)
+        pool: PreGeneratedApiTokenPool | None = getattr(request.app.state, 'token_pool', None)
+        email_sender: TokenEmailSender | None = getattr(request.app.state, 'token_email_sender', None)
+        cooldown: TokenIssuanceCooldown | None = getattr(request.app.state, 'token_issuance_cooldown', None)
+        tokens: AcceptedApiTokens | None = getattr(request.app.state, 'accepted_api_tokens', None)
+        if store is None or pool is None or email_sender is None or cooldown is None or tokens is None:
+            return JSONResponse(status_code=503, content={'error': 'API token issuance is not enabled'})
+
+        client = request.client.host if request.client else ''
+        retry_after, reservation = cooldown.reserve(client, token_request.email, time.monotonic())
+        if retry_after is not None:
+            retry_after_sec = max(1, math.ceil(retry_after))
+            return JSONResponse(
+                status_code=429,
+                content={'error': 'API token issuance is temporarily rate limited for this client IP or email'},
+                headers={'Retry-After': str(retry_after_sec)},
+            )
+
+        try:
+            token = await asyncio.to_thread(store.token_for_email, token_request.email)
+            if token is None:
+                token = await asyncio.to_thread(
+                    pool.claim,
+                    name=token_request.name,
+                    email=token_request.email,
+                )
+                try:
+                    token = await asyncio.to_thread(
+                        store.activate,
+                        token,
+                        name=token_request.name,
+                        email=token_request.email,
+                    )
+                except ApiTokenEmailAlreadyIssuedError:
+                    token = await asyncio.to_thread(store.token_for_email, token_request.email)
+                    if token is None:
+                        raise
+            tokens.add(token)
+            await asyncio.to_thread(
+                email_sender.send,
+                name=token_request.name,
+                email=token_request.email,
+                token=token,
+            )
+        except ApiTokenPoolExhaustedError:
+            cooldown.release(client, token_request.email, reservation)
+            return JSONResponse(
+                status_code=503,
+                content={'error': 'Token delivery is temporarily unavailable'},
+            )
+        except Exception:
+            cooldown.release(client, token_request.email, reservation)
+            logger.error('Token email delivery failed')
+            return JSONResponse(
+                status_code=503,
+                content={'error': 'Token delivery is temporarily unavailable'},
+            )
+        return JSONResponse(
+            status_code=202,
+            content={'status': 'accepted', 'message': 'Token delivery will be sent by email.'},
+            headers={'Cache-Control': 'no-store', 'Pragma': 'no-cache'},
+        )
 
     app.include_router(v1.router, prefix=f'/{API_VERSION}')
     return app
@@ -473,7 +700,7 @@ def main():
         '--config',
         type=str,
         default=None,
-        help='YAML server config with index mappings and API keys',
+        help='YAML server config with indexes, API keys, and optional token delivery settings',
     )
     parser.add_argument(
         '--no-prebuilt-indexes',
@@ -513,6 +740,11 @@ def main():
         default=4096,
         help='LRU cache size for document fetches (default: 4096).',
     )
+    parser.add_argument(
+        '--enable-token-issuance',
+        action='store_true',
+        help='Enable POST /v1/token using token_issuance settings from --config.',
+    )
     args = parser.parse_args()
 
     if args.port <= 0 or args.port > 65535:
@@ -531,6 +763,31 @@ def main():
     if args.document_cache_size < 0:
         raise SystemExit('Error: --document-cache-size must be >= 0')
 
+    token_email_sender = None
+    token_pool_path = None
+    token_issuance_cooldown_sec = DEFAULT_TOKEN_ISSUANCE_COOLDOWN_SEC
+    if args.enable_token_issuance:
+        if not args.config:
+            raise SystemExit('Error: --enable-token-issuance requires --config')
+        try:
+            token_config = load_token_issuance_config(args.config)
+            if token_config is None:
+                raise ValueError('Config must define "token_issuance"')
+            token_email_sender = SmtpTokenEmailSender(
+                host=token_config.smtp_host,
+                port=token_config.smtp_port,
+                sender=token_config.email_from,
+                cc=token_config.email_cc,
+                username=token_config.smtp_username,
+                password_file=token_config.smtp_password_file,
+                security=token_config.smtp_security,
+                timeout_sec=token_config.smtp_timeout_sec,
+            )
+            token_pool_path = token_config.pool_path
+            token_issuance_cooldown_sec = token_config.cooldown_sec
+        except ValueError as exc:
+            raise SystemExit(f'Error: {exc}') from exc
+
     uvicorn.run(
         create_app(
             args.config,
@@ -538,6 +795,10 @@ def main():
             load_shedding_threshold_ms=args.load_shedding_threshold,
             search_cache_size=args.search_cache_size,
             document_cache_size=args.document_cache_size,
+            enable_token_issuance=args.enable_token_issuance,
+            token_issuance_cooldown_sec=token_issuance_cooldown_sec,
+            token_pool_path=token_pool_path,
+            token_email_sender=token_email_sender,
         ),
         host=args.host,
         port=args.port,
