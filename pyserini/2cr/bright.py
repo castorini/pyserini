@@ -15,9 +15,11 @@
 #
 
 import argparse
+import html
 import importlib.resources
 import math
 import os
+import shlex
 import sys
 import time
 from collections import defaultdict
@@ -25,6 +27,8 @@ from datetime import datetime, timezone
 from string import Template
 
 import yaml
+
+from pyserini.util import run_command
 
 from ._base import run_eval_and_return_metric, ok_str, okish_str, fail_str
 
@@ -58,21 +62,28 @@ models = ['bm25',
           'reason-embed-qwen3-4b-0928']
 
 
-def format_run_command(raw):
-    return raw.replace('--topics', '\\\n  --topics') \
-        .replace('--index', '\\\n  --index') \
-        .replace('--onnx-encoder', '\\\n  --onnx-encoder') \
-        .replace('--encoder-class ', '\\\n  --encoder-class ') \
-        .replace('--encoder ', '\\\n  --encoder ') \
-        .replace('--query-prefix ', '\\\n  --query-prefix ') \
-        .replace('--output ', '\\\n  --output ') \
-        .replace('--output-format trec ', '\\\n  --output-format trec ') \
-        .replace('--hits ', '\\\n  --hits ') \
+def build_run_command(condition, dataset, runfile):
+    """Substitute values into individual arguments without shell interpretation."""
+    return [Template(arg).substitute(
+        dataset=dataset['dataset'], output=runfile,
+        query_prefix=dataset.get('query_prefix', '')
+    ) for arg in condition['command']]
 
 
-def format_eval_command(raw):
-    return raw.replace('-c ', '\\\n  -c ') \
-        .replace('run.', '\\\n  run.')
+def format_run_command(argv):
+    """Render copyable shell syntax, adding line breaks only between arguments."""
+    break_before = {
+        '--topics', '--index', '--onnx-encoder', '--encoder-class', '--encoder',
+        '--query-prefix', '--output', '--output-format', '--hits',
+    }
+    return ''.join(
+        (('\\\n  ' if arg in break_before else ' ') if i else '') + shlex.quote(arg)
+        for i, arg in enumerate(argv)
+    )
+
+
+def format_eval_command(argv):
+    return shlex.join(argv)
 
 
 def read_file(f):
@@ -107,20 +118,19 @@ def generate_report(args):
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
-            cmd_template = condition['command']
 
             for datasets in condition['datasets']:
                 dataset = datasets['dataset']
-                query_prefix = datasets.get('query_prefix', '')
                 runfile = os.path.join(args.directory, f'run.bright.{name}.{dataset}.txt')
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, query_prefix=query_prefix)
-                commands[dataset][name] = format_run_command(cmd)
+                cmd = build_run_command(condition, datasets, runfile)
+                commands[dataset][name] = html.escape(format_run_command(cmd))
 
                 for expected in datasets['scores']:
                     for metric in expected:
-                        eval_cmd = f'python -m pyserini.eval.trec_eval ' + \
-                                   f'{trec_eval_metric_definitions[metric]} bright-{dataset} {runfile}'
-                        eval_commands[dataset][name] += format_eval_command(eval_cmd) + '\n\n'
+                        eval_cmd = ['python', '-m', 'pyserini.eval.trec_eval',
+                                    *shlex.split(trec_eval_metric_definitions[metric]),
+                                    f'bright-{dataset}', runfile]
+                        eval_commands[dataset][name] += html.escape(format_eval_command(eval_cmd)) + '\n\n'
                         
                         table[dataset][name][metric] = expected[metric]
 
@@ -172,7 +182,6 @@ def run_conditions(args):
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
-            cmd_template = condition['command']
 
             if args.all or args.condition == name:
                 print(f'condition {name}:')
@@ -190,16 +199,15 @@ def run_conditions(args):
 
                 print(f'  - dataset: {dataset}')
 
-                query_prefix = datasets.get('query_prefix', '')
                 runfile = os.path.join(args.directory, f'run.bright.{name}.{dataset}.txt')
-                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, query_prefix=query_prefix)
+                cmd = build_run_command(condition, datasets, runfile)
                 
                 if args.display_commands:
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
 
                 if not os.path.exists(runfile):
                     if not args.dry_run:
-                        os.system(cmd)
+                        run_command(cmd, capture_output=False)
 
                 for expected in datasets['scores']:
                     for metric in expected:
