@@ -15,6 +15,7 @@
 #
 
 import importlib.resources
+import shlex
 
 from pyserini.util import run_command
 
@@ -29,15 +30,17 @@ def read_file(filename):
 
 
 def format_eval_command(raw):
+    if not isinstance(raw, str):
+        return shlex.join(raw)
     return raw.replace('-c ', '\\\n  -c ') \
         .replace(raw.split()[-1], f'\\\n  {raw.split()[-1]}')
 
 
 def run_eval_and_return_metric(metric, eval_key, defs, runfile, display_command=False):
-    eval_cmd = f'python -m pyserini.eval.trec_eval {defs} {eval_key} {runfile}'
+    eval_cmd = ['python', '-m', 'pyserini.eval.trec_eval', *shlex.split(defs), eval_key, runfile]
 
     if display_command:
-        print(f'\n```bash\n{eval_cmd}\n```\n')
+        print(f'\n```bash\n{shlex.join(eval_cmd)}\n```\n')
 
     result = run_command(eval_cmd)
     eval_stdout = result.stdout
