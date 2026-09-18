@@ -27,55 +27,55 @@ class TestTrecEvalComputeJudged(unittest.TestCase):
     def test_trec_eval_compute_judged(self):
         # Data from https://github.com/castorini/anserini/blob/master/docs/experiments-covid.md
         runs = {
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round5/anserini.covid-r5.abstract.qq.bm25.txt': {
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r5.abstract.qq.bm25.txt': {
                 'checksum': 'b1ccc364cc9dab03b383b71a51d3c6cb',
                 'ndcg_cut_10': 0.4580,
                 'judged_10': 0.5880,
                 'recall_1000': 0.4525,
             },
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round5/anserini.covid-r5.abstract.qdel.bm25.txt': {
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r5.abstract.qdel.bm25.txt': {
                 'checksum': 'ee4e3e6cf87dba2fd021fbb89bd07a89',
                 'ndcg_cut_10': 0.4912,
                 'judged_10': 0.6240,
                 'recall_1000': 0.4714,
             },
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round5/anserini.covid-r5.full-text.qq.bm25.txt': {
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r5.full-text.qq.bm25.txt': {
                 'checksum': 'd7457dd746533326f2bf8e85834ecf5c',
                 'ndcg_cut_10': 0.3240,
                 'judged_10': 0.5660,
                 'recall_1000': 0.3758,
             },
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round5/anserini.covid-r5.full-text.qdel.bm25.txt': {
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r5.full-text.qdel.bm25.txt': {
                 'checksum': '8387e4ad480ec4be7961c17d2ea326a1',
                 'ndcg_cut_10': 0.4634,
                 'judged_10': 0.6460,
                 'recall_1000': 0.4368,
             },
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round5/anserini.covid-r5.paragraph.qq.bm25.txt': {
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r5.paragraph.qq.bm25.txt': {
                 'checksum': '62d713a1ed6a8bf25c1454c66182b573',
                 'ndcg_cut_10': 0.4077,
                 'judged_10': 0.6160,
                 'recall_1000': 0.4877,
             },
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round5/anserini.covid-r5.paragraph.qdel.bm25.txt': {
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r5.paragraph.qdel.bm25.txt': {
                 'checksum': '16b295fda9d1eccd4e1fa4c147657872',
                 'ndcg_cut_10': 0.4918,
                 'judged_10': 0.6440,
                 'recall_1000': 0.5101,
             },
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round5/anserini.covid-r5.fusion1.txt': {
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r5.fusion1.txt': {
                 'checksum': '16875b6d32a9b5ef96d7b59315b101a7',
                 'ndcg_cut_10': 0.4696,
                 'judged_10': 0.6520,
                 'recall_1000': 0.5027,
             },
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round5/anserini.covid-r5.fusion2.txt': {
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r5.fusion2.txt': {
                 'checksum': '8f7d663d551f831c65dceb8e4e9219c2',
                 'ndcg_cut_10': 0.5077,
                 'judged_10': 0.6800,
                 'recall_1000': 0.5378,
             },
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round5/anserini.covid-r5.abstract.qdel.bm25%2Brm3Rf.txt': {
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r5.abstract.qdel.bm25%2Brm3Rf.txt': {
                 'checksum': '909ccbbd55736eff60c7dbeff1404c94',
                 'ndcg_cut_10': 0.6177,
                 'judged_10': 0.6620,
