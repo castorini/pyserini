@@ -20,6 +20,7 @@ from torch import Tensor
 from transformers import AutoModel, AutoTokenizer
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
+from pyserini.encode._base import resolve_encoder_name_or_path
 
 
 def last_token_pool(last_hidden_states: Tensor, attention_mask: Tensor) -> Tensor:
@@ -82,7 +83,8 @@ class Qwen3DocumentEncoder(DocumentEncoder):
 
 
 class Qwen3QueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir, device='cpu', **kwargs):
+    def __init__(self, encoder_name_or_path=None, device='cpu', encoder_dir=None, **kwargs):
+        encoder_name_or_path = resolve_encoder_name_or_path(encoder_name_or_path, encoder_dir)
         self.explicit_truncate = kwargs.get('explicit_truncate', False)
         self.prefix = kwargs.get('prefix', '')
         self.device = device
@@ -91,10 +93,10 @@ class Qwen3QueryEncoder(QueryEncoder):
         self.dtype = torch.bfloat16 if kwargs.get('fp16', False) else torch.float32
         self.max_length = kwargs.get('max_length', 8192)
         self.tokenizer = AutoTokenizer.from_pretrained(
-            encoder_dir, padding_side='left', trust_remote_code=True
+            encoder_name_or_path, padding_side='left', trust_remote_code=True
         )
         self.model = AutoModel.from_pretrained(
-            encoder_dir, trust_remote_code=True, torch_dtype=self.dtype
+            encoder_name_or_path, trust_remote_code=True, torch_dtype=self.dtype
         )
         self.model.to(device=self.device, dtype=self.dtype).eval()
 

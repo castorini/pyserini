@@ -110,7 +110,7 @@ def _load_sparse_searcher(language: str, k1: Optional[float]=None, b: Optional[f
 
 
 def _load_faiss_searcher(language: str, device:  str) -> (Searcher, str):
-    query_encoder = AutoQueryEncoder(encoder_dir='castorini/mdpr-tied-pft-msmarco', device=device)
+    query_encoder = AutoQueryEncoder(encoder_name_or_path='castorini/mdpr-tied-pft-msmarco', device=device)
     searcher = FaissSearcher.from_prebuilt_index(
         f'miracl-v{VERSION}-{language}-mdpr-tied-pft-msmarco', query_encoder
     )
