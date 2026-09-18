@@ -25,21 +25,21 @@ from unittest.mock import patch
 import yaml
 
 base = importlib.import_module('pyserini.2cr._base')
-ScoreStatus = base.ScoreStatus
+ReproductionStatus = base.ReproductionStatus
 
 
 class TestScoreClassification(unittest.TestCase):
     def test_equality_and_floating_point_differences(self):
         for observed, expected in [(0.0, 0.0), (1.0, 1.0), (0.3, 0.1 + 0.2), (0.5 + 5e-10, 0.5), (0.5 - 5e-10, 0.5)]:
             with self.subTest(observed=observed, expected=expected):
-                self.assertIs(base.compare_reproduction_score(observed, expected), ScoreStatus.OK)
+                self.assertIs(base.compare_reproduction_score(observed, expected), ReproductionStatus.OK)
 
     def test_inclusive_numerical_boundary(self):
         # Subtraction from zero isolates the exact boundary from cancellation.
         for delta, status in [
-            (math.nextafter(1e-9, 0.0), ScoreStatus.OK),
-            (1e-9, ScoreStatus.OK),
-            (math.nextafter(1e-9, math.inf), ScoreStatus.OKISH),
+            (math.nextafter(1e-9, 0.0), ReproductionStatus.OK),
+            (1e-9, ReproductionStatus.OK),
+            (math.nextafter(1e-9, math.inf), ReproductionStatus.OKISH),
         ]:
             with self.subTest(delta=delta):
                 self.assertIs(base.compare_reproduction_score(0.0, delta), status)
@@ -47,40 +47,39 @@ class TestScoreClassification(unittest.TestCase):
 
     def test_improvements_and_regressions(self):
         for observed, expected, status in [
-            (0.5001, 0.5, ScoreStatus.OKISH),
-            (0.9, 0.5, ScoreStatus.OKISH),
-            (0.4999, 0.5, ScoreStatus.OKISH),
-            (0.4997, 0.5, ScoreStatus.FAIL),
-            (0.1, 0.5, ScoreStatus.FAIL),
+            (0.5001, 0.5, ReproductionStatus.OKISH),
+            (0.9, 0.5, ReproductionStatus.OKISH),
+            (0.4999, 0.5, ReproductionStatus.OKISH),
+            (0.4997, 0.5, ReproductionStatus.FAIL),
+            (0.1, 0.5, ReproductionStatus.FAIL),
         ]:
             with self.subTest(observed=observed, expected=expected):
                 self.assertIs(base.compare_reproduction_score(observed, expected), status)
 
     def test_strict_okish_boundary(self):
         for delta, status in [
-            (math.nextafter(0.0002, 0.0), ScoreStatus.OKISH),
-            (0.0002, ScoreStatus.FAIL),
-            (math.nextafter(0.0002, math.inf), ScoreStatus.FAIL),
+            (math.nextafter(0.0002, 0.0), ReproductionStatus.OKISH),
+            (0.0002, ReproductionStatus.FAIL),
+            (math.nextafter(0.0002, math.inf), ReproductionStatus.FAIL),
         ]:
             with self.subTest(delta=delta):
                 self.assertIs(base.compare_reproduction_score(0.0, delta), status)
                 # Improvements remain OKish even at or above the threshold.
-                self.assertIs(base.compare_reproduction_score(delta, 0.0), ScoreStatus.OKISH)
+                self.assertIs(base.compare_reproduction_score(delta, 0.0), ReproductionStatus.OKISH)
 
-    def test_equivalent_percentage_and_fraction_scores(self):
+    def test_normalized_percentage_scores(self):
         for observed, expected, status in [
-            (50.0, 50.0, ScoreStatus.OK),
-            (0.0, 1e-7, ScoreStatus.OK),
-            (0.0, 1.1e-7, ScoreStatus.OKISH),
-            (0.0, 0.0199, ScoreStatus.OKISH),
-            (0.0, 0.02, ScoreStatus.FAIL),
-            (0.0, 0.0201, ScoreStatus.FAIL),
-            (50.0, 50.01, ScoreStatus.OKISH),
-            (50.0, 50.03, ScoreStatus.FAIL),
-            (60.0, 50.0, ScoreStatus.OKISH),
+            (50.0, 50.0, ReproductionStatus.OK),
+            (0.0, 1e-7, ReproductionStatus.OK),
+            (0.0, 1.1e-7, ReproductionStatus.OKISH),
+            (0.0, 0.0199, ReproductionStatus.OKISH),
+            (0.0, 0.02, ReproductionStatus.FAIL),
+            (0.0, 0.0201, ReproductionStatus.FAIL),
+            (50.0, 50.01, ReproductionStatus.OKISH),
+            (50.0, 50.03, ReproductionStatus.FAIL),
+            (60.0, 50.0, ReproductionStatus.OKISH),
         ]:
             with self.subTest(observed=observed, expected=expected):
-                self.assertIs(base.compare_reproduction_score(observed, expected, percentage=True), status)
                 self.assertIs(base.compare_reproduction_score(observed / 100, expected / 100), status)
 
 
@@ -122,8 +121,10 @@ class TestRunnerScoreClassification(unittest.TestCase):
                     self.assertGreater(comparison.call_count, 0)
                     self.assertEqual(output.getvalue().count(label), comparison.call_count)
                     for call in comparison.call_args_list:
-                        self.assertEqual(call.args, (50.0 if percentage else 0.5, expected * 100 if percentage else expected))
-                        self.assertEqual(call.kwargs, {'percentage': True} if percentage else {})
+                        self.assertEqual(len(call.args), 2)
+                        self.assertEqual(call.args[0], 0.5)
+                        self.assertAlmostEqual(call.args[1], expected)
+                        self.assertEqual(call.kwargs, {})
                     if name != 'dse':
                         command.assert_not_called()
                     displayed = '50.00' if percentage else '0.5000'

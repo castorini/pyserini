@@ -129,7 +129,7 @@ def run_conditions(args):
                                     trec_eval_metric, runfile, display_command=args.display_commands)) * 100
 
 
-                            status = compare_reproduction_score(score, float(expected[metric]), percentage=True)
+                            status = compare_reproduction_score(score / 100, float(expected[metric]) / 100)
                             result = format_reproduction_status(status, expected[metric], precision=1)
                             print(f'      {metric:10}: {score:6.2f} {result}')
                             table[dataset][name][metric] = score

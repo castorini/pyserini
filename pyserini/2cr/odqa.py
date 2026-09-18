@@ -429,7 +429,7 @@ def run_topic_conditions(args, topic_arg, default_topics, yaml_path):
                     if not args.skip_eval and metric not in score.keys():
                         continue
                     if not args.skip_eval:
-                        status = compare_reproduction_score(score[metric], float(expected_score), percentage=True)
+                        status = compare_reproduction_score(score[metric] / 100, float(expected_score) / 100)
                         result_str = format_reproduction_status(status, expected[metric])
                         print(f'      {metric:7}: {score[metric]:.2f} {result_str}')
                         table[name][metric] = score[metric]

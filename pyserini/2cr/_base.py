@@ -25,42 +25,39 @@ okish_str = '\033[94m[OKish]\033[0m'
 
 
 # Shared policy on the 0–1 scale, matching Anserini's absent-tolerance path.
-# https://github.com/castorini/pyserini/issues/2675
 NUMERICAL_TOLERANCE = 1e-9
 OKISH_THRESHOLD = 0.0002
 
 
-class ScoreStatus(Enum):
+class ReproductionStatus(Enum):
     OK = 'OK'
     OKISH = 'OKish'
     FAIL = 'FAIL'
 
 
-def compare_reproduction_score(observed: float, expected: float, *, percentage: bool = False) -> ScoreStatus:
-    """Classify scores without rounding or changing their presentation.
+def compare_reproduction_score(observed: float, expected: float) -> ReproductionStatus:
+    """Classify scores on the 0–1 scale without rounding.
 
-    Percentage inputs are normalized to the 0–1 scale first. Differences up to
-    the absolute numerical allowance (1e-9, inclusive) are OK. Otherwise,
-    improvements or differences strictly below 0.0002 are OKish; all other
+    Policy: https://github.com/castorini/pyserini/issues/2675
+
+    Callers must normalize percentage scores before comparison. Differences up to
+    NUMERICAL_TOLERANCE (1e-9, inclusive) are OK. Otherwise, improvements or
+    differences strictly below OKISH_THRESHOLD (0.0002) are OKish; all other
     results fail. There is no relative or configurable tolerance.
     """
-    if percentage:
-        observed /= 100
-        expected /= 100
-
     delta = abs(observed - expected)
     if delta <= NUMERICAL_TOLERANCE:
-        return ScoreStatus.OK
+        return ReproductionStatus.OK
     if observed > expected or delta < OKISH_THRESHOLD:
-        return ScoreStatus.OKISH
-    return ScoreStatus.FAIL
+        return ReproductionStatus.OKISH
+    return ReproductionStatus.FAIL
 
 
-def format_reproduction_status(status: ScoreStatus, expected: float, *, precision: int = 4) -> str:
+def format_reproduction_status(status: ReproductionStatus, expected: float, *, precision: int = 4) -> str:
     """Format a status label and, for non-OK results, the expected score in its display units."""
-    if status is ScoreStatus.OK:
+    if status is ReproductionStatus.OK:
         return ok_str
-    label = okish_str if status is ScoreStatus.OKISH else fail_str
+    label = okish_str if status is ReproductionStatus.OKISH else fail_str
     return f'{label} expected {expected:.{precision}f}'
 
 
