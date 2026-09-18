@@ -15,6 +15,7 @@
 #
 
 import importlib.resources
+from decimal import Decimal
 from enum import Enum
 
 from pyserini.util import run_command
@@ -44,11 +45,14 @@ def compare_reproduction_score(observed: float, expected: float) -> Reproduction
     NUMERICAL_TOLERANCE (1e-9, inclusive) are OK. Otherwise, improvements or
     differences strictly below OKISH_THRESHOLD (0.0002) are OKish; all other
     results fail. There is no relative or configurable tolerance.
+
+    Compare decimal string representations to avoid binary subtraction artifacts
+    at the thresholds (e.g., 0.5002 - 0.5000). No fixed-decimal rounding is applied.
     """
-    delta = abs(observed - expected)
-    if delta <= NUMERICAL_TOLERANCE:
+    delta = abs(Decimal(str(observed)) - Decimal(str(expected)))
+    if delta <= Decimal(str(NUMERICAL_TOLERANCE)):
         return ReproductionStatus.OK
-    if observed > expected or delta < OKISH_THRESHOLD:
+    if observed > expected or delta < Decimal(str(OKISH_THRESHOLD)):
         return ReproductionStatus.OKISH
     return ReproductionStatus.FAIL
 

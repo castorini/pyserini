@@ -76,11 +76,26 @@ class TestScoreClassification(unittest.TestCase):
             (0.0, 0.02, ReproductionStatus.FAIL),
             (0.0, 0.0201, ReproductionStatus.FAIL),
             (50.0, 50.01, ReproductionStatus.OKISH),
+            # Keep neighboring inputs distinct after division by 100.
+            (50.0, 50.01999999999999, ReproductionStatus.OKISH),
+            (50.0, 50.02, ReproductionStatus.FAIL),
+            (50.0, 50.02000000000001, ReproductionStatus.FAIL),
             (50.0, 50.03, ReproductionStatus.FAIL),
             (60.0, 50.0, ReproductionStatus.OKISH),
         ]:
             with self.subTest(observed=observed, expected=expected):
                 self.assertIs(base.compare_reproduction_score(observed / 100, expected / 100), status)
+
+    def test_nonzero_okish_boundary(self):
+        for observed, boundary in [(0.1, 0.1002), (0.5, 0.5002), (0.8, 0.8002)]:
+            for expected, status in [
+                (math.nextafter(boundary, 0.0), ReproductionStatus.OKISH),
+                (boundary, ReproductionStatus.FAIL),
+                (math.nextafter(boundary, math.inf), ReproductionStatus.FAIL),
+            ]:
+                with self.subTest(observed=observed, expected=expected):
+                    self.assertIs(base.compare_reproduction_score(observed, expected), status)
+                    self.assertIs(base.compare_reproduction_score(expected, observed), ReproductionStatus.OKISH)
 
 
 class TestRunnerScoreClassification(unittest.TestCase):
@@ -94,7 +109,7 @@ class TestRunnerScoreClassification(unittest.TestCase):
             percentage = name in ('dse', 'odqa')
             filename = {'msmarco': 'msmarco-v1-passage', 'odqa': 'odqa_nq'}.get(name, name)
             config = yaml.safe_load(base.read_file(f'{filename}.yaml'))
-            cases = [(0.5, base.ok_str), (0.5001, base.okish_str), (0.5003, base.fail_str), (0.4, base.okish_str)]
+            cases = [(0.5, base.ok_str), (0.5001, base.okish_str), (0.5002, base.fail_str), (0.5003, base.fail_str), (0.4, base.okish_str)]
             for expected, label in cases:
                 with self.subTest(runner=name, expected=expected):
                     self.set_scores(config, expected * 100 if percentage else expected)
