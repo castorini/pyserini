@@ -16,7 +16,6 @@
 
 import argparse
 import importlib.resources
-import math
 import os
 import sys
 import time
@@ -29,6 +28,8 @@ import yaml
 from pyserini.util import run_command
 
 from ._base import (
+    ScoreStatus,
+    compare_reproduction_score,
     fail_str,
     format_eval_command,
     ok_str,
@@ -277,10 +278,10 @@ def run_conditions(args):
                             score = float(run_eval_and_return_metric(metric, f'beir-v1.0.0-{dataset}-test',
                                 trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
 
-                            if math.isclose(score, float(expected[metric])):
+                            status = compare_reproduction_score(score, float(expected[metric]))
+                            if status is ScoreStatus.OK:
                                 result = ok_str
-                            # If results are within 0.0005, just call it "OKish".
-                            elif abs(score - float(expected[metric])) <= 0.0005:
+                            elif status is ScoreStatus.OKISH:
                                 result = okish_str + f' expected {expected[metric]:.4f}'
                             else:
                                 result = fail_str + f' expected {expected[metric]:.4f}'

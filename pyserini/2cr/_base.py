@@ -15,12 +15,45 @@
 #
 
 import importlib.resources
+from enum import Enum
 
 from pyserini.util import run_command
 
 fail_str = '\033[91m[FAIL]\033[0m'
 ok_str = '[OK]'
 okish_str = '\033[94m[OKish]\033[0m'
+
+
+# Shared policy on the 0–1 scale, matching Anserini's absent-tolerance path.
+# https://github.com/castorini/pyserini/issues/2675
+NUMERICAL_TOLERANCE = 1e-9
+OKISH_THRESHOLD = 0.0002
+
+
+class ScoreStatus(Enum):
+    OK = 'OK'
+    OKISH = 'OKish'
+    FAIL = 'FAIL'
+
+
+def compare_reproduction_score(observed: float, expected: float, *, percentage: bool = False) -> ScoreStatus:
+    """Classify scores without rounding or changing their presentation.
+
+    Percentage inputs are normalized to the 0–1 scale first. Differences up to
+    the absolute numerical allowance (1e-9, inclusive) are OK. Otherwise,
+    improvements or differences strictly below 0.0002 are OKish; all other
+    results fail. There is no relative or configurable tolerance.
+    """
+    if percentage:
+        observed /= 100
+        expected /= 100
+
+    delta = abs(observed - expected)
+    if delta <= NUMERICAL_TOLERANCE:
+        return ScoreStatus.OK
+    if observed > expected or delta < OKISH_THRESHOLD:
+        return ScoreStatus.OKISH
+    return ScoreStatus.FAIL
 
 
 def read_file(filename):

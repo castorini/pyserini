@@ -16,7 +16,6 @@
 
 import argparse
 import importlib.resources
-import math
 import os
 import sys
 import time
@@ -29,9 +28,12 @@ import yaml
 from pyserini.util import run_command
 
 from ._base import (
+    ScoreStatus,
+    compare_reproduction_score,
     fail_str,
     format_eval_command,
     ok_str,
+    okish_str,
     read_file,
     run_eval_and_return_metric,
 )
@@ -290,8 +292,11 @@ def run_conditions(args):
                             score = float(run_eval_and_return_metric(metric, f'{eval_key}-{split}',
                                 trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
 
-                            if math.isclose(score, float(expected[metric])):
+                            status = compare_reproduction_score(score, float(expected[metric]))
+                            if status is ScoreStatus.OK:
                                 result_str = ok_str
+                            elif status is ScoreStatus.OKISH:
+                                result_str = okish_str + f' expected {expected[metric]:.4f}'
                             else:
                                 result_str = fail_str + f' expected {expected[metric]:.4f}'
                             print(f'      {metric:7}: {score:.4f} {result_str}')
