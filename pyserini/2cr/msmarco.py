@@ -29,11 +29,8 @@ import yaml
 from pyserini.util import run_command
 
 from ._base import (
-    ScoreStatus,
     compare_reproduction_score,
-    fail_str,
-    ok_str,
-    okish_str,
+    format_reproduction_status,
     read_file,
     run_eval_and_return_metric,
 )
@@ -563,12 +560,7 @@ def run_conditions(args):
                                     trec_eval_metric_definitions[args.collection][eval_key][metric], runfile, display_command=args.display_commands))
 
                             status = compare_reproduction_score(score, float(expected[metric]))
-                            if status is ScoreStatus.OK:
-                                result_str = ok_str
-                            elif status is ScoreStatus.OKISH:
-                                result_str = okish_str + f' expected {expected[metric]:.4f}'
-                            else:
-                                result_str = fail_str + f' expected {expected[metric]:.4f}'
+                            result_str = format_reproduction_status(status, expected[metric])
                             print(f'    {metric:7}: {score:.4f} {result_str}')
                             table[name][short_topic_key][metric] = score
                         else:

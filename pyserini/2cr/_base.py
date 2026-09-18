@@ -56,6 +56,14 @@ def compare_reproduction_score(observed: float, expected: float, *, percentage: 
     return ScoreStatus.FAIL
 
 
+def format_reproduction_status(status: ScoreStatus, expected: float, *, precision: int = 4) -> str:
+    """Format a status label and, for non-OK results, the expected score in its display units."""
+    if status is ScoreStatus.OK:
+        return ok_str
+    label = okish_str if status is ScoreStatus.OKISH else fail_str
+    return f'{label} expected {expected:.{precision}f}'
+
+
 def read_file(filename):
     with importlib.resources.files('pyserini.2cr').joinpath(filename).open('r') as f:
         return f.read()
