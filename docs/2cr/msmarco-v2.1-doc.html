@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>MS MARCO V2.1 Document Reproductions</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet" />
+
+    <style>
+tr.hide-table-padding td {
+  padding: 0;
+}
+
+.expand-button {
+  position: relative;
+}
+
+.accordion-toggle .expand-button:after {
+  position: absolute;
+  left:.75rem;
+  top: 50%;
+  transform: translate(0, -50%);
+  content: '-';
+}
+
+.accordion-toggle.collapsed .expand-button:after {
+  content: '+';
+}
+
+blockquote.mycode {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  margin-top: 15px;
+  padding-left: 15px;
+}
+
+blockquote.mycode2 {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+}
+
+tr th.headertop {
+  border-bottom: none;
+  padding-bottom: 0rem
+}
+
+tr th.headerbottom {
+  padding-top: 0rem
+}
+
+.table>:not(caption)>*>*{padding:0.75rem 0.75rem}
+
+.copy-code-button {
+	border-radius: 0;
+	min-width: 55px;
+	background: none repeat scroll 0 0 transparent;
+	background-color: grey;
+	color: #F1F2F3 !important;
+	cursor: pointer;
+	border-style: none;
+	font-family: 'HELVETICA',sans-serif;
+	font-size: 0.8em;
+	font-weight: normal;
+	text-align: center;
+	text-decoration: none;
+	text-indent: 0;
+	text-transform: uppercase;
+	font-weight: 500;
+	line-height: 1.42rem;
+	margin: 0;
+	padding: 3px 8px;
+	position: absolute !important;
+	top: 0 !important;
+	right: 0 !important;
+}
+
+.copy-code-button > span {
+	color: #F1F2F3 !important;
+}
+
+.copy-code-button, ::before, ::after {
+	box-sizing: inherit;
+}
+
+.copy-code-button::before {
+	content: '';
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 3px;
+	background-size: contain;
+	background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTVweCIgaGVpZ2h0PSIxNXB4IiB2aWV3Qm94PSIwIDAgMTUgMTUiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUwLjIgKDU1MDQ3KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5QYWdlIDE8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iRmxvdyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IkJ0dG5faHRtbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTgxOS4wMDAwMDAsIC03NTMuMDAwMDAwKSIgZmlsbD0iI0ZGRkZGRiI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0xIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMTEuMDAwMDAwLCA0MDUuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8ZyBpZD0iR3JvdXAtMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTA4LjAwMDAwMCwgMzQyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xMy45NzcyNzI3LDYgTDMuNDA5MDkwOTEsNiBDMi44NDQ1NDU0NSw2IDIuMzg2MzYzNjQsNi40NTgxODE4MiAyLjM4NjM2MzY0LDcuMDIyNzI3MjcgTDIuMzg2MzYzNjQsMTcuNTkwOTA5MSBDMi4zODYzNjM2NCwxOC4xNTU0NTQ1IDIuODQ0NTQ1NDUsMTguNjEzNjM2NCAzLjQwOTA5MDkxLDE4LjYxMzYzNjQgTDEzLjk3NzI3MjcsMTguNjEzNjM2NCBDMTQuNTQxODE4MiwxOC42MTM2MzY0IDE1LDE4LjE1NTQ1NDUgMTUsMTcuNTkwOTA5MSBMMTUsNy4wMjI3MjcyNyBDMTUsNi40NTgxODE4MiAxNC41NDE4MTgyLDYgMTMuOTc3MjcyNyw2IFogTTE0LjMxODE4MTgsMTcuNTkwOTA5MSBDMTQuMzE4MTgxOCwxNy43NzkwOTA5IDE0LjE2NTQ1NDUsMTcuOTMxODE4MiAxMy45NzcyNzI3LDE3LjkzMTgxODIgTDMuNDA5MDkwOTEsMTcuOTMxODE4MiBDMy4yMjA5MDkwOSwxNy45MzE4MTgyIDMuMDY4MTgxODIsMTcuNzc5MDkwOSAzLjA2ODE4MTgyLDE3LjU5MDkwOTEgTDMuMDY4MTgxODIsNy4wMjI3MjcyNyBDMy4wNjgxODE4Miw2LjgzNDU0NTQ1IDMuMjIwOTA5MDksNi42ODE4MTgxOCAzLjQwOTA5MDkxLDYuNjgxODE4MTggTDEzLjk3NzI3MjcsNi42ODE4MTgxOCBDMTQuMTY1NDU0NSw2LjY4MTgxODE4IDE0LjMxODE4MTgsNi44MzQ1NDU0NSAxNC4zMTgxODE4LDcuMDIyNzI3MjcgTDE0LjMxODE4MTgsMTcuNTkwOTA5MSBaIE0xMS45MzE4MTgyLDE5Ljk3NzI3MjcgQzExLjkzMTgxODIsMjAuMTY1NDU0NSAxMS43NzkwOTA5LDIwLjMxODE4MTggMTEuNTkwOTA5MSwyMC4zMTgxODE4IEwxLjAyMjcyNzI3LDIwLjMxODE4MTggQzAuODM0NTQ1NDU1LDIwLjMxODE4MTggMC42ODE4MTgxODIsMjAuMTY1NDU0NSAwLjY4MTgxODE4MiwxOS45NzcyNzI3IEwwLjY4MTgxODE4Miw5LjQwOTA5MDkxIEMwLjY4MTgxODE4Miw5LjIyMDkwOTA5IDAuODM0NTQ1NDU1LDkuMDY4MTgxODIgMS4wMjI3MjcyNyw5LjA2ODE4MTgyIEwxLjM2MzYzNjM2LDkuMDY4MTgxODIgTDEuMzYzNjM2MzYsOC4zODYzNjM2NCBMMS4wMjI3MjcyNyw4LjM4NjM2MzY0IEMwLjQ1ODE4MTgxOCw4LjM4NjM2MzY0IDAsOC44NDQ1NDU0NSAwLDkuNDA5MDkwOTEgTDAsMTkuOTc3MjcyNyBDMCwyMC41NDE4MTgyIDAuNDU4MTgxODE4LDIxIDEuMDIyNzI3MjcsMjEgTDExLjU5MDkwOTEsMjEgQzEyLjE1NTQ1NDUsMjEgMTIuNjEzNjM2NCwyMC41NDE4MTgyIDEyLjYxMzYzNjQsMTkuOTc3MjcyNyBMMTIuNjEzNjM2NCwxOS42MzYzNjM2IEwxMS45MzE4MTgyLDE5LjYzNjM2MzYgTDExLjkzMTgxODIsMTkuOTc3MjcyNyBaIiBpZD0iUGFnZS0xIj48L3BhdGg+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==");
+	background-repeat: no-repeat;
+	position: relative;
+	top: 3px;
+}
+
+.copy-code-button:focus {
+    /* Avoid an ugly focus outline on click in Chrome,
+       but darken the button for accessibility.
+       See https://stackoverflow.com/a/25298082/1481479 */
+    /* background-color: #E6E6E6; */
+	outline: 0;
+}
+
+pre[class*="prettyprint"] {
+	position: relative;
+	overflow-x: auto;
+	padding-top: 2rem;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Background image -->
+    <div id="intro" class="bg-image vh-100 shadow-1-strong" style="max-height: 150px">
+      <div class="mask" style="
+            background: linear-gradient(
+              45deg,
+              rgba(29, 236, 197, 0.7),
+              rgba(91, 14, 214, 0.7) 100%
+            );
+          ">
+        <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
+          <div class="text-white">
+            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> &nbsp; MS MARCO V2.1 Document Reproductions</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Background image -->
+
+<div class="container my-4">
+
+<p>This two-click reproduction matrix covers every condition and evaluation pairing in
+<a href="https://github.com/castorini/anserini/blob/master/docs/reproduce/from-prebuilt-indexes/msmarco-v2.1-doc.md">Anserini's msmarco-v2.1-doc reproductions</a>.
+The table contains Anserini's reference scores; running the commands checks Pyserini's results against these values.
+Expand a condition to copy its retrieval and evaluation commands. All metrics are shown, including separate NIST and Umbrela evaluations where applicable.</p>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+<tr><th rowspan="2">#</th><th rowspan="2">Condition</th><th colspan="1">msmarco-v2.1-doc.dev</th><th colspan="1">msmarco-v2.1-doc.dev2</th><th colspan="5">dl21-doc-msmarco-v2.1</th><th colspan="5">dl22-doc-msmarco-v2.1</th><th colspan="5">dl23-doc-msmarco-v2.1</th><th colspan="5">rag24.raggy-dev</th></tr>
+<tr><th scope="col">MRR@100</th><th scope="col">MRR@100</th><th scope="col">MAP@100</th><th scope="col">MRR@100</th><th scope="col">nDCG@10</th><th scope="col">R@100</th><th scope="col">R@1K</th><th scope="col">MAP@100</th><th scope="col">MRR@100</th><th scope="col">nDCG@10</th><th scope="col">R@100</th><th scope="col">R@1K</th><th scope="col">MAP@100</th><th scope="col">MRR@100</th><th scope="col">nDCG@10</th><th scope="col">R@100</th><th scope="col">R@1K</th><th scope="col">MAP@100</th><th scope="col">MRR@100</th><th scope="col">nDCG@10</th><th scope="col">R@100</th><th scope="col">R@1K</th></tr>
+    </thead>
+    <tbody>
+
+<tr>
+<td>1</td>
+<td style="min-width: 400px"><a href="#condition-1">BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), slim index</a><br/><code>bm25-doc-slim</code></td>
+<td>0.1654</td><td>0.1732</td><td>0.2281</td><td>0.8466</td><td>0.5183</td><td>0.3502</td><td>0.6915</td><td>0.0841</td><td>0.6623</td><td>0.2991</td><td>0.1866</td><td>0.4254</td><td>0.1089</td><td>0.5783</td><td>0.2914</td><td>0.2604</td><td>0.5383</td><td>0.1251</td><td>0.7060</td><td>0.3631</td><td>0.2433</td><td>0.5317</td>
+</tr>
+<tr>
+<td colspan="24">
+<details id="condition-1">
+<summary>Commands: BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), slim index</summary>
+<h5>Topics: <code>msmarco-v2-doc.dev</code>; qrels: <code>msmarco-v2.1-doc.dev</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-slim \
+  --topics msmarco-v2-doc.dev \
+  --output run.msmarco-v2.1-doc.bm25-doc-slim.msmarco-v2-doc.dev.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2.1-doc.dev run.msmarco-v2.1-doc.bm25-doc-slim.msmarco-v2-doc.dev.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>msmarco-v2-doc.dev2</code>; qrels: <code>msmarco-v2.1-doc.dev2</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-slim \
+  --topics msmarco-v2-doc.dev2 \
+  --output run.msmarco-v2.1-doc.bm25-doc-slim.msmarco-v2-doc.dev2.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2.1-doc.dev2 run.msmarco-v2.1-doc.bm25-doc-slim.msmarco-v2-doc.dev2.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>dl21-doc</code>; qrels: <code>dl21-doc-msmarco-v2.1</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-slim \
+  --topics dl21-doc \
+  --output run.msmarco-v2.1-doc.bm25-doc-slim.dl21-doc.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc-slim.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc-slim.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc-slim.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc-slim.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc-slim.dl21-doc.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>dl22-doc</code>; qrels: <code>dl22-doc-msmarco-v2.1</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-slim \
+  --topics dl22-doc \
+  --output run.msmarco-v2.1-doc.bm25-doc-slim.dl22-doc.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc-slim.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc-slim.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc-slim.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc-slim.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc-slim.dl22-doc.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>dl23-doc</code>; qrels: <code>dl23-doc-msmarco-v2.1</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-slim \
+  --topics dl23-doc \
+  --output run.msmarco-v2.1-doc.bm25-doc-slim.dl23-doc.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc-slim.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc-slim.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc-slim.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc-slim.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc-slim.dl23-doc.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>rag24.raggy-dev</code>; qrels: <code>rag24.raggy-dev</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-slim \
+  --topics rag24.raggy-dev \
+  --output run.msmarco-v2.1-doc.bm25-doc-slim.rag24.raggy-dev.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map rag24.raggy-dev run.msmarco-v2.1-doc.bm25-doc-slim.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank rag24.raggy-dev run.msmarco-v2.1-doc.bm25-doc-slim.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 rag24.raggy-dev run.msmarco-v2.1-doc.bm25-doc-slim.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.raggy-dev run.msmarco-v2.1-doc.bm25-doc-slim.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 rag24.raggy-dev run.msmarco-v2.1-doc.bm25-doc-slim.rag24.raggy-dev.txt
+</code></pre></blockquote>
+
+</details>
+</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td style="min-width: 400px"><a href="#condition-2">BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), regular index</a><br/><code>bm25-doc</code></td>
+<td>0.1654</td><td>0.1732</td><td>0.2281</td><td>0.8466</td><td>0.5183</td><td>0.3502</td><td>0.6915</td><td>0.0841</td><td>0.6623</td><td>0.2991</td><td>0.1866</td><td>0.4254</td><td>0.1089</td><td>0.5783</td><td>0.2914</td><td>0.2604</td><td>0.5383</td><td>0.1251</td><td>0.7060</td><td>0.3631</td><td>0.2433</td><td>0.5317</td>
+</tr>
+<tr>
+<td colspan="24">
+<details id="condition-2">
+<summary>Commands: BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), regular index</summary>
+<h5>Topics: <code>msmarco-v2-doc.dev</code>; qrels: <code>msmarco-v2.1-doc.dev</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc \
+  --topics msmarco-v2-doc.dev \
+  --output run.msmarco-v2.1-doc.bm25-doc.msmarco-v2-doc.dev.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2.1-doc.dev run.msmarco-v2.1-doc.bm25-doc.msmarco-v2-doc.dev.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>msmarco-v2-doc.dev2</code>; qrels: <code>msmarco-v2.1-doc.dev2</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc \
+  --topics msmarco-v2-doc.dev2 \
+  --output run.msmarco-v2.1-doc.bm25-doc.msmarco-v2-doc.dev2.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2.1-doc.dev2 run.msmarco-v2.1-doc.bm25-doc.msmarco-v2-doc.dev2.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>dl21-doc</code>; qrels: <code>dl21-doc-msmarco-v2.1</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc \
+  --topics dl21-doc \
+  --output run.msmarco-v2.1-doc.bm25-doc.dl21-doc.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc.dl21-doc.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>dl22-doc</code>; qrels: <code>dl22-doc-msmarco-v2.1</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc \
+  --topics dl22-doc \
+  --output run.msmarco-v2.1-doc.bm25-doc.dl22-doc.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc.dl22-doc.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>dl23-doc</code>; qrels: <code>dl23-doc-msmarco-v2.1</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc \
+  --topics dl23-doc \
+  --output run.msmarco-v2.1-doc.bm25-doc.dl23-doc.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-doc.dl23-doc.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>rag24.raggy-dev</code>; qrels: <code>rag24.raggy-dev</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc \
+  --topics rag24.raggy-dev \
+  --output run.msmarco-v2.1-doc.bm25-doc.rag24.raggy-dev.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map rag24.raggy-dev run.msmarco-v2.1-doc.bm25-doc.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank rag24.raggy-dev run.msmarco-v2.1-doc.bm25-doc.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 rag24.raggy-dev run.msmarco-v2.1-doc.bm25-doc.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.raggy-dev run.msmarco-v2.1-doc.bm25-doc.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 rag24.raggy-dev run.msmarco-v2.1-doc.bm25-doc.rag24.raggy-dev.txt
+</code></pre></blockquote>
+
+</details>
+</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td style="min-width: 400px"><a href="#condition-3">BM25 segmented doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), slim index</a><br/><code>bm25-segmented-doc-slim</code></td>
+<td>0.1973</td><td>0.2000</td><td>0.2609</td><td>0.9026</td><td>0.5778</td><td>0.3811</td><td>0.7115</td><td>0.1079</td><td>0.7213</td><td>0.3576</td><td>0.2330</td><td>0.4790</td><td>0.1391</td><td>0.6519</td><td>0.3356</td><td>0.3049</td><td>0.5852</td><td>0.1561</td><td>0.7465</td><td>0.4227</td><td>0.2807</td><td>0.5745</td>
+</tr>
+<tr>
+<td colspan="24">
+<details id="condition-3">
+<summary>Commands: BM25 segmented doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), slim index</summary>
+<h5>Topics: <code>msmarco-v2-doc.dev</code>; qrels: <code>msmarco-v2.1-doc.dev</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented-slim \
+  --topics msmarco-v2-doc.dev \
+  --output run.msmarco-v2.1-doc.bm25-segmented-doc-slim.msmarco-v2-doc.dev.txt \
+  --hits 10000 --bm25 --max-passage --max-passage-delimiter &#x27;#&#x27; --max-passage-hits 1000 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2.1-doc.dev run.msmarco-v2.1-doc.bm25-segmented-doc-slim.msmarco-v2-doc.dev.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>msmarco-v2-doc.dev2</code>; qrels: <code>msmarco-v2.1-doc.dev2</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented-slim \
+  --topics msmarco-v2-doc.dev2 \
+  --output run.msmarco-v2.1-doc.bm25-segmented-doc-slim.msmarco-v2-doc.dev2.txt \
+  --hits 10000 --bm25 --max-passage --max-passage-delimiter &#x27;#&#x27; --max-passage-hits 1000 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2.1-doc.dev2 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.msmarco-v2-doc.dev2.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>dl21-doc</code>; qrels: <code>dl21-doc-msmarco-v2.1</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented-slim \
+  --topics dl21-doc \
+  --output run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl21-doc.txt \
+  --hits 10000 --bm25 --max-passage --max-passage-delimiter &#x27;#&#x27; --max-passage-hits 1000 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl21-doc.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>dl22-doc</code>; qrels: <code>dl22-doc-msmarco-v2.1</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented-slim \
+  --topics dl22-doc \
+  --output run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl22-doc.txt \
+  --hits 10000 --bm25 --max-passage --max-passage-delimiter &#x27;#&#x27; --max-passage-hits 1000 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl22-doc.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>dl23-doc</code>; qrels: <code>dl23-doc-msmarco-v2.1</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented-slim \
+  --topics dl23-doc \
+  --output run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl23-doc.txt \
+  --hits 10000 --bm25 --max-passage --max-passage-delimiter &#x27;#&#x27; --max-passage-hits 1000 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc-slim.dl23-doc.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>rag24.raggy-dev</code>; qrels: <code>rag24.raggy-dev</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented-slim \
+  --topics rag24.raggy-dev \
+  --output run.msmarco-v2.1-doc.bm25-segmented-doc-slim.rag24.raggy-dev.txt \
+  --hits 10000 --bm25 --max-passage --max-passage-delimiter &#x27;#&#x27; --max-passage-hits 1000 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map rag24.raggy-dev run.msmarco-v2.1-doc.bm25-segmented-doc-slim.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank rag24.raggy-dev run.msmarco-v2.1-doc.bm25-segmented-doc-slim.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 rag24.raggy-dev run.msmarco-v2.1-doc.bm25-segmented-doc-slim.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.raggy-dev run.msmarco-v2.1-doc.bm25-segmented-doc-slim.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 rag24.raggy-dev run.msmarco-v2.1-doc.bm25-segmented-doc-slim.rag24.raggy-dev.txt
+</code></pre></blockquote>
+
+</details>
+</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td style="min-width: 400px"><a href="#condition-4">BM25 segmented doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), regular index</a><br/><code>bm25-segmented-doc</code></td>
+<td>0.1973</td><td>0.2000</td><td>0.2609</td><td>0.9026</td><td>0.5778</td><td>0.3811</td><td>0.7115</td><td>0.1079</td><td>0.7213</td><td>0.3576</td><td>0.2330</td><td>0.4790</td><td>0.1391</td><td>0.6519</td><td>0.3356</td><td>0.3049</td><td>0.5852</td><td>0.1561</td><td>0.7465</td><td>0.4227</td><td>0.2807</td><td>0.5745</td>
+</tr>
+<tr>
+<td colspan="24">
+<details id="condition-4">
+<summary>Commands: BM25 segmented doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), regular index</summary>
+<h5>Topics: <code>msmarco-v2-doc.dev</code>; qrels: <code>msmarco-v2.1-doc.dev</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented \
+  --topics msmarco-v2-doc.dev \
+  --output run.msmarco-v2.1-doc.bm25-segmented-doc.msmarco-v2-doc.dev.txt \
+  --hits 10000 --bm25 --max-passage --max-passage-delimiter &#x27;#&#x27; --max-passage-hits 1000 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2.1-doc.dev run.msmarco-v2.1-doc.bm25-segmented-doc.msmarco-v2-doc.dev.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>msmarco-v2-doc.dev2</code>; qrels: <code>msmarco-v2.1-doc.dev2</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented \
+  --topics msmarco-v2-doc.dev2 \
+  --output run.msmarco-v2.1-doc.bm25-segmented-doc.msmarco-v2-doc.dev2.txt \
+  --hits 10000 --bm25 --max-passage --max-passage-delimiter &#x27;#&#x27; --max-passage-hits 1000 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank msmarco-v2.1-doc.dev2 run.msmarco-v2.1-doc.bm25-segmented-doc.msmarco-v2-doc.dev2.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>dl21-doc</code>; qrels: <code>dl21-doc-msmarco-v2.1</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented \
+  --topics dl21-doc \
+  --output run.msmarco-v2.1-doc.bm25-segmented-doc.dl21-doc.txt \
+  --hits 10000 --bm25 --max-passage --max-passage-delimiter &#x27;#&#x27; --max-passage-hits 1000 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc.dl21-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc.dl21-doc.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>dl22-doc</code>; qrels: <code>dl22-doc-msmarco-v2.1</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented \
+  --topics dl22-doc \
+  --output run.msmarco-v2.1-doc.bm25-segmented-doc.dl22-doc.txt \
+  --hits 10000 --bm25 --max-passage --max-passage-delimiter &#x27;#&#x27; --max-passage-hits 1000 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc.dl22-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc.dl22-doc.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>dl23-doc</code>; qrels: <code>dl23-doc-msmarco-v2.1</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented \
+  --topics dl23-doc \
+  --output run.msmarco-v2.1-doc.bm25-segmented-doc.dl23-doc.txt \
+  --hits 10000 --bm25 --max-passage --max-passage-delimiter &#x27;#&#x27; --max-passage-hits 1000 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc.dl23-doc.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 dl23-doc-msmarco-v2.1 run.msmarco-v2.1-doc.bm25-segmented-doc.dl23-doc.txt
+</code></pre></blockquote>
+
+<h5>Topics: <code>rag24.raggy-dev</code>; qrels: <code>rag24.raggy-dev</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented \
+  --topics rag24.raggy-dev \
+  --output run.msmarco-v2.1-doc.bm25-segmented-doc.rag24.raggy-dev.txt \
+  --hits 10000 --bm25 --max-passage --max-passage-delimiter &#x27;#&#x27; --max-passage-hits 1000 --k1 0.9 --b 0.4
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>python -m pyserini.eval.trec_eval -c -M 100 -m map rag24.raggy-dev run.msmarco-v2.1-doc.bm25-segmented-doc.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -M 100 -m recip_rank rag24.raggy-dev run.msmarco-v2.1-doc.bm25-segmented-doc.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 rag24.raggy-dev run.msmarco-v2.1-doc.bm25-segmented-doc.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.raggy-dev run.msmarco-v2.1-doc.bm25-segmented-doc.rag24.raggy-dev.txt
+python -m pyserini.eval.trec_eval -c -m recall.1000 rag24.raggy-dev run.msmarco-v2.1-doc.bm25-segmented-doc.rag24.raggy-dev.txt
+</code></pre></blockquote>
+
+</details>
+</td>
+</tr>
+
+
+    </tbody>
+  </table>
+</div>
+
+<div style="padding-top: 20px"></div>
+
+<h4>Programmatic Execution</h4>
+
+<p>All experimental runs shown in the above table can be programmatically executed based on the instructions below.
+To list all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2.1-doc --list-conditions
+</tt></blockquote>
+
+<p>These conditions correspond to the table rows above.</p>
+
+<p>For all conditions, just show the commands in a "dry run":</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2.1-doc --all --display-commands --dry-run
+</tt></blockquote>
+
+<p>To actually run all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2.1-doc --all --display-commands
+</tt></blockquote>
+
+<p>With the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>To show the commands for a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2.1-doc --condition bm25-doc-slim --display-commands --dry-run
+</tt></blockquote>
+
+<p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
+
+<p>To actually run a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2.1-doc --condition bm25-doc-slim --display-commands
+</tt></blockquote>
+
+<p>Again, with the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>Finally, to generate this page:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2.1-doc --generate-report --output docs/2cr/msmarco-v2.1-doc.html
+</tt></blockquote>
+
+<p>The output file <tt>docs/2cr/msmarco-v2.1-doc.html</tt> should be identical to this page.</p>
+
+<div style="padding-top: 50px"></div>
+
+      </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+
+<script>
+document.querySelectorAll('pre').forEach(function (codeBlock) {
+    var button = document.createElement('button');
+    button.className = 'copy-code-button';
+    button.type = 'button';
+    var s = codeBlock.innerText;
+    button.setAttribute('data-clipboard-text',s);
+    button.innerText = 'Copy';
+
+    // var pre = codeBlock.parentNode;
+    codeBlock.classList.add('prettyprint');
+    // pre.parentNode.insertBefore(button, pre);
+    codeBlock.appendChild(button);
+});
+
+var clipboard = new ClipboardJS('.copy-code-button');
+
+clipboard.on('success', function(e) {
+  console.info('Action:', e.action);
+  console.info('Text:', e.text);
+  console.info('Trigger:', e.trigger);
+  e.trigger.textContent = 'Copied';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+clipboard.on('error', function(e) {
+  console.error('Action:', e.action);
+  console.error('Trigger:', e.trigger);
+  e.trigger.textContent = 'Error Copying';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+</script>
+
+</body>
+</html>
