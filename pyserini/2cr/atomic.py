@@ -222,8 +222,9 @@ def run_conditions(args):
                             score = float(run_eval_and_return_metric(metric,f'atomic.validation.{retrieval_type}',
                                 trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
 
-                            status = compare_reproduction_score(score, float(expected[metric]))
-                            result = format_reproduction_status(status, expected[metric])
+                            expected_score = float(expected[metric])
+                            status = compare_reproduction_score(score, expected_score)
+                            result = format_reproduction_status(status, expected_score)
                             print(f'      {metric:7}: {score:.4f} {result}')
 
                             table[model][name][metric] = score

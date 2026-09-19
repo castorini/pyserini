@@ -136,8 +136,9 @@ def run_conditions(args):
                                     score = float(run_eval_and_return_metric(metric, 'm-beir-' + sub_dataset.replace('_', '-'),
                                         trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
 
-                                    status = compare_reproduction_score(score, float(expected[metric]))
-                                    result = format_reproduction_status(status, expected[metric])
+                                    expected_score = float(expected[metric])
+                                    status = compare_reproduction_score(score, expected_score)
+                                    result = format_reproduction_status(status, expected_score)
                                     print(f'        {metric:7}: {score:.4f} {result}')  
                                     table[f'{dataset}_{sub_dataset}'][name][metric] = score  
                                 else:  
@@ -162,8 +163,9 @@ def run_conditions(args):
                                 score = float(run_eval_and_return_metric(metric, 'm-beir-' + dataset.replace('_', '-'),
                                     trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
 
-                                status = compare_reproduction_score(score, float(expected[metric]))
-                                result = format_reproduction_status(status, expected[metric])
+                                expected_score = float(expected[metric])
+                                status = compare_reproduction_score(score, expected_score)
+                                result = format_reproduction_status(status, expected_score)
                                 print(f'      {metric:7}: {score:.4f} {result}')  
                                 table[dataset][name][metric] = score  
                             else:  

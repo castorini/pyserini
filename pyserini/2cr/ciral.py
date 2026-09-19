@@ -289,8 +289,9 @@ def run_conditions(args):
                             score = float(run_eval_and_return_metric(metric, f'{eval_key}-{split}',
                                 trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
 
-                            status = compare_reproduction_score(score, float(expected[metric]))
-                            result_str = format_reproduction_status(status, expected[metric])
+                            expected_score = float(expected[metric])
+                            status = compare_reproduction_score(score, expected_score)
+                            result_str = format_reproduction_status(status, expected_score)
                             print(f'      {metric:7}: {score:.4f} {result_str}')
                             table[name][split][metric] = score
                         else:
