@@ -16,12 +16,11 @@
 
 import argparse
 import importlib.resources
-import math
 import os
 import re
 import sys
 import time
-from collections import defaultdict, namedtuple
+from collections import defaultdict
 from datetime import UTC, datetime
 from string import Template
 
@@ -29,7 +28,12 @@ import yaml
 
 from pyserini.util import run_command
 
-from ._base import fail_str, ok_str, okish_str, read_file, run_eval_and_return_metric
+from ._base import (
+    compare_reproduction_score,
+    format_reproduction_status,
+    read_file,
+    run_eval_and_return_metric,
+)
 
 dense_threads = 16
 dense_batch_size = 512
@@ -503,16 +507,6 @@ def generate_report(args):
             out.write(Template(html_template).substitute(title=full_name, rows=all_rows))
 
 
-FlakyKey = namedtuple('FlakyKey', ['collection', 'name', 'topic_key', 'metric'])
-flaky_dict = {
-    # Score differences between runs on Ubuntu and (Jimmy's) Mac Studio
-    FlakyKey('msmarco-v1-passage', 'tct_colbert-v2-hnp-avg-prf-pytorch', 'dl20', 'nDCG@10'): 0.0009,
-    FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'dl19-passage', 'nDCG@10'): 0.0008,
-    # Score differences between tuna and linux.cs
-    FlakyKey('msmarco-v1-passage', 'ance-rocchio-prf-pytorch', 'dl20', 'R@1K'): 0.0011,
-}
-
-
 def run_conditions(args):
     start = time.time()
 
@@ -565,18 +559,9 @@ def run_conditions(args):
                             score = float(run_eval_and_return_metric(metric, eval_key,
                                     trec_eval_metric_definitions[args.collection][eval_key][metric], runfile, display_command=args.display_commands))
 
-                            if math.isclose(score, float(expected[metric])):
-                                result_str = ok_str
-                            # If results are within 0.0005, just call it "OKish".
-                            # If results are actually higher, note with "OKish" also.
-                            elif abs(score-float(expected[metric])) <= 0.0005 or score > float(expected[metric]):
-                                result_str = okish_str + f' expected {expected[metric]:.4f}'
-                            # If there are bigger differences, deal with on a case-by-case basis.
-                            elif abs(score-float(expected[metric])) <= \
-                                    flaky_dict.get(FlakyKey(collection=args.collection, name=name, topic_key=topic_key, metric=metric), 0):
-                                result_str = okish_str + f' expected {expected[metric]:.4f}'
-                            else:
-                                result_str = fail_str + f' expected {expected[metric]:.4f}'
+                            expected_score = float(expected[metric])
+                            status = compare_reproduction_score(score, expected_score)
+                            result_str = format_reproduction_status(status, expected_score)
                             print(f'    {metric:7}: {score:.4f} {result_str}')
                             table[name][short_topic_key][metric] = score
                         else:
