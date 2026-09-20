@@ -32,30 +32,18 @@ from pyserini.util import download_url
 class TestRRF(unittest.TestCase):
     def setUp(self):
         self.runs = {
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round3/anserini.covid-r3.abstract.qq.bm25.txt':
-                'd08d85c87e30d6c4abf54799806d282f',
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round3/anserini.covid-r3.abstract.qdel.bm25.txt':
-                'd552dff90995cd860a5727637f0be4d1',
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round3/anserini.covid-r3.full-text.qq.bm25.txt':
-                '6c9f4c09d842b887262ca84d61c61a1f',
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round3/anserini.covid-r3.full-text.qdel.bm25.txt':
-                'c5f9db7733c72eea78ece2ade44d3d35',
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round3/anserini.covid-r3.paragraph.qq.bm25.txt':
-                '872673b3e12c661748d8899f24d3ba48',
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round3/anserini.covid-r3.paragraph.qdel.bm25.txt':
-                'c1b966e4c3f387b6810211f339b35852',
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round4/anserini.covid-r4.abstract.qq.bm25.txt':
-                '56ac5a0410e235243ca6e9f0f00eefa1',
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round4/anserini.covid-r4.abstract.qdel.bm25.txt':
-                '115d6d2e308b47ffacbc642175095c74',
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round4/anserini.covid-r4.full-text.qq.bm25.txt':
-                'af0d10a5344f4007e6781e8d2959eb54',
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round4/anserini.covid-r4.full-text.qdel.bm25.txt':
-                '594d469b8f45cf808092a3d8e870eaf5',
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round4/anserini.covid-r4.paragraph.qq.bm25.txt':
-                '6f468b7b60aaa05fc215d237b5475aec',
-            'https://git.uwaterloo.ca/jimmylin/covidex-trec-covid-runs/raw/master/round4/anserini.covid-r4.paragraph.qdel.bm25.txt':
-                'b7b39629c12573ee0bfed8687dacc743',
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r3.abstract.qq.bm25.txt': 'd08d85c87e30d6c4abf54799806d282f',
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r3.abstract.qdel.bm25.txt': 'd552dff90995cd860a5727637f0be4d1',
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r3.full-text.qq.bm25.txt': '6c9f4c09d842b887262ca84d61c61a1f',
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r3.full-text.qdel.bm25.txt': 'c5f9db7733c72eea78ece2ade44d3d35',
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r3.paragraph.qq.bm25.txt': '872673b3e12c661748d8899f24d3ba48',
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r3.paragraph.qdel.bm25.txt': 'c1b966e4c3f387b6810211f339b35852',
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r4.abstract.qq.bm25.txt': '56ac5a0410e235243ca6e9f0f00eefa1',
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r4.abstract.qdel.bm25.txt': '115d6d2e308b47ffacbc642175095c74',
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r4.full-text.qq.bm25.txt': 'af0d10a5344f4007e6781e8d2959eb54',
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r4.full-text.qdel.bm25.txt': '594d469b8f45cf808092a3d8e870eaf5',
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r4.paragraph.qq.bm25.txt': '6f468b7b60aaa05fc215d237b5475aec',
+            'https://rgw.cs.uwaterloo.ca/pyserini/data/anserini.covid-r4.paragraph.qdel.bm25.txt': 'b7b39629c12573ee0bfed8687dacc743',
         }
 
         self.tmp = f'tmp{randint(0, 10000)}'

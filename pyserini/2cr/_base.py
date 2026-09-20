@@ -15,7 +15,8 @@
 #
 
 import importlib.resources
-import shlex
+from decimal import Decimal
+from enum import Enum
 
 from pyserini.util import run_command
 
@@ -24,23 +25,61 @@ ok_str = '[OK]'
 okish_str = '\033[94m[OKish]\033[0m'
 
 
+# Shared policy on the 0–1 scale, matching Anserini's absent-tolerance path.
+NUMERICAL_TOLERANCE = 1e-9
+OKISH_THRESHOLD = 0.0002
+
+
+class ReproductionStatus(Enum):
+    OK = 'OK'
+    OKISH = 'OKish'
+    FAIL = 'FAIL'
+
+
+def compare_reproduction_score(observed: float, expected: float) -> ReproductionStatus:
+    """Classify scores on the 0–1 scale without rounding.
+
+    Policy: https://github.com/castorini/pyserini/issues/2675
+
+    Callers must normalize percentage scores before comparison. Differences up to
+    NUMERICAL_TOLERANCE (1e-9, inclusive) are OK. Otherwise, improvements or
+    differences strictly below OKISH_THRESHOLD (0.0002) are OKish; all other
+    results fail. There is no relative or configurable tolerance.
+
+    Compare decimal string representations to avoid binary subtraction artifacts
+    at the thresholds (e.g., 0.5002 - 0.5000). No fixed-decimal rounding is applied.
+    """
+    delta = abs(Decimal(str(observed)) - Decimal(str(expected)))
+    if delta <= Decimal(str(NUMERICAL_TOLERANCE)):
+        return ReproductionStatus.OK
+    if observed > expected or delta < Decimal(str(OKISH_THRESHOLD)):
+        return ReproductionStatus.OKISH
+    return ReproductionStatus.FAIL
+
+
+def format_reproduction_status(status: ReproductionStatus, expected: float, *, precision: int = 4) -> str:
+    """Format a status label and, for non-OK results, the expected score in its display units."""
+    if status is ReproductionStatus.OK:
+        return ok_str
+    label = okish_str if status is ReproductionStatus.OKISH else fail_str
+    return f'{label} expected {expected:.{precision}f}'
+
+
 def read_file(filename):
     with importlib.resources.files('pyserini.2cr').joinpath(filename).open('r') as f:
         return f.read()
 
 
 def format_eval_command(raw):
-    if not isinstance(raw, str):
-        return shlex.join(raw)
     return raw.replace('-c ', '\\\n  -c ') \
         .replace(raw.split()[-1], f'\\\n  {raw.split()[-1]}')
 
 
 def run_eval_and_return_metric(metric, eval_key, defs, runfile, display_command=False):
-    eval_cmd = ['python', '-m', 'pyserini.eval.trec_eval', *shlex.split(defs), eval_key, runfile]
+    eval_cmd = f'python -m pyserini.eval.trec_eval {defs} {eval_key} {runfile}'
 
     if display_command:
-        print(f'\n```bash\n{shlex.join(eval_cmd)}\n```\n')
+        print(f'\n```bash\n{eval_cmd}\n```\n')
 
     result = run_command(eval_cmd)
     eval_stdout = result.stdout

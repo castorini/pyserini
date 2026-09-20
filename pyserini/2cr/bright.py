@@ -17,7 +17,6 @@
 import argparse
 import html
 import importlib.resources
-import math
 import os
 import shlex
 import sys
@@ -31,10 +30,8 @@ import yaml
 from pyserini.util import run_command
 
 from ._base import (
-    fail_str,
-    format_eval_command,
-    ok_str,
-    okish_str,
+    compare_reproduction_score,
+    format_reproduction_status,
     read_file,
     run_eval_and_return_metric,
 )
@@ -127,7 +124,7 @@ def generate_report(args):
                         eval_cmd = ['python', '-m', 'pyserini.eval.trec_eval',
                                     *shlex.split(trec_eval_metric_definitions[metric]),
                                     f'bright-{dataset}', runfile]
-                        eval_commands[dataset][name] += html.escape(format_eval_command(eval_cmd)) + '\n\n'
+                        eval_commands[dataset][name] += html.escape(shlex.join(eval_cmd)) + '\n\n'
                         
                         table[dataset][name][metric] = expected[metric]
 
@@ -209,16 +206,13 @@ def run_conditions(args):
                             if not os.path.exists(runfile):
                                 continue
 
+                            # The shared evaluator interpolates the path into a command string.
                             score = float(run_eval_and_return_metric(metric, f'bright-{dataset}',
-                                trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
+                                trec_eval_metric_definitions[metric], shlex.quote(runfile), display_command=args.display_commands))
 
-                            if math.isclose(score, float(expected[metric])):
-                                result = ok_str
-                            # If results are within 0.005, just call it "OKish".
-                            elif abs(score - float(expected[metric])) <= 0.005:
-                                result = okish_str + f' expected {expected[metric]:.4f}'
-                            else:
-                                result = fail_str + f' expected {expected[metric]:.4f}'
+                            expected_score = float(expected[metric])
+                            status = compare_reproduction_score(score, expected_score)
+                            result = format_reproduction_status(status, expected_score)
                             print(f'      {metric:7}: {score:.4f} {result}')
 
                             table[dataset][name][metric] = score

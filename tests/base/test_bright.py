@@ -131,29 +131,24 @@ class TestBrightCommands(unittest.TestCase):
                         bright.build_run_command(condition, dataset, runfile), capture_output=False
                     )
 
-    def test_shared_eval_formatter_supports_strings_and_argv(self):
-        command = 'python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 bright-biology run.txt'
-        self.assertEqual(
-            self.capture_shell_args(base.format_eval_command(command)), shlex.split(command)
-        )
-        argv = shlex.split(command)
-        argv[-1] = "/tmp/bright results/it's <run>.txt"
-        self.assertEqual(self.capture_shell_args(base.format_eval_command(argv)), argv)
-        self.assertIs(bright.format_eval_command, base.format_eval_command)
-        self.assertIs(bright.read_file, base.read_file)
-
-    def test_evaluation_preserves_runfile_argument(self):
-        runfile = '/tmp/bright results/it\'s <run>.txt'
-        stdout = io.StringIO()
-        with patch.object(base, 'run_command') as runner, contextlib.redirect_stdout(stdout):
-            runner.return_value.stdout = 'ndcg_cut_10\tall\t0.4247\n'
-            score = base.run_eval_and_return_metric(
-                'nDCG@10', 'bright-biology', '-c -m ndcg_cut.10', runfile, display_command=True
+    def test_bright_evaluation_preserves_runfile_argument(self):
+        with tempfile.TemporaryDirectory(prefix="bright results ' ") as directory:
+            args = argparse.Namespace(
+                all=False, condition='diver-retriever-4b', dataset='biology',
+                directory=directory, display_commands=True, dry_run=False, skip_eval=False
             )
-        expected = ['python', '-m', 'pyserini.eval.trec_eval', '-c', '-m', 'ndcg_cut.10', 'bright-biology', runfile]
-        runner.assert_called_once_with(expected)
-        self.assertEqual(score, 0.4247)
-        self.assertIn(shlex.join(expected), stdout.getvalue())
+            runfile = os.path.join(directory, 'run.bright.diver-retriever-4b.biology.txt')
+            Path(runfile).touch()
+            with patch.object(base, 'run_command') as evaluator, \
+                    patch.object(bright, 'run_command') as retriever, \
+                    contextlib.redirect_stdout(io.StringIO()):
+                evaluator.return_value.stdout = 'ndcg_cut_10\tall\t0.4247\n'
+                bright.run_conditions(args)
+            retriever.assert_not_called()
+            self.assertEqual(evaluator.call_count, 2)
+            for call in evaluator.call_args_list:
+                argv = shlex.split(call.args[0])
+                self.assertEqual(argv[-2:], ['bright-biology', runfile])
 
 
 if __name__ == '__main__':

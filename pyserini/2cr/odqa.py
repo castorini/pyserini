@@ -16,7 +16,6 @@
 
 import argparse
 import importlib.resources
-import math
 import os
 import sys
 import time
@@ -29,9 +28,9 @@ import yaml
 from pyserini.util import run_command
 
 from ._base import (
+    compare_reproduction_score,
     convert_trec_run_to_dpr_retrieval_json,
-    fail_str,
-    ok_str,
+    format_reproduction_status,
     read_file,
     run_dpr_retrieval_eval_and_return_metric,
     run_fusion,
@@ -430,10 +429,9 @@ def run_topic_conditions(args, topic_arg, default_topics, yaml_path):
                     if not args.skip_eval and metric not in score.keys():
                         continue
                     if not args.skip_eval:
-                        if math.isclose(score[metric], float(expected_score), abs_tol=2e-2):
-                            result_str = ok_str
-                        else:
-                            result_str = fail_str + f' expected {expected[metric]:.4f}'
+                        expected_score = float(expected_score)
+                        status = compare_reproduction_score(score[metric] / 100, expected_score / 100)
+                        result_str = format_reproduction_status(status, expected_score)
                         print(f'      {metric:7}: {score[metric]:.2f} {result_str}')
                         table[name][metric] = score[metric]
                     else:
