@@ -73,6 +73,19 @@ class TestBrightCommands(unittest.TestCase):
                     ], check=True)
                     self.assertEqual(json.loads(result.stdout), argv)
 
+    def test_template_is_split_before_substitution(self):
+        condition = {
+            'command': 'python --label "two words" --output $output',
+            'query_prefix': 'Instruct: ${query_prefix}\nQuery: ',
+        }
+        instruction = 'Keep "quotes", $variables, and \'apostrophes\' literal'
+        output = "/tmp/it's a directory/run.txt"
+        self.assertEqual(
+            bright.build_run_command(condition, dict(dataset='biology', query_prefix=instruction), output),
+            ['python', '--label', 'two words', '--output', output,
+             '--query-prefix', f'Instruct: {instruction}\nQuery: ']
+        )
+
     def test_rendered_commands_preserve_arguments(self):
         for condition in self.conditions:
             with self.subTest(condition=condition['name']):

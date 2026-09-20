@@ -70,11 +70,13 @@ models = ['bm25',
 
 
 def build_run_command(condition, dataset, runfile):
-    """Substitute values into individual arguments without shell interpretation."""
-    return [Template(arg).substitute(
-        dataset=dataset['dataset'], output=runfile,
-        query_prefix=dataset.get('query_prefix', '')
-    ) for arg in condition['command']]
+    """Split the template before substitution so values remain single arguments."""
+    values = dict(dataset=dataset['dataset'], output=runfile,
+                  query_prefix=dataset.get('query_prefix', ''))
+    argv = [Template(arg).substitute(values) for arg in shlex.split(condition['command'])]
+    if 'query_prefix' in condition:
+        argv.extend(['--query-prefix', Template(condition['query_prefix']).substitute(values)])
+    return argv
 
 
 def format_run_command(argv):
