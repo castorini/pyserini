@@ -263,7 +263,8 @@ conditions:
     display: "Diver-Retriever-4B"
     display_html: "Diver-Retriever-4B"
     display_row: ""
-    command: "python -m pyserini.search.faiss --encoder AQ-MedAI/Diver-Retriever-4B --encoder-class qwen3 --index bright-${dataset}.diver-retriever-4b --query-prefix $$'Instruct: Given a web search query, retrieve relevant passages that answer the query\\nQuery:' --topics bright-${dataset}-original --output $output --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0"
+    command: python -m pyserini.search.faiss --encoder AQ-MedAI/Diver-Retriever-4B --encoder-class qwen3 --index bright-${dataset}.diver-retriever-4b --topics bright-${dataset}-original --output $output --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+    query_prefix: "Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:"
     datasets:
       - dataset: biology
         scores:
@@ -317,7 +318,8 @@ conditions:
     display: "reason-embed-qwen3-4b-0928"
     display_html: "reason-embed-qwen3-4b-0928"
     display_row: ""
-    command: "python -m pyserini.search.faiss --encoder hanhainebula/reason-embed-qwen3-4b-0928 --encoder-class qwen3 --index bright-${dataset}.reason-embed-qwen3-4b-0928 --query-prefix $$'Instruct: ${query_prefix}\\nQuery: ' --topics bright-${dataset}-original --output $output --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0"
+    command: python -m pyserini.search.faiss --encoder hanhainebula/reason-embed-qwen3-4b-0928 --encoder-class qwen3 --index bright-${dataset}.reason-embed-qwen3-4b-0928 --topics bright-${dataset}-original --output $output --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+    query_prefix: "Instruct: ${query_prefix}\nQuery: "
     datasets:
       - dataset: biology
         query_prefix: "Given a Biology post, retrieve relevant passages that help answer the post."
