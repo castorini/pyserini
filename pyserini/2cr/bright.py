@@ -15,7 +15,6 @@
 #
 
 import argparse
-import html
 import importlib.resources
 import os
 import shlex
@@ -31,6 +30,7 @@ from pyserini.util import run_command
 
 from ._base import (
     compare_reproduction_score,
+    format_eval_command,
     format_reproduction_status,
     read_file,
     run_eval_and_return_metric,
@@ -117,14 +117,12 @@ def generate_report(args):
                 dataset = datasets['dataset']
                 runfile = os.path.join(args.directory, f'run.bright.{name}.{dataset}.txt')
                 cmd = build_run_command(condition, datasets, runfile)
-                commands[dataset][name] = html.escape(format_run_command(cmd))
+                commands[dataset][name] = format_run_command(cmd)
 
                 for expected in datasets['scores']:
                     for metric in expected:
-                        eval_cmd = ['python', '-m', 'pyserini.eval.trec_eval',
-                                    *shlex.split(trec_eval_metric_definitions[metric]),
-                                    f'bright-{dataset}', runfile]
-                        eval_commands[dataset][name] += html.escape(shlex.join(eval_cmd)) + '\n\n'
+                        eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[metric]} bright-{dataset} {runfile}'
+                        eval_commands[dataset][name] += format_eval_command(eval_cmd) + '\n\n'
                         
                         table[dataset][name][metric] = expected[metric]
 
@@ -206,9 +204,8 @@ def run_conditions(args):
                             if not os.path.exists(runfile):
                                 continue
 
-                            # The shared evaluator interpolates the path into a command string.
                             score = float(run_eval_and_return_metric(metric, f'bright-{dataset}',
-                                trec_eval_metric_definitions[metric], shlex.quote(runfile), display_command=args.display_commands))
+                                trec_eval_metric_definitions[metric], runfile, display_command=args.display_commands))
 
                             expected_score = float(expected[metric])
                             status = compare_reproduction_score(score, expected_score)

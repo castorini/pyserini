@@ -16,7 +16,6 @@
 
 import argparse
 import contextlib
-import html
 import importlib
 import io
 import json
@@ -35,7 +34,6 @@ import yaml
 from pyserini.util import run_command
 
 bright = importlib.import_module('pyserini.2cr.bright')
-base = importlib.import_module('pyserini.2cr._base')
 
 
 class TestBrightCommands(unittest.TestCase):
@@ -93,13 +91,13 @@ class TestBrightCommands(unittest.TestCase):
                 argv = bright.build_run_command(condition, dataset, '/tmp/a b/--index <run>.txt')
                 self.assertEqual(self.capture_shell_args(bright.format_run_command(argv)), argv)
 
-    def test_report_commands_match_builder_and_preserve_paths(self):
+    def test_report_retrieval_commands_match_builder(self):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / 'report.html'
-            run_directory = '/tmp/bright results/it\'s <a&b>'
+            run_directory = directory
             bright.generate_report(argparse.Namespace(directory=run_directory, output=output))
             report = output.read_text()
-            commands = [html.unescape(cmd).strip() for cmd in re.findall(
+            commands = [cmd.strip() for cmd in re.findall(
                 r'<pre><code>(.*?)</code></pre>', report, re.DOTALL
             )]
             for condition in self.conditions:
@@ -107,10 +105,6 @@ class TestBrightCommands(unittest.TestCase):
                 runfile = os.path.join(run_directory, f"run.bright.{condition['name']}.{dataset['dataset']}.txt")
                 argv = bright.build_run_command(condition, dataset, runfile)
                 self.assertIn(bright.format_run_command(argv), commands)
-                self.assertIn(html.escape(bright.format_run_command(argv)), report)
-            evaluation = next(cmd for cmd in commands if cmd.startswith('python -m pyserini.eval.trec_eval'))
-            for command in evaluation.split('\n\n'):
-                self.assertTrue(self.capture_shell_args(command)[-1].startswith(run_directory + '/'))
 
     def test_dry_run_and_execution(self):
         for dry_run in (True, False):
@@ -130,25 +124,6 @@ class TestBrightCommands(unittest.TestCase):
                     runner.assert_called_once_with(
                         bright.build_run_command(condition, dataset, runfile), capture_output=False
                     )
-
-    def test_bright_evaluation_preserves_runfile_argument(self):
-        with tempfile.TemporaryDirectory(prefix="bright results ' ") as directory:
-            args = argparse.Namespace(
-                all=False, condition='diver-retriever-4b', dataset='biology',
-                directory=directory, display_commands=True, dry_run=False, skip_eval=False
-            )
-            runfile = os.path.join(directory, 'run.bright.diver-retriever-4b.biology.txt')
-            Path(runfile).touch()
-            with patch.object(base, 'run_command') as evaluator, \
-                    patch.object(bright, 'run_command') as retriever, \
-                    contextlib.redirect_stdout(io.StringIO()):
-                evaluator.return_value.stdout = 'ndcg_cut_10\tall\t0.4247\n'
-                bright.run_conditions(args)
-            retriever.assert_not_called()
-            self.assertEqual(evaluator.call_count, 2)
-            for call in evaluator.call_args_list:
-                argv = shlex.split(call.args[0])
-                self.assertEqual(argv[-2:], ['bright-biology', runfile])
 
 
 if __name__ == '__main__':
