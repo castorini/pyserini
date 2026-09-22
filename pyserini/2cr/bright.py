@@ -17,7 +17,6 @@
 import argparse
 import importlib.resources
 import os
-import shlex
 import sys
 import time
 from collections import defaultdict
@@ -25,8 +24,6 @@ from datetime import UTC, datetime
 from string import Template
 
 import yaml
-
-from pyserini.util import run_command
 
 from ._base import (
     compare_reproduction_score,
@@ -66,26 +63,16 @@ models = ['bm25',
           'reason-embed-qwen3-4b-0928']
 
 
-def build_run_command(condition, dataset, runfile):
-    """Split the template before substitution so values remain single arguments."""
-    values = dict(dataset=dataset['dataset'], output=runfile,
-                  query_prefix=dataset.get('query_prefix', ''))
-    argv = [Template(arg).substitute(values) for arg in shlex.split(condition['command'])]
-    if 'query_prefix' in condition:
-        argv.extend(['--query-prefix', Template(condition['query_prefix']).substitute(values)])
-    return argv
-
-
-def format_run_command(argv):
-    """Render copyable shell syntax, adding line breaks only between arguments."""
-    break_before = {
-        '--topics', '--index', '--onnx-encoder', '--encoder-class', '--encoder',
-        '--query-prefix', '--output', '--output-format', '--hits',
-    }
-    return ''.join(
-        (('\\\n  ' if arg in break_before else ' ') if i else '') + shlex.quote(arg)
-        for i, arg in enumerate(argv)
-    )
+def format_run_command(raw):
+    return raw.replace('--topics', '\\\n  --topics') \
+        .replace('--index', '\\\n  --index') \
+        .replace('--onnx-encoder', '\\\n  --onnx-encoder') \
+        .replace('--encoder-class ', '\\\n  --encoder-class ') \
+        .replace('--encoder ', '\\\n  --encoder ') \
+        .replace('--query-prefix ', '\\\n  --query-prefix ') \
+        .replace('--output ', '\\\n  --output ') \
+        .replace('--output-format trec ', '\\\n  --output-format trec ') \
+        .replace('--hits ', '\\\n  --hits ') \
 
 
 def list_conditions():
@@ -112,11 +99,13 @@ def generate_report(args):
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
+            cmd_template = condition['command']
 
             for datasets in condition['datasets']:
                 dataset = datasets['dataset']
+                query_prefix = datasets.get('query_prefix', '')
                 runfile = os.path.join(args.directory, f'run.bright.{name}.{dataset}.txt')
-                cmd = build_run_command(condition, datasets, runfile)
+                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, query_prefix=query_prefix)
                 commands[dataset][name] = format_run_command(cmd)
 
                 for expected in datasets['scores']:
@@ -174,6 +163,7 @@ def run_conditions(args):
         yaml_data = yaml.safe_load(f)
         for condition in yaml_data['conditions']:
             name = condition['name']
+            cmd_template = condition['command']
 
             if args.all or args.condition == name:
                 print(f'condition {name}:')
@@ -189,14 +179,15 @@ def run_conditions(args):
 
                 print(f'  - dataset: {dataset}')
 
+                query_prefix = datasets.get('query_prefix', '')
                 runfile = os.path.join(args.directory, f'run.bright.{name}.{dataset}.txt')
-                cmd = build_run_command(condition, datasets, runfile)
+                cmd = Template(cmd_template).substitute(dataset=dataset, output=runfile, query_prefix=query_prefix)
                 
                 if args.display_commands:
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
 
                 if not os.path.exists(runfile) and not args.dry_run:
-                    run_command(cmd, capture_output=False)
+                    os.system(cmd)
 
                 for expected in datasets['scores']:
                     for metric in expected:
