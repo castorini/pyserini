@@ -55,6 +55,16 @@ class TestRunCommand(unittest.TestCase):
         with self.assertRaises(subprocess.CalledProcessError):
             run_command([sys.executable, '-c', 'raise SystemExit(2)'], check=True)
 
+    def test_run_command_decodes_ansi_c_quoting(self):
+        result = run_command(r"printf '%s' $'hello\nworld\'s\tquery'", check=True)
+
+        self.assertEqual(result.stdout, "hello\nworld's\tquery")
+
+    def test_run_command_preserves_ansi_c_text_in_argument_sequence(self):
+        result = run_command(['printf', '%s', r"$'hello\nworld'"], check=True)
+
+        self.assertEqual(result.stdout, r"$'hello\nworld'")
+
     @patch('pyserini.util.subprocess.run')
     def test_run_command_can_stream_output(self, mock_run):
         mock_run.return_value = subprocess.CompletedProcess([], 0)
@@ -63,6 +73,8 @@ class TestRunCommand(unittest.TestCase):
 
         mock_run.assert_called_once_with(
             ['example'],
+            shell=False,
+            executable=None,
             capture_output=False,
             text=True,
             check=False,
