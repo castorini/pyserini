@@ -53,16 +53,24 @@ def run_command(
     env: Mapping[str, str] | None = None,
     timeout: float | None = None,
     capture_output: bool = True,
+    use_bash: bool = False,
 ) -> subprocess.CompletedProcess[str]:
-    """Run a command, using Bash for strings containing ANSI-C ($'...') quoting."""
-    # BRIGHT reproductions use $'...' (ANSI-C quoting) to decode escapes such as \n
-    # in query prefixes; shlex.split does not support it, so let Bash interpret it.
-    use_shell = isinstance(cmd, str) and "$'" in cmd
-    args = cmd if use_shell else shlex.split(cmd) if isinstance(cmd, str) else list(cmd)
+    """Run a command, optionally capturing its output as text.
+
+    By default, strings are split with shlex.split and executed without a shell.
+    With use_bash=True, cmd must be a string and is passed unchanged to Bash,
+    which interprets shell quoting, expansions, and other shell syntax.
+    """
+    if use_bash:
+        if not isinstance(cmd, str):
+            raise TypeError('cmd must be a string when use_bash=True')
+        args = cmd
+    else:
+        args = shlex.split(cmd) if isinstance(cmd, str) else list(cmd)
     result = subprocess.run(
         args,
-        shell=use_shell,
-        executable='/bin/bash' if use_shell else None,
+        shell=use_bash,
+        executable='/bin/bash' if use_bash else None,
         capture_output=capture_output,
         text=True,
         check=check,

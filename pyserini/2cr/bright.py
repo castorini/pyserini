@@ -189,7 +189,9 @@ def run_conditions(args):
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
 
                 if not os.path.exists(runfile) and not args.dry_run:
-                    run_command(cmd, capture_output=False)
+                    # BRIGHT query prefixes use $'...' (ANSI-C quoting) to decode
+                    # escapes such as \n, which requires Bash instead of shlex.split.
+                    run_command(cmd, use_bash=True, capture_output=False)
 
                 for expected in datasets['scores']:
                     for metric in expected:
