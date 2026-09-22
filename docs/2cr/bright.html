@@ -257,7 +257,8 @@ Command to generate run:
   --topics bright-biology \
   --output run.bright.bm25.biology.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -370,11 +371,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-biology.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-biology-original \
   --output run.bright.diver-retriever-4b.biology.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0 \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query
+Query:'
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -397,11 +398,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-biology.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Biology post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-biology-original \
   --output run.bright.reason-embed-qwen3-4b-0928.biology.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0 \
+  --query-prefix 'Instruct: Given a Biology post, retrieve relevant passages that help answer the post.
+Query: '
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -482,7 +483,8 @@ Command to generate run:
   --topics bright-earth-science \
   --output run.bright.bm25.earth-science.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -595,11 +597,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-earth-science.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-earth-science-original \
   --output run.bright.diver-retriever-4b.earth-science.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0 \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query
+Query:'
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -622,11 +624,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-earth-science.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given an Earth Science post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-earth-science-original \
   --output run.bright.reason-embed-qwen3-4b-0928.earth-science.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0 \
+  --query-prefix 'Instruct: Given an Earth Science post, retrieve relevant passages that help answer the post.
+Query: '
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -707,7 +709,8 @@ Command to generate run:
   --topics bright-economics \
   --output run.bright.bm25.economics.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -820,11 +823,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-economics.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-economics-original \
   --output run.bright.diver-retriever-4b.economics.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0 \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query
+Query:'
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -847,11 +850,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-economics.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given an Economics post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-economics-original \
   --output run.bright.reason-embed-qwen3-4b-0928.economics.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0 \
+  --query-prefix 'Instruct: Given an Economics post, retrieve relevant passages that help answer the post.
+Query: '
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -932,7 +935,8 @@ Command to generate run:
   --topics bright-psychology \
   --output run.bright.bm25.psychology.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1045,11 +1049,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-psychology.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-psychology-original \
   --output run.bright.diver-retriever-4b.psychology.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0 \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query
+Query:'
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1072,11 +1076,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-psychology.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Psychology post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-psychology-original \
   --output run.bright.reason-embed-qwen3-4b-0928.psychology.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0 \
+  --query-prefix 'Instruct: Given a Psychology post, retrieve relevant passages that help answer the post.
+Query: '
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1157,7 +1161,8 @@ Command to generate run:
   --topics bright-robotics \
   --output run.bright.bm25.robotics.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1270,11 +1275,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-robotics.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-robotics-original \
   --output run.bright.diver-retriever-4b.robotics.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0 \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query
+Query:'
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1297,11 +1302,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-robotics.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Robotics post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-robotics-original \
   --output run.bright.reason-embed-qwen3-4b-0928.robotics.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0 \
+  --query-prefix 'Instruct: Given a Robotics post, retrieve relevant passages that help answer the post.
+Query: '
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1382,7 +1387,8 @@ Command to generate run:
   --topics bright-stackoverflow \
   --output run.bright.bm25.stackoverflow.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1495,11 +1501,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-stackoverflow.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-stackoverflow-original \
   --output run.bright.diver-retriever-4b.stackoverflow.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0 \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query
+Query:'
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1522,11 +1528,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-stackoverflow.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Stack Overflow post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-stackoverflow-original \
   --output run.bright.reason-embed-qwen3-4b-0928.stackoverflow.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0 \
+  --query-prefix 'Instruct: Given a Stack Overflow post, retrieve relevant passages that help answer the post.
+Query: '
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1607,7 +1613,8 @@ Command to generate run:
   --topics bright-sustainable-living \
   --output run.bright.bm25.sustainable-living.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1720,11 +1727,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-sustainable-living.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-sustainable-living-original \
   --output run.bright.diver-retriever-4b.sustainable-living.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0 \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query
+Query:'
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1747,11 +1754,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-sustainable-living.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Sustainable Living post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-sustainable-living-original \
   --output run.bright.reason-embed-qwen3-4b-0928.sustainable-living.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0 \
+  --query-prefix 'Instruct: Given a Sustainable Living post, retrieve relevant passages that help answer the post.
+Query: '
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1832,7 +1839,8 @@ Command to generate run:
   --topics bright-pony \
   --output run.bright.bm25.pony.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1945,11 +1953,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-pony.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-pony-original \
   --output run.bright.diver-retriever-4b.pony.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0 \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query
+Query:'
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1972,11 +1980,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-pony.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Pony question, retrieve relevant passages that help answer the question.\nQuery: ' \
   --topics bright-pony-original \
   --output run.bright.reason-embed-qwen3-4b-0928.pony.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0 \
+  --query-prefix 'Instruct: Given a Pony question, retrieve relevant passages that help answer the question.
+Query: '
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2057,7 +2065,8 @@ Command to generate run:
   --topics bright-leetcode \
   --output run.bright.bm25.leetcode.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2170,11 +2179,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-leetcode.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-leetcode-original \
   --output run.bright.diver-retriever-4b.leetcode.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0 \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query
+Query:'
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2197,11 +2206,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-leetcode.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Coding problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
   --topics bright-leetcode-original \
   --output run.bright.reason-embed-qwen3-4b-0928.leetcode.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0 \
+  --query-prefix 'Instruct: Given a Coding problem, retrieve relevant examples that help answer the problem.
+Query: '
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2282,7 +2291,8 @@ Command to generate run:
   --topics bright-aops \
   --output run.bright.bm25.aops.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2395,11 +2405,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-aops.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-aops-original \
   --output run.bright.diver-retriever-4b.aops.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0 \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query
+Query:'
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2422,11 +2432,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-aops.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Math problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
   --topics bright-aops-original \
   --output run.bright.reason-embed-qwen3-4b-0928.aops.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0 \
+  --query-prefix 'Instruct: Given a Math problem, retrieve relevant examples that help answer the problem.
+Query: '
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2507,7 +2517,8 @@ Command to generate run:
   --topics bright-theoremqa-theorems \
   --output run.bright.bm25.theoremqa-theorems.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2620,11 +2631,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-theoremqa-theorems.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-theoremqa-theorems-original \
   --output run.bright.diver-retriever-4b.theoremqa-theorems.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0 \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query
+Query:'
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2647,11 +2658,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-theoremqa-theorems.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Math problem, retrieve relevant theorems that help answer the problem.\nQuery: ' \
   --topics bright-theoremqa-theorems-original \
   --output run.bright.reason-embed-qwen3-4b-0928.theoremqa-theorems.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0 \
+  --query-prefix 'Instruct: Given a Math problem, retrieve relevant theorems that help answer the problem.
+Query: '
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2732,7 +2743,8 @@ Command to generate run:
   --topics bright-theoremqa-questions \
   --output run.bright.bm25.theoremqa-questions.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2845,11 +2857,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-theoremqa-questions.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-theoremqa-questions-original \
   --output run.bright.diver-retriever-4b.theoremqa-questions.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0 \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query
+Query:'
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2872,11 +2884,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-theoremqa-questions.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Math problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
   --topics bright-theoremqa-questions-original \
   --output run.bright.reason-embed-qwen3-4b-0928.theoremqa-questions.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0 \
+  --query-prefix 'Instruct: Given a Math problem, retrieve relevant examples that help answer the problem.
+Query: '
 </code></pre></blockquote>
 Evaluation commands:
 

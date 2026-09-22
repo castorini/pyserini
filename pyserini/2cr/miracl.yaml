@@ -2,7 +2,7 @@ conditions:
   # BM25
   - name: bm25.ar
     eval_key: miracl-v1.0-ar
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ar --topics miracl-v1.0-ar-${split} --index miracl-v1.0-ar --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ar --topics miracl-v1.0-ar-${split} --index miracl-v1.0-ar --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -14,7 +14,7 @@ conditions:
             R@100: 0.8885
   - name: bm25.bn
     eval_key: miracl-v1.0-bn
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language bn --topics miracl-v1.0-bn-${split} --index miracl-v1.0-bn --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language bn --topics miracl-v1.0-bn-${split} --index miracl-v1.0-bn --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -26,7 +26,7 @@ conditions:
             R@100: 0.9088
   - name: bm25.en
     eval_key: miracl-v1.0-en
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language en --topics miracl-v1.0-en-${split} --index miracl-v1.0-en --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language en --topics miracl-v1.0-en-${split} --index miracl-v1.0-en --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -38,7 +38,7 @@ conditions:
             R@100: 0.8190
   - name: bm25.es
     eval_key: miracl-v1.0-es
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language es --topics miracl-v1.0-es-${split} --index miracl-v1.0-es --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language es --topics miracl-v1.0-es-${split} --index miracl-v1.0-es --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -50,7 +50,7 @@ conditions:
             R@100: 0.7018
   - name: bm25.fa
     eval_key: miracl-v1.0-fa
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language fa --topics miracl-v1.0-fa-${split} --index miracl-v1.0-fa --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language fa --topics miracl-v1.0-fa-${split} --index miracl-v1.0-fa --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -62,7 +62,7 @@ conditions:
             R@100: 0.7413
   - name: bm25.fi
     eval_key: miracl-v1.0-fi
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language fi --topics miracl-v1.0-fi-${split} --index miracl-v1.0-fi --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language fi --topics miracl-v1.0-fi-${split} --index miracl-v1.0-fi --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -74,7 +74,7 @@ conditions:
             R@100: 0.8910
   - name: bm25.fr
     eval_key: miracl-v1.0-fr
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language fr --topics miracl-v1.0-fr-${split} --index miracl-v1.0-fr --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language fr --topics miracl-v1.0-fr-${split} --index miracl-v1.0-fr --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -86,7 +86,7 @@ conditions:
             R@100: 0.6528
   - name: bm25.hi
     eval_key: miracl-v1.0-hi
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language hi --topics miracl-v1.0-hi-${split} --index miracl-v1.0-hi --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language hi --topics miracl-v1.0-hi-${split} --index miracl-v1.0-hi --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -98,7 +98,7 @@ conditions:
             R@100: 0.8679
   - name: bm25.id
     eval_key: miracl-v1.0-id
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language id --topics miracl-v1.0-id-${split} --index miracl-v1.0-id --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language id --topics miracl-v1.0-id-${split} --index miracl-v1.0-id --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -110,7 +110,7 @@ conditions:
             R@100: 0.9041
   - name: bm25.ja
     eval_key: miracl-v1.0-ja
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ja --topics miracl-v1.0-ja-${split} --index miracl-v1.0-ja --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ja --topics miracl-v1.0-ja-${split} --index miracl-v1.0-ja --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -122,7 +122,7 @@ conditions:
             R@100: 0.8048
   - name: bm25.ko
     eval_key: miracl-v1.0-ko
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ko --topics miracl-v1.0-ko-${split} --index miracl-v1.0-ko --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ko --topics miracl-v1.0-ko-${split} --index miracl-v1.0-ko --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -134,7 +134,7 @@ conditions:
             R@100: 0.8579
   - name: bm25.ru
     eval_key: miracl-v1.0-ru
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ru --topics miracl-v1.0-ru-${split} --index miracl-v1.0-ru --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language ru --topics miracl-v1.0-ru-${split} --index miracl-v1.0-ru --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -146,7 +146,7 @@ conditions:
             R@100: 0.6614
   - name: bm25.sw
     eval_key: miracl-v1.0-sw
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language sw --topics miracl-v1.0-sw-${split} --index miracl-v1.0-sw --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language sw --topics miracl-v1.0-sw-${split} --index miracl-v1.0-sw --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -158,7 +158,7 @@ conditions:
             R@100: 0.7008
   - name: bm25.te
     eval_key: miracl-v1.0-te
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language te --topics miracl-v1.0-te-${split} --index miracl-v1.0-te --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language te --topics miracl-v1.0-te-${split} --index miracl-v1.0-te --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -170,7 +170,7 @@ conditions:
             R@100: 0.8307
   - name: bm25.th
     eval_key: miracl-v1.0-th
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language th --topics miracl-v1.0-th-${split} --index miracl-v1.0-th --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language th --topics miracl-v1.0-th-${split} --index miracl-v1.0-th --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -182,7 +182,7 @@ conditions:
             R@100: 0.8874
   - name: bm25.zh
     eval_key: miracl-v1.0-zh
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language zh --topics miracl-v1.0-zh-${split} --index miracl-v1.0-zh --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language zh --topics miracl-v1.0-zh-${split} --index miracl-v1.0-zh --output $output --hits 1000 --bm25
     splits:
       - split: train
         scores:
@@ -194,7 +194,7 @@ conditions:
             R@100: 0.5599
   - name: bm25.de
     eval_key: miracl-v1.0-de
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language de --topics miracl-v1.0-de-${split} --index miracl-v1.0-de --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --language de --topics miracl-v1.0-de-${split} --index miracl-v1.0-de --output $output --hits 1000 --bm25
     splits:
       - split: dev
         scores:
@@ -202,7 +202,7 @@ conditions:
             R@100: 0.5724
   - name: bm25.yo
     eval_key: miracl-v1.0-yo
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --pretokenized --topics miracl-v1.0-yo-${split} --index miracl-v1.0-yo --output $output --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --pretokenized --topics miracl-v1.0-yo-${split} --index miracl-v1.0-yo --output $output --hits 1000 --bm25
     splits:
       - split: dev
         scores:

@@ -31,6 +31,7 @@ from ._base import (
     compare_reproduction_score,
     format_eval_command,
     format_reproduction_status,
+    format_run_command,
     read_file,
     run_eval_and_return_metric,
 )
@@ -68,15 +69,6 @@ trec_eval_metric_definitions = {
     'MRR@100': '-c -M 100 -m recip_rank',
     'R@100': '-c -m recall.100',
 }
-
-
-def format_run_command(raw):
-    return raw.replace('--lang', '\\\n  --lang') \
-        .replace('--encoder', '\\\n  --encoder') \
-        .replace('--topics', '\\\n  --topics') \
-        .replace('--index', '\\\n  --index') \
-        .replace('--output ', '\\\n  --output ') \
-        .replace('--threads ', '\\\n  --threads ')
 
 
 def list_conditions():

@@ -249,7 +249,8 @@ Command to generate run:
   --topics beir-v1.0.0-trec-covid-test \
   --output run.beir.bm25-flat.trec-covid.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -278,7 +279,8 @@ Command to generate run:
   --topics beir-v1.0.0-trec-covid-test \
   --output run.beir.bm25-multifield.trec-covid.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -304,7 +306,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-trec-covid.splade-pp-ed \
-  --topics beir-v1.0.0-trec-covid-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-trec-covid-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.trec-covid.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -332,7 +335,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-trec-covid.contriever-msmarco \
   --topics beir-v1.0.0-trec-covid-test \
   --output run.beir.contriever-msmarco.trec-covid.txt \
@@ -361,8 +365,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-trec-covid.bge-base-en-v1.5 \
   --topics beir-v1.0.0-trec-covid-test \
   --output run.beir.bge-base-en-v1.5.faiss.trec-covid.txt \
@@ -447,7 +452,8 @@ Command to generate run:
   --topics beir-v1.0.0-bioasq-test \
   --output run.beir.bm25-flat.bioasq.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -476,7 +482,8 @@ Command to generate run:
   --topics beir-v1.0.0-bioasq-test \
   --output run.beir.bm25-multifield.bioasq.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -502,7 +509,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-bioasq.splade-pp-ed \
-  --topics beir-v1.0.0-bioasq-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-bioasq-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.bioasq.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -530,7 +538,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-bioasq.contriever-msmarco \
   --topics beir-v1.0.0-bioasq-test \
   --output run.beir.contriever-msmarco.bioasq.txt \
@@ -559,8 +568,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-bioasq.bge-base-en-v1.5 \
   --topics beir-v1.0.0-bioasq-test \
   --output run.beir.bge-base-en-v1.5.faiss.bioasq.txt \
@@ -645,7 +655,8 @@ Command to generate run:
   --topics beir-v1.0.0-nfcorpus-test \
   --output run.beir.bm25-flat.nfcorpus.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -674,7 +685,8 @@ Command to generate run:
   --topics beir-v1.0.0-nfcorpus-test \
   --output run.beir.bm25-multifield.nfcorpus.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -700,7 +712,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-nfcorpus.splade-pp-ed \
-  --topics beir-v1.0.0-nfcorpus-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-nfcorpus-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.nfcorpus.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -728,7 +741,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-nfcorpus.contriever-msmarco \
   --topics beir-v1.0.0-nfcorpus-test \
   --output run.beir.contriever-msmarco.nfcorpus.txt \
@@ -757,8 +771,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-nfcorpus.bge-base-en-v1.5 \
   --topics beir-v1.0.0-nfcorpus-test \
   --output run.beir.bge-base-en-v1.5.faiss.nfcorpus.txt \
@@ -843,7 +858,8 @@ Command to generate run:
   --topics beir-v1.0.0-nq-test \
   --output run.beir.bm25-flat.nq.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -872,7 +888,8 @@ Command to generate run:
   --topics beir-v1.0.0-nq-test \
   --output run.beir.bm25-multifield.nq.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -898,7 +915,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-nq.splade-pp-ed \
-  --topics beir-v1.0.0-nq-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-nq-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.nq.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -926,7 +944,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-nq.contriever-msmarco \
   --topics beir-v1.0.0-nq-test \
   --output run.beir.contriever-msmarco.nq.txt \
@@ -955,8 +974,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-nq.bge-base-en-v1.5 \
   --topics beir-v1.0.0-nq-test \
   --output run.beir.bge-base-en-v1.5.faiss.nq.txt \
@@ -1041,7 +1061,8 @@ Command to generate run:
   --topics beir-v1.0.0-hotpotqa-test \
   --output run.beir.bm25-flat.hotpotqa.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1070,7 +1091,8 @@ Command to generate run:
   --topics beir-v1.0.0-hotpotqa-test \
   --output run.beir.bm25-multifield.hotpotqa.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1096,7 +1118,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-hotpotqa.splade-pp-ed \
-  --topics beir-v1.0.0-hotpotqa-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-hotpotqa-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.hotpotqa.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1124,7 +1147,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-hotpotqa.contriever-msmarco \
   --topics beir-v1.0.0-hotpotqa-test \
   --output run.beir.contriever-msmarco.hotpotqa.txt \
@@ -1153,8 +1177,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-hotpotqa.bge-base-en-v1.5 \
   --topics beir-v1.0.0-hotpotqa-test \
   --output run.beir.bge-base-en-v1.5.faiss.hotpotqa.txt \
@@ -1239,7 +1264,8 @@ Command to generate run:
   --topics beir-v1.0.0-fiqa-test \
   --output run.beir.bm25-flat.fiqa.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1268,7 +1294,8 @@ Command to generate run:
   --topics beir-v1.0.0-fiqa-test \
   --output run.beir.bm25-multifield.fiqa.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1294,7 +1321,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-fiqa.splade-pp-ed \
-  --topics beir-v1.0.0-fiqa-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-fiqa-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.fiqa.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1322,7 +1350,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-fiqa.contriever-msmarco \
   --topics beir-v1.0.0-fiqa-test \
   --output run.beir.contriever-msmarco.fiqa.txt \
@@ -1351,8 +1380,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-fiqa.bge-base-en-v1.5 \
   --topics beir-v1.0.0-fiqa-test \
   --output run.beir.bge-base-en-v1.5.faiss.fiqa.txt \
@@ -1437,7 +1467,8 @@ Command to generate run:
   --topics beir-v1.0.0-signal1m-test \
   --output run.beir.bm25-flat.signal1m.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1466,7 +1497,8 @@ Command to generate run:
   --topics beir-v1.0.0-signal1m-test \
   --output run.beir.bm25-multifield.signal1m.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1492,7 +1524,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-signal1m.splade-pp-ed \
-  --topics beir-v1.0.0-signal1m-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-signal1m-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.signal1m.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1520,7 +1553,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-signal1m.contriever-msmarco \
   --topics beir-v1.0.0-signal1m-test \
   --output run.beir.contriever-msmarco.signal1m.txt \
@@ -1549,8 +1583,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-signal1m.bge-base-en-v1.5 \
   --topics beir-v1.0.0-signal1m-test \
   --output run.beir.bge-base-en-v1.5.faiss.signal1m.txt \
@@ -1635,7 +1670,8 @@ Command to generate run:
   --topics beir-v1.0.0-trec-news-test \
   --output run.beir.bm25-flat.trec-news.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1664,7 +1700,8 @@ Command to generate run:
   --topics beir-v1.0.0-trec-news-test \
   --output run.beir.bm25-multifield.trec-news.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1690,7 +1727,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-trec-news.splade-pp-ed \
-  --topics beir-v1.0.0-trec-news-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-trec-news-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.trec-news.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1718,7 +1756,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-trec-news.contriever-msmarco \
   --topics beir-v1.0.0-trec-news-test \
   --output run.beir.contriever-msmarco.trec-news.txt \
@@ -1747,8 +1786,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-trec-news.bge-base-en-v1.5 \
   --topics beir-v1.0.0-trec-news-test \
   --output run.beir.bge-base-en-v1.5.faiss.trec-news.txt \
@@ -1833,7 +1873,8 @@ Command to generate run:
   --topics beir-v1.0.0-robust04-test \
   --output run.beir.bm25-flat.robust04.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1862,7 +1903,8 @@ Command to generate run:
   --topics beir-v1.0.0-robust04-test \
   --output run.beir.bm25-multifield.robust04.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1888,7 +1930,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-robust04.splade-pp-ed \
-  --topics beir-v1.0.0-robust04-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-robust04-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.robust04.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1916,7 +1959,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-robust04.contriever-msmarco \
   --topics beir-v1.0.0-robust04-test \
   --output run.beir.contriever-msmarco.robust04.txt \
@@ -1945,8 +1989,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-robust04.bge-base-en-v1.5 \
   --topics beir-v1.0.0-robust04-test \
   --output run.beir.bge-base-en-v1.5.faiss.robust04.txt \
@@ -2031,7 +2076,8 @@ Command to generate run:
   --topics beir-v1.0.0-arguana-test \
   --output run.beir.bm25-flat.arguana.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2060,7 +2106,8 @@ Command to generate run:
   --topics beir-v1.0.0-arguana-test \
   --output run.beir.bm25-multifield.arguana.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2086,7 +2133,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-arguana.splade-pp-ed \
-  --topics beir-v1.0.0-arguana-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-arguana-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.arguana.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -2114,7 +2162,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-arguana.contriever-msmarco \
   --topics beir-v1.0.0-arguana-test \
   --output run.beir.contriever-msmarco.arguana.txt \
@@ -2143,8 +2192,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix '' \
   --index beir-v1.0.0-arguana.bge-base-en-v1.5 \
   --topics beir-v1.0.0-arguana-test \
   --output run.beir.bge-base-en-v1.5.faiss.arguana.txt \
@@ -2229,7 +2279,8 @@ Command to generate run:
   --topics beir-v1.0.0-webis-touche2020-test \
   --output run.beir.bm25-flat.webis-touche2020.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2258,7 +2309,8 @@ Command to generate run:
   --topics beir-v1.0.0-webis-touche2020-test \
   --output run.beir.bm25-multifield.webis-touche2020.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2284,7 +2336,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-webis-touche2020.splade-pp-ed \
-  --topics beir-v1.0.0-webis-touche2020-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-webis-touche2020-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.webis-touche2020.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -2312,7 +2365,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-webis-touche2020.contriever-msmarco \
   --topics beir-v1.0.0-webis-touche2020-test \
   --output run.beir.contriever-msmarco.webis-touche2020.txt \
@@ -2341,8 +2395,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-webis-touche2020.bge-base-en-v1.5 \
   --topics beir-v1.0.0-webis-touche2020-test \
   --output run.beir.bge-base-en-v1.5.faiss.webis-touche2020.txt \
@@ -2427,7 +2482,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-android-test \
   --output run.beir.bm25-flat.cqadupstack-android.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2435,7 +2491,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-english-test \
   --output run.beir.bm25-flat.cqadupstack-english.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2443,7 +2500,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
   --output run.beir.bm25-flat.cqadupstack-gaming.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2451,7 +2509,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-gis-test \
   --output run.beir.bm25-flat.cqadupstack-gis.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2459,7 +2518,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
   --output run.beir.bm25-flat.cqadupstack-mathematica.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2467,7 +2527,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-physics-test \
   --output run.beir.bm25-flat.cqadupstack-physics.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2475,7 +2536,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
   --output run.beir.bm25-flat.cqadupstack-programmers.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2483,7 +2545,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-stats-test \
   --output run.beir.bm25-flat.cqadupstack-stats.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2491,7 +2554,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-tex-test \
   --output run.beir.bm25-flat.cqadupstack-tex.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2499,7 +2563,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-unix-test \
   --output run.beir.bm25-flat.cqadupstack-unix.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2507,7 +2572,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
   --output run.beir.bm25-flat.cqadupstack-webmasters.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2515,7 +2581,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
   --output run.beir.bm25-flat.cqadupstack-wordpress.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 
 
 </code></pre></blockquote>
@@ -2822,7 +2889,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-android-test \
   --output run.beir.bm25-multifield.cqadupstack-android.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2830,7 +2898,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-english-test \
   --output run.beir.bm25-multifield.cqadupstack-english.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2838,7 +2907,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
   --output run.beir.bm25-multifield.cqadupstack-gaming.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2846,7 +2916,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-gis-test \
   --output run.beir.bm25-multifield.cqadupstack-gis.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2854,7 +2925,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
   --output run.beir.bm25-multifield.cqadupstack-mathematica.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2862,7 +2934,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-physics-test \
   --output run.beir.bm25-multifield.cqadupstack-physics.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2870,7 +2943,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
   --output run.beir.bm25-multifield.cqadupstack-programmers.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2878,7 +2952,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-stats-test \
   --output run.beir.bm25-multifield.cqadupstack-stats.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2886,7 +2961,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-tex-test \
   --output run.beir.bm25-multifield.cqadupstack-tex.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2894,7 +2970,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-unix-test \
   --output run.beir.bm25-multifield.cqadupstack-unix.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2902,7 +2979,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
   --output run.beir.bm25-multifield.cqadupstack-webmasters.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
@@ -2910,7 +2988,8 @@ python -m pyserini.search.lucene \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
   --output run.beir.bm25-multifield.cqadupstack-wordpress.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 
 
 </code></pre></blockquote>
@@ -3214,7 +3293,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-android.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-android-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-android-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-android.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3222,7 +3302,8 @@ Command to generate run:
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-english.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-english-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-english-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-english.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3230,7 +3311,8 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gaming.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-gaming-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-gaming-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-gaming.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3238,7 +3320,8 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gis.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-gis-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-gis-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-gis.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3246,7 +3329,8 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-mathematica-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-mathematica.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3254,7 +3338,8 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-physics.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-physics-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-physics-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-physics.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3262,7 +3347,8 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-programmers.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-programmers-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-programmers-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-programmers.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3270,7 +3356,8 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-stats.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-stats-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-stats-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-stats.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3278,7 +3365,8 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-tex.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-tex-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-tex-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-tex.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3286,7 +3374,8 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-unix.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-unix-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-unix-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-unix.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3294,7 +3383,8 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-webmasters-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-webmasters.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3302,7 +3392,8 @@ python -m pyserini.search.lucene \
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-wordpress-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-wordpress.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3608,7 +3699,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-android.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-android-test \
   --output run.beir.contriever-msmarco.cqadupstack-android.txt \
@@ -3616,7 +3708,8 @@ Command to generate run:
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-english.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-english-test \
   --output run.beir.contriever-msmarco.cqadupstack-english.txt \
@@ -3624,7 +3717,8 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-gaming.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
   --output run.beir.contriever-msmarco.cqadupstack-gaming.txt \
@@ -3632,7 +3726,8 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-gis.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-gis-test \
   --output run.beir.contriever-msmarco.cqadupstack-gis.txt \
@@ -3640,7 +3735,8 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
   --output run.beir.contriever-msmarco.cqadupstack-mathematica.txt \
@@ -3648,7 +3744,8 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-physics.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-physics-test \
   --output run.beir.contriever-msmarco.cqadupstack-physics.txt \
@@ -3656,7 +3753,8 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-programmers.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
   --output run.beir.contriever-msmarco.cqadupstack-programmers.txt \
@@ -3664,7 +3762,8 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-stats.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-stats-test \
   --output run.beir.contriever-msmarco.cqadupstack-stats.txt \
@@ -3672,7 +3771,8 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-tex.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-tex-test \
   --output run.beir.contriever-msmarco.cqadupstack-tex.txt \
@@ -3680,7 +3780,8 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-unix.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-unix-test \
   --output run.beir.contriever-msmarco.cqadupstack-unix.txt \
@@ -3688,7 +3789,8 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
   --output run.beir.contriever-msmarco.cqadupstack-webmasters.txt \
@@ -3696,7 +3798,8 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
   --output run.beir.contriever-msmarco.cqadupstack-wordpress.txt \
@@ -4003,8 +4106,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-android-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-android.txt \
@@ -4012,8 +4116,9 @@ Command to generate run:
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-english-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-english.txt \
@@ -4021,8 +4126,9 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-gaming.txt \
@@ -4030,8 +4136,9 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-gis-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-gis.txt \
@@ -4039,8 +4146,9 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-mathematica.txt \
@@ -4048,8 +4156,9 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-physics-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-physics.txt \
@@ -4057,8 +4166,9 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-programmers.txt \
@@ -4066,8 +4176,9 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-stats-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-stats.txt \
@@ -4075,8 +4186,9 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-tex-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-tex.txt \
@@ -4084,8 +4196,9 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-unix-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-unix.txt \
@@ -4093,8 +4206,9 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-webmasters.txt \
@@ -4102,8 +4216,9 @@ python -m pyserini.search.faiss \
 
 python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-wordpress.txt \
@@ -4466,7 +4581,8 @@ Command to generate run:
   --topics beir-v1.0.0-quora-test \
   --output run.beir.bm25-flat.quora.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -4495,7 +4611,8 @@ Command to generate run:
   --topics beir-v1.0.0-quora-test \
   --output run.beir.bm25-multifield.quora.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -4521,7 +4638,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-quora.splade-pp-ed \
-  --topics beir-v1.0.0-quora-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-quora-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.quora.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -4549,7 +4667,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-quora.contriever-msmarco \
   --topics beir-v1.0.0-quora-test \
   --output run.beir.contriever-msmarco.quora.txt \
@@ -4578,8 +4697,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix '' \
   --index beir-v1.0.0-quora.bge-base-en-v1.5 \
   --topics beir-v1.0.0-quora-test \
   --output run.beir.bge-base-en-v1.5.faiss.quora.txt \
@@ -4664,7 +4784,8 @@ Command to generate run:
   --topics beir-v1.0.0-dbpedia-entity-test \
   --output run.beir.bm25-flat.dbpedia-entity.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -4693,7 +4814,8 @@ Command to generate run:
   --topics beir-v1.0.0-dbpedia-entity-test \
   --output run.beir.bm25-multifield.dbpedia-entity.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -4719,7 +4841,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-dbpedia-entity.splade-pp-ed \
-  --topics beir-v1.0.0-dbpedia-entity-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-dbpedia-entity-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.dbpedia-entity.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -4747,7 +4870,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-dbpedia-entity.contriever-msmarco \
   --topics beir-v1.0.0-dbpedia-entity-test \
   --output run.beir.contriever-msmarco.dbpedia-entity.txt \
@@ -4776,8 +4900,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-dbpedia-entity.bge-base-en-v1.5 \
   --topics beir-v1.0.0-dbpedia-entity-test \
   --output run.beir.bge-base-en-v1.5.faiss.dbpedia-entity.txt \
@@ -4862,7 +4987,8 @@ Command to generate run:
   --topics beir-v1.0.0-scidocs-test \
   --output run.beir.bm25-flat.scidocs.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -4891,7 +5017,8 @@ Command to generate run:
   --topics beir-v1.0.0-scidocs-test \
   --output run.beir.bm25-multifield.scidocs.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -4917,7 +5044,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-scidocs.splade-pp-ed \
-  --topics beir-v1.0.0-scidocs-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-scidocs-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.scidocs.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -4945,7 +5073,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-scidocs.contriever-msmarco \
   --topics beir-v1.0.0-scidocs-test \
   --output run.beir.contriever-msmarco.scidocs.txt \
@@ -4974,8 +5103,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-scidocs.bge-base-en-v1.5 \
   --topics beir-v1.0.0-scidocs-test \
   --output run.beir.bge-base-en-v1.5.faiss.scidocs.txt \
@@ -5060,7 +5190,8 @@ Command to generate run:
   --topics beir-v1.0.0-fever-test \
   --output run.beir.bm25-flat.fever.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -5089,7 +5220,8 @@ Command to generate run:
   --topics beir-v1.0.0-fever-test \
   --output run.beir.bm25-multifield.fever.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -5115,7 +5247,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-fever.splade-pp-ed \
-  --topics beir-v1.0.0-fever-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-fever-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.fever.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -5143,7 +5276,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-fever.contriever-msmarco \
   --topics beir-v1.0.0-fever-test \
   --output run.beir.contriever-msmarco.fever.txt \
@@ -5172,8 +5306,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-fever.bge-base-en-v1.5 \
   --topics beir-v1.0.0-fever-test \
   --output run.beir.bge-base-en-v1.5.faiss.fever.txt \
@@ -5258,7 +5393,8 @@ Command to generate run:
   --topics beir-v1.0.0-climate-fever-test \
   --output run.beir.bm25-flat.climate-fever.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -5287,7 +5423,8 @@ Command to generate run:
   --topics beir-v1.0.0-climate-fever-test \
   --output run.beir.bm25-multifield.climate-fever.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -5313,7 +5450,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-climate-fever.splade-pp-ed \
-  --topics beir-v1.0.0-climate-fever-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-climate-fever-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.climate-fever.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -5341,7 +5479,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-climate-fever.contriever-msmarco \
   --topics beir-v1.0.0-climate-fever-test \
   --output run.beir.contriever-msmarco.climate-fever.txt \
@@ -5370,8 +5509,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-climate-fever.bge-base-en-v1.5 \
   --topics beir-v1.0.0-climate-fever-test \
   --output run.beir.bge-base-en-v1.5.faiss.climate-fever.txt \
@@ -5456,7 +5596,8 @@ Command to generate run:
   --topics beir-v1.0.0-scifact-test \
   --output run.beir.bm25-flat.scifact.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -5485,7 +5626,8 @@ Command to generate run:
   --topics beir-v1.0.0-scifact-test \
   --output run.beir.bm25-multifield.scifact.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -5511,7 +5653,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-scifact.splade-pp-ed \
-  --topics beir-v1.0.0-scifact-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-scifact-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.scifact.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -5539,7 +5682,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-scifact.contriever-msmarco \
   --topics beir-v1.0.0-scifact-test \
   --output run.beir.contriever-msmarco.scifact.txt \
@@ -5568,8 +5712,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-scifact.bge-base-en-v1.5 \
   --topics beir-v1.0.0-scifact-test \
   --output run.beir.bge-base-en-v1.5.faiss.scifact.txt \
@@ -5698,7 +5843,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-android-test \
   --output run.beir.bm25-flat.cqadupstack-android.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -5727,7 +5873,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-android-test \
   --output run.beir.bm25-multifield.cqadupstack-android.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -5753,7 +5900,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-android.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-android-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-android-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-android.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -5781,7 +5929,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-android.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-android-test \
   --output run.beir.contriever-msmarco.cqadupstack-android.txt \
@@ -5810,8 +5959,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-android.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-android-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-android.txt \
@@ -5896,7 +6046,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-english-test \
   --output run.beir.bm25-flat.cqadupstack-english.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -5925,7 +6076,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-english-test \
   --output run.beir.bm25-multifield.cqadupstack-english.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -5951,7 +6103,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-english.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-english-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-english-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-english.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -5979,7 +6132,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-english.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-english-test \
   --output run.beir.contriever-msmarco.cqadupstack-english.txt \
@@ -6008,8 +6162,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-english.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-english-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-english.txt \
@@ -6094,7 +6249,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-gaming-test \
   --output run.beir.bm25-flat.cqadupstack-gaming.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -6123,7 +6279,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-gaming-test \
   --output run.beir.bm25-multifield.cqadupstack-gaming.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -6149,7 +6306,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gaming.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-gaming-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-gaming-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-gaming.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -6177,7 +6335,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-gaming.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
   --output run.beir.contriever-msmarco.cqadupstack-gaming.txt \
@@ -6206,8 +6365,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-gaming.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-gaming.txt \
@@ -6292,7 +6452,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-gis-test \
   --output run.beir.bm25-flat.cqadupstack-gis.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -6321,7 +6482,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-gis-test \
   --output run.beir.bm25-multifield.cqadupstack-gis.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -6347,7 +6509,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gis.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-gis-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-gis-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-gis.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -6375,7 +6538,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-gis.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-gis-test \
   --output run.beir.contriever-msmarco.cqadupstack-gis.txt \
@@ -6404,8 +6568,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-gis.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-gis-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-gis.txt \
@@ -6490,7 +6655,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
   --output run.beir.bm25-flat.cqadupstack-mathematica.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -6519,7 +6685,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
   --output run.beir.bm25-multifield.cqadupstack-mathematica.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -6545,7 +6712,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-mathematica-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-mathematica-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-mathematica.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -6573,7 +6741,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
   --output run.beir.contriever-msmarco.cqadupstack-mathematica.txt \
@@ -6602,8 +6771,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-mathematica.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-mathematica.txt \
@@ -6688,7 +6858,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-physics-test \
   --output run.beir.bm25-flat.cqadupstack-physics.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -6717,7 +6888,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-physics-test \
   --output run.beir.bm25-multifield.cqadupstack-physics.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -6743,7 +6915,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-physics.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-physics-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-physics-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-physics.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -6771,7 +6944,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-physics.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-physics-test \
   --output run.beir.contriever-msmarco.cqadupstack-physics.txt \
@@ -6800,8 +6974,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-physics.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-physics-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-physics.txt \
@@ -6886,7 +7061,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-programmers-test \
   --output run.beir.bm25-flat.cqadupstack-programmers.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -6915,7 +7091,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-programmers-test \
   --output run.beir.bm25-multifield.cqadupstack-programmers.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -6941,7 +7118,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-programmers.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-programmers-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-programmers-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-programmers.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -6969,7 +7147,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-programmers.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
   --output run.beir.contriever-msmarco.cqadupstack-programmers.txt \
@@ -6998,8 +7177,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-programmers.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-programmers.txt \
@@ -7084,7 +7264,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-stats-test \
   --output run.beir.bm25-flat.cqadupstack-stats.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -7113,7 +7294,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-stats-test \
   --output run.beir.bm25-multifield.cqadupstack-stats.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -7139,7 +7321,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-stats.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-stats-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-stats-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-stats.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -7167,7 +7350,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-stats.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-stats-test \
   --output run.beir.contriever-msmarco.cqadupstack-stats.txt \
@@ -7196,8 +7380,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-stats.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-stats-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-stats.txt \
@@ -7282,7 +7467,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-tex-test \
   --output run.beir.bm25-flat.cqadupstack-tex.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -7311,7 +7497,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-tex-test \
   --output run.beir.bm25-multifield.cqadupstack-tex.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -7337,7 +7524,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-tex.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-tex-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-tex-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-tex.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -7365,7 +7553,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-tex.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-tex-test \
   --output run.beir.contriever-msmarco.cqadupstack-tex.txt \
@@ -7394,8 +7583,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-tex.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-tex-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-tex.txt \
@@ -7480,7 +7670,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-unix-test \
   --output run.beir.bm25-flat.cqadupstack-unix.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -7509,7 +7700,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-unix-test \
   --output run.beir.bm25-multifield.cqadupstack-unix.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -7535,7 +7727,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-unix.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-unix-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-unix-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-unix.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -7563,7 +7756,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-unix.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-unix-test \
   --output run.beir.contriever-msmarco.cqadupstack-unix.txt \
@@ -7592,8 +7786,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-unix.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-unix-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-unix.txt \
@@ -7678,7 +7873,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
   --output run.beir.bm25-flat.cqadupstack-webmasters.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -7707,7 +7903,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
   --output run.beir.bm25-multifield.cqadupstack-webmasters.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -7733,7 +7930,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-webmasters-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-webmasters-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-webmasters.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -7761,7 +7959,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
   --output run.beir.contriever-msmarco.cqadupstack-webmasters.txt \
@@ -7790,8 +7989,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-webmasters.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-webmasters.txt \
@@ -7876,7 +8076,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
   --output run.beir.bm25-flat.cqadupstack-wordpress.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query
+  --hits 1000 \
+  --bm25 --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -7905,7 +8106,8 @@ Command to generate run:
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
   --output run.beir.bm25-multifield.cqadupstack-wordpress.txt \
   --output-format trec \
-  --hits 1000 --bm25 --remove-query --fields contents=1.0 title=1.0
+  --hits 1000 \
+  --bm25 --remove-query --fields contents=1.0 title=1.0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -7931,7 +8133,8 @@ Command to generate run:
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed \
-  --topics beir-v1.0.0-cqadupstack-wordpress-test --encoder naver/splade-cocondenser-ensembledistil \
+  --topics beir-v1.0.0-cqadupstack-wordpress-test \
+  --encoder naver/splade-cocondenser-ensembledistil \
   --output run.beir.splade-pp-ed.cqadupstack-wordpress.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -7959,7 +8162,8 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class contriever --encoder facebook/contriever-msmarco \
+  --encoder-class contriever \
+  --encoder facebook/contriever-msmarco \
   --index beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
   --output run.beir.contriever-msmarco.cqadupstack-wordpress.txt \
@@ -7988,8 +8192,9 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --threads 16 --batch-size 512 \
-  --encoder-class auto --encoder BAAI/bge-base-en-v1.5 --l2-norm \
-  --query-prefix "Represent this sentence for searching relevant passages:" \
+  --encoder-class auto \
+  --encoder BAAI/bge-base-en-v1.5 --l2-norm \
+  --query-prefix 'Represent this sentence for searching relevant passages:' \
   --index beir-v1.0.0-cqadupstack-wordpress.bge-base-en-v1.5 \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
   --output run.beir.bge-base-en-v1.5.faiss.cqadupstack-wordpress.txt \

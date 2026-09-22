@@ -15,6 +15,7 @@
 #
 
 import importlib.resources
+import shlex
 from decimal import Decimal
 from enum import Enum
 
@@ -68,6 +69,20 @@ def format_reproduction_status(status: ReproductionStatus, expected: float, *, p
 def read_file(filename):
     with importlib.resources.files('pyserini.2cr').joinpath(filename).open('r') as f:
         return f.read()
+
+
+def format_run_command(command):
+    """Render a command string or argument list as copyable, multiline shell syntax."""
+    argv = shlex.split(command) if isinstance(command, str) else command
+    break_before = {
+        '--topics', '--index', '--onnx-encoder', '--encoder-class', '--encoder',
+        '--encoded-queries', '--query-prefix', '--output', '--output-format',
+        '--lang', '--language', '--runs', '--bm25', '--hits', '--runtag', '--threads'
+    }
+    return ''.join(
+        ((' \\\n  ' if arg in break_before else ' ') if i else '') + shlex.quote(arg)
+        for i, arg in enumerate(argv)
+    )
 
 
 def format_eval_command(raw):

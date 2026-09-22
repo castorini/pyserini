@@ -31,6 +31,7 @@ from ._base import (
     compare_reproduction_score,
     format_eval_command,
     format_reproduction_status,
+    format_run_command,
     read_file,
     run_eval_and_return_metric,
 )
@@ -86,18 +87,6 @@ models = ['bm25-flat',
           'contriever-msmarco', 
           'bge-base-en-v1.5.faiss',
           'bge-base-en-v1.5.lucene-flat']
-
-
-def format_run_command(raw):
-    return raw.replace('--topics', '\\\n  --topics') \
-        .replace('--threads', '\\\n  --threads') \
-        .replace('--index', '\\\n  --index') \
-        .replace('--encoder-class', '\\\n  --encoder-class') \
-        .replace('--encoded-queries', '\\\n  --encoded-queries') \
-        .replace('--output ', '\\\n  --output ') \
-        .replace('--output-format trec ', '\\\n  --output-format trec ') \
-        .replace('--hits ', '\\\n  --hits ') \
-        .replace('--query-prefix', '\\\n  --query-prefix')
 
 
 def list_conditions():

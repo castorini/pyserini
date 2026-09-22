@@ -31,6 +31,7 @@ from ._base import (
     compare_reproduction_score,
     format_eval_command,
     format_reproduction_status,
+    format_run_command,
     read_file,
     run_eval_and_return_metric,
 )
@@ -75,17 +76,6 @@ trec_eval_metric_definitions = {
     'nDCG@10': '-c -M 100 -m ndcg_cut.10',
     'R@100': '-c -m recall.100',
 }
-
-
-def format_run_command(raw):
-    return raw.replace('--lang', '\\\n  --lang') \
-        .replace('--encoder', '\\\n  --encoder') \
-        .replace('--topics', '\\\n  --topics') \
-        .replace('--index', '\\\n  --index') \
-        .replace('--output ', '\\\n  --output ') \
-        .replace('--runs', '\\\n  --runs ') \
-        .replace('--threads ', '\\\n  --threads ') \
-        .replace('--bm25 ', '\\\n  --bm25 ')
 
 
 def list_conditions():

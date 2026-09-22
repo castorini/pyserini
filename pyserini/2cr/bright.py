@@ -32,6 +32,7 @@ from ._base import (
     compare_reproduction_score,
     format_eval_command,
     format_reproduction_status,
+    format_run_command,
     read_file,
     run_eval_and_return_metric,
 )
@@ -74,18 +75,6 @@ def build_run_command(condition, dataset, runfile):
     if 'query_prefix' in condition:
         argv.extend(['--query-prefix', Template(condition['query_prefix']).substitute(values)])
     return argv
-
-
-def format_run_command(argv):
-    """Render copyable shell syntax, adding line breaks only between arguments."""
-    break_before = {
-        '--topics', '--index', '--onnx-encoder', '--encoder-class', '--encoder',
-        '--query-prefix', '--output', '--output-format', '--hits',
-    }
-    return ''.join(
-        (('\\\n  ' if arg in break_before else ' ') if i else '') + shlex.quote(arg)
-        for i, arg in enumerate(argv)
-    )
 
 
 def list_conditions():
