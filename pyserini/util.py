@@ -53,24 +53,25 @@ def run_command(
     env: Mapping[str, str] | None = None,
     timeout: float | None = None,
     capture_output: bool = True,
-    use_bash: bool = False,
+    use_shell: bool = False,
 ) -> subprocess.CompletedProcess[str]:
     """Run a command, optionally capturing its output as text.
 
     By default, strings are split with shlex.split and executed without a shell.
-    With use_bash=True, cmd must be a string and is passed unchanged to Bash,
-    which interprets shell quoting, expansions, and other shell syntax.
+    With use_shell=True, cmd must be a string and is passed unchanged to the
+    platform's default shell, which interprets quoting, expansions, and other
+    shell syntax. Supported syntax depends on that shell (normally /bin/sh on
+    POSIX); Bash-specific syntax is not guaranteed.
     """
-    if use_bash:
+    if use_shell:
         if not isinstance(cmd, str):
-            raise TypeError('cmd must be a string when use_bash=True')
+            raise TypeError('cmd must be a string when use_shell=True')
         args = cmd
     else:
         args = shlex.split(cmd) if isinstance(cmd, str) else list(cmd)
     result = subprocess.run(
         args,
-        shell=use_bash,
-        executable='/bin/bash' if use_bash else None,
+        shell=use_shell,
         capture_output=capture_output,
         text=True,
         check=check,

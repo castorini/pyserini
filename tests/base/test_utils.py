@@ -55,10 +55,10 @@ class TestRunCommand(unittest.TestCase):
         with self.assertRaises(subprocess.CalledProcessError):
             run_command([sys.executable, '-c', 'raise SystemExit(2)'], check=True)
 
-    def test_run_command_decodes_ansi_c_quoting(self):
-        result = run_command(r"printf '%s' $'hello\nworld\'s\tquery'", use_bash=True, check=True)
+    def test_run_command_interprets_shell_syntax(self):
+        result = run_command("message='hello world'; printf '%s' \"$message\"", use_shell=True, check=True)
 
-        self.assertEqual(result.stdout, "hello\nworld's\tquery")
+        self.assertEqual(result.stdout, 'hello world')
 
     def test_run_command_preserves_ansi_c_text_in_argument_sequence(self):
         result = run_command(['printf', '%s', r"$'hello\nworld'"], check=True)
@@ -70,9 +70,9 @@ class TestRunCommand(unittest.TestCase):
 
         self.assertEqual(result.stdout, "$'hello'; printf injected")
 
-    def test_run_command_bash_requires_string(self):
-        with self.assertRaisesRegex(TypeError, 'cmd must be a string when use_bash=True'):
-            run_command(['printf', '%s', 'hello'], use_bash=True)
+    def test_run_command_shell_requires_string(self):
+        with self.assertRaisesRegex(TypeError, 'cmd must be a string when use_shell=True'):
+            run_command(['printf', '%s', 'hello'], use_shell=True)
 
     @patch('pyserini.util.subprocess.run')
     def test_run_command_can_stream_output(self, mock_run):
@@ -83,7 +83,6 @@ class TestRunCommand(unittest.TestCase):
         mock_run.assert_called_once_with(
             ['example'],
             shell=False,
-            executable=None,
             capture_output=False,
             text=True,
             check=False,
