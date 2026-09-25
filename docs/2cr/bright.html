@@ -213,9 +213,9 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 <td>   0.408</td>
 <td></td>
 <td>   0.425</td>
-<td>   0.798</td>
+<td>   0.800</td>
 <td></td>
-<td>   0.541</td>
+<td>   0.542</td>
 <td>   0.924</td>
 </tr>
 <tr class="hide-table-padding">
@@ -370,7 +370,7 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-biology.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-biology-original \
   --output run.bright.diver-retriever-4b.biology.txt \
   --hits 1000 --remove-query \
@@ -397,7 +397,7 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-biology.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Biology post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Biology post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-biology-original \
   --output run.bright.reason-embed-qwen3-4b-0928.biology.txt \
   --hits 1000 --remove-query \
@@ -437,11 +437,11 @@ python -m pyserini.eval.trec_eval \
 <td>   0.255</td>
 <td>   0.540</td>
 <td></td>
-<td>   0.464</td>
-<td>   0.791</td>
+<td>   0.463</td>
+<td>   0.792</td>
 <td></td>
 <td>   0.537</td>
-<td>   0.854</td>
+<td>   0.856</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -595,7 +595,7 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-earth-science.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-earth-science-original \
   --output run.bright.diver-retriever-4b.earth-science.txt \
   --hits 1000 --remove-query \
@@ -622,7 +622,7 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-earth-science.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given an Earth Science post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --query-prefix 'Instruct: Given an Earth Science post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-earth-science-original \
   --output run.bright.reason-embed-qwen3-4b-0928.earth-science.txt \
   --hits 1000 --remove-query \
@@ -662,11 +662,11 @@ python -m pyserini.eval.trec_eval \
 <td>   0.166</td>
 <td>   0.487</td>
 <td></td>
-<td>   0.222</td>
+<td>   0.221</td>
 <td>   0.573</td>
 <td></td>
-<td>   0.339</td>
-<td>   0.716</td>
+<td>   0.342</td>
+<td>   0.715</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -820,7 +820,7 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-economics.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-economics-original \
   --output run.bright.diver-retriever-4b.economics.txt \
   --hits 1000 --remove-query \
@@ -847,7 +847,7 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-economics.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given an Economics post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --query-prefix 'Instruct: Given an Economics post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-economics-original \
   --output run.bright.reason-embed-qwen3-4b-0928.economics.txt \
   --hits 1000 --remove-query \
@@ -887,11 +887,11 @@ python -m pyserini.eval.trec_eval \
 <td>   0.180</td>
 <td>   0.465</td>
 <td></td>
-<td>   0.337</td>
-<td>   0.747</td>
+<td>   0.340</td>
+<td>   0.746</td>
 <td></td>
-<td>   0.459</td>
-<td>   0.816</td>
+<td>   0.460</td>
+<td>   0.813</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1045,7 +1045,7 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-psychology.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-psychology-original \
   --output run.bright.diver-retriever-4b.psychology.txt \
   --hits 1000 --remove-query \
@@ -1072,7 +1072,7 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-psychology.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Psychology post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Psychology post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-psychology-original \
   --output run.bright.reason-embed-qwen3-4b-0928.psychology.txt \
   --hits 1000 --remove-query \
@@ -1115,8 +1115,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.209</td>
 <td>   0.515</td>
 <td></td>
-<td>   0.345</td>
-<td>   0.706</td>
+<td>   0.346</td>
+<td>   0.703</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1270,7 +1270,7 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-robotics.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-robotics-original \
   --output run.bright.diver-retriever-4b.robotics.txt \
   --hits 1000 --remove-query \
@@ -1297,7 +1297,7 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-robotics.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Robotics post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Robotics post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-robotics-original \
   --output run.bright.reason-embed-qwen3-4b-0928.robotics.txt \
   --hits 1000 --remove-query \
@@ -1337,10 +1337,10 @@ python -m pyserini.eval.trec_eval \
 <td>   0.110</td>
 <td>   0.532</td>
 <td></td>
-<td>   0.211</td>
-<td>   0.672</td>
+<td>   0.209</td>
+<td>   0.671</td>
 <td></td>
-<td>   0.358</td>
+<td>   0.357</td>
 <td>   0.808</td>
 </tr>
 <tr class="hide-table-padding">
@@ -1495,7 +1495,7 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-stackoverflow.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-stackoverflow-original \
   --output run.bright.diver-retriever-4b.stackoverflow.txt \
   --hits 1000 --remove-query \
@@ -1522,7 +1522,7 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-stackoverflow.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Stack Overflow post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Stack Overflow post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-stackoverflow-original \
   --output run.bright.reason-embed-qwen3-4b-0928.stackoverflow.txt \
   --hits 1000 --remove-query \
@@ -1562,10 +1562,10 @@ python -m pyserini.eval.trec_eval \
 <td>   0.144</td>
 <td>   0.516</td>
 <td></td>
-<td>   0.243</td>
+<td>   0.246</td>
 <td>   0.682</td>
 <td></td>
-<td>   0.372</td>
+<td>   0.370</td>
 <td>   0.804</td>
 </tr>
 <tr class="hide-table-padding">
@@ -1720,7 +1720,7 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-sustainable-living.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-sustainable-living-original \
   --output run.bright.diver-retriever-4b.sustainable-living.txt \
   --hits 1000 --remove-query \
@@ -1747,7 +1747,7 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-sustainable-living.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Sustainable Living post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Sustainable Living post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-sustainable-living-original \
   --output run.bright.reason-embed-qwen3-4b-0928.sustainable-living.txt \
   --hits 1000 --remove-query \
@@ -1787,11 +1787,11 @@ python -m pyserini.eval.trec_eval \
 <td>   0.034</td>
 <td>   0.180</td>
 <td></td>
-<td>   0.128</td>
-<td>   0.248</td>
+<td>   0.127</td>
+<td>   0.246</td>
 <td></td>
-<td>   0.118</td>
-<td>   0.268</td>
+<td>   0.119</td>
+<td>   0.267</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1945,7 +1945,7 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-pony.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-pony-original \
   --output run.bright.diver-retriever-4b.pony.txt \
   --hits 1000 --remove-query \
@@ -1972,7 +1972,7 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-pony.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Pony question, retrieve relevant passages that help answer the question.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Pony question, retrieve relevant passages that help answer the question.\nQuery: ' \
   --topics bright-pony-original \
   --output run.bright.reason-embed-qwen3-4b-0928.pony.txt \
   --hits 1000 --remove-query \
@@ -2012,10 +2012,10 @@ python -m pyserini.eval.trec_eval \
 <td>   0.267</td>
 <td>   0.529</td>
 <td></td>
-<td>   0.371</td>
-<td>   0.702</td>
+<td>   0.373</td>
+<td>   0.699</td>
 <td></td>
-<td>   0.371</td>
+<td>   0.369</td>
 <td>   0.745</td>
 </tr>
 <tr class="hide-table-padding">
@@ -2170,7 +2170,7 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-leetcode.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-leetcode-original \
   --output run.bright.diver-retriever-4b.leetcode.txt \
   --hits 1000 --remove-query \
@@ -2197,7 +2197,7 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-leetcode.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Coding problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Coding problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
   --topics bright-leetcode-original \
   --output run.bright.reason-embed-qwen3-4b-0928.leetcode.txt \
   --hits 1000 --remove-query \
@@ -2237,11 +2237,11 @@ python -m pyserini.eval.trec_eval \
 <td>   0.064</td>
 <td>   0.240</td>
 <td></td>
-<td>   0.108</td>
+<td>   0.104</td>
 <td>   0.344</td>
 <td></td>
-<td>   0.115</td>
-<td>   0.373</td>
+<td>   0.117</td>
+<td>   0.372</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2395,7 +2395,7 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-aops.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-aops-original \
   --output run.bright.diver-retriever-4b.aops.txt \
   --hits 1000 --remove-query \
@@ -2422,7 +2422,7 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-aops.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Math problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Math problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
   --topics bright-aops-original \
   --output run.bright.reason-embed-qwen3-4b-0928.aops.txt \
   --hits 1000 --remove-query \
@@ -2462,11 +2462,11 @@ python -m pyserini.eval.trec_eval \
 <td>   0.053</td>
 <td>   0.259</td>
 <td></td>
-<td>   0.374</td>
+<td>   0.370</td>
 <td>   0.795</td>
 <td></td>
-<td>   0.452</td>
-<td>   0.917</td>
+<td>   0.453</td>
+<td>   0.920</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2620,7 +2620,7 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-theoremqa-theorems.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-theoremqa-theorems-original \
   --output run.bright.diver-retriever-4b.theoremqa-theorems.txt \
   --hits 1000 --remove-query \
@@ -2647,7 +2647,7 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-theoremqa-theorems.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Math problem, retrieve relevant theorems that help answer the problem.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Math problem, retrieve relevant theorems that help answer the problem.\nQuery: ' \
   --topics bright-theoremqa-theorems-original \
   --output run.bright.reason-embed-qwen3-4b-0928.theoremqa-theorems.txt \
   --hits 1000 --remove-query \
@@ -2687,8 +2687,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.141</td>
 <td>   0.282</td>
 <td></td>
-<td>   0.381</td>
-<td>   0.585</td>
+<td>   0.383</td>
+<td>   0.586</td>
 <td></td>
 <td>   0.409</td>
 <td>   0.637</td>
@@ -2845,7 +2845,7 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-theoremqa-questions.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-theoremqa-questions-original \
   --output run.bright.diver-retriever-4b.theoremqa-questions.txt \
   --hits 1000 --remove-query \
@@ -2872,7 +2872,7 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-theoremqa-questions.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Math problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Math problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
   --topics bright-theoremqa-questions-original \
   --output run.bright.reason-embed-qwen3-4b-0928.theoremqa-questions.txt \
   --hits 1000 --remove-query \
