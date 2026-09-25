@@ -25,6 +25,8 @@ from string import Template
 
 import yaml
 
+from pyserini.util import run_command
+
 from ._base import (
     compare_reproduction_score,
     format_eval_command,
@@ -187,7 +189,9 @@ def run_conditions(args):
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
 
                 if not os.path.exists(runfile) and not args.dry_run:
-                    os.system(cmd)
+                    # BRIGHT query prefixes use $'...' (ANSI-C quoting) to decode
+                    # escapes such as \n, which require a shell that supports this syntax.
+                    run_command(cmd, use_shell=True, capture_output=False)
 
                 for expected in datasets['scores']:
                     for metric in expected:
