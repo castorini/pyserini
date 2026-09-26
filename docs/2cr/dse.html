@@ -199,14 +199,11 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class dse \
-  --encoder Tevatron/dse-phi3-v1.0 \
-  --pooling last \
+  --encoder Tevatron/dse-phi3-v1.0 --pooling last \
   --index wiki-ss.dse \
   --topics wiki-ss-nq \
   --output run.dse.dse.wiki-ss-nq.txt \
-  --hits 20 \
-  --device cuda:0 \
-  --batch-size 128
+  --hits 20 --device cuda:0 --batch-size 128
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -281,14 +278,11 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class dse \
-  --encoder Tevatron/dse-phi3-v1.0 \
-  --pooling last \
+  --encoder Tevatron/dse-phi3-v1.0 --pooling last \
   --index slidevqa.dse \
   --topics slidevqa \
   --output run.dse.dse.slidevqa.txt \
-  --hits 20 \
-  --device cuda:0 \
-  --batch-size 128
+  --hits 20 --device cuda:0 --batch-size 128
 </code></pre></blockquote>
 Evaluation commands:
 
