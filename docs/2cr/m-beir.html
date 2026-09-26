@@ -217,6 +217,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -224,7 +225,7 @@ Command to generate run:
   --topics m-beir-cirr_task7-test \
   --output-format trec \
   --output run.m-beir-cirr_task7.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -252,6 +253,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -259,7 +261,7 @@ Command to generate run:
   --topics m-beir-cirr_task7-test \
   --output-format trec \
   --output run.m-beir-cirr_task7.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -326,6 +328,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -333,7 +336,7 @@ Command to generate run:
   --topics m-beir-edis_task2-test \
   --output-format trec \
   --output run.m-beir-edis_task2.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -361,6 +364,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -368,7 +372,7 @@ Command to generate run:
   --topics m-beir-edis_task2-test \
   --output-format trec \
   --output run.m-beir-edis_task2.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -435,6 +439,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -442,7 +447,7 @@ Command to generate run:
   --topics m-beir-fashion200k_task0-test \
   --output-format trec \
   --output run.m-beir-fashion200k_task0.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -470,6 +475,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -477,7 +483,7 @@ Command to generate run:
   --topics m-beir-fashion200k_task0-test \
   --output-format trec \
   --output run.m-beir-fashion200k_task0.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -544,6 +550,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -551,7 +558,7 @@ Command to generate run:
   --topics m-beir-fashion200k_task3-test \
   --output-format trec \
   --output run.m-beir-fashion200k_task3.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -579,6 +586,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -586,7 +594,7 @@ Command to generate run:
   --topics m-beir-fashion200k_task3-test \
   --output-format trec \
   --output run.m-beir-fashion200k_task3.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -653,6 +661,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -660,7 +669,7 @@ Command to generate run:
   --topics m-beir-fashioniq_task7-test \
   --output-format trec \
   --output run.m-beir-fashioniq_task7.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -688,6 +697,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -695,7 +705,7 @@ Command to generate run:
   --topics m-beir-fashioniq_task7-test \
   --output-format trec \
   --output run.m-beir-fashioniq_task7.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -762,6 +772,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -769,7 +780,7 @@ Command to generate run:
   --topics m-beir-infoseek_task6-test \
   --output-format trec \
   --output run.m-beir-infoseek_task6.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -797,6 +808,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -804,7 +816,7 @@ Command to generate run:
   --topics m-beir-infoseek_task6-test \
   --output-format trec \
   --output run.m-beir-infoseek_task6.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -871,6 +883,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -878,7 +891,7 @@ Command to generate run:
   --topics m-beir-infoseek_task8-test \
   --output-format trec \
   --output run.m-beir-infoseek_task8.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -906,6 +919,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -913,7 +927,7 @@ Command to generate run:
   --topics m-beir-infoseek_task8-test \
   --output-format trec \
   --output run.m-beir-infoseek_task8.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -980,6 +994,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -987,7 +1002,7 @@ Command to generate run:
   --topics m-beir-mscoco_task0-test \
   --output-format trec \
   --output run.m-beir-mscoco_task0.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1015,6 +1030,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -1022,7 +1038,7 @@ Command to generate run:
   --topics m-beir-mscoco_task0-test \
   --output-format trec \
   --output run.m-beir-mscoco_task0.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1089,6 +1105,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -1096,7 +1113,7 @@ Command to generate run:
   --topics m-beir-mscoco_task3-test \
   --output-format trec \
   --output run.m-beir-mscoco_task3.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1124,6 +1141,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -1131,7 +1149,7 @@ Command to generate run:
   --topics m-beir-mscoco_task3-test \
   --output-format trec \
   --output run.m-beir-mscoco_task3.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1198,6 +1216,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -1205,7 +1224,7 @@ Command to generate run:
   --topics m-beir-nights_task4-test \
   --output-format trec \
   --output run.m-beir-nights_task4.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1233,6 +1252,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -1240,7 +1260,7 @@ Command to generate run:
   --topics m-beir-nights_task4-test \
   --output-format trec \
   --output run.m-beir-nights_task4.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1307,6 +1327,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -1314,7 +1335,7 @@ Command to generate run:
   --topics m-beir-oven_task6-test \
   --output-format trec \
   --output run.m-beir-oven_task6.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1342,6 +1363,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -1349,7 +1371,7 @@ Command to generate run:
   --topics m-beir-oven_task6-test \
   --output-format trec \
   --output run.m-beir-oven_task6.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1416,6 +1438,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -1423,7 +1446,7 @@ Command to generate run:
   --topics m-beir-oven_task8-test \
   --output-format trec \
   --output run.m-beir-oven_task8.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1451,6 +1474,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -1458,7 +1482,7 @@ Command to generate run:
   --topics m-beir-oven_task8-test \
   --output-format trec \
   --output run.m-beir-oven_task8.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1525,6 +1549,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -1532,7 +1557,7 @@ Command to generate run:
   --topics m-beir-visualnews_task0-test \
   --output-format trec \
   --output run.m-beir-visualnews_task0.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1560,6 +1585,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -1567,7 +1593,7 @@ Command to generate run:
   --topics m-beir-visualnews_task0-test \
   --output-format trec \
   --output run.m-beir-visualnews_task0.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1634,6 +1660,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -1641,7 +1668,7 @@ Command to generate run:
   --topics m-beir-visualnews_task3-test \
   --output-format trec \
   --output run.m-beir-visualnews_task3.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1669,6 +1696,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -1676,7 +1704,7 @@ Command to generate run:
   --topics m-beir-visualnews_task3-test \
   --output-format trec \
   --output run.m-beir-visualnews_task3.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1743,6 +1771,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -1750,7 +1779,7 @@ Command to generate run:
   --topics m-beir-webqa_task1-test \
   --output-format trec \
   --output run.m-beir-webqa_task1.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1778,6 +1807,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -1785,7 +1815,7 @@ Command to generate run:
   --topics m-beir-webqa_task1-test \
   --output-format trec \
   --output run.m-beir-webqa_task1.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1852,6 +1882,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-union.clip-sf-large \
@@ -1859,7 +1890,7 @@ Command to generate run:
   --topics m-beir-webqa_task2-test \
   --output-format trec \
   --output run.m-beir-webqa_task2.union.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1887,6 +1918,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-union.blip-ff-large \
@@ -1894,7 +1926,7 @@ Command to generate run:
   --topics m-beir-webqa_task2-test \
   --output-format trec \
   --output run.m-beir-webqa_task2.union.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1961,6 +1993,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-cirr_task7.clip-sf-large \
@@ -1968,7 +2001,7 @@ Command to generate run:
   --topics m-beir-cirr_task7-test \
   --output-format trec \
   --output run.m-beir-cirr_task7.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -1996,6 +2029,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-cirr_task7.blip-ff-large \
@@ -2003,7 +2037,7 @@ Command to generate run:
   --topics m-beir-cirr_task7-test \
   --output-format trec \
   --output run.m-beir-cirr_task7.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2070,6 +2104,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-edis_task2.clip-sf-large \
@@ -2077,7 +2112,7 @@ Command to generate run:
   --topics m-beir-edis_task2-test \
   --output-format trec \
   --output run.m-beir-edis_task2.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2105,6 +2140,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-edis_task2.blip-ff-large \
@@ -2112,7 +2148,7 @@ Command to generate run:
   --topics m-beir-edis_task2-test \
   --output-format trec \
   --output run.m-beir-edis_task2.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2179,6 +2215,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-fashion200k_task0.clip-sf-large \
@@ -2186,7 +2223,7 @@ Command to generate run:
   --topics m-beir-fashion200k_task0-test \
   --output-format trec \
   --output run.m-beir-fashion200k_task0.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2214,6 +2251,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-fashion200k_task0.blip-ff-large \
@@ -2221,7 +2259,7 @@ Command to generate run:
   --topics m-beir-fashion200k_task0-test \
   --output-format trec \
   --output run.m-beir-fashion200k_task0.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2288,6 +2326,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-fashion200k_task3.clip-sf-large \
@@ -2295,7 +2334,7 @@ Command to generate run:
   --topics m-beir-fashion200k_task3-test \
   --output-format trec \
   --output run.m-beir-fashion200k_task3.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2323,6 +2362,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-fashion200k_task3.blip-ff-large \
@@ -2330,7 +2370,7 @@ Command to generate run:
   --topics m-beir-fashion200k_task3-test \
   --output-format trec \
   --output run.m-beir-fashion200k_task3.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2397,6 +2437,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-fashioniq_task7.clip-sf-large \
@@ -2404,7 +2445,7 @@ Command to generate run:
   --topics m-beir-fashioniq_task7-test \
   --output-format trec \
   --output run.m-beir-fashioniq_task7.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2432,6 +2473,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-fashioniq_task7.blip-ff-large \
@@ -2439,7 +2481,7 @@ Command to generate run:
   --topics m-beir-fashioniq_task7-test \
   --output-format trec \
   --output run.m-beir-fashioniq_task7.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2506,6 +2548,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-infoseek_task6.clip-sf-large \
@@ -2513,7 +2556,7 @@ Command to generate run:
   --topics m-beir-infoseek_task6-test \
   --output-format trec \
   --output run.m-beir-infoseek_task6.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2541,6 +2584,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-infoseek_task6.blip-ff-large \
@@ -2548,7 +2592,7 @@ Command to generate run:
   --topics m-beir-infoseek_task6-test \
   --output-format trec \
   --output run.m-beir-infoseek_task6.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2615,6 +2659,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-infoseek_task8.clip-sf-large \
@@ -2622,7 +2667,7 @@ Command to generate run:
   --topics m-beir-infoseek_task8-test \
   --output-format trec \
   --output run.m-beir-infoseek_task8.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2650,6 +2695,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-infoseek_task8.blip-ff-large \
@@ -2657,7 +2703,7 @@ Command to generate run:
   --topics m-beir-infoseek_task8-test \
   --output-format trec \
   --output run.m-beir-infoseek_task8.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2724,6 +2770,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-mscoco_task0.clip-sf-large \
@@ -2731,7 +2778,7 @@ Command to generate run:
   --topics m-beir-mscoco_task0-test \
   --output-format trec \
   --output run.m-beir-mscoco_task0.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2759,6 +2806,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-mscoco_task0.blip-ff-large \
@@ -2766,7 +2814,7 @@ Command to generate run:
   --topics m-beir-mscoco_task0-test \
   --output-format trec \
   --output run.m-beir-mscoco_task0.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2833,6 +2881,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-mscoco_task3.clip-sf-large \
@@ -2840,7 +2889,7 @@ Command to generate run:
   --topics m-beir-mscoco_task3-test \
   --output-format trec \
   --output run.m-beir-mscoco_task3.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2868,6 +2917,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-mscoco_task3.blip-ff-large \
@@ -2875,7 +2925,7 @@ Command to generate run:
   --topics m-beir-mscoco_task3-test \
   --output-format trec \
   --output run.m-beir-mscoco_task3.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2942,6 +2992,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-nights_task4.clip-sf-large \
@@ -2949,7 +3000,7 @@ Command to generate run:
   --topics m-beir-nights_task4-test \
   --output-format trec \
   --output run.m-beir-nights_task4.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -2977,6 +3028,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-nights_task4.blip-ff-large \
@@ -2984,7 +3036,7 @@ Command to generate run:
   --topics m-beir-nights_task4-test \
   --output-format trec \
   --output run.m-beir-nights_task4.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -3051,6 +3103,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-oven_task6.clip-sf-large \
@@ -3058,7 +3111,7 @@ Command to generate run:
   --topics m-beir-oven_task6-test \
   --output-format trec \
   --output run.m-beir-oven_task6.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -3086,6 +3139,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-oven_task6.blip-ff-large \
@@ -3093,7 +3147,7 @@ Command to generate run:
   --topics m-beir-oven_task6-test \
   --output-format trec \
   --output run.m-beir-oven_task6.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -3160,6 +3214,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-oven_task8.clip-sf-large \
@@ -3167,7 +3222,7 @@ Command to generate run:
   --topics m-beir-oven_task8-test \
   --output-format trec \
   --output run.m-beir-oven_task8.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -3195,6 +3250,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-oven_task8.blip-ff-large \
@@ -3202,7 +3258,7 @@ Command to generate run:
   --topics m-beir-oven_task8-test \
   --output-format trec \
   --output run.m-beir-oven_task8.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -3269,6 +3325,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-visualnews_task0.clip-sf-large \
@@ -3276,7 +3333,7 @@ Command to generate run:
   --topics m-beir-visualnews_task0-test \
   --output-format trec \
   --output run.m-beir-visualnews_task0.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -3304,6 +3361,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-visualnews_task0.blip-ff-large \
@@ -3311,7 +3369,7 @@ Command to generate run:
   --topics m-beir-visualnews_task0-test \
   --output-format trec \
   --output run.m-beir-visualnews_task0.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -3378,6 +3436,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-visualnews_task3.clip-sf-large \
@@ -3385,7 +3444,7 @@ Command to generate run:
   --topics m-beir-visualnews_task3-test \
   --output-format trec \
   --output run.m-beir-visualnews_task3.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -3413,6 +3472,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-visualnews_task3.blip-ff-large \
@@ -3420,7 +3480,7 @@ Command to generate run:
   --topics m-beir-visualnews_task3-test \
   --output-format trec \
   --output run.m-beir-visualnews_task3.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -3487,6 +3547,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-webqa_task1.clip-sf-large \
@@ -3494,7 +3555,7 @@ Command to generate run:
   --topics m-beir-webqa_task1-test \
   --output-format trec \
   --output run.m-beir-webqa_task1.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -3522,6 +3583,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-webqa_task1.blip-ff-large \
@@ -3529,7 +3591,7 @@ Command to generate run:
   --topics m-beir-webqa_task1-test \
   --output-format trec \
   --output run.m-beir-webqa_task1.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -3596,6 +3658,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder clip_sf_large \
   --index m-beir-webqa_task2.clip-sf-large \
@@ -3603,7 +3666,7 @@ Command to generate run:
   --topics m-beir-webqa_task2-test \
   --output-format trec \
   --output run.m-beir-webqa_task2.local.clip-sf-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
@@ -3631,6 +3694,7 @@ Command to generate run:
   
   <blockquote class="mycode">  
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch-size 512 \
   --encoder-class uniir \
   --encoder blip_ff_large \
   --index m-beir-webqa_task2.blip-ff-large \
@@ -3638,7 +3702,7 @@ Command to generate run:
   --topics m-beir-webqa_task2-test \
   --output-format trec \
   --output run.m-beir-webqa_task2.local.blip-ff-large.txt \
-  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0 --threads 16 --batch-size 512  
+  --hits 1000 --fp16 --device cuda:0 --faiss-device cuda:0
 </code></pre></blockquote>  
 Evaluation commands:  
   
