@@ -246,11 +246,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2.1-ViT-L-14.laion2b_s32b_b82k-text-validation \
   --index atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.large \
   --encoded-queries atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.large-t2i.trec
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.large-t2i.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -274,11 +275,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2-ViT-L-14.laion2b_s32b_b82k-image-validation \
   --index atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.large \
   --encoded-queries atomic-v0.2-image-ViT-L-14.laion2b_s32b_b82k-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.large-i2t.trec
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.large-i2t.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -302,11 +304,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2.1-ViT-L-14.laion2b_s32b_b82k-text-validation \
   --index atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.base \
   --encoded-queries atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.base-t2i.trec
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.base-t2i.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -330,11 +333,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2-ViT-L-14.laion2b_s32b_b82k-image-validation \
   --index atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.base \
   --encoded-queries atomic-v0.2-image-ViT-L-14.laion2b_s32b_b82k-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.base-i2t.trec
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.base-i2t.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -358,11 +362,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2.1-ViT-L-14.laion2b_s32b_b82k-text-validation \
   --index atomic-v0.2.ViT-L-14.laion2b_s32b_b82k.image.validation \
   --encoded-queries atomic-v0.2.1-text-ViT-L-14.laion2b_s32b_b82k-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.small-t2i.trec
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.small-t2i.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -386,11 +391,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2-ViT-L-14.laion2b_s32b_b82k-image-validation \
   --index atomic-v0.2.1.ViT-L-14.laion2b_s32b_b82k.text.validation \
   --encoded-queries atomic-v0.2-image-ViT-L-14.laion2b_s32b_b82k-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.small-i2t.trec
+  --output run.atomic.ViT-L-14.laion2b_s32b_b82k.small-i2t.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -477,11 +483,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2.1-ViT-H-14.laion2b_s32b_b79k-text-validation \
   --index atomic-v0.2.ViT-H-14.laion2b_s32b_b79k.image.large \
   --encoded-queries atomic-v0.2.1-text-ViT-H-14.laion2b_s32b_b79k-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-H-14.laion2b_s32b_b79k.large-t2i.trec
+  --output run.atomic.ViT-H-14.laion2b_s32b_b79k.large-t2i.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -505,11 +512,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2-ViT-H-14.laion2b_s32b_b79k-image-validation \
   --index atomic-v0.2.1.ViT-H-14.laion2b_s32b_b79k.text.large \
   --encoded-queries atomic-v0.2-image-ViT-H-14.laion2b_s32b_b79k-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-H-14.laion2b_s32b_b79k.large-i2t.trec
+  --output run.atomic.ViT-H-14.laion2b_s32b_b79k.large-i2t.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -648,11 +656,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2.1-ViT-bigG-14.laion2b_s39b_b160k-text-validation \
   --index atomic-v0.2.ViT-bigG-14.laion2b_s39b_b160k.image.large \
   --encoded-queries atomic-v0.2.1-text-ViT-bigG-14.laion2b_s39b_b160k-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-bigG-14.laion2b_s39b_b160k.large-t2i.trec
+  --output run.atomic.ViT-bigG-14.laion2b_s39b_b160k.large-t2i.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -676,11 +685,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2-ViT-bigG-14.laion2b_s39b_b160k-image-validation \
   --index atomic-v0.2.1.ViT-bigG-14.laion2b_s39b_b160k.text.large \
   --encoded-queries atomic-v0.2-image-ViT-bigG-14.laion2b_s39b_b160k-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-bigG-14.laion2b_s39b_b160k.large-i2t.trec
+  --output run.atomic.ViT-bigG-14.laion2b_s39b_b160k.large-i2t.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -819,11 +829,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2.1-ViT-B-32.laion2b_e16-text-validation \
   --index atomic-v0.2.ViT-B-32.laion2b_e16.image.large \
   --encoded-queries atomic-v0.2.1-text-ViT-B-32.laion2b_e16-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-B-32.laion2b_e16.large-t2i.trec
+  --output run.atomic.ViT-B-32.laion2b_e16.large-t2i.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -847,11 +858,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2-ViT-B-32.laion2b_e16-image-validation \
   --index atomic-v0.2.1.ViT-B-32.laion2b_e16.text.large \
   --encoded-queries atomic-v0.2-image-ViT-B-32.laion2b_e16-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-B-32.laion2b_e16.large-i2t.trec
+  --output run.atomic.ViT-B-32.laion2b_e16.large-i2t.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -990,11 +1002,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2.1-ViT-B-32.laion400m_e32-text-validation \
   --index atomic-v0.2.ViT-B-32.laion400m_e32.image.large \
   --encoded-queries atomic-v0.2.1-text-ViT-B-32.laion400m_e32-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-B-32.laion400m_e32.large-t2i.trec
+  --output run.atomic.ViT-B-32.laion400m_e32.large-t2i.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1018,11 +1031,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2-ViT-B-32.laion400m_e32-image-validation \
   --index atomic-v0.2.1.ViT-B-32.laion400m_e32.text.large \
   --encoded-queries atomic-v0.2-image-ViT-B-32.laion400m_e32-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.ViT-B-32.laion400m_e32.large-i2t.trec
+  --output run.atomic.ViT-B-32.laion400m_e32.large-i2t.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1161,11 +1175,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2.1-openai.clip-vit-base-patch32-text-validation \
   --index atomic-v0.2.openai.clip-vit-base-patch32.image.large \
   --encoded-queries atomic-v0.2.1-text-openai.clip-vit-base-patch32-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.openai.clip-vit-base-patch32.large-t2i.trec
+  --output run.atomic.openai.clip-vit-base-patch32.large-t2i.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1189,11 +1204,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2-openai.clip-vit-base-patch32-image-validation \
   --index atomic-v0.2.1.openai.clip-vit-base-patch32.text.large \
   --encoded-queries atomic-v0.2-image-openai.clip-vit-base-patch32-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.openai.clip-vit-base-patch32.large-i2t.trec
+  --output run.atomic.openai.clip-vit-base-patch32.large-i2t.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1332,11 +1348,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2.1-openai.clip-vit-large-patch14-text-validation \
   --index atomic-v0.2.openai.clip-vit-large-patch14.image.large \
   --encoded-queries atomic-v0.2.1-text-openai.clip-vit-large-patch14-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.openai.clip-vit-large-patch14.large-t2i.trec
+  --output run.atomic.openai.clip-vit-large-patch14.large-t2i.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1360,11 +1377,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2-openai.clip-vit-large-patch14-image-validation \
   --index atomic-v0.2.1.openai.clip-vit-large-patch14.text.large \
   --encoded-queries atomic-v0.2-image-openai.clip-vit-large-patch14-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.openai.clip-vit-large-patch14.large-i2t.trec
+  --output run.atomic.openai.clip-vit-large-patch14.large-i2t.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1503,11 +1521,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2.1-Salesforce.blip-itm-base-coco-text-validation \
   --index atomic-v0.2.Salesforce.blip-itm-base-coco.image.large \
   --encoded-queries atomic-v0.2.1-text-Salesforce.blip-itm-base-coco-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.Salesforce.blip-itm-base-coco.large-t2i.trec
+  --output run.atomic.Salesforce.blip-itm-base-coco.large-t2i.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1531,11 +1550,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2-Salesforce.blip-itm-base-coco-image-validation \
   --index atomic-v0.2.1.Salesforce.blip-itm-base-coco.text.large \
   --encoded-queries atomic-v0.2-image-Salesforce.blip-itm-base-coco-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.Salesforce.blip-itm-base-coco.large-i2t.trec
+  --output run.atomic.Salesforce.blip-itm-base-coco.large-i2t.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1674,11 +1694,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2.1-Salesforce.blip-itm-large-coco-text-validation \
   --index atomic-v0.2.Salesforce.blip-itm-large-coco.image.large \
   --encoded-queries atomic-v0.2.1-text-Salesforce.blip-itm-large-coco-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.Salesforce.blip-itm-large-coco.large-t2i.trec
+  --output run.atomic.Salesforce.blip-itm-large-coco.large-t2i.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1702,11 +1723,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2-Salesforce.blip-itm-large-coco-image-validation \
   --index atomic-v0.2.1.Salesforce.blip-itm-large-coco.text.large \
   --encoded-queries atomic-v0.2-image-Salesforce.blip-itm-large-coco-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.Salesforce.blip-itm-large-coco.large-i2t.trec
+  --output run.atomic.Salesforce.blip-itm-large-coco.large-i2t.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1845,11 +1867,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2.1-facebook.flava-full-text-validation \
   --index atomic-v0.2.facebook.flava-full.image.large \
   --encoded-queries atomic-v0.2.1-text-facebook.flava-full-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.facebook.flava-full.large-t2i.trec
+  --output run.atomic.facebook.flava-full.large-t2i.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1873,11 +1896,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 32 --batch-size 256 \
   --topics atomic-v0.2-facebook.flava-full-image-validation \
   --index atomic-v0.2.1.facebook.flava-full.text.large \
   --encoded-queries atomic-v0.2-image-facebook.flava-full-validation \
-  --hits 1000 --batch-size 256 --threads 32 \
-  --output run.atomic.facebook.flava-full.large-i2t.trec
+  --output run.atomic.facebook.flava-full.large-i2t.trec \
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 

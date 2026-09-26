@@ -70,6 +70,30 @@ def read_file(filename):
         return f.read()
 
 
+def format_run_command(raw):
+    options = (
+        '--topics ',
+        '--topics-format ',
+        '--index ',
+        '--onnx-encoder ',
+        '--encoder-class ',
+        '--encoder ',
+        '--encoded-queries ',
+        '--query-prefix ',
+        '--output ',
+        '--output-format ',
+        '--hits ',
+        '--lang ',
+        '--language ',
+        '--runs ',
+        '--runtag ',
+        '--threads ',
+    )
+    for option in options:
+        raw = raw.replace(option, '\\\n  ' + option)
+    return raw
+
+
 def format_eval_command(raw):
     return raw.replace('-c ', '\\\n  -c ') \
         .replace(raw.split()[-1], f'\\\n  {raw.split()[-1]}')

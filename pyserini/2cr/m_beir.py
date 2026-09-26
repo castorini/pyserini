@@ -24,13 +24,13 @@ from datetime import datetime, timezone
 from string import Template
 
 import yaml
-
 from pyserini.util import run_command
 
 from ._base import (
     compare_reproduction_score,
     format_eval_command,
     format_reproduction_status,
+    format_run_command,
     read_file,
     run_eval_and_return_metric,
 )
@@ -45,16 +45,6 @@ trec_eval_metric_definitions = {
     'S@10': '-c -m success.10',
 }
 
-
-def format_run_command(raw):
-    return (
-        raw.replace("--topics", "\\\n  --topics")
-        .replace('--encoder', '\\\n  --encoder')
-        .replace("--index", "\\\n  --index")
-        .replace("--output-format", "\\\n  --output-format")
-        .replace("--output ", "\\\n  --output ")
-        .replace("--hits", "\\\n  --hits")
-    )
 
 def list_conditions():  
     with importlib.resources.files('pyserini.2cr').joinpath('m_beir.yaml').open('r') as f:  
