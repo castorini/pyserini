@@ -72,6 +72,7 @@ def read_file(filename):
 
 def format_run_command(raw):
     options = (
+        '--threads ',
         '--topics ',
         '--topics-format ',
         '--index ',
@@ -87,7 +88,7 @@ def format_run_command(raw):
         '--language ',
         '--runs ',
         '--runtag ',
-        '--threads ',
+        '--method '
     )
     for option in options:
         raw = raw.replace(option, '\\\n  ' + option)
