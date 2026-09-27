@@ -601,3 +601,4 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@Ehren-Chuah](https://github.com/Ehren-Chuah) on 2026-09-20 (commit [`c6a9c9f`](https://github.com/castorini/pyserini/commit/c6a9c9f5ca5bed4af922a0e1f0bd2f9b9cb32577))
 + Results reproduced by [@WahajAli14](https://github.com/WahajAli14) on 2026-09-20 (commit [`6591a33`](https://github.com/castorini/pyserini/commit/6591a3320737d31c652311743dae760438af0758))
 + Results reproduced by [@bmqube](https://github.com/bmqube) on 2026-09-23 (commit [`bd361f2`](https://github.com/castorini/pyserini/commit/bd361f26a0d6bbf66469a2c025cb0a12cba9a2df))
++ Results reproduced by [@nabirarashid](https://github.com/nabirarashid) on 2026-09-26 (commit [`527c917`](https://github.com/castorini/pyserini/commit/527c917120ff154f84b09ff2b69dc8946085aae4))
