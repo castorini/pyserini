@@ -293,6 +293,7 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@ParsaA2006](https://github.com/ParsaA2006) on 2026-09-04 (commit [`b791648`](https://github.com/castorini/pyserini/commit/b791648ea88f301cc48d1e53943cae441ba068d8))
 + Results reproduced by [@Ben-geo](https://github.com/Ben-geo) on 2026-09-05 (commit [`b791648`](https://github.com/castorini/pyserini/commit/b791648ea88f301cc48d1e53943cae441ba068d8))
 + Results reproduced by [@mentaltraffic](https://github.com/mentaltraffic) on 2026-09-05 (commit [`b791648`](https://github.com/castorini/pyserini/commit/b791648ea88f301cc48d1e53943cae441ba068d8))
++ Results reproduced by [@datascientist970](https://github.com/datascientist970) on 2026-09-05 (commit [`7f46990`](https://github.com/castorini/pyserini/commit/7f46990ecf3e3c7419de0ffb91fc8bfef4eaabcf))
 + Results reproduced by [@kamrankhoxa](https://github.com/kamrankhoxa) on 2026-09-07 (commit [`139adc8`](https://github.com/castorini/pyserini/commit/139adc808413158c09510a7341cd6dcd3f122acc))
 + Results reproduced by [@zhouwinston1](https://github.com/zhouwinston1) on 2026-09-08 (commit [`a573331`](https://github.com/castorini/pyserini/commit/a573331fa442d7e0e78a3075f86daab99dad9af4))
 + Results reproduced by [@tanvirsarao](https://github.com/tanvirsarao) on 2026-09-09 (commit [`b0ad282`](https://github.com/castorini/pyserini/commit/b0ad28270848f9b34ca822827bf5f71717255e84))
@@ -308,4 +309,5 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@Ehren-Chuah](https://github.com/Ehren-Chuah) on 2026-09-20 (commit [`c6a9c9f`](https://github.com/castorini/pyserini/commit/c6a9c9f5ca5bed4af922a0e1f0bd2f9b9cb32577))
 + Results reproduced by [@WahajAli14](https://github.com/WahajAli14) on 2026-09-21 (commit [`6591a33`](https://github.com/castorini/pyserini/commit/6591a3320737d31c652311743dae760438af0758))
 + Results reproduced by [@bmqube](https://github.com/bmqube) on 2026-09-23 (commit [`bd361f2`](https://github.com/castorini/pyserini/commit/bd361f26a0d6bbf66469a2c025cb0a12cba9a2df))
++ Results reproduced by [@mankydanky](https://github.com/mankydanky) on 2026-09-25 (commit [`bd361f2`](https://github.com/castorini/pyserini/commit/bd361f26a0d6bbf66469a2c025cb0a12cba9a2df))
 + Results reproduced by [@nabirarashid](https://github.com/nabirarashid) on 2026-09-26 (commit [`527c917`](https://github.com/castorini/pyserini/commit/527c917120ff154f84b09ff2b69dc8946085aae4))
