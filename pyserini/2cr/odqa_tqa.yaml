@@ -3,18 +3,18 @@ conditions:
     command: 
       - python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index wikipedia-dpr-100w --topics dpr-trivia-test --output $output --bm25 --k1 0.9 --b 0.4
     scores:
-      - Top5: 66.29
+      - Top5: 66.28
         Top20: 76.41
-        Top100: 83.14
+        Top100: 83.15
         Top500: 87.35
         Top1000: 88.50
   - model_name: BM25-k1_0.9_b_0.4_dpr-topics
     command: 
       - python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index wikipedia-dpr-100w --topics dpr-trivia-test --output $output --bm25 --k1 0.9 --b 0.4
     scores:
-      - Top5: 66.29
+      - Top5: 66.28
         Top20: 76.41
-        Top100: 83.14
+        Top100: 83.15
         Top500: 87.35
         Top1000: 88.50
   - model_name: GarT5-RRF
@@ -50,7 +50,7 @@ conditions:
     command: 
       - python -m pyserini.search.hybrid dense --index wikipedia-dpr-100w.dpr-multi --encoder facebook/dpr-question_encoder-multiset-base sparse --index wikipedia-dpr-100w fusion --alpha 0.95 run --topics dpr-trivia-test --output $output --threads ${dense_threads} --batch-size ${dense_batch_size}
     scores:
-      - Top5: 76.01
+      - Top5: 76.00
         Top20: 82.64
         Top100: 86.55
         Top500: 89.12
@@ -59,8 +59,8 @@ conditions:
     command:
       - ''
     scores:
-      - Top5: 78.63
-        Top20: 85.02
+      - Top5: 78.62
+        Top20: 85.01
         Top100: 88.41
         Top500: 90.29 
         Top1000: 90.83

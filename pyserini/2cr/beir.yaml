@@ -987,7 +987,7 @@ conditions:
             R@1000: 0.9423
       - dataset: nfcorpus
         scores:
-          - nDCG@10: 0.3735
+          - nDCG@10: 0.3738
             R@100: 0.3368
             R@1000: 0.6622
       - dataset: nq

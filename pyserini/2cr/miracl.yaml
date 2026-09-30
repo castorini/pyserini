@@ -819,7 +819,7 @@ conditions:
             R@100: 0.9576
       - split: dev
         scores:
-          - nDCG@10: 0.5254
+          - nDCG@10: 0.5255
             R@100: 0.9587
   - name: bm25-mdpr-tied-pft-msmarco-hybrid.de
     eval_key: miracl-v1.0-de

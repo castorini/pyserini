@@ -48,7 +48,7 @@ conditions:
                 S@10: 0.5336
           - dataset: mscoco_task0
             scores:
-              - R@5: 0.7161
+              - R@5: 0.7162
                 R@10: 0.8009
                 S@5: 0.7173
                 S@10: 0.8022
@@ -72,7 +72,7 @@ conditions:
                 S@10: 0.4559
           - dataset: oven_task8
             scores:
-              - R@5: 0.2946
+              - R@5: 0.2945
                 R@10: 0.4436
                 S@5: 0.6019
                 S@10: 0.6587
@@ -135,9 +135,9 @@ conditions:
           - dataset: infoseek_task6
             scores:
               - R@5: 0.1312
-                R@10: 0.1990
+                R@10: 0.1991
                 S@5: 0.2723
-                S@10: 0.3484
+                S@10: 0.3485
           - dataset: infoseek_task8
             scores:
               - R@5: 0.2414
@@ -381,9 +381,9 @@ conditions:
                 S@10: 0.2996
           - dataset: visualnews_task3
             scores:
-              - R@5: 0.2290
+              - R@5: 0.2291
                 R@10: 0.3016
-                S@5: 0.2290
+                S@5: 0.2291
                 S@10: 0.3016
           - dataset: webqa_task1
             scores:
