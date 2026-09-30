@@ -104,7 +104,7 @@ def run_conditions(args):
                                 # Parse "Top-k Accuracy: 0.43"
                                 for line in out.split('\n'):
                                     if "Top-k Accuracy:" in line:
-                                        score = float(line.split(':')[-1].strip()) * 100
+                                        score = float(line.split(':')[-1].strip())
                                         break
                             
                             else:
@@ -116,13 +116,13 @@ def run_conditions(args):
                                     trec_eval_metric = '-c -m recall.10'
                                 
                                 score = float(run_eval_and_return_metric(metric, dataset,
-                                    trec_eval_metric, runfile, display_command=args.display_commands)) * 100
+                                    trec_eval_metric, runfile, display_command=args.display_commands))
 
 
                             expected_score = float(expected[metric])
-                            status = compare_reproduction_score(score / 100, expected_score / 100)
-                            result = format_reproduction_status(status, expected_score, precision=1)
-                            print(f'      {metric:10}: {score:6.2f} {result}')
+                            status = compare_reproduction_score(score, expected_score)
+                            result = format_reproduction_status(status, expected_score)
+                            print(f'      {metric:10}: {score:.4f} {result}')
                             table[dataset][name][metric] = score
                         else:
                             table[dataset][name][metric] = expected[metric]
@@ -179,7 +179,7 @@ def generate_report(args):
 
                      for metric in metrics_order:
                          score = expected_map.get(metric, 0.0)
-                         score_cells += f'<td>{score:.1f}</td>\n'
+                         score_cells += f'<td>{score:.4f}</td>\n'
                          
                          if dataset == 'wiki-ss-nq':
                             k = int(metric.split('-')[1])
