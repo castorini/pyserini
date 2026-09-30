@@ -269,4 +269,4 @@ if __name__ == "__main__":
             has_answer_count += 1
         total_count += 1
 
-    print(f"Top-k Accuracy: {has_answer_count / total_count}")
+    print(f"Top-k Accuracy: {has_answer_count / total_count:.4f}")
