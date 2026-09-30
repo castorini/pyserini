@@ -24,13 +24,13 @@ from datetime import datetime, timezone
 from string import Template
 
 import yaml
-
 from pyserini.util import run_command
 
 from ._base import (
     compare_reproduction_score,
     format_eval_command,
     format_reproduction_status,
+    format_run_command,
     read_file,
     run_eval_and_return_metric,
 )
@@ -45,17 +45,6 @@ trec_eval_metric_definitions = {
     'R@10': '-c -m recall.10',
 }
 
-
-def format_run_command(raw):
-    return (
-        raw.replace("--topics", "\\\n  --topics")
-        .replace('--encoder', '\\\n  --encoder')
-        .replace("--index", "\\\n  --index")
-        .replace("--output-format", "\\\n  --output-format")
-        .replace("--output ", "\\\n  --output ")
-        .replace("--fp16 ", "\\\n  --fp16 ")
-        .replace("--hits", "\\\n  --hits")
-    )
 
 def print_command_block(cmd):
     print('```bash')

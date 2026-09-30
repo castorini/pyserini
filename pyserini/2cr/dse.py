@@ -30,20 +30,10 @@ from pyserini.util import run_command
 from ._base import (
     compare_reproduction_score,
     format_reproduction_status,
+    format_run_command,
     read_file,
     run_eval_and_return_metric,
 )
-
-def format_run_command(raw):
-    return raw.replace('--topics', '\\\n  --topics') \
-        .replace('--encoder-class', '\\\n  --encoder-class') \
-        .replace('--encoder ', '\\\n  --encoder ') \
-        .replace('--pooling', '\\\n  --pooling') \
-        .replace('--index', '\\\n  --index') \
-        .replace('--output ', '\\\n  --output ') \
-        .replace('--hits ', '\\\n  --hits ') \
-        .replace('--device', '\\\n  --device') \
-        .replace('--batch-size', '\\\n  --batch-size')
 
 def list_conditions():
     with importlib.resources.files('pyserini.2cr').joinpath('dse.yaml').open('r') as f:

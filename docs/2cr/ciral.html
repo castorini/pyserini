@@ -197,10 +197,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --language ha \
   --topics ciral-v1.0-ha-test-b-native \
   --index ciral-v1.0-ha \
-  --output run.ciral.bm25-qt.ha.test-b.txt --threads 16 --bm25 --hits 1000
+  --output run.ciral.bm25-qt.ha.test-b.txt \
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -216,11 +218,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --language so \
   --topics ciral-v1.0-so-test-b-native \
   --index ciral-v1.0-so \
   --output run.ciral.bm25-qt.so.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -236,11 +239,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --language sw \
   --topics ciral-v1.0-sw-test-b-native \
   --index ciral-v1.0-sw \
   --output run.ciral.bm25-qt.sw.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -256,11 +260,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --language yo \
   --topics ciral-v1.0-yo-test-b-native \
   --index ciral-v1.0-yo \
   --output run.ciral.bm25-qt.yo.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -318,10 +323,11 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --topics ciral-v1.0-ha-test-b \
   --index ciral-v1.0-ha-en \
   --output run.ciral.bm25-dt.ha.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -337,10 +343,11 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --topics ciral-v1.0-so-test-b \
   --index ciral-v1.0-so-en \
   --output run.ciral.bm25-dt.so.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -356,10 +363,11 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --topics ciral-v1.0-sw-test-b \
   --index ciral-v1.0-sw-en \
   --output run.ciral.bm25-dt.sw.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -375,10 +383,11 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --topics ciral-v1.0-yo-test-b \
   --index ciral-v1.0-yo-en \
   --output run.ciral.bm25-dt.yo.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -436,12 +445,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics ciral-v1.0-ha-test-b \
   --index ciral-v1.0-ha-mdpr-tied-pft-msmarco \
   --output run.ciral.mdpr-tied-pft-msmarco.ha.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -457,12 +467,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics ciral-v1.0-so-test-b \
   --index ciral-v1.0-so-mdpr-tied-pft-msmarco \
   --output run.ciral.mdpr-tied-pft-msmarco.so.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -478,12 +489,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics ciral-v1.0-sw-test-b \
   --index ciral-v1.0-sw-mdpr-tied-pft-msmarco \
   --output run.ciral.mdpr-tied-pft-msmarco.sw.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -499,12 +511,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics ciral-v1.0-yo-test-b \
   --index ciral-v1.0-yo-mdpr-tied-pft-msmarco \
   --output run.ciral.mdpr-tied-pft-msmarco.yo.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -562,12 +575,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
   --topics ciral-v1.0-ha-test-b \
   --index ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
   --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -583,12 +597,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
   --topics ciral-v1.0-so-test-b \
   --index ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
   --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -604,12 +619,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
   --topics ciral-v1.0-sw-test-b \
   --index ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
   --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -625,12 +641,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
   --topics ciral-v1.0-yo-test-b \
   --index ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
   --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -688,8 +705,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.ha.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt \
-  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --runs run.ciral.bm25-dt.ha.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt \
+  --runtag rrf-afridpr-bmdt \
+  --method rrf --rrf.k 60 \
   --output run.ciral.bm25-dt-afriberta-dpr-fusion.ha.test-b.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -706,8 +724,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.so.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt \
-  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --runs run.ciral.bm25-dt.so.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt \
+  --runtag rrf-afridpr-bmdt \
+  --method rrf --rrf.k 60 \
   --output run.ciral.bm25-dt-afriberta-dpr-fusion.so.test-b.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -724,8 +743,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.sw.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt \
-  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --runs run.ciral.bm25-dt.sw.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt \
+  --runtag rrf-afridpr-bmdt \
+  --method rrf --rrf.k 60 \
   --output run.ciral.bm25-dt-afriberta-dpr-fusion.sw.test-b.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -742,8 +762,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.yo.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt \
-  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --runs run.ciral.bm25-dt.yo.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt \
+  --runtag rrf-afridpr-bmdt \
+  --method rrf --rrf.k 60 \
   --output run.ciral.bm25-dt-afriberta-dpr-fusion.yo.test-b.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -822,10 +843,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --language ha \
   --topics ciral-v1.0-ha-test-b-native \
   --index ciral-v1.0-ha \
-  --output run.ciral.bm25-qt.ha.test-b.txt --threads 16 --bm25 --hits 1000
+  --output run.ciral.bm25-qt.ha.test-b.txt \
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -841,11 +864,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --language so \
   --topics ciral-v1.0-so-test-b-native \
   --index ciral-v1.0-so \
   --output run.ciral.bm25-qt.so.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -861,11 +885,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --language sw \
   --topics ciral-v1.0-sw-test-b-native \
   --index ciral-v1.0-sw \
   --output run.ciral.bm25-qt.sw.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -881,11 +906,12 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --language yo \
   --topics ciral-v1.0-yo-test-b-native \
   --index ciral-v1.0-yo \
   --output run.ciral.bm25-qt.yo.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -943,10 +969,11 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --topics ciral-v1.0-ha-test-b \
   --index ciral-v1.0-ha-en \
   --output run.ciral.bm25-dt.ha.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -962,10 +989,11 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --topics ciral-v1.0-so-test-b \
   --index ciral-v1.0-so-en \
   --output run.ciral.bm25-dt.so.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -981,10 +1009,11 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --topics ciral-v1.0-sw-test-b \
   --index ciral-v1.0-sw-en \
   --output run.ciral.bm25-dt.sw.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1000,10 +1029,11 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch 128 \
   --topics ciral-v1.0-yo-test-b \
   --index ciral-v1.0-yo-en \
   --output run.ciral.bm25-dt.yo.test-b.txt \
-  --batch 128 --threads 16 --bm25 --hits 1000
+  --hits 1000 --bm25
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1061,12 +1091,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics ciral-v1.0-ha-test-b \
   --index ciral-v1.0-ha-mdpr-tied-pft-msmarco \
   --output run.ciral.mdpr-tied-pft-msmarco.ha.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1082,12 +1113,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics ciral-v1.0-so-test-b \
   --index ciral-v1.0-so-mdpr-tied-pft-msmarco \
   --output run.ciral.mdpr-tied-pft-msmarco.so.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1103,12 +1135,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics ciral-v1.0-sw-test-b \
   --index ciral-v1.0-sw-mdpr-tied-pft-msmarco \
   --output run.ciral.mdpr-tied-pft-msmarco.sw.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1124,12 +1157,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/mdpr-tied-pft-msmarco \
   --topics ciral-v1.0-yo-test-b \
   --index ciral-v1.0-yo-mdpr-tied-pft-msmarco \
   --output run.ciral.mdpr-tied-pft-msmarco.yo.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1187,12 +1221,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
   --topics ciral-v1.0-ha-test-b \
   --index ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
   --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1208,12 +1243,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
   --topics ciral-v1.0-so-test-b \
   --index ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
   --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1229,12 +1265,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
   --topics ciral-v1.0-sw-test-b \
   --index ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
   --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1250,12 +1287,13 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
+  --threads 16 --batch 128 \
   --encoder-class auto \
   --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi \
   --topics ciral-v1.0-yo-test-b \
   --index ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi \
   --output run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt \
-  --batch 128 --threads 16 --hits 1000
+  --hits 1000
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1313,8 +1351,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.ha.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt \
-  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --runs run.ciral.bm25-dt.ha.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.ha.test-b.txt \
+  --runtag rrf-afridpr-bmdt \
+  --method rrf --rrf.k 60 \
   --output run.ciral.bm25-dt-afriberta-dpr-fusion.ha.test-b.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -1331,8 +1370,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.so.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt \
-  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --runs run.ciral.bm25-dt.so.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.so.test-b.txt \
+  --runtag rrf-afridpr-bmdt \
+  --method rrf --rrf.k 60 \
   --output run.ciral.bm25-dt-afriberta-dpr-fusion.so.test-b.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -1349,8 +1389,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.sw.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt \
-  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --runs run.ciral.bm25-dt.sw.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.sw.test-b.txt \
+  --runtag rrf-afridpr-bmdt \
+  --method rrf --rrf.k 60 \
   --output run.ciral.bm25-dt-afriberta-dpr-fusion.sw.test-b.txt
 </code></pre></blockquote>
 Evaluation commands:
@@ -1367,8 +1408,9 @@ Command to generate run:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.fusion \
-  --runs  run.ciral.bm25-dt.yo.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt \
-  --runtag  rrf-afridpr-bmdt --method rrf --rrf.k 60 \
+  --runs run.ciral.bm25-dt.yo.test-b.txt run.ciral.afriberta-pft-msmarco-ft-mrtydi.yo.test-b.txt \
+  --runtag rrf-afridpr-bmdt \
+  --method rrf --rrf.k 60 \
   --output run.ciral.bm25-dt-afriberta-dpr-fusion.yo.test-b.txt
 </code></pre></blockquote>
 Evaluation commands:

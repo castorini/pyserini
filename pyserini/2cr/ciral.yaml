@@ -2,7 +2,7 @@ conditions:
   # BM25 QT
   - name: bm25-qt.ha
     eval_key: ciral-v1.0-ha
-    command: python -m pyserini.search.lucene --language ha --topics ciral-v1.0-ha-${split}-native --index ciral-v1.0-ha --output $output --threads ${sparse_threads} --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch ${sparse_batch_size} --language ha --topics ciral-v1.0-ha-${split}-native --index ciral-v1.0-ha --output $output --hits 1000 --bm25
     splits:
       - split: test-a
         scores:
@@ -18,7 +18,7 @@ conditions:
             R@100: 0.3800
   - name: bm25-qt.so
     eval_key: ciral-v1.0-so
-    command: python -m pyserini.search.lucene --language so --topics ciral-v1.0-so-${split}-native --index ciral-v1.0-so --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch ${sparse_batch_size} --language so --topics ciral-v1.0-so-${split}-native --index ciral-v1.0-so --output $output --hits 1000 --bm25
     splits:
       - split: test-a
         scores:
@@ -34,7 +34,7 @@ conditions:
             R@100: 0.3479
   - name: bm25-qt.sw
     eval_key: ciral-v1.0-sw
-    command: python -m pyserini.search.lucene --language sw --topics ciral-v1.0-sw-${split}-native --index ciral-v1.0-sw --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch ${sparse_batch_size} --language sw --topics ciral-v1.0-sw-${split}-native --index ciral-v1.0-sw --output $output --hits 1000 --bm25
     splits:
       - split: test-a
         scores:
@@ -50,7 +50,7 @@ conditions:
             R@100: 0.4166
   - name: bm25-qt.yo
     eval_key: ciral-v1.0-yo
-    command: python -m pyserini.search.lucene --language yo --topics ciral-v1.0-yo-${split}-native --index ciral-v1.0-yo --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch ${sparse_batch_size} --language yo --topics ciral-v1.0-yo-${split}-native --index ciral-v1.0-yo --output $output --hits 1000 --bm25
     splits:
       - split: test-a
         scores:
@@ -68,7 +68,7 @@ conditions:
 # BM25 DT
   - name: bm25-dt.ha
     eval_key: ciral-v1.0-ha
-    command: python -m pyserini.search.lucene --topics ciral-v1.0-ha-${split} --index ciral-v1.0-ha-en --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch ${sparse_batch_size} --topics ciral-v1.0-ha-${split} --index ciral-v1.0-ha-en --output $output --hits 1000 --bm25
     splits:
       - split: test-a
         scores:
@@ -84,7 +84,7 @@ conditions:
             R@100: 0.4394
   - name: bm25-dt.so
     eval_key: ciral-v1.0-so
-    command: python -m pyserini.search.lucene --topics ciral-v1.0-so-${split} --index ciral-v1.0-so-en --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch ${sparse_batch_size} --topics ciral-v1.0-so-${split} --index ciral-v1.0-so-en --output $output --hits 1000 --bm25
     splits:
       - split: test-a
         scores:
@@ -100,7 +100,7 @@ conditions:
             R@100: 0.4637
   - name: bm25-dt.sw
     eval_key: ciral-v1.0-sw
-    command: python -m pyserini.search.lucene --topics ciral-v1.0-sw-${split} --index ciral-v1.0-sw-en --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch ${sparse_batch_size} --topics ciral-v1.0-sw-${split} --index ciral-v1.0-sw-en --output $output --hits 1000 --bm25
     splits:
       - split: test-a
         scores:
@@ -116,7 +116,7 @@ conditions:
             R@100: 0.4918
   - name: bm25-dt.yo
     eval_key: ciral-v1.0-yo
-    command: python -m pyserini.search.lucene --topics ciral-v1.0-yo-${split} --index ciral-v1.0-yo-en --output $output --batch ${sparse_batch_size} --threads ${sparse_threads} --bm25 --hits 1000
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch ${sparse_batch_size} --topics ciral-v1.0-yo-${split} --index ciral-v1.0-yo-en --output $output --hits 1000 --bm25
     splits:
       - split: test-a
         scores:
@@ -134,7 +134,7 @@ conditions:
 # mdpr-tied-pft-msmarco
   - name: mdpr-tied-pft-msmarco.ha
     eval_key: ciral-v1.0-ha
-    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics ciral-v1.0-ha-${split} --index ciral-v1.0-ha-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --threads 16 --batch 128 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics ciral-v1.0-ha-${split} --index ciral-v1.0-ha-mdpr-tied-pft-msmarco --output $output --hits 1000
     splits:
       - split: test-a
         scores:
@@ -150,7 +150,7 @@ conditions:
             R@100: 0.1027
   - name: mdpr-tied-pft-msmarco.so
     eval_key: ciral-v1.0-so
-    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics ciral-v1.0-so-${split} --index ciral-v1.0-so-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --threads 16 --batch 128 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics ciral-v1.0-so-${split} --index ciral-v1.0-so-mdpr-tied-pft-msmarco --output $output --hits 1000
     splits:
       - split: test-a
         scores:
@@ -166,7 +166,7 @@ conditions:
             R@100: 0.1345
   - name: mdpr-tied-pft-msmarco.sw
     eval_key: ciral-v1.0-sw
-    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics ciral-v1.0-sw-${split} --index ciral-v1.0-sw-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --threads 16 --batch 128 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics ciral-v1.0-sw-${split} --index ciral-v1.0-sw-mdpr-tied-pft-msmarco --output $output --hits 1000
     splits:
       - split: test-a
         scores:
@@ -182,7 +182,7 @@ conditions:
             R@100: 0.3019
   - name: mdpr-tied-pft-msmarco.yo
     eval_key: ciral-v1.0-yo
-    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics ciral-v1.0-yo-${split} --index ciral-v1.0-yo-mdpr-tied-pft-msmarco --output $output --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --threads 16 --batch 128 --encoder-class auto --encoder castorini/mdpr-tied-pft-msmarco --topics ciral-v1.0-yo-${split} --index ciral-v1.0-yo-mdpr-tied-pft-msmarco --output $output --hits 1000
     splits:
       - split: test-a
         scores:
@@ -201,7 +201,7 @@ conditions:
 # afriberta-pft-msmarco-ft-mrtydi-latin
   - name: afriberta-pft-msmarco-ft-mrtydi.ha
     eval_key: ciral-v1.0-ha
-    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi --topics ciral-v1.0-ha-${split} --index ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --output $output --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --threads 16 --batch 128 --encoder-class auto --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi --topics ciral-v1.0-ha-${split} --index ciral-v1.0-ha-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --output $output --hits 1000
     splits:
       - split: test-a
         scores:
@@ -217,7 +217,7 @@ conditions:
             R@100: 0.3900
   - name: afriberta-pft-msmarco-ft-mrtydi.so
     eval_key: ciral-v1.0-so
-    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi --topics ciral-v1.0-so-${split} --index ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --output $output --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --threads 16 --batch 128 --encoder-class auto --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi --topics ciral-v1.0-so-${split} --index ciral-v1.0-so-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --output $output --hits 1000
     splits:
       - split: test-a
         scores:
@@ -233,7 +233,7 @@ conditions:
             R@100: 0.3558
   - name: afriberta-pft-msmarco-ft-mrtydi.sw
     eval_key: ciral-v1.0-sw
-    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi --topics ciral-v1.0-sw-${split} --index ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --output $output --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --threads 16 --batch 128 --encoder-class auto --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi --topics ciral-v1.0-sw-${split} --index ciral-v1.0-sw-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --output $output --hits 1000
     splits:
       - split: test-a
         scores:
@@ -249,7 +249,7 @@ conditions:
             R@100: 0.4608
   - name: afriberta-pft-msmarco-ft-mrtydi.yo
     eval_key: ciral-v1.0-yo
-    command: python -m pyserini.search.faiss --encoder-class auto --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi --topics ciral-v1.0-yo-${split} --index ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --output $output --batch 128 --threads 16 --hits 1000
+    command: python -m pyserini.search.faiss --threads 16 --batch 128 --encoder-class auto --encoder castorini/afriberta-dpr-pft-msmarco-ft-latin-mrtydi --topics ciral-v1.0-yo-${split} --index ciral-v1.0-yo-afriberta-dpr-ptf-msmarco-ft-latin-mrtydi --output $output --hits 1000
     splits:
       - split: test-a
         scores:

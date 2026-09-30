@@ -24,13 +24,13 @@ from datetime import UTC, datetime
 from string import Template
 
 import yaml
-
 from pyserini.util import run_command
 
 from ._base import (
     compare_reproduction_score,
     convert_trec_run_to_dpr_retrieval_json,
     format_reproduction_status,
+    format_run_command,
     read_file,
     run_dpr_retrieval_eval_and_return_metric,
     run_fusion,
@@ -79,17 +79,6 @@ def print_results(table, metric, topics):
         key = f'{model}'
         print(f'{table[key][metric]:7.2f}', end='\n')
     print('')
-
-
-def format_run_command(raw):
-    return raw.replace('--encoded-queries', '\\\n  --encoded-queries') \
-        .replace('--encoder', '\\\n  --encoder') \
-        .replace('--topics', '\\\n  --topics') \
-        .replace('--index', '\\\n  --index') \
-        .replace('--output', '\\\n  --output') \
-        .replace('--threads', '\\\n  --threads') \
-        .replace('--bm25', '\\\n  --bm25') \
-        .replace('--hits 100', '\\\n  --hits 100')
 
 
 def format_hybrid_search_command(raw):

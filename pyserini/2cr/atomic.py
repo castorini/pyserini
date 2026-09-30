@@ -24,13 +24,13 @@ from datetime import UTC, datetime
 from string import Template
 
 import yaml
-
 from pyserini.util import run_command
 
 from ._base import (
     compare_reproduction_score,
     format_eval_command,
     format_reproduction_status,
+    format_run_command,
     read_file,
     run_eval_and_return_metric,
 )
@@ -53,14 +53,6 @@ trec_eval_metric_definitions = {
     'R@10': '-c -m recall.10',
     'R@1000': '-c -m recall.1000'
 }
-
-
-def format_run_command(raw):
-    return raw.replace('--topics', '\\\n  --topics')\
-        .replace('--index', '\\\n  --index')\
-        .replace('--encoded-queries', '\\\n  --encoded-queries')\
-        .replace('--output ', '\\\n  --output ')\
-        .replace('--hits ', '\\\n  --hits ')
 
 
 def list_models():
