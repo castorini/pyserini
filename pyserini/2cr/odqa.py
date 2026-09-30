@@ -77,7 +77,7 @@ def print_results(table, metric, topics):
         print(' ' * 4, end='')
         print(f'{model:30}', end='')
         key = f'{model}'
-        print(f'{table[key][metric]:7.2f}', end='\n')
+        print(f'{table[key][metric]:7.4f}', end='\n')
     print('')
 
 
@@ -124,10 +124,10 @@ def generate_table_rows(table, table_id, commands, convert_commands, eval_comman
             s = s.substitute(table_cnt=table_id,
                              row_cnt=row_cnt,
                              model=model,
-                             TQA_Top20=table[model][TQA_TOPICS]['Top20'],
-                             TQA_Top100=table[model][TQA_TOPICS]['Top100'],
-                             NQ_Top20=table[model][NQ_TOPICS]['Top20'],
-                             NQ_Top100=table[model][NQ_TOPICS]['Top100'],
+                             TQA_Top20=f"{table[model][TQA_TOPICS]['Top20']:.4f}",
+                             TQA_Top100=f"{table[model][TQA_TOPICS]['Top100']:.4f}",
+                             NQ_Top20=f"{table[model][NQ_TOPICS]['Top20']:.4f}",
+                             NQ_Top100=f"{table[model][NQ_TOPICS]['Top100']:.4f}",
                              cmd1=f'{commands[model][TQA_TOPICS][0]}',
                              cmd2=f'{commands[model][TQA_TOPICS][1]}',
                              cmd3=f'{commands[model][TQA_TOPICS][2]}',
@@ -145,10 +145,10 @@ def generate_table_rows(table, table_id, commands, convert_commands, eval_comman
             s = s.substitute(table_cnt=table_id,
                              row_cnt=row_cnt,
                              model=model,
-                             TQA_Top20=table[model][TQA_TOPICS]['Top20'],
-                             TQA_Top100=table[model][TQA_TOPICS]['Top100'],
-                             NQ_Top20=table[model][NQ_TOPICS]['Top20'],
-                             NQ_Top100=table[model][NQ_TOPICS]['Top100'],
+                             TQA_Top20=f"{table[model][TQA_TOPICS]['Top20']:.4f}",
+                             TQA_Top100=f"{table[model][TQA_TOPICS]['Top100']:.4f}",
+                             NQ_Top20=f"{table[model][NQ_TOPICS]['Top20']:.4f}",
+                             NQ_Top100=f"{table[model][NQ_TOPICS]['Top100']:.4f}",
                              fusion_cmd1=fusion_cmd_tqa[1],
                              fusion_cmd2=fusion_cmd_nq[1],
                              convert_cmd1=f'{convert_commands[model][TQA_TOPICS]}',
@@ -160,10 +160,10 @@ def generate_table_rows(table, table_id, commands, convert_commands, eval_comman
             s = s.substitute(table_cnt=table_id,
                              row_cnt=row_cnt,
                              model=model,
-                             TQA_Top20=table[model][TQA_TOPICS]['Top20'],
-                             TQA_Top100=table[model][TQA_TOPICS]['Top100'],
-                             NQ_Top20=table[model][NQ_TOPICS]['Top20'],
-                             NQ_Top100=table[model][NQ_TOPICS]['Top100'],
+                             TQA_Top20=f"{table[model][TQA_TOPICS]['Top20']:.4f}",
+                             TQA_Top100=f"{table[model][TQA_TOPICS]['Top100']:.4f}",
+                             NQ_Top20=f"{table[model][NQ_TOPICS]['Top20']:.4f}",
+                             NQ_Top100=f"{table[model][NQ_TOPICS]['Top100']:.4f}",
                              cmd1=commands[model][TQA_TOPICS][0],
                              cmd2=commands[model][NQ_TOPICS][0],
                              convert_cmd1=f'{convert_commands[model][TQA_TOPICS]}',
@@ -410,7 +410,9 @@ def run_topic_conditions(args, topic_arg, default_topics, yaml_path):
                 topk_defs = evaluate_dpr_retrieval_metric_definitions['Top5-100']
                 if args.full_topk:
                     topk_defs = evaluate_dpr_retrieval_metric_definitions['Top5-1000']
-                score = run_dpr_retrieval_eval_and_return_metric(topk_defs, jsonfile)
+                # The DPR evaluation helper returns percentages; normalize once for 2CR.
+                score = {metric: value / 100 for metric, value in
+                         run_dpr_retrieval_eval_and_return_metric(topk_defs, jsonfile).items()}
             
             # comparing ground truth scores with the generated ones 
             for expected in condition['scores']:
@@ -419,9 +421,9 @@ def run_topic_conditions(args, topic_arg, default_topics, yaml_path):
                         continue
                     if not args.skip_eval:
                         expected_score = float(expected_score)
-                        status = compare_reproduction_score(score[metric] / 100, expected_score / 100)
+                        status = compare_reproduction_score(score[metric], expected_score)
                         result_str = format_reproduction_status(status, expected_score)
-                        print(f'      {metric:7}: {score[metric]:.2f} {result_str}')
+                        print(f'      {metric:7}: {score[metric]:.4f} {result_str}')
                         table[name][metric] = score[metric]
                     else:
                         table[name][metric] = expected_score
