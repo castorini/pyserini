@@ -5,7 +5,7 @@ conditions:
     scores:
       - Top5: 44.82
         Top20: 63.99
-        Top100: 79.20
+        Top100: 79.22
         Top500: 86.59
         Top1000: 88.95
   - model_name: BM25-k1_0.9_b_0.4_dpr-topics
@@ -14,7 +14,7 @@ conditions:
     scores:
       - Top5: 43.77
         Top20: 62.94
-        Top100: 78.23
+        Top100: 78.25
         Top500: 85.60
         Top1000: 88.01
   - model_name: GarT5-RRF
@@ -23,7 +23,7 @@ conditions:
       - python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index wikipedia-dpr-100w --topics nq-test-gar-t5-titles --output $output --bm25 --k1 0.9 --b 0.4
       - python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index wikipedia-dpr-100w --topics nq-test-gar-t5-sentences --output $output --bm25 --k1 0.9 --b 0.4
     scores:
-      - Top5: 64.62
+      - Top5: 64.63
         Top20: 77.17
         Top100: 86.90
         Top500: 91.63
