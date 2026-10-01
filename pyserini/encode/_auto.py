@@ -22,11 +22,13 @@ from pyserini.encode._base import DocumentEncoder, QueryEncoder, load_auto_token
 
 
 class AutoDocumentEncoder(DocumentEncoder):
-    def __init__(self, model_name, tokenizer_name=None, device='cuda:0', pooling='cls', l2_norm=False, prefix=None):
+    def __init__(self, model_name, tokenizer_name=None, device='cuda:0', pooling='cls', l2_norm=False, prefix=None,
+                 trust_remote_code=False):
         self.device = device
-        self.model = AutoModel.from_pretrained(model_name)
+        self.model = AutoModel.from_pretrained(model_name, trust_remote_code=trust_remote_code)
         self.model.to(self.device)
-        self.tokenizer = load_auto_tokenizer(tokenizer_name or model_name, clean_up_tokenization_spaces=True)
+        self.tokenizer = load_auto_tokenizer(tokenizer_name or model_name, trust_remote_code=trust_remote_code,
+                                              clean_up_tokenization_spaces=True)
         self.has_model = True
         self.pooling = pooling
         self.l2_norm = l2_norm
@@ -68,13 +70,15 @@ class AutoDocumentEncoder(DocumentEncoder):
 
 class AutoQueryEncoder(QueryEncoder):
     def __init__(self, encoder_dir: str = None, tokenizer_name: str = None, encoded_queries_dir: str = None,
-                 device: str = 'cpu', pooling: str = 'cls', l2_norm: bool = False, prefix=None, **kwargs):
+                 device: str = 'cpu', pooling: str = 'cls', l2_norm: bool = False, prefix=None,
+                 trust_remote_code: bool = False, **kwargs):
         super().__init__(encoded_queries_dir)
         if encoder_dir:
             self.device = device
-            self.model = AutoModel.from_pretrained(encoder_dir)
+            self.model = AutoModel.from_pretrained(encoder_dir, trust_remote_code=trust_remote_code)
             self.model.to(self.device)
-            self.tokenizer = load_auto_tokenizer(tokenizer_name or encoder_dir, clean_up_tokenization_spaces=True)
+            self.tokenizer = load_auto_tokenizer(tokenizer_name or encoder_dir, trust_remote_code=trust_remote_code,
+                                                  clean_up_tokenization_spaces=True)
             self.has_model = True
             self.pooling = pooling
             self.l2_norm = l2_norm
