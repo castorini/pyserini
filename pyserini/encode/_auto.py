@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+from typing import List
+
 import numpy as np
 from sklearn.preprocessing import normalize
 from transformers import AutoModel
@@ -107,3 +109,39 @@ class AutoQueryEncoder(QueryEncoder):
             return embeddings.flatten()
         else:
             return super().encode(query)
+
+    def encode_batch(self, queries: List[str], max_length: int = None):
+        """Encode a list of queries in a single forward pass.
+
+        Row i of the returned array equals ``encode(queries[i])``, so this is a
+        drop-in speed-up for callers such as ``FaissSearcher.batch_search`` that
+        would otherwise encode queries one at a time.
+        """
+        if not self.has_model:
+            return np.array([QueryEncoder.encode(self, query) for query in queries])
+        if self.prefix:
+            queries = [f'{self.prefix} {query}' for query in queries]
+        tokenizer_kwargs = dict(
+            add_special_tokens=True,
+            return_tensors='pt',
+            padding='longest',
+            return_token_type_ids=False,
+            truncation=True,
+        )
+        if max_length is not None:
+            tokenizer_kwargs['max_length'] = max_length
+        inputs = self.tokenizer(queries, **tokenizer_kwargs)
+        inputs.to(self.device)
+        outputs = self.model(**inputs)[0].detach().cpu().numpy()
+        if self.pooling == "mean":
+            # Mask padding tokens so each row averages only its real tokens,
+            # matching the per-query result (single queries have no padding).
+            mask = inputs['attention_mask'].detach().cpu().numpy()
+            summed = (outputs * mask[:, :, None]).sum(axis=1)
+            counts = np.clip(mask.sum(axis=1)[:, None], a_min=1, a_max=None)
+            embeddings = summed / counts
+        else:
+            embeddings = outputs[:, 0, :]
+        if self.l2_norm:
+            embeddings = normalize(embeddings, norm='l2')
+        return embeddings
