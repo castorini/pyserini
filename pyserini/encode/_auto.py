@@ -18,7 +18,7 @@ import numpy as np
 from sklearn.preprocessing import normalize
 from transformers import AutoModel
 
-from pyserini.encode._base import DocumentEncoder, QueryEncoder, load_auto_tokenizer
+from pyserini.encode._base import DocumentEncoder, QueryEncoder, load_auto_tokenizer, resolve_encoder_name_or_path
 
 
 class AutoDocumentEncoder(DocumentEncoder):
@@ -67,14 +67,17 @@ class AutoDocumentEncoder(DocumentEncoder):
 
 
 class AutoQueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None, encoded_queries_dir: str = None,
-                 device: str = 'cpu', pooling: str = 'cls', l2_norm: bool = False, prefix=None, **kwargs):
+    def __init__(self, encoder_name_or_path: str = None, tokenizer_name: str = None, encoded_queries_dir: str = None,
+                 device: str = 'cpu', pooling: str = 'cls', l2_norm: bool = False, prefix=None,
+                 encoder_dir: str = None, **kwargs):
         super().__init__(encoded_queries_dir)
-        if encoder_dir:
+        encoder_name_or_path = resolve_encoder_name_or_path(encoder_name_or_path, encoder_dir)
+        if encoder_name_or_path:
             self.device = device
-            self.model = AutoModel.from_pretrained(encoder_dir)
+            self.model = AutoModel.from_pretrained(encoder_name_or_path)
             self.model.to(self.device)
-            self.tokenizer = load_auto_tokenizer(tokenizer_name or encoder_dir, clean_up_tokenization_spaces=True)
+            self.tokenizer = load_auto_tokenizer(tokenizer_name or encoder_name_or_path,
+                                                 clean_up_tokenization_spaces=True)
             self.has_model = True
             self.pooling = pooling
             self.l2_norm = l2_norm

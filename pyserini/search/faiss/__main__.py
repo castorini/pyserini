@@ -285,7 +285,7 @@ def init_query_encoder(
 
         # prepare arguments to encoder class
         kwargs = dict(
-            encoder_dir=encoder,
+            encoder_name_or_path=encoder,
             tokenizer_name=tokenizer_name,
             device=device,
             prefix=prefix,
@@ -501,7 +501,7 @@ if __name__ == "__main__":
             else:
                 sparse_searcher = LuceneSearcher.from_prebuilt_index(args.sparse_index)
             prf_query_encoder = AnceQueryEncoder(
-                encoder_dir=args.ance_prf_encoder,
+                encoder_name_or_path=args.ance_prf_encoder,
                 tokenizer_name=args.tokenizer,
                 device=args.device,
             )

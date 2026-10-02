@@ -16,14 +16,16 @@
 import torch
 from transformers import BertModel
 
-from pyserini.encode._base import QueryEncoder, load_bert_tokenizer
+from pyserini.encode._base import QueryEncoder, load_bert_tokenizer, resolve_encoder_name_or_path
 
 
 class DkrrDprQueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir: str = None, encoded_queries_dir: str = None, device: str = 'cpu', prefix: str = 'question:', **kwargs):
+    def __init__(self, encoder_name_or_path: str = None, encoded_queries_dir: str = None,
+                 device: str = 'cpu', prefix: str = 'question:', encoder_dir: str = None, **kwargs):
         super().__init__(encoded_queries_dir)
+        encoder_name_or_path = resolve_encoder_name_or_path(encoder_name_or_path, encoder_dir)
         self.device = device
-        self.model = BertModel.from_pretrained(encoder_dir)
+        self.model = BertModel.from_pretrained(encoder_name_or_path)
         self.model.to(self.device)
         self.tokenizer = load_bert_tokenizer('bert-base-uncased', clean_up_tokenization_spaces=True)
         self.has_model = True

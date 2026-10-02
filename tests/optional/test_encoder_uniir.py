@@ -30,7 +30,7 @@ class TestUniIREncoderInstantiation(unittest.TestCase):
         from pyserini.encode.optional._uniir import UniIRQueryEncoder
         from uniir_for_pyserini.pyserini_integration.uniir_query_encoder import QueryEncoder
 
-        encoder = UniIRQueryEncoder(encoder_dir="clip_sf_large", device="cpu")
+        encoder = UniIRQueryEncoder(encoder_name_or_path="clip_sf_large", device="cpu")
 
         assert encoder.query_encoder is not None
         assert isinstance(encoder.query_encoder, QueryEncoder)

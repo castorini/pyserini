@@ -66,11 +66,11 @@ def init_encoder(encoder, device, pooling, l2_norm, prefix, bpr):
     elif 'arctic' in encoder.lower():
         return ArcticQueryEncoder(encoder, device=device)
     elif 'dse' in encoder.lower():
-        return DseQueryEncoder(encoder_dir=encoder, device=device, pooling=pooling, l2_norm=l2_norm)
+        return DseQueryEncoder(encoder_name_or_path=encoder, device=device, pooling=pooling, l2_norm=l2_norm)
     elif 'mmeb' in encoder.lower():
         if MMEBQueryEncoder is None:
             raise ValueError(f"MMEB's query encoder class is not available. Have you installed the vlm2vec-for-pyserini package? Detailed stack trace:\n {MMEB_IMPORT_ERROR}")
-        return MMEBQueryEncoder(encoder_dir=encoder, device=device, pooling=pooling, l2_norm=l2_norm)
+        return MMEBQueryEncoder(encoder_name_or_path=encoder, device=device, pooling=pooling, l2_norm=l2_norm)
     else:
         return AutoQueryEncoder(encoder, device=device, pooling=pooling, l2_norm=l2_norm, prefix=prefix)
 

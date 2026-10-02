@@ -23,6 +23,7 @@ import openai
 import tiktoken
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
+from pyserini.encode._base import resolve_encoder_name_or_path
 
 OPENAI_API_RETRY_DELAY = 5
 
@@ -62,14 +63,16 @@ class OpenAiDocumentEncoder(DocumentEncoder):
 
 
 class OpenAiQueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir: str = None, encoded_queries_dir: str = None,
-                 tokenizer_name: str = None, max_length: int = 512, **kwargs):
+    def __init__(self, encoder_name_or_path: str = None, encoded_queries_dir: str = None,
+                 tokenizer_name: str = None, max_length: int = 512,
+                 encoder_dir: str = None, **kwargs):
         super().__init__(encoded_queries_dir)
-        if encoder_dir:
+        encoder_name_or_path = resolve_encoder_name_or_path(encoder_name_or_path, encoder_dir)
+        if encoder_name_or_path:
             api_key = '' if os.getenv("OPENAI_API_KEY") is None else os.getenv("OPENAI_API_KEY")
             org_key = '' if os.getenv("OPENAI_ORG_KEY") is None else os.getenv("OPENAI_ORG_KEY")
             self.client = openai.OpenAI(api_key=api_key, organization=org_key)
-            self.model = encoder_dir
+            self.model = encoder_name_or_path
             self.tokenizer = tiktoken.get_encoding(tokenizer_name)
             self.max_length = max_length
             self.has_model = True
