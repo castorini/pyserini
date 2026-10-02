@@ -87,7 +87,7 @@ def print_results(table, metric):
     for model in atomic_models:
         print(f'{model:35}', end='')
         for condition in conditions:
-            print(f'{table[model][condition][metric]:.3f}' + ' ' * len(condition), end='')
+            print(f'{table[model][condition][metric]:.4f}' + ' ' * len(condition), end='')
         print()
 
     print()

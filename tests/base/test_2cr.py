@@ -166,24 +166,43 @@ class TestRunnerScoreClassification(unittest.TestCase):
 
 
 class TestFractionalScoreReports(unittest.TestCase):
-    def test_odqa_and_dse_reports_use_four_decimal_fractional_scores(self):
-        for name, count in [('odqa', 28), ('dse', 6)]:
+    def test_reports_use_four_decimal_fractional_scores(self):
+        reports = [('atomic', 72), ('beir', 300), ('bright', 144), ('dse', 6),
+                   ('miracl', 224), ('mrtydi', 120), ('odqa', 28)]
+        for name, count in reports:
             with self.subTest(runner=name), tempfile.TemporaryDirectory() as directory:
                 runner = importlib.import_module(f'pyserini.2cr.{name}')
                 output = Path(directory) / 'report.html'
                 runner.generate_report(Namespace(directory='runs', output=str(output)))
-                cells = re.findall(r'<td>([0-9.]+)</td>', output.read_text())
+                report = output.read_text()
+                cells = re.findall(r'<td[^>]*>\s*(\d+\.\d+)\s*</td>', report)
                 self.assertEqual(len(cells), count)
+                self.assertNotRegex(report, r'<td[^>]*>\s*--\d')
                 for cell in cells:
                     self.assertRegex(cell, r'^[01]\.\d{4}$')
                     self.assertTrue(0 <= float(cell) <= 1)
                 if name == 'odqa':
                     config = yaml.safe_load(base.read_file('odqa_tqa.yaml'))
                     expected = config['conditions'][0]['scores'][0]['Top100']
-                else:
+                elif name == 'dse':
                     config = yaml.safe_load(base.read_file('dse.yaml'))
                     expected = config['conditions'][0]['datasets'][0]['scores'][0]['Top-1']
-                self.assertIn(f'{expected:.4f}', cells)
+                if name in ['odqa', 'dse']:
+                    self.assertIn(f'{expected:.4f}', cells)
+
+    def test_skipped_evaluation_summaries_use_four_decimal_scores(self):
+        args = Namespace(all=True, condition=None, directory='runs', display_commands=False,
+                         dry_run=True, skip_eval=True, language=None)
+        for name in ['atomic', 'beir', 'bright', 'miracl', 'mrtydi']:
+            with self.subTest(runner=name):
+                runner = importlib.import_module(f'pyserini.2cr.{name}')
+                config = yaml.safe_load(base.read_file(f'{name}.yaml'))
+                TestRunnerScoreClassification.set_scores(config, 0.5)
+                output = StringIO()
+                with redirect_stdout(output), patch.object(runner.yaml, 'safe_load', return_value=config):
+                    runner.run_conditions(args)
+                self.assertIn('0.5000', output.getvalue())
+                self.assertNotRegex(output.getvalue(), r'\b0\.500\b')
 
     def test_odqa_skipped_evaluation_prints_fractional_summary(self):
         runner = importlib.import_module('pyserini.2cr.odqa')

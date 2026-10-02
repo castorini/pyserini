@@ -91,7 +91,7 @@ def print_results(table, metric, split):
         print(f'{model:30}', end='')
         for lang in languages:
             key = f'{model}.{lang[0]}'
-            print(f'{table[key][split][metric]:7.3f}', end='')
+            print(f'{table[key][split][metric]:7.4f}', end='')
         print()
 
     print()
@@ -124,18 +124,18 @@ def generate_table_rows(table, row_template, commands, eval_commands, table_id, 
         s = s.substitute(table_cnt=table_id,
                          row_cnt=row_cnt,
                          model=html_display[model],
-                         ar=f'{table[keys["ar"]][split][metric]:.3f}',
-                         bn=f'{table[keys["bn"]][split][metric]:.3f}',
-                         en=f'{table[keys["en"]][split][metric]:.3f}',
-                         fi=f'{table[keys["fi"]][split][metric]:.3f}',
-                         id=f'{table[keys["id"]][split][metric]:.3f}',
-                         ja=f'{table[keys["ja"]][split][metric]:.3f}',
-                         ko=f'{table[keys["ko"]][split][metric]:.3f}',
-                         ru=f'{table[keys["ru"]][split][metric]:.3f}',
-                         sw=f'{table[keys["sw"]][split][metric]:.3f}',
-                         te=f'{table[keys["te"]][split][metric]:.3f}',
-                         th=f'{table[keys["th"]][split][metric]:.3f}',
-                         avg=f'{avg:.3f}',
+                         ar=f'{table[keys["ar"]][split][metric]:.4f}',
+                         bn=f'{table[keys["bn"]][split][metric]:.4f}',
+                         en=f'{table[keys["en"]][split][metric]:.4f}',
+                         fi=f'{table[keys["fi"]][split][metric]:.4f}',
+                         id=f'{table[keys["id"]][split][metric]:.4f}',
+                         ja=f'{table[keys["ja"]][split][metric]:.4f}',
+                         ko=f'{table[keys["ko"]][split][metric]:.4f}',
+                         ru=f'{table[keys["ru"]][split][metric]:.4f}',
+                         sw=f'{table[keys["sw"]][split][metric]:.4f}',
+                         te=f'{table[keys["te"]][split][metric]:.4f}',
+                         th=f'{table[keys["th"]][split][metric]:.4f}',
+                         avg=f'{avg:.4f}',
                          cmd1=f'{commands[keys["ar"]]}',
                          cmd2=f'{commands[keys["bn"]]}',
                          cmd3=f'{commands[keys["en"]]}',

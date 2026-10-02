@@ -112,18 +112,18 @@ def generate_report(args):
             s = Template(row_template)
             s = s.substitute(row_cnt=row_cnt,
                              dataset=dataset,
-                             s1=f'{table[dataset]["bm25"]["nDCG@10"]:8.3f}',
-                             s2=f'{table[dataset]["bm25"]["R@100"]:8.3f}',
-                             s3=f'{table[dataset]["bm25qs"]["nDCG@10"]:8.3f}',
-                             s4=f'{table[dataset]["bm25qs"]["R@100"]:8.3f}',
-                             s5=f'{table[dataset]["splade-v3"]["nDCG@10"]:8.3f}',
-                             s6=f'{table[dataset]["splade-v3"]["R@100"]:8.3f}',
-                             s7=f'{table[dataset]["bge-large-en-v1.5.flat"]["nDCG@10"]:8.3f}',
-                             s8=f'{table[dataset]["bge-large-en-v1.5.flat"]["R@100"]:8.3f}',
-                             s9=f'{table[dataset]["diver-retriever-4b"]["nDCG@10"]:8.3f}',
-                             s10=f'{table[dataset]["diver-retriever-4b"]["R@100"]:8.3f}',
-                             s11=f'{table[dataset]["reason-embed-qwen3-4b-0928"]["nDCG@10"]:8.3f}',
-                             s12=f'{table[dataset]["reason-embed-qwen3-4b-0928"]["R@100"]:8.3f}',
+                             s1=f'{table[dataset]["bm25"]["nDCG@10"]:8.4f}',
+                             s2=f'{table[dataset]["bm25"]["R@100"]:8.4f}',
+                             s3=f'{table[dataset]["bm25qs"]["nDCG@10"]:8.4f}',
+                             s4=f'{table[dataset]["bm25qs"]["R@100"]:8.4f}',
+                             s5=f'{table[dataset]["splade-v3"]["nDCG@10"]:8.4f}',
+                             s6=f'{table[dataset]["splade-v3"]["R@100"]:8.4f}',
+                             s7=f'{table[dataset]["bge-large-en-v1.5.flat"]["nDCG@10"]:8.4f}',
+                             s8=f'{table[dataset]["bge-large-en-v1.5.flat"]["R@100"]:8.4f}',
+                             s9=f'{table[dataset]["diver-retriever-4b"]["nDCG@10"]:8.4f}',
+                             s10=f'{table[dataset]["diver-retriever-4b"]["R@100"]:8.4f}',
+                             s11=f'{table[dataset]["reason-embed-qwen3-4b-0928"]["nDCG@10"]:8.4f}',
+                             s12=f'{table[dataset]["reason-embed-qwen3-4b-0928"]["R@100"]:8.4f}',
                              cmd1=commands[dataset]["bm25"],
                              cmd2=commands[dataset]["bm25qs"],
                              cmd3=commands[dataset]["splade-v3"],
@@ -220,19 +220,19 @@ def run_conditions(args):
     print(' ' * 28 + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ')
     for dataset in bright_keys:
         print(f'{dataset:25}' +
-              f'{table[dataset]["bm25"]["nDCG@10"]:8.3f}{table[dataset]["bm25"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["bm25qs"]["nDCG@10"]:8.3f}{table[dataset]["bm25qs"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["splade-v3"]["nDCG@10"]:8.3f}{table[dataset]["splade-v3"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["bge-large-en-v1.5.flat"]["nDCG@10"]:8.3f}{table[dataset]["bge-large-en-v1.5.flat"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["diver-retriever-4b"]["nDCG@10"]:8.3f}{table[dataset]["diver-retriever-4b"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["reason-embed-qwen3-4b-0928"]["nDCG@10"]:8.3f}{table[dataset]["reason-embed-qwen3-4b-0928"]["R@100"]:8.3f}   ')
+              f'{table[dataset]["bm25"]["nDCG@10"]:8.4f}{table[dataset]["bm25"]["R@100"]:8.4f}   ' +
+              f'{table[dataset]["bm25qs"]["nDCG@10"]:8.4f}{table[dataset]["bm25qs"]["R@100"]:8.4f}   ' +
+              f'{table[dataset]["splade-v3"]["nDCG@10"]:8.4f}{table[dataset]["splade-v3"]["R@100"]:8.4f}   ' +
+              f'{table[dataset]["bge-large-en-v1.5.flat"]["nDCG@10"]:8.4f}{table[dataset]["bge-large-en-v1.5.flat"]["R@100"]:8.4f}   ' +
+              f'{table[dataset]["diver-retriever-4b"]["nDCG@10"]:8.4f}{table[dataset]["diver-retriever-4b"]["R@100"]:8.4f}   ' +
+              f'{table[dataset]["reason-embed-qwen3-4b-0928"]["nDCG@10"]:8.4f}{table[dataset]["reason-embed-qwen3-4b-0928"]["R@100"]:8.4f}   ')
     print(' ' * 28 + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ' + '-' * 13 + '      ')
-    print('avg' + ' ' * 22 + f'{final_scores["bm25"]["nDCG@10"]:8.3f}{final_scores["bm25"]["R@100"]:8.3f}   ' +
-          f'{final_scores["bm25qs"]["nDCG@10"]:8.3f}{final_scores["bm25qs"]["R@100"]:8.3f}   ' +
-          f'{final_scores["splade-v3"]["nDCG@10"]:8.3f}{final_scores["splade-v3"]["R@100"]:8.3f}   ' +
-          f'{final_scores["bge-large-en-v1.5.flat"]["nDCG@10"]:8.3f}{final_scores["bge-large-en-v1.5.flat"]["R@100"]:8.3f}   ' +
-          f'{final_scores["diver-retriever-4b"]["nDCG@10"]:8.3f}{final_scores["diver-retriever-4b"]["R@100"]:8.3f}   ' +
-          f'{final_scores["reason-embed-qwen3-4b-0928"]["nDCG@10"]:8.3f}{final_scores["reason-embed-qwen3-4b-0928"]["R@100"]:8.3f}   ')
+    print('avg' + ' ' * 22 + f'{final_scores["bm25"]["nDCG@10"]:8.4f}{final_scores["bm25"]["R@100"]:8.4f}   ' +
+          f'{final_scores["bm25qs"]["nDCG@10"]:8.4f}{final_scores["bm25qs"]["R@100"]:8.4f}   ' +
+          f'{final_scores["splade-v3"]["nDCG@10"]:8.4f}{final_scores["splade-v3"]["R@100"]:8.4f}   ' +
+          f'{final_scores["bge-large-en-v1.5.flat"]["nDCG@10"]:8.4f}{final_scores["bge-large-en-v1.5.flat"]["R@100"]:8.4f}   ' +
+          f'{final_scores["diver-retriever-4b"]["nDCG@10"]:8.4f}{final_scores["diver-retriever-4b"]["R@100"]:8.4f}   ' +
+          f'{final_scores["reason-embed-qwen3-4b-0928"]["nDCG@10"]:8.4f}{final_scores["reason-embed-qwen3-4b-0928"]["R@100"]:8.4f}   ')
 
     print('\n')
 

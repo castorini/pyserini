@@ -122,25 +122,25 @@ def generate_table_rows(table, row_template, commands, eval_commands, table_id, 
         s = s.substitute(table_cnt=table_id,
                          row_cnt=row_cnt,
                          model=html_display[model],
-                         ar=f'{table[keys["ar"]][split][metric]:.3f}',
-                         bn=f'{table[keys["bn"]][split][metric]:.3f}',
-                         en=f'{table[keys["en"]][split][metric]:.3f}',
-                         es=f'{table[keys["es"]][split][metric]:.3f}',
-                         fa=f'{table[keys["fa"]][split][metric]:.3f}',
-                         fi=f'{table[keys["fi"]][split][metric]:.3f}',
-                         fr=f'{table[keys["fr"]][split][metric]:.3f}',
-                         hi=f'{table[keys["hi"]][split][metric]:.3f}',
-                         id=f'{table[keys["id"]][split][metric]:.3f}',
-                         ja=f'{table[keys["ja"]][split][metric]:.3f}',
-                         ko=f'{table[keys["ko"]][split][metric]:.3f}',
-                         ru=f'{table[keys["ru"]][split][metric]:.3f}',
-                         sw=f'{table[keys["sw"]][split][metric]:.3f}',
-                         te=f'{table[keys["te"]][split][metric]:.3f}',
-                         th=f'{table[keys["th"]][split][metric]:.3f}',
-                         zh=f'{table[keys["zh"]][split][metric]:.3f}',
-                         de=f'{table[keys["de"]][split][metric]:.3f}',
-                         yo=f'{table[keys["yo"]][split][metric]:.3f}',
-                         avg=f'{avg:.3f}',
+                         ar=f'{table[keys["ar"]][split][metric]:.4f}',
+                         bn=f'{table[keys["bn"]][split][metric]:.4f}',
+                         en=f'{table[keys["en"]][split][metric]:.4f}',
+                         es=f'{table[keys["es"]][split][metric]:.4f}',
+                         fa=f'{table[keys["fa"]][split][metric]:.4f}',
+                         fi=f'{table[keys["fi"]][split][metric]:.4f}',
+                         fr=f'{table[keys["fr"]][split][metric]:.4f}',
+                         hi=f'{table[keys["hi"]][split][metric]:.4f}',
+                         id=f'{table[keys["id"]][split][metric]:.4f}',
+                         ja=f'{table[keys["ja"]][split][metric]:.4f}',
+                         ko=f'{table[keys["ko"]][split][metric]:.4f}',
+                         ru=f'{table[keys["ru"]][split][metric]:.4f}',
+                         sw=f'{table[keys["sw"]][split][metric]:.4f}',
+                         te=f'{table[keys["te"]][split][metric]:.4f}',
+                         th=f'{table[keys["th"]][split][metric]:.4f}',
+                         zh=f'{table[keys["zh"]][split][metric]:.4f}',
+                         de=f'{table[keys["de"]][split][metric]:.4f}',
+                         yo=f'{table[keys["yo"]][split][metric]:.4f}',
+                         avg=f'{avg:.4f}',
                          cmd1=f'{commands[keys["ar"]]}',
                          cmd2=f'{commands[keys["bn"]]}',
                          cmd3=f'{commands[keys["en"]]}',
@@ -178,7 +178,7 @@ def generate_table_rows(table, row_template, commands, eval_commands, table_id, 
                          eval_cmd17=f'{eval_commands[keys["de"]][metric]}',
                          eval_cmd18=f'{eval_commands[keys["yo"]][metric]}')
 
-        s = s.replace("0.000", "--")
+        s = s.replace("0.0000", "--")
         html_rows.append(s)
         row_cnt += 1
 
@@ -197,7 +197,7 @@ def print_results(table, metric, split):
         print(f'{model:33}', end='')
         for lang in languages:
             key = f'{model}.{lang[0]}'
-            print(f'{table[key][split][metric]:7.3f}', end='')
+            print(f'{table[key][split][metric]:7.4f}', end='')
         print()
 
     print()
