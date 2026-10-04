@@ -72,6 +72,7 @@ def define_dsearch_args(parser):
             "qwen3",
             "dse",
             "mmeb",
+            "nemotron",
         ],
         default=None,
         help="which query encoder class to use. `default` would infer from the args.encoder",
@@ -307,6 +308,8 @@ def init_query_encoder(
                 raise ValueError("UniIR's query encoder class is not available (as the uniir-for-pyserini package is not installed or CLIP is not installed). Please run 'pip install pyserini[optional]' to install the uniir-for-pyserini package and run 'pip install git+https://github.com/openai/CLIP.git' to install CLIP.")
         if _encoder_class == "qwen3":
             kwargs.update(dict(l2_norm=l2_norm, prefix=prefix, max_length=max_length, explicit_truncate=explicit_truncate))
+        if _encoder_class == "nemotron" or (encoder and "nemotron" in encoder.lower()):
+            kwargs.update(dict(prefix=prefix, l2_norm=True, max_length=max_length))
         if _encoder_class == "dse" or (encoder and "dse" in encoder.lower()):
             kwargs.update(dict(l2_norm=True, pooling=pooling, multimodal=multimodal))
         if _encoder_class == "mmeb":

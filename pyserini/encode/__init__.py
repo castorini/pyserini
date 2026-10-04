@@ -30,6 +30,7 @@ from ._clip import ClipDocumentEncoder, ClipTextEncoder, ClipImageEncoder, ClipQ
 from ._cosdpr import CosDprEncoder, CosDprDocumentEncoder, CosDprQueryEncoder
 from ._qwen3 import Qwen3DocumentEncoder, Qwen3QueryEncoder
 from ._dse import DseDocumentEncoder, DseQueryEncoder
+from ._nemotron import NemotronDocumentEncoder, NemotronQueryEncoder
 from ._dkrr import DkrrDprQueryEncoder
 from ._dpr import DprDocumentEncoder, DprQueryEncoder
 from ._openai import OpenAiDocumentEncoder, OpenAiQueryEncoder, OPENAI_API_RETRY_DELAY
@@ -69,6 +70,7 @@ document_encoder_class_map = {
     "splade": SpladeDocumentEncoder,
     "qwen3": Qwen3DocumentEncoder,
     "dse": DseDocumentEncoder,
+    "nemotron": NemotronDocumentEncoder,
     "mmeb": MMEBCorpusEncoder,
 }
 
@@ -89,5 +91,6 @@ query_encoder_class_map = {
     "uniir": UniIRQueryEncoder,
     "qwen3": Qwen3QueryEncoder,
     "dse": DseQueryEncoder,
+    "nemotron": NemotronQueryEncoder,
     "mmeb": MMEBQueryEncoder,
 }

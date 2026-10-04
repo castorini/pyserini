@@ -61,6 +61,10 @@ def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multi
             raise ValueError("UniIR's corpus encoder class is not available (as the uniir-for-pyserini package is not installed or CLIP is not installed). Please run 'pip install pyserini[optional]' to install the uniir-for-pyserini package and run 'pip install git+https://github.com/openai/CLIP.git' to install CLIP.")
     if _encoder_class == 'qwen3':
         kwargs.update(dict(l2_norm=l2_norm, prefix=prefix, explicit_truncate=explicit_truncate))
+    if _encoder_class == 'nemotron' or 'nemotron' in encoder.lower():
+        # prefix/l2_norm are left to the encoder's model-card defaults ("passage: ", normalise)
+        # unless the caller overrides them explicitly
+        kwargs.update(dict(prefix=prefix, l2_norm=True))
     if _encoder_class == 'dse' or 'dse' in encoder.lower():
         kwargs.update(dict(l2_norm=True, multimodal=multimodal, pooling=pooling))
     if _encoder_class == 'mmeb':
@@ -114,7 +118,7 @@ if __name__ == '__main__':
     encoder_parser = commands.add_parser('encoder')
     encoder_parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
     encoder_parser.add_argument('--encoder-class', type=str, required=False, default=None,
-                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto", "contriever", "arctic", "splade", "uniir", "qwen3", "dse", "mmeb"],
+                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto", "contriever", "arctic", "splade", "uniir", "qwen3", "dse", "mmeb", "nemotron"],
                                 help='which query encoder class to use. `default` would infer from the args.encoder')
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
     encoder_parser.add_argument('--multimodal', action='store_true', default=False)
