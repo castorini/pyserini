@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+import gzip
 import json
 import os
 import warnings
@@ -225,7 +226,8 @@ class JsonlCollectionIterator:
         all_info = {field: [] for field in self.fields}
         all_info['id'] = []
         for filename in filenames:
-            with open(filename) as f:
+            open_handle = gzip.open if filename.endswith('.gz') else open
+            with open_handle(filename, 'rt') as f:
                 for line_i, line in tqdm(enumerate(f)):
                     info = json.loads(line)
                     if self.docid_field:
