@@ -26,7 +26,7 @@ if torch.cuda.is_available():
 from transformers import DistilBertConfig, BertConfig
 from transformers import AutoModelForMaskedLM, AutoTokenizer, PreTrainedModel
 from pyserini.encode import DocumentEncoder, QueryEncoder
-from pyserini.encode._base import load_head_weights
+from pyserini.encode._base import load_head_weights, resolve_encoder_name_or_path
 from packaging.version import Version
 from transformers import __version__ as transformers_version
 
@@ -181,16 +181,18 @@ class AggretrieverDocumentEncoder(DocumentEncoder):
 
 
 class AggretrieverQueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_queries_dir: str = None, device: str = 'cpu', **kwargs):
+    def __init__(self, encoder_name_or_path: str = None, tokenizer_name: str = None,
+                 encoded_queries_dir: str = None, device: str = 'cpu',
+                 encoder_dir: str = None, **kwargs):
         super().__init__(encoded_queries_dir)
-        if encoder_dir:
+        encoder_name_or_path = resolve_encoder_name_or_path(encoder_name_or_path, encoder_dir)
+        if encoder_name_or_path:
             self.device = device
-            if 'distilbert' in encoder_dir.lower():
-                self.model = DistlBertAggretrieverEncoder.load_pretrained_encoder(encoder_dir, device)
+            if 'distilbert' in encoder_name_or_path.lower():
+                self.model = DistlBertAggretrieverEncoder.load_pretrained_encoder(encoder_name_or_path, device)
             else:
-                self.model = BertAggretrieverEncoder.load_pretrained_encoder(encoder_dir, device)
-            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir,
+                self.model = BertAggretrieverEncoder.load_pretrained_encoder(encoder_name_or_path, device)
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_name_or_path,
                                                            clean_up_tokenization_spaces=True)
             self.has_model = True
         if (not self.has_model) and (not self.has_encoded_queries):

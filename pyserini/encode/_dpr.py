@@ -29,6 +29,7 @@ from transformers import __version__ as transformers_version
 from transformers.utils import logging
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
+from pyserini.encode._base import resolve_encoder_name_or_path
 
 
 class _LegacyDprTokenizer:
@@ -282,15 +283,17 @@ class DprDocumentEncoder(DocumentEncoder):
 
 
 class DprQueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_queries_dir: str = None, device: str = 'cpu', **kwargs):
+    def __init__(self, encoder_name_or_path: str = None, tokenizer_name: str = None,
+                 encoded_queries_dir: str = None, device: str = 'cpu',
+                 encoder_dir: str = None, **kwargs):
         super().__init__(encoded_queries_dir)
-        if encoder_dir:
+        encoder_name_or_path = resolve_encoder_name_or_path(encoder_name_or_path, encoder_dir)
+        if encoder_name_or_path:
             self.device = device
             with log_level(logging.ERROR):
-                self.model = DPRQuestionEncoder.from_pretrained(encoder_dir)
+                self.model = DPRQuestionEncoder.from_pretrained(encoder_name_or_path)
             self.model.to(self.device)
-            self.tokenizer = _load_dpr_tokenizer(DPRQuestionEncoderTokenizer, tokenizer_name or encoder_dir,
+            self.tokenizer = _load_dpr_tokenizer(DPRQuestionEncoderTokenizer, tokenizer_name or encoder_name_or_path,
                                                  clean_up_tokenization_spaces=True)
             self.has_model = True
         if (not self.has_model) and (not self.has_encoded_queries):
