@@ -1,0 +1,13 @@
+<tr>
+<td>${row_num}</td>
+<td style="min-width: 400px"><a href="#condition-${row_num}">${display}</a><br/><code>${name}</code></td>
+${cells}
+</tr>
+<tr>
+<td colspan="${colspan}">
+<details id="condition-${row_num}">
+<summary>Commands: ${display}</summary>
+${commands}
+</details>
+</td>
+</tr>
