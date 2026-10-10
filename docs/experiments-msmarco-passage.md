@@ -592,3 +592,4 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@htanugarapur](https://github.com/htanugarapur) on 2026-10-05 (commit [`2aa191a`](https://github.com/castorini/pyserini/commit/2aa191adb329ae33002a27653e8ad53fab01f6ba))
 + Results reproduced by [@utkarshg20](https://github.com/utkarshg20) on 2026-10-07 (commit [`b875d19`](https://github.com/castorini/pyserini/commit/b875d19a6ba5bd5d228e269a5f9ece3934c79360))
 + Results reproduced by [@Chen1919](https://github.com/Chen1919) on 2026-10-07 (commit [`55c7216`](https://github.com/castorini/pyserini/commit/55c72164406ca8ec59cbf4c1f17f3f430d072d53))
++ Results reproduced by [@james-yu2005](https://github.com/james-yu2005) on 2026-10-10 (commit [`3ab268d`](https://github.com/castorini/pyserini/commit/3ab268d22bdfce34520fdc37ec9a77327b4cc9d6))
