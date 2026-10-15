@@ -27,7 +27,7 @@ from transformers import (
 from transformers import __version__ as transformers_version
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
-from pyserini.encode._base import load_head_weights, load_roberta_tokenizer
+from pyserini.encode._base import load_head_weights, load_roberta_tokenizer, resolve_encoder_name_or_path
 from pyserini.util import temporary_env
 
 
@@ -117,13 +117,16 @@ class AnceDocumentEncoder(DocumentEncoder):
 
 
 class AnceQueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_queries_dir: str = None, device: str = 'cpu', **kwargs):
+    def __init__(self, encoder_name_or_path: str = None, tokenizer_name: str = None,
+                 encoded_queries_dir: str = None, device: str = 'cpu',
+                 encoder_dir: str = None, **kwargs):
         super().__init__(encoded_queries_dir)
-        if encoder_dir:
+        encoder_name_or_path = resolve_encoder_name_or_path(encoder_name_or_path, encoder_dir)
+        if encoder_name_or_path:
             self.device = device
-            self.model = AnceEncoder.load_pretrained_encoder(encoder_dir, device)
-            self.tokenizer = load_roberta_tokenizer(tokenizer_name or encoder_dir, clean_up_tokenization_spaces=True)
+            self.model = AnceEncoder.load_pretrained_encoder(encoder_name_or_path, device)
+            self.tokenizer = load_roberta_tokenizer(tokenizer_name or encoder_name_or_path,
+                                                    clean_up_tokenization_spaces=True)
             self.has_model = True
             self.tokenizer.do_lower_case = True
         if (not self.has_model) and (not self.has_encoded_queries):
