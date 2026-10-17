@@ -4,7 +4,7 @@ In a [previous guide](conceptual-framework2.md), we introduced a conceptual fram
 This guide offers a deeper dive with learned sparse retrieval, where we use SPLADE-v3, a learned sparse model to encode the corpus into sparse vectors, index them into retrieval system with inverted index, and finally perform retrieval and evaluation.
 
 If you're a Waterloo student traversing the [onboarding path](https://github.com/lintool/guide/blob/master/ura.md) (which [starts here](https://github.com/castorini/anserini/blob/master/docs/start-here.md)),
-make sure you've first done the previous step, [reproducing a dense retrieval baseline for NFCorpus](experiments-nfcorpus.md).
+make sure you've first done the previous step, [a deeper dive into dense and sparse representations](conceptual-framework2.md).
 In general, don't try to rush through this guide by just blindly copying and pasting commands into a shell;
 that's what I call [cargo culting](https://en.wikipedia.org/wiki/Cargo_cult_programming).
 Instead, really try to understand what's going on.
