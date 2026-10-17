@@ -17,7 +17,7 @@ Instead, really try to understand what's going on.
 + Understand the difference between dense and sparse representations, and between supervised (learned) and unsupervised (heuristic) representations.
 
 ## Bi-Encoders
- 
+
 As a recap from [here](https://github.com/castorini/anserini/blob/master/docs/start-here.md), this is the "core retrieval" problem that we're trying to solve:
 
 > Given an information need expressed as a query _q_, the text retrieval task is to return a ranked list of _k_ texts {_d<sub>1</sub>_, _d<sub>2</sub>_ ... _d<sub>k</sub>_} from an arbitrarily large but finite collection
