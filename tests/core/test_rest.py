@@ -1212,6 +1212,68 @@ class TestRestTokenIssuance(unittest.TestCase):
             self.assertEqual(response.json().get('error'), 'Only POST is supported')
 
 
+class TestRestTokenRequestLimit(unittest.TestCase):
+    def test_quota_is_shared_by_headers_and_routes_before_backend(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'server.yaml'
+            path.write_text(yaml.safe_dump({'api_keys': ['token-one', 'token-two']}), encoding='utf-8')
+            with unittest.mock.patch('pyserini.server.rest.app.SharedSearchBackend') as backend_class:
+                backend = backend_class.return_value
+                backend.decode_path_segment.side_effect = lambda value: value
+                backend.search.return_value = {'candidates': []}
+                backend.get_document.return_value = {'contents': 'example'}
+                application = create_app(str(path), requests_per_minute=2)
+                with TestClient(application) as client:
+                    first = client.get(
+                        '/v1/local/search', params={'query': 'first'},
+                        headers={'Authorization': 'Bearer token-one'},
+                    )
+                    second = client.get('/v1/local/doc/example', headers={'X-API-Key': 'token-one'})
+                    with unittest.mock.patch('pyserini.server.rest.app._log_request_jsonl') as logged:
+                        blocked = client.get(
+                            '/v1/another/search', params={'query': 'blocked'},
+                            headers={'X-API-Key': 'invalid', 'Authorization': 'Bearer token-one'},
+                        )
+                    other_token = client.get(
+                        '/v1/local/search', params={'query': 'second token'},
+                        headers={'X-API-Key': 'token-two'},
+                    )
+                    health = client.get('/')
+                self.assertEqual([first.status_code, second.status_code, other_token.status_code], [200] * 3)
+                self.assertEqual(blocked.status_code, 429)
+                self.assertIn('request limit exceeded', blocked.json()['error'])
+                self.assertGreaterEqual(int(blocked.headers['Retry-After']), 1)
+                self.assertEqual(blocked.headers['X-RateLimit-Limit'], '2')
+                self.assertIn('X-Request-ID', blocked.headers)
+                self.assertTrue(logged.call_args.args[0]['rate_limited'])
+                self.assertEqual(backend.search.call_count, 2)
+                backend.get_document.assert_called_once()
+                self.assertEqual(health.status_code, 200)
+
+    def test_default_cap_rejects_request_31_and_keeps_authentication(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'server.yaml'
+            path.write_text(yaml.safe_dump({'api_keys': ['valid-token']}), encoding='utf-8')
+            with unittest.mock.patch('pyserini.server.rest.app.SharedSearchBackend'):
+                with TestClient(create_app(str(path))) as client:
+                    self.assertEqual(client.get('/v1/quota-probe').status_code, 401)
+                    responses = [
+                        client.get('/v1/quota-probe', headers={'X-API-Key': 'valid-token'})
+                        for _ in range(31)
+                    ]
+                    self.assertEqual([response.status_code for response in responses[:30]], [404] * 30)
+                    self.assertEqual(responses[30].status_code, 429)
+                    self.assertEqual(responses[30].headers['X-RateLimit-Limit'], '30')
+                    self.assertEqual(client.get('/v1/quota-probe').status_code, 401)
+
+    def test_main_rejects_nonpositive_request_limit(self):
+        for limit in ('0', '-1'):
+            with self.subTest(limit=limit):
+                with unittest.mock.patch('sys.argv', ['pyserini.server.rest', '--requests-per-minute', limit]):
+                    with self.assertRaisesRegex(SystemExit, '--requests-per-minute must be positive'):
+                        main()
+
+
 class TestRestBackpressure(unittest.TestCase):
     """p99-based shedding rejects the busiest API key in the last minute (429)."""
 

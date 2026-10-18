@@ -128,6 +128,19 @@ python -m pyserini.server.rest --config /path/to/server.yaml --no-prebuilt-index
 
 When `--no-prebuilt-indexes` is set, the server only accepts index names declared under `indexes:` in `--config`.
 
+Authenticated API requests have a hard limit of **30 requests per token in any rolling 60 seconds**.
+Search and document requests share the same quota across indexes, client IPs, and credential headers.
+Excess requests return **429** before reaching the search backend, with a `Retry-After` header stating
+how many seconds to wait. Rejected requests do not extend that wait. Health and documentation routes
+remain accessible. Set a different positive quota with `--requests-per-minute`:
+
+```bash
+python -m pyserini.server.rest --config /path/to/server.yaml --requests-per-minute 30
+```
+
+The quota is maintained in memory by the single REST process and resets on restart. Deployments with
+multiple independent server processes need a shared limiter at the gateway to enforce one combined quota.
+
 With `api_keys` in `--config`, **`--load-shedding-threshold`** sets the latency threshold (milliseconds, default **3000**) for simple load shedding: if rolling p99 over the last minute is above it, the busiest API key(s) may get **429**. Omitting `api_keys` disables this (and auth) on `/v1/*`.
 
 ```bash
@@ -156,7 +169,8 @@ Each JSONL request record includes the timestamp, request ID, client, method, pa
 (capped at 1000 characters), status, latency, auth outcome, and a non-reversible API-key fingerprint
 when credentials are present. It also includes explicit `dataset`, `qid`, `question`, `retrieval_query`,
 `run_id`, `agent`, `model`, and `step` fields when clients provide academic trace metadata. Auth failures
-and load-shedding responses are written to the same log as successful requests. The server generates a
+and load-shedding responses are written to the same log as successful requests. Hard-quota rejections
+include `rate_limited: true`. The server generates a
 request ID for each request, logs it, and returns it as `X-Request-ID`.
 
 Example:

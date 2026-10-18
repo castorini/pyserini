@@ -67,6 +67,11 @@ from pyserini.server.config import (
     load_token_issuance_config,
 )
 from pyserini.server.rest.routes import v1
+from pyserini.server.rate_limit import (
+    DEFAULT_REQUESTS_PER_MINUTE,
+    REQUEST_WINDOW_SECONDS,
+    TokenRequestLimiter,
+)
 from pyserini.server.token_delivery import SmtpTokenEmailSender, TokenEmailSender
 
 logger = logging.getLogger(__name__)
@@ -423,6 +428,7 @@ def create_app(
     *,
     no_prebuilt_indexes: bool = False,
     load_shedding_threshold_ms: float = 3000.0,
+    requests_per_minute: int = DEFAULT_REQUESTS_PER_MINUTE,
     search_cache_size: int = 2048,
     document_cache_size: int = 4096,
     enable_token_issuance: bool = False,
@@ -430,6 +436,7 @@ def create_app(
     token_pool_path: str | None = None,
     token_email_sender: TokenEmailSender | None = None,
 ) -> FastAPI:
+    token_request_limiter = TokenRequestLimiter(requests_per_minute)
     if no_prebuilt_indexes and not config_path:
         raise ValueError('--no-prebuilt-indexes requires a config file path')
 
@@ -488,6 +495,7 @@ def create_app(
     )
     app.state.accepted_api_tokens = accepted_api_tokens  # type: ignore[attr-defined]
     app.state.rest_backpressure = rest_backpressure  # type: ignore[attr-defined]
+    app.state.token_request_limiter = token_request_limiter
     app.state.token_store = token_store  # type: ignore[attr-defined]
     app.state.token_pool = token_pool  # type: ignore[attr-defined]
     app.state.token_email_sender = token_email_sender  # type: ignore[attr-defined]
@@ -541,8 +549,26 @@ def create_app(
                     )
                 else:
                     log_entry['auth'] = 'authenticated'
+                    retry_after = token_request_limiter.retry_after(key_id, t0)
                     bp: RestBackpressure | None = getattr(request.app.state, 'rest_backpressure', None)
-                    if bp is not None and bp.should_shed(key_id, t0):
+                    if retry_after:
+                        log_entry['rate_limited'] = True
+                        response = JSONResponse(
+                            status_code=429,
+                            content={
+                                'error': (
+                                    f'API token request limit exceeded ({requests_per_minute} requests '
+                                    f'per {REQUEST_WINDOW_SECONDS} seconds).'
+                                ),
+                            },
+                            headers={
+                                'Retry-After': str(retry_after),
+                                'X-RateLimit-Limit': str(requests_per_minute),
+                                'X-RateLimit-Window': str(REQUEST_WINDOW_SECONDS),
+                                REQUEST_ID_HEADER: request_id,
+                            },
+                        )
+                    elif bp is not None and bp.should_shed(key_id, t0):
                         log_entry['auth'] = 'load_shed'
                         response = JSONResponse(
                             status_code=429,
@@ -729,6 +755,15 @@ def main():
         ),
     )
     parser.add_argument(
+        '--requests-per-minute',
+        type=int,
+        default=DEFAULT_REQUESTS_PER_MINUTE,
+        help=(
+            'Hard per-token request limit over a rolling 60-second window, shared by all authenticated '
+            f'API routes (default: {DEFAULT_REQUESTS_PER_MINUTE}). Excess requests return 429.'
+        ),
+    )
+    parser.add_argument(
         '--search-cache-size',
         type=int,
         default=2048,
@@ -759,6 +794,9 @@ def main():
 
     if args.search_cache_size < 0:
         raise SystemExit('Error: --search-cache-size must be >= 0')
+
+    if args.requests_per_minute <= 0:
+        raise SystemExit('Error: --requests-per-minute must be positive')
 
     if args.document_cache_size < 0:
         raise SystemExit('Error: --document-cache-size must be >= 0')
@@ -793,6 +831,7 @@ def main():
             args.config,
             no_prebuilt_indexes=args.no_prebuilt_indexes,
             load_shedding_threshold_ms=args.load_shedding_threshold,
+            requests_per_minute=args.requests_per_minute,
             search_cache_size=args.search_cache_size,
             document_cache_size=args.document_cache_size,
             enable_token_issuance=args.enable_token_issuance,
