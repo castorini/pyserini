@@ -51,7 +51,11 @@ conda install -c conda-forge openjdk=21 maven -y
 pip install torch torchvision torchaudio
 
 # If you want the optional dependencies, otherwise skip
-conda install -c pytorch faiss-cpu -y
+# Note for Apple Silicon: Use conda-forge to resolve NumPy ABI mismatches.
+# You must also set the environment variables KMP_DUPLICATE_LIB_OK=TRUE 
+# and OMP_NUM_THREADS=1 when running dense retrieval scripts to bypass 
+# an OpenMP library crash.
+conda install -c conda-forge faiss-cpu -y
 
 # Good idea to always explicitly specify the latest version, found here: https://pypi.org/project/pyserini/
 pip install pyserini==latest
