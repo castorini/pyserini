@@ -627,3 +627,5 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@somanshudev](https://github.com/somanshudev) on 2026-10-17 (commit [`4c51783`](https://github.com/castorini/pyserini/commit/4c51783a0a686c6097b5cb9bb981e35e880123a6))
 + Results reproduced by [@isogand](https://github.com/isogand) on 2026-10-17 (commit [`2b81573`](https://github.com/castorini/pyserini/commit/2b815732976f8d7841a22dac632760ef0e7d7498))
 + Results reproduced by [@Ishaq-45](https://github.com/Ishaq-45) on 2026-10-19 (commit [`0042ad3`](https://github.com/castorini/pyserini/commit/0042ad3118817858e525dd9cc2e786d9cc3f2810))
+
++ Results reproduced by [@Ishaq-45](https://github.com/Ishaq-45) on 2026-10-19 for the SPLADE-v3 baseline (nDCG@10: 0.3624; model: `naver/splade-v3`; 3,237 queries; commit [`0042ad3`](https://github.com/castorini/pyserini/commit/0042ad3118817858e525dd9cc2e786d9cc3f2810)).
