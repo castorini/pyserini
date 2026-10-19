@@ -6,46 +6,20 @@ Pyserini provides a [prebuilt Track 1 index](prebuilt-indexes.md) named `reteco-
 
 The indexes were built from [commit `c21e10ba8aa60eaa201f60fc4604364469c5ec17` of the RETECO dataset on Hugging Face](https://huggingface.co/datasets/DataScience-UIBK/RETECO-SemEval2027/commit/c21e10ba8aa60eaa201f60fc4604364469c5ec17).
 
-## Data Prep
-
-Download topics and qrels from the [Castorini eval catalog](https://github.com/castorini/eval/tree/5a26fd8d1a9e8408ae9a2606e95852312f1e0062). This example uses **iota dev**; change `domain` and `split` for other conditions.
-
-```bash
-split=dev
-domain=iota
-name="reteco-v1.1-track1a-${domain}.${split}"
-dir="runs/reteco-v1.1/${name}"
-mkdir -p "$dir"
-export RETECO_NAME="$name" RETECO_DIR="$dir"
-
-python - <<'PY'
-import gzip
-import json
-import os
-from pathlib import Path
-from urllib.request import urlopen
-
-rev = '5a26fd8d1a9e8408ae9a2606e95852312f1e0062'
-url = f'https://raw.githubusercontent.com/castorini/eval/{rev}/'
-name = os.environ['RETECO_NAME']
-out = Path(os.environ['RETECO_DIR'])
-with urlopen(f'{url}topics/topics.{name}.tsv.gz') as response:
-    rows = gzip.decompress(response.read()).decode('utf-8').splitlines()
-topics = {qid: {'title': text} for qid, text in (row.split('\t', 1) for row in rows)}
-(out / 'topics.json').write_text(json.dumps(topics, ensure_ascii=False), encoding='utf-8')
-with urlopen(f'{url}qrels/qrels.{name}.txt') as response:
-    (out / 'qrels.txt').write_bytes(response.read())
-PY
-```
-
 ## Batch Retrieval Run
 
-Run query-side BM25 (`k1=0.9`, `b=0.4`, top 1000):
+Run query-side BM25 (`k1=0.9`, `b=0.4`, top 1000). This example uses iota dev; change `domain` and `split` for other conditions.
 
 ```bash
+domain=iota
+split=dev
+topics="reteco-v1.1-track1a-${domain}.${split}"
+dir="runs/reteco-v1.1/${topics}"
+mkdir -p "$dir"
+
 python -m pyserini.search.lucene \
   --index "reteco-v1.1-track1-${domain}" \
-  --topics "$dir/topics.json" \
+  --topics "$topics" \
   --output "$dir/bm25qs.trec" \
   --bm25qs --k1 0.9 --b 0.4 --hits 1000
 ```
@@ -54,7 +28,7 @@ python -m pyserini.search.lucene \
 
 ```bash
 python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 \
-  "$dir/qrels.txt" "$dir/bm25qs.trec"
+  "$topics" "$dir/bm25qs.trec"
 ```
 
 ## BM25QS Baseline Results
