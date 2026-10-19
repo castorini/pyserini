@@ -11,7 +11,8 @@ The indexes were built from [commit `c21e10b` of the RETECO dataset on Hugging F
 
 Run query-side BM25 (`k1=0.9`, `b=0.4`, top 1000).
 Pyserini downloads the named index, topics, and qrels automatically.
-This example uses iota dev; change `domain` and `split` for other conditions.
+This example uses iota dev.
+Change `domain` and `split` for other conditions.
 
 ```bash
 domain=iota
