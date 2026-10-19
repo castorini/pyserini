@@ -2,12 +2,7 @@
 
 This guide covers query-side BM25 (BM25QS) retrieval on [RETECO v1.1](https://huggingface.co/datasets/DataScience-UIBK/RETECO-SemEval2027) **Track 1a** (whole-query retrieval).
 
-Pyserini provides these [prebuilt Track 1 indexes](prebuilt-indexes.md), one per domain:
-
-- `reteco-v1.1-track1-bitcoin`, `reteco-v1.1-track1-cardano`, `reteco-v1.1-track1-economics`
-- `reteco-v1.1-track1-genealogy`, `reteco-v1.1-track1-history`, `reteco-v1.1-track1-hsm`
-- `reteco-v1.1-track1-iota`, `reteco-v1.1-track1-law`, `reteco-v1.1-track1-monero`
-- `reteco-v1.1-track1-politics`, `reteco-v1.1-track1-quant`, `reteco-v1.1-track1-travel`, `reteco-v1.1-track1-workplace`
+Pyserini provides a [prebuilt Track 1 index](prebuilt-indexes.md) named `reteco-v1.1-track1-{domain}` for each of the 13 domains: bitcoin, cardano, economics, genealogy, history, hsm, iota, law, monero, politics, quant, travel, and workplace.
 
 The indexes use RETECO v1.1 revision `c21e10ba8aa60eaa201f60fc4604364469c5ec17`.
 
