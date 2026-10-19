@@ -8,7 +8,7 @@ The indexes were built from [commit `c21e10ba8aa60eaa201f60fc4604364469c5ec17` o
 
 ## Batch Retrieval Run
 
-Run query-side BM25 (`k1=0.9`, `b=0.4`, top 1000). This example uses iota dev; change `domain` and `split` for other conditions.
+Run query-side BM25 (`k1=0.9`, `b=0.4`, top 1000). Pyserini downloads the named index, topics, and qrels automatically. This example uses iota dev; change `domain` and `split` for other conditions.
 
 ```bash
 domain=iota
