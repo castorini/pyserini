@@ -31,7 +31,7 @@ from pyserini.util import get_cache_home
 # Wrappers around Anserini classes
 JTopicReader = autoclass('io.anserini.search.topicreader.TopicReader')
 
-EVAL_COMMIT = '0b4acbd929edd11edfd16250457fb70ff69e9b4f'
+EVAL_COMMIT = '5a26fd8d1a9e8408ae9a2606e95852312f1e0062'
 EVAL_BASE_URL = f'https://raw.githubusercontent.com/castorini/eval/{EVAL_COMMIT}/'
 
 TOPICS_BASE_URL = f'{EVAL_BASE_URL}topics/'

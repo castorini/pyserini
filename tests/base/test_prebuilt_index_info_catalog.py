@@ -17,7 +17,7 @@
 import unittest
 from collections.abc import Mapping
 
-from pyserini.prebuilt_index_info import _PrebuiltIndexCatalog, TF_INDEX_INFO
+from pyserini.prebuilt_index_info import _PrebuiltIndexCatalog, TF_INDEX_INFO, TF_INDEX_INFO_RETECO
 
 
 class PrefixFilteredMapping(Mapping):
@@ -77,6 +77,19 @@ class TestPrebuiltIndexInfoCatalog(unittest.TestCase):
     def test_tf_index_info_aliases_preserve_existing_names(self):
         self.assertEqual(TF_INDEX_INFO['robust04'], TF_INDEX_INFO['disk45'])
         self.assertEqual(TF_INDEX_INFO['msmarco-passage'], TF_INDEX_INFO['msmarco-v1-passage'])
+
+    def test_reteco_track1_indexes(self):
+        self.assertEqual(len(TF_INDEX_INFO_RETECO), 13)
+        self.assertEqual(sum(index['documents'] for index in TF_INDEX_INFO_RETECO.values()), 1167159)
+        self.assertTrue(all(name.startswith('reteco-v1.1-track1-') for name in TF_INDEX_INFO_RETECO))
+
+        iota = TF_INDEX_INFO['reteco-v1.1-track1-iota']
+        self.assertEqual(iota['filename'], 'lucene-inverted.reteco-v1.1-track1-iota.20261017.1.6.0.tar.gz')
+        self.assertEqual(iota['md5'], '5fec2d2e72d29c4687ecbdbad1b8bf17')
+        self.assertEqual(iota['size'], 34011796)
+        self.assertEqual(iota['documents'], 9680)
+        self.assertEqual(iota['total_terms'], 3184205)
+        self.assertEqual(iota['unique_terms'], 336319)
 
 
 if __name__ == '__main__':
