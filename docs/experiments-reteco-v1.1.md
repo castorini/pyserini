@@ -23,6 +23,7 @@ TESTS=(bitcoin.train bitcoin.dev cardano.train cardano.dev economics.train econo
        iota.train iota.dev law.train law.dev monero.train monero.dev
        politics.train politics.dev quant.train quant.dev travel.train travel.dev
        workplace.train workplace.dev)
+failed=0
 for test in "${TESTS[@]}"; do
   domain="${test%%.*}"
   split="${test#*.}"
@@ -34,10 +35,11 @@ for test in "${TESTS[@]}"; do
     --index "reteco-v1.1-track1-${domain}" \
     --topics "$topics" \
     --output "$run" --output-format trec \
-    --bm25 --k1 0.9 --b 0.4 --hits 1000 || { echo "FAILED: ${test} bm25 retrieval" >&2; break; }
-  python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 "$topics" "$run" || { echo "FAILED: ${test} bm25 evaluation" >&2; break; }
+    --bm25 --k1 0.9 --b 0.4 --hits 1000 || { echo "FAILED: ${test} bm25 retrieval" >&2; failed=1; break; }
+  python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 "$topics" "$run" || { echo "FAILED: ${test} bm25 evaluation" >&2; failed=1; break; }
   echo ""
 done
+test "$failed" -eq 0
 ```
 
 ### Reproducing BM25QS results
@@ -48,6 +50,7 @@ TESTS=(bitcoin.train bitcoin.dev cardano.train cardano.dev economics.train econo
        iota.train iota.dev law.train law.dev monero.train monero.dev
        politics.train politics.dev quant.train quant.dev travel.train travel.dev
        workplace.train workplace.dev)
+failed=0
 for test in "${TESTS[@]}"; do
   domain="${test%%.*}"
   split="${test#*.}"
@@ -59,10 +62,11 @@ for test in "${TESTS[@]}"; do
     --index "reteco-v1.1-track1-${domain}" \
     --topics "$topics" \
     --output "$run" --output-format trec \
-    --bm25qs --k1 0.9 --b 0.4 --hits 1000 || { echo "FAILED: ${test} bm25qs retrieval" >&2; break; }
-  python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 "$topics" "$run" || { echo "FAILED: ${test} bm25qs evaluation" >&2; break; }
+    --bm25qs --k1 0.9 --b 0.4 --hits 1000 || { echo "FAILED: ${test} bm25qs retrieval" >&2; failed=1; break; }
+  python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 "$topics" "$run" || { echo "FAILED: ${test} bm25qs evaluation" >&2; failed=1; break; }
   echo ""
 done
+test "$failed" -eq 0
 ```
 
 ## BM25 and BM25QS Baseline Results
