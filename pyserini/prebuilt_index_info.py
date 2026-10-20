@@ -19,7 +19,7 @@ import json
 from collections.abc import Mapping
 from urllib.request import urlopen
 
-PREBUILT_INDEXES_COMMIT = '367560b4de7d9c3486f666dcc2df7783ca7758f2'
+PREBUILT_INDEXES_COMMIT = '51258526d78fa146ff0c42ec6cb08195ebd555f2'
 
 
 def _prebuilt_indexes_url(path):
@@ -191,6 +191,11 @@ TF_INDEX_INFO_BRIGHT = _LazyLucenePrebuiltInvertedIndexJson(
     key_prefixes=('bright-',)
 )
 
+TF_INDEX_INFO_RETECO = _LazyLucenePrebuiltInvertedIndexJson(
+    _prebuilt_indexes_url('lucene/reteco-inverted.json'),
+    key_prefixes=('reteco-v1.1-track1-',)
+)
+
 TF_INDEX_INFO_MRTYDI = _LazyLucenePrebuiltInvertedIndexJson(
     _prebuilt_indexes_url('lucene/mrtydi-inverted.json'),
     key_prefixes=('mrtydi-v1.1-',)
@@ -243,6 +248,7 @@ TF_INDEX_INFO_OTHER_ALIASES = {
 TF_INDEX_INFO = _PrebuiltIndexCatalog(TF_INDEX_INFO_MSMARCO,
                                       TF_INDEX_INFO_BEIR,
                                       TF_INDEX_INFO_BRIGHT,
+                                      TF_INDEX_INFO_RETECO,
                                       TF_INDEX_INFO_MRTYDI,
                                       TF_INDEX_INFO_MIRACL,
                                       TF_INDEX_INFO_CIRAL,
