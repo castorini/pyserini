@@ -76,23 +76,24 @@ test "$fails" -eq 0
 Track 1a nDCG@10 (train: 1,211 queries; dev: 519 queries), compared with the v1.1 results in the [official baseline table](https://github.com/DataScienceUIBK/RETECO/blob/5616900ce9f982e329a8b4ea5673ff0ebc007026/starter_kit/BASELINE_RESULTS.md).
 The [RETECO starter kit](https://github.com/DataScienceUIBK/RETECO/tree/5616900ce9f982e329a8b4ea5673ff0ebc007026/starter_kit) provides the official baseline implementation.
 Scores are averaged over queries within each domain.
-The macro row is the unweighted mean across domains.
+Query length counts the tokens returned by Pyserini's default English Lucene analyzer (`Analyzer(get_lucene_analyzer())`) for the named Track 1a topics; mean and median are computed separately for each domain and split.
+The domain-macro row is the unweighted mean across domains for nDCG only.
 
-| Domain           | BM25 train | BM25QS train | Official train |   BM25 dev | BM25QS dev | Official dev |
-| :--------------- | ---------: | -----------: | -------------: | ---------: | ---------: | -----------: |
-| bitcoin          |     0.0468 |       0.0845 |         0.0856 |     0.0300 |     0.0364 |       0.0370 |
-| cardano          |     0.1753 |       0.1801 |         0.1848 |     0.1144 |     0.1027 |       0.1027 |
-| economics        |     0.0361 |       0.0355 |         0.0382 |     0.0269 |     0.0466 |       0.0467 |
-| genealogy        |     0.0639 |       0.1183 |         0.1242 |     0.1476 |     0.1854 |       0.1949 |
-| history          |     0.0336 |       0.0640 |         0.0654 |     0.0428 |     0.0851 |       0.0873 |
-| hsm              |     0.1703 |       0.1767 |         0.1736 |     0.2366 |     0.2437 |       0.2489 |
-| iota             |     0.0352 |       0.1228 |         0.1563 |     0.3852 |     0.3243 |       0.3309 |
-| law              |     0.0399 |       0.0905 |         0.0946 |     0.0294 |     0.0574 |       0.0574 |
-| monero           |     0.0288 |       0.0378 |         0.0382 |     0.0249 |     0.0320 |       0.0320 |
-| politics         |     0.2664 |       0.2802 |         0.2810 |     0.2129 |     0.2607 |       0.2625 |
-| quant            |     0.0128 |       0.0255 |         0.0255 |     0.0000 |     0.0204 |       0.0237 |
-| travel           |     0.0412 |       0.0504 |         0.0506 |     0.0322 |     0.0270 |       0.0442 |
-| workplace        |     0.0622 |       0.0798 |         0.0798 |     0.0000 |     0.0398 |       0.0230 |
-| **Domain macro** | **0.0779** |   **0.1036** |     **0.1075** | **0.0987** | **0.1124** |   **0.1147** |
+| Domain           | Train q tokens (mean / median) | BM25 train | BM25QS train | Official train | Dev q tokens (mean / median) |   BM25 dev | BM25QS dev | Official dev |
+| :--------------- | -----------------------------: | ---------: | -----------: | -------------: | ---------------------------: | ---------: | ---------: | -----------: |
+| bitcoin          |                      91.9 / 78 |     0.0468 |       0.0845 |         0.0856 |                   110.0 / 82 |     0.0300 |     0.0364 |       0.0370 |
+| cardano          |                    65.4 / 39.5 |     0.1753 |       0.1801 |         0.1848 |                    86.3 / 53 |     0.1144 |     0.1027 |       0.1027 |
+| economics        |                    127.2 / 100 |     0.0361 |       0.0355 |         0.0382 |                  123.1 / 100 |     0.0269 |     0.0466 |       0.0467 |
+| genealogy        |                  159.8 / 103.5 |     0.0639 |       0.1183 |         0.1242 |                  157.1 / 123 |     0.1476 |     0.1854 |       0.1949 |
+| history          |                    156.3 / 126 |     0.0336 |       0.0640 |         0.0654 |                170.8 / 134.5 |     0.0428 |     0.0851 |       0.0873 |
+| hsm              |                     128.8 / 96 |     0.1703 |       0.1767 |         0.1736 |                   129.8 / 71 |     0.2366 |     0.2437 |       0.2489 |
+| iota             |                      66.4 / 50 |     0.0352 |       0.1228 |         0.1563 |                    67.0 / 69 |     0.3852 |     0.3243 |       0.3309 |
+| law              |                     105.4 / 91 |     0.0399 |       0.0905 |         0.0946 |                   158.0 / 68 |     0.0294 |     0.0574 |       0.0574 |
+| monero           |                    71.2 / 48.5 |     0.0288 |       0.0378 |         0.0382 |                   103.8 / 53 |     0.0249 |     0.0320 |       0.0320 |
+| politics         |                    153.3 / 134 |     0.2664 |       0.2802 |         0.2810 |                  151.1 / 131 |     0.2129 |     0.2607 |       0.2625 |
+| quant            |                    188.0 / 134 |     0.0128 |       0.0255 |         0.0255 |                141.6 / 114.5 |     0.0000 |     0.0204 |       0.0237 |
+| travel           |                  132.1 / 103.5 |     0.0412 |       0.0504 |         0.0506 |                 106.9 / 82.5 |     0.0322 |     0.0270 |       0.0442 |
+| workplace        |                    175.9 / 128 |     0.0622 |       0.0798 |         0.0798 |                  123.6 / 117 |     0.0000 |     0.0398 |       0.0230 |
+| **Domain macro** |                              — | **0.0779** |   **0.1036** |     **0.1075** |                            — | **0.0987** | **0.1124** |   **0.1147** |
 
 BM25QS approximates the official gensim BM25 implementation but does not reproduce its rankings exactly.
