@@ -605,7 +605,18 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@Kannav02](https://github.com/Kannav02) on 2026-10-16 (commit [`d507fc6`](https://github.com/castorini/pyserini/commit/d507fc64a8757938e36de6e31ab03203b8fcd4c6))
 + Results reproduced by [@somanshudev](https://github.com/somanshudev) on 2026-10-17 (commit [`4c51783`](https://github.com/castorini/pyserini/commit/4c51783a0a686c6097b5cb9bb981e35e880123a6))
 + Results reproduced by [@isogand](https://github.com/isogand) on 2026-10-17 (commit [`2b81573`](https://github.com/castorini/pyserini/commit/2b815732976f8d7841a22dac632760ef0e7d7498))
+
+#### Reproduction log
+
 + Results reproduced by [@natty6418](https://github.com/natty6418) on 2026-10-17 (commit [`d507fc6`](https://github.com/castorini/pyserini/commit/d507fc64a8757938e36de6e31ab03203b8fcd4c6))
+
+Results reproduced by [@Ishaq-45](https://github.com/Ishaq-45) on 2026-10-19 (commit [`0b31dde`](https://github.com/castorini/pyserini/commit/0b31dde624367f1ce54d3a3d49349c4c4a49d5a7)).
+
+- BM25 parameters: `k1=0.82`, `b=0.68`
+- Queries ranked: 6,980
+- MRR@10: `0.18741227770955546`
+- Run file
+`runs/run.msmarco-passage.bm25tuned.txt`
 + Results reproduced by [@msghik](https://github.com/msghik) on 2026-10-19 (commit [`e73f360`](https://github.com/castorini/pyserini/commit/e73f360ca37c24b20e5b6dce42a81c837d88b100))
 + Results reproduced by [@garvitkaushik-123](https://github.com/garvitkaushik-123) on 2026-10-20 (commit [`71ab9d7`](https://github.com/castorini/pyserini/commit/71ab9d77191c3ea930592edca4caa8e35068aa91))
 + Results reproduced by [@saadbinather](https://github.com/saadbinather) on 2026-10-20 (commit [`ef7c2ed`](https://github.com/castorini/pyserini/commit/ef7c2edf71e0402bca8d8826d3c7b55d42d6fabb))
