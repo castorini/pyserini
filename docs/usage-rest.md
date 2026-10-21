@@ -4,7 +4,7 @@ The Pyserini REST server exposes an **HTTP interface aligned with [Anserini’s 
 
 Implementation uses **`SharedSearchBackend`** (`pyserini/server/backend.py`)—the same process-wide search stack as the MCP server. A request may use a **prebuilt index name** (sparse, dense, impact, FAISS, etc., when Pyserini can open it), a **filesystem path** to an index, or an optional **YAML alias** from `--config`.
 
-**v1 limitations:** The public GET API accepts only a **string** `query` parameter. It does **not** expose multimodal payloads, `encoder`, `ef_search`, or sparse `query_generator` options (those exist on the Python API and MCP). Sparse BM25 retrieval uses **k1=0.9** and **b=0.4** by default (same as Anserini). To override BM25, pass **both** `k1` and `b`. For full control over other knobs, use **MCP** or Pyserini directly.
+**v1 limitations:** The public GET API accepts only a **string** `query` parameter. It does **not** expose multimodal payloads, `encoder`, or `ef_search` (those exist on the Python API and MCP). Sparse BM25 retrieval uses **k1=0.9** and **b=0.4** by default (same as Anserini). To override BM25, pass **both** `k1` and `b`. For full control over other knobs, use **MCP** or Pyserini directly.
 
 ## Starting the server
 
@@ -246,6 +246,7 @@ If the index cannot be opened, the API responds with **400** and a message such 
 | `query` | yes | — | Search query string. |
 | `hits` | no | `10` | Number of hits (integer ≥ 1). |
 | `parse` | no | `true` | If `true`, parse the stored `raw` field when it is JSON (see `format_lucene_document` / Anserini-style formatting); if `false`, return the raw stored string. |
+| `query_generator` | no | default | Sparse (TF) query generator: `BagOfWords`, `DisjunctionMax` (`dismax`), `QuerySideBm25` (`bm25qs`), or `Covid19` (case-insensitive). Unknown names return HTTP 400; empty values use the default. Valid generators are ignored for non-TF indexes. |
 | `k1` | no | `0.9` | BM25 k1 for sparse (TF) indexes. Must be non-negative and sent together with `b`. |
 | `b` | no | `0.4` | BM25 b for sparse (TF) indexes. Must be in `[0, 1]`, and sent together with `k1`. |
 | `max_doc_length` | no | — | Maximum characters to return for each parsed candidate document. If omitted, return the full document. Requires `parse=true`. |
@@ -262,6 +263,15 @@ If the index cannot be opened, the API responds with **400** and a message such 
 ```bash
 curl "http://localhost:8081/v1/msmarco-v1-passage/search?query=what%20is%20a%20lobster%20roll&hits=1"
 ```
+
+Query-side BM25 (BM25QS, sparse TF indexes only):
+
+```bash
+curl "http://localhost:8081/v1/cacm/search?query=information%20retrieval&hits=5&query_generator=bm25qs"
+```
+
+BM25QS uses `k1` and `b` for both query-side weighting and document-side scoring
+(defaults: `0.9` and `0.4`). Omit `query_generator` to retain ordinary BM25 retrieval.
 
 Custom BM25 parameters (sparse indexes only; both required together):
 
