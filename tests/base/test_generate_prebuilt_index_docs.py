@@ -127,6 +127,11 @@ def generate_prebuilt_index_docs():
     print('</details>', file=out)
 
     print('<details>', file=out)
+    print('<summary>RETECO</summary>', file=out)
+    generate_prebuilt(out, TF_INDEX_INFO_RETECO)
+    print('</details>', file=out)
+
+    print('<details>', file=out)
     print('<summary>Mr.TyDi</summary>', file=out)
     generate_prebuilt(out, TF_INDEX_INFO_MRTYDI)
     print('</details>', file=out)
@@ -239,7 +244,9 @@ class TestGeneratePrebuiltIndexDocs(unittest.TestCase):
     def test_generate_prebuilt_index_docs(self):
         root = Path(__file__).resolve().parents[2]
         docs_path = root / 'docs' / 'prebuilt-indexes.md'
-        docs_path.write_text(generate_prebuilt_index_docs(), encoding='utf-8')
+        generated = generate_prebuilt_index_docs()
+        self.assertEqual(generated.count('<dt></dt><b><code>reteco-v1.1-track1-'), 13)
+        docs_path.write_text(generated, encoding='utf-8')
 
 
 if __name__ == '__main__':
