@@ -1,0 +1,7 @@
+<h5>Topics: <code>${topics}</code>; qrels: <code>${qrels}</code></h5>
+<p>Retrieval command:</p>
+<blockquote class="mycode"><pre><code>${command}
+</code></pre></blockquote>
+<p>Evaluation commands:</p>
+<blockquote class="mycode"><pre><code>${eval_commands}
+</code></pre></blockquote>
