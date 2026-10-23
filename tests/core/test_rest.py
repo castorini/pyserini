@@ -301,6 +301,68 @@ class TestRestServer(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn('query', response.json().get('error', ''))
 
+    def test_search_unknown_query_generator_400(self):
+        for generator in ('bm25q', 'unknown', ' BagOfWord '):
+            with self.subTest(generator=generator):
+                response = self.client.get(
+                    f'/{API_VERSION}/{_REST_INDEX}/search',
+                    params={'query': _REST_QUERY, 'query_generator': generator},
+                )
+                self.assertEqual(response.status_code, 400)
+                self.assertIn('Unknown query_generator', response.json().get('error', ''))
+
+    def test_search_query_generator_names_accepted(self):
+        for generator in (
+            'BagOfWords', 'bag_of_words', 'DisjunctionMax', 'dismax',
+            'QuerySideBm25', 'bm25qs', 'Covid19', ' BM25QS ', '', '   ',
+        ):
+            with self.subTest(generator=generator):
+                response = self.client.get(
+                    f'/{API_VERSION}/{_REST_INDEX}/search',
+                    params={'query': _REST_QUERY, 'hits': 1, 'query_generator': generator},
+                )
+                self.assertEqual(response.status_code, 200, msg=response.text)
+                self.assertEqual(len(response.json()['candidates']), 1)
+
+    def test_search_bm25qs(self):
+        backend = self.client.app.state.search_backend
+        for generator in ('bm25qs', 'QuerySideBm25'):
+            for bm25_params in ({}, {'k1': 0.8, 'b': 0.3}):
+                with self.subTest(generator=generator, **bm25_params):
+                    backend._search_cached.cache_clear()
+                    with unittest.mock.patch.object(
+                        backend, '_resolve_query_generator', wraps=backend._resolve_query_generator
+                    ) as resolve:
+                        response = self.client.get(
+                            f'/{API_VERSION}/{_REST_INDEX}/search',
+                            params={
+                                'query': _REST_QUERY, 'hits': 1,
+                                'query_generator': generator, **bm25_params,
+                            },
+                        )
+                    self.assertEqual(response.status_code, 200, msg=response.text)
+                    self.assertEqual(len(response.json()['candidates']), 1)
+                    resolve.assert_called_once()
+                    self.assertEqual(resolve.call_args.args[0], generator)
+                    self.assertEqual(resolve.call_args.kwargs, {
+                        'k1': bm25_params.get('k1', 0.9),
+                        'b': bm25_params.get('b', 0.4),
+                    })
+
+    def test_search_cache_distinguishes_bm25qs(self):
+        backend = self.client.app.state.search_backend
+        backend._search_cached.cache_clear()
+        with unittest.mock.patch.object(
+            backend, '_resolve_query_generator', wraps=backend._resolve_query_generator
+        ) as resolve:
+            for extra in ({}, {'query_generator': 'bm25qs'}, {'query_generator': 'bm25qs'}, {}):
+                response = self.client.get(
+                    f'/{API_VERSION}/{_REST_INDEX}/search',
+                    params={'query': _REST_QUERY, 'hits': 1, **extra},
+                )
+                self.assertEqual(response.status_code, 200, msg=response.text)
+            resolve.assert_called_once()
+
     def test_search_bm25_k1_b_accepted(self):
         response = self.client.get(
             f'/{API_VERSION}/{_REST_INDEX}/search',
