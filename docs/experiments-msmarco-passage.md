@@ -141,7 +141,7 @@ QueriesRanked: 6980
 
 We can also use the official [TREC](https://trec.nist.gov/) evaluation tool, `trec_eval`, to compute metrics other than MRR@10.
 
-Use the MS MARCO run above for the reference MAP and recall below. Pyserini's evaluation wrapper converts it to TREC with scores of `1/rank`, so the emitted ranking is preserved. We can also create a TREC run with native BM25 scores for the interactive examples later in this guide:
+The tool needs a different run format, so it's easier to just run retrieval again:
 
 ```bash
 python -m pyserini.search.lucene \
@@ -155,29 +155,16 @@ python -m pyserini.search.lucene \
 
 The only difference here is that we've removed `--output-format msmarco`.
 
-Evaluate the MS MARCO run for the reference values:
-
-```bash
-$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap \
-   msmarco-passage-dev-subset \
-   runs/run.msmarco-passage.bm25tuned.txt
-
-map                   	all	0.1957
-recall_1000           	all	0.8573
-```
-
-The converted scores preserve ranks but are not BM25 scores. For the native TREC run, `trec_eval` sorts equal-score documents by descending document ID:
+Finally, run the `trec_eval` tool, which has been incorporated into Pyserini:
 
 ```bash
 $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap \
    msmarco-passage-dev-subset \
    runs/run.msmarco-passage.bm25tuned.trec
 
-map                   	all	0.1958
+map                   	all	0.1957
 recall_1000           	all	0.8573
 ```
-
-The candidate documents are the same in these runs. Tie ordering explains the small MAP difference: `0.1957` is the rank-preserving reference, while the native run gives `0.1958` in this version. The retrieval parameters and relevance judgments are unchanged.
 
 If you want to examine the MRR@10 for `qid` 1048585:
 
