@@ -141,7 +141,7 @@ QueriesRanked: 6980
 
 We can also use the official [TREC](https://trec.nist.gov/) evaluation tool, `trec_eval`, to compute metrics other than MRR@10.
 
-The tool needs a different run format, so it's easier to just run retrieval again:
+Use the MS MARCO run above for the reference MAP and recall below. Pyserini's evaluation wrapper converts it to TREC with scores of `1/rank`, so the emitted ranking is preserved. We can also create a TREC run with native BM25 scores for the interactive examples later in this guide:
 
 ```bash
 python -m pyserini.search.lucene \
@@ -155,16 +155,29 @@ python -m pyserini.search.lucene \
 
 The only difference here is that we've removed `--output-format msmarco`.
 
-Finally, run the `trec_eval` tool, which has been incorporated into Pyserini:
+Evaluate the MS MARCO run for the reference values:
+
+```bash
+$ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap \
+   msmarco-passage-dev-subset \
+   runs/run.msmarco-passage.bm25tuned.txt
+
+map                   	all	0.1957
+recall_1000           	all	0.8573
+```
+
+The converted scores preserve ranks but are not BM25 scores. For the native TREC run, `trec_eval` sorts equal-score documents by descending document ID:
 
 ```bash
 $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap \
    msmarco-passage-dev-subset \
    runs/run.msmarco-passage.bm25tuned.trec
 
-map                   	all	0.1957
+map                   	all	0.1958
 recall_1000           	all	0.8573
 ```
+
+The candidate documents are the same in these runs. Tie ordering explains the small MAP difference: `0.1957` is the rank-preserving reference, while the native run gives `0.1958` in this version. The retrieval parameters and relevance judgments are unchanged.
 
 If you want to examine the MRR@10 for `qid` 1048585:
 
@@ -612,3 +625,4 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@garvitkaushik-123](https://github.com/garvitkaushik-123) on 2026-10-20 (commit [`71ab9d7`](https://github.com/castorini/pyserini/commit/71ab9d77191c3ea930592edca4caa8e35068aa91))
 + Results reproduced by [@saadbinather](https://github.com/saadbinather) on 2026-10-20 (commit [`ef7c2ed`](https://github.com/castorini/pyserini/commit/ef7c2edf71e0402bca8d8826d3c7b55d42d6fabb))
 + Results reproduced by [@moghazym](https://github.com/moghazym) on 2026-10-24 (commit [`03faa9a`](https://github.com/castorini/pyserini/commit/03faa9ac1709dcc142bd7d1b489df982e9313d84))
++ Results reproduced by [@AliMohammadiiii](https://github.com/AliMohammadiiii) on 2026-10-25 (commit [`03faa9a`](https://github.com/castorini/pyserini/commit/03faa9ac1709dcc142bd7d1b489df982e9313d84); reference MAP 0.1957 with emitted ranks preserved, native-score MAP 0.1958; evaluation instructions clarified above)
