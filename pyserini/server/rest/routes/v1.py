@@ -100,6 +100,7 @@ async def search_v1(
     query: str | None = Query(None),
     hits: str | None = Query(None),
     parse: str | None = Query(None),
+    retriever: str | None = Query(None),
     k1: str | None = Query(None),
     b: str | None = Query(None),
     max_doc_length: str | None = Query(None),
@@ -140,8 +141,11 @@ async def search_v1(
         return bad_max_doc_length
     if max_doc_length_val is not None and not parse_flag:
         return _error(400, "Parameter 'max_doc_length' requires parse=true")
+    if retriever is not None and retriever not in ('bm25', 'bm25qs'):
+        return _error(400, "Parameter 'retriever' must be 'bm25' or 'bm25qs'")
 
     try:
+        query_generator = 'bm25qs' if retriever == 'bm25qs' else None
         payload = await asyncio.to_thread(
             backend.search,
             query,
@@ -150,6 +154,7 @@ async def search_v1(
             '',
             parse_flag,
             True,
+            query_generator=query_generator,
             k1=k1_val,
             b=b_val,
             max_doc_length=max_doc_length_val,
