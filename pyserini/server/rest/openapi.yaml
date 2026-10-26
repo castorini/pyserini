@@ -99,17 +99,17 @@ paths:
             type: boolean
             default: true
           description: If true, try to return parsed document contents; if false, return the raw stored document string.
-        - name: query_generator
+        - name: retriever
           in: query
           required: false
           schema:
             type: string
+            enum: [bm25, bm25qs]
           description: >
-            Query generator for sparse (TF) indexes: BagOfWords, DisjunctionMax (dismax),
-            QuerySideBm25 (bm25qs), or Covid19 (case-insensitive).
-            Omit for default BM25 retrieval. BM25QS uses k1 and b for query-side weighting
-            as well as document-side scoring. Valid generators are ignored for non-TF indexes.
-            Unknown names return 400. Empty or whitespace-only values use the default generator.
+            Retrieval method for sparse (TF) indexes: bm25 or bm25qs (lowercase only).
+            Omit to retain the index's default retrieval behavior (BM25 for TF indexes).
+            BM25QS uses k1 and b for query-side weighting as well as document-side scoring.
+            Unsupported or empty values return 400. Valid values are ignored for non-TF indexes.
         - name: k1
           in: query
           required: false

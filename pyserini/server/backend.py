@@ -114,18 +114,6 @@ def _validate_bm25_params(k1: float | None, b: float | None) -> None:
         raise BadSearchRequestError('BM25 parameter b must be between 0 and 1')
 
 
-def _validate_query_generator(query_generator: str | None) -> None:
-    if query_generator and query_generator.strip().lower() not in (
-        '', 'bagofwords', 'bag_of_words', 'disjunctionmax', 'dismax',
-        'querysidebm25', 'bm25qs', 'covid19',
-    ):
-        raise BadSearchRequestError(
-            f'Unknown query_generator: {query_generator!r}. '
-            'Supported generators: BagOfWords (bag_of_words), '
-            'DisjunctionMax (dismax), QuerySideBm25 (bm25qs), Covid19'
-        )
-
-
 def _canonical_bm25_config(k1: float | None, b: float | None) -> Bm25Config | None:
     if k1 is None and b is None:
         return None
@@ -675,7 +663,6 @@ class SharedSearchBackend:
         max_doc_length: int | None = None,
     ) -> dict[str, Any]:
         _validate_bm25_params(k1, b)
-        _validate_query_generator(query_generator)
         options = _SearchOptions(
             hits=hits,
             qid=qid,
