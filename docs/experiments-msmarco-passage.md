@@ -162,9 +162,11 @@ $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap \
    msmarco-passage-dev-subset \
    runs/run.msmarco-passage.bm25tuned.trec
 
-map                   	all	0.1957
+map                   	all	0.1958
 recall_1000           	all	0.8573
 ```
+
+The MAP here (0.1958) differs very slightly from the Anserini lesson (0.1957) because this run is written directly in the TREC format, whereas the Anserini lesson converts a run from the MS MARCO format; that conversion is lossy and affects tie-breaking.
 
 If you want to examine the MRR@10 for `qid` 1048585:
 
@@ -612,6 +614,7 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@garvitkaushik-123](https://github.com/garvitkaushik-123) on 2026-10-20 (commit [`71ab9d7`](https://github.com/castorini/pyserini/commit/71ab9d77191c3ea930592edca4caa8e35068aa91))
 + Results reproduced by [@saadbinather](https://github.com/saadbinather) on 2026-10-20 (commit [`ef7c2ed`](https://github.com/castorini/pyserini/commit/ef7c2edf71e0402bca8d8826d3c7b55d42d6fabb))
 + Results reproduced by [@Dristy03](https://github.com/Dristy03) on 2026-10-23 (commit [`bc2a172`](https://github.com/castorini/pyserini/commit/bc2a172c1143a3233cc320c12068a312a4151958))
++ Results reproduced by [@Jamal-Ahmed-Khan](https://github.com/Jamal-Ahmed-Khan) on 2026-10-23 (commit [`59cd35f`](https://github.com/castorini/pyserini/commit/59cd35fb85f46ab517a68db7ac9b180f6dfd6dbb))
 + Results reproduced by [@moghazym](https://github.com/moghazym) on 2026-10-24 (commit [`03faa9a`](https://github.com/castorini/pyserini/commit/03faa9ac1709dcc142bd7d1b489df982e9313d84))
 + Results reproduced by [@mobinano](https://github.com/mobinano) on 2026-10-24 (commit [`59cd35f`](https://github.com/castorini/pyserini/commit/59cd35fb85f46ab517a68db7ac9b180f6dfd6dbb))
 + Results reproduced by [@paudelanil](https://github.com/paudelanil) on 2026-10-25 (commit [`9a89de0`](https://github.com/castorini/pyserini/commit/9a89de0348e03f722d1cb6d67f5cdc68e7609712))

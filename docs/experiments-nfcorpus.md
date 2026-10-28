@@ -633,6 +633,7 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@saadbinather](https://github.com/saadbinather) on 2026-10-20 (commit [`ef7c2ed`](https://github.com/castorini/pyserini/commit/ef7c2edf71e0402bca8d8826d3c7b55d42d6fabb))
 + Results reproduced by [@Jaasia25](https://github.com/Jaasia25) on 2026-10-23 (commit [`803cced`](https://github.com/castorini/pyserini/commit/803cced6c5e1fdfe4a35411591fffccafa36b022))
 + Results reproduced by [@Dristy03](https://github.com/Dristy03) on 2026-10-23 (commit [`bc2a172`](https://github.com/castorini/pyserini/commit/bc2a172c1143a3233cc320c12068a312a4151958))
++ Results reproduced by [@Jamal-Ahmed-Khan](https://github.com/Jamal-Ahmed-Khan) on 2026-10-23 (commit [`59cd35f`](https://github.com/castorini/pyserini/commit/59cd35fb85f46ab517a68db7ac9b180f6dfd6dbb))
 + Results reproduced by [@AliMohammadiiii](https://github.com/AliMohammadiiii) on 2026-10-24 (commit [`03faa9a`](https://github.com/castorini/pyserini/commit/03faa9ac1709dcc142bd7d1b489df982e9313d84))
 + Results reproduced by [@mobinano](https://github.com/mobinano) on 2026-10-24 (commit [`59cd35f`](https://github.com/castorini/pyserini/commit/59cd35fb85f46ab517a68db7ac9b180f6dfd6dbb))
 + Results reproduced by [@moghazym](https://github.com/moghazym) on 2026-10-25 (commit [`03faa9a`](https://github.com/castorini/pyserini/commit/03faa9ac1709dcc142bd7d1b489df982e9313d84))
