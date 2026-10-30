@@ -162,9 +162,11 @@ $ python -m pyserini.eval.trec_eval -c -mrecall.1000 -mmap \
    msmarco-passage-dev-subset \
    runs/run.msmarco-passage.bm25tuned.trec
 
-map                   	all	0.1957
+map                   	all	0.1958
 recall_1000           	all	0.8573
 ```
+
+The MAP here (0.1958) differs very slightly from the Anserini lesson (0.1957) because this run is written directly in the TREC format, whereas the Anserini lesson converts a run from the MS MARCO format; that conversion is lossy and affects tie-breaking.
 
 If you want to examine the MRR@10 for `qid` 1048585:
 
@@ -608,11 +610,16 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@somanshudev](https://github.com/somanshudev) on 2026-10-17 (commit [`4c51783`](https://github.com/castorini/pyserini/commit/4c51783a0a686c6097b5cb9bb981e35e880123a6))
 + Results reproduced by [@isogand](https://github.com/isogand) on 2026-10-17 (commit [`2b81573`](https://github.com/castorini/pyserini/commit/2b815732976f8d7841a22dac632760ef0e7d7498))
 + Results reproduced by [@natty6418](https://github.com/natty6418) on 2026-10-17 (commit [`d507fc6`](https://github.com/castorini/pyserini/commit/d507fc64a8757938e36de6e31ab03203b8fcd4c6))
++ Results reproduced by [@mahmoudfarhat13](https://github.com/mahmoudfarhat13) on 2026-10-19 (commit [`0042ad3`](https://github.com/castorini/pyserini/commit/0042ad3118817858e525dd9cc2e786d9cc3f2810))
 + Results reproduced by [@msghik](https://github.com/msghik) on 2026-10-19 (commit [`e73f360`](https://github.com/castorini/pyserini/commit/e73f360ca37c24b20e5b6dce42a81c837d88b100))
 + Results reproduced by [@garvitkaushik-123](https://github.com/garvitkaushik-123) on 2026-10-20 (commit [`71ab9d7`](https://github.com/castorini/pyserini/commit/71ab9d77191c3ea930592edca4caa8e35068aa91))
 + Results reproduced by [@saadbinather](https://github.com/saadbinather) on 2026-10-20 (commit [`ef7c2ed`](https://github.com/castorini/pyserini/commit/ef7c2edf71e0402bca8d8826d3c7b55d42d6fabb))
++ Results reproduced by [@Dristy03](https://github.com/Dristy03) on 2026-10-23 (commit [`bc2a172`](https://github.com/castorini/pyserini/commit/bc2a172c1143a3233cc320c12068a312a4151958))
++ Results reproduced by [@Jamal-Ahmed-Khan](https://github.com/Jamal-Ahmed-Khan) on 2026-10-23 (commit [`59cd35f`](https://github.com/castorini/pyserini/commit/59cd35fb85f46ab517a68db7ac9b180f6dfd6dbb))
 + Results reproduced by [@moghazym](https://github.com/moghazym) on 2026-10-24 (commit [`03faa9a`](https://github.com/castorini/pyserini/commit/03faa9ac1709dcc142bd7d1b489df982e9313d84))
 + Results reproduced by [@mobinano](https://github.com/mobinano) on 2026-10-24 (commit [`59cd35f`](https://github.com/castorini/pyserini/commit/59cd35fb85f46ab517a68db7ac9b180f6dfd6dbb))
 + Results reproduced by [@paudelanil](https://github.com/paudelanil) on 2026-10-25 (commit [`9a89de0`](https://github.com/castorini/pyserini/commit/9a89de0348e03f722d1cb6d67f5cdc68e7609712))
 + Results reproduced by [@AliMohammadiiii](https://github.com/AliMohammadiiii) on 2026-10-25 (commit [`03faa9a`](https://github.com/castorini/pyserini/commit/03faa9ac1709dcc142bd7d1b489df982e9313d84))
 + Results reproduced by [@AwwalMudashir](https://github.com/AwwalMudashir) on 2026-10-29 (commit [`bc2a172`](https://github.com/castorini/pyserini/commit/bc2a172c1143a3233cc320c12068a312a4151958)) — Ubuntu WSL2, Python 3.12, Java 21. Indexed 8,841,823 MS MARCO passages and reproduced the BM25 retrieval and evaluation results (MRR@10, MAP, and Recall@1000). Interactive retrieval also verified.
++ Results reproduced by [@StephenRebel](https://github.com/StephenRebel) on 2026-10-26 (commit [`bc2a172`](https://github.com/castorini/pyserini/commit/bc2a172c1143a3233cc320c12068a312a4151958))
++ Results reproduced by [@orangepineapple](https://github.com/orangepineapple) on 2026-10-27 (commit [`bc2a172`](https://github.com/castorini/pyserini/commit/bc2a172c1143a3233cc320c12068a312a4151958))
