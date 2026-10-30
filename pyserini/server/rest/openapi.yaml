@@ -172,7 +172,9 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
         "429":
           description: >
-            Load shedding when the server is configured with API keys and rolling p99 latency exceeds
+            A hard per-token quota defaults to 30 requests in any rolling 60 seconds, shared across
+            search and document routes. Excess requests are rejected before retrieval with Retry-After.
+            Load shedding also applies when the server is configured with API keys and rolling p99 latency exceeds
             the configured threshold. API keys tied for the highest hit count in that window may be shed.
             Clients should honor Retry-After when present.
           headers:
@@ -269,7 +271,9 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
         "429":
           description: >
-            Load shedding when the server is configured with API keys and rolling p99 latency exceeds
+            A hard per-token quota defaults to 30 requests in any rolling 60 seconds, shared across
+            search and document routes. Excess requests are rejected before retrieval with Retry-After.
+            Load shedding also applies when the server is configured with API keys and rolling p99 latency exceeds
             the configured threshold. API keys tied for the highest hit count in that window may be shed.
             Clients should honor Retry-After when present.
           headers:
