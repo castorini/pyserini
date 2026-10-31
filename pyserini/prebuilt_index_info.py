@@ -19,7 +19,7 @@ import json
 from collections.abc import Mapping
 from urllib.request import urlopen
 
-PREBUILT_INDEXES_COMMIT = '51258526d78fa146ff0c42ec6cb08195ebd555f2'
+PREBUILT_INDEXES_COMMIT = 'c6592d62a6a51c39841b134739dbc397b45eb604'
 
 
 def _prebuilt_indexes_url(path):

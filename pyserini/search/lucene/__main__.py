@@ -86,6 +86,9 @@ def define_search_args(parser):
     parser.add_argument('--impact', action='store_true', help="Use Impact.")
 
     parser.add_argument('--encoder', type=str, default=None, help="encoder name")
+    from pyserini.encode._slideon import parse_max_active_dims
+    parser.add_argument('--max-active-dims', type=parse_max_active_dims, default=64,
+                        help='SlideOn maximum active query dimensions (positive integer or None for no cap; default: 64).')
     parser.add_argument('--onnx-encoder', type=str, default=None, help="onnx encoder name")
     parser.add_argument('--min-idf', type=int, default=0, help="minimum idf")
 
@@ -189,16 +192,22 @@ if __name__ == "__main__":
         if args.encoder and args.onnx_encoder:
             raise ValueError("Cannot specify both --encoder and --onnx-encoder")
         if args.encoder:
+            query_encoder = args.encoder
+            if 'slideon' in args.encoder.lower():
+                if args.max_active_dims is not None and args.max_active_dims <= 0:
+                    parser.error('--max-active-dims must be a positive integer or None')
+                from pyserini.encode import SlideOnQueryEncoder
+                query_encoder = SlideOnQueryEncoder(args.encoder, max_active_dims=args.max_active_dims)
             if os.path.exists(args.index):
                 if args.encoded_corpus is not None:
-                    searcher = SlimSearcher(args.encoded_corpus, args.index, args.encoder, args.min_idf)
+                    searcher = SlimSearcher(args.encoded_corpus, args.index, query_encoder, args.min_idf)
                 else:
-                    searcher = LuceneImpactSearcher(args.index, args.encoder, args.min_idf)
+                    searcher = LuceneImpactSearcher(args.index, query_encoder, args.min_idf)
             else:
                 if args.encoded_corpus is not None:
-                    searcher = SlimSearcher.from_prebuilt_index(args.encoded_corpus, args.index, args.encoder, args.min_idf)
+                    searcher = SlimSearcher.from_prebuilt_index(args.encoded_corpus, args.index, query_encoder, args.min_idf)
                 else:
-                    searcher = LuceneImpactSearcher.from_prebuilt_index(args.index, args.encoder, args.min_idf)
+                    searcher = LuceneImpactSearcher.from_prebuilt_index(args.index, query_encoder, args.min_idf)
         elif args.onnx_encoder:
             if os.path.exists(args.index):
                 if args.encoded_corpus is not None:

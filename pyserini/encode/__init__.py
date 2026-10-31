@@ -33,6 +33,7 @@ from ._dse import DseDocumentEncoder, DseQueryEncoder
 from ._dkrr import DkrrDprQueryEncoder
 from ._dpr import DprDocumentEncoder, DprQueryEncoder
 from ._openai import OpenAiDocumentEncoder, OpenAiQueryEncoder, OPENAI_API_RETRY_DELAY
+from ._slideon import SlideOnDocumentEncoder, SlideOnQueryEncoder
 from ._slim import SlimQueryEncoder
 from ._splade import SpladeDocumentEncoder, SpladeQueryEncoder
 from ._tct_colbert import TctColBertDocumentEncoder, TctColBertQueryEncoder
@@ -67,6 +68,7 @@ document_encoder_class_map = {
     "arctic": ArcticDocumentEncoder,
     "uniir": UniIRCorpusEncoder,
     "splade": SpladeDocumentEncoder,
+    "slideon": SlideOnDocumentEncoder,
     "qwen3": Qwen3DocumentEncoder,
     "dse": DseDocumentEncoder,
     "mmeb": MMEBCorpusEncoder,

@@ -22,9 +22,20 @@ from pyserini.encode import document_encoder_class_map, MMEB_IMPORT_ERROR
 from pyserini.encode import OPENAI_API_RETRY_DELAY
 from pyserini.encode import JsonlRepresentationWriter, JsonlCollectionIterator
 from pyserini.util import resolve_device
+from pyserini.encode._slideon import parse_max_active_dims
 
 
-def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multimodal, explicit_truncate):
+def init_encoder(encoder, encoder_class, device, **encoder_kwargs):
+    """Initialize a document encoder, forwarding only options supported by its class."""
+    pooling = encoder_kwargs.pop('pooling', 'cls')
+    l2_norm = encoder_kwargs.pop('l2_norm', False)
+    prefix = encoder_kwargs.pop('prefix', None)
+    multimodal = encoder_kwargs.pop('multimodal', False)
+    explicit_truncate = encoder_kwargs.pop('explicit_truncate', False)
+    max_active_dims = encoder_kwargs.pop('max_active_dims', 512)
+    if encoder_kwargs:
+        raise TypeError(f'Unknown encoder options: {", ".join(sorted(encoder_kwargs))}')
+
     device = resolve_device(device, backend='torch')
     _encoder_class = encoder_class
 
@@ -47,6 +58,8 @@ def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multi
 
     # prepare arguments to encoder class
     kwargs = dict(model_name=encoder, device=device)
+    if _encoder_class == 'slideon' or 'slideon' in encoder.lower():
+        kwargs.update(dict(max_active_dims=max_active_dims))
     if _encoder_class == 'sentence-transformers' or 'sentence-transformers' in encoder:
         kwargs.update(dict(pooling='mean', l2_norm=True))
     if _encoder_class == 'contriever' or 'contriever' in encoder:
@@ -114,13 +127,15 @@ if __name__ == '__main__':
     encoder_parser = commands.add_parser('encoder')
     encoder_parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
     encoder_parser.add_argument('--encoder-class', type=str, required=False, default=None,
-                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto", "contriever", "arctic", "splade", "uniir", "qwen3", "dse", "mmeb"],
+                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto", "contriever", "arctic", "splade", "slideon", "uniir", "qwen3", "dse", "mmeb"],
                                 help='which query encoder class to use. `default` would infer from the args.encoder')
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
     encoder_parser.add_argument('--multimodal', action='store_true', default=False)
     encoder_parser.add_argument('--batch-size', type=int, help='batch size', default=64, required=False)
     encoder_parser.add_argument('--max-length', type=int, help='max length', default=256, required=False)
     encoder_parser.add_argument('--dimension', type=int, help='dimension', default=768, required=False)
+    encoder_parser.add_argument('--max-active-dims', type=parse_max_active_dims, default=argparse.SUPPRESS,
+                                help='SlideOn maximum active dimensions (positive integer or None for no cap; default: 512).')
     encoder_parser.add_argument('--device', type=str, help='device cpu or cuda [cuda:0, cuda:1...]',
                                 default='cuda:0', required=False)
     encoder_parser.add_argument('--fp16', action='store_true', default=False)
@@ -134,7 +149,18 @@ if __name__ == '__main__':
 
     args = parse_args(parser, commands)
     delimiter = args.input.delimiter.replace("\\n", "\n")  # argparse would add \ prior to the passed '\n\n'
-    encoder = init_encoder(args.encoder.encoder, args.encoder.encoder_class, device=args.encoder.device, pooling=args.encoder.pooling, l2_norm=args.encoder.l2_norm, prefix=args.encoder.prefix, multimodal=args.encoder.multimodal, explicit_truncate=args.encoder.explicit_truncate)
+    encoder = init_encoder(
+        args.encoder.encoder,
+        args.encoder.encoder_class,
+        device=args.encoder.device,
+        pooling=args.encoder.pooling,
+        l2_norm=args.encoder.l2_norm,
+        prefix=args.encoder.prefix,
+        multimodal=args.encoder.multimodal,
+        explicit_truncate=args.encoder.explicit_truncate,
+        **({'max_active_dims': args.encoder.max_active_dims}
+           if hasattr(args.encoder, 'max_active_dims') else {}),
+    )
 
     if args.output.to_faiss:
         from pyserini.encode.optional import FaissRepresentationWriter

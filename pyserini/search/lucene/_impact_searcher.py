@@ -30,7 +30,7 @@ import scipy
 from tqdm import tqdm
 
 from pyserini.encode import QueryEncoder, CachedDataQueryEncoder, SlimQueryEncoder, SpladeQueryEncoder, \
-    TokFreqQueryEncoder, UniCoilQueryEncoder
+    TokFreqQueryEncoder, UniCoilQueryEncoder, SlideOnQueryEncoder
 from pyserini.index.lucene import Document, LuceneIndexReader
 from pyserini.pyclass import autoclass, JFloat, JInt, JArrayList, JHashMap
 from pyserini.search.lucene import JScoredDoc
@@ -379,6 +379,8 @@ class LuceneImpactSearcher:
             return UniCoilQueryEncoder(query_encoder)
         elif 'splade' in query_encoder.lower():
             return SpladeQueryEncoder(query_encoder)
+        elif 'slideon' in query_encoder.lower():
+            return SlideOnQueryEncoder(query_encoder)
         elif 'slim' in query_encoder.lower():
             return SlimQueryEncoder(query_encoder)
 
