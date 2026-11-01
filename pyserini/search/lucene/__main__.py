@@ -88,7 +88,7 @@ def define_search_args(parser):
     parser.add_argument('--encoder', type=str, default=None, help="encoder name")
     from pyserini.encode._slideon import parse_max_active_dims
     parser.add_argument('--max-active-dims', type=parse_max_active_dims, default=64,
-                        help='SlideOn maximum active query dimensions (positive integer or None for no cap; default: 64).')
+                        help='SlideOn PyTorch/ONNX maximum active query dimensions (positive integer or None for no cap; default: 64).')
     parser.add_argument('--onnx-encoder', type=str, default=None, help="onnx encoder name")
     parser.add_argument('--min-idf', type=int, default=0, help="minimum idf")
 
@@ -213,12 +213,14 @@ if __name__ == "__main__":
                 if args.encoded_corpus is not None:
                     searcher = SlimSearcher(args.encoded_corpus, args.index, args.onnx_encoder, args.min_idf)
                 else:
-                    searcher = LuceneImpactSearcher(args.index, args.onnx_encoder, args.min_idf, 'onnx')
+                    searcher = LuceneImpactSearcher(args.index, args.onnx_encoder, args.min_idf, 'onnx',
+                                                    max_active_dims=args.max_active_dims)
             else:
                 if args.encoded_corpus is not None:
                     searcher = SlimSearcher.from_prebuilt_index(args.encoded_corpus, args.index, args.onnx_encoder, args.min_idf)
                 else:
-                    searcher = LuceneImpactSearcher.from_prebuilt_index(args.index, args.onnx_encoder, args.min_idf, 'onnx')
+                    searcher = LuceneImpactSearcher.from_prebuilt_index(args.index, args.onnx_encoder, args.min_idf, 'onnx',
+                                                                        max_active_dims=args.max_active_dims)
         # These are the cases where we're specifying pre-encoded queries
         elif os.path.exists(args.index):
             searcher = LuceneImpactSearcher(args.index, args.encoder, args.min_idf)
