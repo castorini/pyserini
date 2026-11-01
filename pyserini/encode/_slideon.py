@@ -14,8 +14,6 @@
 # limitations under the License.
 #
 
-import argparse
-from numbers import Integral, Real
 from typing import Dict, List
 
 import numpy as np
@@ -25,36 +23,12 @@ from transformers import AutoModel, AutoTokenizer
 from ._base import DocumentEncoder, QueryEncoder
 
 
-def parse_max_active_dims(value):
-    """Parse a positive activation cap or an explicit, case-insensitive None."""
-    if value.lower() == 'none':
-        return None
-    try:
-        cap = int(value)
-    except ValueError:
-        raise argparse.ArgumentTypeError('max-active-dims must be a positive integer or None')
-    if cap <= 0:
-        raise argparse.ArgumentTypeError('max-active-dims must be a positive integer or None')
-    return cap
-
-
 class _SlideOnEncoder:
     """Shared loading, task-aware preprocessing, and Lucene impact conversion."""
 
-    def _init_model(self, model_name_or_path, tokenizer_name, device, task, max_active_dims, scale):
-        if max_active_dims is not None and (
-            isinstance(max_active_dims, bool) or not isinstance(max_active_dims, Integral) or max_active_dims <= 0
-        ):
-            raise ValueError('max_active_dims must be a positive integer or None')
-        if (
-            isinstance(scale, bool) or not isinstance(scale, Real) or not np.isfinite(scale)
-            or not 0 < scale <= float(np.finfo(np.float32).max)
-        ):
-            raise ValueError('scale must be finite and positive in float32')
-        self.scale = np.float32(scale)
-        if self.scale == 0:
-            raise ValueError('scale must be finite and positive in float32')
-        self.max_active_dims = None if max_active_dims is None else int(max_active_dims)
+    def _init_model(self, model_name_or_path, tokenizer_name, device, task):
+        self.scale = np.float32(100)
+        self.max_active_dims = 64 if task == 'query' else 512
         self.device = device
         self.task = task
         self.model = AutoModel.from_pretrained(
@@ -75,15 +49,7 @@ class _SlideOnEncoder:
 
     @torch.inference_mode()
     def _encode(self, texts, max_length=None) -> List[Dict[str, int]]:
-        if not all(isinstance(text, str) for text in texts):
-            raise TypeError('SlideOn accepts text strings only')
         max_length = self.max_length if max_length is None else max_length
-        minimum_length = 2 + bool(self.prefix_token)
-        if (
-            isinstance(max_length, bool) or not isinstance(max_length, Integral)
-            or not minimum_length <= max_length <= self.max_length
-        ):
-            raise ValueError(f'max_length must be between {minimum_length} and {self.max_length}')
         if not texts:
             return []
         inputs = dict(self.tokenizer(
@@ -102,10 +68,7 @@ class _SlideOnEncoder:
         inputs = {key: value.to(self.device) for key, value in inputs.items()
                   if key in ('input_ids', 'attention_mask', 'token_type_ids')}
         # Delegate pruning, including its position before final FP16 rounding, to SlideOn.
-        # Upstream None selects the saved budget. Use the full latent count to
-        # explicitly disable final pruning, even for checkpoints with a saved cap.
-        cap = self.model.get_embedding_dimension() if self.max_active_dims is None else self.max_active_dims
-        output = self.model(**inputs, task=self.task, max_active_dims=cap)
+        output = self.model(**inputs, task=self.task, max_active_dims=self.max_active_dims)
         weights = output['sentence_embedding'].float().cpu().numpy()
         return [self._quantize_weights(vector) for vector in weights]
 
@@ -122,49 +85,32 @@ class _SlideOnEncoder:
 
 
 class SlideOnQueryEncoder(QueryEncoder, _SlideOnEncoder):
-    """Encode raw query text with the checkpoint's query prompt and inference task.
-
-    ``max_active_dims`` (default 64) is passed directly to the official model,
-    which prunes before final FP16 rounding. ``None`` disables the final dimension
-    cap regardless of the checkpoint's saved budget. No additional top-k selection or
-    tie-breaking is performed here. ``scale`` (default 100) controls float32
-    multiplication followed by ties-to-even integer rounding for Lucene.
+    """Encode query text as latent-ID-to-impact weights using q64 and scale 100.
 
     Loading executes the checkpoint's custom code via ``trust_remote_code=True``.
-    FP32 eager inference retains the model's native FP16 roundtrips and pruning.
     """
 
-    def __init__(self, model_name_or_path, tokenizer_name=None, device='cpu', max_active_dims=64, scale=100):
-        super().__init__()
-        self._init_model(model_name_or_path, tokenizer_name, device, 'query', max_active_dims, scale)
-        self.has_model = True
+    def __init__(self, model_name_or_path, tokenizer_name=None, device='cpu'):
+        self._init_model(model_name_or_path, tokenizer_name, device, 'query')
 
     def encode(self, text, max_length=None, **kwargs) -> Dict[str, int]:
+        if not isinstance(text, str):
+            raise TypeError('SlideOn accepts text strings only')
         return self._encode([text], max_length=max_length)[0]
 
 
 class SlideOnDocumentEncoder(DocumentEncoder, _SlideOnEncoder):
-    """Encode documents with the checkpoint's document prompt and inference task.
+    """Encode documents as latent-ID-to-impact weights using d512 and scale 100.
 
-    ``max_active_dims`` (default 512) and ``scale`` (default 100) are constructor
-    arguments. The cap is passed directly to the official model; ``None`` disables
-    the final dimension cap regardless of the checkpoint's saved budget.
-    Returns one latent-ID-to-integer-impact dictionary per document. Changing the
-    document cap or scale requires building an index from those representations.
+    Returns one dictionary per document. Loading executes the checkpoint's custom
+    code via ``trust_remote_code=True``.
     """
 
-    def __init__(self, model_name, tokenizer_name=None, device='cuda:0', max_active_dims=512, scale=100):
-        self._init_model(model_name, tokenizer_name, device, 'document', max_active_dims, scale)
+    def __init__(self, model_name, tokenizer_name=None, device='cuda:0'):
+        self._init_model(model_name, tokenizer_name, device, 'document')
 
-    def encode(self, texts, titles=None, max_length=None, **kwargs) -> List[Dict[str, int]]:
+    def encode(self, texts, max_length=None, **kwargs) -> List[Dict[str, int]]:
         texts = [texts] if isinstance(texts, str) else list(texts)
         if not all(isinstance(text, str) for text in texts):
             raise TypeError('SlideOn accepts text strings only')
-        if titles is not None:
-            titles = [titles] if isinstance(titles, str) else list(titles)
-            if len(titles) != len(texts):
-                raise ValueError('titles and texts must have the same length')
-            if not all(isinstance(title, str) for title in titles):
-                raise TypeError('Titles must be strings')
-            texts = [f'{title} {text}' for title, text in zip(titles, texts)]
         return self._encode(texts, max_length=max_length)

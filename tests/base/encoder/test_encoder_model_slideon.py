@@ -14,7 +14,6 @@
 # limitations under the License.
 #
 
-import argparse
 import unittest
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
@@ -24,7 +23,6 @@ import torch
 
 from pyserini.encode import SlideOnDocumentEncoder, SlideOnQueryEncoder
 from pyserini.encode.__main__ import init_encoder
-from pyserini.encode._slideon import parse_max_active_dims
 
 
 class TestSlideOnEncoder(unittest.TestCase):
@@ -61,44 +59,39 @@ class TestSlideOnEncoder(unittest.TestCase):
         self.assertEqual(self.model.call_args.kwargs['max_active_dims'], 512)
         self.assertEqual(self.model.call_args.kwargs['task'], 'document')
 
-    def test_explicit_caps_and_none(self):
-        for cls in (SlideOnQueryEncoder, SlideOnDocumentEncoder):
-            for cap in (2, None):
-                with self.subTest(encoder=cls.__name__, cap=cap):
-                    encoder = cls('test', device='cpu', max_active_dims=cap)
-                    encoder.encode('hello')
-                    self.assertEqual(self.model.call_args.kwargs['max_active_dims'],
-                                     4 if cap is None else cap)
+    def test_document_cap_not_configurable(self):
+        with self.assertRaises(TypeError):
+            SlideOnDocumentEncoder('test', max_active_dims=128)
 
-    def test_invalid_caps(self):
-        for cls in (SlideOnQueryEncoder, SlideOnDocumentEncoder):
-            for cap in (0, -1, True, 1.5, 'None'):
-                with self.subTest(encoder=cls.__name__, cap=cap):
-                    with self.assertRaises(ValueError):
-                        cls('test', max_active_dims=cap)
+    def test_query_cap_not_configurable(self):
+        with self.assertRaises(TypeError):
+            SlideOnQueryEncoder('test', max_active_dims=128)
 
-    def test_document_factory_defaults_and_none(self):
-        for options, expected in [({}, 512), ({'max_active_dims': None}, None),
-                                  ({'max_active_dims': 128}, 128)]:
-            encoder = init_encoder('lightonai/SlideOn', None, 'cpu', **options)
-            self.assertEqual(encoder.max_active_dims, expected)
+    def test_document_factory(self):
+        encoder = init_encoder('lightonai/SlideOn', None, 'cpu')
+        self.assertEqual(encoder.max_active_dims, 512)
+        with self.assertRaises(TypeError):
+            init_encoder('lightonai/SlideOn', None, 'cpu', max_active_dims=128)
+
+    def test_scale_not_configurable(self):
+        for cls in (SlideOnQueryEncoder, SlideOnDocumentEncoder):
+            with self.subTest(encoder=cls.__name__), self.assertRaises(TypeError):
+                cls('test', scale=1)
+
+    def test_invalid_text(self):
+        with self.assertRaises(TypeError):
+            SlideOnQueryEncoder('test').encode(123)
+        encoder = SlideOnDocumentEncoder('test', device='cpu')
+        with self.assertRaises(TypeError):
+            encoder.encode([123])
 
     def test_quantization(self):
-        encoder = SlideOnQueryEncoder('test', scale=1)
-        self.assertEqual(encoder._quantize_weights([0, 0.5, 1.5, 2.5]), {'2': 2, '3': 2})
+        encoder = SlideOnQueryEncoder('test')
+        self.assertEqual(encoder._quantize_weights([0, 0.005, 0.015, 0.025]), {'2': 2, '3': 2})
         for weights in ([-1], [np.nan], [np.inf], [[1]], [2**31]):
             with self.subTest(weights=weights):
                 with self.assertRaises(ValueError):
                     encoder._quantize_weights(weights)
-
-    def test_cli_cap_parser(self):
-        for text in ('None', 'none', 'NONE'):
-            self.assertIsNone(parse_max_active_dims(text))
-        self.assertEqual(parse_max_active_dims('128'), 128)
-        for text in ('0', '-1', '1.5', 'invalid'):
-            with self.subTest(text=text):
-                with self.assertRaises(argparse.ArgumentTypeError):
-                    parse_max_active_dims(text)
 
 
 if __name__ == '__main__':
