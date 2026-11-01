@@ -85,7 +85,9 @@ models = ['bm25-flat',
           'contriever', 
           'contriever-msmarco', 
           'bge-base-en-v1.5.faiss',
-          'bge-base-en-v1.5.lucene-flat']
+          'bge-base-en-v1.5.lucene-flat',
+          'slideon-pytorch',
+          'slideon-onnx']
 
 
 def list_conditions():
@@ -156,19 +158,21 @@ def generate_report(args):
                              s4=f'{table[dataset]["bm25-multifield"]["R@100"]:8.3f}',
                              s5=f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.3f}',
                              s6=f'{table[dataset]["splade-pp-ed"]["R@100"]:8.3f}',
-                             s7=f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.3f}',
-                             s8=f'{table[dataset]["contriever-msmarco"]["R@100"]:8.3f}',
+                             s7=f'{table[dataset]["slideon-pytorch"]["nDCG@10"]:8.3f}',
+                             s8=f'{table[dataset]["slideon-pytorch"]["R@100"]:8.3f}',
                              s9=f'{table[dataset]["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}',
                              s10=f'{table[dataset]["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}',
+
                              cmd1=commands[dataset]["bm25-flat"],
                              cmd2=commands[dataset]["bm25-multifield"],
                              cmd3=commands[dataset]["splade-pp-ed"],
-                             cmd4=commands[dataset]["contriever-msmarco"],
+                             cmd4=commands[dataset]["slideon-pytorch"],
                              cmd5=commands[dataset]["bge-base-en-v1.5.faiss"],
+
                              eval_cmd1=eval_commands[dataset]["bm25-flat"].rstrip(),
                              eval_cmd2=eval_commands[dataset]["bm25-multifield"].rstrip(),
                              eval_cmd3=eval_commands[dataset]["splade-pp-ed"].rstrip(),
-                             eval_cmd4=eval_commands[dataset]["contriever-msmarco"].rstrip(),
+                             eval_cmd4=eval_commands[dataset]["slideon-pytorch"].rstrip(),
                              eval_cmd5=eval_commands[dataset]["bge-base-en-v1.5.faiss"].rstrip())
             row_cnt += 1
             if dataset.startswith('cqadupstack-'):
@@ -191,19 +195,21 @@ def generate_report(args):
                              s4=f'{cqadupstack_sums["bm25-multifield"]["R@100"]/12:8.3f}',
                              s5=f'{cqadupstack_sums["splade-pp-ed"]["nDCG@10"]/12:8.3f}',
                              s6=f'{cqadupstack_sums["splade-pp-ed"]["R@100"]/12:8.3f}',
-                             s7=f'{cqadupstack_sums["contriever-msmarco"]["nDCG@10"]/12:8.3f}',
-                             s8=f'{cqadupstack_sums["contriever-msmarco"]["R@100"]/12:8.3f}',
+                             s7=f'{cqadupstack_sums["slideon-pytorch"]["nDCG@10"]/12:8.3f}',
+                             s8=f'{cqadupstack_sums["slideon-pytorch"]["R@100"]/12:8.3f}',
                              s9=f'{cqadupstack_sums["bge-base-en-v1.5.faiss"]["nDCG@10"]/12:8.3f}',
                              s10=f'{cqadupstack_sums["bge-base-en-v1.5.faiss"]["R@100"]/12:8.3f}',
+
                              cmd1=cqa_commands["bm25-flat"],
                              cmd2=cqa_commands["bm25-multifield"],
                              cmd3=cqa_commands["splade-pp-ed"],
-                             cmd4=cqa_commands["contriever-msmarco"],
+                             cmd4=cqa_commands["slideon-pytorch"],
                              cmd5=cqa_commands["bge-base-en-v1.5.faiss"],
+
                              eval_cmd1=cqa_eval_commands["bm25-flat"].rstrip(),
                              eval_cmd2=cqa_eval_commands["bm25-multifield"].rstrip(),
                              eval_cmd3=cqa_eval_commands["splade-pp-ed"].rstrip(),
-                             eval_cmd4=cqa_eval_commands["contriever-msmarco"].rstrip(),
+                             eval_cmd4=cqa_eval_commands["slideon-pytorch"].rstrip(),
                              eval_cmd5=cqa_eval_commands["bge-base-en-v1.5.faiss"].rstrip())
                     main_rows.append(cqa_row)
                     row_cnt += 1

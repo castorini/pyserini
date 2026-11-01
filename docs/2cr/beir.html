@@ -152,7 +152,7 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
   <li><b>BM25 Flat</b>: BM25 "flat" baseline (<tt><small>bm25-flat</small></tt>) [1]</li>
   <li><b>BM25 MF</b>: BM25 "multifield" baseline (<tt><small>bm25-multifield</small></tt>) [1]</li>
   <li><b>SPLADE</b>: SPLADE++ CoCondenser-EnsembleDistil (<tt><small>splade-pp-ed</small></tt>) [2]</li>
-  <li><b>Contriever</b>: Contriever FT MS MARCO (<tt><small>contriever-msmarco</small></tt>) [3]</li>
+  <li><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a>: PyTorch</b>: d512/q64, scale 100 (<tt><small>slideon-pytorch</small></tt>); see the <a href="../experiments-slideon.md">experiment guide</a> for setup and numerical considerations.</li>
   <li><b>BGE</b>: BGE-base-en-v1.5 (Faiss flat index) (<tt><small>bge-base-en-v1.5.faiss</small></tt>) [4]</li>
 </ul>
 
@@ -169,7 +169,7 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
         <th class="headertop" colspan="3"><b>BM25 MF</b></th>
         <th class="headertop" colspan="3"><b>SPLADE</b></th>
-        <th class="headertop" colspan="3"><b>Contriever</b></th>
+        <th class="headertop" colspan="3"><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a>: PyTorch</b></th>
         <th class="headertop" colspan="2"><b>BGE</b></th>
       </tr>
       <tr>
@@ -206,8 +206,8 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 <td>   0.727</td>
 <td>   0.128</td>
 <td></td>
-<td>   0.596</td>
-<td>   0.091</td>
+<td>   0.795</td>
+<td>   0.157</td>
 <td></td>
 <td>   0.781</td>
 <td>   0.141</td>
@@ -229,7 +229,7 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
     <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row1-tab5-header" data-mdb-toggle="tab" href="#row1-tab5" role="tab" aria-controls="row1-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -331,29 +331,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-trec-covid.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-trec-covid.slideon \
   --topics beir-v1.0.0-trec-covid-test \
-  --output run.beir.contriever-msmarco.trec-covid.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.trec-covid.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-trec-covid-test \
-  run.beir.contriever-msmarco.trec-covid.txt
+  run.beir.slideon-pytorch.trec-covid.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-trec-covid-test \
-  run.beir.contriever-msmarco.trec-covid.txt
+  run.beir.slideon-pytorch.trec-covid.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-trec-covid-test \
-  run.beir.contriever-msmarco.trec-covid.txt</code></pre>
+  run.beir.slideon-pytorch.trec-covid.txt</code></pre>
   </blockquote>
 
   </div>
@@ -407,8 +407,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.498</td>
 <td>   0.739</td>
 <td></td>
-<td>   0.383</td>
-<td>   0.607</td>
+<td>   0.511</td>
+<td>   0.757</td>
 <td></td>
 <td>   0.415</td>
 <td>   0.632</td>
@@ -430,7 +430,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row2-tab5-header" data-mdb-toggle="tab" href="#row2-tab5" role="tab" aria-controls="row2-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -532,29 +532,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-bioasq.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-bioasq.slideon \
   --topics beir-v1.0.0-bioasq-test \
-  --output run.beir.contriever-msmarco.bioasq.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.bioasq.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-bioasq-test \
-  run.beir.contriever-msmarco.bioasq.txt
+  run.beir.slideon-pytorch.bioasq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-bioasq-test \
-  run.beir.contriever-msmarco.bioasq.txt
+  run.beir.slideon-pytorch.bioasq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-bioasq-test \
-  run.beir.contriever-msmarco.bioasq.txt</code></pre>
+  run.beir.slideon-pytorch.bioasq.txt</code></pre>
   </blockquote>
 
   </div>
@@ -608,8 +608,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.347</td>
 <td>   0.285</td>
 <td></td>
-<td>   0.328</td>
-<td>   0.301</td>
+<td>   0.383</td>
+<td>   0.347</td>
 <td></td>
 <td>   0.373</td>
 <td>   0.337</td>
@@ -631,7 +631,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row3-tab5-header" data-mdb-toggle="tab" href="#row3-tab5" role="tab" aria-controls="row3-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -733,29 +733,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-nfcorpus.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-nfcorpus.slideon \
   --topics beir-v1.0.0-nfcorpus-test \
-  --output run.beir.contriever-msmarco.nfcorpus.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.nfcorpus.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-nfcorpus-test \
-  run.beir.contriever-msmarco.nfcorpus.txt
+  run.beir.slideon-pytorch.nfcorpus.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-nfcorpus-test \
-  run.beir.contriever-msmarco.nfcorpus.txt
+  run.beir.slideon-pytorch.nfcorpus.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-nfcorpus-test \
-  run.beir.contriever-msmarco.nfcorpus.txt</code></pre>
+  run.beir.slideon-pytorch.nfcorpus.txt</code></pre>
   </blockquote>
 
   </div>
@@ -809,8 +809,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.537</td>
 <td>   0.930</td>
 <td></td>
-<td>   0.498</td>
-<td>   0.925</td>
+<td>   0.637</td>
+<td>   0.966</td>
 <td></td>
 <td>   0.541</td>
 <td>   0.942</td>
@@ -832,7 +832,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row4-tab5-header" data-mdb-toggle="tab" href="#row4-tab5" role="tab" aria-controls="row4-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -934,29 +934,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-nq.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-nq.slideon \
   --topics beir-v1.0.0-nq-test \
-  --output run.beir.contriever-msmarco.nq.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.nq.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-nq-test \
-  run.beir.contriever-msmarco.nq.txt
+  run.beir.slideon-pytorch.nq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-nq-test \
-  run.beir.contriever-msmarco.nq.txt
+  run.beir.slideon-pytorch.nq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-nq-test \
-  run.beir.contriever-msmarco.nq.txt</code></pre>
+  run.beir.slideon-pytorch.nq.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1010,8 +1010,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.687</td>
 <td>   0.818</td>
 <td></td>
-<td>   0.638</td>
-<td>   0.777</td>
+<td>   0.797</td>
+<td>   0.910</td>
 <td></td>
 <td>   0.726</td>
 <td>   0.873</td>
@@ -1033,7 +1033,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row5-tab5-header" data-mdb-toggle="tab" href="#row5-tab5" role="tab" aria-controls="row5-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -1135,29 +1135,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-hotpotqa.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-hotpotqa.slideon \
   --topics beir-v1.0.0-hotpotqa-test \
-  --output run.beir.contriever-msmarco.hotpotqa.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.hotpotqa.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-hotpotqa-test \
-  run.beir.contriever-msmarco.hotpotqa.txt
+  run.beir.slideon-pytorch.hotpotqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-hotpotqa-test \
-  run.beir.contriever-msmarco.hotpotqa.txt
+  run.beir.slideon-pytorch.hotpotqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-hotpotqa-test \
-  run.beir.contriever-msmarco.hotpotqa.txt</code></pre>
+  run.beir.slideon-pytorch.hotpotqa.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1211,8 +1211,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.347</td>
 <td>   0.631</td>
 <td></td>
-<td>   0.329</td>
-<td>   0.656</td>
+<td>   0.493</td>
+<td>   0.816</td>
 <td></td>
 <td>   0.406</td>
 <td>   0.742</td>
@@ -1234,7 +1234,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row6-tab5-header" data-mdb-toggle="tab" href="#row6-tab5" role="tab" aria-controls="row6-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -1336,29 +1336,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-fiqa.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-fiqa.slideon \
   --topics beir-v1.0.0-fiqa-test \
-  --output run.beir.contriever-msmarco.fiqa.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.fiqa.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-fiqa-test \
-  run.beir.contriever-msmarco.fiqa.txt
+  run.beir.slideon-pytorch.fiqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-fiqa-test \
-  run.beir.contriever-msmarco.fiqa.txt
+  run.beir.slideon-pytorch.fiqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-fiqa-test \
-  run.beir.contriever-msmarco.fiqa.txt</code></pre>
+  run.beir.slideon-pytorch.fiqa.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1412,8 +1412,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.301</td>
 <td>   0.340</td>
 <td></td>
-<td>   0.278</td>
-<td>   0.322</td>
+<td>   0.296</td>
+<td>   0.363</td>
 <td></td>
 <td>   0.289</td>
 <td>   0.311</td>
@@ -1435,7 +1435,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row7-tab5-header" data-mdb-toggle="tab" href="#row7-tab5" role="tab" aria-controls="row7-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -1537,29 +1537,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-signal1m.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-signal1m.slideon \
   --topics beir-v1.0.0-signal1m-test \
-  --output run.beir.contriever-msmarco.signal1m.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.signal1m.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-signal1m-test \
-  run.beir.contriever-msmarco.signal1m.txt
+  run.beir.slideon-pytorch.signal1m.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-signal1m-test \
-  run.beir.contriever-msmarco.signal1m.txt
+  run.beir.slideon-pytorch.signal1m.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-signal1m-test \
-  run.beir.contriever-msmarco.signal1m.txt</code></pre>
+  run.beir.slideon-pytorch.signal1m.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1613,8 +1613,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.417</td>
 <td>   0.442</td>
 <td></td>
-<td>   0.428</td>
-<td>   0.492</td>
+<td>   0.507</td>
+<td>   0.550</td>
 <td></td>
 <td>   0.442</td>
 <td>   0.499</td>
@@ -1636,7 +1636,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row8-tab5-header" data-mdb-toggle="tab" href="#row8-tab5" role="tab" aria-controls="row8-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -1738,29 +1738,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-trec-news.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-trec-news.slideon \
   --topics beir-v1.0.0-trec-news-test \
-  --output run.beir.contriever-msmarco.trec-news.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.trec-news.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-trec-news-test \
-  run.beir.contriever-msmarco.trec-news.txt
+  run.beir.slideon-pytorch.trec-news.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-trec-news-test \
-  run.beir.contriever-msmarco.trec-news.txt
+  run.beir.slideon-pytorch.trec-news.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-trec-news-test \
-  run.beir.contriever-msmarco.trec-news.txt</code></pre>
+  run.beir.slideon-pytorch.trec-news.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1814,8 +1814,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.466</td>
 <td>   0.384</td>
 <td></td>
-<td>   0.473</td>
-<td>   0.392</td>
+<td>   0.575</td>
+<td>   0.502</td>
 <td></td>
 <td>   0.444</td>
 <td>   0.351</td>
@@ -1837,7 +1837,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row9-tab5-header" data-mdb-toggle="tab" href="#row9-tab5" role="tab" aria-controls="row9-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -1939,29 +1939,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-robust04.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-robust04.slideon \
   --topics beir-v1.0.0-robust04-test \
-  --output run.beir.contriever-msmarco.robust04.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.robust04.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-robust04-test \
-  run.beir.contriever-msmarco.robust04.txt
+  run.beir.slideon-pytorch.robust04.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-robust04-test \
-  run.beir.contriever-msmarco.robust04.txt
+  run.beir.slideon-pytorch.robust04.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-robust04-test \
-  run.beir.contriever-msmarco.robust04.txt</code></pre>
+  run.beir.slideon-pytorch.robust04.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2015,8 +2015,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.526</td>
 <td>   0.983</td>
 <td></td>
-<td>   0.446</td>
-<td>   0.977</td>
+<td>   0.523</td>
+<td>   0.989</td>
 <td></td>
 <td>   0.636</td>
 <td>   0.992</td>
@@ -2038,7 +2038,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row10-tab5-header" data-mdb-toggle="tab" href="#row10-tab5" role="tab" aria-controls="row10-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -2140,29 +2140,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-arguana.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-arguana.slideon \
   --topics beir-v1.0.0-arguana-test \
-  --output run.beir.contriever-msmarco.arguana.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.arguana.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-arguana-test \
-  run.beir.contriever-msmarco.arguana.txt
+  run.beir.slideon-pytorch.arguana.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-arguana-test \
-  run.beir.contriever-msmarco.arguana.txt
+  run.beir.slideon-pytorch.arguana.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-arguana-test \
-  run.beir.contriever-msmarco.arguana.txt</code></pre>
+  run.beir.slideon-pytorch.arguana.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2216,8 +2216,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.246</td>
 <td>   0.471</td>
 <td></td>
-<td>   0.204</td>
-<td>   0.442</td>
+<td>   0.341</td>
+<td>   0.556</td>
 <td></td>
 <td>   0.257</td>
 <td>   0.487</td>
@@ -2239,7 +2239,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row11-tab4-header" data-mdb-toggle="tab" href="#row11-tab4" role="tab" aria-controls="row11-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row11-tab4-header" data-mdb-toggle="tab" href="#row11-tab4" role="tab" aria-controls="row11-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row11-tab5-header" data-mdb-toggle="tab" href="#row11-tab5" role="tab" aria-controls="row11-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -2341,29 +2341,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-webis-touche2020.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-webis-touche2020.slideon \
   --topics beir-v1.0.0-webis-touche2020-test \
-  --output run.beir.contriever-msmarco.webis-touche2020.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.webis-touche2020.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-webis-touche2020-test \
-  run.beir.contriever-msmarco.webis-touche2020.txt
+  run.beir.slideon-pytorch.webis-touche2020.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-webis-touche2020-test \
-  run.beir.contriever-msmarco.webis-touche2020.txt
+  run.beir.slideon-pytorch.webis-touche2020.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-webis-touche2020-test \
-  run.beir.contriever-msmarco.webis-touche2020.txt</code></pre>
+  run.beir.slideon-pytorch.webis-touche2020.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2417,8 +2417,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.334</td>
 <td>   0.649</td>
 <td></td>
-<td>   0.345</td>
-<td>   0.663</td>
+<td>   0.425</td>
+<td>   0.772</td>
 <td></td>
 <td>   0.424</td>
 <td>   0.762</td>
@@ -2440,7 +2440,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row25-tab3-header" data-mdb-toggle="tab" href="#row25-tab3" role="tab" aria-controls="row25-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab4-header" data-mdb-toggle="tab" href="#row25-tab4" role="tab" aria-controls="row25-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row25-tab4-header" data-mdb-toggle="tab" href="#row25-tab4" role="tab" aria-controls="row25-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row25-tab5-header" data-mdb-toggle="tab" href="#row25-tab5" role="tab" aria-controls="row25-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -3651,113 +3651,113 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-android.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-android.slideon \
   --topics beir-v1.0.0-cqadupstack-android-test \
-  --output run.beir.contriever-msmarco.cqadupstack-android.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-android.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 
-python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-english.contriever-msmarco \
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-english.slideon \
   --topics beir-v1.0.0-cqadupstack-english-test \
-  --output run.beir.contriever-msmarco.cqadupstack-english.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-english.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 
-python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-gaming.contriever-msmarco \
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-gaming.slideon \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
-  --output run.beir.contriever-msmarco.cqadupstack-gaming.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-gaming.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 
-python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-gis.contriever-msmarco \
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-gis.slideon \
   --topics beir-v1.0.0-cqadupstack-gis-test \
-  --output run.beir.contriever-msmarco.cqadupstack-gis.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-gis.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 
-python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco \
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-mathematica.slideon \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
-  --output run.beir.contriever-msmarco.cqadupstack-mathematica.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-mathematica.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 
-python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-physics.contriever-msmarco \
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-physics.slideon \
   --topics beir-v1.0.0-cqadupstack-physics-test \
-  --output run.beir.contriever-msmarco.cqadupstack-physics.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-physics.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 
-python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-programmers.contriever-msmarco \
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-programmers.slideon \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
-  --output run.beir.contriever-msmarco.cqadupstack-programmers.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-programmers.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 
-python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-stats.contriever-msmarco \
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-stats.slideon \
   --topics beir-v1.0.0-cqadupstack-stats-test \
-  --output run.beir.contriever-msmarco.cqadupstack-stats.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-stats.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 
-python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-tex.contriever-msmarco \
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-tex.slideon \
   --topics beir-v1.0.0-cqadupstack-tex-test \
-  --output run.beir.contriever-msmarco.cqadupstack-tex.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-tex.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 
-python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-unix.contriever-msmarco \
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-unix.slideon \
   --topics beir-v1.0.0-cqadupstack-unix-test \
-  --output run.beir.contriever-msmarco.cqadupstack-unix.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-unix.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 
-python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco \
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-webmasters.slideon \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
-  --output run.beir.contriever-msmarco.cqadupstack-webmasters.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-webmasters.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 
-python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco \
+python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-wordpress.slideon \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
-  --output run.beir.contriever-msmarco.cqadupstack-wordpress.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-wordpress.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 
 
 </code></pre></blockquote>
@@ -3766,291 +3766,291 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.contriever-msmarco.cqadupstack-android.txt
+  run.beir.slideon-pytorch.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.contriever-msmarco.cqadupstack-android.txt
+  run.beir.slideon-pytorch.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.contriever-msmarco.cqadupstack-android.txt
+  run.beir.slideon-pytorch.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.contriever-msmarco.cqadupstack-android.txt
+  run.beir.slideon-pytorch.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.contriever-msmarco.cqadupstack-android.txt
+  run.beir.slideon-pytorch.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.contriever-msmarco.cqadupstack-android.txt
+  run.beir.slideon-pytorch.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.contriever-msmarco.cqadupstack-english.txt
+  run.beir.slideon-pytorch.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.contriever-msmarco.cqadupstack-english.txt
+  run.beir.slideon-pytorch.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.contriever-msmarco.cqadupstack-english.txt
+  run.beir.slideon-pytorch.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.contriever-msmarco.cqadupstack-english.txt
+  run.beir.slideon-pytorch.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.contriever-msmarco.cqadupstack-english.txt
+  run.beir.slideon-pytorch.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.contriever-msmarco.cqadupstack-english.txt
+  run.beir.slideon-pytorch.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.contriever-msmarco.cqadupstack-gaming.txt
+  run.beir.slideon-pytorch.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.contriever-msmarco.cqadupstack-gaming.txt
+  run.beir.slideon-pytorch.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.contriever-msmarco.cqadupstack-gaming.txt
+  run.beir.slideon-pytorch.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.contriever-msmarco.cqadupstack-gaming.txt
+  run.beir.slideon-pytorch.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.contriever-msmarco.cqadupstack-gaming.txt
+  run.beir.slideon-pytorch.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.contriever-msmarco.cqadupstack-gaming.txt
+  run.beir.slideon-pytorch.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.contriever-msmarco.cqadupstack-gis.txt
+  run.beir.slideon-pytorch.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.contriever-msmarco.cqadupstack-gis.txt
+  run.beir.slideon-pytorch.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.contriever-msmarco.cqadupstack-gis.txt
+  run.beir.slideon-pytorch.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.contriever-msmarco.cqadupstack-gis.txt
+  run.beir.slideon-pytorch.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.contriever-msmarco.cqadupstack-gis.txt
+  run.beir.slideon-pytorch.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.contriever-msmarco.cqadupstack-gis.txt
+  run.beir.slideon-pytorch.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.contriever-msmarco.cqadupstack-mathematica.txt
+  run.beir.slideon-pytorch.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.contriever-msmarco.cqadupstack-mathematica.txt
+  run.beir.slideon-pytorch.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.contriever-msmarco.cqadupstack-mathematica.txt
+  run.beir.slideon-pytorch.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.contriever-msmarco.cqadupstack-mathematica.txt
+  run.beir.slideon-pytorch.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.contriever-msmarco.cqadupstack-mathematica.txt
+  run.beir.slideon-pytorch.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.contriever-msmarco.cqadupstack-mathematica.txt
+  run.beir.slideon-pytorch.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.contriever-msmarco.cqadupstack-physics.txt
+  run.beir.slideon-pytorch.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.contriever-msmarco.cqadupstack-physics.txt
+  run.beir.slideon-pytorch.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.contriever-msmarco.cqadupstack-physics.txt
+  run.beir.slideon-pytorch.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.contriever-msmarco.cqadupstack-physics.txt
+  run.beir.slideon-pytorch.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.contriever-msmarco.cqadupstack-physics.txt
+  run.beir.slideon-pytorch.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.contriever-msmarco.cqadupstack-physics.txt
+  run.beir.slideon-pytorch.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.contriever-msmarco.cqadupstack-programmers.txt
+  run.beir.slideon-pytorch.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.contriever-msmarco.cqadupstack-programmers.txt
+  run.beir.slideon-pytorch.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.contriever-msmarco.cqadupstack-programmers.txt
+  run.beir.slideon-pytorch.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.contriever-msmarco.cqadupstack-programmers.txt
+  run.beir.slideon-pytorch.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.contriever-msmarco.cqadupstack-programmers.txt
+  run.beir.slideon-pytorch.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.contriever-msmarco.cqadupstack-programmers.txt
+  run.beir.slideon-pytorch.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.contriever-msmarco.cqadupstack-stats.txt
+  run.beir.slideon-pytorch.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.contriever-msmarco.cqadupstack-stats.txt
+  run.beir.slideon-pytorch.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.contriever-msmarco.cqadupstack-stats.txt
+  run.beir.slideon-pytorch.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.contriever-msmarco.cqadupstack-stats.txt
+  run.beir.slideon-pytorch.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.contriever-msmarco.cqadupstack-stats.txt
+  run.beir.slideon-pytorch.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.contriever-msmarco.cqadupstack-stats.txt
+  run.beir.slideon-pytorch.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.contriever-msmarco.cqadupstack-tex.txt
+  run.beir.slideon-pytorch.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.contriever-msmarco.cqadupstack-tex.txt
+  run.beir.slideon-pytorch.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.contriever-msmarco.cqadupstack-tex.txt
+  run.beir.slideon-pytorch.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.contriever-msmarco.cqadupstack-tex.txt
+  run.beir.slideon-pytorch.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.contriever-msmarco.cqadupstack-tex.txt
+  run.beir.slideon-pytorch.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.contriever-msmarco.cqadupstack-tex.txt
+  run.beir.slideon-pytorch.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.contriever-msmarco.cqadupstack-unix.txt
+  run.beir.slideon-pytorch.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.contriever-msmarco.cqadupstack-unix.txt
+  run.beir.slideon-pytorch.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.contriever-msmarco.cqadupstack-unix.txt
+  run.beir.slideon-pytorch.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.contriever-msmarco.cqadupstack-unix.txt
+  run.beir.slideon-pytorch.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.contriever-msmarco.cqadupstack-unix.txt
+  run.beir.slideon-pytorch.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.contriever-msmarco.cqadupstack-unix.txt
+  run.beir.slideon-pytorch.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.contriever-msmarco.cqadupstack-webmasters.txt
+  run.beir.slideon-pytorch.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.contriever-msmarco.cqadupstack-webmasters.txt
+  run.beir.slideon-pytorch.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.contriever-msmarco.cqadupstack-webmasters.txt
+  run.beir.slideon-pytorch.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.contriever-msmarco.cqadupstack-webmasters.txt
+  run.beir.slideon-pytorch.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.contriever-msmarco.cqadupstack-webmasters.txt
+  run.beir.slideon-pytorch.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.contriever-msmarco.cqadupstack-webmasters.txt
+  run.beir.slideon-pytorch.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.contriever-msmarco.cqadupstack-wordpress.txt
+  run.beir.slideon-pytorch.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.contriever-msmarco.cqadupstack-wordpress.txt
+  run.beir.slideon-pytorch.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.contriever-msmarco.cqadupstack-wordpress.txt
+  run.beir.slideon-pytorch.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.contriever-msmarco.cqadupstack-wordpress.txt
+  run.beir.slideon-pytorch.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.contriever-msmarco.cqadupstack-wordpress.txt
+  run.beir.slideon-pytorch.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.contriever-msmarco.cqadupstack-wordpress.txt</code></pre>
+  run.beir.slideon-pytorch.cqadupstack-wordpress.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4492,7 +4492,7 @@ python -m pyserini.eval.trec_eval \
 <td>   0.834</td>
 <td>   0.986</td>
 <td></td>
-<td>   0.865</td>
+<td>   0.859</td>
 <td>   0.994</td>
 <td></td>
 <td>   0.889</td>
@@ -4515,7 +4515,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row24-tab3-header" data-mdb-toggle="tab" href="#row24-tab3" role="tab" aria-controls="row24-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab4-header" data-mdb-toggle="tab" href="#row24-tab4" role="tab" aria-controls="row24-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row24-tab4-header" data-mdb-toggle="tab" href="#row24-tab4" role="tab" aria-controls="row24-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row24-tab5-header" data-mdb-toggle="tab" href="#row24-tab5" role="tab" aria-controls="row24-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -4617,29 +4617,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-quora.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-quora.slideon \
   --topics beir-v1.0.0-quora-test \
-  --output run.beir.contriever-msmarco.quora.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.quora.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
-  run.beir.contriever-msmarco.quora.txt
+  run.beir.slideon-pytorch.quora.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-quora-test \
-  run.beir.contriever-msmarco.quora.txt
+  run.beir.slideon-pytorch.quora.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-quora-test \
-  run.beir.contriever-msmarco.quora.txt</code></pre>
+  run.beir.slideon-pytorch.quora.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4693,8 +4693,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.437</td>
 <td>   0.563</td>
 <td></td>
-<td>   0.413</td>
-<td>   0.541</td>
+<td>   0.485</td>
+<td>   0.608</td>
 <td></td>
 <td>   0.407</td>
 <td>   0.530</td>
@@ -4716,7 +4716,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row26-tab3-header" data-mdb-toggle="tab" href="#row26-tab3" role="tab" aria-controls="row26-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab4-header" data-mdb-toggle="tab" href="#row26-tab4" role="tab" aria-controls="row26-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row26-tab4-header" data-mdb-toggle="tab" href="#row26-tab4" role="tab" aria-controls="row26-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row26-tab5-header" data-mdb-toggle="tab" href="#row26-tab5" role="tab" aria-controls="row26-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -4818,29 +4818,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-dbpedia-entity.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-dbpedia-entity.slideon \
   --topics beir-v1.0.0-dbpedia-entity-test \
-  --output run.beir.contriever-msmarco.dbpedia-entity.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.dbpedia-entity.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.contriever-msmarco.dbpedia-entity.txt
+  run.beir.slideon-pytorch.dbpedia-entity.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.contriever-msmarco.dbpedia-entity.txt
+  run.beir.slideon-pytorch.dbpedia-entity.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.contriever-msmarco.dbpedia-entity.txt</code></pre>
+  run.beir.slideon-pytorch.dbpedia-entity.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4894,8 +4894,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.159</td>
 <td>   0.373</td>
 <td></td>
-<td>   0.165</td>
-<td>   0.378</td>
+<td>   0.201</td>
+<td>   0.471</td>
 <td></td>
 <td>   0.217</td>
 <td>   0.496</td>
@@ -4917,7 +4917,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row27-tab3-header" data-mdb-toggle="tab" href="#row27-tab3" role="tab" aria-controls="row27-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab4-header" data-mdb-toggle="tab" href="#row27-tab4" role="tab" aria-controls="row27-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row27-tab4-header" data-mdb-toggle="tab" href="#row27-tab4" role="tab" aria-controls="row27-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row27-tab5-header" data-mdb-toggle="tab" href="#row27-tab5" role="tab" aria-controls="row27-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -5019,29 +5019,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-scidocs.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-scidocs.slideon \
   --topics beir-v1.0.0-scidocs-test \
-  --output run.beir.contriever-msmarco.scidocs.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.scidocs.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
-  run.beir.contriever-msmarco.scidocs.txt
+  run.beir.slideon-pytorch.scidocs.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-scidocs-test \
-  run.beir.contriever-msmarco.scidocs.txt
+  run.beir.slideon-pytorch.scidocs.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-scidocs-test \
-  run.beir.contriever-msmarco.scidocs.txt</code></pre>
+  run.beir.slideon-pytorch.scidocs.txt</code></pre>
   </blockquote>
 
   </div>
@@ -5095,8 +5095,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.788</td>
 <td>   0.946</td>
 <td></td>
-<td>   0.758</td>
-<td>   0.949</td>
+<td>   0.919</td>
+<td>   0.984</td>
 <td></td>
 <td>   0.863</td>
 <td>   0.972</td>
@@ -5118,7 +5118,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row28-tab3-header" data-mdb-toggle="tab" href="#row28-tab3" role="tab" aria-controls="row28-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab4-header" data-mdb-toggle="tab" href="#row28-tab4" role="tab" aria-controls="row28-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row28-tab4-header" data-mdb-toggle="tab" href="#row28-tab4" role="tab" aria-controls="row28-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row28-tab5-header" data-mdb-toggle="tab" href="#row28-tab5" role="tab" aria-controls="row28-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -5220,29 +5220,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-fever.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-fever.slideon \
   --topics beir-v1.0.0-fever-test \
-  --output run.beir.contriever-msmarco.fever.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.fever.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
-  run.beir.contriever-msmarco.fever.txt
+  run.beir.slideon-pytorch.fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-fever-test \
-  run.beir.contriever-msmarco.fever.txt
+  run.beir.slideon-pytorch.fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-fever-test \
-  run.beir.contriever-msmarco.fever.txt</code></pre>
+  run.beir.slideon-pytorch.fever.txt</code></pre>
   </blockquote>
 
   </div>
@@ -5296,8 +5296,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.230</td>
 <td>   0.521</td>
 <td></td>
-<td>   0.237</td>
-<td>   0.575</td>
+<td>   0.430</td>
+<td>   0.730</td>
 <td></td>
 <td>   0.312</td>
 <td>   0.636</td>
@@ -5319,7 +5319,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row29-tab3-header" data-mdb-toggle="tab" href="#row29-tab3" role="tab" aria-controls="row29-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab4-header" data-mdb-toggle="tab" href="#row29-tab4" role="tab" aria-controls="row29-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row29-tab4-header" data-mdb-toggle="tab" href="#row29-tab4" role="tab" aria-controls="row29-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row29-tab5-header" data-mdb-toggle="tab" href="#row29-tab5" role="tab" aria-controls="row29-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -5421,29 +5421,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-climate-fever.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-climate-fever.slideon \
   --topics beir-v1.0.0-climate-fever-test \
-  --output run.beir.contriever-msmarco.climate-fever.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.climate-fever.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
-  run.beir.contriever-msmarco.climate-fever.txt
+  run.beir.slideon-pytorch.climate-fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-climate-fever-test \
-  run.beir.contriever-msmarco.climate-fever.txt
+  run.beir.slideon-pytorch.climate-fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-climate-fever-test \
-  run.beir.contriever-msmarco.climate-fever.txt</code></pre>
+  run.beir.slideon-pytorch.climate-fever.txt</code></pre>
   </blockquote>
 
   </div>
@@ -5497,8 +5497,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.704</td>
 <td>   0.935</td>
 <td></td>
-<td>   0.677</td>
-<td>   0.947</td>
+<td>   0.750</td>
+<td>   0.967</td>
 <td></td>
 <td>   0.741</td>
 <td>   0.967</td>
@@ -5520,7 +5520,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row30-tab3-header" data-mdb-toggle="tab" href="#row30-tab3" role="tab" aria-controls="row30-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row30-tab4-header" data-mdb-toggle="tab" href="#row30-tab4" role="tab" aria-controls="row30-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row30-tab4-header" data-mdb-toggle="tab" href="#row30-tab4" role="tab" aria-controls="row30-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row30-tab5-header" data-mdb-toggle="tab" href="#row30-tab5" role="tab" aria-controls="row30-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -5622,29 +5622,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-scifact.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-scifact.slideon \
   --topics beir-v1.0.0-scifact-test \
-  --output run.beir.contriever-msmarco.scifact.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.scifact.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
-  run.beir.contriever-msmarco.scifact.txt
+  run.beir.slideon-pytorch.scifact.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-scifact-test \
-  run.beir.contriever-msmarco.scifact.txt
+  run.beir.slideon-pytorch.scifact.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-scifact-test \
-  run.beir.contriever-msmarco.scifact.txt</code></pre>
+  run.beir.slideon-pytorch.scifact.txt</code></pre>
   </blockquote>
 
   </div>
@@ -5705,7 +5705,7 @@ python -m pyserini.eval.trec_eval \
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
         <th class="headertop" colspan="3"><b>BM25 MF</b></th>
         <th class="headertop" colspan="3"><b>SPLADE</b></th>
-        <th class="headertop" colspan="3"><b>Contriever</b></th>
+        <th class="headertop" colspan="3"><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a>: PyTorch</b></th>
         <th class="headertop" colspan="2"><b>BGE</b></th>
       </tr>
       <tr>
@@ -5742,8 +5742,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.390</td>
 <td>   0.741</td>
 <td></td>
-<td>   0.425</td>
-<td>   0.750</td>
+<td>   0.477</td>
+<td>   0.830</td>
 <td></td>
 <td>   0.508</td>
 <td>   0.845</td>
@@ -5765,7 +5765,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row12-tab4-header" data-mdb-toggle="tab" href="#row12-tab4" role="tab" aria-controls="row12-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row12-tab4-header" data-mdb-toggle="tab" href="#row12-tab4" role="tab" aria-controls="row12-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row12-tab5-header" data-mdb-toggle="tab" href="#row12-tab5" role="tab" aria-controls="row12-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -5867,29 +5867,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-android.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-android.slideon \
   --topics beir-v1.0.0-cqadupstack-android-test \
-  --output run.beir.contriever-msmarco.cqadupstack-android.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-android.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.contriever-msmarco.cqadupstack-android.txt
+  run.beir.slideon-pytorch.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.contriever-msmarco.cqadupstack-android.txt
+  run.beir.slideon-pytorch.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.contriever-msmarco.cqadupstack-android.txt</code></pre>
+  run.beir.slideon-pytorch.cqadupstack-android.txt</code></pre>
   </blockquote>
 
   </div>
@@ -5943,8 +5943,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.408</td>
 <td>   0.694</td>
 <td></td>
-<td>   0.433</td>
-<td>   0.694</td>
+<td>   0.515</td>
+<td>   0.798</td>
 <td></td>
 <td>   0.486</td>
 <td>   0.759</td>
@@ -5966,7 +5966,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row13-tab3-header" data-mdb-toggle="tab" href="#row13-tab3" role="tab" aria-controls="row13-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row13-tab4-header" data-mdb-toggle="tab" href="#row13-tab4" role="tab" aria-controls="row13-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row13-tab4-header" data-mdb-toggle="tab" href="#row13-tab4" role="tab" aria-controls="row13-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row13-tab5-header" data-mdb-toggle="tab" href="#row13-tab5" role="tab" aria-controls="row13-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -6068,29 +6068,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-english.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-english.slideon \
   --topics beir-v1.0.0-cqadupstack-english-test \
-  --output run.beir.contriever-msmarco.cqadupstack-english.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-english.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.contriever-msmarco.cqadupstack-english.txt
+  run.beir.slideon-pytorch.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.contriever-msmarco.cqadupstack-english.txt
+  run.beir.slideon-pytorch.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.contriever-msmarco.cqadupstack-english.txt</code></pre>
+  run.beir.slideon-pytorch.cqadupstack-english.txt</code></pre>
   </blockquote>
 
   </div>
@@ -6144,8 +6144,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.496</td>
 <td>   0.813</td>
 <td></td>
-<td>   0.528</td>
-<td>   0.848</td>
+<td>   0.602</td>
+<td>   0.895</td>
 <td></td>
 <td>   0.597</td>
 <td>   0.904</td>
@@ -6167,7 +6167,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row14-tab3-header" data-mdb-toggle="tab" href="#row14-tab3" role="tab" aria-controls="row14-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row14-tab4-header" data-mdb-toggle="tab" href="#row14-tab4" role="tab" aria-controls="row14-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row14-tab4-header" data-mdb-toggle="tab" href="#row14-tab4" role="tab" aria-controls="row14-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row14-tab5-header" data-mdb-toggle="tab" href="#row14-tab5" role="tab" aria-controls="row14-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -6269,29 +6269,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-gaming.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-gaming.slideon \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
-  --output run.beir.contriever-msmarco.cqadupstack-gaming.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-gaming.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.contriever-msmarco.cqadupstack-gaming.txt
+  run.beir.slideon-pytorch.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.contriever-msmarco.cqadupstack-gaming.txt
+  run.beir.slideon-pytorch.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.contriever-msmarco.cqadupstack-gaming.txt</code></pre>
+  run.beir.slideon-pytorch.cqadupstack-gaming.txt</code></pre>
   </blockquote>
 
   </div>
@@ -6345,8 +6345,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.315</td>
 <td>   0.632</td>
 <td></td>
-<td>   0.302</td>
-<td>   0.627</td>
+<td>   0.419</td>
+<td>   0.778</td>
 <td></td>
 <td>   0.413</td>
 <td>   0.768</td>
@@ -6368,7 +6368,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row15-tab3-header" data-mdb-toggle="tab" href="#row15-tab3" role="tab" aria-controls="row15-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row15-tab4-header" data-mdb-toggle="tab" href="#row15-tab4" role="tab" aria-controls="row15-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row15-tab4-header" data-mdb-toggle="tab" href="#row15-tab4" role="tab" aria-controls="row15-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row15-tab5-header" data-mdb-toggle="tab" href="#row15-tab5" role="tab" aria-controls="row15-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -6470,29 +6470,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-gis.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-gis.slideon \
   --topics beir-v1.0.0-cqadupstack-gis-test \
-  --output run.beir.contriever-msmarco.cqadupstack-gis.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-gis.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.contriever-msmarco.cqadupstack-gis.txt
+  run.beir.slideon-pytorch.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.contriever-msmarco.cqadupstack-gis.txt
+  run.beir.slideon-pytorch.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.contriever-msmarco.cqadupstack-gis.txt</code></pre>
+  run.beir.slideon-pytorch.cqadupstack-gis.txt</code></pre>
   </blockquote>
 
   </div>
@@ -6546,8 +6546,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.238</td>
 <td>   0.579</td>
 <td></td>
-<td>   0.235</td>
-<td>   0.573</td>
+<td>   0.314</td>
+<td>   0.696</td>
 <td></td>
 <td>   0.316</td>
 <td>   0.692</td>
@@ -6569,7 +6569,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row16-tab3-header" data-mdb-toggle="tab" href="#row16-tab3" role="tab" aria-controls="row16-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row16-tab4-header" data-mdb-toggle="tab" href="#row16-tab4" role="tab" aria-controls="row16-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row16-tab4-header" data-mdb-toggle="tab" href="#row16-tab4" role="tab" aria-controls="row16-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row16-tab5-header" data-mdb-toggle="tab" href="#row16-tab5" role="tab" aria-controls="row16-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -6671,29 +6671,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-mathematica.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-mathematica.slideon \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
-  --output run.beir.contriever-msmarco.cqadupstack-mathematica.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-mathematica.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.contriever-msmarco.cqadupstack-mathematica.txt
+  run.beir.slideon-pytorch.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.contriever-msmarco.cqadupstack-mathematica.txt
+  run.beir.slideon-pytorch.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.contriever-msmarco.cqadupstack-mathematica.txt</code></pre>
+  run.beir.slideon-pytorch.cqadupstack-mathematica.txt</code></pre>
   </blockquote>
 
   </div>
@@ -6747,8 +6747,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.360</td>
 <td>   0.722</td>
 <td></td>
-<td>   0.416</td>
-<td>   0.762</td>
+<td>   0.458</td>
+<td>   0.831</td>
 <td></td>
 <td>   0.472</td>
 <td>   0.808</td>
@@ -6770,7 +6770,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row17-tab3-header" data-mdb-toggle="tab" href="#row17-tab3" role="tab" aria-controls="row17-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row17-tab4-header" data-mdb-toggle="tab" href="#row17-tab4" role="tab" aria-controls="row17-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row17-tab4-header" data-mdb-toggle="tab" href="#row17-tab4" role="tab" aria-controls="row17-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row17-tab5-header" data-mdb-toggle="tab" href="#row17-tab5" role="tab" aria-controls="row17-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -6872,29 +6872,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-physics.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-physics.slideon \
   --topics beir-v1.0.0-cqadupstack-physics-test \
-  --output run.beir.contriever-msmarco.cqadupstack-physics.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-physics.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.contriever-msmarco.cqadupstack-physics.txt
+  run.beir.slideon-pytorch.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.contriever-msmarco.cqadupstack-physics.txt
+  run.beir.slideon-pytorch.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.contriever-msmarco.cqadupstack-physics.txt</code></pre>
+  run.beir.slideon-pytorch.cqadupstack-physics.txt</code></pre>
   </blockquote>
 
   </div>
@@ -6948,8 +6948,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.340</td>
 <td>   0.660</td>
 <td></td>
-<td>   0.357</td>
-<td>   0.719</td>
+<td>   0.427</td>
+<td>   0.786</td>
 <td></td>
 <td>   0.424</td>
 <td>   0.786</td>
@@ -6971,7 +6971,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row18-tab3-header" data-mdb-toggle="tab" href="#row18-tab3" role="tab" aria-controls="row18-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row18-tab4-header" data-mdb-toggle="tab" href="#row18-tab4" role="tab" aria-controls="row18-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row18-tab4-header" data-mdb-toggle="tab" href="#row18-tab4" role="tab" aria-controls="row18-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row18-tab5-header" data-mdb-toggle="tab" href="#row18-tab5" role="tab" aria-controls="row18-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -7073,29 +7073,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-programmers.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-programmers.slideon \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
-  --output run.beir.contriever-msmarco.cqadupstack-programmers.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-programmers.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.contriever-msmarco.cqadupstack-programmers.txt
+  run.beir.slideon-pytorch.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.contriever-msmarco.cqadupstack-programmers.txt
+  run.beir.slideon-pytorch.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.contriever-msmarco.cqadupstack-programmers.txt</code></pre>
+  run.beir.slideon-pytorch.cqadupstack-programmers.txt</code></pre>
   </blockquote>
 
   </div>
@@ -7149,8 +7149,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.298</td>
 <td>   0.589</td>
 <td></td>
-<td>   0.309</td>
-<td>   0.586</td>
+<td>   0.375</td>
+<td>   0.682</td>
 <td></td>
 <td>   0.373</td>
 <td>   0.673</td>
@@ -7172,7 +7172,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row19-tab3-header" data-mdb-toggle="tab" href="#row19-tab3" role="tab" aria-controls="row19-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row19-tab4-header" data-mdb-toggle="tab" href="#row19-tab4" role="tab" aria-controls="row19-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row19-tab4-header" data-mdb-toggle="tab" href="#row19-tab4" role="tab" aria-controls="row19-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row19-tab5-header" data-mdb-toggle="tab" href="#row19-tab5" role="tab" aria-controls="row19-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -7274,29 +7274,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-stats.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-stats.slideon \
   --topics beir-v1.0.0-cqadupstack-stats-test \
-  --output run.beir.contriever-msmarco.cqadupstack-stats.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-stats.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.contriever-msmarco.cqadupstack-stats.txt
+  run.beir.slideon-pytorch.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.contriever-msmarco.cqadupstack-stats.txt
+  run.beir.slideon-pytorch.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.contriever-msmarco.cqadupstack-stats.txt</code></pre>
+  run.beir.slideon-pytorch.cqadupstack-stats.txt</code></pre>
   </blockquote>
 
   </div>
@@ -7350,8 +7350,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.253</td>
 <td>   0.516</td>
 <td></td>
-<td>   0.221</td>
-<td>   0.498</td>
+<td>   0.325</td>
+<td>   0.673</td>
 <td></td>
 <td>   0.311</td>
 <td>   0.649</td>
@@ -7373,7 +7373,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row20-tab3-header" data-mdb-toggle="tab" href="#row20-tab3" role="tab" aria-controls="row20-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row20-tab4-header" data-mdb-toggle="tab" href="#row20-tab4" role="tab" aria-controls="row20-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row20-tab4-header" data-mdb-toggle="tab" href="#row20-tab4" role="tab" aria-controls="row20-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row20-tab5-header" data-mdb-toggle="tab" href="#row20-tab5" role="tab" aria-controls="row20-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -7475,29 +7475,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-tex.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-tex.slideon \
   --topics beir-v1.0.0-cqadupstack-tex-test \
-  --output run.beir.contriever-msmarco.cqadupstack-tex.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-tex.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.contriever-msmarco.cqadupstack-tex.txt
+  run.beir.slideon-pytorch.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.contriever-msmarco.cqadupstack-tex.txt
+  run.beir.slideon-pytorch.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.contriever-msmarco.cqadupstack-tex.txt</code></pre>
+  run.beir.slideon-pytorch.cqadupstack-tex.txt</code></pre>
   </blockquote>
 
   </div>
@@ -7551,8 +7551,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.317</td>
 <td>   0.619</td>
 <td></td>
-<td>   0.326</td>
-<td>   0.616</td>
+<td>   0.435</td>
+<td>   0.772</td>
 <td></td>
 <td>   0.422</td>
 <td>   0.780</td>
@@ -7574,7 +7574,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row21-tab3-header" data-mdb-toggle="tab" href="#row21-tab3" role="tab" aria-controls="row21-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row21-tab4-header" data-mdb-toggle="tab" href="#row21-tab4" role="tab" aria-controls="row21-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row21-tab4-header" data-mdb-toggle="tab" href="#row21-tab4" role="tab" aria-controls="row21-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row21-tab5-header" data-mdb-toggle="tab" href="#row21-tab5" role="tab" aria-controls="row21-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -7676,29 +7676,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-unix.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-unix.slideon \
   --topics beir-v1.0.0-cqadupstack-unix-test \
-  --output run.beir.contriever-msmarco.cqadupstack-unix.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-unix.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.contriever-msmarco.cqadupstack-unix.txt
+  run.beir.slideon-pytorch.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.contriever-msmarco.cqadupstack-unix.txt
+  run.beir.slideon-pytorch.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.contriever-msmarco.cqadupstack-unix.txt</code></pre>
+  run.beir.slideon-pytorch.cqadupstack-unix.txt</code></pre>
   </blockquote>
 
   </div>
@@ -7752,8 +7752,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.317</td>
 <td>   0.636</td>
 <td></td>
-<td>   0.339</td>
-<td>   0.703</td>
+<td>   0.409</td>
+<td>   0.803</td>
 <td></td>
 <td>   0.407</td>
 <td>   0.777</td>
@@ -7775,7 +7775,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row22-tab3-header" data-mdb-toggle="tab" href="#row22-tab3" role="tab" aria-controls="row22-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row22-tab4-header" data-mdb-toggle="tab" href="#row22-tab4" role="tab" aria-controls="row22-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row22-tab4-header" data-mdb-toggle="tab" href="#row22-tab4" role="tab" aria-controls="row22-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row22-tab5-header" data-mdb-toggle="tab" href="#row22-tab5" role="tab" aria-controls="row22-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -7877,29 +7877,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-webmasters.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-webmasters.slideon \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
-  --output run.beir.contriever-msmarco.cqadupstack-webmasters.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-webmasters.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.contriever-msmarco.cqadupstack-webmasters.txt
+  run.beir.slideon-pytorch.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.contriever-msmarco.cqadupstack-webmasters.txt
+  run.beir.slideon-pytorch.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.contriever-msmarco.cqadupstack-webmasters.txt</code></pre>
+  run.beir.slideon-pytorch.cqadupstack-webmasters.txt</code></pre>
   </blockquote>
 
   </div>
@@ -7953,8 +7953,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.272</td>
 <td>   0.592</td>
 <td></td>
-<td>   0.253</td>
-<td>   0.577</td>
+<td>   0.349</td>
+<td>   0.718</td>
 <td></td>
 <td>   0.355</td>
 <td>   0.705</td>
@@ -7976,7 +7976,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row23-tab3-header" data-mdb-toggle="tab" href="#row23-tab3" role="tab" aria-controls="row23-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row23-tab4-header" data-mdb-toggle="tab" href="#row23-tab4" role="tab" aria-controls="row23-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row23-tab4-header" data-mdb-toggle="tab" href="#row23-tab4" role="tab" aria-controls="row23-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row23-tab5-header" data-mdb-toggle="tab" href="#row23-tab5" role="tab" aria-controls="row23-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -8078,29 +8078,29 @@ python -m pyserini.eval.trec_eval \
 Command to generate run:
 
   <blockquote class="mycode">
-<pre><code>python -m pyserini.search.faiss \
-  --threads 16 --batch-size 512 \
-  --encoder-class contriever \
-  --encoder facebook/contriever-msmarco \
-  --index beir-v1.0.0-cqadupstack-wordpress.contriever-msmarco \
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index beir-v1.0.0-cqadupstack-wordpress.slideon \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
-  --output run.beir.contriever-msmarco.cqadupstack-wordpress.txt \
-  --hits 1000 --remove-query
+  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --output run.beir.slideon-pytorch.cqadupstack-wordpress.txt \
+  --output-format trec \
+  --hits 1000 --impact --remove-query
 </code></pre></blockquote>
 Evaluation commands:
 
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.contriever-msmarco.cqadupstack-wordpress.txt
+  run.beir.slideon-pytorch.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.contriever-msmarco.cqadupstack-wordpress.txt
+  run.beir.slideon-pytorch.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.contriever-msmarco.cqadupstack-wordpress.txt</code></pre>
+  run.beir.slideon-pytorch.cqadupstack-wordpress.txt</code></pre>
   </blockquote>
 
   </div>
