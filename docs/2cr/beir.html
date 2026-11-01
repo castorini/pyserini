@@ -335,7 +335,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-trec-covid.slideon \
   --topics beir-v1.0.0-trec-covid-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.trec-covid.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -536,7 +536,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-bioasq.slideon \
   --topics beir-v1.0.0-bioasq-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.bioasq.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -737,7 +737,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-nfcorpus.slideon \
   --topics beir-v1.0.0-nfcorpus-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.nfcorpus.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -938,7 +938,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-nq.slideon \
   --topics beir-v1.0.0-nq-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.nq.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1139,7 +1139,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-hotpotqa.slideon \
   --topics beir-v1.0.0-hotpotqa-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.hotpotqa.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1340,7 +1340,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-fiqa.slideon \
   --topics beir-v1.0.0-fiqa-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.fiqa.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1541,7 +1541,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-signal1m.slideon \
   --topics beir-v1.0.0-signal1m-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.signal1m.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1742,7 +1742,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-trec-news.slideon \
   --topics beir-v1.0.0-trec-news-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.trec-news.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -1943,7 +1943,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-robust04.slideon \
   --topics beir-v1.0.0-robust04-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.robust04.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -2144,7 +2144,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-arguana.slideon \
   --topics beir-v1.0.0-arguana-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.arguana.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -2345,7 +2345,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-webis-touche2020.slideon \
   --topics beir-v1.0.0-webis-touche2020-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.webis-touche2020.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3655,7 +3655,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-android.slideon \
   --topics beir-v1.0.0-cqadupstack-android-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-android.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3664,7 +3664,7 @@ python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-english.slideon \
   --topics beir-v1.0.0-cqadupstack-english-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-english.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3673,7 +3673,7 @@ python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gaming.slideon \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-gaming.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3682,7 +3682,7 @@ python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gis.slideon \
   --topics beir-v1.0.0-cqadupstack-gis-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-gis.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3691,7 +3691,7 @@ python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-mathematica.slideon \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-mathematica.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3700,7 +3700,7 @@ python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-physics.slideon \
   --topics beir-v1.0.0-cqadupstack-physics-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-physics.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3709,7 +3709,7 @@ python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-programmers.slideon \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-programmers.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3718,7 +3718,7 @@ python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-stats.slideon \
   --topics beir-v1.0.0-cqadupstack-stats-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-stats.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3727,7 +3727,7 @@ python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-tex.slideon \
   --topics beir-v1.0.0-cqadupstack-tex-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-tex.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3736,7 +3736,7 @@ python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-unix.slideon \
   --topics beir-v1.0.0-cqadupstack-unix-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-unix.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3745,7 +3745,7 @@ python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-webmasters.slideon \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-webmasters.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -3754,7 +3754,7 @@ python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-wordpress.slideon \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-wordpress.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -4621,7 +4621,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-quora.slideon \
   --topics beir-v1.0.0-quora-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.quora.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -4822,7 +4822,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-dbpedia-entity.slideon \
   --topics beir-v1.0.0-dbpedia-entity-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.dbpedia-entity.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -5023,7 +5023,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-scidocs.slideon \
   --topics beir-v1.0.0-scidocs-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.scidocs.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -5224,7 +5224,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-fever.slideon \
   --topics beir-v1.0.0-fever-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.fever.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -5425,7 +5425,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-climate-fever.slideon \
   --topics beir-v1.0.0-climate-fever-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.climate-fever.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -5626,7 +5626,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-scifact.slideon \
   --topics beir-v1.0.0-scifact-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.scifact.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -5871,7 +5871,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-android.slideon \
   --topics beir-v1.0.0-cqadupstack-android-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-android.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -6072,7 +6072,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-english.slideon \
   --topics beir-v1.0.0-cqadupstack-english-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-english.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -6273,7 +6273,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gaming.slideon \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-gaming.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -6474,7 +6474,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-gis.slideon \
   --topics beir-v1.0.0-cqadupstack-gis-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-gis.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -6675,7 +6675,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-mathematica.slideon \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-mathematica.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -6876,7 +6876,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-physics.slideon \
   --topics beir-v1.0.0-cqadupstack-physics-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-physics.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -7077,7 +7077,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-programmers.slideon \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-programmers.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -7278,7 +7278,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-stats.slideon \
   --topics beir-v1.0.0-cqadupstack-stats-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-stats.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -7479,7 +7479,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-tex.slideon \
   --topics beir-v1.0.0-cqadupstack-tex-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-tex.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -7680,7 +7680,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-unix.slideon \
   --topics beir-v1.0.0-cqadupstack-unix-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-unix.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -7881,7 +7881,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-webmasters.slideon \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-webmasters.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
@@ -8082,7 +8082,7 @@ Command to generate run:
   --threads 16 --batch-size 128 \
   --index beir-v1.0.0-cqadupstack-wordpress.slideon \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.beir.slideon-pytorch.cqadupstack-wordpress.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query

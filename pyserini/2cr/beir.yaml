@@ -2,7 +2,7 @@ conditions:
   # SlideOn d512/q64/s100. CPU PyTorch and runtime-top-k ONNX reference results;
   # see docs/experiments-slideon.md for setup and numerical variation.
   - name: slideon-pytorch
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index beir-v1.0.0-${dataset}.slideon --topics beir-v1.0.0-${dataset}-test --encoder lightonai/SlideOn --max-active-dims 64 --output $output --output-format trec --hits 1000 --impact --remove-query
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index beir-v1.0.0-${dataset}.slideon --topics beir-v1.0.0-${dataset}-test --encoder lightonai/SlideOn --output $output --output-format trec --hits 1000 --impact --remove-query
     datasets:
       - dataset: trec-covid
         scores:

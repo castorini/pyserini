@@ -4,7 +4,7 @@ conditions:
     display: "SlideOn: PyTorch (d512/q64/s100)"
     display-html: "SlideOn: PyTorch (d512/q64/s100)"
     display-row: '[<a href="https://huggingface.co/blog/lightonai/slideon-mslideon" data-mdb-toggle="tooltip" title="LightOn AI. SlideOn &amp; mSlideOn: Sparsified Late-Interaction and Dense Retrievers.">16</a>]'
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.slideon --topics $topics --encoder lightonai/SlideOn --max-active-dims 64 --output $output --hits 1000 --impact
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.slideon --topics $topics --encoder lightonai/SlideOn --output $output --hits 1000 --impact
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev

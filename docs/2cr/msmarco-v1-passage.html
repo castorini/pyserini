@@ -3176,7 +3176,7 @@ Command to generate run on TREC 2019 queries:
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.slideon \
   --topics dl19-passage \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.msmarco-v1-passage.slideon-pytorch.dl19.txt \
   --hits 1000 --impact
 </code></pre></blockquote>
@@ -3201,7 +3201,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl19-passage \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.slideon \
   --topics dl20-passage \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.msmarco-v1-passage.slideon-pytorch.dl20.txt \
   --hits 1000 --impact
 </code></pre></blockquote>
@@ -3226,7 +3226,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl20-passage \
   --threads 16 --batch-size 128 \
   --index msmarco-v1-passage.slideon \
   --topics msmarco-v1-passage.dev \
-  --encoder lightonai/SlideOn --max-active-dims 64 \
+  --encoder lightonai/SlideOn \
   --output run.msmarco-v1-passage.slideon-pytorch.dev.txt \
   --hits 1000 --impact
 </code></pre></blockquote>

@@ -30,7 +30,7 @@ Allow additional disk space for the extracted index.
 The documents come from [official precomputed SlideOn vectors](https://huggingface.co/datasets/lightonai/SlideOn-sparse-vectors/tree/96e5ef60b4c4edef039693371c192157361adccf).
 As described in the [index README](https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/passage/original/lucene-inverted/slideon/lucene-inverted.msmarco-v1-passage.slideon-d512-s100.20261025.43c2471.README.md), construction retained the first 512 entries of each stored descending-weight vector, multiplied weights by 100 in float32, rounded ties to even, and discarded zero impacts.
 
-The document cap is fixed when building the index. Changing a **query** cap does not change the document representations or rebuild the index.
+The document cap is fixed when building the index.
 
 ## Retrieval with PyTorch
 
@@ -43,7 +43,6 @@ for topics in msmarco-v1-passage.dev dl19-passage dl20-passage; do
     --index msmarco-v1-passage.slideon \
     --impact \
     --encoder lightonai/SlideOn \
-    --max-active-dims 64 \
     --threads 16 --batch-size 128 \
     --topics ${topics} \
     --hits 1000 \
@@ -52,16 +51,11 @@ done
 ```
 
 `--impact` selects impact scoring. The model supplies task-specific query prompts automatically; do not prepend them manually.
-In the **search CLI**, `--max-active-dims` controls the query cap only:
-
-- Omitted: use 64.
-- Positive integer: use that cap, for example `--max-active-dims 128`.
-- `--max-active-dims None`: disable the final dimension cap.
-- Zero and negative values are invalid.
+Queries use at most **64** active dimensions.
+Documents use at most **512** active dimensions.
 
 PyTorch passes the cap to the official model, which prunes **before its final FP16 rounding**.
 Pyserini then multiplies output weights by 100 in float32, rounds ties to even, and removes zero impacts.
-`None` disables the final cap even if a checkpoint has a saved cap; it does not disable the model's internal token-level sparsification.
 
 ## Retrieval with ONNX
 
@@ -86,15 +80,10 @@ The Java encoder automatically downloads and caches the ONNX model, tokenizer, a
 It runs query inference with batch size 1, a default query cap of **64**, and a default scale of **100**.
 The current reproduction conditions require the runtime-`top_k` graph published at model revision `a2e29c5` (ONNX SHA-256 `75c906a8a5922a51ffae1ebe8521ca247fb134610d6c24731aa13b82ad35ad80`) and the matching Java encoder.
 An old three-input ONNX graph is incompatible with this encoder; replace stale cached model assets if necessary.
-`--max-active-dims` also configures ONNX SlideOn with the runtime-top-k Java encoder:
-
-- Omitted: use 64.
-- Positive integer: use that query cap, for example `--max-active-dims 128`.
-- `--max-active-dims None`: disable final pruning (mapped to Java's `topK=0`).
-- Zero and negative values are rejected, matching the PyTorch CLI convention.
-
-For example, add `--max-active-dims 128` to the ONNX command above to search the same d512 index with q128. The d512 document representations are unchanged.
-The Python API also accepts `max_active_dims` in `LuceneImpactSearcher(..., encoder_type='onnx')` and `LuceneImpactSearcher.from_prebuilt_index(..., encoder_type='onnx')` when the encoder name is `SlideOn`.
+```python
+searcher = LuceneImpactSearcher(index_dir, 'SlideOn', encoder_type='onnx')
+hits = searcher.search(query)
+```
 
 ### Pruning and rounding
 
