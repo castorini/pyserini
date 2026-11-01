@@ -1,4 +1,51 @@
 conditions:
+  # Verified SlideOn d512/q64/s100 runs; see docs/experiments-slideon.md.
+  - name: slideon-pytorch
+    display: "SlideOn: PyTorch (d512/q64/s100)"
+    display-html: "SlideOn: PyTorch (d512/q64/s100)"
+    display-row: '[<a href="https://huggingface.co/blog/lightonai/slideon-mslideon" data-mdb-toggle="tooltip" title="LightOn AI. SlideOn &amp; mSlideOn: Sparsified Late-Interaction and Dense Retrievers.">16</a>]'
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.slideon --topics $topics --encoder lightonai/SlideOn --max-active-dims 64 --output $output --hits 1000 --impact
+    topics:
+      - topic_key: msmarco-v1-passage.dev
+        eval_key: msmarco-v1-passage.dev
+        scores:
+          - MRR@10: 0.3855
+            R@1K: 0.9878
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4881
+            nDCG@10: 0.7252
+            R@1K: 0.8742
+      - topic_key: dl20-passage
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.5064
+            nDCG@10: 0.7189
+            R@1K: 0.8744
+  - name: slideon-onnx
+    display: "SlideOn: ONNX (d512/q64/s100)"
+    display-html: "SlideOn: ONNX (d512/q64/s100)"
+    display-row: '[<a href="https://huggingface.co/blog/lightonai/slideon-mslideon" data-mdb-toggle="tooltip" title="LightOn AI. SlideOn &amp; mSlideOn: Sparsified Late-Interaction and Dense Retrievers.">16</a>]'
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.slideon --topics $topics --onnx-encoder SlideOn --output $output --hits 1000 --impact
+    topics:
+      - topic_key: msmarco-v1-passage.dev
+        eval_key: msmarco-v1-passage.dev
+        scores:
+          - MRR@10: 0.3855
+            R@1K: 0.9878
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4881
+            nDCG@10: 0.7252
+            R@1K: 0.8742
+      - topic_key: dl20-passage
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.5064
+            nDCG@10: 0.7189
+            R@1K: 0.8744
   - name: splade-v3-pytorch
     display: "SPLADE-v3: PyTorch"
     display-html: "SPLADE-v3: PyTorch"
