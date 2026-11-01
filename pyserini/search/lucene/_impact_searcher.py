@@ -23,8 +23,6 @@ import logging
 import os
 import pickle
 from collections import namedtuple
-from numbers import Integral
-from threading import RLock
 from typing import Dict, List, Optional, Union
 
 import numpy as np
@@ -43,10 +41,6 @@ logger = logging.getLogger(__name__)
 # Wrappers around Anserini classes
 JSimpleImpactSearcher = autoclass('io.anserini.search.SimpleImpactSearcher')
 
-# Java reads this JVM-global property once when constructing SlideOnEncoder.
-_slideon_onnx_init_lock = RLock()
-
-
 def _reader_has_term_vectors(reader) -> bool:
     return reader.termVectors().get(0) is not None
 
@@ -64,19 +58,9 @@ class LuceneImpactSearcher:
         Path to Lucene index directory.
     query_encoder: QueryEncoder or str
         QueryEncoder to encode query text
-    max_active_dims : int or None
-        ONNX SlideOn query cap (default 64); None disables final pruning.
-        Requires Anserini's runtime-top-k SlideOn encoder and model. Ignored for
-        other encoders; configure PyTorch encoder instances directly.
     """
 
-    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], min_idf=0, encoder_type: str = 'pytorch', prebuilt_index_name=None, max_active_dims=64):
-        if encoder_type == 'onnx' and query_encoder == 'SlideOn':
-            if max_active_dims is not None and (
-                isinstance(max_active_dims, bool) or not isinstance(max_active_dims, Integral)
-                or not 0 < max_active_dims <= 2**31 - 1
-            ):
-                raise ValueError('ONNX SlideOn max_active_dims must be a positive Java integer or None')
+    def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str], min_idf=0, encoder_type: str = 'pytorch', prebuilt_index_name=None):
         self.index_dir = index_dir
         self.idf = self._compute_idf(index_dir)
         self.min_idf = min_idf
@@ -87,7 +71,7 @@ class LuceneImpactSearcher:
         self.prebuilt_index_name = prebuilt_index_name
         if encoder_type == 'onnx':
             if isinstance(query_encoder, str) and query_encoder is not None:
-                self._init_onnx_query_encoder(query_encoder, max_active_dims)
+                self.object.set_onnx_query_encoder(query_encoder)
             else:
                 raise ValueError(f'Invalid query encoder type: {type(query_encoder)} for onnx encoder')
         elif encoder_type == 'pytorch':
@@ -98,25 +82,8 @@ class LuceneImpactSearcher:
         else:
             raise ValueError(f'Invalid encoder type: {encoder_type}')
 
-    def _init_onnx_query_encoder(self, query_encoder, max_active_dims):
-        if query_encoder != 'SlideOn':
-            self.object.set_onnx_query_encoder(query_encoder)
-            return
-        system = autoclass('java.lang.System')
-        key = 'anserini.slideon.topK'
-        with _slideon_onnx_init_lock:
-            previous = system.getProperty(key)
-            try:
-                system.setProperty(key, str(0 if max_active_dims is None else int(max_active_dims)))
-                self.object.set_onnx_query_encoder(query_encoder)
-            finally:
-                if previous is None:
-                    system.clearProperty(key)
-                else:
-                    system.setProperty(key, previous)
-
     @classmethod
-    def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str], min_idf=0, encoder_type: str = 'pytorch', max_active_dims=64):
+    def from_prebuilt_index(cls, prebuilt_index_name: str, query_encoder: Union[QueryEncoder, str], min_idf=0, encoder_type: str = 'pytorch'):
         """Build a searcher from a prebuilt index; download the index if necessary.
 
         Parameters
@@ -129,8 +96,6 @@ class LuceneImpactSearcher:
             Minimum idf for query tokens
         encoder_type : str
             Encoder type, either 'pytorch' or 'onnx'
-        max_active_dims : int or None
-            ONNX SlideOn query cap (default 64); None disables final pruning.
 
         Returns
         -------
@@ -146,8 +111,7 @@ class LuceneImpactSearcher:
             return None
 
         print(f'Initializing {prebuilt_index_name}...')
-        return cls(index_dir, query_encoder, min_idf, encoder_type,
-                   prebuilt_index_name=prebuilt_index_name, max_active_dims=max_active_dims)
+        return cls(index_dir, query_encoder, min_idf, encoder_type, prebuilt_index_name=prebuilt_index_name)
 
     def encode(self, query):
         if self.encoder_type == 'onnx':
