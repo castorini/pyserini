@@ -81,7 +81,9 @@ beir_keys = ['trec-covid',
 
 models = ['bm25-flat', 
           'bm25-multifield', 
-          'splade-pp-ed', 
+          'splade-pp-ed',
+          'splade-v3',
+          'splade-v3-onnx',
           'contriever', 
           'contriever-msmarco', 
           'bge-base-en-v1.5.faiss',
@@ -308,16 +310,19 @@ def run_conditions(args):
 
     cqa_output_flag = False
 
-    print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 13 + 'SPLADE' + ' ' * 11 + 'Contriever' + ' ' * 5 + 'Contriever-msmarco' +
+    print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 9 + 'SPLADE-pp-ed' + ' ' * 2 + 'SPLADE-v3.PyTorch' + ' ' * 5 + 'SPLADE-v3.ONNX' +
+          ' ' * 7 + 'Contriever' + ' ' * 5 + 'Contriever-msmarco' +
           ' ' * 6 + 'BGE.Faiss' + ' ' * 7 + 'BGE.Lucene-flat' + ' ' * 5 + 'SlideOn.PyTorch' + ' ' * 6 + 'SlideOn.ONNX')
-    print(' ' * 28 + 'nDCG    R@100      ' * 9)
-    print(' ' * 28 + ('-' * 13 + '      ') * 8 + '-' * 13)
+    print(' ' * 28 + 'nDCG    R@100      ' * 11)
+    print(' ' * 28 + ('-' * 13 + '      ') * 10 + '-' * 13)
     for dataset in beir_keys:
         # The first encounter of 'cqa', print out the average.
         if dataset.startswith('cqa') and not cqa_output_flag:
             print('cqa' + ' ' * 22 + f'{cqa_scores["bm25-flat"]["nDCG@10"]:8.3f}{cqa_scores["bm25-flat"]["R@100"]:8.3f}   ' +
                   f'{cqa_scores["bm25-multifield"]["nDCG@10"]:8.3f}{cqa_scores["bm25-multifield"]["R@100"]:8.3f}   ' +
                   f'{cqa_scores["splade-pp-ed"]["nDCG@10"]:8.3f}{cqa_scores["splade-pp-ed"]["R@100"]:8.3f}   ' +
+                  f'{cqa_scores["splade-v3"]["nDCG@10"]:8.3f}{cqa_scores["splade-v3"]["R@100"]:8.3f}   ' +
+                  f'{cqa_scores["splade-v3-onnx"]["nDCG@10"]:8.3f}{cqa_scores["splade-v3-onnx"]["R@100"]:8.3f}   ' +
                   f'{cqa_scores["contriever"]["nDCG@10"]:8.3f}{cqa_scores["contriever"]["R@100"]:8.3f}   ' +
                   f'{cqa_scores["contriever-msmarco"]["nDCG@10"]:8.3f}{cqa_scores["contriever-msmarco"]["R@100"]:8.3f}   ' +
                   f'{cqa_scores["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
@@ -335,16 +340,20 @@ def run_conditions(args):
               f'{table[dataset]["bm25-flat"]["nDCG@10"]:8.3f}{table[dataset]["bm25-flat"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["bm25-multifield"]["nDCG@10"]:8.3f}{table[dataset]["bm25-multifield"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.3f}{table[dataset]["splade-pp-ed"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["splade-v3"]["nDCG@10"]:8.3f}{table[dataset]["splade-v3"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["splade-v3-onnx"]["nDCG@10"]:8.3f}{table[dataset]["splade-v3-onnx"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["contriever"]["nDCG@10"]:8.3f}{table[dataset]["contriever"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.3f}{table[dataset]["contriever-msmarco"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["slideon-pytorch"]["nDCG@10"]:8.3f}{table[dataset]["slideon-pytorch"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["slideon-onnx"]["nDCG@10"]:8.3f}{table[dataset]["slideon-onnx"]["R@100"]:8.3f}')
-    print(' ' * 28 + ('-' * 13 + '      ') * 8 + '-' * 13)
+    print(' ' * 28 + ('-' * 13 + '      ') * 10 + '-' * 13)
     print('avg' + ' ' * 22 + f'{final_scores["bm25-flat"]["nDCG@10"]:8.3f}{final_scores["bm25-flat"]["R@100"]:8.3f}   ' +
           f'{final_scores["bm25-multifield"]["nDCG@10"]:8.3f}{final_scores["bm25-multifield"]["R@100"]:8.3f}   ' +
           f'{final_scores["splade-pp-ed"]["nDCG@10"]:8.3f}{final_scores["splade-pp-ed"]["R@100"]:8.3f}   ' +
+          f'{final_scores["splade-v3"]["nDCG@10"]:8.3f}{final_scores["splade-v3"]["R@100"]:8.3f}   ' +
+          f'{final_scores["splade-v3-onnx"]["nDCG@10"]:8.3f}{final_scores["splade-v3-onnx"]["R@100"]:8.3f}   ' +
           f'{final_scores["contriever"]["nDCG@10"]:8.3f}{final_scores["contriever"]["R@100"]:8.3f}   ' +
           f'{final_scores["contriever-msmarco"]["nDCG@10"]:8.3f}{final_scores["contriever-msmarco"]["R@100"]:8.3f}   ' +
           f'{final_scores["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{final_scores["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
@@ -362,16 +371,20 @@ def run_conditions(args):
               f'{table[dataset]["bm25-flat"]["nDCG@10"]:8.3f}{table[dataset]["bm25-flat"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["bm25-multifield"]["nDCG@10"]:8.3f}{table[dataset]["bm25-multifield"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.3f}{table[dataset]["splade-pp-ed"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["splade-v3"]["nDCG@10"]:8.3f}{table[dataset]["splade-v3"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["splade-v3-onnx"]["nDCG@10"]:8.3f}{table[dataset]["splade-v3-onnx"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["contriever"]["nDCG@10"]:8.3f}{table[dataset]["contriever"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.3f}{table[dataset]["contriever-msmarco"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["slideon-pytorch"]["nDCG@10"]:8.3f}{table[dataset]["slideon-pytorch"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["slideon-onnx"]["nDCG@10"]:8.3f}{table[dataset]["slideon-onnx"]["R@100"]:8.3f}')
-    print(' ' * 28 + ('-' * 13 + '      ') * 8 + '-' * 13)
+    print(' ' * 28 + ('-' * 13 + '      ') * 10 + '-' * 13)
     print('avg' + ' ' * 22 + f'{cqa_scores["bm25-flat"]["nDCG@10"]:8.3f}{cqa_scores["bm25-flat"]["R@100"]:8.3f}   ' +
           f'{cqa_scores["bm25-multifield"]["nDCG@10"]:8.3f}{cqa_scores["bm25-multifield"]["R@100"]:8.3f}   ' +
           f'{cqa_scores["splade-pp-ed"]["nDCG@10"]:8.3f}{cqa_scores["splade-pp-ed"]["R@100"]:8.3f}   ' +
+          f'{cqa_scores["splade-v3"]["nDCG@10"]:8.3f}{cqa_scores["splade-v3"]["R@100"]:8.3f}   ' +
+          f'{cqa_scores["splade-v3-onnx"]["nDCG@10"]:8.3f}{cqa_scores["splade-v3-onnx"]["R@100"]:8.3f}   ' +
           f'{cqa_scores["contriever"]["nDCG@10"]:8.3f}{cqa_scores["contriever"]["R@100"]:8.3f}   ' +
           f'{cqa_scores["contriever-msmarco"]["nDCG@10"]:8.3f}{cqa_scores["contriever-msmarco"]["R@100"]:8.3f}   ' +
           f'{cqa_scores["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
