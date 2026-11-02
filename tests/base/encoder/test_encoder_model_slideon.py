@@ -85,6 +85,27 @@ class TestSlideOnEncoder(unittest.TestCase):
         with self.assertRaises(TypeError):
             encoder.encode([123])
 
+    def test_document_titles(self):
+        encoder = SlideOnDocumentEncoder('test', device='cpu')
+        with patch.object(encoder, '_encode', return_value=[]) as encode:
+            encoder.encode(['body one', 'body two'], titles=['title one', 'title two'], max_length=32)
+            encode.assert_called_once_with(['title one body one', 'title two body two'], max_length=32)
+            encode.reset_mock()
+            encoder.encode('body', titles='title')
+            encode.assert_called_once_with(['title body'], max_length=None)
+            encode.reset_mock()
+            encoder.encode(['body'])
+            encode.assert_called_once_with(['body'], max_length=None)
+
+    def test_invalid_document_titles(self):
+        encoder = SlideOnDocumentEncoder('test', device='cpu')
+        with self.assertRaises(ValueError):
+            encoder.encode(['body'], titles=[])
+        with self.assertRaises(TypeError):
+            encoder.encode(['body'], titles=[123])
+        with self.assertRaises(TypeError):
+            encoder.encode([123], titles=['title'])
+
     def test_quantization(self):
         encoder = SlideOnQueryEncoder('test')
         self.assertEqual(encoder._quantize_weights([0, 0.005, 0.015, 0.025]), {'2': 2, '3': 2})

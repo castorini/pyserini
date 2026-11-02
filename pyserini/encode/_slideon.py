@@ -109,8 +109,15 @@ class SlideOnDocumentEncoder(DocumentEncoder, _SlideOnEncoder):
     def __init__(self, model_name, tokenizer_name=None, device='cuda:0'):
         self._init_model(model_name, tokenizer_name, device, 'document')
 
-    def encode(self, texts, max_length=None, **kwargs) -> List[Dict[str, int]]:
+    def encode(self, texts, titles=None, max_length=None, **kwargs) -> List[Dict[str, int]]:
         texts = [texts] if isinstance(texts, str) else list(texts)
         if not all(isinstance(text, str) for text in texts):
             raise TypeError('SlideOn accepts text strings only')
+        if titles is not None:
+            titles = [titles] if isinstance(titles, str) else list(titles)
+            if len(titles) != len(texts):
+                raise ValueError('titles and texts must have the same length')
+            if not all(isinstance(title, str) for title in titles):
+                raise TypeError('Titles must be strings')
+            texts = [f'{title} {text}' for title, text in zip(titles, texts)]
         return self._encode(texts, max_length=max_length)
