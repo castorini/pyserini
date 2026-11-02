@@ -8,13 +8,13 @@ The default configuration is **d512/q64/s100**: at most 512 active document dime
 
 ## Prerequisites
 
-| Dependency | Tested version | Used for |
-|---|---|---|
-| Python | 3.12.3 | Both paths |
-| PyTorch | 2.15.0 | PyTorch inference |
-| Transformers | 5.22.1 | PyTorch inference |
-| Java | 21 | Lucene search and ONNX inference |
-| Anserini | 2.3.1-SNAPSHOT with runtime-`top_k` support (included in `287efc44`) | ONNX `SlideOnEncoder` support |
+| Dependency   | Tested version                                                       | Used for                         |
+| ------------ | -------------------------------------------------------------------- | -------------------------------- |
+| Python       | 3.12.3                                                               | Both paths                       |
+| PyTorch      | 2.15.0                                                               | PyTorch inference                |
+| Transformers | 5.22.1                                                               | PyTorch inference                |
+| Java         | 21                                                                   | Lucene search and ONNX inference |
+| Anserini     | 2.3.1-SNAPSHOT with runtime-`top_k` support (included in `287efc44`) | ONNX `SlideOnEncoder` support    |
 
 ## Prebuilt Index
 
@@ -125,10 +125,10 @@ The topic aliases can include additional unjudged queries. Evaluation with `-c` 
 The [MS MARCO YAML](../pyserini/2cr/msmarco-v1-passage.yaml) contains `slideon-pytorch` and `slideon-onnx` conditions, each covering Dev, DL19, and DL20.
 The [HTML summary](2cr/msmarco-v1-passage.html) displays them as separate rows.
 
-| Backend | Dev MRR@10 | Dev R@1000 | DL19 MAP | DL19 nDCG@10 | DL19 R@1000 | DL20 MAP | DL20 nDCG@10 | DL20 R@1000 |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| PyTorch | 0.3855 | 0.9878 | 0.4881 | 0.7252 | 0.8742 | 0.5064 | 0.7189 | 0.8744 |
-| ONNX (runtime top-k) | 0.3855 | 0.9878 | 0.4881 | 0.7252 | 0.8742 | 0.5064 | 0.7189 | 0.8744 |
+| Backend              | Dev MRR@10 | Dev R@1000 | DL19 MAP | DL19 nDCG@10 | DL19 R@1000 | DL20 MAP | DL20 nDCG@10 | DL20 R@1000 |
+| -------------------- | ---------: | ---------: | -------: | -----------: | ----------: | -------: | -----------: | ----------: |
+| PyTorch              |     0.3855 |     0.9878 |   0.4881 |       0.7252 |      0.8742 |   0.5064 |       0.7189 |      0.8744 |
+| ONNX (runtime top-k) |     0.3855 |     0.9878 |   0.4881 |       0.7252 |      0.8742 |   0.5064 |       0.7189 |      0.8744 |
 
 Dev uses 6,980 queries. Dev recall uses relevance threshold 1; DL19/DL20 MAP and recall use threshold 2, while nDCG uses the original grades.
 Both backends' reference results were measured with CPU inference using the reproduction commands below.
