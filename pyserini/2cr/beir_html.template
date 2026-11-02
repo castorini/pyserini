@@ -151,8 +151,8 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 <ul>
   <li><b>BM25 Flat</b>: BM25 "flat" baseline (<tt><small>bm25-flat</small></tt>) [1]</li>
   <li><b>BM25 MF</b>: BM25 "multifield" baseline (<tt><small>bm25-multifield</small></tt>) [1]</li>
-  <li><b>SPLADE</b>: SPLADE++ CoCondenser-EnsembleDistil (<tt><small>splade-pp-ed</small></tt>) [2]</li>
-  <li><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a>: PyTorch</b>: d512/q64, scale 100 (<tt><small>slideon-pytorch</small></tt>); see the <a href="../experiments-slideon.md">experiment guide</a> for setup and numerical considerations.</li>
+  <li><b>SPLADE</b>: SPLADE-v3 (PyTorch) (<tt><small>splade-v3</small></tt>) [2]. Queries are encoded with <tt><small>naver/splade-v3</small></tt> using prebuilt document indexes.</li>
+  <li><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a></b>: d512/q64, scale 100 (PyTorch) (<tt><small>slideon-pytorch</small></tt>); see the <a href="../experiments-slideon.md">experiment guide</a> for setup and numerical considerations.</li>
   <li><b>BGE</b>: BGE-base-en-v1.5 (Faiss flat index) (<tt><small>bge-base-en-v1.5.faiss</small></tt>) [4]</li>
 </ul>
 
@@ -253,9 +253,9 @@ $cqa_rows
 <a href="https://arxiv.org/abs/2306.07471">Resources for Brewing BEIR: Reproducible Reference Models and an Official Leaderboard.</a>
 <i>arXiv:2306.07471</i>, June 2023.</p></li>
 
-<li><p>[2] Thibault Formal, Carlos Lassance, Benjamin Piwowarski, and Stéphane Clinchant.
-<a href="https://dl.acm.org/doi/10.1145/3477495.3531857">From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.</a>
-<i>Proceedings of the 45th International ACM SIGIR Conference on Research and Development in Information Retrieval</i>, pages 2353–2359.</p></li>
+<li><p>[2] Carlos Lassance, Hervé Déjean, Thibault Formal, and Stéphane Clinchant.
+<a href="https://arxiv.org/abs/2403.06789">SPLADE-v3: New baselines for SPLADE.</a>
+<i>arXiv:2403.06789</i>, March 2024.</p></li>
 
 <li><p>[3] Gautier Izacard, Mathilde Caron, Lucas Hosseini, Sebastian Riedel, Piotr Bojanowski, Armand Joulin, and Edouard Grave.
 <a href="https://arxiv.org/abs/2112.09118">Towards Unsupervised Dense Information Retrieval with Contrastive Learning.</a>

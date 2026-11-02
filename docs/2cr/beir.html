@@ -151,8 +151,8 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 <ul>
   <li><b>BM25 Flat</b>: BM25 "flat" baseline (<tt><small>bm25-flat</small></tt>) [1]</li>
   <li><b>BM25 MF</b>: BM25 "multifield" baseline (<tt><small>bm25-multifield</small></tt>) [1]</li>
-  <li><b>SPLADE</b>: SPLADE++ CoCondenser-EnsembleDistil (<tt><small>splade-pp-ed</small></tt>) [2]</li>
-  <li><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a>: PyTorch</b>: d512/q64, scale 100 (<tt><small>slideon-pytorch</small></tt>); see the <a href="../experiments-slideon.md">experiment guide</a> for setup and numerical considerations.</li>
+  <li><b>SPLADE</b>: SPLADE-v3 (PyTorch) (<tt><small>splade-v3</small></tt>) [2]. Queries are encoded with <tt><small>naver/splade-v3</small></tt> using prebuilt document indexes.</li>
+  <li><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a></b>: d512/q64, scale 100 (PyTorch) (<tt><small>slideon-pytorch</small></tt>); see the <a href="../experiments-slideon.md">experiment guide</a> for setup and numerical considerations.</li>
   <li><b>BGE</b>: BGE-base-en-v1.5 (Faiss flat index) (<tt><small>bge-base-en-v1.5.faiss</small></tt>) [4]</li>
 </ul>
 
@@ -203,8 +203,8 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 <td>   0.656</td>
 <td>   0.114</td>
 <td></td>
-<td>   0.727</td>
-<td>   0.128</td>
+<td>   0.730</td>
+<td>   0.141</td>
 <td></td>
 <td>   0.795</td>
 <td>   0.157</td>
@@ -226,7 +226,7 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
     <a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -303,10 +303,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-trec-covid.splade-pp-ed \
+  --index beir-v1.0.0-trec-covid.splade-v3 \
   --topics beir-v1.0.0-trec-covid-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.trec-covid.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.trec-covid.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -315,15 +315,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-trec-covid-test \
-  run.beir.splade-pp-ed.trec-covid.txt
+  run.beir.splade-v3.trec-covid.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-trec-covid-test \
-  run.beir.splade-pp-ed.trec-covid.txt
+  run.beir.splade-v3.trec-covid.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-trec-covid-test \
-  run.beir.splade-pp-ed.trec-covid.txt</code></pre>
+  run.beir.splade-v3.trec-covid.txt</code></pre>
   </blockquote>
 
   </div>
@@ -404,8 +404,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.465</td>
 <td>   0.715</td>
 <td></td>
-<td>   0.498</td>
-<td>   0.739</td>
+<td>   0.514</td>
+<td>   0.765</td>
 <td></td>
 <td>   0.511</td>
 <td>   0.757</td>
@@ -427,7 +427,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row2-tab2-header" data-mdb-toggle="tab" href="#row2-tab2" role="tab" aria-controls="row2-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -504,10 +504,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-bioasq.splade-pp-ed \
+  --index beir-v1.0.0-bioasq.splade-v3 \
   --topics beir-v1.0.0-bioasq-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.bioasq.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.bioasq.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -516,15 +516,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-bioasq-test \
-  run.beir.splade-pp-ed.bioasq.txt
+  run.beir.splade-v3.bioasq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-bioasq-test \
-  run.beir.splade-pp-ed.bioasq.txt
+  run.beir.splade-v3.bioasq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-bioasq-test \
-  run.beir.splade-pp-ed.bioasq.txt</code></pre>
+  run.beir.splade-v3.bioasq.txt</code></pre>
   </blockquote>
 
   </div>
@@ -605,8 +605,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.325</td>
 <td>   0.250</td>
 <td></td>
-<td>   0.347</td>
-<td>   0.285</td>
+<td>   0.363</td>
+<td>   0.298</td>
 <td></td>
 <td>   0.383</td>
 <td>   0.347</td>
@@ -628,7 +628,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -705,10 +705,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-nfcorpus.splade-pp-ed \
+  --index beir-v1.0.0-nfcorpus.splade-v3 \
   --topics beir-v1.0.0-nfcorpus-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.nfcorpus.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.nfcorpus.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -717,15 +717,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-nfcorpus-test \
-  run.beir.splade-pp-ed.nfcorpus.txt
+  run.beir.splade-v3.nfcorpus.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-nfcorpus-test \
-  run.beir.splade-pp-ed.nfcorpus.txt
+  run.beir.splade-v3.nfcorpus.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-nfcorpus-test \
-  run.beir.splade-pp-ed.nfcorpus.txt</code></pre>
+  run.beir.splade-v3.nfcorpus.txt</code></pre>
   </blockquote>
 
   </div>
@@ -806,8 +806,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.329</td>
 <td>   0.760</td>
 <td></td>
-<td>   0.537</td>
-<td>   0.930</td>
+<td>   0.584</td>
+<td>   0.944</td>
 <td></td>
 <td>   0.637</td>
 <td>   0.966</td>
@@ -829,7 +829,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -906,10 +906,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-nq.splade-pp-ed \
+  --index beir-v1.0.0-nq.splade-v3 \
   --topics beir-v1.0.0-nq-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.nq.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.nq.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -918,15 +918,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-nq-test \
-  run.beir.splade-pp-ed.nq.txt
+  run.beir.splade-v3.nq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-nq-test \
-  run.beir.splade-pp-ed.nq.txt
+  run.beir.splade-v3.nq.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-nq-test \
-  run.beir.splade-pp-ed.nq.txt</code></pre>
+  run.beir.splade-v3.nq.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1007,8 +1007,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.603</td>
 <td>   0.740</td>
 <td></td>
-<td>   0.687</td>
-<td>   0.818</td>
+<td>   0.688</td>
+<td>   0.822</td>
 <td></td>
 <td>   0.797</td>
 <td>   0.910</td>
@@ -1030,7 +1030,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -1107,10 +1107,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-hotpotqa.splade-pp-ed \
+  --index beir-v1.0.0-hotpotqa.splade-v3 \
   --topics beir-v1.0.0-hotpotqa-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.hotpotqa.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.hotpotqa.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -1119,15 +1119,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-hotpotqa-test \
-  run.beir.splade-pp-ed.hotpotqa.txt
+  run.beir.splade-v3.hotpotqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-hotpotqa-test \
-  run.beir.splade-pp-ed.hotpotqa.txt
+  run.beir.splade-v3.hotpotqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-hotpotqa-test \
-  run.beir.splade-pp-ed.hotpotqa.txt</code></pre>
+  run.beir.splade-v3.hotpotqa.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1208,8 +1208,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.236</td>
 <td>   0.539</td>
 <td></td>
-<td>   0.347</td>
-<td>   0.631</td>
+<td>   0.380</td>
+<td>   0.667</td>
 <td></td>
 <td>   0.493</td>
 <td>   0.816</td>
@@ -1231,7 +1231,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -1308,10 +1308,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-fiqa.splade-pp-ed \
+  --index beir-v1.0.0-fiqa.splade-v3 \
   --topics beir-v1.0.0-fiqa-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.fiqa.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.fiqa.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -1320,15 +1320,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-fiqa-test \
-  run.beir.splade-pp-ed.fiqa.txt
+  run.beir.splade-v3.fiqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-fiqa-test \
-  run.beir.splade-pp-ed.fiqa.txt
+  run.beir.splade-v3.fiqa.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-fiqa-test \
-  run.beir.splade-pp-ed.fiqa.txt</code></pre>
+  run.beir.splade-v3.fiqa.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1409,8 +1409,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.330</td>
 <td>   0.370</td>
 <td></td>
-<td>   0.301</td>
-<td>   0.340</td>
+<td>   0.246</td>
+<td>   0.298</td>
 <td></td>
 <td>   0.296</td>
 <td>   0.363</td>
@@ -1432,7 +1432,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -1509,10 +1509,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-signal1m.splade-pp-ed \
+  --index beir-v1.0.0-signal1m.splade-v3 \
   --topics beir-v1.0.0-signal1m-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.signal1m.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.signal1m.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -1521,15 +1521,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-signal1m-test \
-  run.beir.splade-pp-ed.signal1m.txt
+  run.beir.splade-v3.signal1m.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-signal1m-test \
-  run.beir.splade-pp-ed.signal1m.txt
+  run.beir.splade-v3.signal1m.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-signal1m-test \
-  run.beir.splade-pp-ed.signal1m.txt</code></pre>
+  run.beir.splade-v3.signal1m.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1610,8 +1610,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.398</td>
 <td>   0.422</td>
 <td></td>
-<td>   0.417</td>
-<td>   0.442</td>
+<td>   0.436</td>
+<td>   0.474</td>
 <td></td>
 <td>   0.507</td>
 <td>   0.550</td>
@@ -1633,7 +1633,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -1710,10 +1710,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-trec-news.splade-pp-ed \
+  --index beir-v1.0.0-trec-news.splade-v3 \
   --topics beir-v1.0.0-trec-news-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.trec-news.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.trec-news.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -1722,15 +1722,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-trec-news-test \
-  run.beir.splade-pp-ed.trec-news.txt
+  run.beir.splade-v3.trec-news.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-trec-news-test \
-  run.beir.splade-pp-ed.trec-news.txt
+  run.beir.splade-v3.trec-news.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-trec-news-test \
-  run.beir.splade-pp-ed.trec-news.txt</code></pre>
+  run.beir.splade-v3.trec-news.txt</code></pre>
   </blockquote>
 
   </div>
@@ -1811,8 +1811,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.407</td>
 <td>   0.375</td>
 <td></td>
-<td>   0.466</td>
-<td>   0.384</td>
+<td>   0.495</td>
+<td>   0.434</td>
 <td></td>
 <td>   0.575</td>
 <td>   0.502</td>
@@ -1834,7 +1834,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -1911,10 +1911,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-robust04.splade-pp-ed \
+  --index beir-v1.0.0-robust04.splade-v3 \
   --topics beir-v1.0.0-robust04-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.robust04.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.robust04.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -1923,15 +1923,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-robust04-test \
-  run.beir.splade-pp-ed.robust04.txt
+  run.beir.splade-v3.robust04.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-robust04-test \
-  run.beir.splade-pp-ed.robust04.txt
+  run.beir.splade-v3.robust04.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-robust04-test \
-  run.beir.splade-pp-ed.robust04.txt</code></pre>
+  run.beir.splade-v3.robust04.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2012,8 +2012,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.414</td>
 <td>   0.943</td>
 <td></td>
-<td>   0.526</td>
-<td>   0.983</td>
+<td>   0.487</td>
+<td>   0.982</td>
 <td></td>
 <td>   0.523</td>
 <td>   0.989</td>
@@ -2035,7 +2035,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -2112,10 +2112,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-arguana.splade-pp-ed \
+  --index beir-v1.0.0-arguana.splade-v3 \
   --topics beir-v1.0.0-arguana-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.arguana.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.arguana.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -2124,15 +2124,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-arguana-test \
-  run.beir.splade-pp-ed.arguana.txt
+  run.beir.splade-v3.arguana.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-arguana-test \
-  run.beir.splade-pp-ed.arguana.txt
+  run.beir.splade-v3.arguana.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-arguana-test \
-  run.beir.splade-pp-ed.arguana.txt</code></pre>
+  run.beir.splade-v3.arguana.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2213,8 +2213,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.367</td>
 <td>   0.538</td>
 <td></td>
-<td>   0.246</td>
-<td>   0.471</td>
+<td>   0.309</td>
+<td>   0.513</td>
 <td></td>
 <td>   0.341</td>
 <td>   0.556</td>
@@ -2236,7 +2236,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row11-tab2-header" data-mdb-toggle="tab" href="#row11-tab2" role="tab" aria-controls="row11-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row11-tab4-header" data-mdb-toggle="tab" href="#row11-tab4" role="tab" aria-controls="row11-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -2313,10 +2313,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-webis-touche2020.splade-pp-ed \
+  --index beir-v1.0.0-webis-touche2020.splade-v3 \
   --topics beir-v1.0.0-webis-touche2020-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.webis-touche2020.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.webis-touche2020.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -2325,15 +2325,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-webis-touche2020-test \
-  run.beir.splade-pp-ed.webis-touche2020.txt
+  run.beir.splade-v3.webis-touche2020.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-webis-touche2020-test \
-  run.beir.splade-pp-ed.webis-touche2020.txt
+  run.beir.splade-v3.webis-touche2020.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-webis-touche2020-test \
-  run.beir.splade-pp-ed.webis-touche2020.txt</code></pre>
+  run.beir.splade-v3.webis-touche2020.txt</code></pre>
   </blockquote>
 
   </div>
@@ -2414,8 +2414,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.299</td>
 <td>   0.606</td>
 <td></td>
-<td>   0.334</td>
-<td>   0.649</td>
+<td>   0.344</td>
+<td>   0.657</td>
 <td></td>
 <td>   0.425</td>
 <td>   0.772</td>
@@ -2437,7 +2437,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row25-tab2-header" data-mdb-toggle="tab" href="#row25-tab2" role="tab" aria-controls="row25-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab3-header" data-mdb-toggle="tab" href="#row25-tab3" role="tab" aria-controls="row25-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row25-tab3-header" data-mdb-toggle="tab" href="#row25-tab3" role="tab" aria-controls="row25-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row25-tab4-header" data-mdb-toggle="tab" href="#row25-tab4" role="tab" aria-controls="row25-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -3246,109 +3246,109 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-android.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-android.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-android-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-android.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-android.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-english.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-english.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-english-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-english.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-english.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-gaming.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-gaming.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-gaming.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-gaming.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-gis.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-gis.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-gis-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-gis.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-gis.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-mathematica.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-mathematica.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-mathematica.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-physics.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-physics.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-physics-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-physics.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-physics.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-programmers.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-programmers.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-programmers.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-programmers.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-stats.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-stats.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-stats-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-stats.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-stats.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-tex.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-tex.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-tex-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-tex.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-tex.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-unix.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-unix.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-unix-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-unix.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-unix.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-webmasters.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-webmasters.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-webmasters.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 
 python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-wordpress.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-wordpress.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-wordpress.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 
@@ -3359,291 +3359,291 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.splade-pp-ed.cqadupstack-android.txt
+  run.beir.splade-v3.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.splade-pp-ed.cqadupstack-android.txt
+  run.beir.splade-v3.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.splade-pp-ed.cqadupstack-android.txt
+  run.beir.splade-v3.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.splade-pp-ed.cqadupstack-android.txt
+  run.beir.splade-v3.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.splade-pp-ed.cqadupstack-android.txt
+  run.beir.splade-v3.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.splade-pp-ed.cqadupstack-android.txt
+  run.beir.splade-v3.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.splade-pp-ed.cqadupstack-english.txt
+  run.beir.splade-v3.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.splade-pp-ed.cqadupstack-english.txt
+  run.beir.splade-v3.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.splade-pp-ed.cqadupstack-english.txt
+  run.beir.splade-v3.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.splade-pp-ed.cqadupstack-english.txt
+  run.beir.splade-v3.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.splade-pp-ed.cqadupstack-english.txt
+  run.beir.splade-v3.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.splade-pp-ed.cqadupstack-english.txt
+  run.beir.splade-v3.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.splade-pp-ed.cqadupstack-gaming.txt
+  run.beir.splade-v3.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.splade-pp-ed.cqadupstack-gaming.txt
+  run.beir.splade-v3.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.splade-pp-ed.cqadupstack-gaming.txt
+  run.beir.splade-v3.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.splade-pp-ed.cqadupstack-gaming.txt
+  run.beir.splade-v3.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.splade-pp-ed.cqadupstack-gaming.txt
+  run.beir.splade-v3.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.splade-pp-ed.cqadupstack-gaming.txt
+  run.beir.splade-v3.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.splade-pp-ed.cqadupstack-gis.txt
+  run.beir.splade-v3.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.splade-pp-ed.cqadupstack-gis.txt
+  run.beir.splade-v3.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.splade-pp-ed.cqadupstack-gis.txt
+  run.beir.splade-v3.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.splade-pp-ed.cqadupstack-gis.txt
+  run.beir.splade-v3.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.splade-pp-ed.cqadupstack-gis.txt
+  run.beir.splade-v3.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.splade-pp-ed.cqadupstack-gis.txt
+  run.beir.splade-v3.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
+  run.beir.splade-v3.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
+  run.beir.splade-v3.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
+  run.beir.splade-v3.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
+  run.beir.splade-v3.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
+  run.beir.splade-v3.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
+  run.beir.splade-v3.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.splade-pp-ed.cqadupstack-physics.txt
+  run.beir.splade-v3.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.splade-pp-ed.cqadupstack-physics.txt
+  run.beir.splade-v3.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.splade-pp-ed.cqadupstack-physics.txt
+  run.beir.splade-v3.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.splade-pp-ed.cqadupstack-physics.txt
+  run.beir.splade-v3.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.splade-pp-ed.cqadupstack-physics.txt
+  run.beir.splade-v3.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.splade-pp-ed.cqadupstack-physics.txt
+  run.beir.splade-v3.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.splade-pp-ed.cqadupstack-programmers.txt
+  run.beir.splade-v3.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.splade-pp-ed.cqadupstack-programmers.txt
+  run.beir.splade-v3.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.splade-pp-ed.cqadupstack-programmers.txt
+  run.beir.splade-v3.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.splade-pp-ed.cqadupstack-programmers.txt
+  run.beir.splade-v3.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.splade-pp-ed.cqadupstack-programmers.txt
+  run.beir.splade-v3.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.splade-pp-ed.cqadupstack-programmers.txt
+  run.beir.splade-v3.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.splade-pp-ed.cqadupstack-stats.txt
+  run.beir.splade-v3.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.splade-pp-ed.cqadupstack-stats.txt
+  run.beir.splade-v3.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.splade-pp-ed.cqadupstack-stats.txt
+  run.beir.splade-v3.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.splade-pp-ed.cqadupstack-stats.txt
+  run.beir.splade-v3.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.splade-pp-ed.cqadupstack-stats.txt
+  run.beir.splade-v3.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.splade-pp-ed.cqadupstack-stats.txt
+  run.beir.splade-v3.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.splade-pp-ed.cqadupstack-tex.txt
+  run.beir.splade-v3.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.splade-pp-ed.cqadupstack-tex.txt
+  run.beir.splade-v3.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.splade-pp-ed.cqadupstack-tex.txt
+  run.beir.splade-v3.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.splade-pp-ed.cqadupstack-tex.txt
+  run.beir.splade-v3.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.splade-pp-ed.cqadupstack-tex.txt
+  run.beir.splade-v3.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.splade-pp-ed.cqadupstack-tex.txt
+  run.beir.splade-v3.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.splade-pp-ed.cqadupstack-unix.txt
+  run.beir.splade-v3.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.splade-pp-ed.cqadupstack-unix.txt
+  run.beir.splade-v3.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.splade-pp-ed.cqadupstack-unix.txt
+  run.beir.splade-v3.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.splade-pp-ed.cqadupstack-unix.txt
+  run.beir.splade-v3.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.splade-pp-ed.cqadupstack-unix.txt
+  run.beir.splade-v3.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.splade-pp-ed.cqadupstack-unix.txt
+  run.beir.splade-v3.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.splade-pp-ed.cqadupstack-webmasters.txt
+  run.beir.splade-v3.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.splade-pp-ed.cqadupstack-webmasters.txt
+  run.beir.splade-v3.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.splade-pp-ed.cqadupstack-webmasters.txt
+  run.beir.splade-v3.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.splade-pp-ed.cqadupstack-webmasters.txt
+  run.beir.splade-v3.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.splade-pp-ed.cqadupstack-webmasters.txt
+  run.beir.splade-v3.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.splade-pp-ed.cqadupstack-webmasters.txt
+  run.beir.splade-v3.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.splade-pp-ed.cqadupstack-wordpress.txt
+  run.beir.splade-v3.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.splade-pp-ed.cqadupstack-wordpress.txt
+  run.beir.splade-v3.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.splade-pp-ed.cqadupstack-wordpress.txt
+  run.beir.splade-v3.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.splade-pp-ed.cqadupstack-wordpress.txt
+  run.beir.splade-v3.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.splade-pp-ed.cqadupstack-wordpress.txt
+  run.beir.splade-v3.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.splade-pp-ed.cqadupstack-wordpress.txt</code></pre>
+  run.beir.splade-v3.cqadupstack-wordpress.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4489,7 +4489,7 @@ python -m pyserini.eval.trec_eval \
 <td>   0.789</td>
 <td>   0.973</td>
 <td></td>
-<td>   0.834</td>
+<td>   0.814</td>
 <td>   0.986</td>
 <td></td>
 <td>   0.859</td>
@@ -4512,7 +4512,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row24-tab2-header" data-mdb-toggle="tab" href="#row24-tab2" role="tab" aria-controls="row24-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab3-header" data-mdb-toggle="tab" href="#row24-tab3" role="tab" aria-controls="row24-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row24-tab3-header" data-mdb-toggle="tab" href="#row24-tab3" role="tab" aria-controls="row24-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row24-tab4-header" data-mdb-toggle="tab" href="#row24-tab4" role="tab" aria-controls="row24-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -4589,10 +4589,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-quora.splade-pp-ed \
+  --index beir-v1.0.0-quora.splade-v3 \
   --topics beir-v1.0.0-quora-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.quora.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.quora.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -4601,15 +4601,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-quora-test \
-  run.beir.splade-pp-ed.quora.txt
+  run.beir.splade-v3.quora.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-quora-test \
-  run.beir.splade-pp-ed.quora.txt
+  run.beir.splade-v3.quora.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-quora-test \
-  run.beir.splade-pp-ed.quora.txt</code></pre>
+  run.beir.splade-v3.quora.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4690,8 +4690,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.313</td>
 <td>   0.398</td>
 <td></td>
-<td>   0.437</td>
-<td>   0.563</td>
+<td>   0.448</td>
+<td>   0.570</td>
 <td></td>
 <td>   0.485</td>
 <td>   0.608</td>
@@ -4713,7 +4713,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row26-tab2-header" data-mdb-toggle="tab" href="#row26-tab2" role="tab" aria-controls="row26-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab3-header" data-mdb-toggle="tab" href="#row26-tab3" role="tab" aria-controls="row26-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row26-tab3-header" data-mdb-toggle="tab" href="#row26-tab3" role="tab" aria-controls="row26-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row26-tab4-header" data-mdb-toggle="tab" href="#row26-tab4" role="tab" aria-controls="row26-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -4790,10 +4790,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-dbpedia-entity.splade-pp-ed \
+  --index beir-v1.0.0-dbpedia-entity.splade-v3 \
   --topics beir-v1.0.0-dbpedia-entity-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.dbpedia-entity.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.dbpedia-entity.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -4802,15 +4802,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.splade-pp-ed.dbpedia-entity.txt
+  run.beir.splade-v3.dbpedia-entity.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.splade-pp-ed.dbpedia-entity.txt
+  run.beir.splade-v3.dbpedia-entity.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-dbpedia-entity-test \
-  run.beir.splade-pp-ed.dbpedia-entity.txt</code></pre>
+  run.beir.splade-v3.dbpedia-entity.txt</code></pre>
   </blockquote>
 
   </div>
@@ -4891,8 +4891,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.158</td>
 <td>   0.356</td>
 <td></td>
-<td>   0.159</td>
-<td>   0.373</td>
+<td>   0.157</td>
+<td>   0.367</td>
 <td></td>
 <td>   0.201</td>
 <td>   0.471</td>
@@ -4914,7 +4914,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row27-tab2-header" data-mdb-toggle="tab" href="#row27-tab2" role="tab" aria-controls="row27-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab3-header" data-mdb-toggle="tab" href="#row27-tab3" role="tab" aria-controls="row27-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row27-tab3-header" data-mdb-toggle="tab" href="#row27-tab3" role="tab" aria-controls="row27-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row27-tab4-header" data-mdb-toggle="tab" href="#row27-tab4" role="tab" aria-controls="row27-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -4991,10 +4991,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-scidocs.splade-pp-ed \
+  --index beir-v1.0.0-scidocs.splade-v3 \
   --topics beir-v1.0.0-scidocs-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.scidocs.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.scidocs.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -5003,15 +5003,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-scidocs-test \
-  run.beir.splade-pp-ed.scidocs.txt
+  run.beir.splade-v3.scidocs.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-scidocs-test \
-  run.beir.splade-pp-ed.scidocs.txt
+  run.beir.splade-v3.scidocs.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-scidocs-test \
-  run.beir.splade-pp-ed.scidocs.txt</code></pre>
+  run.beir.splade-v3.scidocs.txt</code></pre>
   </blockquote>
 
   </div>
@@ -5092,8 +5092,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.753</td>
 <td>   0.931</td>
 <td></td>
-<td>   0.788</td>
-<td>   0.946</td>
+<td>   0.801</td>
+<td>   0.955</td>
 <td></td>
 <td>   0.919</td>
 <td>   0.984</td>
@@ -5115,7 +5115,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row28-tab2-header" data-mdb-toggle="tab" href="#row28-tab2" role="tab" aria-controls="row28-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab3-header" data-mdb-toggle="tab" href="#row28-tab3" role="tab" aria-controls="row28-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row28-tab3-header" data-mdb-toggle="tab" href="#row28-tab3" role="tab" aria-controls="row28-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row28-tab4-header" data-mdb-toggle="tab" href="#row28-tab4" role="tab" aria-controls="row28-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -5192,10 +5192,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-fever.splade-pp-ed \
+  --index beir-v1.0.0-fever.splade-v3 \
   --topics beir-v1.0.0-fever-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.fever.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.fever.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -5204,15 +5204,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-fever-test \
-  run.beir.splade-pp-ed.fever.txt
+  run.beir.splade-v3.fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-fever-test \
-  run.beir.splade-pp-ed.fever.txt
+  run.beir.splade-v3.fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-fever-test \
-  run.beir.splade-pp-ed.fever.txt</code></pre>
+  run.beir.splade-v3.fever.txt</code></pre>
   </blockquote>
 
   </div>
@@ -5293,8 +5293,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.213</td>
 <td>   0.436</td>
 <td></td>
-<td>   0.230</td>
-<td>   0.521</td>
+<td>   0.263</td>
+<td>   0.574</td>
 <td></td>
 <td>   0.430</td>
 <td>   0.730</td>
@@ -5316,7 +5316,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row29-tab2-header" data-mdb-toggle="tab" href="#row29-tab2" role="tab" aria-controls="row29-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab3-header" data-mdb-toggle="tab" href="#row29-tab3" role="tab" aria-controls="row29-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row29-tab3-header" data-mdb-toggle="tab" href="#row29-tab3" role="tab" aria-controls="row29-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row29-tab4-header" data-mdb-toggle="tab" href="#row29-tab4" role="tab" aria-controls="row29-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -5393,10 +5393,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-climate-fever.splade-pp-ed \
+  --index beir-v1.0.0-climate-fever.splade-v3 \
   --topics beir-v1.0.0-climate-fever-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.climate-fever.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.climate-fever.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -5405,15 +5405,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-climate-fever-test \
-  run.beir.splade-pp-ed.climate-fever.txt
+  run.beir.splade-v3.climate-fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-climate-fever-test \
-  run.beir.splade-pp-ed.climate-fever.txt
+  run.beir.splade-v3.climate-fever.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-climate-fever-test \
-  run.beir.splade-pp-ed.climate-fever.txt</code></pre>
+  run.beir.splade-v3.climate-fever.txt</code></pre>
   </blockquote>
 
   </div>
@@ -5494,8 +5494,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.665</td>
 <td>   0.908</td>
 <td></td>
-<td>   0.704</td>
-<td>   0.935</td>
+<td>   0.714</td>
+<td>   0.936</td>
 <td></td>
 <td>   0.750</td>
 <td>   0.967</td>
@@ -5517,7 +5517,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row30-tab2-header" data-mdb-toggle="tab" href="#row30-tab2" role="tab" aria-controls="row30-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row30-tab3-header" data-mdb-toggle="tab" href="#row30-tab3" role="tab" aria-controls="row30-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row30-tab3-header" data-mdb-toggle="tab" href="#row30-tab3" role="tab" aria-controls="row30-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row30-tab4-header" data-mdb-toggle="tab" href="#row30-tab4" role="tab" aria-controls="row30-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -5594,10 +5594,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-scifact.splade-pp-ed \
+  --index beir-v1.0.0-scifact.splade-v3 \
   --topics beir-v1.0.0-scifact-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.scifact.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.scifact.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -5606,15 +5606,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-scifact-test \
-  run.beir.splade-pp-ed.scifact.txt
+  run.beir.splade-v3.scifact.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-scifact-test \
-  run.beir.splade-pp-ed.scifact.txt
+  run.beir.splade-v3.scifact.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-scifact-test \
-  run.beir.splade-pp-ed.scifact.txt</code></pre>
+  run.beir.splade-v3.scifact.txt</code></pre>
   </blockquote>
 
   </div>
@@ -5739,8 +5739,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.371</td>
 <td>   0.689</td>
 <td></td>
-<td>   0.390</td>
-<td>   0.741</td>
+<td>   0.411</td>
+<td>   0.742</td>
 <td></td>
 <td>   0.477</td>
 <td>   0.830</td>
@@ -5762,7 +5762,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row12-tab2-header" data-mdb-toggle="tab" href="#row12-tab2" role="tab" aria-controls="row12-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row12-tab4-header" data-mdb-toggle="tab" href="#row12-tab4" role="tab" aria-controls="row12-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -5839,10 +5839,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-android.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-android.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-android-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-android.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-android.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -5851,15 +5851,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.splade-pp-ed.cqadupstack-android.txt
+  run.beir.splade-v3.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.splade-pp-ed.cqadupstack-android.txt
+  run.beir.splade-v3.cqadupstack-android.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-android-test \
-  run.beir.splade-pp-ed.cqadupstack-android.txt</code></pre>
+  run.beir.splade-v3.cqadupstack-android.txt</code></pre>
   </blockquote>
 
   </div>
@@ -5940,8 +5940,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.332</td>
 <td>   0.584</td>
 <td></td>
-<td>   0.408</td>
-<td>   0.694</td>
+<td>   0.425</td>
+<td>   0.696</td>
 <td></td>
 <td>   0.515</td>
 <td>   0.798</td>
@@ -5963,7 +5963,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row13-tab2-header" data-mdb-toggle="tab" href="#row13-tab2" role="tab" aria-controls="row13-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row13-tab3-header" data-mdb-toggle="tab" href="#row13-tab3" role="tab" aria-controls="row13-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row13-tab3-header" data-mdb-toggle="tab" href="#row13-tab3" role="tab" aria-controls="row13-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row13-tab4-header" data-mdb-toggle="tab" href="#row13-tab4" role="tab" aria-controls="row13-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -6040,10 +6040,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-english.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-english.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-english-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-english.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-english.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -6052,15 +6052,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.splade-pp-ed.cqadupstack-english.txt
+  run.beir.splade-v3.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.splade-pp-ed.cqadupstack-english.txt
+  run.beir.splade-v3.cqadupstack-english.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-english-test \
-  run.beir.splade-pp-ed.cqadupstack-english.txt</code></pre>
+  run.beir.splade-v3.cqadupstack-english.txt</code></pre>
   </blockquote>
 
   </div>
@@ -6141,8 +6141,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.442</td>
 <td>   0.757</td>
 <td></td>
-<td>   0.496</td>
-<td>   0.813</td>
+<td>   0.519</td>
+<td>   0.825</td>
 <td></td>
 <td>   0.602</td>
 <td>   0.895</td>
@@ -6164,7 +6164,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row14-tab2-header" data-mdb-toggle="tab" href="#row14-tab2" role="tab" aria-controls="row14-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row14-tab3-header" data-mdb-toggle="tab" href="#row14-tab3" role="tab" aria-controls="row14-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row14-tab3-header" data-mdb-toggle="tab" href="#row14-tab3" role="tab" aria-controls="row14-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row14-tab4-header" data-mdb-toggle="tab" href="#row14-tab4" role="tab" aria-controls="row14-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -6241,10 +6241,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-gaming.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-gaming.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-gaming-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-gaming.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-gaming.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -6253,15 +6253,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.splade-pp-ed.cqadupstack-gaming.txt
+  run.beir.splade-v3.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.splade-pp-ed.cqadupstack-gaming.txt
+  run.beir.splade-v3.cqadupstack-gaming.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gaming-test \
-  run.beir.splade-pp-ed.cqadupstack-gaming.txt</code></pre>
+  run.beir.splade-v3.cqadupstack-gaming.txt</code></pre>
   </blockquote>
 
   </div>
@@ -6342,8 +6342,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.290</td>
 <td>   0.646</td>
 <td></td>
-<td>   0.315</td>
-<td>   0.632</td>
+<td>   0.324</td>
+<td>   0.645</td>
 <td></td>
 <td>   0.419</td>
 <td>   0.778</td>
@@ -6365,7 +6365,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row15-tab2-header" data-mdb-toggle="tab" href="#row15-tab2" role="tab" aria-controls="row15-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row15-tab3-header" data-mdb-toggle="tab" href="#row15-tab3" role="tab" aria-controls="row15-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row15-tab3-header" data-mdb-toggle="tab" href="#row15-tab3" role="tab" aria-controls="row15-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row15-tab4-header" data-mdb-toggle="tab" href="#row15-tab4" role="tab" aria-controls="row15-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -6442,10 +6442,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-gis.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-gis.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-gis-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-gis.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-gis.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -6454,15 +6454,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.splade-pp-ed.cqadupstack-gis.txt
+  run.beir.splade-v3.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.splade-pp-ed.cqadupstack-gis.txt
+  run.beir.splade-v3.cqadupstack-gis.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-gis-test \
-  run.beir.splade-pp-ed.cqadupstack-gis.txt</code></pre>
+  run.beir.splade-v3.cqadupstack-gis.txt</code></pre>
   </blockquote>
 
   </div>
@@ -6543,8 +6543,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.205</td>
 <td>   0.521</td>
 <td></td>
-<td>   0.238</td>
-<td>   0.579</td>
+<td>   0.244</td>
+<td>   0.577</td>
 <td></td>
 <td>   0.314</td>
 <td>   0.696</td>
@@ -6566,7 +6566,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row16-tab2-header" data-mdb-toggle="tab" href="#row16-tab2" role="tab" aria-controls="row16-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row16-tab3-header" data-mdb-toggle="tab" href="#row16-tab3" role="tab" aria-controls="row16-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row16-tab3-header" data-mdb-toggle="tab" href="#row16-tab3" role="tab" aria-controls="row16-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row16-tab4-header" data-mdb-toggle="tab" href="#row16-tab4" role="tab" aria-controls="row16-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -6643,10 +6643,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-mathematica.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-mathematica.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-mathematica-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-mathematica.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-mathematica.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -6655,15 +6655,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
+  run.beir.splade-v3.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.splade-pp-ed.cqadupstack-mathematica.txt
+  run.beir.splade-v3.cqadupstack-mathematica.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-mathematica-test \
-  run.beir.splade-pp-ed.cqadupstack-mathematica.txt</code></pre>
+  run.beir.splade-v3.cqadupstack-mathematica.txt</code></pre>
   </blockquote>
 
   </div>
@@ -6744,8 +6744,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.325</td>
 <td>   0.649</td>
 <td></td>
-<td>   0.360</td>
-<td>   0.722</td>
+<td>   0.375</td>
+<td>   0.725</td>
 <td></td>
 <td>   0.458</td>
 <td>   0.831</td>
@@ -6767,7 +6767,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row17-tab2-header" data-mdb-toggle="tab" href="#row17-tab2" role="tab" aria-controls="row17-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row17-tab3-header" data-mdb-toggle="tab" href="#row17-tab3" role="tab" aria-controls="row17-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row17-tab3-header" data-mdb-toggle="tab" href="#row17-tab3" role="tab" aria-controls="row17-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row17-tab4-header" data-mdb-toggle="tab" href="#row17-tab4" role="tab" aria-controls="row17-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -6844,10 +6844,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-physics.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-physics.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-physics-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-physics.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-physics.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -6856,15 +6856,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.splade-pp-ed.cqadupstack-physics.txt
+  run.beir.splade-v3.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.splade-pp-ed.cqadupstack-physics.txt
+  run.beir.splade-v3.cqadupstack-physics.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-physics-test \
-  run.beir.splade-pp-ed.cqadupstack-physics.txt</code></pre>
+  run.beir.splade-v3.cqadupstack-physics.txt</code></pre>
   </blockquote>
 
   </div>
@@ -6945,8 +6945,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.296</td>
 <td>   0.619</td>
 <td></td>
-<td>   0.340</td>
-<td>   0.660</td>
+<td>   0.339</td>
+<td>   0.682</td>
 <td></td>
 <td>   0.427</td>
 <td>   0.786</td>
@@ -6968,7 +6968,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row18-tab2-header" data-mdb-toggle="tab" href="#row18-tab2" role="tab" aria-controls="row18-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row18-tab3-header" data-mdb-toggle="tab" href="#row18-tab3" role="tab" aria-controls="row18-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row18-tab3-header" data-mdb-toggle="tab" href="#row18-tab3" role="tab" aria-controls="row18-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row18-tab4-header" data-mdb-toggle="tab" href="#row18-tab4" role="tab" aria-controls="row18-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -7045,10 +7045,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-programmers.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-programmers.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-programmers-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-programmers.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-programmers.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -7057,15 +7057,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.splade-pp-ed.cqadupstack-programmers.txt
+  run.beir.splade-v3.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.splade-pp-ed.cqadupstack-programmers.txt
+  run.beir.splade-v3.cqadupstack-programmers.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-programmers-test \
-  run.beir.splade-pp-ed.cqadupstack-programmers.txt</code></pre>
+  run.beir.splade-v3.cqadupstack-programmers.txt</code></pre>
   </blockquote>
 
   </div>
@@ -7146,8 +7146,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.279</td>
 <td>   0.572</td>
 <td></td>
-<td>   0.298</td>
-<td>   0.589</td>
+<td>   0.314</td>
+<td>   0.596</td>
 <td></td>
 <td>   0.375</td>
 <td>   0.682</td>
@@ -7169,7 +7169,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row19-tab2-header" data-mdb-toggle="tab" href="#row19-tab2" role="tab" aria-controls="row19-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row19-tab3-header" data-mdb-toggle="tab" href="#row19-tab3" role="tab" aria-controls="row19-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row19-tab3-header" data-mdb-toggle="tab" href="#row19-tab3" role="tab" aria-controls="row19-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row19-tab4-header" data-mdb-toggle="tab" href="#row19-tab4" role="tab" aria-controls="row19-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -7246,10 +7246,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-stats.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-stats.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-stats-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-stats.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-stats.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -7258,15 +7258,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.splade-pp-ed.cqadupstack-stats.txt
+  run.beir.splade-v3.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.splade-pp-ed.cqadupstack-stats.txt
+  run.beir.splade-v3.cqadupstack-stats.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-stats-test \
-  run.beir.splade-pp-ed.cqadupstack-stats.txt</code></pre>
+  run.beir.splade-v3.cqadupstack-stats.txt</code></pre>
   </blockquote>
 
   </div>
@@ -7347,8 +7347,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.209</td>
 <td>   0.495</td>
 <td></td>
-<td>   0.253</td>
-<td>   0.516</td>
+<td>   0.249</td>
+<td>   0.526</td>
 <td></td>
 <td>   0.325</td>
 <td>   0.673</td>
@@ -7370,7 +7370,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row20-tab2-header" data-mdb-toggle="tab" href="#row20-tab2" role="tab" aria-controls="row20-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row20-tab3-header" data-mdb-toggle="tab" href="#row20-tab3" role="tab" aria-controls="row20-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row20-tab3-header" data-mdb-toggle="tab" href="#row20-tab3" role="tab" aria-controls="row20-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row20-tab4-header" data-mdb-toggle="tab" href="#row20-tab4" role="tab" aria-controls="row20-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -7447,10 +7447,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-tex.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-tex.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-tex-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-tex.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-tex.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -7459,15 +7459,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.splade-pp-ed.cqadupstack-tex.txt
+  run.beir.splade-v3.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.splade-pp-ed.cqadupstack-tex.txt
+  run.beir.splade-v3.cqadupstack-tex.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-tex-test \
-  run.beir.splade-pp-ed.cqadupstack-tex.txt</code></pre>
+  run.beir.splade-v3.cqadupstack-tex.txt</code></pre>
   </blockquote>
 
   </div>
@@ -7548,8 +7548,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.279</td>
 <td>   0.572</td>
 <td></td>
-<td>   0.317</td>
-<td>   0.619</td>
+<td>   0.320</td>
+<td>   0.625</td>
 <td></td>
 <td>   0.435</td>
 <td>   0.772</td>
@@ -7571,7 +7571,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row21-tab2-header" data-mdb-toggle="tab" href="#row21-tab2" role="tab" aria-controls="row21-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row21-tab3-header" data-mdb-toggle="tab" href="#row21-tab3" role="tab" aria-controls="row21-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row21-tab3-header" data-mdb-toggle="tab" href="#row21-tab3" role="tab" aria-controls="row21-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row21-tab4-header" data-mdb-toggle="tab" href="#row21-tab4" role="tab" aria-controls="row21-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -7648,10 +7648,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-unix.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-unix.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-unix-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-unix.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-unix.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -7660,15 +7660,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.splade-pp-ed.cqadupstack-unix.txt
+  run.beir.splade-v3.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.splade-pp-ed.cqadupstack-unix.txt
+  run.beir.splade-v3.cqadupstack-unix.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-unix-test \
-  run.beir.splade-pp-ed.cqadupstack-unix.txt</code></pre>
+  run.beir.splade-v3.cqadupstack-unix.txt</code></pre>
   </blockquote>
 
   </div>
@@ -7749,8 +7749,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.301</td>
 <td>   0.610</td>
 <td></td>
-<td>   0.317</td>
-<td>   0.636</td>
+<td>   0.325</td>
+<td>   0.664</td>
 <td></td>
 <td>   0.409</td>
 <td>   0.803</td>
@@ -7772,7 +7772,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row22-tab2-header" data-mdb-toggle="tab" href="#row22-tab2" role="tab" aria-controls="row22-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row22-tab3-header" data-mdb-toggle="tab" href="#row22-tab3" role="tab" aria-controls="row22-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row22-tab3-header" data-mdb-toggle="tab" href="#row22-tab3" role="tab" aria-controls="row22-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row22-tab4-header" data-mdb-toggle="tab" href="#row22-tab4" role="tab" aria-controls="row22-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -7849,10 +7849,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-webmasters.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-webmasters.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-webmasters-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-webmasters.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-webmasters.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -7861,15 +7861,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.splade-pp-ed.cqadupstack-webmasters.txt
+  run.beir.splade-v3.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.splade-pp-ed.cqadupstack-webmasters.txt
+  run.beir.splade-v3.cqadupstack-webmasters.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-webmasters-test \
-  run.beir.splade-pp-ed.cqadupstack-webmasters.txt</code></pre>
+  run.beir.splade-v3.cqadupstack-webmasters.txt</code></pre>
   </blockquote>
 
   </div>
@@ -7950,8 +7950,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.256</td>
 <td>   0.553</td>
 <td></td>
-<td>   0.272</td>
-<td>   0.592</td>
+<td>   0.281</td>
+<td>   0.583</td>
 <td></td>
 <td>   0.349</td>
 <td>   0.718</td>
@@ -7973,7 +7973,7 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row23-tab2-header" data-mdb-toggle="tab" href="#row23-tab2" role="tab" aria-controls="row23-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row23-tab3-header" data-mdb-toggle="tab" href="#row23-tab3" role="tab" aria-controls="row23-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row23-tab3-header" data-mdb-toggle="tab" href="#row23-tab3" role="tab" aria-controls="row23-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row23-tab4-header" data-mdb-toggle="tab" href="#row23-tab4" role="tab" aria-controls="row23-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
@@ -8050,10 +8050,10 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.lucene \
   --threads 16 --batch-size 128 \
-  --index beir-v1.0.0-cqadupstack-wordpress.splade-pp-ed \
+  --index beir-v1.0.0-cqadupstack-wordpress.splade-v3 \
   --topics beir-v1.0.0-cqadupstack-wordpress-test \
-  --encoder naver/splade-cocondenser-ensembledistil \
-  --output run.beir.splade-pp-ed.cqadupstack-wordpress.txt \
+  --encoder naver/splade-v3 \
+  --output run.beir.splade-v3.cqadupstack-wordpress.txt \
   --output-format trec \
   --hits 1000 --impact --remove-query
 </code></pre></blockquote>
@@ -8062,15 +8062,15 @@ Evaluation commands:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.eval.trec_eval \
   -c -m ndcg_cut.10 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.splade-pp-ed.cqadupstack-wordpress.txt
+  run.beir.splade-v3.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.100 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.splade-pp-ed.cqadupstack-wordpress.txt
+  run.beir.splade-v3.cqadupstack-wordpress.txt
 
 python -m pyserini.eval.trec_eval \
   -c -m recall.1000 beir-v1.0.0-cqadupstack-wordpress-test \
-  run.beir.splade-pp-ed.cqadupstack-wordpress.txt</code></pre>
+  run.beir.splade-v3.cqadupstack-wordpress.txt</code></pre>
   </blockquote>
 
   </div>
@@ -8155,9 +8155,9 @@ python -m pyserini.eval.trec_eval \
 <a href="https://arxiv.org/abs/2306.07471">Resources for Brewing BEIR: Reproducible Reference Models and an Official Leaderboard.</a>
 <i>arXiv:2306.07471</i>, June 2023.</p></li>
 
-<li><p>[2] Thibault Formal, Carlos Lassance, Benjamin Piwowarski, and Stéphane Clinchant.
-<a href="https://dl.acm.org/doi/10.1145/3477495.3531857">From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.</a>
-<i>Proceedings of the 45th International ACM SIGIR Conference on Research and Development in Information Retrieval</i>, pages 2353–2359.</p></li>
+<li><p>[2] Carlos Lassance, Hervé Déjean, Thibault Formal, and Stéphane Clinchant.
+<a href="https://arxiv.org/abs/2403.06789">SPLADE-v3: New baselines for SPLADE.</a>
+<i>arXiv:2403.06789</i>, March 2024.</p></li>
 
 <li><p>[3] Gautier Izacard, Mathilde Caron, Lucas Hosseini, Sebastian Riedel, Piotr Bojanowski, Armand Joulin, and Edouard Grave.
 <a href="https://arxiv.org/abs/2112.09118">Towards Unsupervised Dense Information Retrieval with Contrastive Learning.</a>
