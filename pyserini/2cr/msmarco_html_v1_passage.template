@@ -246,6 +246,10 @@ Proceedings of the 61st Annual Meeting of the Association for Computational Ling
 <a href="https://arxiv.org/abs/2403.06789">SPLADE-v3: New baselines for SPLADE.</a>
 <i>arXiv:2403.06789</i>, March 2024.</p></li>
 
+<li><p>[16] LightOn AI.
+<a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn &amp; mSlideOn: Sparsified Late-Interaction and Dense Retrievers.</a>
+Hugging Face Blog.</p></li>
+
 </ul>
 
 <div style="padding-top: 20px"/>

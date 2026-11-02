@@ -152,7 +152,7 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
   <li><b>BM25 Flat</b>: BM25 "flat" baseline (<tt><small>bm25-flat</small></tt>) [1]</li>
   <li><b>BM25 MF</b>: BM25 "multifield" baseline (<tt><small>bm25-multifield</small></tt>) [1]</li>
   <li><b>SPLADE</b>: SPLADE++ CoCondenser-EnsembleDistil (<tt><small>splade-pp-ed</small></tt>) [2]</li>
-  <li><b>Contriever</b>: Contriever FT MS MARCO (<tt><small>contriever-msmarco</small></tt>) [3]</li>
+  <li><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a>: PyTorch</b>: d512/q64, scale 100 (<tt><small>slideon-pytorch</small></tt>); see the <a href="../experiments-slideon.md">experiment guide</a> for setup and numerical considerations.</li>
   <li><b>BGE</b>: BGE-base-en-v1.5 (Faiss flat index) (<tt><small>bge-base-en-v1.5.faiss</small></tt>) [4]</li>
 </ul>
 
@@ -169,7 +169,7 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
         <th class="headertop" colspan="3"><b>BM25 MF</b></th>
         <th class="headertop" colspan="3"><b>SPLADE</b></th>
-        <th class="headertop" colspan="3"><b>Contriever</b></th>
+        <th class="headertop" colspan="3"><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a></b></th>
         <th class="headertop" colspan="2"><b>BGE</b></th>
       </tr>
       <tr>
@@ -214,7 +214,7 @@ $main_rows
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
         <th class="headertop" colspan="3"><b>BM25 MF</b></th>
         <th class="headertop" colspan="3"><b>SPLADE</b></th>
-        <th class="headertop" colspan="3"><b>Contriever</b></th>
+        <th class="headertop" colspan="3"><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a></b></th>
         <th class="headertop" colspan="2"><b>BGE</b></th>
       </tr>
       <tr>
