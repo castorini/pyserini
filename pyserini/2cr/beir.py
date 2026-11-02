@@ -158,8 +158,8 @@ def generate_report(args):
                              s2=f'{table[dataset]["bm25-flat"]["R@100"]:8.3f}',
                              s3=f'{table[dataset]["bm25-multifield"]["nDCG@10"]:8.3f}',
                              s4=f'{table[dataset]["bm25-multifield"]["R@100"]:8.3f}',
-                             s5=f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.3f}',
-                             s6=f'{table[dataset]["splade-pp-ed"]["R@100"]:8.3f}',
+                             s5=f'{table[dataset]["splade-v3"]["nDCG@10"]:8.3f}',
+                             s6=f'{table[dataset]["splade-v3"]["R@100"]:8.3f}',
                              s7=f'{table[dataset]["slideon-pytorch"]["nDCG@10"]:8.3f}',
                              s8=f'{table[dataset]["slideon-pytorch"]["R@100"]:8.3f}',
                              s9=f'{table[dataset]["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}',
@@ -167,13 +167,13 @@ def generate_report(args):
 
                              cmd1=commands[dataset]["bm25-flat"],
                              cmd2=commands[dataset]["bm25-multifield"],
-                             cmd3=commands[dataset]["splade-pp-ed"],
+                             cmd3=commands[dataset]["splade-v3"],
                              cmd4=commands[dataset]["slideon-pytorch"],
                              cmd5=commands[dataset]["bge-base-en-v1.5.faiss"],
 
                              eval_cmd1=eval_commands[dataset]["bm25-flat"].rstrip(),
                              eval_cmd2=eval_commands[dataset]["bm25-multifield"].rstrip(),
-                             eval_cmd3=eval_commands[dataset]["splade-pp-ed"].rstrip(),
+                             eval_cmd3=eval_commands[dataset]["splade-v3"].rstrip(),
                              eval_cmd4=eval_commands[dataset]["slideon-pytorch"].rstrip(),
                              eval_cmd5=eval_commands[dataset]["bge-base-en-v1.5.faiss"].rstrip())
             row_cnt += 1
@@ -195,8 +195,8 @@ def generate_report(args):
                              s2=f'{cqadupstack_sums["bm25-flat"]["R@100"]/12:8.3f}',
                              s3=f'{cqadupstack_sums["bm25-multifield"]["nDCG@10"]/12:8.3f}',
                              s4=f'{cqadupstack_sums["bm25-multifield"]["R@100"]/12:8.3f}',
-                             s5=f'{cqadupstack_sums["splade-pp-ed"]["nDCG@10"]/12:8.3f}',
-                             s6=f'{cqadupstack_sums["splade-pp-ed"]["R@100"]/12:8.3f}',
+                             s5=f'{cqadupstack_sums["splade-v3"]["nDCG@10"]/12:8.3f}',
+                             s6=f'{cqadupstack_sums["splade-v3"]["R@100"]/12:8.3f}',
                              s7=f'{cqadupstack_sums["slideon-pytorch"]["nDCG@10"]/12:8.3f}',
                              s8=f'{cqadupstack_sums["slideon-pytorch"]["R@100"]/12:8.3f}',
                              s9=f'{cqadupstack_sums["bge-base-en-v1.5.faiss"]["nDCG@10"]/12:8.3f}',
@@ -204,13 +204,13 @@ def generate_report(args):
 
                              cmd1=cqa_commands["bm25-flat"],
                              cmd2=cqa_commands["bm25-multifield"],
-                             cmd3=cqa_commands["splade-pp-ed"],
+                             cmd3=cqa_commands["splade-v3"],
                              cmd4=cqa_commands["slideon-pytorch"],
                              cmd5=cqa_commands["bge-base-en-v1.5.faiss"],
 
                              eval_cmd1=cqa_eval_commands["bm25-flat"].rstrip(),
                              eval_cmd2=cqa_eval_commands["bm25-multifield"].rstrip(),
-                             eval_cmd3=cqa_eval_commands["splade-pp-ed"].rstrip(),
+                             eval_cmd3=cqa_eval_commands["splade-v3"].rstrip(),
                              eval_cmd4=cqa_eval_commands["slideon-pytorch"].rstrip(),
                              eval_cmd5=cqa_eval_commands["bge-base-en-v1.5.faiss"].rstrip())
                     main_rows.append(cqa_row)
