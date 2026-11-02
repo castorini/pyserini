@@ -169,7 +169,7 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
         <th class="headertop" colspan="3"><b>BM25 MF</b></th>
         <th class="headertop" colspan="3"><b>SPLADE</b></th>
-        <th class="headertop" colspan="3"><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a>: PyTorch</b></th>
+        <th class="headertop" colspan="3"><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a></b></th>
         <th class="headertop" colspan="2"><b>BGE</b></th>
       </tr>
       <tr>
@@ -214,7 +214,7 @@ $main_rows
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
         <th class="headertop" colspan="3"><b>BM25 MF</b></th>
         <th class="headertop" colspan="3"><b>SPLADE</b></th>
-        <th class="headertop" colspan="3"><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a>: PyTorch</b></th>
+        <th class="headertop" colspan="3"><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a></b></th>
         <th class="headertop" colspan="2"><b>BGE</b></th>
       </tr>
       <tr>
