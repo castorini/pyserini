@@ -69,11 +69,11 @@ class TestPrebuiltIndexes(unittest.TestCase):
                 self._test_urls(urls)
 
     IMPACT_CASES = (
-        ('msmarco-v1-', 18),
+        ('msmarco-v1-', 19),      # includes the SlideOn passage index
         ('msmarco-v2-', 6),       # 5 canonical indexes, 1 compatibility alias
         ('msmarco-v2.1-', 1),
         ('msmarco-passage-', 1),  # compatibility alias
-        ('beir-', 58),            # 29 each from SPLADE++ (CoCondenser-EnsembleDistil) and SPLADEv3
+        ('beir-', 87),           # 29 each from SPLADE++ (CoCondenser-EnsembleDistil), SPLADE-v3, and SlideOn
         ('bright-', 12),
         ('mrtydi-', 0),           # currently, none
         ('miracl-', 0),           # currently, none
