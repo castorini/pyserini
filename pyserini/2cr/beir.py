@@ -309,9 +309,9 @@ def run_conditions(args):
     cqa_output_flag = False
 
     print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 13 + 'SPLADE' + ' ' * 11 + 'Contriever' + ' ' * 5 + 'Contriever-msmarco' +
-          ' ' * 6 + 'BGE.Faiss' + ' ' * 7 + 'BGE.Lucene-flat')
-    print(' ' * 28 + 'nDCG    R@100      ' * 7)
-    print(' ' * 28 + ('-' * 13 + '      ') * 6 + '-' * 13)
+          ' ' * 6 + 'BGE.Faiss' + ' ' * 7 + 'BGE.Lucene-flat' + ' ' * 5 + 'SlideOn.PyTorch' + ' ' * 6 + 'SlideOn.ONNX')
+    print(' ' * 28 + 'nDCG    R@100      ' * 9)
+    print(' ' * 28 + ('-' * 13 + '      ') * 8 + '-' * 13)
     for dataset in beir_keys:
         # The first encounter of 'cqa', print out the average.
         if dataset.startswith('cqa') and not cqa_output_flag:
@@ -321,7 +321,9 @@ def run_conditions(args):
                   f'{cqa_scores["contriever"]["nDCG@10"]:8.3f}{cqa_scores["contriever"]["R@100"]:8.3f}   ' +
                   f'{cqa_scores["contriever-msmarco"]["nDCG@10"]:8.3f}{cqa_scores["contriever-msmarco"]["R@100"]:8.3f}   ' +
                   f'{cqa_scores["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
-                  f'{cqa_scores["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}')
+                  f'{cqa_scores["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
+                  f'{cqa_scores["slideon-pytorch"]["nDCG@10"]:8.3f}{cqa_scores["slideon-pytorch"]["R@100"]:8.3f}   ' +
+                  f'{cqa_scores["slideon-onnx"]["nDCG@10"]:8.3f}{cqa_scores["slideon-onnx"]["R@100"]:8.3f}')
             cqa_output_flag = True
             continue
 
@@ -336,15 +338,19 @@ def run_conditions(args):
               f'{table[dataset]["contriever"]["nDCG@10"]:8.3f}{table[dataset]["contriever"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.3f}{table[dataset]["contriever-msmarco"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}')
-    print(' ' * 28 + ('-' * 13 + '      ') * 6 + '-' * 13)
+              f'{table[dataset]["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["slideon-pytorch"]["nDCG@10"]:8.3f}{table[dataset]["slideon-pytorch"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["slideon-onnx"]["nDCG@10"]:8.3f}{table[dataset]["slideon-onnx"]["R@100"]:8.3f}')
+    print(' ' * 28 + ('-' * 13 + '      ') * 8 + '-' * 13)
     print('avg' + ' ' * 22 + f'{final_scores["bm25-flat"]["nDCG@10"]:8.3f}{final_scores["bm25-flat"]["R@100"]:8.3f}   ' +
           f'{final_scores["bm25-multifield"]["nDCG@10"]:8.3f}{final_scores["bm25-multifield"]["R@100"]:8.3f}   ' +
           f'{final_scores["splade-pp-ed"]["nDCG@10"]:8.3f}{final_scores["splade-pp-ed"]["R@100"]:8.3f}   ' +
           f'{final_scores["contriever"]["nDCG@10"]:8.3f}{final_scores["contriever"]["R@100"]:8.3f}   ' +
           f'{final_scores["contriever-msmarco"]["nDCG@10"]:8.3f}{final_scores["contriever-msmarco"]["R@100"]:8.3f}   ' +
           f'{final_scores["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{final_scores["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
-          f'{final_scores["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{final_scores["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}')
+          f'{final_scores["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{final_scores["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
+          f'{final_scores["slideon-pytorch"]["nDCG@10"]:8.3f}{final_scores["slideon-pytorch"]["R@100"]:8.3f}   ' +
+          f'{final_scores["slideon-onnx"]["nDCG@10"]:8.3f}{final_scores["slideon-onnx"]["R@100"]:8.3f}')
 
     print('\n')
     # Separately print out all the cqa sub-collections.
@@ -359,15 +365,19 @@ def run_conditions(args):
               f'{table[dataset]["contriever"]["nDCG@10"]:8.3f}{table[dataset]["contriever"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.3f}{table[dataset]["contriever-msmarco"]["R@100"]:8.3f}   ' +
               f'{table[dataset]["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}')
-    print(' ' * 28 + ('-' * 13 + '      ') * 6 + '-' * 13)
+              f'{table[dataset]["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["slideon-pytorch"]["nDCG@10"]:8.3f}{table[dataset]["slideon-pytorch"]["R@100"]:8.3f}   ' +
+              f'{table[dataset]["slideon-onnx"]["nDCG@10"]:8.3f}{table[dataset]["slideon-onnx"]["R@100"]:8.3f}')
+    print(' ' * 28 + ('-' * 13 + '      ') * 8 + '-' * 13)
     print('avg' + ' ' * 22 + f'{cqa_scores["bm25-flat"]["nDCG@10"]:8.3f}{cqa_scores["bm25-flat"]["R@100"]:8.3f}   ' +
           f'{cqa_scores["bm25-multifield"]["nDCG@10"]:8.3f}{cqa_scores["bm25-multifield"]["R@100"]:8.3f}   ' +
           f'{cqa_scores["splade-pp-ed"]["nDCG@10"]:8.3f}{cqa_scores["splade-pp-ed"]["R@100"]:8.3f}   ' +
           f'{cqa_scores["contriever"]["nDCG@10"]:8.3f}{cqa_scores["contriever"]["R@100"]:8.3f}   ' +
           f'{cqa_scores["contriever-msmarco"]["nDCG@10"]:8.3f}{cqa_scores["contriever-msmarco"]["R@100"]:8.3f}   ' +
           f'{cqa_scores["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
-          f'{cqa_scores["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}')
+          f'{cqa_scores["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
+          f'{cqa_scores["slideon-pytorch"]["nDCG@10"]:8.3f}{cqa_scores["slideon-pytorch"]["R@100"]:8.3f}   ' +
+          f'{cqa_scores["slideon-onnx"]["nDCG@10"]:8.3f}{cqa_scores["slideon-onnx"]["R@100"]:8.3f}')
 
     end = time.time()
     start_str = datetime.fromtimestamp(start, tz=UTC).strftime('%Y-%m-%d %H:%M:%S')
