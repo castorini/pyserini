@@ -21,6 +21,7 @@ import sys
 import time
 from collections import defaultdict
 from datetime import UTC, datetime
+from statistics import mean
 from string import Template
 
 import yaml
@@ -217,10 +218,30 @@ def generate_report(args):
                     row_cnt += 1
                 main_rows.append(s)
             
+        # Match the main table's dataset weighting: CQADupStack contributes once,
+        # using its subset mean. Average reference scores before display rounding.
+        main_datasets = [dataset for dataset in beir_keys if not dataset.startswith('cqadupstack-')]
+        cqa_datasets = [dataset for dataset in beir_keys if dataset.startswith('cqadupstack-')]
+        report_models = ['bm25-flat', 'bm25-multifield', 'splade-v3', 'slideon-pytorch', 'bge-base-en-v1.5.faiss']
+        averages = {}
+        cqa_averages = {}
+        for i, model in enumerate(report_models):
+            for j, metric in enumerate(('nDCG@10', 'R@100'), start=1):
+                scores = [table[dataset][model][metric] for dataset in main_datasets]
+                cqa_average = mean(table[dataset][model][metric] for dataset in cqa_datasets)
+                scores.append(cqa_average)
+                averages[f's{2 * i + j}'] = f'{mean(scores):.3f}'
+                cqa_averages[f's{2 * i + j}'] = f'{cqa_average:.3f}'
+        avg_template = Template(read_file('beir_html_avg_row.template'))
+        avg_row = avg_template.substitute(averages)
+        cqa_avg_row = avg_template.substitute(cqa_averages)
+
         main_rows = '\n'.join(main_rows)
         cqa_rows = '\n'.join(cqa_rows)
         with open(args.output, 'w') as out:
-            out.write(Template(html_template).substitute(title='Pyserini BEIR Regressions', main_rows=main_rows, cqa_rows=cqa_rows))
+            out.write(Template(html_template).substitute(
+                title='Pyserini BEIR Regressions', main_rows=main_rows, cqa_rows=cqa_rows,
+                avg_row=avg_row, cqa_avg_row=cqa_avg_row))
 
 
 def run_conditions(args):
