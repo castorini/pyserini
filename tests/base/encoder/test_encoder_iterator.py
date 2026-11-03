@@ -14,7 +14,10 @@
 # limitations under the License.
 #
 
+import gzip
 import os
+import shutil
+import tempfile
 import unittest
 
 from pyserini.encode import JsonlCollectionIterator
@@ -60,6 +63,29 @@ class TestJsonlCollectionIterator(unittest.TestCase):
             self.assertEqual(expected_info[0], info['id'][0])
             self.assertEqual(expected_info[1], info['title'][0])
             self.assertEqual(expected_info[2], info['text'][0])
+
+    def test_gzip_input(self):
+        # A gzipped .jsonl.gz corpus should read identically to the plain .jsonl.
+        plain_path = os.path.join(self.resource_dir, 'simple_scifact.jsonl')
+        all_expected_info = [
+            ('e275f643c97ca1f4c7715635bb72cf02df928d06', 'From Databases to Big Data', ''),
+            ('bf003bb2d52304fea114d824bc0bf7bfbc7c3106', 'Dissecting social engineering', ''),
+            ('50bc77f3ec070940b1923b823503a4c2b09e9921', 'PHANTOM: A Scalable BlockDAG Protocol', ''),
+        ]
+        tmp_dir = tempfile.mkdtemp()
+        try:
+            gz_path = os.path.join(tmp_dir, 'simple_scifact.jsonl.gz')
+            with open(plain_path, 'rb') as src, gzip.open(gz_path, 'wb') as dst:
+                dst.write(src.read())
+
+            collection_iterator = JsonlCollectionIterator(gz_path, ['title', 'text'], delimiter='\n')
+            for i, info in enumerate(collection_iterator):
+                expected_info = all_expected_info[i]
+                self.assertEqual(expected_info[0], info['id'][0])
+                self.assertEqual(expected_info[1], info['title'][0])
+                self.assertEqual(expected_info[2], info['text'][0])
+        finally:
+            shutil.rmtree(tmp_dir)
 
     def test_upper_lower_case(self):
         corpus_path = os.path.join(self.resource_dir, 'simple_cacm_corpus.json')
