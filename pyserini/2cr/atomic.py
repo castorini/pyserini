@@ -166,7 +166,7 @@ def generate_report(args):
 
         all_rows = '\n'.join(html_rows)
         with open(args.output, 'w') as out:
-            out.write(Template(html_template).substitute(title='AToMiC', rows=all_rows))
+            out.write(Template(html_template).substitute(title='Pyserini: AToMiC', rows=all_rows))
 
 
 def run_conditions(args):

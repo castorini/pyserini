@@ -210,7 +210,7 @@ def generate_report(args):
         tables_html.append(Template(table_template).substitute(desc='Recall@100, test queries', rows=all_rows))
 
     with open(args.output, 'w') as out:
-        out.write(Template(html_template).substitute(title='Mr.TyDi', tables=' '.join(tables_html)))
+        out.write(Template(html_template).substitute(title='Pyserini: Mr.TyDi', tables=' '.join(tables_html)))
 
 
 def run_conditions(args):

@@ -213,7 +213,7 @@ def generate_report(args):
         tables_html.append(Template(table_template).substitute(desc=f'Recall@100, {all_splits[display_split]}', rows=all_rows))
 
     with open(args.output, 'w') as out:
-        out.write(Template(html_template).substitute(title='CIRAL', tables=' '.join(tables_html)))
+        out.write(Template(html_template).substitute(title='Pyserini: CIRAL', tables=' '.join(tables_html)))
 
 
 def run_conditions(args):
