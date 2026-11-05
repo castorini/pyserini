@@ -50,7 +50,7 @@
 
 <!-- Tabs content -->
 <div class="tab-content" id="row${row_cnt}-content">
-  <div class="tab-pane fade" id="row${row_cnt}-tab1" role="tabpanel" aria-labelledby="row${row_cnt}-tab1">
+  <div class="tab-pane fade show active" id="row${row_cnt}-tab1" role="tabpanel" aria-labelledby="row${row_cnt}-tab1">
 Command to generate run:
 
   <blockquote class="mycode">

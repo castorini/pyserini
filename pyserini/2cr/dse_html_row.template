@@ -6,7 +6,7 @@ $score_cells
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="6">
+<td colspan="$detail_colspan">
 <div id="collapse${row_cnt}" class="collapse in p-3">
 
 <!-- Tabs navs -->

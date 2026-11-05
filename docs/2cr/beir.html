@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Pyserini Reproductions</title>
+    <title>Pyserini: BEIR</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -58,10 +58,6 @@ tr th.headerbottom {
 }
 
 .table>:not(caption)>*>*{padding:0.75rem 0.75rem}
-
-.beir-results {
-  max-width: 1440px;
-}
 
 .table {
   min-width: 1280px;
@@ -151,14 +147,14 @@ pre[class*="prettyprint"] {
           ">
         <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
           <div class="text-white">
-            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> &nbsp; Pyserini BEIR Regressions</h1>
+            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> Pyserini: BEIR</h1>
           </div>
         </div>
       </div>
     </div>
     <!-- Background image -->
 
-<div class="container my-4 beir-results">
+<div class="container my-4">
 
 <p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproductions below provides commands for reproducing experimental results on BEIR.
 Instructions for programmatic execution are shown at the bottom of this page (scroll down).</p>
@@ -248,10 +244,10 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
     <a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row1-tab5-header" data-mdb-toggle="tab" href="#row1-tab5" role="tab" aria-controls="row1-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -449,10 +445,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row2-tab2-header" data-mdb-toggle="tab" href="#row2-tab2" role="tab" aria-controls="row2-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row2-tab5-header" data-mdb-toggle="tab" href="#row2-tab5" role="tab" aria-controls="row2-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -650,10 +646,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row3-tab5-header" data-mdb-toggle="tab" href="#row3-tab5" role="tab" aria-controls="row3-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -851,10 +847,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row4-tab5-header" data-mdb-toggle="tab" href="#row4-tab5" role="tab" aria-controls="row4-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -1052,10 +1048,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row5-tab5-header" data-mdb-toggle="tab" href="#row5-tab5" role="tab" aria-controls="row5-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -1253,10 +1249,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row6-tab5-header" data-mdb-toggle="tab" href="#row6-tab5" role="tab" aria-controls="row6-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -1454,10 +1450,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row7-tab5-header" data-mdb-toggle="tab" href="#row7-tab5" role="tab" aria-controls="row7-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -1655,10 +1651,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row8-tab5-header" data-mdb-toggle="tab" href="#row8-tab5" role="tab" aria-controls="row8-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -1856,10 +1852,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row9-tab5-header" data-mdb-toggle="tab" href="#row9-tab5" role="tab" aria-controls="row9-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -2057,10 +2053,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row10-tab5-header" data-mdb-toggle="tab" href="#row10-tab5" role="tab" aria-controls="row10-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -2258,10 +2254,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row11-tab2-header" data-mdb-toggle="tab" href="#row11-tab2" role="tab" aria-controls="row11-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row11-tab4-header" data-mdb-toggle="tab" href="#row11-tab4" role="tab" aria-controls="row11-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row11-tab4-header" data-mdb-toggle="tab" href="#row11-tab4" role="tab" aria-controls="row11-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row11-tab5-header" data-mdb-toggle="tab" href="#row11-tab5" role="tab" aria-controls="row11-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -2459,10 +2455,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row25-tab2-header" data-mdb-toggle="tab" href="#row25-tab2" role="tab" aria-controls="row25-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab3-header" data-mdb-toggle="tab" href="#row25-tab3" role="tab" aria-controls="row25-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row25-tab3-header" data-mdb-toggle="tab" href="#row25-tab3" role="tab" aria-controls="row25-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row25-tab4-header" data-mdb-toggle="tab" href="#row25-tab4" role="tab" aria-controls="row25-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row25-tab4-header" data-mdb-toggle="tab" href="#row25-tab4" role="tab" aria-controls="row25-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row25-tab5-header" data-mdb-toggle="tab" href="#row25-tab5" role="tab" aria-controls="row25-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -4534,10 +4530,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row24-tab2-header" data-mdb-toggle="tab" href="#row24-tab2" role="tab" aria-controls="row24-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab3-header" data-mdb-toggle="tab" href="#row24-tab3" role="tab" aria-controls="row24-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row24-tab3-header" data-mdb-toggle="tab" href="#row24-tab3" role="tab" aria-controls="row24-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row24-tab4-header" data-mdb-toggle="tab" href="#row24-tab4" role="tab" aria-controls="row24-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row24-tab4-header" data-mdb-toggle="tab" href="#row24-tab4" role="tab" aria-controls="row24-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row24-tab5-header" data-mdb-toggle="tab" href="#row24-tab5" role="tab" aria-controls="row24-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -4735,10 +4731,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row26-tab2-header" data-mdb-toggle="tab" href="#row26-tab2" role="tab" aria-controls="row26-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab3-header" data-mdb-toggle="tab" href="#row26-tab3" role="tab" aria-controls="row26-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row26-tab3-header" data-mdb-toggle="tab" href="#row26-tab3" role="tab" aria-controls="row26-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row26-tab4-header" data-mdb-toggle="tab" href="#row26-tab4" role="tab" aria-controls="row26-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row26-tab4-header" data-mdb-toggle="tab" href="#row26-tab4" role="tab" aria-controls="row26-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row26-tab5-header" data-mdb-toggle="tab" href="#row26-tab5" role="tab" aria-controls="row26-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -4936,10 +4932,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row27-tab2-header" data-mdb-toggle="tab" href="#row27-tab2" role="tab" aria-controls="row27-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab3-header" data-mdb-toggle="tab" href="#row27-tab3" role="tab" aria-controls="row27-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row27-tab3-header" data-mdb-toggle="tab" href="#row27-tab3" role="tab" aria-controls="row27-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row27-tab4-header" data-mdb-toggle="tab" href="#row27-tab4" role="tab" aria-controls="row27-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row27-tab4-header" data-mdb-toggle="tab" href="#row27-tab4" role="tab" aria-controls="row27-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row27-tab5-header" data-mdb-toggle="tab" href="#row27-tab5" role="tab" aria-controls="row27-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -5137,10 +5133,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row28-tab2-header" data-mdb-toggle="tab" href="#row28-tab2" role="tab" aria-controls="row28-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab3-header" data-mdb-toggle="tab" href="#row28-tab3" role="tab" aria-controls="row28-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row28-tab3-header" data-mdb-toggle="tab" href="#row28-tab3" role="tab" aria-controls="row28-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row28-tab4-header" data-mdb-toggle="tab" href="#row28-tab4" role="tab" aria-controls="row28-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row28-tab4-header" data-mdb-toggle="tab" href="#row28-tab4" role="tab" aria-controls="row28-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row28-tab5-header" data-mdb-toggle="tab" href="#row28-tab5" role="tab" aria-controls="row28-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -5338,10 +5334,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row29-tab2-header" data-mdb-toggle="tab" href="#row29-tab2" role="tab" aria-controls="row29-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab3-header" data-mdb-toggle="tab" href="#row29-tab3" role="tab" aria-controls="row29-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row29-tab3-header" data-mdb-toggle="tab" href="#row29-tab3" role="tab" aria-controls="row29-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row29-tab4-header" data-mdb-toggle="tab" href="#row29-tab4" role="tab" aria-controls="row29-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row29-tab4-header" data-mdb-toggle="tab" href="#row29-tab4" role="tab" aria-controls="row29-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row29-tab5-header" data-mdb-toggle="tab" href="#row29-tab5" role="tab" aria-controls="row29-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -5539,10 +5535,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row30-tab2-header" data-mdb-toggle="tab" href="#row30-tab2" role="tab" aria-controls="row30-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row30-tab3-header" data-mdb-toggle="tab" href="#row30-tab3" role="tab" aria-controls="row30-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row30-tab3-header" data-mdb-toggle="tab" href="#row30-tab3" role="tab" aria-controls="row30-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row30-tab4-header" data-mdb-toggle="tab" href="#row30-tab4" role="tab" aria-controls="row30-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row30-tab4-header" data-mdb-toggle="tab" href="#row30-tab4" role="tab" aria-controls="row30-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row30-tab5-header" data-mdb-toggle="tab" href="#row30-tab5" role="tab" aria-controls="row30-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -5804,10 +5800,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row12-tab2-header" data-mdb-toggle="tab" href="#row12-tab2" role="tab" aria-controls="row12-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row12-tab4-header" data-mdb-toggle="tab" href="#row12-tab4" role="tab" aria-controls="row12-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row12-tab4-header" data-mdb-toggle="tab" href="#row12-tab4" role="tab" aria-controls="row12-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row12-tab5-header" data-mdb-toggle="tab" href="#row12-tab5" role="tab" aria-controls="row12-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -6005,10 +6001,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row13-tab2-header" data-mdb-toggle="tab" href="#row13-tab2" role="tab" aria-controls="row13-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row13-tab3-header" data-mdb-toggle="tab" href="#row13-tab3" role="tab" aria-controls="row13-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row13-tab3-header" data-mdb-toggle="tab" href="#row13-tab3" role="tab" aria-controls="row13-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row13-tab4-header" data-mdb-toggle="tab" href="#row13-tab4" role="tab" aria-controls="row13-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row13-tab4-header" data-mdb-toggle="tab" href="#row13-tab4" role="tab" aria-controls="row13-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row13-tab5-header" data-mdb-toggle="tab" href="#row13-tab5" role="tab" aria-controls="row13-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -6206,10 +6202,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row14-tab2-header" data-mdb-toggle="tab" href="#row14-tab2" role="tab" aria-controls="row14-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row14-tab3-header" data-mdb-toggle="tab" href="#row14-tab3" role="tab" aria-controls="row14-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row14-tab3-header" data-mdb-toggle="tab" href="#row14-tab3" role="tab" aria-controls="row14-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row14-tab4-header" data-mdb-toggle="tab" href="#row14-tab4" role="tab" aria-controls="row14-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row14-tab4-header" data-mdb-toggle="tab" href="#row14-tab4" role="tab" aria-controls="row14-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row14-tab5-header" data-mdb-toggle="tab" href="#row14-tab5" role="tab" aria-controls="row14-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -6407,10 +6403,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row15-tab2-header" data-mdb-toggle="tab" href="#row15-tab2" role="tab" aria-controls="row15-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row15-tab3-header" data-mdb-toggle="tab" href="#row15-tab3" role="tab" aria-controls="row15-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row15-tab3-header" data-mdb-toggle="tab" href="#row15-tab3" role="tab" aria-controls="row15-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row15-tab4-header" data-mdb-toggle="tab" href="#row15-tab4" role="tab" aria-controls="row15-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row15-tab4-header" data-mdb-toggle="tab" href="#row15-tab4" role="tab" aria-controls="row15-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row15-tab5-header" data-mdb-toggle="tab" href="#row15-tab5" role="tab" aria-controls="row15-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -6608,10 +6604,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row16-tab2-header" data-mdb-toggle="tab" href="#row16-tab2" role="tab" aria-controls="row16-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row16-tab3-header" data-mdb-toggle="tab" href="#row16-tab3" role="tab" aria-controls="row16-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row16-tab3-header" data-mdb-toggle="tab" href="#row16-tab3" role="tab" aria-controls="row16-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row16-tab4-header" data-mdb-toggle="tab" href="#row16-tab4" role="tab" aria-controls="row16-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row16-tab4-header" data-mdb-toggle="tab" href="#row16-tab4" role="tab" aria-controls="row16-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row16-tab5-header" data-mdb-toggle="tab" href="#row16-tab5" role="tab" aria-controls="row16-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -6809,10 +6805,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row17-tab2-header" data-mdb-toggle="tab" href="#row17-tab2" role="tab" aria-controls="row17-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row17-tab3-header" data-mdb-toggle="tab" href="#row17-tab3" role="tab" aria-controls="row17-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row17-tab3-header" data-mdb-toggle="tab" href="#row17-tab3" role="tab" aria-controls="row17-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row17-tab4-header" data-mdb-toggle="tab" href="#row17-tab4" role="tab" aria-controls="row17-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row17-tab4-header" data-mdb-toggle="tab" href="#row17-tab4" role="tab" aria-controls="row17-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row17-tab5-header" data-mdb-toggle="tab" href="#row17-tab5" role="tab" aria-controls="row17-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -7010,10 +7006,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row18-tab2-header" data-mdb-toggle="tab" href="#row18-tab2" role="tab" aria-controls="row18-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row18-tab3-header" data-mdb-toggle="tab" href="#row18-tab3" role="tab" aria-controls="row18-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row18-tab3-header" data-mdb-toggle="tab" href="#row18-tab3" role="tab" aria-controls="row18-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row18-tab4-header" data-mdb-toggle="tab" href="#row18-tab4" role="tab" aria-controls="row18-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row18-tab4-header" data-mdb-toggle="tab" href="#row18-tab4" role="tab" aria-controls="row18-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row18-tab5-header" data-mdb-toggle="tab" href="#row18-tab5" role="tab" aria-controls="row18-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -7211,10 +7207,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row19-tab2-header" data-mdb-toggle="tab" href="#row19-tab2" role="tab" aria-controls="row19-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row19-tab3-header" data-mdb-toggle="tab" href="#row19-tab3" role="tab" aria-controls="row19-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row19-tab3-header" data-mdb-toggle="tab" href="#row19-tab3" role="tab" aria-controls="row19-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row19-tab4-header" data-mdb-toggle="tab" href="#row19-tab4" role="tab" aria-controls="row19-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row19-tab4-header" data-mdb-toggle="tab" href="#row19-tab4" role="tab" aria-controls="row19-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row19-tab5-header" data-mdb-toggle="tab" href="#row19-tab5" role="tab" aria-controls="row19-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -7412,10 +7408,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row20-tab2-header" data-mdb-toggle="tab" href="#row20-tab2" role="tab" aria-controls="row20-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row20-tab3-header" data-mdb-toggle="tab" href="#row20-tab3" role="tab" aria-controls="row20-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row20-tab3-header" data-mdb-toggle="tab" href="#row20-tab3" role="tab" aria-controls="row20-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row20-tab4-header" data-mdb-toggle="tab" href="#row20-tab4" role="tab" aria-controls="row20-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row20-tab4-header" data-mdb-toggle="tab" href="#row20-tab4" role="tab" aria-controls="row20-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row20-tab5-header" data-mdb-toggle="tab" href="#row20-tab5" role="tab" aria-controls="row20-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -7613,10 +7609,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row21-tab2-header" data-mdb-toggle="tab" href="#row21-tab2" role="tab" aria-controls="row21-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row21-tab3-header" data-mdb-toggle="tab" href="#row21-tab3" role="tab" aria-controls="row21-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row21-tab3-header" data-mdb-toggle="tab" href="#row21-tab3" role="tab" aria-controls="row21-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row21-tab4-header" data-mdb-toggle="tab" href="#row21-tab4" role="tab" aria-controls="row21-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row21-tab4-header" data-mdb-toggle="tab" href="#row21-tab4" role="tab" aria-controls="row21-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row21-tab5-header" data-mdb-toggle="tab" href="#row21-tab5" role="tab" aria-controls="row21-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -7814,10 +7810,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row22-tab2-header" data-mdb-toggle="tab" href="#row22-tab2" role="tab" aria-controls="row22-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row22-tab3-header" data-mdb-toggle="tab" href="#row22-tab3" role="tab" aria-controls="row22-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row22-tab3-header" data-mdb-toggle="tab" href="#row22-tab3" role="tab" aria-controls="row22-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row22-tab4-header" data-mdb-toggle="tab" href="#row22-tab4" role="tab" aria-controls="row22-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row22-tab4-header" data-mdb-toggle="tab" href="#row22-tab4" role="tab" aria-controls="row22-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row22-tab5-header" data-mdb-toggle="tab" href="#row22-tab5" role="tab" aria-controls="row22-tab5" aria-selected="false" style="text-transform:none">BGE</a>
@@ -8015,10 +8011,10 @@ python -m pyserini.eval.trec_eval \
     <a class="nav-link" id="row23-tab2-header" data-mdb-toggle="tab" href="#row23-tab2" role="tab" aria-controls="row23-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row23-tab3-header" data-mdb-toggle="tab" href="#row23-tab3" role="tab" aria-controls="row23-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
+    <a class="nav-link" id="row23-tab3-header" data-mdb-toggle="tab" href="#row23-tab3" role="tab" aria-controls="row23-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row23-tab4-header" data-mdb-toggle="tab" href="#row23-tab4" role="tab" aria-controls="row23-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
+    <a class="nav-link" id="row23-tab4-header" data-mdb-toggle="tab" href="#row23-tab4" role="tab" aria-controls="row23-tab4" aria-selected="false" style="text-transform:none">SlideOn</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row23-tab5-header" data-mdb-toggle="tab" href="#row23-tab5" role="tab" aria-controls="row23-tab5" aria-selected="false" style="text-transform:none">BGE</a>

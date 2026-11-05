@@ -24,7 +24,6 @@ from datetime import datetime, timezone
 from string import Template
 
 import yaml
-
 from pyserini.util import run_command
 
 from ._base import (
@@ -34,6 +33,7 @@ from ._base import (
     read_file,
     run_eval_and_return_metric,
 )
+
 
 def list_conditions():
     with importlib.resources.files('pyserini.2cr').joinpath('dse.yaml').open('r') as f:
@@ -201,6 +201,7 @@ def generate_report(args):
                 s = s.substitute(row_cnt=row_cnt,
                                  dataset=dataset,
                                  score_cells=score_cells,
+                                 detail_colspan=1 + score_cells.count('<td>'),
                                  cmd=cmd,
                                  eval_cmd=eval_cmds_str)
 
@@ -212,9 +213,7 @@ def generate_report(args):
                 row_cnt += 1
 
     with open(args.output, 'w') as out:
-        out.write(Template(html_template).substitute(title='Pyserini DSE Reproductions', 
-                                                     wiki_rows='\n'.join(wiki_rows), 
-                                                     slide_rows='\n'.join(slide_rows)))
+        out.write(Template(html_template).substitute(title='Pyserini: DSE', wiki_rows='\n'.join(wiki_rows), slide_rows='\n'.join(slide_rows)))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run DSE 2CR experiments.')
