@@ -50,7 +50,7 @@ conditions:
     command: 
       - python -m pyserini.search.hybrid dense --index wikipedia-dpr-100w.dpr-multi --encoder facebook/dpr-question_encoder-multiset-base sparse --index wikipedia-dpr-100w fusion --alpha 0.95 run --topics dpr-trivia-test --output $output --threads ${dense_threads} --batch-size ${dense_batch_size}
     scores:
-      - Top5: 0.7600
+      - Top5: 0.7601
         Top20: 0.8264
         Top100: 0.8655
         Top500: 0.8912

@@ -257,7 +257,7 @@ def generate_report(args):
         
     all_rows = '\n'.join(html_rows)    
     with open(args.output, 'w') as out:    
-        out.write(Template(html_template).substitute(title='M-BEIR Datasets Regressions', rows=all_rows))
+        out.write(Template(html_template).substitute(title='Pyserini: M-BEIR', rows=all_rows))
 
 
 if __name__ == '__main__':  

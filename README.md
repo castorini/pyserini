@@ -101,10 +101,14 @@ Documentation is organized into reproduction matrices for different corpora that
 + [MS MARCO V2 Passage](https://castorini.github.io/pyserini/2cr/msmarco-v2-passage.html)
 + [MS MARCO V2 Document](https://castorini.github.io/pyserini/2cr/msmarco-v2-doc.html)
 + [BEIR](https://castorini.github.io/pyserini/2cr/beir.html)
++ [BRIGHT](https://castorini.github.io/pyserini/2cr/bright.html)
 + [Mr.TyDi](https://castorini.github.io/pyserini/2cr/mrtydi.html)
 + [MIRACL](https://castorini.github.io/pyserini/2cr/miracl.html)
 + [Open-Domain Question Answering](https://castorini.github.io/pyserini/2cr/odqa.html)
 + [CIRAL](https://castorini.github.io/pyserini/2cr/ciral.html)
++ [AToMic](https://castorini.github.io/pyserini/2cr/atomic.html)
++ [DSE](https://castorini.github.io/pyserini/2cr/dse.html)
++ [mBEIR](https://castorini.github.io/pyserini/2cr/m-beir.html)
 
 For more details, see our paper on [Building a Culture of Reproducibility in Academic Research](https://arxiv.org/abs/2212.13534).
 

@@ -240,8 +240,7 @@ def generate_report(args):
         cqa_rows = '\n'.join(cqa_rows)
         with open(args.output, 'w') as out:
             out.write(Template(html_template).substitute(
-                title='Pyserini BEIR Regressions', main_rows=main_rows, cqa_rows=cqa_rows,
-                avg_row=avg_row, cqa_avg_row=cqa_avg_row))
+                title='Pyserini: BEIR', main_rows=main_rows, cqa_rows=cqa_rows, avg_row=avg_row, cqa_avg_row=cqa_avg_row))
 
 
 def run_conditions(args):
