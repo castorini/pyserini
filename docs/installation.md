@@ -94,7 +94,6 @@ To verify that sparse retrieval is working correctly, run the BM25 baseline on t
 
 ```bash
 python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
   --index beir-v1.0.0-nfcorpus.flat \
   --topics beir-v1.0.0-nfcorpus-test \
   --output run.beir.bm25-flat.nfcorpus.txt \
