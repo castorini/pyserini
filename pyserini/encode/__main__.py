@@ -24,7 +24,16 @@ from pyserini.encode import JsonlRepresentationWriter, JsonlCollectionIterator
 from pyserini.util import resolve_device
 
 
-def init_encoder(encoder, encoder_class, device, pooling, l2_norm, prefix, multimodal, explicit_truncate):
+def init_encoder(encoder, encoder_class, device, **encoder_kwargs):
+    """Initialize a document encoder, forwarding only options supported by its class."""
+    pooling = encoder_kwargs.pop('pooling', 'cls')
+    l2_norm = encoder_kwargs.pop('l2_norm', False)
+    prefix = encoder_kwargs.pop('prefix', None)
+    multimodal = encoder_kwargs.pop('multimodal', False)
+    explicit_truncate = encoder_kwargs.pop('explicit_truncate', False)
+    if encoder_kwargs:
+        raise TypeError(f'Unknown encoder options: {", ".join(sorted(encoder_kwargs))}')
+
     device = resolve_device(device, backend='torch')
     _encoder_class = encoder_class
 
@@ -114,7 +123,7 @@ if __name__ == '__main__':
     encoder_parser = commands.add_parser('encoder')
     encoder_parser.add_argument('--encoder', type=str, help='encoder name or path', required=True)
     encoder_parser.add_argument('--encoder-class', type=str, required=False, default=None,
-                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto", "contriever", "arctic", "splade", "uniir", "qwen3", "dse", "mmeb"],
+                                choices=["dpr", "bpr", "tct_colbert", "ance", "sentence-transformers", "openai-api", "auto", "contriever", "arctic", "splade", "slideon", "uniir", "qwen3", "dse", "mmeb"],
                                 help='which query encoder class to use. `default` would infer from the args.encoder')
     encoder_parser.add_argument('--fields', help='fields to encode', nargs='+', default=['text'], required=False)
     encoder_parser.add_argument('--multimodal', action='store_true', default=False)
@@ -134,7 +143,17 @@ if __name__ == '__main__':
 
     args = parse_args(parser, commands)
     delimiter = args.input.delimiter.replace("\\n", "\n")  # argparse would add \ prior to the passed '\n\n'
-    encoder = init_encoder(args.encoder.encoder, args.encoder.encoder_class, device=args.encoder.device, pooling=args.encoder.pooling, l2_norm=args.encoder.l2_norm, prefix=args.encoder.prefix, multimodal=args.encoder.multimodal, explicit_truncate=args.encoder.explicit_truncate)
+    encoder_kwargs = {
+        key: value for key, value in vars(args.encoder).items()
+        if key in ('pooling', 'l2_norm', 'prefix', 'multimodal',
+                   'explicit_truncate')
+    }
+    encoder = init_encoder(
+        args.encoder.encoder,
+        args.encoder.encoder_class,
+        args.encoder.device,
+        **encoder_kwargs,
+    )
 
     if args.output.to_faiss:
         from pyserini.encode.optional import FaissRepresentationWriter

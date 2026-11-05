@@ -31,10 +31,10 @@
     <a class="nav-link" id="row${row_cnt}-tab2-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab2" role="tab" aria-controls="row${row_cnt}-tab2" aria-selected="false" style="text-transform:none">BM25 MF</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row${row_cnt}-tab3-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab3" role="tab" aria-controls="row${row_cnt}-tab3" aria-selected="false" style="text-transform:none">SPLADE</a>
+    <a class="nav-link" id="row${row_cnt}-tab3-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab3" role="tab" aria-controls="row${row_cnt}-tab3" aria-selected="false" style="text-transform:none">SPLADE-v3: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
-    <a class="nav-link" id="row${row_cnt}-tab4-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab4" role="tab" aria-controls="row${row_cnt}-tab4" aria-selected="false" style="text-transform:none">Contriever</a>
+    <a class="nav-link" id="row${row_cnt}-tab4-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab4" role="tab" aria-controls="row${row_cnt}-tab4" aria-selected="false" style="text-transform:none">SlideOn: PyTorch</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="row${row_cnt}-tab5-header" data-mdb-toggle="tab" href="#row${row_cnt}-tab5" role="tab" aria-controls="row${row_cnt}-tab5" aria-selected="false" style="text-transform:none">BGE</a>

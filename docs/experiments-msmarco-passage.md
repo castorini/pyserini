@@ -626,3 +626,5 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@AwwalMudashir](https://github.com/AwwalMudashir) on 2026-10-29 (commit [`bc2a172`](https://github.com/castorini/pyserini/commit/bc2a172c1143a3233cc320c12068a312a4151958))
 + Results reproduced by [@pawansapkota100](https://github.com/pawansapkota100) on 2026-10-31 (commit [`3c1b8b8`](https://github.com/castorini/pyserini/commit/3c1b8b8f6c3f60a756398d73c42817e58a67869d))
 + Results reproduced by [@oma452](https://github.com/oma452) on 2026-11-02 (commit [`30895d0`](https://github.com/castorini/pyserini/commit/30895d0a85ee5c4014736db1106a70320403a4ab)); tuned BM25 MRR@10 was 0.18741227770955543 on all 6,980 dev-small queries (top 10 retrieved).
++ Results reproduced by [@junieberry](https://github.com/junieberry) on 2026-10-31 (commit [`6602a8e`](https://github.com/castorini/pyserini/commit/6602a8e2b447365f1bdbcb4a333dc752c2a9694a))
++ Results reproduced by [@nothingdev32](https://github.com/nothingdev32) on 2026-11-03 (commit [`4d8170f`](https://github.com/castorini/pyserini/commit/4d8170fbecce5e6d1077109124f5d0bfe6c9d1df))
