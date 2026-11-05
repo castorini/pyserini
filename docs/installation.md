@@ -17,7 +17,7 @@ It is recommended that you install the following dependencies separately, before
 In both cases, it's easier if you install the right variant yourself, _before_ installing Pyserini.
 As an example, the recipes below use `conda`.
 
-With the above two packages installed:
+After installing the dependencies needed for your workflow:
 
 ```bash
 pip install pyserini
@@ -196,6 +196,6 @@ python -m unittest discover -s tests
 
 Topics and qrels live in a [centralized repo containing evaluation data](https://github.com/castorini/eval), shared across Anserini and Pyserini.
 Pyserini fetches what it needs on demand and caches it under `$PYSERINI_CACHE` (`~/.cache/pyserini` by default), so there is nothing to build here.
-The `trec_eval` implementation used by `pyserini.eval.trec_eval` comes from the Anserini fatjar, which is added above.
+The `trec_eval` implementation used by `pyserini.eval.trec_eval` comes from the Anserini fatjar, which you copied above.
 
 Assuming all tests pass, you should be ready to go!

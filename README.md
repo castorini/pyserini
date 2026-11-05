@@ -24,7 +24,6 @@ For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.34632
 ## 🎬 Installation
 
 Pyserini is built on Python 3.12 (newer versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
-
 We recommend installing the JVM, [PyTorch](https://pytorch.org/), and [Faiss](https://github.com/facebookresearch/faiss) (only if you need Faiss retrieval) separately before installing Pyserini.
 For example, using `conda`, in an already-activated Conda environment:
 
@@ -49,10 +48,10 @@ pip install git+https://github.com/openai/CLIP.git
 ```
 
 The software ecosystem is rapidly evolving and one potential source of frustration is incompatibilities among different versions of the underlying dependencies.
-To help, we provide recipes in [our installation guide](./docs/installation.md).
+To help, we provide recipes in [our detailed installation guide](./docs/installation.md).
 
-If you're planning on just _using_ Pyserini, then the above instructions should be fine.
-However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a [development installation](./docs/installation.md#development-installation).
+If you're planning on just _using_ Pyserini, the above instructions should work fine.
+However, if you're planning on contributing to the codebase or want to use not-yet-released features, you'll need a [development installation](./docs/installation.md#development-installation).
 
 ## 🙋 How do I search?
 
