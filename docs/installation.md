@@ -167,8 +167,8 @@ If you've gotten this far, then everything should be working properly.
 
 ## Development Installation
 
-If you're planning on just _using_ Pyserini, then the instructions above are fine.
-However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
+If you're planning on just _using_ Pyserini, the above instructions should work fine.
+However, if you're planning on contributing to the codebase or want to use not-yet-released features, you'll need a development installation.
 
 Start the same way as the install above, but skip installing Pyserini using `pip`.
 Instead, clone the Pyserini repo:
