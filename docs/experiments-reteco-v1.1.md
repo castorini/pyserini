@@ -1,21 +1,21 @@
-# Pyserini: Reproducing RETECO v1.1 Track 1a BM25 and BM25QS Baselines
+# Pyserini: Reproducing RETECO v1.1 Baselines
 
-This guide covers BM25 and query-side BM25 (BM25QS) retrieval on [RETECO v1.1](https://huggingface.co/datasets/DataScience-UIBK/RETECO-SemEval2027) **Track 1a** (whole-query retrieval).
+This guide covers BM25 and query-side BM25 (BM25QS) retrieval on [RETECO v1.1](https://huggingface.co/datasets/DataScience-UIBK/RETECO-SemEval2027) Track 1a (temporal retrieval).
 
-Pyserini provides a [prebuilt Track 1 index](prebuilt-indexes.md) named `reteco-v1.1-track1-{domain}` for each of the 13 domains:
+Pyserini provides [prebuilt indexes](prebuilt-indexes.md) named `reteco-v1.1-track1-{domain}` for each of the 13 domains:
 bitcoin, cardano, economics, genealogy, history, hsm, iota, law, monero, politics, quant, travel, and workplace.
-
-The indexes were built from [commit `c21e10b` of the RETECO dataset on Hugging Face](https://huggingface.co/datasets/DataScience-UIBK/RETECO-SemEval2027/commit/c21e10ba8aa60eaa201f60fc4604364469c5ec17).
+These indexes were built from commit [`c21e10b`](https://huggingface.co/datasets/DataScience-UIBK/RETECO-SemEval2027/commit/c21e10ba8aa60eaa201f60fc4604364469c5ec17) of the RETECO dataset (v1.1) on Hugging Face.
 
 ## Batch Retrieval and Evaluation
 
-Run the commands from a Pyserini checkout with the RETECO bindings, Java 21, and a compatible Anserini fatjar; see the [installation guide](installation.md).
-Each block independently retrieves and evaluates all 13 domains on both Track 1a splits with 1000 hits, `k1=0.9`, `b=0.4`, and nDCG@10.
+Run the commands below from Pyserini; see the [installation guide](installation.md) for details.
+Each snippet retrieves 1000 hits for all 13 domains on both Track 1a splits using `k1=0.9` and `b=0.4`, then evaluates nDCG@10.
 Pyserini downloads the named indexes, topics, and qrels automatically.
+
 To smoke-test before the full batch, replace `TESTS=(...)` with `TESTS=(iota.dev)` in either block.
 The expected iota dev nDCG@10 scores are 0.3852 for BM25 and 0.3243 for BM25QS.
 
-### Reproducing BM25 results
+### Reproducing BM25 Results
 
 ```bash
 TESTS=(bitcoin.train bitcoin.dev cardano.train cardano.dev economics.train economics.dev
@@ -43,7 +43,7 @@ echo "# BM25 failed conditions: ${fails}/${#TESTS[@]}"
 test "$fails" -eq 0
 ```
 
-### Reproducing BM25QS results
+### Reproducing BM25QS Results
 
 ```bash
 TESTS=(bitcoin.train bitcoin.dev cardano.train cardano.dev economics.train economics.dev
@@ -71,13 +71,14 @@ echo "# BM25QS failed conditions: ${fails}/${#TESTS[@]}"
 test "$fails" -eq 0
 ```
 
-## BM25 and BM25QS Baseline Results
+## Expected Results
 
-Track 1a nDCG@10 (train: 1,211 queries; dev: 519 queries), compared with the v1.1 results in the [official baseline table](https://github.com/DataScienceUIBK/RETECO/blob/5616900ce9f982e329a8b4ea5673ff0ebc007026/starter_kit/BASELINE_RESULTS.md).
-The [RETECO starter kit](https://github.com/DataScienceUIBK/RETECO/tree/5616900ce9f982e329a8b4ea5673ff0ebc007026/starter_kit) provides the official baseline implementation.
-Scores are averaged over queries within each domain.
+Expected results are reported below for train (1,211 queries) and dev (519 queries).
+
+As a point of comparison, see v1.1 results in the [official baseline table](https://github.com/DataScienceUIBK/RETECO/blob/5616900ce9f982e329a8b4ea5673ff0ebc007026/starter_kit/BASELINE_RESULTS.md), with the official baseline implementation in the [RETECO starter kit](https://github.com/DataScienceUIBK/RETECO/tree/5616900ce9f982e329a8b4ea5673ff0ebc007026/starter_kit).
+
 Query length counts the tokens returned by Pyserini's default English Lucene analyzer (`Analyzer(get_lucene_analyzer())`) for the named Track 1a topics; mean and median are computed separately for each domain and split.
-The domain-macro row is the unweighted mean across domains for nDCG only.
+The macro avg row reports the unweighted mean across domains for nDCG only.
 
 ### Train (1,211 queries)
 
@@ -86,7 +87,7 @@ The domain-macro row is the unweighted mean across domains for nDCG only.
 | bitcoin          |          91.9 |              78 |     0.0468 |     0.0845 |     0.0856 |
 | cardano          |          65.4 |            39.5 |     0.1753 |     0.1801 |     0.1848 |
 | economics        |         127.2 |             100 |     0.0361 |     0.0355 |     0.0382 |
-| genealogy        |         159.8 |           103.5 |     0.0639 |     0.1183 |     0.1242 |
+| genealogy        |         159.8 |           103.5 |     0.0667 |     0.1188 |     0.1242 |
 | history          |         156.3 |             126 |     0.0336 |     0.0640 |     0.0654 |
 | hsm              |         128.8 |              96 |     0.1703 |     0.1767 |     0.1736 |
 | iota             |          66.4 |              50 |     0.0352 |     0.1228 |     0.1563 |
@@ -96,7 +97,7 @@ The domain-macro row is the unweighted mean across domains for nDCG only.
 | quant            |         188.0 |             134 |     0.0128 |     0.0255 |     0.0255 |
 | travel           |         132.1 |           103.5 |     0.0412 |     0.0504 |     0.0506 |
 | workplace        |         175.9 |             128 |     0.0622 |     0.0798 |     0.0798 |
-| **Domain macro** |             — |               — | **0.0779** | **0.1036** | **0.1075** |
+| **macro avg**    |             — |               — | **0.0781** | **0.1036** | **0.1075** |
 
 ### Dev (519 queries)
 
@@ -106,15 +107,15 @@ The domain-macro row is the unweighted mean across domains for nDCG only.
 | cardano          |          86.3 |              53 |     0.1144 |     0.1027 |     0.1027 |
 | economics        |         123.1 |             100 |     0.0269 |     0.0466 |     0.0467 |
 | genealogy        |         157.1 |             123 |     0.1476 |     0.1854 |     0.1949 |
-| history          |         170.8 |           134.5 |     0.0428 |     0.0851 |     0.0873 |
+| history          |         170.8 |           134.5 |     0.0428 |     0.0852 |     0.0873 |
 | hsm              |         129.8 |              71 |     0.2366 |     0.2437 |     0.2489 |
 | iota             |          67.0 |              69 |     0.3852 |     0.3243 |     0.3309 |
 | law              |         158.0 |              68 |     0.0294 |     0.0574 |     0.0574 |
 | monero           |         103.8 |              53 |     0.0249 |     0.0320 |     0.0320 |
 | politics         |         151.1 |             131 |     0.2129 |     0.2607 |     0.2625 |
 | quant            |         141.6 |           114.5 |     0.0000 |     0.0204 |     0.0237 |
-| travel           |         106.9 |            82.5 |     0.0322 |     0.0270 |     0.0442 |
+| travel           |         106.9 |            82.5 |     0.0322 |     0.0315 |     0.0442 |
 | workplace        |         123.6 |             117 |     0.0000 |     0.0398 |     0.0230 |
-| **Domain macro** |             — |               — | **0.0987** | **0.1124** | **0.1147** |
+| **macro avg**    |             — |               — | **0.0987** | **0.1128** | **0.1147** |
 
 BM25QS approximates the official gensim BM25 implementation but does not reproduce its rankings exactly.
