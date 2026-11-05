@@ -1,21 +1,21 @@
 # Pyserini: Detailed Installation Guide
 
 Pyserini is built on Python 3.12 (newer versions might work, but YMMV).
-See [`pyproject.toml`](../pyproject.toml) for a detailed list of dependencies.
-At a high level:
+See [`pyproject.toml`](../pyproject.toml) for the list of dependencies.
+Key points:
 
 + Pyserini depends on [Anserini](http://anserini.io/), which is built on Lucene.
 [PyJNIus](https://github.com/kivy/pyjnius) is used to interact with the JVM. We depend on Java 21.
 + We need [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/) for "neural stuff".
-+ We need [Faiss](https://github.com/facebookresearch/faiss) for searching dense vectors. (Although we can search dense vectors with Lucene also.)
++ We need [Faiss](https://github.com/facebookresearch/faiss) for searching dense vectors. We can also search dense vectors with Lucene, so consider Faiss optional.
 
 It is recommended that you install the following dependencies separately, before installing Pyserini:
 
-+ [PyTorch](https://pytorch.org/), because there are too many configuration options (e.g., CUDA vs. no CUDA). PyTorch is a declared dependency, but preinstalling it lets you choose the appropriate CPU/CUDA build.
-+ [Faiss](https://github.com/facebookresearch/faiss), similarly, because there is a proliferation of variants (e.g., `faiss-cpu`, `faiss-gpu`). Install only if you need retrieval using Faiss.
++ [PyTorch](https://pytorch.org/), because there are many configurations (e.g., CUDA vs. no CUDA). PyTorch is a declared dependency, but preinstalling it lets you choose the appropriate CPU/CUDA build.
++ [Faiss](https://github.com/facebookresearch/faiss), similarly, because there are many variants (e.g., `faiss-cpu` vs. `faiss-gpu`). Install only if you need retrieval using Faiss.
 
 In both cases, it's easier if you install the right variant yourself, _before_ installing Pyserini.
-As an example, the recipes below use `conda`.
+The sample recipes below use `conda`.
 
 After installing the dependencies needed for your workflow:
 
@@ -24,15 +24,16 @@ pip install pyserini
 ```
 
 Multimodal support (e.g., image search) is provided in the `optional` package.
-If you need it, install `'pyserini[optional]'`:
+If you need it:
 
 ```bash
 pip install 'pyserini[optional]'
+pip install git+https://github.com/openai/CLIP.git
 ```
 
 ## PyPI Installation Walkthrough
 
-Below is a step-by-step Pyserini installation guide based on Python 3.12.
+Below is a step-by-step Pyserini installation recipe using Python 3.12.
 We recommend using [Anaconda](https://www.anaconda.com/) and assume you have already installed it.
 
 ### Mac
