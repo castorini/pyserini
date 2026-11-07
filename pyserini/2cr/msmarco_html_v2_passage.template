@@ -144,6 +144,9 @@ pre[class*="prettyprint"] {
 These runs take advantage of prebuilt indexes in Pyserini, so you don't need access to the raw corpus.
 Instructions for programmatic execution are shown at the bottom of this page.</p>
 
+<p>The experimental conditions and reference scores are defined in the <a href="https://github.com/castorini/pyserini/blob/master/pyserini/2cr/msmarco-v2-doc.yaml">YAML configuration</a>.
+Not all experimental conditions are shown in the table below.</p>
+
 <div class="table-responsive">
   <table class="table">
     <thead>
@@ -154,8 +157,6 @@ Instructions for programmatic execution are shown at the bottom of this page.</p
         <th class="headertop" colspan="4"><b>TREC 2021</b></th>
         <th class="headertop" colspan="4"><b>TREC 2022</b></th>
         <th class="headertop" colspan="4"><b>TREC 2023</b></th>
-        <th class="headertop" colspan="3"><b>dev</b></th>
-        <th class="headertop" colspan="3"><b>dev2</b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
@@ -173,11 +174,6 @@ Instructions for programmatic execution are shown at the bottom of this page.</p
         <th class="headerbottom" scope="col">nDCG@10</th>
         <th class="headerbottom" scope="col">R@1K</th>
         <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col">RR@100</th>
-        <th class="headerbottom" scope="col">R@1K</th>
-        <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col">RR@100</th>
-        <th class="headerbottom" scope="col">R@1K</th>
       </tr>
     </thead>
     <tbody>

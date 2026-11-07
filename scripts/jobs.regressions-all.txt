@@ -2,6 +2,8 @@ python -m pyserini.2cr.msmarco --collection v1-passage --all --directory runs/ -
 python -m pyserini.2cr.msmarco --collection v1-doc     --all --directory runs/ --display-commands > logs/log.2cr.msmarco-v1-doc.txt 2>&1
 python -m pyserini.2cr.msmarco --collection v2-passage --all --directory runs/ --display-commands > logs/log.2cr.msmarco-v2-passage.txt 2>&1
 python -m pyserini.2cr.msmarco --collection v2-doc     --all --directory runs/ --display-commands > logs/log.2cr.msmarco-v2-doc.txt 2>&1
+python -m pyserini.2cr.msmarco --collection v2.1-doc --all --directory runs/ --display-commands > logs/log.2cr.msmarco-v2.1-doc.txt 2>&1
+python -m pyserini.2cr.msmarco --collection v2.1-doc-segmented --all --directory runs/ --display-commands > logs/log.2cr.msmarco-v2.1-doc-segmented.txt 2>&1
 python -m pyserini.2cr.beir   --all --directory runs/ --display-commands > logs/log.2cr.beir.txt 2>&1
 python -m pyserini.2cr.bright --all --directory runs/ --display-commands > logs/log.2cr.bright.txt 2>&1
 python -m pyserini.2cr.miracl --all --directory runs/ --display-commands > logs/log.2cr.miracl.txt 2>&1

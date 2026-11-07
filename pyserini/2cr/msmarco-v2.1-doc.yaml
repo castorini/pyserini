@@ -1,0 +1,295 @@
+# Conditions and reference scores from Anserini:
+# https://github.com/castorini/anserini/blob/master/src/main/resources/reproduce/from-prebuilt-indexes/configs/msmarco-v2.1-doc.yaml
+conditions:
+  - name: bm25-doc-slim
+    display: BM25 doc (k1=0.9, b=0.4), slim index
+    display-html: BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), slim index
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2.1-doc-slim --topics $topics --output $output --hits 1000 --bm25 --k1 0.9 --b 0.4
+    topics:
+      - topic_key: msmarco-v2-doc.dev
+        eval_key: msmarco-v2.1-doc.dev
+        metric_definitions:
+          MRR@100: -c -M 100 -m recip_rank
+        scores:
+          - MRR@100: 0.1654
+      - topic_key: msmarco-v2-doc.dev2
+        eval_key: msmarco-v2.1-doc.dev2
+        metric_definitions:
+          MRR@100: -c -M 100 -m recip_rank
+        scores:
+          - MRR@100: 0.1732
+      - topic_key: dl21-doc
+        eval_key: dl21-doc-msmarco-v2.1
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.2281
+            MRR@100: 0.8466
+            nDCG@10: 0.5183
+            R@100: 0.3502
+            R@1K: 0.6915
+      - topic_key: dl22-doc
+        eval_key: dl22-doc-msmarco-v2.1
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.0841
+            MRR@100: 0.6623
+            nDCG@10: 0.2991
+            R@100: 0.1866
+            R@1K: 0.4254
+      - topic_key: dl23-doc
+        eval_key: dl23-doc-msmarco-v2.1
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.1089
+            MRR@100: 0.5783
+            nDCG@10: 0.2914
+            R@100: 0.2604
+            R@1K: 0.5383
+      - topic_key: rag24.raggy-dev
+        eval_key: rag24.raggy-dev
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.1251
+            MRR@100: 0.7060
+            nDCG@10: 0.3631
+            R@100: 0.2433
+            R@1K: 0.5317
+  - name: bm25-doc
+    display: BM25 doc (k1=0.9, b=0.4), regular index
+    display-html: BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), regular index
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2.1-doc --topics $topics --output $output --hits 1000 --bm25 --k1 0.9 --b 0.4
+    topics:
+      - topic_key: msmarco-v2-doc.dev
+        eval_key: msmarco-v2.1-doc.dev
+        metric_definitions:
+          MRR@100: -c -M 100 -m recip_rank
+        scores:
+          - MRR@100: 0.1654
+      - topic_key: msmarco-v2-doc.dev2
+        eval_key: msmarco-v2.1-doc.dev2
+        metric_definitions:
+          MRR@100: -c -M 100 -m recip_rank
+        scores:
+          - MRR@100: 0.1732
+      - topic_key: dl21-doc
+        eval_key: dl21-doc-msmarco-v2.1
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.2281
+            MRR@100: 0.8466
+            nDCG@10: 0.5183
+            R@100: 0.3502
+            R@1K: 0.6915
+      - topic_key: dl22-doc
+        eval_key: dl22-doc-msmarco-v2.1
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.0841
+            MRR@100: 0.6623
+            nDCG@10: 0.2991
+            R@100: 0.1866
+            R@1K: 0.4254
+      - topic_key: dl23-doc
+        eval_key: dl23-doc-msmarco-v2.1
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.1089
+            MRR@100: 0.5783
+            nDCG@10: 0.2914
+            R@100: 0.2604
+            R@1K: 0.5383
+      - topic_key: rag24.raggy-dev
+        eval_key: rag24.raggy-dev
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.1251
+            MRR@100: 0.7060
+            nDCG@10: 0.3631
+            R@100: 0.2433
+            R@1K: 0.5317
+  - name: bm25-segmented-doc-slim
+    display: BM25 segmented doc (k1=0.9, b=0.4), slim index
+    display-html: BM25 segmented doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), slim index
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2.1-doc-segmented-slim --topics $topics --output $output --hits 10000 --bm25 --max-passage --max-passage-delimiter '#' --max-passage-hits 1000 --k1 0.9 --b 0.4
+    topics:
+      - topic_key: msmarco-v2-doc.dev
+        eval_key: msmarco-v2.1-doc.dev
+        metric_definitions:
+          MRR@100: -c -M 100 -m recip_rank
+        scores:
+          - MRR@100: 0.1973
+      - topic_key: msmarco-v2-doc.dev2
+        eval_key: msmarco-v2.1-doc.dev2
+        metric_definitions:
+          MRR@100: -c -M 100 -m recip_rank
+        scores:
+          - MRR@100: 0.2000
+      - topic_key: dl21-doc
+        eval_key: dl21-doc-msmarco-v2.1
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.2609
+            MRR@100: 0.9026
+            nDCG@10: 0.5778
+            R@100: 0.3811
+            R@1K: 0.7115
+      - topic_key: dl22-doc
+        eval_key: dl22-doc-msmarco-v2.1
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.1079
+            MRR@100: 0.7213
+            nDCG@10: 0.3576
+            R@100: 0.2330
+            R@1K: 0.4790
+      - topic_key: dl23-doc
+        eval_key: dl23-doc-msmarco-v2.1
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.1391
+            MRR@100: 0.6519
+            nDCG@10: 0.3356
+            R@100: 0.3049
+            R@1K: 0.5852
+      - topic_key: rag24.raggy-dev
+        eval_key: rag24.raggy-dev
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.1561
+            MRR@100: 0.7465
+            nDCG@10: 0.4227
+            R@100: 0.2807
+            R@1K: 0.5745
+  - name: bm25-segmented-doc
+    display: BM25 segmented doc (k1=0.9, b=0.4), regular index
+    display-html: BM25 segmented doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), regular index
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2.1-doc-segmented --topics $topics --output $output --hits 10000 --bm25 --max-passage --max-passage-delimiter '#' --max-passage-hits 1000 --k1 0.9 --b 0.4
+    topics:
+      - topic_key: msmarco-v2-doc.dev
+        eval_key: msmarco-v2.1-doc.dev
+        metric_definitions:
+          MRR@100: -c -M 100 -m recip_rank
+        scores:
+          - MRR@100: 0.1973
+      - topic_key: msmarco-v2-doc.dev2
+        eval_key: msmarco-v2.1-doc.dev2
+        metric_definitions:
+          MRR@100: -c -M 100 -m recip_rank
+        scores:
+          - MRR@100: 0.2000
+      - topic_key: dl21-doc
+        eval_key: dl21-doc-msmarco-v2.1
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.2609
+            MRR@100: 0.9026
+            nDCG@10: 0.5778
+            R@100: 0.3811
+            R@1K: 0.7115
+      - topic_key: dl22-doc
+        eval_key: dl22-doc-msmarco-v2.1
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.1079
+            MRR@100: 0.7213
+            nDCG@10: 0.3576
+            R@100: 0.2330
+            R@1K: 0.4790
+      - topic_key: dl23-doc
+        eval_key: dl23-doc-msmarco-v2.1
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.1391
+            MRR@100: 0.6519
+            nDCG@10: 0.3356
+            R@100: 0.3049
+            R@1K: 0.5852
+      - topic_key: rag24.raggy-dev
+        eval_key: rag24.raggy-dev
+        metric_definitions:
+          MAP@100: -c -M 100 -m map
+          MRR@100: -c -M 100 -m recip_rank
+          nDCG@10: -c -m ndcg_cut.10
+          R@100: -c -m recall.100
+          R@1K: -c -m recall.1000
+        scores:
+          - MAP@100: 0.1561
+            MRR@100: 0.7465
+            nDCG@10: 0.4227
+            R@100: 0.2807
+            R@1K: 0.5745
