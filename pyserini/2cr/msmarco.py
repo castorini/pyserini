@@ -27,7 +27,6 @@ from shlex import quote
 from string import Template
 
 import yaml
-
 from pyserini.util import run_command
 
 from ._base import (
@@ -182,16 +181,18 @@ models = {
         'unicoil-noexp-pytorch',
         'unicoil-pytorch',
     ],
+    # MS MARCO v2.1 doc
     'msmarco-v2.1-doc': [
-        'bm25-doc-slim',
         'bm25-doc',
-        'bm25-segmented-doc-slim',
+        '',
         'bm25-segmented-doc',
     ],
+    # MS MARCO v2.1 segmented doc
     'msmarco-v2.1-doc-segmented': [
-        'bm25-slim',
         'bm25',
+        '',
         'splade-v3.onnx',
+        '',
         *[f'shard{i:02d}.arctic-l.hnsw-int8.onnx' for i in range(10)],
     ],
 }
@@ -398,48 +399,97 @@ def _remove_commands(table, name, s, v1):
 
 
 def generate_report_v21(args):
-    """Render every metric and topic/qrels pairing from the V2.1 configs."""
+    """Render the V2.1 reproduction matrices and commands."""
     config = yaml.safe_load(read_file(f'{args.collection}.yaml'))
     conditions = {condition['name']: condition for condition in config['conditions']}
-    topic_sets = config['conditions'][0]['topics']
+    def topic_order(topic_set):
+        key = topic_set['topic_key']
+        return (key.endswith('.dev'), key.endswith('.dev2'), key)
+
+    def topic_label(topic_set):
+        key = topic_set['eval_key']
+        if key.startswith('dl'):
+            return f'TREC 20{key[2:4]}'
+        if key.startswith('rag'):
+            year = key[3:5]
+            split = 'dev' if 'dev' in key else 'test'
+            judgments = 'Umbrela' if 'umbrela' in key else 'NIST'
+            return f'RAG 20{year} {split} ({judgments})'
+        return key.rsplit('.', 1)[-1]
+
+    def report_metrics(topic_set):
+        scores = {metric: score for group in topic_set['scores'] for metric, score in group.items()}
+        if args.collection == 'msmarco-v2.1-doc-segmented':
+            metric = 'nDCG@20' if topic_set['topic_key'].startswith('rag24') else 'nDCG@30'
+            return {metric: scores[metric], 'R@100': scores['R@100']}
+        if args.collection == 'msmarco-v2.1-doc' and 'MAP@100' in scores:
+            return {metric: scores[metric] for metric in ('MAP@100', 'nDCG@10', 'R@1K')}
+        return scores
+
+    def report_topics(condition):
+        topics = condition['topics']
+        if args.collection == 'msmarco-v2.1-doc':
+            topics = [topic for topic in topics if topic['topic_key'] in ('dl21-doc', 'dl22-doc', 'dl23-doc')]
+        return sorted(topics, key=topic_order)
+
+    topic_sets = report_topics(config['conditions'][0])
     group_headers = []
     metric_headers = []
     for topic_set in topic_sets:
-        metrics = [metric for scores in topic_set['scores'] for metric in scores]
-        group_headers.append(f'<th colspan="{len(metrics)}">{escape(topic_set["eval_key"])}</th>')
-        metric_headers.extend(f'<th scope="col">{escape(metric)}</th>' for metric in metrics)
-    headers = ('<tr><th rowspan="2">#</th><th rowspan="2">Condition</th>' + ''.join(group_headers)
-               + '</tr>\n<tr>' + ''.join(metric_headers) + '</tr>')
+        metrics = report_metrics(topic_set)
+        group_headers.append(f'<th class="headertop" colspan="{len(metrics) + 1}"><b>{escape(topic_label(topic_set))}</b></th>')
+        metric_headers.extend(f'<th class="headerbottom" scope="col">{escape('AP' if args.collection == 'msmarco-v2.1-doc' and metric == 'MAP@100' else metric)}</th>' for metric in metrics)
+        metric_headers.append('<th class="headerbottom"></th>')
+    headers = ('<tr>' + '<th class="headertop"></th>' * 3 + ''.join(group_headers)
+               + '</tr>\n<tr>' + '<th class="headerbottom"></th>' * 3
+               + ''.join(metric_headers) + '</tr>')
 
     command_template = Template(read_file('msmarco_html_commands_v21.template'))
     row_template = Template(read_file('msmarco_html_row_v21.template'))
     rows = []
-    for row_num, name in enumerate(models[args.collection], 1):
+    row_num = 0
+    for name in models[args.collection]:
+        if not name:
+            rows.append('<tr><td style="border-bottom: 0"></td></tr>')
+            continue
+        row_num += 1
         condition = conditions[name]
         cells = []
         commands = []
-        for topic_set in condition['topics']:
+        tabs = []
+        for tab_num, topic_set in enumerate(report_topics(condition), 1):
             runfile, command = get_run_command(args.collection, condition, topic_set)
             definitions = get_metric_definitions(args.collection, topic_set)
             eval_commands = []
-            for scores in topic_set['scores']:
-                for metric, score in scores.items():
-                    cells.append(f'<td>{score:.4f}</td>')
-                    eval_commands.append(
-                        f'python -m pyserini.eval.trec_eval {definitions[metric]} '
-                        f'{topic_set["eval_key"]} {runfile}')
+            for metric, score in report_metrics(topic_set).items():
+                cells.append(f'<td>{score:.4f}</td>')
+                eval_commands.append(
+                    f'python -m pyserini.eval.trec_eval {definitions[metric]} '
+                    f'{topic_set["eval_key"]} {runfile}')
+            cells.append('<td></td>')
+            tab_id = f'row{row_num}-tab{tab_num}'
+            active = ' active' if tab_num == 1 else ''
+            tabs.append(
+                f'<li class="nav-item" role="presentation"><a class="nav-link{active}" '
+                f'id="{tab_id}-header" data-mdb-toggle="tab" href="#{tab_id}" role="tab" '
+                f'aria-controls="{tab_id}" aria-selected="{str(tab_num == 1).lower()}" '
+                f'style="text-transform:none">{escape(topic_label(topic_set))}</a></li>')
             commands.append(command_template.substitute(
+                tab_id=tab_id, active=' show active' if tab_num == 1 else '',
                 topics=escape(topic_set['topic_key']), qrels=escape(topic_set['eval_key']),
                 command=escape(format_command(command)),
                 eval_commands=escape('\n'.join(eval_commands))))
         rows.append(row_template.substitute(
             row_num=row_num, name=escape(name), display=condition['display-html'],
-            cells=''.join(cells), colspan=len(metric_headers) + 2, commands='\n'.join(commands)))
+            cells=''.join(cells), colspan=len(metric_headers) + 2,
+            tabs='\n'.join(tabs), commands='\n'.join(commands)))
 
-    title = ('MS MARCO V2.1 Segmented Document Reproductions' if args.collection.endswith('-segmented')
-             else 'MS MARCO V2.1 Document Reproductions')
+    title = ('Pyserini: MS MARCO V2.1 Segmented Doc' if args.collection.endswith('-segmented')
+             else 'Pyserini: MS MARCO V2.1 Doc')
+    template = ('msmarco_html_v21_doc_segmented.template' if args.collection.endswith('-segmented')
+                else 'msmarco_html_v21_doc.template')
     with open(args.output, 'w') as out:
-        out.write(Template(read_file('msmarco_html_v21.template')).substitute(
+        out.write(Template(read_file(template)).substitute(
             title=title, collection=args.collection.removeprefix('msmarco-'),
             corpus=args.collection, headers=headers, rows='\n'.join(rows),
             example_condition=models[args.collection][0]))

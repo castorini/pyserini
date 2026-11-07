@@ -132,7 +132,7 @@ pre[class*="prettyprint"] {
           ">
         <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
           <div class="text-white">
-            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> &nbsp; $title</h1>
+            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> $title</h1>
           </div>
         </div>
       </div>
@@ -141,10 +141,12 @@ pre[class*="prettyprint"] {
 
 <div class="container my-4">
 
-<p>This two-click reproduction matrix covers every condition and evaluation pairing in
-<a href="https://github.com/castorini/anserini/blob/master/docs/reproduce/from-prebuilt-indexes/${corpus}.md">Anserini's ${corpus} reproductions</a>.
-The table contains Anserini's reference scores; running the commands checks Pyserini's results against these values.
-Expand a condition to copy its retrieval and evaluation commands. All metrics are shown, including separate NIST and Umbrela evaluations where applicable.</p>
+<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.
+These runs take advantage of prebuilt indexes in Pyserini, so you don't need access to the raw corpus.
+Instructions for programmatic execution are shown at the bottom of this page.</p>
+
+<p>The experimental conditions and reference scores are defined in the <a href="https://github.com/castorini/pyserini/blob/master/pyserini/2cr/${corpus}.yaml">YAML configuration</a>.
+Not all experimental conditions are shown in the table below.</p>
 
 <div class="table-responsive">
   <table class="table">

@@ -49,7 +49,8 @@ class TestMsmarcoV21(unittest.TestCase):
                 self.collections, (4, 13), (24, 52), (88, 156)):
             conditions = self.config(collection)
             self.assertEqual(len(conditions), condition_count)
-            self.assertEqual([c['name'] for c in conditions], msmarco.models[collection])
+            displayed = [name for name in msmarco.models[collection] if name]
+            self.assertEqual(displayed, [c['name'] for c in conditions if 'slim' not in c['name']])
             self.assertEqual(sum(len(c['topics']) for c in conditions), pairing_count)
             self.assertEqual(sum(len(s) for c in conditions for t in c['topics'] for s in t['scores']),
                              metric_count)
@@ -132,8 +133,8 @@ class TestMsmarcoV21(unittest.TestCase):
         self.assertIn('nDCG@20: 0.5167', output.getvalue())
         self.assertIn('nDCG@20: 0.4642', output.getvalue())
 
-    def test_reports_include_all_metrics_and_commands(self):
-        for collection, metric_count in zip(self.collections, (88, 156)):
+    def test_reports_include_selected_metrics_and_commands(self):
+        for collection, metric_count in zip(self.collections, (18, 96)):
             with tempfile.TemporaryDirectory() as directory:
                 output = Path(directory) / 'report.html'
                 msmarco.generate_report(self.args(collection, output=output))
@@ -141,11 +142,19 @@ class TestMsmarcoV21(unittest.TestCase):
             self.assertEqual(report.count('python -m pyserini.eval.trec_eval'), metric_count)
             self.assertNotIn('${', report)
             for condition in self.config(collection):
+                if 'slim' in condition['name']:
+                    continue
                 self.assertIn(condition['name'], report)
                 for topic in condition['topics']:
+                    if collection == 'msmarco-v2.1-doc' and not topic['topic_key'].startswith('dl'):
+                        continue
                     runfile, _ = msmarco.get_run_command(collection, condition, topic)
                     for scores in topic['scores']:
                         for metric, expected in scores.items():
+                            selected = (('MAP@100', 'nDCG@10', 'R@1K') if collection == 'msmarco-v2.1-doc'
+                                        else ('nDCG@20', 'nDCG@30', 'R@100'))
+                            if metric not in selected:
+                                continue
                             self.assertIn(f'<td>{expected:.4f}</td>', report)
                             self.assertIn(f"{topic['metric_definitions'][metric]} {topic['eval_key']} {runfile}", report)
 
