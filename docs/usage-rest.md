@@ -143,6 +143,36 @@ The backend uses LRU caching for repeated requests:
 python -m pyserini.server.rest --search-cache-size 4096 --document-cache-size 8192
 ```
 
+### Optional global request budget
+
+`--global-requests-per-second N` adds a hard limit of **N authenticated requests per rolling
+second**, shared by all API keys, indexes, client IPs, and credential headers. N must be a positive
+integer. The limit is **disabled by default** and does not affect unauthenticated deployments.
+It applies immediately, without waiting for latency samples, so many different API keys cannot
+each submit requests past the shared budget.
+
+```bash
+python -m pyserini.server.rest --config /path/to/server.yaml --global-requests-per-second 100
+```
+
+After successful authentication, the server checks this budget **before** latency-based load
+shedding and request handling. Excess requests receive **429** with an error message identifying
+the global limit and `Retry-After: 1`. Rejected attempts do not extend the wait. Clients should
+honor `Retry-After` and retry with jitter; it is not a reservation for a future slot.
+
+The budget counts requests admitted by the global gate, not successful searches. All authenticated
+`/v1/` paths share it, including cache hits, invalid routes or parameters, backend errors, and requests
+subsequently rejected by latency-based shedding. These requests do not receive a refund. Missing or
+invalid credentials still return **401** without consuming the budget. `/v1/token` and public routes
+such as `/`, `/docs`, and `/openapi.yaml` are exempt. Newly issued tokens share the existing budget.
+Global rejections are logged with `auth: "authenticated"` and `global_rate_limited: true`.
+
+The budget belongs to one application instance in one server process and resets on restart.
+Multiple workers or replicas have independent budgets; this is **not** a distributed limit.
+It limits admissions, not simultaneous in-flight requests, and does not guarantee fairness between
+API keys. Choose a value using measurements for the deployed indexes and hardware. Report successful
+request throughput separately from rejected-request throughput when evaluating it.
+
 ### Logging
 
 REST server logging options:
@@ -380,7 +410,7 @@ curl -H "X-API-Key: {api-key}" \
 | 202 | Token delivery request accepted; the credential is sent by email and is not returned by HTTP |
 | 400 | Invalid parameters (e.g. missing `query`, invalid `hits` or `parse`), or cannot open index |
 | 401 | Missing or invalid API credential (when `api_keys` is configured) |
-| 429 | Load shedding, or token-request cooldown for the observed client IP or normalized email; `Retry-After` may be set |
+| 429 | Global request budget, load shedding, or token-request cooldown for the observed client IP or normalized email; `Retry-After` may be set |
 | 404 | Unknown route, or document not found for `GET .../doc/{docid}` |
 | 405 | Method not allowed (`POST` is required for `/v1/token`; the search and document routes use `GET`) |
 | 500 | Unhandled server error |
