@@ -1,4 +1,302 @@
 conditions:
+  # SlideOn d512/q64/s100. CPU PyTorch and runtime-top-k ONNX reference results;
+  # see docs/experiments-slideon.md for setup and numerical variation.
+  - name: slideon-pytorch
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index beir-v1.0.0-${dataset}.slideon --topics beir-v1.0.0-${dataset}-test --encoder lightonai/SlideOn --output $output --output-format trec --hits 1000 --impact --remove-query
+    datasets:
+      - dataset: trec-covid
+        scores:
+          - nDCG@10: 0.7955
+            R@100: 0.1574
+            R@1000: 0.5412
+      - dataset: bioasq
+        scores:
+          - nDCG@10: 0.5113
+            R@100: 0.7570
+            R@1000: 0.8926
+      - dataset: nfcorpus
+        scores:
+          - nDCG@10: 0.3829
+            R@100: 0.3471
+            R@1000: 0.6637
+      - dataset: nq
+        scores:
+          - nDCG@10: 0.6372
+            R@100: 0.9656
+            R@1000: 0.9932
+      - dataset: hotpotqa
+        scores:
+          - nDCG@10: 0.7968
+            R@100: 0.9103
+            R@1000: 0.9594
+      - dataset: fiqa
+        scores:
+          - nDCG@10: 0.4930
+            R@100: 0.8163
+            R@1000: 0.9561
+      - dataset: signal1m
+        scores:
+          - nDCG@10: 0.2963
+            R@100: 0.3633
+            R@1000: 0.5879
+      - dataset: trec-news
+        scores:
+          - nDCG@10: 0.5066
+            R@100: 0.5499
+            R@1000: 0.8342
+      - dataset: robust04
+        scores:
+          - nDCG@10: 0.5751
+            R@100: 0.5020
+            R@1000: 0.7948
+      - dataset: arguana
+        scores:
+          - nDCG@10: 0.5230
+            R@100: 0.9893
+            R@1000: 0.9964
+      - dataset: webis-touche2020
+        scores:
+          - nDCG@10: 0.3407
+            R@100: 0.5559
+            R@1000: 0.8957
+      - dataset: cqadupstack-android
+        scores:
+          - nDCG@10: 0.4772
+            R@100: 0.8299
+            R@1000: 0.9552
+      - dataset: cqadupstack-english
+        scores:
+          - nDCG@10: 0.5152
+            R@100: 0.7979
+            R@1000: 0.9003
+      - dataset: cqadupstack-gaming
+        scores:
+          - nDCG@10: 0.6016
+            R@100: 0.8953
+            R@1000: 0.9667
+      - dataset: cqadupstack-gis
+        scores:
+          - nDCG@10: 0.4195
+            R@100: 0.7785
+            R@1000: 0.9335
+      - dataset: cqadupstack-mathematica
+        scores:
+          - nDCG@10: 0.3142
+            R@100: 0.6958
+            R@1000: 0.8918
+      - dataset: cqadupstack-physics
+        scores:
+          - nDCG@10: 0.4580
+            R@100: 0.8306
+            R@1000: 0.9573
+      - dataset: cqadupstack-programmers
+        scores:
+          - nDCG@10: 0.4268
+            R@100: 0.7858
+            R@1000: 0.9440
+      - dataset: cqadupstack-stats
+        scores:
+          - nDCG@10: 0.3754
+            R@100: 0.6819
+            R@1000: 0.8827
+      - dataset: cqadupstack-tex
+        scores:
+          - nDCG@10: 0.3246
+            R@100: 0.6734
+            R@1000: 0.8679
+      - dataset: cqadupstack-unix
+        scores:
+          - nDCG@10: 0.4346
+            R@100: 0.7721
+            R@1000: 0.9283
+      - dataset: cqadupstack-webmasters
+        scores:
+          - nDCG@10: 0.4087
+            R@100: 0.8032
+            R@1000: 0.9499
+      - dataset: cqadupstack-wordpress
+        scores:
+          - nDCG@10: 0.3492
+            R@100: 0.7183
+            R@1000: 0.8881
+      - dataset: quora
+        scores:
+          - nDCG@10: 0.8590
+            R@100: 0.9939
+            R@1000: 0.9995
+      - dataset: dbpedia-entity
+        scores:
+          - nDCG@10: 0.4850
+            R@100: 0.6076
+            R@1000: 0.8245
+      - dataset: scidocs
+        scores:
+          - nDCG@10: 0.2008
+            R@100: 0.4714
+            R@1000: 0.7387
+      - dataset: fever
+        scores:
+          - nDCG@10: 0.9187
+            R@100: 0.9836
+            R@1000: 0.9923
+      - dataset: climate-fever
+        scores:
+          - nDCG@10: 0.4299
+            R@100: 0.7298
+            R@1000: 0.8892
+      - dataset: scifact
+        scores:
+          - nDCG@10: 0.7499
+            R@100: 0.9667
+            R@1000: 0.9967
+  - name: slideon-onnx
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index beir-v1.0.0-${dataset}.slideon --topics beir-v1.0.0-${dataset}-test --onnx-encoder SlideOn --output $output --output-format trec --hits 1000 --impact --remove-query
+    datasets:
+      - dataset: trec-covid
+        scores:
+          - nDCG@10: 0.7955
+            R@100: 0.1574
+            R@1000: 0.5412
+      - dataset: bioasq
+        scores:
+          - nDCG@10: 0.5113
+            R@100: 0.7570
+            R@1000: 0.8926
+      - dataset: nfcorpus
+        scores:
+          - nDCG@10: 0.3829
+            R@100: 0.3471
+            R@1000: 0.6637
+      - dataset: nq
+        scores:
+          - nDCG@10: 0.6372
+            R@100: 0.9656
+            R@1000: 0.9932
+      - dataset: hotpotqa
+        scores:
+          - nDCG@10: 0.7968
+            R@100: 0.9103
+            R@1000: 0.9594
+      - dataset: fiqa
+        scores:
+          - nDCG@10: 0.4930
+            R@100: 0.8156
+            R@1000: 0.9561
+      - dataset: signal1m
+        scores:
+          - nDCG@10: 0.2963
+            R@100: 0.3633
+            R@1000: 0.5879
+      - dataset: trec-news
+        scores:
+          - nDCG@10: 0.5066
+            R@100: 0.5499
+            R@1000: 0.8342
+      - dataset: robust04
+        scores:
+          - nDCG@10: 0.5751
+            R@100: 0.5020
+            R@1000: 0.7948
+      - dataset: arguana
+        scores:
+          - nDCG@10: 0.5231
+            R@100: 0.9893
+            R@1000: 0.9964
+      - dataset: webis-touche2020
+        scores:
+          - nDCG@10: 0.3407
+            R@100: 0.5559
+            R@1000: 0.8957
+      - dataset: cqadupstack-android
+        scores:
+          - nDCG@10: 0.4772
+            R@100: 0.8299
+            R@1000: 0.9552
+      - dataset: cqadupstack-english
+        scores:
+          - nDCG@10: 0.5152
+            R@100: 0.7979
+            R@1000: 0.9003
+      - dataset: cqadupstack-gaming
+        scores:
+          - nDCG@10: 0.6016
+            R@100: 0.8953
+            R@1000: 0.9667
+      - dataset: cqadupstack-gis
+        scores:
+          - nDCG@10: 0.4195
+            R@100: 0.7785
+            R@1000: 0.9335
+      - dataset: cqadupstack-mathematica
+        scores:
+          - nDCG@10: 0.3142
+            R@100: 0.6958
+            R@1000: 0.8918
+      - dataset: cqadupstack-physics
+        scores:
+          - nDCG@10: 0.4580
+            R@100: 0.8306
+            R@1000: 0.9573
+      - dataset: cqadupstack-programmers
+        scores:
+          - nDCG@10: 0.4268
+            R@100: 0.7858
+            R@1000: 0.9440
+      - dataset: cqadupstack-stats
+        scores:
+          - nDCG@10: 0.3754
+            R@100: 0.6819
+            R@1000: 0.8827
+      - dataset: cqadupstack-tex
+        scores:
+          - nDCG@10: 0.3246
+            R@100: 0.6734
+            R@1000: 0.8679
+      - dataset: cqadupstack-unix
+        scores:
+          - nDCG@10: 0.4346
+            R@100: 0.7721
+            R@1000: 0.9283
+      - dataset: cqadupstack-webmasters
+        scores:
+          - nDCG@10: 0.4087
+            R@100: 0.8032
+            R@1000: 0.9499
+      - dataset: cqadupstack-wordpress
+        scores:
+          - nDCG@10: 0.3492
+            R@100: 0.7183
+            R@1000: 0.8881
+      - dataset: quora
+        scores:
+          - nDCG@10: 0.8590
+            R@100: 0.9939
+            R@1000: 0.9995
+      - dataset: dbpedia-entity
+        scores:
+          - nDCG@10: 0.4850
+            R@100: 0.6076
+            R@1000: 0.8245
+      - dataset: scidocs
+        scores:
+          - nDCG@10: 0.2008
+            R@100: 0.4714
+            R@1000: 0.7387
+      - dataset: fever
+        scores:
+          - nDCG@10: 0.9187
+            R@100: 0.9836
+            R@1000: 0.9923
+      - dataset: climate-fever
+        scores:
+          - nDCG@10: 0.4299
+            R@100: 0.7298
+            R@1000: 0.8892
+      - dataset: scifact
+        scores:
+          - nDCG@10: 0.7499
+            R@100: 0.9667
+            R@1000: 0.9967
   - name: bm25-flat
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index beir-v1.0.0-${dataset}.flat --topics beir-v1.0.0-${dataset}-test --output $output --output-format trec --hits 1000 --bm25 --remove-query
     datasets:
@@ -295,6 +593,309 @@ conditions:
           - nDCG@10: 0.6647
             R@100: 0.9076
             R@1000: 0.9800
+  # PyTorch CPU results measured on 2026-11-02 with naver/splade-v3.
+  # Pyserini fdfadad4, Anserini 2.3.0, torch 2.15.0+cpu, transformers 5.22.1.
+  # Runs used --threads 2 --batch-size 32; document indexes are prebuilt.
+  - name: splade-v3
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index beir-v1.0.0-${dataset}.splade-v3 --topics beir-v1.0.0-${dataset}-test --encoder naver/splade-v3 --output $output --output-format trec --hits 1000 --impact --remove-query
+    datasets:
+      - dataset: trec-covid
+        scores:
+          - nDCG@10: 0.7299
+          - R@100: 0.1409
+          - R@1000: 0.4819
+      - dataset: bioasq
+        scores:
+          - nDCG@10: 0.5142
+          - R@100: 0.7647
+          - R@1000: 0.9018
+      - dataset: nfcorpus
+        scores:
+          - nDCG@10: 0.3629
+          - R@100: 0.2976
+          - R@1000: 0.6179
+      - dataset: nq
+        scores:
+          - nDCG@10: 0.5842
+          - R@100: 0.9438
+          - R@1000: 0.9889
+      - dataset: hotpotqa
+        scores:
+          - nDCG@10: 0.6884
+          - R@100: 0.8215
+          - R@1000: 0.8997
+      - dataset: fiqa
+        scores:
+          - nDCG@10: 0.3798
+          - R@100: 0.6671
+          - R@1000: 0.8589
+      - dataset: signal1m
+        scores:
+          - nDCG@10: 0.2465
+          - R@100: 0.2979
+          - R@1000: 0.5136
+      - dataset: trec-news
+        scores:
+          - nDCG@10: 0.4365
+          - R@100: 0.4737
+          - R@1000: 0.7404
+      - dataset: robust04
+        scores:
+          - nDCG@10: 0.4952
+          - R@100: 0.4337
+          - R@1000: 0.6929
+      - dataset: arguana
+        scores:
+          - nDCG@10: 0.4872
+          - R@100: 0.9822
+          - R@1000: 0.9957
+      - dataset: webis-touche2020
+        scores:
+          - nDCG@10: 0.3086
+          - R@100: 0.5128
+          - R@1000: 0.8435
+      - dataset: cqadupstack-android
+        scores:
+          - nDCG@10: 0.4109
+          - R@100: 0.7418
+          - R@1000: 0.9205
+      - dataset: cqadupstack-english
+        scores:
+          - nDCG@10: 0.4255
+          - R@100: 0.6961
+          - R@1000: 0.8384
+      - dataset: cqadupstack-gaming
+        scores:
+          - nDCG@10: 0.5193
+          - R@100: 0.8249
+          - R@1000: 0.9338
+      - dataset: cqadupstack-gis
+        scores:
+          - nDCG@10: 0.3236
+          - R@100: 0.6453
+          - R@1000: 0.8423
+      - dataset: cqadupstack-mathematica
+        scores:
+          - nDCG@10: 0.2445
+          - R@100: 0.5774
+          - R@1000: 0.8003
+      - dataset: cqadupstack-physics
+        scores:
+          - nDCG@10: 0.3753
+          - R@100: 0.7248
+          - R@1000: 0.8983
+      - dataset: cqadupstack-programmers
+        scores:
+          - nDCG@10: 0.3387
+          - R@100: 0.6823
+          - R@1000: 0.8643
+      - dataset: cqadupstack-stats
+        scores:
+          - nDCG@10: 0.3137
+          - R@100: 0.5957
+          - R@1000: 0.7869
+      - dataset: cqadupstack-tex
+        scores:
+          - nDCG@10: 0.2494
+          - R@100: 0.5263
+          - R@1000: 0.7517
+      - dataset: cqadupstack-unix
+        scores:
+          - nDCG@10: 0.3196
+          - R@100: 0.6251
+          - R@1000: 0.8319
+      - dataset: cqadupstack-webmasters
+        scores:
+          - nDCG@10: 0.3250
+          - R@100: 0.6644
+          - R@1000: 0.8839
+      - dataset: cqadupstack-wordpress
+        scores:
+          - nDCG@10: 0.2807
+          - R@100: 0.5825
+          - R@1000: 0.8015
+      - dataset: quora
+        scores:
+          - nDCG@10: 0.8141
+          - R@100: 0.9858
+          - R@1000: 0.9988
+      - dataset: dbpedia-entity
+        scores:
+          - nDCG@10: 0.4476
+          - R@100: 0.5695
+          - R@1000: 0.7861
+      - dataset: scidocs
+        scores:
+          - nDCG@10: 0.1567
+          - R@100: 0.3673
+          - R@1000: 0.5984
+      - dataset: fever
+        scores:
+          - nDCG@10: 0.8015
+          - R@100: 0.9550
+          - R@1000: 0.9741
+      - dataset: climate-fever
+        scores:
+          - nDCG@10: 0.2625
+          - R@100: 0.5735
+          - R@1000: 0.7831
+      - dataset: scifact
+        scores:
+          - nDCG@10: 0.7140
+          - R@100: 0.9360
+          - R@1000: 0.9967
+
+  # ONNX reference scores from Anserini aa3930fedb57c00b4c92ba70589a5c9e5beeac4b:
+  # src/main/resources/reproduce/from-document-collection/configs/beir-v1.0.0-*.splade-v3.onnx.yaml
+  - name: splade-v3-onnx
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index beir-v1.0.0-${dataset}.splade-v3 --topics beir-v1.0.0-${dataset}-test --onnx-encoder SpladeV3 --output $output --output-format trec --hits 1000 --impact --remove-query
+    datasets:
+      - dataset: trec-covid
+        scores:
+          - nDCG@10: 0.7299
+          - R@100: 0.1409
+          - R@1000: 0.4819
+      - dataset: bioasq
+        scores:
+          - nDCG@10: 0.5142
+          - R@100: 0.7647
+          - R@1000: 0.9018
+      - dataset: nfcorpus
+        scores:
+          - nDCG@10: 0.3629
+          - R@100: 0.2976
+          - R@1000: 0.6179
+      - dataset: nq
+        scores:
+          - nDCG@10: 0.5842
+          - R@100: 0.9438
+          - R@1000: 0.9889
+      - dataset: hotpotqa
+        scores:
+          - nDCG@10: 0.6884
+          - R@100: 0.8215
+          - R@1000: 0.8997
+      - dataset: fiqa
+        scores:
+          - nDCG@10: 0.3798
+          - R@100: 0.6671
+          - R@1000: 0.8589
+      - dataset: signal1m
+        scores:
+          - nDCG@10: 0.2465
+          - R@100: 0.2979
+          - R@1000: 0.5136
+      - dataset: trec-news
+        scores:
+          - nDCG@10: 0.4365
+          - R@100: 0.4737
+          - R@1000: 0.7404
+      - dataset: robust04
+        scores:
+          - nDCG@10: 0.4952
+          - R@100: 0.4337
+          - R@1000: 0.6929
+      - dataset: arguana
+        scores:
+          - nDCG@10: 0.4845
+          - R@100: 0.9794
+          - R@1000: 0.9964
+      - dataset: webis-touche2020
+        scores:
+          - nDCG@10: 0.3086
+          - R@100: 0.5128
+          - R@1000: 0.8435
+      - dataset: cqadupstack-android
+        scores:
+          - nDCG@10: 0.4109
+          - R@100: 0.7418
+          - R@1000: 0.9205
+      - dataset: cqadupstack-english
+        scores:
+          - nDCG@10: 0.4255
+          - R@100: 0.6961
+          - R@1000: 0.8384
+      - dataset: cqadupstack-gaming
+        scores:
+          - nDCG@10: 0.5193
+          - R@100: 0.8249
+          - R@1000: 0.9338
+      - dataset: cqadupstack-gis
+        scores:
+          - nDCG@10: 0.3236
+          - R@100: 0.6442
+          - R@1000: 0.8423
+      - dataset: cqadupstack-mathematica
+        scores:
+          - nDCG@10: 0.2445
+          - R@100: 0.5774
+          - R@1000: 0.8003
+      - dataset: cqadupstack-physics
+        scores:
+          - nDCG@10: 0.3753
+          - R@100: 0.7248
+          - R@1000: 0.8983
+      - dataset: cqadupstack-programmers
+        scores:
+          - nDCG@10: 0.3387
+          - R@100: 0.6823
+          - R@1000: 0.8643
+      - dataset: cqadupstack-stats
+        scores:
+          - nDCG@10: 0.3137
+          - R@100: 0.5949
+          - R@1000: 0.7861
+      - dataset: cqadupstack-tex
+        scores:
+          - nDCG@10: 0.2493
+          - R@100: 0.5263
+          - R@1000: 0.7517
+      - dataset: cqadupstack-unix
+        scores:
+          - nDCG@10: 0.3196
+          - R@100: 0.6251
+          - R@1000: 0.8319
+      - dataset: cqadupstack-webmasters
+        scores:
+          - nDCG@10: 0.3250
+          - R@100: 0.6644
+          - R@1000: 0.8839
+      - dataset: cqadupstack-wordpress
+        scores:
+          - nDCG@10: 0.2807
+          - R@100: 0.5825
+          - R@1000: 0.8015
+      - dataset: quora
+        scores:
+          - nDCG@10: 0.8141
+          - R@100: 0.9858
+          - R@1000: 0.9988
+      - dataset: dbpedia-entity
+        scores:
+          - nDCG@10: 0.4476
+          - R@100: 0.5695
+          - R@1000: 0.7861
+      - dataset: scidocs
+        scores:
+          - nDCG@10: 0.1567
+          - R@100: 0.3673
+          - R@1000: 0.5982
+      - dataset: fever
+        scores:
+          - nDCG@10: 0.8015
+          - R@100: 0.9550
+          - R@1000: 0.9741
+      - dataset: climate-fever
+        scores:
+          - nDCG@10: 0.2625
+          - R@100: 0.5737
+          - R@1000: 0.7831
+      - dataset: scifact
+        scores:
+          - nDCG@10: 0.7140
+          - R@100: 0.9360
+          - R@1000: 0.9967
+
   - name: splade-pp-ed
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index beir-v1.0.0-${dataset}.splade-pp-ed --topics beir-v1.0.0-${dataset}-test --encoder naver/splade-cocondenser-ensembledistil --output $output --output-format trec --hits 1000 --impact --remove-query
     datasets:
@@ -987,7 +1588,7 @@ conditions:
             R@1000: 0.9423
       - dataset: nfcorpus
         scores:
-          - nDCG@10: 0.3735
+          - nDCG@10: 0.3738
             R@100: 0.3368
             R@1000: 0.6622
       - dataset: nq

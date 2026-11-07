@@ -24,13 +24,13 @@ from datetime import UTC, datetime
 from string import Template
 
 import yaml
-
 from pyserini.util import run_command
 
 from ._base import (
     compare_reproduction_score,
     format_eval_command,
     format_reproduction_status,
+    format_run_command,
     read_file,
     run_eval_and_return_metric,
 )
@@ -68,18 +68,6 @@ trec_eval_metric_definitions = {
     'nDCG@20': '-c -m ndcg_cut.20',
     'R@100': '-c -m recall.100',
 }
-
-
-def format_run_command(raw):
-    return raw.replace('--lang', '\\\n  --lang') \
-        .replace('--encoder', '\\\n  --encoder') \
-        .replace('--topics', '\\\n  --topics') \
-        .replace('--index', '\\\n  --index') \
-        .replace('--output ', '\\\n  --output ') \
-        .replace('--runs', '\\\n  --runs ') \
-        .replace('--runtag', '\\\n  --runtag ') \
-        .replace('--batch ', '\\\n  --batch ') \
-        .replace('--threads 12', '--threads 12 \\\n ')
 
 
 def list_conditions():
@@ -225,7 +213,7 @@ def generate_report(args):
         tables_html.append(Template(table_template).substitute(desc=f'Recall@100, {all_splits[display_split]}', rows=all_rows))
 
     with open(args.output, 'w') as out:
-        out.write(Template(html_template).substitute(title='CIRAL', tables=' '.join(tables_html)))
+        out.write(Template(html_template).substitute(title='Pyserini: CIRAL', tables=' '.join(tables_html)))
 
 
 def run_conditions(args):

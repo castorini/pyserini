@@ -16,10 +16,13 @@
 
 import importlib
 import math
+import re
+import tempfile
 import unittest
 from argparse import Namespace
 from contextlib import ExitStack, redirect_stdout
 from io import StringIO
+from pathlib import Path
 from unittest.mock import patch
 
 import yaml
@@ -106,13 +109,12 @@ class TestRunnerScoreClassification(unittest.TestCase):
                          language=None, dataset=None, model=None)
         for name in runners:
             runner = importlib.import_module(f'pyserini.2cr.{name}')
-            percentage = name in ('dse', 'odqa')
             filename = {'msmarco': 'msmarco-v1-passage', 'odqa': 'odqa_nq'}.get(name, name)
             config = yaml.safe_load(base.read_file(f'{filename}.yaml'))
             cases = [(0.5, base.ok_str), (0.5001, base.okish_str), (0.5002, base.fail_str), (0.5003, base.fail_str), (0.4, base.okish_str)]
             for expected, label in cases:
                 with self.subTest(runner=name, expected=expected):
-                    self.set_scores(config, expected * 100 if percentage else expected)
+                    self.set_scores(config, expected)
                     output = StringIO()
                     with ExitStack() as stack:
                         stack.enter_context(redirect_stdout(output))
@@ -142,14 +144,11 @@ class TestRunnerScoreClassification(unittest.TestCase):
                         self.assertEqual(call.kwargs, {})
                     if name != 'dse':
                         command.assert_not_called()
-                    displayed = '50.00' if percentage else '0.5000'
-                    self.assertIn(f'{displayed} {label}', output.getvalue())
+                    self.assertIn(f'0.5000 {label}', output.getvalue())
                     if label == base.ok_str:
                         self.assertNotIn(' expected ', output.getvalue())
                     else:
-                        precision = 1 if name == 'dse' else 4
-                        expected_display = expected * 100 if percentage else expected
-                        self.assertIn(f'{label} expected {expected_display:.{precision}f}', output.getvalue())
+                        self.assertIn(f'{label} expected {expected:.4f}', output.getvalue())
 
     @classmethod
     def set_scores(cls, node, value):
@@ -164,6 +163,39 @@ class TestRunnerScoreClassification(unittest.TestCase):
         elif isinstance(node, list):
             for child in node:
                 cls.set_scores(child, value)
+
+
+class TestFractionalScoreReports(unittest.TestCase):
+    def test_odqa_and_dse_reports_use_four_decimal_fractional_scores(self):
+        for name, count in [('odqa', 28), ('dse', 6)]:
+            with self.subTest(runner=name), tempfile.TemporaryDirectory() as directory:
+                runner = importlib.import_module(f'pyserini.2cr.{name}')
+                output = Path(directory) / 'report.html'
+                runner.generate_report(Namespace(directory='runs', output=str(output)))
+                cells = re.findall(r'<td>([0-9.]+)</td>', output.read_text())
+                self.assertEqual(len(cells), count)
+                for cell in cells:
+                    self.assertRegex(cell, r'^[01]\.\d{4}$')
+                    self.assertTrue(0 <= float(cell) <= 1)
+                if name == 'odqa':
+                    config = yaml.safe_load(base.read_file('odqa_tqa.yaml'))
+                    expected = config['conditions'][0]['scores'][0]['Top100']
+                else:
+                    config = yaml.safe_load(base.read_file('dse.yaml'))
+                    expected = config['conditions'][0]['datasets'][0]['scores'][0]['Top-1']
+                self.assertIn(f'{expected:.4f}', cells)
+
+    def test_odqa_skipped_evaluation_prints_fractional_summary(self):
+        runner = importlib.import_module('pyserini.2cr.odqa')
+        args = Namespace(all=True, condition=None, directory='runs', display_commands=False,
+                         dry_run=True, skip_eval=True, full_topk=True)
+        output = StringIO()
+        with redirect_stdout(output), patch.object(runner, 'run_command') as command:
+            runner.run_topic_conditions(args, *runner.topic_configs()[1])
+        command.assert_not_called()
+        config = yaml.safe_load(base.read_file('odqa_nq.yaml'))
+        for score in config['conditions'][0]['scores'][0].values():
+            self.assertIn(f'{score:.4f}', output.getvalue())
 
 
 if __name__ == '__main__':

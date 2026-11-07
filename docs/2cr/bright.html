@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Pyserini Reproductions</title>
+    <title>Pyserini: BRIGHT</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -131,7 +131,7 @@ pre[class*="prettyprint"] {
           ">
         <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
           <div class="text-white">
-            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> &nbsp; Pyserini BRIGHT Regressions</h1>
+            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> Pyserini: BRIGHT</h1>
           </div>
         </div>
       </div>
@@ -213,9 +213,9 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 <td>   0.408</td>
 <td></td>
 <td>   0.425</td>
-<td>   0.798</td>
+<td>   0.800</td>
 <td></td>
-<td>   0.541</td>
+<td>   0.542</td>
 <td>   0.924</td>
 </tr>
 <tr class="hide-table-padding">
@@ -248,7 +248,7 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 
 <!-- Tabs content -->
 <div class="tab-content" id="row1-content">
-  <div class="tab-pane fade" id="row1-tab1" role="tabpanel" aria-labelledby="row1-tab1">
+  <div class="tab-pane fade show active" id="row1-tab1" role="tabpanel" aria-labelledby="row1-tab1">
 Command to generate run:
 
   <blockquote class="mycode">
@@ -370,11 +370,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-biology.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-biology-original \
+  --topics-format raw_jsonl \
   --output run.bright.diver-retriever-4b.biology.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -397,11 +397,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-biology.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Biology post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Biology post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-biology-original \
+  --topics-format raw_jsonl \
   --output run.bright.reason-embed-qwen3-4b-0928.biology.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --fp16 --l2-norm --max-length 8192 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -437,11 +437,11 @@ python -m pyserini.eval.trec_eval \
 <td>   0.255</td>
 <td>   0.540</td>
 <td></td>
-<td>   0.464</td>
-<td>   0.791</td>
+<td>   0.463</td>
+<td>   0.792</td>
 <td></td>
 <td>   0.537</td>
-<td>   0.854</td>
+<td>   0.856</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -473,7 +473,7 @@ python -m pyserini.eval.trec_eval \
 
 <!-- Tabs content -->
 <div class="tab-content" id="row2-content">
-  <div class="tab-pane fade" id="row2-tab1" role="tabpanel" aria-labelledby="row2-tab1">
+  <div class="tab-pane fade show active" id="row2-tab1" role="tabpanel" aria-labelledby="row2-tab1">
 Command to generate run:
 
   <blockquote class="mycode">
@@ -595,11 +595,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-earth-science.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-earth-science-original \
+  --topics-format raw_jsonl \
   --output run.bright.diver-retriever-4b.earth-science.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -622,11 +622,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-earth-science.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given an Earth Science post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --query-prefix 'Instruct: Given an Earth Science post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-earth-science-original \
+  --topics-format raw_jsonl \
   --output run.bright.reason-embed-qwen3-4b-0928.earth-science.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --fp16 --l2-norm --max-length 8192 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -662,11 +662,11 @@ python -m pyserini.eval.trec_eval \
 <td>   0.166</td>
 <td>   0.487</td>
 <td></td>
-<td>   0.222</td>
+<td>   0.221</td>
 <td>   0.573</td>
 <td></td>
-<td>   0.339</td>
-<td>   0.716</td>
+<td>   0.342</td>
+<td>   0.715</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -698,7 +698,7 @@ python -m pyserini.eval.trec_eval \
 
 <!-- Tabs content -->
 <div class="tab-content" id="row3-content">
-  <div class="tab-pane fade" id="row3-tab1" role="tabpanel" aria-labelledby="row3-tab1">
+  <div class="tab-pane fade show active" id="row3-tab1" role="tabpanel" aria-labelledby="row3-tab1">
 Command to generate run:
 
   <blockquote class="mycode">
@@ -820,11 +820,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-economics.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-economics-original \
+  --topics-format raw_jsonl \
   --output run.bright.diver-retriever-4b.economics.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -847,11 +847,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-economics.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given an Economics post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --query-prefix 'Instruct: Given an Economics post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-economics-original \
+  --topics-format raw_jsonl \
   --output run.bright.reason-embed-qwen3-4b-0928.economics.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --fp16 --l2-norm --max-length 8192 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -887,11 +887,11 @@ python -m pyserini.eval.trec_eval \
 <td>   0.180</td>
 <td>   0.465</td>
 <td></td>
-<td>   0.337</td>
-<td>   0.747</td>
+<td>   0.340</td>
+<td>   0.746</td>
 <td></td>
-<td>   0.459</td>
-<td>   0.816</td>
+<td>   0.460</td>
+<td>   0.813</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -923,7 +923,7 @@ python -m pyserini.eval.trec_eval \
 
 <!-- Tabs content -->
 <div class="tab-content" id="row4-content">
-  <div class="tab-pane fade" id="row4-tab1" role="tabpanel" aria-labelledby="row4-tab1">
+  <div class="tab-pane fade show active" id="row4-tab1" role="tabpanel" aria-labelledby="row4-tab1">
 Command to generate run:
 
   <blockquote class="mycode">
@@ -1045,11 +1045,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-psychology.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-psychology-original \
+  --topics-format raw_jsonl \
   --output run.bright.diver-retriever-4b.psychology.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1072,11 +1072,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-psychology.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Psychology post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Psychology post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-psychology-original \
+  --topics-format raw_jsonl \
   --output run.bright.reason-embed-qwen3-4b-0928.psychology.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --fp16 --l2-norm --max-length 8192 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1115,8 +1115,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.209</td>
 <td>   0.515</td>
 <td></td>
-<td>   0.345</td>
-<td>   0.706</td>
+<td>   0.346</td>
+<td>   0.703</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1148,7 +1148,7 @@ python -m pyserini.eval.trec_eval \
 
 <!-- Tabs content -->
 <div class="tab-content" id="row5-content">
-  <div class="tab-pane fade" id="row5-tab1" role="tabpanel" aria-labelledby="row5-tab1">
+  <div class="tab-pane fade show active" id="row5-tab1" role="tabpanel" aria-labelledby="row5-tab1">
 Command to generate run:
 
   <blockquote class="mycode">
@@ -1270,11 +1270,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-robotics.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-robotics-original \
+  --topics-format raw_jsonl \
   --output run.bright.diver-retriever-4b.robotics.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1297,11 +1297,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-robotics.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Robotics post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Robotics post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-robotics-original \
+  --topics-format raw_jsonl \
   --output run.bright.reason-embed-qwen3-4b-0928.robotics.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --fp16 --l2-norm --max-length 8192 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1337,10 +1337,10 @@ python -m pyserini.eval.trec_eval \
 <td>   0.110</td>
 <td>   0.532</td>
 <td></td>
-<td>   0.211</td>
-<td>   0.672</td>
+<td>   0.209</td>
+<td>   0.671</td>
 <td></td>
-<td>   0.358</td>
+<td>   0.357</td>
 <td>   0.808</td>
 </tr>
 <tr class="hide-table-padding">
@@ -1373,7 +1373,7 @@ python -m pyserini.eval.trec_eval \
 
 <!-- Tabs content -->
 <div class="tab-content" id="row6-content">
-  <div class="tab-pane fade" id="row6-tab1" role="tabpanel" aria-labelledby="row6-tab1">
+  <div class="tab-pane fade show active" id="row6-tab1" role="tabpanel" aria-labelledby="row6-tab1">
 Command to generate run:
 
   <blockquote class="mycode">
@@ -1495,11 +1495,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-stackoverflow.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-stackoverflow-original \
+  --topics-format raw_jsonl \
   --output run.bright.diver-retriever-4b.stackoverflow.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1522,11 +1522,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-stackoverflow.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Stack Overflow post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Stack Overflow post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-stackoverflow-original \
+  --topics-format raw_jsonl \
   --output run.bright.reason-embed-qwen3-4b-0928.stackoverflow.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --fp16 --l2-norm --max-length 8192 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1562,10 +1562,10 @@ python -m pyserini.eval.trec_eval \
 <td>   0.144</td>
 <td>   0.516</td>
 <td></td>
-<td>   0.243</td>
+<td>   0.246</td>
 <td>   0.682</td>
 <td></td>
-<td>   0.372</td>
+<td>   0.370</td>
 <td>   0.804</td>
 </tr>
 <tr class="hide-table-padding">
@@ -1598,7 +1598,7 @@ python -m pyserini.eval.trec_eval \
 
 <!-- Tabs content -->
 <div class="tab-content" id="row7-content">
-  <div class="tab-pane fade" id="row7-tab1" role="tabpanel" aria-labelledby="row7-tab1">
+  <div class="tab-pane fade show active" id="row7-tab1" role="tabpanel" aria-labelledby="row7-tab1">
 Command to generate run:
 
   <blockquote class="mycode">
@@ -1720,11 +1720,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-sustainable-living.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-sustainable-living-original \
+  --topics-format raw_jsonl \
   --output run.bright.diver-retriever-4b.sustainable-living.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1747,11 +1747,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-sustainable-living.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Sustainable Living post, retrieve relevant passages that help answer the post.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Sustainable Living post, retrieve relevant passages that help answer the post.\nQuery: ' \
   --topics bright-sustainable-living-original \
+  --topics-format raw_jsonl \
   --output run.bright.reason-embed-qwen3-4b-0928.sustainable-living.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --fp16 --l2-norm --max-length 8192 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1787,11 +1787,11 @@ python -m pyserini.eval.trec_eval \
 <td>   0.034</td>
 <td>   0.180</td>
 <td></td>
-<td>   0.128</td>
-<td>   0.248</td>
+<td>   0.127</td>
+<td>   0.246</td>
 <td></td>
-<td>   0.118</td>
-<td>   0.268</td>
+<td>   0.119</td>
+<td>   0.267</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -1823,7 +1823,7 @@ python -m pyserini.eval.trec_eval \
 
 <!-- Tabs content -->
 <div class="tab-content" id="row8-content">
-  <div class="tab-pane fade" id="row8-tab1" role="tabpanel" aria-labelledby="row8-tab1">
+  <div class="tab-pane fade show active" id="row8-tab1" role="tabpanel" aria-labelledby="row8-tab1">
 Command to generate run:
 
   <blockquote class="mycode">
@@ -1945,11 +1945,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-pony.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-pony-original \
+  --topics-format raw_jsonl \
   --output run.bright.diver-retriever-4b.pony.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -1972,11 +1972,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-pony.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Pony question, retrieve relevant passages that help answer the question.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Pony question, retrieve relevant passages that help answer the question.\nQuery: ' \
   --topics bright-pony-original \
+  --topics-format raw_jsonl \
   --output run.bright.reason-embed-qwen3-4b-0928.pony.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --fp16 --l2-norm --max-length 8192 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2012,10 +2012,10 @@ python -m pyserini.eval.trec_eval \
 <td>   0.267</td>
 <td>   0.529</td>
 <td></td>
-<td>   0.371</td>
-<td>   0.702</td>
+<td>   0.373</td>
+<td>   0.699</td>
 <td></td>
-<td>   0.371</td>
+<td>   0.369</td>
 <td>   0.745</td>
 </tr>
 <tr class="hide-table-padding">
@@ -2048,7 +2048,7 @@ python -m pyserini.eval.trec_eval \
 
 <!-- Tabs content -->
 <div class="tab-content" id="row9-content">
-  <div class="tab-pane fade" id="row9-tab1" role="tabpanel" aria-labelledby="row9-tab1">
+  <div class="tab-pane fade show active" id="row9-tab1" role="tabpanel" aria-labelledby="row9-tab1">
 Command to generate run:
 
   <blockquote class="mycode">
@@ -2170,11 +2170,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-leetcode.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-leetcode-original \
+  --topics-format raw_jsonl \
   --output run.bright.diver-retriever-4b.leetcode.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2197,11 +2197,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-leetcode.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Coding problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Coding problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
   --topics bright-leetcode-original \
+  --topics-format raw_jsonl \
   --output run.bright.reason-embed-qwen3-4b-0928.leetcode.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --fp16 --l2-norm --max-length 8192 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2237,11 +2237,11 @@ python -m pyserini.eval.trec_eval \
 <td>   0.064</td>
 <td>   0.240</td>
 <td></td>
-<td>   0.108</td>
+<td>   0.104</td>
 <td>   0.344</td>
 <td></td>
-<td>   0.115</td>
-<td>   0.373</td>
+<td>   0.117</td>
+<td>   0.372</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2273,7 +2273,7 @@ python -m pyserini.eval.trec_eval \
 
 <!-- Tabs content -->
 <div class="tab-content" id="row10-content">
-  <div class="tab-pane fade" id="row10-tab1" role="tabpanel" aria-labelledby="row10-tab1">
+  <div class="tab-pane fade show active" id="row10-tab1" role="tabpanel" aria-labelledby="row10-tab1">
 Command to generate run:
 
   <blockquote class="mycode">
@@ -2395,11 +2395,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-aops.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-aops-original \
+  --topics-format raw_jsonl \
   --output run.bright.diver-retriever-4b.aops.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2422,11 +2422,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-aops.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Math problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Math problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
   --topics bright-aops-original \
+  --topics-format raw_jsonl \
   --output run.bright.reason-embed-qwen3-4b-0928.aops.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --fp16 --l2-norm --max-length 8192 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2462,11 +2462,11 @@ python -m pyserini.eval.trec_eval \
 <td>   0.053</td>
 <td>   0.259</td>
 <td></td>
-<td>   0.374</td>
+<td>   0.370</td>
 <td>   0.795</td>
 <td></td>
-<td>   0.452</td>
-<td>   0.917</td>
+<td>   0.453</td>
+<td>   0.920</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -2498,7 +2498,7 @@ python -m pyserini.eval.trec_eval \
 
 <!-- Tabs content -->
 <div class="tab-content" id="row11-content">
-  <div class="tab-pane fade" id="row11-tab1" role="tabpanel" aria-labelledby="row11-tab1">
+  <div class="tab-pane fade show active" id="row11-tab1" role="tabpanel" aria-labelledby="row11-tab1">
 Command to generate run:
 
   <blockquote class="mycode">
@@ -2620,11 +2620,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-theoremqa-theorems.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-theoremqa-theorems-original \
+  --topics-format raw_jsonl \
   --output run.bright.diver-retriever-4b.theoremqa-theorems.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2647,11 +2647,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-theoremqa-theorems.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Math problem, retrieve relevant theorems that help answer the problem.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Math problem, retrieve relevant theorems that help answer the problem.\nQuery: ' \
   --topics bright-theoremqa-theorems-original \
+  --topics-format raw_jsonl \
   --output run.bright.reason-embed-qwen3-4b-0928.theoremqa-theorems.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --fp16 --l2-norm --max-length 8192 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2687,8 +2687,8 @@ python -m pyserini.eval.trec_eval \
 <td>   0.141</td>
 <td>   0.282</td>
 <td></td>
-<td>   0.381</td>
-<td>   0.585</td>
+<td>   0.383</td>
+<td>   0.586</td>
 <td></td>
 <td>   0.409</td>
 <td>   0.637</td>
@@ -2723,7 +2723,7 @@ python -m pyserini.eval.trec_eval \
 
 <!-- Tabs content -->
 <div class="tab-content" id="row12-content">
-  <div class="tab-pane fade" id="row12-tab1" role="tabpanel" aria-labelledby="row12-tab1">
+  <div class="tab-pane fade show active" id="row12-tab1" role="tabpanel" aria-labelledby="row12-tab1">
 Command to generate run:
 
   <blockquote class="mycode">
@@ -2845,11 +2845,11 @@ Command to generate run:
   --encoder AQ-MedAI/Diver-Retriever-4B \
   --encoder-class qwen3 \
   --index bright-theoremqa-questions.diver-retriever-4b \
-  --query-prefix $'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
+  --query-prefix 'Instruct: Given a web search query, retrieve relevant passages that answer the query\nQuery:' \
   --topics bright-theoremqa-questions-original \
+  --topics-format raw_jsonl \
   --output run.bright.diver-retriever-4b.theoremqa-questions.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
+  --hits 1000 --remove-query --explicit-truncate --fp16 --l2-norm --max-length 16384 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -2872,11 +2872,11 @@ Command to generate run:
   --encoder hanhainebula/reason-embed-qwen3-4b-0928 \
   --encoder-class qwen3 \
   --index bright-theoremqa-questions.reason-embed-qwen3-4b-0928 \
-  --query-prefix $'Instruct: Given a Math problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
+  --query-prefix 'Instruct: Given a Math problem, retrieve relevant examples that help answer the problem.\nQuery: ' \
   --topics bright-theoremqa-questions-original \
+  --topics-format raw_jsonl \
   --output run.bright.reason-embed-qwen3-4b-0928.theoremqa-questions.txt \
-  --hits 1000 --remove-query \
-  --topics-format raw_jsonl --fp16 --l2-norm --max-length 8192 --device cuda:0
+  --hits 1000 --remove-query --fp16 --l2-norm --max-length 8192 --device cuda:0
 </code></pre></blockquote>
 Evaluation commands:
 

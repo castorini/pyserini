@@ -24,26 +24,16 @@ from datetime import datetime, timezone
 from string import Template
 
 import yaml
-
 from pyserini.util import run_command
 
 from ._base import (
     compare_reproduction_score,
     format_reproduction_status,
+    format_run_command,
     read_file,
     run_eval_and_return_metric,
 )
 
-def format_run_command(raw):
-    return raw.replace('--topics', '\\\n  --topics') \
-        .replace('--encoder-class', '\\\n  --encoder-class') \
-        .replace('--encoder ', '\\\n  --encoder ') \
-        .replace('--pooling', '\\\n  --pooling') \
-        .replace('--index', '\\\n  --index') \
-        .replace('--output ', '\\\n  --output ') \
-        .replace('--hits ', '\\\n  --hits ') \
-        .replace('--device', '\\\n  --device') \
-        .replace('--batch-size', '\\\n  --batch-size')
 
 def list_conditions():
     with importlib.resources.files('pyserini.2cr').joinpath('dse.yaml').open('r') as f:
@@ -114,7 +104,7 @@ def run_conditions(args):
                                 # Parse "Top-k Accuracy: 0.43"
                                 for line in out.split('\n'):
                                     if "Top-k Accuracy:" in line:
-                                        score = float(line.split(':')[-1].strip()) * 100
+                                        score = float(line.split(':')[-1].strip())
                                         break
                             
                             else:
@@ -126,13 +116,13 @@ def run_conditions(args):
                                     trec_eval_metric = '-c -m recall.10'
                                 
                                 score = float(run_eval_and_return_metric(metric, dataset,
-                                    trec_eval_metric, runfile, display_command=args.display_commands)) * 100
+                                    trec_eval_metric, runfile, display_command=args.display_commands))
 
 
                             expected_score = float(expected[metric])
-                            status = compare_reproduction_score(score / 100, expected_score / 100)
-                            result = format_reproduction_status(status, expected_score, precision=1)
-                            print(f'      {metric:10}: {score:6.2f} {result}')
+                            status = compare_reproduction_score(score, expected_score)
+                            result = format_reproduction_status(status, expected_score)
+                            print(f'      {metric:10}: {score:.4f} {result}')
                             table[dataset][name][metric] = score
                         else:
                             table[dataset][name][metric] = expected[metric]
@@ -189,7 +179,7 @@ def generate_report(args):
 
                      for metric in metrics_order:
                          score = expected_map.get(metric, 0.0)
-                         score_cells += f'<td>{score:.1f}</td>\n'
+                         score_cells += f'<td>{score:.4f}</td>\n'
                          
                          if dataset == 'wiki-ss-nq':
                             k = int(metric.split('-')[1])
@@ -211,6 +201,7 @@ def generate_report(args):
                 s = s.substitute(row_cnt=row_cnt,
                                  dataset=dataset,
                                  score_cells=score_cells,
+                                 detail_colspan=1 + score_cells.count('<td>'),
                                  cmd=cmd,
                                  eval_cmd=eval_cmds_str)
 
@@ -222,9 +213,7 @@ def generate_report(args):
                 row_cnt += 1
 
     with open(args.output, 'w') as out:
-        out.write(Template(html_template).substitute(title='Pyserini DSE Reproductions', 
-                                                     wiki_rows='\n'.join(wiki_rows), 
-                                                     slide_rows='\n'.join(slide_rows)))
+        out.write(Template(html_template).substitute(title='Pyserini: DSE', wiki_rows='\n'.join(wiki_rows), slide_rows='\n'.join(slide_rows)))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run DSE 2CR experiments.')

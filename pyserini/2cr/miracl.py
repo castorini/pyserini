@@ -24,13 +24,13 @@ from datetime import UTC, datetime
 from string import Template
 
 import yaml
-
 from pyserini.util import run_command
 
 from ._base import (
     compare_reproduction_score,
     format_eval_command,
     format_reproduction_status,
+    format_run_command,
     read_file,
     run_eval_and_return_metric,
 )
@@ -75,17 +75,6 @@ trec_eval_metric_definitions = {
     'nDCG@10': '-c -M 100 -m ndcg_cut.10',
     'R@100': '-c -m recall.100',
 }
-
-
-def format_run_command(raw):
-    return raw.replace('--lang', '\\\n  --lang') \
-        .replace('--encoder', '\\\n  --encoder') \
-        .replace('--topics', '\\\n  --topics') \
-        .replace('--index', '\\\n  --index') \
-        .replace('--output ', '\\\n  --output ') \
-        .replace('--runs', '\\\n  --runs ') \
-        .replace('--threads ', '\\\n  --threads ') \
-        .replace('--bm25 ', '\\\n  --bm25 ')
 
 
 def list_conditions():
@@ -248,10 +237,8 @@ def generate_report(args):
 
                 runfile = os.path.join(args.directory, f'run.miracl.{name}.{split}.txt')
                 if is_hybrid_run:
-                    bm25_output = os.path.join(args.directory,
-                                               f'run.miracl.bm25.{lang}.{split}.top{hits}.txt')
-                    mdpr_output = os.path.join(args.directory,
-                                               f'run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt')
+                    bm25_output = os.path.join(args.directory, f'run.miracl.bm25.{lang}.{split}.top{hits}.txt')
+                    mdpr_output = os.path.join(args.directory, f'run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt')
                     expected_args = dict(output=runfile, bm25_output=bm25_output, mdpr_output=mdpr_output)
                 else:
                     expected_args = dict(split=split, output=runfile,
@@ -288,7 +275,7 @@ def generate_report(args):
         tables_html.append(Template(table_template).substitute(desc=f'Recall@100, {split}&nbsp;queries', rows=all_rows))
 
     with open(args.output, 'w') as out:
-        out.write(Template(html_template).substitute(title='MIRACL', tables=' '.join(tables_html)))
+        out.write(Template(html_template).substitute(title='Pyserini: MIRACL', tables=' '.join(tables_html)))
 
 
 def run_conditions(args):

@@ -1,4 +1,51 @@
 conditions:
+  # Verified SlideOn d512/q64/s100 runs; see docs/experiments-slideon.md.
+  - name: slideon-pytorch
+    display: "SlideOn: PyTorch (d512/q64/s100)"
+    display-html: "SlideOn: PyTorch (d512/q64/s100)"
+    display-row: '[<a href="https://huggingface.co/blog/lightonai/slideon-mslideon" data-mdb-toggle="tooltip" title="LightOn AI. SlideOn &amp; mSlideOn: Sparsified Late-Interaction and Dense Retrievers.">16</a>]'
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.slideon --topics $topics --encoder lightonai/SlideOn --output $output --hits 1000 --impact
+    topics:
+      - topic_key: msmarco-v1-passage.dev
+        eval_key: msmarco-v1-passage.dev
+        scores:
+          - MRR@10: 0.3855
+            R@1K: 0.9878
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4881
+            nDCG@10: 0.7252
+            R@1K: 0.8742
+      - topic_key: dl20-passage
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.5064
+            nDCG@10: 0.7189
+            R@1K: 0.8744
+  - name: slideon-onnx
+    display: "SlideOn: ONNX (d512/q64/s100)"
+    display-html: "SlideOn: ONNX (d512/q64/s100)"
+    display-row: '[<a href="https://huggingface.co/blog/lightonai/slideon-mslideon" data-mdb-toggle="tooltip" title="LightOn AI. SlideOn &amp; mSlideOn: Sparsified Late-Interaction and Dense Retrievers.">16</a>]'
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage.slideon --topics $topics --onnx-encoder SlideOn --output $output --hits 1000 --impact
+    topics:
+      - topic_key: msmarco-v1-passage.dev
+        eval_key: msmarco-v1-passage.dev
+        scores:
+          - MRR@10: 0.3855
+            R@1K: 0.9878
+      - topic_key: dl19-passage
+        eval_key: dl19-passage
+        scores:
+          - MAP: 0.4881
+            nDCG@10: 0.7252
+            R@1K: 0.8742
+      - topic_key: dl20-passage
+        eval_key: dl20-passage
+        scores:
+          - MAP: 0.5064
+            nDCG@10: 0.7189
+            R@1K: 0.8744
   - name: splade-v3-pytorch
     display: "SPLADE-v3: PyTorch"
     display-html: "SPLADE-v3: PyTorch"
@@ -8,7 +55,7 @@ conditions:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
         scores:
-          - MRR@10: 0.3999
+          - MRR@10: 0.4000
             R@1K: 0.9868
       - topic_key: dl19-passage
         eval_key: dl19-passage
@@ -128,7 +175,7 @@ conditions:
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
-          - MAP: 0.4664
+          - MAP: 0.4663
             nDCG@10: 0.7247
             R@1K: 0.8218
       - topic_key: dl20-passage
@@ -441,7 +488,7 @@ conditions:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
         scores:
-          - MRR@10: 0.2910
+          - MRR@10: 0.2911
             R@1K: 0.9613
       - topic_key: dl19-passage
         eval_key: dl19-passage
@@ -464,7 +511,7 @@ conditions:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
         scores:
-          - MRR@10: 0.2896
+          - MRR@10: 0.2897
             R@1K: 0.9702
       - topic_key: dl19-passage
         eval_key: dl19-passage
@@ -510,8 +557,8 @@ conditions:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
         scores:
-          - MRR@10: 0.3301
-            R@1K: 0.9587
+          - MRR@10: 0.3302
+            R@1K: 0.9584
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
@@ -521,7 +568,7 @@ conditions:
       - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
-          - MAP: 0.4076
+          - MAP: 0.4077
             nDCG@10: 0.6458
             R@1K: 0.7764
   - name: ance-avg-prf-pytorch
@@ -533,7 +580,7 @@ conditions:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
         scores:
-          - MRR@10: 0.3075
+          - MRR@10: 0.3074
             R@1K: 0.9490
       - topic_key: dl19-passage
         eval_key: dl19-passage
@@ -569,7 +616,7 @@ conditions:
         scores:
           - MAP: 0.4315
             nDCG@10: 0.6471
-            R@1K: 0.7957
+            R@1K: 0.7967
   - name: sbert-pytorch
     display: "SBERT: Faiss flat, PyTorch"
     display-html: "SBERT: Faiss flat, PyTorch"
@@ -989,13 +1036,13 @@ conditions:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
         scores:
-          - MRR@10: 0.3121
+          - MRR@10: 0.3122
             R@1K: 0.9585
       - topic_key: dl19-passage
         eval_key: dl19-passage
         scores:
           - MAP: 0.4879
-            nDCG@10: 0.7312
+            nDCG@10: 0.7311
             R@1K: 0.8586
       - topic_key: dl20-passage
         eval_key: dl20-passage
@@ -1069,7 +1116,7 @@ conditions:
       - topic_key: dl20-passage
         eval_key: dl20-passage
         scores:
-          - MAP: 0.5078
+          - MAP: 0.5079
             nDCG@10: 0.7244
             R@1K: 0.8847
   - name: slimr

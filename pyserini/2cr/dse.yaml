@@ -6,13 +6,13 @@ conditions:
         index: wiki-ss.dse
         topics: wiki-ss-nq
         scores:
-          - Top-1: 43.0
-            Top-5: 65.5
-            Top-10: 71.3
-            Top-20: 76.0
+          - Top-1: 0.4307
+            Top-5: 0.6554
+            Top-10: 0.7133
+            Top-20: 0.7593
       - dataset: slidevqa
         index: slidevqa.dse
         topics: slidevqa
         scores:
-          - nDCG@10: 73.1
-            Recall@10: 83.2
+          - nDCG@10: 0.7306
+            Recall@10: 0.8317

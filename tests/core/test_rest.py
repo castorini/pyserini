@@ -301,6 +301,36 @@ class TestRestServer(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn('query', response.json().get('error', ''))
 
+    def test_search_invalid_retriever_400(self):
+        for retriever in ('invalid-retriever', 'BM25', 'bm25QS', ' bm25 ', ''):
+            with self.subTest(retriever=retriever):
+                response = self.client.get(
+                    f'/{API_VERSION}/{_REST_INDEX}/search',
+                    params={'query': _REST_QUERY, 'retriever': retriever},
+                )
+                self.assertEqual(response.status_code, 400)
+                self.assertIn('retriever', response.json().get('error', ''))
+
+    def test_search_bm25_retriever_matches_default(self):
+        params = {'query': _REST_QUERY, 'hits': 3}
+        default = self.client.get(f'/{API_VERSION}/{_REST_INDEX}/search', params=params)
+        explicit = self.client.get(
+            f'/{API_VERSION}/{_REST_INDEX}/search', params={**params, 'retriever': 'bm25'},
+        )
+        self.assertEqual(default.status_code, 200, msg=default.text)
+        self.assertEqual(explicit.status_code, 200, msg=explicit.text)
+        self.assertEqual(default.json(), explicit.json())
+
+    def test_search_retriever_accepted(self):
+        for retriever in ('bm25', 'bm25qs'):
+            with self.subTest(retriever=retriever):
+                response = self.client.get(
+                    f'/{API_VERSION}/{_REST_INDEX}/search',
+                    params={'query': _REST_QUERY, 'hits': 1, 'retriever': retriever},
+                )
+                self.assertEqual(response.status_code, 200, msg=response.text)
+                self.assertEqual(len(response.json()['candidates']), 1)
+
     def test_search_bm25_k1_b_accepted(self):
         response = self.client.get(
             f'/{API_VERSION}/{_REST_INDEX}/search',

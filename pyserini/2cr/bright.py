@@ -24,11 +24,13 @@ from datetime import UTC, datetime
 from string import Template
 
 import yaml
+from pyserini.util import run_command
 
 from ._base import (
     compare_reproduction_score,
     format_eval_command,
     format_reproduction_status,
+    format_run_command,
     read_file,
     run_eval_and_return_metric,
 )
@@ -61,18 +63,6 @@ models = ['bm25',
           'bge-large-en-v1.5.flat',
           'diver-retriever-4b',
           'reason-embed-qwen3-4b-0928']
-
-
-def format_run_command(raw):
-    return raw.replace('--topics', '\\\n  --topics') \
-        .replace('--index', '\\\n  --index') \
-        .replace('--onnx-encoder', '\\\n  --onnx-encoder') \
-        .replace('--encoder-class ', '\\\n  --encoder-class ') \
-        .replace('--encoder ', '\\\n  --encoder ') \
-        .replace('--query-prefix ', '\\\n  --query-prefix ') \
-        .replace('--output ', '\\\n  --output ') \
-        .replace('--output-format trec ', '\\\n  --output-format trec ') \
-        .replace('--hits ', '\\\n  --hits ') \
 
 
 def list_conditions():
@@ -151,7 +141,7 @@ def generate_report(args):
             
         main_rows = '\n'.join(main_rows)
         with open(args.output, 'w') as out:
-            out.write(Template(html_template).substitute(title='Pyserini BRIGHT Regressions', main_rows=main_rows))
+            out.write(Template(html_template).substitute(title='Pyserini: BRIGHT', main_rows=main_rows))
 
 
 def run_conditions(args):
@@ -187,7 +177,7 @@ def run_conditions(args):
                     print(f'\n```bash\n{format_run_command(cmd)}\n```\n')
 
                 if not os.path.exists(runfile) and not args.dry_run:
-                    os.system(cmd)
+                    run_command(cmd, capture_output=False)
 
                 for expected in datasets['scores']:
                     for metric in expected:

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Pyserini Reproductions</title>
+    <title>Pyserini: DSE</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -58,6 +58,16 @@ tr th.headerbottom {
 }
 
 .table>:not(caption)>*>*{padding:0.75rem 0.75rem}
+
+.table.dse-results {
+  table-layout: fixed;
+  width: 100%;
+  min-width: 700px;
+}
+
+.dse-results .expand-column { width: 40px; }
+.dse-results .dataset-column { width: 200px; }
+
 
 .copy-code-button {
 	border-radius: 0;
@@ -131,7 +141,7 @@ pre[class*="prettyprint"] {
           ">
         <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
           <div class="text-white">
-            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> &nbsp; Pyserini DSE Reproductions</h1>
+            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> Pyserini: DSE</h1>
           </div>
         </div>
       </div>
@@ -147,7 +157,15 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 <h4>Wiki-SS-NQ Results</h4>
 
 <div class="table-responsive">
-  <table class="table">
+  <table class="table dse-results">
+    <colgroup>
+      <col class="expand-column" />
+      <col class="dataset-column" />
+      <col />
+      <col />
+      <col />
+      <col />
+    </colgroup>
     <thead>
       <tr>
         <th class="headertop"></th>
@@ -172,15 +190,15 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 <tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">
 <td class="expand-button"></td>
 <td width="200">wiki-ss-nq</td>
-<td>43.0</td>
-<td>65.5</td>
-<td>71.3</td>
-<td>76.0</td>
+<td>0.4307</td>
+<td>0.6554</td>
+<td>0.7133</td>
+<td>0.7593</td>
 
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="6">
+<td colspan="5">
 <div id="collapse1" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -199,14 +217,11 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class dse \
-  --encoder Tevatron/dse-phi3-v1.0 \
-  --pooling last \
+  --encoder Tevatron/dse-phi3-v1.0 --pooling last \
   --index wiki-ss.dse \
   --topics wiki-ss-nq \
   --output run.dse.dse.wiki-ss-nq.txt \
-  --hits 20 \
-  --device cuda:0 \
-  --batch-size 128
+  --hits 20 --device cuda:0 --batch-size 128
 </code></pre></blockquote>
 Evaluation commands:
 
@@ -233,7 +248,13 @@ python scripts/dse/evaluate_wiki_ss_run.py --run_file run.dse.dse.wiki-ss-nq.txt
 <h4>SlideVQA Results</h4>
 
 <div class="table-responsive">
-  <table class="table">
+  <table class="table dse-results">
+    <colgroup>
+      <col class="expand-column" />
+      <col class="dataset-column" />
+      <col />
+      <col />
+    </colgroup>
     <thead>
       <tr>
         <th class="headertop"></th>
@@ -256,13 +277,13 @@ python scripts/dse/evaluate_wiki_ss_run.py --run_file run.dse.dse.wiki-ss-nq.txt
 <tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
 <td class="expand-button"></td>
 <td width="200">slidevqa</td>
-<td>73.1</td>
-<td>83.2</td>
+<td>0.7306</td>
+<td>0.8317</td>
 
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="6">
+<td colspan="3">
 <div id="collapse2" class="collapse in p-3">
 
 <!-- Tabs navs -->
@@ -281,14 +302,11 @@ Command to generate run:
   <blockquote class="mycode">
 <pre><code>python -m pyserini.search.faiss \
   --encoder-class dse \
-  --encoder Tevatron/dse-phi3-v1.0 \
-  --pooling last \
+  --encoder Tevatron/dse-phi3-v1.0 --pooling last \
   --index slidevqa.dse \
   --topics slidevqa \
   --output run.dse.dse.slidevqa.txt \
-  --hits 20 \
-  --device cuda:0 \
-  --batch-size 128
+  --hits 20 --device cuda:0 --batch-size 128
 </code></pre></blockquote>
 Evaluation commands:
 
