@@ -24,6 +24,7 @@ from sklearn.preprocessing import normalize
 from transformers import CLIPProcessor, CLIPModel
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
+from pyserini.encode._base import resolve_encoder_name_or_path
 
 os.environ['OPENBLAS_NUM_THREADS'] = '1'
 
@@ -142,12 +143,14 @@ class ClipEncoder(QueryEncoder):
 class ClipQueryEncoder(QueryEncoder):
     """Encodes queries using a CLIP model, supporting both images and texts."""
 
-    def __init__(self, encoder_dir: str = None, encoded_queries_dir: str = None, device: str = 'cuda:0',
-                 l2_norm: bool = False, prefix: str = None, multimodal: bool = False, **kwargs):
+    def __init__(self, encoder_name_or_path: str = None, encoded_queries_dir: str = None,
+                 device: str = 'cuda:0', l2_norm: bool = False, prefix: str = None,
+                 multimodal: bool = False, encoder_dir: str = None, **kwargs):
         super().__init__(encoded_queries_dir)
-        if encoder_dir:
+        encoder_name_or_path = resolve_encoder_name_or_path(encoder_name_or_path, encoder_dir)
+        if encoder_name_or_path:
             self.device = device
-            self.encoder = ClipEncoder(encoder_dir, device, l2_norm, prefix, multimodal)
+            self.encoder = ClipEncoder(encoder_name_or_path, device, l2_norm, prefix, multimodal)
             self.has_model = True
 
         if not self.has_model and not self.has_encoded_queries:

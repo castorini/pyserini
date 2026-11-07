@@ -291,7 +291,7 @@ class SharedSearchBackend:
                 return FaissSearcher.from_prebuilt_index(
                     config.name,
                     query_encoder=uniir_query_encoder(
-                        encoder_dir=config.encoder,
+                        encoder_name_or_path=config.encoder,
                         instruction_config=self._resolve_mbeir_instruction_config(config.name),
                     ),
                 )
