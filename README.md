@@ -23,29 +23,35 @@ For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.34632
 
 ## 🎬 Installation
 
-Install via PyPI:
+Pyserini is built on Python 3.12 (newer versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
+We recommend installing the JVM, [PyTorch](https://pytorch.org/), and [Faiss](https://github.com/facebookresearch/faiss) (only if you need Faiss retrieval) separately before installing Pyserini.
+For example, using `conda`, in an already-activated Conda environment:
+
+```bash
+conda install -c conda-forge openjdk=21 maven -y
+conda install -c conda-forge faiss-cpu -y
+conda install -c conda-forge pytorch -y
+```
+
+Then, install Pyserini from PyPI (using either `pip` or `uv`):
 
 ```bash
 pip install pyserini
 ```
 
-Pyserini is built on Python 3.12 (other versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
+Multimodal support (e.g., image search) is provided in the `optional` package.
+If you need it:
 
-❗ A `pip` installation will automatically pull in major dependencies such as [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/).
-Sometimes `pip` has issues pulling in the "right" versions; if this is the case, it might make sense to install these dependencies first (selecting the right version by hand, perhaps via `conda`).
+```bash
+pip install 'pyserini[optional]'
+pip install git+https://github.com/openai/CLIP.git
+```
 
-❗ Parts of Pyserini depend on [Faiss](https://github.com/facebookresearch/faiss).
-It's not included in the dependencies list because there is a proliferation of variants (`faiss-cpu`, `faiss-gpu`, etc.), so it's easier if you install the right variant yourself.
+The software ecosystem is rapidly evolving and one potential source of frustration is incompatibilities among different versions of the underlying dependencies.
+To help, we provide recipes in [our detailed installation guide](./docs/installation.md).
 
-Multimodal support (e.g., image search) has been pushed into an `optional` package.
-If you need it, install `'pyserini[optional]'`
-
-The software ecosystem is rapidly evolving and a potential source of frustration is incompatibility among different versions of underlying dependencies.
-We provide additional detailed installation instructions in [our detailed installation guide](./docs/installation.md).
-
-If you're planning on just _using_ Pyserini, then the `pip` instruction (without the optional dependencies) should be fine.
-However, if you're planning on contributing to the codebase or want to work with the latest not-yet-released features, you'll need a development installation.
-Instructions are provided in [our detailed installation guide](./docs/installation.md#development-installation).
+If you're planning on just _using_ Pyserini, the above instructions should work fine.
+However, if you're planning on contributing to the codebase or want to use not-yet-released features, you'll need a [development installation](./docs/installation.md#development-installation).
 
 ## 🙋 How do I search?
 
@@ -101,10 +107,14 @@ Documentation is organized into reproduction matrices for different corpora that
 + [MS MARCO V2 Passage](https://castorini.github.io/pyserini/2cr/msmarco-v2-passage.html)
 + [MS MARCO V2 Document](https://castorini.github.io/pyserini/2cr/msmarco-v2-doc.html)
 + [BEIR](https://castorini.github.io/pyserini/2cr/beir.html)
++ [BRIGHT](https://castorini.github.io/pyserini/2cr/bright.html)
 + [Mr.TyDi](https://castorini.github.io/pyserini/2cr/mrtydi.html)
 + [MIRACL](https://castorini.github.io/pyserini/2cr/miracl.html)
 + [Open-Domain Question Answering](https://castorini.github.io/pyserini/2cr/odqa.html)
 + [CIRAL](https://castorini.github.io/pyserini/2cr/ciral.html)
++ [AToMic](https://castorini.github.io/pyserini/2cr/atomic.html)
++ [DSE](https://castorini.github.io/pyserini/2cr/dse.html)
++ [mBEIR](https://castorini.github.io/pyserini/2cr/m-beir.html)
 
 For more details, see our paper on [Building a Culture of Reproducibility in Academic Research](https://arxiv.org/abs/2212.13534).
 

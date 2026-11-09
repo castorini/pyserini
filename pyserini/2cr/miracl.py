@@ -237,10 +237,8 @@ def generate_report(args):
 
                 runfile = os.path.join(args.directory, f'run.miracl.{name}.{split}.txt')
                 if is_hybrid_run:
-                    bm25_output = os.path.join(args.directory,
-                                               f'run.miracl.bm25.{lang}.{split}.top{hits}.txt')
-                    mdpr_output = os.path.join(args.directory,
-                                               f'run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt')
+                    bm25_output = os.path.join(args.directory, f'run.miracl.bm25.{lang}.{split}.top{hits}.txt')
+                    mdpr_output = os.path.join(args.directory, f'run.miracl.mdpr-tied-pft-msmarco.{lang}.{split}.top{hits}.txt')
                     expected_args = dict(output=runfile, bm25_output=bm25_output, mdpr_output=mdpr_output)
                 else:
                     expected_args = dict(split=split, output=runfile,
@@ -277,7 +275,7 @@ def generate_report(args):
         tables_html.append(Template(table_template).substitute(desc=f'Recall@100, {split}&nbsp;queries', rows=all_rows))
 
     with open(args.output, 'w') as out:
-        out.write(Template(html_template).substitute(title='MIRACL', tables=' '.join(tables_html)))
+        out.write(Template(html_template).substitute(title='Pyserini: MIRACL', tables=' '.join(tables_html)))
 
 
 def run_conditions(args):

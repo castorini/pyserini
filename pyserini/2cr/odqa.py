@@ -308,7 +308,7 @@ def generate_report(args):
         tables_html.append(Template(table_template).substitute(desc='Models', rows=all_rows))
 
         with open(args.output, 'w') as out:
-            out.write(Template(html_template).substitute(title=f'Retrieval for Open-Domain QA Datasets', tables=' '.join(tables_html)))
+            out.write(Template(html_template).substitute(title='Pyserini: Open-Domain QA Datasets', tables=' '.join(tables_html)))
 
 
 def topic_configs():
