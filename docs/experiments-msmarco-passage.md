@@ -262,6 +262,7 @@ If you have any questions, look at previous pull requests for examples.
 
 ## Reproduction Log[*](reproducibility.md)
 
+
 + Results reproduced by [@JeffreyCA](https://github.com/JeffreyCA) on 2020-09-14 (commit [`49fd7cb`](https://github.com/castorini/pyserini/commit/49fd7cb8fd802493dc34f5cb33767d2e72e19f13))
 + Results reproduced by [@jhuang265](https://github.com/jhuang265) on 2020-09-14 (commit [`2ed2acc`](https://github.com/castorini/pyserini/commit/2ed2acc62e445e3e887c6cf853ccc0b0b3b57534))
 + Results reproduced by [@Dahlia-Chehata](https://github.com/Dahlia-Chehata) on 2020-11-11 (commit [`8172015`](https://github.com/Dahlia-Chehata/pyserini/commit/817201553d790c8b53a3aef17ed87721a9d35595))
@@ -585,3 +586,4 @@ If you have any questions, look at previous pull requests for examples.
 + Results reproduced by [@nabirarashid](https://github.com/nabirarashid) on 2026-09-26 (commit [`527c917`](https://github.com/castorini/pyserini/commit/527c917120ff154f84b09ff2b69dc8946085aae4))
 + Results reproduced by [@UmmayMaimonaChaman](https://github.com/UmmayMaimonaChaman) on 2026-09-28 (commit [`d3e2f33`](https://github.com/castorini/pyserini/commit/d3e2f337696c8a78b0c2fbc8f17b651a115eb653))
 + Results reproduced by [@GavinYou4] (https://github.com/GavinYou4) on 2026-09-28 (commit [`cbee418`](https://github.com/castorini/pyserini/commit/cbee418be2df7ccecc2fe1344585523ee8f4429c))
++ Results reproduced by [@MohammadAmanlou](https://github.com/MohammadAmanlou) on 2026-11-09 (commit [`2aa191a`](https://github.com/castorini/pyserini/commit/2aa191adb329ae33002a27653e8ad53fab01f6ba)). Windows 10/WSL2, Python 3.12.15, Java 21. Built a Pyserini Lucene index from 8,841,823 MS MARCO passages; BM25 (k1=0.82, b=0.68) achieved MRR@10=0.18741227770955543 on 6,980 dev queries.
