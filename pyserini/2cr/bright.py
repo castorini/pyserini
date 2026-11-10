@@ -141,7 +141,7 @@ def generate_report(args):
             
         main_rows = '\n'.join(main_rows)
         with open(args.output, 'w') as out:
-            out.write(Template(html_template).substitute(title='Pyserini BRIGHT Regressions', main_rows=main_rows))
+            out.write(Template(html_template).substitute(title='Pyserini: BRIGHT', main_rows=main_rows))
 
 
 def run_conditions(args):

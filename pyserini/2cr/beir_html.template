@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Pyserini Reproductions</title>
+    <title>$title</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -58,6 +58,22 @@ tr th.headerbottom {
 }
 
 .table>:not(caption)>*>*{padding:0.75rem 0.75rem}
+
+.table {
+  min-width: 1280px;
+}
+
+.table th.headertop,
+.table th.headerbottom,
+.table tr.accordion-toggle td,
+.table tr.average-row > * {
+  white-space: nowrap;
+}
+
+.table tr.average-row > * {
+  border-top: 2px solid #ccc;
+  font-weight: bold;
+}
 
 .copy-code-button {
 	border-radius: 0;
@@ -131,7 +147,7 @@ pre[class*="prettyprint"] {
           ">
         <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
           <div class="text-white">
-            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> &nbsp; $title</h1>
+            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> $title</h1>
           </div>
         </div>
       </div>
@@ -151,12 +167,14 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 <ul>
   <li><b>BM25 Flat</b>: BM25 "flat" baseline (<tt><small>bm25-flat</small></tt>) [1]</li>
   <li><b>BM25 MF</b>: BM25 "multifield" baseline (<tt><small>bm25-multifield</small></tt>) [1]</li>
-  <li><b>SPLADE</b>: SPLADE++ CoCondenser-EnsembleDistil (<tt><small>splade-pp-ed</small></tt>) [2]</li>
-  <li><b>Contriever</b>: Contriever FT MS MARCO (<tt><small>contriever-msmarco</small></tt>) [3]</li>
-  <li><b>BGE</b>: BGE-base-en-v1.5 (Faiss flat index) (<tt><small>bge-base-en-v1.5.faiss</small></tt>) [4]</li>
+  <li><b><a href="https://huggingface.co/naver/splade-v3">SPLADE-v3</a></b>: SPLADE-v3 (PyTorch) (<tt><small>splade-v3</small></tt>) [2]. Queries are encoded with <tt><small>naver/splade-v3</small></tt> using prebuilt document indexes.</li>
+  <li><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a></b>: d512/q64, scale 100 (PyTorch) (<tt><small>slideon-pytorch</small></tt>); see the <a href="../experiments-slideon.md">experiment guide</a> for setup and numerical considerations.</li>
+  <li><b><a href="https://huggingface.co/BAAI/bge-base-en-v1.5">BGE</a></b>: BGE-base-en-v1.5 (Faiss flat index) (<tt><small>bge-base-en-v1.5.faiss</small></tt>) [3]</li>
 </ul>
 
 <p>The symbol shown in parentheses (e.g., <tt><small>bm25-flat</small></tt>) refers the parameter used in the <tt><small>--condition</small></tt> option for programmatic execution (see below).</p>
+
+<p><b>Avg</b> shows the macro-average nDCG@10 and R@100 across the 18 BEIR datasets in the main table, calculated from the unrounded reference scores. CQADupStack counts as one dataset using the mean of its 12 subsets.</p>
 
 <div style="padding-top: 20px"/>
 
@@ -168,9 +186,9 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
         <th class="headertop"></th>
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
         <th class="headertop" colspan="3"><b>BM25 MF</b></th>
-        <th class="headertop" colspan="3"><b>SPLADE</b></th>
-        <th class="headertop" colspan="3"><b>Contriever</b></th>
-        <th class="headertop" colspan="2"><b>BGE</b></th>
+        <th class="headertop" colspan="3"><b><a href="https://huggingface.co/naver/splade-v3">SPLADE-v3</a></b></th>
+        <th class="headertop" colspan="3"><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a></b></th>
+        <th class="headertop" colspan="2"><b><a href="https://huggingface.co/BAAI/bge-base-en-v1.5">BGE</a></b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
@@ -195,6 +213,8 @@ Instructions for programmatic execution are shown at the bottom of this page (sc
 
 $main_rows
 
+$avg_row
+
     </tbody>
   </table>
 </div>
@@ -202,7 +222,7 @@ $main_rows
 <div style="padding-top: 20px"/>
 <h4>CQADupStack Results</h4>
 
-<p>The "cqadupstack (average)" row above represents the average across the individual CQADupStack datasets, shown below.</p>
+<p>The "cqadupstack (average)" row above represents the average across the individual CQADupStack datasets, shown below. The <b>Avg</b> row below shows the macro-average nDCG@10 and R@100 across these 12 subsets, calculated from the unrounded reference scores.</p>
 
 <div style="padding-top: 20px"/>
 <div class="table-responsive">
@@ -213,9 +233,9 @@ $main_rows
         <th class="headertop"></th>
         <th class="headertop" colspan="3"><b>BM25 Flat</b></th>
         <th class="headertop" colspan="3"><b>BM25 MF</b></th>
-        <th class="headertop" colspan="3"><b>SPLADE</b></th>
-        <th class="headertop" colspan="3"><b>Contriever</b></th>
-        <th class="headertop" colspan="2"><b>BGE</b></th>
+        <th class="headertop" colspan="3"><b><a href="https://huggingface.co/naver/splade-v3">SPLADE-v3</a></b></th>
+        <th class="headertop" colspan="3"><b><a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn</a></b></th>
+        <th class="headertop" colspan="2"><b><a href="https://huggingface.co/BAAI/bge-base-en-v1.5">BGE</a></b></th>
       </tr>
       <tr>
         <th class="headerbottom" scope="col"></th>
@@ -240,6 +260,8 @@ $main_rows
 
 $cqa_rows
 
+$cqa_avg_row
+
     </tbody>
   </table>
 </div>
@@ -253,15 +275,11 @@ $cqa_rows
 <a href="https://arxiv.org/abs/2306.07471">Resources for Brewing BEIR: Reproducible Reference Models and an Official Leaderboard.</a>
 <i>arXiv:2306.07471</i>, June 2023.</p></li>
 
-<li><p>[2] Thibault Formal, Carlos Lassance, Benjamin Piwowarski, and Stéphane Clinchant.
-<a href="https://dl.acm.org/doi/10.1145/3477495.3531857">From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.</a>
-<i>Proceedings of the 45th International ACM SIGIR Conference on Research and Development in Information Retrieval</i>, pages 2353–2359.</p></li>
+<li><p>[2] Carlos Lassance, Hervé Déjean, Thibault Formal, and Stéphane Clinchant.
+<a href="https://arxiv.org/abs/2403.06789">SPLADE-v3: New baselines for SPLADE.</a>
+<i>arXiv:2403.06789</i>, March 2024.</p></li>
 
-<li><p>[3] Gautier Izacard, Mathilde Caron, Lucas Hosseini, Sebastian Riedel, Piotr Bojanowski, Armand Joulin, and Edouard Grave.
-<a href="https://arxiv.org/abs/2112.09118">Towards Unsupervised Dense Information Retrieval with Contrastive Learning.</a>
-<i>arXiv:2112.09118</i>, December 2021.</p></li>
-
-<li><p>[4] Shitao Xiao, Zheng Liu, Peitian Zhang, and Niklas Muennighoff.
+<li><p>[3] Shitao Xiao, Zheng Liu, Peitian Zhang, and Niklas Muennighoff.
 <a href="https://arxiv.org/abs/2309.07597">C-Pack: Packaged Resources To Advance General Chinese Embedding.</a>
 <i>arXiv:2309.07597</i>, December 2023.</p></li>
 

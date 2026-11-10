@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Pyserini Reproductions: MS MARCO V1 Passage</title>
+    <title>$title</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -131,7 +131,7 @@ pre[class*="prettyprint"] {
           ">
         <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
           <div class="text-white">
-            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> &nbsp; $title</h1>
+            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> $title</h1>
           </div>
         </div>
       </div>
@@ -245,6 +245,10 @@ Proceedings of the 61st Annual Meeting of the Association for Computational Ling
 <li><p>[15] Carlos Lassance, Hervé Déjean, Thibault Formal, and Stéphane Clinchant.
 <a href="https://arxiv.org/abs/2403.06789">SPLADE-v3: New baselines for SPLADE.</a>
 <i>arXiv:2403.06789</i>, March 2024.</p></li>
+
+<li><p>[16] LightOn AI.
+<a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn &amp; mSlideOn: Sparsified Late-Interaction and Dense Retrievers.</a>
+Hugging Face Blog.</p></li>
 
 </ul>
 

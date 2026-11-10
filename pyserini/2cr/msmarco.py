@@ -76,6 +76,9 @@ models = {
         'splade-v3-pytorch',
         'splade-v3-rocchio-pytorch',
         '',
+        'slideon-pytorch',
+        'slideon-onnx',
+        '',
         'ance-pytorch',
         'ance-avg-prf-pytorch',
         'ance-rocchio-prf-pytorch',
@@ -447,9 +450,9 @@ def generate_report(args):
 
         all_rows = '\n'.join(html_rows)
         if args.collection == 'msmarco-v1-passage':
-            full_name = 'MS MARCO V1 Passage Reproductions'
+            full_name = 'Pyserini: MS MARCO V1 Passage'
         else:
-            full_name = 'MS MARCO V1 Doc Reproductions'
+            full_name = 'Pyserini: MS MARCO V1 Doc'
 
         with open(args.output, 'w') as out:
             out.write(Template(html_template).substitute(title=full_name, rows=all_rows))
@@ -499,9 +502,9 @@ def generate_report(args):
 
         all_rows = '\n'.join(html_rows)
         if args.collection == 'msmarco-v2-passage':
-            full_name = 'MS MARCO V2 Passage Reproductions'
+            full_name = 'Pyserini: MS MARCO V2 Passage'
         else:
-            full_name = 'MS MARCO V2 Doc Reproductions'
+            full_name = 'Pyserini: MS MARCO V2 Doc'
 
         with open(args.output, 'w') as out:
             out.write(Template(html_template).substitute(title=full_name, rows=all_rows))
