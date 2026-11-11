@@ -28,6 +28,12 @@ from transformers.utils import cached_file
 from pyserini.util import download_encoded_queries
 
 
+def resolve_encoder_name_or_path(encoder_name_or_path: str = None, encoder_dir: str = None) -> str:
+    if encoder_name_or_path is not None and encoder_dir is not None and encoder_name_or_path != encoder_dir:
+        raise ValueError('encoder_name_or_path and encoder_dir refer to different models.')
+    return encoder_name_or_path if encoder_name_or_path is not None else encoder_dir
+
+
 def load_bert_tokenizer(tokenizer_name, **kwargs):
     # The upstream tokenizers WordPiece implementation emits this warning while
     # constructing BERT WordPiece tokenizers; tokenization behavior is unchanged.

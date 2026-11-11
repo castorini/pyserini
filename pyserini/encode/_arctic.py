@@ -19,6 +19,7 @@ from torch.nn.functional import normalize
 from transformers import AutoModel, AutoTokenizer
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
+from pyserini.encode._base import resolve_encoder_name_or_path
 
 
 class ArcticDocumentEncoder(DocumentEncoder):
@@ -50,15 +51,18 @@ class ArcticDocumentEncoder(DocumentEncoder):
 
 
 class ArcticQueryEncoder(QueryEncoder):  
-    def __init__(self, encoder_dir: str, query_prefix: str = 'Represent this sentence for searching relevant passages: ', 
-                 tokenizer_name: str = None, encoded_queries_dir: str = None, device: str = 'cpu', normalize: bool = True, **kwargs):
+    def __init__(self, encoder_name_or_path: str = None,
+                 query_prefix: str = 'Represent this sentence for searching relevant passages: ',
+                 tokenizer_name: str = None, encoded_queries_dir: str = None, device: str = 'cpu',
+                 normalize: bool = True, encoder_dir: str = None, **kwargs):
         super().__init__(encoded_queries_dir)
+        encoder_name_or_path = resolve_encoder_name_or_path(encoder_name_or_path, encoder_dir)
         
-        if encoder_dir:
+        if encoder_name_or_path:
             self.device = device 
             self.query_prefix = query_prefix
-            self.model = AutoModel.from_pretrained(encoder_dir, add_pooling_layer=False).to(self.device)
-            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_dir,
+            self.model = AutoModel.from_pretrained(encoder_name_or_path, add_pooling_layer=False).to(self.device)
+            self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name or encoder_name_or_path,
                                                            clean_up_tokenization_spaces=True)
             self.has_model = True
             self.normalize = normalize
