@@ -1,5 +1,3 @@
-# Conditions and reference scores from Anserini:
-# https://github.com/castorini/anserini/blob/master/src/main/resources/reproduce/from-prebuilt-indexes/configs/msmarco-v2.1-doc-segmented.yaml
 conditions:
   - name: bm25-slim
     display: BM25 doc segmented (k1=0.9, b=0.4), slim index

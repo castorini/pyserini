@@ -106,7 +106,7 @@ class TestMsmarcoV21(unittest.TestCase):
                 self.assertEqual([call.args for call in evaluate.call_args_list], expected_calls)
                 if collection.endswith('-segmented'):
                     for key in ('rag24.test-umbrela-all', 'rag24.test', 'rag25.test-umbrela2', 'rag25.test'):
-                        self.assertIn(f'/ {key}:', output.getvalue())
+                        self.assertIn(f'  - eval_key: {key}\n', output.getvalue())
 
     def test_dry_run_does_not_search_or_evaluate_existing_runs(self):
         for collection, metric_count in zip(self.collections, (88, 156)):
@@ -129,9 +129,11 @@ class TestMsmarcoV21(unittest.TestCase):
                                              dry_run=True, skip_eval=True))
         evaluate.assert_not_called()
         self.assertEqual(output.getvalue().count('# Running condition'), 1)
-        self.assertIn('Reference scores (evaluation skipped):', output.getvalue())
-        self.assertIn('nDCG@20: 0.5167', output.getvalue())
-        self.assertIn('nDCG@20: 0.4642', output.getvalue())
+        self.assertIn('# Running condition "splade-v3.onnx"', output.getvalue())
+        condition = next(c for c in self.config(collection) if c['name'] == 'splade-v3.onnx')
+        for topic in condition['topics']:
+            self.assertIn(f"  - topic_key: {topic['topic_key']}\n", output.getvalue())
+            self.assertIn(f"  - eval_key: {topic['eval_key']}\n", output.getvalue())
 
     def test_reports_include_selected_metrics_and_commands(self):
         for collection, metric_count in zip(self.collections, (18, 96)):

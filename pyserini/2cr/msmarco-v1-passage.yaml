@@ -8,17 +8,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3855
             R@1K: 0.9878
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4881
             nDCG@10: 0.7252
             R@1K: 0.8742
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5064
             nDCG@10: 0.7189
@@ -31,17 +42,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3855
             R@1K: 0.9878
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4881
             nDCG@10: 0.7252
             R@1K: 0.8742
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5064
             nDCG@10: 0.7189
@@ -54,17 +76,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.4000
             R@1K: 0.9868
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5231
             nDCG@10: 0.7264
             R@1K: 0.8791
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5402
             nDCG@10: 0.7522
@@ -77,17 +110,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3613
             R@1K: 0.9839
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5374
             nDCG@10: 0.7406
             R@1K: 0.8738
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5456
             nDCG@10: 0.7487
@@ -100,17 +144,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3575
             R@1K: 0.9772
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4454
             nDCG@10: 0.7017
             R@1K: 0.8436
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4596
             nDCG@10: 0.6767
@@ -123,17 +178,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3575
             R@1K: 0.9788
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4486
             nDCG@10: 0.7016
             R@1K: 0.8441
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4626
             nDCG@10: 0.6768
@@ -146,17 +212,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3583
             R@1K: 0.9811
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4485
             nDCG@10: 0.7016
             R@1K: 0.8427
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4628
             nDCG@10: 0.6768
@@ -169,17 +246,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3899
             R@1K: 0.9764
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4663
             nDCG@10: 0.7247
             R@1K: 0.8218
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4871
             nDCG@10: 0.6996
@@ -192,17 +280,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3887
             R@1K: 0.9765
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4660
             nDCG@10: 0.7250
             R@1K: 0.8222
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4876
             nDCG@10: 0.7025
@@ -215,17 +314,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3896
             R@1K: 0.9796
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4656
             nDCG@10: 0.7250
             R@1K: 0.8201
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4876
             nDCG@10: 0.7025
@@ -238,17 +348,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3301
             R@1K: 0.9811
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5140
             nDCG@10: 0.7119
             R@1K: 0.8799
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5084
             nDCG@10: 0.7280
@@ -261,17 +382,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3278
             R@1K: 0.9824
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5072
             nDCG@10: 0.7156
             R@1K: 0.8918
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5335
             nDCG@10: 0.7388
@@ -284,17 +416,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3828
             R@1K: 0.9831
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5050
             nDCG@10: 0.7308
             R@1K: 0.8728
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4999
             nDCG@10: 0.7197
@@ -307,17 +450,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3776
             R@1K: 0.9846
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4998
             nDCG@10: 0.7358
             R@1K: 0.8761
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5139
             nDCG@10: 0.7282
@@ -330,17 +484,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3300
             R@1K: 0.9811
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5140
             nDCG@10: 0.7119
             R@1K: 0.8799
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5084
             nDCG@10: 0.7280
@@ -353,17 +518,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3278
             R@1K: 0.9824
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5072
             nDCG@10: 0.7156
             R@1K: 0.8918
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5335
             nDCG@10: 0.7388
@@ -375,17 +551,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2395
             R@1K: 0.9535
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4339
             nDCG@10: 0.6559
             R@1K: 0.8465
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4376
             nDCG@10: 0.6224
@@ -397,17 +584,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2158
             R@1K: 0.9467
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4469
             nDCG@10: 0.6538
             R@1K: 0.8855
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4246
             nDCG@10: 0.6102
@@ -419,17 +617,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.1595
             R@1K: 0.8620
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.3474
             nDCG@10: 0.5275
             R@1K: 0.8007
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.3115
             nDCG@10: 0.4910
@@ -441,17 +650,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.1684
             R@1K: 0.8726
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.3396
             nDCG@10: 0.5275
             R@1K: 0.7948
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.3120
             nDCG@10: 0.4908
@@ -464,17 +684,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3444
             R@1K: 0.9771
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4590
             nDCG@10: 0.7210
             R@1K: 0.8406
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4698
             nDCG@10: 0.6854
@@ -487,17 +718,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2911
             R@1K: 0.9613
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4856
             nDCG@10: 0.7190
             R@1K: 0.8517
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4887
             nDCG@10: 0.7086
@@ -510,17 +752,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2897
             R@1K: 0.9702
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4974
             nDCG@10: 0.7231
             R@1K: 0.8775
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4879
             nDCG@10: 0.7083
@@ -533,17 +786,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3251
             R@1K: 0.9553
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4053
             nDCG@10: 0.6994
             R@1K: 0.7653
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4159
             nDCG@10: 0.6447
@@ -556,17 +820,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3302
             R@1K: 0.9584
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.3710
             nDCG@10: 0.6452
             R@1K: 0.7554
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4077
             nDCG@10: 0.6458
@@ -579,17 +854,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3074
             R@1K: 0.9490
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4247
             nDCG@10: 0.6532
             R@1K: 0.7739
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4325
             nDCG@10: 0.6573
@@ -602,17 +888,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3048
             R@1K: 0.9547
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4211
             nDCG@10: 0.6539
             R@1K: 0.7825
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4315
             nDCG@10: 0.6471
@@ -625,17 +922,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3314
             R@1K: 0.9558
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4060
             nDCG@10: 0.6930
             R@1K: 0.7872
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4124
             nDCG@10: 0.6344
@@ -648,17 +956,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3035
             R@1K: 0.9446
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4354
             nDCG@10: 0.7001
             R@1K: 0.7937
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4258
             nDCG@10: 0.6412
@@ -671,17 +990,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2972
             R@1K: 0.9529
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4371
             nDCG@10: 0.6952
             R@1K: 0.7941
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4342
             nDCG@10: 0.6559
@@ -693,17 +1023,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.1875
             R@1K: 0.8573
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.2903
             nDCG@10: 0.4973
             R@1K: 0.7450
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.2876
             nDCG@10: 0.4876
@@ -715,17 +1056,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.1646
             R@1K: 0.8704
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.3339
             nDCG@10: 0.5147
             R@1K: 0.7950
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.3017
             nDCG@10: 0.4924
@@ -738,17 +1090,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.1840
             R@1K: 0.8526
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.3013
             nDCG@10: 0.5058
             R@1K: 0.7501
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.2856
             nDCG@10: 0.4796
@@ -761,17 +1124,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.1566
             R@1K: 0.8606
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.3416
             nDCG@10: 0.5216
             R@1K: 0.8136
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.3006
             nDCG@10: 0.4896
@@ -783,17 +1157,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2816
             R@1K: 0.9506
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4046
             nDCG@10: 0.6336
             R@1K: 0.8134
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4171
             nDCG@10: 0.6265
@@ -806,17 +1191,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2723
             R@1K: 0.9470
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4034
             nDCG@10: 0.6417
             R@1K: 0.8310
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4074
             nDCG@10: 0.6187
@@ -828,17 +1224,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2382
             R@1K: 0.9528
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4377
             nDCG@10: 0.6537
             R@1K: 0.8443
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4348
             nDCG@10: 0.6235
@@ -851,17 +1258,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2139
             R@1K: 0.9460
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4483
             nDCG@10: 0.6586
             R@1K: 0.8863
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4286
             nDCG@10: 0.6131
@@ -874,17 +1292,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3509
             R@1K: 0.9583
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4612
             nDCG@10: 0.7024
             R@1K: 0.8292
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4430
             nDCG@10: 0.6745
@@ -897,17 +1326,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3509
             R@1K: 0.9583
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4612
             nDCG@10: 0.7024
             R@1K: 0.8292
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4430
             nDCG@10: 0.6745
@@ -920,17 +1360,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3153
             R@1K: 0.9239
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4033
             nDCG@10: 0.6433
             R@1K: 0.7752
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4021
             nDCG@10: 0.6523
@@ -943,17 +1394,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3120
             R@1K: 0.9239
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4059
             nDCG@10: 0.6535
             R@1K: 0.7811
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.3908
             nDCG@10: 0.6400
@@ -966,17 +1428,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3828
             R@1K: 0.9831
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5050
             nDCG@10: 0.7308
             R@1K: 0.8728
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4999
             nDCG@10: 0.7197
@@ -989,17 +1462,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3776
             R@1K: 0.9846
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4998
             nDCG@10: 0.7358
             R@1K: 0.8761
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5139
             nDCG@10: 0.7282
@@ -1012,17 +1496,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3584
             R@1K: 0.9695
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4469
             nDCG@10: 0.7204
             R@1K: 0.8261
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4754
             nDCG@10: 0.6882
@@ -1035,17 +1530,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3122
             R@1K: 0.9585
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4879
             nDCG@10: 0.7311
             R@1K: 0.8586
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4811
             nDCG@10: 0.6836
@@ -1058,17 +1564,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3125
             R@1K: 0.9659
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4883
             nDCG@10: 0.7111
             R@1K: 0.8694
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4860
             nDCG@10: 0.6804
@@ -1081,17 +1598,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3683
             R@1K: 0.9707
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4697
             nDCG@10: 0.7320
             R@1K: 0.8802
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4859
             nDCG@10: 0.7016
@@ -1104,17 +1632,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3731
             R@1K: 0.9759
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4829
             nDCG@10: 0.7376
             R@1K: 0.8614
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5079
             nDCG@10: 0.7244
@@ -1127,17 +1666,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3581
             R@1K: 0.9622
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4509
             nDCG@10: 0.7010
             R@1K: 0.8241
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4419
             nDCG@10: 0.6403
@@ -1150,17 +1700,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.4032
             R@1K: 0.9680
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4687
             nDCG@10: 0.7140
             R@1K: 0.8415
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4906
             nDCG@10: 0.7021
@@ -1173,17 +1734,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3412
             R@1K: 0.9604
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4301
             nDCG@10: 0.6816
             R@1K: 0.8023
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4329
             nDCG@10: 0.6726
@@ -1196,17 +1768,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3619
             R@1K: 0.9735
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4350
             nDCG@10: 0.6837
             R@1K: 0.8078
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4710
             nDCG@10: 0.6972
@@ -1219,17 +1802,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3435
             R@1K: 0.9858
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4788
             nDCG@10: 0.7035
             R@1K: 0.8629
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4771
             nDCG@10: 0.6759
@@ -1242,12 +1836,20 @@ conditions:
     topics:
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5125
             nDCG@10: 0.7163
             R@1K: 0.9002
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4938
             nDCG@10: 0.6666
@@ -1260,17 +1862,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3342
             R@1K: 0.9885
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5259
             nDCG@10: 0.7173
             R@1K: 0.8991
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5134
             nDCG@10: 0.7163
@@ -1283,17 +1896,28 @@ conditions:
     topics:
       - topic_key: msmarco-v1-passage.dev
         eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          MRR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3660
             R@1K: 0.9785
       - topic_key: dl19-passage
         eval_key: dl19-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.4884
             nDCG@10: 0.6956
             R@1K: 0.8630
       - topic_key: dl20-passage
         eval_key: dl20-passage
+        metric_definitions:
+          MAP: -c -l 2 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
         scores:
           - MAP: 0.5067
             nDCG@10: 0.7245

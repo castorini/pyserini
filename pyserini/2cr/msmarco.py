@@ -197,90 +197,6 @@ models = {
     ],
 }
 
-trec_eval_metric_definitions = {
-    'msmarco-v1-passage': {
-        'msmarco-v1-passage.dev': {
-            'MRR@10': '-c -M 10 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl19-passage': {
-            'MAP': '-c -l 2 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -l 2 -m recall.1000'
-        },
-        'dl20-passage': {
-            'MAP': '-c -l 2 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -l 2 -m recall.1000'
-        }
-    },
-    'msmarco-v1-doc': {
-        'msmarco-doc-dev': {
-            'MRR@10': '-c -M 100 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl19-doc': {
-            'MAP': '-c -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl20-doc': {
-            'MAP': '-c -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -m recall.1000'
-        }
-    },
-    'msmarco-v2-passage': {
-        'msmarco-v2-passage-dev': {
-            'MRR@100': '-c -M 100 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'msmarco-v2-passage-dev2': {
-            'MRR@100': '-c -M 100 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl21-passage': {
-            'MAP@100': '-c -l 2 -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -l 2 -m recall.1000'
-        },
-        'dl22-passage': {
-            'MAP@100': '-c -l 2 -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -l 2 -m recall.1000'
-        },
-        'dl23-passage': {
-            'MAP@100': '-c -l 2 -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -l 2 -m recall.1000'
-        }
-    },
-    'msmarco-v2-doc': {
-        'msmarco-v2-doc-dev': {
-            'MRR@100': '-c -M 100 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'msmarco-v2-doc-dev2': {
-            'MRR@100': '-c -M 100 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl21-doc': {
-            'MAP@100': '-c -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl22-doc': {
-            'MAP@100': '-c -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl23-doc': {
-            'MAP@100': '-c -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -m recall.1000'
-        }
-    }
-}
 
 
 def find_msmarco_table_topic_set_key_v1(topic_key):
@@ -326,9 +242,7 @@ def get_topic_set_key(collection, topic_key):
 
 
 def get_metric_definitions(collection, topic_set):
-    if 'metric_definitions' in topic_set:
-        return topic_set['metric_definitions']
-    return trec_eval_metric_definitions[collection][topic_set['eval_key']]
+    return topic_set['metric_definitions']
 
 
 def get_run_command(collection, condition, topic_set, directory=''):
@@ -552,7 +466,7 @@ def generate_report(args):
 
                 for expected in topic_set['scores']:
                     for metric in expected:
-                        eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[args.collection][eval_key][metric]} {eval_key} {runfile}'
+                        eval_cmd = f'python -m pyserini.eval.trec_eval {get_metric_definitions(args.collection, topic_set)[metric]} {eval_key} {runfile}'
                         eval_commands[name][short_topic_key] += eval_cmd + '\n'
                         table[name][short_topic_key][metric] = expected[metric]
 
@@ -721,57 +635,6 @@ def run_conditions(args):
                 if not args.skip_eval:
                     print()
 
-    if v21:
-        if not args.dry_run or args.skip_eval:
-            print('Reference scores (evaluation skipped):' if args.skip_eval else 'Observed scores:')
-            for name, topic_sets in table.items():
-                print(f'\n{name}')
-                for (topic_key, eval_key), scores in topic_sets.items():
-                    values = '  '.join(f'{metric}: {score:.4f}' for metric, score in scores.items())
-                    print(f'  {topic_key} / {eval_key}: {values}')
-    elif args.collection == 'msmarco-v1-passage' or args.collection == 'msmarco-v1-doc':
-        print(' ' * 74 + 'TREC 2019' + ' ' * 16 + 'TREC 2020' + ' ' * 12 + 'MS MARCO dev')
-        print(' ' * 67 + 'MAP    nDCG@10    R@1K    MAP    nDCG@10    R@1K    MRR@10    R@1K')
-        print(' ' * 67 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14)
-
-        if args.condition:
-            # If we've used --condition to specify a specific condition, print out only that row.
-            names = [ args.condition ]
-        else:
-            # Otherwise, print out all rows
-            names = models[args.collection]
-
-        for name in names:
-            if not name:
-                print()
-                continue
-            print(f'{table_keys[name]:65}' +
-                  f'{table[name]["dl19"]["MAP"]:8.4f}{table[name]["dl19"]["nDCG@10"]:8.4f}{table[name]["dl19"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dev"]["MRR@10"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}')
-    else:
-        print(' ' * 69 + 'TREC 2021' + ' ' * 16 + 'TREC 2022' + ' ' * 16 + 'TREC 2023' + ' ' * 12 + 'MS MARCO dev' + ' ' * 5 + 'MS MARCO dev2')
-        print(' ' * 62 + 'MAP    nDCG@10    R@1K    MAP    nDCG@10    R@1K    MAP    nDCG@10    R@1K    MRR@100   R@1K    MRR@100   R@1K')
-        print(' ' * 62 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14 + '    ' + '-' * 14)
-
-        if args.condition:
-            # If we've used --condition to specify a specific condition, print out only that row.
-            names = [args.condition]
-        else:
-            # Otherwise, print out all rows
-            names = models[args.collection]
-
-        for name in names:
-            if not name:
-                print()
-                continue
-            print(f'{table_keys[name]:60}' +
-                  f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dl22"]["MAP@100"]:8.4f}{table[name]["dl22"]["nDCG@10"]:8.4f}{table[name]["dl22"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dl23"]["MAP@100"]:8.4f}{table[name]["dl23"]["nDCG@10"]:8.4f}{table[name]["dl23"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
-
     end = time.time()
     start_str = datetime.fromtimestamp(start, tz=UTC).strftime('%Y-%m-%d %H:%M:%S')
     end_str = datetime.fromtimestamp(end, tz=UTC).strftime('%Y-%m-%d %H:%M:%S')
@@ -784,8 +647,7 @@ def run_conditions(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for MS MARCO corpora.')
-    parser.add_argument('--collection', type=str,
-                        choices=[collection.removeprefix('msmarco-') for collection in models], required=True)
+    parser.add_argument('--collection', type=str, choices=[collection.removeprefix('msmarco-') for collection in models], required=True)
     # To list all conditions
     parser.add_argument('--list-conditions', action='store_true', default=False, help='List available conditions.')
     # For generating reports

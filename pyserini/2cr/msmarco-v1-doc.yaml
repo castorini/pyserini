@@ -6,17 +6,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2767
             R@1K: 0.9357
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2336
             nDCG@10: 0.5233
             R@1K: 0.6757
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.3581
             nDCG@10: 0.5061
@@ -29,17 +40,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2299
             R@1K: 0.8856
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2434
             nDCG@10: 0.5176
             R@1K: 0.6966
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.3793
             nDCG@10: 0.5286
@@ -51,17 +73,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2756
             R@1K: 0.9311
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2398
             nDCG@10: 0.5389
             R@1K: 0.6565
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.3458
             nDCG@10: 0.5213
@@ -74,17 +107,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2684
             R@1K: 0.9178
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2449
             nDCG@10: 0.5302
             R@1K: 0.6871
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.3586
             nDCG@10: 0.5281
@@ -96,17 +140,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2227
             R@1K: 0.9303
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2638
             nDCG@10: 0.5526
             R@1K: 0.7188
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.3610
             nDCG@10: 0.5195
@@ -119,17 +174,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.1618
             R@1K: 0.8783
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2773
             nDCG@10: 0.5174
             R@1K: 0.7507
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.4015
             nDCG@10: 0.5254
@@ -141,17 +207,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2448
             R@1K: 0.9359
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2655
             nDCG@10: 0.5392
             R@1K: 0.7037
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.3471
             nDCG@10: 0.5030
@@ -164,17 +241,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2413
             R@1K: 0.9351
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2892
             nDCG@10: 0.5684
             R@1K: 0.7368
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.3792
             nDCG@10: 0.5202
@@ -186,17 +274,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2242
             R@1K: 0.9314
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2657
             nDCG@10: 0.5584
             R@1K: 0.7299
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.3628
             nDCG@10: 0.5199
@@ -208,17 +307,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.1624
             R@1K: 0.8789
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2811
             nDCG@10: 0.5256
             R@1K: 0.7546
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.4089
             nDCG@10: 0.5192
@@ -230,17 +340,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2475
             R@1K: 0.9395
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2672
             nDCG@10: 0.5421
             R@1K: 0.7115
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.3521
             nDCG@10: 0.4997
@@ -252,17 +373,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2447
             R@1K: 0.9351
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2889
             nDCG@10: 0.5570
             R@1K: 0.7423
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.3830
             nDCG@10: 0.5226
@@ -274,17 +406,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3269
             R@1K: 0.9553
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2620
             nDCG@10: 0.5972
             R@1K: 0.6867
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.4099
             nDCG@10: 0.5852
@@ -297,17 +440,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2880
             R@1K: 0.9259
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2700
             nDCG@10: 0.5968
             R@1K: 0.7190
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.4230
             nDCG@10: 0.5885
@@ -319,17 +473,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3209
             R@1K: 0.9530
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2658
             nDCG@10: 0.6273
             R@1K: 0.6707
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.4047
             nDCG@10: 0.5943
@@ -342,17 +507,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3179
             R@1K: 0.9490
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2798
             nDCG@10: 0.6119
             R@1K: 0.7165
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.4150
             nDCG@10: 0.5957
@@ -364,17 +540,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2623
             R@1K: 0.9522
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2813
             nDCG@10: 0.6091
             R@1K: 0.7184
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.4100
             nDCG@10: 0.5745
@@ -387,17 +574,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.1834
             R@1K: 0.9126
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.3045
             nDCG@10: 0.5904
             R@1K: 0.7737
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.4230
             nDCG@10: 0.5427
@@ -409,17 +607,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2973
             R@1K: 0.9563
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2892
             nDCG@10: 0.6247
             R@1K: 0.7069
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.4016
             nDCG@10: 0.5711
@@ -432,17 +641,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.2803
             R@1K: 0.9551
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.3030
             nDCG@10: 0.6290
             R@1K: 0.7483
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.4271
             nDCG@10: 0.5851
@@ -455,17 +675,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3409
             R@1K: 0.9420
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2665
             nDCG@10: 0.6349
             R@1K: 0.6391
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.3698
             nDCG@10: 0.5893
@@ -478,17 +709,28 @@ conditions:
     topics:
       - topic_key: msmarco-doc-dev
         eval_key: msmarco-doc-dev
+        metric_definitions:
+          MRR@10: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
         scores:
           - MRR@10: 0.3531
             R@1K: 0.9546
       - topic_key: dl19-doc
         eval_key: dl19-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.2789
             nDCG@10: 0.6396
             R@1K: 0.6652
       - topic_key: dl20
         eval_key: dl20-doc
+        metric_definitions:
+          MAP: -c -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -m recall.1000
         scores:
           - MAP: 0.3882
             nDCG@10: 0.6033
