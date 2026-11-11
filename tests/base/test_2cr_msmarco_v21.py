@@ -19,6 +19,8 @@ import hashlib
 import json
 import re
 import shlex
+import subprocess
+import sys
 import tempfile
 import unittest
 from argparse import Namespace
@@ -46,6 +48,36 @@ class TestMsmarcoV21(unittest.TestCase):
                       display_commands=False, dry_run=False, skip_eval=False)
         values.update(kwargs)
         return Namespace(**values)
+
+    def test_cli_lists_all_yaml_conditions(self):
+        for collection in self.collections:
+            with self.subTest(collection=collection):
+                result = subprocess.run(
+                    [sys.executable, '-m', 'pyserini.2cr.msmarco', '--collection',
+                     collection.removeprefix('msmarco-'), '--list-conditions'],
+                    capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(result.stdout.splitlines(), [c['name'] for c in self.config(collection)])
+
+    def test_cli_accepts_slim_conditions(self):
+        for collection, condition in (
+                ('v2.1-doc', 'bm25-doc-slim'),
+                ('v2.1-doc', 'bm25-segmented-doc-slim'),
+                ('v2.1-doc-segmented', 'bm25-slim')):
+            with self.subTest(collection=collection, condition=condition):
+                result = subprocess.run(
+                    [sys.executable, '-m', 'pyserini.2cr.msmarco', '--collection', collection,
+                     '--condition', condition, '--dry-run'], capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(result.stdout.count('# Running condition'), 1)
+                self.assertIn(f'# Running condition "{condition}"', result.stdout)
+
+    def test_cli_rejects_unknown_condition(self):
+        result = subprocess.run(
+            [sys.executable, '-m', 'pyserini.2cr.msmarco', '--collection', 'v2.1-doc',
+             '--condition', 'not-a-condition', '--dry-run'], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn('Unknown condition for msmarco-v2.1-doc: not-a-condition', result.stderr)
 
     def test_complete_condition_and_evaluation_coverage(self):
         for collection, condition_count, pairing_count, metric_count in zip(

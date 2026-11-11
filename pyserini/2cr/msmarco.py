@@ -251,11 +251,9 @@ def format_command(raw):
         .replace('.txt ', '.txt \\\n  ')
 
 
-def list_conditions(args):
-    for condition in models[args.collection]:
-        if condition == '':
-            continue
-        print(condition)
+def get_condition_names(collection):
+    config = yaml.safe_load(read_file(f'{collection}.yaml'))
+    return [condition['name'] for condition in config['conditions']]
 
 
 def _get_display_num(num: float) -> str:
@@ -479,11 +477,11 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     args.collection = f'msmarco-{args.collection}'
-    if args.condition and args.condition not in models[args.collection]:
+    if args.condition and args.condition not in get_condition_names(args.collection):
         parser.error(f'Unknown condition for {args.collection}: {args.condition}')
 
     if args.list_conditions:
-        list_conditions(args)
+        print('\n'.join(get_condition_names(args.collection)))
         sys.exit()
 
     if args.generate_report:
