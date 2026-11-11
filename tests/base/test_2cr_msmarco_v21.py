@@ -15,6 +15,9 @@
 #
 
 import importlib
+import hashlib
+import json
+import re
 import shlex
 import tempfile
 import unittest
@@ -159,6 +162,41 @@ class TestMsmarcoV21(unittest.TestCase):
                                 continue
                             self.assertIn(f'<td>{expected:.4f}</td>', report)
                             self.assertIn(f"{topic['metric_definitions'][metric]} {topic['eval_key']} {runfile}", report)
+
+
+class TestMsmarcoReports(unittest.TestCase):
+    def test_all_collection_reports_preserve_content(self):
+        # Semantic snapshots from the original renderers: commands, scores, ordered
+        # tab labels, and unavailable evaluations. Ignore HTML whitespace/layout.
+        expected = {
+            'msmarco-v1-passage':
+                '074b2414c1cbc12475c6fbd24cf2f4276180c2727a07708a70389aa5351b547c',
+            'msmarco-v1-doc':
+                '2aeb7e6ba131c0193c514814c05e54d4b05c3accaec4f591241d14567d886865',
+            'msmarco-v2-passage':
+                '16cbf5567c1f07ccf42ca9c9fc0fa06638b0c0991bdf0e654d1d4962901c8fe6',
+            'msmarco-v2-doc':
+                '55c3f1a1c2fb9e5acc9e29d54a3774d48fded92f2fdd995c3d68ef23b86cb10f',
+            'msmarco-v2.1-doc':
+                '83d45a030de59fccd05abedcbeb3afaec15cd52367e5512818298734499b92c9',
+            'msmarco-v2.1-doc-segmented':
+                '5aaa86a747e64542d66115bba80f3512fce27e7fb9c542b976e1bcd0d11bf28b',
+        }
+        for collection, digest in expected.items():
+            with self.subTest(collection=collection), tempfile.TemporaryDirectory() as directory:
+                output = Path(directory) / 'report.html'
+                msmarco.generate_report(Namespace(collection=collection, output=output))
+                report = unescape(output.read_text())
+                self.assertNotIn('${', report)
+                content = {
+                    'commands': [' '.join(c.replace('\\\n', ' ').split())
+                                 for c in re.findall(r'<pre><code>(.*?)</code></pre>', report, re.S)],
+                    'scores': re.findall(r'<td>([0-9]+\.[0-9]{4}|-)</td>', report),
+                    'tabs': re.findall(r'style="text-transform:none">(.*?)</a>', report),
+                    'unavailable': report.count('Not available.'),
+                }
+                actual = hashlib.sha256(json.dumps(content, sort_keys=True).encode()).hexdigest()
+                self.assertEqual(actual, digest)
 
 
 if __name__ == '__main__':
