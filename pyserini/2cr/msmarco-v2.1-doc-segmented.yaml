@@ -4,7 +4,8 @@ conditions:
     display-html: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), slim index
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2.1-doc-segmented-slim --topics $topics --output $output --hits 1000 --bm25 --k1 0.9 --b 0.4
     topics:
-      - topic_key: rag24.test
+      - display: RAG 2024 test (Umbrela)
+        topic_key: rag24.test
         eval_key: rag24.test-umbrela-all
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -14,7 +15,8 @@ conditions:
           - nDCG@20: 0.3198
             nDCG@100: 0.2563
             R@100: 0.1395
-      - topic_key: rag24.test
+      - display: RAG 2024 test (NIST)
+        topic_key: rag24.test
         eval_key: rag24.test
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -24,7 +26,8 @@ conditions:
           - nDCG@20: 0.2809
             nDCG@100: 0.2345
             R@100: 0.1698
-      - topic_key: rag25.test
+      - display: RAG 2025 test (Umbrela)
+        topic_key: rag25.test
         eval_key: rag25.test-umbrela2
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -34,7 +37,8 @@ conditions:
           - nDCG@30: 0.3250
             nDCG@100: 0.2835
             R@100: 0.1167
-      - topic_key: rag25.test
+      - display: RAG 2025 test (NIST)
+        topic_key: rag25.test
         eval_key: rag25.test
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -49,7 +53,8 @@ conditions:
     display-html: BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), regular index
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2.1-doc-segmented --topics $topics --output $output --hits 1000 --bm25 --k1 0.9 --b 0.4
     topics:
-      - topic_key: rag24.test
+      - display: RAG 2024 test (Umbrela)
+        topic_key: rag24.test
         eval_key: rag24.test-umbrela-all
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -59,7 +64,8 @@ conditions:
           - nDCG@20: 0.3198
             nDCG@100: 0.2563
             R@100: 0.1395
-      - topic_key: rag24.test
+      - display: RAG 2024 test (NIST)
+        topic_key: rag24.test
         eval_key: rag24.test
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -69,7 +75,8 @@ conditions:
           - nDCG@20: 0.2809
             nDCG@100: 0.2345
             R@100: 0.1698
-      - topic_key: rag25.test
+      - display: RAG 2025 test (Umbrela)
+        topic_key: rag25.test
         eval_key: rag25.test-umbrela2
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -79,7 +86,8 @@ conditions:
           - nDCG@30: 0.3250
             nDCG@100: 0.2835
             R@100: 0.1167
-      - topic_key: rag25.test
+      - display: RAG 2025 test (NIST)
+        topic_key: rag25.test
         eval_key: rag25.test
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -94,7 +102,8 @@ conditions:
     display-html: SPLADE-v3 (ONNX)
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2.1-doc-segmented.splade-v3 --topics $topics --output $output --impact --pretokenized --remove-query --hits 1000 --onnx-encoder SpladeV3
     topics:
-      - topic_key: rag24.test
+      - display: RAG 2024 test (Umbrela)
+        topic_key: rag24.test
         eval_key: rag24.test-umbrela-all
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -104,7 +113,8 @@ conditions:
           - nDCG@20: 0.5167
             nDCG@100: 0.4587
             R@100: 0.2437
-      - topic_key: rag24.test
+      - display: RAG 2024 test (NIST)
+        topic_key: rag24.test
         eval_key: rag24.test
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -114,7 +124,8 @@ conditions:
           - nDCG@20: 0.4642
             nDCG@100: 0.4349
             R@100: 0.3198
-      - topic_key: rag25.test
+      - display: RAG 2025 test (Umbrela)
+        topic_key: rag25.test
         eval_key: rag25.test-umbrela2
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -124,7 +135,8 @@ conditions:
           - nDCG@30: 0.5838
             nDCG@100: 0.5372
             R@100: 0.1992
-      - topic_key: rag25.test
+      - display: RAG 2025 test (NIST)
+        topic_key: rag25.test
         eval_key: rag25.test
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -139,7 +151,8 @@ conditions:
     display-html: ArcticEmbed-L (shard00) with quantized HNSW (ONNX)
     command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8 --topics $topics --onnx-encoder ArcticEmbedL --output $output --hits 250 --ef-search 1000 --dense --hnsw
     topics:
-      - topic_key: rag24.test
+      - display: RAG 2024 test (Umbrela)
+        topic_key: rag24.test
         eval_key: rag24.test-umbrela-all
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -149,7 +162,8 @@ conditions:
           - nDCG@20: 0.3003
             nDCG@100: 0.1796
             R@100: 0.0750
-      - topic_key: rag24.test
+      - display: RAG 2024 test (NIST)
+        topic_key: rag24.test
         eval_key: rag24.test
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -159,7 +173,8 @@ conditions:
           - nDCG@20: 0.2449
             nDCG@100: 0.1440
             R@100: 0.0746
-      - topic_key: rag25.test
+      - display: RAG 2025 test (Umbrela)
+        topic_key: rag25.test
         eval_key: rag25.test-umbrela2
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -169,7 +184,8 @@ conditions:
           - nDCG@30: 0.2916
             nDCG@100: 0.1997
             R@100: 0.0627
-      - topic_key: rag25.test
+      - display: RAG 2025 test (NIST)
+        topic_key: rag25.test
         eval_key: rag25.test
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -184,7 +200,8 @@ conditions:
     display-html: ArcticEmbed-L (shard01) with quantized HNSW (ONNX)
     command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.hnsw-int8 --topics $topics --onnx-encoder ArcticEmbedL --output $output --hits 250 --ef-search 1000 --dense --hnsw
     topics:
-      - topic_key: rag24.test
+      - display: RAG 2024 test (Umbrela)
+        topic_key: rag24.test
         eval_key: rag24.test-umbrela-all
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -194,7 +211,8 @@ conditions:
           - nDCG@20: 0.2599
             nDCG@100: 0.1513
             R@100: 0.0619
-      - topic_key: rag24.test
+      - display: RAG 2024 test (NIST)
+        topic_key: rag24.test
         eval_key: rag24.test
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -204,7 +222,8 @@ conditions:
           - nDCG@20: 0.2184
             nDCG@100: 0.1274
             R@100: 0.0690
-      - topic_key: rag25.test
+      - display: RAG 2025 test (Umbrela)
+        topic_key: rag25.test
         eval_key: rag25.test-umbrela2
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -214,7 +233,8 @@ conditions:
           - nDCG@30: 0.2581
             nDCG@100: 0.1675
             R@100: 0.0500
-      - topic_key: rag25.test
+      - display: RAG 2025 test (NIST)
+        topic_key: rag25.test
         eval_key: rag25.test
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -229,7 +249,8 @@ conditions:
     display-html: ArcticEmbed-L (shard02) with quantized HNSW (ONNX)
     command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.hnsw-int8 --topics $topics --onnx-encoder ArcticEmbedL --output $output --hits 250 --ef-search 1000 --dense --hnsw
     topics:
-      - topic_key: rag24.test
+      - display: RAG 2024 test (Umbrela)
+        topic_key: rag24.test
         eval_key: rag24.test-umbrela-all
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -239,7 +260,8 @@ conditions:
           - nDCG@20: 0.2661
             nDCG@100: 0.1535
             R@100: 0.0639
-      - topic_key: rag24.test
+      - display: RAG 2024 test (NIST)
+        topic_key: rag24.test
         eval_key: rag24.test
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -249,7 +271,8 @@ conditions:
           - nDCG@20: 0.2211
             nDCG@100: 0.1296
             R@100: 0.0720
-      - topic_key: rag25.test
+      - display: RAG 2025 test (Umbrela)
+        topic_key: rag25.test
         eval_key: rag25.test-umbrela2
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -259,7 +282,8 @@ conditions:
           - nDCG@30: 0.2486
             nDCG@100: 0.1603
             R@100: 0.0437
-      - topic_key: rag25.test
+      - display: RAG 2025 test (NIST)
+        topic_key: rag25.test
         eval_key: rag25.test
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -274,7 +298,8 @@ conditions:
     display-html: ArcticEmbed-L (shard03) with quantized HNSW (ONNX)
     command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.hnsw-int8 --topics $topics --onnx-encoder ArcticEmbedL --output $output --hits 250 --ef-search 1000 --dense --hnsw
     topics:
-      - topic_key: rag24.test
+      - display: RAG 2024 test (Umbrela)
+        topic_key: rag24.test
         eval_key: rag24.test-umbrela-all
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -284,7 +309,8 @@ conditions:
           - nDCG@20: 0.2705
             nDCG@100: 0.1555
             R@100: 0.0634
-      - topic_key: rag24.test
+      - display: RAG 2024 test (NIST)
+        topic_key: rag24.test
         eval_key: rag24.test
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -294,7 +320,8 @@ conditions:
           - nDCG@20: 0.2388
             nDCG@100: 0.1425
             R@100: 0.0805
-      - topic_key: rag25.test
+      - display: RAG 2025 test (Umbrela)
+        topic_key: rag25.test
         eval_key: rag25.test-umbrela2
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -304,7 +331,8 @@ conditions:
           - nDCG@30: 0.2609
             nDCG@100: 0.1751
             R@100: 0.0556
-      - topic_key: rag25.test
+      - display: RAG 2025 test (NIST)
+        topic_key: rag25.test
         eval_key: rag25.test
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -319,7 +347,8 @@ conditions:
     display-html: ArcticEmbed-L (shard04) with quantized HNSW (ONNX)
     command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.hnsw-int8 --topics $topics --onnx-encoder ArcticEmbedL --output $output --hits 250 --ef-search 1000 --dense --hnsw
     topics:
-      - topic_key: rag24.test
+      - display: RAG 2024 test (Umbrela)
+        topic_key: rag24.test
         eval_key: rag24.test-umbrela-all
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -329,7 +358,8 @@ conditions:
           - nDCG@20: 0.2937
             nDCG@100: 0.1727
             R@100: 0.0692
-      - topic_key: rag24.test
+      - display: RAG 2024 test (NIST)
+        topic_key: rag24.test
         eval_key: rag24.test
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -339,7 +369,8 @@ conditions:
           - nDCG@20: 0.2253
             nDCG@100: 0.1261
             R@100: 0.0654
-      - topic_key: rag25.test
+      - display: RAG 2025 test (Umbrela)
+        topic_key: rag25.test
         eval_key: rag25.test-umbrela2
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -349,7 +380,8 @@ conditions:
           - nDCG@30: 0.2737
             nDCG@100: 0.1899
             R@100: 0.0605
-      - topic_key: rag25.test
+      - display: RAG 2025 test (NIST)
+        topic_key: rag25.test
         eval_key: rag25.test
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -364,7 +396,8 @@ conditions:
     display-html: ArcticEmbed-L (shard05) with quantized HNSW (ONNX)
     command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.hnsw-int8 --topics $topics --onnx-encoder ArcticEmbedL --output $output --hits 250 --ef-search 1000 --dense --hnsw
     topics:
-      - topic_key: rag24.test
+      - display: RAG 2024 test (Umbrela)
+        topic_key: rag24.test
         eval_key: rag24.test-umbrela-all
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -374,7 +407,8 @@ conditions:
           - nDCG@20: 0.2590
             nDCG@100: 0.1466
             R@100: 0.0580
-      - topic_key: rag24.test
+      - display: RAG 2024 test (NIST)
+        topic_key: rag24.test
         eval_key: rag24.test
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -384,7 +418,8 @@ conditions:
           - nDCG@20: 0.2383
             nDCG@100: 0.1305
             R@100: 0.0638
-      - topic_key: rag25.test
+      - display: RAG 2025 test (Umbrela)
+        topic_key: rag25.test
         eval_key: rag25.test-umbrela2
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -394,7 +429,8 @@ conditions:
           - nDCG@30: 0.2190
             nDCG@100: 0.1481
             R@100: 0.0511
-      - topic_key: rag25.test
+      - display: RAG 2025 test (NIST)
+        topic_key: rag25.test
         eval_key: rag25.test
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -409,7 +445,8 @@ conditions:
     display-html: ArcticEmbed-L (shard06) with quantized HNSW (ONNX)
     command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.hnsw-int8 --topics $topics --onnx-encoder ArcticEmbedL --output $output --hits 250 --ef-search 1000 --dense --hnsw
     topics:
-      - topic_key: rag24.test
+      - display: RAG 2024 test (Umbrela)
+        topic_key: rag24.test
         eval_key: rag24.test-umbrela-all
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -419,7 +456,8 @@ conditions:
           - nDCG@20: 0.2444
             nDCG@100: 0.1401
             R@100: 0.0557
-      - topic_key: rag24.test
+      - display: RAG 2024 test (NIST)
+        topic_key: rag24.test
         eval_key: rag24.test
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -429,7 +467,8 @@ conditions:
           - nDCG@20: 0.2336
             nDCG@100: 0.1391
             R@100: 0.0715
-      - topic_key: rag25.test
+      - display: RAG 2025 test (Umbrela)
+        topic_key: rag25.test
         eval_key: rag25.test-umbrela2
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -439,7 +478,8 @@ conditions:
           - nDCG@30: 0.1751
             nDCG@100: 0.1236
             R@100: 0.0397
-      - topic_key: rag25.test
+      - display: RAG 2025 test (NIST)
+        topic_key: rag25.test
         eval_key: rag25.test
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -454,7 +494,8 @@ conditions:
     display-html: ArcticEmbed-L (shard07) with quantized HNSW (ONNX)
     command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.hnsw-int8 --topics $topics --onnx-encoder ArcticEmbedL --output $output --hits 250 --ef-search 1000 --dense --hnsw
     topics:
-      - topic_key: rag24.test
+      - display: RAG 2024 test (Umbrela)
+        topic_key: rag24.test
         eval_key: rag24.test-umbrela-all
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -464,7 +505,8 @@ conditions:
           - nDCG@20: 0.2417
             nDCG@100: 0.1350
             R@100: 0.0502
-      - topic_key: rag24.test
+      - display: RAG 2024 test (NIST)
+        topic_key: rag24.test
         eval_key: rag24.test
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -474,7 +516,8 @@ conditions:
           - nDCG@20: 0.2255
             nDCG@100: 0.1263
             R@100: 0.0587
-      - topic_key: rag25.test
+      - display: RAG 2025 test (Umbrela)
+        topic_key: rag25.test
         eval_key: rag25.test-umbrela2
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -484,7 +527,8 @@ conditions:
           - nDCG@30: 0.2178
             nDCG@100: 0.1427
             R@100: 0.0413
-      - topic_key: rag25.test
+      - display: RAG 2025 test (NIST)
+        topic_key: rag25.test
         eval_key: rag25.test
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -499,7 +543,8 @@ conditions:
     display-html: ArcticEmbed-L (shard08) with quantized HNSW (ONNX)
     command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.hnsw-int8 --topics $topics --onnx-encoder ArcticEmbedL --output $output --hits 250 --ef-search 1000 --dense --hnsw
     topics:
-      - topic_key: rag24.test
+      - display: RAG 2024 test (Umbrela)
+        topic_key: rag24.test
         eval_key: rag24.test-umbrela-all
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -509,7 +554,8 @@ conditions:
           - nDCG@20: 0.2847
             nDCG@100: 0.1689
             R@100: 0.0678
-      - topic_key: rag24.test
+      - display: RAG 2024 test (NIST)
+        topic_key: rag24.test
         eval_key: rag24.test
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -519,7 +565,8 @@ conditions:
           - nDCG@20: 0.2765
             nDCG@100: 0.1663
             R@100: 0.0893
-      - topic_key: rag25.test
+      - display: RAG 2025 test (Umbrela)
+        topic_key: rag25.test
         eval_key: rag25.test-umbrela2
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -529,7 +576,8 @@ conditions:
           - nDCG@30: 0.2390
             nDCG@100: 0.1533
             R@100: 0.0456
-      - topic_key: rag25.test
+      - display: RAG 2025 test (NIST)
+        topic_key: rag25.test
         eval_key: rag25.test
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -544,7 +592,8 @@ conditions:
     display-html: ArcticEmbed-L (shard09) with quantized HNSW (ONNX)
     command: python -m pyserini.search.lucene --threads ${dense_threads} --batch-size ${dense_batch_size} --index msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.hnsw-int8 --topics $topics --onnx-encoder ArcticEmbedL --output $output --hits 250 --ef-search 1000 --dense --hnsw
     topics:
-      - topic_key: rag24.test
+      - display: RAG 2024 test (Umbrela)
+        topic_key: rag24.test
         eval_key: rag24.test-umbrela-all
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -554,7 +603,8 @@ conditions:
           - nDCG@20: 0.2432
             nDCG@100: 0.1336
             R@100: 0.0522
-      - topic_key: rag24.test
+      - display: RAG 2024 test (NIST)
+        topic_key: rag24.test
         eval_key: rag24.test
         metric_definitions:
           nDCG@20: -c -m ndcg_cut.20
@@ -564,7 +614,8 @@ conditions:
           - nDCG@20: 0.2457
             nDCG@100: 0.1376
             R@100: 0.0715
-      - topic_key: rag25.test
+      - display: RAG 2025 test (Umbrela)
+        topic_key: rag25.test
         eval_key: rag25.test-umbrela2
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30
@@ -574,7 +625,8 @@ conditions:
           - nDCG@30: 0.2170
             nDCG@100: 0.1409
             R@100: 0.0389
-      - topic_key: rag25.test
+      - display: RAG 2025 test (NIST)
+        topic_key: rag25.test
         eval_key: rag25.test
         metric_definitions:
           nDCG@30: -c -m ndcg_cut.30

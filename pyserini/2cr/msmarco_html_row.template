@@ -1,8 +1,8 @@
 <!-- Condition: ${name} -->
 <tr class="accordion-toggle collapsed" id="row${row_num}" data-toggle="collapse" data-parent="#row${row_num}" href="#collapse${row_num}">
 <td class="expand-button"></td>
-<td${row_style}>${row_label}</td>
-<td style="min-width: ${display_width}px">${display}</td>
+<td>${row_num}</td>
+<td style="min-width: 400px">${display}</td>
 ${cells}
 </tr>
 <tr class="hide-table-padding">

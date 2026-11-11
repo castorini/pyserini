@@ -15,11 +15,9 @@
 #
 
 import argparse
-import importlib.resources
 import os
 import sys
 import time
-from collections import defaultdict
 from datetime import UTC, datetime
 from html import escape
 from shlex import quote
@@ -192,33 +190,29 @@ models = {
         '',
         'splade-v3.onnx',
         '',
-        *[f'shard{i:02d}.arctic-l.hnsw-int8.onnx' for i in range(10)],
+        'shard00.arctic-l.hnsw-int8.onnx',
+        'shard01.arctic-l.hnsw-int8.onnx',
+        'shard02.arctic-l.hnsw-int8.onnx',
+        'shard03.arctic-l.hnsw-int8.onnx',
+        'shard04.arctic-l.hnsw-int8.onnx',
+        'shard05.arctic-l.hnsw-int8.onnx',
+        'shard06.arctic-l.hnsw-int8.onnx',
+        'shard07.arctic-l.hnsw-int8.onnx',
+        'shard08.arctic-l.hnsw-int8.onnx',
+        'shard09.arctic-l.hnsw-int8.onnx',
     ],
 }
 
 
 
-def get_topic_set_key(collection, topic_key):
-    """Return the report/runfile key, preserving full topic names for V2.1."""
-    if collection.startswith('msmarco-v2.1-'):
-        return topic_key
-
-    v1 = collection.startswith('msmarco-v1-')
-    if v1 and topic_key.startswith('msmarco'):
-        return 'dev'
-    if not v1:
-        for split in ('dev', 'dev2'):
-            if topic_key.endswith((split, f'{split}-unicoil', f'{split}-unicoil-noexp')):
-                return split
-
-    # Collapse encoder variants such as dl19-passage-unicoil to the TREC year.
-    years = ('dl19', 'dl20') if v1 else ('dl21', 'dl22', 'dl23')
-    return next((year for year in years if topic_key.startswith(year)), '')
+def get_runfile_name(collection, condition_name, topic_key):
+    """Build a run filename using the full topic key for every collection."""
+    return f'run.{collection}.{condition_name}.{topic_key}.txt'
 
 
 def get_run_command(collection, condition, topic_set, directory=''):
     topic_key = topic_set['topic_key']
-    runfile = os.path.join(directory, f'run.{collection}.{condition["name"]}.{get_topic_set_key(collection, topic_key)}.txt')
+    runfile = os.path.join(directory, get_runfile_name(collection, condition['name'], topic_key))
     command = Template(condition['command']).substitute(
         topics=quote(topic_key), output=quote(runfile),
         sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
@@ -256,64 +250,74 @@ def get_condition_names(collection):
     return [condition['name'] for condition in config['conditions']]
 
 
-def _get_display_num(num: float) -> str:
-    return f'{num:.4f}' if num != 0 else '-'
-
-
 REPORT_TOPICS = {
-    'msmarco-v1-passage': ('dl19', 'dl20', 'dev'),
-    'msmarco-v1-doc': ('dl19', 'dl20', 'dev'),
-    'msmarco-v2-passage': ('dl21', 'dl22', 'dl23'),
-    'msmarco-v2-doc': ('dl21', 'dl22', 'dl23'),
-    'msmarco-v2.1-doc': ('dl21-doc', 'dl22-doc', 'dl23-doc'),
-    'msmarco-v2.1-doc-segmented': ('rag24.test', 'rag25.test'),
+    'msmarco-v1-passage': {
+        'TREC 2019': ('AP@1K', 'nDCG@10', 'R@1K'),
+        'TREC 2020': ('AP@1K', 'nDCG@10', 'R@1K'),
+        'MS MARCO dev': ('RR@10', 'R@1K'),
+    },
+    'msmarco-v1-doc': {
+        'TREC 2019': ('AP@100', 'nDCG@10', 'R@1K'),
+        'TREC 2020': ('AP@100', 'nDCG@10', 'R@1K'),
+        'MS MARCO dev': ('RR@100', 'R@1K'),
+    },
+    'msmarco-v2-passage': {
+        'TREC 2021': ('AP@100', 'nDCG@10', 'R@1K'),
+        'TREC 2022': ('AP@100', 'nDCG@10', 'R@1K'),
+        'TREC 2023': ('AP@100', 'nDCG@10', 'R@1K'),
+    },
+    'msmarco-v2-doc': {
+        'TREC 2021': ('AP@100', 'nDCG@10', 'R@1K'),
+        'TREC 2022': ('AP@100', 'nDCG@10', 'R@1K'),
+        'TREC 2023': ('AP@100', 'nDCG@10', 'R@1K'),
+    },
+    'msmarco-v2.1-doc': {
+        'TREC 2021': ('AP@100', 'nDCG@10', 'R@1K'),
+        'TREC 2022': ('AP@100', 'nDCG@10', 'R@1K'),
+        'TREC 2023': ('AP@100', 'nDCG@10', 'R@1K'),
+    },
+    'msmarco-v2.1-doc-segmented': {
+        'RAG 2024 test (Umbrela)': ('nDCG@20', 'R@100'),
+        'RAG 2024 test (NIST)': ('nDCG@20', 'R@100'),
+        'RAG 2025 test (Umbrela)': ('nDCG@30', 'R@100'),
+        'RAG 2025 test (NIST)': ('nDCG@30', 'R@100'),
+    },
 }
 
 
 def generate_report(args):
     """Render all MS MARCO reproduction matrices with shared rows and command tabs."""
-    v21 = args.collection.startswith('msmarco-v2.1-')
-    v1 = args.collection.startswith('msmarco-v1-')
     config = yaml.safe_load(read_file(f'{args.collection}.yaml'))
     conditions = {condition['name']: condition for condition in config['conditions']}
 
-    def topic_label(topic_set):
-        key = topic_set['eval_key']
-        if key.startswith('dl'):
-            return f'TREC 20{key[2:4]}'
-        if key.startswith('rag'):
-            year = key[3:5]
-            split = 'dev' if 'dev' in key else 'test'
-            judgments = 'Umbrela' if 'umbrela' in key else 'NIST'
-            return f'RAG 20{year} {split} ({judgments})'
-        return get_topic_set_key(args.collection, topic_set['topic_key'])
+    report_topics = REPORT_TOPICS[args.collection]
 
     def report_metrics(topic_set):
         scores = {metric: score for group in topic_set['scores'] for metric, score in group.items()}
-        if args.collection == 'msmarco-v2.1-doc-segmented':
-            metric = 'nDCG@20' if topic_set['topic_key'].startswith('rag24') else 'nDCG@30'
-            return {metric: scores[metric], 'R@100': scores['R@100']}
-        if args.collection == 'msmarco-v2.1-doc' and 'MAP@100' in scores:
-            return {metric: scores[metric] for metric in ('MAP@100', 'nDCG@10', 'R@1K')}
-        return scores
+        return {metric: scores[metric] for metric in report_topics[topic_set['display']]}
 
-    def topic_id(topic):
-        return (topic['topic_key'], topic['eval_key'])
-
-    # Use the union so missing evaluations retain their columns and unavailable tabs.
-    all_topics = {topic_id(t): t for c in config['conditions'] for t in c['topics']}
-    # Keep every evaluation for each selected topic (e.g., Umbrela and NIST).
-    topic_sets = [topic for key in REPORT_TOPICS[args.collection]
-                  for topic in all_topics.values()
-                  if get_topic_set_key(args.collection, topic['topic_key']) == key]
+    topics_by_condition = {}
+    for condition in config['conditions']:
+        topics = {}
+        for topic in condition['topics']:
+            label = topic['display']
+            if label in topics:
+                raise ValueError(f'Duplicate topic display label "{label}" in condition "{condition["name"]}"')
+            scores = {metric for group in topic['scores'] for metric in group}
+            for metric in report_topics.get(label, ()):
+                if metric not in scores or metric not in topic['metric_definitions']:
+                    raise ValueError(f'Missing score or metric definition for "{metric}" in "{label}" of condition "{condition["name"]}"')
+            topics[label] = topic
+        topics_by_condition[condition['name']] = topics
 
     group_headers = []
     metric_headers = []
-    for topic_set in topic_sets:
-        metrics = report_metrics(topic_set)
-        group_headers.append(f'<th class="headertop" colspan="{len(metrics) + 1}"><b>{escape(topic_label(topic_set))}</b></th>')
-        metric_headers.extend(f'<th class="headerbottom" scope="col">{escape('AP' if args.collection == 'msmarco-v2.1-doc' and metric == 'MAP@100' else metric)}</th>' for metric in metrics)
-        metric_headers.append('<th class="headerbottom"></th>')
+    for topic_num, (label, metrics) in enumerate(report_topics.items(), 1):
+        spacer = topic_num < len(report_topics)
+        group_headers.append(f'<th class="headertop" colspan="{len(metrics) + int(spacer)}"><b>{escape(label)}</b></th>')
+        metric_headers.extend(f'<th class="headerbottom" scope="col">{escape(metric)}</th>' for metric in metrics)
+        if spacer:
+            metric_headers.append('<th class="headerbottom"></th>')
     headers = ('<tr>' + '<th class="headertop"></th>' * 3 + ''.join(group_headers)
                + '</tr>\n<tr>' + '<th class="headerbottom"></th>' * 3
                + ''.join(metric_headers) + '</tr>')
@@ -331,37 +335,33 @@ def generate_report(args):
         cells = []
         commands = []
         tabs = []
-        condition_topics = {topic_id(t): t for t in condition['topics']}
-        for tab_num, reference in enumerate(topic_sets, 1):
-            topic_set = condition_topics.get(topic_id(reference))
+        condition_topics = topics_by_condition[name]
+        for tab_num, (label, metrics) in enumerate(report_topics.items(), 1):
+            topic_set = condition_topics.get(label)
             available = topic_set is not None
-            topic_set = topic_set or reference
-            runfile, command = get_run_command(args.collection, condition, topic_set)
-            definitions = topic_set['metric_definitions']
-            eval_commands = []
-            for metric, score in report_metrics(topic_set).items():
-                value = (f'{score:.4f}' if v21 else _get_display_num(score)) if available else '-'
+            scores = report_metrics(topic_set) if available else {}
+            for metric in metrics:
+                value = f'{scores[metric]:.4f}' if available else '-'
                 cells.append(f'<td>{value}</td>')
-                eval_commands.append(f'python -m pyserini.eval.trec_eval {definitions[metric]} {topic_set["eval_key"]} {runfile}')
-            if not v1 or tab_num < len(topic_sets):
+            if tab_num < len(report_topics):
                 cells.append('<td></td>')
-            if not v21:
-                available = available and next(iter(report_metrics(topic_set).values())) != 0
             tab_id = f'row{row_num}-tab{tab_num}'
             active = ' active' if tab_num == 1 else ''
-            tabs.append(f'<li class="nav-item" role="presentation"><a class="nav-link{active}" id="{tab_id}-header" data-mdb-toggle="tab" href="#{tab_id}" role="tab" aria-controls="{tab_id}" aria-selected="{str(tab_num == 1).lower()}" style="text-transform:none">{escape(topic_label(topic_set))}</a></li>')
-            panel = command_template.substitute(
-                tab_id=tab_id, active=' show active' if tab_num == 1 else '',
-                topics=escape(topic_set['topic_key']), qrels=escape(topic_set['eval_key']),
-                command=escape(format_command(command)),
-                eval_commands=escape('\n'.join(eval_commands)))
-            if not available:
+            tabs.append(f'<li class="nav-item" role="presentation"><a class="nav-link{active}" id="{tab_id}-header" data-mdb-toggle="tab" href="#{tab_id}" role="tab" aria-controls="{tab_id}" aria-selected="{str(tab_num == 1).lower()}" style="text-transform:none">{escape(label)}</a></li>')
+            if available:
+                runfile, command = get_run_command(args.collection, condition, topic_set)
+                definitions = topic_set['metric_definitions']
+                eval_commands = [f'python -m pyserini.eval.trec_eval {definitions[metric]} {topic_set["eval_key"]} {quote(runfile)}' for metric in metrics]
+                panel = command_template.substitute(
+                    tab_id=tab_id, active=' show active' if tab_num == 1 else '',
+                    topics=escape(topic_set['topic_key']), qrels=escape(topic_set['eval_key']),
+                    command=escape(format_command(command)),
+                    eval_commands=escape('\n'.join(eval_commands)))
+            else:
                 panel = f'<div class="tab-pane fade{" show active" if tab_num == 1 else ""}" id="{tab_id}" role="tabpanel" aria-labelledby="{tab_id}-header">Not available.</div>'
             commands.append(panel)
         rows.append(row_template.substitute(
-            row_num=row_num, row_label=row_num if v21 else condition.get('display-row', ''),
-            row_style=' style="min-width: 75px"' if v1 else '',
-            display_width=410 if v1 else 400,
+            row_num=row_num,
             name=escape(name), display=condition['display-html'],
             cells=''.join(cells), colspan=len(cells) + 2,
             tabs='\n'.join(tabs), commands='\n'.join(commands)))
@@ -372,7 +372,7 @@ def generate_report(args):
         'v2-passage': 'V2 Passage', 'v2-doc': 'V2 Doc',
         'v2.1-doc': 'V2.1 Doc', 'v2.1-doc-segmented': 'V2.1 Segmented Doc',
     }[suffix]
-    template = 'msmarco_html_' + suffix.replace('v2.1', 'v21').replace('-', '_') + '.template'
+    template = 'msmarco_html_' + suffix.replace('-', '_') + '.template'
     with open(args.output, 'w') as out:
         out.write(Template(read_file(template)).substitute(
             title=title, collection=args.collection.removeprefix('msmarco-'),
@@ -383,71 +383,52 @@ def generate_report(args):
 def run_conditions(args):
     start = time.time()
 
-    table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
-    table_keys = {}
-    v21 = args.collection.startswith('msmarco-v2.1-')
+    yaml_data = yaml.safe_load(read_file(f'{args.collection}.yaml'))
+    for condition in yaml_data['conditions']:
+        # Either we're running all conditions, or running only the condition specified in --condition
+        if not args.all and condition['name'] != args.condition:
+            continue
 
-    with importlib.resources.files('pyserini.2cr').joinpath(f'{args.collection}.yaml').open('r') as f:
-        yaml_data = yaml.safe_load(f)
-        for condition in yaml_data['conditions']:
-            # Either we're running all conditions, or running only the condition specified in --condition
-            if not args.all and condition['name'] != args.condition:
-                continue
+        name = condition['name']
+        display = condition['display']
+        print(f'# Running condition "{name}": {display}\n')
+        for topic_set in condition['topics']:
+            eval_key = topic_set['eval_key']
+            definitions = topic_set['metric_definitions']
 
-            name = condition['name']
-            display = condition['display']
-            print(f'# Running condition "{name}": {display}\n')
-            for topic_set in condition['topics']:
-                topic_key = topic_set['topic_key']
-                eval_key = topic_set['eval_key']
+            print(f'  - {topic_set["display"]}\n')
 
-                short_topic_key = get_topic_set_key(args.collection, topic_key)
-                # A retrieval run can have several qrels sets (e.g., RAG NIST and Umbrela).
-                result_key = (topic_key, eval_key) if v21 else short_topic_key
-                definitions = topic_set['metric_definitions']
+            runfile, cmd = get_run_command(args.collection, condition, topic_set, args.directory)
 
-                print(f'  - topic_key: {topic_key}')
-                if v21:
-                    print(f'  - eval_key: {eval_key}')
+            if not os.path.exists(runfile) and not args.dry_run:
+                os.makedirs(os.path.dirname(runfile) or '.', exist_ok=True)
+                run_command(cmd, capture_output=False, check=True)
 
-                runfile, cmd = get_run_command(args.collection, condition, topic_set, args.directory)
+            eval_commands = []
+            for expected in topic_set['scores']:
+                for metric, expected_value in expected.items():
+                    expected_score = float(expected_value)
+                    if args.dry_run:
+                        print(f'    {metric:7}: {expected_score:.4f}')
+                    elif args.skip_eval:
+                        continue
+                    elif os.path.exists(runfile):
+                        score = float(run_eval_and_return_metric(metric, eval_key, definitions[metric], quote(runfile), display_command=False))
+                        status = compare_reproduction_score(score, expected_score)
+                        result_str = format_reproduction_status(status, expected_score)
+                        print(f'    {metric:7}: {score:.4f} {result_str}')
+                    else:
+                        continue
 
-                if args.display_commands:
-                    print(f'\n```bash\n{format_command(cmd)}\n```\n')
+                    if not args.skip_eval:
+                        eval_commands.append(f'python -m pyserini.eval.trec_eval {definitions[metric]} {eval_key} {quote(runfile)}')
 
-                if not os.path.exists(runfile) and not args.dry_run:
-                    os.makedirs(os.path.dirname(runfile) or '.', exist_ok=True)
-                    run_command(cmd, capture_output=False, check=True)
-
-                for expected in topic_set['scores']:
-                    for metric in expected:
-                        table_keys[name] = display
-                        if args.dry_run:
-                            if args.display_commands and not args.skip_eval:
-                                eval_cmd = (f'python -m pyserini.eval.trec_eval {definitions[metric]} '
-                                            f'{eval_key} {quote(runfile)}')
-                                print(f'\n```bash\n{eval_cmd}\n```\n')
-                            if args.skip_eval:
-                                table[name][result_key][metric] = expected[metric]
-                            continue
-                        if not args.skip_eval:
-                            # If the runfile doesn't exist, we can't evaluate.
-                            if not os.path.exists(runfile):
-                                continue
-
-                            score = float(run_eval_and_return_metric(metric, eval_key,
-                                    definitions[metric], quote(runfile), display_command=args.display_commands))
-
-                            expected_score = float(expected[metric])
-                            status = compare_reproduction_score(score, expected_score)
-                            result_str = format_reproduction_status(status, expected_score)
-                            print(f'    {metric:7}: {score:.4f} {result_str}')
-                            table[name][result_key][metric] = score
-                        else:
-                            table[name][result_key][metric] = expected[metric]
-
-                if not args.skip_eval:
-                    print()
+            if args.display_commands or args.dry_run:
+                commands = format_command(cmd)
+                if eval_commands:
+                    commands += '\n\n' + '\n'.join(eval_commands)
+                print(f'\n```bash\n{commands}\n```')
+            print()
 
     end = time.time()
     start_str = datetime.fromtimestamp(start, tz=UTC).strftime('%Y-%m-%d %H:%M:%S')
@@ -486,14 +467,12 @@ if __name__ == '__main__':
 
     if args.generate_report:
         if not args.output:
-            print('Must specify report filename with --output.')
-            sys.exit()
+            parser.error('Must specify report filename with --output.')
 
         generate_report(args)
         sys.exit()
 
     if not args.all and not args.condition:
-        print('Must specify a specific condition using --condition or use --all to run all conditions.')
-        sys.exit()
+        parser.error('Must specify a specific condition using --condition or use --all to run all conditions.')
 
     run_conditions(args)

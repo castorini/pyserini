@@ -26,11 +26,12 @@ tr.hide-table-padding td {
   left:.75rem;
   top: 50%;
   transform: translate(0, -50%);
-  content: '-';
+  content: '\25BC';
+  font-size: 0.6rem;
 }
 
 .accordion-toggle.collapsed .expand-button:after {
-  content: '+';
+  content: '\25B6';
 }
 
 .command-block {
@@ -57,6 +58,11 @@ blockquote.mycode2 {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 15px;
+}
+
+tr.accordion-toggle > td:nth-child(n+4),
+tr th.headerbottom[scope="col"] {
+  text-align: center;
 }
 
 tr th.headertop {
@@ -93,10 +99,6 @@ tr th.headerbottom {
 	flex-shrink: 0;
 }
 
-.copy-code-button > span {
-	color: #F1F2F3 !important;
-}
-
 .copy-code-button, ::before, ::after {
 	box-sizing: inherit;
 }
@@ -122,11 +124,6 @@ tr th.headerbottom {
 	outline: 0;
 }
 
-pre[class*="prettyprint"] {
-	position: relative;
-	overflow-x: auto;
-	padding-top: 2rem;
-}
     </style>
 </head>
 <body>
@@ -161,8 +158,8 @@ Not all experimental conditions are shown in the table below.</p>
 <div class="table-responsive">
   <table class="table">
     <thead>
-<tr><th class="headertop"></th><th class="headertop"></th><th class="headertop"></th><th class="headertop" colspan="4"><b>TREC 2021</b></th><th class="headertop" colspan="4"><b>TREC 2022</b></th><th class="headertop" colspan="4"><b>TREC 2023</b></th></tr>
-<tr><th class="headerbottom"></th><th class="headerbottom"></th><th class="headerbottom"></th><th class="headerbottom" scope="col">AP</th><th class="headerbottom" scope="col">nDCG@10</th><th class="headerbottom" scope="col">R@1K</th><th class="headerbottom"></th><th class="headerbottom" scope="col">AP</th><th class="headerbottom" scope="col">nDCG@10</th><th class="headerbottom" scope="col">R@1K</th><th class="headerbottom"></th><th class="headerbottom" scope="col">AP</th><th class="headerbottom" scope="col">nDCG@10</th><th class="headerbottom" scope="col">R@1K</th><th class="headerbottom"></th></tr>
+<tr><th class="headertop"></th><th class="headertop"></th><th class="headertop"></th><th class="headertop" colspan="4"><b>TREC 2021</b></th><th class="headertop" colspan="4"><b>TREC 2022</b></th><th class="headertop" colspan="3"><b>TREC 2023</b></th></tr>
+<tr><th class="headerbottom"></th><th class="headerbottom"></th><th class="headerbottom"></th><th class="headerbottom" scope="col">AP@100</th><th class="headerbottom" scope="col">nDCG@10</th><th class="headerbottom" scope="col">R@1K</th><th class="headerbottom"></th><th class="headerbottom" scope="col">AP@100</th><th class="headerbottom" scope="col">nDCG@10</th><th class="headerbottom" scope="col">R@1K</th><th class="headerbottom"></th><th class="headerbottom" scope="col">AP@100</th><th class="headerbottom" scope="col">nDCG@10</th><th class="headerbottom" scope="col">R@1K</th></tr>
     </thead>
     <tbody>
 
@@ -171,11 +168,11 @@ Not all experimental conditions are shown in the table below.</p>
 <td class="expand-button"></td>
 <td>1</td>
 <td style="min-width: 400px">BM25 doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), regular index</td>
-<td>0.2281</td><td>0.5183</td><td>0.6915</td><td></td><td>0.0841</td><td>0.2991</td><td>0.4254</td><td></td><td>0.1089</td><td>0.2914</td><td>0.5383</td><td></td>
+<td>0.2281</td><td>0.5183</td><td>0.6915</td><td></td><td>0.0841</td><td>0.2991</td><td>0.4254</td><td></td><td>0.1089</td><td>0.2914</td><td>0.5383</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="14">
+<td colspan="13">
 <div id="collapse1" class="collapse in p-3">
 <ul class="nav nav-tabs mb-3" id="row1-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="row1-tab1-header" data-mdb-toggle="tab" href="#row1-tab1" role="tab" aria-controls="row1-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
@@ -184,7 +181,7 @@ Not all experimental conditions are shown in the table below.</p>
 </ul>
 <div class="tab-content" id="row1-content">
 <div class="tab-pane fade show active" id="row1-tab1" role="tabpanel" aria-labelledby="row1-tab1-header">
-<p>Topics: <code>dl21-doc</code>; qrels: <code>dl21-doc-msmarco-v2.1</code></p>
+<p>topics: <code>dl21-doc</code> / qrels: <code>dl21-doc-msmarco-v2.1</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
 <pre><code>python -m pyserini.search.lucene \
@@ -205,7 +202,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc-msmarco-v2.1 run.ms
 </div>
 
 <div class="tab-pane fade" id="row1-tab2" role="tabpanel" aria-labelledby="row1-tab2-header">
-<p>Topics: <code>dl22-doc</code>; qrels: <code>dl22-doc-msmarco-v2.1</code></p>
+<p>topics: <code>dl22-doc</code> / qrels: <code>dl22-doc-msmarco-v2.1</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
 <pre><code>python -m pyserini.search.lucene \
@@ -226,7 +223,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc-msmarco-v2.1 run.ms
 </div>
 
 <div class="tab-pane fade" id="row1-tab3" role="tabpanel" aria-labelledby="row1-tab3-header">
-<p>Topics: <code>dl23-doc</code>; qrels: <code>dl23-doc-msmarco-v2.1</code></p>
+<p>topics: <code>dl23-doc</code> / qrels: <code>dl23-doc-msmarco-v2.1</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
 <pre><code>python -m pyserini.search.lucene \
@@ -257,11 +254,11 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl23-doc-msmarco-v2.1 run.ms
 <td class="expand-button"></td>
 <td>2</td>
 <td style="min-width: 400px">BM25 segmented doc (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), regular index</td>
-<td>0.2609</td><td>0.5778</td><td>0.7115</td><td></td><td>0.1079</td><td>0.3576</td><td>0.4790</td><td></td><td>0.1391</td><td>0.3356</td><td>0.5852</td><td></td>
+<td>0.2609</td><td>0.5778</td><td>0.7115</td><td></td><td>0.1079</td><td>0.3576</td><td>0.4790</td><td></td><td>0.1391</td><td>0.3356</td><td>0.5852</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
-<td colspan="14">
+<td colspan="13">
 <div id="collapse2" class="collapse in p-3">
 <ul class="nav nav-tabs mb-3" id="row2-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="row2-tab1-header" data-mdb-toggle="tab" href="#row2-tab1" role="tab" aria-controls="row2-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
@@ -270,7 +267,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl23-doc-msmarco-v2.1 run.ms
 </ul>
 <div class="tab-content" id="row2-content">
 <div class="tab-pane fade show active" id="row2-tab1" role="tabpanel" aria-labelledby="row2-tab1-header">
-<p>Topics: <code>dl21-doc</code>; qrels: <code>dl21-doc-msmarco-v2.1</code></p>
+<p>topics: <code>dl21-doc</code> / qrels: <code>dl21-doc-msmarco-v2.1</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
 <pre><code>python -m pyserini.search.lucene \
@@ -291,7 +288,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl21-doc-msmarco-v2.1 run.ms
 </div>
 
 <div class="tab-pane fade" id="row2-tab2" role="tabpanel" aria-labelledby="row2-tab2-header">
-<p>Topics: <code>dl22-doc</code>; qrels: <code>dl22-doc-msmarco-v2.1</code></p>
+<p>topics: <code>dl22-doc</code> / qrels: <code>dl22-doc-msmarco-v2.1</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
 <pre><code>python -m pyserini.search.lucene \
@@ -312,7 +309,7 @@ python -m pyserini.eval.trec_eval -c -m recall.1000 dl22-doc-msmarco-v2.1 run.ms
 </div>
 
 <div class="tab-pane fade" id="row2-tab3" role="tabpanel" aria-labelledby="row2-tab3-header">
-<p>Topics: <code>dl23-doc</code>; qrels: <code>dl23-doc-msmarco-v2.1</code></p>
+<p>topics: <code>dl23-doc</code> / qrels: <code>dl23-doc-msmarco-v2.1</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
 <pre><code>python -m pyserini.search.lucene \

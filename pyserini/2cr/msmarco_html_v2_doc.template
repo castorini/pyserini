@@ -26,11 +26,12 @@ tr.hide-table-padding td {
   left:.75rem;
   top: 50%;
   transform: translate(0, -50%);
-  content: '-';
+  content: '\25BC';
+  font-size: 0.6rem;
 }
 
 .accordion-toggle.collapsed .expand-button:after {
-  content: '+';
+  content: '\25B6';
 }
 
 .command-block {
@@ -57,6 +58,11 @@ blockquote.mycode2 {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 15px;
+}
+
+tr.accordion-toggle > td:nth-child(n+4),
+tr th.headerbottom[scope="col"] {
+  text-align: center;
 }
 
 tr th.headertop {
@@ -93,10 +99,6 @@ tr th.headerbottom {
 	flex-shrink: 0;
 }
 
-.copy-code-button > span {
-	color: #F1F2F3 !important;
-}
-
 .copy-code-button, ::before, ::after {
 	box-sizing: inherit;
 }
@@ -122,10 +124,6 @@ tr th.headerbottom {
 	outline: 0;
 }
 
-pre[class*="prettyprint"] {
-	position: relative;
-	overflow: hidden;
-}
     </style>
 </head>
 <body>
@@ -160,31 +158,7 @@ Not all experimental conditions are shown in the table below.</p>
 <div class="table-responsive">
   <table class="table">
     <thead>
-      <tr>
-        <th class="headertop"></th>
-        <th class="headertop"></th>
-        <th class="headertop"></th>
-        <th class="headertop" colspan="4"><b>TREC 2021</b></th>
-        <th class="headertop" colspan="4"><b>TREC 2022</b></th>
-        <th class="headertop" colspan="4"><b>TREC 2023</b></th>
-      </tr>
-      <tr>
-        <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"><br/>AP</th>
-        <th class="headerbottom" scope="col">nDCG@10</th>
-        <th class="headerbottom" scope="col">R@1K</th>
-        <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"><br/>AP</th>
-        <th class="headerbottom" scope="col">nDCG@10</th>
-        <th class="headerbottom" scope="col">R@1K</th>
-        <th class="headerbottom" scope="col"></th>
-        <th class="headerbottom" scope="col"><br/>AP</th>
-        <th class="headerbottom" scope="col">nDCG@10</th>
-        <th class="headerbottom" scope="col">R@1K</th>
-        <th class="headerbottom" scope="col"></th>
-      </tr>
+$headers
     </thead>
     <tbody>
 
@@ -202,7 +176,8 @@ $rows
 
 <li><p>[1] Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin.
 <a href="https://dl.acm.org/doi/10.1145/3477495.3531749">Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.</a>
-<i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022. (Numbers in parentheses correspond to rows in Table 1 of the paper.)</p></li>
+<i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022.
+(Numbers in parentheses correspond to rows in Table 4 of the paper.)</p></li>
 
 </ul>
 

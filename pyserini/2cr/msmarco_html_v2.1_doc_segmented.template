@@ -26,11 +26,12 @@ tr.hide-table-padding td {
   left:.75rem;
   top: 50%;
   transform: translate(0, -50%);
-  content: '-';
+  content: '\25BC';
+  font-size: 0.6rem;
 }
 
 .accordion-toggle.collapsed .expand-button:after {
-  content: '+';
+  content: '\25B6';
 }
 
 .command-block {
@@ -57,6 +58,11 @@ blockquote.mycode2 {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 15px;
+}
+
+tr.accordion-toggle > td:nth-child(n+4),
+tr th.headerbottom[scope="col"] {
+  text-align: center;
 }
 
 tr th.headertop {
@@ -93,10 +99,6 @@ tr th.headerbottom {
 	flex-shrink: 0;
 }
 
-.copy-code-button > span {
-	color: #F1F2F3 !important;
-}
-
 .copy-code-button, ::before, ::after {
 	box-sizing: inherit;
 }
@@ -122,11 +124,6 @@ tr th.headerbottom {
 	outline: 0;
 }
 
-pre[class*="prettyprint"] {
-	position: relative;
-	overflow-x: auto;
-	padding-top: 2rem;
-}
     </style>
 </head>
 <body>
