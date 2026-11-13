@@ -106,6 +106,8 @@ Documentation is organized into reproduction matrices for different corpora that
 + [MS MARCO V1 Document](https://castorini.github.io/pyserini/2cr/msmarco-v1-doc.html)
 + [MS MARCO V2 Passage](https://castorini.github.io/pyserini/2cr/msmarco-v2-passage.html)
 + [MS MARCO V2 Document](https://castorini.github.io/pyserini/2cr/msmarco-v2-doc.html)
++ [MS MARCO V2.1 Segmented Document](https://castorini.github.io/pyserini/2cr/msmarco-v2.1-doc-segmented.html)
++ [MS MARCO V2.1 Document](https://castorini.github.io/pyserini/2cr/msmarco-v2.1-doc.html)
 + [BEIR](https://castorini.github.io/pyserini/2cr/beir.html)
 + [BRIGHT](https://castorini.github.io/pyserini/2cr/bright.html)
 + [Mr.TyDi](https://castorini.github.io/pyserini/2cr/mrtydi.html)

@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Pyserini: MS MARCO V2.1 Segmented Doc</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet" />
+
+    <style>
+tr.hide-table-padding td {
+  padding: 0;
+}
+
+.expand-button {
+  position: relative;
+}
+
+.accordion-toggle .expand-button:after {
+  position: absolute;
+  left:.75rem;
+  top: 50%;
+  transform: translate(0, -50%);
+  content: '\25BC';
+  font-size: 0.6rem;
+}
+
+.accordion-toggle.collapsed .expand-button:after {
+  content: '\25B6';
+}
+
+.command-block {
+  margin: 0 0 16px;
+}
+
+.command-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 6px;
+}
+
+.command-block pre {
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+blockquote.mycode2 {
+  border-left: 3px solid #ccc;
+  margin-left: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+}
+
+tr.accordion-toggle > td:nth-child(n+4),
+tr th.headerbottom[scope="col"] {
+  text-align: center;
+}
+
+tr th.headertop {
+  border-bottom: none;
+  padding-bottom: 0rem
+}
+
+tr th.headerbottom {
+  padding-top: 0rem
+}
+
+.table>:not(caption)>*>*{padding:0.75rem 0.75rem}
+
+.copy-code-button {
+	border-radius: 0;
+	min-width: 0;
+	background: none repeat scroll 0 0 transparent;
+	background-color: grey;
+	color: #F1F2F3 !important;
+	cursor: pointer;
+	border-style: none;
+	font-family: 'HELVETICA',sans-serif;
+	font-size: 0.7em;
+	font-weight: normal;
+	text-align: center;
+	text-decoration: none;
+	text-indent: 0;
+	text-transform: uppercase;
+	font-weight: 500;
+	line-height: 1rem;
+	margin: 0;
+	padding: 2px 5px;
+	position: static;
+	flex-shrink: 0;
+}
+
+.copy-code-button, ::before, ::after {
+	box-sizing: inherit;
+}
+
+.copy-code-button::before {
+	content: '';
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	margin-right: 3px;
+	background-size: contain;
+	background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTVweCIgaGVpZ2h0PSIxNXB4IiB2aWV3Qm94PSIwIDAgMTUgMTUiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUwLjIgKDU1MDQ3KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5QYWdlIDE8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iRmxvdyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IkJ0dG5faHRtbCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTgxOS4wMDAwMDAsIC03NTMuMDAwMDAwKSIgZmlsbD0iI0ZGRkZGRiI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC0xIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMTEuMDAwMDAwLCA0MDUuMDAwMDAwKSI+CiAgICAgICAgICAgICAgICA8ZyBpZD0iR3JvdXAtMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTA4LjAwMDAwMCwgMzQyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xMy45NzcyNzI3LDYgTDMuNDA5MDkwOTEsNiBDMi44NDQ1NDU0NSw2IDIuMzg2MzYzNjQsNi40NTgxODE4MiAyLjM4NjM2MzY0LDcuMDIyNzI3MjcgTDIuMzg2MzYzNjQsMTcuNTkwOTA5MSBDMi4zODYzNjM2NCwxOC4xNTU0NTQ1IDIuODQ0NTQ1NDUsMTguNjEzNjM2NCAzLjQwOTA5MDkxLDE4LjYxMzYzNjQgTDEzLjk3NzI3MjcsMTguNjEzNjM2NCBDMTQuNTQxODE4MiwxOC42MTM2MzY0IDE1LDE4LjE1NTQ1NDUgMTUsMTcuNTkwOTA5MSBMMTUsNy4wMjI3MjcyNyBDMTUsNi40NTgxODE4MiAxNC41NDE4MTgyLDYgMTMuOTc3MjcyNyw2IFogTTE0LjMxODE4MTgsMTcuNTkwOTA5MSBDMTQuMzE4MTgxOCwxNy43NzkwOTA5IDE0LjE2NTQ1NDUsMTcuOTMxODE4MiAxMy45NzcyNzI3LDE3LjkzMTgxODIgTDMuNDA5MDkwOTEsMTcuOTMxODE4MiBDMy4yMjA5MDkwOSwxNy45MzE4MTgyIDMuMDY4MTgxODIsMTcuNzc5MDkwOSAzLjA2ODE4MTgyLDE3LjU5MDkwOTEgTDMuMDY4MTgxODIsNy4wMjI3MjcyNyBDMy4wNjgxODE4Miw2LjgzNDU0NTQ1IDMuMjIwOTA5MDksNi42ODE4MTgxOCAzLjQwOTA5MDkxLDYuNjgxODE4MTggTDEzLjk3NzI3MjcsNi42ODE4MTgxOCBDMTQuMTY1NDU0NSw2LjY4MTgxODE4IDE0LjMxODE4MTgsNi44MzQ1NDU0NSAxNC4zMTgxODE4LDcuMDIyNzI3MjcgTDE0LjMxODE4MTgsMTcuNTkwOTA5MSBaIE0xMS45MzE4MTgyLDE5Ljk3NzI3MjcgQzExLjkzMTgxODIsMjAuMTY1NDU0NSAxMS43NzkwOTA5LDIwLjMxODE4MTggMTEuNTkwOTA5MSwyMC4zMTgxODE4IEwxLjAyMjcyNzI3LDIwLjMxODE4MTggQzAuODM0NTQ1NDU1LDIwLjMxODE4MTggMC42ODE4MTgxODIsMjAuMTY1NDU0NSAwLjY4MTgxODE4MiwxOS45NzcyNzI3IEwwLjY4MTgxODE4Miw5LjQwOTA5MDkxIEMwLjY4MTgxODE4Miw5LjIyMDkwOTA5IDAuODM0NTQ1NDU1LDkuMDY4MTgxODIgMS4wMjI3MjcyNyw5LjA2ODE4MTgyIEwxLjM2MzYzNjM2LDkuMDY4MTgxODIgTDEuMzYzNjM2MzYsOC4zODYzNjM2NCBMMS4wMjI3MjcyNyw4LjM4NjM2MzY0IEMwLjQ1ODE4MTgxOCw4LjM4NjM2MzY0IDAsOC44NDQ1NDU0NSAwLDkuNDA5MDkwOTEgTDAsMTkuOTc3MjcyNyBDMCwyMC41NDE4MTgyIDAuNDU4MTgxODE4LDIxIDEuMDIyNzI3MjcsMjEgTDExLjU5MDkwOTEsMjEgQzEyLjE1NTQ1NDUsMjEgMTIuNjEzNjM2NCwyMC41NDE4MTgyIDEyLjYxMzYzNjQsMTkuOTc3MjcyNyBMMTIuNjEzNjM2NCwxOS42MzYzNjM2IEwxMS45MzE4MTgyLDE5LjYzNjM2MzYgTDExLjkzMTgxODIsMTkuOTc3MjcyNyBaIiBpZD0iUGFnZS0xIj48L3BhdGg+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==");
+	background-repeat: no-repeat;
+	position: relative;
+	top: 2px;
+}
+
+.copy-code-button:focus {
+    /* Avoid an ugly focus outline on click in Chrome,
+       but darken the button for accessibility.
+       See https://stackoverflow.com/a/25298082/1481479 */
+    /* background-color: #E6E6E6; */
+	outline: 0;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Background image -->
+    <div id="intro" class="bg-image vh-100 shadow-1-strong" style="max-height: 150px">
+      <div class="mask" style="
+            background: linear-gradient(
+              45deg,
+              rgba(29, 236, 197, 0.7),
+              rgba(91, 14, 214, 0.7) 100%
+            );
+          ">
+        <div class="container d-flex align-items-center justify-content-center text-center h-100"  style="max-height: 150px">
+          <div class="text-white">
+            <h1 class="mb-3"><img width="80" src="../pyserini-logo.png"/> Pyserini: MS MARCO V2.1 Segmented Doc</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Background image -->
+
+<div class="container my-4">
+
+<p>The two-click<a href="#" data-mdb-toggle="tooltip" title="What are the two clicks, you ask? Copy and paste!"><sup>*</sup></a> reproduction matrix below provides commands for reproducing experimental results reported in a number of papers, denoted by the references in square brackets.
+These runs take advantage of prebuilt indexes in Pyserini, so you don't need access to the raw corpus.
+Instructions for programmatic execution are shown at the bottom of this page.</p>
+
+<p>The experimental conditions and reference scores are defined in the <a href="https://github.com/castorini/pyserini/blob/master/pyserini/2cr/msmarco-v2.1-doc-segmented.yaml">YAML configuration</a>.
+Not all experimental conditions are shown in the table below.</p>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+<tr><th class="headertop"></th><th class="headertop"></th><th class="headertop"></th><th class="headertop" colspan="3"><b>RAG 2024 test (Umbrela)</b></th><th class="headertop" colspan="3"><b>RAG 2024 test (NIST)</b></th><th class="headertop" colspan="3"><b>RAG 2025 test (Umbrela)</b></th><th class="headertop" colspan="2"><b>RAG 2025 test (NIST)</b></th></tr>
+<tr><th class="headerbottom"></th><th class="headerbottom"></th><th class="headerbottom"></th><th class="headerbottom" scope="col">nDCG@20</th><th class="headerbottom" scope="col">R@100</th><th class="headerbottom"></th><th class="headerbottom" scope="col">nDCG@20</th><th class="headerbottom" scope="col">R@100</th><th class="headerbottom"></th><th class="headerbottom" scope="col">nDCG@30</th><th class="headerbottom" scope="col">R@100</th><th class="headerbottom"></th><th class="headerbottom" scope="col">nDCG@30</th><th class="headerbottom" scope="col">R@100</th></tr>
+    </thead>
+    <tbody>
+
+<!-- Condition: bm25 -->
+<tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">
+<td class="expand-button"></td>
+<td>1</td>
+<td style="min-width: 400px">BM25 doc segmented (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4), regular index</td>
+<td>0.3198</td><td>0.1395</td><td></td><td>0.2809</td><td>0.1698</td><td></td><td>0.3250</td><td>0.1167</td><td></td><td>0.3468</td><td>0.1107</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="13">
+<div id="collapse1" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row1-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row1-tab1-header" data-mdb-toggle="tab" href="#row1-tab1" role="tab" aria-controls="row1-tab1" aria-selected="true" style="text-transform:none">RAG 2024 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row1-tab2-header" data-mdb-toggle="tab" href="#row1-tab2" role="tab" aria-controls="row1-tab2" aria-selected="false" style="text-transform:none">RAG 2024 test (NIST)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row1-tab3-header" data-mdb-toggle="tab" href="#row1-tab3" role="tab" aria-controls="row1-tab3" aria-selected="false" style="text-transform:none">RAG 2025 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row1-tab4-header" data-mdb-toggle="tab" href="#row1-tab4" role="tab" aria-controls="row1-tab4" aria-selected="false" style="text-transform:none">RAG 2025 test (NIST)</a></li>
+</ul>
+<div class="tab-content" id="row1-content">
+<div class="tab-pane fade show active" id="row1-tab1" role="tabpanel" aria-labelledby="row1-tab1-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test-umbrela-all</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented \
+  --topics rag24.test \
+  --output run.msmarco-v2.1-doc-segmented.bm25.rag24.test.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.bm25.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.bm25.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row1-tab2" role="tabpanel" aria-labelledby="row1-tab2-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented \
+  --topics rag24.test \
+  --output run.msmarco-v2.1-doc-segmented.bm25.rag24.test.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test run.msmarco-v2.1-doc-segmented.bm25.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test run.msmarco-v2.1-doc-segmented.bm25.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row1-tab3" role="tabpanel" aria-labelledby="row1-tab3-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test-umbrela2</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented \
+  --topics rag25.test \
+  --output run.msmarco-v2.1-doc-segmented.bm25.rag25.test.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.bm25.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.bm25.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row1-tab4" role="tabpanel" aria-labelledby="row1-tab4-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented \
+  --topics rag25.test \
+  --output run.msmarco-v2.1-doc-segmented.bm25.rag25.test.txt \
+  --hits 1000 --bm25 --k1 0.9 --b 0.4
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test run.msmarco-v2.1-doc-segmented.bm25.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test run.msmarco-v2.1-doc-segmented.bm25.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+</div>
+</div>
+</td>
+</tr>
+
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: splade-v3.onnx -->
+<tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
+<td class="expand-button"></td>
+<td>2</td>
+<td style="min-width: 400px">SPLADE-v3 (ONNX)</td>
+<td>0.5167</td><td>0.2437</td><td></td><td>0.4642</td><td>0.3198</td><td></td><td>0.5838</td><td>0.1992</td><td></td><td>0.5957</td><td>0.2103</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="13">
+<div id="collapse2" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row2-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row2-tab1-header" data-mdb-toggle="tab" href="#row2-tab1" role="tab" aria-controls="row2-tab1" aria-selected="true" style="text-transform:none">RAG 2024 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row2-tab2-header" data-mdb-toggle="tab" href="#row2-tab2" role="tab" aria-controls="row2-tab2" aria-selected="false" style="text-transform:none">RAG 2024 test (NIST)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row2-tab3-header" data-mdb-toggle="tab" href="#row2-tab3" role="tab" aria-controls="row2-tab3" aria-selected="false" style="text-transform:none">RAG 2025 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row2-tab4-header" data-mdb-toggle="tab" href="#row2-tab4" role="tab" aria-controls="row2-tab4" aria-selected="false" style="text-transform:none">RAG 2025 test (NIST)</a></li>
+</ul>
+<div class="tab-content" id="row2-content">
+<div class="tab-pane fade show active" id="row2-tab1" role="tabpanel" aria-labelledby="row2-tab1-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test-umbrela-all</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented.splade-v3 \
+  --topics rag24.test \
+  --output run.msmarco-v2.1-doc-segmented.splade-v3.onnx.rag24.test.txt \
+  --impact --pretokenized --remove-query --hits 1000 \
+  --onnx-encoder SpladeV3
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.splade-v3.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.splade-v3.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row2-tab2" role="tabpanel" aria-labelledby="row2-tab2-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented.splade-v3 \
+  --topics rag24.test \
+  --output run.msmarco-v2.1-doc-segmented.splade-v3.onnx.rag24.test.txt \
+  --impact --pretokenized --remove-query --hits 1000 \
+  --onnx-encoder SpladeV3
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test run.msmarco-v2.1-doc-segmented.splade-v3.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test run.msmarco-v2.1-doc-segmented.splade-v3.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row2-tab3" role="tabpanel" aria-labelledby="row2-tab3-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test-umbrela2</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented.splade-v3 \
+  --topics rag25.test \
+  --output run.msmarco-v2.1-doc-segmented.splade-v3.onnx.rag25.test.txt \
+  --impact --pretokenized --remove-query --hits 1000 \
+  --onnx-encoder SpladeV3
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.splade-v3.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.splade-v3.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row2-tab4" role="tabpanel" aria-labelledby="row2-tab4-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 128 \
+  --index msmarco-v2.1-doc-segmented.splade-v3 \
+  --topics rag25.test \
+  --output run.msmarco-v2.1-doc-segmented.splade-v3.onnx.rag25.test.txt \
+  --impact --pretokenized --remove-query --hits 1000 \
+  --onnx-encoder SpladeV3
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test run.msmarco-v2.1-doc-segmented.splade-v3.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test run.msmarco-v2.1-doc-segmented.splade-v3.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+</div>
+</div>
+</td>
+</tr>
+
+<tr><td style="border-bottom: 0"></td></tr>
+<!-- Condition: shard00.arctic-l.hnsw-int8.onnx -->
+<tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
+<td class="expand-button"></td>
+<td>3</td>
+<td style="min-width: 400px">ArcticEmbed-L (shard00) with quantized HNSW (ONNX)</td>
+<td>0.3003</td><td>0.0750</td><td></td><td>0.2449</td><td>0.0746</td><td></td><td>0.2916</td><td>0.0627</td><td></td><td>0.2793</td><td>0.0605</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="13">
+<div id="collapse3" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row3-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row3-tab1-header" data-mdb-toggle="tab" href="#row3-tab1" role="tab" aria-controls="row3-tab1" aria-selected="true" style="text-transform:none">RAG 2024 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">RAG 2024 test (NIST)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">RAG 2025 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row3-tab4-header" data-mdb-toggle="tab" href="#row3-tab4" role="tab" aria-controls="row3-tab4" aria-selected="false" style="text-transform:none">RAG 2025 test (NIST)</a></li>
+</ul>
+<div class="tab-content" id="row3-content">
+<div class="tab-pane fade show active" id="row3-tab1" role="tabpanel" aria-labelledby="row3-tab1-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test-umbrela-all</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard00.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard00.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard00.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row3-tab2" role="tabpanel" aria-labelledby="row3-tab2-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard00.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test run.msmarco-v2.1-doc-segmented.shard00.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test run.msmarco-v2.1-doc-segmented.shard00.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row3-tab3" role="tabpanel" aria-labelledby="row3-tab3-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test-umbrela2</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard00.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard00.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard00.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row3-tab4" role="tabpanel" aria-labelledby="row3-tab4-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard00.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard00.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test run.msmarco-v2.1-doc-segmented.shard00.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test run.msmarco-v2.1-doc-segmented.shard00.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+</div>
+</div>
+</td>
+</tr>
+
+<!-- Condition: shard01.arctic-l.hnsw-int8.onnx -->
+<tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
+<td class="expand-button"></td>
+<td>4</td>
+<td style="min-width: 400px">ArcticEmbed-L (shard01) with quantized HNSW (ONNX)</td>
+<td>0.2599</td><td>0.0619</td><td></td><td>0.2184</td><td>0.0690</td><td></td><td>0.2581</td><td>0.0500</td><td></td><td>0.2604</td><td>0.0512</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="13">
+<div id="collapse4" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row4-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row4-tab1-header" data-mdb-toggle="tab" href="#row4-tab1" role="tab" aria-controls="row4-tab1" aria-selected="true" style="text-transform:none">RAG 2024 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">RAG 2024 test (NIST)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">RAG 2025 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row4-tab4-header" data-mdb-toggle="tab" href="#row4-tab4" role="tab" aria-controls="row4-tab4" aria-selected="false" style="text-transform:none">RAG 2025 test (NIST)</a></li>
+</ul>
+<div class="tab-content" id="row4-content">
+<div class="tab-pane fade show active" id="row4-tab1" role="tabpanel" aria-labelledby="row4-tab1-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test-umbrela-all</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard01.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard01.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard01.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row4-tab2" role="tabpanel" aria-labelledby="row4-tab2-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard01.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test run.msmarco-v2.1-doc-segmented.shard01.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test run.msmarco-v2.1-doc-segmented.shard01.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row4-tab3" role="tabpanel" aria-labelledby="row4-tab3-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test-umbrela2</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard01.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard01.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard01.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row4-tab4" role="tabpanel" aria-labelledby="row4-tab4-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard01.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard01.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test run.msmarco-v2.1-doc-segmented.shard01.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test run.msmarco-v2.1-doc-segmented.shard01.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+</div>
+</div>
+</td>
+</tr>
+
+<!-- Condition: shard02.arctic-l.hnsw-int8.onnx -->
+<tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
+<td class="expand-button"></td>
+<td>5</td>
+<td style="min-width: 400px">ArcticEmbed-L (shard02) with quantized HNSW (ONNX)</td>
+<td>0.2661</td><td>0.0639</td><td></td><td>0.2211</td><td>0.0720</td><td></td><td>0.2486</td><td>0.0437</td><td></td><td>0.2429</td><td>0.0461</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="13">
+<div id="collapse5" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row5-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row5-tab1-header" data-mdb-toggle="tab" href="#row5-tab1" role="tab" aria-controls="row5-tab1" aria-selected="true" style="text-transform:none">RAG 2024 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">RAG 2024 test (NIST)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">RAG 2025 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row5-tab4-header" data-mdb-toggle="tab" href="#row5-tab4" role="tab" aria-controls="row5-tab4" aria-selected="false" style="text-transform:none">RAG 2025 test (NIST)</a></li>
+</ul>
+<div class="tab-content" id="row5-content">
+<div class="tab-pane fade show active" id="row5-tab1" role="tabpanel" aria-labelledby="row5-tab1-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test-umbrela-all</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard02.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard02.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard02.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row5-tab2" role="tabpanel" aria-labelledby="row5-tab2-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard02.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test run.msmarco-v2.1-doc-segmented.shard02.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test run.msmarco-v2.1-doc-segmented.shard02.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row5-tab3" role="tabpanel" aria-labelledby="row5-tab3-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test-umbrela2</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard02.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard02.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard02.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row5-tab4" role="tabpanel" aria-labelledby="row5-tab4-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard02.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard02.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test run.msmarco-v2.1-doc-segmented.shard02.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test run.msmarco-v2.1-doc-segmented.shard02.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+</div>
+</div>
+</td>
+</tr>
+
+<!-- Condition: shard03.arctic-l.hnsw-int8.onnx -->
+<tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
+<td class="expand-button"></td>
+<td>6</td>
+<td style="min-width: 400px">ArcticEmbed-L (shard03) with quantized HNSW (ONNX)</td>
+<td>0.2705</td><td>0.0634</td><td></td><td>0.2388</td><td>0.0805</td><td></td><td>0.2609</td><td>0.0556</td><td></td><td>0.2874</td><td>0.0565</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="13">
+<div id="collapse6" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row6-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row6-tab1-header" data-mdb-toggle="tab" href="#row6-tab1" role="tab" aria-controls="row6-tab1" aria-selected="true" style="text-transform:none">RAG 2024 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">RAG 2024 test (NIST)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">RAG 2025 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row6-tab4-header" data-mdb-toggle="tab" href="#row6-tab4" role="tab" aria-controls="row6-tab4" aria-selected="false" style="text-transform:none">RAG 2025 test (NIST)</a></li>
+</ul>
+<div class="tab-content" id="row6-content">
+<div class="tab-pane fade show active" id="row6-tab1" role="tabpanel" aria-labelledby="row6-tab1-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test-umbrela-all</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard03.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard03.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard03.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row6-tab2" role="tabpanel" aria-labelledby="row6-tab2-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard03.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test run.msmarco-v2.1-doc-segmented.shard03.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test run.msmarco-v2.1-doc-segmented.shard03.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row6-tab3" role="tabpanel" aria-labelledby="row6-tab3-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test-umbrela2</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard03.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard03.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard03.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row6-tab4" role="tabpanel" aria-labelledby="row6-tab4-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard03.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard03.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test run.msmarco-v2.1-doc-segmented.shard03.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test run.msmarco-v2.1-doc-segmented.shard03.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+</div>
+</div>
+</td>
+</tr>
+
+<!-- Condition: shard04.arctic-l.hnsw-int8.onnx -->
+<tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
+<td class="expand-button"></td>
+<td>7</td>
+<td style="min-width: 400px">ArcticEmbed-L (shard04) with quantized HNSW (ONNX)</td>
+<td>0.2937</td><td>0.0692</td><td></td><td>0.2253</td><td>0.0654</td><td></td><td>0.2737</td><td>0.0605</td><td></td><td>0.2687</td><td>0.0580</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="13">
+<div id="collapse7" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row7-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row7-tab1-header" data-mdb-toggle="tab" href="#row7-tab1" role="tab" aria-controls="row7-tab1" aria-selected="true" style="text-transform:none">RAG 2024 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">RAG 2024 test (NIST)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">RAG 2025 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row7-tab4-header" data-mdb-toggle="tab" href="#row7-tab4" role="tab" aria-controls="row7-tab4" aria-selected="false" style="text-transform:none">RAG 2025 test (NIST)</a></li>
+</ul>
+<div class="tab-content" id="row7-content">
+<div class="tab-pane fade show active" id="row7-tab1" role="tabpanel" aria-labelledby="row7-tab1-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test-umbrela-all</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard04.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard04.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard04.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row7-tab2" role="tabpanel" aria-labelledby="row7-tab2-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard04.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test run.msmarco-v2.1-doc-segmented.shard04.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test run.msmarco-v2.1-doc-segmented.shard04.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row7-tab3" role="tabpanel" aria-labelledby="row7-tab3-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test-umbrela2</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard04.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard04.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard04.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row7-tab4" role="tabpanel" aria-labelledby="row7-tab4-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard04.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard04.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test run.msmarco-v2.1-doc-segmented.shard04.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test run.msmarco-v2.1-doc-segmented.shard04.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+</div>
+</div>
+</td>
+</tr>
+
+<!-- Condition: shard05.arctic-l.hnsw-int8.onnx -->
+<tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
+<td class="expand-button"></td>
+<td>8</td>
+<td style="min-width: 400px">ArcticEmbed-L (shard05) with quantized HNSW (ONNX)</td>
+<td>0.2590</td><td>0.0580</td><td></td><td>0.2383</td><td>0.0638</td><td></td><td>0.2190</td><td>0.0511</td><td></td><td>0.2499</td><td>0.0495</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="13">
+<div id="collapse8" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row8-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row8-tab1-header" data-mdb-toggle="tab" href="#row8-tab1" role="tab" aria-controls="row8-tab1" aria-selected="true" style="text-transform:none">RAG 2024 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">RAG 2024 test (NIST)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">RAG 2025 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row8-tab4-header" data-mdb-toggle="tab" href="#row8-tab4" role="tab" aria-controls="row8-tab4" aria-selected="false" style="text-transform:none">RAG 2025 test (NIST)</a></li>
+</ul>
+<div class="tab-content" id="row8-content">
+<div class="tab-pane fade show active" id="row8-tab1" role="tabpanel" aria-labelledby="row8-tab1-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test-umbrela-all</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard05.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard05.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard05.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row8-tab2" role="tabpanel" aria-labelledby="row8-tab2-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard05.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test run.msmarco-v2.1-doc-segmented.shard05.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test run.msmarco-v2.1-doc-segmented.shard05.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row8-tab3" role="tabpanel" aria-labelledby="row8-tab3-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test-umbrela2</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard05.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard05.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard05.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row8-tab4" role="tabpanel" aria-labelledby="row8-tab4-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard05.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard05.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test run.msmarco-v2.1-doc-segmented.shard05.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test run.msmarco-v2.1-doc-segmented.shard05.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+</div>
+</div>
+</td>
+</tr>
+
+<!-- Condition: shard06.arctic-l.hnsw-int8.onnx -->
+<tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">
+<td class="expand-button"></td>
+<td>9</td>
+<td style="min-width: 400px">ArcticEmbed-L (shard06) with quantized HNSW (ONNX)</td>
+<td>0.2444</td><td>0.0557</td><td></td><td>0.2336</td><td>0.0715</td><td></td><td>0.1751</td><td>0.0397</td><td></td><td>0.1783</td><td>0.0401</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="13">
+<div id="collapse9" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row9-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row9-tab1-header" data-mdb-toggle="tab" href="#row9-tab1" role="tab" aria-controls="row9-tab1" aria-selected="true" style="text-transform:none">RAG 2024 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">RAG 2024 test (NIST)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">RAG 2025 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row9-tab4-header" data-mdb-toggle="tab" href="#row9-tab4" role="tab" aria-controls="row9-tab4" aria-selected="false" style="text-transform:none">RAG 2025 test (NIST)</a></li>
+</ul>
+<div class="tab-content" id="row9-content">
+<div class="tab-pane fade show active" id="row9-tab1" role="tabpanel" aria-labelledby="row9-tab1-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test-umbrela-all</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard06.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard06.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard06.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row9-tab2" role="tabpanel" aria-labelledby="row9-tab2-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard06.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test run.msmarco-v2.1-doc-segmented.shard06.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test run.msmarco-v2.1-doc-segmented.shard06.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row9-tab3" role="tabpanel" aria-labelledby="row9-tab3-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test-umbrela2</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard06.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard06.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard06.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row9-tab4" role="tabpanel" aria-labelledby="row9-tab4-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard06.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard06.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test run.msmarco-v2.1-doc-segmented.shard06.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test run.msmarco-v2.1-doc-segmented.shard06.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+</div>
+</div>
+</td>
+</tr>
+
+<!-- Condition: shard07.arctic-l.hnsw-int8.onnx -->
+<tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">
+<td class="expand-button"></td>
+<td>10</td>
+<td style="min-width: 400px">ArcticEmbed-L (shard07) with quantized HNSW (ONNX)</td>
+<td>0.2417</td><td>0.0502</td><td></td><td>0.2255</td><td>0.0587</td><td></td><td>0.2178</td><td>0.0413</td><td></td><td>0.2230</td><td>0.0422</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="13">
+<div id="collapse10" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row10-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row10-tab1-header" data-mdb-toggle="tab" href="#row10-tab1" role="tab" aria-controls="row10-tab1" aria-selected="true" style="text-transform:none">RAG 2024 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">RAG 2024 test (NIST)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">RAG 2025 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row10-tab4-header" data-mdb-toggle="tab" href="#row10-tab4" role="tab" aria-controls="row10-tab4" aria-selected="false" style="text-transform:none">RAG 2025 test (NIST)</a></li>
+</ul>
+<div class="tab-content" id="row10-content">
+<div class="tab-pane fade show active" id="row10-tab1" role="tabpanel" aria-labelledby="row10-tab1-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test-umbrela-all</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard07.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard07.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard07.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row10-tab2" role="tabpanel" aria-labelledby="row10-tab2-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard07.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test run.msmarco-v2.1-doc-segmented.shard07.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test run.msmarco-v2.1-doc-segmented.shard07.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row10-tab3" role="tabpanel" aria-labelledby="row10-tab3-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test-umbrela2</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard07.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard07.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard07.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row10-tab4" role="tabpanel" aria-labelledby="row10-tab4-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard07.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard07.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test run.msmarco-v2.1-doc-segmented.shard07.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test run.msmarco-v2.1-doc-segmented.shard07.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+</div>
+</div>
+</td>
+</tr>
+
+<!-- Condition: shard08.arctic-l.hnsw-int8.onnx -->
+<tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">
+<td class="expand-button"></td>
+<td>11</td>
+<td style="min-width: 400px">ArcticEmbed-L (shard08) with quantized HNSW (ONNX)</td>
+<td>0.2847</td><td>0.0678</td><td></td><td>0.2765</td><td>0.0893</td><td></td><td>0.2390</td><td>0.0456</td><td></td><td>0.2312</td><td>0.0418</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="13">
+<div id="collapse11" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row11-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row11-tab1-header" data-mdb-toggle="tab" href="#row11-tab1" role="tab" aria-controls="row11-tab1" aria-selected="true" style="text-transform:none">RAG 2024 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row11-tab2-header" data-mdb-toggle="tab" href="#row11-tab2" role="tab" aria-controls="row11-tab2" aria-selected="false" style="text-transform:none">RAG 2024 test (NIST)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">RAG 2025 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row11-tab4-header" data-mdb-toggle="tab" href="#row11-tab4" role="tab" aria-controls="row11-tab4" aria-selected="false" style="text-transform:none">RAG 2025 test (NIST)</a></li>
+</ul>
+<div class="tab-content" id="row11-content">
+<div class="tab-pane fade show active" id="row11-tab1" role="tabpanel" aria-labelledby="row11-tab1-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test-umbrela-all</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard08.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard08.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard08.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row11-tab2" role="tabpanel" aria-labelledby="row11-tab2-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard08.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test run.msmarco-v2.1-doc-segmented.shard08.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test run.msmarco-v2.1-doc-segmented.shard08.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row11-tab3" role="tabpanel" aria-labelledby="row11-tab3-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test-umbrela2</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard08.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard08.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard08.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row11-tab4" role="tabpanel" aria-labelledby="row11-tab4-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard08.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard08.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test run.msmarco-v2.1-doc-segmented.shard08.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test run.msmarco-v2.1-doc-segmented.shard08.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+</div>
+</div>
+</td>
+</tr>
+
+<!-- Condition: shard09.arctic-l.hnsw-int8.onnx -->
+<tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">
+<td class="expand-button"></td>
+<td>12</td>
+<td style="min-width: 400px">ArcticEmbed-L (shard09) with quantized HNSW (ONNX)</td>
+<td>0.2432</td><td>0.0522</td><td></td><td>0.2457</td><td>0.0715</td><td></td><td>0.2170</td><td>0.0389</td><td></td><td>0.2182</td><td>0.0418</td>
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="13">
+<div id="collapse12" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row12-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row12-tab1-header" data-mdb-toggle="tab" href="#row12-tab1" role="tab" aria-controls="row12-tab1" aria-selected="true" style="text-transform:none">RAG 2024 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row12-tab2-header" data-mdb-toggle="tab" href="#row12-tab2" role="tab" aria-controls="row12-tab2" aria-selected="false" style="text-transform:none">RAG 2024 test (NIST)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">RAG 2025 test (Umbrela)</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row12-tab4-header" data-mdb-toggle="tab" href="#row12-tab4" role="tab" aria-controls="row12-tab4" aria-selected="false" style="text-transform:none">RAG 2025 test (NIST)</a></li>
+</ul>
+<div class="tab-content" id="row12-content">
+<div class="tab-pane fade show active" id="row12-tab1" role="tabpanel" aria-labelledby="row12-tab1-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test-umbrela-all</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard09.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard09.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test-umbrela-all run.msmarco-v2.1-doc-segmented.shard09.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row12-tab2" role="tabpanel" aria-labelledby="row12-tab2-header">
+<p>topics: <code>rag24.test</code> / qrels: <code>rag24.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.hnsw-int8 \
+  --topics rag24.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard09.arctic-l.hnsw-int8.onnx.rag24.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.20 rag24.test run.msmarco-v2.1-doc-segmented.shard09.arctic-l.hnsw-int8.onnx.rag24.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag24.test run.msmarco-v2.1-doc-segmented.shard09.arctic-l.hnsw-int8.onnx.rag24.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row12-tab3" role="tabpanel" aria-labelledby="row12-tab3-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test-umbrela2</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard09.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard09.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test-umbrela2 run.msmarco-v2.1-doc-segmented.shard09.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+<div class="tab-pane fade" id="row12-tab4" role="tabpanel" aria-labelledby="row12-tab4-header">
+<p>topics: <code>rag25.test</code> / qrels: <code>rag25.test</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>python -m pyserini.search.lucene \
+  --threads 16 --batch-size 512 \
+  --index msmarco-v2.1-doc-segmented-shard09.arctic-embed-l.hnsw-int8 \
+  --topics rag25.test \
+  --onnx-encoder ArcticEmbedL \
+  --output run.msmarco-v2.1-doc-segmented.shard09.arctic-l.hnsw-int8.onnx.rag25.test.txt \
+  --hits 250 --ef-search 1000 --dense --hnsw
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>python -m pyserini.eval.trec_eval -c -m ndcg_cut.30 rag25.test run.msmarco-v2.1-doc-segmented.shard09.arctic-l.hnsw-int8.onnx.rag25.test.txt
+python -m pyserini.eval.trec_eval -c -m recall.100 rag25.test run.msmarco-v2.1-doc-segmented.shard09.arctic-l.hnsw-int8.onnx.rag25.test.txt
+</code></pre>
+</div>
+</div>
+
+</div>
+</div>
+</td>
+</tr>
+
+
+    </tbody>
+  </table>
+</div>
+
+<div style="padding-top: 20px"></div>
+
+<h4>Programmatic Execution</h4>
+
+<p>All experimental runs shown in the above table can be programmatically executed based on the instructions below.
+To list all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2.1-doc-segmented --list-conditions
+</tt></blockquote>
+
+<p>These conditions correspond to the table rows above.</p>
+
+<p>For all conditions, just show the commands in a "dry run":</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2.1-doc-segmented --all --display-commands --dry-run
+</tt></blockquote>
+
+<p>To actually run all the experimental conditions:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2.1-doc-segmented --all --display-commands
+</tt></blockquote>
+
+<p>With the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>To show the commands for a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2.1-doc-segmented --condition bm25 --display-commands --dry-run
+</tt></blockquote>
+
+<p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
+
+<p>To actually run a specific condition:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2.1-doc-segmented --condition bm25 --display-commands
+</tt></blockquote>
+
+<p>Again, with the above command, run files will be placed in the current directory.
+Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.</p>
+
+<p>Finally, to generate this page:</p>
+
+<blockquote class="mycode2"><tt>
+python -m pyserini.2cr.msmarco --collection v2.1-doc-segmented --generate-report --output docs/2cr/msmarco-v2.1-doc-segmented.html
+</tt></blockquote>
+
+<p>The output file <tt>docs/2cr/msmarco-v2.1-doc-segmented.html</tt> should be identical to this page.</p>
+
+<div style="padding-top: 50px"></div>
+
+      </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+
+<script>
+document.querySelectorAll('.command-block').forEach(function (block) {
+    var codeBlock = block.querySelector('pre');
+    var button = document.createElement('button');
+    button.className = 'copy-code-button';
+    button.type = 'button';
+    button.setAttribute('data-clipboard-text', codeBlock.innerText);
+    button.innerText = 'Copy';
+    block.querySelector('.command-heading').appendChild(button);
+});
+
+var clipboard = new ClipboardJS('.copy-code-button');
+
+clipboard.on('success', function(e) {
+  console.info('Action:', e.action);
+  console.info('Text:', e.text);
+  console.info('Trigger:', e.trigger);
+  e.trigger.textContent = 'Copied';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+clipboard.on('error', function(e) {
+  console.error('Action:', e.action);
+  console.error('Trigger:', e.trigger);
+  e.trigger.textContent = 'Error Copying';
+  window.setTimeout(function() {
+    e.trigger.textContent = 'Copy';
+  }, 2000);
+  e.clearSelection();
+});
+
+</script>
+
+</body>
+</html>

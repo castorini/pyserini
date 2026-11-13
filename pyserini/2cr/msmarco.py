@@ -15,17 +15,15 @@
 #
 
 import argparse
-import importlib.resources
 import os
-import re
 import sys
 import time
-from collections import defaultdict
 from datetime import UTC, datetime
+from html import escape
+from shlex import quote
 from string import Template
 
 import yaml
-
 from pyserini.util import run_command
 
 from ._base import (
@@ -180,125 +178,46 @@ models = {
         'unicoil-noexp-pytorch',
         'unicoil-pytorch',
     ],
-}
-
-trec_eval_metric_definitions = {
-    'msmarco-v1-passage': {
-        'msmarco-v1-passage.dev': {
-            'MRR@10': '-c -M 10 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl19-passage': {
-            'MAP': '-c -l 2 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -l 2 -m recall.1000'
-        },
-        'dl20-passage': {
-            'MAP': '-c -l 2 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -l 2 -m recall.1000'
-        }
-    },
-    'msmarco-v1-doc': {
-        'msmarco-doc-dev': {
-            'MRR@10': '-c -M 100 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl19-doc': {
-            'MAP': '-c -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl20-doc': {
-            'MAP': '-c -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -m recall.1000'
-        }
-    },
-    'msmarco-v2-passage': {
-        'msmarco-v2-passage-dev': {
-            'MRR@100': '-c -M 100 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'msmarco-v2-passage-dev2': {
-            'MRR@100': '-c -M 100 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl21-passage': {
-            'MAP@100': '-c -l 2 -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -l 2 -m recall.1000'
-        },
-        'dl22-passage': {
-            'MAP@100': '-c -l 2 -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -l 2 -m recall.1000'
-        },
-        'dl23-passage': {
-            'MAP@100': '-c -l 2 -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -l 2 -m recall.1000'
-        }
-    },
-    'msmarco-v2-doc': {
-        'msmarco-v2-doc-dev': {
-            'MRR@100': '-c -M 100 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'msmarco-v2-doc-dev2': {
-            'MRR@100': '-c -M 100 -m recip_rank',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl21-doc': {
-            'MAP@100': '-c -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl22-doc': {
-            'MAP@100': '-c -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -m recall.1000'
-        },
-        'dl23-doc': {
-            'MAP@100': '-c -M 100 -m map',
-            'nDCG@10': '-c -m ndcg_cut.10',
-            'R@1K': '-c -m recall.1000'
-        }
-    }
+    # MS MARCO v2.1 doc
+    'msmarco-v2.1-doc': [
+        'bm25-doc',
+        '',
+        'bm25-segmented-doc',
+    ],
+    # MS MARCO v2.1 segmented doc
+    'msmarco-v2.1-doc-segmented': [
+        'bm25',
+        '',
+        'splade-v3.onnx',
+        '',
+        'shard00.arctic-l.hnsw-int8.onnx',
+        'shard01.arctic-l.hnsw-int8.onnx',
+        'shard02.arctic-l.hnsw-int8.onnx',
+        'shard03.arctic-l.hnsw-int8.onnx',
+        'shard04.arctic-l.hnsw-int8.onnx',
+        'shard05.arctic-l.hnsw-int8.onnx',
+        'shard06.arctic-l.hnsw-int8.onnx',
+        'shard07.arctic-l.hnsw-int8.onnx',
+        'shard08.arctic-l.hnsw-int8.onnx',
+        'shard09.arctic-l.hnsw-int8.onnx',
+    ],
 }
 
 
-def find_msmarco_table_topic_set_key_v1(topic_key):
-    # E.g., we want to map variants like 'dl19-passage-unicoil' and 'dl19-passage' both into 'dl19'
-    key = ''
-    if topic_key.startswith('dl19'):
-        key = 'dl19'
-    elif topic_key.startswith('dl20'):
-        key = 'dl20'
-    elif topic_key.startswith('msmarco'):
-        key = 'dev'
 
-    return key
+def get_runfile_name(collection, condition_name, topic_key):
+    """Build a run filename using the full topic key for every collection."""
+    return f'run.{collection}.{condition_name}.{topic_key}.txt'
 
 
-def find_msmarco_table_topic_set_key_v2(topic_key):
-    key = ''
-    if topic_key.endswith(('dev', 'dev-unicoil', 'dev-unicoil-noexp')):
-        key = 'dev'
-    elif topic_key.endswith(('dev2', 'dev2-unicoil', 'dev2-unicoil-noexp')):
-        key = 'dev2'
-    elif topic_key.startswith('dl21'):
-        key = 'dl21'
-    elif topic_key.startswith('dl22'):
-        key = 'dl22'
-    elif topic_key.startswith('dl23'):
-        key = 'dl23'
-
-    return key
-
-
-def format_eval_command(raw):
-    return raw.replace('run.', '\\\n  run.')
+def get_run_command(collection, condition, topic_set, directory=''):
+    topic_key = topic_set['topic_key']
+    runfile = os.path.join(directory, get_runfile_name(collection, condition['name'], topic_key))
+    command = Template(condition['command']).substitute(
+        topics=quote(topic_key), output=quote(runfile),
+        sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
+        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
+    return runfile, command
 
 
 def format_command(raw):
@@ -326,295 +245,190 @@ def format_command(raw):
         .replace('.txt ', '.txt \\\n  ')
 
 
-def list_conditions(args):
-    for condition in models[args.collection]:
-        if condition == '':
-            continue
-        print(condition)
+def get_condition_names(collection):
+    config = yaml.safe_load(read_file(f'{collection}.yaml'))
+    return [condition['name'] for condition in config['conditions']]
 
 
-def _get_display_num(num: float) -> str:
-    return f'{num:.4f}' if num != 0 else '-'
-
-
-def _remove_commands(table, name, s, v1):
-    v1_unavailable_dict = {
-        ('dl19', 'MAP'): 'Command to generate run on TREC 2019 queries:.*?</div>',
-        ('dl20', 'MAP'): 'Command to generate run on TREC 2020 queries:.*?</div>',
-        ('dev', 'MRR@10'): 'Command to generate run on dev queries:.*?</div>',
-    }
-    v2_unavailable_dict = {
-        ('dl21', 'MAP@100'): 'Command to generate run on TREC 2021 queries:.*?</div>',
-        ('dl22', 'MAP@100'): 'Command to generate run on TREC 2022 queries:.*?</div>',
-        ('dl23', 'MAP@100'): 'Command to generate run on TREC 2023 queries:.*?</div>',
-        ('dev', 'MRR@100'): 'Command to generate run on dev queries:.*?</div>',
-        ('dev2', 'MRR@100'): 'Command to generate run on dev2 queries:.*?</div>',
-    }
-    unavailable_dict = v1_unavailable_dict if v1 else v2_unavailable_dict
-    for k, v in unavailable_dict.items():
-        if table[name][k[0]][k[1]] == 0:
-            s = re.sub(re.compile(v, re.MULTILINE | re.DOTALL), 'Not available.</div>', s)
-    return s
+REPORT_TOPICS = {
+    'msmarco-v1-passage': {
+        'TREC 2019': ('AP@1K', 'nDCG@10', 'R@1K'),
+        'TREC 2020': ('AP@1K', 'nDCG@10', 'R@1K'),
+        'MS MARCO dev': ('RR@10', 'R@1K'),
+    },
+    'msmarco-v1-doc': {
+        'TREC 2019': ('AP@100', 'nDCG@10', 'R@1K'),
+        'TREC 2020': ('AP@100', 'nDCG@10', 'R@1K'),
+        'MS MARCO dev': ('RR@100', 'R@1K'),
+    },
+    'msmarco-v2-passage': {
+        'TREC 2021': ('AP@100', 'nDCG@10', 'R@1K'),
+        'TREC 2022': ('AP@100', 'nDCG@10', 'R@1K'),
+        'TREC 2023': ('AP@100', 'nDCG@10', 'R@1K'),
+    },
+    'msmarco-v2-doc': {
+        'TREC 2021': ('AP@100', 'nDCG@10', 'R@1K'),
+        'TREC 2022': ('AP@100', 'nDCG@10', 'R@1K'),
+        'TREC 2023': ('AP@100', 'nDCG@10', 'R@1K'),
+    },
+    'msmarco-v2.1-doc': {
+        'TREC 2021': ('AP@100', 'nDCG@10', 'R@1K'),
+        'TREC 2022': ('AP@100', 'nDCG@10', 'R@1K'),
+        'TREC 2023': ('AP@100', 'nDCG@10', 'R@1K'),
+    },
+    'msmarco-v2.1-doc-segmented': {
+        'RAG 2024 test (Umbrela)': ('nDCG@20', 'R@100'),
+        'RAG 2024 test (NIST)': ('nDCG@20', 'R@100'),
+        'RAG 2025 test (Umbrela)': ('nDCG@30', 'R@100'),
+        'RAG 2025 test (NIST)': ('nDCG@30', 'R@100'),
+    },
+}
 
 
 def generate_report(args):
-    yaml_file = importlib.resources.files('pyserini.2cr').joinpath(f'{args.collection}.yaml')
+    """Render all MS MARCO reproduction matrices with shared rows and command tabs."""
+    config = yaml.safe_load(read_file(f'{args.collection}.yaml'))
+    conditions = {condition['name']: condition for condition in config['conditions']}
 
-    if args.collection == 'msmarco-v1-passage':
-        html_template = read_file('msmarco_html_v1_passage.template')
-        row_template = read_file('msmarco_html_row_v1.template')
-    elif args.collection == 'msmarco-v1-doc':
-        html_template = read_file('msmarco_html_v1_doc.template')
-        row_template = read_file('msmarco_html_row_v1.template')
-    elif args.collection == 'msmarco-v2-passage':
-        html_template = read_file('msmarco_html_v2_passage.template')
-        row_template = read_file('msmarco_html_row_v2.template')
-    elif args.collection == 'msmarco-v2-doc':
-        html_template = read_file('msmarco_html_v2_doc.template')
-        row_template = read_file('msmarco_html_row_v2.template')
-    else:
-        raise ValueError(f'Unknown corpus: {args.collection}')
+    report_topics = REPORT_TOPICS[args.collection]
 
-    table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
-    commands = defaultdict(lambda: defaultdict(lambda: ''))
-    eval_commands = defaultdict(lambda: defaultdict(lambda: ''))
+    def report_metrics(topic_set):
+        scores = {metric: score for group in topic_set['scores'] for metric, score in group.items()}
+        return {metric: scores[metric] for metric in report_topics[topic_set['display']]}
 
-    table_keys = {}
-    row_ids = {}
+    topics_by_condition = {}
+    for condition in config['conditions']:
+        topics = {}
+        for topic in condition['topics']:
+            label = topic['display']
+            if label in topics:
+                raise ValueError(f'Duplicate topic display label "{label}" in condition "{condition["name"]}"')
+            scores = {metric for group in topic['scores'] for metric in group}
+            for metric in report_topics.get(label, ()):
+                if metric not in scores or metric not in topic['metric_definitions']:
+                    raise ValueError(f'Missing score or metric definition for "{metric}" in "{label}" of condition "{condition["name"]}"')
+            topics[label] = topic
+        topics_by_condition[condition['name']] = topics
 
-    with yaml_file.open('r') as f:
-        yaml_data = yaml.safe_load(f)
-        for condition in yaml_data['conditions']:
-            name = condition['name']
-            display = condition['display-html']
-            row_id = condition.get('display-row', '')
-            cmd_template = condition['command']
+    group_headers = []
+    metric_headers = []
+    for topic_num, (label, metrics) in enumerate(report_topics.items(), 1):
+        spacer = topic_num < len(report_topics)
+        group_headers.append(f'<th class="headertop" colspan="{len(metrics) + int(spacer)}"><b>{escape(label)}</b></th>')
+        metric_headers.extend(f'<th class="headerbottom" scope="col">{escape(metric)}</th>' for metric in metrics)
+        if spacer:
+            metric_headers.append('<th class="headerbottom"></th>')
+    headers = ('<tr>' + '<th class="headertop"></th>' * 3 + ''.join(group_headers)
+               + '</tr>\n<tr>' + '<th class="headerbottom"></th>' * 3
+               + ''.join(metric_headers) + '</tr>')
 
-            row_ids[name] = row_id
-            table_keys[name] = display
+    command_template = Template(read_file('msmarco_html_commands.template'))
+    row_template = Template(read_file('msmarco_html_row.template'))
+    rows = []
+    row_num = 0
+    for name in models[args.collection]:
+        if not name:
+            rows.append('<tr><td style="border-bottom: 0"></td></tr>')
+            continue
+        row_num += 1
+        condition = conditions[name]
+        cells = []
+        commands = []
+        tabs = []
+        condition_topics = topics_by_condition[name]
+        for tab_num, (label, metrics) in enumerate(report_topics.items(), 1):
+            topic_set = condition_topics.get(label)
+            available = topic_set is not None
+            scores = report_metrics(topic_set) if available else {}
+            for metric in metrics:
+                value = f'{scores[metric]:.4f}' if available else '-'
+                cells.append(f'<td>{value}</td>')
+            if tab_num < len(report_topics):
+                cells.append('<td></td>')
+            tab_id = f'row{row_num}-tab{tab_num}'
+            active = ' active' if tab_num == 1 else ''
+            tabs.append(f'<li class="nav-item" role="presentation"><a class="nav-link{active}" id="{tab_id}-header" data-mdb-toggle="tab" href="#{tab_id}" role="tab" aria-controls="{tab_id}" aria-selected="{str(tab_num == 1).lower()}" style="text-transform:none">{escape(label)}</a></li>')
+            if available:
+                runfile, command = get_run_command(args.collection, condition, topic_set)
+                definitions = topic_set['metric_definitions']
+                eval_commands = [f'python -m pyserini.eval.trec_eval {definitions[metric]} {topic_set["eval_key"]} {quote(runfile)}' for metric in metrics]
+                panel = command_template.substitute(
+                    tab_id=tab_id, active=' show active' if tab_num == 1 else '',
+                    topics=escape(topic_set['topic_key']), qrels=escape(topic_set['eval_key']),
+                    command=escape(format_command(command)),
+                    eval_commands=escape('\n'.join(eval_commands)))
+            else:
+                panel = f'<div class="tab-pane fade{" show active" if tab_num == 1 else ""}" id="{tab_id}" role="tabpanel" aria-labelledby="{tab_id}-header">Not available.</div>'
+            commands.append(panel)
+        rows.append(row_template.substitute(
+            row_num=row_num,
+            name=escape(name), display=condition['display-html'],
+            cells=''.join(cells), colspan=len(cells) + 2,
+            tabs='\n'.join(tabs), commands='\n'.join(commands)))
 
-            for topic_set in condition['topics']:
-                topic_key = topic_set['topic_key']
-                eval_key = topic_set['eval_key']
-
-                if args.collection == 'msmarco-v1-passage' or args.collection == 'msmarco-v1-doc':
-                    short_topic_key = find_msmarco_table_topic_set_key_v1(topic_key)
-                else:
-                    short_topic_key = find_msmarco_table_topic_set_key_v2(topic_key)
-
-                runfile = f'run.{args.collection}.{name}.{short_topic_key}.txt'
-                cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile,
-                                                        sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
-                                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
-                commands[name][short_topic_key] = cmd
-
-                for expected in topic_set['scores']:
-                    for metric in expected:
-                        eval_cmd = f'python -m pyserini.eval.trec_eval {trec_eval_metric_definitions[args.collection][eval_key][metric]} {eval_key} {runfile}'
-                        eval_commands[name][short_topic_key] += eval_cmd + '\n'
-                        table[name][short_topic_key][metric] = expected[metric]
-
-    if args.collection == 'msmarco-v1-passage' or args.collection == 'msmarco-v1-doc':
-        row_cnt = 1
-
-        html_rows = []
-        for name in models[args.collection]:
-            if not name:
-                # Add blank row for spacing
-                html_rows.append('<tr><td style="border-bottom: 0"></td></tr>')
-                continue
-            s = Template(row_template)
-            s = s.substitute(row_cnt=row_cnt,
-                             condition_name=table_keys[name],
-                             row=row_ids[name],
-                             s1=_get_display_num(table[name]["dl19"]["MAP"]),
-                             s2=_get_display_num(table[name]["dl19"]["nDCG@10"]),
-                             s3=_get_display_num(table[name]["dl19"]["R@1K"]),
-                             s4=_get_display_num(table[name]["dl20"]["MAP"]),
-                             s5=_get_display_num(table[name]["dl20"]["nDCG@10"]),
-                             s6=_get_display_num(table[name]["dl20"]["R@1K"]),
-                             s7=_get_display_num(table[name]["dev"]["MRR@10"]),
-                             s8=_get_display_num(table[name]["dev"]["R@1K"]),
-                             cmd1=format_command(commands[name]['dl19']),
-                             cmd2=format_command(commands[name]['dl20']),
-                             cmd3=format_command(commands[name]['dev']),
-                             eval_cmd1=format_eval_command(eval_commands[name]['dl19']),
-                             eval_cmd2=format_eval_command(eval_commands[name]['dl20']),
-                             eval_cmd3=format_eval_command(eval_commands[name]['dev']))
-
-            # If we don't have scores, we want to remove the commands also. Use simple regexp substitution.
-            s = _remove_commands(table, name, s, v1=True)
-
-            html_rows.append(s)
-            row_cnt += 1
-
-        all_rows = '\n'.join(html_rows)
-        if args.collection == 'msmarco-v1-passage':
-            full_name = 'Pyserini: MS MARCO V1 Passage'
-        else:
-            full_name = 'Pyserini: MS MARCO V1 Doc'
-
-        with open(args.output, 'w') as out:
-            out.write(Template(html_template).substitute(title=full_name, rows=all_rows))
-    else:
-        row_cnt = 1
-
-        html_rows = []
-        for name in models[args.collection]:
-            if not name:
-                # Add blank row for spacing
-                html_rows.append('<tr><td style="border-bottom: 0"></td></tr>')
-                continue
-            s = Template(row_template)
-            s = s.substitute(row_cnt=row_cnt,
-                             condition_name=table_keys[name],
-                             row=row_ids[name],
-                             s1=_get_display_num(table[name]["dl21"]["MAP@100"]),
-                             s2=_get_display_num(table[name]["dl21"]["nDCG@10"]),
-                             s3=_get_display_num(table[name]["dl21"]["R@1K"]),
-                             s4=_get_display_num(table[name]["dl22"]["MAP@100"]),
-                             s5=_get_display_num(table[name]["dl22"]["nDCG@10"]),
-                             s6=_get_display_num(table[name]["dl22"]["R@1K"]),
-                             s7=_get_display_num(table[name]["dl23"]["MAP@100"]),
-                             s8=_get_display_num(table[name]["dl23"]["nDCG@10"]),
-                             s9=_get_display_num(table[name]["dl23"]["R@1K"]),
-                             s10=_get_display_num(table[name]["dev"]["MRR@100"]),
-                             s11=_get_display_num(table[name]["dev"]["R@1K"]),
-                             s12=_get_display_num(table[name]["dev2"]["MRR@100"]),
-                             s13=_get_display_num(table[name]["dev2"]["R@1K"]),
-                             cmd1=format_command(commands[name]['dl21']),
-                             cmd2=format_command(commands[name]['dl22']),
-                             cmd3=format_command(commands[name]['dl23']),
-                             cmd4=format_command(commands[name]['dev']),
-                             cmd5=format_command(commands[name]['dev2']),
-                             eval_cmd1=eval_commands[name]['dl21'],
-                             eval_cmd2=eval_commands[name]['dl22'],
-                             eval_cmd3=eval_commands[name]['dl23'],
-                             eval_cmd4=eval_commands[name]['dev'],
-                             eval_cmd5=eval_commands[name]['dev2']
-                             )
-
-            # If we don't have scores, we want to remove the commands also. Use simple regexp substitution.
-            s = _remove_commands(table, name, s, v1=False)
-
-            html_rows.append(s)
-            row_cnt += 1
-
-        all_rows = '\n'.join(html_rows)
-        if args.collection == 'msmarco-v2-passage':
-            full_name = 'Pyserini: MS MARCO V2 Passage'
-        else:
-            full_name = 'Pyserini: MS MARCO V2 Doc'
-
-        with open(args.output, 'w') as out:
-            out.write(Template(html_template).substitute(title=full_name, rows=all_rows))
+    suffix = args.collection.removeprefix('msmarco-')
+    title = 'Pyserini: MS MARCO ' + {
+        'v1-passage': 'V1 Passage', 'v1-doc': 'V1 Doc',
+        'v2-passage': 'V2 Passage', 'v2-doc': 'V2 Doc',
+        'v2.1-doc': 'V2.1 Doc', 'v2.1-doc-segmented': 'V2.1 Segmented Doc',
+    }[suffix]
+    template = 'msmarco_html_' + suffix.replace('-', '_') + '.template'
+    with open(args.output, 'w') as out:
+        out.write(Template(read_file(template)).substitute(
+            title=title, collection=args.collection.removeprefix('msmarco-'),
+            corpus=args.collection, headers=headers, rows='\n'.join(rows),
+            example_condition=models[args.collection][0]))
 
 
 def run_conditions(args):
     start = time.time()
 
-    table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
-    table_keys = {}
+    yaml_data = yaml.safe_load(read_file(f'{args.collection}.yaml'))
+    for condition in yaml_data['conditions']:
+        # Either we're running all conditions, or running only the condition specified in --condition
+        if not args.all and condition['name'] != args.condition:
+            continue
 
-    with importlib.resources.files('pyserini.2cr').joinpath(f'{args.collection}.yaml').open('r') as f:
-        yaml_data = yaml.safe_load(f)
-        for condition in yaml_data['conditions']:
-            # Either we're running all conditions, or running only the condition specified in --condition
-            if not args.all and condition['name'] != args.condition:
-                continue
+        name = condition['name']
+        display = condition['display']
+        print(f'# Running condition "{name}": {display}\n')
+        for topic_set in condition['topics']:
+            eval_key = topic_set['eval_key']
+            definitions = topic_set['metric_definitions']
 
-            name = condition['name']
-            display = condition['display']
-            cmd_template = condition['command']
+            print(f'  - {topic_set["display"]}\n')
 
-            print(f'# Running condition "{name}": {display}\n')
-            for topic_set in condition['topics']:
-                topic_key = topic_set['topic_key']
-                eval_key = topic_set['eval_key']
+            runfile, cmd = get_run_command(args.collection, condition, topic_set, args.directory)
 
-                if args.collection == 'msmarco-v1-passage' or args.collection == 'msmarco-v1-doc':
-                    short_topic_key = find_msmarco_table_topic_set_key_v1(topic_key)
-                else:
-                    short_topic_key = find_msmarco_table_topic_set_key_v2(topic_key)
+            if not os.path.exists(runfile) and not args.dry_run:
+                os.makedirs(os.path.dirname(runfile) or '.', exist_ok=True)
+                run_command(cmd, capture_output=False, check=True)
 
-                print(f'  - topic_key: {topic_key}')
+            eval_commands = []
+            for expected in topic_set['scores']:
+                for metric, expected_value in expected.items():
+                    expected_score = float(expected_value)
+                    if args.dry_run:
+                        print(f'    {metric:7}: {expected_score:.4f}')
+                    elif args.skip_eval:
+                        continue
+                    elif os.path.exists(runfile):
+                        score = float(run_eval_and_return_metric(metric, eval_key, definitions[metric], quote(runfile), display_command=False))
+                        status = compare_reproduction_score(score, expected_score)
+                        result_str = format_reproduction_status(status, expected_score)
+                        print(f'    {metric:7}: {score:.4f} {result_str}')
+                    else:
+                        continue
 
-                runfile = os.path.join(args.directory, f'run.{args.collection}.{name}.{short_topic_key}.txt')
-                cmd = Template(cmd_template).substitute(topics=topic_key, output=runfile,
-                                                        sparse_threads=sparse_threads, sparse_batch_size=sparse_batch_size,
-                                                        dense_threads=dense_threads, dense_batch_size=dense_batch_size)
+                    if not args.skip_eval:
+                        eval_commands.append(f'python -m pyserini.eval.trec_eval {definitions[metric]} {eval_key} {quote(runfile)}')
 
-                if args.display_commands:
-                    print(f'\n```bash\n{format_command(cmd)}\n```\n')
-
-                if not os.path.exists(runfile) and not args.dry_run:
-                    run_command(cmd, capture_output=False)
-
-                for expected in topic_set['scores']:
-                    for metric in expected:
-                        table_keys[name] = display
-                        if not args.skip_eval:
-                            # If the runfile doesn't exist, we can't evaluate.
-                            # This would be the case if --dry-run were set.
-                            if not os.path.exists(runfile):
-                                continue
-
-                            score = float(run_eval_and_return_metric(metric, eval_key,
-                                    trec_eval_metric_definitions[args.collection][eval_key][metric], runfile, display_command=args.display_commands))
-
-                            expected_score = float(expected[metric])
-                            status = compare_reproduction_score(score, expected_score)
-                            result_str = format_reproduction_status(status, expected_score)
-                            print(f'    {metric:7}: {score:.4f} {result_str}')
-                            table[name][short_topic_key][metric] = score
-                        else:
-                            table[name][short_topic_key][metric] = expected[metric]
-
-                if not args.skip_eval:
-                    print()
-
-    if args.collection == 'msmarco-v1-passage' or args.collection == 'msmarco-v1-doc':
-        print(' ' * 74 + 'TREC 2019' + ' ' * 16 + 'TREC 2020' + ' ' * 12 + 'MS MARCO dev')
-        print(' ' * 67 + 'MAP    nDCG@10    R@1K    MAP    nDCG@10    R@1K    MRR@10    R@1K')
-        print(' ' * 67 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14)
-
-        if args.condition:
-            # If we've used --condition to specify a specific condition, print out only that row.
-            names = [ args.condition ]
-        else:
-            # Otherwise, print out all rows
-            names = models[args.collection]
-
-        for name in names:
-            if not name:
-                print()
-                continue
-            print(f'{table_keys[name]:65}' +
-                  f'{table[name]["dl19"]["MAP"]:8.4f}{table[name]["dl19"]["nDCG@10"]:8.4f}{table[name]["dl19"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dl20"]["MAP"]:8.4f}{table[name]["dl20"]["nDCG@10"]:8.4f}{table[name]["dl20"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dev"]["MRR@10"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}')
-    else:
-        print(' ' * 69 + 'TREC 2021' + ' ' * 16 + 'TREC 2022' + ' ' * 16 + 'TREC 2023' + ' ' * 12 + 'MS MARCO dev' + ' ' * 5 + 'MS MARCO dev2')
-        print(' ' * 62 + 'MAP    nDCG@10    R@1K    MAP    nDCG@10    R@1K    MAP    nDCG@10    R@1K    MRR@100   R@1K    MRR@100   R@1K')
-        print(' ' * 62 + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 22 + '    ' + '-' * 14 + '    ' + '-' * 14)
-
-        if args.condition:
-            # If we've used --condition to specify a specific condition, print out only that row.
-            names = [args.condition]
-        else:
-            # Otherwise, print out all rows
-            names = models[args.collection]
-
-        for name in names:
-            if not name:
-                print()
-                continue
-            print(f'{table_keys[name]:60}' +
-                  f'{table[name]["dl21"]["MAP@100"]:8.4f}{table[name]["dl21"]["nDCG@10"]:8.4f}{table[name]["dl21"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dl22"]["MAP@100"]:8.4f}{table[name]["dl22"]["nDCG@10"]:8.4f}{table[name]["dl22"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dl23"]["MAP@100"]:8.4f}{table[name]["dl23"]["nDCG@10"]:8.4f}{table[name]["dl23"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dev"]["MRR@100"]:8.4f}{table[name]["dev"]["R@1K"]:8.4f}  ' +
-                  f'{table[name]["dev2"]["MRR@100"]:8.4f}{table[name]["dev2"]["R@1K"]:8.4f}')
+            if args.display_commands or args.dry_run:
+                commands = format_command(cmd)
+                if eval_commands:
+                    commands += '\n\n' + '\n'.join(eval_commands)
+                print(f'\n```bash\n{commands}\n```')
+            print()
 
     end = time.time()
     start_str = datetime.fromtimestamp(start, tz=UTC).strftime('%Y-%m-%d %H:%M:%S')
@@ -628,7 +442,7 @@ def run_conditions(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate regression matrix for MS MARCO corpora.')
-    parser.add_argument('--collection', type=str, help='Collection = {v1-passage, v1-doc, v2-passage, v2-doc}.', required=True)
+    parser.add_argument('--collection', type=str, choices=[collection.removeprefix('msmarco-') for collection in models], required=True)
     # To list all conditions
     parser.add_argument('--list-conditions', action='store_true', default=False, help='List available conditions.')
     # For generating reports
@@ -643,31 +457,22 @@ if __name__ == '__main__':
     parser.add_argument('--display-commands', action='store_true', default=False, help='Display command.')
     args = parser.parse_args()
 
-    if args.collection == 'v1-passage':
-        args.collection = 'msmarco-v1-passage'
-    elif args.collection == 'v1-doc':
-        args.collection = 'msmarco-v1-doc'
-    elif args.collection == 'v2-passage':
-        args.collection = 'msmarco-v2-passage'
-    elif args.collection == 'v2-doc':
-        args.collection = 'msmarco-v2-doc'
-    else:
-        raise ValueError(f'Unknown corpus: {args.collection}')
+    args.collection = f'msmarco-{args.collection}'
+    if args.condition and args.condition not in get_condition_names(args.collection):
+        parser.error(f'Unknown condition for {args.collection}: {args.condition}')
 
     if args.list_conditions:
-        list_conditions(args)
+        print('\n'.join(get_condition_names(args.collection)))
         sys.exit()
 
     if args.generate_report:
         if not args.output:
-            print('Must specify report filename with --output.')
-            sys.exit()
+            parser.error('Must specify report filename with --output.')
 
         generate_report(args)
         sys.exit()
 
     if not args.all and not args.condition:
-        print('Must specify a specific condition using --condition or use --all to run all conditions.')
-        sys.exit()
+        parser.error('Must specify a specific condition using --condition or use --all to run all conditions.')
 
     run_conditions(args)

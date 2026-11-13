@@ -1,0 +1,13 @@
+<div class="tab-pane fade${active}" id="${tab_id}" role="tabpanel" aria-labelledby="${tab_id}-header">
+<p>topics: <code>${topics}</code> / qrels: <code>${qrels}</code></p>
+<div class="command-block">
+<p class="command-heading">Retrieval command</p>
+<pre><code>${command}
+</code></pre>
+</div>
+<div class="command-block">
+<p class="command-heading">Evaluation commands</p>
+<pre><code>${eval_commands}
+</code></pre>
+</div>
+</div>

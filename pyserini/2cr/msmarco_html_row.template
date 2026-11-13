@@ -1,0 +1,20 @@
+<!-- Condition: ${name} -->
+<tr class="accordion-toggle collapsed" id="row${row_num}" data-toggle="collapse" data-parent="#row${row_num}" href="#collapse${row_num}">
+<td class="expand-button"></td>
+<td>${row_num}</td>
+<td style="min-width: 400px">${display}</td>
+${cells}
+</tr>
+<tr class="hide-table-padding">
+<td></td>
+<td colspan="${colspan}">
+<div id="collapse${row_num}" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row${row_num}-tabs" role="tablist">
+${tabs}
+</ul>
+<div class="tab-content" id="row${row_num}-content">
+${commands}
+</div>
+</div>
+</td>
+</tr>
