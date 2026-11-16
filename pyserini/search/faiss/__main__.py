@@ -16,6 +16,7 @@
 
 import argparse
 import os
+import warnings
 
 import numpy as np
 from tqdm import tqdm
@@ -33,6 +34,20 @@ from pyserini.util import resolve_device
 from ._prf import (DenseVectorAncePrf, DenseVectorAveragePrf,
                    DenseVectorRocchioPrf)
 from ._searcher import BinaryDenseFaissSearcher, FaissSearcher
+
+
+_FP16_QUERY_ENCODER_CLASSES = frozenset(("dse", "mmeb", "qwen3", "uniir"))
+
+
+def _warn_if_query_fp16_is_ignored(encoder_class: str | None, fp16: bool) -> None:
+    """Warn when ``--fp16`` is requested for a query encoder that ignores it."""
+    if fp16 and encoder_class not in _FP16_QUERY_ENCODER_CLASSES:
+        name = encoder_class or "encoded-queries"
+        warnings.warn(
+            f"--fp16 is not implemented for query encoder class '{name}' and will be ignored.",
+            UserWarning,
+            stacklevel=3,
+        )
 
 
 def define_dsearch_args(parser):
@@ -274,6 +289,7 @@ def init_query_encoder(
             # use that encoder class
             for class_keyword in query_encoder_class_map:
                 if class_keyword in encoder.lower():
+                    _encoder_class = class_keyword
                     encoder_class = query_encoder_class_map[class_keyword]
                     break
 
@@ -282,6 +298,8 @@ def init_query_encoder(
             if encoder_class is None:
                 _encoder_class = "auto"
                 encoder_class = AutoQueryEncoder
+
+        _warn_if_query_fp16_is_ignored(_encoder_class, fp16)
 
         # prepare arguments to encoder class
         kwargs = dict(
@@ -318,6 +336,7 @@ def init_query_encoder(
         return encoder_class(**kwargs)
 
     if encoded_queries:
+        _warn_if_query_fp16_is_ignored(None, fp16)
         if "bpr" in encoded_queries:
             return BprQueryEncoder.load_encoded_queries(encoded_queries)
         else:
