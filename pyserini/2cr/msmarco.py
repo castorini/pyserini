@@ -372,11 +372,16 @@ def generate_report(args):
         'v2-passage': 'V2 Passage', 'v2-doc': 'V2 Doc',
         'v2.1-doc': 'V2.1 Doc', 'v2.1-doc-segmented': 'V2.1 Segmented Doc',
     }[suffix]
-    template = 'msmarco_html_' + suffix.replace('-', '_') + '.template'
+    references = '\n\n'.join(reference['display-html'].rstrip() for reference in config.get('references', []))
+    if references:
+        references = ('<h4>References</h4>\n\n'
+                      '<ul style="list-style-type:none; padding-top: 25px">\n\n'
+                      + references + '\n\n</ul>\n\n<div style="padding-top: 20px"></div>\n\n')
     with open(args.output, 'w') as out:
-        out.write(Template(read_file(template)).substitute(
+        out.write(Template(read_file('msmarco_html.template')).substitute(
             title=title, collection=args.collection.removeprefix('msmarco-'),
             corpus=args.collection, headers=headers, rows='\n'.join(rows),
+            references=references,
             example_condition=models[args.collection][0]))
 
 

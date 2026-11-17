@@ -152,7 +152,7 @@ tr th.headerbottom {
 These runs take advantage of prebuilt indexes in Pyserini, so you don't need access to the raw corpus.
 Instructions for programmatic execution are shown at the bottom of this page.</p>
 
-<p>The experimental conditions and reference scores are defined in the <a href="https://github.com/castorini/pyserini/blob/master/pyserini/2cr/msmarco-v2-doc.yaml">YAML configuration</a>.
+<p>The experimental conditions and reference scores are defined in the <a href="https://github.com/castorini/pyserini/blob/master/pyserini/2cr/${corpus}.yaml">YAML configuration</a>.
 Not all experimental conditions are shown in the table below.</p>
 
 <div class="table-responsive">
@@ -168,28 +168,15 @@ $rows
   </table>
 </div>
 
-<div style="padding-top: 20px"/>
+<div style="padding-top: 20px"></div>
 
-<h4>References</h4>
-
-<ul style="list-style-type:none; padding-top: 25px">
-
-<li><p>[1] Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin.
-<a href="https://dl.acm.org/doi/10.1145/3477495.3531749">Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.</a>
-<i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022.
-(Numbers in parentheses correspond to rows in Table 4 of the paper.)</p></li>
-
-</ul>
-
-<div style="padding-top: 20px"/>
-
-<h4>Programmatic Execution</h4>
+${references}<h4>Programmatic Execution</h4>
 
 <p>All experimental runs shown in the above table can be programmatically executed based on the instructions below.
 To list all the experimental conditions:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.msmarco --collection v2-doc --list-conditions
+python -m pyserini.2cr.msmarco --collection ${collection} --list-conditions
 </tt></blockquote>
 
 <p>These conditions correspond to the table rows above.</p>
@@ -197,13 +184,13 @@ python -m pyserini.2cr.msmarco --collection v2-doc --list-conditions
 <p>For all conditions, just show the commands in a "dry run":</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.msmarco --collection v2-doc --all --display-commands --dry-run
+python -m pyserini.2cr.msmarco --collection ${collection} --all --display-commands --dry-run
 </tt></blockquote>
 
 <p>To actually run all the experimental conditions:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.msmarco --collection v2-doc --all --display-commands
+python -m pyserini.2cr.msmarco --collection ${collection} --all --display-commands
 </tt></blockquote>
 
 <p>With the above command, run files will be placed in the current directory.
@@ -212,7 +199,7 @@ Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.<
 <p>To show the commands for a specific condition:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.msmarco --collection v2-doc --condition bm25-doc-default --display-commands --dry-run
+python -m pyserini.2cr.msmarco --collection ${collection} --condition ${example_condition} --display-commands --dry-run
 </tt></blockquote>
 
 <p>This will generate exactly the commands for a specific condition above (corresponding to a row in the table).</p>
@@ -220,7 +207,7 @@ python -m pyserini.2cr.msmarco --collection v2-doc --condition bm25-doc-default 
 <p>To actually run a specific condition:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.msmarco --collection v2-doc --condition bm25-doc-default --display-commands
+python -m pyserini.2cr.msmarco --collection ${collection} --condition ${example_condition} --display-commands
 </tt></blockquote>
 
 <p>Again, with the above command, run files will be placed in the current directory.
@@ -229,12 +216,12 @@ Use the option <tt>--directory runs/</tt> to place the runs in a sub-directory.<
 <p>Finally, to generate this page:</p>
 
 <blockquote class="mycode2"><tt>
-python -m pyserini.2cr.msmarco --collection v2-doc --generate-report --output msmarco-v2-doc.html
+python -m pyserini.2cr.msmarco --collection ${collection} --generate-report --output docs/2cr/${corpus}.html
 </tt></blockquote>
 
-<p>The output file <tt>msmarco-v2-doc.html</tt> should be identical to this page.</p>
+<p>The output file <tt>docs/2cr/${corpus}.html</tt> should be identical to this page.</p>
 
-<div style="padding-top: 50px"/>
+<div style="padding-top: 50px"></div>
 
       </div>
 

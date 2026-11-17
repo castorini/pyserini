@@ -615,3 +615,14 @@ conditions:
           - AP@100: 0.1772
             nDCG@10: 0.4746
             R@1K: 0.6412
+
+references:
+  - display-html: |
+      <li><p>[1] Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin.
+      <a href="https://dl.acm.org/doi/10.1145/3477495.3531749">Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.</a>
+      <i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022.
+      (Numbers in parentheses correspond to rows in Table 3 of the paper.)</p></li>
+  - display-html: |
+      <li><p>[2] Minghan Li, Sheng-Chieh Lin, Xueguang Ma, and Jimmy Lin.
+      <a href="https://dl.acm.org/doi/abs/10.1145/3539618.3591977">SLIM: Sparsified Late Interaction for Multi-Vector Retrieval with Inverted Indexes.</a>
+      <i>Proceedings of the 46th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2023)</i>, pages 1954–1959, July 2023, Taipei, Taiwan.</p></li>
