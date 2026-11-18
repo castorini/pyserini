@@ -318,9 +318,8 @@ def generate_report(args):
         metric_headers.extend(f'<th class="headerbottom" scope="col">{escape(metric)}</th>' for metric in metrics)
         if spacer:
             metric_headers.append('<th class="headerbottom"></th>')
-    headers = ('<tr>' + '<th class="headertop"></th>' * 3 + ''.join(group_headers)
-               + '</tr>\n<tr>' + '<th class="headerbottom"></th>' * 3
-               + ''.join(metric_headers) + '</tr>')
+    headers = ('<tr>' + '<th class="headertop"></th>' * 3 + ''.join(group_headers) + '</tr>\n<tr>'
+               + '<th class="headerbottom"></th>' * 3 + ''.join(metric_headers) + '</tr>')
 
     command_template = Template(read_file('msmarco_html_commands.template'))
     row_template = Template(read_file('msmarco_html_row.template'))
@@ -372,11 +371,12 @@ def generate_report(args):
         'v2-passage': 'V2 Passage', 'v2-doc': 'V2 Doc',
         'v2.1-doc': 'V2.1 Doc', 'v2.1-doc-segmented': 'V2.1 Segmented Doc',
     }[suffix]
+
     references = '\n\n'.join(reference['display-html'].rstrip() for reference in config.get('references', []))
     if references:
-        references = ('<h4>References</h4>\n\n'
-                      '<ul style="list-style-type:none; padding-top: 25px">\n\n'
+        references = ('<h4>References</h4>\n\n<ul style="list-style-type:none; padding-top: 25px">\n\n'
                       + references + '\n\n</ul>\n\n<div style="padding-top: 20px"></div>\n\n')
+
     with open(args.output, 'w') as out:
         out.write(Template(read_file('msmarco_html.template')).substitute(
             title=title, collection=args.collection.removeprefix('msmarco-'),
