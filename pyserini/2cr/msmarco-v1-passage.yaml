@@ -971,7 +971,7 @@ conditions:
         scores:
           - AP@1K: 0.4315
             nDCG@10: 0.6471
-            R@1K: 0.7967
+            R@1K: 0.7957
   - name: sbert-pytorch
     display: "SBERT: Faiss flat, PyTorch"
     display-html: "SBERT: Faiss flat, PyTorch [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Reimers et al. (EMNLP&nbsp;2019) Sentence-BERT: Sentence Embeddings using Siamese BERT-Network.\">10</a>]"

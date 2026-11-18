@@ -954,6 +954,10 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 [<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/passage/original/lucene-inverted/distill-splade-max/lucene-inverted.msmarco-v1-passage.distill-splade-max.20221005.252b5e.README.md">readme</a>]
 <dd>Lucene impact index of the MS MARCO V1 passage corpus encoded by distill-splade-max.
 </dd>
+<dt></dt><b><code>msmarco-v1-passage.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/passage/original/lucene-inverted/slideon/lucene-inverted.msmarco-v1-passage.slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of the MS MARCO V1 passage corpus encoded by SlideOn (d512, scale 100)
+</dd>
 <dt></dt><b><code>msmarco-v1-doc-segmented.unicoil-noexp</code></b>
 [<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-msmarco-v1/blob/main/doc/segmented/lucene-inverted/unicoil-noexp/lucene-inverted.msmarco-v1-doc-segmented.unicoil-noexp.20221005.252b5e.README.md">readme</a>]
 <dd>Anserini Lucene impact index of the MS MARCO V1 segmented document corpus for uniCOIL (noexp), with title/segment encoding
@@ -1221,6 +1225,122 @@ Detailed configuration information for the prebuilt indexes are stored in [`pyse
 <dt></dt><b><code>beir-v1.0.0-scifact.splade-pp-ed</code></b>
 [<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/splade-pp-ed/lucene-inverted.beir-v1.0.0-splade-pp-ed.20231124.a66f86f.README.md">readme</a>]
 <dd>Anserini Lucene impact index of BEIR collection 'scifact' encoded by SPLADE++ CoCondenser-EnsembleDistil (Lucene 9)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-trec-covid.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'trec-covid' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-bioasq.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'bioasq' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-nfcorpus.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'nfcorpus' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-nq.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'nq' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-hotpotqa.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'hotpotqa' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-fiqa.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'fiqa' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-signal1m.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'signal1m' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-trec-news.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'trec-news' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-robust04.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'robust04' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-arguana.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'arguana' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-webis-touche2020.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'webis-touche2020' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-android.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-android' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-english.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-english' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-gaming.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-gaming' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-gis.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-gis' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-mathematica.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-mathematica' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-physics.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-physics' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-programmers.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-programmers' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-stats.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-stats' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-tex.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-tex' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-unix.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-unix' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-webmasters.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-webmasters' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-cqadupstack-wordpress.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'cqadupstack-wordpress' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-quora.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'quora' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-dbpedia-entity.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'dbpedia-entity' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-scidocs.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'scidocs' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-fever.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'fever' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-climate-fever.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'climate-fever' encoded by SlideOn (d512, scale 100)
+</dd>
+<dt></dt><b><code>beir-v1.0.0-scifact.slideon</code></b>
+[<a href="https://huggingface.co/datasets/castorini/prebuilt-indexes-beir/blob/main/lucene-inverted/slideon/lucene-inverted.beir-v1.0.0-slideon-d512-s100.20261025.43c2471.README.md">readme</a>]
+<dd>Anserini Lucene impact index of BEIR collection 'scifact' encoded by SlideOn (d512, scale 100)
 </dd>
 </dl>
 </details>
