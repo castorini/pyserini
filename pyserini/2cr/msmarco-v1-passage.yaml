@@ -971,7 +971,7 @@ conditions:
         scores:
           - AP@1K: 0.4315
             nDCG@10: 0.6471
-            R@1K: 0.7967
+            R@1K: 0.7957
   - name: sbert-pytorch
     display: "SBERT: Faiss flat, PyTorch"
     display-html: "SBERT: Faiss flat, PyTorch [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Reimers et al. (EMNLP&nbsp;2019) Sentence-BERT: Sentence Embeddings using Siamese BERT-Network.\">10</a>]"
@@ -2043,3 +2043,70 @@ conditions:
           - AP@1K: 0.5067
             nDCG@10: 0.7245
             R@1K: 0.8682
+
+references:
+  - display-html: |
+      <li><p>[1] Xueguang Ma, Ronak Pradeep, Rodrigo Nogueira, and Jimmy Lin.
+      <a href="https://dl.acm.org/doi/10.1145/3477495.3531749">Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.</a>
+      <i>Proceedings of the 45th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022)</i>, July 2022.
+      (Numbers in parentheses correspond to rows in Table 1 of the paper.)</p></li>
+  - display-html: |
+      <li><p>[2] Thibault Formal, Carlos Lassance, Benjamin Piwowarski, and Stéphane Clinchant
+      <a href="https://dl.acm.org/doi/10.1145/3477495.3531857">From Distillation to Hard Negative Sampling: Making Sparse Neural IR Models More Effective.</a>
+      <i>Proceedings of the 45th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2022), May 2022.</i></p></li>
+  - display-html: |
+      <li><p>[3] Lee Xiong, Chenyan Xiong, Ye Li, Kwok-Fung Tang, Jialin Liu, Paul N. Bennett, Junaid Ahmed, and Arnold Overwijk.
+      <a href="https://openreview.net/forum?id=zeFrfgyZln">Approximate Nearest Neighbor Negative Contrastive Learning for Dense Text Retrieval.</a>
+      <i>Proceedings of the 9th International Conference on Learning Representations (ICLR 2021), May 2021.</i></p></li>
+  - display-html: |
+      <li><p>[4] Sebastian Hofstätter, Sophia Althammer, Michael Schröder, Mete Sertkan, and Allan Hanbury.
+      <a href="https://arxiv.org/abs/2010.02666">Improving Efficient Neural Ranking Models with Cross-Architecture Knowledge Distillation.</a>
+      <i>arXiv:2010.02666</i>, October 2020.</p></li>
+  - display-html: |
+      <li><p>[5] Sebastian Hofstätter, Sheng-Chieh Lin, Jheng-Hong Yang, Jimmy Lin, and Allan Hanbury.
+      <a href="https://dl.acm.org/doi/10.1145/3404835.3462891">Efficiently Teaching an Effective Dense Retriever with Balanced Topic Aware Sampling.</a>
+      <i>Proceedings of the 44th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2021)</i>, pages 113-122, July 2021.</p></li>
+  - display-html: |
+      <li><p>[6] Sheng-Chieh Lin, Jheng-Hong Yang, and Jimmy Lin.
+      <a href="https://aclanthology.org/2021.repl4nlp-1.17/">In-Batch Negatives for Knowledge Distillation with Tightly-Coupled Teachers for Dense Retrieval.</a>
+      <i>Proceedings of the 6th Workshop on Representation Learning for NLP (RepL4NLP-2021)</i>, pages 163-173, August 2021.</p></li>
+  - display-html: |
+      <li><p>[7] Minghan Li, Sheng-Chieh Lin, Xueguang Ma, and Jimmy Lin.
+      <a href="https://dl.acm.org/doi/abs/10.1145/3539618.3591977">SLIM: Sparsified Late Interaction for Multi-Vector Retrieval with Inverted Indexes.</a>
+      <i>Proceedings of the 46th Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2023)</i>, pages 1954–1959, July 2023, Taipei, Taiwan.</p></li>
+  - display-html: |
+      <li><p>[8] Sheng-Chieh Lin, Minghan Li and Jimmy Lin.
+      <a href="https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00556/116046/Aggretriever-A-Simple-Approach-to-Aggregate">Aggretriever: A Simple Approach to Aggregate Textual Representation for Robust Dense Passage Retrieval.</a>
+      <i>Transactions of the Association for Computational Linguistics</i>, 11:436-452, 2023.</p></li>
+  - display-html: |
+      <li><p>[9] Hang Li, Ahmed Mourad, Shengyao Zhuang, Bevan Koopman, and Guido Zuccon.
+      <a href="https://dl.acm.org/doi/abs/10.1145/3570724">Pseudo Relevance Feedback with Deep Language Models and Dense Retrievers: Successes and Pitfalls.</a>
+      <i>ACM Transactions on Information Systems</i>, 41(3), Article No. 62, 2023.</p></li>
+  - display-html: |
+      <li><p>[10] Nils Reimers and Iryna Gurevych.
+      <a href="https://aclanthology.org/D19-1410/">Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks.</a>
+      <i>Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)</i>, 2019.</p></li>
+  - display-html: |
+      <li><p>[11] Jimmy Lin, Ronak Pradeep, Tommaso Teofili, and Jasper Xian.
+      <a href="https://arxiv.org/abs/2308.14963">Vector Search with OpenAI Embeddings: Lucene Is All You Need.</a>
+      <i>arXiv:2308.14963</i>, August 2023.</p></li>
+  - display-html: |
+      <li><p>[12] Luyu Gao, Xueguang Ma, Jimmy Lin, and Jamie Callan.
+      <a href="https://aclanthology.org/2023.acl-long.99/">Precise Zero-Shot Dense Retrieval without Relevance Labels.</a>
+      Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pages 1762-1777, July 2023, Toronto, Canada.</p></li>
+  - display-html: |
+      <li><p>[13] Xueguang Ma, Tommaso Teofili, and Jimmy Lin.
+      <a href="https://dl.acm.org/doi/10.1145/3583780.3615112">Anserini Gets Dense Retrieval: Integration of Lucene's HNSW Indexes.</a>
+      <i>Proceedings of the 32nd International Conference on Information and Knowledge Management (CIKM 2023)</i>, October 2023, pages 5366–5370, Birmingham, the United Kingdom.</p></li>
+  - display-html: |
+      <li><p>[14] Shitao Xiao, Zheng Liu, Peitian Zhang, and Niklas Muennighoff.
+      <a href="https://arxiv.org/abs/2309.07597">C-Pack: Packaged Resources To Advance General Chinese Embedding.</a>
+      <i>arXiv:2309.07597</i>, December 2023.</p></li>
+  - display-html: |
+      <li><p>[15] Carlos Lassance, Hervé Déjean, Thibault Formal, and Stéphane Clinchant.
+      <a href="https://arxiv.org/abs/2403.06789">SPLADE-v3: New baselines for SPLADE.</a>
+      <i>arXiv:2403.06789</i>, March 2024.</p></li>
+  - display-html: |
+      <li><p>[16] LightOn AI.
+      <a href="https://huggingface.co/blog/lightonai/slideon-mslideon">SlideOn &amp; mSlideOn: Sparsified Late-Interaction and Dense Retrievers.</a>
+      Hugging Face Blog.</p></li>
