@@ -15,13 +15,25 @@
 #
 
 import argparse
+import inspect
 import sys
+import warnings
 
 from pyserini.encode import AutoDocumentEncoder
 from pyserini.encode import document_encoder_class_map, MMEB_IMPORT_ERROR
 from pyserini.encode import OPENAI_API_RETRY_DELAY
 from pyserini.encode import JsonlRepresentationWriter, JsonlCollectionIterator
 from pyserini.util import resolve_device
+
+
+def _warn_if_document_fp16_is_ignored(encoder, fp16: bool) -> None:
+    """Warn when ``--fp16`` targets a document encoder without an fp16 parameter."""
+    if fp16 and "fp16" not in inspect.signature(encoder.encode).parameters:
+        warnings.warn(
+            f"--fp16 is not implemented for document encoder '{type(encoder).__name__}' and will be ignored.",
+            UserWarning,
+            stacklevel=3,
+        )
 
 
 def init_encoder(encoder, encoder_class, device, **encoder_kwargs):
@@ -154,6 +166,7 @@ if __name__ == '__main__':
         args.encoder.device,
         **encoder_kwargs,
     )
+    _warn_if_document_fp16_is_ignored(encoder, args.encoder.fp16)
 
     if args.output.to_faiss:
         from pyserini.encode.optional import FaissRepresentationWriter
