@@ -27,7 +27,7 @@ from pyserini.encode import DocumentEncoder, QueryEncoder
 OPENAI_API_RETRY_DELAY = 5
 
 
-def retry_with_delay(func, delay: int = OPENAI_API_RETRY_DELAY, max_retries: int = 10, errors: tuple = (openai.RateLimitError)):
+def retry_with_delay(func, delay: int = OPENAI_API_RETRY_DELAY, max_retries: int = 10, errors: tuple = (openai.RateLimitError,)):
     def wrapper(*args, **kwargs):
         num_retries = 0
         while True:
@@ -47,11 +47,14 @@ class OpenAiDocumentEncoder(DocumentEncoder):
     def __init__(self, model_name: str = 'text-embedding-ada-002', tokenizer_name: str = 'cl100k_base', **kwargs):
         self.model = model_name
         self.tokenizer = tiktoken.get_encoding(tokenizer_name)
+        api_key = '' if os.getenv("OPENAI_API_KEY") is None else os.getenv("OPENAI_API_KEY")
+        org_key = '' if os.getenv("OPENAI_ORG_KEY") is None else os.getenv("OPENAI_ORG_KEY")
+        self.client = openai.OpenAI(api_key=api_key, organization=org_key)
 
     @retry_with_delay
     def get_embeddings(self, inputs: List[str]):
-        response = openai.Embedding.create(input=inputs, model=self.model)
-        embeddings = [item['embedding'] for item in response['data']]
+        response = self.client.embeddings.create(input=inputs, model=self.model)
+        embeddings = [item.embedding for item in response.data]
         return np.array(embeddings)
 
     def encode(self, texts: List[str], titles = None, max_length: int = 512, **kwargs):
@@ -78,7 +81,7 @@ class OpenAiQueryEncoder(QueryEncoder):
 
     @retry_with_delay
     def get_embedding(self, text: str):
-        return np.array(self.client.embeddings.create(input=text, model=self.model)['data'][0]['embedding'])
+        return np.array(self.client.embeddings.create(input=text, model=self.model).data[0].embedding)
 
     def encode(self, query: str, **kwargs):
         if self.has_model:
