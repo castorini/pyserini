@@ -25,12 +25,12 @@ For additional details, [our paper](https://dl.acm.org/doi/10.1145/3404835.34632
 
 Pyserini is built on Python 3.12 (newer versions might work, but YMMV) and Java 21 (due to its dependency on [Anserini](http://anserini.io/)).
 We recommend installing the JVM, [PyTorch](https://pytorch.org/), and [Faiss](https://github.com/facebookresearch/faiss) (only if you need Faiss retrieval) separately before installing Pyserini.
-The following provides illustrative examples using `conda` in an already-activated Conda environment (but see [our installation guide](./docs/installation.md) for details):
+For example, in an already-activated Conda environment (but see [our installation guide](./docs/installation.md) for details):
 
 ```bash
 conda install -c conda-forge openjdk=21 maven -y
-conda install -c conda-forge faiss-cpu -y
-conda install -c conda-forge pytorch -y  # but see installation guide for variations
+conda install -c conda-forge faiss-cpu -y  # optional; see installation guide for variations
+conda install -c conda-forge pytorch -y    # see installation guide for variations
 ```
 
 Then, install Pyserini from PyPI (using either `pip` or `uv`):
@@ -39,7 +39,7 @@ Then, install Pyserini from PyPI (using either `pip` or `uv`):
 pip install pyserini
 ```
 
-Multimodal support (e.g., image search) is provided in the `optional` package.
+Multimodal support (e.g., image search) is provided in the `optional` extra.
 If you need it:
 
 ```bash

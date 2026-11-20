@@ -59,7 +59,7 @@ pip install 'pyserini[optional]'
 pip install git+https://github.com/openai/CLIP.git
 ```
 
-As of November 2026, the above recipe has been verified to work on a circa 2025 MacBook Air with the M4 processor.
+As of November 2026, the above recipe has been verified to work on a circa 2025 MacBook Air with an M4 processor.
 The above recipe pulled in the following dependency versions:
 
 ```bash
