@@ -9,13 +9,17 @@ Key points:
 + We need [PyTorch](https://pytorch.org/), [🤗 Transformers](https://github.com/huggingface/transformers), and the [ONNX Runtime](https://onnxruntime.ai/) for "neural stuff".
 + We need [Faiss](https://github.com/facebookresearch/faiss) for searching dense vectors. We can also search dense vectors with Lucene, so consider Faiss optional.
 
-It is recommended that you install the following dependencies separately, before installing Pyserini:
+We recommend that you install the following dependencies separately, _before_ installing Pyserini:
 
-+ [PyTorch](https://pytorch.org/), because there are many configurations (e.g., CUDA vs. no CUDA). PyTorch is a declared dependency, but preinstalling it lets you choose the appropriate CPU/CUDA build.
-+ [Faiss](https://github.com/facebookresearch/faiss), similarly, because there are many variants (e.g., `faiss-cpu` vs. `faiss-gpu`). Install only if you need retrieval using Faiss.
-
-In both cases, it's easier if you install the right variant yourself, _before_ installing Pyserini.
-The sample recipes below use `conda`.
++ [PyTorch](https://pytorch.org/), because there are many configurations (e.g., CUDA vs. no CUDA).
+PyTorch is a declared dependency, but pre-installing it lets you choose the appropriate CPU/CUDA build.
+The [official PyTorch "Get Started" guide](https://pytorch.org/get-started/locally/) suggests using `pip`, but an alternative is to let `conda` manage the dependencies, particularly native libs. With `conda`, you can get `pytorch` from multiple channels: e.g., the [`conda-forge`](https://anaconda.org/channels/conda-forge/packages/pytorch/overview) channel or the [`main`](https://anaconda.org/channels/main/packages/pytorch/overview) channel.
+Do not install PyTorch from the [`pytorch`](https://anaconda.org/channels/pytorch/packages/pytorch/overview) channel; [official PyTorch Conda packages were discontinued after version 2.5](https://github.com/pytorch/pytorch/issues/138506).
+FWIW, Codex suggests using the `conda-forge` channel.
++ [Faiss](https://github.com/facebookresearch/faiss), because there are many variants (e.g., `faiss-cpu` vs. `faiss-gpu`).
+Install only if you need retrieval using Faiss.
+The [official Faiss install guide](https://github.com/facebookresearch/faiss/blob/main/INSTALL.md) says to use the `pytorch` channel via `-c pytorch -c conda-forge`.
+A potential gotcha: if you mix channels, you might end up with weird library conflicts.
 
 After installing the dependencies needed for your workflow:
 
@@ -23,7 +27,7 @@ After installing the dependencies needed for your workflow:
 pip install pyserini
 ```
 
-Multimodal support (e.g., image search) is provided in the `optional` package.
+Multimodal support (e.g., image search) is provided in the `optional` extra.
 If you need it:
 
 ```bash
@@ -46,13 +50,48 @@ conda activate pyserini
 
 conda install -c anaconda wget -y
 conda install -c conda-forge openjdk=21 maven -y
-conda install -c conda-forge faiss-cpu -y
 conda install -c conda-forge pytorch -y
+conda install -c conda-forge faiss-cpu -y
 
 pip install 'pyserini[optional]'
 
 # Needed for multimodal retrieval
 pip install git+https://github.com/openai/CLIP.git
+```
+
+As of November 2026, the above recipe has been verified to work on a circa 2025 MacBook Air with the M4 processor.
+The above recipe pulled in the following dependency versions:
+
+```bash
+% pip list | egrep '(transformers|torch|faiss)\s'
+faiss                     1.14.3
+torch                     2.14.1
+transformers              5.23.0
+```
+
+In contrast to the recipe above, the [official Faiss install guide](https://github.com/facebookresearch/faiss/blob/main/INSTALL.md) suggests the following:
+
+```bash
+conda install -c pytorch -c conda-forge faiss-cpu=1.16.0
+```
+
+But it does not appear that 1.16.0 is available for macOS ARM64 in the `pytorch` channel:
+
+```bash
+conda search --override-channels -c pytorch faiss-cpu
+```
+
+If we specify 1.15.0:
+
+```bash
+conda install -c pytorch -c conda-forge faiss-cpu=1.15.0 -y
+```
+
+Installation will proceed without error, but we end up with a `libomp.dylib` conflict:
+
+```text
+OMP: Error #15: Initializing libomp.dylib, but found libomp.dylib already initialized.
+OMP: Hint This means that multiple copies of the OpenMP runtime have been linked into the program. That is dangerous, since it can degrade performance or cause incorrect results. The best thing to do is to ensure that only a single OpenMP runtime is linked into the process, e.g. by avoiding static linking of the OpenMP runtime in any library. As an unsafe, unsupported, undocumented workaround you can set the environment variable KMP_DUPLICATE_LIB_OK=TRUE to allow the program to continue to execute, but that may cause crashes or silently produce incorrect results. For more information, please see http://openmp.llvm.org/
 ```
 
 ### Linux
@@ -65,7 +104,7 @@ conda activate pyserini
 
 conda install -c conda-forge openjdk=21 maven -y
 conda install -c conda-forge pytorch -y
-conda install -c conda-forge faiss-cpu -y
+conda install -c pytorch -c conda-forge faiss-cpu=1.16.0 -y
 
 pip install 'pyserini[optional]'
 
@@ -73,19 +112,17 @@ pip install 'pyserini[optional]'
 pip install git+https://github.com/openai/CLIP.git
 ```
 
-### Verifying the Installation
+As of November 2026, the above recipe has been verified to work on a Linux server (with no GPU) running Ubuntu 24.04.4 LTS.
+The above recipe pulled in the following dependency versions:
 
-Both recipes above have been verified to work as of November 2026.
-You'll pull in something like:
-
-```text
-faiss                     1.14.3
-onnxruntime               1.31.1
-pyjnius                   1.9.0
-torch                     2.14.1
-transformers              5.22.1
-uniir_for_pyserini        0.1.4
+```bash
+$ pip list | egrep '(transformers|torch|faiss)\s'
+faiss                     1.16.0
+torch                     2.15.0
+transformers              5.23.0
 ```
+
+### Verifying the Installation
 
 By this point, Pyserini should have been installed.
 It might be worthwhile to do a bit of sanity checking: instructions are provided below.
@@ -119,7 +156,7 @@ To verify that dense retrieval (using BGE-base-en-v1.5) is working correctly wit
 python -m pyserini.search.lucene \
   --dense --flat \
   --index beir-v1.0.0-nfcorpus.bge-base-en-v1.5.flat \
-  --topics beir-v1.0.0-nfcorpus \
+  --topics beir-v1.0.0-nfcorpus-test \
   --onnx-encoder BgeBaseEn15 \
   --output run.beir.bge-base-en-v1.5.lucene-flat.nfcorpus.txt \
   --output-format trec \
@@ -180,7 +217,7 @@ git clone git@github.com:castorini/pyserini.git
 Then, in the `pyserini` clone, use `pip` to add an ["editable" installation](https://setuptools.pypa.io/en/latest/userguide/development_mode.html), as follows:
 
 ```bash
-pip install -e .
+pip install -e '.[optional]'
 ```
 
 Next, you'll need to clone and build [Anserini](http://anserini.io/).
