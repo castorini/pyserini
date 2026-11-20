@@ -21,6 +21,7 @@ Usage:
     python -m pyserini.server.rest [--host HOST] [--port PORT] [--config PATH] [--no-prebuilt-indexes] 
                                    [--log-file PATH] [--keep-uvicorn-logs] [--load-shedding-threshold MS]
                                    [--search-cache-size N] [--document-cache-size N]
+                                   [--global-requests-per-second N]
                                    [--enable-token-issuance]
 
 Endpoints:
@@ -55,6 +56,7 @@ from fastapi.responses import JSONResponse, PlainTextResponse
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+from pyserini.server.admission import GlobalRequestLimiter
 from pyserini.server.backend import SharedSearchBackend
 from pyserini.server.config import (
     DEFAULT_TOKEN_ISSUANCE_COOLDOWN_SEC,
@@ -423,6 +425,7 @@ def create_app(
     *,
     no_prebuilt_indexes: bool = False,
     load_shedding_threshold_ms: float = 3000.0,
+    global_requests_per_second: int | None = None,
     search_cache_size: int = 2048,
     document_cache_size: int = 4096,
     enable_token_issuance: bool = False,
@@ -430,6 +433,9 @@ def create_app(
     token_pool_path: str | None = None,
     token_email_sender: TokenEmailSender | None = None,
 ) -> FastAPI:
+    global_request_limiter = (
+        GlobalRequestLimiter(global_requests_per_second) if global_requests_per_second is not None else None
+    )
     if no_prebuilt_indexes and not config_path:
         raise ValueError('--no-prebuilt-indexes requires a config file path')
 
@@ -488,6 +494,7 @@ def create_app(
     )
     app.state.accepted_api_tokens = accepted_api_tokens  # type: ignore[attr-defined]
     app.state.rest_backpressure = rest_backpressure  # type: ignore[attr-defined]
+    app.state.global_request_limiter = global_request_limiter
     app.state.token_store = token_store  # type: ignore[attr-defined]
     app.state.token_pool = token_pool  # type: ignore[attr-defined]
     app.state.token_email_sender = token_email_sender  # type: ignore[attr-defined]
@@ -541,8 +548,21 @@ def create_app(
                     )
                 else:
                     log_entry['auth'] = 'authenticated'
+                    retry_after = global_request_limiter.retry_after() if global_request_limiter is not None else 0
                     bp: RestBackpressure | None = getattr(request.app.state, 'rest_backpressure', None)
-                    if bp is not None and bp.should_shed(key_id, t0):
+                    if retry_after:
+                        log_entry['global_rate_limited'] = True
+                        response = JSONResponse(
+                            status_code=429,
+                            content={
+                                'error': f'Global request limit exceeded ({global_requests_per_second} requests per second).',
+                            },
+                            headers={
+                                'Retry-After': str(retry_after),
+                                REQUEST_ID_HEADER: request_id,
+                            },
+                        )
+                    elif bp is not None and bp.should_shed(key_id, t0):
                         log_entry['auth'] = 'load_shed'
                         response = JSONResponse(
                             status_code=429,
@@ -729,6 +749,16 @@ def main():
         ),
     )
     parser.add_argument(
+        '--global-requests-per-second',
+        type=int,
+        default=None,
+        metavar='N',
+        help=(
+            'Optional positive global request limit per rolling second for authenticated /v1 requests, '
+            'shared by all API keys in this process (default: disabled). Excess requests return 429.'
+        ),
+    )
+    parser.add_argument(
         '--search-cache-size',
         type=int,
         default=2048,
@@ -756,6 +786,9 @@ def main():
 
     if args.load_shedding_threshold < 0:
         raise SystemExit('Error: --load-shedding-threshold must be >= 0')
+
+    if args.global_requests_per_second is not None and args.global_requests_per_second <= 0:
+        raise SystemExit('Error: --global-requests-per-second must be positive')
 
     if args.search_cache_size < 0:
         raise SystemExit('Error: --search-cache-size must be >= 0')
@@ -793,6 +826,7 @@ def main():
             args.config,
             no_prebuilt_indexes=args.no_prebuilt_indexes,
             load_shedding_threshold_ms=args.load_shedding_threshold,
+            global_requests_per_second=args.global_requests_per_second,
             search_cache_size=args.search_cache_size,
             document_cache_size=args.document_cache_size,
             enable_token_issuance=args.enable_token_issuance,
