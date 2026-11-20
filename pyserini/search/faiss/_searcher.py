@@ -72,6 +72,7 @@ class FaissSearcher:
         prebuilt_index_name: Optional[str] = None,
         normalize_distances: bool = False,
         faiss_device: str = "cpu",
+        trust_remote_code: bool = False,
     ):
         self.faiss_device = resolve_device(faiss_device, backend='faiss')
         self._faiss_gpu_resources = None
@@ -79,7 +80,7 @@ class FaissSearcher:
         if not isinstance(query_encoder, str):
             self.query_encoder = query_encoder
         else:
-            self.query_encoder = self._init_encoder_from_str(query_encoder)
+            self.query_encoder = self._init_encoder_from_str(query_encoder, trust_remote_code)
         self.index, self.docids = self.load_index(index_dir)
         self.dimension = self.index.d
         self.num_docs = self.index.ntotal
@@ -97,6 +98,7 @@ class FaissSearcher:
         query_encoder: QueryEncoder,
         normalize_distances: bool = False,
         faiss_device: str = "cpu",
+        trust_remote_code: bool = False,
     ):
         """Build a searcher from a prebuilt index; download the index if necessary.
 
@@ -110,6 +112,9 @@ class FaissSearcher:
             Whether to normalize distances to unit interval [0, 1]. Default is False.
         faiss_device: str
             Device to run faiss, cpu or [cuda:0, cuda:1, ...]. Default is cpu.
+        trust_remote_code: bool
+            Whether to trust and execute custom model/tokenizer code from the Hub when
+            query_encoder is a model name string requiring it. Default is False.
 
         Returns
         -------
@@ -131,7 +136,7 @@ class FaissSearcher:
             return None
 
         print(f'Initializing {prebuilt_index_name}...')
-        return cls(index_dir, query_encoder, prebuilt_index_name, normalize_distances, faiss_device)
+        return cls(index_dir, query_encoder, prebuilt_index_name, normalize_distances, faiss_device, trust_remote_code)
 
     @staticmethod
     def list_prebuilt_indexes():
@@ -350,7 +355,7 @@ class FaissSearcher:
         return self.ssearcher.doc(docid) if self.ssearcher else None
 
     @staticmethod
-    def _init_encoder_from_str(encoder):
+    def _init_encoder_from_str(encoder, trust_remote_code: bool = False):
         encoder_lower = encoder.lower()
         if 'dpr' in encoder_lower:
             return DprQueryEncoder(encoder_dir=encoder)
@@ -359,9 +364,9 @@ class FaissSearcher:
         elif 'ance' in encoder_lower:
             return AnceQueryEncoder(encoder_dir=encoder)
         elif 'sentence' in encoder_lower:
-            return AutoQueryEncoder(encoder_dir=encoder, pooling='mean', l2_norm=True)
+            return AutoQueryEncoder(encoder_dir=encoder, pooling='mean', l2_norm=True, trust_remote_code=trust_remote_code)
         else:
-            return AutoQueryEncoder(encoder_dir=encoder)
+            return AutoQueryEncoder(encoder_dir=encoder, trust_remote_code=trust_remote_code)
 
     @staticmethod
     def load_docids(docid_path: str) -> List[str]:
@@ -385,8 +390,8 @@ class BinaryDenseFaissSearcher(FaissSearcher):
 
     def __init__(self, index_dir: str, query_encoder: Union[QueryEncoder, str],
                  prebuilt_index_name: Optional[str] = None, normalize_distances: bool = False,
-                 faiss_device: str = "cpu"):
-        super().__init__(index_dir, query_encoder, prebuilt_index_name, normalize_distances, faiss_device)
+                 faiss_device: str = "cpu", trust_remote_code: bool = False):
+        super().__init__(index_dir, query_encoder, prebuilt_index_name, normalize_distances, faiss_device, trust_remote_code)
 
     def search(self, query: str, k: int = 10, binary_k: int = 100, rerank: bool = True,
                threads: int = 1) -> List[DenseSearchResult]:
