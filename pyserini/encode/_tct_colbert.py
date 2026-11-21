@@ -20,7 +20,7 @@ import torch
 from transformers import BertModel
 from transformers.utils import logging as transformers_logging
 
-from pyserini.encode._base import DocumentEncoder, QueryEncoder, load_bert_tokenizer
+from pyserini.encode._base import DocumentEncoder, QueryEncoder, load_bert_tokenizer, resolve_encoder_name_or_path
 
 
 def _load_bert_backbone(model_name):
@@ -105,15 +105,17 @@ class TctColBertDocumentEncoder(DocumentEncoder):
 
 
 class TctColBertQueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_queries_dir: str = None, device: str = 'cpu', **kwargs):
+    def __init__(self, encoder_name_or_path: str = None, tokenizer_name: str = None,
+                 encoded_queries_dir: str = None, device: str = 'cpu',
+                 encoder_dir: str = None, **kwargs):
         super().__init__(encoded_queries_dir)
-        if encoder_dir:
+        encoder_name_or_path = resolve_encoder_name_or_path(encoder_name_or_path, encoder_dir)
+        if encoder_name_or_path:
             self.device = device
-            self.model = _load_bert_backbone(encoder_dir)
+            self.model = _load_bert_backbone(encoder_name_or_path)
             self.model.to(self.device)
             self.tokenizer = load_bert_tokenizer(
-                tokenizer_name or encoder_dir,
+                tokenizer_name or encoder_name_or_path,
                 clean_up_tokenization_spaces=True
             )
             self.has_model = True

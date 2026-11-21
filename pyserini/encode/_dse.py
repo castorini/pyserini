@@ -29,6 +29,7 @@ from sklearn.preprocessing import normalize
 from transformers import AutoProcessor, AutoModelForCausalLM
 
 from pyserini.encode import DocumentEncoder, QueryEncoder
+from pyserini.encode._base import resolve_encoder_name_or_path
 
 logger = logging.getLogger(__name__)
 
@@ -327,19 +328,21 @@ class DseQueryEncoder(QueryEncoder):
     
     def __init__(
         self, 
-        encoder_dir: str = None, 
+        encoder_name_or_path: str = None,
         encoded_queries_dir: str = None,
         device: str = 'cpu',
         l2_norm: bool = False,
         pooling: str = 'last',
         cache_dir: Optional[str] = None,
         fp16: bool = False,
+        encoder_dir: str = None,
         **kwargs
     ):
         super().__init__(encoded_queries_dir)
         self.has_model = False
+        encoder_name_or_path = resolve_encoder_name_or_path(encoder_name_or_path, encoder_dir)
         
-        if encoder_dir:
+        if encoder_name_or_path:
             self.device = device
             self.l2_norm = l2_norm
             self.pooling = pooling
@@ -347,7 +350,7 @@ class DseQueryEncoder(QueryEncoder):
             
             # Load processor
             self.processor = AutoProcessor.from_pretrained(
-                encoder_dir,
+                encoder_name_or_path,
                 cache_dir=cache_dir,
                 trust_remote_code=True
             )
@@ -358,7 +361,7 @@ class DseQueryEncoder(QueryEncoder):
             
             # Load model (pre-merged checkpoint, no LoRA needed)
             self.model = DSEModel.load(
-                encoder_dir,
+                encoder_name_or_path,
                 pooling=pooling,
                 normalize=l2_norm,
                 cache_dir=cache_dir

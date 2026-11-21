@@ -21,11 +21,13 @@ import torch
 from transformers import DPRQuestionEncoder, DPRQuestionEncoderTokenizer
 
 from pyserini.encode import QueryEncoder
+from pyserini.encode._base import resolve_encoder_name_or_path
 
 
 class BprQueryEncoder(QueryEncoder):
-    def __init__(self, encoder_dir: str = None, tokenizer_name: str = None,
-                 encoded_queries_dir: str = None, device: str = 'cpu', **kwargs):
+    def __init__(self, encoder_name_or_path: str = None, tokenizer_name: str = None,
+                 encoded_queries_dir: str = None, device: str = 'cpu',
+                 encoder_dir: str = None, **kwargs):
         self.has_model = False
         self.has_encoded_queries = False
 
@@ -33,11 +35,12 @@ class BprQueryEncoder(QueryEncoder):
             self.embeddings = self._load_embeddings(encoded_queries_dir)
             self.has_encoded_queries = True
 
-        if encoder_dir:
+        encoder_name_or_path = resolve_encoder_name_or_path(encoder_name_or_path, encoder_dir)
+        if encoder_name_or_path:
             self.device = device
-            self.model = DPRQuestionEncoder.from_pretrained(encoder_dir)
+            self.model = DPRQuestionEncoder.from_pretrained(encoder_name_or_path)
             self.model.to(self.device)
-            self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(tokenizer_name or encoder_dir,
+            self.tokenizer = DPRQuestionEncoderTokenizer.from_pretrained(tokenizer_name or encoder_name_or_path,
                                                                          clean_up_tokenization_spaces=True)
             self.has_model = True
 

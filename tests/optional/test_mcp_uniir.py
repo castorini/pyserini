@@ -84,8 +84,8 @@ class TestMCPyseriniServerUniIR(unittest.TestCase):
         from pyserini.server.backend import SharedSearchBackend
 
         class FakeUniIRQueryEncoder:
-            def __init__(self, encoder_dir, instruction_config=None, **kwargs):
-                self.encoder_dir = encoder_dir
+            def __init__(self, encoder_name_or_path, instruction_config=None, **kwargs):
+                self.encoder_name_or_path = encoder_name_or_path
                 self.instruction_config = instruction_config
 
         class FakeFaissSearcher:

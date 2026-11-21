@@ -20,6 +20,8 @@ import faiss
 from uniir_for_pyserini.pyserini_integration.uniir_corpus_encoder import CorpusEncoder
 from uniir_for_pyserini.pyserini_integration.uniir_query_encoder import QueryEncoder
 
+from pyserini.encode._base import resolve_encoder_name_or_path
+
 
 def _ensure_transformers_additional_special_token_ids():
     """Restore tokenizer accessors used by uniir-for-pyserini with transformers 5."""
@@ -115,18 +117,20 @@ class UniIRCorpusEncoder:
 class UniIRQueryEncoder:
     def __init__(
         self,
-        encoder_dir: str,
+        encoder_name_or_path: str = None,
         device="cpu",
         l2_norm=False,
         instruction_config=None,
+        encoder_dir: str = None,
         **kwargs: Any,
     ):
+        encoder_name_or_path = resolve_encoder_name_or_path(encoder_name_or_path, encoder_dir)
         # Unlike the corpus encoder, fp16 is passed at init time for the query encoder.
         _ensure_transformers_compatibility()
         self.fp16 = kwargs.get("fp16", False)
         self.l2_norm = l2_norm
         self.instruction_config = instruction_config
-        self.query_encoder = QueryEncoder(model_name=encoder_dir, device=device)
+        self.query_encoder = QueryEncoder(model_name=encoder_name_or_path, device=device)
 
     def _get_instruction_config(self, instr_file: str = None):
         """This functions downloads all the instruction config files if not already present."""

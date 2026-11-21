@@ -353,15 +353,15 @@ class FaissSearcher:
     def _init_encoder_from_str(encoder):
         encoder_lower = encoder.lower()
         if 'dpr' in encoder_lower:
-            return DprQueryEncoder(encoder_dir=encoder)
+            return DprQueryEncoder(encoder_name_or_path=encoder)
         elif 'tct_colbert' in encoder_lower:
-            return TctColBertQueryEncoder(encoder_dir=encoder)
+            return TctColBertQueryEncoder(encoder_name_or_path=encoder)
         elif 'ance' in encoder_lower:
-            return AnceQueryEncoder(encoder_dir=encoder)
+            return AnceQueryEncoder(encoder_name_or_path=encoder)
         elif 'sentence' in encoder_lower:
-            return AutoQueryEncoder(encoder_dir=encoder, pooling='mean', l2_norm=True)
+            return AutoQueryEncoder(encoder_name_or_path=encoder, pooling='mean', l2_norm=True)
         else:
-            return AutoQueryEncoder(encoder_dir=encoder)
+            return AutoQueryEncoder(encoder_name_or_path=encoder)
 
     @staticmethod
     def load_docids(docid_path: str) -> List[str]:
@@ -539,6 +539,6 @@ class BinaryDenseFaissSearcher(FaissSearcher):
     def _init_encoder_from_str(encoder):
         encoder = encoder.lower()
         if 'bpr' in encoder:
-            return BprQueryEncoder(encoder_dir=encoder)
+            return BprQueryEncoder(encoder_name_or_path=encoder)
         else:
             raise NotImplementedError
