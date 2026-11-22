@@ -80,6 +80,33 @@ class TestTrecEval(unittest.TestCase):
         ]
         self.assertEqual(trec_eval(args), 0.5)
 
+    def test_multiple_metrics(self):
+        args = ['trec_eval', '-m', 'ndcg_cut.10', '-m', 'judged.20,50', self.qrels_path, self.run_path]
+        expected = {'ndcg_cut_10': 0.055, 'judged_20': 0.5, 'judged_50': 0.5}
+        self.assertEqual(trec_eval(args.copy()), 0.5)
+        self.assertDictEqual(trec_eval(args, return_by_metric=True), expected)
+
+    def test_multiple_metrics_per_query(self):
+        args = [
+            'trec_eval', '-q', '-m', 'ndcg_cut.10', '-m', 'map', '-m', 'judged.20', self.qrels_path, self.run_path,
+        ]
+        expected = {
+            'ndcg_cut_10': {'1': 0.2201, '2': 0.0, '3': 0.0, '4': 0.0, 'all': 0.055},
+            'map': {'1': 0.0099, '2': 0.0, '3': 0.0, '4': 0.0, 'all': 0.0025},
+            'judged_20': {'all': 0.5},
+        }
+        self.assertDictEqual(trec_eval(args.copy(), return_per_query_results=True, return_by_metric=True), expected)
+        self.assertDictEqual(
+            trec_eval(args, query_id='1', return_by_metric=True),
+            {'ndcg_cut_10': 0.2201, 'map': 0.0099},
+        )
+
+    def test_default_metrics_exclude_runid(self):
+        args = ['trec_eval', self.qrels_path, self.run_path]
+        scores = trec_eval(args, return_by_metric=True)
+        self.assertEqual(scores['map'], 0.0025)
+        self.assertNotIn('runid', scores)
+
     def test_jar_directory_exists(self):
         import importlib.resources
         jar_directory = str(importlib.resources.files('pyserini') / 'resources' / 'jars')
