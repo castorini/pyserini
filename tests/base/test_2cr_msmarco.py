@@ -61,6 +61,13 @@ class TestMsmarco(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn('bm25-doc-slim', result.stdout)
 
+    def test_v2_passage_topic_coverage(self):
+        config = yaml.safe_load(msmarco.read_file('msmarco-v2-passage.yaml'))
+        expected = ('msmarco-v2-passage-dev', 'msmarco-v2-passage-dev2', 'dl21', 'dl22', 'dl23')
+        for condition in config['conditions']:
+            with self.subTest(condition=condition['name']):
+                self.assertCountEqual([topic['topic_key'] for topic in condition['topics']], expected)
+
     def test_shared_run_is_retrieved_once_and_evaluated_against_both_qrels(self):
         def write_run(command, **kwargs):
             tokens = shlex.split(command)

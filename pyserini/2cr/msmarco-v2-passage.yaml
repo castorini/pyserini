@@ -111,11 +111,85 @@ conditions:
           - AP@100: 0.0806
             nDCG@10: 0.2602
             R@1K: 0.4748
+  - name: bm25-rocchio-default
+    display: BM25+Rocchio
+    display-html: "BM25+Rocchio"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --bm25 --rocchio
+    topics:
+      - display: MS MARCO dev
+        topic_key: msmarco-v2-passage-dev
+        eval_key: msmarco-v2-passage-dev
+        metric_definitions:
+          RR@100: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
+        scores:
+          - RR@100: 0.0631
+            R@1K: 0.5968
+      - display: MS MARCO dev2
+        topic_key: msmarco-v2-passage-dev2
+        eval_key: msmarco-v2-passage-dev2
+        metric_definitions:
+          RR@100: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
+        scores:
+          - RR@100: 0.0671
+            R@1K: 0.6104
+      - display: TREC 2021
+        topic_key: dl21
+        eval_key: dl21-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.1704
+            nDCG@10: 0.4544
+            R@1K: 0.6709
+      - display: TREC 2022
+        topic_key: dl22
+        eval_key: dl22-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0340
+            nDCG@10: 0.2742
+            R@1K: 0.3639
+      - display: TREC 2023
+        topic_key: dl23
+        eval_key: dl23-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0801
+            nDCG@10: 0.2653
+            R@1K: 0.4810
   - name: qld-default
     display: QLD (μ=1000)
     display-html: "QLD (<i>&mu;</i>=1000)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --qld
     topics:
+      - display: MS MARCO dev
+        topic_key: msmarco-v2-passage-dev
+        eval_key: msmarco-v2-passage-dev
+        metric_definitions:
+          RR@100: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
+        scores:
+          - RR@100: 0.0676
+            R@1K: 0.5869
+      - display: MS MARCO dev2
+        topic_key: msmarco-v2-passage-dev2
+        eval_key: msmarco-v2-passage-dev2
+        metric_definitions:
+          RR@100: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
+        scores:
+          - RR@100: 0.0723
+            R@1K: 0.5955
       - display: TREC 2021
         topic_key: dl21
         eval_key: dl21-passage
@@ -154,6 +228,24 @@ conditions:
     display-html: "QLD+RM3 (<i>&mu;</i>=1000)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --qld --rm3
     topics:
+      - display: MS MARCO dev
+        topic_key: msmarco-v2-passage-dev
+        eval_key: msmarco-v2-passage-dev
+        metric_definitions:
+          RR@100: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
+        scores:
+          - RR@100: 0.0536
+            R@1K: 0.5729
+      - display: MS MARCO dev2
+        topic_key: msmarco-v2-passage-dev2
+        eval_key: msmarco-v2-passage-dev2
+        metric_definitions:
+          RR@100: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
+        scores:
+          - RR@100: 0.0540
+            R@1K: 0.5844
       - display: TREC 2021
         topic_key: dl21
         eval_key: dl21-passage
@@ -192,6 +284,24 @@ conditions:
     display-html: "QLD+Rocchio (<i>&mu;</i>=1000)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --qld --rocchio
     topics:
+      - display: MS MARCO dev
+        topic_key: msmarco-v2-passage-dev
+        eval_key: msmarco-v2-passage-dev
+        metric_definitions:
+          RR@100: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
+        scores:
+          - RR@100: 0.0577
+            R@1K: 0.5834
+      - display: MS MARCO dev2
+        topic_key: msmarco-v2-passage-dev2
+        eval_key: msmarco-v2-passage-dev2
+        metric_definitions:
+          RR@100: -c -M 100 -m recip_rank
+          R@1K: -c -m recall.1000
+        scores:
+          - RR@100: 0.0561
+            R@1K: 0.5934
       - display: TREC 2021
         topic_key: dl21
         eval_key: dl21-passage

@@ -154,6 +154,7 @@ models = {
     'msmarco-v2-passage': [
         'bm25-default',
         'bm25-rm3-default',
+        'bm25-rocchio-default',
         '',
         'qld-default',
         'qld-rm3-default',
