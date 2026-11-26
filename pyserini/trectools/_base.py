@@ -53,7 +53,7 @@ class Qrels:
             self.read_run(self.filepath)
 
     def read_run(self, filepath: str):
-        self.qrels_data = pd.read_csv(filepath, sep=r'\s+', names=Qrels.columns)
+        self.qrels_data = pd.read_csv(filepath, sep=r'\s+', names=Qrels.columns, dtype={'docid': 'str'})
 
     def get_relevance_grades(self) -> Set[str]:
         """Return a set with all relevance grades."""
