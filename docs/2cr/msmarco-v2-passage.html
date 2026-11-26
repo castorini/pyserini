@@ -167,7 +167,7 @@ Not all experimental conditions are shown in the table below.</p>
 <tr class="accordion-toggle collapsed" id="row1" data-toggle="collapse" data-parent="#row1" href="#collapse1">
 <td class="expand-button"></td>
 <td>1</td>
-<td style="min-width: 400px">BM25 original passage [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(1a)</td>
+<td style="min-width: 400px">BM25 [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(1a)</td>
 <td>0.1357</td><td>0.4458</td><td>0.6149</td><td></td><td>0.0325</td><td>0.2692</td><td>0.3321</td><td></td><td>0.0793</td><td>0.2627</td><td>0.4346</td>
 </tr>
 <tr class="hide-table-padding">
@@ -252,7 +252,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 <tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
 <td class="expand-button"></td>
 <td>2</td>
-<td style="min-width: 400px">BM25+RM3 original passage [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(1c)</td>
+<td style="min-width: 400px">BM25+RM3 [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(1c)</td>
 <td>0.1666</td><td>0.4455</td><td>0.6616</td><td></td><td>0.0310</td><td>0.2686</td><td>0.3559</td><td></td><td>0.0806</td><td>0.2602</td><td>0.4748</td>
 </tr>
 <tr class="hide-table-padding">
@@ -338,7 +338,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 <tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
 <td class="expand-button"></td>
 <td>3</td>
-<td style="min-width: 400px">QLD (<i>&mu;</i>=1000) original passage</td>
+<td style="min-width: 400px">QLD (<i>&mu;</i>=1000)</td>
 <td>0.1512</td><td>0.4207</td><td>0.6258</td><td></td><td>0.0362</td><td>0.2510</td><td>0.3602</td><td></td><td>0.0761</td><td>0.2378</td><td>0.4694</td>
 </tr>
 <tr class="hide-table-padding">
@@ -423,7 +423,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 <tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
 <td class="expand-button"></td>
 <td>4</td>
-<td style="min-width: 400px">QLD+RM3 (<i>&mu;</i>=1000) original passage</td>
+<td style="min-width: 400px">QLD+RM3 (<i>&mu;</i>=1000)</td>
 <td>0.1719</td><td>0.4211</td><td>0.6460</td><td></td><td>0.0356</td><td>0.2418</td><td>0.3530</td><td></td><td>0.0668</td><td>0.2122</td><td>0.4503</td>
 </tr>
 <tr class="hide-table-padding">
@@ -508,7 +508,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 <tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
 <td class="expand-button"></td>
 <td>5</td>
-<td style="min-width: 400px">QLD+Rocchio (<i>&mu;</i>=1000) original passage</td>
+<td style="min-width: 400px">QLD+Rocchio (<i>&mu;</i>=1000)</td>
 <td>0.1728</td><td>0.4247</td><td>0.6460</td><td></td><td>0.0362</td><td>0.2444</td><td>0.3541</td><td></td><td>0.0717</td><td>0.2211</td><td>0.4672</td>
 </tr>
 <tr class="hide-table-padding">
@@ -594,7 +594,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 <tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
 <td class="expand-button"></td>
 <td>6</td>
-<td style="min-width: 400px">BM25 w/ doc2query-T5 original passage [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(2a)</td>
+<td style="min-width: 400px">BM25 w/ doc2query-T5 [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(2a)</td>
 <td>0.1874</td><td>0.4816</td><td>0.7078</td><td></td><td>0.0748</td><td>0.3599</td><td>0.4632</td><td></td><td>0.1085</td><td>0.3156</td><td>0.5608</td>
 </tr>
 <tr class="hide-table-padding">
@@ -679,7 +679,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 <tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
 <td class="expand-button"></td>
 <td>7</td>
-<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 original passage [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(2c)</td>
+<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(2c)</td>
 <td>0.2285</td><td>0.5098</td><td>0.7537</td><td></td><td>0.0872</td><td>0.3721</td><td>0.4964</td><td></td><td>0.1135</td><td>0.3132</td><td>0.5978</td>
 </tr>
 <tr class="hide-table-padding">

@@ -1,7 +1,7 @@
 conditions:
   - name: bm25-default
-    display: BM25 original passage
-    display-html: "BM25 original passage [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(1a)"
+    display: BM25
+    display-html: "BM25 [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(1a)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --bm25
     topics:
       - display: MS MARCO dev
@@ -112,8 +112,8 @@ conditions:
             nDCG@10: 0.2061
             R@1K: 0.4514
   - name: bm25-rm3-default
-    display: BM25+RM3 original passage
-    display-html: "BM25+RM3 original passage [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(1c)"
+    display: BM25+RM3
+    display-html: "BM25+RM3 [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(1c)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --bm25 --rm3
     topics:
       - display: MS MARCO dev
@@ -224,8 +224,8 @@ conditions:
             nDCG@10: 0.1798
             R@1K: 0.4583
   - name: qld-default
-    display: QLD (μ=1000) original passage
-    display-html: "QLD (<i>&mu;</i>=1000) original passage"
+    display: QLD (μ=1000)
+    display-html: "QLD (<i>&mu;</i>=1000)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --qld
     topics:
       - display: TREC 2021
@@ -300,8 +300,8 @@ conditions:
             nDCG@10: 0.1754
             R@1K: 0.4036
   - name: qld-rm3-default
-    display: QLD+RM3 (μ=1000) original passage
-    display-html: "QLD+RM3 (<i>&mu;</i>=1000) original passage"
+    display: QLD+RM3 (μ=1000)
+    display-html: "QLD+RM3 (<i>&mu;</i>=1000)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --qld --rm3
     topics:
       - display: TREC 2021
@@ -376,8 +376,8 @@ conditions:
             nDCG@10: 0.1442
             R@1K: 0.3650
   - name: qld-rocchio-default
-    display: QLD+Rocchio (μ=1000) original passage
-    display-html: "QLD+Rocchio (<i>&mu;</i>=1000) original passage"
+    display: QLD+Rocchio (μ=1000)
+    display-html: "QLD+Rocchio (<i>&mu;</i>=1000)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --qld --rocchio
     topics:
       - display: TREC 2021
@@ -452,8 +452,8 @@ conditions:
             nDCG@10: 0.1504
             R@1K: 0.3802
   - name: bm25-d2q-t5-default
-    display: BM25 w/ doc2query-T5 original passage
-    display-html: "BM25 w/ doc2query-T5 original passage [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(2a)"
+    display: BM25 w/ doc2query-T5
+    display-html: "BM25 w/ doc2query-T5 [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(2a)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage.d2q-t5 --topics $topics --output $output --bm25
     topics:
       - display: MS MARCO dev
@@ -564,8 +564,8 @@ conditions:
             nDCG@10: 0.2926
             R@1K: 0.5689
   - name: bm25-rm3-d2q-t5-default
-    display: BM25+RM3 w/ doc2query-T5 original passage
-    display-html: "BM25+RM3 w/ doc2query-T5 original passage [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(2c)"
+    display: BM25+RM3 w/ doc2query-T5
+    display-html: "BM25+RM3 w/ doc2query-T5 [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(2c)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage.d2q-t5-docvectors --topics $topics --output $output --bm25 --rm3
     topics:
       - display: MS MARCO dev
