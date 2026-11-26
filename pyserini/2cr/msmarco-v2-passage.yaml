@@ -223,6 +223,234 @@ conditions:
           - AP@100: 0.0646
             nDCG@10: 0.1798
             R@1K: 0.4583
+  - name: qld-default
+    display: QLD (μ=1000) original passage
+    display-html: "QLD (<i>&mu;</i>=1000) original passage"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --qld
+    topics:
+      - display: TREC 2021
+        topic_key: dl21
+        eval_key: dl21-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.1512
+            nDCG@10: 0.4207
+            R@1K: 0.6258
+      - display: TREC 2022
+        topic_key: dl22
+        eval_key: dl22-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0362
+            nDCG@10: 0.2510
+            R@1K: 0.3602
+      - display: TREC 2023
+        topic_key: dl23
+        eval_key: dl23-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0761
+            nDCG@10: 0.2378
+            R@1K: 0.4694
+  - name: qld-augmented-default
+    display: QLD (μ=1000) augmented passage
+    display-html: "QLD (<i>&mu;</i>=1000) augmented passage"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-augmented --topics $topics --output $output --qld
+    topics:
+      - display: TREC 2021
+        topic_key: dl21
+        eval_key: dl21-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0802
+            nDCG@10: 0.3282
+            R@1K: 0.5373
+      - display: TREC 2022
+        topic_key: dl22
+        eval_key: dl22-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0241
+            nDCG@10: 0.2139
+            R@1K: 0.3376
+      - display: TREC 2023
+        topic_key: dl23
+        eval_key: dl23-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0620
+            nDCG@10: 0.1754
+            R@1K: 0.4036
+  - name: qld-rm3-default
+    display: QLD+RM3 (μ=1000) original passage
+    display-html: "QLD+RM3 (<i>&mu;</i>=1000) original passage"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --qld --rm3
+    topics:
+      - display: TREC 2021
+        topic_key: dl21
+        eval_key: dl21-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.1719
+            nDCG@10: 0.4211
+            R@1K: 0.6460
+      - display: TREC 2022
+        topic_key: dl22
+        eval_key: dl22-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0356
+            nDCG@10: 0.2418
+            R@1K: 0.3530
+      - display: TREC 2023
+        topic_key: dl23
+        eval_key: dl23-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0668
+            nDCG@10: 0.2122
+            R@1K: 0.4503
+  - name: qld-rm3-augmented-default
+    display: QLD+RM3 (μ=1000) augmented passage
+    display-html: "QLD+RM3 (<i>&mu;</i>=1000) augmented passage"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-augmented --topics $topics --output $output --qld --rm3
+    topics:
+      - display: TREC 2021
+        topic_key: dl21
+        eval_key: dl21-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0751
+            nDCG@10: 0.2809
+            R@1K: 0.5301
+      - display: TREC 2022
+        topic_key: dl22
+        eval_key: dl22-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0183
+            nDCG@10: 0.1887
+            R@1K: 0.2742
+      - display: TREC 2023
+        topic_key: dl23
+        eval_key: dl23-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0505
+            nDCG@10: 0.1442
+            R@1K: 0.3650
+  - name: qld-rocchio-default
+    display: QLD+Rocchio (μ=1000) original passage
+    display-html: "QLD+Rocchio (<i>&mu;</i>=1000) original passage"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --qld --rocchio
+    topics:
+      - display: TREC 2021
+        topic_key: dl21
+        eval_key: dl21-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.1728
+            nDCG@10: 0.4247
+            R@1K: 0.6460
+      - display: TREC 2022
+        topic_key: dl22
+        eval_key: dl22-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0362
+            nDCG@10: 0.2444
+            R@1K: 0.3541
+      - display: TREC 2023
+        topic_key: dl23
+        eval_key: dl23-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0717
+            nDCG@10: 0.2211
+            R@1K: 0.4672
+  - name: qld-rocchio-augmented-default
+    display: QLD+Rocchio (μ=1000) augmented passage
+    display-html: "QLD+Rocchio (<i>&mu;</i>=1000) augmented passage"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-augmented --topics $topics --output $output --qld --rocchio
+    topics:
+      - display: TREC 2021
+        topic_key: dl21
+        eval_key: dl21-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0783
+            nDCG@10: 0.2910
+            R@1K: 0.5414
+      - display: TREC 2022
+        topic_key: dl22
+        eval_key: dl22-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0193
+            nDCG@10: 0.1931
+            R@1K: 0.2807
+      - display: TREC 2023
+        topic_key: dl23
+        eval_key: dl23-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0525
+            nDCG@10: 0.1504
+            R@1K: 0.3802
   - name: bm25-d2q-t5-default
     display: BM25 w/ doc2query-T5 original passage
     display-html: "BM25 w/ doc2query-T5 original passage [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(2a)"
