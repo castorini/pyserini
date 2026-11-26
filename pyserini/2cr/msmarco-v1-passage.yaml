@@ -1152,6 +1152,114 @@ conditions:
           - AP@1K: 0.3017
             nDCG@10: 0.4924
             R@1K: 0.8292
+  - name: qld-default
+    display: "QLD (μ=1000)"
+    display-html: "QLD (<i>&mu;</i>=1000)"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage --topics $topics --output $output --qld
+    topics:
+      - display: MS MARCO dev
+        topic_key: msmarco-v1-passage.dev
+        eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          RR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
+        scores:
+          - RR@10: 0.1658
+            R@1K: 0.8475
+      - display: TREC 2019
+        topic_key: dl19-passage
+        eval_key: dl19-passage
+        metric_definitions:
+          AP@1K: -c -l 2 -M 1000 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@1K: 0.2993
+            nDCG@10: 0.4696
+            R@1K: 0.7624
+      - display: TREC 2020
+        topic_key: dl20-passage
+        eval_key: dl20-passage
+        metric_definitions:
+          AP@1K: -c -l 2 -M 1000 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@1K: 0.2864
+            nDCG@10: 0.4598
+            R@1K: 0.8131
+  - name: qld-rm3-default
+    display: "QLD+RM3 (μ=1000)"
+    display-html: "QLD+RM3 (<i>&mu;</i>=1000)"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage --topics $topics --output $output --qld --rm3
+    topics:
+      - display: MS MARCO dev
+        topic_key: msmarco-v1-passage.dev
+        eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          RR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
+        scores:
+          - RR@10: 0.1274
+            R@1K: 0.8325
+      - display: TREC 2019
+        topic_key: dl19-passage
+        eval_key: dl19-passage
+        metric_definitions:
+          AP@1K: -c -l 2 -M 1000 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@1K: 0.3206
+            nDCG@10: 0.4722
+            R@1K: 0.7921
+      - display: TREC 2020
+        topic_key: dl20-passage
+        eval_key: dl20-passage
+        metric_definitions:
+          AP@1K: -c -l 2 -M 1000 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@1K: 0.2924
+            nDCG@10: 0.4624
+            R@1K: 0.8203
+  - name: qld-rocchio-default
+    display: "QLD+Rocchio (μ=1000)"
+    display-html: "QLD+Rocchio (<i>&mu;</i>=1000)"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v1-passage --topics $topics --output $output --qld --rocchio
+    topics:
+      - display: MS MARCO dev
+        topic_key: msmarco-v1-passage.dev
+        eval_key: msmarco-v1-passage.dev
+        metric_definitions:
+          RR@10: -c -M 10 -m recip_rank
+          R@1K: -c -m recall.1000
+        scores:
+          - RR@10: 0.1318
+            R@1K: 0.8382
+      - display: TREC 2019
+        topic_key: dl19-passage
+        eval_key: dl19-passage
+        metric_definitions:
+          AP@1K: -c -l 2 -M 1000 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@1K: 0.3213
+            nDCG@10: 0.4859
+            R@1K: 0.7935
+      - display: TREC 2020
+        topic_key: dl20-passage
+        eval_key: dl20-passage
+        metric_definitions:
+          AP@1K: -c -l 2 -M 1000 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@1K: 0.3035
+            nDCG@10: 0.4709
+            R@1K: 0.8219
   - name: bm25-default
     display: "BM25 (k1=0.9, b=0.4)"
     display-html: "BM25 (<i>k<sub><small>1</small></sub></i>=0.9, <i>b</i>=0.4) [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(1a)"
