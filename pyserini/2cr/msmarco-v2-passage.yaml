@@ -111,6 +111,44 @@ conditions:
           - AP@100: 0.0806
             nDCG@10: 0.2602
             R@1K: 0.4748
+  - name: bm25-rocchio-default
+    display: BM25+Rocchio
+    display-html: "BM25+Rocchio"
+    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --bm25 --rocchio
+    topics:
+      - display: TREC 2021
+        topic_key: dl21
+        eval_key: dl21-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.1704
+            nDCG@10: 0.4544
+            R@1K: 0.6709
+      - display: TREC 2022
+        topic_key: dl22
+        eval_key: dl22-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0340
+            nDCG@10: 0.2742
+            R@1K: 0.3639
+      - display: TREC 2023
+        topic_key: dl23
+        eval_key: dl23-passage
+        metric_definitions:
+          AP@100: -c -l 2 -M 100 -m map
+          nDCG@10: -c -m ndcg_cut.10
+          R@1K: -c -l 2 -m recall.1000
+        scores:
+          - AP@100: 0.0801
+            nDCG@10: 0.2653
+            R@1K: 0.4810
   - name: qld-default
     display: QLD (μ=1000)
     display-html: "QLD (<i>&mu;</i>=1000)"
