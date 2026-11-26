@@ -248,12 +248,12 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 </td>
 </tr>
 
-<!-- Condition: bm25-augmented-default -->
+<!-- Condition: bm25-rm3-default -->
 <tr class="accordion-toggle collapsed" id="row2" data-toggle="collapse" data-parent="#row2" href="#collapse2">
 <td class="expand-button"></td>
 <td>2</td>
-<td style="min-width: 400px">BM25 augmented passage [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(1b)</td>
-<td>0.0977</td><td>0.3977</td><td>0.5835</td><td></td><td>0.0346</td><td>0.2742</td><td>0.3666</td><td></td><td>0.0751</td><td>0.2061</td><td>0.4514</td>
+<td style="min-width: 400px">BM25+RM3 original passage [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(1c)</td>
+<td>0.1666</td><td>0.4455</td><td>0.6616</td><td></td><td>0.0310</td><td>0.2686</td><td>0.3559</td><td></td><td>0.0806</td><td>0.2602</td><td>0.4748</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
@@ -266,91 +266,6 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 </ul>
 <div class="tab-content" id="row2-content">
 <div class="tab-pane fade show active" id="row2-tab1" role="tabpanel" aria-labelledby="row2-tab1-header">
-<p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented \
-  --topics dl21 \
-  --output run.msmarco-v2-passage.bm25-augmented-default.dl21.txt \
-  --bm25
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl21-passage run.msmarco-v2-passage.bm25-augmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-passage run.msmarco-v2-passage.bm25-augmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarco-v2-passage.bm25-augmented-default.dl21.txt
-</code></pre>
-</div>
-</div>
-
-<div class="tab-pane fade" id="row2-tab2" role="tabpanel" aria-labelledby="row2-tab2-header">
-<p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented \
-  --topics dl22 \
-  --output run.msmarco-v2-passage.bm25-augmented-default.dl22.txt \
-  --bm25
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl22-passage run.msmarco-v2-passage.bm25-augmented-default.dl22.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-passage run.msmarco-v2-passage.bm25-augmented-default.dl22.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarco-v2-passage.bm25-augmented-default.dl22.txt
-</code></pre>
-</div>
-</div>
-
-<div class="tab-pane fade" id="row2-tab3" role="tabpanel" aria-labelledby="row2-tab3-header">
-<p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented \
-  --topics dl23 \
-  --output run.msmarco-v2-passage.bm25-augmented-default.dl23.txt \
-  --bm25
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl23-passage run.msmarco-v2-passage.bm25-augmented-default.dl23.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl23-passage run.msmarco-v2-passage.bm25-augmented-default.dl23.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarco-v2-passage.bm25-augmented-default.dl23.txt
-</code></pre>
-</div>
-</div>
-
-</div>
-</div>
-</td>
-</tr>
-
-<!-- Condition: bm25-rm3-default -->
-<tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
-<td class="expand-button"></td>
-<td>3</td>
-<td style="min-width: 400px">BM25+RM3 original passage [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(1c)</td>
-<td>0.1666</td><td>0.4455</td><td>0.6616</td><td></td><td>0.0310</td><td>0.2686</td><td>0.3559</td><td></td><td>0.0806</td><td>0.2602</td><td>0.4748</td>
-</tr>
-<tr class="hide-table-padding">
-<td></td>
-<td colspan="13">
-<div id="collapse3" class="collapse in p-3">
-<ul class="nav nav-tabs mb-3" id="row3-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="row3-tab1-header" data-mdb-toggle="tab" href="#row3-tab1" role="tab" aria-controls="row3-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
-</ul>
-<div class="tab-content" id="row3-content">
-<div class="tab-pane fade show active" id="row3-tab1" role="tabpanel" aria-labelledby="row3-tab1-header">
 <p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -371,7 +286,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row3-tab2" role="tabpanel" aria-labelledby="row3-tab2-header">
+<div class="tab-pane fade" id="row2-tab2" role="tabpanel" aria-labelledby="row2-tab2-header">
 <p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -392,7 +307,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row3-tab3" role="tabpanel" aria-labelledby="row3-tab3-header">
+<div class="tab-pane fade" id="row2-tab3" role="tabpanel" aria-labelledby="row2-tab3-header">
 <p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -418,110 +333,25 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 </td>
 </tr>
 
-<!-- Condition: bm25-rm3-augmented-default -->
-<tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
-<td class="expand-button"></td>
-<td>4</td>
-<td style="min-width: 400px">BM25+RM3 augmented passage [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(1d)</td>
-<td>0.1050</td><td>0.3869</td><td>0.6298</td><td></td><td>0.0318</td><td>0.2571</td><td>0.3441</td><td></td><td>0.0646</td><td>0.1798</td><td>0.4583</td>
-</tr>
-<tr class="hide-table-padding">
-<td></td>
-<td colspan="13">
-<div id="collapse4" class="collapse in p-3">
-<ul class="nav nav-tabs mb-3" id="row4-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="row4-tab1-header" data-mdb-toggle="tab" href="#row4-tab1" role="tab" aria-controls="row4-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
-</ul>
-<div class="tab-content" id="row4-content">
-<div class="tab-pane fade show active" id="row4-tab1" role="tabpanel" aria-labelledby="row4-tab1-header">
-<p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented \
-  --topics dl21 \
-  --output run.msmarco-v2-passage.bm25-rm3-augmented-default.dl21.txt \
-  --bm25 --rm3
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl21-passage run.msmarco-v2-passage.bm25-rm3-augmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-passage run.msmarco-v2-passage.bm25-rm3-augmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarco-v2-passage.bm25-rm3-augmented-default.dl21.txt
-</code></pre>
-</div>
-</div>
-
-<div class="tab-pane fade" id="row4-tab2" role="tabpanel" aria-labelledby="row4-tab2-header">
-<p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented \
-  --topics dl22 \
-  --output run.msmarco-v2-passage.bm25-rm3-augmented-default.dl22.txt \
-  --bm25 --rm3
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl22-passage run.msmarco-v2-passage.bm25-rm3-augmented-default.dl22.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-passage run.msmarco-v2-passage.bm25-rm3-augmented-default.dl22.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarco-v2-passage.bm25-rm3-augmented-default.dl22.txt
-</code></pre>
-</div>
-</div>
-
-<div class="tab-pane fade" id="row4-tab3" role="tabpanel" aria-labelledby="row4-tab3-header">
-<p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented \
-  --topics dl23 \
-  --output run.msmarco-v2-passage.bm25-rm3-augmented-default.dl23.txt \
-  --bm25 --rm3
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl23-passage run.msmarco-v2-passage.bm25-rm3-augmented-default.dl23.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl23-passage run.msmarco-v2-passage.bm25-rm3-augmented-default.dl23.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarco-v2-passage.bm25-rm3-augmented-default.dl23.txt
-</code></pre>
-</div>
-</div>
-
-</div>
-</div>
-</td>
-</tr>
-
 <tr><td style="border-bottom: 0"></td></tr>
 <!-- Condition: qld-default -->
-<tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
+<tr class="accordion-toggle collapsed" id="row3" data-toggle="collapse" data-parent="#row3" href="#collapse3">
 <td class="expand-button"></td>
-<td>5</td>
+<td>3</td>
 <td style="min-width: 400px">QLD (<i>&mu;</i>=1000) original passage</td>
 <td>0.1512</td><td>0.4207</td><td>0.6258</td><td></td><td>0.0362</td><td>0.2510</td><td>0.3602</td><td></td><td>0.0761</td><td>0.2378</td><td>0.4694</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
 <td colspan="13">
-<div id="collapse5" class="collapse in p-3">
-<ul class="nav nav-tabs mb-3" id="row5-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="row5-tab1-header" data-mdb-toggle="tab" href="#row5-tab1" role="tab" aria-controls="row5-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
+<div id="collapse3" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row3-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row3-tab1-header" data-mdb-toggle="tab" href="#row3-tab1" role="tab" aria-controls="row3-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row3-tab2-header" data-mdb-toggle="tab" href="#row3-tab2" role="tab" aria-controls="row3-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row3-tab3-header" data-mdb-toggle="tab" href="#row3-tab3" role="tab" aria-controls="row3-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
 </ul>
-<div class="tab-content" id="row5-content">
-<div class="tab-pane fade show active" id="row5-tab1" role="tabpanel" aria-labelledby="row5-tab1-header">
+<div class="tab-content" id="row3-content">
+<div class="tab-pane fade show active" id="row3-tab1" role="tabpanel" aria-labelledby="row3-tab1-header">
 <p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -542,7 +372,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row5-tab2" role="tabpanel" aria-labelledby="row5-tab2-header">
+<div class="tab-pane fade" id="row3-tab2" role="tabpanel" aria-labelledby="row3-tab2-header">
 <p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -563,7 +393,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row5-tab3" role="tabpanel" aria-labelledby="row5-tab3-header">
+<div class="tab-pane fade" id="row3-tab3" role="tabpanel" aria-labelledby="row3-tab3-header">
 <p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -589,109 +419,24 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 </td>
 </tr>
 
-<!-- Condition: qld-augmented-default -->
-<tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
-<td class="expand-button"></td>
-<td>6</td>
-<td style="min-width: 400px">QLD (<i>&mu;</i>=1000) augmented passage</td>
-<td>0.0802</td><td>0.3282</td><td>0.5373</td><td></td><td>0.0241</td><td>0.2139</td><td>0.3376</td><td></td><td>0.0620</td><td>0.1754</td><td>0.4036</td>
-</tr>
-<tr class="hide-table-padding">
-<td></td>
-<td colspan="13">
-<div id="collapse6" class="collapse in p-3">
-<ul class="nav nav-tabs mb-3" id="row6-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="row6-tab1-header" data-mdb-toggle="tab" href="#row6-tab1" role="tab" aria-controls="row6-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
-</ul>
-<div class="tab-content" id="row6-content">
-<div class="tab-pane fade show active" id="row6-tab1" role="tabpanel" aria-labelledby="row6-tab1-header">
-<p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented \
-  --topics dl21 \
-  --output run.msmarco-v2-passage.qld-augmented-default.dl21.txt \
-  --qld
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl21-passage run.msmarco-v2-passage.qld-augmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-passage run.msmarco-v2-passage.qld-augmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarco-v2-passage.qld-augmented-default.dl21.txt
-</code></pre>
-</div>
-</div>
-
-<div class="tab-pane fade" id="row6-tab2" role="tabpanel" aria-labelledby="row6-tab2-header">
-<p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented \
-  --topics dl22 \
-  --output run.msmarco-v2-passage.qld-augmented-default.dl22.txt \
-  --qld
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl22-passage run.msmarco-v2-passage.qld-augmented-default.dl22.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-passage run.msmarco-v2-passage.qld-augmented-default.dl22.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarco-v2-passage.qld-augmented-default.dl22.txt
-</code></pre>
-</div>
-</div>
-
-<div class="tab-pane fade" id="row6-tab3" role="tabpanel" aria-labelledby="row6-tab3-header">
-<p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented \
-  --topics dl23 \
-  --output run.msmarco-v2-passage.qld-augmented-default.dl23.txt \
-  --qld
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl23-passage run.msmarco-v2-passage.qld-augmented-default.dl23.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl23-passage run.msmarco-v2-passage.qld-augmented-default.dl23.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarco-v2-passage.qld-augmented-default.dl23.txt
-</code></pre>
-</div>
-</div>
-
-</div>
-</div>
-</td>
-</tr>
-
 <!-- Condition: qld-rm3-default -->
-<tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
+<tr class="accordion-toggle collapsed" id="row4" data-toggle="collapse" data-parent="#row4" href="#collapse4">
 <td class="expand-button"></td>
-<td>7</td>
+<td>4</td>
 <td style="min-width: 400px">QLD+RM3 (<i>&mu;</i>=1000) original passage</td>
 <td>0.1719</td><td>0.4211</td><td>0.6460</td><td></td><td>0.0356</td><td>0.2418</td><td>0.3530</td><td></td><td>0.0668</td><td>0.2122</td><td>0.4503</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
 <td colspan="13">
-<div id="collapse7" class="collapse in p-3">
-<ul class="nav nav-tabs mb-3" id="row7-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="row7-tab1-header" data-mdb-toggle="tab" href="#row7-tab1" role="tab" aria-controls="row7-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
+<div id="collapse4" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row4-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row4-tab1-header" data-mdb-toggle="tab" href="#row4-tab1" role="tab" aria-controls="row4-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row4-tab2-header" data-mdb-toggle="tab" href="#row4-tab2" role="tab" aria-controls="row4-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row4-tab3-header" data-mdb-toggle="tab" href="#row4-tab3" role="tab" aria-controls="row4-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
 </ul>
-<div class="tab-content" id="row7-content">
-<div class="tab-pane fade show active" id="row7-tab1" role="tabpanel" aria-labelledby="row7-tab1-header">
+<div class="tab-content" id="row4-content">
+<div class="tab-pane fade show active" id="row4-tab1" role="tabpanel" aria-labelledby="row4-tab1-header">
 <p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -712,7 +457,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row7-tab2" role="tabpanel" aria-labelledby="row7-tab2-header">
+<div class="tab-pane fade" id="row4-tab2" role="tabpanel" aria-labelledby="row4-tab2-header">
 <p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -733,7 +478,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row7-tab3" role="tabpanel" aria-labelledby="row7-tab3-header">
+<div class="tab-pane fade" id="row4-tab3" role="tabpanel" aria-labelledby="row4-tab3-header">
 <p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -759,109 +504,24 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 </td>
 </tr>
 
-<!-- Condition: qld-rm3-augmented-default -->
-<tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
-<td class="expand-button"></td>
-<td>8</td>
-<td style="min-width: 400px">QLD+RM3 (<i>&mu;</i>=1000) augmented passage</td>
-<td>0.0751</td><td>0.2809</td><td>0.5301</td><td></td><td>0.0183</td><td>0.1887</td><td>0.2742</td><td></td><td>0.0505</td><td>0.1442</td><td>0.3650</td>
-</tr>
-<tr class="hide-table-padding">
-<td></td>
-<td colspan="13">
-<div id="collapse8" class="collapse in p-3">
-<ul class="nav nav-tabs mb-3" id="row8-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="row8-tab1-header" data-mdb-toggle="tab" href="#row8-tab1" role="tab" aria-controls="row8-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
-</ul>
-<div class="tab-content" id="row8-content">
-<div class="tab-pane fade show active" id="row8-tab1" role="tabpanel" aria-labelledby="row8-tab1-header">
-<p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented \
-  --topics dl21 \
-  --output run.msmarco-v2-passage.qld-rm3-augmented-default.dl21.txt \
-  --qld --rm3
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl21-passage run.msmarco-v2-passage.qld-rm3-augmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-passage run.msmarco-v2-passage.qld-rm3-augmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarco-v2-passage.qld-rm3-augmented-default.dl21.txt
-</code></pre>
-</div>
-</div>
-
-<div class="tab-pane fade" id="row8-tab2" role="tabpanel" aria-labelledby="row8-tab2-header">
-<p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented \
-  --topics dl22 \
-  --output run.msmarco-v2-passage.qld-rm3-augmented-default.dl22.txt \
-  --qld --rm3
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl22-passage run.msmarco-v2-passage.qld-rm3-augmented-default.dl22.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-passage run.msmarco-v2-passage.qld-rm3-augmented-default.dl22.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarco-v2-passage.qld-rm3-augmented-default.dl22.txt
-</code></pre>
-</div>
-</div>
-
-<div class="tab-pane fade" id="row8-tab3" role="tabpanel" aria-labelledby="row8-tab3-header">
-<p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented \
-  --topics dl23 \
-  --output run.msmarco-v2-passage.qld-rm3-augmented-default.dl23.txt \
-  --qld --rm3
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl23-passage run.msmarco-v2-passage.qld-rm3-augmented-default.dl23.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl23-passage run.msmarco-v2-passage.qld-rm3-augmented-default.dl23.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarco-v2-passage.qld-rm3-augmented-default.dl23.txt
-</code></pre>
-</div>
-</div>
-
-</div>
-</div>
-</td>
-</tr>
-
 <!-- Condition: qld-rocchio-default -->
-<tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">
+<tr class="accordion-toggle collapsed" id="row5" data-toggle="collapse" data-parent="#row5" href="#collapse5">
 <td class="expand-button"></td>
-<td>9</td>
+<td>5</td>
 <td style="min-width: 400px">QLD+Rocchio (<i>&mu;</i>=1000) original passage</td>
 <td>0.1728</td><td>0.4247</td><td>0.6460</td><td></td><td>0.0362</td><td>0.2444</td><td>0.3541</td><td></td><td>0.0717</td><td>0.2211</td><td>0.4672</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
 <td colspan="13">
-<div id="collapse9" class="collapse in p-3">
-<ul class="nav nav-tabs mb-3" id="row9-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="row9-tab1-header" data-mdb-toggle="tab" href="#row9-tab1" role="tab" aria-controls="row9-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
+<div id="collapse5" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row5-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row5-tab1-header" data-mdb-toggle="tab" href="#row5-tab1" role="tab" aria-controls="row5-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row5-tab2-header" data-mdb-toggle="tab" href="#row5-tab2" role="tab" aria-controls="row5-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row5-tab3-header" data-mdb-toggle="tab" href="#row5-tab3" role="tab" aria-controls="row5-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
 </ul>
-<div class="tab-content" id="row9-content">
-<div class="tab-pane fade show active" id="row9-tab1" role="tabpanel" aria-labelledby="row9-tab1-header">
+<div class="tab-content" id="row5-content">
+<div class="tab-pane fade show active" id="row5-tab1" role="tabpanel" aria-labelledby="row5-tab1-header">
 <p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -882,7 +542,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row9-tab2" role="tabpanel" aria-labelledby="row9-tab2-header">
+<div class="tab-pane fade" id="row5-tab2" role="tabpanel" aria-labelledby="row5-tab2-header">
 <p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -903,7 +563,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row9-tab3" role="tabpanel" aria-labelledby="row9-tab3-header">
+<div class="tab-pane fade" id="row5-tab3" role="tabpanel" aria-labelledby="row5-tab3-header">
 <p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -929,110 +589,25 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 </td>
 </tr>
 
-<!-- Condition: qld-rocchio-augmented-default -->
-<tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">
-<td class="expand-button"></td>
-<td>10</td>
-<td style="min-width: 400px">QLD+Rocchio (<i>&mu;</i>=1000) augmented passage</td>
-<td>0.0783</td><td>0.2910</td><td>0.5414</td><td></td><td>0.0193</td><td>0.1931</td><td>0.2807</td><td></td><td>0.0525</td><td>0.1504</td><td>0.3802</td>
-</tr>
-<tr class="hide-table-padding">
-<td></td>
-<td colspan="13">
-<div id="collapse10" class="collapse in p-3">
-<ul class="nav nav-tabs mb-3" id="row10-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="row10-tab1-header" data-mdb-toggle="tab" href="#row10-tab1" role="tab" aria-controls="row10-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
-</ul>
-<div class="tab-content" id="row10-content">
-<div class="tab-pane fade show active" id="row10-tab1" role="tabpanel" aria-labelledby="row10-tab1-header">
-<p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented \
-  --topics dl21 \
-  --output run.msmarco-v2-passage.qld-rocchio-augmented-default.dl21.txt \
-  --qld --rocchio
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl21-passage run.msmarco-v2-passage.qld-rocchio-augmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-passage run.msmarco-v2-passage.qld-rocchio-augmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarco-v2-passage.qld-rocchio-augmented-default.dl21.txt
-</code></pre>
-</div>
-</div>
-
-<div class="tab-pane fade" id="row10-tab2" role="tabpanel" aria-labelledby="row10-tab2-header">
-<p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented \
-  --topics dl22 \
-  --output run.msmarco-v2-passage.qld-rocchio-augmented-default.dl22.txt \
-  --qld --rocchio
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl22-passage run.msmarco-v2-passage.qld-rocchio-augmented-default.dl22.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-passage run.msmarco-v2-passage.qld-rocchio-augmented-default.dl22.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarco-v2-passage.qld-rocchio-augmented-default.dl22.txt
-</code></pre>
-</div>
-</div>
-
-<div class="tab-pane fade" id="row10-tab3" role="tabpanel" aria-labelledby="row10-tab3-header">
-<p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented \
-  --topics dl23 \
-  --output run.msmarco-v2-passage.qld-rocchio-augmented-default.dl23.txt \
-  --qld --rocchio
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl23-passage run.msmarco-v2-passage.qld-rocchio-augmented-default.dl23.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl23-passage run.msmarco-v2-passage.qld-rocchio-augmented-default.dl23.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarco-v2-passage.qld-rocchio-augmented-default.dl23.txt
-</code></pre>
-</div>
-</div>
-
-</div>
-</div>
-</td>
-</tr>
-
 <tr><td style="border-bottom: 0"></td></tr>
 <!-- Condition: bm25-d2q-t5-default -->
-<tr class="accordion-toggle collapsed" id="row11" data-toggle="collapse" data-parent="#row11" href="#collapse11">
+<tr class="accordion-toggle collapsed" id="row6" data-toggle="collapse" data-parent="#row6" href="#collapse6">
 <td class="expand-button"></td>
-<td>11</td>
+<td>6</td>
 <td style="min-width: 400px">BM25 w/ doc2query-T5 original passage [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(2a)</td>
 <td>0.1874</td><td>0.4816</td><td>0.7078</td><td></td><td>0.0748</td><td>0.3599</td><td>0.4632</td><td></td><td>0.1085</td><td>0.3156</td><td>0.5608</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
 <td colspan="13">
-<div id="collapse11" class="collapse in p-3">
-<ul class="nav nav-tabs mb-3" id="row11-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="row11-tab1-header" data-mdb-toggle="tab" href="#row11-tab1" role="tab" aria-controls="row11-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row11-tab2-header" data-mdb-toggle="tab" href="#row11-tab2" role="tab" aria-controls="row11-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row11-tab3-header" data-mdb-toggle="tab" href="#row11-tab3" role="tab" aria-controls="row11-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
+<div id="collapse6" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row6-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row6-tab1-header" data-mdb-toggle="tab" href="#row6-tab1" role="tab" aria-controls="row6-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row6-tab2-header" data-mdb-toggle="tab" href="#row6-tab2" role="tab" aria-controls="row6-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row6-tab3-header" data-mdb-toggle="tab" href="#row6-tab3" role="tab" aria-controls="row6-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
 </ul>
-<div class="tab-content" id="row11-content">
-<div class="tab-pane fade show active" id="row11-tab1" role="tabpanel" aria-labelledby="row11-tab1-header">
+<div class="tab-content" id="row6-content">
+<div class="tab-pane fade show active" id="row6-tab1" role="tabpanel" aria-labelledby="row6-tab1-header">
 <p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -1053,7 +628,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row11-tab2" role="tabpanel" aria-labelledby="row11-tab2-header">
+<div class="tab-pane fade" id="row6-tab2" role="tabpanel" aria-labelledby="row6-tab2-header">
 <p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -1074,7 +649,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row11-tab3" role="tabpanel" aria-labelledby="row11-tab3-header">
+<div class="tab-pane fade" id="row6-tab3" role="tabpanel" aria-labelledby="row6-tab3-header">
 <p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -1100,109 +675,24 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 </td>
 </tr>
 
-<!-- Condition: bm25-d2q-t5-augmented-default -->
-<tr class="accordion-toggle collapsed" id="row12" data-toggle="collapse" data-parent="#row12" href="#collapse12">
-<td class="expand-button"></td>
-<td>12</td>
-<td style="min-width: 400px">BM25 w/ doc2query-T5 augmented passage [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(2b)</td>
-<td>0.1649</td><td>0.4702</td><td>0.6962</td><td></td><td>0.0735</td><td>0.3609</td><td>0.4739</td><td></td><td>0.1078</td><td>0.2926</td><td>0.5689</td>
-</tr>
-<tr class="hide-table-padding">
-<td></td>
-<td colspan="13">
-<div id="collapse12" class="collapse in p-3">
-<ul class="nav nav-tabs mb-3" id="row12-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="row12-tab1-header" data-mdb-toggle="tab" href="#row12-tab1" role="tab" aria-controls="row12-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row12-tab2-header" data-mdb-toggle="tab" href="#row12-tab2" role="tab" aria-controls="row12-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row12-tab3-header" data-mdb-toggle="tab" href="#row12-tab3" role="tab" aria-controls="row12-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
-</ul>
-<div class="tab-content" id="row12-content">
-<div class="tab-pane fade show active" id="row12-tab1" role="tabpanel" aria-labelledby="row12-tab1-header">
-<p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented.d2q-t5 \
-  --topics dl21 \
-  --output run.msmarco-v2-passage.bm25-d2q-t5-augmented-default.dl21.txt \
-  --bm25
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl21-passage run.msmarco-v2-passage.bm25-d2q-t5-augmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-passage run.msmarco-v2-passage.bm25-d2q-t5-augmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarco-v2-passage.bm25-d2q-t5-augmented-default.dl21.txt
-</code></pre>
-</div>
-</div>
-
-<div class="tab-pane fade" id="row12-tab2" role="tabpanel" aria-labelledby="row12-tab2-header">
-<p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented.d2q-t5 \
-  --topics dl22 \
-  --output run.msmarco-v2-passage.bm25-d2q-t5-augmented-default.dl22.txt \
-  --bm25
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl22-passage run.msmarco-v2-passage.bm25-d2q-t5-augmented-default.dl22.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-passage run.msmarco-v2-passage.bm25-d2q-t5-augmented-default.dl22.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarco-v2-passage.bm25-d2q-t5-augmented-default.dl22.txt
-</code></pre>
-</div>
-</div>
-
-<div class="tab-pane fade" id="row12-tab3" role="tabpanel" aria-labelledby="row12-tab3-header">
-<p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented.d2q-t5 \
-  --topics dl23 \
-  --output run.msmarco-v2-passage.bm25-d2q-t5-augmented-default.dl23.txt \
-  --bm25
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl23-passage run.msmarco-v2-passage.bm25-d2q-t5-augmented-default.dl23.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl23-passage run.msmarco-v2-passage.bm25-d2q-t5-augmented-default.dl23.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarco-v2-passage.bm25-d2q-t5-augmented-default.dl23.txt
-</code></pre>
-</div>
-</div>
-
-</div>
-</div>
-</td>
-</tr>
-
 <!-- Condition: bm25-rm3-d2q-t5-default -->
-<tr class="accordion-toggle collapsed" id="row13" data-toggle="collapse" data-parent="#row13" href="#collapse13">
+<tr class="accordion-toggle collapsed" id="row7" data-toggle="collapse" data-parent="#row7" href="#collapse7">
 <td class="expand-button"></td>
-<td>13</td>
+<td>7</td>
 <td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 original passage [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(2c)</td>
 <td>0.2285</td><td>0.5098</td><td>0.7537</td><td></td><td>0.0872</td><td>0.3721</td><td>0.4964</td><td></td><td>0.1135</td><td>0.3132</td><td>0.5978</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
 <td colspan="13">
-<div id="collapse13" class="collapse in p-3">
-<ul class="nav nav-tabs mb-3" id="row13-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="row13-tab1-header" data-mdb-toggle="tab" href="#row13-tab1" role="tab" aria-controls="row13-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row13-tab2-header" data-mdb-toggle="tab" href="#row13-tab2" role="tab" aria-controls="row13-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row13-tab3-header" data-mdb-toggle="tab" href="#row13-tab3" role="tab" aria-controls="row13-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
+<div id="collapse7" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row7-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row7-tab1-header" data-mdb-toggle="tab" href="#row7-tab1" role="tab" aria-controls="row7-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row7-tab2-header" data-mdb-toggle="tab" href="#row7-tab2" role="tab" aria-controls="row7-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row7-tab3-header" data-mdb-toggle="tab" href="#row7-tab3" role="tab" aria-controls="row7-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
 </ul>
-<div class="tab-content" id="row13-content">
-<div class="tab-pane fade show active" id="row13-tab1" role="tabpanel" aria-labelledby="row13-tab1-header">
+<div class="tab-content" id="row7-content">
+<div class="tab-pane fade show active" id="row7-tab1" role="tabpanel" aria-labelledby="row7-tab1-header">
 <p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -1223,7 +713,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row13-tab2" role="tabpanel" aria-labelledby="row13-tab2-header">
+<div class="tab-pane fade" id="row7-tab2" role="tabpanel" aria-labelledby="row7-tab2-header">
 <p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -1244,7 +734,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row13-tab3" role="tabpanel" aria-labelledby="row13-tab3-header">
+<div class="tab-pane fade" id="row7-tab3" role="tabpanel" aria-labelledby="row7-tab3-header">
 <p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -1270,110 +760,25 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 </td>
 </tr>
 
-<!-- Condition: bm25-rm3-d2q-t5-augmented-default -->
-<tr class="accordion-toggle collapsed" id="row14" data-toggle="collapse" data-parent="#row14" href="#collapse14">
-<td class="expand-button"></td>
-<td>14</td>
-<td style="min-width: 400px">BM25+RM3 w/ doc2query-T5 augmented passage [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(2d)</td>
-<td>0.1930</td><td>0.4812</td><td>0.7672</td><td></td><td>0.0821</td><td>0.3749</td><td>0.4914</td><td></td><td>0.1059</td><td>0.2719</td><td>0.5623</td>
-</tr>
-<tr class="hide-table-padding">
-<td></td>
-<td colspan="13">
-<div id="collapse14" class="collapse in p-3">
-<ul class="nav nav-tabs mb-3" id="row14-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="row14-tab1-header" data-mdb-toggle="tab" href="#row14-tab1" role="tab" aria-controls="row14-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row14-tab2-header" data-mdb-toggle="tab" href="#row14-tab2" role="tab" aria-controls="row14-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row14-tab3-header" data-mdb-toggle="tab" href="#row14-tab3" role="tab" aria-controls="row14-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
-</ul>
-<div class="tab-content" id="row14-content">
-<div class="tab-pane fade show active" id="row14-tab1" role="tabpanel" aria-labelledby="row14-tab1-header">
-<p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented.d2q-t5-docvectors \
-  --topics dl21 \
-  --output run.msmarco-v2-passage.bm25-rm3-d2q-t5-augmented-default.dl21.txt \
-  --bm25 --rm3
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl21-passage run.msmarco-v2-passage.bm25-rm3-d2q-t5-augmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl21-passage run.msmarco-v2-passage.bm25-rm3-d2q-t5-augmented-default.dl21.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarco-v2-passage.bm25-rm3-d2q-t5-augmented-default.dl21.txt
-</code></pre>
-</div>
-</div>
-
-<div class="tab-pane fade" id="row14-tab2" role="tabpanel" aria-labelledby="row14-tab2-header">
-<p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented.d2q-t5-docvectors \
-  --topics dl22 \
-  --output run.msmarco-v2-passage.bm25-rm3-d2q-t5-augmented-default.dl22.txt \
-  --bm25 --rm3
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl22-passage run.msmarco-v2-passage.bm25-rm3-d2q-t5-augmented-default.dl22.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl22-passage run.msmarco-v2-passage.bm25-rm3-d2q-t5-augmented-default.dl22.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarco-v2-passage.bm25-rm3-d2q-t5-augmented-default.dl22.txt
-</code></pre>
-</div>
-</div>
-
-<div class="tab-pane fade" id="row14-tab3" role="tabpanel" aria-labelledby="row14-tab3-header">
-<p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
-<div class="command-block">
-<p class="command-heading">Retrieval command</p>
-<pre><code>python -m pyserini.search.lucene \
-  --threads 16 --batch-size 128 \
-  --index msmarco-v2-passage-augmented.d2q-t5-docvectors \
-  --topics dl23 \
-  --output run.msmarco-v2-passage.bm25-rm3-d2q-t5-augmented-default.dl23.txt \
-  --bm25 --rm3
-</code></pre>
-</div>
-<div class="command-block">
-<p class="command-heading">Evaluation commands</p>
-<pre><code>python -m pyserini.eval.trec_eval -c -l 2 -M 100 -m map dl23-passage run.msmarco-v2-passage.bm25-rm3-d2q-t5-augmented-default.dl23.txt
-python -m pyserini.eval.trec_eval -c -m ndcg_cut.10 dl23-passage run.msmarco-v2-passage.bm25-rm3-d2q-t5-augmented-default.dl23.txt
-python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarco-v2-passage.bm25-rm3-d2q-t5-augmented-default.dl23.txt
-</code></pre>
-</div>
-</div>
-
-</div>
-</div>
-</td>
-</tr>
-
 <tr><td style="border-bottom: 0"></td></tr>
 <!-- Condition: unicoil-noexp-pytorch -->
-<tr class="accordion-toggle collapsed" id="row15" data-toggle="collapse" data-parent="#row15" href="#collapse15">
+<tr class="accordion-toggle collapsed" id="row8" data-toggle="collapse" data-parent="#row8" href="#collapse8">
 <td class="expand-button"></td>
-<td>15</td>
+<td>8</td>
 <td style="min-width: 400px">uniCOIL noexp: PyTorch [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(3a)</td>
 <td>0.2193</td><td>0.5756</td><td>0.6897</td><td></td><td>0.0754</td><td>0.4077</td><td>0.4423</td><td></td><td>0.1112</td><td>0.3262</td><td>0.5070</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
 <td colspan="13">
-<div id="collapse15" class="collapse in p-3">
-<ul class="nav nav-tabs mb-3" id="row15-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="row15-tab1-header" data-mdb-toggle="tab" href="#row15-tab1" role="tab" aria-controls="row15-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row15-tab2-header" data-mdb-toggle="tab" href="#row15-tab2" role="tab" aria-controls="row15-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row15-tab3-header" data-mdb-toggle="tab" href="#row15-tab3" role="tab" aria-controls="row15-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
+<div id="collapse8" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row8-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row8-tab1-header" data-mdb-toggle="tab" href="#row8-tab1" role="tab" aria-controls="row8-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row8-tab2-header" data-mdb-toggle="tab" href="#row8-tab2" role="tab" aria-controls="row8-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row8-tab3-header" data-mdb-toggle="tab" href="#row8-tab3" role="tab" aria-controls="row8-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
 </ul>
-<div class="tab-content" id="row15-content">
-<div class="tab-pane fade show active" id="row15-tab1" role="tabpanel" aria-labelledby="row15-tab1-header">
+<div class="tab-content" id="row8-content">
+<div class="tab-pane fade show active" id="row8-tab1" role="tabpanel" aria-labelledby="row8-tab1-header">
 <p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -1395,7 +800,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row15-tab2" role="tabpanel" aria-labelledby="row15-tab2-header">
+<div class="tab-pane fade" id="row8-tab2" role="tabpanel" aria-labelledby="row8-tab2-header">
 <p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -1417,7 +822,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row15-tab3" role="tabpanel" aria-labelledby="row15-tab3-header">
+<div class="tab-pane fade" id="row8-tab3" role="tabpanel" aria-labelledby="row8-tab3-header">
 <p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -1445,23 +850,23 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 </tr>
 
 <!-- Condition: unicoil-pytorch -->
-<tr class="accordion-toggle collapsed" id="row16" data-toggle="collapse" data-parent="#row16" href="#collapse16">
+<tr class="accordion-toggle collapsed" id="row9" data-toggle="collapse" data-parent="#row9" href="#collapse9">
 <td class="expand-button"></td>
-<td>16</td>
+<td>9</td>
 <td style="min-width: 400px">uniCOIL w/ doc2query-T5: PyTorch [<a href="#" data-mdb-toggle="tooltip" title="Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.">1</a>]&nbsp;(3b)</td>
 <td>0.2538</td><td>0.6159</td><td>0.7551</td><td></td><td>0.1050</td><td>0.4614</td><td>0.5253</td><td></td><td>0.1437</td><td>0.3855</td><td>0.5541</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
 <td colspan="13">
-<div id="collapse16" class="collapse in p-3">
-<ul class="nav nav-tabs mb-3" id="row16-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="row16-tab1-header" data-mdb-toggle="tab" href="#row16-tab1" role="tab" aria-controls="row16-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row16-tab2-header" data-mdb-toggle="tab" href="#row16-tab2" role="tab" aria-controls="row16-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row16-tab3-header" data-mdb-toggle="tab" href="#row16-tab3" role="tab" aria-controls="row16-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
+<div id="collapse9" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row9-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row9-tab1-header" data-mdb-toggle="tab" href="#row9-tab1" role="tab" aria-controls="row9-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row9-tab2-header" data-mdb-toggle="tab" href="#row9-tab2" role="tab" aria-controls="row9-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row9-tab3-header" data-mdb-toggle="tab" href="#row9-tab3" role="tab" aria-controls="row9-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
 </ul>
-<div class="tab-content" id="row16-content">
-<div class="tab-pane fade show active" id="row16-tab1" role="tabpanel" aria-labelledby="row16-tab1-header">
+<div class="tab-content" id="row9-content">
+<div class="tab-pane fade show active" id="row9-tab1" role="tabpanel" aria-labelledby="row9-tab1-header">
 <p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -1483,7 +888,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row16-tab2" role="tabpanel" aria-labelledby="row16-tab2-header">
+<div class="tab-pane fade" id="row9-tab2" role="tabpanel" aria-labelledby="row9-tab2-header">
 <p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -1505,7 +910,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row16-tab3" role="tabpanel" aria-labelledby="row16-tab3-header">
+<div class="tab-pane fade" id="row9-tab3" role="tabpanel" aria-labelledby="row9-tab3-header">
 <p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -1534,23 +939,23 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl23-passage run.msmarc
 
 <tr><td style="border-bottom: 0"></td></tr>
 <!-- Condition: slimr-pp -->
-<tr class="accordion-toggle collapsed" id="row17" data-toggle="collapse" data-parent="#row17" href="#collapse17">
+<tr class="accordion-toggle collapsed" id="row10" data-toggle="collapse" data-parent="#row10" href="#collapse10">
 <td class="expand-button"></td>
-<td>17</td>
+<td>10</td>
 <td style="min-width: 400px">SLIM++ (<small><tt>norefine</tt></small>, <small><tt>tau</tt></small>=0.5, <small><tt>min_idf</tt></small>=1) [<a href="#" data-mdb-toggle="tooltip" title="Li et al. (SIGIR 2023) SLIM: Sparsified Late Interaction for Multi-Vector Retrieval with Inverted Indexes.">2</a>]</td>
 <td>0.2820</td><td>0.6337</td><td>0.8389</td><td></td><td>0.1616</td><td>0.5017</td><td>0.6159</td><td></td><td>0.1772</td><td>0.4746</td><td>0.6412</td>
 </tr>
 <tr class="hide-table-padding">
 <td></td>
 <td colspan="13">
-<div id="collapse17" class="collapse in p-3">
-<ul class="nav nav-tabs mb-3" id="row17-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="row17-tab1-header" data-mdb-toggle="tab" href="#row17-tab1" role="tab" aria-controls="row17-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row17-tab2-header" data-mdb-toggle="tab" href="#row17-tab2" role="tab" aria-controls="row17-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="row17-tab3-header" data-mdb-toggle="tab" href="#row17-tab3" role="tab" aria-controls="row17-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
+<div id="collapse10" class="collapse in p-3">
+<ul class="nav nav-tabs mb-3" id="row10-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="row10-tab1-header" data-mdb-toggle="tab" href="#row10-tab1" role="tab" aria-controls="row10-tab1" aria-selected="true" style="text-transform:none">TREC 2021</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row10-tab2-header" data-mdb-toggle="tab" href="#row10-tab2" role="tab" aria-controls="row10-tab2" aria-selected="false" style="text-transform:none">TREC 2022</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="row10-tab3-header" data-mdb-toggle="tab" href="#row10-tab3" role="tab" aria-controls="row10-tab3" aria-selected="false" style="text-transform:none">TREC 2023</a></li>
 </ul>
-<div class="tab-content" id="row17-content">
-<div class="tab-pane fade show active" id="row17-tab1" role="tabpanel" aria-labelledby="row17-tab1-header">
+<div class="tab-content" id="row10-content">
+<div class="tab-pane fade show active" id="row10-tab1" role="tabpanel" aria-labelledby="row10-tab1-header">
 <p>topics: <code>dl21</code> / qrels: <code>dl21-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -1572,7 +977,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl21-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row17-tab2" role="tabpanel" aria-labelledby="row17-tab2-header">
+<div class="tab-pane fade" id="row10-tab2" role="tabpanel" aria-labelledby="row10-tab2-header">
 <p>topics: <code>dl22</code> / qrels: <code>dl22-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
@@ -1594,7 +999,7 @@ python -m pyserini.eval.trec_eval -c -l 2 -m recall.1000 dl22-passage run.msmarc
 </div>
 </div>
 
-<div class="tab-pane fade" id="row17-tab3" role="tabpanel" aria-labelledby="row17-tab3-header">
+<div class="tab-pane fade" id="row10-tab3" role="tabpanel" aria-labelledby="row10-tab3-header">
 <p>topics: <code>dl23</code> / qrels: <code>dl23-passage</code></p>
 <div class="command-block">
 <p class="command-heading">Retrieval command</p>
