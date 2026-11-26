@@ -17,6 +17,7 @@
 import filecmp
 import os
 import subprocess
+import tempfile
 import unittest
 
 from pyserini.search import get_qrels_file
@@ -74,6 +75,21 @@ class TestTrecTools(unittest.TestCase):
 
         run.retain_qrels(qrels, clone=True).save_to_txt(output_path=self.output_path)
         self.assertTrue(filecmp.cmp(os.path.join(self.root, 'tests/resources/simple_trec_run_keep_verify.txt'), self.output_path))
+
+    def test_filter_qrels_numeric_docids(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            run_path = os.path.join(tmp, 'run.txt')
+            qrels_path = os.path.join(tmp, 'qrels.txt')
+            with open(run_path, 'w') as f:
+                f.write('1 Q0 7067032 1 10.0 run\n1 Q0 0042 2 9.0 run\n1 Q0 555 3 8.0 run\n')
+            with open(qrels_path, 'w') as f:
+                f.write('1 0 7067032 1\n1 0 0042 1\n')
+
+            run = TrecRun(run_path)
+            qrels = Qrels(qrels_path)
+
+            self.assertEqual(run.retain_qrels(qrels).run_data['docid'].tolist(), ['7067032', '0042'])
+            self.assertEqual(run.discard_qrels(qrels).run_data['docid'].tolist(), ['555'])
 
     def test_normalize_scores(self):
         run = TrecRun(os.path.join(self.root, 'tests/resources/simple_trec_run_fusion_1.txt'))
