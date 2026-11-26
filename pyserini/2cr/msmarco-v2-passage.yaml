@@ -1,7 +1,7 @@
 conditions:
   - name: bm25-default
-    display: BM25 original passage
-    display-html: "BM25 original passage [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(1a)"
+    display: BM25
+    display-html: "BM25 [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(1a)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --bm25
     topics:
       - display: MS MARCO dev
@@ -55,65 +55,9 @@ conditions:
           - AP@100: 0.0793
             nDCG@10: 0.2627
             R@1K: 0.4346
-  - name: bm25-augmented-default
-    display: BM25 augmented passage
-    display-html: "BM25 augmented passage [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(1b)"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-augmented --topics $topics --output $output --bm25
-    topics:
-      - display: MS MARCO dev
-        topic_key: msmarco-v2-passage-dev
-        eval_key: msmarco-v2-passage-dev
-        metric_definitions:
-          RR@100: -c -M 100 -m recip_rank
-          R@1K: -c -m recall.1000
-        scores:
-          - RR@100: 0.0872
-            R@1K: 0.6925
-      - display: MS MARCO dev2
-        topic_key: msmarco-v2-passage-dev2
-        eval_key: msmarco-v2-passage-dev2
-        metric_definitions:
-          RR@100: -c -M 100 -m recip_rank
-          R@1K: -c -m recall.1000
-        scores:
-          - RR@100: 0.0917
-            R@1K: 0.6933
-      - display: TREC 2021
-        topic_key: dl21
-        eval_key: dl21-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0977
-            nDCG@10: 0.3977
-            R@1K: 0.5835
-      - display: TREC 2022
-        topic_key: dl22
-        eval_key: dl22-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0346
-            nDCG@10: 0.2742
-            R@1K: 0.3666
-      - display: TREC 2023
-        topic_key: dl23
-        eval_key: dl23-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0751
-            nDCG@10: 0.2061
-            R@1K: 0.4514
   - name: bm25-rm3-default
-    display: BM25+RM3 original passage
-    display-html: "BM25+RM3 original passage [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(1c)"
+    display: BM25+RM3
+    display-html: "BM25+RM3 [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(1c)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --bm25 --rm3
     topics:
       - display: MS MARCO dev
@@ -167,65 +111,9 @@ conditions:
           - AP@100: 0.0806
             nDCG@10: 0.2602
             R@1K: 0.4748
-  - name: bm25-rm3-augmented-default
-    display: BM25+RM3 augmented passage
-    display-html: "BM25+RM3 augmented passage [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(1d)"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-augmented --topics $topics --output $output --bm25 --rm3
-    topics:
-      - display: MS MARCO dev
-        topic_key: msmarco-v2-passage-dev
-        eval_key: msmarco-v2-passage-dev
-        metric_definitions:
-          RR@100: -c -M 100 -m recip_rank
-          R@1K: -c -m recall.1000
-        scores:
-          - RR@100: 0.0667
-            R@1K: 0.6857
-      - display: MS MARCO dev2
-        topic_key: msmarco-v2-passage-dev2
-        eval_key: msmarco-v2-passage-dev2
-        metric_definitions:
-          RR@100: -c -M 100 -m recip_rank
-          R@1K: -c -m recall.1000
-        scores:
-          - RR@100: 0.0700
-            R@1K: 0.6826
-      - display: TREC 2021
-        topic_key: dl21
-        eval_key: dl21-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.1050
-            nDCG@10: 0.3869
-            R@1K: 0.6298
-      - display: TREC 2022
-        topic_key: dl22
-        eval_key: dl22-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0318
-            nDCG@10: 0.2571
-            R@1K: 0.3441
-      - display: TREC 2023
-        topic_key: dl23
-        eval_key: dl23-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0646
-            nDCG@10: 0.1798
-            R@1K: 0.4583
   - name: qld-default
-    display: QLD (μ=1000) original passage
-    display-html: "QLD (<i>&mu;</i>=1000) original passage"
+    display: QLD (μ=1000)
+    display-html: "QLD (<i>&mu;</i>=1000)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --qld
     topics:
       - display: TREC 2021
@@ -261,47 +149,9 @@ conditions:
           - AP@100: 0.0761
             nDCG@10: 0.2378
             R@1K: 0.4694
-  - name: qld-augmented-default
-    display: QLD (μ=1000) augmented passage
-    display-html: "QLD (<i>&mu;</i>=1000) augmented passage"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-augmented --topics $topics --output $output --qld
-    topics:
-      - display: TREC 2021
-        topic_key: dl21
-        eval_key: dl21-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0802
-            nDCG@10: 0.3282
-            R@1K: 0.5373
-      - display: TREC 2022
-        topic_key: dl22
-        eval_key: dl22-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0241
-            nDCG@10: 0.2139
-            R@1K: 0.3376
-      - display: TREC 2023
-        topic_key: dl23
-        eval_key: dl23-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0620
-            nDCG@10: 0.1754
-            R@1K: 0.4036
   - name: qld-rm3-default
-    display: QLD+RM3 (μ=1000) original passage
-    display-html: "QLD+RM3 (<i>&mu;</i>=1000) original passage"
+    display: QLD+RM3 (μ=1000)
+    display-html: "QLD+RM3 (<i>&mu;</i>=1000)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --qld --rm3
     topics:
       - display: TREC 2021
@@ -337,47 +187,9 @@ conditions:
           - AP@100: 0.0668
             nDCG@10: 0.2122
             R@1K: 0.4503
-  - name: qld-rm3-augmented-default
-    display: QLD+RM3 (μ=1000) augmented passage
-    display-html: "QLD+RM3 (<i>&mu;</i>=1000) augmented passage"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-augmented --topics $topics --output $output --qld --rm3
-    topics:
-      - display: TREC 2021
-        topic_key: dl21
-        eval_key: dl21-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0751
-            nDCG@10: 0.2809
-            R@1K: 0.5301
-      - display: TREC 2022
-        topic_key: dl22
-        eval_key: dl22-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0183
-            nDCG@10: 0.1887
-            R@1K: 0.2742
-      - display: TREC 2023
-        topic_key: dl23
-        eval_key: dl23-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0505
-            nDCG@10: 0.1442
-            R@1K: 0.3650
   - name: qld-rocchio-default
-    display: QLD+Rocchio (μ=1000) original passage
-    display-html: "QLD+Rocchio (<i>&mu;</i>=1000) original passage"
+    display: QLD+Rocchio (μ=1000)
+    display-html: "QLD+Rocchio (<i>&mu;</i>=1000)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage --topics $topics --output $output --qld --rocchio
     topics:
       - display: TREC 2021
@@ -413,47 +225,9 @@ conditions:
           - AP@100: 0.0717
             nDCG@10: 0.2211
             R@1K: 0.4672
-  - name: qld-rocchio-augmented-default
-    display: QLD+Rocchio (μ=1000) augmented passage
-    display-html: "QLD+Rocchio (<i>&mu;</i>=1000) augmented passage"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-augmented --topics $topics --output $output --qld --rocchio
-    topics:
-      - display: TREC 2021
-        topic_key: dl21
-        eval_key: dl21-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0783
-            nDCG@10: 0.2910
-            R@1K: 0.5414
-      - display: TREC 2022
-        topic_key: dl22
-        eval_key: dl22-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0193
-            nDCG@10: 0.1931
-            R@1K: 0.2807
-      - display: TREC 2023
-        topic_key: dl23
-        eval_key: dl23-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0525
-            nDCG@10: 0.1504
-            R@1K: 0.3802
   - name: bm25-d2q-t5-default
-    display: BM25 w/ doc2query-T5 original passage
-    display-html: "BM25 w/ doc2query-T5 original passage [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(2a)"
+    display: BM25 w/ doc2query-T5
+    display-html: "BM25 w/ doc2query-T5 [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(2a)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage.d2q-t5 --topics $topics --output $output --bm25
     topics:
       - display: MS MARCO dev
@@ -507,65 +281,9 @@ conditions:
           - AP@100: 0.1085
             nDCG@10: 0.3156
             R@1K: 0.5608
-  - name: bm25-d2q-t5-augmented-default
-    display: BM25 w/ doc2query-T5 augmented passage
-    display-html: "BM25 w/ doc2query-T5 augmented passage [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(2b)"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-augmented.d2q-t5 --topics $topics --output $output --bm25
-    topics:
-      - display: MS MARCO dev
-        topic_key: msmarco-v2-passage-dev
-        eval_key: msmarco-v2-passage-dev
-        metric_definitions:
-          RR@100: -c -M 100 -m recip_rank
-          R@1K: -c -m recall.1000
-        scores:
-          - RR@100: 0.1172
-            R@1K: 0.7647
-      - display: MS MARCO dev2
-        topic_key: msmarco-v2-passage-dev2
-        eval_key: msmarco-v2-passage-dev2
-        metric_definitions:
-          RR@100: -c -M 100 -m recip_rank
-          R@1K: -c -m recall.1000
-        scores:
-          - RR@100: 0.1170
-            R@1K: 0.7659
-      - display: TREC 2021
-        topic_key: dl21
-        eval_key: dl21-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.1649
-            nDCG@10: 0.4702
-            R@1K: 0.6962
-      - display: TREC 2022
-        topic_key: dl22
-        eval_key: dl22-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0735
-            nDCG@10: 0.3609
-            R@1K: 0.4739
-      - display: TREC 2023
-        topic_key: dl23
-        eval_key: dl23-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.1078
-            nDCG@10: 0.2926
-            R@1K: 0.5689
   - name: bm25-rm3-d2q-t5-default
-    display: BM25+RM3 w/ doc2query-T5 original passage
-    display-html: "BM25+RM3 w/ doc2query-T5 original passage [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(2c)"
+    display: BM25+RM3 w/ doc2query-T5
+    display-html: "BM25+RM3 w/ doc2query-T5 [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(2c)"
     command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage.d2q-t5-docvectors --topics $topics --output $output --bm25 --rm3
     topics:
       - display: MS MARCO dev
@@ -619,62 +337,6 @@ conditions:
           - AP@100: 0.1135
             nDCG@10: 0.3132
             R@1K: 0.5978
-  - name: bm25-rm3-d2q-t5-augmented-default
-    display: BM25+RM3 w/ doc2query-T5 augmented passage
-    display-html: "BM25+RM3 w/ doc2query-T5 augmented passage [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(2d)"
-    command: python -m pyserini.search.lucene --threads ${sparse_threads} --batch-size ${sparse_batch_size} --index msmarco-v2-passage-augmented.d2q-t5-docvectors --topics $topics --output $output --bm25 --rm3
-    topics:
-      - display: MS MARCO dev
-        topic_key: msmarco-v2-passage-dev
-        eval_key: msmarco-v2-passage-dev
-        metric_definitions:
-          RR@100: -c -M 100 -m recip_rank
-          R@1K: -c -m recall.1000
-        scores:
-          - RR@100: 0.0883
-            R@1K: 0.7607
-      - display: MS MARCO dev2
-        topic_key: msmarco-v2-passage-dev2
-        eval_key: msmarco-v2-passage-dev2
-        metric_definitions:
-          RR@100: -c -M 100 -m recip_rank
-          R@1K: -c -m recall.1000
-        scores:
-          - RR@100: 0.0904
-            R@1K: 0.7649
-      - display: TREC 2021
-        topic_key: dl21
-        eval_key: dl21-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.1930
-            nDCG@10: 0.4812
-            R@1K: 0.7672
-      - display: TREC 2022
-        topic_key: dl22
-        eval_key: dl22-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.0821
-            nDCG@10: 0.3749
-            R@1K: 0.4914
-      - display: TREC 2023
-        topic_key: dl23
-        eval_key: dl23-passage
-        metric_definitions:
-          AP@100: -c -l 2 -M 100 -m map
-          nDCG@10: -c -m ndcg_cut.10
-          R@1K: -c -l 2 -m recall.1000
-        scores:
-          - AP@100: 0.1059
-            nDCG@10: 0.2719
-            R@1K: 0.5623
   - name: unicoil-noexp-pytorch
     display: "uniCOIL noexp: PyTorch"
     display-html: "uniCOIL noexp: PyTorch [<a href=\"#\" data-mdb-toggle=\"tooltip\" title=\"Ma et al. (SIGIR 2022) Document Expansions and Learned Sparse Lexical Representations for MS MARCO V1 and V2.\">1</a>]&nbsp;(3a)"
