@@ -73,10 +73,15 @@ class HybridSearcher:
                 sparse_score = sparse_hits[doc]
                 dense_score = dense_hits[doc]
             if normalization:
-                sparse_score = (sparse_score - (min_sparse_score + max_sparse_score) / 2) \
-                               / (max_sparse_score - min_sparse_score)
-                dense_score = (dense_score - (min_dense_score + max_dense_score) / 2) \
-                              / (max_dense_score - min_dense_score)
+                sparse_score = HybridSearcher._normalize(sparse_score, min_sparse_score, max_sparse_score)
+                dense_score = HybridSearcher._normalize(dense_score, min_dense_score, max_dense_score)
             score = alpha * sparse_score + dense_score if not weight_on_dense else sparse_score + alpha * dense_score
             hybrid_result.append(DenseSearchResult(doc, score))
         return sorted(hybrid_result, key=lambda x: x.score, reverse=True)[:k]
+
+    @staticmethod
+    def _normalize(score, min_score, max_score):
+        # A single hit, or hits that all score the same, leave no range to scale by.
+        if max_score == min_score:
+            return 0.0
+        return (score - (min_score + max_score) / 2) / (max_score - min_score)
