@@ -93,11 +93,14 @@ models = ['bm25-flat',
           'slideon-onnx']
 
 
+def get_condition_names():
+    config = yaml.safe_load(read_file('beir.yaml'))
+    return [condition['name'] for condition in config['conditions']]
+
+
 def list_conditions():
-    with importlib.resources.files('pyserini.2cr').joinpath('beir.yaml').open('r') as f:
-        yaml_data = yaml.safe_load(f)
-        for condition in yaml_data['conditions']:
-            print(condition['name'])
+    for name in get_condition_names():
+        print(name)
 
 
 def list_datasets():
@@ -456,7 +459,7 @@ if __name__ == '__main__':
         generate_report(args)
         sys.exit()
 
-    if args.condition and args.condition not in models:
+    if args.condition and args.condition not in get_condition_names():
         print(f'Invalid condition: {args.condition}')
         sys.exit()
 

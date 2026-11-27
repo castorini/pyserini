@@ -17,6 +17,8 @@
 import importlib
 import math
 import re
+import subprocess
+import sys
 import tempfile
 import unittest
 from argparse import Namespace
@@ -163,6 +165,21 @@ class TestRunnerScoreClassification(unittest.TestCase):
         elif isinstance(node, list):
             for child in node:
                 cls.set_scores(child, value)
+
+
+class TestBeirConditionSelection(unittest.TestCase):
+    def test_select_feedback_condition_for_one_dataset(self):
+        for ranker in ('bm25', 'qld'):
+            for feedback in ('rocchio', 'rm3'):
+                condition = f'{ranker}-{feedback}-flat'
+                with self.subTest(condition=condition):
+                    output = subprocess.check_output([
+                        sys.executable, '-m', 'pyserini.2cr.beir', '--condition', condition,
+                        '--dataset', 'scifact', '--dry-run', '--display-commands',
+                    ], text=True)
+                    self.assertEqual(re.findall(r'^condition (.+):$', output, re.M), [condition])
+                    self.assertEqual(re.findall(r'^  - dataset: (.+)$', output, re.M), ['scifact'])
+                    self.assertIn(f'--{ranker} --{feedback}', output)
 
 
 class TestFractionalScoreReports(unittest.TestCase):
