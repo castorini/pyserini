@@ -169,6 +169,8 @@ class TestRunnerScoreClassification(unittest.TestCase):
 
 class TestBeirConditionSelection(unittest.TestCase):
     def test_select_feedback_condition_for_one_dataset(self):
+        config = yaml.safe_load(base.read_file('beir.yaml'))
+        conditions = {c['name']: c for c in config['conditions']}
         for ranker in ('bm25', 'qld'):
             for feedback in ('rocchio', 'rm3'):
                 condition = f'{ranker}-{feedback}-flat'
@@ -180,6 +182,29 @@ class TestBeirConditionSelection(unittest.TestCase):
                     self.assertEqual(re.findall(r'^condition (.+):$', output, re.M), [condition])
                     self.assertEqual(re.findall(r'^  - dataset: (.+)$', output, re.M), ['scifact'])
                     self.assertIn(f'--{ranker} --{feedback}', output)
+                    scores = next(d['scores'][0] for d in conditions[condition]['datasets'] if d['dataset'] == 'scifact')
+                    summary = output.split('Configured scores\n')[1].split('\n\n')[0].splitlines()
+                    self.assertEqual(summary[0].split(), [condition])
+                    self.assertEqual(summary[1].split(), ['Dataset', 'nDCG@10', 'R@100', 'R@1000'])
+                    self.assertEqual([line.split() for line in summary[2:]], [
+                        ['scifact', *(f'{scores[metric]:.4f}' for metric in ('nDCG@10', 'R@100', 'R@1000'))]
+                    ])
+
+    def test_summary_weights_cqadupstack_once_per_condition(self):
+        beir = importlib.import_module('pyserini.2cr.beir')
+        names = ['bm25-flat', 'qld-rm3-flat']
+        table = {
+            'scifact': {('bm25-flat', 'nDCG@10'): 0.3, ('qld-rm3-flat', 'nDCG@10'): 0.6},
+            'cqadupstack-android': {('bm25-flat', 'nDCG@10'): 0.5, ('qld-rm3-flat', 'nDCG@10'): 0.0},
+            'cqadupstack-english': {('bm25-flat', 'nDCG@10'): 0.9, ('qld-rm3-flat', 'nDCG@10'): 0.4},
+        }
+        output = StringIO()
+        with redirect_stdout(output):
+            beir.print_summary(table, names)
+        lines = [line.split() for line in output.getvalue().splitlines()]
+        self.assertEqual(lines[0], names)
+        self.assertIn(['cqa', '0.7000', '-', '-', '0.2000', '-', '-'], lines)
+        self.assertIn(['avg', '0.5000', '-', '-', '0.4000', '-', '-'], lines)
 
 
 class TestFractionalScoreReports(unittest.TestCase):

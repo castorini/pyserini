@@ -246,10 +246,53 @@ def generate_report(args):
                 title='Pyserini: BEIR', main_rows=main_rows, cqa_rows=cqa_rows, avg_row=avg_row, cqa_avg_row=cqa_avg_row))
 
 
+def print_summary(table, conditions):
+    if not table:
+        print('No matching datasets.')
+        return
+
+    columns = [(name, metric) for name in conditions for metric in metrics]
+
+    def average(rows):
+        return {key: mean(row[key] for row in rows) for key in columns if all(key in row for row in rows)}
+
+    def print_row(label, row):
+        values = (f'{row[key]:10.4f}' if key in row else f'{"-":>10}' for key in columns)
+        print(f'{label:25}' + ''.join(values))
+
+    group_width = 10 * len(metrics)
+    print(' ' * 25 + ''.join(f'{name:^{group_width}}' for name in conditions))
+    print(f'{"Dataset":25}' + ''.join(f'{metric:>10}' for _, metric in columns))
+
+    # Each top-level collection contributes once, including the mean of the CQADupStack subsets.
+    cqa = {name: row for name, row in table.items() if name.startswith('cqadupstack-')}
+    main_rows = table
+    if len(cqa) > 1:
+        cqa_mean = average(cqa.values())
+        main_rows = {}
+        for name, row in table.items():
+            if name in cqa:
+                main_rows['cqa'] = cqa_mean
+            else:
+                main_rows[name] = row
+
+    for name, row in main_rows.items():
+        print_row(name, row)
+    if len(main_rows) > 1:
+        print_row('avg', average(main_rows.values()))
+
+    if len(cqa) > 1:
+        print()
+        for name, row in cqa.items():
+            print_row(name, row)
+        print_row('avg', cqa_mean)
+
+
 def run_conditions(args):
     start = time.time()
 
-    table = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: 0.0)))
+    table = defaultdict(dict)
+    selected_conditions = []
 
     with importlib.resources.files('pyserini.2cr').joinpath('beir.yaml').open('r') as f:
         yaml_data = yaml.safe_load(f)
@@ -257,19 +300,17 @@ def run_conditions(args):
             name = condition['name']
             cmd_template = condition['command']
 
-            if args.all or args.condition == name:
-                print(f'condition {name}:')
-            else:
+            if not args.all and args.condition != name:
                 continue
+            selected_conditions.append(name)
+            print(f'condition {name}:')
 
             for datasets in condition['datasets']:
                 dataset = datasets['dataset']
                 query_prefix = '""'
                 if name == 'bge-base-en-v1.5.faiss' and dataset not in ['quora', 'arguana']:
                     query_prefix = '"Represent this sentence for searching relevant passages:"'
-                if args.all:
-                    pass
-                elif args.condition != name or args.dataset and args.dataset != dataset:
+                if args.dataset and args.dataset != dataset:
                     continue
 
                 print(f'  - dataset: {dataset}')
@@ -285,6 +326,7 @@ def run_conditions(args):
                 if not os.path.exists(runfile) and not args.dry_run:
                     run_command(cmd, capture_output=False)
 
+                row = table[dataset]
                 for expected in datasets['scores']:
                     for metric in expected:
                         if not args.skip_eval and not args.dry_run:
@@ -299,121 +341,15 @@ def run_conditions(args):
                             result = format_reproduction_status(status, expected_score)
                             print(f'      {metric:7}: {score:.4f} {result}')
 
-                            table[dataset][name][metric] = score
+                            row[name, metric] = score
                         else:
-                            table[dataset][name][metric] = expected[metric]
+                            row[name, metric] = float(expected[metric])
                     print()
 
             print()
 
-    top_level_sums = defaultdict(lambda: defaultdict(float))
-    cqadupstack_sums = defaultdict(lambda: defaultdict(float))
-    cqa_scores = defaultdict(lambda: defaultdict(float))
-    final_scores = defaultdict(lambda: defaultdict(float))
-
-    # Compute the running sums to compute the final mean scores
-    for key in beir_keys:
-        for model in models:
-            for metric in metrics:
-                if key.startswith('cqa'):
-                    # The running sum for cqa needs to be kept separately.
-                    cqadupstack_sums[model][metric] += table[key][model][metric]
-                else:
-                    top_level_sums[model][metric] += table[key][model][metric]
-
-    # Compute the final mean
-    for model in models:
-        for metric in metrics:
-            # Compute mean over cqa sub-collections first
-            cqa_score = cqadupstack_sums[model][metric] / 12
-            cqa_scores[model][metric] = cqa_score
-            # Roll cqa scores into final overall mean
-            final_score = (top_level_sums[model][metric] + cqa_score) / 18
-            final_scores[model][metric] = final_score
-
-    cqa_output_flag = False
-
-    print(' ' * 30 + 'BM25-flat' + ' ' * 10 + 'BM25-mf' + ' ' * 9 + 'SPLADE-pp-ed' + ' ' * 2 + 'SPLADE-v3.PyTorch' + ' ' * 5 + 'SPLADE-v3.ONNX' +
-          ' ' * 7 + 'Contriever' + ' ' * 5 + 'Contriever-msmarco' +
-          ' ' * 6 + 'BGE.Faiss' + ' ' * 7 + 'BGE.Lucene-flat' + ' ' * 5 + 'SlideOn.PyTorch' + ' ' * 6 + 'SlideOn.ONNX')
-    print(' ' * 28 + 'nDCG    R@100      ' * 11)
-    print(' ' * 28 + ('-' * 13 + '      ') * 10 + '-' * 13)
-    for dataset in beir_keys:
-        # The first encounter of 'cqa', print out the average.
-        if dataset.startswith('cqa') and not cqa_output_flag:
-            print('cqa' + ' ' * 22 + f'{cqa_scores["bm25-flat"]["nDCG@10"]:8.3f}{cqa_scores["bm25-flat"]["R@100"]:8.3f}   ' +
-                  f'{cqa_scores["bm25-multifield"]["nDCG@10"]:8.3f}{cqa_scores["bm25-multifield"]["R@100"]:8.3f}   ' +
-                  f'{cqa_scores["splade-pp-ed"]["nDCG@10"]:8.3f}{cqa_scores["splade-pp-ed"]["R@100"]:8.3f}   ' +
-                  f'{cqa_scores["splade-v3"]["nDCG@10"]:8.3f}{cqa_scores["splade-v3"]["R@100"]:8.3f}   ' +
-                  f'{cqa_scores["splade-v3-onnx"]["nDCG@10"]:8.3f}{cqa_scores["splade-v3-onnx"]["R@100"]:8.3f}   ' +
-                  f'{cqa_scores["contriever"]["nDCG@10"]:8.3f}{cqa_scores["contriever"]["R@100"]:8.3f}   ' +
-                  f'{cqa_scores["contriever-msmarco"]["nDCG@10"]:8.3f}{cqa_scores["contriever-msmarco"]["R@100"]:8.3f}   ' +
-                  f'{cqa_scores["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
-                  f'{cqa_scores["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
-                  f'{cqa_scores["slideon-pytorch"]["nDCG@10"]:8.3f}{cqa_scores["slideon-pytorch"]["R@100"]:8.3f}   ' +
-                  f'{cqa_scores["slideon-onnx"]["nDCG@10"]:8.3f}{cqa_scores["slideon-onnx"]["R@100"]:8.3f}')
-            cqa_output_flag = True
-            continue
-
-        # Skip all other cqa sub-collections.
-        if dataset.startswith('cqa'):
-            continue
-
-        print(f'{dataset:25}' +
-              f'{table[dataset]["bm25-flat"]["nDCG@10"]:8.3f}{table[dataset]["bm25-flat"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["bm25-multifield"]["nDCG@10"]:8.3f}{table[dataset]["bm25-multifield"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.3f}{table[dataset]["splade-pp-ed"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["splade-v3"]["nDCG@10"]:8.3f}{table[dataset]["splade-v3"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["splade-v3-onnx"]["nDCG@10"]:8.3f}{table[dataset]["splade-v3-onnx"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["contriever"]["nDCG@10"]:8.3f}{table[dataset]["contriever"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.3f}{table[dataset]["contriever-msmarco"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["slideon-pytorch"]["nDCG@10"]:8.3f}{table[dataset]["slideon-pytorch"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["slideon-onnx"]["nDCG@10"]:8.3f}{table[dataset]["slideon-onnx"]["R@100"]:8.3f}')
-    print(' ' * 28 + ('-' * 13 + '      ') * 10 + '-' * 13)
-    print('avg' + ' ' * 22 + f'{final_scores["bm25-flat"]["nDCG@10"]:8.3f}{final_scores["bm25-flat"]["R@100"]:8.3f}   ' +
-          f'{final_scores["bm25-multifield"]["nDCG@10"]:8.3f}{final_scores["bm25-multifield"]["R@100"]:8.3f}   ' +
-          f'{final_scores["splade-pp-ed"]["nDCG@10"]:8.3f}{final_scores["splade-pp-ed"]["R@100"]:8.3f}   ' +
-          f'{final_scores["splade-v3"]["nDCG@10"]:8.3f}{final_scores["splade-v3"]["R@100"]:8.3f}   ' +
-          f'{final_scores["splade-v3-onnx"]["nDCG@10"]:8.3f}{final_scores["splade-v3-onnx"]["R@100"]:8.3f}   ' +
-          f'{final_scores["contriever"]["nDCG@10"]:8.3f}{final_scores["contriever"]["R@100"]:8.3f}   ' +
-          f'{final_scores["contriever-msmarco"]["nDCG@10"]:8.3f}{final_scores["contriever-msmarco"]["R@100"]:8.3f}   ' +
-          f'{final_scores["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{final_scores["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
-          f'{final_scores["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{final_scores["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
-          f'{final_scores["slideon-pytorch"]["nDCG@10"]:8.3f}{final_scores["slideon-pytorch"]["R@100"]:8.3f}   ' +
-          f'{final_scores["slideon-onnx"]["nDCG@10"]:8.3f}{final_scores["slideon-onnx"]["R@100"]:8.3f}')
-
-    print('\n')
-    # Separately print out all the cqa sub-collections.
-    for dataset in beir_keys:
-        if not dataset.startswith('cqa'):
-            continue
-
-        print(f'{dataset:25}' +
-              f'{table[dataset]["bm25-flat"]["nDCG@10"]:8.3f}{table[dataset]["bm25-flat"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["bm25-multifield"]["nDCG@10"]:8.3f}{table[dataset]["bm25-multifield"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["splade-pp-ed"]["nDCG@10"]:8.3f}{table[dataset]["splade-pp-ed"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["splade-v3"]["nDCG@10"]:8.3f}{table[dataset]["splade-v3"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["splade-v3-onnx"]["nDCG@10"]:8.3f}{table[dataset]["splade-v3-onnx"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["contriever"]["nDCG@10"]:8.3f}{table[dataset]["contriever"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["contriever-msmarco"]["nDCG@10"]:8.3f}{table[dataset]["contriever-msmarco"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{table[dataset]["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["slideon-pytorch"]["nDCG@10"]:8.3f}{table[dataset]["slideon-pytorch"]["R@100"]:8.3f}   ' +
-              f'{table[dataset]["slideon-onnx"]["nDCG@10"]:8.3f}{table[dataset]["slideon-onnx"]["R@100"]:8.3f}')
-    print(' ' * 28 + ('-' * 13 + '      ') * 10 + '-' * 13)
-    print('avg' + ' ' * 22 + f'{cqa_scores["bm25-flat"]["nDCG@10"]:8.3f}{cqa_scores["bm25-flat"]["R@100"]:8.3f}   ' +
-          f'{cqa_scores["bm25-multifield"]["nDCG@10"]:8.3f}{cqa_scores["bm25-multifield"]["R@100"]:8.3f}   ' +
-          f'{cqa_scores["splade-pp-ed"]["nDCG@10"]:8.3f}{cqa_scores["splade-pp-ed"]["R@100"]:8.3f}   ' +
-          f'{cqa_scores["splade-v3"]["nDCG@10"]:8.3f}{cqa_scores["splade-v3"]["R@100"]:8.3f}   ' +
-          f'{cqa_scores["splade-v3-onnx"]["nDCG@10"]:8.3f}{cqa_scores["splade-v3-onnx"]["R@100"]:8.3f}   ' +
-          f'{cqa_scores["contriever"]["nDCG@10"]:8.3f}{cqa_scores["contriever"]["R@100"]:8.3f}   ' +
-          f'{cqa_scores["contriever-msmarco"]["nDCG@10"]:8.3f}{cqa_scores["contriever-msmarco"]["R@100"]:8.3f}   ' +
-          f'{cqa_scores["bge-base-en-v1.5.faiss"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.faiss"]["R@100"]:8.3f}   ' +
-          f'{cqa_scores["bge-base-en-v1.5.lucene-flat"]["nDCG@10"]:8.3f}{cqa_scores["bge-base-en-v1.5.lucene-flat"]["R@100"]:8.3f}   ' +
-          f'{cqa_scores["slideon-pytorch"]["nDCG@10"]:8.3f}{cqa_scores["slideon-pytorch"]["R@100"]:8.3f}   ' +
-          f'{cqa_scores["slideon-onnx"]["nDCG@10"]:8.3f}{cqa_scores["slideon-onnx"]["R@100"]:8.3f}')
+    print('Configured scores' if args.dry_run or args.skip_eval else 'Evaluated scores')
+    print_summary(table, selected_conditions)
 
     end = time.time()
     start_str = datetime.fromtimestamp(start, tz=UTC).strftime('%Y-%m-%d %H:%M:%S')
