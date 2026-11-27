@@ -18,7 +18,7 @@ import unittest
 from typing import List, Dict
 
 from pyserini.encode import AutoQueryEncoder
-from pyserini.search.faiss import FaissSearcher
+from pyserini.search.faiss import DenseSearchResult, FaissSearcher
 from pyserini.search.hybrid import HybridSearcher
 from pyserini.search.lucene import LuceneSearcher
 
@@ -52,6 +52,18 @@ class TestHybridSearch(unittest.TestCase):
         self.assertTrue(isinstance(hits['q2'], List))
         self.assertEqual(hits['q2'][0].docid, 'test-digital-freedoms-piidfaihbg-pro01a')
         self.assertAlmostEqual(hits['q2'][0].score, 1.4042499542236329, places=5)
+
+
+class TestHybridResults(unittest.TestCase):
+    def test_normalization_with_equal_sparse_scores(self):
+        dense = [DenseSearchResult('d1', 0.9), DenseSearchResult('d2', 0.5)]
+        sparse = [DenseSearchResult('d2', 7.0)]
+
+        hits = HybridSearcher._hybrid_results(dense, sparse, alpha=0.1, k=10, normalization=True)
+
+        self.assertEqual([hit.docid for hit in hits], ['d1', 'd2'])
+        self.assertAlmostEqual(hits[0].score, 0.5)
+        self.assertAlmostEqual(hits[1].score, -0.5)
 
 
 if __name__ == '__main__':
