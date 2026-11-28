@@ -74,30 +74,6 @@ Okay, the data are ready now.
 
 ## Indexing
 
-This lesson requires Faiss for both indexing and retrieval.
-Faiss is installed separately from Pyserini, so you may need to add it even if the previous BM25 lessons worked.
-With your Pyserini Conda environment activated, install the CPU version from conda-forge together with NumPy 2:
-
-```bash
-conda install --override-channels -c conda-forge faiss-cpu 'numpy>=2'
-```
-
-On Apple Silicon, some Faiss builds from the `pytorch` channel require NumPy below 2, which conflicts with Pyserini's `numpy>=2` requirement.
-Installing Faiss and NumPy together from conda-forge lets Conda resolve compatible builds.
-If you encounter the duplicate OpenMP runtime error on Apple Silicon, use the environment settings described in the [Mac installation guide](installation.md#mac):
-
-```bash
-export KMP_DUPLICATE_LIB_OK=TRUE
-export OMP_NUM_THREADS=1
-```
-
-Verify the installation before encoding the corpus:
-
-```bash
-python -m pip check
-python -c "import numpy, pandas, torch, faiss; print('NumPy:', numpy.__version__, 'Faiss:', faiss.__version__)"
-```
-
 We can now "index" these documents using Pyserini:
 
 ```bash
