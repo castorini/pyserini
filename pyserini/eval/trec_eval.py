@@ -36,7 +36,6 @@ import platform
 import subprocess
 import sys
 import tempfile
-from typing import Any
 
 import jnius_config
 import pandas as pd
@@ -60,8 +59,19 @@ from pyserini.search import get_qrels_file
 
 
 def trec_eval(
-    args, query_id=None, return_per_query_results=False
-) -> float | dict[Any, float]:
+    args, query_id=None, return_per_query_results=False, *, return_by_metric=False
+) -> float | dict[str, float] | dict[str, dict[str, float]]:
+    """Run trec_eval and return scores from its output.
+
+    With return_by_metric=True, return a mapping from metric names to aggregate
+    scores, scores for query_id, or query-to-score mappings if
+    return_per_query_results is set. Metrics without a score for the requested
+    query are omitted. The keys are the metric names printed by trec_eval,
+    such as ndcg_cut_10 or judged_20.
+
+    The default preserves the legacy return value, which uses only the last
+    score printed for each query ID.
+    """
     cmd_prefix = ['java', '-cp', jar_path, 'trec_eval']
 
     if return_per_query_results or query_id:
@@ -172,41 +182,38 @@ def trec_eval(
         results = output.split("\n") + judged_result if non_judge_k_metrics else judged_result
     else:
         results = output.split("\n")
-    lines = {}
+    scores_by_query = {}
+    scores_by_metric = {}
     for line in results:
         try:
-            lines[line.split("\t")[1]] = float(line.split("\t")[2])
-        except ValueError:
-            # When no metrics are specified in args, all metrics are returned with the following header that must be excluded.
-            # "runid\tall\t<tag>"
-            if line.split("\t")[0].strip() == "runid":
+            metric, qid, value = line.split("\t")
+            metric = metric.strip()
+            if return_by_metric and metric == "runid":
                 continue
-            raise ValueError(f"Expected line in `<metric>\\t<qid>\\t<value>` format, got: {line}")
+            score = float(value)
+        except ValueError as exc:
+            if line.split("\t", 1)[0].strip() == "runid":
+                continue
+            raise ValueError(f"Expected line in `<metric>\\t<qid>\\t<value>` format, got: {line}") from exc
 
-    # The above logic is janky, see https://github.com/castorini/pyserini/issues/2329
-    # If multiple metrics are requested, they override each other and only the value for the last metric gets returned.
-    # This is because we're only keeping track of array position 1 and array position 2:
-    #
-    # map                   	all	0.0933
-    # recall_100            	all	0.4895
-    # ndcg_cut_10           	all	0.1265
-    #
-    # This is probably not the desired behavior, but fixing requires more knowledge of what the upstream caller is
-    # intending to do, which requires more work to go through the code base to find the callers.
-    # The same issue exists when multiple judged.k (e.g., -m judged.20,50,100) are requested with only the last one getting returned.
-    # judged_20             	all	0.1350
-    # judged_50             	all	0.1000
-    # judged_100            	all	0.0762
-    #
-    # TODO: FIXME
+        if return_by_metric:
+            scores_by_metric.setdefault(metric, {})[qid] = score
+        else:
+            scores_by_query[qid] = score
+
+    if return_by_metric:
+        if return_per_query_results:
+            return scores_by_metric
+        qid = query_id or "all"
+        return {metric: scores[qid] for metric, scores in scores_by_metric.items() if qid in scores}
 
     if return_per_query_results:
-        return lines
+        return scores_by_query
 
     if query_id:
-        return lines[query_id]
+        return scores_by_query[query_id]
     else:
-        return lines["all"]
+        return scores_by_query["all"]
 
 
 if __name__ == "__main__":
